@@ -1,0 +1,255 @@
+# Events
+
+```java
+EventsController eventsController = client.getEventsController();
+```
+
+## Class Name
+
+`EventsController`
+
+## Methods
+
+* [List Events](../../doc/controllers/events.md#list-events)
+* [List Subscription Events](../../doc/controllers/events.md#list-subscription-events)
+* [Read Events Count](../../doc/controllers/events.md#read-events-count)
+
+
+# List Events
+
+## Events Intro
+
+Chargify Events include various activity that happens around a Site. This information is **especially** useful to track down issues that arise when subscriptions are not created due to errors.
+
+Within the Chargify UI, "Events" are referred to as "Site Activity".  Full documentation on how to record view Events / Site Activty in the Chargify UI can be located [here](https://chargify.zendesk.com/hc/en-us/articles/4407864698139).
+
+## List Events for a Site
+
+This method will retrieve a list of events for a site. Use query string filters to narrow down results. You may use the `key` filter as part of your query string to narrow down results.
+
+### Legacy Filters
+
+The following keys are no longer supported.
+
++ `payment_failure_recreated`
++ `payment_success_recreated`
++ `renewal_failure_recreated`
++ `renewal_success_recreated`
++ `zferral_revenue_post_failure` - (Specific to the deprecated Zferral integration)
++ `zferral_revenue_post_success` - (Specific to the deprecated Zferral integration)
+
+## Event Specific Data
+
+Event Specific Data
+
+Each event type has its own `event_specific_data` specified.
+
+Here’s an example event for the `subscription_product_change` event:
+
+```
+{
+    "event": {
+        "id": 351,
+        "key": "subscription_product_change",
+        "message": "Product changed on Marky Mark's subscription from 'Basic' to 'Pro'",
+        "subscription_id": 205,
+        "event_specific_data": {
+            "new_product_id": 3,
+            "previous_product_id": 2
+        },
+        "created_at": "2012-01-30T10:43:31-05:00"
+    }
+}
+```
+
+Here’s an example event for the `subscription_state_change` event:
+
+```
+ {
+     "event": {
+         "id": 353,
+         "key": "subscription_state_change",
+         "message": "State changed on Marky Mark's subscription to Pro from trialing to active",
+         "subscription_id": 205,
+         "event_specific_data": {
+             "new_subscription_state": "active",
+             "previous_subscription_state": "trialing"
+         },
+         "created_at": "2012-01-30T10:43:33-05:00"
+     }
+ }
+```
+
+```java
+List<EventResponse> listEvents(
+    final Integer page,
+    final Integer perPage,
+    final Integer sinceId,
+    final Integer maxId,
+    final Direction direction,
+    final List<EventType> filter,
+    final ListEventsDateField dateField,
+    final String startDate,
+    final String endDate,
+    final String startDatetime,
+    final String endDatetime)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `sinceId` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `maxId` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
+| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `dateField` | [`ListEventsDateField`](../../doc/models/list-events-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. |
+| `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
+| `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
+| `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
+| `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
+
+## Response Type
+
+[`List<EventResponse>`](../../doc/models/event-response.md)
+
+## Example Usage
+
+```java
+Integer page = 2;
+Integer perPage = 50;
+Direction direction = Direction.DESC;
+List<EventType> filter = Arrays.asList(
+    EventType.CUSTOM_FIELD_VALUE_CHANGE,
+    EventType.PAYMENT_SUCCESS
+);
+
+ListEventsDateField dateField = ListEventsDateField.CREATED_AT;
+
+try {
+    List<EventResponse> result = eventsController.listEvents(page, perPage, null, null, direction, filter, dateField, null, null, null, null);
+    System.out.println(result);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+
+# List Subscription Events
+
+The following request will return a list of events for a subscription.
+
+Each event type has its own `event_specific_data` specified.
+
+```java
+List<EventResponse> listSubscriptionEvents(
+    final String subscriptionId,
+    final Integer page,
+    final Integer perPage,
+    final Integer sinceId,
+    final Integer maxId,
+    final Direction direction,
+    final List<EventType> filter)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `sinceId` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `maxId` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
+| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+
+## Response Type
+
+[`List<EventResponse>`](../../doc/models/event-response.md)
+
+## Example Usage
+
+```java
+String subscriptionId = "subscription_id0";
+Integer page = 2;
+Integer perPage = 50;
+Direction direction = Direction.DESC;
+List<EventType> filter = Arrays.asList(
+    EventType.CUSTOM_FIELD_VALUE_CHANGE,
+    EventType.PAYMENT_SUCCESS
+);
+
+try {
+    List<EventResponse> result = eventsController.listSubscriptionEvents(subscriptionId, page, perPage, null, null, direction, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+
+# Read Events Count
+
+Get a count of all the events for a given site by using this method.
+
+```java
+Count readEventsCount(
+    final Integer page,
+    final Integer perPage,
+    final Integer sinceId,
+    final Integer maxId,
+    final Direction direction,
+    final List<EventType> filter)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `sinceId` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `maxId` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
+| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+
+## Response Type
+
+[`Count`](../../doc/models/count.md)
+
+## Example Usage
+
+```java
+Integer page = 2;
+Integer perPage = 50;
+Direction direction = Direction.DESC;
+List<EventType> filter = Arrays.asList(
+    EventType.CUSTOM_FIELD_VALUE_CHANGE,
+    EventType.PAYMENT_SUCCESS
+);
+
+try {
+    Count result = eventsController.readEventsCount(page, perPage, null, null, direction, filter);
+    System.out.println(result);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "count": 144
+}
+```
+
