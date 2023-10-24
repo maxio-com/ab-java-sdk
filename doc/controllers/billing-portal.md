@@ -35,9 +35,9 @@ If you need to provide your customer their Management URL through other means, y
 In order to prevent abuse & overuse, we ask that you request a new URL only when absolutely necessary. Management URLs are good for 65 days, so you should re-use a previously generated one as much as possible. If you use the URL frequently (such as to display on your website), please **do not** make an API request to Chargify every time.
 
 ```java
-CompletableFuture<CustomerResponse> enableBillingPortalForCustomerAsync(
+CustomerResponse enableBillingPortalForCustomer(
     final int customerId,
-    final AutoInviteEnum autoInvite)
+    final AutoInvite autoInvite)
 ```
 
 ## Parameters
@@ -45,7 +45,7 @@ CompletableFuture<CustomerResponse> enableBillingPortalForCustomerAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `customerId` | `int` | Template, Required | The Chargify id of the customer |
-| `autoInvite` | [`AutoInviteEnum`](../../doc/models/auto-invite-enum.md) | Query, Optional | When set to 1, an Invitation email will be sent to the Customer.<br>When set to 0, or not sent, an email will not be sent.<br>Use in query: `auto_invite=1`. |
+| `autoInvite` | [`AutoInvite`](../../doc/models/auto-invite.md) | Query, Optional | When set to 1, an Invitation email will be sent to the Customer.<br>When set to 0, or not sent, an email will not be sent.<br>Use in query: `auto_invite=1`. |
 
 ## Response Type
 
@@ -56,14 +56,14 @@ CompletableFuture<CustomerResponse> enableBillingPortalForCustomerAsync(
 ```java
 int customerId = 150;
 
-billingPortalController.enableBillingPortalForCustomerAsync(customerId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CustomerResponse result = billingPortalController.enableBillingPortalForCustomer(customerId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -86,7 +86,7 @@ This method will provide to the API user the exact URL required for a subscriber
 + You are limited to 15 requests for the same URL. If you make more than 15 requests before `new_link_available_at`, you will be blocked from further Management URL requests (with a response code `429`)
 
 ```java
-CompletableFuture<PortalManagementLink> readBillingPortalLinkAsync(
+PortalManagementLink readBillingPortalLink(
     final int customerId)
 ```
 
@@ -105,14 +105,14 @@ CompletableFuture<PortalManagementLink> readBillingPortalLinkAsync(
 ```java
 int customerId = 150;
 
-billingPortalController.readBillingPortalLinkAsync(customerId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    PortalManagementLink result = billingPortalController.readBillingPortalLink(customerId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -133,7 +133,7 @@ billingPortalController.readBillingPortalLinkAsync(customerId).thenAccept(result
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
-| 429 | Too Many Requests | [`PortalCustomersManagementLinkJson429ErrorException`](../../doc/models/portal-customers-management-link-json-429-error-exception.md) |
+| 429 | Too Many Requests | [`TooManyManagementLinkRequestsErrorException`](../../doc/models/too-many-management-link-requests-error-exception.md) |
 
 
 # Resend Billing Portal Invitation
@@ -153,7 +153,7 @@ If you attempt to resend an invitation when the Customer does not exist a Custom
 This endpoint will only return a JSON response.
 
 ```java
-CompletableFuture<ResentInvitation> resendBillingPortalInvitationAsync(
+ResentInvitation resendBillingPortalInvitation(
     final int customerId)
 ```
 
@@ -172,14 +172,14 @@ CompletableFuture<ResentInvitation> resendBillingPortalInvitationAsync(
 ```java
 int customerId = 150;
 
-billingPortalController.resendBillingPortalInvitationAsync(customerId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ResentInvitation result = billingPortalController.resendBillingPortalInvitation(customerId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -212,7 +212,7 @@ If you attempt to revoke an invitation when the Billing Portal is already disabl
 This endpoint will only return a JSON response.
 
 ```java
-CompletableFuture<RevokedInvitation> revokeBillingPortalAccessAsync(
+RevokedInvitation revokeBillingPortalAccess(
     final int customerId)
 ```
 
@@ -231,14 +231,14 @@ CompletableFuture<RevokedInvitation> revokeBillingPortalAccessAsync(
 ```java
 int customerId = 150;
 
-billingPortalController.revokeBillingPortalAccessAsync(customerId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    RevokedInvitation result = billingPortalController.revokeBillingPortalAccess(customerId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

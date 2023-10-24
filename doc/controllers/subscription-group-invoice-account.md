@@ -21,7 +21,7 @@ SubscriptionGroupInvoiceAccountController subscriptionGroupInvoiceAccountControl
 A prepayment can be added for a subscription group identified by the group's `uid`. This endpoint requires a `amount`, `details`, `method`, and `memo`. On success, the prepayment will be added to the group's prepayment balance.
 
 ```java
-CompletableFuture<SubscriptionGroupPrepaymentResponse> createSubscriptionGroupPrepaymentAsync(
+SubscriptionGroupPrepaymentResponse createSubscriptionGroupPrepayment(
     final String uid,
     final SubscriptionGroupPrepaymentRequest body)
 ```
@@ -41,14 +41,14 @@ CompletableFuture<SubscriptionGroupPrepaymentResponse> createSubscriptionGroupPr
 
 ```java
 String uid = "uid0";
-subscriptionGroupInvoiceAccountController.createSubscriptionGroupPrepaymentAsync(uid, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionGroupPrepaymentResponse result = subscriptionGroupInvoiceAccountController.createSubscriptionGroupPrepayment(uid, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -75,9 +75,9 @@ subscriptionGroupInvoiceAccountController.createSubscriptionGroupPrepaymentAsync
 This request will list a subscription group's prepayments.
 
 ```java
-CompletableFuture<ListSubscriptionGroupPrepaymentResponse> listPrepaymentsForSubscriptionGroupAsync(
+ListSubscriptionGroupPrepaymentResponse listPrepaymentsForSubscriptionGroup(
     final String uid,
-    final ListSubscriptionGroupPrepaymentDateFieldEnum filterDateField,
+    final ListSubscriptionGroupPrepaymentDateField filterDateField,
     final String filterEndDate,
     final String filterStartDate,
     final Integer page,
@@ -89,7 +89,7 @@ CompletableFuture<ListSubscriptionGroupPrepaymentResponse> listPrepaymentsForSub
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
-| `filterDateField` | [`ListSubscriptionGroupPrepaymentDateFieldEnum`](../../doc/models/list-subscription-group-prepayment-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `filter[date_field]=created_at`. |
+| `filterDateField` | [`ListSubscriptionGroupPrepaymentDateField`](../../doc/models/list-subscription-group-prepayment-date-field.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `filter[date_field]=created_at`. |
 | `filterEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field.<br>Returns prepayments with a timestamp up to and including 11:59:59PM in your site's time zone on the date specified.<br>Use in query: `filter[end_date]=2011-12-15`. |
 | `filterStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field.<br>Returns prepayments with a timestamp at or after midnight (12:00:00 AM) in your site's time zone on the date specified.<br>Use in query: `filter[start_date]=2011-12-15`. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
@@ -106,14 +106,14 @@ String uid = "uid0";
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Integer page = 2;
 Integer perPage = 50;
 
-subscriptionGroupInvoiceAccountController.listPrepaymentsForSubscriptionGroupAsync(uid, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListSubscriptionGroupPrepaymentResponse result = subscriptionGroupInvoiceAccountController.listPrepaymentsForSubscriptionGroup(uid, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -152,7 +152,7 @@ subscriptionGroupInvoiceAccountController.listPrepaymentsForSubscriptionGroupAsy
 Credit can be issued for a subscription group identified by the group's `uid`. Credit will be added to the group in the amount specified in the request body. The credit will be applied to group member invoices as they are generated.
 
 ```java
-CompletableFuture<ServiceCreditResponse> issueSubscriptionGroupServiceCreditsAsync(
+ServiceCreditResponse issueSubscriptionGroupServiceCredits(
     final String uid,
     final IssueServiceCreditRequest body)
 ```
@@ -183,14 +183,14 @@ IssueServiceCreditRequest body = new IssueServiceCreditRequest.Builder(
 )
 .build();
 
-subscriptionGroupInvoiceAccountController.issueSubscriptionGroupServiceCreditsAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ServiceCreditResponse result = subscriptionGroupInvoiceAccountController.issueSubscriptionGroupServiceCredits(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -219,7 +219,7 @@ subscriptionGroupInvoiceAccountController.issueSubscriptionGroupServiceCreditsAs
 Credit can be deducted for a subscription group identified by the group's `uid`. Credit will be deducted from the group in the amount specified in the request body.
 
 ```java
-CompletableFuture<ServiceCredit> deductSubscriptionGroupServiceCreditsAsync(
+ServiceCredit deductSubscriptionGroupServiceCredits(
     final String uid,
     final DeductServiceCreditRequest body)
 ```
@@ -250,14 +250,14 @@ DeductServiceCreditRequest body = new DeductServiceCreditRequest.Builder(
 )
 .build();
 
-subscriptionGroupInvoiceAccountController.deductSubscriptionGroupServiceCreditsAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ServiceCredit result = subscriptionGroupInvoiceAccountController.deductSubscriptionGroupServiceCredits(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

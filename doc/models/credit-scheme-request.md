@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `CreditScheme` | [`CreditSchemeEnum`](../../doc/models/credit-scheme-enum.md) | Required | - | CreditSchemeEnum getCreditScheme() | setCreditScheme(CreditSchemeEnum creditScheme) |
+| `CreditScheme` | [`CreditScheme`](../../doc/models/credit-scheme.md) | Required | - | CreditScheme getCreditScheme() | setCreditScheme(CreditScheme creditScheme) |
 
 ## Example (as JSON)
 

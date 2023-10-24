@@ -47,7 +47,7 @@ Chargify allows you to attribute a language/region to your customer to deliver i
 For more: [Customer Locale](https://chargify.zendesk.com/hc/en-us/articles/4407870384283#customer-locale)
 
 ```java
-CompletableFuture<CustomerResponse> createCustomerAsync(
+CustomerResponse createCustomer(
     final CreateCustomerRequest body)
 ```
 
@@ -85,14 +85,14 @@ CreateCustomerRequest body = new CreateCustomerRequest.Builder(
 )
 .build();
 
-customersController.createCustomerAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CustomerResponse result = customersController.createCustomer(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -156,11 +156,11 @@ Common use cases are:
 To retrieve a single, exact match by reference, please use the [lookup endpoint](https://developers.chargify.com/docs/api-docs/b710d8fbef104-read-customer-by-reference).
 
 ```java
-CompletableFuture<List<CustomerResponse>> listCustomersAsync(
+List<CustomerResponse> listCustomers(
     final ListCustomersDirection direction,
     final Integer page,
     final Integer perPage,
-    final BasicDateFieldEnum dateField,
+    final BasicDateField dateField,
     final String startDate,
     final String endDate,
     final String startDatetime,
@@ -175,7 +175,7 @@ CompletableFuture<List<CustomerResponse>> listCustomersAsync(
 | `direction` | [`ListCustomersDirection`](../../doc/models/containers/list-customers-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 50. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `50`<br>**Constraints**: `<= 200` |
-| `dateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
+| `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
@@ -191,16 +191,16 @@ CompletableFuture<List<CustomerResponse>> listCustomersAsync(
 ```java
 Integer page = 2;
 Integer perPage = 30;
-BasicDateFieldEnum dateField = BasicDateFieldEnum.UPDATED_AT;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
 
-customersController.listCustomersAsync(null, page, perPage, dateField, null, null, null, null, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<CustomerResponse> result = customersController.listCustomers(null, page, perPage, dateField, null, null, null, null, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -293,7 +293,7 @@ customersController.listCustomersAsync(null, page, perPage, dateField, null, nul
 This method allows to retrieve the Customer properties by Chargify-generated Customer ID.
 
 ```java
-CompletableFuture<CustomerResponse> readCustomerAsync(
+CustomerResponse readCustomer(
     final int id)
 ```
 
@@ -312,14 +312,14 @@ CompletableFuture<CustomerResponse> readCustomerAsync(
 ```java
 int id = 112;
 
-customersController.readCustomerAsync(id).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CustomerResponse result = customersController.readCustomer(id);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -328,7 +328,7 @@ customersController.readCustomerAsync(id).thenAccept(result -> {
 This method allows to update the Customer.
 
 ```java
-CompletableFuture<CustomerResponse> updateCustomerAsync(
+CustomerResponse updateCustomer(
     final int id,
     final UpdateCustomerRequest body)
 ```
@@ -357,14 +357,14 @@ UpdateCustomerRequest body = new UpdateCustomerRequest.Builder(
 )
 .build();
 
-customersController.updateCustomerAsync(id, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CustomerResponse result = customersController.updateCustomer(id, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -411,7 +411,7 @@ customersController.updateCustomerAsync(id, body).thenAccept(result -> {
 This method allows you to delete the Customer.
 
 ```java
-CompletableFuture<Void> deleteCustomerAsync(
+Void deleteCustomer(
     final int id)
 ```
 
@@ -430,14 +430,13 @@ CompletableFuture<Void> deleteCustomerAsync(
 ```java
 int id = 112;
 
-customersController.deleteCustomerAsync(id).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    customersController.deleteCustomer(id);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -446,7 +445,7 @@ customersController.deleteCustomerAsync(id).thenAccept(result -> {
 Use this method to return the customer object if you have the unique **Reference ID (Your App)** value handy. It will return a single match.
 
 ```java
-CompletableFuture<CustomerResponse> readCustomerByReferenceAsync(
+CustomerResponse readCustomerByReference(
     final String reference)
 ```
 
@@ -465,14 +464,14 @@ CompletableFuture<CustomerResponse> readCustomerByReferenceAsync(
 ```java
 String reference = "reference4";
 
-customersController.readCustomerByReferenceAsync(reference).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CustomerResponse result = customersController.readCustomerByReference(reference);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -481,7 +480,7 @@ customersController.readCustomerByReferenceAsync(reference).thenAccept(result ->
 This method lists all subscriptions that belong to a customer.
 
 ```java
-CompletableFuture<List<SubscriptionResponse>> listCustomerSubscriptionsAsync(
+List<SubscriptionResponse> listCustomerSubscriptions(
     final int customerId)
 ```
 
@@ -500,13 +499,13 @@ CompletableFuture<List<SubscriptionResponse>> listCustomerSubscriptionsAsync(
 ```java
 int customerId = 150;
 
-customersController.listCustomerSubscriptionsAsync(customerId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<SubscriptionResponse> result = customersController.listCustomerSubscriptions(customerId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 

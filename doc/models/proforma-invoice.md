@@ -26,7 +26,7 @@
 | `ProductFamilyName` | `String` | Optional | - | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
 | `Role` | `String` | Optional | - | String getRole() | setRole(String role) |
 | `Seller` | [`InvoiceSeller`](../../doc/models/invoice-seller.md) | Optional | Information about the seller (merchant) listed on the masthead of the invoice. | InvoiceSeller getSeller() | setSeller(InvoiceSeller seller) |
-| `Customer` | [`ProformaCustomer`](../../doc/models/proforma-customer.md) | Optional | - | ProformaCustomer getCustomer() | setCustomer(ProformaCustomer customer) |
+| `Customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient the invoiced subscription. | InvoiceCustomer getCustomer() | setCustomer(InvoiceCustomer customer) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `BillingAddress` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - | InvoiceAddress getBillingAddress() | setBillingAddress(InvoiceAddress billingAddress) |
 | `ShippingAddress` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - | InvoiceAddress getShippingAddress() | setShippingAddress(InvoiceAddress shippingAddress) |
@@ -38,12 +38,12 @@
 | `PaidAmount` | `String` | Optional | - | String getPaidAmount() | setPaidAmount(String paidAmount) |
 | `RefundAmount` | `String` | Optional | - | String getRefundAmount() | setRefundAmount(String refundAmount) |
 | `DueAmount` | `String` | Optional | - | String getDueAmount() | setDueAmount(String dueAmount) |
-| `LineItems` | [`List<ProformaInvoiceLineItem>`](../../doc/models/proforma-invoice-line-item.md) | Optional | - | List<ProformaInvoiceLineItem> getLineItems() | setLineItems(List<ProformaInvoiceLineItem> lineItems) |
-| `Discounts` | `List<Object>` | Optional | - | List<Object> getDiscounts() | setDiscounts(List<Object> discounts) |
-| `Taxes` | `List<Object>` | Optional | - | List<Object> getTaxes() | setTaxes(List<Object> taxes) |
-| `Credits` | `List<Object>` | Optional | - | List<Object> getCredits() | setCredits(List<Object> credits) |
-| `Payments` | `List<Object>` | Optional | - | List<Object> getPayments() | setPayments(List<Object> payments) |
-| `CustomFields` | `List<Object>` | Optional | - | List<Object> getCustomFields() | setCustomFields(List<Object> customFields) |
+| `LineItems` | [`List<InvoiceLineItem>`](../../doc/models/invoice-line-item.md) | Optional | - | List<InvoiceLineItem> getLineItems() | setLineItems(List<InvoiceLineItem> lineItems) |
+| `Discounts` | [`List<ProformaInvoiceDiscount>`](../../doc/models/proforma-invoice-discount.md) | Optional | - | List<ProformaInvoiceDiscount> getDiscounts() | setDiscounts(List<ProformaInvoiceDiscount> discounts) |
+| `Taxes` | [`List<ProformaInvoiceTax>`](../../doc/models/proforma-invoice-tax.md) | Optional | - | List<ProformaInvoiceTax> getTaxes() | setTaxes(List<ProformaInvoiceTax> taxes) |
+| `Credits` | [`List<ProformaInvoiceCredit>`](../../doc/models/proforma-invoice-credit.md) | Optional | - | List<ProformaInvoiceCredit> getCredits() | setCredits(List<ProformaInvoiceCredit> credits) |
+| `Payments` | [`List<ProformaInvoicePayment>`](../../doc/models/proforma-invoice-payment.md) | Optional | - | List<ProformaInvoicePayment> getPayments() | setPayments(List<ProformaInvoicePayment> payments) |
+| `CustomFields` | [`List<ProformaCustomField>`](../../doc/models/proforma-custom-field.md) | Optional | - | List<ProformaCustomField> getCustomFields() | setCustomFields(List<ProformaCustomField> customFields) |
 | `PublicUrl` | `String` | Optional | - | String getPublicUrl() | setPublicUrl(String publicUrl) |
 
 ## Example (as JSON)

@@ -13,7 +13,7 @@
 | `FirstName` | `String` | Optional | - | String getFirstName() | setFirstName(String firstName) |
 | `LastName` | `String` | Optional | - | String getLastName() | setLastName(String lastName) |
 | `CustomerId` | `Integer` | Optional | - | Integer getCustomerId() | setCustomerId(Integer customerId) |
-| `CurrentVault` | `String` | Optional | - | String getCurrentVault() | setCurrentVault(String currentVault) |
+| `CurrentVault` | [`BankAccountVault`](../../doc/models/bank-account-vault.md) | Optional | The vault that stores the payment profile with the provided vault_token. | BankAccountVault getCurrentVault() | setCurrentVault(BankAccountVault currentVault) |
 | `VaultToken` | `String` | Optional | - | String getVaultToken() | setVaultToken(String vaultToken) |
 | `BillingAddress` | `String` | Optional | - | String getBillingAddress() | setBillingAddress(String billingAddress) |
 | `BillingCity` | `String` | Optional | - | String getBillingCity() | setBillingCity(String billingCity) |
@@ -23,8 +23,8 @@
 | `CustomerVaultToken` | `String` | Optional | - | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
 | `BillingAddress2` | `String` | Optional | - | String getBillingAddress2() | setBillingAddress2(String billingAddress2) |
 | `BankName` | `String` | Optional | - | String getBankName() | setBankName(String bankName) |
-| `MaskedBankRoutingNumber` | `String` | Optional | - | String getMaskedBankRoutingNumber() | setMaskedBankRoutingNumber(String maskedBankRoutingNumber) |
-| `MaskedBankAccountNumber` | `String` | Optional | - | String getMaskedBankAccountNumber() | setMaskedBankAccountNumber(String maskedBankAccountNumber) |
+| `MaskedBankRoutingNumber` | `String` | Required | - | String getMaskedBankRoutingNumber() | setMaskedBankRoutingNumber(String maskedBankRoutingNumber) |
+| `MaskedBankAccountNumber` | `String` | Required | - | String getMaskedBankAccountNumber() | setMaskedBankAccountNumber(String maskedBankAccountNumber) |
 | `BankAccountType` | `String` | Optional | - | String getBankAccountType() | setBankAccountType(String bankAccountType) |
 | `BankAccountHolderType` | `String` | Optional | - | String getBankAccountHolderType() | setBankAccountHolderType(String bankAccountHolderType) |
 | `PaymentType` | `String` | Optional | - | String getPaymentType() | setPaymentType(String paymentType) |
@@ -36,12 +36,14 @@
 
 ```json
 {
+  "masked_bank_routing_number": "masked_bank_routing_number8",
+  "masked_bank_account_number": "masked_bank_account_number8",
   "verified": false,
   "id": 188,
   "first_name": "first_name6",
   "last_name": "last_name4",
   "customer_id": 226,
-  "current_vault": "current_vault6"
+  "current_vault": "authorizenet"
 }
 ```
 

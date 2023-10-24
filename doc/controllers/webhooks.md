@@ -36,13 +36,13 @@ We recommend that you review Chargify's webhook documentation located in our hel
 This method allows you to fetch data about webhooks. You can pass query parameters if you want to filter webhooks.
 
 ```java
-CompletableFuture<List<WebhookResponse>> listWebhooksAsync(
-    final WebhookStatusEnum status,
+List<WebhookResponse> listWebhooks(
+    final WebhookStatus status,
     final String sinceDate,
     final String untilDate,
     final Integer page,
     final Integer perPage,
-    final WebhookOrderEnum order,
+    final WebhookOrder order,
     final Integer subscription)
 ```
 
@@ -50,12 +50,12 @@ CompletableFuture<List<WebhookResponse>> listWebhooksAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `status` | [`WebhookStatusEnum`](../../doc/models/webhook-status-enum.md) | Query, Optional | Webhooks with matching status would be returned. |
+| `status` | [`WebhookStatus`](../../doc/models/webhook-status.md) | Query, Optional | Webhooks with matching status would be returned. |
 | `sinceDate` | `String` | Query, Optional | Format YYYY-MM-DD. Returns Webhooks with the created_at date greater than or equal to the one specified. |
 | `untilDate` | `String` | Query, Optional | Format YYYY-MM-DD. Returns Webhooks with the created_at date less than or equal to the one specified. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `order` | [`WebhookOrderEnum`](../../doc/models/webhook-order-enum.md) | Query, Optional | The order in which the Webhooks are returned. |
+| `order` | [`WebhookOrder`](../../doc/models/webhook-order.md) | Query, Optional | The order in which the Webhooks are returned. |
 | `subscription` | `Integer` | Query, Optional | The Chargify id of a subscription you'd like to filter for |
 
 ## Response Type
@@ -68,14 +68,14 @@ CompletableFuture<List<WebhookResponse>> listWebhooksAsync(
 Integer page = 2;
 Integer perPage = 50;
 
-webhooksController.listWebhooksAsync(null, null, null, page, perPage, null, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<WebhookResponse> result = webhooksController.listWebhooks(null, null, null, page, perPage, null, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -123,7 +123,7 @@ webhooksController.listWebhooksAsync(null, null, null, page, perPage, null, null
 This method allows you to enable webhooks via API for your site
 
 ```java
-CompletableFuture<EnableWebhooksResponse> enableWebhooksAsync(
+EnableWebhooksResponse enableWebhooks(
     final EnableWebhooksRequest body)
 ```
 
@@ -145,14 +145,14 @@ EnableWebhooksRequest body = new EnableWebhooksRequest.Builder(
 )
 .build();
 
-webhooksController.enableWebhooksAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    EnableWebhooksResponse result = webhooksController.enableWebhooks(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -171,7 +171,7 @@ Posting to the replay endpoint does not immediately resend the webhooks. They ar
 You may submit an array of up to 1000 webhook IDs to replay in the request.
 
 ```java
-CompletableFuture<ReplayWebhooksResponse> replayWebhooksAsync(
+ReplayWebhooksResponse replayWebhooks(
     final ReplayWebhooksRequest body)
 ```
 
@@ -196,14 +196,14 @@ ReplayWebhooksRequest body = new ReplayWebhooksRequest.Builder(
 )
 .build();
 
-webhooksController.replayWebhooksAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReplayWebhooksResponse result = webhooksController.replayWebhooks(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -223,7 +223,7 @@ You can check available events here.
 [Event keys](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405357509645-Webhooks-Reference#example-payloads)
 
 ```java
-CompletableFuture<EndpointResponse> createEndpointAsync(
+EndpointResponse createEndpoint(
     final UpdateEndpointRequest body)
 ```
 
@@ -231,7 +231,7 @@ CompletableFuture<EndpointResponse> createEndpointAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | - |
+| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
 
@@ -244,22 +244,22 @@ UpdateEndpointRequest body = new UpdateEndpointRequest.Builder(
     new UpdateEndpoint.Builder(
         "https://your.site/webhooks",
         Arrays.asList(
-            WebhookSubscriptionEnum.PAYMENT_SUCCESS,
-            WebhookSubscriptionEnum.PAYMENT_FAILURE
+            WebhookSubscription.PAYMENT_SUCCESS,
+            WebhookSubscription.PAYMENT_FAILURE
         )
     )
     .build()
 )
 .build();
 
-webhooksController.createEndpointAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    EndpointResponse result = webhooksController.createEndpoint(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -291,7 +291,7 @@ webhooksController.createEndpointAsync(body).thenAccept(result -> {
 This method returns created endpoints for site.
 
 ```java
-CompletableFuture<List<Endpoint>> listEndpointsAsync()
+List<Endpoint> listEndpoints()
 ```
 
 ## Response Type
@@ -301,14 +301,14 @@ CompletableFuture<List<Endpoint>> listEndpointsAsync()
 ## Example Usage
 
 ```java
-webhooksController.listEndpointsAsync().thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<Endpoint> result = webhooksController.listEndpoints();
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -345,7 +345,7 @@ webhooksController.listEndpointsAsync().thenAccept(result -> {
 You can update an Endpoint via the API with a PUT request to the resource endpoint.
 
 You can change the `url` of your endpoint which consumes webhooks or list of `webhook_subscriptions`.
-Check available [Event keys](https://chargify.zendesk.com/hc/en-us/articles/4407905415963).
+Check available [Event keys](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404448450317-Webhooks#configure-webhook-url).
 
 Always send a complete list of events which you want subscribe/watch.
 Sending an PUT request for existing endpoint with empty list of `webhook_subscriptions` will end with unsubscribe from all events.
@@ -353,7 +353,7 @@ Sending an PUT request for existing endpoint with empty list of `webhook_subscri
 If you want unsubscribe from specific event, just send a list of `webhook_subscriptions` without the specific event key.
 
 ```java
-CompletableFuture<EndpointResponse> updateEndpointAsync(
+EndpointResponse updateEndpoint(
     final int endpointId,
     final UpdateEndpointRequest body)
 ```
@@ -363,7 +363,7 @@ CompletableFuture<EndpointResponse> updateEndpointAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `endpointId` | `int` | Template, Required | The Chargify id for the endpoint that should be updated |
-| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | - |
+| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
 
@@ -377,23 +377,23 @@ UpdateEndpointRequest body = new UpdateEndpointRequest.Builder(
     new UpdateEndpoint.Builder(
         "https://yout.site/webhooks/1/json.",
         Arrays.asList(
-            WebhookSubscriptionEnum.PAYMENT_FAILURE,
-            WebhookSubscriptionEnum.PAYMENT_SUCCESS,
-            WebhookSubscriptionEnum.REFUND_FAILURE
+            WebhookSubscription.PAYMENT_FAILURE,
+            WebhookSubscription.PAYMENT_SUCCESS,
+            WebhookSubscription.REFUND_FAILURE
         )
     )
     .build()
 )
 .build();
 
-webhooksController.updateEndpointAsync(endpointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    EndpointResponse result = webhooksController.updateEndpoint(endpointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors

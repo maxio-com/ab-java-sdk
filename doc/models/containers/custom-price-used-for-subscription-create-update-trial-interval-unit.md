@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`IntervalUnitEnum`](../../../doc/models/interval-unit-enum.md) | CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit.fromIntervalUnit(IntervalUnitEnum intervalUnit) |
+| [`IntervalUnit`](../../../doc/models/interval-unit.md) | CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit.fromIntervalUnit(IntervalUnit intervalUnit) |
 

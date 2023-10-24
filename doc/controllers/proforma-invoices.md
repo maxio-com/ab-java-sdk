@@ -32,7 +32,7 @@ If the information becomes outdated, simply void the old consolidated proforma i
 Proforma invoices are only available on Relationship Invoicing sites. To create a proforma invoice, the subscription must not be prepaid, and must be in a live state.
 
 ```java
-CompletableFuture<Void> createConsolidatedProformaInvoiceAsync(
+Void createConsolidatedProformaInvoice(
     final String uid)
 ```
 
@@ -51,14 +51,13 @@ CompletableFuture<Void> createConsolidatedProformaInvoiceAsync(
 ```java
 String uid = "uid0";
 
-proformaInvoicesController.createConsolidatedProformaInvoiceAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    proformaInvoicesController.createConsolidatedProformaInvoice(uid);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -75,7 +74,7 @@ Only proforma invoices with a `consolidation_level` of parent are returned.
 By default, proforma invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`. To include breakdowns, pass the specific field as a key in the query with a value set to true.
 
 ```java
-CompletableFuture<ProformaInvoice> listSubscriptionGroupProformaInvoicesAsync(
+ProformaInvoice listSubscriptionGroupProformaInvoices(
     final String uid)
 ```
 
@@ -94,14 +93,14 @@ CompletableFuture<ProformaInvoice> listSubscriptionGroupProformaInvoicesAsync(
 ```java
 String uid = "uid0";
 
-proformaInvoicesController.listSubscriptionGroupProformaInvoicesAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProformaInvoice result = proformaInvoicesController.listSubscriptionGroupProformaInvoices(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -121,7 +120,7 @@ Use this endpoint to read the details of an existing proforma invoice.
 Proforma invoices are only available on Relationship Invoicing sites.
 
 ```java
-CompletableFuture<ProformaInvoice> readProformaInvoiceAsync(
+ProformaInvoice readProformaInvoice(
     final int proformaInvoiceUid)
 ```
 
@@ -140,14 +139,14 @@ CompletableFuture<ProformaInvoice> readProformaInvoiceAsync(
 ```java
 int proformaInvoiceUid = 242;
 
-proformaInvoicesController.readProformaInvoiceAsync(proformaInvoiceUid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProformaInvoice result = proformaInvoicesController.readProformaInvoice(proformaInvoiceUid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -169,7 +168,7 @@ If you would like to preview the next billing amounts without generating a full 
 Proforma invoices are only available on Relationship Invoicing sites. To create a proforma invoice, the subscription must not be in a group, must not be prepaid, and must be in a live state.
 
 ```java
-CompletableFuture<ProformaInvoice> createProformaInvoiceAsync(
+ProformaInvoice createProformaInvoice(
     final String subscriptionId)
 ```
 
@@ -188,14 +187,14 @@ CompletableFuture<ProformaInvoice> createProformaInvoiceAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-proformaInvoicesController.createProformaInvoiceAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProformaInvoice result = proformaInvoicesController.createProformaInvoice(subscriptionId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -211,14 +210,14 @@ proformaInvoicesController.createProformaInvoiceAsync(subscriptionId).thenAccept
 By default, proforma invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`. To include breakdowns, pass the specific field as a key in the query with a value set to `true`.
 
 ```java
-CompletableFuture<List<ProformaInvoice>> listProformaInvoicesAsync(
+List<ProformaInvoice> listProformaInvoices(
     final String subscriptionId,
     final String startDate,
     final String endDate,
-    final StatusEnum status,
+    final Status status,
     final Integer page,
     final Integer perPage,
-    final DirectionEnum direction,
+    final Direction direction,
     final Boolean lineItems,
     final Boolean discounts,
     final Boolean taxes,
@@ -234,10 +233,10 @@ CompletableFuture<List<ProformaInvoice>> listProformaInvoicesAsync(
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
 | `startDate` | `String` | Query, Optional | The beginning date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `endDate` | `String` | Query, Optional | The ending date range for the invoice's Due Date, in the YYYY-MM-DD format. |
-| `status` | [`StatusEnum`](../../doc/models/status-enum.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
+| `status` | [`Status`](../../doc/models/status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `DirectionEnum.DESC` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `Direction.DESC` |
 | `lineItems` | `Boolean` | Query, Optional | Include line items data<br>**Default**: `false` |
 | `discounts` | `Boolean` | Query, Optional | Include discounts data<br>**Default**: `false` |
 | `taxes` | `Boolean` | Query, Optional | Include taxes data<br>**Default**: `false` |
@@ -255,7 +254,7 @@ CompletableFuture<List<ProformaInvoice>> listProformaInvoicesAsync(
 String subscriptionId = "subscription_id0";
 Integer page = 2;
 Integer perPage = 50;
-DirectionEnum direction = DirectionEnum.DESC;
+Direction direction = Direction.DESC;
 Boolean lineItems = false;
 Boolean discounts = false;
 Boolean taxes = false;
@@ -263,14 +262,14 @@ Boolean credits = false;
 Boolean payments = false;
 Boolean customFields = false;
 
-proformaInvoicesController.listProformaInvoicesAsync(subscriptionId, null, null, null, page, perPage, direction, lineItems, discounts, taxes, credits, payments, customFields).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ProformaInvoice> result = proformaInvoicesController.listProformaInvoices(subscriptionId, null, null, null, page, perPage, direction, lineItems, discounts, taxes, credits, payments, customFields);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -287,7 +286,7 @@ Only proforma invoices that have the appropriate status may be reopened. If the 
 A reason for the void operation is required to be included in the request body. If one is not provided, the response will have HTTP status code 422 and an error message.
 
 ```java
-CompletableFuture<ProformaInvoice> voidProformaInvoiceAsync(
+ProformaInvoice voidProformaInvoice(
     final String proformaInvoiceUid,
     final VoidInvoiceRequest body)
 ```
@@ -307,14 +306,14 @@ CompletableFuture<ProformaInvoice> voidProformaInvoiceAsync(
 
 ```java
 String proformaInvoiceUid = "proforma_invoice_uid4";
-proformaInvoicesController.voidProformaInvoiceAsync(proformaInvoiceUid, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProformaInvoice result = proformaInvoicesController.voidProformaInvoice(proformaInvoiceUid, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -337,7 +336,7 @@ If all the data returned in the preview is as expected, you may then create a st
 Alternatively, if you have some proforma invoices already, you may make a preview call to determine whether any billing information for the subscription's upcoming renewal has changed.
 
 ```java
-CompletableFuture<ProformaInvoicePreview> previewProformaInvoiceAsync(
+ProformaInvoicePreview previewProformaInvoice(
     final String subscriptionId)
 ```
 
@@ -356,14 +355,14 @@ CompletableFuture<ProformaInvoicePreview> previewProformaInvoiceAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-proformaInvoicesController.previewProformaInvoiceAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProformaInvoicePreview result = proformaInvoicesController.previewProformaInvoice(subscriptionId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -386,7 +385,7 @@ Pass a payload that resembles a subscription create or signup preview request. F
 A product and customer first name, last name, and email are the minimum requirements. We recommend associating the proforma invoice with a customer_id to easily find their proforma invoices, since the subscription_id will always be blank.
 
 ```java
-CompletableFuture<ProformaInvoice> createSignupProformaInvoiceAsync(
+ProformaInvoice createSignupProformaInvoice(
     final CreateSubscriptionRequest body)
 ```
 
@@ -415,21 +414,21 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
 )
 .build();
 
-proformaInvoicesController.createSignupProformaInvoiceAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProformaInvoice result = proformaInvoicesController.createSignupProformaInvoice(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Bad Request | [`SubscriptionsProformaInvoicesJson400ErrorException`](../../doc/models/subscriptions-proforma-invoices-json-400-error-exception.md) |
+| 400 | Bad Request | [`ProformaBadRequestErrorResponseException`](../../doc/models/proforma-bad-request-error-response-exception.md) |
 | 403 | Forbidden | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorMapResponseException`](../../doc/models/error-map-response-exception.md) |
 
@@ -445,7 +444,7 @@ Pass a payload that resembles a subscription create or signup preview request. F
 A product and customer first name, last name, and email are the minimum requirements.
 
 ```java
-CompletableFuture<SignupProformaPreviewResponse> previewSignupProformaInvoiceAsync(
+SignupProformaPreviewResponse previewSignupProformaInvoice(
     final String includeNextProformaInvoice,
     final CreateSubscriptionRequest body)
 ```
@@ -476,21 +475,21 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
 )
 .build();
 
-proformaInvoicesController.previewSignupProformaInvoiceAsync(null, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SignupProformaPreviewResponse result = proformaInvoicesController.previewSignupProformaInvoice(null, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Bad Request | [`SubscriptionsProformaInvoicesPreviewJson400ErrorException`](../../doc/models/subscriptions-proforma-invoices-preview-json-400-error-exception.md) |
+| 400 | Bad Request | [`ProformaBadRequestErrorResponseException`](../../doc/models/proforma-bad-request-error-response-exception.md) |
 | 403 | Forbidden | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorMapResponseException`](../../doc/models/error-map-response-exception.md) |
 

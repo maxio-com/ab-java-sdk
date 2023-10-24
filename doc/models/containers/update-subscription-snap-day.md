@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`SnapDayEnum`](../../../doc/models/snap-day-enum.md) | UpdateSubscriptionSnapDay.fromSnapDay(SnapDayEnum snapDay) |
+| [`SnapDayOneOf0`](../../../doc/models/snap-day-one-of-0.md) | UpdateSubscriptionSnapDay.fromSnapDayOneOf0(SnapDayOneOf0 snapDayOneOf0) |
 | `int` | UpdateSubscriptionSnapDay.fromNumber(int number) |
 

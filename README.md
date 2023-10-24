@@ -1,5 +1,5 @@
 
-# Getting Started with Maxio Advanced Billing formerly Chargify API
+# Getting Started with Maxio Advanced Billing
 
 ## Introduction
 
@@ -7,7 +7,7 @@
 
 #### API Integration
 
-Maxio Advanced Billing can be integrated with many environments and programming languages via our REST API. Some of our users have contributed their API wrappers in various programming languages. Check out the [API Code Overview](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDI2-api-code-samples) doc for an introduction to the wrappers and available code samples.
+Maxio Advanced Billing (formerly Chargify API) can be integrated with many environments and programming languages via our REST API. Some of our users have contributed their API wrappers in various programming languages. Check out the [API Code Overview](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDI2-api-code-samples) doc for an introduction to the wrappers and available code samples.
 
 #### Testing Guide
 
@@ -37,10 +37,6 @@ But don’t worry! There are quite a few options to help you get the answers you
 - Explore the endpoints of our API Documentation
 - [Watch our videos and tutorials](https://chargify.com/tutorials)
 - [Check out the Chargify tag on Stack Overflow](http://stackoverflow.com/questions/tagged/chargify)
-
-#### Available Consultants
-
-Check out the list of [Chargify Consultants](http://chargify.com/consultants) if you require deeper technical expertise for your integration.
 
 ### API Overview
 
@@ -165,7 +161,7 @@ Those scenarios are as follows:
 - The site you're making a request for has been deleted.
   - _Note: any API request for another site that is in a good state will NOT be blocked_
 
-Read more about your Chargify subscription [here](https://chargify.zendesk.com/hc/en-us/articles/4407747017115)
+Read more about your Chargify subscription [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405430043149-Advanced-Billing-Subscription#advanced-billing-subscription-0-0)
 
 #### What happens when an API request is blocked
 
@@ -237,7 +233,7 @@ This is an error message indicating that Cross-Origin Resource Sharing (CORS) is
 
 #### API Compatibility for Relationship Invoicing
 
-This section describes the API for the new, [Relationship Invoicing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) style of invoices introduced in January 2018.
+This section describes the API for the new, [Relationship Invoicing](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253) style of invoices introduced in January 2018.
 
 If you are an existing customer from prior to January 2018 or have not otherwise explicitly opted into this new style of invoices, you are probably looking for the legacy "Invoices" section that describes [invoice-billing legacy-style invoices](./b3A6MTQxMDgzNjQ-read-invoice).
 
@@ -281,72 +277,62 @@ you will need internet access for a successful build.
 
 * In order to open the client library in Eclipse click on `File -> Import`.
 
-![Importing SDK into Eclipse - Step 1](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=import0)
+![Importing SDK into Eclipse - Step 1](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=import0)
 
 * In the import dialog, select `Existing Java Project` and click `Next`.
 
-![Importing SDK into Eclipse - Step 2](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=import1)
+![Importing SDK into Eclipse - Step 2](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=import1)
 
 * Browse to locate the folder containing the source code. Select the detected location of the project and click `Finish`.
 
-![Importing SDK into Eclipse - Step 3](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=import2)
+![Importing SDK into Eclipse - Step 3](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=import2)
 
 * Upon successful import, the project will be automatically built by Eclipse after automatically resolving the dependencies.
 
-![Importing SDK into Eclipse - Step 4](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=import3)
+![Importing SDK into Eclipse - Step 4](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=import3)
 
 ## Installation
 
-The following section explains how to use the MaxioAdvancedBillingFormerlyChargifyAPILib library in a new project.
+The following section explains how to use the AdvancedBilling library in a new project.
 
 ### 1. Starting a new project
 
 For starting a new project, click the menu command `File > New > Project`.
 
-![Add a new project in Eclipse](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=createNewProject0)
+![Add a new project in Eclipse](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=createNewProject0)
 
 Next, choose `Maven > Maven Project` and click `Next`.
 
-![Create a new Maven Project - Step 1](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=createNewProject1)
+![Create a new Maven Project - Step 1](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=createNewProject1)
 
 Here, make sure to use the current workspace by choosing `Use default Workspace location`, as shown in the picture below and click `Next`.
 
-![Create a new Maven Project - Step 2](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=createNewProject2)
+![Create a new Maven Project - Step 2](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=createNewProject2)
 
 Following this, select the *quick start* project type to create a simple project with an existing class and a `main` method. To do this, choose `maven-archetype-quickstart` item from the list and click `Next`.
 
-![Create a new Maven Project - Step 3](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=createNewProject3)
+![Create a new Maven Project - Step 3](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=createNewProject3)
 
 In the last step, provide a `Group Id` and `Artifact Id` as shown in the picture below and click `Finish`.
 
-![Create a new Maven Project - Step 4](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=createNewProject4)
+![Create a new Maven Project - Step 4](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=createNewProject4)
 
 ### 2. Add reference of the library project
 
-The created Maven project manages its dependencies using its `pom.xml` file. In order to add a dependency on the *MaxioAdvancedBillingFormerlyChargifyAPILib* client library, double click on the `pom.xml` file in the `Package Explorer`. Opening the `pom.xml` file will render a graphical view on the canvas. Here, switch to the `Dependencies` tab and click the `Add` button as shown in the picture below.
+The created Maven project manages its dependencies using its `pom.xml` file. In order to add a dependency on the *AdvancedBilling* client library, double click on the `pom.xml` file in the `Package Explorer`. Opening the `pom.xml` file will render a graphical view on the canvas. Here, switch to the `Dependencies` tab and click the `Add` button as shown in the picture below.
 
-![Adding dependency to the client library - Step 1](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=testProject0)
+![Adding dependency to the client library - Step 1](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=testProject0)
 
-Clicking the `Add` button will open a dialog where you need to specify MaxioAdvancedBillingFormerlyChargifyAPILib in `Group Id`, maxio-advanced-billing-formerly-chargify-apilib in `Artifact Id` and 1.0.0 in the `Version` fields. Once added click `OK`. Save the `pom.xml` file.
+Clicking the `Add` button will open a dialog where you need to specify com.maxio in `Group Id`, advanced-billing-sdk in `Artifact Id` and 1.0.0 in the `Version` fields. Once added click `OK`. Save the `pom.xml` file.
 
-![Adding dependency to the client library - Step 2](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=testProject1)
+![Adding dependency to the client library - Step 2](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=testProject1)
 
-![Adding sample code](https://apidocs.io/illustration/java?workspaceFolder=Maxio%20Advanced%20Billing%20formerly%20Chargify%20API-Java&workspaceName=MaxioAdvancedBillingFormerlyChargifyAPI&projectName=MaxioAdvancedBillingFormerlyChargifyAPILib&rootNamespace=com.chargify.subdomain&groupId=MaxioAdvancedBillingFormerlyChargifyAPILib&artifactId=maxio-advanced-billing-formerly-chargify-apilib&version=1.0.0&step=testProject2)
+![Adding sample code](https://apidocs.io/illustration/java?workspaceFolder=AdvancedBilling-Java&workspaceName=AdvancedBilling&projectName=AdvancedBilling&rootNamespace=com.maxio.advancedbilling&groupId=com.maxio&artifactId=advanced-billing-sdk&version=1.0.0&step=testProject2)
 
 ### 3. Write sample code
 
 Once the `SimpleConsoleApp` is created, a file named `App.java` will be visible in the *Package Explorer* with a `main` method. This is the entry point for the execution of the created project.
 Here, you can add code to initialize the client library and instantiate a *Controller* class. Sample code to initialize the client library and using controller methods is given in the subsequent sections.
-
-## Test the SDK
-
-The generated code and the server can be tested using automatically generated test cases.
-JUnit is used as the testing framework and test runner.
-
-In Eclipse, for running the tests do the following:
-
-1. Select the project MaxioAdvancedBillingFormerlyChargifyAPILib from the package explorer.
-2. Select `Run -> Run as -> JUnit Test` or use `Alt + Shift + X` followed by `T` to run the Tests.
 
 ## Initialize the API Client
 
@@ -356,7 +342,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Chargify site<br>*Default*: `"subdomain"` |
+| `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `"subdomain"` |
+| `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/http-client-configuration.md) | Http Client Configuration instance. |
 | `basicAuthUserName` | `String` | The username to use with basic authentication |
@@ -365,12 +352,13 @@ The following parameters are configurable for the API Client:
 The API client can be initialized as follows:
 
 ```java
-MaxioAdvancedBillingFormerlyChargifyAPIClient client = new MaxioAdvancedBillingFormerlyChargifyAPIClient.Builder()
+AdvancedBillingClient client = new AdvancedBillingClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
     .basicAuthCredentials("BasicAuthUserName", "BasicAuthPassword")
     .environment(Environment.PRODUCTION)
     .subdomain("subdomain")
+    .domain("chargify.com")
     .build();
 ```
 
@@ -431,7 +419,6 @@ This API uses `Basic Authentication`.
 * [HttpStringResponse](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/http-string-response.md)
 * [HttpContext](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/http-context.md)
 * [HttpBodyRequest](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/http-body-request.md)
-* [HttpCallback Interface](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/http-callback-interface.md)
 * [Headers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/headers.md)
 * [ApiException](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/api-exception.md)
 * [Configuration Interface](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.1/doc/configuration-interface.md)

@@ -26,7 +26,7 @@ Use this method to create a product within your Chargify site.
 + [Changing a Subscription's Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404225334669-Product-Changes-Migrations)
 
 ```java
-CompletableFuture<ProductResponse> createProductAsync(
+ProductResponse createProduct(
     final int productFamilyId,
     final CreateOrUpdateProductRequest body)
 ```
@@ -63,62 +63,13 @@ CreateOrUpdateProductRequest body = new CreateOrUpdateProductRequest.Builder(
 )
 .build();
 
-productsController.createProductAsync(productFamilyId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductResponse result = productsController.createProduct(productFamilyId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "product": {
-    "id": 4364984,
-    "name": "Gold Plan",
-    "handle": "gold",
-    "description": "This is our gold plan.",
-    "accounting_code": "123",
-    "request_credit_card": true,
-    "created_at": "2016-11-04T16:31:15-04:00",
-    "updated_at": "2016-11-04T16:31:15-04:00",
-    "price_in_cents": 1000,
-    "interval": 1,
-    "interval_unit": "month",
-    "expiration_interval_unit": null,
-    "initial_charge_in_cents": null,
-    "trial_price_in_cents": null,
-    "trial_interval": null,
-    "trial_interval_unit": null,
-    "archived_at": null,
-    "require_credit_card": true,
-    "return_params": null,
-    "taxable": false,
-    "update_return_url": null,
-    "initial_charge_after_trial": false,
-    "version_number": 1,
-    "update_return_params": null,
-    "product_family": {
-      "id": 527890,
-      "name": "Acme Projects",
-      "description": "",
-      "handle": "billing-plans",
-      "accounting_code": null
-    },
-    "public_signup_pages": [
-      {
-        "id": 301078,
-        "return_url": null,
-        "return_params": null,
-        "url": "https://general-goods.chargify.com/subscribe/ftgbpq7f5qpr/gold"
-      }
-    ],
-    "product_price_point_name": "Default"
-  }
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
 }
 ```
 
@@ -128,7 +79,7 @@ productsController.createProductAsync(productFamilyId, body).thenAccept(result -
 This endpoint allows you to read the current details of a product that you've created in Chargify.
 
 ```java
-CompletableFuture<ProductResponse> readProductAsync(
+ProductResponse readProduct(
     final int productId)
 ```
 
@@ -147,14 +98,14 @@ CompletableFuture<ProductResponse> readProductAsync(
 ```java
 int productId = 202;
 
-productsController.readProductAsync(productId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductResponse result = productsController.readProduct(productId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -215,7 +166,7 @@ Use this method to change aspects of an existing product.
 Updating a product using this endpoint will create a new price point and set it as the default price point for this product. If you should like to update an existing product price point, that must be done separately.
 
 ```java
-CompletableFuture<ProductResponse> updateProductAsync(
+ProductResponse updateProduct(
     final int productId,
     final CreateOrUpdateProductRequest body)
 ```
@@ -235,61 +186,13 @@ CompletableFuture<ProductResponse> updateProductAsync(
 
 ```java
 int productId = 202;
-productsController.updateProductAsync(productId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductResponse result = productsController.updateProduct(productId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "product": {
-    "id": 4365034,
-    "name": "Platinum Plan",
-    "handle": "platinum",
-    "description": "This is our platinum plan.",
-    "accounting_code": "123",
-    "request_credit_card": true,
-    "created_at": "2016-11-04T16:34:29-04:00",
-    "updated_at": "2016-11-04T16:37:11-04:00",
-    "price_in_cents": 1000,
-    "interval": 1,
-    "interval_unit": "month",
-    "initial_charge_in_cents": null,
-    "trial_price_in_cents": null,
-    "trial_interval": null,
-    "trial_interval_unit": null,
-    "archived_at": null,
-    "require_credit_card": true,
-    "return_params": null,
-    "taxable": false,
-    "update_return_url": null,
-    "initial_charge_after_trial": false,
-    "version_number": 1,
-    "update_return_params": null,
-    "product_family": {
-      "id": 527890,
-      "name": "Acme Projects",
-      "description": "",
-      "handle": "billing-plans",
-      "accounting_code": null
-    },
-    "public_signup_pages": [
-      {
-        "id": 301079,
-        "return_url": null,
-        "return_params": null,
-        "url": "https://general-goods.chargify.com/subscribe/wgyd96tb5pj9/platinum"
-      }
-    ],
-    "product_price_point_name": "Original"
-  }
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
 }
 ```
 
@@ -307,7 +210,7 @@ Sending a DELETE request to this endpoint will archive the product. All current 
 This will restrict the option to chose the product for purchase via the Billing Portal, as well as disable Public Signup Pages for the product.
 
 ```java
-CompletableFuture<ProductResponse> archiveProductAsync(
+ProductResponse archiveProduct(
     final int productId)
 ```
 
@@ -326,14 +229,14 @@ CompletableFuture<ProductResponse> archiveProductAsync(
 ```java
 int productId = 202;
 
-productsController.archiveProductAsync(productId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductResponse result = productsController.archiveProduct(productId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -386,7 +289,7 @@ productsController.archiveProductAsync(productId).thenAccept(result -> {
 This method allows to retrieve a Product object by its `api_handle`.
 
 ```java
-CompletableFuture<ProductResponse> readProductByHandleAsync(
+ProductResponse readProductByHandle(
     final String apiHandle)
 ```
 
@@ -405,14 +308,14 @@ CompletableFuture<ProductResponse> readProductByHandleAsync(
 ```java
 String apiHandle = "api_handle6";
 
-productsController.readProductByHandleAsync(apiHandle).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductResponse result = productsController.readProductByHandle(apiHandle);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -489,8 +392,8 @@ productsController.readProductByHandleAsync(apiHandle).thenAccept(result -> {
 This method allows to retrieve a list of Products belonging to a Site.
 
 ```java
-CompletableFuture<List<ProductResponse>> listProductsAsync(
-    final BasicDateFieldEnum dateField,
+List<ProductResponse> listProducts(
+    final BasicDateField dateField,
     final String endDate,
     final String endDatetime,
     final String startDate,
@@ -498,8 +401,8 @@ CompletableFuture<List<ProductResponse>> listProductsAsync(
     final Integer page,
     final Integer perPage,
     final Boolean includeArchived,
-    final ListProductsIncludeEnum include,
-    final IncludeNotNullEnum filterPrepaidProductPricePointProductPricePointId,
+    final ListProductsInclude include,
+    final IncludeNotNull filterPrepaidProductPricePointProductPricePointId,
     final Boolean filterUseSiteExchangeRate)
 ```
 
@@ -507,7 +410,7 @@ CompletableFuture<List<ProductResponse>> listProductsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `dateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
+| `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
@@ -515,8 +418,8 @@ CompletableFuture<List<ProductResponse>> listProductsAsync(
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `includeArchived` | `Boolean` | Query, Optional | Include archived products. Use in query: `include_archived=true`. |
-| `include` | [`ListProductsIncludeEnum`](../../doc/models/list-products-include-enum.md) | Query, Optional | Allows including additional data in the response. Use in query `include=prepaid_product_price_point`. |
-| `filterPrepaidProductPricePointProductPricePointId` | [`IncludeNotNullEnum`](../../doc/models/include-not-null-enum.md) | Query, Optional | Allows fetching products only if a prepaid product price point is present or not. To use this filter you also have to include the following param in the request `include=prepaid_product_price_point`. Use in query `filter[prepaid_product_price_point][product_price_point_id]=not_null`. |
+| `include` | [`ListProductsInclude`](../../doc/models/list-products-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=prepaid_product_price_point`. |
+| `filterPrepaidProductPricePointProductPricePointId` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching products only if a prepaid product price point is present or not. To use this filter you also have to include the following param in the request `include=prepaid_product_price_point`. Use in query `filter[prepaid_product_price_point][product_price_point_id]=not_null`. |
 | `filterUseSiteExchangeRate` | `Boolean` | Query, Optional | Allows fetching products with matching use_site_exchange_rate based on provided value (refers to default price point). Use in query `filter[use_site_exchange_rate]=true`. |
 
 ## Response Type
@@ -526,20 +429,20 @@ CompletableFuture<List<ProductResponse>> listProductsAsync(
 ## Example Usage
 
 ```java
-BasicDateFieldEnum dateField = BasicDateFieldEnum.UPDATED_AT;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
 Integer page = 2;
 Integer perPage = 50;
 Boolean includeArchived = true;
-ListProductsIncludeEnum include = ListProductsIncludeEnum.PREPAID_PRODUCT_PRICE_POINT;
+ListProductsInclude include = ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
-productsController.listProductsAsync(dateField, null, null, null, null, page, perPage, includeArchived, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ProductResponse> result = productsController.listProducts(dateField, null, null, null, null, page, perPage, includeArchived, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

@@ -44,6 +44,8 @@
 | `DefaultProductPricePointId` | `Integer` | Optional | - | Integer getDefaultProductPricePointId() | setDefaultProductPricePointId(Integer defaultProductPricePointId) |
 | `UseSiteExchangeRate` | `Boolean` | Optional | - | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 | `ItemCategory` | `String` | Optional | One of the following: Business Software, Consumer Software, Digital Services, Physical Goods, Other | String getItemCategory() | setItemCategory(String itemCategory) |
+| `ProductPricePointId` | `Integer` | Optional | - | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
+| `ProductPricePointHandle` | `String` | Optional | - | String getProductPricePointHandle() | setProductPricePointHandle(String productPricePointHandle) |
 
 ## Example (as JSON)
 

@@ -30,7 +30,7 @@ If you have structured data such as birth date, color, etc., consider using Meta
 Full documentation on how to use Notes in the Chargify UI can be located [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404434903181-Subscription-Summary#notes).
 
 ```java
-CompletableFuture<SubscriptionNoteResponse> createSubscriptionNoteAsync(
+SubscriptionNoteResponse createSubscriptionNote(
     final String subscriptionId,
     final UpdateSubscriptionNoteRequest body)
 ```
@@ -40,7 +40,7 @@ CompletableFuture<SubscriptionNoteResponse> createSubscriptionNoteAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
-| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | - |
+| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
 
@@ -59,14 +59,14 @@ UpdateSubscriptionNoteRequest body = new UpdateSubscriptionNoteRequest.Builder(
 )
 .build();
 
-subscriptionNotesController.createSubscriptionNoteAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionNoteResponse result = subscriptionNotesController.createSubscriptionNote(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -75,7 +75,7 @@ subscriptionNotesController.createSubscriptionNoteAsync(subscriptionId, body).th
 Use the following method to delete a note for a Subscription.
 
 ```java
-CompletableFuture<Void> deleteSubscriptionNoteAsync(
+Void deleteSubscriptionNote(
     final String subscriptionId)
 ```
 
@@ -94,14 +94,13 @@ CompletableFuture<Void> deleteSubscriptionNoteAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-subscriptionNotesController.deleteSubscriptionNoteAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionNotesController.deleteSubscriptionNote(subscriptionId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -116,7 +115,7 @@ subscriptionNotesController.deleteSubscriptionNoteAsync(subscriptionId).thenAcce
 Use this method to retrieve a list of Notes associated with a Subscription. The response will be an array of Notes.
 
 ```java
-CompletableFuture<List<SubscriptionNoteResponse>> listSubscriptionNotesAsync(
+List<SubscriptionNoteResponse> listSubscriptionNotes(
     final String subscriptionId,
     final Integer page,
     final Integer perPage)
@@ -141,14 +140,14 @@ String subscriptionId = "subscription_id0";
 Integer page = 2;
 Integer perPage = 50;
 
-subscriptionNotesController.listSubscriptionNotesAsync(subscriptionId, page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<SubscriptionNoteResponse> result = subscriptionNotesController.listSubscriptionNotes(subscriptionId, page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -184,7 +183,7 @@ subscriptionNotesController.listSubscriptionNotesAsync(subscriptionId, page, per
 Once you have obtained the ID of the note you wish to read, use this method to show a particular note attached to a subscription.
 
 ```java
-CompletableFuture<SubscriptionNoteResponse> readSubscriptionNoteAsync(
+SubscriptionNoteResponse readSubscriptionNote(
     final String subscriptionId,
     final String noteId)
 ```
@@ -206,14 +205,14 @@ CompletableFuture<SubscriptionNoteResponse> readSubscriptionNoteAsync(
 String subscriptionId = "subscription_id0";
 String noteId = "note_id8";
 
-subscriptionNotesController.readSubscriptionNoteAsync(subscriptionId, noteId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionNoteResponse result = subscriptionNotesController.readSubscriptionNote(subscriptionId, noteId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -237,7 +236,7 @@ subscriptionNotesController.readSubscriptionNoteAsync(subscriptionId, noteId).th
 Use the following method to update a note for a Subscription.
 
 ```java
-CompletableFuture<SubscriptionNoteResponse> updateSubscriptionNoteAsync(
+SubscriptionNoteResponse updateSubscriptionNote(
     final String subscriptionId,
     final String noteId,
     final UpdateSubscriptionNoteRequest body)
@@ -249,7 +248,7 @@ CompletableFuture<SubscriptionNoteResponse> updateSubscriptionNoteAsync(
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
 | `noteId` | `String` | Template, Required | The Chargify id of the note |
-| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | - |
+| `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
 
@@ -269,13 +268,13 @@ UpdateSubscriptionNoteRequest body = new UpdateSubscriptionNoteRequest.Builder(
 )
 .build();
 
-subscriptionNotesController.updateSubscriptionNoteAsync(subscriptionId, noteId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionNoteResponse result = subscriptionNotesController.updateSubscriptionNote(subscriptionId, noteId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 

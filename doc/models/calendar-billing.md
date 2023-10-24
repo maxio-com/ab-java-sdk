@@ -12,7 +12,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `SnapDay` | [`CalendarBillingSnapDay`](../../doc/models/containers/calendar-billing-snap-day.md) | Optional | This is a container for one-of cases. | CalendarBillingSnapDay getSnapDay() | setSnapDay(CalendarBillingSnapDay snapDay) |
-| `CalendarBillingFirstCharge` | [`FirstChargeTypeEnum`](../../doc/models/first-charge-type-enum.md) | Optional | - | FirstChargeTypeEnum getCalendarBillingFirstCharge() | setCalendarBillingFirstCharge(FirstChargeTypeEnum calendarBillingFirstCharge) |
+| `CalendarBillingFirstCharge` | [`FirstChargeType`](../../doc/models/first-charge-type.md) | Optional | - | FirstChargeType getCalendarBillingFirstCharge() | setCalendarBillingFirstCharge(FirstChargeType calendarBillingFirstCharge) |
 
 ## Example (as JSON)
 

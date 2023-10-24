@@ -12,7 +12,7 @@ Used to Create or Update Endpoint
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Url` | `String` | Required | - | String getUrl() | setUrl(String url) |
-| `WebhookSubscriptions` | [`List<WebhookSubscriptionEnum>`](../../doc/models/webhook-subscription-enum.md) | Required | - | List<WebhookSubscriptionEnum> getWebhookSubscriptions() | setWebhookSubscriptions(List<WebhookSubscriptionEnum> webhookSubscriptions) |
+| `WebhookSubscriptions` | [`List<WebhookSubscription>`](../../doc/models/webhook-subscription.md) | Required | - | List<WebhookSubscription> getWebhookSubscriptions() | setWebhookSubscriptions(List<WebhookSubscription> webhookSubscriptions) |
 
 ## Example (as JSON)
 

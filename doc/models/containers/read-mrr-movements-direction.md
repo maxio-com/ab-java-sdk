@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`SortingDirectionEnum`](../../../doc/models/sorting-direction-enum.md) | ReadMrrMovementsDirection.fromSortingDirection(SortingDirectionEnum sortingDirection) |
+| [`SortingDirection`](../../../doc/models/sorting-direction.md) | ReadMrrMovementsDirection.fromSortingDirection(SortingDirection sortingDirection) |
 

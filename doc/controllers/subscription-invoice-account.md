@@ -23,7 +23,7 @@ SubscriptionInvoiceAccountController subscriptionInvoiceAccountController = clie
 Returns the `balance_in_cents` of the Subscription's Pending Discount, Service Credit, and Prepayment accounts, as well as the sum of the Subscription's open, payable invoices.
 
 ```java
-CompletableFuture<AccountBalances> readAccountBalancesAsync(
+AccountBalances readAccountBalances(
     final String subscriptionId)
 ```
 
@@ -42,14 +42,14 @@ CompletableFuture<AccountBalances> readAccountBalancesAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-subscriptionInvoiceAccountController.readAccountBalancesAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    AccountBalances result = subscriptionInvoiceAccountController.readAccountBalances(subscriptionId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -64,7 +64,7 @@ When the `method` specified is `"credit_card_on_file"`, the prepayment amount wi
 Please note that you **can't** pass `amount_in_cents`.
 
 ```java
-CompletableFuture<CreatePrepaymentResponse> createPrepaymentAsync(
+CreatePrepaymentResponse createPrepayment(
     final String subscriptionId,
     final CreatePrepaymentRequest body)
 ```
@@ -89,20 +89,20 @@ CreatePrepaymentRequest body = new CreatePrepaymentRequest.Builder(
         100D,
         "John Doe signup for $100",
         "Signup for $100",
-        PrepaymentMethodEnum.CHECK
+        PrepaymentMethod.CHECK
     )
     .build()
 )
 .build();
 
-subscriptionInvoiceAccountController.createPrepaymentAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CreatePrepaymentResponse result = subscriptionInvoiceAccountController.createPrepayment(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -127,11 +127,11 @@ subscriptionInvoiceAccountController.createPrepaymentAsync(subscriptionId, body)
 This request will list a subscription's prepayments.
 
 ```java
-CompletableFuture<SubscriptionsPrepaymentsJsonResponse> listPrepaymentsAsync(
+PrepaymentsResponse listPrepayments(
     final String subscriptionId,
     final Integer page,
     final Integer perPage,
-    final BasicDateFieldEnum filterDateField,
+    final BasicDateField filterDateField,
     final String filterStartDate,
     final String filterEndDate)
 ```
@@ -143,13 +143,13 @@ CompletableFuture<SubscriptionsPrepaymentsJsonResponse> listPrepaymentsAsync(
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `filterDateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. created_at - Time when prepayment was created. application_at - Time when prepayment was applied to invoice. Use in query `filter[date_field]=created_at`. |
+| `filterDateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. created_at - Time when prepayment was created. application_at - Time when prepayment was applied to invoice. Use in query `filter[date_field]=created_at`. |
 | `filterStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-15`. |
 | `filterEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `filter[end_date]=2011-12-15`. |
 
 ## Response Type
 
-[`SubscriptionsPrepaymentsJsonResponse`](../../doc/models/subscriptions-prepayments-json-response.md)
+[`PrepaymentsResponse`](../../doc/models/prepayments-response.md)
 
 ## Example Usage
 
@@ -158,14 +158,14 @@ String subscriptionId = "subscription_id0";
 Integer page = 2;
 Integer perPage = 50;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
-subscriptionInvoiceAccountController.listPrepaymentsAsync(subscriptionId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    PrepaymentsResponse result = subscriptionInvoiceAccountController.listPrepayments(subscriptionId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -174,17 +174,16 @@ subscriptionInvoiceAccountController.listPrepaymentsAsync(subscriptionId, page, 
 {
   "prepayments": [
     {
-      "prepayment": {
-        "id": 17,
-        "subscription_id": 3558750,
-        "amount_in_cents": 2000,
-        "remaining_amount_in_cents": 1100,
-        "external": true,
-        "memo": "test",
-        "details": "test details",
-        "payment_type": "cash",
-        "created_at": "2022-01-18T22:45:41+11:00"
-      }
+      "id": 17,
+      "subscription_id": 3558750,
+      "amount_in_cents": 2000,
+      "remaining_amount_in_cents": 1100,
+      "refunded_amount_in_cents": 0,
+      "external": true,
+      "memo": "test",
+      "details": "test details",
+      "payment_type": "cash",
+      "created_at": "2022-01-18T22:45:41+11:00"
     }
   ]
 }
@@ -204,7 +203,7 @@ subscriptionInvoiceAccountController.listPrepaymentsAsync(subscriptionId, page, 
 Credit will be added to the subscription in the amount specified in the request body. The credit is subsequently applied to the next generated invoice.
 
 ```java
-CompletableFuture<ServiceCredit> issueServiceCreditAsync(
+ServiceCredit issueServiceCredit(
     final String subscriptionId,
     final IssueServiceCreditRequest body)
 ```
@@ -235,14 +234,14 @@ IssueServiceCreditRequest body = new IssueServiceCreditRequest.Builder(
 )
 .build();
 
-subscriptionInvoiceAccountController.issueServiceCreditAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ServiceCredit result = subscriptionInvoiceAccountController.issueServiceCredit(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -263,7 +262,7 @@ subscriptionInvoiceAccountController.issueServiceCreditAsync(subscriptionId, bod
 Credit will be removed from the subscription in the amount specified in the request body. The credit amount being deducted must be equal to or less than the current credit balance.
 
 ```java
-CompletableFuture<Void> deductServiceCreditAsync(
+Void deductServiceCredit(
     final String subscriptionId,
     final DeductServiceCreditRequest body)
 ```
@@ -294,14 +293,13 @@ DeductServiceCreditRequest body = new DeductServiceCreditRequest.Builder(
 )
 .build();
 
-subscriptionInvoiceAccountController.deductServiceCreditAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionInvoiceAccountController.deductServiceCredit(subscriptionId, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -318,7 +316,7 @@ This endpoint will refund, completely or partially, a particular prepayment appl
 The amount may be passed either as a decimal, with `amount`, or an integer in cents, with `amount_in_cents`.
 
 ```java
-CompletableFuture<PrepaymentResponse> refundPrepaymentAsync(
+PrepaymentResponse refundPrepayment(
     final String subscriptionId,
     final String prepaymentId,
     final RefundPrepaymentRequest body)
@@ -341,21 +339,21 @@ CompletableFuture<PrepaymentResponse> refundPrepaymentAsync(
 ```java
 String subscriptionId = "subscription_id0";
 String prepaymentId = "prepayment_id8";
-subscriptionInvoiceAccountController.refundPrepaymentAsync(subscriptionId, prepaymentId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    PrepaymentResponse result = subscriptionInvoiceAccountController.refundPrepayment(subscriptionId, prepaymentId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Bad Request | [`SubscriptionsPrepaymentsRefundsJson400ErrorException`](../../doc/models/subscriptions-prepayments-refunds-json-400-error-exception.md) |
+| 400 | Bad Request | [`RefundPrepaymentBaseErrorsResponseException`](../../doc/models/refund-prepayment-base-errors-response-exception.md) |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsPrepaymentsRefundsJson422ErrorException`](../../doc/models/subscriptions-prepayments-refunds-json-422-error-exception.md) |
+| 422 | Unprocessable Entity | [`RefundPrepaymentAggregatedErrorsResponseException`](../../doc/models/refund-prepayment-aggregated-errors-response-exception.md) |
 

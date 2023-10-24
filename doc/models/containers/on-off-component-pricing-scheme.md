@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`PricingSchemeEnum`](../../../doc/models/pricing-scheme-enum.md) | OnOffComponentPricingScheme.fromPricingScheme(PricingSchemeEnum pricingScheme) |
+| [`PricingScheme`](../../../doc/models/pricing-scheme.md) | OnOffComponentPricingScheme.fromPricingScheme(PricingScheme pricingScheme) |
 

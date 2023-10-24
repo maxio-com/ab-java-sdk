@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`CompoundingStrategyEnum`](../../../doc/models/compounding-strategy-enum.md) | CreateOrUpdatePercentageCouponCompoundingStrategy.fromCompoundingStrategy(CompoundingStrategyEnum compoundingStrategy) |
+| [`CompoundingStrategy`](../../../doc/models/compounding-strategy.md) | CreateOrUpdatePercentageCouponCompoundingStrategy.fromCompoundingStrategy(CompoundingStrategy compoundingStrategy) |
 

@@ -28,7 +28,7 @@ ProductPricePointsController productPricePointsController = client.getProductPri
 [Product Price Point Documentation](https://chargify.zendesk.com/hc/en-us/articles/4407755824155)
 
 ```java
-CompletableFuture<ProductPricePointResponse> createProductPricePointAsync(
+ProductPricePointResponse createProductPricePoint(
     final int productId,
     final CreateProductPricePointRequest body)
 ```
@@ -68,14 +68,14 @@ CreateProductPricePointRequest body = new CreateProductPricePointRequest.Builder
 )
 .build();
 
-productPricePointsController.createProductPricePointAsync(productId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductPricePointResponse result = productPricePointsController.createProductPricePoint(productId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -111,12 +111,12 @@ productPricePointsController.createProductPricePointAsync(productId, body).thenA
 Use this endpoint to retrieve a list of product price points.
 
 ```java
-CompletableFuture<ListProductPricePointsResponse> listProductPricePointsAsync(
+ListProductPricePointsResponse listProductPricePoints(
     final int productId,
     final Integer page,
     final Integer perPage,
     final Boolean currencyPrices,
-    final List<PricePointTypeEnum> filterType)
+    final List<PricePointType> filterType)
 ```
 
 ## Parameters
@@ -127,7 +127,7 @@ CompletableFuture<ListProductPricePointsResponse> listProductPricePointsAsync(
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: `10`<br>**Constraints**: `<= 200` |
 | `currencyPrices` | `Boolean` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
-| `filterType` | [`List<PricePointTypeEnum>`](../../doc/models/price-point-type-enum.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
+| `filterType` | [`List<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
 
 ## Response Type
 
@@ -139,14 +139,14 @@ CompletableFuture<ListProductPricePointsResponse> listProductPricePointsAsync(
 int productId = 202;
 Integer page = 2;
 Integer perPage = 10;
-Liquid error: Value cannot be null. (Parameter 'key')productPricePointsController.listProductPricePointsAsync(productId, page, perPage, null, Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+Liquid error: Value cannot be null. (Parameter 'key')try {
+    ListProductPricePointsResponse result = productPricePointsController.listProductPricePoints(productId, page, perPage, null, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -186,7 +186,7 @@ Use this endpoint to update a product price point.
 Note: Custom product price points are not able to be updated.
 
 ```java
-CompletableFuture<ProductPricePointResponse> updateProductPricePointAsync(
+ProductPricePointResponse updateProductPricePoint(
     final int productId,
     final int pricePointId,
     final UpdateProductPricePointRequest body)
@@ -217,14 +217,14 @@ UpdateProductPricePointRequest body = new UpdateProductPricePointRequest.Builder
 )
 .build();
 
-productPricePointsController.updateProductPricePointAsync(productId, pricePointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductPricePointResponse result = productPricePointsController.updateProductPricePoint(productId, pricePointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -260,7 +260,7 @@ productPricePointsController.updateProductPricePointAsync(productId, pricePointI
 Use this endpoint to retrieve details for a specific product price point.
 
 ```java
-CompletableFuture<ProductPricePointResponse> readProductPricePointAsync(
+ProductPricePointResponse readProductPricePoint(
     final int productId,
     final int pricePointId,
     final Boolean currencyPrices)
@@ -284,14 +284,14 @@ CompletableFuture<ProductPricePointResponse> readProductPricePointAsync(
 int productId = 202;
 int pricePointId = 10;
 
-productPricePointsController.readProductPricePointAsync(productId, pricePointId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductPricePointResponse result = productPricePointsController.readProductPricePoint(productId, pricePointId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -327,7 +327,7 @@ productPricePointsController.readProductPricePointAsync(productId, pricePointId,
 Use this endpoint to archive a product price point.
 
 ```java
-CompletableFuture<ProductPricePointResponse> archiveProductPricePointAsync(
+ProductPricePointResponse archiveProductPricePoint(
     final int productId,
     final int pricePointId)
 ```
@@ -349,14 +349,14 @@ CompletableFuture<ProductPricePointResponse> archiveProductPricePointAsync(
 int productId = 202;
 int pricePointId = 10;
 
-productPricePointsController.archiveProductPricePointAsync(productId, pricePointId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductPricePointResponse result = productPricePointsController.archiveProductPricePoint(productId, pricePointId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -392,7 +392,7 @@ productPricePointsController.archiveProductPricePointAsync(productId, pricePoint
 Use this endpoint to unarchive an archived product price point.
 
 ```java
-CompletableFuture<ProductPricePointResponse> unarchiveProductPricePointAsync(
+ProductPricePointResponse unarchiveProductPricePoint(
     final int productId,
     final int pricePointId)
 ```
@@ -414,14 +414,14 @@ CompletableFuture<ProductPricePointResponse> unarchiveProductPricePointAsync(
 int productId = 202;
 int pricePointId = 10;
 
-productPricePointsController.unarchiveProductPricePointAsync(productId, pricePointId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductPricePointResponse result = productPricePointsController.unarchiveProductPricePoint(productId, pricePointId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -459,7 +459,7 @@ Use this endpoint to make a product price point the default for the product.
 Note: Custom product price points are not able to be set as the default for a product.
 
 ```java
-CompletableFuture<ProductPricePointResponse> setDefaultPricePointForProductAsync(
+ProductPricePointResponse setDefaultPricePointForProduct(
     final int productId,
     final int pricePointId)
 ```
@@ -481,14 +481,14 @@ CompletableFuture<ProductPricePointResponse> setDefaultPricePointForProductAsync
 int productId = 202;
 int pricePointId = 10;
 
-productPricePointsController.setDefaultPricePointForProductAsync(productId, pricePointId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductPricePointResponse result = productPricePointsController.setDefaultPricePointForProduct(productId, pricePointId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -524,7 +524,7 @@ productPricePointsController.setDefaultPricePointForProductAsync(productId, pric
 Use this endpoint to create multiple product price points in one request.
 
 ```java
-CompletableFuture<BulkCreateProductPricePointsResponse> createProductPricePointsAsync(
+BulkCreateProductPricePointsResponse createProductPricePoints(
     final int productId,
     final BulkCreateProductPricePointsRequest body)
 ```
@@ -582,14 +582,14 @@ BulkCreateProductPricePointsRequest body = new BulkCreateProductPricePointsReque
 )
 .build();
 
-productPricePointsController.createProductPricePointsAsync(productId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BulkCreateProductPricePointsResponse result = productPricePointsController.createProductPricePoints(productId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -631,7 +631,7 @@ When creating currency prices, they need to mirror the structure of your primary
 Note: Currency Prices are not able to be created for custom product price points.
 
 ```java
-CompletableFuture<ProductPricePointCurrencyPrice> createProductCurrencyPricesAsync(
+ProductPricePointCurrencyPrice createProductCurrencyPrices(
     final int productPricePointId,
     final CreateProductCurrencyPricesRequest body)
 ```
@@ -656,40 +656,40 @@ CreateProductCurrencyPricesRequest body = new CreateProductCurrencyPricesRequest
         new CreateProductCurrencyPrice.Builder(
             "EUR",
             60,
-            CurrencyPriceRoleEnum.BASELINE
+            CurrencyPriceRole.BASELINE
         )
         .build(),
         new CreateProductCurrencyPrice.Builder(
             "EUR",
             30,
-            CurrencyPriceRoleEnum.TRIAL
+            CurrencyPriceRole.TRIAL
         )
         .build(),
         new CreateProductCurrencyPrice.Builder(
             "EUR",
             100,
-            CurrencyPriceRoleEnum.INITIAL
+            CurrencyPriceRole.INITIAL
         )
         .build()
     )
 )
 .build();
 
-productPricePointsController.createProductCurrencyPricesAsync(productPricePointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ProductPricePointCurrencyPrice result = productPricePointsController.createProductCurrencyPrices(productPricePointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ProductPricePointsCurrencyPricesJson422ErrorException`](../../doc/models/product-price-points-currency-prices-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorMapResponseException`](../../doc/models/error-map-response-exception.md) |
 
 
 # Update Product Currency Prices
@@ -701,7 +701,7 @@ When updating the pricing, it needs to mirror the structure of your primary pric
 Note: Currency Prices are not able to be updated for custom product price points.
 
 ```java
-CompletableFuture<List<ProductPricePointCurrencyPrice>> updateProductCurrencyPricesAsync(
+List<ProductPricePointCurrencyPrice> updateProductCurrencyPrices(
     final int productPricePointId,
     final UpdateCurrencyPricesRequest body)
 ```
@@ -737,14 +737,14 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
 )
 .build();
 
-productPricePointsController.updateProductCurrencyPricesAsync(productPricePointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ProductPricePointCurrencyPrice> result = productPricePointsController.updateProductCurrencyPrices(productPricePointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -768,17 +768,17 @@ productPricePointsController.updateProductCurrencyPricesAsync(productPricePointI
 This method allows retrieval of a list of Products Price Points belonging to a Site.
 
 ```java
-CompletableFuture<ListProductPricePointsResponse> listAllProductPricePointsAsync(
+ListProductPricePointsResponse listAllProductPricePoints(
     final ListAllProductPricePointsDirection direction,
-    final IncludeNotNullEnum filterArchivedAt,
-    final BasicDateFieldEnum filterDateField,
+    final IncludeNotNull filterArchivedAt,
+    final BasicDateField filterDateField,
     final String filterEndDate,
     final String filterEndDatetime,
     final List<Integer> filterIds,
     final String filterStartDate,
     final String filterStartDatetime,
-    final List<PricePointTypeEnum> filterType,
-    final ListProductsPricePointsIncludeEnum include,
+    final PricePointType filterType,
+    final ListProductsPricePointsInclude include,
     final Integer page,
     final Integer perPage)
 ```
@@ -788,15 +788,15 @@ CompletableFuture<ListProductPricePointsResponse> listAllProductPricePointsAsync
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `direction` | [`ListAllProductPricePointsDirection`](../../doc/models/containers/list-all-product-price-points-direction.md) | Query, Optional | This is a container for one-of cases. |
-| `filterArchivedAt` | [`IncludeNotNullEnum`](../../doc/models/include-not-null-enum.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
-| `filterDateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
+| `filterArchivedAt` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
+| `filterDateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
 | `filterEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `filterEndDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
 | `filterIds` | `List<Integer>` | Query, Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |
 | `filterStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `filterStartDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `filterType` | [`List<PricePointTypeEnum>`](../../doc/models/price-point-type-enum.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=catalog,custom`. |
-| `include` | [`ListProductsPricePointsIncludeEnum`](../../doc/models/list-products-price-points-include-enum.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
+| `filterType` | [`PricePointType`](../../doc/models/price-point-type.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=catalog,custom`. |
+| `include` | [`ListProductsPricePointsInclude`](../../doc/models/list-products-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 
@@ -807,18 +807,18 @@ CompletableFuture<ListProductPricePointsResponse> listAllProductPricePointsAsync
 ## Example Usage
 
 ```java
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')ListProductsPricePointsIncludeEnum include = ListProductsPricePointsIncludeEnum.CURRENCY_PRICES;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')ListProductsPricePointsInclude include = ListProductsPricePointsInclude.CURRENCY_PRICES;
 Integer page = 2;
 Integer perPage = 50;
 
-productPricePointsController.listAllProductPricePointsAsync(null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), include, page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListProductPricePointsResponse result = productPricePointsController.listAllProductPricePoints(null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), include, page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

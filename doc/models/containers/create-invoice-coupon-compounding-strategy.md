@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`CompoundingStrategyEnum`](../../../doc/models/compounding-strategy-enum.md) | CreateInvoiceCouponCompoundingStrategy.fromCompoundingStrategy(CompoundingStrategyEnum compoundingStrategy) |
+| [`CompoundingStrategy`](../../../doc/models/compounding-strategy.md) | CreateInvoiceCouponCompoundingStrategy.fromCompoundingStrategy(CompoundingStrategy compoundingStrategy) |
 

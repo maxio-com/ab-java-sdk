@@ -13,7 +13,7 @@
 | `FirstName` | `String` | Optional | - | String getFirstName() | setFirstName(String firstName) |
 | `LastName` | `String` | Optional | - | String getLastName() | setLastName(String lastName) |
 | `CustomerId` | `Integer` | Optional | - | Integer getCustomerId() | setCustomerId(Integer customerId) |
-| `CurrentVault` | `String` | Optional | - | String getCurrentVault() | setCurrentVault(String currentVault) |
+| `CurrentVault` | [`BankAccountVault`](../../doc/models/bank-account-vault.md) | Optional | The vault that stores the payment profile with the provided vault_token. | BankAccountVault getCurrentVault() | setCurrentVault(BankAccountVault currentVault) |
 | `VaultToken` | `String` | Optional | - | String getVaultToken() | setVaultToken(String vaultToken) |
 | `BillingAddress` | `String` | Optional | - | String getBillingAddress() | setBillingAddress(String billingAddress) |
 | `BillingCity` | `String` | Optional | - | String getBillingCity() | setBillingCity(String billingCity) |
@@ -41,7 +41,7 @@
   "first_name": "first_name2",
   "last_name": "last_name0",
   "customer_id": 228,
-  "current_vault": "current_vault2"
+  "current_vault": "stripe_connect"
 }
 ```
 

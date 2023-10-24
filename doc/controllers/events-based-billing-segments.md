@@ -25,7 +25,7 @@ This endpoint creates a new Segment for a Component with segmented Metric. It al
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```java
-CompletableFuture<SegmentResponse> createSegmentAsync(
+SegmentResponse createSegment(
     final String componentId,
     final String pricePointId,
     final CreateSegmentRequest body)
@@ -79,14 +79,14 @@ CreateSegmentRequest body = new CreateSegmentRequest.Builder(
 )
 .build();
 
-eventsBasedBillingSegmentsController.createSegmentAsync(componentId, pricePointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SegmentResponse result = eventsBasedBillingSegmentsController.createSegment(componentId, pricePointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -96,7 +96,7 @@ eventsBasedBillingSegmentsController.createSegmentAsync(componentId, pricePointI
 | 401 | Unauthorized | `ApiException` |
 | 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ComponentsPricePointsSegmentsJson422ErrorException`](../../doc/models/components-price-points-segments-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentErrorsException`](../../doc/models/event-based-billing-segment-errors-exception.md) |
 
 
 # List Segments for Price Point
@@ -108,7 +108,7 @@ You can pass `page` and `per_page` parameters in order to access all of the segm
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```java
-CompletableFuture<ListSegmentsResponse> listSegmentsForPricePointAsync(
+ListSegmentsResponse listSegmentsForPricePoint(
     final String componentId,
     final String pricePointId,
     final Integer page,
@@ -144,14 +144,14 @@ String pricePointId = "price_point_id8";
 Integer page = 2;
 Integer perPage = 50;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
-eventsBasedBillingSegmentsController.listSegmentsForPricePointAsync(componentId, pricePointId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListSegmentsResponse result = eventsBasedBillingSegmentsController.listSegmentsForPricePoint(componentId, pricePointId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -161,7 +161,7 @@ eventsBasedBillingSegmentsController.listSegmentsForPricePointAsync(componentId,
 | 401 | Unauthorized | `ApiException` |
 | 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ComponentsPricePointsSegmentsJson422Error2Exception`](../../doc/models/components-price-points-segments-json-422-error-2-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingListSegmentsErrorsException`](../../doc/models/event-based-billing-list-segments-errors-exception.md) |
 
 
 # Update Segment
@@ -171,7 +171,7 @@ This endpoint updates a single Segment for a Component with a segmented Metric. 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```java
-CompletableFuture<SegmentResponse> updateSegmentAsync(
+SegmentResponse updateSegment(
     final String componentId,
     final String pricePointId,
     final double id,
@@ -197,14 +197,14 @@ CompletableFuture<SegmentResponse> updateSegmentAsync(
 String componentId = "component_id8";
 String pricePointId = "price_point_id8";
 double id = 60D;
-eventsBasedBillingSegmentsController.updateSegmentAsync(componentId, pricePointId, id, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SegmentResponse result = eventsBasedBillingSegmentsController.updateSegment(componentId, pricePointId, id, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -214,7 +214,7 @@ eventsBasedBillingSegmentsController.updateSegmentAsync(componentId, pricePointI
 | 401 | Unauthorized | `ApiException` |
 | 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ComponentsPricePointsSegmentsIdJson422ErrorException`](../../doc/models/components-price-points-segments-id-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentErrorsException`](../../doc/models/event-based-billing-segment-errors-exception.md) |
 
 
 # Delete Segment
@@ -224,7 +224,7 @@ This endpoint allows you to delete a Segment with specified ID.
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```java
-CompletableFuture<Void> deleteSegmentAsync(
+Void deleteSegment(
     final String componentId,
     final String pricePointId,
     final double id)
@@ -249,14 +249,13 @@ String componentId = "component_id8";
 String pricePointId = "price_point_id8";
 double id = 60D;
 
-eventsBasedBillingSegmentsController.deleteSegmentAsync(componentId, pricePointId, id).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    eventsBasedBillingSegmentsController.deleteSegment(componentId, pricePointId, id);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -278,7 +277,7 @@ If any of the records contain an error the whole request would fail and none of 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```java
-CompletableFuture<ListSegmentsResponse> createSegmentsAsync(
+ListSegmentsResponse createSegments(
     final String componentId,
     final String pricePointId,
     final BulkCreateSegments body)
@@ -301,14 +300,14 @@ CompletableFuture<ListSegmentsResponse> createSegmentsAsync(
 ```java
 String componentId = "component_id8";
 String pricePointId = "price_point_id8";
-eventsBasedBillingSegmentsController.createSegmentsAsync(componentId, pricePointId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListSegmentsResponse result = eventsBasedBillingSegmentsController.createSegments(componentId, pricePointId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -318,7 +317,7 @@ eventsBasedBillingSegmentsController.createSegmentsAsync(componentId, pricePoint
 | 401 | Unauthorized | `ApiException` |
 | 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ComponentsPricePointsSegmentsBulkJson422ErrorException`](../../doc/models/components-price-points-segments-bulk-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentException`](../../doc/models/event-based-billing-segment-exception.md) |
 
 
 # Update Segments
@@ -330,7 +329,7 @@ If any of the records contain an error the whole request would fail and none of 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
 ```java
-CompletableFuture<ListSegmentsResponse> updateSegmentsAsync(
+ListSegmentsResponse updateSegments(
     final String componentId,
     final String pricePointId,
     final BulkUpdateSegments body)
@@ -353,14 +352,14 @@ CompletableFuture<ListSegmentsResponse> updateSegmentsAsync(
 ```java
 String componentId = "component_id8";
 String pricePointId = "price_point_id8";
-eventsBasedBillingSegmentsController.updateSegmentsAsync(componentId, pricePointId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListSegmentsResponse result = eventsBasedBillingSegmentsController.updateSegments(componentId, pricePointId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -370,5 +369,5 @@ eventsBasedBillingSegmentsController.updateSegmentsAsync(componentId, pricePoint
 | 401 | Unauthorized | `ApiException` |
 | 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ComponentsPricePointsSegmentsBulkJson422Error2Exception`](../../doc/models/components-price-points-segments-bulk-json-422-error-2-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentException`](../../doc/models/event-based-billing-segment-exception.md) |
 

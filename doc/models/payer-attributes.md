@@ -26,12 +26,16 @@
 | `VatNumber` | `String` | Optional | - | String getVatNumber() | setVatNumber(String vatNumber) |
 | `TaxExempt` | `String` | Optional | - | String getTaxExempt() | setTaxExempt(String taxExempt) |
 | `TaxExemptReason` | `String` | Optional | - | String getTaxExemptReason() | setTaxExemptReason(String taxExemptReason) |
-| `Metafields` | `Object` | Optional | - | Object getMetafields() | setMetafields(Object metafields) |
+| `Metafields` | `Map<String, String>` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. | Map<String, String> getMetafields() | setMetafields(Map<String, String> metafields) |
 
 ## Example (as JSON)
 
 ```json
 {
+  "metafields": {
+    "custom_field_name_1": "custom_field_value_1",
+    "custom_field_name_2": "custom_field_value_2"
+  },
   "first_name": "first_name4",
   "last_name": "last_name2",
   "email": "email2",

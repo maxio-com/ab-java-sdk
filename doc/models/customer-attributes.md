@@ -25,11 +25,17 @@
 | `Verified` | `Boolean` | Optional | - | Boolean getVerified() | setVerified(Boolean verified) |
 | `TaxExempt` | `Boolean` | Optional | (Optional) The tax_exempt status of the customer. Acceptable values are true or 1 for true and false or 0 for false. | Boolean getTaxExempt() | setTaxExempt(Boolean taxExempt) |
 | `VatNumber` | `String` | Optional | (Optional) Supplying the VAT number allows EU customer’s to opt-out of the Value Added Tax assuming the merchant address and customer billing address are not within the same EU country. It’s important to omit the country code from the VAT number upon entry. Otherwise, taxes will be assessed upon the purchase. | String getVatNumber() | setVatNumber(String vatNumber) |
+| `Metafields` | `Map<String, String>` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. | Map<String, String> getMetafields() | setMetafields(Map<String, String> metafields) |
+| `ParentId` | `Integer` | Optional | The parent ID in Chargify if applicable. Parent is another Customer object. | Integer getParentId() | setParentId(Integer parentId) |
 
 ## Example (as JSON)
 
 ```json
 {
+  "metafields": {
+    "custom_field_name_1": "custom_field_value_1",
+    "custom_field_name_2": "custom_field_value_2"
+  },
   "first_name": "first_name4",
   "last_name": "last_name2",
   "email": "email2",

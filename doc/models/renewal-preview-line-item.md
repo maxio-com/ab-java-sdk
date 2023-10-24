@@ -16,6 +16,7 @@
 | `DiscountAmountInCents` | `Integer` | Optional | - | Integer getDiscountAmountInCents() | setDiscountAmountInCents(Integer discountAmountInCents) |
 | `TaxableAmountInCents` | `Integer` | Optional | - | Integer getTaxableAmountInCents() | setTaxableAmountInCents(Integer taxableAmountInCents) |
 | `ProductId` | `Integer` | Optional | - | Integer getProductId() | setProductId(Integer productId) |
+| `ProductName` | `String` | Optional | - | String getProductName() | setProductName(String productName) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
 | `ComponentName` | `String` | Optional | - | String getComponentName() | setComponentName(String componentName) |

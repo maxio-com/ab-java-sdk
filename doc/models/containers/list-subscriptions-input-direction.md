@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`SortingDirectionEnum`](../../../doc/models/sorting-direction-enum.md) | ListSubscriptionsInputDirection.fromSortingDirection(SortingDirectionEnum sortingDirection) |
+| [`SortingDirection`](../../../doc/models/sorting-direction.md) | ListSubscriptionsInputDirection.fromSortingDirection(SortingDirection sortingDirection) |
 

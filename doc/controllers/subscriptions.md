@@ -638,7 +638,7 @@ Each of them is required.
 ```
 
 ```java
-CompletableFuture<SubscriptionResponse> createSubscriptionAsync(
+SubscriptionResponse createSubscription(
     final CreateSubscriptionRequest body)
 ```
 
@@ -672,18 +672,36 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
             .country("US")
             .phone("(617) 111 - 0000")
             .build())
+        .creditCardAttributes(new PaymentProfileAttributes.Builder()
+            .firstName("Joe")
+            .lastName("Smith")
+            .fullNumber("4111111111111111")
+            .cardType(CardType.VISA)
+            .expirationMonth(PaymentProfileAttributesExpirationMonth.fromMString(
+                "1"
+            ))
+            .expirationYear(PaymentProfileAttributesExpirationYear.fromMString(
+                "2021"
+            ))
+            .billingAddress("123 Mass Ave.")
+            .billingAddress2("billing_address_22")
+            .billingCity("Boston")
+            .billingState("MA")
+            .billingCountry("US")
+            .billingZip("02120")
+            .build())
         .build()
 )
 .build();
 
-subscriptionsController.createSubscriptionAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionResponse result = subscriptionsController.createSubscription(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -845,7 +863,7 @@ Use the query strings below to search for a subscription using the criteria avai
 Self-Service Page token for the subscriptions is not returned by default. If this information is desired, the include[]=self_service_page_token parameter must be provided with the request.
 
 ```java
-CompletableFuture<List<SubscriptionResponse>> listSubscriptionsAsync(
+List<SubscriptionResponse> listSubscriptions(
     final ListSubscriptionsInput input)
 ```
 
@@ -855,18 +873,18 @@ CompletableFuture<List<SubscriptionResponse>> listSubscriptionsAsync(
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `state` | [`SubscriptionStateEnum`](../../doc/models/subscription-state-enum.md) | Query, Optional | The current state of the subscription |
+| `state` | [`SubscriptionState`](../../doc/models/subscription-state.md) | Query, Optional | The current state of the subscription |
 | `product` | `Integer` | Query, Optional | The product id of the subscription. (Note that the product handle cannot be used.) |
 | `productPricePointId` | `Integer` | Query, Optional | The ID of the product price point. If supplied, product is required |
 | `coupon` | `Integer` | Query, Optional | The numeric id of the coupon currently applied to the subscription. (This can be found in the URL when editing a coupon. Note that the coupon code cannot be used.) |
-| `dateField` | [`SubscriptionDateFieldEnum`](../../doc/models/subscription-date-field-enum.md) | Query, Optional | The type of filter you'd like to apply to your search.  Allowed Values: , current_period_ends_at, current_period_starts_at, created_at, activated_at, canceled_at, expires_at, trial_started_at, trial_ended_at, updated_at |
+| `dateField` | [`SubscriptionDateField`](../../doc/models/subscription-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search.  Allowed Values: , current_period_ends_at, current_period_starts_at, created_at, activated_at, canceled_at, expires_at, trial_started_at, trial_ended_at, updated_at |
 | `startDate` | `LocalDate` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2022-07-01`. |
 | `endDate` | `LocalDate` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2022-08-01`. |
 | `startDatetime` | `LocalDateTime` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
 | `endDatetime` | `LocalDateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`. |
 | `metadata` | `Map<String, String>` | Query, Optional | The value of the metadata field specified in the parameter. Use in query `metadata[my-field]=value&metadata[other-field]=another_value`. |
 | `direction` | [`ListSubscriptionsInputDirection`](../../doc/models/containers/list-subscriptions-input-direction.md) | Query, Optional | This is a container for one-of cases. |
-| `sort` | [`SubscriptionSortEnum`](../../doc/models/subscription-sort-enum.md) | Query, Optional | The attribute by which to sort<br>**Default**: `SubscriptionSortEnum.SIGNUP_DATE` |
+| `sort` | [`SubscriptionSort`](../../doc/models/subscription-sort.md) | Query, Optional | The attribute by which to sort<br>**Default**: `SubscriptionSort.SIGNUP_DATE` |
 
 ## Response Type
 
@@ -882,17 +900,17 @@ ListSubscriptionsInput listSubscriptionsInput = new ListSubscriptionsInput.Build
     .endDate(DateTimeHelper.fromSimpleDate("2022-08-01"))
     .startDatetime(DateTimeHelper.fromRfc8601DateTime("2022-07-01 09:00:05"))
     .endDatetime(DateTimeHelper.fromRfc8601DateTime("2022-08-01 10:00:05"))
-    .sort(SubscriptionSortEnum.SIGNUP_DATE)
+    .sort(SubscriptionSort.SIGNUP_DATE)
     .build();
 
-subscriptionsController.listSubscriptionsAsync(listSubscriptionsInput).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<SubscriptionResponse> result = subscriptionsController.listSubscriptions(listSubscriptionsInput);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -941,7 +959,7 @@ For a subscription using Calendar Billing, setting the next billing date is a bi
 Note: If you change the product associated with a subscription that contains a `snap_date` and immediately `READ/GET` the subscription data, it will still contain evidence of the existing `snap_date`. This is due to the fact that a product change is instantanous and only affects the product associated with a subscription. After the `next_billing` date arrives, the `snap_day` associated with the subscription will return to `null.` Another way of looking at this is that you willl have to wait for the next billing cycle to arrive before the `snap_date` will reset to `null`.
 
 ```java
-CompletableFuture<SubscriptionResponse> updateSubscriptionAsync(
+SubscriptionResponse updateSubscription(
     final String subscriptionId,
     final UpdateSubscriptionRequest body)
 ```
@@ -973,123 +991,13 @@ UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder(
 )
 .build();
 
-subscriptionsController.updateSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionResponse result = subscriptionsController.updateSubscription(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "subscription": {
-    "id": 18220670,
-    "state": "active",
-    "trial_started_at": null,
-    "trial_ended_at": null,
-    "activated_at": "2017-06-27T13:45:15-05:00",
-    "created_at": "2017-06-27T13:45:13-05:00",
-    "updated_at": "2017-06-30T09:26:50-05:00",
-    "expires_at": null,
-    "balance_in_cents": 10000,
-    "current_period_ends_at": "2017-06-30T12:00:00-05:00",
-    "next_assessment_at": "2017-06-30T12:00:00-05:00",
-    "canceled_at": null,
-    "cancellation_message": null,
-    "next_product_id": null,
-    "cancel_at_end_of_period": false,
-    "payment_collection_method": "automatic",
-    "snap_day": "end",
-    "cancellation_method": null,
-    "current_period_started_at": "2017-06-27T13:45:13-05:00",
-    "previous_state": "active",
-    "signup_payment_id": 191819284,
-    "signup_revenue": "0.00",
-    "delayed_cancel_at": null,
-    "coupon_code": null,
-    "total_revenue_in_cents": 0,
-    "product_price_in_cents": 0,
-    "product_version_number": 1,
-    "payment_type": null,
-    "referral_code": "d3pw7f",
-    "coupon_use_count": null,
-    "coupon_uses_allowed": null,
-    "reason_code": null,
-    "automatically_resume_at": null,
-    "current_billing_amount_in_cents": 10000,
-    "receives_invoice_emails": false,
-    "customer": {
-      "id": 17780587,
-      "first_name": "Catie",
-      "last_name": "Test",
-      "organization": "Acme, Inc.",
-      "email": "catie@example.com",
-      "created_at": "2017-06-27T13:01:05-05:00",
-      "updated_at": "2017-06-30T09:23:10-05:00",
-      "reference": "123ABC",
-      "address": "123 Anywhere Street",
-      "address_2": "Apartment #10",
-      "city": "Los Angeles",
-      "state": "CA",
-      "zip": "90210",
-      "country": "US",
-      "phone": "555-555-5555",
-      "portal_invite_last_sent_at": "2017-06-27T13:45:16-05:00",
-      "portal_invite_last_accepted_at": null,
-      "verified": true,
-      "portal_customer_created_at": "2017-06-27T13:01:08-05:00",
-      "cc_emails": "support@example.com",
-      "tax_exempt": true
-    },
-    "product": {
-      "id": 4470347,
-      "name": "Zero Dollar Product",
-      "handle": "zero-dollar-product",
-      "description": "",
-      "accounting_code": "",
-      "request_credit_card": true,
-      "expiration_interval": null,
-      "expiration_interval_unit": "never",
-      "created_at": "2017-03-23T10:54:12-05:00",
-      "updated_at": "2017-04-20T15:18:46-05:00",
-      "price_in_cents": 0,
-      "interval": 1,
-      "interval_unit": "month",
-      "initial_charge_in_cents": null,
-      "trial_price_in_cents": null,
-      "trial_interval": null,
-      "trial_interval_unit": "month",
-      "archived_at": null,
-      "require_credit_card": false,
-      "return_params": "",
-      "taxable": false,
-      "update_return_url": "",
-      "tax_code": "",
-      "initial_charge_after_trial": false,
-      "version_number": 1,
-      "update_return_params": "",
-      "product_family": {
-        "id": 997233,
-        "name": "Acme Products",
-        "description": "",
-        "handle": "acme-products",
-        "accounting_code": null
-      },
-      "public_signup_pages": [
-        {
-          "id": 316810,
-          "return_url": "",
-          "return_params": "",
-          "url": "https://general-goods.chargify.com/subscribe/69x825m78v3d/zero-dollar-product"
-        }
-      ]
-    }
-  }
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
 }
 ```
 
@@ -1109,9 +1017,9 @@ Use this endpoint to find subscription details.
 Self-Service Page token for the subscription is not returned by default. If this information is desired, the include[]=self_service_page_token parameter must be provided with the request.
 
 ```java
-CompletableFuture<SubscriptionResponse> readSubscriptionAsync(
+SubscriptionResponse readSubscription(
     final String subscriptionId,
-    final List<SubscriptionIncludeEnum> include)
+    final List<SubscriptionInclude> include)
 ```
 
 ## Parameters
@@ -1119,7 +1027,7 @@ CompletableFuture<SubscriptionResponse> readSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
-| `include` | [`List<SubscriptionIncludeEnum>`](../../doc/models/subscription-include-enum.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
+| `include` | [`List<SubscriptionInclude>`](../../doc/models/subscription-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
 
 ## Response Type
 
@@ -1129,152 +1037,13 @@ CompletableFuture<SubscriptionResponse> readSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-Liquid error: Value cannot be null. (Parameter 'key')subscriptionsController.readSubscriptionAsync(subscriptionId, Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+Liquid error: Value cannot be null. (Parameter 'key')try {
+    SubscriptionResponse result = subscriptionsController.readSubscription(subscriptionId, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "subscription": {
-    "id": 15236915,
-    "state": "active",
-    "balance_in_cents": 0,
-    "total_revenue_in_cents": 14000,
-    "product_price_in_cents": 1000,
-    "product_version_number": 7,
-    "current_period_ends_at": "2016-11-15T14:48:10-05:00",
-    "next_assessment_at": "2016-11-15T14:48:10-05:00",
-    "trial_started_at": null,
-    "trial_ended_at": null,
-    "activated_at": "2016-11-14T14:48:12-05:00",
-    "expires_at": null,
-    "created_at": "2016-11-14T14:48:10-05:00",
-    "updated_at": "2016-11-14T15:24:41-05:00",
-    "cancellation_message": null,
-    "cancellation_method": null,
-    "cancel_at_end_of_period": null,
-    "canceled_at": null,
-    "current_period_started_at": "2016-11-14T14:48:10-05:00",
-    "previous_state": "active",
-    "signup_payment_id": 162269766,
-    "signup_revenue": "260.00",
-    "delayed_cancel_at": null,
-    "coupon_code": "5SNN6HFK3GBH",
-    "payment_collection_method": "automatic",
-    "snap_day": null,
-    "reason_code": null,
-    "receives_invoice_emails": false,
-    "net_terms": 0,
-    "customer": {
-      "first_name": "Curtis",
-      "last_name": "Test",
-      "email": "curtis@example.com",
-      "cc_emails": "jeff@example.com",
-      "organization": "",
-      "reference": null,
-      "id": 14714298,
-      "created_at": "2016-11-14T14:48:10-05:00",
-      "updated_at": "2016-11-14T14:48:13-05:00",
-      "address": "123 Anywhere Street",
-      "address_2": "",
-      "city": "Boulder",
-      "state": "CO",
-      "zip": "80302",
-      "country": "US",
-      "phone": "",
-      "verified": false,
-      "portal_customer_created_at": "2016-11-14T14:48:13-05:00",
-      "portal_invite_last_sent_at": "2016-11-14T14:48:13-05:00",
-      "portal_invite_last_accepted_at": null,
-      "tax_exempt": false,
-      "vat_number": "012345678"
-    },
-    "product": {
-      "id": 3792003,
-      "name": "$10 Basic Plan",
-      "handle": "basic",
-      "description": "lorem ipsum",
-      "accounting_code": "basic",
-      "price_in_cents": 1000,
-      "interval": 1,
-      "interval_unit": "day",
-      "initial_charge_in_cents": null,
-      "expiration_interval": null,
-      "expiration_interval_unit": "never",
-      "trial_price_in_cents": null,
-      "trial_interval": null,
-      "trial_interval_unit": "month",
-      "initial_charge_after_trial": false,
-      "return_params": "",
-      "request_credit_card": false,
-      "require_credit_card": false,
-      "created_at": "2016-03-24T13:38:39-04:00",
-      "updated_at": "2016-11-03T13:03:05-04:00",
-      "archived_at": null,
-      "update_return_url": "",
-      "update_return_params": "",
-      "product_family": {
-        "id": 527890,
-        "name": "Acme Projects",
-        "handle": "billing-plans",
-        "accounting_code": null,
-        "description": ""
-      },
-      "public_signup_pages": [
-        {
-          "id": 281054,
-          "url": "https://general-goods.chargify.com/subscribe/kqvmfrbgd89q/basic"
-        },
-        {
-          "id": 281240,
-          "url": "https://general-goods.chargify.com/subscribe/dkffht5dxfd8/basic"
-        },
-        {
-          "id": 282694,
-          "url": "https://general-goods.chargify.com/subscribe/jwffwgdd95s8/basic"
-        }
-      ],
-      "taxable": false,
-      "version_number": 7,
-      "product_price_point_name": "Default"
-    },
-    "credit_card": {
-      "id": 10191713,
-      "payment_type": "credit_card",
-      "first_name": "Curtis",
-      "last_name": "Test",
-      "masked_card_number": "XXXX-XXXX-XXXX-1",
-      "card_type": "bogus",
-      "expiration_month": 1,
-      "expiration_year": 2026,
-      "billing_address": "123 Anywhere Street",
-      "billing_address_2": "",
-      "billing_city": "Boulder",
-      "billing_state": null,
-      "billing_country": "",
-      "billing_zip": "80302",
-      "current_vault": "bogus",
-      "vault_token": "1",
-      "customer_vault_token": null,
-      "customer_id": 14714298
-    },
-    "payment_type": "credit_card",
-    "referral_code": "w7kjc9",
-    "next_product_id": null,
-    "coupon_use_count": 1,
-    "coupon_uses_allowed": 1,
-    "stored_credential_transaction_id": 166411599220288,
-    "on_hold_at": null,
-    "scheduled_cancellation_at": "2016-11-14T14:48:13-05:00"
-  }
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
 }
 ```
 
@@ -1302,7 +1071,7 @@ When passing `current_period_starts_at` some validations are made:
 If unpermitted parameters are sent, a 400 HTTP response is sent along with a string giving the reason for the problem.
 
 ```java
-CompletableFuture<Void> overrideSubscriptionAsync(
+Void overrideSubscription(
     final String subscriptionId,
     final OverrideSubscriptionRequest body)
 ```
@@ -1332,14 +1101,13 @@ OverrideSubscriptionRequest body = new OverrideSubscriptionRequest.Builder(
 )
 .build();
 
-subscriptionsController.overrideSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionsController.overrideSubscription(subscriptionId, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -1355,7 +1123,7 @@ subscriptionsController.overrideSubscriptionAsync(subscriptionId, body).thenAcce
 Use this endpoint to find a subscription by its reference.
 
 ```java
-CompletableFuture<SubscriptionResponse> readSubscriptionByReferenceAsync(
+SubscriptionResponse readSubscriptionByReference(
     final String reference)
 ```
 
@@ -1363,7 +1131,7 @@ CompletableFuture<SubscriptionResponse> readSubscriptionByReferenceAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `reference` | `String` | Query, Optional | - |
+| `reference` | `String` | Query, Optional | Subscription reference |
 
 ## Response Type
 
@@ -1372,14 +1140,14 @@ CompletableFuture<SubscriptionResponse> readSubscriptionByReferenceAsync(
 ## Example Usage
 
 ```java
-subscriptionsController.readSubscriptionByReferenceAsync(null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionResponse result = subscriptionsController.readSubscriptionByReference(null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1396,10 +1164,10 @@ If you need to remove subscriptions from a live site, please contact support to 
 The query params will be: `?ack={customer_id}&cascade[]=customer&cascade[]=payment_profile`
 
 ```java
-CompletableFuture<Void> purgeSubscriptionAsync(
+Void purgeSubscription(
     final String subscriptionId,
-    final Integer ack,
-    final List<SubscriptionPurgeTypeEnum> cascade)
+    final int ack,
+    final List<SubscriptionPurgeType> cascade)
 ```
 
 ## Parameters
@@ -1407,8 +1175,8 @@ CompletableFuture<Void> purgeSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
-| `ack` | `Integer` | Query, Optional | id of the customer. |
-| `cascade` | [`List<SubscriptionPurgeTypeEnum>`](../../doc/models/subscription-purge-type-enum.md) | Query, Optional | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
+| `ack` | `int` | Query, Required | id of the customer. |
+| `cascade` | [`List<SubscriptionPurgeType>`](../../doc/models/subscription-purge-type.md) | Query, Optional | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
 
 ## Response Type
 
@@ -1418,14 +1186,14 @@ CompletableFuture<Void> purgeSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-Liquid error: Value cannot be null. (Parameter 'key')subscriptionsController.purgeSubscriptionAsync(subscriptionId, null, Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+int ack = 252;
+Liquid error: Value cannot be null. (Parameter 'key')try {
+    subscriptionsController.purgeSubscription(subscriptionId, ack, Liquid error: Value cannot be null. (Parameter 'key'));
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -1440,7 +1208,7 @@ Liquid error: Value cannot be null. (Parameter 'key')subscriptionsController.pur
 Use this endpoint to update a subscription's prepaid configuration.
 
 ```java
-CompletableFuture<PrepaidConfigurationResponse> createPrepaidSubscriptionAsync(
+PrepaidConfigurationResponse createPrepaidSubscription(
     final String subscriptionId,
     final UpsertPrepaidConfigurationRequest body)
 ```
@@ -1470,14 +1238,14 @@ UpsertPrepaidConfigurationRequest body = new UpsertPrepaidConfigurationRequest.B
 )
 .build();
 
-subscriptionsController.createPrepaidSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    PrepaidConfigurationResponse result = subscriptionsController.createPrepaidSubscription(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1524,7 +1292,7 @@ You can pass shipping and billing addresses and still decide not to calculate ta
 If you'd like to calculate subscriptions that do not include tax, please feel free to leave off the billing information.
 
 ```java
-CompletableFuture<SubscriptionPreviewResponse> previewSubscriptionAsync(
+SubscriptionPreviewResponse previewSubscription(
     final CreateSubscriptionRequest body)
 ```
 
@@ -1548,14 +1316,14 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
 )
 .build();
 
-subscriptionsController.previewSubscriptionAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionPreviewResponse result = subscriptionsController.previewSubscription(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1574,7 +1342,9 @@ subscriptionsController.previewSubscriptionAsync(body).thenAccept(result -> {
           "taxable_amount_in_cents": 0,
           "product_id": 1,
           "product_handle": "gold-product",
-          "product_name": "Gold Product"
+          "product_name": "Gold Product",
+          "period_range_start": "13 Oct 2023",
+          "period_range_end": "13 Nov 2023"
         },
         {
           "transaction_type": "charge",
@@ -1688,7 +1458,7 @@ Passing in a coupon code as a query parameter will add the code to the subscript
 For this reason, using this query parameter on this endpoint has been deprecated in favor of using the request body parameters as described below. When passing in request body parameters, the list of coupon codes will simply be added to any existing list of codes on the subscription.
 
 ```java
-CompletableFuture<SubscriptionResponse> applyCouponToSubscriptionAsync(
+SubscriptionResponse applyCouponToSubscription(
     final String subscriptionId,
     final String code,
     final AddCouponsRequest body)
@@ -1699,7 +1469,7 @@ CompletableFuture<SubscriptionResponse> applyCouponToSubscriptionAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
-| `code` | `String` | Query, Optional | - |
+| `code` | `String` | Query, Optional | A code for the coupon that would be applied to a subscription |
 | `body` | [`AddCouponsRequest`](../../doc/models/add-coupons-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1717,163 +1487,13 @@ AddCouponsRequest body = new AddCouponsRequest.Builder()
     ))
     .build();
 
-subscriptionsController.applyCouponToSubscriptionAsync(subscriptionId, null, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionResponse result = subscriptionsController.applyCouponToSubscription(subscriptionId, null, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
-
-## Example Response *(as JSON)*
-
-```json
-{
-  "subscription": {
-    "id": 21607180,
-    "state": "active",
-    "trial_started_at": null,
-    "trial_ended_at": null,
-    "activated_at": "2018-04-20T14:20:57-05:00",
-    "created_at": "2018-04-20T14:20:57-05:00",
-    "updated_at": "2018-05-11T13:53:44-05:00",
-    "expires_at": null,
-    "balance_in_cents": 49000,
-    "current_period_ends_at": "2018-05-12T11:33:03-05:00",
-    "next_assessment_at": "2018-05-12T11:33:03-05:00",
-    "canceled_at": null,
-    "cancellation_message": null,
-    "next_product_id": null,
-    "cancel_at_end_of_period": false,
-    "payment_collection_method": "remittance",
-    "snap_day": null,
-    "cancellation_method": null,
-    "current_period_started_at": "2018-05-11T11:33:03-05:00",
-    "previous_state": "active",
-    "signup_payment_id": 237154761,
-    "signup_revenue": "0.00",
-    "delayed_cancel_at": null,
-    "coupon_code": "COUPONA",
-    "total_revenue_in_cents": 52762,
-    "product_price_in_cents": 100000,
-    "product_version_number": 2,
-    "payment_type": "credit_card",
-    "referral_code": "x45nc8",
-    "coupon_use_count": 0,
-    "coupon_uses_allowed": 1,
-    "reason_code": null,
-    "automatically_resume_at": null,
-    "coupon_codes": [
-      "COUPONA",
-      "COUPONB"
-    ],
-    "customer": {
-      "id": 21259051,
-      "first_name": "K",
-      "last_name": "C",
-      "organization": "",
-      "email": "example@chargify.com",
-      "created_at": "2018-04-20T14:20:57-05:00",
-      "updated_at": "2018-04-23T15:29:28-05:00",
-      "reference": null,
-      "address": "",
-      "address_2": "",
-      "city": "",
-      "state": "",
-      "zip": "",
-      "country": "",
-      "phone": "",
-      "portal_invite_last_sent_at": "2018-04-20T14:20:59-05:00",
-      "portal_invite_last_accepted_at": null,
-      "verified": false,
-      "portal_customer_created_at": "2018-04-20T14:20:59-05:00",
-      "cc_emails": "",
-      "tax_exempt": false
-    },
-    "product": {
-      "id": 4581816,
-      "name": "Basic",
-      "handle": "basic",
-      "description": "",
-      "accounting_code": "",
-      "request_credit_card": true,
-      "expiration_interval": null,
-      "expiration_interval_unit": "never",
-      "created_at": "2017-11-02T15:00:11-05:00",
-      "updated_at": "2018-04-10T09:02:59-05:00",
-      "price_in_cents": 100000,
-      "interval": 1,
-      "interval_unit": "month",
-      "initial_charge_in_cents": 100000,
-      "trial_price_in_cents": 1000,
-      "trial_interval": 10,
-      "trial_interval_unit": "month",
-      "archived_at": null,
-      "require_credit_card": true,
-      "return_params": "",
-      "taxable": false,
-      "update_return_url": "",
-      "tax_code": "",
-      "initial_charge_after_trial": false,
-      "version_number": 2,
-      "update_return_params": "",
-      "product_family": {
-        "id": 1025627,
-        "name": "My Product Family",
-        "description": "",
-        "handle": "acme-products",
-        "accounting_code": null
-      },
-      "public_signup_pages": [
-        {
-          "id": 333589,
-          "return_url": "",
-          "return_params": "",
-          "url": "https://general-goods.chargifypay.com/subscribe/hbwtd98j3hk2/basic"
-        },
-        {
-          "id": 335926,
-          "return_url": "",
-          "return_params": "",
-          "url": "https://general-goods.chargifypay.com/subscribe/g366zy67c7rm/basic"
-        },
-        {
-          "id": 345555,
-          "return_url": "",
-          "return_params": "",
-          "url": "https://general-goods.chargifypay.com/subscribe/txqyyqk7d8rz/basic"
-        },
-        {
-          "id": 345556,
-          "return_url": "",
-          "return_params": "",
-          "url": "https://general-goods.chargifypay.com/subscribe/2zss3qpf4249/basic"
-        }
-      ]
-    },
-    "credit_card": {
-      "id": 14839830,
-      "first_name": "John",
-      "last_name": "Doe",
-      "masked_card_number": "XXXX-XXXX-XXXX-1",
-      "card_type": "bogus",
-      "expiration_month": 1,
-      "expiration_year": 2028,
-      "customer_id": 21259051,
-      "current_vault": "bogus",
-      "vault_token": "1",
-      "billing_address": null,
-      "billing_city": null,
-      "billing_state": null,
-      "billing_zip": "99999",
-      "billing_country": null,
-      "customer_vault_token": null,
-      "billing_address_2": null,
-      "payment_type": "credit_card"
-    }
-  }
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
 }
 ```
 
@@ -1891,7 +1511,7 @@ Use this endpoint to remove a coupon from an existing subscription.
 For more information on the expected behaviour of removing a coupon from a subscription, please see our documentation [here.](https://chargify.zendesk.com/hc/en-us/articles/4407896488987#removing-a-coupon)
 
 ```java
-CompletableFuture<String> deleteCouponFromSubscriptionAsync(
+String deleteCouponFromSubscription(
     final String subscriptionId,
     final String couponCode)
 ```
@@ -1912,14 +1532,14 @@ CompletableFuture<String> deleteCouponFromSubscriptionAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-subscriptionsController.deleteCouponFromSubscriptionAsync(subscriptionId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    String result = subscriptionsController.deleteCouponFromSubscription(subscriptionId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response
@@ -1932,7 +1552,7 @@ subscriptionsController.deleteCouponFromSubscriptionAsync(subscriptionId, null).
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsRemoveCouponJson422ErrorException`](../../doc/models/subscriptions-remove-coupon-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionRemoveCouponErrorsException`](../../doc/models/subscription-remove-coupon-errors-exception.md) |
 
 
 # Activate Subscription
@@ -1982,7 +1602,7 @@ You can read more about the behavior of trialing subscriptions [here](https://ma
 When the `revert_on_failure` parameter is set to `true`, the subscription's state will remain as Trialing, we will void the invoice from activation and return any prepayments and credits applied to the invoice back to the subscription.
 
 ```java
-CompletableFuture<SubscriptionResponse> activateSubscriptionAsync(
+SubscriptionResponse activateSubscription(
     final String subscriptionId,
     final ActivateSubscriptionRequest body)
 ```
@@ -2002,19 +1622,19 @@ CompletableFuture<SubscriptionResponse> activateSubscriptionAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-subscriptionsController.activateSubscriptionAsync(subscriptionId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionResponse result = subscriptionsController.activateSubscription(subscriptionId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Bad Request | [`SubscriptionsActivateJson400ErrorException`](../../doc/models/subscriptions-activate-json-400-error-exception.md) |
+| 400 | Bad Request | [`NestedErrorResponseException`](../../doc/models/nested-error-response-exception.md) |
 

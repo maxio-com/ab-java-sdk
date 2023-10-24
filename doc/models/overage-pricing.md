@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `PricingScheme` | [`OveragePricingPricingScheme`](../../doc/models/containers/overage-pricing-pricing-scheme.md) | Required | This is a container for one-of cases. | OveragePricingPricingScheme getPricingScheme() | setPricingScheme(OveragePricingPricingScheme pricingScheme) |
-| `Prices` | [`List<OveragePricingPrices>`](../../doc/models/containers/overage-pricing-prices.md) | Optional | This is List of a container for one-of cases. | List<OveragePricingPrices> getPrices() | setPrices(List<OveragePricingPrices> prices) |
+| `Prices` | [`List<Price>`](../../doc/models/price.md) | Optional | - | List<Price> getPrices() | setPrices(List<Price> prices) |
 
 ## Example (as JSON)
 
@@ -18,42 +18,21 @@
 {
   "pricing_scheme": "volume",
   "prices": [
-    [
-      {
-        "starting_quantity": 40,
-        "ending_quantity": 14,
-        "unit_price": 212
-      }
-    ],
-    [
-      {
-        "starting_quantity": 40,
-        "ending_quantity": 14,
-        "unit_price": 212
-      },
-      {
-        "starting_quantity": 40,
-        "ending_quantity": 14,
-        "unit_price": 212
-      }
-    ],
-    [
-      {
-        "starting_quantity": 40,
-        "ending_quantity": 14,
-        "unit_price": 212
-      },
-      {
-        "starting_quantity": 40,
-        "ending_quantity": 14,
-        "unit_price": 212
-      },
-      {
-        "starting_quantity": 40,
-        "ending_quantity": 14,
-        "unit_price": 212
-      }
-    ]
+    {
+      "starting_quantity": 242,
+      "ending_quantity": 40,
+      "unit_price": 23.26
+    },
+    {
+      "starting_quantity": 242,
+      "ending_quantity": 40,
+      "unit_price": 23.26
+    },
+    {
+      "starting_quantity": 242,
+      "ending_quantity": 40,
+      "unit_price": 23.26
+    }
   ]
 }
 ```

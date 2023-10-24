@@ -81,14 +81,14 @@ Here’s an example event for the `subscription_state_change` event:
 ```
 
 ```java
-CompletableFuture<List<EventResponse>> listEventsAsync(
+List<EventResponse> listEvents(
     final Integer page,
     final Integer perPage,
     final Integer sinceId,
     final Integer maxId,
-    final DirectionEnum direction,
-    final List<EventTypeEnum> filter,
-    final ListEventsDateFieldEnum dateField,
+    final Direction direction,
+    final List<EventType> filter,
+    final ListEventsDateField dateField,
     final String startDate,
     final String endDate,
     final String startDatetime,
@@ -101,11 +101,11 @@ CompletableFuture<List<EventResponse>> listEventsAsync(
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `sinceId` | `Integer` | Query, Optional | - |
-| `maxId` | `Integer` | Query, Optional | - |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | **Default**: `DirectionEnum.DESC` |
-| `filter` | [`List<EventTypeEnum>`](../../doc/models/event-type-enum.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
-| `dateField` | [`ListEventsDateFieldEnum`](../../doc/models/list-events-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. |
+| `sinceId` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `maxId` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
+| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `dateField` | [`ListEventsDateField`](../../doc/models/list-events-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
@@ -120,83 +120,22 @@ CompletableFuture<List<EventResponse>> listEventsAsync(
 ```java
 Integer page = 2;
 Integer perPage = 50;
-DirectionEnum direction = DirectionEnum.DESC;
-List<EventTypeEnum> filter = Arrays.asList(
-    EventTypeEnum.CUSTOM_FIELD_VALUE_CHANGE,
-    EventTypeEnum.PAYMENT_SUCCESS
+Direction direction = Direction.DESC;
+List<EventType> filter = Arrays.asList(
+    EventType.CUSTOM_FIELD_VALUE_CHANGE,
+    EventType.PAYMENT_SUCCESS
 );
 
-ListEventsDateFieldEnum dateField = ListEventsDateFieldEnum.CREATED_AT;
+ListEventsDateField dateField = ListEventsDateField.CREATED_AT;
 
-eventsController.listEventsAsync(page, perPage, null, null, direction, filter, dateField, null, null, null, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<EventResponse> result = eventsController.listEvents(page, perPage, null, null, direction, filter, dateField, null, null, null, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "event": {
-      "id": 343087780,
-      "key": "subscription_state_change",
-      "message": "State changed on Test subscription to Monthly Product from active to past_due",
-      "subscription_id": 14950962,
-      "created_at": "2016-10-27T16:42:22-04:00",
-      "event_specific_data": {
-        "previous_subscription_state": "active",
-        "new_subscription_state": "past_due"
-      }
-    }
-  },
-  {
-    "event": {
-      "id": 343087742,
-      "key": "billing_date_change",
-      "message": "Billing date changed on Test's subscription to Monthly Product from 11/27/2016 to 10/27/2016",
-      "subscription_id": 14950962,
-      "created_at": "2016-10-27T16:42:19-04:00",
-      "event_specific_data": null
-    }
-  },
-  {
-    "event": {
-      "id": 343085267,
-      "key": "statement_closed",
-      "message": "Statement 79401838 closed (but not settled) for Test's subscription to ANNUAL product",
-      "subscription_id": 14950975,
-      "created_at": "2016-10-27T16:40:40-04:00",
-      "event_specific_data": null
-    }
-  },
-  {
-    "event": {
-      "id": 4481,
-      "key": "custom_field_value_change",
-      "message": "Custom field (Extra support included) changed for Subscription 117 from 'Yes' to 'No'.",
-      "subscription_id": 117,
-      "customer_id": null,
-      "created_at": "2022-03-24T07:55:06-04:00",
-      "event_specific_data": {
-        "event_type": "updated",
-        "metafield_name": "Extra support included",
-        "metafield_id": 2,
-        "old_value": "Yes",
-        "new_value": "No",
-        "resource_type": "Subscription",
-        "resource_id": 117,
-        "previous_subscription_state": "active",
-        "new_subscription_state": "past_due"
-      }
-    }
-  }
-]
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -207,14 +146,14 @@ The following request will return a list of events for a subscription.
 Each event type has its own `event_specific_data` specified.
 
 ```java
-CompletableFuture<List<EventResponse>> listSubscriptionEventsAsync(
+List<EventResponse> listSubscriptionEvents(
     final String subscriptionId,
     final Integer page,
     final Integer perPage,
     final Integer sinceId,
     final Integer maxId,
-    final DirectionEnum direction,
-    final List<EventTypeEnum> filter)
+    final Direction direction,
+    final List<EventType> filter)
 ```
 
 ## Parameters
@@ -224,10 +163,10 @@ CompletableFuture<List<EventResponse>> listSubscriptionEventsAsync(
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `sinceId` | `Integer` | Query, Optional | - |
-| `maxId` | `Integer` | Query, Optional | - |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | **Default**: `DirectionEnum.DESC` |
-| `filter` | [`List<EventTypeEnum>`](../../doc/models/event-type-enum.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `sinceId` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `maxId` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
+| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
@@ -239,62 +178,20 @@ CompletableFuture<List<EventResponse>> listSubscriptionEventsAsync(
 String subscriptionId = "subscription_id0";
 Integer page = 2;
 Integer perPage = 50;
-DirectionEnum direction = DirectionEnum.DESC;
-List<EventTypeEnum> filter = Arrays.asList(
-    EventTypeEnum.CUSTOM_FIELD_VALUE_CHANGE,
-    EventTypeEnum.PAYMENT_SUCCESS
+Direction direction = Direction.DESC;
+List<EventType> filter = Arrays.asList(
+    EventType.CUSTOM_FIELD_VALUE_CHANGE,
+    EventType.PAYMENT_SUCCESS
 );
 
-eventsController.listSubscriptionEventsAsync(subscriptionId, page, perPage, null, null, direction, filter).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<EventResponse> result = eventsController.listSubscriptionEvents(subscriptionId, page, perPage, null, null, direction, filter);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
-```
-
-## Example Response *(as JSON)*
-
-```json
-[
-  {
-    "event": {
-      "id": 344799837,
-      "key": "statement_settled",
-      "message": "Statement 79702531 settled successfully for Amelia Example's subscription to Basic Plan",
-      "subscription_id": 14900541,
-      "created_at": "2016-11-01T12:41:29-04:00",
-      "event_specific_data": null
-    }
-  },
-  {
-    "event": {
-      "id": 344799815,
-      "key": "renewal_success",
-      "message": "Successful renewal for Amelia Example's subscription to Basic Plan",
-      "subscription_id": 14900541,
-      "created_at": "2016-11-01T12:41:28-04:00",
-      "event_specific_data": {
-        "product_id": 3792003,
-        "account_transaction_id": null,
-        "previous_subscription_state": "active",
-        "new_subscription_state": "active"
-      }
-    }
-  },
-  {
-    "event": {
-      "id": 344799705,
-      "key": "billing_date_change",
-      "message": "Billing date changed on Amelia Example's subscription to Basic Plan from 11/26/2016 to 11/01/2016",
-      "subscription_id": 14900541,
-      "created_at": "2016-11-01T12:41:25-04:00",
-      "event_specific_data": null
-    }
-  }
-]
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -303,13 +200,13 @@ eventsController.listSubscriptionEventsAsync(subscriptionId, page, perPage, null
 Get a count of all the events for a given site by using this method.
 
 ```java
-CompletableFuture<Count> readEventsCountAsync(
+Count readEventsCount(
     final Integer page,
     final Integer perPage,
     final Integer sinceId,
     final Integer maxId,
-    final DirectionEnum direction,
-    final List<EventTypeEnum> filter)
+    final Direction direction,
+    final List<EventType> filter)
 ```
 
 ## Parameters
@@ -318,10 +215,10 @@ CompletableFuture<Count> readEventsCountAsync(
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `sinceId` | `Integer` | Query, Optional | - |
-| `maxId` | `Integer` | Query, Optional | - |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | **Default**: `DirectionEnum.DESC` |
-| `filter` | [`List<EventTypeEnum>`](../../doc/models/event-type-enum.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `sinceId` | `Integer` | Query, Optional | Returns events with an id greater than or equal to the one specified |
+| `maxId` | `Integer` | Query, Optional | Returns events with an id less than or equal to the one specified |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
+| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
@@ -332,20 +229,20 @@ CompletableFuture<Count> readEventsCountAsync(
 ```java
 Integer page = 2;
 Integer perPage = 50;
-DirectionEnum direction = DirectionEnum.DESC;
-List<EventTypeEnum> filter = Arrays.asList(
-    EventTypeEnum.CUSTOM_FIELD_VALUE_CHANGE,
-    EventTypeEnum.PAYMENT_SUCCESS
+Direction direction = Direction.DESC;
+List<EventType> filter = Arrays.asList(
+    EventType.CUSTOM_FIELD_VALUE_CHANGE,
+    EventType.PAYMENT_SUCCESS
 );
 
-eventsController.readEventsCountAsync(page, perPage, null, null, direction, filter).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Count result = eventsController.readEventsCount(page, perPage, null, null, direction, filter);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

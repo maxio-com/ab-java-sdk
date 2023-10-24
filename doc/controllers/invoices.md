@@ -40,7 +40,7 @@ A refund less than the total of a consolidated invoice will be split across its 
 A $50.00 refund on a $100.00 consolidated invoice with one $60.00 and one $40.00 segment, the refunded amount will be applied as 50% of each ($30.00 and $20.00 respectively).
 
 ```java
-CompletableFuture<Invoice> refundInvoiceAsync(
+Invoice refundInvoice(
     final String uid,
     final RefundInvoiceRequest body)
 ```
@@ -75,14 +75,14 @@ RefundInvoiceRequest body = new RefundInvoiceRequest.Builder(
 )
 .build();
 
-invoicesController.refundInvoiceAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = invoicesController.refundInvoice(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -91,15 +91,15 @@ invoicesController.refundInvoiceAsync(uid, body).thenAccept(result -> {
 By default, invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`, or `refunds`. To include breakdowns, pass the specific field as a key in the query with a value set to `true`.
 
 ```java
-CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
+ListInvoicesResponse listInvoices(
     final String startDate,
     final String endDate,
-    final StatusEnum status,
+    final Status status,
     final Integer subscriptionId,
     final String subscriptionGroupUid,
     final Integer page,
     final Integer perPage,
-    final DirectionEnum direction,
+    final Direction direction,
     final Boolean lineItems,
     final Boolean discounts,
     final Boolean taxes,
@@ -107,13 +107,13 @@ CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
     final Boolean payments,
     final Boolean customFields,
     final Boolean refunds,
-    final InvoiceDateFieldEnum dateField,
+    final InvoiceDateField dateField,
     final String startDatetime,
     final String endDatetime,
-    final List<Object> customerIds,
+    final List<Integer> customerIds,
     final List<String> number,
     final List<Integer> productIds,
-    final InvoiceSortFieldEnum sort)
+    final InvoiceSortField sort)
 ```
 
 ## Parameters
@@ -122,12 +122,12 @@ CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
 |  --- | --- | --- | --- |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `status` | [`StatusEnum`](../../doc/models/status-enum.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
+| `status` | [`Status`](../../doc/models/status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
 | `subscriptionId` | `Integer` | Query, Optional | The subscription's ID. |
 | `subscriptionGroupUid` | `String` | Query, Optional | The UID of the subscription group you want to fetch consolidated invoices for. This will return a paginated list of consolidated invoices for the specified group. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `DirectionEnum.DESC` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `Direction.DESC` |
 | `lineItems` | `Boolean` | Query, Optional | Include line items data<br>**Default**: `false` |
 | `discounts` | `Boolean` | Query, Optional | Include discounts data<br>**Default**: `false` |
 | `taxes` | `Boolean` | Query, Optional | Include taxes data<br>**Default**: `false` |
@@ -135,13 +135,13 @@ CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
 | `payments` | `Boolean` | Query, Optional | Include payments data<br>**Default**: `false` |
 | `customFields` | `Boolean` | Query, Optional | Include custom fields data<br>**Default**: `false` |
 | `refunds` | `Boolean` | Query, Optional | Include refunds data<br>**Default**: `false` |
-| `dateField` | [`InvoiceDateFieldEnum`](../../doc/models/invoice-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`.<br>**Default**: `InvoiceDateFieldEnum.DUE_DATE` |
+| `dateField` | [`InvoiceDateField`](../../doc/models/invoice-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`.<br>**Default**: `InvoiceDateField.DUE_DATE` |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Allowed to be used only along with date_field set to created_at or updated_at. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Allowed to be used only along with date_field set to created_at or updated_at. |
-| `customerIds` | `List<Object>` | Query, Optional | Allows fetching invoices with matching customer id based on provided values. Use in query `customer_ids=1,2,3`. |
+| `customerIds` | `List<Integer>` | Query, Optional | Allows fetching invoices with matching customer id based on provided values. Use in query `customer_ids=1,2,3`. |
 | `number` | `List<String>` | Query, Optional | Allows fetching invoices with matching invoice number based on provided values. Use in query `number=1234,1235`. |
 | `productIds` | `List<Integer>` | Query, Optional | Allows fetching invoices with matching line items product ids based on provided values. Use in query `product_ids=23,34`. |
-| `sort` | [`InvoiceSortFieldEnum`](../../doc/models/invoice-sort-field-enum.md) | Query, Optional | Allows specification of the order of the returned list. Use in query `sort=total_amount`.<br>**Default**: `InvoiceSortFieldEnum.NUMBER` |
+| `sort` | [`InvoiceSortField`](../../doc/models/invoice-sort-field.md) | Query, Optional | Allows specification of the order of the returned list. Use in query `sort=total_amount`.<br>**Default**: `InvoiceSortField.NUMBER` |
 
 ## Response Type
 
@@ -152,7 +152,7 @@ CompletableFuture<ListInvoicesResponse> listInvoicesAsync(
 ```java
 Integer page = 2;
 Integer perPage = 50;
-DirectionEnum direction = DirectionEnum.DESC;
+Direction direction = Direction.DESC;
 Boolean lineItems = false;
 Boolean discounts = false;
 Boolean taxes = false;
@@ -160,11 +160,11 @@ Boolean credits = false;
 Boolean payments = false;
 Boolean customFields = false;
 Boolean refunds = false;
-InvoiceDateFieldEnum dateField = InvoiceDateFieldEnum.ISSUE_DATE;
-List<Object> customerIds = Arrays.asList(
-    ApiHelper.deserialize("{\"key1\":\"val1\",\"key2\":\"val2\"}"),
-    ApiHelper.deserialize("{\"key1\":\"val1\",\"key2\":\"val2\"}"),
-    ApiHelper.deserialize("{\"key1\":\"val1\",\"key2\":\"val2\"}")
+InvoiceDateField dateField = InvoiceDateField.ISSUE_DATE;
+List<Integer> customerIds = Arrays.asList(
+    1,
+    2,
+    3
 );
 
 List<String> number = Arrays.asList(
@@ -177,16 +177,16 @@ List<Integer> productIds = Arrays.asList(
     34
 );
 
-InvoiceSortFieldEnum sort = InvoiceSortFieldEnum.TOTAL_AMOUNT;
+InvoiceSortField sort = InvoiceSortField.TOTAL_AMOUNT;
 
-invoicesController.listInvoicesAsync(null, null, null, null, null, page, perPage, direction, lineItems, discounts, taxes, credits, payments, customFields, refunds, dateField, null, null, customerIds, number, productIds, sort).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListInvoicesResponse result = invoicesController.listInvoices(null, null, null, null, null, page, perPage, direction, lineItems, discounts, taxes, credits, payments, customFields, refunds, dateField, null, null, customerIds, number, productIds, sort);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -465,7 +465,7 @@ invoicesController.listInvoicesAsync(null, null, null, null, null, page, perPage
 Use this endpoint to retrieve the details for an invoice.
 
 ```java
-CompletableFuture<Invoice> readInvoiceAsync(
+Invoice readInvoice(
     final String uid)
 ```
 
@@ -484,14 +484,14 @@ CompletableFuture<Invoice> readInvoiceAsync(
 ```java
 String uid = "uid0";
 
-invoicesController.readInvoiceAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = invoicesController.readInvoice(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -632,27 +632,27 @@ If both a `since_date` and `since_id` are provided in request parameters, the `s
 Note - invoice events that occurred prior to 09/05/2018 __will not__ contain an `invoice` snapshot.
 
 ```java
-CompletableFuture<ListInvoiceEventsResponse> listInvoiceEventsAsync(
+ListInvoiceEventsResponse listInvoiceEvents(
     final String sinceDate,
     final Integer sinceId,
     final Integer page,
     final Integer perPage,
     final String invoiceUid,
     final String withChangeInvoiceStatus,
-    final List<InvoiceEventTypeEnum> eventTypes)
+    final List<InvoiceEventType> eventTypes)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `sinceDate` | `String` | Query, Optional | - |
-| `sinceId` | `Integer` | Query, Optional | - |
+| `sinceDate` | `String` | Query, Optional | The timestamp in a format `YYYY-MM-DD T HH:MM:SS Z`, or `YYYY-MM-DD`(in this case, it returns data from the beginning of the day). of the event from which you want to start the search. All the events before the `since_date` timestamp are not returned in the response. |
+| `sinceId` | `Integer` | Query, Optional | The ID of the event from which you want to start the search(ID is not included. e.g. if ID is set to 2, then all events with ID 3 and more will be shown) This parameter is not used if since_date is defined. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | **Default**: `100` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: `100` |
 | `invoiceUid` | `String` | Query, Optional | Providing an invoice_uid allows for scoping of the invoice events to a single invoice or credit note. |
 | `withChangeInvoiceStatus` | `String` | Query, Optional | Use this parameter if you want to fetch also invoice events with change_invoice_status type. |
-| `eventTypes` | [`List<InvoiceEventTypeEnum>`](../../doc/models/invoice-event-type-enum.md) | Query, Optional | Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: `event_types=void_invoice,void_remainder`. |
+| `eventTypes` | [`List<InvoiceEventType>`](../../doc/models/invoice-event-type.md) | Query, Optional | Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: `event_types=void_invoice,void_remainder`. |
 
 ## Response Type
 
@@ -663,14 +663,14 @@ CompletableFuture<ListInvoiceEventsResponse> listInvoiceEventsAsync(
 ```java
 Integer page = 2;
 Integer perPage = 100;
-invoicesController.listInvoiceEventsAsync(null, null, page, perPage, null, null, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListInvoiceEventsResponse result = invoicesController.listInvoiceEvents(null, null, page, perPage, null, null, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1100,7 +1100,7 @@ In order to apply a service credit to an invoice, specify the `type` as `service
 Note that Chargify will attempt to fully pay the invoice's `due_amount` from the Subscription's Service Credit account. At this time, partial payments from a Service Credit Account are only allowed for consolidated invoices (subscription groups). Therefore, for normal invoices the Service Credit account balance must be greater than or equal to the invoice's `due_amount`.
 
 ```java
-CompletableFuture<Invoice> recordPaymentForInvoiceAsync(
+Invoice recordPaymentForInvoice(
     final String uid,
     final CreateInvoicePaymentRequest body)
 ```
@@ -1130,14 +1130,14 @@ CreateInvoicePaymentRequest body = new CreateInvoicePaymentRequest.Builder(
 )
 .build();
 
-invoicesController.recordPaymentForInvoiceAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = invoicesController.recordPaymentForInvoice(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1171,7 +1171,7 @@ In order apply a payment to multiple invoices, at minimum, specify the `amount` 
 Note that the invoice payment amounts must be greater than 0. Total amount must be greater or equal to invoices payment amount sum.
 
 ```java
-CompletableFuture<MultiInvoicePaymentResponse> recordExternalPaymentForInvoicesAsync(
+MultiInvoicePaymentResponse recordExternalPaymentForInvoices(
     final CreateMultiInvoicePaymentRequest body)
 ```
 
@@ -1208,19 +1208,19 @@ CreateMultiInvoicePaymentRequest body = new CreateMultiInvoicePaymentRequest.Bui
     )
     .memo("to pay the bills")
     .details("check number 8675309")
-    .method(InvoicePaymentMethodTypeEnum.CHECK)
+    .method(InvoicePaymentMethodType.CHECK)
     .build()
 )
 .build();
 
-invoicesController.recordExternalPaymentForInvoicesAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    MultiInvoicePaymentResponse result = invoicesController.recordExternalPaymentForInvoices(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1261,7 +1261,7 @@ Credit Notes are like inverse invoices. They reduce the amount a customer owes.
 By default, the credit notes returned by this endpoint will exclude the arrays of `line_items`, `discounts`, `taxes`, `applications`, or `refunds`. To include these arrays, pass the specific field as a key in the query with a value set to `true`.
 
 ```java
-CompletableFuture<ListCreditNotesResponse> listCreditNotesAsync(
+ListCreditNotesResponse listCreditNotes(
     final Integer subscriptionId,
     final Integer page,
     final Integer perPage,
@@ -1300,14 +1300,14 @@ Boolean taxes = false;
 Boolean refunds = false;
 Boolean applications = false;
 
-invoicesController.listCreditNotesAsync(null, page, perPage, lineItems, discounts, taxes, refunds, applications).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListCreditNotesResponse result = invoicesController.listCreditNotes(null, page, perPage, lineItems, discounts, taxes, refunds, applications);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1596,7 +1596,7 @@ invoicesController.listCreditNotesAsync(null, page, perPage, lineItems, discount
 Use this endpoint to retrieve the details for a credit note.
 
 ```java
-CompletableFuture<CreditNote> readCreditNoteAsync(
+CreditNote readCreditNote(
     final String uid)
 ```
 
@@ -1615,14 +1615,14 @@ CompletableFuture<CreditNote> readCreditNoteAsync(
 ```java
 String uid = "uid0";
 
-invoicesController.readCreditNoteAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CreditNote result = invoicesController.readCreditNote(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1913,7 +1913,7 @@ Excess payment will result in the creation of a prepayment on the Invoice Accoun
 Only ungrouped or primary subscriptions may be paid using the "bulk" payment request.
 
 ```java
-CompletableFuture<PaymentResponse> recordPaymentForSubscriptionAsync(
+PaymentResponse recordPaymentForSubscription(
     final String subscriptionId,
     final RecordPaymentRequest body)
 ```
@@ -1944,14 +1944,14 @@ RecordPaymentRequest body = new RecordPaymentRequest.Builder(
 )
 .build();
 
-invoicesController.recordPaymentForSubscriptionAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    PaymentResponse result = invoicesController.recordPaymentForSubscription(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -2003,7 +2003,7 @@ A note about reactivations: any canceled invoices from the most recent active pe
 When reopening a consolidated invoice, all of its canceled segments will also be reopened.
 
 ```java
-CompletableFuture<Invoice> reopenInvoiceAsync(
+Invoice reopenInvoice(
     final String uid)
 ```
 
@@ -2022,14 +2022,14 @@ CompletableFuture<Invoice> reopenInvoiceAsync(
 ```java
 String uid = "uid0";
 
-invoicesController.reopenInvoiceAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = invoicesController.reopenInvoice(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -2045,7 +2045,7 @@ invoicesController.reopenInvoiceAsync(uid).thenAccept(result -> {
 This endpoint allows you to void any invoice with the "open" or "canceled" status.  It will also allow voiding of an invoice with the "pending" status if it is not a consolidated invoice.
 
 ```java
-CompletableFuture<Invoice> voidInvoiceAsync(
+Invoice voidInvoice(
     final String uid,
     final VoidInvoiceRequest body)
 ```
@@ -2073,14 +2073,14 @@ VoidInvoiceRequest body = new VoidInvoiceRequest.Builder(
 )
 .build();
 
-invoicesController.voidInvoiceAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = invoicesController.voidInvoice(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -2096,11 +2096,11 @@ invoicesController.voidInvoiceAsync(uid, body).thenAccept(result -> {
 Invoice segments returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
 
 ```java
-CompletableFuture<ConsolidatedInvoice> listInvoiceSegmentsAsync(
+ConsolidatedInvoice listInvoiceSegments(
     final String invoiceUid,
     final Integer page,
     final Integer perPage,
-    final DirectionEnum direction)
+    final Direction direction)
 ```
 
 ## Parameters
@@ -2110,7 +2110,7 @@ CompletableFuture<ConsolidatedInvoice> listInvoiceSegmentsAsync(
 | `invoiceUid` | `String` | Template, Required | The unique identifier of the consolidated invoice |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | Sort direction of the returned segments.<br>**Default**: `DirectionEnum.ASC` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Sort direction of the returned segments.<br>**Default**: `Direction.ASC` |
 
 ## Response Type
 
@@ -2122,16 +2122,16 @@ CompletableFuture<ConsolidatedInvoice> listInvoiceSegmentsAsync(
 String invoiceUid = "invoice_uid0";
 Integer page = 2;
 Integer perPage = 50;
-DirectionEnum direction = DirectionEnum.ASC;
+Direction direction = Direction.ASC;
 
-invoicesController.listInvoiceSegmentsAsync(invoiceUid, page, perPage, direction).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ConsolidatedInvoice result = invoicesController.listInvoiceSegments(invoiceUid, page, perPage, direction);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -2475,7 +2475,7 @@ When creating ad hoc invoice, new discounts can be applied in following way:
         "quantity": 1
       }
     ],
-    "coupons": [ 
+    "coupons": [
       {
         "code": "COUPONCODE",
         "percentage": 50.0
@@ -2489,7 +2489,7 @@ If You want to use existing coupon for discount creation, only `code` and option
 
 ```json
 ...
- "coupons": [ 
+ "coupons": [
       {
         "code": "FREESETUP",
         "product_family_id": 1
@@ -2576,7 +2576,7 @@ A custom memo can be sent with the `memo` parameter to override the site's defau
 By default, invoices will be created with open status. Possible alternative is `draft`.
 
 ```java
-CompletableFuture<InvoiceResponse> createInvoiceAsync(
+InvoiceResponse createInvoice(
     final String subscriptionId,
     final CreateInvoiceRequest body)
 ```
@@ -2613,14 +2613,14 @@ CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
 )
 .build();
 
-invoicesController.createInvoiceAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    InvoiceResponse result = invoicesController.createInvoice(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -2731,7 +2731,7 @@ invoicesController.createInvoiceAsync(subscriptionId, body).thenAccept(result ->
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 401 | Unauthorized | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsInvoicesJson422ErrorException`](../../doc/models/subscriptions-invoices-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`NestedErrorResponseException`](../../doc/models/nested-error-response-exception.md) |
 
 
 # Send Invoice
@@ -2743,7 +2743,7 @@ Please note that if no recipient email addresses are specified in the request, t
 On success, a 204 no-content response will be returned. Please note that this does not indicate that email(s) have been delivered, but instead indicates that emails have been successfully queued for delivery. If _any_ invalid or malformed email address is found in the request body, the entire request will be rejected and a 422 response will be returned.
 
 ```java
-CompletableFuture<Void> sendInvoiceAsync(
+Void sendInvoice(
     final String uid,
     final SendInvoiceRequest body)
 ```
@@ -2772,14 +2772,13 @@ SendInvoiceRequest body = new SendInvoiceRequest.Builder()
     ))
     .build();
 
-invoicesController.sendInvoiceAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    invoicesController.sendInvoice(uid, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -2796,7 +2795,7 @@ Customer information may change after an invoice is issued which may lead to a m
 The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
 
 ```java
-CompletableFuture<CustomerChangesPreviewResponse> previewCustomerInformationChangesAsync(
+CustomerChangesPreviewResponse previewCustomerInformationChanges(
     final String uid)
 ```
 
@@ -2815,14 +2814,14 @@ CompletableFuture<CustomerChangesPreviewResponse> previewCustomerInformationChan
 ```java
 String uid = "uid0";
 
-invoicesController.previewCustomerInformationChangesAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CustomerChangesPreviewResponse result = invoicesController.previewCustomerInformationChanges(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -2893,7 +2892,7 @@ This endpoint updates customer information on an open invoice and returns the up
 The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
 
 ```java
-CompletableFuture<Invoice> updateCustomerInformationAsync(
+Invoice updateCustomerInformation(
     final String uid)
 ```
 
@@ -2912,14 +2911,14 @@ CompletableFuture<Invoice> updateCustomerInformationAsync(
 ```java
 String uid = "uid0";
 
-invoicesController.updateCustomerInformationAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = invoicesController.updateCustomerInformation(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -3134,7 +3133,7 @@ For Automatic subscriptions, prepayments and service credits will apply to the i
 - `initiate_dunning` - prepayments and credits applied to the invoice; invoice status set to "open"; email sent to the customer for the issued invoice (if setting applies); payment failure recorded in the invoice history; subscription will  most likely go into "past_due" or "canceled" state (depending upon net terms and dunning settings).
 
 ```java
-CompletableFuture<Invoice> issueInvoiceAsync(
+Invoice issueInvoice(
     final String uid,
     final IssueInvoiceRequest body)
 ```
@@ -3155,17 +3154,17 @@ CompletableFuture<Invoice> issueInvoiceAsync(
 ```java
 String uid = "uid0";
 IssueInvoiceRequest body = new IssueInvoiceRequest.Builder()
-    .onFailedPayment(FailedPaymentActionEnum.LEAVE_OPEN_INVOICE)
+    .onFailedPayment(FailedPaymentAction.LEAVE_OPEN_INVOICE)
     .build();
 
-invoicesController.issueInvoiceAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = invoicesController.issueInvoice(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors

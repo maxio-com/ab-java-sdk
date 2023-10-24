@@ -29,7 +29,7 @@ https://subdomain.chargify.com/dashboard
 ```
 
 ```java
-CompletableFuture<SiteSummary> readSiteStatsAsync()
+SiteSummary readSiteStats()
 ```
 
 ## Response Type
@@ -39,14 +39,14 @@ CompletableFuture<SiteSummary> readSiteStatsAsync()
 ## Example Usage
 
 ```java
-insightsController.readSiteStatsAsync().thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SiteSummary result = insightsController.readSiteStats();
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -76,7 +76,7 @@ insightsController.readSiteStatsAsync().thenAccept(result -> {
 This endpoint returns your site's current MRR, including plan and usage breakouts.
 
 ```java
-CompletableFuture<MRRResponse> readMrrAsync(
+MRRResponse readMrr(
     final LocalDateTime atTime,
     final Integer subscriptionId)
 ```
@@ -95,14 +95,14 @@ CompletableFuture<MRRResponse> readMrrAsync(
 ## Example Usage
 
 ```java
-insightsController.readMrrAsync(null, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    MRRResponse result = insightsController.readMrr(null, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -156,7 +156,7 @@ Usage includes revenue from:
 * Prepaid Usage Components
 
 ```java
-CompletableFuture<ListMRRResponse> readMrrMovementsAsync(
+ListMRRResponse readMrrMovements(
     final Integer subscriptionId,
     final Integer page,
     final Integer perPage,
@@ -182,14 +182,14 @@ CompletableFuture<ListMRRResponse> readMrrMovementsAsync(
 Integer page = 2;
 Integer perPage = 20;
 
-insightsController.readMrrMovementsAsync(null, page, perPage, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListMRRResponse result = insightsController.readMrrMovements(null, page, perPage, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -221,12 +221,14 @@ insightsController.readMrrMovementsAsync(null, page, perPage, null).thenAccept(r
             "product_id": 306386,
             "component_id": 0,
             "price_point_id": 3856987,
-            "name": "string",
+            "name": "Cached Queries",
             "mrr": 2173,
             "mrr_movements": [
               {
                 "amount": 2173,
-                "category": "new_business"
+                "category": "new_business",
+                "subscriber_delta": 0,
+                "lead_delta": 0
               }
             ],
             "quantity": 1,
@@ -250,12 +252,12 @@ insightsController.readMrrMovementsAsync(null, page, perPage, null).thenAccept(r
 This endpoint returns your site's current MRR, including plan and usage breakouts split per subscription.
 
 ```java
-CompletableFuture<SubscriptionMRRResponse> listMrrPerSubscriptionAsync(
+SubscriptionMRRResponse listMrrPerSubscription(
     final List<Integer> filterSubscriptionIds,
     final String atTime,
     final Integer page,
     final Integer perPage,
-    final DirectionEnum direction)
+    final Direction direction)
 ```
 
 ## Parameters
@@ -266,7 +268,7 @@ CompletableFuture<SubscriptionMRRResponse> listMrrPerSubscriptionAsync(
 | `atTime` | `String` | Query, Optional | Submit a timestamp in ISO8601 format to request MRR for a historic time. Use in query: `at_time=2022-01-10T10:00:00-05:00`. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `direction` | [`DirectionEnum`](../../doc/models/direction-enum.md) | Query, Optional | Controls the order in which results are returned. Records are ordered by subscription_id in ascending order by default. Use in query `direction=desc`. |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Controls the order in which results are returned. Records are ordered by subscription_id in ascending order by default. Use in query `direction=desc`. |
 
 ## Response Type
 
@@ -278,21 +280,21 @@ CompletableFuture<SubscriptionMRRResponse> listMrrPerSubscriptionAsync(
 Liquid error: Value cannot be null. (Parameter 'key')String atTime = "at_time=2022-01-10T10:00:00-05:00";
 Integer page = 2;
 Integer perPage = 50;
-DirectionEnum direction = DirectionEnum.DESC;
+Direction direction = Direction.DESC;
 
-insightsController.listMrrPerSubscriptionAsync(Liquid error: Value cannot be null. (Parameter 'key'), atTime, page, perPage, direction).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionMRRResponse result = insightsController.listMrrPerSubscription(Liquid error: Value cannot be null. (Parameter 'key'), atTime, page, perPage, direction);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Bad Request | [`SubscriptionsMrrJson400ErrorException`](../../doc/models/subscriptions-mrr-json-400-error-exception.md) |
+| 400 | Bad Request | [`SubscriptionsMrrErrorResponseException`](../../doc/models/subscriptions-mrr-error-response-exception.md) |
 

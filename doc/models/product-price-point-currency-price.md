@@ -16,7 +16,7 @@ object Product Price Point Currency Price:
 | `Price` | `Integer` | Optional | - | Integer getPrice() | setPrice(Integer price) |
 | `FormattedPrice` | `String` | Optional | - | String getFormattedPrice() | setFormattedPrice(String formattedPrice) |
 | `ProductPricePointId` | `Integer` | Optional | - | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
-| `Role` | [`CurrencyPriceRoleEnum`](../../doc/models/currency-price-role-enum.md) | Optional | Role for the price. | CurrencyPriceRoleEnum getRole() | setRole(CurrencyPriceRoleEnum role) |
+| `Role` | [`CurrencyPriceRole`](../../doc/models/currency-price-role.md) | Optional | Role for the price. | CurrencyPriceRole getRole() | setRole(CurrencyPriceRole role) |
 
 ## Example (as JSON)
 

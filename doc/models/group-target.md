@@ -11,7 +11,7 @@ Attributes of the target customer who will be the responsible payer of the creat
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Type` | [`GroupTargetTypeEnum`](../../doc/models/group-target-type-enum.md) | Required | The type of object indicated by the id attribute. | GroupTargetTypeEnum getType() | setType(GroupTargetTypeEnum type) |
+| `Type` | [`GroupTargetType`](../../doc/models/group-target-type.md) | Required | The type of object indicated by the id attribute. | GroupTargetType getType() | setType(GroupTargetType type) |
 | `Id` | `Integer` | Optional | The id of the target customer or subscription to group the existing subscription with. Ignored and should not be included if type is "self" , "parent", or "eldest" | Integer getId() | setId(Integer id) |
 
 ## Example (as JSON)

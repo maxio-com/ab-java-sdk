@@ -16,6 +16,13 @@
 | `DiscountAmountInCents` | `Integer` | Optional | - | Integer getDiscountAmountInCents() | setDiscountAmountInCents(Integer discountAmountInCents) |
 | `TaxableAmountInCents` | `Integer` | Optional | - | Integer getTaxableAmountInCents() | setTaxableAmountInCents(Integer taxableAmountInCents) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
+| `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
+| `ComponentName` | `String` | Optional | - | String getComponentName() | setComponentName(String componentName) |
+| `ProductId` | `Integer` | Optional | - | Integer getProductId() | setProductId(Integer productId) |
+| `ProductHandle` | `String` | Optional | - | String getProductHandle() | setProductHandle(String productHandle) |
+| `ProductName` | `String` | Optional | - | String getProductName() | setProductName(String productName) |
+| `PeriodRangeStart` | `String` | Optional | - | String getPeriodRangeStart() | setPeriodRangeStart(String periodRangeStart) |
+| `PeriodRangeEnd` | `String` | Optional | - | String getPeriodRangeEnd() | setPeriodRangeEnd(String periodRangeEnd) |
 
 ## Example (as JSON)
 

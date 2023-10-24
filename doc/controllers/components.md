@@ -50,9 +50,9 @@ For information on how to record component usage against a subscription, please 
 + [Recording component usage against a subscription](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404606587917#recording-component-usage)
 
 ```java
-CompletableFuture<ComponentResponse> createComponentAsync(
+ComponentResponse createComponent(
     final int productFamilyId,
-    final ComponentKindPathEnum componentKind,
+    final ComponentKindPath componentKind,
     final CreateComponentBody body)
 ```
 
@@ -61,7 +61,7 @@ CompletableFuture<ComponentResponse> createComponentAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
-| `componentKind` | [`ComponentKindPathEnum`](../../doc/models/component-kind-path-enum.md) | Template, Required | The component kind |
+| `componentKind` | [`ComponentKindPath`](../../doc/models/component-kind-path.md) | Template, Required | The component kind |
 | `body` | [`CreateComponentBody`](../../doc/models/containers/create-component-body.md) | Body, Optional | This is a container for one-of cases. |
 
 ## Response Type
@@ -72,38 +72,40 @@ CompletableFuture<ComponentResponse> createComponentAsync(
 
 ```java
 int productFamilyId = 140;
-ComponentKindPathEnum componentKind = ComponentKindPathEnum.ON_OFF_COMPONENTS;
+ComponentKindPath componentKind = ComponentKindPath.ON_OFF_COMPONENTS;
 CreateComponentBody body = CreateComponentBody.fromCreateMeteredComponent(
     new CreateMeteredComponent.Builder(
         new MeteredComponent.Builder(
             "Text messages",
             "text message",
             MeteredComponentPricingScheme.fromPricingScheme(
-                PricingSchemeEnum.STAIRSTEP
+                PricingScheme.STAIRSTEP
             )
         )
         .taxable(false)
         .prices(Arrays.asList(
-                new CreateComponentPrice.Builder()
-                    .startingQuantity(1)
-                    .unitPrice(CreateComponentPriceUnitPrice.fromPrecision(
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        1
+                    ),
+                    PriceUnitPrice.fromPrecision(
                         1D
-                    ))
-                    .build()
+                    )
+                )
+                .build()
             ))
         .build()
     )
     .build()
 );
-
-componentsController.createComponentAsync(productFamilyId, componentKind, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentResponse result = componentsController.createComponent(productFamilyId, componentKind, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -151,7 +153,7 @@ componentsController.createComponentAsync(productFamilyId, componentKind, body).
 This request will return information regarding a component having the handle you provide. You can identify your components with a handle so you don't have to save or reference the IDs we generate.
 
 ```java
-CompletableFuture<ComponentResponse> readComponentByHandleAsync(
+ComponentResponse readComponentByHandle(
     final String handle)
 ```
 
@@ -170,14 +172,14 @@ CompletableFuture<ComponentResponse> readComponentByHandleAsync(
 ```java
 String handle = "handle6";
 
-componentsController.readComponentByHandleAsync(handle).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentResponse result = componentsController.readComponentByHandle(handle);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -218,7 +220,7 @@ This request will return information regarding a component from a specific produ
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
 ```java
-CompletableFuture<ComponentResponse> readComponentByIdAsync(
+ComponentResponse readComponentById(
     final int productFamilyId,
     final String componentId)
 ```
@@ -240,14 +242,14 @@ CompletableFuture<ComponentResponse> readComponentByIdAsync(
 int productFamilyId = 140;
 String componentId = "component_id8";
 
-componentsController.readComponentByIdAsync(productFamilyId, componentId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentResponse result = componentsController.readComponentById(productFamilyId, componentId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -288,7 +290,7 @@ This request will update a component from a specific product family.
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
 ```java
-CompletableFuture<ComponentResponse> updateProductFamilyComponentAsync(
+ComponentResponse updateProductFamilyComponent(
     final int productFamilyId,
     final String componentId,
     final UpdateComponentRequest body)
@@ -313,19 +315,19 @@ int productFamilyId = 140;
 String componentId = "component_id8";
 UpdateComponentRequest body = new UpdateComponentRequest.Builder(
     new UpdateComponent.Builder()
-        .itemCategory(ItemCategoryEnum.ENUM_BUSINESS_SOFTWARE)
+        .itemCategory(ItemCategory.ENUM_BUSINESS_SOFTWARE)
         .build()
 )
 .build();
 
-componentsController.updateProductFamilyComponentAsync(productFamilyId, componentId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentResponse result = componentsController.updateProductFamilyComponent(productFamilyId, componentId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -362,7 +364,7 @@ componentsController.updateProductFamilyComponentAsync(productFamilyId, componen
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Archive Component
@@ -370,7 +372,7 @@ componentsController.updateProductFamilyComponentAsync(productFamilyId, componen
 Sending a DELETE request to this endpoint will archive the component. All current subscribers will be unffected; their subscription/purchase will continue to be charged as usual.
 
 ```java
-CompletableFuture<ComponentResponse> archiveComponentAsync(
+ComponentResponse archiveComponent(
     final int productFamilyId,
     final String componentId)
 ```
@@ -392,14 +394,14 @@ CompletableFuture<ComponentResponse> archiveComponentAsync(
 int productFamilyId = 140;
 String componentId = "component_id8";
 
-componentsController.archiveComponentAsync(productFamilyId, componentId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentResponse result = componentsController.archiveComponent(productFamilyId, componentId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -442,8 +444,8 @@ componentsController.archiveComponentAsync(productFamilyId, componentId).thenAcc
 This request will return a list of components for a site.
 
 ```java
-CompletableFuture<List<ComponentResponse>> listComponentsAsync(
-    final BasicDateFieldEnum dateField,
+List<ComponentResponse> listComponents(
+    final BasicDateField dateField,
     final String startDate,
     final String endDate,
     final String startDatetime,
@@ -459,7 +461,7 @@ CompletableFuture<List<ComponentResponse>> listComponentsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `dateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. |
+| `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
@@ -477,18 +479,18 @@ CompletableFuture<List<ComponentResponse>> listComponentsAsync(
 ## Example Usage
 
 ```java
-BasicDateFieldEnum dateField = BasicDateFieldEnum.UPDATED_AT;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
 Integer page = 2;
 Integer perPage = 50;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
-componentsController.listComponentsAsync(dateField, null, null, null, null, null, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ComponentResponse> result = componentsController.listComponents(dateField, null, null, null, null, null, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -595,7 +597,7 @@ This request will update a component.
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
 ```java
-CompletableFuture<Void> updateComponentAsync(
+Void updateComponent(
     final String componentId,
     final UpdateComponentRequest body)
 ```
@@ -617,19 +619,18 @@ CompletableFuture<Void> updateComponentAsync(
 String componentId = "component_id8";
 UpdateComponentRequest body = new UpdateComponentRequest.Builder(
     new UpdateComponent.Builder()
-        .itemCategory(ItemCategoryEnum.ENUM_BUSINESS_SOFTWARE)
+        .itemCategory(ItemCategory.ENUM_BUSINESS_SOFTWARE)
         .build()
 )
 .build();
 
-componentsController.updateComponentAsync(componentId, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    componentsController.updateComponent(componentId, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -642,7 +643,7 @@ See [Price Points Documentation](https://chargify.zendesk.com/hc/en-us/articles/
 Note: Custom price points are not able to be set as the default for a component.
 
 ```java
-CompletableFuture<Void> updateDefaultPricePointForComponentAsync(
+Void updateDefaultPricePointForComponent(
     final int componentId,
     final int pricePointId)
 ```
@@ -664,14 +665,13 @@ CompletableFuture<Void> updateDefaultPricePointForComponentAsync(
 int componentId = 222;
 int pricePointId = 10;
 
-componentsController.updateDefaultPricePointForComponentAsync(componentId, pricePointId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    componentsController.updateDefaultPricePointForComponent(componentId, pricePointId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -680,13 +680,13 @@ componentsController.updateDefaultPricePointForComponentAsync(componentId, price
 This request will return a list of components for a particular product family.
 
 ```java
-CompletableFuture<List<ComponentResponse>> listComponentsForProductFamilyAsync(
+List<ComponentResponse> listComponentsForProductFamily(
     final int productFamilyId,
     final Boolean includeArchived,
     final List<Integer> filterIds,
     final Integer page,
     final Integer perPage,
-    final BasicDateFieldEnum dateField,
+    final BasicDateField dateField,
     final String endDate,
     final String endDatetime,
     final String startDate,
@@ -703,7 +703,7 @@ CompletableFuture<List<ComponentResponse>> listComponentsForProductFamilyAsync(
 | `filterIds` | `List<Integer>` | Query, Optional | Allows fetching components with matching id based on provided value. Use in query `filter[ids]=1,2`. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `dateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=created_at`. |
+| `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=created_at`. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. optional. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
@@ -720,16 +720,16 @@ CompletableFuture<List<ComponentResponse>> listComponentsForProductFamilyAsync(
 int productFamilyId = 140;
 Liquid error: Value cannot be null. (Parameter 'key')Integer page = 2;
 Integer perPage = 50;
-BasicDateFieldEnum dateField = BasicDateFieldEnum.UPDATED_AT;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
 Liquid error: Value cannot be null. (Parameter 'key')
-componentsController.listComponentsForProductFamilyAsync(productFamilyId, null, Liquid error: Value cannot be null. (Parameter 'key'), page, perPage, dateField, null, null, null, null, Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ComponentResponse> result = componentsController.listComponentsForProductFamily(productFamilyId, null, Liquid error: Value cannot be null. (Parameter 'key'), page, perPage, dateField, null, null, null, null, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -834,7 +834,7 @@ componentsController.listComponentsForProductFamilyAsync(productFamilyId, null, 
 This endpoint can be used to create a new price point for an existing component.
 
 ```java
-CompletableFuture<ComponentPricePointResponse> createComponentPricePointAsync(
+ComponentPricePointResponse createComponentPricePoint(
     final int componentId,
     final CreateComponentPricePointRequest body)
 ```
@@ -857,46 +857,34 @@ int componentId = 222;
 CreateComponentPricePointRequest body = new CreateComponentPricePointRequest.Builder(
     CreateComponentPricePointRequestPricePoint.fromCreateComponentPricePoint(
         new CreateComponentPricePoint.Builder(
-            "Wholesale",
-            "stairstep",
+            "Special Pricing",
+            "per_unit",
             Arrays.asList(
                 new Price.Builder(
-                    PriceStartingQuantity.fromMString(
-                        "1"
+                    PriceStartingQuantity.fromNumber(
+                        1
                     ),
-                    PriceUnitPrice.fromMString(
-                        "5.00"
-                    )
-                )
-                .endingQuantity(PriceEndingQuantity.fromMString(
-                        "100"
-                    ))
-                .build(),
-                new Price.Builder(
-                    PriceStartingQuantity.fromMString(
-                        "101"
-                    ),
-                    PriceUnitPrice.fromMString(
-                        "4.00"
+                    PriceUnitPrice.fromPrecision(
+                        5D
                     )
                 )
                 .build()
             )
         )
-        .handle("wholesale-handle")
+        .handle("special")
         .build()
     )
 )
 .build();
 
-componentsController.createComponentPricePointAsync(componentId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentPricePointResponse result = componentsController.createComponentPricePoint(componentId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -911,12 +899,12 @@ When fetching a component's price points, if you have defined multiple currencie
 If the price point is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
 
 ```java
-CompletableFuture<ComponentPricePointsResponse> listComponentPricePointsAsync(
+ComponentPricePointsResponse listComponentPricePoints(
     final int componentId,
     final Boolean currencyPrices,
     final Integer page,
     final Integer perPage,
-    final List<PricePointTypeEnum> filterType)
+    final List<PricePointType> filterType)
 ```
 
 ## Parameters
@@ -927,7 +915,7 @@ CompletableFuture<ComponentPricePointsResponse> listComponentPricePointsAsync(
 | `currencyPrices` | `Boolean` | Query, Optional | Include an array of currency price data |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `filterType` | [`List<PricePointTypeEnum>`](../../doc/models/price-point-type-enum.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
+| `filterType` | [`List<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
 
 ## Response Type
 
@@ -939,14 +927,14 @@ CompletableFuture<ComponentPricePointsResponse> listComponentPricePointsAsync(
 int componentId = 222;
 Integer page = 2;
 Integer perPage = 50;
-Liquid error: Value cannot be null. (Parameter 'key')componentsController.listComponentPricePointsAsync(componentId, null, page, perPage, Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+Liquid error: Value cannot be null. (Parameter 'key')try {
+    ComponentPricePointsResponse result = componentsController.listComponentPricePoints(componentId, null, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1004,7 +992,7 @@ Liquid error: Value cannot be null. (Parameter 'key')componentsController.listCo
 Use this endpoint to create multiple component price points in one request.
 
 ```java
-CompletableFuture<ComponentPricePointsResponse> createComponentPricePointsAsync(
+ComponentPricePointsResponse createComponentPricePoints(
     final String componentId,
     final CreateComponentPricePointsRequest body)
 ```
@@ -1013,7 +1001,7 @@ CompletableFuture<ComponentPricePointsResponse> createComponentPricePointsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `componentId` | `String` | Template, Required | - |
+| `componentId` | `String` | Template, Required | The Chargify id of the component for which you want to fetch price points. |
 | `body` | [`CreateComponentPricePointsRequest`](../../doc/models/create-component-price-points-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1035,8 +1023,8 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
                         PriceStartingQuantity.fromNumber(
                             1
                         ),
-                        PriceUnitPrice.fromNumber(
-                            5
+                        PriceUnitPrice.fromPrecision(
+                            5D
                         )
                     )
                     .build()
@@ -1054,8 +1042,8 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
                         PriceStartingQuantity.fromNumber(
                             1
                         ),
-                        PriceUnitPrice.fromNumber(
-                            4
+                        PriceUnitPrice.fromPrecision(
+                            4D
                         )
                     )
                     .build()
@@ -1073,8 +1061,8 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
                         PriceStartingQuantity.fromNumber(
                             1
                         ),
-                        PriceUnitPrice.fromNumber(
-                            5
+                        PriceUnitPrice.fromPrecision(
+                            5D
                         )
                     )
                     .build()
@@ -1087,14 +1075,14 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
 )
 .build();
 
-componentsController.createComponentPricePointsAsync(componentId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentPricePointsResponse result = componentsController.createComponentPricePoints(componentId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1158,7 +1146,7 @@ Including an `id` will update the corresponding price, and including the `_destr
 Note: Custom price points cannot be updated directly. They must be edited through the Subscription.
 
 ```java
-CompletableFuture<ComponentPricePointResponse> updateComponentPricePointAsync(
+ComponentPricePointResponse updateComponentPricePoint(
     final int componentId,
     final int pricePointId,
     final UpdateComponentPricePointRequest body)
@@ -1202,14 +1190,14 @@ UpdateComponentPricePointRequest body = new UpdateComponentPricePointRequest.Bui
         .build())
     .build();
 
-componentsController.updateComponentPricePointAsync(componentId, pricePointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentPricePointResponse result = componentsController.updateComponentPricePoint(componentId, pricePointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1218,7 +1206,7 @@ componentsController.updateComponentPricePointAsync(componentId, pricePointId, b
 A price point can be archived at any time. Subscriptions using a price point that has been archived will continue using it until they're moved to another price point.
 
 ```java
-CompletableFuture<ComponentPricePointResponse> archiveComponentPricePointAsync(
+ComponentPricePointResponse archiveComponentPricePoint(
     final int componentId,
     final int pricePointId)
 ```
@@ -1240,14 +1228,14 @@ CompletableFuture<ComponentPricePointResponse> archiveComponentPricePointAsync(
 int componentId = 222;
 int pricePointId = 10;
 
-componentsController.archiveComponentPricePointAsync(componentId, pricePointId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentPricePointResponse result = componentsController.archiveComponentPricePoint(componentId, pricePointId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1290,7 +1278,7 @@ componentsController.archiveComponentPricePointAsync(componentId, pricePointId).
 Use this endpoint to unarchive a component price point.
 
 ```java
-CompletableFuture<ComponentPricePointResponse> unarchiveComponentPricePointAsync(
+ComponentPricePointResponse unarchiveComponentPricePoint(
     final int componentId,
     final int pricePointId)
 ```
@@ -1312,14 +1300,14 @@ CompletableFuture<ComponentPricePointResponse> unarchiveComponentPricePointAsync
 int componentId = 222;
 int pricePointId = 10;
 
-componentsController.unarchiveComponentPricePointAsync(componentId, pricePointId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ComponentPricePointResponse result = componentsController.unarchiveComponentPricePoint(componentId, pricePointId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1366,7 +1354,7 @@ When creating currency prices, they need to mirror the structure of your primary
 Note: Currency Prices are not able to be created for custom price points.
 
 ```java
-CompletableFuture<List<CurrencyPrice>> createCurrencyPricesAsync(
+List<CurrencyPrice> createCurrencyPrices(
     final int pricePointId,
     final CreateCurrencyPricesRequest body)
 ```
@@ -1402,14 +1390,14 @@ CreateCurrencyPricesRequest body = new CreateCurrencyPricesRequest.Builder(
 )
 .build();
 
-componentsController.createCurrencyPricesAsync(pricePointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<CurrencyPrice> result = componentsController.createCurrencyPrices(pricePointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1420,7 +1408,7 @@ This endpoint allows you to update currency prices for a given currency that has
 Note: Currency Prices are not able to be updated for custom price points.
 
 ```java
-CompletableFuture<List<CurrencyPrice>> updateCurrencyPricesAsync(
+List<CurrencyPrice> updateCurrencyPrices(
     final int pricePointId,
     final UpdateCurrencyPricesRequest body)
 ```
@@ -1456,14 +1444,14 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
 )
 .build();
 
-componentsController.updateCurrencyPricesAsync(pricePointId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<CurrencyPrice> result = componentsController.updateCurrencyPrices(pricePointId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1472,37 +1460,37 @@ componentsController.updateCurrencyPricesAsync(pricePointId, body).thenAccept(re
 This method allows to retrieve a list of Components Price Points belonging to a Site.
 
 ```java
-CompletableFuture<ListComponentsPricePointsResponse> listAllComponentPricePointsAsync(
-    final BasicDateFieldEnum filterDateField,
+ListComponentsPricePointsResponse listAllComponentPricePoints(
+    final BasicDateField filterDateField,
     final String filterEndDate,
     final String filterEndDatetime,
-    final ListComponentsPricePointsIncludeEnum include,
+    final ListComponentsPricePointsInclude include,
     final Integer page,
     final Integer perPage,
     final String filterStartDate,
     final String filterStartDatetime,
-    final List<PricePointTypeEnum> filterType,
+    final PricePointType filterType,
     final ListAllComponentPricePointsDirection direction,
     final List<Integer> filterIds,
-    final IncludeNotNullEnum filterArchivedAt)
+    final IncludeNotNull filterArchivedAt)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `filterDateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
+| `filterDateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
 | `filterEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `filterEndDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| `include` | [`ListComponentsPricePointsIncludeEnum`](../../doc/models/list-components-price-points-include-enum.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
+| `include` | [`ListComponentsPricePointsInclude`](../../doc/models/list-components-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `filterStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `filterStartDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `filterType` | [`List<PricePointTypeEnum>`](../../doc/models/price-point-type-enum.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`. |
+| `filterType` | [`PricePointType`](../../doc/models/price-point-type.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`. |
 | `direction` | [`ListAllComponentPricePointsDirection`](../../doc/models/containers/list-all-component-price-points-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `filterIds` | `List<Integer>` | Query, Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |
-| `filterArchivedAt` | [`IncludeNotNullEnum`](../../doc/models/include-not-null-enum.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
+| `filterArchivedAt` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
 
 ## Response Type
 
@@ -1511,18 +1499,18 @@ CompletableFuture<ListComponentsPricePointsResponse> listAllComponentPricePoints
 ## Example Usage
 
 ```java
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')ListComponentsPricePointsIncludeEnum include = ListComponentsPricePointsIncludeEnum.CURRENCY_PRICES;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')ListComponentsPricePointsInclude include = ListComponentsPricePointsInclude.CURRENCY_PRICES;
 Integer page = 2;
 Integer perPage = 50;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
-componentsController.listAllComponentPricePointsAsync(Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), include, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListComponentsPricePointsResponse result = componentsController.listAllComponentPricePoints(Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), include, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1531,27 +1519,28 @@ componentsController.listAllComponentPricePointsAsync(Liquid error: Value cannot
 {
   "price_points": [
     {
-      "price_point": {
-        "id": 1,
-        "name": "Auto-created",
-        "type": "default",
-        "component_id": 2,
-        "handle": "auto-created",
-        "created_at": "2021-02-21T11:05:57-05:00",
-        "updated_at": "2021-02-21T11:05:57-05:00",
-        "prices": [
-          {
-            "id": 3,
-            "component_id": 2,
-            "starting_quantity": 0,
-            "ending_quantity": null,
-            "unit_price": "1.0",
-            "price_point_id": 1,
-            "formatted_unit_price": "$1.00",
-            "segment_id": null
-          }
-        ]
-      }
+      "id": 1,
+      "name": "Auto-created",
+      "type": "default",
+      "pricing_scheme": "per_unit",
+      "component_id": 2,
+      "handle": "auto-created",
+      "archived_at": null,
+      "created_at": "2021-02-21T11:05:57-05:00",
+      "updated_at": "2021-02-21T11:05:57-05:00",
+      "prices": [
+        {
+          "id": 3,
+          "component_id": 2,
+          "starting_quantity": 0,
+          "ending_quantity": null,
+          "unit_price": "1.0",
+          "price_point_id": 1,
+          "formatted_unit_price": "$1.00",
+          "segment_id": null
+        }
+      ],
+      "tax_included": false
     }
   ]
 }

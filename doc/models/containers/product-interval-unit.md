@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`IntervalUnitEnum`](../../../doc/models/interval-unit-enum.md) | ProductIntervalUnit.fromIntervalUnit(IntervalUnitEnum intervalUnit) |
+| [`IntervalUnit`](../../../doc/models/interval-unit.md) | ProductIntervalUnit.fromIntervalUnit(IntervalUnit intervalUnit) |
 

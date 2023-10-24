@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`IntervalUnitEnum`](../../../doc/models/interval-unit-enum.md) | CreatePrepaidUsageComponentPricePointExpirationIntervalUnit.fromIntervalUnit(IntervalUnitEnum intervalUnit) |
+| [`IntervalUnit`](../../../doc/models/interval-unit.md) | CreatePrepaidUsageComponentPricePointExpirationIntervalUnit.fromIntervalUnit(IntervalUnit intervalUnit) |
 

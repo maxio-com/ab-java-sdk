@@ -26,7 +26,7 @@
 | `ProductFamilyName` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
 | `Role` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getRole() | setRole(String role) |
 | `Seller` | [`InvoiceSeller`](../../doc/models/invoice-seller.md) | Optional | Information about the seller (merchant) listed on the masthead of the invoice. | InvoiceSeller getSeller() | setSeller(InvoiceSeller seller) |
-| `Customer` | [`ProformaCustomer`](../../doc/models/proforma-customer.md) | Optional | - | ProformaCustomer getCustomer() | setCustomer(ProformaCustomer customer) |
+| `Customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient the invoiced subscription. | InvoiceCustomer getCustomer() | setCustomer(InvoiceCustomer customer) |
 | `Memo` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getMemo() | setMemo(String memo) |
 | `BillingAddress` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - | InvoiceAddress getBillingAddress() | setBillingAddress(InvoiceAddress billingAddress) |
 | `ShippingAddress` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - | InvoiceAddress getShippingAddress() | setShippingAddress(InvoiceAddress shippingAddress) |
@@ -38,7 +38,7 @@
 | `PaidAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getPaidAmount() | setPaidAmount(String paidAmount) |
 | `RefundAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getRefundAmount() | setRefundAmount(String refundAmount) |
 | `DueAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getDueAmount() | setDueAmount(String dueAmount) |
-| `LineItems` | [`List<ProformaInvoiceLineItem>`](../../doc/models/proforma-invoice-line-item.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* | List<ProformaInvoiceLineItem> getLineItems() | setLineItems(List<ProformaInvoiceLineItem> lineItems) |
+| `LineItems` | [`List<InvoiceLineItem>`](../../doc/models/invoice-line-item.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* | List<InvoiceLineItem> getLineItems() | setLineItems(List<InvoiceLineItem> lineItems) |
 | `Discounts` | [`List<ProformaInvoiceDiscount>`](../../doc/models/proforma-invoice-discount.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* | List<ProformaInvoiceDiscount> getDiscounts() | setDiscounts(List<ProformaInvoiceDiscount> discounts) |
 | `Taxes` | [`List<ProformaInvoiceTax>`](../../doc/models/proforma-invoice-tax.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* | List<ProformaInvoiceTax> getTaxes() | setTaxes(List<ProformaInvoiceTax> taxes) |
 | `Credits` | [`List<ProformaInvoiceCredit>`](../../doc/models/proforma-invoice-credit.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* | List<ProformaInvoiceCredit> getCredits() | setCredits(List<ProformaInvoiceCredit> credits) |

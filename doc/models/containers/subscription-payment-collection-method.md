@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`PaymentCollectionMethodForSubscriptionEnum`](../../../doc/models/payment-collection-method-for-subscription-enum.md) | SubscriptionPaymentCollectionMethod.fromPaymentCollectionMethodForSubscription(PaymentCollectionMethodForSubscriptionEnum paymentCollectionMethodForSubscription) |
+| [`PaymentCollectionMethod`](../../../doc/models/payment-collection-method.md) | SubscriptionPaymentCollectionMethod.fromPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) |
 

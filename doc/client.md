@@ -5,7 +5,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Chargify site<br>*Default*: `"subdomain"` |
+| `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `"subdomain"` |
+| `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
 | `basicAuthUserName` | `String` | The username to use with basic authentication |
@@ -14,16 +15,17 @@ The following parameters are configurable for the API Client:
 The API client can be initialized as follows:
 
 ```java
-MaxioAdvancedBillingFormerlyChargifyAPIClient client = new MaxioAdvancedBillingFormerlyChargifyAPIClient.Builder()
+AdvancedBillingClient client = new AdvancedBillingClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
     .basicAuthCredentials("BasicAuthUserName", "BasicAuthPassword")
     .environment(Environment.PRODUCTION)
     .subdomain("subdomain")
+    .domain("chargify.com")
     .build();
 ```
 
-## Maxio Advanced Billing formerly Chargify APIClient Class
+## Maxio Advanced BillingClient Class
 
 The gateway for the SDK. This class acts as a factory for the Controllers and also holds the configuration of the SDK.
 
@@ -69,7 +71,8 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 |  --- | --- | --- |
 | `shutdown()` | Shutdown the underlying HttpClient instance. | `void` |
 | `getEnvironment()` | Current API environment. | `Environment` |
-| `getSubdomain()` | The subdomain for your Chargify site | `String` |
+| `getSubdomain()` | The subdomain for your Chargify site. | `String` |
+| `getDomain()` | The Chargify server domain. | `String` |
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
 | `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) |
 | `getBaseUri(Server server)` | Get base URI by current environment | `String` |

@@ -36,7 +36,7 @@ Full documentation on how Reason Codes operate within Chargify can be located un
 This method gives a merchant the option to create a reason codes for a given Site.
 
 ```java
-CompletableFuture<ReasonCodeResponse> createReasonCodeAsync(
+ReasonCodeResponse createReasonCode(
     final CreateReasonCodeRequest body)
 ```
 
@@ -63,14 +63,14 @@ CreateReasonCodeRequest body = new CreateReasonCodeRequest.Builder(
 )
 .build();
 
-reasonCodesController.createReasonCodeAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReasonCodeResponse result = reasonCodesController.createReasonCode(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -85,7 +85,7 @@ reasonCodesController.createReasonCodeAsync(body).thenAccept(result -> {
 This method gives a merchant the option to retrieve a list of all of the current churn codes for a given site.
 
 ```java
-CompletableFuture<List<ReasonCodeResponse>> listReasonCodesAsync(
+List<ReasonCodeResponse> listReasonCodes(
     final Integer page,
     final Integer perPage)
 ```
@@ -107,14 +107,14 @@ CompletableFuture<List<ReasonCodeResponse>> listReasonCodesAsync(
 Integer page = 2;
 Integer perPage = 50;
 
-reasonCodesController.listReasonCodesAsync(page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ReasonCodeResponse> result = reasonCodesController.listReasonCodes(page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -163,7 +163,7 @@ reasonCodesController.listReasonCodesAsync(page, perPage).thenAccept(result -> {
 This method gives a merchant the option to retrieve a list of a particular code for a given Site by providing the unique numerical ID of the code.
 
 ```java
-CompletableFuture<ReasonCodeResponse> readReasonCodeAsync(
+ReasonCodeResponse readReasonCode(
     final int reasonCodeId)
 ```
 
@@ -182,14 +182,14 @@ CompletableFuture<ReasonCodeResponse> readReasonCodeAsync(
 ```java
 int reasonCodeId = 32;
 
-reasonCodesController.readReasonCodeAsync(reasonCodeId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReasonCodeResponse result = reasonCodesController.readReasonCode(reasonCodeId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -204,7 +204,7 @@ reasonCodesController.readReasonCodeAsync(reasonCodeId).thenAccept(result -> {
 This method gives a merchant the option to update an existing reason code for a given site.
 
 ```java
-CompletableFuture<ReasonCodeResponse> updateReasonCodeAsync(
+ReasonCodeResponse updateReasonCode(
     final int reasonCodeId,
     final UpdateReasonCodeRequest body)
 ```
@@ -224,14 +224,14 @@ CompletableFuture<ReasonCodeResponse> updateReasonCodeAsync(
 
 ```java
 int reasonCodeId = 32;
-reasonCodesController.updateReasonCodeAsync(reasonCodeId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReasonCodeResponse result = reasonCodesController.updateReasonCode(reasonCodeId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -246,7 +246,7 @@ reasonCodesController.updateReasonCodeAsync(reasonCodeId, null).thenAccept(resul
 This method gives a merchant the option to delete one reason code from the Churn Reason Codes. This code will be immediately removed. This action is not reversable.
 
 ```java
-CompletableFuture<ReasonCodesJsonResponse> deleteReasonCodeAsync(
+ReasonCodesJsonResponse deleteReasonCode(
     final int reasonCodeId)
 ```
 
@@ -265,14 +265,14 @@ CompletableFuture<ReasonCodesJsonResponse> deleteReasonCodeAsync(
 ```java
 int reasonCodeId = 32;
 
-reasonCodesController.deleteReasonCodeAsync(reasonCodeId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReasonCodesJsonResponse result = reasonCodesController.deleteReasonCode(reasonCodeId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

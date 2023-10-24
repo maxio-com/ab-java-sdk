@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`CancellationMethodEnum`](../../../doc/models/cancellation-method-enum.md) | SubscriptionCancellationMethod.fromCancellationMethod(CancellationMethodEnum cancellationMethod) |
+| [`CancellationMethod`](../../../doc/models/cancellation-method.md) | SubscriptionCancellationMethod.fromCancellationMethod(CancellationMethod cancellationMethod) |
 

@@ -34,7 +34,7 @@ SubscriptionComponentsController subscriptionComponentsController = client.getSu
 This request will list information regarding a specific component owned by a subscription.
 
 ```java
-CompletableFuture<SubscriptionComponentResponse> readSubscriptionComponentAsync(
+SubscriptionComponentResponse readSubscriptionComponent(
     final String subscriptionId,
     final int componentId)
 ```
@@ -56,14 +56,14 @@ CompletableFuture<SubscriptionComponentResponse> readSubscriptionComponentAsync(
 String subscriptionId = "subscription_id0";
 int componentId = 222;
 
-subscriptionComponentsController.readSubscriptionComponentAsync(subscriptionId, componentId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionComponentResponse result = subscriptionComponentsController.readSubscriptionComponent(subscriptionId, componentId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -101,18 +101,18 @@ This request will list a subscription's applied components.
 When requesting to list components for a given subscription, if the subscription contains **archived** components they will be listed in the server response.
 
 ```java
-CompletableFuture<List<SubscriptionComponentResponse>> listSubscriptionComponentsAsync(
+List<SubscriptionComponentResponse> listSubscriptionComponents(
     final String subscriptionId,
-    final ListSubscriptionComponentsDateFieldEnum dateField,
+    final ListSubscriptionComponentsDateField dateField,
     final ListSubscriptionComponentsDirection direction,
     final String endDate,
     final String endDatetime,
-    final IncludeNotNullEnum pricePointIds,
+    final IncludeNotNull pricePointIds,
     final List<Integer> productFamilyIds,
-    final ListSubscriptionComponentsSortEnum sort,
+    final ListSubscriptionComponentsSort sort,
     final String startDate,
     final String startDatetime,
-    final ListSubscriptionComponentsIncludeEnum include,
+    final ListSubscriptionComponentsInclude include,
     final Boolean filterUseSiteExchangeRate,
     final List<String> filterCurrencies)
 ```
@@ -122,16 +122,16 @@ CompletableFuture<List<SubscriptionComponentResponse>> listSubscriptionComponent
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
-| `dateField` | [`ListSubscriptionComponentsDateFieldEnum`](../../doc/models/list-subscription-components-date-field-enum.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
+| `dateField` | [`ListSubscriptionComponentsDateField`](../../doc/models/list-subscription-components-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
 | `direction` | [`ListSubscriptionComponentsDirection`](../../doc/models/containers/list-subscription-components-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
-| `pricePointIds` | [`IncludeNotNullEnum`](../../doc/models/include-not-null-enum.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
+| `pricePointIds` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
 | `productFamilyIds` | `List<Integer>` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
-| `sort` | [`ListSubscriptionComponentsSortEnum`](../../doc/models/list-subscription-components-sort-enum.md) | Query, Optional | The attribute by which to sort. Use in query `sort=updated_at`. |
+| `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query `sort=updated_at`. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `include` | [`ListSubscriptionComponentsIncludeEnum`](../../doc/models/list-subscription-components-include-enum.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription`. |
+| `include` | [`ListSubscriptionComponentsInclude`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription`. |
 | `filterUseSiteExchangeRate` | `Boolean` | Query, Optional | Allows fetching components allocation with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 | `filterCurrencies` | `List<String>` | Query, Optional | Allows fetching components allocation with matching currency based on provided values. Use in query `filter[currencies]=EUR,USD`. |
 
@@ -143,24 +143,24 @@ CompletableFuture<List<SubscriptionComponentResponse>> listSubscriptionComponent
 
 ```java
 String subscriptionId = "subscription_id0";
-ListSubscriptionComponentsDateFieldEnum dateField = ListSubscriptionComponentsDateFieldEnum.UPDATED_AT;
-IncludeNotNullEnum pricePointIds = IncludeNotNullEnum.NOT_NULL;
+ListSubscriptionComponentsDateField dateField = ListSubscriptionComponentsDateField.UPDATED_AT;
+IncludeNotNull pricePointIds = IncludeNotNull.NOT_NULL;
 List<Integer> productFamilyIds = Arrays.asList(
     1,
     2,
     3
 );
 
-ListSubscriptionComponentsSortEnum sort = ListSubscriptionComponentsSortEnum.UPDATED_AT;
-ListSubscriptionComponentsIncludeEnum include = ListSubscriptionComponentsIncludeEnum.SUBSCRIPTION;
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')subscriptionComponentsController.listSubscriptionComponentsAsync(subscriptionId, dateField, null, null, null, pricePointIds, productFamilyIds, sort, null, null, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+ListSubscriptionComponentsSort sort = ListSubscriptionComponentsSort.UPDATED_AT;
+ListSubscriptionComponentsInclude include = ListSubscriptionComponentsInclude.SUBSCRIPTION;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')try {
+    List<SubscriptionComponentResponse> result = subscriptionComponentsController.listSubscriptionComponents(subscriptionId, dateField, null, null, null, pricePointIds, productFamilyIds, sort, null, null, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -204,7 +204,7 @@ The `price_point` key can take either a:
 3. `"_default"` string, which will reset the price point to the component's current default price point.
 
 ```java
-CompletableFuture<BulkComponentSPricePointAssignment> updateSubscriptionComponentsPricePointsAsync(
+BulkComponentSPricePointAssignment updateSubscriptionComponentsPricePoints(
     final String subscriptionId,
     final BulkComponentSPricePointAssignment body)
 ```
@@ -247,14 +247,14 @@ BulkComponentSPricePointAssignment body = new BulkComponentSPricePointAssignment
     ))
     .build();
 
-subscriptionComponentsController.updateSubscriptionComponentsPricePointsAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BulkComponentSPricePointAssignment result = subscriptionComponentsController.updateSubscriptionComponentsPricePoints(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -278,7 +278,7 @@ subscriptionComponentsController.updateSubscriptionComponentsPricePointsAsync(su
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsPricePointsJson422ErrorException`](../../doc/models/subscriptions-price-points-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ComponentPricePointErrorException`](../../doc/models/component-price-point-error-exception.md) |
 
 
 # Reset Subscription Components Price Points
@@ -288,7 +288,7 @@ Resets all of a subscription's components to use the current default.
 **Note**: this will update the price point for all of the subscription's components, even ones that have not been allocated yet.
 
 ```java
-CompletableFuture<SubscriptionResponse> resetSubscriptionComponentsPricePointsAsync(
+SubscriptionResponse resetSubscriptionComponentsPricePoints(
     final String subscriptionId)
 ```
 
@@ -307,14 +307,14 @@ CompletableFuture<SubscriptionResponse> resetSubscriptionComponentsPricePointsAs
 ```java
 String subscriptionId = "subscription_id0";
 
-subscriptionComponentsController.resetSubscriptionComponentsPricePointsAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionResponse result = subscriptionComponentsController.resetSubscriptionComponentsPricePoints(subscriptionId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -472,7 +472,7 @@ See the tables below for valid values.
 **NOTE: Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.**
 
 ```java
-CompletableFuture<AllocationResponse> allocateComponentAsync(
+AllocationResponse allocateComponent(
     final String subscriptionId,
     final int componentId,
     final CreateAllocationRequest body)
@@ -495,14 +495,23 @@ CompletableFuture<AllocationResponse> allocateComponentAsync(
 ```java
 String subscriptionId = "subscription_id0";
 int componentId = 222;
-subscriptionComponentsController.allocateComponentAsync(subscriptionId, componentId, null).thenAccept(result -> {
-    // TODO success callback handler
+CreateAllocationRequest body = new CreateAllocationRequest.Builder(
+    new CreateAllocation.Builder(
+        5D
+    )
+    .memo("Recoding component purchase of Acme Support")
+    .build()
+)
+.build();
+
+try {
+    AllocationResponse result = subscriptionComponentsController.allocateComponent(subscriptionId, componentId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -512,8 +521,8 @@ subscriptionComponentsController.allocateComponentAsync(subscriptionId, componen
   "allocation": {
     "component_id": 4034995,
     "subscription_id": 23737320,
-    "quantity": -96752223,
-    "previous_quantity": 3010509,
+    "quantity": 3,
+    "previous_quantity": 2,
     "memo": "dolore cupidatat elit",
     "timestamp": "ex proident dolor i",
     "proration_upgrade_scheme": "laboris ipsum dolore",
@@ -525,7 +534,7 @@ subscriptionComponentsController.allocateComponentAsync(subscriptionId, componen
     "downgrade_credit": "full",
     "payment": {
       "id": -44566528,
-      "amout_in_cents": "labore in minim ad",
+      "amount_in_cents": 123,
       "success": false,
       "memo": "aliqua"
     }
@@ -558,7 +567,7 @@ puts component.allocated_quantity
 ```
 
 ```java
-CompletableFuture<List<AllocationResponse>> listAllocationsAsync(
+List<AllocationResponse> listAllocations(
     final String subscriptionId,
     final int componentId,
     final Integer page)
@@ -583,14 +592,14 @@ String subscriptionId = "subscription_id0";
 int componentId = 222;
 Integer page = 2;
 
-subscriptionComponentsController.listAllocationsAsync(subscriptionId, componentId, page).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<AllocationResponse> result = subscriptionComponentsController.listAllocations(subscriptionId, componentId, page);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -642,7 +651,7 @@ A `component_id` is required for each allocation.
 This endpoint only responds to JSON. It is not available for XML.
 
 ```java
-CompletableFuture<List<AllocationResponse>> allocateComponentsAsync(
+List<AllocationResponse> allocateComponents(
     final String subscriptionId,
     final AllocateComponents body)
 ```
@@ -663,18 +672,38 @@ CompletableFuture<List<AllocationResponse>> allocateComponentsAsync(
 ```java
 String subscriptionId = "subscription_id0";
 AllocateComponents body = new AllocateComponents.Builder()
-    .prorationUpgradeScheme("no-prorate")
+    .prorationUpgradeScheme("prorate-attempt-capture")
     .prorationDowngradeScheme("no-prorate")
+    .allocations(Arrays.asList(
+        new CreateAllocationRequest.Builder(
+            new CreateAllocation.Builder(
+                10D
+            )
+            .componentId(123)
+            .memo("foo")
+            .build()
+        )
+        .build(),
+        new CreateAllocationRequest.Builder(
+            new CreateAllocation.Builder(
+                5D
+            )
+            .componentId(456)
+            .memo("bar")
+            .build()
+        )
+        .build()
+    ))
     .build();
 
-subscriptionComponentsController.allocateComponentsAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<AllocationResponse> result = subscriptionComponentsController.allocateComponents(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -740,9 +769,9 @@ When the allocation uses multiple different types of `upgrade_charge`s or `downg
 See example below for Fine-Grained Component Control response.
 
 ```java
-CompletableFuture<AllocationPreviewResponse> previewAllocationsAsync(
+AllocationPreviewResponse previewAllocations(
     final String subscriptionId,
-    final CreateAllocationRequest body)
+    final PreviewAllocationsRequest body)
 ```
 
 ## Parameters
@@ -750,7 +779,7 @@ CompletableFuture<AllocationPreviewResponse> previewAllocationsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
-| `body` | [`CreateAllocationRequest`](../../doc/models/create-allocation-request.md) | Body, Optional | - |
+| `body` | [`PreviewAllocationsRequest`](../../doc/models/preview-allocations-request.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -760,21 +789,141 @@ CompletableFuture<AllocationPreviewResponse> previewAllocationsAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-subscriptionComponentsController.previewAllocationsAsync(subscriptionId, null).thenAccept(result -> {
-    // TODO success callback handler
+PreviewAllocationsRequest body = new PreviewAllocationsRequest.Builder(
+    Arrays.asList(
+        new CreateAllocation.Builder(
+            10D
+        )
+        .componentId(554108)
+        .memo("NOW")
+        .prorationDowngradeScheme("prorate")
+        .prorationUpgradeScheme("prorate-attempt-capture")
+        .pricePointId(CreateAllocationPricePointId.fromNumber(
+                325826
+            ))
+        .build()
+    )
+)
+.build();
+
+try {
+    AllocationPreviewResponse result = subscriptionComponentsController.previewAllocations(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "allocation_preview": {
+    "start_date": "2019-05-02T15:26:46Z",
+    "end_date": "2019-05-08T15:26:46Z",
+    "period_type": "prorated",
+    "total_in_cents": 150,
+    "total_discount_in_cents": 0,
+    "total_tax_in_cents": 0,
+    "subtotal_in_cents": 150,
+    "existing_balance_in_cents": 0,
+    "accrue_charge": true,
+    "line_items": [
+      {
+        "direction": "upgrade",
+        "transaction_type": "charge",
+        "kind": "quantity_based_component",
+        "amount_in_cents": 100,
+        "taxable_amount_in_cents": 0,
+        "discount_amount_in_cents": 0,
+        "memo": "Foo: 0 to 10 foo",
+        "component_id": 123,
+        "component_handle": "foo"
+      },
+      {
+        "direction": "downgrade",
+        "transaction_type": "credit",
+        "kind": "quantity_based_component",
+        "amount_in_cents": -20,
+        "taxable_amount_in_cents": 0,
+        "discount_amount_in_cents": 0,
+        "memo": "Foo: 10 to 5 bar",
+        "component_id": 456,
+        "component_handle": "bar"
+      },
+      {
+        "direction": "upgrade",
+        "transaction_type": "credit",
+        "kind": "quantity_based_component",
+        "amount_in_cents": 70,
+        "taxable_amount_in_cents": 0,
+        "discount_amount_in_cents": 0,
+        "memo": "Foo: 0 to 10 baz",
+        "component_id": 789,
+        "component_handle": "baz"
+      }
+    ],
+    "allocations": [
+      {
+        "accrue_charge": true,
+        "upgrade_charge": "prorated",
+        "downgrade_credit": "full",
+        "component_handle": "foo",
+        "component_id": 123,
+        "memo": "foo",
+        "previous_price_point_id": 123,
+        "previous_quantity": 0,
+        "price_point_id": 123,
+        "proration_downgrade_scheme": "full",
+        "proration_upgrade_scheme": "prorate-delay-capture",
+        "quantity": 10,
+        "subscription_id": 123456,
+        "timestamp": null
+      },
+      {
+        "accrue_charge": true,
+        "upgrade_charge": "full",
+        "downgrade_credit": "prorated",
+        "component_handle": "bar",
+        "component_id": 456,
+        "memo": "foo",
+        "previous_price_point_id": 456,
+        "previous_quantity": 10,
+        "price_point_id": 456,
+        "proration_downgrade_scheme": "prorate",
+        "proration_upgrade_scheme": "full-price-delay-capture",
+        "quantity": 5,
+        "subscription_id": 123456,
+        "timestamp": null
+      },
+      {
+        "accrue_charge": true,
+        "upgrade_charge": "full",
+        "downgrade_credit": "none",
+        "component_handle": "baz",
+        "component_id": 789,
+        "memo": "foo",
+        "previous_price_point_id": 789,
+        "previous_quantity": 0,
+        "price_point_id": 789,
+        "proration_downgrade_scheme": "no-prorate",
+        "proration_upgrade_scheme": "full-price-delay-capture",
+        "quantity": 10,
+        "subscription_id": 123456,
+        "timestamp": null
+      }
+    ]
+  }
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsAllocationsPreviewJson422ErrorException`](../../doc/models/subscriptions-allocations-preview-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ComponentAllocationErrorException`](../../doc/models/component-allocation-error-exception.md) |
 
 
 # Update Prepaid Usage Allocation
@@ -792,7 +941,7 @@ A few limitations exist when changing an allocation's expiration date:
 - An expiration date can be changed towards the past (essentially expiring it) up to the subscription's current period beginning date.
 
 ```java
-CompletableFuture<Void> updatePrepaidUsageAllocationAsync(
+Void updatePrepaidUsageAllocation(
     final String subscriptionId,
     final int componentId,
     final int allocationId,
@@ -824,21 +973,20 @@ UpdateAllocationExpirationDate body = new UpdateAllocationExpirationDate.Builder
         .build())
     .build();
 
-subscriptionComponentsController.updatePrepaidUsageAllocationAsync(subscriptionId, componentId, allocationId, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionComponentsController.updatePrepaidUsageAllocation(subscriptionId, componentId, allocationId, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsComponentsAllocationsAllocationIdJson422ErrorException`](../../doc/models/subscriptions-components-allocations-allocation-id-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionComponentAllocationErrorException`](../../doc/models/subscription-component-allocation-error-exception.md) |
 
 
 # Delete Prepaid Usage Allocation
@@ -854,7 +1002,7 @@ By default, destroying an allocation will generate a service credit on the subsc
 3. `refund`: The allocation will be destroyed and the balances will be updated and a refund will be issued along with a Credit Note.
 
 ```java
-CompletableFuture<Void> deletePrepaidUsageAllocationAsync(
+Void deletePrepaidUsageAllocation(
     final String subscriptionId,
     final int componentId,
     final int allocationId,
@@ -881,25 +1029,24 @@ String subscriptionId = "subscription_id0";
 int componentId = 222;
 int allocationId = 24;
 CreditSchemeRequest body = new CreditSchemeRequest.Builder(
-    CreditSchemeEnum.NONE
+    CreditScheme.NONE
 )
 .build();
 
-subscriptionComponentsController.deletePrepaidUsageAllocationAsync(subscriptionId, componentId, allocationId, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionComponentsController.deletePrepaidUsageAllocation(subscriptionId, componentId, allocationId, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionsComponentsAllocationsAllocationIdJson422ErrorException`](../../doc/models/subscriptions-components-allocations-allocation-id-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionComponentAllocationErrorException`](../../doc/models/subscription-component-allocation-error-exception.md) |
 
 
 # Create Usage
@@ -962,7 +1109,7 @@ Q. Is it possible to record metered usage for more than one component at a time?
 A. No. Usage should be reported as one API call per component on a single subscription. For example, to record that a subscriber has sent both an SMS Message and an Email, send an API call for each.
 
 ```java
-CompletableFuture<UsageResponse> createUsageAsync(
+UsageResponse createUsage(
     final String subscriptionId,
     final int componentId,
     final CreateUsageRequest body)
@@ -985,14 +1132,23 @@ CompletableFuture<UsageResponse> createUsageAsync(
 ```java
 String subscriptionId = "subscription_id0";
 int componentId = 222;
-subscriptionComponentsController.createUsageAsync(subscriptionId, componentId, null).thenAccept(result -> {
-    // TODO success callback handler
+CreateUsageRequest body = new CreateUsageRequest.Builder(
+    new CreateUsage.Builder()
+        .quantity(1000D)
+        .pricePointId("149416")
+        .memo("My memo")
+        .build()
+)
+.build();
+
+try {
+    UsageResponse result = subscriptionComponentsController.createUsage(subscriptionId, componentId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1038,7 +1194,7 @@ Note: The `since_date` and `until_date` attributes each default to midnight on t
 Use this endpoint to read the previously recorded components for a subscription.  You can now specify either the component id (integer) or the component handle prefixed by "handle:" to specify the unique identifier for the component you are working with.
 
 ```java
-CompletableFuture<List<UsageResponse>> listUsagesAsync(
+List<UsageResponse> listUsages(
     final String subscriptionId,
     final int componentId,
     final Integer sinceId,
@@ -1074,14 +1230,14 @@ int componentId = 222;
 Integer page = 2;
 Integer perPage = 50;
 
-subscriptionComponentsController.listUsagesAsync(subscriptionId, componentId, null, null, null, null, page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<UsageResponse> result = subscriptionComponentsController.listUsages(subscriptionId, componentId, null, null, null, null, page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1127,7 +1283,7 @@ Use this endpoint to activate an event-based component for a single subscription
 *Note: it is possible to stream events for a subscription at any time, regardless of component activation status. The activation status only determines if the subscription should be billed for event-based component usage at renewal.*
 
 ```java
-CompletableFuture<Void> activateEventBasedComponentAsync(
+Void activateEventBasedComponent(
     final int subscriptionId,
     final int componentId)
 ```
@@ -1149,14 +1305,13 @@ CompletableFuture<Void> activateEventBasedComponentAsync(
 int subscriptionId = 222;
 int componentId = 222;
 
-subscriptionComponentsController.activateEventBasedComponentAsync(subscriptionId, componentId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionComponentsController.activateEventBasedComponent(subscriptionId, componentId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1165,7 +1320,7 @@ subscriptionComponentsController.activateEventBasedComponentAsync(subscriptionId
 Use this endpoint to deactivate an event-based component for a single subscription. Deactivating the event-based component causes Chargify to ignore related events at subscription renewal.
 
 ```java
-CompletableFuture<Void> deactivateEventBasedComponentAsync(
+Void deactivateEventBasedComponent(
     final int subscriptionId,
     final int componentId)
 ```
@@ -1187,14 +1342,13 @@ CompletableFuture<Void> deactivateEventBasedComponentAsync(
 int subscriptionId = 222;
 int componentId = 222;
 
-subscriptionComponentsController.deactivateEventBasedComponentAsync(subscriptionId, componentId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionComponentsController.deactivateEventBasedComponent(subscriptionId, componentId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1221,7 +1375,7 @@ https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
 ```
 
 ```java
-CompletableFuture<Void> recordEventAsync(
+Void recordEvent(
     final String subdomain,
     final String apiHandle,
     final String storeUid,
@@ -1249,17 +1403,17 @@ String apiHandle = "api_handle6";
 EBBEvent body = new EBBEvent.Builder()
     .chargify(new ChargifyEBB.Builder()
         .timestamp("2020-02-27T17:45:50-05:00")
+        .subscriptionId(1)
         .build())
     .build();
 
-subscriptionComponentsController.recordEventAsync(subdomain, apiHandle, null, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionComponentsController.recordEvent(subdomain, apiHandle, null, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1272,7 +1426,7 @@ Use this endpoint to record a collection of events.
 A maximum of 1000 events can be published in a single request. A 422 will be returned if this limit is exceeded.
 
 ```java
-CompletableFuture<Void> recordEventsAsync(
+Void recordEvents(
     final String subdomain,
     final String apiHandle,
     final String storeUid,
@@ -1283,8 +1437,8 @@ CompletableFuture<Void> recordEventsAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subdomain` | `String` | Template, Required | - |
-| `apiHandle` | `String` | Template, Required | - |
+| `subdomain` | `String` | Template, Required | Your site's subdomain |
+| `apiHandle` | `String` | Template, Required | Identifies the Stream for which the events should be published. |
 | `storeUid` | `String` | Query, Optional | If you've attached your own Keen project as a Chargify event data-store, use this parameter to indicate the data-store. |
 | `body` | [`List<EBBEvent>`](../../doc/models/ebb-event.md) | Body, Optional | - |
 
@@ -1301,18 +1455,18 @@ List<EBBEvent> body = Arrays.asList(
     new EBBEvent.Builder()
         .chargify(new ChargifyEBB.Builder()
             .timestamp("2020-02-27T17:45:50-05:00")
+            .subscriptionId(1)
             .build())
         .build()
 );
 
-subscriptionComponentsController.recordEventsAsync(subdomain, apiHandle, null, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionComponentsController.recordEvents(subdomain, apiHandle, null, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1321,24 +1475,24 @@ subscriptionComponentsController.recordEventsAsync(subdomain, apiHandle, null, b
 This request will list components applied to each subscription.
 
 ```java
-CompletableFuture<ListSubscriptionComponentsResponse> listSubscriptionComponentsForSiteAsync(
+ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
     final Integer page,
     final Integer perPage,
-    final ListSubscriptionComponentsSortEnum sort,
+    final ListSubscriptionComponentsSort sort,
     final ListSubscriptionComponentsForSiteDirection direction,
-    final ListSubscriptionComponentsDateFieldEnum dateField,
+    final ListSubscriptionComponentsDateField dateField,
     final String startDate,
     final String startDatetime,
     final String endDate,
     final String endDatetime,
     final List<Integer> subscriptionIds,
-    final IncludeNotNullEnum pricePointIds,
+    final IncludeNotNull pricePointIds,
     final List<Integer> productFamilyIds,
-    final ListSubscriptionComponentsIncludeEnum include,
+    final ListSubscriptionComponentsInclude include,
     final Boolean filterUseSiteExchangeRate,
     final List<String> filterCurrencies,
-    final List<SubscriptionStateEnum> filterSubscriptionStates,
-    final ListSubscriptionComponentsSubscriptionDateFieldEnum filterSubscriptionDateField,
+    final List<SubscriptionState> filterSubscriptionStates,
+    final ListSubscriptionComponentsSubscriptionDateField filterSubscriptionDateField,
     final String filterSubscriptionStartDate,
     final String filterSubscriptionStartDatetime,
     final String filterSubscriptionEndDate,
@@ -1351,21 +1505,21 @@ CompletableFuture<ListSubscriptionComponentsResponse> listSubscriptionComponents
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `sort` | [`ListSubscriptionComponentsSortEnum`](../../doc/models/list-subscription-components-sort-enum.md) | Query, Optional | The attribute by which to sort. Use in query: `sort=updated_at`. |
+| `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query: `sort=updated_at`. |
 | `direction` | [`ListSubscriptionComponentsForSiteDirection`](../../doc/models/containers/list-subscription-components-for-site-direction.md) | Query, Optional | This is a container for one-of cases. |
-| `dateField` | [`ListSubscriptionComponentsDateFieldEnum`](../../doc/models/list-subscription-components-date-field-enum.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
+| `dateField` | [`ListSubscriptionComponentsDateField`](../../doc/models/list-subscription-components-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2011-12-15`. |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2011-12-16`. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-07-01 09:00:05`. |
 | `subscriptionIds` | `List<Integer>` | Query, Optional | Allows fetching components allocation with matching subscription id based on provided ids. Use in query `subscription_ids=1,2,3`.<br>**Constraints**: *Minimum Items*: `1`, *Maximum Items*: `200` |
-| `pricePointIds` | [`IncludeNotNullEnum`](../../doc/models/include-not-null-enum.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
+| `pricePointIds` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
 | `productFamilyIds` | `List<Integer>` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
-| `include` | [`ListSubscriptionComponentsIncludeEnum`](../../doc/models/list-subscription-components-include-enum.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription`. |
+| `include` | [`ListSubscriptionComponentsInclude`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription`. |
 | `filterUseSiteExchangeRate` | `Boolean` | Query, Optional | Allows fetching components allocation with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 | `filterCurrencies` | `List<String>` | Query, Optional | Allows fetching components allocation with matching currency based on provided values. Use in query `filter[currencies]=USD,EUR`. |
-| `filterSubscriptionStates` | [`List<SubscriptionStateEnum>`](../../doc/models/subscription-state-enum.md) | Query, Optional | Allows fetching components allocations that belong to the subscription with matching states based on provided values. To use this filter you also have to include the following param in the request `include=subscription`. Use in query `filter[subscription][states]=active,canceled&include=subscription`. |
-| `filterSubscriptionDateField` | [`ListSubscriptionComponentsSubscriptionDateFieldEnum`](../../doc/models/list-subscription-components-subscription-date-field-enum.md) | Query, Optional | The type of filter you'd like to apply to your search. To use this filter you also have to include the following param in the request `include=subscription`. |
+| `filterSubscriptionStates` | [`List<SubscriptionState>`](../../doc/models/subscription-state.md) | Query, Optional | Allows fetching components allocations that belong to the subscription with matching states based on provided values. To use this filter you also have to include the following param in the request `include=subscription`. Use in query `filter[subscription][states]=active,canceled&include=subscription`. |
+| `filterSubscriptionDateField` | [`ListSubscriptionComponentsSubscriptionDateField`](../../doc/models/list-subscription-components-subscription-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionStartDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components that belong to the subscription with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. To use this filter you also have to include the following param in the request `include=subscription`. |
@@ -1380,30 +1534,30 @@ CompletableFuture<ListSubscriptionComponentsResponse> listSubscriptionComponents
 ```java
 Integer page = 2;
 Integer perPage = 50;
-ListSubscriptionComponentsSortEnum sort = ListSubscriptionComponentsSortEnum.UPDATED_AT;
-ListSubscriptionComponentsDateFieldEnum dateField = ListSubscriptionComponentsDateFieldEnum.UPDATED_AT;
+ListSubscriptionComponentsSort sort = ListSubscriptionComponentsSort.UPDATED_AT;
+ListSubscriptionComponentsDateField dateField = ListSubscriptionComponentsDateField.UPDATED_AT;
 List<Integer> subscriptionIds = Arrays.asList(
     1,
     2,
     3
 );
 
-IncludeNotNullEnum pricePointIds = IncludeNotNullEnum.NOT_NULL;
+IncludeNotNull pricePointIds = IncludeNotNull.NOT_NULL;
 List<Integer> productFamilyIds = Arrays.asList(
     1,
     2,
     3
 );
 
-ListSubscriptionComponentsIncludeEnum include = ListSubscriptionComponentsIncludeEnum.SUBSCRIPTION;
+ListSubscriptionComponentsInclude include = ListSubscriptionComponentsInclude.SUBSCRIPTION;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
-subscriptionComponentsController.listSubscriptionComponentsForSiteAsync(page, perPage, sort, null, dateField, null, null, null, null, subscriptionIds, pricePointIds, productFamilyIds, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListSubscriptionComponentsResponse result = subscriptionComponentsController.listSubscriptionComponentsForSite(page, perPage, sort, null, dateField, null, null, null, null, subscriptionIds, pricePointIds, productFamilyIds, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 

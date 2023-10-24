@@ -23,7 +23,7 @@ That said, regeneration of the invoice may be forced with the params `force: tru
 We recommend using either the create or preview endpoints for proforma invoices to preview this advance invoice before using this endpoint to generate it.
 
 ```java
-CompletableFuture<Invoice> issueAdvanceInvoiceAsync(
+Invoice issueAdvanceInvoice(
     final String subscriptionId,
     final IssueAdvanceInvoiceRequest body)
 ```
@@ -47,14 +47,14 @@ IssueAdvanceInvoiceRequest body = new IssueAdvanceInvoiceRequest.Builder()
     .force(true)
     .build();
 
-advanceInvoiceController.issueAdvanceInvoiceAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = advanceInvoiceController.issueAdvanceInvoice(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -71,7 +71,7 @@ advanceInvoiceController.issueAdvanceInvoiceAsync(subscriptionId, body).thenAcce
 Once an advance invoice has been generated for a subscription's upcoming renewal, it can be viewed through this endpoint. There can only be one advance invoice per subscription per billing cycle.
 
 ```java
-CompletableFuture<Invoice> readAdvanceInvoiceAsync(
+Invoice readAdvanceInvoice(
     final String subscriptionId)
 ```
 
@@ -90,14 +90,14 @@ CompletableFuture<Invoice> readAdvanceInvoiceAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-advanceInvoiceController.readAdvanceInvoiceAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = advanceInvoiceController.readAdvanceInvoice(subscriptionId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -114,7 +114,7 @@ Void a subscription's existing advance invoice. Once voided, it can later be reg
 A `reason` is required in order to void, and the invoice must have an open status. Voiding will cause any prepayments and credits that were applied to the invoice to be returned to the subscription. For a full overview of the impact of voiding, please [see our help docs](reference/Chargify-API.v1.yaml/components/schemas/Invoice).
 
 ```java
-CompletableFuture<Invoice> voidAdvanceInvoiceAsync(
+Invoice voidAdvanceInvoice(
     final String subscriptionId,
     final VoidInvoiceRequest body)
 ```
@@ -134,14 +134,14 @@ CompletableFuture<Invoice> voidAdvanceInvoiceAsync(
 
 ```java
 String subscriptionId = "subscription_id0";
-advanceInvoiceController.voidAdvanceInvoiceAsync(subscriptionId, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    Invoice result = advanceInvoiceController.voidAdvanceInvoice(subscriptionId, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors

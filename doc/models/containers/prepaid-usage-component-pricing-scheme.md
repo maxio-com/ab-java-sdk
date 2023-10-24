@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`PricingSchemeEnum`](../../../doc/models/pricing-scheme-enum.md) | PrepaidUsageComponentPricingScheme.fromPricingScheme(PricingSchemeEnum pricingScheme) |
+| [`PricingScheme`](../../../doc/models/pricing-scheme.md) | PrepaidUsageComponentPricingScheme.fromPricingScheme(PricingScheme pricingScheme) |
 

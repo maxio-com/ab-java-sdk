@@ -28,7 +28,7 @@ Access to the Sales Commission API endpoints is available to users with financia
 > Note: The request is at seller level, it means `<<subdomain>>` variable will be replaced by `app`
 
 ```java
-CompletableFuture<List<SaleRepSettings>> listSalesCommissionSettingsAsync(
+List<SaleRepSettings> listSalesCommissionSettings(
     final String sellerId,
     final String authorization,
     final Boolean liveMode,
@@ -41,10 +41,10 @@ CompletableFuture<List<SaleRepSettings>> listSalesCommissionSettingsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `sellerId` | `String` | Template, Required | The Chargify id of your seller account |
-| `authorization` | `String` | Header, Optional | **Default**: `"Bearer <<apiKey>>"` |
-| `liveMode` | `Boolean` | Query, Optional | - |
+| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: `"Bearer <<apiKey>>"` |
+| `liveMode` | `Boolean` | Query, Optional | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | **Default**: `100` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: `100` |
 
 ## Response Type
 
@@ -58,14 +58,14 @@ String authorization = "Bearer <<apiKey>>";
 Integer page = 2;
 Integer perPage = 100;
 
-salesCommissionsController.listSalesCommissionSettingsAsync(sellerId, authorization, null, page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<SaleRepSettings> result = salesCommissionsController.listSalesCommissionSettings(sellerId, authorization, null, page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -116,7 +116,7 @@ Access to the Sales Commission API endpoints is available to users with financia
 > Note: The request is at seller level, it means `<<subdomain>>` variable will be replaced by `app`
 
 ```java
-CompletableFuture<List<ListSaleRepItem>> listSalesRepsAsync(
+List<ListSaleRepItem> listSalesReps(
     final String sellerId,
     final String authorization,
     final Boolean liveMode,
@@ -129,10 +129,10 @@ CompletableFuture<List<ListSaleRepItem>> listSalesRepsAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `sellerId` | `String` | Template, Required | The Chargify id of your seller account |
-| `authorization` | `String` | Header, Optional | **Default**: `"Bearer <<apiKey>>"` |
-| `liveMode` | `Boolean` | Query, Optional | - |
+| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: `"Bearer <<apiKey>>"` |
+| `liveMode` | `Boolean` | Query, Optional | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | **Default**: `100` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: `100` |
 
 ## Response Type
 
@@ -146,14 +146,14 @@ String authorization = "Bearer <<apiKey>>";
 Integer page = 2;
 Integer perPage = 100;
 
-salesCommissionsController.listSalesRepsAsync(sellerId, authorization, null, page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ListSaleRepItem> result = salesCommissionsController.listSalesReps(sellerId, authorization, null, page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -253,7 +253,7 @@ Access to the Sales Commission API endpoints is available to users with financia
 > Note: The request is at seller level, it means `<<subdomain>>` variable will be replaced by `app`
 
 ```java
-CompletableFuture<SaleRep> readSalesRepAsync(
+SaleRep readSalesRep(
     final String sellerId,
     final String salesRepId,
     final String authorization,
@@ -267,11 +267,11 @@ CompletableFuture<SaleRep> readSalesRepAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `sellerId` | `String` | Template, Required | The Chargify id of your seller account |
-| `salesRepId` | `String` | Template, Required | - |
-| `authorization` | `String` | Header, Optional | **Default**: `"Bearer <<apiKey>>"` |
-| `liveMode` | `Boolean` | Query, Optional | - |
+| `salesRepId` | `String` | Template, Required | The Chargify id of sales rep. |
+| `authorization` | `String` | Header, Optional | For authorization use user API key. See details [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).<br>**Default**: `"Bearer <<apiKey>>"` |
+| `liveMode` | `Boolean` | Query, Optional | This parameter indicates if records should be fetched from live mode sites. Default value is true. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | **Default**: `100` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br>**Default**: `100` |
 
 ## Response Type
 
@@ -286,14 +286,14 @@ String authorization = "Bearer <<apiKey>>";
 Integer page = 2;
 Integer perPage = 100;
 
-salesCommissionsController.readSalesRepAsync(sellerId, salesRepId, authorization, null, page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SaleRep result = salesCommissionsController.readSalesRep(sellerId, salesRepId, authorization, null, page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

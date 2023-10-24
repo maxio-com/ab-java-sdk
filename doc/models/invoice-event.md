@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
-| `EventType` | [`InvoiceEventTypeEnum`](../../doc/models/invoice-event-type-enum.md) | Optional | Invoice Event Type | InvoiceEventTypeEnum getEventType() | setEventType(InvoiceEventTypeEnum eventType) |
+| `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Optional | Invoice Event Type | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`InvoiceEventEventData`](../../doc/models/containers/invoice-event-event-data.md) | Optional | This is a container for any-of cases. | InvoiceEventEventData getEventData() | setEventData(InvoiceEventEventData eventData) |
 | `Timestamp` | `String` | Optional | - | String getTimestamp() | setTimestamp(String timestamp) |
 | `Invoice` | [`Invoice`](../../doc/models/invoice.md) | Optional | - | Invoice getInvoice() | setInvoice(Invoice invoice) |
@@ -20,16 +20,13 @@
 ```json
 {
   "id": 78,
-  "event_type": "issue_invoice",
+  "event_type": "remove_payment",
   "event_data": {
-    "memo": "memo8",
-    "original_amount": "original_amount8",
-    "applied_amount": "applied_amount4",
-    "transaction_time": "transaction_time6",
-    "payment_method": {
-      "key1": "val1",
-      "key2": "val2"
-    }
+    "uid": "uid2",
+    "credit_note_number": "credit_note_number4",
+    "credit_note_uid": "credit_note_uid4",
+    "original_amount": "original_amount6",
+    "applied_amount": "applied_amount6"
   },
   "timestamp": "timestamp8",
   "invoice": {

@@ -15,7 +15,7 @@
 | `Handle` | `String` | Optional | A unique identifier for your use that can be used to retrieve this component is subsequent requests.  Must start with a letter or number and may only contain lowercase letters, numbers, or the characters '.', ':', '-', or '_'.<br>**Constraints**: *Pattern*: `^[a-z0-9][a-z0-9\-_:.]*$` | String getHandle() | setHandle(String handle) |
 | `Taxable` | `Boolean` | Optional | Boolean flag describing whether a component is taxable or not. | Boolean getTaxable() | setTaxable(Boolean taxable) |
 | `PricingScheme` | [`PrepaidUsageComponentPricingScheme`](../../doc/models/containers/prepaid-usage-component-pricing-scheme.md) | Optional | This is a container for one-of cases. | PrepaidUsageComponentPricingScheme getPricingScheme() | setPricingScheme(PrepaidUsageComponentPricingScheme pricingScheme) |
-| `Prices` | [`List<CreateComponentPrice>`](../../doc/models/create-component-price.md) | Optional | (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#general-price-bracket-rules) for an overview of how price brackets work for different pricing schemes. | List<CreateComponentPrice> getPrices() | setPrices(List<CreateComponentPrice> prices) |
+| `Prices` | [`List<Price>`](../../doc/models/price.md) | Optional | (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#general-price-bracket-rules) for an overview of how price brackets work for different pricing schemes. | List<Price> getPrices() | setPrices(List<Price> prices) |
 | `UpgradeCharge` | `String` | Optional | - | String getUpgradeCharge() | setUpgradeCharge(String upgradeCharge) |
 | `DowngradeCredit` | `String` | Optional | - | String getDowngradeCredit() | setDowngradeCredit(String downgradeCredit) |
 | `PricePoints` | [`List<PrepaidComponentPricePoint>`](../../doc/models/prepaid-component-price-point.md) | Optional | - | List<PrepaidComponentPricePoint> getPricePoints() | setPricePoints(List<PrepaidComponentPricePoint> pricePoints) |
@@ -28,6 +28,9 @@
 | `RenewPrepaidAllocation` | `Boolean` | Optional | Boolean which controls whether or not the allocated quantity should be renewed at the beginning of each period | Boolean getRenewPrepaidAllocation() | setRenewPrepaidAllocation(Boolean renewPrepaidAllocation) |
 | `ExpirationInterval` | `Double` | Optional | (only for prepaid usage components where rollover_prepaid_remainder is true) The number of `expiration_interval_unit`s after which rollover amounts should expire | Double getExpirationInterval() | setExpirationInterval(Double expirationInterval) |
 | `ExpirationIntervalUnit` | [`PrepaidUsageComponentExpirationIntervalUnit`](../../doc/models/containers/prepaid-usage-component-expiration-interval-unit.md) | Optional | This is a container for one-of cases. | PrepaidUsageComponentExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(PrepaidUsageComponentExpirationIntervalUnit expirationIntervalUnit) |
+| `DisplayOnHostedPage` | `Boolean` | Optional | - | Boolean getDisplayOnHostedPage() | setDisplayOnHostedPage(Boolean displayOnHostedPage) |
+| `AllowFractionalQuantities` | `Boolean` | Optional | - | Boolean getAllowFractionalQuantities() | setAllowFractionalQuantities(Boolean allowFractionalQuantities) |
+| `PublicSignupPageIds` | `List<Integer>` | Optional | - | List<Integer> getPublicSignupPageIds() | setPublicSignupPageIds(List<Integer> publicSignupPageIds) |
 
 ## Example (as JSON)
 

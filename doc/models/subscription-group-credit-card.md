@@ -14,7 +14,7 @@
 | `ExpirationYear` | [`SubscriptionGroupCreditCardExpirationYear`](../../doc/models/containers/subscription-group-credit-card-expiration-year.md) | Optional | This is a container for one-of cases. | SubscriptionGroupCreditCardExpirationYear getExpirationYear() | setExpirationYear(SubscriptionGroupCreditCardExpirationYear expirationYear) |
 | `ChargifyToken` | `String` | Optional | - | String getChargifyToken() | setChargifyToken(String chargifyToken) |
 | `VaultToken` | `String` | Optional | - | String getVaultToken() | setVaultToken(String vaultToken) |
-| `CurrentVault` | `String` | Optional | - | String getCurrentVault() | setCurrentVault(String currentVault) |
+| `CurrentVault` | [`CurrentVault`](../../doc/models/current-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. | CurrentVault getCurrentVault() | setCurrentVault(CurrentVault currentVault) |
 | `GatewayHandle` | `String` | Optional | - | String getGatewayHandle() | setGatewayHandle(String gatewayHandle) |
 | `FirstName` | `String` | Optional | - | String getFirstName() | setFirstName(String firstName) |
 | `LastName` | `String` | Optional | - | String getLastName() | setLastName(String lastName) |

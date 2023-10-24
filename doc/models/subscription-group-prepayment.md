@@ -12,7 +12,7 @@
 | `Amount` | `int` | Required | - | int getAmount() | setAmount(int amount) |
 | `Details` | `String` | Required | - | String getDetails() | setDetails(String details) |
 | `Memo` | `String` | Required | - | String getMemo() | setMemo(String memo) |
-| `Method` | [`SubscriptionGroupPrepaymentMethodEnum`](../../doc/models/subscription-group-prepayment-method-enum.md) | Required | - | SubscriptionGroupPrepaymentMethodEnum getMethod() | setMethod(SubscriptionGroupPrepaymentMethodEnum method) |
+| `Method` | [`SubscriptionGroupPrepaymentMethod`](../../doc/models/subscription-group-prepayment-method.md) | Required | - | SubscriptionGroupPrepaymentMethod getMethod() | setMethod(SubscriptionGroupPrepaymentMethod method) |
 
 ## Example (as JSON)
 

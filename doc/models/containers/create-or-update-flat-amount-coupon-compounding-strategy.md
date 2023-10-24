@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`CompoundingStrategyEnum`](../../../doc/models/compounding-strategy-enum.md) | CreateOrUpdateFlatAmountCouponCompoundingStrategy.fromCompoundingStrategy(CompoundingStrategyEnum compoundingStrategy) |
+| [`CompoundingStrategy`](../../../doc/models/compounding-strategy.md) | CreateOrUpdateFlatAmountCouponCompoundingStrategy.fromCompoundingStrategy(CompoundingStrategy compoundingStrategy) |
 

@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`ExtendedIntervalUnitEnum`](../../../doc/models/extended-interval-unit-enum.md) | ProductExpirationIntervalUnitCase0.fromExtendedIntervalUnit(ExtendedIntervalUnitEnum extendedIntervalUnit) |
+| [`ExtendedIntervalUnit`](../../../doc/models/extended-interval-unit.md) | ProductExpirationIntervalUnitCase0.fromExtendedIntervalUnit(ExtendedIntervalUnit extendedIntervalUnit) |
 

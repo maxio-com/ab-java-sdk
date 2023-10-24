@@ -35,7 +35,7 @@ You can read more about these settings here:
 [Who Pays & Customer Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291)
 
 ```java
-CompletableFuture<SiteResponse> readSiteAsync()
+SiteResponse readSite()
 ```
 
 ## Response Type
@@ -45,14 +45,14 @@ CompletableFuture<SiteResponse> readSiteAsync()
 ## Example Usage
 
 ```java
-sitesController.readSiteAsync().thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SiteResponse result = sitesController.readSite();
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -108,15 +108,15 @@ This call is asynchronous and there may be a delay before the site data is fully
 **This functionality will only work on sites in TEST mode. Attempts to perform this on sites in “live” mode will result in a response of 403 FORBIDDEN.**
 
 ```java
-CompletableFuture<Void> clearSiteAsync(
-    final CleanupScopeEnum cleanupScope)
+Void clearSite(
+    final CleanupScope cleanupScope)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `cleanupScope` | [`CleanupScopeEnum`](../../doc/models/cleanup-scope-enum.md) | Query, Optional | `all`: Will clear all products, customers, and related subscriptions from the site.<br>`customers`: Will clear only customers and related subscriptions (leaving the products untouched) for the site.<br>Revenue will also be reset to 0.<br>Use in query `cleanup_scope=all`.<br>**Default**: `CleanupScopeEnum.ALL` |
+| `cleanupScope` | [`CleanupScope`](../../doc/models/cleanup-scope.md) | Query, Optional | `all`: Will clear all products, customers, and related subscriptions from the site.<br>`customers`: Will clear only customers and related subscriptions (leaving the products untouched) for the site.<br>Revenue will also be reset to 0.<br>Use in query `cleanup_scope=all`.<br>**Default**: `CleanupScope.ALL` |
 
 ## Response Type
 
@@ -125,16 +125,15 @@ CompletableFuture<Void> clearSiteAsync(
 ## Example Usage
 
 ```java
-CleanupScopeEnum cleanupScope = CleanupScopeEnum.ALL;
+CleanupScope cleanupScope = CleanupScope.ALL;
 
-sitesController.clearSiteAsync(cleanupScope).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    sitesController.clearSite(cleanupScope);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -149,7 +148,7 @@ sitesController.clearSiteAsync(cleanupScope).thenAccept(result -> {
 This endpoint returns public keys used for Chargify.js.
 
 ```java
-CompletableFuture<ListPublicKeysResponse> listChargifyJsPublicKeysAsync(
+ListPublicKeysResponse listChargifyJsPublicKeys(
     final Integer page,
     final Integer perPage)
 ```
@@ -171,14 +170,14 @@ CompletableFuture<ListPublicKeysResponse> listChargifyJsPublicKeysAsync(
 Integer page = 2;
 Integer perPage = 50;
 
-sitesController.listChargifyJsPublicKeysAsync(page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListPublicKeysResponse result = sitesController.listChargifyJsPublicKeys(page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

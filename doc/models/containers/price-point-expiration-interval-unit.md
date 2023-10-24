@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`IntervalUnitEnum`](../../../doc/models/interval-unit-enum.md) | PricePointExpirationIntervalUnit.fromIntervalUnit(IntervalUnitEnum intervalUnit) |
+| [`IntervalUnit`](../../../doc/models/interval-unit.md) | PricePointExpirationIntervalUnit.fromIntervalUnit(IntervalUnit intervalUnit) |
 

@@ -23,7 +23,7 @@ This endpoint will immediately cancel all subscriptions within the specified gro
 In order to cancel a subscription group while also charging for any unbilled usage on metered or prepaid components, the `charge_unbilled_usage=true` parameter must be included in the request.
 
 ```java
-CompletableFuture<Void> cancelSubscriptionsInGroupAsync(
+Void cancelSubscriptionsInGroup(
     final String uid,
     final CancelGroupedSubscriptionsRequest body)
 ```
@@ -47,14 +47,13 @@ CancelGroupedSubscriptionsRequest body = new CancelGroupedSubscriptionsRequest.B
     .chargeUnbilledUsage(true)
     .build();
 
-subscriptionGroupStatusController.cancelSubscriptionsInGroupAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionGroupStatusController.cancelSubscriptionsInGroup(uid, body);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -71,7 +70,7 @@ This endpoint will schedule all subscriptions within the specified group to be c
 All subscriptions in the group must be on automatic billing in order to successfully cancel them, and the group must not be in a "past_due" state.
 
 ```java
-CompletableFuture<Void> initiateDelayedCancellationForGroupAsync(
+Void initiateDelayedCancellationForGroup(
     final String uid)
 ```
 
@@ -90,14 +89,13 @@ CompletableFuture<Void> initiateDelayedCancellationForGroupAsync(
 ```java
 String uid = "uid0";
 
-subscriptionGroupStatusController.initiateDelayedCancellationForGroupAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionGroupStatusController.initiateDelayedCancellationForGroup(uid);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -112,7 +110,7 @@ subscriptionGroupStatusController.initiateDelayedCancellationForGroupAsync(uid).
 Removing the delayed cancellation on a subscription group will ensure that the subscriptions do not get canceled at the end of the period. The request will reset the `cancel_at_end_of_period` flag to false on each member in the group.
 
 ```java
-CompletableFuture<Void> stopDelayedCancellationForGroupAsync(
+Void stopDelayedCancellationForGroup(
     final String uid)
 ```
 
@@ -131,14 +129,13 @@ CompletableFuture<Void> stopDelayedCancellationForGroupAsync(
 ```java
 String uid = "uid0";
 
-subscriptionGroupStatusController.stopDelayedCancellationForGroupAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionGroupStatusController.stopDelayedCancellationForGroup(uid);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -171,7 +168,7 @@ Member subscriptions can have billing periods that are longer than the primary (
 For calendar billing subscriptions, the new billing period created will be a partial one, spanning from the date of reactivation to the next corresponding calendar renewal date.
 
 ```java
-CompletableFuture<ReactivateSubscriptionGroupResponse> reactivateSubscriptionGroupAsync(
+ReactivateSubscriptionGroupResponse reactivateSubscriptionGroup(
     final String uid,
     final ReactivateSubscriptionGroupRequest body)
 ```
@@ -195,14 +192,14 @@ ReactivateSubscriptionGroupRequest body = new ReactivateSubscriptionGroupRequest
     .resume(true)
     .build();
 
-subscriptionGroupStatusController.reactivateSubscriptionGroupAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReactivateSubscriptionGroupResponse result = subscriptionGroupStatusController.reactivateSubscriptionGroup(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*

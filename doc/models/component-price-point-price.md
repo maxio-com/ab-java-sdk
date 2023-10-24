@@ -14,6 +14,9 @@
 | `StartingQuantity` | `Integer` | Optional | - | Integer getStartingQuantity() | setStartingQuantity(Integer startingQuantity) |
 | `EndingQuantity` | `Integer` | Optional | - | Integer getEndingQuantity() | setEndingQuantity(Integer endingQuantity) |
 | `UnitPrice` | `String` | Optional | - | String getUnitPrice() | setUnitPrice(String unitPrice) |
+| `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
+| `FormattedUnitPrice` | `String` | Optional | - | String getFormattedUnitPrice() | setFormattedUnitPrice(String formattedUnitPrice) |
+| `SegmentId` | `Integer` | Optional | - | Integer getSegmentId() | setSegmentId(Integer segmentId) |
 
 ## Example (as JSON)
 

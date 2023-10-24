@@ -11,6 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ProductId` | `Integer` | Optional | - | Integer getProductId() | setProductId(Integer productId) |
 | `ComponentId` | `Integer` | Optional | For Product (or "baseline") line items, this field will have a value of `0`. | Integer getComponentId() | setComponentId(Integer componentId) |
+| `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Mrr` | `Integer` | Optional | - | Integer getMrr() | setMrr(Integer mrr) |
 | `MrrMovements` | [`List<MRRMovement>`](../../doc/models/mrr-movement.md) | Optional | - | List<MRRMovement> getMrrMovements() | setMrrMovements(List<MRRMovement> mrrMovements) |
@@ -24,22 +25,9 @@
 {
   "product_id": 156,
   "component_id": 68,
+  "price_point_id": 164,
   "name": "name6",
-  "mrr": 154,
-  "mrr_movements": [
-    {
-      "amount": 90,
-      "category": "category4"
-    },
-    {
-      "amount": 90,
-      "category": "category4"
-    },
-    {
-      "amount": 90,
-      "category": "category4"
-    }
-  ]
+  "mrr": 154
 }
 ```
 

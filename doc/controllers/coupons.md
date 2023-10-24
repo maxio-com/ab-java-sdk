@@ -44,7 +44,7 @@ You can restrict a coupon to only apply to specific products / components by opt
 `{ "<product/component_id>": boolean_value }`
 
 ```java
-CompletableFuture<CouponResponse> createCouponAsync(
+CouponResponse createCoupon(
     final int productFamilyId,
     final CreateCouponBody body)
 ```
@@ -64,14 +64,46 @@ CompletableFuture<CouponResponse> createCouponAsync(
 
 ```java
 int productFamilyId = 140;
-couponsController.createCouponAsync(productFamilyId, null).thenAccept(result -> {
-    // TODO success callback handler
+CreateCouponBody body = CreateCouponBody.fromCreateOrUpdateCoupon(
+    new CreateOrUpdateCoupon.Builder()
+        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
+            new CreateOrUpdatePercentageCoupon.Builder(
+                "15% off",
+                "15OFF",
+                CreateOrUpdatePercentageCouponPercentage.fromMString(
+                    "15"
+                )
+            )
+            .description("15% off for life")
+            .allowNegativeBalance("false")
+            .recurring("false")
+            .endDate("2012-08-29T12:00:00-04:00")
+            .productFamilyId("2")
+            .stackable("true")
+            .compoundingStrategy(CreateOrUpdatePercentageCouponCompoundingStrategy.fromCompoundingStrategy(
+                    CompoundingStrategy.COMPOUND
+                ))
+            .excludeMidPeriodAllocations(true)
+            .applyOnCancelAtEndOfPeriod(true)
+            .build()
+        ))
+        .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
+            put("1", true);
+        }})
+        .restrictedComponents(new LinkedHashMap<String, Boolean>() {{
+            put("1", true);
+            put("2", false);
+        }})
+        .build()
+);
+try {
+    CouponResponse result = couponsController.createCoupon(productFamilyId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -88,11 +120,11 @@ List coupons for a specific Product Family in a Site.
 If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
 
 ```java
-CompletableFuture<List<Coupon>> listCouponsForProductFamilyAsync(
+List<CouponResponse> listCouponsForProductFamily(
     final int productFamilyId,
     final Integer page,
     final Integer perPage,
-    final BasicDateFieldEnum filterDateField,
+    final BasicDateField filterDateField,
     final String filterEndDate,
     final String filterEndDatetime,
     final String filterStartDate,
@@ -110,7 +142,7 @@ CompletableFuture<List<Coupon>> listCouponsForProductFamilyAsync(
 | `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the coupon belongs |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `30`<br>**Constraints**: `<= 200` |
-| `filterDateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=created_at`. |
+| `filterDateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=created_at`. |
 | `filterEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `filter[date_field]=2011-12-15`. |
 | `filterEndDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `?filter[end_datetime]=2011-12-1T10:15:30+01:00`. |
 | `filterStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-17`. |
@@ -122,7 +154,7 @@ CompletableFuture<List<Coupon>> listCouponsForProductFamilyAsync(
 
 ## Response Type
 
-[`List<Coupon>`](../../doc/models/coupon.md)
+[`List<CouponResponse>`](../../doc/models/coupon-response.md)
 
 ## Example Usage
 
@@ -132,14 +164,14 @@ Integer page = 2;
 Integer perPage = 50;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Boolean currencyPrices = true;
 Liquid error: Value cannot be null. (Parameter 'key')
-couponsController.listCouponsForProductFamilyAsync(productFamilyId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), currencyPrices, Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<CouponResponse> result = couponsController.listCouponsForProductFamily(productFamilyId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), currencyPrices, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -165,7 +197,7 @@ couponsController.listCouponsForProductFamilyAsync(productFamilyId, page, perPag
       "duration_interval_unit": "day",
       "allow_negative_balance": true,
       "archived_at": null,
-      "conversion_limit": 100,
+      "conversion_limit": "100",
       "stackable": false,
       "compounding_strategy": "compound",
       "coupon_restrictions": [],
@@ -191,7 +223,7 @@ couponsController.listCouponsForProductFamilyAsync(productFamilyId, page, perPag
       "duration_interval_unit": "day",
       "allow_negative_balance": true,
       "archived_at": null,
-      "conversion_limit": 100,
+      "conversion_limit": "100",
       "stackable": false,
       "compounding_strategy": "compound",
       "coupon_restrictions": [],
@@ -217,7 +249,7 @@ couponsController.listCouponsForProductFamilyAsync(productFamilyId, page, perPag
       "duration_interval_unit": "day",
       "allow_negative_balance": true,
       "archived_at": null,
-      "conversion_limit": 100,
+      "conversion_limit": "100",
       "stackable": false,
       "compounding_strategy": "compound",
       "coupon_restrictions": [
@@ -243,7 +275,7 @@ You can search for a coupon via the API with the find method. By passing a code 
 If you have more than one product family and if the coupon you are trying to find does not belong to the default product family in your site, then you will need to specify (either in the url or as a query string param) the product family id.
 
 ```java
-CompletableFuture<CouponResponse> readCouponByCodeAsync(
+CouponResponse readCouponByCode(
     final Integer productFamilyId,
     final String code)
 ```
@@ -253,7 +285,7 @@ CompletableFuture<CouponResponse> readCouponByCodeAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `productFamilyId` | `Integer` | Query, Optional | The Chargify id of the product family to which the coupon belongs |
-| `code` | `String` | Query, Optional | - |
+| `code` | `String` | Query, Optional | The code of the coupon |
 
 ## Response Type
 
@@ -262,14 +294,14 @@ CompletableFuture<CouponResponse> readCouponByCodeAsync(
 ## Example Usage
 
 ```java
-couponsController.readCouponByCodeAsync(null, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CouponResponse result = couponsController.readCouponByCode(null, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -283,7 +315,7 @@ When fetching a coupon, if you have defined multiple currencies at the site leve
 If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
 
 ```java
-CompletableFuture<CouponResponse> readCouponAsync(
+CouponResponse readCoupon(
     final int productFamilyId,
     final int couponId)
 ```
@@ -305,14 +337,14 @@ CompletableFuture<CouponResponse> readCouponAsync(
 int productFamilyId = 140;
 int couponId = 162;
 
-couponsController.readCouponAsync(productFamilyId, couponId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CouponResponse result = couponsController.readCoupon(productFamilyId, couponId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -356,7 +388,7 @@ You can restrict a coupon to only apply to specific products / components by opt
 `{ "<product/component_id>": boolean_value }`
 
 ```java
-CompletableFuture<CouponResponse> updateCouponAsync(
+CouponResponse updateCoupon(
     final int productFamilyId,
     final int couponId,
     final UpdateCouponBody body)
@@ -379,14 +411,44 @@ CompletableFuture<CouponResponse> updateCouponAsync(
 ```java
 int productFamilyId = 140;
 int couponId = 162;
-couponsController.updateCouponAsync(productFamilyId, couponId, null).thenAccept(result -> {
-    // TODO success callback handler
+UpdateCouponBody body = UpdateCouponBody.fromCreateOrUpdateCoupon(
+    new CreateOrUpdateCoupon.Builder()
+        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
+            new CreateOrUpdatePercentageCoupon.Builder(
+                "15% off",
+                "15OFF",
+                CreateOrUpdatePercentageCouponPercentage.fromMString(
+                    "15"
+                )
+            )
+            .description("15% off for life")
+            .allowNegativeBalance("false")
+            .recurring("false")
+            .endDate("2012-08-29T12:00:00-04:00")
+            .productFamilyId("2")
+            .stackable("true")
+            .compoundingStrategy(CreateOrUpdatePercentageCouponCompoundingStrategy.fromCompoundingStrategy(
+                    CompoundingStrategy.COMPOUND
+                ))
+            .build()
+        ))
+        .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
+            put("1", true);
+        }})
+        .restrictedComponents(new LinkedHashMap<String, Boolean>() {{
+            put("1", true);
+            put("2", false);
+        }})
+        .build()
+);
+try {
+    CouponResponse result = couponsController.updateCoupon(productFamilyId, couponId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -427,7 +489,7 @@ Archiving makes that Coupon unavailable for future use, but allows it to remain 
 The `archived_at` date and time will be assigned.
 
 ```java
-CompletableFuture<CouponResponse> archiveCouponAsync(
+CouponResponse archiveCoupon(
     final int productFamilyId,
     final int couponId)
 ```
@@ -449,14 +511,14 @@ CompletableFuture<CouponResponse> archiveCouponAsync(
 int productFamilyId = 140;
 int couponId = 162;
 
-couponsController.archiveCouponAsync(productFamilyId, couponId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CouponResponse result = couponsController.archiveCoupon(productFamilyId, couponId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -497,10 +559,10 @@ You can retrieve a list of coupons.
 If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
 
 ```java
-CompletableFuture<List<CouponResponse>> listCouponsAsync(
+List<CouponResponse> listCoupons(
     final Integer page,
     final Integer perPage,
-    final BasicDateFieldEnum dateField,
+    final BasicDateField dateField,
     final String startDate,
     final String endDate,
     final String startDatetime,
@@ -512,7 +574,7 @@ CompletableFuture<List<CouponResponse>> listCouponsAsync(
     final String filterEndDatetime,
     final String filterStartDate,
     final String filterStartDatetime,
-    final BasicDateFieldEnum filterDateField,
+    final BasicDateField filterDateField,
     final Boolean filterUseSiteExchangeRate)
 ```
 
@@ -522,7 +584,7 @@ CompletableFuture<List<CouponResponse>> listCouponsAsync(
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `30`<br>**Constraints**: `<= 200` |
-| `dateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[date_field] instead to achieve the same result. The type of filter you would like to apply to your search. |
+| `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[date_field] instead to achieve the same result. The type of filter you would like to apply to your search. |
 | `startDate` | `String` | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[start_date] instead to achieve the same result. The start date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `endDate` | `String` | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[end_date] instead to achieve the same result. The end date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `startDatetime` | `String` | Query, Optional | The field was deprecated: on January 20, 2022. We recommend using filter[start_datetime] instead to achieve the same result. The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
@@ -534,7 +596,7 @@ CompletableFuture<List<CouponResponse>> listCouponsAsync(
 | `filterEndDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `filter[end_datetime]=2011-12-19T10:15:30+01:00`. |
 | `filterStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `filter[start_date]=2011-12-19`. |
 | `filterStartDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`. |
-| `filterDateField` | [`BasicDateFieldEnum`](../../doc/models/basic-date-field-enum.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=updated_at`. |
+| `filterDateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `filter[date_field]=updated_at`. |
 | `filterUseSiteExchangeRate` | `Boolean` | Query, Optional | Allows fetching coupons with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 
 ## Response Type
@@ -546,17 +608,17 @@ CompletableFuture<List<CouponResponse>> listCouponsAsync(
 ```java
 Integer page = 2;
 Integer perPage = 50;
-BasicDateFieldEnum dateField = BasicDateFieldEnum.UPDATED_AT;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Boolean currencyPrices = true;
 Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
-couponsController.listCouponsAsync(page, perPage, dateField, null, null, null, null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), currencyPrices, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key')).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<CouponResponse> result = couponsController.listCoupons(page, perPage, dateField, null, null, null, null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), currencyPrices, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -592,10 +654,10 @@ couponsController.listCouponsAsync(page, perPage, dateField, null, null, null, n
       "updated_at": "string",
       "discount_type": "amount",
       "exclude_mid_period_allocations": true,
-      "apply_on_cancel_at_end_of_period ": true,
+      "apply_on_cancel_at_end_of_period": true,
       "coupon_restrictions": [
         {
-          "id": "string",
+          "id": 0,
           "item_type": "Component",
           "item_id": 0,
           "name": "string",
@@ -613,7 +675,7 @@ couponsController.listCouponsAsync(page, perPage, dateField, null, null, null, n
 This request will provide details about the coupon usage as an array of data hashes, one per product.
 
 ```java
-CompletableFuture<List<CouponUsage>> readCouponUsageAsync(
+List<CouponUsage> readCouponUsage(
     final int productFamilyId,
     final int couponId)
 ```
@@ -635,14 +697,14 @@ CompletableFuture<List<CouponUsage>> readCouponUsageAsync(
 int productFamilyId = 140;
 int couponId = 162;
 
-couponsController.readCouponUsageAsync(productFamilyId, couponId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<CouponUsage> result = couponsController.readCouponUsage(productFamilyId, couponId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -705,7 +767,7 @@ https://<subdomain>.chargify.com/coupons/validate.<format>?code=<coupon_code>&pr
 ```
 
 ```java
-CompletableFuture<CouponResponse> validateCouponAsync(
+CouponResponse validateCoupon(
     final String code,
     final Integer productFamilyId)
 ```
@@ -726,14 +788,14 @@ CompletableFuture<CouponResponse> validateCouponAsync(
 ```java
 String code = "code8";
 
-couponsController.validateCouponAsync(code, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CouponResponse result = couponsController.validateCoupon(code, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -770,7 +832,7 @@ couponsController.validateCouponAsync(code, null).thenAccept(result -> {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | Not Found | [`CouponsValidateJson404ErrorException`](../../doc/models/coupons-validate-json-404-error-exception.md) |
+| 404 | Not Found | [`SingleStringErrorResponseException`](../../doc/models/single-string-error-response-exception.md) |
 
 
 # Update Coupon Currency Prices
@@ -780,7 +842,7 @@ This endpoint allows you to create and/or update currency prices for an existing
 Currency pricing for coupons must mirror the setup of the primary coupon pricing - if the primary coupon is percentage based, you will not be able to define pricing in non-primary currencies.
 
 ```java
-CompletableFuture<List<CouponCurrency>> updateCouponCurrencyPricesAsync(
+List<CouponCurrency> updateCouponCurrencyPrices(
     final int couponId,
     final CouponCurrencyRequest body)
 ```
@@ -816,14 +878,14 @@ CouponCurrencyRequest body = new CouponCurrencyRequest.Builder(
 )
 .build();
 
-couponsController.updateCouponCurrencyPricesAsync(couponId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<CouponCurrency> result = couponsController.updateCouponCurrencyPrices(couponId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -871,7 +933,7 @@ This request allows you to create specific subcodes underneath an existing coupo
 So, if the coupon subcode is `20%OFF`, the URL to delete this coupon subcode would be: `https://<subdomain>.chargify.com/coupons/567/codes/20%25OFF.<format>`
 
 ```java
-CompletableFuture<CouponSubcodesResponse> createCouponSubcodesAsync(
+CouponSubcodesResponse createCouponSubcodes(
     final int couponId,
     final CouponSubcodes body)
 ```
@@ -899,14 +961,14 @@ CouponSubcodes body = new CouponSubcodes.Builder()
     ))
     .build();
 
-couponsController.createCouponSubcodesAsync(couponId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CouponSubcodesResponse result = couponsController.createCouponSubcodes(couponId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -929,7 +991,7 @@ couponsController.createCouponSubcodesAsync(couponId, body).thenAccept(result ->
 This request allows you to request the subcodes that are attached to a coupon.
 
 ```java
-CompletableFuture<CouponSubcodes> listCouponSubcodesAsync(
+CouponSubcodes listCouponSubcodes(
     final int couponId,
     final Integer page,
     final Integer perPage)
@@ -954,14 +1016,14 @@ int couponId = 162;
 Integer page = 2;
 Integer perPage = 50;
 
-couponsController.listCouponSubcodesAsync(couponId, page, perPage).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CouponSubcodes result = couponsController.listCouponSubcodes(couponId, page, perPage);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1009,7 +1071,7 @@ The response will contain:
 + Any subcodes not created because they are invalid.
 
 ```java
-CompletableFuture<CouponSubcodesResponse> updateCouponSubcodesAsync(
+CouponSubcodesResponse updateCouponSubcodes(
     final int couponId,
     final CouponSubcodes body)
 ```
@@ -1037,14 +1099,14 @@ CouponSubcodes body = new CouponSubcodes.Builder()
     ))
     .build();
 
-couponsController.updateCouponSubcodesAsync(couponId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CouponSubcodesResponse result = couponsController.updateCouponSubcodes(couponId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -1074,7 +1136,7 @@ Note: If you are using any of the allowed special characters (“%”, “@”, 
 Or if the coupon subcode is 20%OFF, the URL to delete this coupon subcode would be: @https://<subdomain>.chargify.com/coupons/567/codes/20%25OFF.<format>
 
 ```java
-CompletableFuture<Void> deleteCouponSubcodeAsync(
+Void deleteCouponSubcode(
     final int couponId,
     final String subcode)
 ```
@@ -1084,7 +1146,7 @@ CompletableFuture<Void> deleteCouponSubcodeAsync(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `couponId` | `int` | Template, Required | The Chargify id of the coupon to which the subcode belongs |
-| `subcode` | `String` | Template, Required | - |
+| `subcode` | `String` | Template, Required | The subcode of the coupon |
 
 ## Response Type
 
@@ -1096,14 +1158,13 @@ CompletableFuture<Void> deleteCouponSubcodeAsync(
 int couponId = 162;
 String subcode = "subcode4";
 
-couponsController.deleteCouponSubcodeAsync(couponId, subcode).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    couponsController.deleteCouponSubcode(couponId, subcode);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors

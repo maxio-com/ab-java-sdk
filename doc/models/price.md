@@ -19,7 +19,7 @@
 {
   "starting_quantity": 40,
   "ending_quantity": 14,
-  "unit_price": 212
+  "unit_price": 125.12
 }
 ```
 

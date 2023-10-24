@@ -272,7 +272,7 @@ You may wish to redirect customers to different pages depending on whether their
 8. Optionally, you can use the applied "msg" param in the `redirect_url` to determine whether it was successful or not
 
 ```java
-CompletableFuture<CreatePaymentProfileResponse> createPaymentProfileAsync(
+CreatePaymentProfileResponse createPaymentProfile(
     final CreatePaymentProfileRequest body)
 ```
 
@@ -291,23 +291,25 @@ CompletableFuture<CreatePaymentProfileResponse> createPaymentProfileAsync(
 ```java
 CreatePaymentProfileRequest body = new CreatePaymentProfileRequest.Builder(
     new CreatePaymentProfile.Builder()
-        .paymentType(PaymentTypeEnum.BANK_ACCOUNT)
+        .paymentType(PaymentType.BANK_ACCOUNT)
         .customerId(123)
         .bankName("Best Bank")
         .bankRoutingNumber("021000089")
         .bankAccountNumber("111111111111")
+        .bankAccountType("checking")
+        .bankAccountHolderType("business")
         .build()
 )
 .build();
 
-paymentProfilesController.createPaymentProfileAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    CreatePaymentProfileResponse result = paymentProfilesController.createPaymentProfile(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -317,7 +319,6 @@ paymentProfilesController.createPaymentProfileAsync(body).thenAccept(result -> {
   "payment_profile": {
     "first_name": "Jessica",
     "last_name": "Test",
-    "last_four": "1111",
     "card_type": "visa",
     "expiration_month": 10,
     "expiration_year": 2018,
@@ -350,7 +351,7 @@ paymentProfilesController.createPaymentProfileAsync(body).thenAccept(result -> {
 This method will return all of the active `payment_profiles` for a Site, or for one Customer within a site.  If no payment profiles are found, this endpoint will return an empty array, not a 404.
 
 ```java
-CompletableFuture<List<ListPaymentProfilesResponse>> listPaymentProfilesAsync(
+List<ListPaymentProfilesResponse> listPaymentProfiles(
     final Integer page,
     final Integer perPage,
     final Integer customerId)
@@ -374,14 +375,14 @@ CompletableFuture<List<ListPaymentProfilesResponse>> listPaymentProfilesAsync(
 Integer page = 2;
 Integer perPage = 50;
 
-paymentProfilesController.listPaymentProfilesAsync(page, perPage, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ListPaymentProfilesResponse> result = paymentProfilesController.listPaymentProfiles(page, perPage, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -481,7 +482,7 @@ Example response for Bank Account:
 ```
 
 ```java
-CompletableFuture<ReadPaymentProfileResponse> readPaymentProfileAsync(
+ReadPaymentProfileResponse readPaymentProfile(
     final String paymentProfileId)
 ```
 
@@ -500,14 +501,14 @@ CompletableFuture<ReadPaymentProfileResponse> readPaymentProfileAsync(
 ```java
 String paymentProfileId = "payment_profile_id2";
 
-paymentProfilesController.readPaymentProfileAsync(paymentProfileId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReadPaymentProfileResponse result = paymentProfilesController.readPaymentProfile(paymentProfileId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -578,7 +579,7 @@ The result will be that you have updated the billing information for the card, y
 - If you are using Authorize.net or Stripe, you may elect to manually trigger a retry for a past due subscription after a partial update.
 
 ```java
-CompletableFuture<UpdatePaymentProfileResponse> updatePaymentProfileAsync(
+UpdatePaymentProfileResponse updatePaymentProfile(
     final String paymentProfileId,
     final UpdatePaymentProfileRequest body)
 ```
@@ -603,10 +604,10 @@ UpdatePaymentProfileRequest body = new UpdatePaymentProfileRequest.Builder(
         .firstName("Graham")
         .lastName("Test")
         .fullNumber("4111111111111111")
-        .cardType("master")
+        .cardType(CardType.MASTER)
         .expirationMonth("04")
         .expirationYear("2030")
-        .currentVault("bogus")
+        .currentVault(CurrentVault.BOGUS)
         .billingAddress("456 Juniper Court")
         .billingCity("Boulder")
         .billingState("CO")
@@ -617,14 +618,14 @@ UpdatePaymentProfileRequest body = new UpdatePaymentProfileRequest.Builder(
 )
 .build();
 
-paymentProfilesController.updatePaymentProfileAsync(paymentProfileId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    UpdatePaymentProfileResponse result = paymentProfilesController.updatePaymentProfile(paymentProfileId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -664,7 +665,7 @@ Deletes an unused payment profile.
 If the payment profile is in use by one or more subscriptions or groups, a 422 and error message will be returned.
 
 ```java
-CompletableFuture<Void> deleteUnusedPaymentProfileAsync(
+Void deleteUnusedPaymentProfile(
     final String paymentProfileId)
 ```
 
@@ -683,14 +684,13 @@ CompletableFuture<Void> deleteUnusedPaymentProfileAsync(
 ```java
 String paymentProfileId = "payment_profile_id2";
 
-paymentProfilesController.deleteUnusedPaymentProfileAsync(paymentProfileId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    paymentProfilesController.deleteUnusedPaymentProfile(paymentProfileId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -709,7 +709,7 @@ This will delete a payment profile belonging to the customer on the subscription
 + If you delete the default payment profile for a subscription, you will need to specify another payment profile to be the default through the api, or either prompt the user to enter a card in the billing portal or on the self-service page, or visit the Payment Details tab on the subscription in the Admin UI and use the “Add New Credit Card” or “Make Active Payment Method” link, (depending on whether there are other cards present).
 
 ```java
-CompletableFuture<Void> deleteSubscriptionsPaymentProfileAsync(
+Void deleteSubscriptionsPaymentProfile(
     final String subscriptionId,
     final String paymentProfileId)
 ```
@@ -731,14 +731,13 @@ CompletableFuture<Void> deleteSubscriptionsPaymentProfileAsync(
 String subscriptionId = "subscription_id0";
 String paymentProfileId = "payment_profile_id2";
 
-paymentProfilesController.deleteSubscriptionsPaymentProfileAsync(subscriptionId, paymentProfileId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    paymentProfilesController.deleteSubscriptionsPaymentProfile(subscriptionId, paymentProfileId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -747,7 +746,7 @@ paymentProfilesController.deleteSubscriptionsPaymentProfileAsync(subscriptionId,
 Submit the two small deposit amounts the customer received in their bank account in order to verify the bank account. (Stripe only)
 
 ```java
-CompletableFuture<BankAccountResponse> verifyBankAccountAsync(
+BankAccountResponse verifyBankAccount(
     final int bankAccountId,
     final BankAccountVerificationRequest body)
 ```
@@ -756,7 +755,7 @@ CompletableFuture<BankAccountResponse> verifyBankAccountAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `bankAccountId` | `int` | Template, Required | - |
+| `bankAccountId` | `int` | Template, Required | Identifier of the bank account in the system. |
 | `body` | [`BankAccountVerificationRequest`](../../doc/models/bank-account-verification-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -775,14 +774,14 @@ BankAccountVerificationRequest body = new BankAccountVerificationRequest.Builder
 )
 .build();
 
-paymentProfilesController.verifyBankAccountAsync(bankAccountId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BankAccountResponse result = paymentProfilesController.verifyBankAccount(bankAccountId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -828,7 +827,7 @@ This will delete a Payment Profile belonging to a Subscription Group.
 **Note**: If the Payment Profile belongs to multiple Subscription Groups and/or Subscriptions, it will be removed from all of them.
 
 ```java
-CompletableFuture<Void> deleteSubscriptionGroupPaymentProfileAsync(
+Void deleteSubscriptionGroupPaymentProfile(
     final String uid,
     final String paymentProfileId)
 ```
@@ -850,14 +849,13 @@ CompletableFuture<Void> deleteSubscriptionGroupPaymentProfileAsync(
 String uid = "uid0";
 String paymentProfileId = "payment_profile_id2";
 
-paymentProfilesController.deleteSubscriptionGroupPaymentProfileAsync(uid, paymentProfileId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    paymentProfilesController.deleteSubscriptionGroupPaymentProfile(uid, paymentProfileId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 
@@ -868,7 +866,7 @@ This will change the default payment profile on the subscription to the existing
 You must elect to change the existing payment profile to a new payment profile ID in order to receive a satisfactory response from this endpoint.
 
 ```java
-CompletableFuture<PaymentProfileResponse> updateSubscriptionDefaultPaymentProfileAsync(
+PaymentProfileResponse updateSubscriptionDefaultPaymentProfile(
     final String subscriptionId,
     final int paymentProfileId)
 ```
@@ -890,14 +888,14 @@ CompletableFuture<PaymentProfileResponse> updateSubscriptionDefaultPaymentProfil
 String subscriptionId = "subscription_id0";
 int paymentProfileId = 198;
 
-paymentProfilesController.updateSubscriptionDefaultPaymentProfileAsync(subscriptionId, paymentProfileId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    PaymentProfileResponse result = paymentProfilesController.updateSubscriptionDefaultPaymentProfile(subscriptionId, paymentProfileId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -945,7 +943,7 @@ You must elect to change the existing payment profile to a new payment profile I
 The new payment profile must belong to the subscription group's customer, otherwise you will receive an error.
 
 ```java
-CompletableFuture<PaymentProfileResponse> updateSubscriptionGroupDefaultPaymentProfileAsync(
+PaymentProfileResponse updateSubscriptionGroupDefaultPaymentProfile(
     final String uid,
     final String paymentProfileId)
 ```
@@ -967,14 +965,14 @@ CompletableFuture<PaymentProfileResponse> updateSubscriptionGroupDefaultPaymentP
 String uid = "uid0";
 String paymentProfileId = "payment_profile_id2";
 
-paymentProfilesController.updateSubscriptionGroupDefaultPaymentProfileAsync(uid, paymentProfileId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    PaymentProfileResponse result = paymentProfilesController.updateSubscriptionGroupDefaultPaymentProfile(uid, paymentProfileId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -1022,7 +1020,7 @@ You can use One Time Tokens while creating a subscription or payment profile ins
 To obtain a One Time Token you have to use [chargify.js](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDI0-overview).
 
 ```java
-CompletableFuture<GetOneTimeTokenRequest> readOneTimeTokenAsync(
+GetOneTimeTokenRequest readOneTimeToken(
     final String chargifyToken)
 ```
 
@@ -1041,14 +1039,14 @@ CompletableFuture<GetOneTimeTokenRequest> readOneTimeTokenAsync(
 ```java
 String chargifyToken = "chargify_token8";
 
-paymentProfilesController.readOneTimeTokenAsync(chargifyToken).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    GetOneTimeTokenRequest result = paymentProfilesController.readOneTimeToken(chargifyToken);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -1069,7 +1067,7 @@ Additionally, if you attempt to send a "request payment update" email for a subs
 These error responses are designed to prevent excessive or invalid requests, and to provide clear and helpful information to users who encounter errors during the request process.
 
 ```java
-CompletableFuture<Void> sendRequestUpdatePaymentEmailAsync(
+Void sendRequestUpdatePaymentEmail(
     final String subscriptionId)
 ```
 
@@ -1088,14 +1086,13 @@ CompletableFuture<Void> sendRequestUpdatePaymentEmailAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-paymentProfilesController.sendRequestUpdatePaymentEmailAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    paymentProfilesController.sendRequestUpdatePaymentEmail(subscriptionId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors

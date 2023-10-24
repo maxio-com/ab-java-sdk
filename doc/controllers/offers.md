@@ -34,7 +34,7 @@ Full documentation on how to use offers in the Chargify UI can be located [here]
 You can optionally pass in a `product_price_point_id` that corresponds with the `product_id` and the offer will use that price point. If a `product_price_point_id` is not passed in, the product's default price point will be used.
 
 ```java
-CompletableFuture<OfferResponse> createOfferAsync(
+OfferResponse createOffer(
     final CreateOfferRequest body)
 ```
 
@@ -71,14 +71,14 @@ CreateOfferRequest body = new CreateOfferRequest.Builder(
 )
 .build();
 
-offersController.createOfferAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    OfferResponse result = offersController.createOffer(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -127,7 +127,7 @@ offersController.createOfferAsync(body).thenAccept(result -> {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`OffersJson422ErrorException`](../../doc/models/offers-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorMapResponseException`](../../doc/models/error-map-response-exception.md) |
 
 
 # List Offers
@@ -135,7 +135,7 @@ offersController.createOfferAsync(body).thenAccept(result -> {
 This endpoint will list offers for a site.
 
 ```java
-CompletableFuture<ListOffersResponse> listOffersAsync()
+ListOffersResponse listOffers()
 ```
 
 ## Response Type
@@ -145,14 +145,14 @@ CompletableFuture<ListOffersResponse> listOffersAsync()
 ## Example Usage
 
 ```java
-offersController.listOffersAsync().thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListOffersResponse result = offersController.listOffers();
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -217,7 +217,7 @@ offersController.listOffersAsync().thenAccept(result -> {
 This method allows you to list a specific offer's attributes. This is different than list all offers for a site, as it requires an `offer_id`.
 
 ```java
-CompletableFuture<OfferResponse> readOffersAsync(
+OfferResponse readOffers(
     final int offerId)
 ```
 
@@ -236,14 +236,14 @@ CompletableFuture<OfferResponse> readOffersAsync(
 ```java
 int offerId = 130;
 
-offersController.readOffersAsync(offerId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    OfferResponse result = offersController.readOffers(offerId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -258,7 +258,7 @@ offersController.readOffersAsync(offerId).thenAccept(result -> {
 Archive an existing offer. Please provide an `offer_id` in order to archive the correct item.
 
 ```java
-CompletableFuture<Void> archiveOfferAsync(
+Void archiveOffer(
     final int offerId)
 ```
 
@@ -277,14 +277,13 @@ CompletableFuture<Void> archiveOfferAsync(
 ```java
 int offerId = 130;
 
-offersController.archiveOfferAsync(offerId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    offersController.archiveOffer(offerId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -299,7 +298,7 @@ offersController.archiveOfferAsync(offerId).thenAccept(result -> {
 Unarchive a previously archived offer. Please provide an `offer_id` in order to un-archive the correct item.
 
 ```java
-CompletableFuture<Void> unarchiveOfferAsync(
+Void unarchiveOffer(
     final int offerId)
 ```
 
@@ -318,14 +317,13 @@ CompletableFuture<Void> unarchiveOfferAsync(
 ```java
 int offerId = 130;
 
-offersController.unarchiveOfferAsync(offerId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    offersController.unarchiveOffer(offerId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors

@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `int` | PriceUnitPrice.fromNumber(int number) |
+| `double` | PriceUnitPrice.fromPrecision(double precision) |
 | `String` | PriceUnitPrice.fromMString(String mString) |
 

@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
-| `Quantity` | [`AllocationPreviewItemQuantity`](../../doc/models/containers/allocation-preview-item-quantity.md) | Optional | This is a container for one-of cases. | AllocationPreviewItemQuantity getQuantity() | setQuantity(AllocationPreviewItemQuantity quantity) |
+| `Quantity` | `Double` | Optional | - | Double getQuantity() | setQuantity(Double quantity) |
 | `PreviousQuantity` | `Integer` | Optional | - | Integer getPreviousQuantity() | setPreviousQuantity(Integer previousQuantity) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `Timestamp` | `String` | Optional | - | String getTimestamp() | setTimestamp(String timestamp) |
@@ -20,6 +20,9 @@
 | `AccrueCharge` | `Boolean` | Optional | - | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |
 | `UpgradeCharge` | `String` | Optional | - | String getUpgradeCharge() | setUpgradeCharge(String upgradeCharge) |
 | `DowngradeCredit` | `String` | Optional | - | String getDowngradeCredit() | setDowngradeCredit(String downgradeCredit) |
+| `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
+| `PreviousPricePointId` | `Integer` | Optional | - | Integer getPreviousPricePointId() | setPreviousPricePointId(Integer previousPricePointId) |
+| `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
 
 ## Example (as JSON)
 
@@ -27,7 +30,7 @@
 {
   "component_id": 54,
   "subscription_id": 54,
-  "quantity": 159.62,
+  "quantity": 173.08,
   "previous_quantity": 14,
   "memo": "memo6"
 }

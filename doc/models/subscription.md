@@ -63,6 +63,12 @@
 | `Coupons` | [`List<SubscriptionIncludedCoupon>`](../../doc/models/subscription-included-coupon.md) | Optional | Additional coupon data. To use this data you also have to include the following param in the request`include[]=coupons`.<br>Only in Read Subscription Endpoint. | List<SubscriptionIncludedCoupon> getCoupons() | setCoupons(List<SubscriptionIncludedCoupon> coupons) |
 | `DunningCommunicationDelayEnabled` | `Boolean` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute.<br>**Default**: `false` | Boolean getDunningCommunicationDelayEnabled() | setDunningCommunicationDelayEnabled(Boolean dunningCommunicationDelayEnabled) |
 | `DunningCommunicationDelayTimeZone` | `String` | Optional | Time zone for the Dunning Communication Delay feature. | String getDunningCommunicationDelayTimeZone() | setDunningCommunicationDelayTimeZone(String dunningCommunicationDelayTimeZone) |
+| `ReceivesInvoiceEmails` | `Boolean` | Optional | - | Boolean getReceivesInvoiceEmails() | setReceivesInvoiceEmails(Boolean receivesInvoiceEmails) |
+| `Locale` | `String` | Optional | - | String getLocale() | setLocale(String locale) |
+| `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
+| `ScheduledCancellationAt` | `String` | Optional | - | String getScheduledCancellationAt() | setScheduledCancellationAt(String scheduledCancellationAt) |
+| `CreditBalanceInCents` | `Integer` | Optional | - | Integer getCreditBalanceInCents() | setCreditBalanceInCents(Integer creditBalanceInCents) |
+| `PrepaymentBalanceInCents` | `Integer` | Optional | - | Integer getPrepaymentBalanceInCents() | setPrepaymentBalanceInCents(Integer prepaymentBalanceInCents) |
 
 ## Example (as JSON)
 

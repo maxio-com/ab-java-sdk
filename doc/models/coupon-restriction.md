@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `String` | Optional | - | String getId() | setId(String id) |
-| `ItemType` | [`RestrictionTypeEnum`](../../doc/models/restriction-type-enum.md) | Optional | - | RestrictionTypeEnum getItemType() | setItemType(RestrictionTypeEnum itemType) |
+| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
+| `ItemType` | [`RestrictionType`](../../doc/models/restriction-type.md) | Optional | - | RestrictionType getItemType() | setItemType(RestrictionType itemType) |
 | `ItemId` | `Integer` | Optional | - | Integer getItemId() | setItemId(Integer itemId) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
@@ -19,7 +19,7 @@
 
 ```json
 {
-  "id": "id4",
+  "id": 180,
   "item_type": "Component",
   "item_id": 184,
   "name": "name4",

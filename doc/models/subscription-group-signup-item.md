@@ -21,12 +21,16 @@
 | `Components` | [`List<SubscriptionGroupSignupComponent>`](../../doc/models/subscription-group-signup-component.md) | Optional | - | List<SubscriptionGroupSignupComponent> getComponents() | setComponents(List<SubscriptionGroupSignupComponent> components) |
 | `CustomPrice` | [`CustomPriceUsedForSubscriptionCreateUpdate`](../../doc/models/custom-price-used-for-subscription-create-update.md) | Optional | (Optional) Used in place of `product_price_point_id` to define a custom price point unique to the subscription | CustomPriceUsedForSubscriptionCreateUpdate getCustomPrice() | setCustomPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) |
 | `CalendarBilling` | [`CalendarBilling`](../../doc/models/calendar-billing.md) | Optional | (Optional). Cannot be used when also specifying next_billing_at | CalendarBilling getCalendarBilling() | setCalendarBilling(CalendarBilling calendarBilling) |
-| `Metafields` | `Object` | Optional | - | Object getMetafields() | setMetafields(Object metafields) |
+| `Metafields` | `Map<String, String>` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. | Map<String, String> getMetafields() | setMetafields(Map<String, String> metafields) |
 
 ## Example (as JSON)
 
 ```json
 {
+  "metafields": {
+    "custom_field_name_1": "custom_field_value_1",
+    "custom_field_name_2": "custom_field_value_2"
+  },
   "product_handle": "product_handle2",
   "product_id": 34,
   "product_price_point_id": 214,

@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`PricingSchemeEnum`](../../../doc/models/pricing-scheme-enum.md) | SubscriptionGroupComponentCustomPricePricingScheme.fromPricingScheme(PricingSchemeEnum pricingScheme) |
+| [`PricingScheme`](../../../doc/models/pricing-scheme.md) | SubscriptionGroupComponentCustomPricePricingScheme.fromPricingScheme(PricingScheme pricingScheme) |
 

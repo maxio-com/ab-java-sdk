@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Currency` | `String` | Required | ISO code for one of the site level currencies. | String getCurrency() | setCurrency(String currency) |
 | `Price` | `int` | Required | Price for the given role. | int getPrice() | setPrice(int price) |
-| `Role` | [`CurrencyPriceRoleEnum`](../../doc/models/currency-price-role-enum.md) | Required | Role for the price. | CurrencyPriceRoleEnum getRole() | setRole(CurrencyPriceRoleEnum role) |
+| `Role` | [`CurrencyPriceRole`](../../doc/models/currency-price-role.md) | Required | Role for the price. | CurrencyPriceRole getRole() | setRole(CurrencyPriceRole role) |
 
 ## Example (as JSON)
 

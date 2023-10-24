@@ -22,7 +22,7 @@ Full documentation on how to use the referrals feature in the Chargify UI can be
 If the referral code is valid the status code will be `200` and the referral code will be returned. If the referral code is invalid, a `404` response will be returned.
 
 ```java
-CompletableFuture<ReferralValidationResponse> validateReferralCodeAsync(
+ReferralValidationResponse validateReferralCode(
     final String code)
 ```
 
@@ -41,14 +41,14 @@ CompletableFuture<ReferralValidationResponse> validateReferralCodeAsync(
 ```java
 String code = "code8";
 
-referralCodesController.validateReferralCodeAsync(code).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ReferralValidationResponse result = referralCodesController.validateReferralCode(code);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -68,5 +68,5 @@ referralCodesController.validateReferralCodeAsync(code).thenAccept(result -> {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 404 | Not Found | [`ReferralCodesValidateJson404ErrorException`](../../doc/models/referral-codes-validate-json-404-error-exception.md) |
+| 404 | Not Found | [`SingleStringErrorResponseException`](../../doc/models/single-string-error-response-exception.md) |
 

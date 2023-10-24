@@ -18,7 +18,7 @@
 | `BillingState` | `String` | Optional | The current billing address state for the bank account | String getBillingState() | setBillingState(String billingState) |
 | `BillingZip` | `String` | Optional | The current billing address zip code for the bank account | String getBillingZip() | setBillingZip(String billingZip) |
 | `BillingCountry` | `String` | Optional | The current billing address country for the bank account | String getBillingCountry() | setBillingCountry(String billingCountry) |
-| `CurrentVault` | [`BankAccountVaultEnum`](../../doc/models/bank-account-vault-enum.md) | Optional | The vault that stores the payment profile with the provided vault_token. | BankAccountVaultEnum getCurrentVault() | setCurrentVault(BankAccountVaultEnum currentVault) |
+| `CurrentVault` | [`BankAccountVault`](../../doc/models/bank-account-vault.md) | Optional | The vault that stores the payment profile with the provided vault_token. | BankAccountVault getCurrentVault() | setCurrentVault(BankAccountVault currentVault) |
 | `CustomerId` | `Integer` | Optional | The Chargify-assigned id for the customer record to which the bank account belongs | Integer getCustomerId() | setCustomerId(Integer customerId) |
 | `CustomerVaultToken` | `String` | Optional | (only for Authorize.Net CIM storage): the customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
 | `FirstName` | `String` | Optional | The first name of the bank account holder | String getFirstName() | setFirstName(String firstName) |

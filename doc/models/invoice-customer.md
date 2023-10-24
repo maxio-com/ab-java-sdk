@@ -16,6 +16,8 @@ Information about the customer who is owner or recipient the invoiced subscripti
 | `LastName` | `String` | Optional | - | String getLastName() | setLastName(String lastName) |
 | `Organization` | `String` | Optional | - | String getOrganization() | setOrganization(String organization) |
 | `Email` | `String` | Optional | - | String getEmail() | setEmail(String email) |
+| `VatNumber` | `String` | Optional | - | String getVatNumber() | setVatNumber(String vatNumber) |
+| `Reference` | `String` | Optional | - | String getReference() | setReference(String reference) |
 
 ## Example (as JSON)
 

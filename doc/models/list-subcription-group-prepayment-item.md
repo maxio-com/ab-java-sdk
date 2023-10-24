@@ -16,7 +16,7 @@
 | `Details` | `String` | Optional | - | String getDetails() | setDetails(String details) |
 | `External` | `Boolean` | Optional | - | Boolean getExternal() | setExternal(Boolean external) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
-| `PaymentType` | [`PrepaymentMethodEnum`](../../doc/models/prepayment-method-enum.md) | Optional | :- When the `method` specified is `"credit_card_on_file"`, the prepayment amount will be collected using the default credit card payment profile and applied to the prepayment account balance. This is especially useful for manual replenishment of prepaid subscriptions. | PrepaymentMethodEnum getPaymentType() | setPaymentType(PrepaymentMethodEnum paymentType) |
+| `PaymentType` | [`PrepaymentMethod`](../../doc/models/prepayment-method.md) | Optional | :- When the `method` specified is `"credit_card_on_file"`, the prepayment amount will be collected using the default credit card payment profile and applied to the prepayment account balance. This is especially useful for manual replenishment of prepaid subscriptions. | PrepaymentMethod getPaymentType() | setPaymentType(PrepaymentMethod paymentType) |
 | `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
 
 ## Example (as JSON)

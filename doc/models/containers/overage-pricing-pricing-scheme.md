@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`PricingSchemeEnum`](../../../doc/models/pricing-scheme-enum.md) | OveragePricingPricingScheme.fromPricingScheme(PricingSchemeEnum pricingScheme) |
+| [`PricingScheme`](../../../doc/models/pricing-scheme.md) | OveragePricingPricingScheme.fromPricingScheme(PricingScheme pricingScheme) |
 

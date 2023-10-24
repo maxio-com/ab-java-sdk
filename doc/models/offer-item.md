@@ -16,7 +16,7 @@
 | `ComponentUnitPrice` | `String` | Optional | - | String getComponentUnitPrice() | setComponentUnitPrice(String componentUnitPrice) |
 | `ComponentName` | `String` | Optional | - | String getComponentName() | setComponentName(String componentName) |
 | `PricePointName` | `String` | Optional | - | String getPricePointName() | setPricePointName(String pricePointName) |
-| `CurrencyPrices` | `List<Object>` | Optional | - | List<Object> getCurrencyPrices() | setCurrencyPrices(List<Object> currencyPrices) |
+| `CurrencyPrices` | [`List<CurrencyPrice>`](../../doc/models/currency-price.md) | Optional | - | List<CurrencyPrice> getCurrencyPrices() | setCurrencyPrices(List<CurrencyPrice> currencyPrices) |
 
 ## Example (as JSON)
 

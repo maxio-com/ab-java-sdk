@@ -11,12 +11,12 @@ Warning: When updating a metafield's scope attribute, all scope attributes must 
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Csv` | [`IncludeOptionEnum`](../../doc/models/include-option-enum.md) | Optional | Include (1) or exclude (0) metafields from the csv export. | IncludeOptionEnum getCsv() | setCsv(IncludeOptionEnum csv) |
-| `Invoices` | [`IncludeOptionEnum`](../../doc/models/include-option-enum.md) | Optional | Include (1) or exclude (0) metafields from invoices. | IncludeOptionEnum getInvoices() | setInvoices(IncludeOptionEnum invoices) |
-| `Statements` | [`IncludeOptionEnum`](../../doc/models/include-option-enum.md) | Optional | Include (1) or exclude (0) metafields from statements. | IncludeOptionEnum getStatements() | setStatements(IncludeOptionEnum statements) |
-| `Portal` | [`IncludeOptionEnum`](../../doc/models/include-option-enum.md) | Optional | Include (1) or exclude (0) metafields from the portal. | IncludeOptionEnum getPortal() | setPortal(IncludeOptionEnum portal) |
-| `PublicShow` | [`IncludeOptionEnum`](../../doc/models/include-option-enum.md) | Optional | Include (1) or exclude (0) metafields from being viewable by your ecosystem. | IncludeOptionEnum getPublicShow() | setPublicShow(IncludeOptionEnum publicShow) |
-| `PublicEdit` | [`IncludeOptionEnum`](../../doc/models/include-option-enum.md) | Optional | Include (1) or exclude (0) metafields from being edited by your ecosystem. | IncludeOptionEnum getPublicEdit() | setPublicEdit(IncludeOptionEnum publicEdit) |
+| `Csv` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from the csv export. | IncludeOption getCsv() | setCsv(IncludeOption csv) |
+| `Invoices` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from invoices. | IncludeOption getInvoices() | setInvoices(IncludeOption invoices) |
+| `Statements` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from statements. | IncludeOption getStatements() | setStatements(IncludeOption statements) |
+| `Portal` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from the portal. | IncludeOption getPortal() | setPortal(IncludeOption portal) |
+| `PublicShow` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from being viewable by your ecosystem. | IncludeOption getPublicShow() | setPublicShow(IncludeOption publicShow) |
+| `PublicEdit` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from being edited by your ecosystem. | IncludeOption getPublicEdit() | setPublicEdit(IncludeOption publicEdit) |
 
 ## Example (as JSON)
 

@@ -20,6 +20,8 @@
 | `LineItems` | [`List<AllocationPreviewLineItem>`](../../doc/models/allocation-preview-line-item.md) | Optional | - | List<AllocationPreviewLineItem> getLineItems() | setLineItems(List<AllocationPreviewLineItem> lineItems) |
 | `AccrueCharge` | `Boolean` | Optional | - | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |
 | `Allocations` | [`List<AllocationPreviewItem>`](../../doc/models/allocation-preview-item.md) | Optional | - | List<AllocationPreviewItem> getAllocations() | setAllocations(List<AllocationPreviewItem> allocations) |
+| `PeriodType` | `String` | Optional | - | String getPeriodType() | setPeriodType(String periodType) |
+| `ExistingBalanceInCents` | `Integer` | Optional | An integer representing the amount of the subscription's current balance | Integer getExistingBalanceInCents() | setExistingBalanceInCents(Integer existingBalanceInCents) |
 
 ## Example (as JSON)
 

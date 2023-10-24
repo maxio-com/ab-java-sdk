@@ -34,7 +34,7 @@ Only one of the `subscriptions` can have `"primary": true` attribute set.
 When passing product to a subscription you can use either `product_id` or `product_handle` or `offer_id`. You can also use `custom_price` instead.
 
 ```java
-CompletableFuture<SubscriptionGroupSignupResponse> signupWithSubscriptionGroupAsync(
+SubscriptionGroupSignupResponse signupWithSubscriptionGroup(
     final SubscriptionGroupSignupRequest body)
 ```
 
@@ -72,21 +72,21 @@ SubscriptionGroupSignupRequest body = new SubscriptionGroupSignupRequest.Builder
 )
 .build();
 
-subscriptionGroupsController.signupWithSubscriptionGroupAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionGroupSignupResponse result = subscriptionGroupsController.signupWithSubscriptionGroup(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionGroupsSignupJson422ErrorException`](../../doc/models/subscription-groups-signup-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionGroupSignupErrorResponseException`](../../doc/models/subscription-group-signup-error-response-exception.md) |
 
 
 # Create Subscription Group
@@ -94,7 +94,7 @@ subscriptionGroupsController.signupWithSubscriptionGroupAsync(body).thenAccept(r
 Creates a subscription group with given members.
 
 ```java
-CompletableFuture<SubscriptionGroupResponse> createSubscriptionGroupAsync(
+SubscriptionGroupResponse createSubscriptionGroup(
     final CreateSubscriptionGroupRequest body)
 ```
 
@@ -126,14 +126,14 @@ CreateSubscriptionGroupRequest body = new CreateSubscriptionGroupRequest.Builder
 )
 .build();
 
-subscriptionGroupsController.createSubscriptionGroupAsync(body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionGroupResponse result = subscriptionGroupsController.createSubscriptionGroup(body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -162,7 +162,7 @@ subscriptionGroupsController.createSubscriptionGroupAsync(body).thenAccept(resul
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionGroupsJson422ErrorException`](../../doc/models/subscription-groups-json-422-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleStringErrorResponseException`](../../doc/models/single-string-error-response-exception.md) |
 
 
 # List Subscription Groups
@@ -174,7 +174,7 @@ Returns an array of subscription groups for the site. The response is paginated 
 Account balance information for the subscription groups is not returned by default. If this information is desired, the `include[]=account_balances` parameter must be provided with the request.
 
 ```java
-CompletableFuture<ListSubscriptionGroupsResponse> listSubscriptionGroupsAsync(
+ListSubscriptionGroupsResponse listSubscriptionGroups(
     final Integer page,
     final Integer perPage,
     final String include)
@@ -186,7 +186,7 @@ CompletableFuture<ListSubscriptionGroupsResponse> listSubscriptionGroupsAsync(
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `include` | `String` | Query, Optional | - |
+| `include` | `String` | Query, Optional | A list of additional information to include in the response. The following values are supported:<br><br>- `account_balances`: Account balance information for the subscription groups. Use in query: `include[]=account_balances` |
 
 ## Response Type
 
@@ -198,14 +198,14 @@ CompletableFuture<ListSubscriptionGroupsResponse> listSubscriptionGroupsAsync(
 Integer page = 2;
 Integer perPage = 50;
 
-subscriptionGroupsController.listSubscriptionGroupsAsync(page, perPage, null).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    ListSubscriptionGroupsResponse result = subscriptionGroupsController.listSubscriptionGroups(page, perPage, null);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -256,7 +256,7 @@ Use this endpoint to find subscription group details.
 Current billing amount for the subscription group is not returned by default. If this information is desired, the `include[]=current_billing_amount_in_cents` parameter must be provided with the request.
 
 ```java
-CompletableFuture<FullSubscriptionGroupResponse> readSubscriptionGroupAsync(
+FullSubscriptionGroupResponse readSubscriptionGroup(
     final String uid)
 ```
 
@@ -275,14 +275,14 @@ CompletableFuture<FullSubscriptionGroupResponse> readSubscriptionGroupAsync(
 ```java
 String uid = "uid0";
 
-subscriptionGroupsController.readSubscriptionGroupAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    FullSubscriptionGroupResponse result = subscriptionGroupsController.readSubscriptionGroup(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -334,7 +334,7 @@ Use this endpoint to update subscription group members.
 `"member_ids": []` should contain an array of both subscription IDs to set as group members and subscription IDs already present in the groups. Not including them will result in removing them from subscription group. To clean up members, just leave the array empty.
 
 ```java
-CompletableFuture<SubscriptionGroupResponse> updateSubscriptionGroupMembersAsync(
+SubscriptionGroupResponse updateSubscriptionGroupMembers(
     final String uid,
     final UpdateSubscriptionGroupRequest body)
 ```
@@ -365,14 +365,14 @@ UpdateSubscriptionGroupRequest body = new UpdateSubscriptionGroupRequest.Builder
 )
 .build();
 
-subscriptionGroupsController.updateSubscriptionGroupMembersAsync(uid, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionGroupResponse result = subscriptionGroupsController.updateSubscriptionGroupMembers(uid, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -400,7 +400,7 @@ subscriptionGroupsController.updateSubscriptionGroupMembersAsync(uid, body).then
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionGroupsJson422Error2Exception`](../../doc/models/subscription-groups-json-422-error-2-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SubscriptionGroupUpdateErrorResponseException`](../../doc/models/subscription-group-update-error-response-exception.md) |
 
 
 # Delete Subscription Group
@@ -409,7 +409,7 @@ Use this endpoint to delete subscription group.
 Only groups without members can be deleted
 
 ```java
-CompletableFuture<DeleteSubscriptionGroupResponse> deleteSubscriptionGroupAsync(
+DeleteSubscriptionGroupResponse deleteSubscriptionGroup(
     final String uid)
 ```
 
@@ -428,14 +428,14 @@ CompletableFuture<DeleteSubscriptionGroupResponse> deleteSubscriptionGroupAsync(
 ```java
 String uid = "uid0";
 
-subscriptionGroupsController.deleteSubscriptionGroupAsync(uid).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    DeleteSubscriptionGroupResponse result = subscriptionGroupsController.deleteSubscriptionGroup(uid);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -461,7 +461,7 @@ Use this endpoint to find subscription group associated with subscription.
 If the subscription is not in a group endpoint will return 404 code.
 
 ```java
-CompletableFuture<FullSubscriptionGroupResponse> readSubscriptionGroupBySubscriptionIdAsync(
+FullSubscriptionGroupResponse readSubscriptionGroupBySubscriptionId(
     final String subscriptionId)
 ```
 
@@ -480,14 +480,14 @@ CompletableFuture<FullSubscriptionGroupResponse> readSubscriptionGroupBySubscrip
 ```java
 String subscriptionId = "subscription_id0";
 
-subscriptionGroupsController.readSubscriptionGroupBySubscriptionIdAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    FullSubscriptionGroupResponse result = subscriptionGroupsController.readSubscriptionGroupBySubscriptionId(subscriptionId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -556,7 +556,7 @@ To create a new subscription into a subscription group, please reference the fol
 [Create Subscription in a Subscription Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-subscription#subscription-in-a-subscription-group)
 
 ```java
-CompletableFuture<SubscriptionGroupResponse> createSubscriptionGroupHierarchyAsync(
+SubscriptionGroupResponse createSubscriptionGroupHierarchy(
     final String subscriptionId,
     final AddSubscriptionToAGroup body)
 ```
@@ -580,7 +580,7 @@ AddSubscriptionToAGroup body = new AddSubscriptionToAGroup.Builder()
     .group(AddSubscriptionToAGroupGroup.fromGroupSettings(
         new GroupSettings.Builder(
             new GroupTarget.Builder(
-                GroupTargetTypeEnum.SUBSCRIPTION
+                GroupTargetType.SUBSCRIPTION
             )
             .id(32987)
             .build()
@@ -594,14 +594,14 @@ AddSubscriptionToAGroup body = new AddSubscriptionToAGroup.Builder()
     ))
     .build();
 
-subscriptionGroupsController.createSubscriptionGroupHierarchyAsync(subscriptionId, body).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    SubscriptionGroupResponse result = subscriptionGroupsController.createSubscriptionGroupHierarchy(subscriptionId, body);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Example Response *(as JSON)*
@@ -632,7 +632,7 @@ subscriptionGroupsController.createSubscriptionGroupHierarchyAsync(subscriptionI
 For sites making use of the [Relationship Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and [Customer Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291) features, it is possible to remove existing subscription from subscription group.
 
 ```java
-CompletableFuture<Void> removeSubscriptionFromGroupAsync(
+Void removeSubscriptionFromGroup(
     final String subscriptionId)
 ```
 
@@ -651,14 +651,13 @@ CompletableFuture<Void> removeSubscriptionFromGroupAsync(
 ```java
 String subscriptionId = "subscription_id0";
 
-subscriptionGroupsController.removeSubscriptionFromGroupAsync(subscriptionId).thenAccept(result -> {
-    // TODO success callback handler
-    System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+try {
+    subscriptionGroupsController.removeSubscriptionFromGroup(subscriptionId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors

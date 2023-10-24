@@ -28,7 +28,7 @@ This API returns an array of exported proforma invoices for a provided `batch_id
 Example: `GET https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&page=1`.
 
 ```java
-CompletableFuture<List<ProformaInvoice>> listExportedProformaInvoicesAsync(
+List<ProformaInvoice> listExportedProformaInvoices(
     final String batchId,
     final Integer perPage,
     final Integer page)
@@ -53,14 +53,14 @@ String batchId = "batch_id8";
 Integer perPage = 100;
 Integer page = 2;
 
-aPIExportsController.listExportedProformaInvoicesAsync(batchId, perPage, page).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<ProformaInvoice> result = aPIExportsController.listExportedProformaInvoices(batchId, perPage, page);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -77,7 +77,7 @@ This API returns an array of exported invoices for a provided `batch_id`. Pay cl
 Example: `GET https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&page=1`.
 
 ```java
-CompletableFuture<List<Invoice>> listExportedInvoicesAsync(
+List<Invoice> listExportedInvoices(
     final String batchId,
     final Integer perPage,
     final Integer page)
@@ -102,14 +102,14 @@ String batchId = "batch_id8";
 Integer perPage = 100;
 Integer page = 2;
 
-aPIExportsController.listExportedInvoicesAsync(batchId, perPage, page).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<Invoice> result = aPIExportsController.listExportedInvoices(batchId, perPage, page);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -126,7 +126,7 @@ This API returns an array of exported subscriptions for a provided `batch_id`. P
 Example: `GET https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&page=1`.
 
 ```java
-CompletableFuture<List<Subscription>> listExportedSubscriptionsAsync(
+List<Subscription> listExportedSubscriptions(
     final String batchId,
     final Integer perPage,
     final Integer page)
@@ -151,14 +151,14 @@ String batchId = "batch_id8";
 Integer perPage = 100;
 Integer page = 2;
 
-aPIExportsController.listExportedSubscriptionsAsync(batchId, perPage, page).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    List<Subscription> result = aPIExportsController.listExportedSubscriptions(batchId, perPage, page);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -175,7 +175,7 @@ This API creates a proforma invoices export and returns a batchjob object.
 It is only available for Relationship Invoicing architecture.
 
 ```java
-CompletableFuture<BatchJobResponse> exportProformaInvoicesAsync()
+BatchJobResponse exportProformaInvoices()
 ```
 
 ## Response Type
@@ -185,14 +185,14 @@ CompletableFuture<BatchJobResponse> exportProformaInvoicesAsync()
 ## Example Usage
 
 ```java
-aPIExportsController.exportProformaInvoicesAsync().thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BatchJobResponse result = aPIExportsController.exportProformaInvoices();
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -208,7 +208,7 @@ aPIExportsController.exportProformaInvoicesAsync().thenAccept(result -> {
 This API creates an invoices export and returns a batchjob object.
 
 ```java
-CompletableFuture<BatchJobResponse> exportInvoicesAsync()
+BatchJobResponse exportInvoices()
 ```
 
 ## Response Type
@@ -218,14 +218,14 @@ CompletableFuture<BatchJobResponse> exportInvoicesAsync()
 ## Example Usage
 
 ```java
-aPIExportsController.exportInvoicesAsync().thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BatchJobResponse result = aPIExportsController.exportInvoices();
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -241,7 +241,7 @@ aPIExportsController.exportInvoicesAsync().thenAccept(result -> {
 This API creates a subscriptions export and returns a batchjob object.
 
 ```java
-CompletableFuture<BatchJobResponse> exportSubscriptionsAsync()
+BatchJobResponse exportSubscriptions()
 ```
 
 ## Response Type
@@ -251,14 +251,14 @@ CompletableFuture<BatchJobResponse> exportSubscriptionsAsync()
 ## Example Usage
 
 ```java
-aPIExportsController.exportSubscriptionsAsync().thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BatchJobResponse result = aPIExportsController.exportSubscriptions();
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -273,7 +273,7 @@ aPIExportsController.exportSubscriptionsAsync().thenAccept(result -> {
 This API returns a batchjob object for proforma invoices export.
 
 ```java
-CompletableFuture<BatchJobResponse> readProformaInvoicesExportAsync(
+BatchJobResponse readProformaInvoicesExport(
     final String batchId)
 ```
 
@@ -292,14 +292,14 @@ CompletableFuture<BatchJobResponse> readProformaInvoicesExportAsync(
 ```java
 String batchId = "batch_id8";
 
-aPIExportsController.readProformaInvoicesExportAsync(batchId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BatchJobResponse result = aPIExportsController.readProformaInvoicesExport(batchId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -314,7 +314,7 @@ aPIExportsController.readProformaInvoicesExportAsync(batchId).thenAccept(result 
 This API returns a batchjob object for invoices export.
 
 ```java
-CompletableFuture<BatchJobResponse> readInvoicesExportAsync(
+BatchJobResponse readInvoicesExport(
     final String batchId)
 ```
 
@@ -333,14 +333,14 @@ CompletableFuture<BatchJobResponse> readInvoicesExportAsync(
 ```java
 String batchId = "batch_id8";
 
-aPIExportsController.readInvoicesExportAsync(batchId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BatchJobResponse result = aPIExportsController.readInvoicesExport(batchId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
@@ -355,7 +355,7 @@ aPIExportsController.readInvoicesExportAsync(batchId).thenAccept(result -> {
 This API returns a batchjob object for subscriptions export.
 
 ```java
-CompletableFuture<BatchJobResponse> readSubscriptionsExportAsync(
+BatchJobResponse readSubscriptionsExport(
     final String batchId)
 ```
 
@@ -374,14 +374,14 @@ CompletableFuture<BatchJobResponse> readSubscriptionsExportAsync(
 ```java
 String batchId = "batch_id8";
 
-aPIExportsController.readSubscriptionsExportAsync(batchId).thenAccept(result -> {
-    // TODO success callback handler
+try {
+    BatchJobResponse result = aPIExportsController.readSubscriptionsExport(batchId);
     System.out.println(result);
-}).exceptionally(exception -> {
-    // TODO failure callback handler
-    exception.printStackTrace();
-    return null;
-});
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 ## Errors
