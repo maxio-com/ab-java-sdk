@@ -24,7 +24,7 @@
 | `AccrueCharge` | `Boolean` | Optional | If the change in cost is an upgrade, this determines if the charge should accrue to the next renewal or if capture should be attempted immediately. | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |
 | `UpgradeCharge` | `String` | Optional | The type of charge to be created if the change in cost is an upgrade. | String getUpgradeCharge() | setUpgradeCharge(String upgradeCharge) |
 | `DowngradeCredit` | `String` | Optional | The type of credit to be created if the change in cost is a downgrade. | String getDowngradeCredit() | setDowngradeCredit(String downgradeCredit) |
-| `Payment` | [`AllocationPayment2`](../../doc/models/containers/allocation-payment-2.md) | Optional | This is a container for any-of cases. | AllocationPayment2 getPayment() | setPayment(AllocationPayment2 payment) |
+| `Payment` | [`AllocationPayment2`](../../doc/models/containers/allocation-payment-2.md) | Optional | This is a container for one-of cases. | AllocationPayment2 getPayment() | setPayment(AllocationPayment2 payment) |
 
 ## Example (as JSON)
 

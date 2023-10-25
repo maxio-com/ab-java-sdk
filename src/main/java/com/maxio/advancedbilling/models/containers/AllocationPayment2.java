@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * This is a container class for any-of types.
+ * This is a container class for one-of types.
  */
 @JsonDeserialize(using = AllocationPayment2.AllocationPayment2Deserializer.class)
 public abstract class AllocationPayment2 {
@@ -37,15 +37,15 @@ public abstract class AllocationPayment2 {
     }
 
     /**
-     * Method to match from the provided any-of cases.
+     * Method to match from the provided one-of cases.
      * @param <R> The type to return after applying callback.
-     * @param cases The any-of type cases callback.
-     * @return The any-of matched case.
+     * @param cases The one-of type cases callback.
+     * @return The one-of matched case.
      */
     public abstract <R> R match(Cases<R> cases);
 
     /**
-     * This is interface for any-of cases.
+     * This is interface for one-of cases.
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
@@ -94,7 +94,7 @@ public abstract class AllocationPayment2 {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(AllocationPaymentCase.class), false);
+            return ApiHelper.deserialize(node, Arrays.asList(AllocationPaymentCase.class), true);
         }
     }
 

@@ -7,7 +7,6 @@
 package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -44,7 +43,6 @@ public class TooManyManagementLinkRequests {
      * @return Returns the String
      */
     @JsonGetter("error")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getError() {
         return error;
     }
@@ -63,7 +61,6 @@ public class TooManyManagementLinkRequests {
      * @return Returns the LocalDateTime
      */
     @JsonGetter("new_link_available_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public LocalDateTime getNewLinkAvailableAt() {
         return newLinkAvailableAt;
@@ -95,9 +92,7 @@ public class TooManyManagementLinkRequests {
      * @return a new {@link TooManyManagementLinkRequests.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .error(getError())
-                .newLinkAvailableAt(getNewLinkAvailableAt());
+        Builder builder = new Builder(error, newLinkAvailableAt);
         return builder;
     }
 
@@ -108,7 +103,21 @@ public class TooManyManagementLinkRequests {
         private String error;
         private LocalDateTime newLinkAvailableAt;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  error  String value for error.
+         * @param  newLinkAvailableAt  LocalDateTime value for newLinkAvailableAt.
+         */
+        public Builder(String error, LocalDateTime newLinkAvailableAt) {
+            this.error = error;
+            this.newLinkAvailableAt = newLinkAvailableAt;
+        }
 
         /**
          * Setter for error.

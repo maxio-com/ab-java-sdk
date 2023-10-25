@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Error` | `String` | Optional | - | String getError() | setError(String error) |
-| `NewLinkAvailableAt` | `LocalDateTime` | Optional | - | LocalDateTime getNewLinkAvailableAt() | setNewLinkAvailableAt(LocalDateTime newLinkAvailableAt) |
+| `Error` | `String` | Required | - | String getError() | setError(String error) |
+| `NewLinkAvailableAt` | `LocalDateTime` | Required | - | LocalDateTime getNewLinkAvailableAt() | setNewLinkAvailableAt(LocalDateTime newLinkAvailableAt) |
 
 ## Example (as JSON)
 
