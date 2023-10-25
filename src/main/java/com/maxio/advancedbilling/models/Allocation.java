@@ -32,7 +32,7 @@ public class Allocation {
     private Boolean accrueCharge;
     private String upgradeCharge;
     private String downgradeCredit;
-    private AllocationPayment2 payment;
+    private OptionalNullable<AllocationPayment2> payment;
 
     /**
      * Default constructor.
@@ -91,7 +91,7 @@ public class Allocation {
         this.accrueCharge = accrueCharge;
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
-        this.payment = payment;
+        this.payment = OptionalNullable.of(payment);
     }
 
     /**
@@ -102,7 +102,7 @@ public class Allocation {
             String prorationUpgradeScheme, String prorationDowngradeScheme, Integer pricePointId,
             String pricePointName, String pricePointHandle, Integer previousPricePointId,
             Boolean accrueCharge, String upgradeCharge, String downgradeCredit,
-            AllocationPayment2 payment) {
+            OptionalNullable<AllocationPayment2> payment) {
         this.componentId = componentId;
         this.subscriptionId = subscriptionId;
         this.quantity = quantity;
@@ -459,13 +459,22 @@ public class Allocation {
     }
 
     /**
-     * Getter for Payment.
-     * @return Returns the AllocationPayment2
+     * Internal Getter for Payment.
+     * @return Returns the Internal AllocationPayment2
      */
     @JsonGetter("payment")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<AllocationPayment2> internalGetPayment() {
+        return this.payment;
+    }
+
+    /**
+     * Getter for Payment.
+     * @return Returns the AllocationPayment2
+     */
     public AllocationPayment2 getPayment() {
-        return payment;
+        return OptionalNullable.getFrom(payment);
     }
 
     /**
@@ -474,7 +483,14 @@ public class Allocation {
      */
     @JsonSetter("payment")
     public void setPayment(AllocationPayment2 payment) {
-        this.payment = payment;
+        this.payment = OptionalNullable.of(payment);
+    }
+
+    /**
+     * UnSetter for Payment.
+     */
+    public void unsetPayment() {
+        payment = null;
     }
 
     /**
@@ -514,9 +530,9 @@ public class Allocation {
                 .previousPricePointId(getPreviousPricePointId())
                 .accrueCharge(getAccrueCharge())
                 .upgradeCharge(getUpgradeCharge())
-                .downgradeCredit(getDowngradeCredit())
-                .payment(getPayment());
+                .downgradeCredit(getDowngradeCredit());
         builder.memo = internalGetMemo();
+        builder.payment = internalGetPayment();
         return builder;
     }
 
@@ -539,7 +555,7 @@ public class Allocation {
         private Boolean accrueCharge;
         private String upgradeCharge;
         private String downgradeCredit;
-        private AllocationPayment2 payment;
+        private OptionalNullable<AllocationPayment2> payment;
 
 
 
@@ -708,7 +724,16 @@ public class Allocation {
          * @return Builder
          */
         public Builder payment(AllocationPayment2 payment) {
-            this.payment = payment;
+            this.payment = OptionalNullable.of(payment);
+            return this;
+        }
+
+        /**
+         * UnSetter for payment.
+         * @return Builder
+         */
+        public Builder unsetPayment() {
+            payment = null;
             return this;
         }
 

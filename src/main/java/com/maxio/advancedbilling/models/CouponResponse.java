@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for CouponResponse type.
  */
 public class CouponResponse {
-    private CouponCouponResponse coupon;
+    private Coupon coupon;
 
     /**
      * Default constructor.
@@ -24,29 +24,29 @@ public class CouponResponse {
 
     /**
      * Initialization constructor.
-     * @param  coupon  CouponCouponResponse value for coupon.
+     * @param  coupon  Coupon value for coupon.
      */
     public CouponResponse(
-            CouponCouponResponse coupon) {
+            Coupon coupon) {
         this.coupon = coupon;
     }
 
     /**
      * Getter for Coupon.
-     * @return Returns the CouponCouponResponse
+     * @return Returns the Coupon
      */
     @JsonGetter("coupon")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CouponCouponResponse getCoupon() {
+    public Coupon getCoupon() {
         return coupon;
     }
 
     /**
      * Setter for Coupon.
-     * @param coupon Value for CouponCouponResponse
+     * @param coupon Value for Coupon
      */
     @JsonSetter("coupon")
-    public void setCoupon(CouponCouponResponse coupon) {
+    public void setCoupon(Coupon coupon) {
         this.coupon = coupon;
     }
 
@@ -74,16 +74,16 @@ public class CouponResponse {
      * Class to build instances of {@link CouponResponse}.
      */
     public static class Builder {
-        private CouponCouponResponse coupon;
+        private Coupon coupon;
 
 
 
         /**
          * Setter for coupon.
-         * @param  coupon  CouponCouponResponse value for coupon.
+         * @param  coupon  Coupon value for coupon.
          * @return Builder
          */
-        public Builder coupon(CouponCouponResponse coupon) {
+        public Builder coupon(Coupon coupon) {
             this.coupon = coupon;
             return this;
         }

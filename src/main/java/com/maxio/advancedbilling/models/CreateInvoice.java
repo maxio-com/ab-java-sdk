@@ -24,13 +24,13 @@ public class CreateInvoice {
     private CreateInvoiceAddress billingAddress;
     private CreateInvoiceAddress shippingAddress;
     private List<CreateInvoiceCoupon> coupons;
-    private StatusCreateInvoice status;
+    private Status1 status;
 
     /**
      * Default constructor.
      */
     public CreateInvoice() {
-        status = StatusCreateInvoice.OPEN;
+        status = Status1.OPEN;
     }
 
     /**
@@ -44,7 +44,7 @@ public class CreateInvoice {
      * @param  billingAddress  CreateInvoiceAddress value for billingAddress.
      * @param  shippingAddress  CreateInvoiceAddress value for shippingAddress.
      * @param  coupons  List of CreateInvoiceCoupon value for coupons.
-     * @param  status  StatusCreateInvoice value for status.
+     * @param  status  Status1 value for status.
      */
     public CreateInvoice(
             List<CreateInvoiceItem> lineItems,
@@ -56,7 +56,7 @@ public class CreateInvoice {
             CreateInvoiceAddress billingAddress,
             CreateInvoiceAddress shippingAddress,
             List<CreateInvoiceCoupon> coupons,
-            StatusCreateInvoice status) {
+            Status1 status) {
         this.lineItems = lineItems;
         this.issueDate = issueDate;
         this.netTerms = netTerms;
@@ -256,20 +256,20 @@ public class CreateInvoice {
 
     /**
      * Getter for Status.
-     * @return Returns the StatusCreateInvoice
+     * @return Returns the Status1
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public StatusCreateInvoice getStatus() {
+    public Status1 getStatus() {
         return status;
     }
 
     /**
      * Setter for Status.
-     * @param status Value for StatusCreateInvoice
+     * @param status Value for Status1
      */
     @JsonSetter("status")
-    public void setStatus(StatusCreateInvoice status) {
+    public void setStatus(Status1 status) {
         this.status = status;
     }
 
@@ -319,7 +319,7 @@ public class CreateInvoice {
         private CreateInvoiceAddress billingAddress;
         private CreateInvoiceAddress shippingAddress;
         private List<CreateInvoiceCoupon> coupons;
-        private StatusCreateInvoice status = StatusCreateInvoice.OPEN;
+        private Status1 status = Status1.OPEN;
 
 
 
@@ -415,10 +415,10 @@ public class CreateInvoice {
 
         /**
          * Setter for status.
-         * @param  status  StatusCreateInvoice value for status.
+         * @param  status  Status1 value for status.
          * @return Builder
          */
-        public Builder status(StatusCreateInvoice status) {
+        public Builder status(Status1 status) {
             this.status = status;
             return this;
         }

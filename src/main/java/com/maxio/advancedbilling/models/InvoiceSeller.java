@@ -9,6 +9,8 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for InvoiceSeller type.
@@ -17,6 +19,7 @@ public class InvoiceSeller {
     private String name;
     private InvoiceAddress address;
     private String phone;
+    private OptionalNullable<String> logoUrl;
 
     /**
      * Default constructor.
@@ -29,14 +32,28 @@ public class InvoiceSeller {
      * @param  name  String value for name.
      * @param  address  InvoiceAddress value for address.
      * @param  phone  String value for phone.
+     * @param  logoUrl  String value for logoUrl.
      */
     public InvoiceSeller(
             String name,
             InvoiceAddress address,
-            String phone) {
+            String phone,
+            String logoUrl) {
         this.name = name;
         this.address = address;
         this.phone = phone;
+        this.logoUrl = OptionalNullable.of(logoUrl);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InvoiceSeller(String name, InvoiceAddress address, String phone,
+            OptionalNullable<String> logoUrl) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.logoUrl = logoUrl;
     }
 
     /**
@@ -97,13 +114,48 @@ public class InvoiceSeller {
     }
 
     /**
+     * Internal Getter for LogoUrl.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("logo_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetLogoUrl() {
+        return this.logoUrl;
+    }
+
+    /**
+     * Getter for LogoUrl.
+     * @return Returns the String
+     */
+    public String getLogoUrl() {
+        return OptionalNullable.getFrom(logoUrl);
+    }
+
+    /**
+     * Setter for LogoUrl.
+     * @param logoUrl Value for String
+     */
+    @JsonSetter("logo_url")
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = OptionalNullable.of(logoUrl);
+    }
+
+    /**
+     * UnSetter for LogoUrl.
+     */
+    public void unsetLogoUrl() {
+        logoUrl = null;
+    }
+
+    /**
      * Converts this InvoiceSeller into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "InvoiceSeller [" + "name=" + name + ", address=" + address + ", phone=" + phone
-                + "]";
+                + ", logoUrl=" + logoUrl + "]";
     }
 
     /**
@@ -116,6 +168,7 @@ public class InvoiceSeller {
                 .name(getName())
                 .address(getAddress())
                 .phone(getPhone());
+        builder.logoUrl = internalGetLogoUrl();
         return builder;
     }
 
@@ -126,6 +179,7 @@ public class InvoiceSeller {
         private String name;
         private InvoiceAddress address;
         private String phone;
+        private OptionalNullable<String> logoUrl;
 
 
 
@@ -160,11 +214,30 @@ public class InvoiceSeller {
         }
 
         /**
+         * Setter for logoUrl.
+         * @param  logoUrl  String value for logoUrl.
+         * @return Builder
+         */
+        public Builder logoUrl(String logoUrl) {
+            this.logoUrl = OptionalNullable.of(logoUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for logoUrl.
+         * @return Builder
+         */
+        public Builder unsetLogoUrl() {
+            logoUrl = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceSeller} object using the set fields.
          * @return {@link InvoiceSeller}
          */
         public InvoiceSeller build() {
-            return new InvoiceSeller(name, address, phone);
+            return new InvoiceSeller(name, address, phone, logoUrl);
         }
     }
 }

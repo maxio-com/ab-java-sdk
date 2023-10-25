@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.models.containers.InvoiceLineItemComponentCostData2;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
@@ -28,10 +29,13 @@ public class InvoiceLineItem {
     private Boolean tieredUnitPrice;
     private String periodRangeStart;
     private String periodRangeEnd;
+    private Integer transactionId;
     private OptionalNullable<Integer> productId;
     private OptionalNullable<Integer> productVersion;
     private OptionalNullable<Integer> componentId;
     private OptionalNullable<Integer> pricePointId;
+    private Boolean hide;
+    private OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData;
     private OptionalNullable<Integer> productPricePointId;
     private Boolean customItem;
 
@@ -55,10 +59,13 @@ public class InvoiceLineItem {
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
      * @param  periodRangeStart  String value for periodRangeStart.
      * @param  periodRangeEnd  String value for periodRangeEnd.
+     * @param  transactionId  Integer value for transactionId.
      * @param  productId  Integer value for productId.
      * @param  productVersion  Integer value for productVersion.
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  hide  Boolean value for hide.
+     * @param  componentCostData  InvoiceLineItemComponentCostData2 value for componentCostData.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customItem  Boolean value for customItem.
      */
@@ -75,10 +82,13 @@ public class InvoiceLineItem {
             Boolean tieredUnitPrice,
             String periodRangeStart,
             String periodRangeEnd,
+            Integer transactionId,
             Integer productId,
             Integer productVersion,
             Integer componentId,
             Integer pricePointId,
+            Boolean hide,
+            InvoiceLineItemComponentCostData2 componentCostData,
             Integer productPricePointId,
             Boolean customItem) {
         this.uid = uid;
@@ -93,10 +103,13 @@ public class InvoiceLineItem {
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
         this.periodRangeEnd = periodRangeEnd;
+        this.transactionId = transactionId;
         this.productId = OptionalNullable.of(productId);
         this.productVersion = OptionalNullable.of(productVersion);
         this.componentId = OptionalNullable.of(componentId);
         this.pricePointId = OptionalNullable.of(pricePointId);
+        this.hide = hide;
+        this.componentCostData = OptionalNullable.of(componentCostData);
         this.productPricePointId = OptionalNullable.of(productPricePointId);
         this.customItem = customItem;
     }
@@ -107,10 +120,11 @@ public class InvoiceLineItem {
     protected InvoiceLineItem(String uid, String title, String description, String quantity,
             String unitPrice, String subtotalAmount, String discountAmount, String taxAmount,
             String totalAmount, Boolean tieredUnitPrice, String periodRangeStart,
-            String periodRangeEnd, OptionalNullable<Integer> productId,
+            String periodRangeEnd, Integer transactionId, OptionalNullable<Integer> productId,
             OptionalNullable<Integer> productVersion, OptionalNullable<Integer> componentId,
-            OptionalNullable<Integer> pricePointId, OptionalNullable<Integer> productPricePointId,
-            Boolean customItem) {
+            OptionalNullable<Integer> pricePointId, Boolean hide,
+            OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData,
+            OptionalNullable<Integer> productPricePointId, Boolean customItem) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -123,10 +137,13 @@ public class InvoiceLineItem {
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
         this.periodRangeEnd = periodRangeEnd;
+        this.transactionId = transactionId;
         this.productId = productId;
         this.productVersion = productVersion;
         this.componentId = componentId;
         this.pricePointId = pricePointId;
+        this.hide = hide;
+        this.componentCostData = componentCostData;
         this.productPricePointId = productPricePointId;
         this.customItem = customItem;
     }
@@ -440,6 +457,25 @@ public class InvoiceLineItem {
     }
 
     /**
+     * Getter for TransactionId.
+     * @return Returns the Integer
+     */
+    @JsonGetter("transaction_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getTransactionId() {
+        return transactionId;
+    }
+
+    /**
+     * Setter for TransactionId.
+     * @param transactionId Value for Integer
+     */
+    @JsonSetter("transaction_id")
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
      * Internal Getter for ProductId.
      * The ID of the product subscribed when the charge was made. This may be set even for component
      * charges, so true product-only (non-component) charges will also have a nil `component_id`.
@@ -600,6 +636,60 @@ public class InvoiceLineItem {
     }
 
     /**
+     * Getter for Hide.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("hide")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getHide() {
+        return hide;
+    }
+
+    /**
+     * Setter for Hide.
+     * @param hide Value for Boolean
+     */
+    @JsonSetter("hide")
+    public void setHide(Boolean hide) {
+        this.hide = hide;
+    }
+
+    /**
+     * Internal Getter for ComponentCostData.
+     * @return Returns the Internal InvoiceLineItemComponentCostData2
+     */
+    @JsonGetter("component_cost_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<InvoiceLineItemComponentCostData2> internalGetComponentCostData() {
+        return this.componentCostData;
+    }
+
+    /**
+     * Getter for ComponentCostData.
+     * @return Returns the InvoiceLineItemComponentCostData2
+     */
+    public InvoiceLineItemComponentCostData2 getComponentCostData() {
+        return OptionalNullable.getFrom(componentCostData);
+    }
+
+    /**
+     * Setter for ComponentCostData.
+     * @param componentCostData Value for InvoiceLineItemComponentCostData2
+     */
+    @JsonSetter("component_cost_data")
+    public void setComponentCostData(InvoiceLineItemComponentCostData2 componentCostData) {
+        this.componentCostData = OptionalNullable.of(componentCostData);
+    }
+
+    /**
+     * UnSetter for ComponentCostData.
+     */
+    public void unsetComponentCostData() {
+        componentCostData = null;
+    }
+
+    /**
      * Internal Getter for ProductPricePointId.
      * The price point ID of the line item's product
      * @return Returns the Internal Integer
@@ -668,10 +758,11 @@ public class InvoiceLineItem {
                 + ", subtotalAmount=" + subtotalAmount + ", discountAmount=" + discountAmount
                 + ", taxAmount=" + taxAmount + ", totalAmount=" + totalAmount + ", tieredUnitPrice="
                 + tieredUnitPrice + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd="
-                + periodRangeEnd + ", productId=" + productId + ", productVersion=" + productVersion
-                + ", componentId=" + componentId + ", pricePointId=" + pricePointId
-                + ", productPricePointId=" + productPricePointId + ", customItem=" + customItem
-                + "]";
+                + periodRangeEnd + ", transactionId=" + transactionId + ", productId=" + productId
+                + ", productVersion=" + productVersion + ", componentId=" + componentId
+                + ", pricePointId=" + pricePointId + ", hide=" + hide + ", componentCostData="
+                + componentCostData + ", productPricePointId=" + productPricePointId
+                + ", customItem=" + customItem + "]";
     }
 
     /**
@@ -693,11 +784,14 @@ public class InvoiceLineItem {
                 .tieredUnitPrice(getTieredUnitPrice())
                 .periodRangeStart(getPeriodRangeStart())
                 .periodRangeEnd(getPeriodRangeEnd())
+                .transactionId(getTransactionId())
+                .hide(getHide())
                 .customItem(getCustomItem());
         builder.productId = internalGetProductId();
         builder.productVersion = internalGetProductVersion();
         builder.componentId = internalGetComponentId();
         builder.pricePointId = internalGetPricePointId();
+        builder.componentCostData = internalGetComponentCostData();
         builder.productPricePointId = internalGetProductPricePointId();
         return builder;
     }
@@ -718,10 +812,13 @@ public class InvoiceLineItem {
         private Boolean tieredUnitPrice;
         private String periodRangeStart;
         private String periodRangeEnd;
+        private Integer transactionId;
         private OptionalNullable<Integer> productId;
         private OptionalNullable<Integer> productVersion;
         private OptionalNullable<Integer> componentId;
         private OptionalNullable<Integer> pricePointId;
+        private Boolean hide;
+        private OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData;
         private OptionalNullable<Integer> productPricePointId;
         private Boolean customItem;
 
@@ -848,6 +945,16 @@ public class InvoiceLineItem {
         }
 
         /**
+         * Setter for transactionId.
+         * @param  transactionId  Integer value for transactionId.
+         * @return Builder
+         */
+        public Builder transactionId(Integer transactionId) {
+            this.transactionId = transactionId;
+            return this;
+        }
+
+        /**
          * Setter for productId.
          * @param  productId  Integer value for productId.
          * @return Builder
@@ -924,6 +1031,35 @@ public class InvoiceLineItem {
         }
 
         /**
+         * Setter for hide.
+         * @param  hide  Boolean value for hide.
+         * @return Builder
+         */
+        public Builder hide(Boolean hide) {
+            this.hide = hide;
+            return this;
+        }
+
+        /**
+         * Setter for componentCostData.
+         * @param  componentCostData  InvoiceLineItemComponentCostData2 value for componentCostData.
+         * @return Builder
+         */
+        public Builder componentCostData(InvoiceLineItemComponentCostData2 componentCostData) {
+            this.componentCostData = OptionalNullable.of(componentCostData);
+            return this;
+        }
+
+        /**
+         * UnSetter for componentCostData.
+         * @return Builder
+         */
+        public Builder unsetComponentCostData() {
+            componentCostData = null;
+            return this;
+        }
+
+        /**
          * Setter for productPricePointId.
          * @param  productPricePointId  Integer value for productPricePointId.
          * @return Builder
@@ -959,8 +1095,8 @@ public class InvoiceLineItem {
         public InvoiceLineItem build() {
             return new InvoiceLineItem(uid, title, description, quantity, unitPrice, subtotalAmount,
                     discountAmount, taxAmount, totalAmount, tieredUnitPrice, periodRangeStart,
-                    periodRangeEnd, productId, productVersion, componentId, pricePointId,
-                    productPricePointId, customItem);
+                    periodRangeEnd, transactionId, productId, productVersion, componentId,
+                    pricePointId, hide, componentCostData, productPricePointId, customItem);
         }
     }
 }

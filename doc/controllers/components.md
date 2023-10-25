@@ -98,6 +98,7 @@ CreateComponentBody body = CreateComponentBody.fromCreateMeteredComponent(
     )
     .build()
 );
+
 try {
     ComponentResponse result = componentsController.createComponent(productFamilyId, componentKind, body);
     System.out.println(result);
@@ -857,21 +858,33 @@ int componentId = 222;
 CreateComponentPricePointRequest body = new CreateComponentPricePointRequest.Builder(
     CreateComponentPricePointRequestPricePoint.fromCreateComponentPricePoint(
         new CreateComponentPricePoint.Builder(
-            "Special Pricing",
-            "per_unit",
+            "Wholesale",
+            "stairstep",
             Arrays.asList(
                 new Price.Builder(
-                    PriceStartingQuantity.fromNumber(
-                        1
+                    PriceStartingQuantity.fromMString(
+                        "1"
                     ),
-                    PriceUnitPrice.fromPrecision(
-                        5D
+                    PriceUnitPrice.fromMString(
+                        "5.00"
+                    )
+                )
+                .endingQuantity(PriceEndingQuantity.fromMString(
+                        "100"
+                    ))
+                .build(),
+                new Price.Builder(
+                    PriceStartingQuantity.fromMString(
+                        "101"
+                    ),
+                    PriceUnitPrice.fromMString(
+                        "4.00"
                     )
                 )
                 .build()
             )
         )
-        .handle("special")
+        .handle("wholesale-handle")
         .build()
     )
 )

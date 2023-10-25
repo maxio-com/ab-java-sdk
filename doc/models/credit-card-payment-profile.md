@@ -13,7 +13,7 @@
 | `FirstName` | `String` | Optional | - | String getFirstName() | setFirstName(String firstName) |
 | `LastName` | `String` | Optional | - | String getLastName() | setLastName(String lastName) |
 | `MaskedCardNumber` | `String` | Required | - | String getMaskedCardNumber() | setMaskedCardNumber(String maskedCardNumber) |
-| `CardType` | [`CardTypeCreditCardPaymentProfile`](../../doc/models/card-type-credit-card-payment-profile.md) | Optional | - | CardTypeCreditCardPaymentProfile getCardType() | setCardType(CardTypeCreditCardPaymentProfile cardType) |
+| `CardType` | [`CardType1`](../../doc/models/card-type-1.md) | Optional | - | CardType1 getCardType() | setCardType(CardType1 cardType) |
 | `ExpirationMonth` | `Integer` | Optional | - | Integer getExpirationMonth() | setExpirationMonth(Integer expirationMonth) |
 | `ExpirationYear` | `Integer` | Optional | - | Integer getExpirationYear() | setExpirationYear(Integer expirationYear) |
 | `CustomerId` | `Integer` | Optional | - | Integer getCustomerId() | setCustomerId(Integer customerId) |

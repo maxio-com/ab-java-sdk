@@ -9,35 +9,48 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * This is a model class for Invoice type.
  */
 public class Invoice {
+    private Integer id;
     private String uid;
     private Integer siteId;
     private Integer customerId;
     private Integer subscriptionId;
     private String number;
     private Integer sequenceNumber;
+    private LocalDateTime transactionTime;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String issueDate;
     private String dueDate;
     private OptionalNullable<String> paidDate;
     private Status status;
+    private String role;
+    private OptionalNullable<Integer> parentInvoiceId;
     private String collectionMethod;
     private String paymentInstructions;
     private String currency;
     private InvoiceConsolidationLevel consolidationLevel;
     private OptionalNullable<String> parentInvoiceUid;
+    private OptionalNullable<Integer> subscriptionGroupId;
     private OptionalNullable<Integer> parentInvoiceNumber;
     private OptionalNullable<Integer> groupPrimarySubscriptionId;
     private String productName;
     private String productFamilyName;
     private InvoiceSeller seller;
     private InvoiceCustomer customer;
+    private InvoicePayer payer;
+    private List<String> recipientEmails;
+    private Integer netTerms;
     private String memo;
     private InvoiceAddress billingAddress;
     private InvoiceAddress shippingAddress;
@@ -56,6 +69,7 @@ public class Invoice {
     private List<InvoiceRefund> refunds;
     private List<InvoicePayment> payments;
     private List<InvoiceCustomField> customFields;
+    private InvoiceDisplaySettings displaySettings;
     private String publicUrl;
     private InvoicePreviousBalance previousBalanceData;
 
@@ -67,27 +81,37 @@ public class Invoice {
 
     /**
      * Initialization constructor.
+     * @param  id  Integer value for id.
      * @param  uid  String value for uid.
      * @param  siteId  Integer value for siteId.
      * @param  customerId  Integer value for customerId.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  number  String value for number.
      * @param  sequenceNumber  Integer value for sequenceNumber.
+     * @param  transactionTime  LocalDateTime value for transactionTime.
+     * @param  createdAt  LocalDateTime value for createdAt.
+     * @param  updatedAt  LocalDateTime value for updatedAt.
      * @param  issueDate  String value for issueDate.
      * @param  dueDate  String value for dueDate.
      * @param  paidDate  String value for paidDate.
      * @param  status  Status value for status.
+     * @param  role  String value for role.
+     * @param  parentInvoiceId  Integer value for parentInvoiceId.
      * @param  collectionMethod  String value for collectionMethod.
      * @param  paymentInstructions  String value for paymentInstructions.
      * @param  currency  String value for currency.
      * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
      * @param  parentInvoiceUid  String value for parentInvoiceUid.
+     * @param  subscriptionGroupId  Integer value for subscriptionGroupId.
      * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
      * @param  groupPrimarySubscriptionId  Integer value for groupPrimarySubscriptionId.
      * @param  productName  String value for productName.
      * @param  productFamilyName  String value for productFamilyName.
      * @param  seller  InvoiceSeller value for seller.
      * @param  customer  InvoiceCustomer value for customer.
+     * @param  payer  InvoicePayer value for payer.
+     * @param  recipientEmails  List of String value for recipientEmails.
+     * @param  netTerms  Integer value for netTerms.
      * @param  memo  String value for memo.
      * @param  billingAddress  InvoiceAddress value for billingAddress.
      * @param  shippingAddress  InvoiceAddress value for shippingAddress.
@@ -106,31 +130,42 @@ public class Invoice {
      * @param  refunds  List of InvoiceRefund value for refunds.
      * @param  payments  List of InvoicePayment value for payments.
      * @param  customFields  List of InvoiceCustomField value for customFields.
+     * @param  displaySettings  InvoiceDisplaySettings value for displaySettings.
      * @param  publicUrl  String value for publicUrl.
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      */
     public Invoice(
+            Integer id,
             String uid,
             Integer siteId,
             Integer customerId,
             Integer subscriptionId,
             String number,
             Integer sequenceNumber,
+            LocalDateTime transactionTime,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
             String issueDate,
             String dueDate,
             String paidDate,
             Status status,
+            String role,
+            Integer parentInvoiceId,
             String collectionMethod,
             String paymentInstructions,
             String currency,
             InvoiceConsolidationLevel consolidationLevel,
             String parentInvoiceUid,
+            Integer subscriptionGroupId,
             Integer parentInvoiceNumber,
             Integer groupPrimarySubscriptionId,
             String productName,
             String productFamilyName,
             InvoiceSeller seller,
             InvoiceCustomer customer,
+            InvoicePayer payer,
+            List<String> recipientEmails,
+            Integer netTerms,
             String memo,
             InvoiceAddress billingAddress,
             InvoiceAddress shippingAddress,
@@ -149,29 +184,40 @@ public class Invoice {
             List<InvoiceRefund> refunds,
             List<InvoicePayment> payments,
             List<InvoiceCustomField> customFields,
+            InvoiceDisplaySettings displaySettings,
             String publicUrl,
             InvoicePreviousBalance previousBalanceData) {
+        this.id = id;
         this.uid = uid;
         this.siteId = siteId;
         this.customerId = customerId;
         this.subscriptionId = subscriptionId;
         this.number = number;
         this.sequenceNumber = sequenceNumber;
+        this.transactionTime = transactionTime;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.issueDate = issueDate;
         this.dueDate = dueDate;
         this.paidDate = OptionalNullable.of(paidDate);
         this.status = status;
+        this.role = role;
+        this.parentInvoiceId = OptionalNullable.of(parentInvoiceId);
         this.collectionMethod = collectionMethod;
         this.paymentInstructions = paymentInstructions;
         this.currency = currency;
         this.consolidationLevel = consolidationLevel;
         this.parentInvoiceUid = OptionalNullable.of(parentInvoiceUid);
+        this.subscriptionGroupId = OptionalNullable.of(subscriptionGroupId);
         this.parentInvoiceNumber = OptionalNullable.of(parentInvoiceNumber);
         this.groupPrimarySubscriptionId = OptionalNullable.of(groupPrimarySubscriptionId);
         this.productName = productName;
         this.productFamilyName = productFamilyName;
         this.seller = seller;
         this.customer = customer;
+        this.payer = payer;
+        this.recipientEmails = recipientEmails;
+        this.netTerms = netTerms;
         this.memo = memo;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
@@ -190,6 +236,7 @@ public class Invoice {
         this.refunds = refunds;
         this.payments = payments;
         this.customFields = customFields;
+        this.displaySettings = displaySettings;
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
     }
@@ -197,42 +244,57 @@ public class Invoice {
     /**
      * Internal initialization constructor.
      */
-    protected Invoice(String uid, Integer siteId, Integer customerId, Integer subscriptionId,
-            String number, Integer sequenceNumber, String issueDate, String dueDate,
-            OptionalNullable<String> paidDate, Status status, String collectionMethod,
+    protected Invoice(Integer id, String uid, Integer siteId, Integer customerId,
+            Integer subscriptionId, String number, Integer sequenceNumber,
+            LocalDateTime transactionTime, LocalDateTime createdAt, LocalDateTime updatedAt,
+            String issueDate, String dueDate, OptionalNullable<String> paidDate, Status status,
+            String role, OptionalNullable<Integer> parentInvoiceId, String collectionMethod,
             String paymentInstructions, String currency,
             InvoiceConsolidationLevel consolidationLevel, OptionalNullable<String> parentInvoiceUid,
+            OptionalNullable<Integer> subscriptionGroupId,
             OptionalNullable<Integer> parentInvoiceNumber,
             OptionalNullable<Integer> groupPrimarySubscriptionId, String productName,
-            String productFamilyName, InvoiceSeller seller, InvoiceCustomer customer, String memo,
+            String productFamilyName, InvoiceSeller seller, InvoiceCustomer customer,
+            InvoicePayer payer, List<String> recipientEmails, Integer netTerms, String memo,
             InvoiceAddress billingAddress, InvoiceAddress shippingAddress, String subtotalAmount,
             String discountAmount, String taxAmount, String totalAmount, String creditAmount,
             String refundAmount, String paidAmount, String dueAmount,
             List<InvoiceLineItem> lineItems, List<InvoiceDiscount> discounts,
             List<InvoiceTax> taxes, List<InvoiceCredit> credits, List<InvoiceRefund> refunds,
-            List<InvoicePayment> payments, List<InvoiceCustomField> customFields, String publicUrl,
+            List<InvoicePayment> payments, List<InvoiceCustomField> customFields,
+            InvoiceDisplaySettings displaySettings, String publicUrl,
             InvoicePreviousBalance previousBalanceData) {
+        this.id = id;
         this.uid = uid;
         this.siteId = siteId;
         this.customerId = customerId;
         this.subscriptionId = subscriptionId;
         this.number = number;
         this.sequenceNumber = sequenceNumber;
+        this.transactionTime = transactionTime;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.issueDate = issueDate;
         this.dueDate = dueDate;
         this.paidDate = paidDate;
         this.status = status;
+        this.role = role;
+        this.parentInvoiceId = parentInvoiceId;
         this.collectionMethod = collectionMethod;
         this.paymentInstructions = paymentInstructions;
         this.currency = currency;
         this.consolidationLevel = consolidationLevel;
         this.parentInvoiceUid = parentInvoiceUid;
+        this.subscriptionGroupId = subscriptionGroupId;
         this.parentInvoiceNumber = parentInvoiceNumber;
         this.groupPrimarySubscriptionId = groupPrimarySubscriptionId;
         this.productName = productName;
         this.productFamilyName = productFamilyName;
         this.seller = seller;
         this.customer = customer;
+        this.payer = payer;
+        this.recipientEmails = recipientEmails;
+        this.netTerms = netTerms;
         this.memo = memo;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
@@ -251,8 +313,28 @@ public class Invoice {
         this.refunds = refunds;
         this.payments = payments;
         this.customFields = customFields;
+        this.displaySettings = displaySettings;
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
+    }
+
+    /**
+     * Getter for Id.
+     * @return Returns the Integer
+     */
+    @JsonGetter("id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Setter for Id.
+     * @param id Value for Integer
+     */
+    @JsonSetter("id")
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     /**
@@ -390,6 +472,69 @@ public class Invoice {
     }
 
     /**
+     * Getter for TransactionTime.
+     * @return Returns the LocalDateTime
+     */
+    @JsonGetter("transaction_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public LocalDateTime getTransactionTime() {
+        return transactionTime;
+    }
+
+    /**
+     * Setter for TransactionTime.
+     * @param transactionTime Value for LocalDateTime
+     */
+    @JsonSetter("transaction_time")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTransactionTime(LocalDateTime transactionTime) {
+        this.transactionTime = transactionTime;
+    }
+
+    /**
+     * Getter for CreatedAt.
+     * @return Returns the LocalDateTime
+     */
+    @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Setter for CreatedAt.
+     * @param createdAt Value for LocalDateTime
+     */
+    @JsonSetter("created_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Getter for UpdatedAt.
+     * @return Returns the LocalDateTime
+     */
+    @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Setter for UpdatedAt.
+     * @param updatedAt Value for LocalDateTime
+     */
+    @JsonSetter("updated_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
      * Getter for IssueDate.
      * Date the invoice was issued to the customer. This is the date that the invoice was made
      * available for payment. The format is `"YYYY-MM-DD"`.
@@ -499,6 +644,60 @@ public class Invoice {
     @JsonSetter("status")
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    /**
+     * Getter for Role.
+     * @return Returns the String
+     */
+    @JsonGetter("role")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * Setter for Role.
+     * @param role Value for String
+     */
+    @JsonSetter("role")
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    /**
+     * Internal Getter for ParentInvoiceId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("parent_invoice_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetParentInvoiceId() {
+        return this.parentInvoiceId;
+    }
+
+    /**
+     * Getter for ParentInvoiceId.
+     * @return Returns the Integer
+     */
+    public Integer getParentInvoiceId() {
+        return OptionalNullable.getFrom(parentInvoiceId);
+    }
+
+    /**
+     * Setter for ParentInvoiceId.
+     * @param parentInvoiceId Value for Integer
+     */
+    @JsonSetter("parent_invoice_id")
+    public void setParentInvoiceId(Integer parentInvoiceId) {
+        this.parentInvoiceId = OptionalNullable.of(parentInvoiceId);
+    }
+
+    /**
+     * UnSetter for ParentInvoiceId.
+     */
+    public void unsetParentInvoiceId() {
+        parentInvoiceId = null;
     }
 
     /**
@@ -648,6 +847,41 @@ public class Invoice {
      */
     public void unsetParentInvoiceUid() {
         parentInvoiceUid = null;
+    }
+
+    /**
+     * Internal Getter for SubscriptionGroupId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("subscription_group_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetSubscriptionGroupId() {
+        return this.subscriptionGroupId;
+    }
+
+    /**
+     * Getter for SubscriptionGroupId.
+     * @return Returns the Integer
+     */
+    public Integer getSubscriptionGroupId() {
+        return OptionalNullable.getFrom(subscriptionGroupId);
+    }
+
+    /**
+     * Setter for SubscriptionGroupId.
+     * @param subscriptionGroupId Value for Integer
+     */
+    @JsonSetter("subscription_group_id")
+    public void setSubscriptionGroupId(Integer subscriptionGroupId) {
+        this.subscriptionGroupId = OptionalNullable.of(subscriptionGroupId);
+    }
+
+    /**
+     * UnSetter for SubscriptionGroupId.
+     */
+    public void unsetSubscriptionGroupId() {
+        subscriptionGroupId = null;
     }
 
     /**
@@ -822,6 +1056,63 @@ public class Invoice {
     @JsonSetter("customer")
     public void setCustomer(InvoiceCustomer customer) {
         this.customer = customer;
+    }
+
+    /**
+     * Getter for Payer.
+     * @return Returns the InvoicePayer
+     */
+    @JsonGetter("payer")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public InvoicePayer getPayer() {
+        return payer;
+    }
+
+    /**
+     * Setter for Payer.
+     * @param payer Value for InvoicePayer
+     */
+    @JsonSetter("payer")
+    public void setPayer(InvoicePayer payer) {
+        this.payer = payer;
+    }
+
+    /**
+     * Getter for RecipientEmails.
+     * @return Returns the List of String
+     */
+    @JsonGetter("recipient_emails")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getRecipientEmails() {
+        return recipientEmails;
+    }
+
+    /**
+     * Setter for RecipientEmails.
+     * @param recipientEmails Value for List of String
+     */
+    @JsonSetter("recipient_emails")
+    public void setRecipientEmails(List<String> recipientEmails) {
+        this.recipientEmails = recipientEmails;
+    }
+
+    /**
+     * Getter for NetTerms.
+     * @return Returns the Integer
+     */
+    @JsonGetter("net_terms")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getNetTerms() {
+        return netTerms;
+    }
+
+    /**
+     * Setter for NetTerms.
+     * @param netTerms Value for Integer
+     */
+    @JsonSetter("net_terms")
+    public void setNetTerms(Integer netTerms) {
+        this.netTerms = netTerms;
     }
 
     /**
@@ -1193,6 +1484,25 @@ public class Invoice {
     }
 
     /**
+     * Getter for DisplaySettings.
+     * @return Returns the InvoiceDisplaySettings
+     */
+    @JsonGetter("display_settings")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public InvoiceDisplaySettings getDisplaySettings() {
+        return displaySettings;
+    }
+
+    /**
+     * Setter for DisplaySettings.
+     * @param displaySettings Value for InvoiceDisplaySettings
+     */
+    @JsonSetter("display_settings")
+    public void setDisplaySettings(InvoiceDisplaySettings displaySettings) {
+        this.displaySettings = displaySettings;
+    }
+
+    /**
      * Getter for PublicUrl.
      * The public URL of the invoice
      * @return Returns the String
@@ -1238,23 +1548,28 @@ public class Invoice {
      */
     @Override
     public String toString() {
-        return "Invoice [" + "uid=" + uid + ", siteId=" + siteId + ", customerId=" + customerId
-                + ", subscriptionId=" + subscriptionId + ", number=" + number + ", sequenceNumber="
-                + sequenceNumber + ", issueDate=" + issueDate + ", dueDate=" + dueDate
-                + ", paidDate=" + paidDate + ", status=" + status + ", collectionMethod="
-                + collectionMethod + ", paymentInstructions=" + paymentInstructions + ", currency="
-                + currency + ", consolidationLevel=" + consolidationLevel + ", parentInvoiceUid="
-                + parentInvoiceUid + ", parentInvoiceNumber=" + parentInvoiceNumber
-                + ", groupPrimarySubscriptionId=" + groupPrimarySubscriptionId + ", productName="
-                + productName + ", productFamilyName=" + productFamilyName + ", seller=" + seller
-                + ", customer=" + customer + ", memo=" + memo + ", billingAddress=" + billingAddress
-                + ", shippingAddress=" + shippingAddress + ", subtotalAmount=" + subtotalAmount
-                + ", discountAmount=" + discountAmount + ", taxAmount=" + taxAmount
-                + ", totalAmount=" + totalAmount + ", creditAmount=" + creditAmount
-                + ", refundAmount=" + refundAmount + ", paidAmount=" + paidAmount + ", dueAmount="
-                + dueAmount + ", lineItems=" + lineItems + ", discounts=" + discounts + ", taxes="
-                + taxes + ", credits=" + credits + ", refunds=" + refunds + ", payments=" + payments
-                + ", customFields=" + customFields + ", publicUrl=" + publicUrl
+        return "Invoice [" + "id=" + id + ", uid=" + uid + ", siteId=" + siteId + ", customerId="
+                + customerId + ", subscriptionId=" + subscriptionId + ", number=" + number
+                + ", sequenceNumber=" + sequenceNumber + ", transactionTime=" + transactionTime
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", issueDate="
+                + issueDate + ", dueDate=" + dueDate + ", paidDate=" + paidDate + ", status="
+                + status + ", role=" + role + ", parentInvoiceId=" + parentInvoiceId
+                + ", collectionMethod=" + collectionMethod + ", paymentInstructions="
+                + paymentInstructions + ", currency=" + currency + ", consolidationLevel="
+                + consolidationLevel + ", parentInvoiceUid=" + parentInvoiceUid
+                + ", subscriptionGroupId=" + subscriptionGroupId + ", parentInvoiceNumber="
+                + parentInvoiceNumber + ", groupPrimarySubscriptionId=" + groupPrimarySubscriptionId
+                + ", productName=" + productName + ", productFamilyName=" + productFamilyName
+                + ", seller=" + seller + ", customer=" + customer + ", payer=" + payer
+                + ", recipientEmails=" + recipientEmails + ", netTerms=" + netTerms + ", memo="
+                + memo + ", billingAddress=" + billingAddress + ", shippingAddress="
+                + shippingAddress + ", subtotalAmount=" + subtotalAmount + ", discountAmount="
+                + discountAmount + ", taxAmount=" + taxAmount + ", totalAmount=" + totalAmount
+                + ", creditAmount=" + creditAmount + ", refundAmount=" + refundAmount
+                + ", paidAmount=" + paidAmount + ", dueAmount=" + dueAmount + ", lineItems="
+                + lineItems + ", discounts=" + discounts + ", taxes=" + taxes + ", credits="
+                + credits + ", refunds=" + refunds + ", payments=" + payments + ", customFields="
+                + customFields + ", displaySettings=" + displaySettings + ", publicUrl=" + publicUrl
                 + ", previousBalanceData=" + previousBalanceData + "]";
     }
 
@@ -1265,15 +1580,20 @@ public class Invoice {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .id(getId())
                 .uid(getUid())
                 .siteId(getSiteId())
                 .customerId(getCustomerId())
                 .subscriptionId(getSubscriptionId())
                 .number(getNumber())
                 .sequenceNumber(getSequenceNumber())
+                .transactionTime(getTransactionTime())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
                 .issueDate(getIssueDate())
                 .dueDate(getDueDate())
                 .status(getStatus())
+                .role(getRole())
                 .collectionMethod(getCollectionMethod())
                 .paymentInstructions(getPaymentInstructions())
                 .currency(getCurrency())
@@ -1282,6 +1602,9 @@ public class Invoice {
                 .productFamilyName(getProductFamilyName())
                 .seller(getSeller())
                 .customer(getCustomer())
+                .payer(getPayer())
+                .recipientEmails(getRecipientEmails())
+                .netTerms(getNetTerms())
                 .memo(getMemo())
                 .billingAddress(getBillingAddress())
                 .shippingAddress(getShippingAddress())
@@ -1300,10 +1623,13 @@ public class Invoice {
                 .refunds(getRefunds())
                 .payments(getPayments())
                 .customFields(getCustomFields())
+                .displaySettings(getDisplaySettings())
                 .publicUrl(getPublicUrl())
                 .previousBalanceData(getPreviousBalanceData());
         builder.paidDate = internalGetPaidDate();
+        builder.parentInvoiceId = internalGetParentInvoiceId();
         builder.parentInvoiceUid = internalGetParentInvoiceUid();
+        builder.subscriptionGroupId = internalGetSubscriptionGroupId();
         builder.parentInvoiceNumber = internalGetParentInvoiceNumber();
         builder.groupPrimarySubscriptionId = internalGetGroupPrimarySubscriptionId();
         return builder;
@@ -1313,27 +1639,37 @@ public class Invoice {
      * Class to build instances of {@link Invoice}.
      */
     public static class Builder {
+        private Integer id;
         private String uid;
         private Integer siteId;
         private Integer customerId;
         private Integer subscriptionId;
         private String number;
         private Integer sequenceNumber;
+        private LocalDateTime transactionTime;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
         private String issueDate;
         private String dueDate;
         private OptionalNullable<String> paidDate;
         private Status status;
+        private String role;
+        private OptionalNullable<Integer> parentInvoiceId;
         private String collectionMethod;
         private String paymentInstructions;
         private String currency;
         private InvoiceConsolidationLevel consolidationLevel;
         private OptionalNullable<String> parentInvoiceUid;
+        private OptionalNullable<Integer> subscriptionGroupId;
         private OptionalNullable<Integer> parentInvoiceNumber;
         private OptionalNullable<Integer> groupPrimarySubscriptionId;
         private String productName;
         private String productFamilyName;
         private InvoiceSeller seller;
         private InvoiceCustomer customer;
+        private InvoicePayer payer;
+        private List<String> recipientEmails;
+        private Integer netTerms;
         private String memo;
         private InvoiceAddress billingAddress;
         private InvoiceAddress shippingAddress;
@@ -1352,10 +1688,21 @@ public class Invoice {
         private List<InvoiceRefund> refunds;
         private List<InvoicePayment> payments;
         private List<InvoiceCustomField> customFields;
+        private InvoiceDisplaySettings displaySettings;
         private String publicUrl;
         private InvoicePreviousBalance previousBalanceData;
 
 
+
+        /**
+         * Setter for id.
+         * @param  id  Integer value for id.
+         * @return Builder
+         */
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
         /**
          * Setter for uid.
@@ -1418,6 +1765,36 @@ public class Invoice {
         }
 
         /**
+         * Setter for transactionTime.
+         * @param  transactionTime  LocalDateTime value for transactionTime.
+         * @return Builder
+         */
+        public Builder transactionTime(LocalDateTime transactionTime) {
+            this.transactionTime = transactionTime;
+            return this;
+        }
+
+        /**
+         * Setter for createdAt.
+         * @param  createdAt  LocalDateTime value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * Setter for updatedAt.
+         * @param  updatedAt  LocalDateTime value for updatedAt.
+         * @return Builder
+         */
+        public Builder updatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        /**
          * Setter for issueDate.
          * @param  issueDate  String value for issueDate.
          * @return Builder
@@ -1463,6 +1840,35 @@ public class Invoice {
          */
         public Builder status(Status status) {
             this.status = status;
+            return this;
+        }
+
+        /**
+         * Setter for role.
+         * @param  role  String value for role.
+         * @return Builder
+         */
+        public Builder role(String role) {
+            this.role = role;
+            return this;
+        }
+
+        /**
+         * Setter for parentInvoiceId.
+         * @param  parentInvoiceId  Integer value for parentInvoiceId.
+         * @return Builder
+         */
+        public Builder parentInvoiceId(Integer parentInvoiceId) {
+            this.parentInvoiceId = OptionalNullable.of(parentInvoiceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for parentInvoiceId.
+         * @return Builder
+         */
+        public Builder unsetParentInvoiceId() {
+            parentInvoiceId = null;
             return this;
         }
 
@@ -1522,6 +1928,25 @@ public class Invoice {
          */
         public Builder unsetParentInvoiceUid() {
             parentInvoiceUid = null;
+            return this;
+        }
+
+        /**
+         * Setter for subscriptionGroupId.
+         * @param  subscriptionGroupId  Integer value for subscriptionGroupId.
+         * @return Builder
+         */
+        public Builder subscriptionGroupId(Integer subscriptionGroupId) {
+            this.subscriptionGroupId = OptionalNullable.of(subscriptionGroupId);
+            return this;
+        }
+
+        /**
+         * UnSetter for subscriptionGroupId.
+         * @return Builder
+         */
+        public Builder unsetSubscriptionGroupId() {
+            subscriptionGroupId = null;
             return this;
         }
 
@@ -1600,6 +2025,36 @@ public class Invoice {
          */
         public Builder customer(InvoiceCustomer customer) {
             this.customer = customer;
+            return this;
+        }
+
+        /**
+         * Setter for payer.
+         * @param  payer  InvoicePayer value for payer.
+         * @return Builder
+         */
+        public Builder payer(InvoicePayer payer) {
+            this.payer = payer;
+            return this;
+        }
+
+        /**
+         * Setter for recipientEmails.
+         * @param  recipientEmails  List of String value for recipientEmails.
+         * @return Builder
+         */
+        public Builder recipientEmails(List<String> recipientEmails) {
+            this.recipientEmails = recipientEmails;
+            return this;
+        }
+
+        /**
+         * Setter for netTerms.
+         * @param  netTerms  Integer value for netTerms.
+         * @return Builder
+         */
+        public Builder netTerms(Integer netTerms) {
+            this.netTerms = netTerms;
             return this;
         }
 
@@ -1784,6 +2239,16 @@ public class Invoice {
         }
 
         /**
+         * Setter for displaySettings.
+         * @param  displaySettings  InvoiceDisplaySettings value for displaySettings.
+         * @return Builder
+         */
+        public Builder displaySettings(InvoiceDisplaySettings displaySettings) {
+            this.displaySettings = displaySettings;
+            return this;
+        }
+
+        /**
          * Setter for publicUrl.
          * @param  publicUrl  String value for publicUrl.
          * @return Builder
@@ -1808,14 +2273,16 @@ public class Invoice {
          * @return {@link Invoice}
          */
         public Invoice build() {
-            return new Invoice(uid, siteId, customerId, subscriptionId, number, sequenceNumber,
-                    issueDate, dueDate, paidDate, status, collectionMethod, paymentInstructions,
-                    currency, consolidationLevel, parentInvoiceUid, parentInvoiceNumber,
+            return new Invoice(id, uid, siteId, customerId, subscriptionId, number, sequenceNumber,
+                    transactionTime, createdAt, updatedAt, issueDate, dueDate, paidDate, status,
+                    role, parentInvoiceId, collectionMethod, paymentInstructions, currency,
+                    consolidationLevel, parentInvoiceUid, subscriptionGroupId, parentInvoiceNumber,
                     groupPrimarySubscriptionId, productName, productFamilyName, seller, customer,
-                    memo, billingAddress, shippingAddress, subtotalAmount, discountAmount,
-                    taxAmount, totalAmount, creditAmount, refundAmount, paidAmount, dueAmount,
-                    lineItems, discounts, taxes, credits, refunds, payments, customFields,
-                    publicUrl, previousBalanceData);
+                    payer, recipientEmails, netTerms, memo, billingAddress, shippingAddress,
+                    subtotalAmount, discountAmount, taxAmount, totalAmount, creditAmount,
+                    refundAmount, paidAmount, dueAmount, lineItems, discounts, taxes, credits,
+                    refunds, payments, customFields, displaySettings, publicUrl,
+                    previousBalanceData);
         }
     }
 }

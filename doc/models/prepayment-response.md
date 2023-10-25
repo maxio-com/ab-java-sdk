@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Prepayment` | [`PrepaymentPrepaymentResponse`](../../doc/models/prepayment-prepayment-response.md) | Required | - | PrepaymentPrepaymentResponse getPrepayment() | setPrepayment(PrepaymentPrepaymentResponse prepayment) |
+| `Prepayment` | [`Prepayment1`](../../doc/models/prepayment-1.md) | Required | - | Prepayment1 getPrepayment() | setPrepayment(Prepayment1 prepayment) |
 
 ## Example (as JSON)
 

@@ -22,7 +22,7 @@ public class CreditCardPaymentProfile {
     private String firstName;
     private String lastName;
     private String maskedCardNumber;
-    private CardTypeCreditCardPaymentProfile cardType;
+    private CardType1 cardType;
     private Integer expirationMonth;
     private Integer expirationYear;
     private Integer customerId;
@@ -52,7 +52,7 @@ public class CreditCardPaymentProfile {
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
-     * @param  cardType  CardTypeCreditCardPaymentProfile value for cardType.
+     * @param  cardType  CardType1 value for cardType.
      * @param  expirationMonth  Integer value for expirationMonth.
      * @param  expirationYear  Integer value for expirationYear.
      * @param  customerId  Integer value for customerId.
@@ -75,7 +75,7 @@ public class CreditCardPaymentProfile {
             Integer id,
             String firstName,
             String lastName,
-            CardTypeCreditCardPaymentProfile cardType,
+            CardType1 cardType,
             Integer expirationMonth,
             Integer expirationYear,
             Integer customerId,
@@ -119,12 +119,12 @@ public class CreditCardPaymentProfile {
      * Internal initialization constructor.
      */
     protected CreditCardPaymentProfile(String maskedCardNumber, Integer id, String firstName,
-            String lastName, CardTypeCreditCardPaymentProfile cardType, Integer expirationMonth,
-            Integer expirationYear, Integer customerId, CurrentVault currentVault,
-            String vaultToken, String billingAddress, String billingCity, String billingState,
-            String billingZip, String billingCountry, OptionalNullable<String> customerVaultToken,
-            String billingAddress2, String paymentType, Boolean disabled,
-            Integer siteGatewaySettingId, OptionalNullable<String> gatewayHandle) {
+            String lastName, CardType1 cardType, Integer expirationMonth, Integer expirationYear,
+            Integer customerId, CurrentVault currentVault, String vaultToken, String billingAddress,
+            String billingCity, String billingState, String billingZip, String billingCountry,
+            OptionalNullable<String> customerVaultToken, String billingAddress2, String paymentType,
+            Boolean disabled, Integer siteGatewaySettingId,
+            OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -239,20 +239,20 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for CardType.
-     * @return Returns the CardTypeCreditCardPaymentProfile
+     * @return Returns the CardType1
      */
     @JsonGetter("card_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CardTypeCreditCardPaymentProfile getCardType() {
+    public CardType1 getCardType() {
         return cardType;
     }
 
     /**
      * Setter for CardType.
-     * @param cardType Value for CardTypeCreditCardPaymentProfile
+     * @param cardType Value for CardType1
      */
     @JsonSetter("card_type")
-    public void setCardType(CardTypeCreditCardPaymentProfile cardType) {
+    public void setCardType(CardType1 cardType) {
         this.cardType = cardType;
     }
 
@@ -652,7 +652,7 @@ public class CreditCardPaymentProfile {
         private Integer id;
         private String firstName;
         private String lastName;
-        private CardTypeCreditCardPaymentProfile cardType;
+        private CardType1 cardType;
         private Integer expirationMonth;
         private Integer expirationYear;
         private Integer customerId;
@@ -726,10 +726,10 @@ public class CreditCardPaymentProfile {
 
         /**
          * Setter for cardType.
-         * @param  cardType  CardTypeCreditCardPaymentProfile value for cardType.
+         * @param  cardType  CardType1 value for cardType.
          * @return Builder
          */
-        public Builder cardType(CardTypeCreditCardPaymentProfile cardType) {
+        public Builder cardType(CardType1 cardType) {
             this.cardType = cardType;
             return this;
         }

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Prepayments` | [`List<PrepaymentPrepaymentsResponse>`](../../doc/models/prepayment-prepayments-response.md) | Optional | **Constraints**: *Unique Items Required* | List<PrepaymentPrepaymentsResponse> getPrepayments() | setPrepayments(List<PrepaymentPrepaymentsResponse> prepayments) |
+| `Prepayments` | [`List<Prepayment1>`](../../doc/models/prepayment-1.md) | Optional | **Constraints**: *Unique Items Required* | List<Prepayment1> getPrepayments() | setPrepayments(List<Prepayment1> prepayments) |
 
 ## Example (as JSON)
 

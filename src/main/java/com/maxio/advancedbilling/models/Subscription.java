@@ -36,7 +36,7 @@ public class Subscription {
     private String createdAt;
     private String updatedAt;
     private OptionalNullable<String> cancellationMessage;
-    private SubscriptionCancellationMethod cancellationMethod;
+    private OptionalNullable<SubscriptionCancellationMethod> cancellationMethod;
     private OptionalNullable<Boolean> cancelAtEndOfPeriod;
     private OptionalNullable<String> canceledAt;
     private String currentPeriodStartedAt;
@@ -46,11 +46,11 @@ public class Subscription {
     private OptionalNullable<String> delayedCancelAt;
     private OptionalNullable<String> couponCode;
     private OptionalNullable<String> snapDay;
-    private SubscriptionPaymentCollectionMethod paymentCollectionMethod;
+    private OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod;
     private Customer customer;
     private Product product;
     private PaymentProfile creditCard;
-    private SubscriptionGroup group;
+    private OptionalNullable<SubscriptionGroup> group;
     private SubscriptionBankAccount bankAccount;
     private OptionalNullable<String> paymentType;
     private OptionalNullable<String> referralCode;
@@ -230,7 +230,7 @@ public class Subscription {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.cancellationMessage = OptionalNullable.of(cancellationMessage);
-        this.cancellationMethod = cancellationMethod;
+        this.cancellationMethod = OptionalNullable.of(cancellationMethod);
         this.cancelAtEndOfPeriod = OptionalNullable.of(cancelAtEndOfPeriod);
         this.canceledAt = OptionalNullable.of(canceledAt);
         this.currentPeriodStartedAt = currentPeriodStartedAt;
@@ -240,11 +240,11 @@ public class Subscription {
         this.delayedCancelAt = OptionalNullable.of(delayedCancelAt);
         this.couponCode = OptionalNullable.of(couponCode);
         this.snapDay = OptionalNullable.of(snapDay);
-        this.paymentCollectionMethod = paymentCollectionMethod;
+        this.paymentCollectionMethod = OptionalNullable.of(paymentCollectionMethod);
         this.customer = customer;
         this.product = product;
         this.creditCard = creditCard;
-        this.group = group;
+        this.group = OptionalNullable.of(group);
         this.bankAccount = bankAccount;
         this.paymentType = OptionalNullable.of(paymentType);
         this.referralCode = OptionalNullable.of(referralCode);
@@ -287,21 +287,22 @@ public class Subscription {
             OptionalNullable<String> trialStartedAt, OptionalNullable<String> trialEndedAt,
             String activatedAt, OptionalNullable<String> expiresAt, String createdAt,
             String updatedAt, OptionalNullable<String> cancellationMessage,
-            SubscriptionCancellationMethod cancellationMethod,
+            OptionalNullable<SubscriptionCancellationMethod> cancellationMethod,
             OptionalNullable<Boolean> cancelAtEndOfPeriod, OptionalNullable<String> canceledAt,
             String currentPeriodStartedAt, String previousState, Integer signupPaymentId,
             String signupRevenue, OptionalNullable<String> delayedCancelAt,
             OptionalNullable<String> couponCode, OptionalNullable<String> snapDay,
-            SubscriptionPaymentCollectionMethod paymentCollectionMethod, Customer customer,
-            Product product, PaymentProfile creditCard, SubscriptionGroup group,
-            SubscriptionBankAccount bankAccount, OptionalNullable<String> paymentType,
-            OptionalNullable<String> referralCode, OptionalNullable<Integer> nextProductId,
-            OptionalNullable<String> nextProductHandle, OptionalNullable<Integer> couponUseCount,
-            OptionalNullable<Integer> couponUsesAllowed, OptionalNullable<String> reasonCode,
-            OptionalNullable<String> automaticallyResumeAt, List<String> couponCodes,
-            OptionalNullable<Integer> offerId, Integer payerId, Integer currentBillingAmountInCents,
-            Integer productPricePointId, String productPricePointType,
-            OptionalNullable<Integer> nextProductPricePointId, OptionalNullable<Integer> netTerms,
+            OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod,
+            Customer customer, Product product, PaymentProfile creditCard,
+            OptionalNullable<SubscriptionGroup> group, SubscriptionBankAccount bankAccount,
+            OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
+            OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
+            OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
+            OptionalNullable<String> reasonCode, OptionalNullable<String> automaticallyResumeAt,
+            List<String> couponCodes, OptionalNullable<Integer> offerId, Integer payerId,
+            Integer currentBillingAmountInCents, Integer productPricePointId,
+            String productPricePointType, OptionalNullable<Integer> nextProductPricePointId,
+            OptionalNullable<Integer> netTerms,
             OptionalNullable<Integer> storedCredentialTransactionId,
             OptionalNullable<String> reference, OptionalNullable<String> onHoldAt,
             SubscriptionPrepaidDunning prepaidDunning, List<SubscriptionIncludedCoupon> coupons,
@@ -780,15 +781,26 @@ public class Subscription {
     }
 
     /**
+     * Internal Getter for CancellationMethod.
+     * The process used to cancel the subscription, if the subscription has been canceled. It is nil
+     * if the subscription's state is not canceled.
+     * @return Returns the Internal SubscriptionCancellationMethod
+     */
+    @JsonGetter("cancellation_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<SubscriptionCancellationMethod> internalGetCancellationMethod() {
+        return this.cancellationMethod;
+    }
+
+    /**
      * Getter for CancellationMethod.
      * The process used to cancel the subscription, if the subscription has been canceled. It is nil
      * if the subscription's state is not canceled.
      * @return Returns the SubscriptionCancellationMethod
      */
-    @JsonGetter("cancellation_method")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SubscriptionCancellationMethod getCancellationMethod() {
-        return cancellationMethod;
+        return OptionalNullable.getFrom(cancellationMethod);
     }
 
     /**
@@ -799,7 +811,16 @@ public class Subscription {
      */
     @JsonSetter("cancellation_method")
     public void setCancellationMethod(SubscriptionCancellationMethod cancellationMethod) {
-        this.cancellationMethod = cancellationMethod;
+        this.cancellationMethod = OptionalNullable.of(cancellationMethod);
+    }
+
+    /**
+     * UnSetter for CancellationMethod.
+     * The process used to cancel the subscription, if the subscription has been canceled. It is nil
+     * if the subscription's state is not canceled.
+     */
+    public void unsetCancellationMethod() {
+        cancellationMethod = null;
     }
 
     /**
@@ -1094,13 +1115,22 @@ public class Subscription {
     }
 
     /**
-     * Getter for PaymentCollectionMethod.
-     * @return Returns the SubscriptionPaymentCollectionMethod
+     * Internal Getter for PaymentCollectionMethod.
+     * @return Returns the Internal SubscriptionPaymentCollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<SubscriptionPaymentCollectionMethod> internalGetPaymentCollectionMethod() {
+        return this.paymentCollectionMethod;
+    }
+
+    /**
+     * Getter for PaymentCollectionMethod.
+     * @return Returns the SubscriptionPaymentCollectionMethod
+     */
     public SubscriptionPaymentCollectionMethod getPaymentCollectionMethod() {
-        return paymentCollectionMethod;
+        return OptionalNullable.getFrom(paymentCollectionMethod);
     }
 
     /**
@@ -1109,7 +1139,14 @@ public class Subscription {
      */
     @JsonSetter("payment_collection_method")
     public void setPaymentCollectionMethod(SubscriptionPaymentCollectionMethod paymentCollectionMethod) {
-        this.paymentCollectionMethod = paymentCollectionMethod;
+        this.paymentCollectionMethod = OptionalNullable.of(paymentCollectionMethod);
+    }
+
+    /**
+     * UnSetter for PaymentCollectionMethod.
+     */
+    public void unsetPaymentCollectionMethod() {
+        paymentCollectionMethod = null;
     }
 
     /**
@@ -1170,13 +1207,22 @@ public class Subscription {
     }
 
     /**
-     * Getter for Group.
-     * @return Returns the SubscriptionGroup
+     * Internal Getter for Group.
+     * @return Returns the Internal SubscriptionGroup
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<SubscriptionGroup> internalGetGroup() {
+        return this.group;
+    }
+
+    /**
+     * Getter for Group.
+     * @return Returns the SubscriptionGroup
+     */
     public SubscriptionGroup getGroup() {
-        return group;
+        return OptionalNullable.getFrom(group);
     }
 
     /**
@@ -1185,7 +1231,14 @@ public class Subscription {
      */
     @JsonSetter("group")
     public void setGroup(SubscriptionGroup group) {
-        this.group = group;
+        this.group = OptionalNullable.of(group);
+    }
+
+    /**
+     * UnSetter for Group.
+     */
+    public void unsetGroup() {
+        group = null;
     }
 
     /**
@@ -2219,16 +2272,13 @@ public class Subscription {
                 .activatedAt(getActivatedAt())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .cancellationMethod(getCancellationMethod())
                 .currentPeriodStartedAt(getCurrentPeriodStartedAt())
                 .previousState(getPreviousState())
                 .signupPaymentId(getSignupPaymentId())
                 .signupRevenue(getSignupRevenue())
-                .paymentCollectionMethod(getPaymentCollectionMethod())
                 .customer(getCustomer())
                 .product(getProduct())
                 .creditCard(getCreditCard())
-                .group(getGroup())
                 .bankAccount(getBankAccount())
                 .couponCodes(getCouponCodes())
                 .payerId(getPayerId())
@@ -2245,11 +2295,14 @@ public class Subscription {
         builder.trialEndedAt = internalGetTrialEndedAt();
         builder.expiresAt = internalGetExpiresAt();
         builder.cancellationMessage = internalGetCancellationMessage();
+        builder.cancellationMethod = internalGetCancellationMethod();
         builder.cancelAtEndOfPeriod = internalGetCancelAtEndOfPeriod();
         builder.canceledAt = internalGetCanceledAt();
         builder.delayedCancelAt = internalGetDelayedCancelAt();
         builder.couponCode = internalGetCouponCode();
         builder.snapDay = internalGetSnapDay();
+        builder.paymentCollectionMethod = internalGetPaymentCollectionMethod();
+        builder.group = internalGetGroup();
         builder.paymentType = internalGetPaymentType();
         builder.referralCode = internalGetReferralCode();
         builder.nextProductId = internalGetNextProductId();
@@ -2290,7 +2343,7 @@ public class Subscription {
         private String createdAt;
         private String updatedAt;
         private OptionalNullable<String> cancellationMessage;
-        private SubscriptionCancellationMethod cancellationMethod;
+        private OptionalNullable<SubscriptionCancellationMethod> cancellationMethod;
         private OptionalNullable<Boolean> cancelAtEndOfPeriod;
         private OptionalNullable<String> canceledAt;
         private String currentPeriodStartedAt;
@@ -2300,11 +2353,11 @@ public class Subscription {
         private OptionalNullable<String> delayedCancelAt;
         private OptionalNullable<String> couponCode;
         private OptionalNullable<String> snapDay;
-        private SubscriptionPaymentCollectionMethod paymentCollectionMethod;
+        private OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod;
         private Customer customer;
         private Product product;
         private PaymentProfile creditCard;
-        private SubscriptionGroup group;
+        private OptionalNullable<SubscriptionGroup> group;
         private SubscriptionBankAccount bankAccount;
         private OptionalNullable<String> paymentType;
         private OptionalNullable<String> referralCode;
@@ -2530,7 +2583,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder cancellationMethod(SubscriptionCancellationMethod cancellationMethod) {
-            this.cancellationMethod = cancellationMethod;
+            this.cancellationMethod = OptionalNullable.of(cancellationMethod);
+            return this;
+        }
+
+        /**
+         * UnSetter for cancellationMethod.
+         * @return Builder
+         */
+        public Builder unsetCancellationMethod() {
+            cancellationMethod = null;
             return this;
         }
 
@@ -2677,7 +2739,16 @@ public class Subscription {
          */
         public Builder paymentCollectionMethod(
                 SubscriptionPaymentCollectionMethod paymentCollectionMethod) {
-            this.paymentCollectionMethod = paymentCollectionMethod;
+            this.paymentCollectionMethod = OptionalNullable.of(paymentCollectionMethod);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentCollectionMethod.
+         * @return Builder
+         */
+        public Builder unsetPaymentCollectionMethod() {
+            paymentCollectionMethod = null;
             return this;
         }
 
@@ -2717,7 +2788,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder group(SubscriptionGroup group) {
-            this.group = group;
+            this.group = OptionalNullable.of(group);
+            return this;
+        }
+
+        /**
+         * UnSetter for group.
+         * @return Builder
+         */
+        public Builder unsetGroup() {
+            group = null;
             return this;
         }
 

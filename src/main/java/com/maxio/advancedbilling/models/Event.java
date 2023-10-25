@@ -18,6 +18,7 @@ public class Event {
     private String key;
     private String message;
     private double subscriptionId;
+    private double customerId;
     private String createdAt;
     private EventEventSpecificData eventSpecificData;
 
@@ -33,6 +34,7 @@ public class Event {
      * @param  key  String value for key.
      * @param  message  String value for message.
      * @param  subscriptionId  double value for subscriptionId.
+     * @param  customerId  double value for customerId.
      * @param  createdAt  String value for createdAt.
      * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
      */
@@ -41,12 +43,14 @@ public class Event {
             String key,
             String message,
             double subscriptionId,
+            double customerId,
             String createdAt,
             EventEventSpecificData eventSpecificData) {
         this.id = id;
         this.key = key;
         this.message = message;
         this.subscriptionId = subscriptionId;
+        this.customerId = customerId;
         this.createdAt = createdAt;
         this.eventSpecificData = eventSpecificData;
     }
@@ -124,6 +128,24 @@ public class Event {
     }
 
     /**
+     * Getter for CustomerId.
+     * @return Returns the double
+     */
+    @JsonGetter("customer_id")
+    public double getCustomerId() {
+        return customerId;
+    }
+
+    /**
+     * Setter for CustomerId.
+     * @param customerId Value for double
+     */
+    @JsonSetter("customer_id")
+    public void setCustomerId(double customerId) {
+        this.customerId = customerId;
+    }
+
+    /**
      * Getter for CreatedAt.
      * @return Returns the String
      */
@@ -166,8 +188,8 @@ public class Event {
     @Override
     public String toString() {
         return "Event [" + "id=" + id + ", key=" + key + ", message=" + message
-                + ", subscriptionId=" + subscriptionId + ", createdAt=" + createdAt
-                + ", eventSpecificData=" + eventSpecificData + "]";
+                + ", subscriptionId=" + subscriptionId + ", customerId=" + customerId
+                + ", createdAt=" + createdAt + ", eventSpecificData=" + eventSpecificData + "]";
     }
 
     /**
@@ -176,7 +198,7 @@ public class Event {
      * @return a new {@link Event.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(id, key, message, subscriptionId, createdAt,
+        Builder builder = new Builder(id, key, message, subscriptionId, customerId, createdAt,
                 eventSpecificData);
         return builder;
     }
@@ -189,6 +211,7 @@ public class Event {
         private String key;
         private String message;
         private double subscriptionId;
+        private double customerId;
         private String createdAt;
         private EventEventSpecificData eventSpecificData;
 
@@ -204,15 +227,17 @@ public class Event {
          * @param  key  String value for key.
          * @param  message  String value for message.
          * @param  subscriptionId  double value for subscriptionId.
+         * @param  customerId  double value for customerId.
          * @param  createdAt  String value for createdAt.
          * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
          */
         public Builder(double id, String key, String message, double subscriptionId,
-                String createdAt, EventEventSpecificData eventSpecificData) {
+                double customerId, String createdAt, EventEventSpecificData eventSpecificData) {
             this.id = id;
             this.key = key;
             this.message = message;
             this.subscriptionId = subscriptionId;
+            this.customerId = customerId;
             this.createdAt = createdAt;
             this.eventSpecificData = eventSpecificData;
         }
@@ -258,6 +283,16 @@ public class Event {
         }
 
         /**
+         * Setter for customerId.
+         * @param  customerId  double value for customerId.
+         * @return Builder
+         */
+        public Builder customerId(double customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+
+        /**
          * Setter for createdAt.
          * @param  createdAt  String value for createdAt.
          * @return Builder
@@ -282,7 +317,8 @@ public class Event {
          * @return {@link Event}
          */
         public Event build() {
-            return new Event(id, key, message, subscriptionId, createdAt, eventSpecificData);
+            return new Event(id, key, message, subscriptionId, customerId, createdAt,
+                    eventSpecificData);
         }
     }
 }

@@ -9,6 +9,8 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -17,12 +19,15 @@ import java.util.List;
 public class InvoiceTax {
     private String uid;
     private String title;
+    private OptionalNullable<String> description;
     private String sourceType;
     private Integer sourceId;
     private String percentage;
     private String taxableAmount;
     private String taxAmount;
+    private Integer transactionId;
     private List<InvoiceTaxBreakout> lineItemBreakouts;
+    private List<InvoiceTaxComponentBreakout> taxComponentBreakouts;
 
     /**
      * Default constructor.
@@ -34,30 +39,60 @@ public class InvoiceTax {
      * Initialization constructor.
      * @param  uid  String value for uid.
      * @param  title  String value for title.
+     * @param  description  String value for description.
      * @param  sourceType  String value for sourceType.
      * @param  sourceId  Integer value for sourceId.
      * @param  percentage  String value for percentage.
      * @param  taxableAmount  String value for taxableAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  transactionId  Integer value for transactionId.
      * @param  lineItemBreakouts  List of InvoiceTaxBreakout value for lineItemBreakouts.
+     * @param  taxComponentBreakouts  List of InvoiceTaxComponentBreakout value for
+     *         taxComponentBreakouts.
      */
     public InvoiceTax(
             String uid,
             String title,
+            String description,
             String sourceType,
             Integer sourceId,
             String percentage,
             String taxableAmount,
             String taxAmount,
-            List<InvoiceTaxBreakout> lineItemBreakouts) {
+            Integer transactionId,
+            List<InvoiceTaxBreakout> lineItemBreakouts,
+            List<InvoiceTaxComponentBreakout> taxComponentBreakouts) {
         this.uid = uid;
         this.title = title;
+        this.description = OptionalNullable.of(description);
         this.sourceType = sourceType;
         this.sourceId = sourceId;
         this.percentage = percentage;
         this.taxableAmount = taxableAmount;
         this.taxAmount = taxAmount;
+        this.transactionId = transactionId;
         this.lineItemBreakouts = lineItemBreakouts;
+        this.taxComponentBreakouts = taxComponentBreakouts;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected InvoiceTax(String uid, String title, OptionalNullable<String> description,
+            String sourceType, Integer sourceId, String percentage, String taxableAmount,
+            String taxAmount, Integer transactionId, List<InvoiceTaxBreakout> lineItemBreakouts,
+            List<InvoiceTaxComponentBreakout> taxComponentBreakouts) {
+        this.uid = uid;
+        this.title = title;
+        this.description = description;
+        this.sourceType = sourceType;
+        this.sourceId = sourceId;
+        this.percentage = percentage;
+        this.taxableAmount = taxableAmount;
+        this.taxAmount = taxAmount;
+        this.transactionId = transactionId;
+        this.lineItemBreakouts = lineItemBreakouts;
+        this.taxComponentBreakouts = taxComponentBreakouts;
     }
 
     /**
@@ -96,6 +131,41 @@ public class InvoiceTax {
     @JsonSetter("title")
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Internal Getter for Description.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
+    }
+
+    /**
+     * Getter for Description.
+     * @return Returns the String
+     */
+    public String getDescription() {
+        return OptionalNullable.getFrom(description);
+    }
+
+    /**
+     * Setter for Description.
+     * @param description Value for String
+     */
+    @JsonSetter("description")
+    public void setDescription(String description) {
+        this.description = OptionalNullable.of(description);
+    }
+
+    /**
+     * UnSetter for Description.
+     */
+    public void unsetDescription() {
+        description = null;
     }
 
     /**
@@ -194,6 +264,25 @@ public class InvoiceTax {
     }
 
     /**
+     * Getter for TransactionId.
+     * @return Returns the Integer
+     */
+    @JsonGetter("transaction_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getTransactionId() {
+        return transactionId;
+    }
+
+    /**
+     * Setter for TransactionId.
+     * @param transactionId Value for Integer
+     */
+    @JsonSetter("transaction_id")
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
      * Getter for LineItemBreakouts.
      * @return Returns the List of InvoiceTaxBreakout
      */
@@ -213,15 +302,35 @@ public class InvoiceTax {
     }
 
     /**
+     * Getter for TaxComponentBreakouts.
+     * @return Returns the List of InvoiceTaxComponentBreakout
+     */
+    @JsonGetter("tax_component_breakouts")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<InvoiceTaxComponentBreakout> getTaxComponentBreakouts() {
+        return taxComponentBreakouts;
+    }
+
+    /**
+     * Setter for TaxComponentBreakouts.
+     * @param taxComponentBreakouts Value for List of InvoiceTaxComponentBreakout
+     */
+    @JsonSetter("tax_component_breakouts")
+    public void setTaxComponentBreakouts(List<InvoiceTaxComponentBreakout> taxComponentBreakouts) {
+        this.taxComponentBreakouts = taxComponentBreakouts;
+    }
+
+    /**
      * Converts this InvoiceTax into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "InvoiceTax [" + "uid=" + uid + ", title=" + title + ", sourceType=" + sourceType
-                + ", sourceId=" + sourceId + ", percentage=" + percentage + ", taxableAmount="
-                + taxableAmount + ", taxAmount=" + taxAmount + ", lineItemBreakouts="
-                + lineItemBreakouts + "]";
+        return "InvoiceTax [" + "uid=" + uid + ", title=" + title + ", description=" + description
+                + ", sourceType=" + sourceType + ", sourceId=" + sourceId + ", percentage="
+                + percentage + ", taxableAmount=" + taxableAmount + ", taxAmount=" + taxAmount
+                + ", transactionId=" + transactionId + ", lineItemBreakouts=" + lineItemBreakouts
+                + ", taxComponentBreakouts=" + taxComponentBreakouts + "]";
     }
 
     /**
@@ -238,7 +347,10 @@ public class InvoiceTax {
                 .percentage(getPercentage())
                 .taxableAmount(getTaxableAmount())
                 .taxAmount(getTaxAmount())
-                .lineItemBreakouts(getLineItemBreakouts());
+                .transactionId(getTransactionId())
+                .lineItemBreakouts(getLineItemBreakouts())
+                .taxComponentBreakouts(getTaxComponentBreakouts());
+        builder.description = internalGetDescription();
         return builder;
     }
 
@@ -248,12 +360,15 @@ public class InvoiceTax {
     public static class Builder {
         private String uid;
         private String title;
+        private OptionalNullable<String> description;
         private String sourceType;
         private Integer sourceId;
         private String percentage;
         private String taxableAmount;
         private String taxAmount;
+        private Integer transactionId;
         private List<InvoiceTaxBreakout> lineItemBreakouts;
+        private List<InvoiceTaxComponentBreakout> taxComponentBreakouts;
 
 
 
@@ -274,6 +389,25 @@ public class InvoiceTax {
          */
         public Builder title(String title) {
             this.title = title;
+            return this;
+        }
+
+        /**
+         * Setter for description.
+         * @param  description  String value for description.
+         * @return Builder
+         */
+        public Builder description(String description) {
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
@@ -328,6 +462,16 @@ public class InvoiceTax {
         }
 
         /**
+         * Setter for transactionId.
+         * @param  transactionId  Integer value for transactionId.
+         * @return Builder
+         */
+        public Builder transactionId(Integer transactionId) {
+            this.transactionId = transactionId;
+            return this;
+        }
+
+        /**
          * Setter for lineItemBreakouts.
          * @param  lineItemBreakouts  List of InvoiceTaxBreakout value for lineItemBreakouts.
          * @return Builder
@@ -338,12 +482,25 @@ public class InvoiceTax {
         }
 
         /**
+         * Setter for taxComponentBreakouts.
+         * @param  taxComponentBreakouts  List of InvoiceTaxComponentBreakout value for
+         *         taxComponentBreakouts.
+         * @return Builder
+         */
+        public Builder taxComponentBreakouts(
+                List<InvoiceTaxComponentBreakout> taxComponentBreakouts) {
+            this.taxComponentBreakouts = taxComponentBreakouts;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceTax} object using the set fields.
          * @return {@link InvoiceTax}
          */
         public InvoiceTax build() {
-            return new InvoiceTax(uid, title, sourceType, sourceId, percentage, taxableAmount,
-                    taxAmount, lineItemBreakouts);
+            return new InvoiceTax(uid, title, description, sourceType, sourceId, percentage,
+                    taxableAmount, taxAmount, transactionId, lineItemBreakouts,
+                    taxComponentBreakouts);
         }
     }
 }
