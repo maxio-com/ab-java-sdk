@@ -14,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for NetTerms type.
  */
 public class NetTerms {
-    private Double defaultNetTerms;
-    private Double automaticNetTerms;
-    private Double remittanceNetTerms;
+    private Integer defaultNetTerms;
+    private Integer automaticNetTerms;
+    private Integer remittanceNetTerms;
     private Boolean netTermsOnRemittanceSignupsEnabled;
     private Boolean customNetTermsEnabled;
 
@@ -24,26 +24,26 @@ public class NetTerms {
      * Default constructor.
      */
     public NetTerms() {
-        defaultNetTerms = 0d;
-        automaticNetTerms = 0d;
-        remittanceNetTerms = 0d;
+        defaultNetTerms = 0;
+        automaticNetTerms = 0;
+        remittanceNetTerms = 0;
         netTermsOnRemittanceSignupsEnabled = false;
         customNetTermsEnabled = false;
     }
 
     /**
      * Initialization constructor.
-     * @param  defaultNetTerms  Double value for defaultNetTerms.
-     * @param  automaticNetTerms  Double value for automaticNetTerms.
-     * @param  remittanceNetTerms  Double value for remittanceNetTerms.
+     * @param  defaultNetTerms  Integer value for defaultNetTerms.
+     * @param  automaticNetTerms  Integer value for automaticNetTerms.
+     * @param  remittanceNetTerms  Integer value for remittanceNetTerms.
      * @param  netTermsOnRemittanceSignupsEnabled  Boolean value for
      *         netTermsOnRemittanceSignupsEnabled.
      * @param  customNetTermsEnabled  Boolean value for customNetTermsEnabled.
      */
     public NetTerms(
-            Double defaultNetTerms,
-            Double automaticNetTerms,
-            Double remittanceNetTerms,
+            Integer defaultNetTerms,
+            Integer automaticNetTerms,
+            Integer remittanceNetTerms,
             Boolean netTermsOnRemittanceSignupsEnabled,
             Boolean customNetTermsEnabled) {
         this.defaultNetTerms = defaultNetTerms;
@@ -55,58 +55,58 @@ public class NetTerms {
 
     /**
      * Getter for DefaultNetTerms.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("default_net_terms")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getDefaultNetTerms() {
+    public Integer getDefaultNetTerms() {
         return defaultNetTerms;
     }
 
     /**
      * Setter for DefaultNetTerms.
-     * @param defaultNetTerms Value for Double
+     * @param defaultNetTerms Value for Integer
      */
     @JsonSetter("default_net_terms")
-    public void setDefaultNetTerms(Double defaultNetTerms) {
+    public void setDefaultNetTerms(Integer defaultNetTerms) {
         this.defaultNetTerms = defaultNetTerms;
     }
 
     /**
      * Getter for AutomaticNetTerms.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("automatic_net_terms")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getAutomaticNetTerms() {
+    public Integer getAutomaticNetTerms() {
         return automaticNetTerms;
     }
 
     /**
      * Setter for AutomaticNetTerms.
-     * @param automaticNetTerms Value for Double
+     * @param automaticNetTerms Value for Integer
      */
     @JsonSetter("automatic_net_terms")
-    public void setAutomaticNetTerms(Double automaticNetTerms) {
+    public void setAutomaticNetTerms(Integer automaticNetTerms) {
         this.automaticNetTerms = automaticNetTerms;
     }
 
     /**
      * Getter for RemittanceNetTerms.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("remittance_net_terms")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getRemittanceNetTerms() {
+    public Integer getRemittanceNetTerms() {
         return remittanceNetTerms;
     }
 
     /**
      * Setter for RemittanceNetTerms.
-     * @param remittanceNetTerms Value for Double
+     * @param remittanceNetTerms Value for Integer
      */
     @JsonSetter("remittance_net_terms")
-    public void setRemittanceNetTerms(Double remittanceNetTerms) {
+    public void setRemittanceNetTerms(Integer remittanceNetTerms) {
         this.remittanceNetTerms = remittanceNetTerms;
     }
 
@@ -179,9 +179,9 @@ public class NetTerms {
      * Class to build instances of {@link NetTerms}.
      */
     public static class Builder {
-        private Double defaultNetTerms = 0d;
-        private Double automaticNetTerms = 0d;
-        private Double remittanceNetTerms = 0d;
+        private Integer defaultNetTerms = 0;
+        private Integer automaticNetTerms = 0;
+        private Integer remittanceNetTerms = 0;
         private Boolean netTermsOnRemittanceSignupsEnabled = false;
         private Boolean customNetTermsEnabled = false;
 
@@ -189,30 +189,30 @@ public class NetTerms {
 
         /**
          * Setter for defaultNetTerms.
-         * @param  defaultNetTerms  Double value for defaultNetTerms.
+         * @param  defaultNetTerms  Integer value for defaultNetTerms.
          * @return Builder
          */
-        public Builder defaultNetTerms(Double defaultNetTerms) {
+        public Builder defaultNetTerms(Integer defaultNetTerms) {
             this.defaultNetTerms = defaultNetTerms;
             return this;
         }
 
         /**
          * Setter for automaticNetTerms.
-         * @param  automaticNetTerms  Double value for automaticNetTerms.
+         * @param  automaticNetTerms  Integer value for automaticNetTerms.
          * @return Builder
          */
-        public Builder automaticNetTerms(Double automaticNetTerms) {
+        public Builder automaticNetTerms(Integer automaticNetTerms) {
             this.automaticNetTerms = automaticNetTerms;
             return this;
         }
 
         /**
          * Setter for remittanceNetTerms.
-         * @param  remittanceNetTerms  Double value for remittanceNetTerms.
+         * @param  remittanceNetTerms  Integer value for remittanceNetTerms.
          * @return Builder
          */
-        public Builder remittanceNetTerms(Double remittanceNetTerms) {
+        public Builder remittanceNetTerms(Integer remittanceNetTerms) {
             this.remittanceNetTerms = remittanceNetTerms;
             return this;
         }

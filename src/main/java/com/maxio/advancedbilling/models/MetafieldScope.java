@@ -9,6 +9,7 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.List;
 
 /**
  * This is a model class for MetafieldScope type.
@@ -20,6 +21,7 @@ public class MetafieldScope {
     private IncludeOption portal;
     private IncludeOption publicShow;
     private IncludeOption publicEdit;
+    private List<String> hosted;
 
     /**
      * Default constructor.
@@ -35,6 +37,7 @@ public class MetafieldScope {
      * @param  portal  IncludeOption value for portal.
      * @param  publicShow  IncludeOption value for publicShow.
      * @param  publicEdit  IncludeOption value for publicEdit.
+     * @param  hosted  List of String value for hosted.
      */
     public MetafieldScope(
             IncludeOption csv,
@@ -42,13 +45,15 @@ public class MetafieldScope {
             IncludeOption statements,
             IncludeOption portal,
             IncludeOption publicShow,
-            IncludeOption publicEdit) {
+            IncludeOption publicEdit,
+            List<String> hosted) {
         this.csv = csv;
         this.invoices = invoices;
         this.statements = statements;
         this.portal = portal;
         this.publicShow = publicShow;
         this.publicEdit = publicEdit;
+        this.hosted = hosted;
     }
 
     /**
@@ -178,6 +183,25 @@ public class MetafieldScope {
     }
 
     /**
+     * Getter for Hosted.
+     * @return Returns the List of String
+     */
+    @JsonGetter("hosted")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getHosted() {
+        return hosted;
+    }
+
+    /**
+     * Setter for Hosted.
+     * @param hosted Value for List of String
+     */
+    @JsonSetter("hosted")
+    public void setHosted(List<String> hosted) {
+        this.hosted = hosted;
+    }
+
+    /**
      * Converts this MetafieldScope into string format.
      * @return String representation of this class
      */
@@ -185,7 +209,7 @@ public class MetafieldScope {
     public String toString() {
         return "MetafieldScope [" + "csv=" + csv + ", invoices=" + invoices + ", statements="
                 + statements + ", portal=" + portal + ", publicShow=" + publicShow + ", publicEdit="
-                + publicEdit + "]";
+                + publicEdit + ", hosted=" + hosted + "]";
     }
 
     /**
@@ -200,7 +224,8 @@ public class MetafieldScope {
                 .statements(getStatements())
                 .portal(getPortal())
                 .publicShow(getPublicShow())
-                .publicEdit(getPublicEdit());
+                .publicEdit(getPublicEdit())
+                .hosted(getHosted());
         return builder;
     }
 
@@ -214,6 +239,7 @@ public class MetafieldScope {
         private IncludeOption portal;
         private IncludeOption publicShow;
         private IncludeOption publicEdit;
+        private List<String> hosted;
 
 
 
@@ -278,11 +304,22 @@ public class MetafieldScope {
         }
 
         /**
+         * Setter for hosted.
+         * @param  hosted  List of String value for hosted.
+         * @return Builder
+         */
+        public Builder hosted(List<String> hosted) {
+            this.hosted = hosted;
+            return this;
+        }
+
+        /**
          * Builds a new {@link MetafieldScope} object using the set fields.
          * @return {@link MetafieldScope}
          */
         public MetafieldScope build() {
-            return new MetafieldScope(csv, invoices, statements, portal, publicShow, publicEdit);
+            return new MetafieldScope(csv, invoices, statements, portal, publicShow, publicEdit,
+                    hosted);
         }
     }
 }

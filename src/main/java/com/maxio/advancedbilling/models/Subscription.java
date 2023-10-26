@@ -11,9 +11,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.SubscriptionCancellationMethod;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroup;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroup2;
 import com.maxio.advancedbilling.models.containers.SubscriptionPaymentCollectionMethod;
-import com.maxio.advancedbilling.models.containers.SubscriptionPrepaidDunning;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class Subscription {
     private Customer customer;
     private Product product;
     private PaymentProfile creditCard;
-    private OptionalNullable<SubscriptionGroup> group;
+    private OptionalNullable<SubscriptionGroup2> group;
     private SubscriptionBankAccount bankAccount;
     private OptionalNullable<String> paymentType;
     private OptionalNullable<String> referralCode;
@@ -71,7 +70,7 @@ public class Subscription {
     private OptionalNullable<Integer> storedCredentialTransactionId;
     private OptionalNullable<String> reference;
     private OptionalNullable<String> onHoldAt;
-    private SubscriptionPrepaidDunning prepaidDunning;
+    private Boolean prepaidDunning;
     private List<SubscriptionIncludedCoupon> coupons;
     private Boolean dunningCommunicationDelayEnabled;
     private OptionalNullable<String> dunningCommunicationDelayTimeZone;
@@ -121,7 +120,7 @@ public class Subscription {
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  PaymentProfile value for creditCard.
-     * @param  group  SubscriptionGroup value for group.
+     * @param  group  SubscriptionGroup2 value for group.
      * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
@@ -142,7 +141,7 @@ public class Subscription {
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  reference  String value for reference.
      * @param  onHoldAt  String value for onHoldAt.
-     * @param  prepaidDunning  SubscriptionPrepaidDunning value for prepaidDunning.
+     * @param  prepaidDunning  Boolean value for prepaidDunning.
      * @param  coupons  List of SubscriptionIncludedCoupon value for coupons.
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
      * @param  dunningCommunicationDelayTimeZone  String value for
@@ -184,7 +183,7 @@ public class Subscription {
             Customer customer,
             Product product,
             PaymentProfile creditCard,
-            SubscriptionGroup group,
+            SubscriptionGroup2 group,
             SubscriptionBankAccount bankAccount,
             String paymentType,
             String referralCode,
@@ -205,7 +204,7 @@ public class Subscription {
             Integer storedCredentialTransactionId,
             String reference,
             String onHoldAt,
-            SubscriptionPrepaidDunning prepaidDunning,
+            Boolean prepaidDunning,
             List<SubscriptionIncludedCoupon> coupons,
             Boolean dunningCommunicationDelayEnabled,
             String dunningCommunicationDelayTimeZone,
@@ -294,7 +293,7 @@ public class Subscription {
             OptionalNullable<String> couponCode, OptionalNullable<String> snapDay,
             OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod,
             Customer customer, Product product, PaymentProfile creditCard,
-            OptionalNullable<SubscriptionGroup> group, SubscriptionBankAccount bankAccount,
+            OptionalNullable<SubscriptionGroup2> group, SubscriptionBankAccount bankAccount,
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
             OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
             OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
@@ -305,7 +304,7 @@ public class Subscription {
             OptionalNullable<Integer> netTerms,
             OptionalNullable<Integer> storedCredentialTransactionId,
             OptionalNullable<String> reference, OptionalNullable<String> onHoldAt,
-            SubscriptionPrepaidDunning prepaidDunning, List<SubscriptionIncludedCoupon> coupons,
+            Boolean prepaidDunning, List<SubscriptionIncludedCoupon> coupons,
             Boolean dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone,
             OptionalNullable<Boolean> receivesInvoiceEmails, OptionalNullable<String> locale,
@@ -1208,29 +1207,29 @@ public class Subscription {
 
     /**
      * Internal Getter for Group.
-     * @return Returns the Internal SubscriptionGroup
+     * @return Returns the Internal SubscriptionGroup2
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<SubscriptionGroup> internalGetGroup() {
+    protected OptionalNullable<SubscriptionGroup2> internalGetGroup() {
         return this.group;
     }
 
     /**
      * Getter for Group.
-     * @return Returns the SubscriptionGroup
+     * @return Returns the SubscriptionGroup2
      */
-    public SubscriptionGroup getGroup() {
+    public SubscriptionGroup2 getGroup() {
         return OptionalNullable.getFrom(group);
     }
 
     /**
      * Setter for Group.
-     * @param group Value for SubscriptionGroup
+     * @param group Value for SubscriptionGroup2
      */
     @JsonSetter("group")
-    public void setGroup(SubscriptionGroup group) {
+    public void setGroup(SubscriptionGroup2 group) {
         this.group = OptionalNullable.of(group);
     }
 
@@ -1945,11 +1944,11 @@ public class Subscription {
      * Getter for PrepaidDunning.
      * Boolean representing whether the subscription is prepaid and currently in dunning. Only
      * returned for Relationship Invoicing sites with the feature enabled
-     * @return Returns the SubscriptionPrepaidDunning
+     * @return Returns the Boolean
      */
     @JsonGetter("prepaid_dunning")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionPrepaidDunning getPrepaidDunning() {
+    public Boolean getPrepaidDunning() {
         return prepaidDunning;
     }
 
@@ -1957,10 +1956,10 @@ public class Subscription {
      * Setter for PrepaidDunning.
      * Boolean representing whether the subscription is prepaid and currently in dunning. Only
      * returned for Relationship Invoicing sites with the feature enabled
-     * @param prepaidDunning Value for SubscriptionPrepaidDunning
+     * @param prepaidDunning Value for Boolean
      */
     @JsonSetter("prepaid_dunning")
-    public void setPrepaidDunning(SubscriptionPrepaidDunning prepaidDunning) {
+    public void setPrepaidDunning(Boolean prepaidDunning) {
         this.prepaidDunning = prepaidDunning;
     }
 
@@ -2357,7 +2356,7 @@ public class Subscription {
         private Customer customer;
         private Product product;
         private PaymentProfile creditCard;
-        private OptionalNullable<SubscriptionGroup> group;
+        private OptionalNullable<SubscriptionGroup2> group;
         private SubscriptionBankAccount bankAccount;
         private OptionalNullable<String> paymentType;
         private OptionalNullable<String> referralCode;
@@ -2378,7 +2377,7 @@ public class Subscription {
         private OptionalNullable<Integer> storedCredentialTransactionId;
         private OptionalNullable<String> reference;
         private OptionalNullable<String> onHoldAt;
-        private SubscriptionPrepaidDunning prepaidDunning;
+        private Boolean prepaidDunning;
         private List<SubscriptionIncludedCoupon> coupons;
         private Boolean dunningCommunicationDelayEnabled = false;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
@@ -2784,10 +2783,10 @@ public class Subscription {
 
         /**
          * Setter for group.
-         * @param  group  SubscriptionGroup value for group.
+         * @param  group  SubscriptionGroup2 value for group.
          * @return Builder
          */
-        public Builder group(SubscriptionGroup group) {
+        public Builder group(SubscriptionGroup2 group) {
             this.group = OptionalNullable.of(group);
             return this;
         }
@@ -3129,10 +3128,10 @@ public class Subscription {
 
         /**
          * Setter for prepaidDunning.
-         * @param  prepaidDunning  SubscriptionPrepaidDunning value for prepaidDunning.
+         * @param  prepaidDunning  Boolean value for prepaidDunning.
          * @return Builder
          */
-        public Builder prepaidDunning(SubscriptionPrepaidDunning prepaidDunning) {
+        public Builder prepaidDunning(Boolean prepaidDunning) {
             this.prepaidDunning = prepaidDunning;
             return this;
         }

@@ -12,20 +12,20 @@ import io.apimatic.coreinterfaces.http.Context;
 import java.util.List;
 
 /**
- * This is a model class for SubscriptionsAddCouponJson422ErrorException type.
+ * This is a model class for SubscriptionAddCouponErrorException type.
  */
-public class SubscriptionsAddCouponJson422ErrorException extends ApiException {
-    private static final long serialVersionUID = 4115475985273940640L;
+public class SubscriptionAddCouponErrorException extends ApiException {
+    private static final long serialVersionUID = -6232654840138521883L;
     private List<String> codes;
-    private List<String> subscription;
     private List<String> couponCodes;
+    private List<String> subscription;
 
     /**
      * Initialization constructor.
      * @param   reason  The reason for throwing exception
      * @param   context The context of the API exception
      */
-    public SubscriptionsAddCouponJson422ErrorException(String reason, Context context) {
+    public SubscriptionAddCouponErrorException(String reason, Context context) {
         super(reason, context);
     }
 
@@ -49,24 +49,6 @@ public class SubscriptionsAddCouponJson422ErrorException extends ApiException {
     }
 
     /**
-     * Getter for Subscription.
-     * @return Returns the List of String
-     */
-    @JsonGetter("subscription")
-    public List<String> getSubscription() {
-        return this.subscription;
-    }
-
-    /**
-     * Setter for Subscription.
-     * @param subscription Value for List of String
-     */
-    @JsonSetter("subscription")
-    private void setSubscription(List<String> subscription) {
-        this.subscription = subscription;
-    }
-
-    /**
      * Getter for CouponCodes.
      * @return Returns the List of String
      */
@@ -82,5 +64,23 @@ public class SubscriptionsAddCouponJson422ErrorException extends ApiException {
     @JsonSetter("coupon_codes")
     private void setCouponCodes(List<String> couponCodes) {
         this.couponCodes = couponCodes;
+    }
+
+    /**
+     * Getter for Subscription.
+     * @return Returns the List of String
+     */
+    @JsonGetter("subscription")
+    public List<String> getSubscription() {
+        return this.subscription;
+    }
+
+    /**
+     * Setter for Subscription.
+     * @param subscription Value for List of String
+     */
+    @JsonSetter("subscription")
+    private void setSubscription(List<String> subscription) {
+        this.subscription = subscription;
     }
 }

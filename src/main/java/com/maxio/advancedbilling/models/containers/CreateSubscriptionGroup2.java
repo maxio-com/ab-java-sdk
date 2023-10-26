@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.models.GroupSettings;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -23,15 +24,24 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = SubscriptionPrepaidDunning.SubscriptionPrepaidDunningDeserializer.class)
-public abstract class SubscriptionPrepaidDunning {
+@JsonDeserialize(using = CreateSubscriptionGroup2.CreateSubscriptionGroup2Deserializer.class)
+public abstract class CreateSubscriptionGroup2 {
     
+    /**
+     * This is Group Settings case.
+     * @param groupSettings GroupSettings value for groupSettings.
+     * @return The GroupSettingsCase object.
+     */
+    public static CreateSubscriptionGroup2 fromGroupSettings(GroupSettings groupSettings) {
+        return groupSettings == null ? null : new GroupSettingsCase(groupSettings);
+    }
+
     /**
      * This is Boolean case.
      * @param mBoolean boolean value for mBoolean.
      * @return The MBooleanCase object.
      */
-    public static SubscriptionPrepaidDunning fromMBoolean(boolean mBoolean) {
+    public static CreateSubscriptionGroup2 fromMBoolean(boolean mBoolean) {
         return new MBooleanCase(mBoolean);
     }
 
@@ -48,7 +58,40 @@ public abstract class SubscriptionPrepaidDunning {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
+        R groupSettings(GroupSettings groupSettings);
+
         R mBoolean(boolean mBoolean);
+    }
+
+    /**
+     * This is a implementation class for GroupSettingsCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "GroupSettings")
+    private static class GroupSettingsCase extends CreateSubscriptionGroup2 {
+
+        @JsonValue
+        private GroupSettings groupSettings;
+
+        GroupSettingsCase(GroupSettings groupSettings) {
+            this.groupSettings = groupSettings;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.groupSettings(this.groupSettings);
+        }
+
+        @JsonCreator
+        private GroupSettingsCase(JsonNode jsonNode) throws IOException {
+            this.groupSettings = ApiHelper.deserialize(jsonNode,
+                GroupSettings.class);
+        }
+
+        @Override
+        public String toString() {
+            return groupSettings.toString();
+        }
     }
 
     /**
@@ -56,7 +99,7 @@ public abstract class SubscriptionPrepaidDunning {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "boolean")
-    private static class MBooleanCase extends SubscriptionPrepaidDunning {
+    private static class MBooleanCase extends CreateSubscriptionGroup2 {
 
         @JsonValue
         private boolean mBoolean;
@@ -86,17 +129,18 @@ public abstract class SubscriptionPrepaidDunning {
     }
 
     /**
-     * This is a custom deserializer class for SubscriptionPrepaidDunning.
+     * This is a custom deserializer class for CreateSubscriptionGroup2.
      */
-    protected static class SubscriptionPrepaidDunningDeserializer
-            extends JsonDeserializer<SubscriptionPrepaidDunning> {
+    protected static class CreateSubscriptionGroup2Deserializer
+            extends JsonDeserializer<CreateSubscriptionGroup2> {
 
         @Override
-        public SubscriptionPrepaidDunning deserialize(JsonParser jp, DeserializationContext ctxt)
+        public CreateSubscriptionGroup2 deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(MBooleanCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(GroupSettingsCase.class,
+                    MBooleanCase.class), true);
         }
     }
 

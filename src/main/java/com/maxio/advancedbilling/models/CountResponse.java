@@ -11,22 +11,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for Count type.
+ * This is a model class for CountResponse type.
  */
-public class Count {
+public class CountResponse {
     private Integer count;
 
     /**
      * Default constructor.
      */
-    public Count() {
+    public CountResponse() {
     }
 
     /**
      * Initialization constructor.
      * @param  count  Integer value for count.
      */
-    public Count(
+    public CountResponse(
             Integer count) {
         this.count = count;
     }
@@ -51,18 +51,18 @@ public class Count {
     }
 
     /**
-     * Converts this Count into string format.
+     * Converts this CountResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "Count [" + "count=" + count + "]";
+        return "CountResponse [" + "count=" + count + "]";
     }
 
     /**
-     * Builds a new {@link Count.Builder} object.
+     * Builds a new {@link CountResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link Count.Builder} object
+     * @return a new {@link CountResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -71,7 +71,7 @@ public class Count {
     }
 
     /**
-     * Class to build instances of {@link Count}.
+     * Class to build instances of {@link CountResponse}.
      */
     public static class Builder {
         private Integer count;
@@ -89,11 +89,11 @@ public class Count {
         }
 
         /**
-         * Builds a new {@link Count} object using the set fields.
-         * @return {@link Count}
+         * Builds a new {@link CountResponse} object using the set fields.
+         * @return {@link CountResponse}
          */
-        public Count build() {
-            return new Count(count);
+        public CountResponse build() {
+            return new CountResponse(count);
         }
     }
 }

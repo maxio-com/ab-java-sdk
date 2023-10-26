@@ -1126,6 +1126,8 @@ CreateInvoicePaymentRequest body = new CreateInvoicePaymentRequest.Builder(
             124.33D
         ))
         .memo("for John Smith")
+        .method(InvoicePaymentMethodType.CHECK)
+        .details("#0102")
         .build()
 )
 .build();
@@ -2772,6 +2774,9 @@ SendInvoiceRequest body = new SendInvoiceRequest.Builder()
     ))
     .ccRecipientEmails(Arrays.asList(
         "user1@example.com"
+    ))
+    .bccRecipientEmails(Arrays.asList(
+        "user2@example.com"
     ))
     .build();
 

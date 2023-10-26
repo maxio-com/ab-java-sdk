@@ -14,13 +14,13 @@ import java.util.TreeMap;
 
 
 /**
- * ListSubscriptionComponentsSubscriptionDateField to be used.
+ * SubscriptionListDateField to be used.
  */
-public enum ListSubscriptionComponentsSubscriptionDateField {
+public enum SubscriptionListDateField {
     UPDATED_AT;
 
 
-    private static TreeMap<String, ListSubscriptionComponentsSubscriptionDateField> valueMap = new TreeMap<>();
+    private static TreeMap<String, SubscriptionListDateField> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -36,8 +36,8 @@ public enum ListSubscriptionComponentsSubscriptionDateField {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static ListSubscriptionComponentsSubscriptionDateField constructFromString(String toConvert) throws IOException {
-        ListSubscriptionComponentsSubscriptionDateField enumValue = fromString(toConvert);
+    public static SubscriptionListDateField constructFromString(String toConvert) throws IOException {
+        SubscriptionListDateField enumValue = fromString(toConvert);
         if (enumValue == null)
         {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
@@ -50,7 +50,7 @@ public enum ListSubscriptionComponentsSubscriptionDateField {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static ListSubscriptionComponentsSubscriptionDateField fromString(String toConvert) {
+    public static SubscriptionListDateField fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -72,16 +72,16 @@ public enum ListSubscriptionComponentsSubscriptionDateField {
     }
 
     /**
-     * Convert list of ListSubscriptionComponentsSubscriptionDateField values to list of string values.
-     * @param toConvert The list of ListSubscriptionComponentsSubscriptionDateField values to convert.
+     * Convert list of SubscriptionListDateField values to list of string values.
+     * @param toConvert The list of SubscriptionListDateField values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<ListSubscriptionComponentsSubscriptionDateField> toConvert) {
+    public static List<String> toValue(List<SubscriptionListDateField> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (ListSubscriptionComponentsSubscriptionDateField enumValue : toConvert) {
+        for (SubscriptionListDateField enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

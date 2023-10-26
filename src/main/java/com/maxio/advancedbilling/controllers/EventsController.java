@@ -10,7 +10,7 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
-import com.maxio.advancedbilling.models.Count;
+import com.maxio.advancedbilling.models.CountResponse;
 import com.maxio.advancedbilling.models.Direction;
 import com.maxio.advancedbilling.models.EventResponse;
 import com.maxio.advancedbilling.models.EventType;
@@ -265,11 +265,11 @@ public final class EventsController extends BaseController {
      * @param  direction  Optional parameter: The sort direction of the returned events.
      * @param  filter  Optional parameter: You can pass multiple event keys after comma. Use in
      *         query `filter=signup_success,payment_success`.
-     * @return    Returns the Count response from the API call
+     * @return    Returns the CountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public Count readEventsCount(
+    public CountResponse readEventsCount(
             final Integer page,
             final Integer perPage,
             final Integer sinceId,
@@ -283,14 +283,14 @@ public final class EventsController extends BaseController {
     /**
      * Builds the ApiCall object for readEventsCount.
      */
-    private ApiCall<Count, ApiException> prepareReadEventsCountRequest(
+    private ApiCall<CountResponse, ApiException> prepareReadEventsCountRequest(
             final Integer page,
             final Integer perPage,
             final Integer sinceId,
             final Integer maxId,
             final Direction direction,
             final List<EventType> filter) throws IOException {
-        return new ApiCall.Builder<Count, ApiException>()
+        return new ApiCall.Builder<CountResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -312,7 +312,7 @@ public final class EventsController extends BaseController {
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, Count.class))
+                                response -> ApiHelper.deserialize(response, CountResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV

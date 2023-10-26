@@ -305,7 +305,7 @@ try {
 Get a count of all the events for a given site by using this method.
 
 ```java
-Count readEventsCount(
+CountResponse readEventsCount(
     final Integer page,
     final Integer perPage,
     final Integer sinceId,
@@ -327,7 +327,7 @@ Count readEventsCount(
 
 ## Response Type
 
-[`Count`](../../doc/models/count.md)
+[`CountResponse`](../../doc/models/count-response.md)
 
 ## Example Usage
 
@@ -341,7 +341,7 @@ List<EventType> filter = Arrays.asList(
 );
 
 try {
-    Count result = eventsController.readEventsCount(page, perPage, null, null, direction, filter);
+    CountResponse result = eventsController.readEventsCount(page, perPage, null, null, direction, filter);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

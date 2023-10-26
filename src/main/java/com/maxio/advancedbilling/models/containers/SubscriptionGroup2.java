@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = SubscriptionGroup.SubscriptionGroupDeserializer.class)
-public abstract class SubscriptionGroup {
+@JsonDeserialize(using = SubscriptionGroup2.SubscriptionGroup2Deserializer.class)
+public abstract class SubscriptionGroup2 {
     
     /**
      * This is Subscription Group Inlined case.
      * @param subscriptionGroupInlined SubscriptionGroupInlined value for subscriptionGroupInlined.
      * @return The SubscriptionGroupInlinedCase object.
      */
-    public static SubscriptionGroup fromSubscriptionGroupInlined(
+    public static SubscriptionGroup2 fromSubscriptionGroupInlined(
             SubscriptionGroupInlined subscriptionGroupInlined) {
         return subscriptionGroupInlined == null ? null : new SubscriptionGroupInlinedCase(subscriptionGroupInlined);
     }
@@ -58,7 +58,7 @@ public abstract class SubscriptionGroup {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SubscriptionGroupInlined")
-    private static class SubscriptionGroupInlinedCase extends SubscriptionGroup {
+    private static class SubscriptionGroupInlinedCase extends SubscriptionGroup2 {
 
         @JsonValue
         private SubscriptionGroupInlined subscriptionGroupInlined;
@@ -85,13 +85,13 @@ public abstract class SubscriptionGroup {
     }
 
     /**
-     * This is a custom deserializer class for SubscriptionGroup.
+     * This is a custom deserializer class for SubscriptionGroup2.
      */
-    protected static class SubscriptionGroupDeserializer
-            extends JsonDeserializer<SubscriptionGroup> {
+    protected static class SubscriptionGroup2Deserializer
+            extends JsonDeserializer<SubscriptionGroup2> {
 
         @Override
-        public SubscriptionGroup deserialize(JsonParser jp, DeserializationContext ctxt)
+        public SubscriptionGroup2 deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

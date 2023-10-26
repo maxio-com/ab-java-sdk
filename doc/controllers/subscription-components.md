@@ -103,7 +103,7 @@ When requesting to list components for a given subscription, if the subscription
 ```java
 List<SubscriptionComponentResponse> listSubscriptionComponents(
     final String subscriptionId,
-    final ListSubscriptionComponentsDateField dateField,
+    final SubscriptionListDateField dateField,
     final ListSubscriptionComponentsDirection direction,
     final String endDate,
     final String endDatetime,
@@ -122,7 +122,7 @@ List<SubscriptionComponentResponse> listSubscriptionComponents(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
-| `dateField` | [`ListSubscriptionComponentsDateField`](../../doc/models/list-subscription-components-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
+| `dateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
 | `direction` | [`ListSubscriptionComponentsDirection`](../../doc/models/containers/list-subscription-components-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
@@ -143,7 +143,7 @@ List<SubscriptionComponentResponse> listSubscriptionComponents(
 
 ```java
 String subscriptionId = "subscription_id0";
-ListSubscriptionComponentsDateField dateField = ListSubscriptionComponentsDateField.UPDATED_AT;
+SubscriptionListDateField dateField = SubscriptionListDateField.UPDATED_AT;
 IncludeNotNull pricePointIds = IncludeNotNull.NOT_NULL;
 List<Integer> productFamilyIds = Arrays.asList(
     1,
@@ -1480,7 +1480,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
     final Integer perPage,
     final ListSubscriptionComponentsSort sort,
     final ListSubscriptionComponentsForSiteDirection direction,
-    final ListSubscriptionComponentsDateField dateField,
+    final SubscriptionListDateField dateField,
     final String startDate,
     final String startDatetime,
     final String endDate,
@@ -1492,7 +1492,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
     final Boolean filterUseSiteExchangeRate,
     final List<String> filterCurrencies,
     final List<SubscriptionState> filterSubscriptionStates,
-    final ListSubscriptionComponentsSubscriptionDateField filterSubscriptionDateField,
+    final SubscriptionListDateField filterSubscriptionDateField,
     final String filterSubscriptionStartDate,
     final String filterSubscriptionStartDatetime,
     final String filterSubscriptionEndDate,
@@ -1507,7 +1507,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query: `sort=updated_at`. |
 | `direction` | [`ListSubscriptionComponentsForSiteDirection`](../../doc/models/containers/list-subscription-components-for-site-direction.md) | Query, Optional | This is a container for one-of cases. |
-| `dateField` | [`ListSubscriptionComponentsDateField`](../../doc/models/list-subscription-components-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
+| `dateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2011-12-15`. |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2011-12-16`. |
@@ -1519,7 +1519,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
 | `filterUseSiteExchangeRate` | `Boolean` | Query, Optional | Allows fetching components allocation with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 | `filterCurrencies` | `List<String>` | Query, Optional | Allows fetching components allocation with matching currency based on provided values. Use in query `filter[currencies]=USD,EUR`. |
 | `filterSubscriptionStates` | [`List<SubscriptionState>`](../../doc/models/subscription-state.md) | Query, Optional | Allows fetching components allocations that belong to the subscription with matching states based on provided values. To use this filter you also have to include the following param in the request `include=subscription`. Use in query `filter[subscription][states]=active,canceled&include=subscription`. |
-| `filterSubscriptionDateField` | [`ListSubscriptionComponentsSubscriptionDateField`](../../doc/models/list-subscription-components-subscription-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. To use this filter you also have to include the following param in the request `include=subscription`. |
+| `filterSubscriptionDateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionStartDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components that belong to the subscription with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. To use this filter you also have to include the following param in the request `include=subscription`. |
@@ -1535,7 +1535,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
 Integer page = 2;
 Integer perPage = 50;
 ListSubscriptionComponentsSort sort = ListSubscriptionComponentsSort.UPDATED_AT;
-ListSubscriptionComponentsDateField dateField = ListSubscriptionComponentsDateField.UPDATED_AT;
+SubscriptionListDateField dateField = SubscriptionListDateField.UPDATED_AT;
 List<Integer> subscriptionIds = Arrays.asList(
     1,
     2,
