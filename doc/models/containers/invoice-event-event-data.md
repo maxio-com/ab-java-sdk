@@ -17,5 +17,5 @@
 | [`RefundInvoiceEventData`](../../../doc/models/refund-invoice-event-data.md) | InvoiceEventEventData.fromRefundInvoiceEventData(RefundInvoiceEventData refundInvoiceEventData) |
 | [`RemovePaymentEventData`](../../../doc/models/remove-payment-event-data.md) | InvoiceEventEventData.fromRemovePaymentEventData(RemovePaymentEventData removePaymentEventData) |
 | [`VoidInvoiceEventData`](../../../doc/models/void-invoice-event-data.md) | InvoiceEventEventData.fromVoidInvoiceEventData(VoidInvoiceEventData voidInvoiceEventData) |
-| [`VoidInvoiceEventDataAnyOf8`](../../../doc/models/void-invoice-event-data-any-of-8.md) | InvoiceEventEventData.fromVoidInvoiceEventDataAnyOf8(VoidInvoiceEventDataAnyOf8 voidInvoiceEventDataAnyOf8) |
+| [`VoidInvoiceEventData1`](../../../doc/models/void-invoice-event-data-1.md) | InvoiceEventEventData.fromVoidInvoiceEventData1(VoidInvoiceEventData1 voidInvoiceEventData1) |
 

@@ -24,7 +24,7 @@ import com.maxio.advancedbilling.models.IssueInvoiceEventData;
 import com.maxio.advancedbilling.models.RefundInvoiceEventData;
 import com.maxio.advancedbilling.models.RemovePaymentEventData;
 import com.maxio.advancedbilling.models.VoidInvoiceEventData;
-import com.maxio.advancedbilling.models.VoidInvoiceEventDataAnyOf8;
+import com.maxio.advancedbilling.models.VoidInvoiceEventData1;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -116,13 +116,13 @@ public abstract class InvoiceEventEventData {
     }
 
     /**
-     * This is Void Invoice Event Data_AnyOf8 case.
-     * @param voidInvoiceEventDataAnyOf8 VoidInvoiceEventDataAnyOf8 value for voidInvoiceEventDataAnyOf8.
-     * @return The VoidInvoiceEventDataAnyOf8Case object.
+     * This is Void Invoice Event Data1 case.
+     * @param voidInvoiceEventData1 VoidInvoiceEventData1 value for voidInvoiceEventData1.
+     * @return The VoidInvoiceEventData1Case object.
      */
-    public static InvoiceEventEventData fromVoidInvoiceEventDataAnyOf8(
-            VoidInvoiceEventDataAnyOf8 voidInvoiceEventDataAnyOf8) {
-        return voidInvoiceEventDataAnyOf8 == null ? null : new VoidInvoiceEventDataAnyOf8Case(voidInvoiceEventDataAnyOf8);
+    public static InvoiceEventEventData fromVoidInvoiceEventData1(
+            VoidInvoiceEventData1 voidInvoiceEventData1) {
+        return voidInvoiceEventData1 == null ? null : new VoidInvoiceEventData1Case(voidInvoiceEventData1);
     }
 
     /**
@@ -154,7 +154,7 @@ public abstract class InvoiceEventEventData {
 
         R voidInvoiceEventData(VoidInvoiceEventData voidInvoiceEventData);
 
-        R voidInvoiceEventDataAnyOf8(VoidInvoiceEventDataAnyOf8 voidInvoiceEventDataAnyOf8);
+        R voidInvoiceEventData1(VoidInvoiceEventData1 voidInvoiceEventData1);
     }
 
     /**
@@ -406,33 +406,33 @@ public abstract class InvoiceEventEventData {
     }
 
     /**
-     * This is a implementation class for VoidInvoiceEventDataAnyOf8Case.
+     * This is a implementation class for VoidInvoiceEventData1Case.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "VoidInvoiceEventDataAnyOf8")
-    private static class VoidInvoiceEventDataAnyOf8Case extends InvoiceEventEventData {
+    @TypeCombinatorCase(type = "VoidInvoiceEventData1")
+    private static class VoidInvoiceEventData1Case extends InvoiceEventEventData {
 
         @JsonValue
-        private VoidInvoiceEventDataAnyOf8 voidInvoiceEventDataAnyOf8;
+        private VoidInvoiceEventData1 voidInvoiceEventData1;
 
-        VoidInvoiceEventDataAnyOf8Case(VoidInvoiceEventDataAnyOf8 voidInvoiceEventDataAnyOf8) {
-            this.voidInvoiceEventDataAnyOf8 = voidInvoiceEventDataAnyOf8;
+        VoidInvoiceEventData1Case(VoidInvoiceEventData1 voidInvoiceEventData1) {
+            this.voidInvoiceEventData1 = voidInvoiceEventData1;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.voidInvoiceEventDataAnyOf8(this.voidInvoiceEventDataAnyOf8);
+            return cases.voidInvoiceEventData1(this.voidInvoiceEventData1);
         }
 
         @JsonCreator
-        private VoidInvoiceEventDataAnyOf8Case(JsonNode jsonNode) throws IOException {
-            this.voidInvoiceEventDataAnyOf8 = ApiHelper.deserialize(jsonNode,
-                VoidInvoiceEventDataAnyOf8.class);
+        private VoidInvoiceEventData1Case(JsonNode jsonNode) throws IOException {
+            this.voidInvoiceEventData1 = ApiHelper.deserialize(jsonNode,
+                VoidInvoiceEventData1.class);
         }
 
         @Override
         public String toString() {
-            return voidInvoiceEventDataAnyOf8.toString();
+            return voidInvoiceEventData1.toString();
         }
     }
 
@@ -452,7 +452,7 @@ public abstract class InvoiceEventEventData {
                     ChangeInvoiceCollectionMethodEventDataCase.class,
                     IssueInvoiceEventDataCase.class, RefundInvoiceEventDataCase.class,
                     RemovePaymentEventDataCase.class, VoidInvoiceEventDataCase.class,
-                    VoidInvoiceEventDataAnyOf8Case.class), false);
+                    VoidInvoiceEventData1Case.class), false);
         }
     }
 

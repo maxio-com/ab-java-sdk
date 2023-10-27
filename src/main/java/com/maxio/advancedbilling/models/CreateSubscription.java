@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponents;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroup;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroup2;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionOfferId;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
@@ -46,7 +46,7 @@ public class CreateSubscription {
     private CalendarBilling calendarBilling;
     private Map<String, String> metafields;
     private String customerReference;
-    private CreateSubscriptionGroup group;
+    private CreateSubscriptionGroup2 group;
     private String ref;
     private String cancellationMessage;
     private String cancellationMethod;
@@ -108,7 +108,7 @@ public class CreateSubscription {
      * @param  calendarBilling  CalendarBilling value for calendarBilling.
      * @param  metafields  Map of String, value for metafields.
      * @param  customerReference  String value for customerReference.
-     * @param  group  CreateSubscriptionGroup value for group.
+     * @param  group  CreateSubscriptionGroup2 value for group.
      * @param  ref  String value for ref.
      * @param  cancellationMessage  String value for cancellationMessage.
      * @param  cancellationMethod  String value for cancellationMethod.
@@ -162,7 +162,7 @@ public class CreateSubscription {
             CalendarBilling calendarBilling,
             Map<String, String> metafields,
             String customerReference,
-            CreateSubscriptionGroup group,
+            CreateSubscriptionGroup2 group,
             String ref,
             String cancellationMessage,
             String cancellationMethod,
@@ -253,9 +253,10 @@ public class CreateSubscription {
             PaymentProfileAttributes creditCardAttributes,
             BankAccountAttributes bankAccountAttributes,
             List<CreateSubscriptionComponents> components, CalendarBilling calendarBilling,
-            Map<String, String> metafields, String customerReference, CreateSubscriptionGroup group,
-            String ref, String cancellationMessage, String cancellationMethod, String currency,
-            String expiresAt, String expirationTracksNextBillingChange, String agreementTerms,
+            Map<String, String> metafields, String customerReference,
+            CreateSubscriptionGroup2 group, String ref, String cancellationMessage,
+            String cancellationMethod, String currency, String expiresAt,
+            String expirationTracksNextBillingChange, String agreementTerms,
             String authorizerFirstName, String authorizerLastName,
             String calendarBillingFirstCharge, String reasonCode, Boolean productChangeDelayed,
             CreateSubscriptionOfferId offerId,
@@ -917,20 +918,20 @@ public class CreateSubscription {
 
     /**
      * Getter for Group.
-     * @return Returns the CreateSubscriptionGroup
+     * @return Returns the CreateSubscriptionGroup2
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreateSubscriptionGroup getGroup() {
+    public CreateSubscriptionGroup2 getGroup() {
         return group;
     }
 
     /**
      * Setter for Group.
-     * @param group Value for CreateSubscriptionGroup
+     * @param group Value for CreateSubscriptionGroup2
      */
     @JsonSetter("group")
-    public void setGroup(CreateSubscriptionGroup group) {
+    public void setGroup(CreateSubscriptionGroup2 group) {
         this.group = group;
     }
 
@@ -1626,7 +1627,7 @@ public class CreateSubscription {
         private CalendarBilling calendarBilling;
         private Map<String, String> metafields;
         private String customerReference;
-        private CreateSubscriptionGroup group;
+        private CreateSubscriptionGroup2 group;
         private String ref;
         private String cancellationMessage;
         private String cancellationMethod;
@@ -1909,10 +1910,10 @@ public class CreateSubscription {
 
         /**
          * Setter for group.
-         * @param  group  CreateSubscriptionGroup value for group.
+         * @param  group  CreateSubscriptionGroup2 value for group.
          * @return Builder
          */
-        public Builder group(CreateSubscriptionGroup group) {
+        public Builder group(CreateSubscriptionGroup2 group) {
             this.group = group;
             return this;
         }

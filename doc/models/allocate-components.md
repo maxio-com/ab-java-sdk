@@ -15,7 +15,7 @@
 | `AccrueCharge` | `Boolean` | Optional | - | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |
 | `UpgradeCharge` | `String` | Optional | - | String getUpgradeCharge() | setUpgradeCharge(String upgradeCharge) |
 | `DowngradeCredit` | `String` | Optional | - | String getDowngradeCredit() | setDowngradeCredit(String downgradeCredit) |
-| `PaymentCollectionMethod` | [`PaymentCollectionMethodAllocateComponents`](../../doc/models/payment-collection-method-allocate-components.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription<br>**Default**: `PaymentCollectionMethodAllocateComponents.AUTOMATIC` | PaymentCollectionMethodAllocateComponents getPaymentCollectionMethod() | setPaymentCollectionMethod(PaymentCollectionMethodAllocateComponents paymentCollectionMethod) |
+| `PaymentCollectionMethod` | [`PaymentCollectionMethod1`](../../doc/models/payment-collection-method-1.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription<br>**Default**: `PaymentCollectionMethod1.AUTOMATIC` | PaymentCollectionMethod1 getPaymentCollectionMethod() | setPaymentCollectionMethod(PaymentCollectionMethod1 paymentCollectionMethod) |
 
 ## Example (as JSON)
 

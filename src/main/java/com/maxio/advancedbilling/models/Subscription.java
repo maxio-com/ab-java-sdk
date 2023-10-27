@@ -11,9 +11,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.SubscriptionCancellationMethod;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroup;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroup2;
 import com.maxio.advancedbilling.models.containers.SubscriptionPaymentCollectionMethod;
-import com.maxio.advancedbilling.models.containers.SubscriptionPrepaidDunning;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class Subscription {
     private String createdAt;
     private String updatedAt;
     private OptionalNullable<String> cancellationMessage;
-    private SubscriptionCancellationMethod cancellationMethod;
+    private OptionalNullable<SubscriptionCancellationMethod> cancellationMethod;
     private OptionalNullable<Boolean> cancelAtEndOfPeriod;
     private OptionalNullable<String> canceledAt;
     private String currentPeriodStartedAt;
@@ -46,11 +45,11 @@ public class Subscription {
     private OptionalNullable<String> delayedCancelAt;
     private OptionalNullable<String> couponCode;
     private OptionalNullable<String> snapDay;
-    private SubscriptionPaymentCollectionMethod paymentCollectionMethod;
+    private OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod;
     private Customer customer;
     private Product product;
     private PaymentProfile creditCard;
-    private SubscriptionGroup group;
+    private OptionalNullable<SubscriptionGroup2> group;
     private SubscriptionBankAccount bankAccount;
     private OptionalNullable<String> paymentType;
     private OptionalNullable<String> referralCode;
@@ -71,7 +70,7 @@ public class Subscription {
     private OptionalNullable<Integer> storedCredentialTransactionId;
     private OptionalNullable<String> reference;
     private OptionalNullable<String> onHoldAt;
-    private SubscriptionPrepaidDunning prepaidDunning;
+    private Boolean prepaidDunning;
     private List<SubscriptionIncludedCoupon> coupons;
     private Boolean dunningCommunicationDelayEnabled;
     private OptionalNullable<String> dunningCommunicationDelayTimeZone;
@@ -121,7 +120,7 @@ public class Subscription {
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  PaymentProfile value for creditCard.
-     * @param  group  SubscriptionGroup value for group.
+     * @param  group  SubscriptionGroup2 value for group.
      * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
@@ -142,7 +141,7 @@ public class Subscription {
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  reference  String value for reference.
      * @param  onHoldAt  String value for onHoldAt.
-     * @param  prepaidDunning  SubscriptionPrepaidDunning value for prepaidDunning.
+     * @param  prepaidDunning  Boolean value for prepaidDunning.
      * @param  coupons  List of SubscriptionIncludedCoupon value for coupons.
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
      * @param  dunningCommunicationDelayTimeZone  String value for
@@ -184,7 +183,7 @@ public class Subscription {
             Customer customer,
             Product product,
             PaymentProfile creditCard,
-            SubscriptionGroup group,
+            SubscriptionGroup2 group,
             SubscriptionBankAccount bankAccount,
             String paymentType,
             String referralCode,
@@ -205,7 +204,7 @@ public class Subscription {
             Integer storedCredentialTransactionId,
             String reference,
             String onHoldAt,
-            SubscriptionPrepaidDunning prepaidDunning,
+            Boolean prepaidDunning,
             List<SubscriptionIncludedCoupon> coupons,
             Boolean dunningCommunicationDelayEnabled,
             String dunningCommunicationDelayTimeZone,
@@ -230,7 +229,7 @@ public class Subscription {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.cancellationMessage = OptionalNullable.of(cancellationMessage);
-        this.cancellationMethod = cancellationMethod;
+        this.cancellationMethod = OptionalNullable.of(cancellationMethod);
         this.cancelAtEndOfPeriod = OptionalNullable.of(cancelAtEndOfPeriod);
         this.canceledAt = OptionalNullable.of(canceledAt);
         this.currentPeriodStartedAt = currentPeriodStartedAt;
@@ -240,11 +239,11 @@ public class Subscription {
         this.delayedCancelAt = OptionalNullable.of(delayedCancelAt);
         this.couponCode = OptionalNullable.of(couponCode);
         this.snapDay = OptionalNullable.of(snapDay);
-        this.paymentCollectionMethod = paymentCollectionMethod;
+        this.paymentCollectionMethod = OptionalNullable.of(paymentCollectionMethod);
         this.customer = customer;
         this.product = product;
         this.creditCard = creditCard;
-        this.group = group;
+        this.group = OptionalNullable.of(group);
         this.bankAccount = bankAccount;
         this.paymentType = OptionalNullable.of(paymentType);
         this.referralCode = OptionalNullable.of(referralCode);
@@ -287,24 +286,25 @@ public class Subscription {
             OptionalNullable<String> trialStartedAt, OptionalNullable<String> trialEndedAt,
             String activatedAt, OptionalNullable<String> expiresAt, String createdAt,
             String updatedAt, OptionalNullable<String> cancellationMessage,
-            SubscriptionCancellationMethod cancellationMethod,
+            OptionalNullable<SubscriptionCancellationMethod> cancellationMethod,
             OptionalNullable<Boolean> cancelAtEndOfPeriod, OptionalNullable<String> canceledAt,
             String currentPeriodStartedAt, String previousState, Integer signupPaymentId,
             String signupRevenue, OptionalNullable<String> delayedCancelAt,
             OptionalNullable<String> couponCode, OptionalNullable<String> snapDay,
-            SubscriptionPaymentCollectionMethod paymentCollectionMethod, Customer customer,
-            Product product, PaymentProfile creditCard, SubscriptionGroup group,
-            SubscriptionBankAccount bankAccount, OptionalNullable<String> paymentType,
-            OptionalNullable<String> referralCode, OptionalNullable<Integer> nextProductId,
-            OptionalNullable<String> nextProductHandle, OptionalNullable<Integer> couponUseCount,
-            OptionalNullable<Integer> couponUsesAllowed, OptionalNullable<String> reasonCode,
-            OptionalNullable<String> automaticallyResumeAt, List<String> couponCodes,
-            OptionalNullable<Integer> offerId, Integer payerId, Integer currentBillingAmountInCents,
-            Integer productPricePointId, String productPricePointType,
-            OptionalNullable<Integer> nextProductPricePointId, OptionalNullable<Integer> netTerms,
+            OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod,
+            Customer customer, Product product, PaymentProfile creditCard,
+            OptionalNullable<SubscriptionGroup2> group, SubscriptionBankAccount bankAccount,
+            OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
+            OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
+            OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
+            OptionalNullable<String> reasonCode, OptionalNullable<String> automaticallyResumeAt,
+            List<String> couponCodes, OptionalNullable<Integer> offerId, Integer payerId,
+            Integer currentBillingAmountInCents, Integer productPricePointId,
+            String productPricePointType, OptionalNullable<Integer> nextProductPricePointId,
+            OptionalNullable<Integer> netTerms,
             OptionalNullable<Integer> storedCredentialTransactionId,
             OptionalNullable<String> reference, OptionalNullable<String> onHoldAt,
-            SubscriptionPrepaidDunning prepaidDunning, List<SubscriptionIncludedCoupon> coupons,
+            Boolean prepaidDunning, List<SubscriptionIncludedCoupon> coupons,
             Boolean dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone,
             OptionalNullable<Boolean> receivesInvoiceEmails, OptionalNullable<String> locale,
@@ -780,15 +780,26 @@ public class Subscription {
     }
 
     /**
+     * Internal Getter for CancellationMethod.
+     * The process used to cancel the subscription, if the subscription has been canceled. It is nil
+     * if the subscription's state is not canceled.
+     * @return Returns the Internal SubscriptionCancellationMethod
+     */
+    @JsonGetter("cancellation_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<SubscriptionCancellationMethod> internalGetCancellationMethod() {
+        return this.cancellationMethod;
+    }
+
+    /**
      * Getter for CancellationMethod.
      * The process used to cancel the subscription, if the subscription has been canceled. It is nil
      * if the subscription's state is not canceled.
      * @return Returns the SubscriptionCancellationMethod
      */
-    @JsonGetter("cancellation_method")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public SubscriptionCancellationMethod getCancellationMethod() {
-        return cancellationMethod;
+        return OptionalNullable.getFrom(cancellationMethod);
     }
 
     /**
@@ -799,7 +810,16 @@ public class Subscription {
      */
     @JsonSetter("cancellation_method")
     public void setCancellationMethod(SubscriptionCancellationMethod cancellationMethod) {
-        this.cancellationMethod = cancellationMethod;
+        this.cancellationMethod = OptionalNullable.of(cancellationMethod);
+    }
+
+    /**
+     * UnSetter for CancellationMethod.
+     * The process used to cancel the subscription, if the subscription has been canceled. It is nil
+     * if the subscription's state is not canceled.
+     */
+    public void unsetCancellationMethod() {
+        cancellationMethod = null;
     }
 
     /**
@@ -1094,13 +1114,22 @@ public class Subscription {
     }
 
     /**
-     * Getter for PaymentCollectionMethod.
-     * @return Returns the SubscriptionPaymentCollectionMethod
+     * Internal Getter for PaymentCollectionMethod.
+     * @return Returns the Internal SubscriptionPaymentCollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<SubscriptionPaymentCollectionMethod> internalGetPaymentCollectionMethod() {
+        return this.paymentCollectionMethod;
+    }
+
+    /**
+     * Getter for PaymentCollectionMethod.
+     * @return Returns the SubscriptionPaymentCollectionMethod
+     */
     public SubscriptionPaymentCollectionMethod getPaymentCollectionMethod() {
-        return paymentCollectionMethod;
+        return OptionalNullable.getFrom(paymentCollectionMethod);
     }
 
     /**
@@ -1109,7 +1138,14 @@ public class Subscription {
      */
     @JsonSetter("payment_collection_method")
     public void setPaymentCollectionMethod(SubscriptionPaymentCollectionMethod paymentCollectionMethod) {
-        this.paymentCollectionMethod = paymentCollectionMethod;
+        this.paymentCollectionMethod = OptionalNullable.of(paymentCollectionMethod);
+    }
+
+    /**
+     * UnSetter for PaymentCollectionMethod.
+     */
+    public void unsetPaymentCollectionMethod() {
+        paymentCollectionMethod = null;
     }
 
     /**
@@ -1170,22 +1206,38 @@ public class Subscription {
     }
 
     /**
-     * Getter for Group.
-     * @return Returns the SubscriptionGroup
+     * Internal Getter for Group.
+     * @return Returns the Internal SubscriptionGroup2
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionGroup getGroup() {
-        return group;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<SubscriptionGroup2> internalGetGroup() {
+        return this.group;
+    }
+
+    /**
+     * Getter for Group.
+     * @return Returns the SubscriptionGroup2
+     */
+    public SubscriptionGroup2 getGroup() {
+        return OptionalNullable.getFrom(group);
     }
 
     /**
      * Setter for Group.
-     * @param group Value for SubscriptionGroup
+     * @param group Value for SubscriptionGroup2
      */
     @JsonSetter("group")
-    public void setGroup(SubscriptionGroup group) {
-        this.group = group;
+    public void setGroup(SubscriptionGroup2 group) {
+        this.group = OptionalNullable.of(group);
+    }
+
+    /**
+     * UnSetter for Group.
+     */
+    public void unsetGroup() {
+        group = null;
     }
 
     /**
@@ -1892,11 +1944,11 @@ public class Subscription {
      * Getter for PrepaidDunning.
      * Boolean representing whether the subscription is prepaid and currently in dunning. Only
      * returned for Relationship Invoicing sites with the feature enabled
-     * @return Returns the SubscriptionPrepaidDunning
+     * @return Returns the Boolean
      */
     @JsonGetter("prepaid_dunning")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionPrepaidDunning getPrepaidDunning() {
+    public Boolean getPrepaidDunning() {
         return prepaidDunning;
     }
 
@@ -1904,10 +1956,10 @@ public class Subscription {
      * Setter for PrepaidDunning.
      * Boolean representing whether the subscription is prepaid and currently in dunning. Only
      * returned for Relationship Invoicing sites with the feature enabled
-     * @param prepaidDunning Value for SubscriptionPrepaidDunning
+     * @param prepaidDunning Value for Boolean
      */
     @JsonSetter("prepaid_dunning")
-    public void setPrepaidDunning(SubscriptionPrepaidDunning prepaidDunning) {
+    public void setPrepaidDunning(Boolean prepaidDunning) {
         this.prepaidDunning = prepaidDunning;
     }
 
@@ -2219,16 +2271,13 @@ public class Subscription {
                 .activatedAt(getActivatedAt())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .cancellationMethod(getCancellationMethod())
                 .currentPeriodStartedAt(getCurrentPeriodStartedAt())
                 .previousState(getPreviousState())
                 .signupPaymentId(getSignupPaymentId())
                 .signupRevenue(getSignupRevenue())
-                .paymentCollectionMethod(getPaymentCollectionMethod())
                 .customer(getCustomer())
                 .product(getProduct())
                 .creditCard(getCreditCard())
-                .group(getGroup())
                 .bankAccount(getBankAccount())
                 .couponCodes(getCouponCodes())
                 .payerId(getPayerId())
@@ -2245,11 +2294,14 @@ public class Subscription {
         builder.trialEndedAt = internalGetTrialEndedAt();
         builder.expiresAt = internalGetExpiresAt();
         builder.cancellationMessage = internalGetCancellationMessage();
+        builder.cancellationMethod = internalGetCancellationMethod();
         builder.cancelAtEndOfPeriod = internalGetCancelAtEndOfPeriod();
         builder.canceledAt = internalGetCanceledAt();
         builder.delayedCancelAt = internalGetDelayedCancelAt();
         builder.couponCode = internalGetCouponCode();
         builder.snapDay = internalGetSnapDay();
+        builder.paymentCollectionMethod = internalGetPaymentCollectionMethod();
+        builder.group = internalGetGroup();
         builder.paymentType = internalGetPaymentType();
         builder.referralCode = internalGetReferralCode();
         builder.nextProductId = internalGetNextProductId();
@@ -2290,7 +2342,7 @@ public class Subscription {
         private String createdAt;
         private String updatedAt;
         private OptionalNullable<String> cancellationMessage;
-        private SubscriptionCancellationMethod cancellationMethod;
+        private OptionalNullable<SubscriptionCancellationMethod> cancellationMethod;
         private OptionalNullable<Boolean> cancelAtEndOfPeriod;
         private OptionalNullable<String> canceledAt;
         private String currentPeriodStartedAt;
@@ -2300,11 +2352,11 @@ public class Subscription {
         private OptionalNullable<String> delayedCancelAt;
         private OptionalNullable<String> couponCode;
         private OptionalNullable<String> snapDay;
-        private SubscriptionPaymentCollectionMethod paymentCollectionMethod;
+        private OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod;
         private Customer customer;
         private Product product;
         private PaymentProfile creditCard;
-        private SubscriptionGroup group;
+        private OptionalNullable<SubscriptionGroup2> group;
         private SubscriptionBankAccount bankAccount;
         private OptionalNullable<String> paymentType;
         private OptionalNullable<String> referralCode;
@@ -2325,7 +2377,7 @@ public class Subscription {
         private OptionalNullable<Integer> storedCredentialTransactionId;
         private OptionalNullable<String> reference;
         private OptionalNullable<String> onHoldAt;
-        private SubscriptionPrepaidDunning prepaidDunning;
+        private Boolean prepaidDunning;
         private List<SubscriptionIncludedCoupon> coupons;
         private Boolean dunningCommunicationDelayEnabled = false;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
@@ -2530,7 +2582,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder cancellationMethod(SubscriptionCancellationMethod cancellationMethod) {
-            this.cancellationMethod = cancellationMethod;
+            this.cancellationMethod = OptionalNullable.of(cancellationMethod);
+            return this;
+        }
+
+        /**
+         * UnSetter for cancellationMethod.
+         * @return Builder
+         */
+        public Builder unsetCancellationMethod() {
+            cancellationMethod = null;
             return this;
         }
 
@@ -2677,7 +2738,16 @@ public class Subscription {
          */
         public Builder paymentCollectionMethod(
                 SubscriptionPaymentCollectionMethod paymentCollectionMethod) {
-            this.paymentCollectionMethod = paymentCollectionMethod;
+            this.paymentCollectionMethod = OptionalNullable.of(paymentCollectionMethod);
+            return this;
+        }
+
+        /**
+         * UnSetter for paymentCollectionMethod.
+         * @return Builder
+         */
+        public Builder unsetPaymentCollectionMethod() {
+            paymentCollectionMethod = null;
             return this;
         }
 
@@ -2713,11 +2783,20 @@ public class Subscription {
 
         /**
          * Setter for group.
-         * @param  group  SubscriptionGroup value for group.
+         * @param  group  SubscriptionGroup2 value for group.
          * @return Builder
          */
-        public Builder group(SubscriptionGroup group) {
-            this.group = group;
+        public Builder group(SubscriptionGroup2 group) {
+            this.group = OptionalNullable.of(group);
+            return this;
+        }
+
+        /**
+         * UnSetter for group.
+         * @return Builder
+         */
+        public Builder unsetGroup() {
+            group = null;
             return this;
         }
 
@@ -3049,10 +3128,10 @@ public class Subscription {
 
         /**
          * Setter for prepaidDunning.
-         * @param  prepaidDunning  SubscriptionPrepaidDunning value for prepaidDunning.
+         * @param  prepaidDunning  Boolean value for prepaidDunning.
          * @return Builder
          */
-        public Builder prepaidDunning(SubscriptionPrepaidDunning prepaidDunning) {
+        public Builder prepaidDunning(Boolean prepaidDunning) {
             this.prepaidDunning = prepaidDunning;
             return this;
         }

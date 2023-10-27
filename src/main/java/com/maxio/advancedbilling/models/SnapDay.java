@@ -5,55 +5,85 @@
  */
 
 package com.maxio.advancedbilling.models;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 
 /**
- * This is a model class for SnapDay type.
+ * SnapDay to be used.
  */
-public class SnapDay {
+public enum SnapDay {
+    END;
 
-    /**
-     * Default constructor.
-     */
-    public SnapDay() {
+
+    private static TreeMap<String, SnapDay> valueMap = new TreeMap<>();
+    private String value;
+
+    static {
+        END.value = "end";
+
+        valueMap.put("end", END);
     }
 
     /**
-     * Converts this SnapDay into string format.
-     * @return String representation of this class
+     * Returns the enum member associated with the given string value.
+     * @param toConvert String value to get enum member.
+     * @return The enum member against the given string value.
+     * @throws IOException when provided value is not mapped to any enum member.
+     */
+    @JsonCreator
+    public static SnapDay constructFromString(String toConvert) throws IOException {
+        SnapDay enumValue = fromString(toConvert);
+        if (enumValue == null)
+        {
+            throw new IOException("Unable to create enum instance with value: " + toConvert);
+        }
+        return enumValue;
+    }
+
+    /**
+     * Returns the enum member associated with the given string value.
+     * @param toConvert String value to get enum member.
+     * @return The enum member against the given string value.
+     */
+    public static SnapDay fromString(String toConvert) {
+        return valueMap.get(toConvert);
+    }
+
+    /**
+     * Returns the string value associated with the enum member.
+     * @return The string value against enum member.
+     */
+    @JsonValue
+    public String value() {
+        return value;
+    }
+        
+    /**
+     * Get string representation of this enum.
      */
     @Override
     public String toString() {
-        return "SnapDay [" + "]";
+        return value.toString();
     }
 
     /**
-     * Builds a new {@link SnapDay.Builder} object.
-     * Creates the instance with the state of the current model.
-     * @return a new {@link SnapDay.Builder} object
+     * Convert list of SnapDay values to list of string values.
+     * @param toConvert The list of SnapDay values to convert.
+     * @return List of representative string values.
      */
-    public Builder toBuilder() {
-        Builder builder = new Builder();
-        return builder;
-    }
-
-    /**
-     * Class to build instances of {@link SnapDay}.
-     */
-    public static class Builder {
-
-
-
-
-
-
-        /**
-         * Builds a new {@link SnapDay} object using the set fields.
-         * @return {@link SnapDay}
-         */
-        public SnapDay build() {
-            return new SnapDay();
+    public static List<String> toValue(List<SnapDay> toConvert) {
+        if (toConvert == null) {
+            return null;
         }
+        List<String> convertedValues = new ArrayList<>();
+        for (SnapDay enumValue : toConvert) {
+            convertedValues.add(enumValue.value);
+        }
+        return convertedValues;
     }
-}
+} 

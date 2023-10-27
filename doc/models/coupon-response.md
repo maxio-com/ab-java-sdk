@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Coupon` | [`CouponCouponResponse`](../../doc/models/coupon-coupon-response.md) | Optional | - | CouponCouponResponse getCoupon() | setCoupon(CouponCouponResponse coupon) |
+| `Coupon` | [`Coupon`](../../doc/models/coupon.md) | Optional | - | Coupon getCoupon() | setCoupon(Coupon coupon) |
 
 ## Example (as JSON)
 

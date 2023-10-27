@@ -17,6 +17,7 @@ Warning: When updating a metafield's scope attribute, all scope attributes must 
 | `Portal` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from the portal. | IncludeOption getPortal() | setPortal(IncludeOption portal) |
 | `PublicShow` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from being viewable by your ecosystem. | IncludeOption getPublicShow() | setPublicShow(IncludeOption publicShow) |
 | `PublicEdit` | [`IncludeOption`](../../doc/models/include-option.md) | Optional | Include (1) or exclude (0) metafields from being edited by your ecosystem. | IncludeOption getPublicEdit() | setPublicEdit(IncludeOption publicEdit) |
+| `Hosted` | `List<String>` | Optional | - | List<String> getHosted() | setHosted(List<String> hosted) |
 
 ## Example (as JSON)
 

@@ -9,7 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.MetafieldEnum;
+import io.apimatic.core.types.OptionalNullable;
+import java.util.List;
 
 /**
  * This is a model class for Metafield type.
@@ -20,7 +23,7 @@ public class Metafield {
     private MetafieldScope scope;
     private Integer dataCount;
     private String inputType;
-    private MetafieldEnum mEnum;
+    private OptionalNullable<List<MetafieldEnum>> mEnum;
 
     /**
      * Default constructor.
@@ -35,7 +38,7 @@ public class Metafield {
      * @param  scope  MetafieldScope value for scope.
      * @param  dataCount  Integer value for dataCount.
      * @param  inputType  String value for inputType.
-     * @param  mEnum  MetafieldEnum value for mEnum.
+     * @param  mEnum  List of MetafieldEnum value for mEnum.
      */
     public Metafield(
             Double id,
@@ -43,7 +46,20 @@ public class Metafield {
             MetafieldScope scope,
             Integer dataCount,
             String inputType,
-            MetafieldEnum mEnum) {
+            List<MetafieldEnum> mEnum) {
+        this.id = id;
+        this.name = name;
+        this.scope = scope;
+        this.dataCount = dataCount;
+        this.inputType = inputType;
+        this.mEnum = OptionalNullable.of(mEnum);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Metafield(Double id, String name, MetafieldScope scope, Integer dataCount,
+            String inputType, OptionalNullable<List<MetafieldEnum>> mEnum) {
         this.id = id;
         this.name = name;
         this.scope = scope;
@@ -154,22 +170,38 @@ public class Metafield {
     }
 
     /**
-     * Getter for Enum.
-     * @return Returns the MetafieldEnum
+     * Internal Getter for Enum.
+     * @return Returns the Internal List of MetafieldEnum
      */
     @JsonGetter("enum")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public MetafieldEnum getEnum() {
-        return mEnum;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<MetafieldEnum>> internalGetEnum() {
+        return this.mEnum;
+    }
+
+    /**
+     * Getter for Enum.
+     * @return Returns the List of MetafieldEnum
+     */
+    public List<MetafieldEnum> getEnum() {
+        return OptionalNullable.getFrom(mEnum);
     }
 
     /**
      * Setter for Enum.
-     * @param mEnum Value for MetafieldEnum
+     * @param mEnum Value for List of MetafieldEnum
      */
     @JsonSetter("enum")
-    public void setEnum(MetafieldEnum mEnum) {
-        this.mEnum = mEnum;
+    public void setEnum(List<MetafieldEnum> mEnum) {
+        this.mEnum = OptionalNullable.of(mEnum);
+    }
+
+    /**
+     * UnSetter for Enum.
+     */
+    public void unsetEnum() {
+        mEnum = null;
     }
 
     /**
@@ -193,8 +225,8 @@ public class Metafield {
                 .name(getName())
                 .scope(getScope())
                 .dataCount(getDataCount())
-                .inputType(getInputType())
-                .mEnum(getEnum());
+                .inputType(getInputType());
+        builder.mEnum = internalGetEnum();
         return builder;
     }
 
@@ -207,7 +239,7 @@ public class Metafield {
         private MetafieldScope scope;
         private Integer dataCount;
         private String inputType;
-        private MetafieldEnum mEnum;
+        private OptionalNullable<List<MetafieldEnum>> mEnum;
 
 
 
@@ -263,11 +295,20 @@ public class Metafield {
 
         /**
          * Setter for mEnum.
-         * @param  mEnum  MetafieldEnum value for mEnum.
+         * @param  mEnum  List of MetafieldEnum value for mEnum.
          * @return Builder
          */
-        public Builder mEnum(MetafieldEnum mEnum) {
-            this.mEnum = mEnum;
+        public Builder mEnum(List<MetafieldEnum> mEnum) {
+            this.mEnum = OptionalNullable.of(mEnum);
+            return this;
+        }
+
+        /**
+         * UnSetter for mEnum.
+         * @return Builder
+         */
+        public Builder unsetMEnum() {
+            mEnum = null;
             return this;
         }
 

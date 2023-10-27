@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.CreateAllocationPricePointId;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CreateAllocation type.
@@ -21,9 +23,9 @@ public class CreateAllocation {
     private String prorationDowngradeScheme;
     private String prorationUpgradeScheme;
     private Boolean accrueCharge;
-    private CreditTypeCreateAllocation downgradeCredit;
-    private CreditTypeCreateAllocation upgradeCharge;
-    private CreateAllocationPricePointId pricePointId;
+    private CreditType1 downgradeCredit;
+    private CreditType1 upgradeCharge;
+    private OptionalNullable<CreateAllocationPricePointId> pricePointId;
 
     /**
      * Default constructor.
@@ -39,8 +41,8 @@ public class CreateAllocation {
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
      * @param  accrueCharge  Boolean value for accrueCharge.
-     * @param  downgradeCredit  CreditTypeCreateAllocation value for downgradeCredit.
-     * @param  upgradeCharge  CreditTypeCreateAllocation value for upgradeCharge.
+     * @param  downgradeCredit  CreditType1 value for downgradeCredit.
+     * @param  upgradeCharge  CreditType1 value for upgradeCharge.
      * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
      */
     public CreateAllocation(
@@ -50,9 +52,27 @@ public class CreateAllocation {
             String prorationDowngradeScheme,
             String prorationUpgradeScheme,
             Boolean accrueCharge,
-            CreditTypeCreateAllocation downgradeCredit,
-            CreditTypeCreateAllocation upgradeCharge,
+            CreditType1 downgradeCredit,
+            CreditType1 upgradeCharge,
             CreateAllocationPricePointId pricePointId) {
+        this.quantity = quantity;
+        this.componentId = componentId;
+        this.memo = memo;
+        this.prorationDowngradeScheme = prorationDowngradeScheme;
+        this.prorationUpgradeScheme = prorationUpgradeScheme;
+        this.accrueCharge = accrueCharge;
+        this.downgradeCredit = downgradeCredit;
+        this.upgradeCharge = upgradeCharge;
+        this.pricePointId = OptionalNullable.of(pricePointId);
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected CreateAllocation(double quantity, Integer componentId, String memo,
+            String prorationDowngradeScheme, String prorationUpgradeScheme, Boolean accrueCharge,
+            CreditType1 downgradeCredit, CreditType1 upgradeCharge,
+            OptionalNullable<CreateAllocationPricePointId> pricePointId) {
         this.quantity = quantity;
         this.componentId = componentId;
         this.memo = memo;
@@ -207,11 +227,11 @@ public class CreateAllocation {
      * Getter for DowngradeCredit.
      * The type of credit to be created if the change in cost is a downgrade. Defaults to the
      * component and then site setting if one is not provided.
-     * @return Returns the CreditTypeCreateAllocation
+     * @return Returns the CreditType1
      */
     @JsonGetter("downgrade_credit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreditTypeCreateAllocation getDowngradeCredit() {
+    public CreditType1 getDowngradeCredit() {
         return downgradeCredit;
     }
 
@@ -219,10 +239,10 @@ public class CreateAllocation {
      * Setter for DowngradeCredit.
      * The type of credit to be created if the change in cost is a downgrade. Defaults to the
      * component and then site setting if one is not provided.
-     * @param downgradeCredit Value for CreditTypeCreateAllocation
+     * @param downgradeCredit Value for CreditType1
      */
     @JsonSetter("downgrade_credit")
-    public void setDowngradeCredit(CreditTypeCreateAllocation downgradeCredit) {
+    public void setDowngradeCredit(CreditType1 downgradeCredit) {
         this.downgradeCredit = downgradeCredit;
     }
 
@@ -230,11 +250,11 @@ public class CreateAllocation {
      * Getter for UpgradeCharge.
      * The type of charge to be created if the change in cost is an upgrade. Defaults to the
      * component and then site setting if one is not provided.
-     * @return Returns the CreditTypeCreateAllocation
+     * @return Returns the CreditType1
      */
     @JsonGetter("upgrade_charge")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreditTypeCreateAllocation getUpgradeCharge() {
+    public CreditType1 getUpgradeCharge() {
         return upgradeCharge;
     }
 
@@ -242,11 +262,24 @@ public class CreateAllocation {
      * Setter for UpgradeCharge.
      * The type of charge to be created if the change in cost is an upgrade. Defaults to the
      * component and then site setting if one is not provided.
-     * @param upgradeCharge Value for CreditTypeCreateAllocation
+     * @param upgradeCharge Value for CreditType1
      */
     @JsonSetter("upgrade_charge")
-    public void setUpgradeCharge(CreditTypeCreateAllocation upgradeCharge) {
+    public void setUpgradeCharge(CreditType1 upgradeCharge) {
         this.upgradeCharge = upgradeCharge;
+    }
+
+    /**
+     * Internal Getter for PricePointId.
+     * Price point that the allocation should be charged at. Accepts either the price point's id
+     * (integer) or handle (string). When not specified, the default price point will be used.
+     * @return Returns the Internal CreateAllocationPricePointId
+     */
+    @JsonGetter("price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CreateAllocationPricePointId> internalGetPricePointId() {
+        return this.pricePointId;
     }
 
     /**
@@ -255,10 +288,8 @@ public class CreateAllocation {
      * (integer) or handle (string). When not specified, the default price point will be used.
      * @return Returns the CreateAllocationPricePointId
      */
-    @JsonGetter("price_point_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CreateAllocationPricePointId getPricePointId() {
-        return pricePointId;
+        return OptionalNullable.getFrom(pricePointId);
     }
 
     /**
@@ -269,7 +300,16 @@ public class CreateAllocation {
      */
     @JsonSetter("price_point_id")
     public void setPricePointId(CreateAllocationPricePointId pricePointId) {
-        this.pricePointId = pricePointId;
+        this.pricePointId = OptionalNullable.of(pricePointId);
+    }
+
+    /**
+     * UnSetter for PricePointId.
+     * Price point that the allocation should be charged at. Accepts either the price point's id
+     * (integer) or handle (string). When not specified, the default price point will be used.
+     */
+    public void unsetPricePointId() {
+        pricePointId = null;
     }
 
     /**
@@ -298,8 +338,8 @@ public class CreateAllocation {
                 .prorationUpgradeScheme(getProrationUpgradeScheme())
                 .accrueCharge(getAccrueCharge())
                 .downgradeCredit(getDowngradeCredit())
-                .upgradeCharge(getUpgradeCharge())
-                .pricePointId(getPricePointId());
+                .upgradeCharge(getUpgradeCharge());
+        builder.pricePointId = internalGetPricePointId();
         return builder;
     }
 
@@ -313,9 +353,9 @@ public class CreateAllocation {
         private String prorationDowngradeScheme;
         private String prorationUpgradeScheme;
         private Boolean accrueCharge;
-        private CreditTypeCreateAllocation downgradeCredit;
-        private CreditTypeCreateAllocation upgradeCharge;
-        private CreateAllocationPricePointId pricePointId;
+        private CreditType1 downgradeCredit;
+        private CreditType1 upgradeCharge;
+        private OptionalNullable<CreateAllocationPricePointId> pricePointId;
 
         /**
          * Initialization constructor.
@@ -393,20 +433,20 @@ public class CreateAllocation {
 
         /**
          * Setter for downgradeCredit.
-         * @param  downgradeCredit  CreditTypeCreateAllocation value for downgradeCredit.
+         * @param  downgradeCredit  CreditType1 value for downgradeCredit.
          * @return Builder
          */
-        public Builder downgradeCredit(CreditTypeCreateAllocation downgradeCredit) {
+        public Builder downgradeCredit(CreditType1 downgradeCredit) {
             this.downgradeCredit = downgradeCredit;
             return this;
         }
 
         /**
          * Setter for upgradeCharge.
-         * @param  upgradeCharge  CreditTypeCreateAllocation value for upgradeCharge.
+         * @param  upgradeCharge  CreditType1 value for upgradeCharge.
          * @return Builder
          */
-        public Builder upgradeCharge(CreditTypeCreateAllocation upgradeCharge) {
+        public Builder upgradeCharge(CreditType1 upgradeCharge) {
             this.upgradeCharge = upgradeCharge;
             return this;
         }
@@ -417,7 +457,16 @@ public class CreateAllocation {
          * @return Builder
          */
         public Builder pricePointId(CreateAllocationPricePointId pricePointId) {
-            this.pricePointId = pricePointId;
+            this.pricePointId = OptionalNullable.of(pricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for pricePointId.
+         * @return Builder
+         */
+        public Builder unsetPricePointId() {
+            pricePointId = null;
             return this;
         }
 

@@ -75,6 +75,9 @@ public abstract class ProductExpirationIntervalUnit {
         private Case0(JsonNode jsonNode) throws IOException {
             this.case0 = ApiHelper.deserialize(jsonNode,
                 ProductExpirationIntervalUnitCase0.class);
+            if (this.case0 == null) {
+                throw new IllegalArgumentException();
+            }
         }
 
         @Override

@@ -21,7 +21,7 @@ public class AllocateComponents {
     private Boolean accrueCharge;
     private String upgradeCharge;
     private String downgradeCredit;
-    private PaymentCollectionMethodAllocateComponents paymentCollectionMethod;
+    private PaymentCollectionMethod1 paymentCollectionMethod;
 
     /**
      * Default constructor.
@@ -29,7 +29,7 @@ public class AllocateComponents {
     public AllocateComponents() {
         prorationUpgradeScheme = "no-prorate";
         prorationDowngradeScheme = "no-prorate";
-        paymentCollectionMethod = PaymentCollectionMethodAllocateComponents.AUTOMATIC;
+        paymentCollectionMethod = PaymentCollectionMethod1.AUTOMATIC;
     }
 
     /**
@@ -40,8 +40,7 @@ public class AllocateComponents {
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  upgradeCharge  String value for upgradeCharge.
      * @param  downgradeCredit  String value for downgradeCredit.
-     * @param  paymentCollectionMethod  PaymentCollectionMethodAllocateComponents value for
-     *         paymentCollectionMethod.
+     * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for paymentCollectionMethod.
      */
     public AllocateComponents(
             String prorationUpgradeScheme,
@@ -50,7 +49,7 @@ public class AllocateComponents {
             Boolean accrueCharge,
             String upgradeCharge,
             String downgradeCredit,
-            PaymentCollectionMethodAllocateComponents paymentCollectionMethod) {
+            PaymentCollectionMethod1 paymentCollectionMethod) {
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.allocations = allocations;
@@ -178,11 +177,11 @@ public class AllocateComponents {
      * Getter for PaymentCollectionMethod.
      * (Optional) If not passed, the allocation(s) will use the payment collection method on the
      * subscription
-     * @return Returns the PaymentCollectionMethodAllocateComponents
+     * @return Returns the PaymentCollectionMethod1
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PaymentCollectionMethodAllocateComponents getPaymentCollectionMethod() {
+    public PaymentCollectionMethod1 getPaymentCollectionMethod() {
         return paymentCollectionMethod;
     }
 
@@ -190,10 +189,10 @@ public class AllocateComponents {
      * Setter for PaymentCollectionMethod.
      * (Optional) If not passed, the allocation(s) will use the payment collection method on the
      * subscription
-     * @param paymentCollectionMethod Value for PaymentCollectionMethodAllocateComponents
+     * @param paymentCollectionMethod Value for PaymentCollectionMethod1
      */
     @JsonSetter("payment_collection_method")
-    public void setPaymentCollectionMethod(PaymentCollectionMethodAllocateComponents paymentCollectionMethod) {
+    public void setPaymentCollectionMethod(PaymentCollectionMethod1 paymentCollectionMethod) {
         this.paymentCollectionMethod = paymentCollectionMethod;
     }
 
@@ -237,8 +236,8 @@ public class AllocateComponents {
         private Boolean accrueCharge;
         private String upgradeCharge;
         private String downgradeCredit;
-        private PaymentCollectionMethodAllocateComponents paymentCollectionMethod =
-                PaymentCollectionMethodAllocateComponents.AUTOMATIC;
+        private PaymentCollectionMethod1 paymentCollectionMethod =
+                PaymentCollectionMethod1.AUTOMATIC;
 
 
 
@@ -304,12 +303,11 @@ public class AllocateComponents {
 
         /**
          * Setter for paymentCollectionMethod.
-         * @param  paymentCollectionMethod  PaymentCollectionMethodAllocateComponents value for
+         * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for
          *         paymentCollectionMethod.
          * @return Builder
          */
-        public Builder paymentCollectionMethod(
-                PaymentCollectionMethodAllocateComponents paymentCollectionMethod) {
+        public Builder paymentCollectionMethod(PaymentCollectionMethod1 paymentCollectionMethod) {
             this.paymentCollectionMethod = paymentCollectionMethod;
             return this;
         }

@@ -177,7 +177,7 @@ public final class CustomersController extends BaseController {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/customers.json")
                         .queryParam(param -> param.key("direction")
-                                .value(direction).isRequired(false))
+                                .value((direction != null) ? direction.value() : null).isRequired(false))
                         .queryParam(param -> param.key("page")
                                 .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")

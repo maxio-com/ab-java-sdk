@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
-import com.maxio.advancedbilling.models.SnapDayOneOf0;
+import com.maxio.advancedbilling.models.SnapDay;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -28,12 +28,12 @@ import java.util.Arrays;
 public abstract class UpdateSubscriptionSnapDay {
     
     /**
-     * This is SnapDay_OneOf0 case.
-     * @param snapDayOneOf0 SnapDayOneOf0 value for snapDayOneOf0.
-     * @return The SnapDayOneOf0Case object.
+     * This is SnapDay case.
+     * @param snapDay SnapDay value for snapDay.
+     * @return The SnapDayCase object.
      */
-    public static UpdateSubscriptionSnapDay fromSnapDayOneOf0(SnapDayOneOf0 snapDayOneOf0) {
-        return snapDayOneOf0 == null ? null : new SnapDayOneOf0Case(snapDayOneOf0);
+    public static UpdateSubscriptionSnapDay fromSnapDay(SnapDay snapDay) {
+        return snapDay == null ? null : new SnapDayCase(snapDay);
     }
 
     /**
@@ -58,42 +58,42 @@ public abstract class UpdateSubscriptionSnapDay {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R snapDayOneOf0(SnapDayOneOf0 snapDayOneOf0);
+        R snapDay(SnapDay snapDay);
 
         R number(int number);
     }
 
     /**
-     * This is a implementation class for SnapDayOneOf0Case.
+     * This is a implementation class for SnapDayCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SnapDayOneOf0")
-    private static class SnapDayOneOf0Case extends UpdateSubscriptionSnapDay {
+    @TypeCombinatorCase(type = "SnapDay")
+    private static class SnapDayCase extends UpdateSubscriptionSnapDay {
 
         @JsonValue
-        private SnapDayOneOf0 snapDayOneOf0;
+        private SnapDay snapDay;
 
-        SnapDayOneOf0Case(SnapDayOneOf0 snapDayOneOf0) {
-            this.snapDayOneOf0 = snapDayOneOf0;
+        SnapDayCase(SnapDay snapDay) {
+            this.snapDay = snapDay;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.snapDayOneOf0(this.snapDayOneOf0);
+            return cases.snapDay(this.snapDay);
         }
 
         @JsonCreator
-        private SnapDayOneOf0Case(JsonNode jsonNode) throws IOException {
-            this.snapDayOneOf0 = 
-                SnapDayOneOf0.fromString(ApiHelper.deserialize(jsonNode, String.class));
-            if (this.snapDayOneOf0 == null) {
+        private SnapDayCase(JsonNode jsonNode) throws IOException {
+            this.snapDay = 
+                SnapDay.fromString(ApiHelper.deserialize(jsonNode, String.class));
+            if (this.snapDay == null) {
                 throw new IllegalArgumentException();
             }
         }
 
         @Override
         public String toString() {
-            return snapDayOneOf0.toString();
+            return snapDay.toString();
         }
     }
 
@@ -142,7 +142,7 @@ public abstract class UpdateSubscriptionSnapDay {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(SnapDayOneOf0Case.class,
+            return ApiHelper.deserialize(node, Arrays.asList(SnapDayCase.class,
                     NumberCase.class), true);
         }
     }

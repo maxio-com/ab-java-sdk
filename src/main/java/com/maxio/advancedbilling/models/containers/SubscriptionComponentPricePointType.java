@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.models.PricePointType;
-import com.maxio.advancedbilling.models.PricePointTypeOneOf0;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -28,16 +27,6 @@ import java.util.Arrays;
 @JsonDeserialize(using = SubscriptionComponentPricePointType.SubscriptionComponentPricePointTypeDeserializer.class)
 public abstract class SubscriptionComponentPricePointType {
     
-    /**
-     * This is PricePointType_OneOf0 case.
-     * @param pricePointTypeOneOf0 PricePointTypeOneOf0 value for pricePointTypeOneOf0.
-     * @return The PricePointTypeOneOf0Case object.
-     */
-    public static SubscriptionComponentPricePointType fromPricePointTypeOneOf0(
-            PricePointTypeOneOf0 pricePointTypeOneOf0) {
-        return pricePointTypeOneOf0 == null ? null : new PricePointTypeOneOf0Case(pricePointTypeOneOf0);
-    }
-
     /**
      * This is Price Point Type case.
      * @param pricePointType PricePointType value for pricePointType.
@@ -61,40 +50,7 @@ public abstract class SubscriptionComponentPricePointType {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R pricePointTypeOneOf0(PricePointTypeOneOf0 pricePointTypeOneOf0);
-
         R pricePointType(PricePointType pricePointType);
-    }
-
-    /**
-     * This is a implementation class for PricePointTypeOneOf0Case.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "PricePointTypeOneOf0")
-    private static class PricePointTypeOneOf0Case extends SubscriptionComponentPricePointType {
-
-        @JsonValue
-        private PricePointTypeOneOf0 pricePointTypeOneOf0;
-
-        PricePointTypeOneOf0Case(PricePointTypeOneOf0 pricePointTypeOneOf0) {
-            this.pricePointTypeOneOf0 = pricePointTypeOneOf0;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.pricePointTypeOneOf0(this.pricePointTypeOneOf0);
-        }
-
-        @JsonCreator
-        private PricePointTypeOneOf0Case(JsonNode jsonNode) throws IOException {
-            this.pricePointTypeOneOf0 = ApiHelper.deserialize(jsonNode,
-                PricePointTypeOneOf0.class);
-        }
-
-        @Override
-        public String toString() {
-            return pricePointTypeOneOf0.toString();
-        }
     }
 
     /**
@@ -142,8 +98,7 @@ public abstract class SubscriptionComponentPricePointType {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(PricePointTypeOneOf0Case.class,
-                    PricePointTypeCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(PricePointTypeCase.class), true);
         }
     }
 

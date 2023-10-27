@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for PrepaymentResponse type.
  */
 public class PrepaymentResponse {
-    private PrepaymentPrepaymentResponse prepayment;
+    private Prepayment1 prepayment;
 
     /**
      * Default constructor.
@@ -23,28 +23,28 @@ public class PrepaymentResponse {
 
     /**
      * Initialization constructor.
-     * @param  prepayment  PrepaymentPrepaymentResponse value for prepayment.
+     * @param  prepayment  Prepayment1 value for prepayment.
      */
     public PrepaymentResponse(
-            PrepaymentPrepaymentResponse prepayment) {
+            Prepayment1 prepayment) {
         this.prepayment = prepayment;
     }
 
     /**
      * Getter for Prepayment.
-     * @return Returns the PrepaymentPrepaymentResponse
+     * @return Returns the Prepayment1
      */
     @JsonGetter("prepayment")
-    public PrepaymentPrepaymentResponse getPrepayment() {
+    public Prepayment1 getPrepayment() {
         return prepayment;
     }
 
     /**
      * Setter for Prepayment.
-     * @param prepayment Value for PrepaymentPrepaymentResponse
+     * @param prepayment Value for Prepayment1
      */
     @JsonSetter("prepayment")
-    public void setPrepayment(PrepaymentPrepaymentResponse prepayment) {
+    public void setPrepayment(Prepayment1 prepayment) {
         this.prepayment = prepayment;
     }
 
@@ -71,7 +71,7 @@ public class PrepaymentResponse {
      * Class to build instances of {@link PrepaymentResponse}.
      */
     public static class Builder {
-        private PrepaymentPrepaymentResponse prepayment;
+        private Prepayment1 prepayment;
 
         /**
          * Initialization constructor.
@@ -81,18 +81,18 @@ public class PrepaymentResponse {
 
         /**
          * Initialization constructor.
-         * @param  prepayment  PrepaymentPrepaymentResponse value for prepayment.
+         * @param  prepayment  Prepayment1 value for prepayment.
          */
-        public Builder(PrepaymentPrepaymentResponse prepayment) {
+        public Builder(Prepayment1 prepayment) {
             this.prepayment = prepayment;
         }
 
         /**
          * Setter for prepayment.
-         * @param  prepayment  PrepaymentPrepaymentResponse value for prepayment.
+         * @param  prepayment  Prepayment1 value for prepayment.
          * @return Builder
          */
-        public Builder prepayment(PrepaymentPrepaymentResponse prepayment) {
+        public Builder prepayment(Prepayment1 prepayment) {
             this.prepayment = prepayment;
             return this;
         }

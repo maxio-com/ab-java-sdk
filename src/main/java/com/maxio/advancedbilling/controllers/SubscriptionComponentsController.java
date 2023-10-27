@@ -24,13 +24,12 @@ import com.maxio.advancedbilling.models.CreateUsageRequest;
 import com.maxio.advancedbilling.models.CreditSchemeRequest;
 import com.maxio.advancedbilling.models.EBBEvent;
 import com.maxio.advancedbilling.models.IncludeNotNull;
-import com.maxio.advancedbilling.models.ListSubscriptionComponentsDateField;
 import com.maxio.advancedbilling.models.ListSubscriptionComponentsInclude;
 import com.maxio.advancedbilling.models.ListSubscriptionComponentsResponse;
 import com.maxio.advancedbilling.models.ListSubscriptionComponentsSort;
-import com.maxio.advancedbilling.models.ListSubscriptionComponentsSubscriptionDateField;
 import com.maxio.advancedbilling.models.PreviewAllocationsRequest;
 import com.maxio.advancedbilling.models.SubscriptionComponentResponse;
+import com.maxio.advancedbilling.models.SubscriptionListDateField;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.SubscriptionState;
 import com.maxio.advancedbilling.models.UpdateAllocationExpirationDate;
@@ -146,7 +145,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     public List<SubscriptionComponentResponse> listSubscriptionComponents(
             final String subscriptionId,
-            final ListSubscriptionComponentsDateField dateField,
+            final SubscriptionListDateField dateField,
             final ListSubscriptionComponentsDirection direction,
             final String endDate,
             final String endDatetime,
@@ -168,7 +167,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<List<SubscriptionComponentResponse>, ApiException> prepareListSubscriptionComponentsRequest(
             final String subscriptionId,
-            final ListSubscriptionComponentsDateField dateField,
+            final SubscriptionListDateField dateField,
             final ListSubscriptionComponentsDirection direction,
             final String endDate,
             final String endDatetime,
@@ -1185,7 +1184,7 @@ public final class SubscriptionComponentsController extends BaseController {
             final Integer perPage,
             final ListSubscriptionComponentsSort sort,
             final ListSubscriptionComponentsForSiteDirection direction,
-            final ListSubscriptionComponentsDateField dateField,
+            final SubscriptionListDateField dateField,
             final String startDate,
             final String startDatetime,
             final String endDate,
@@ -1197,7 +1196,7 @@ public final class SubscriptionComponentsController extends BaseController {
             final Boolean filterUseSiteExchangeRate,
             final List<String> filterCurrencies,
             final List<SubscriptionState> filterSubscriptionStates,
-            final ListSubscriptionComponentsSubscriptionDateField filterSubscriptionDateField,
+            final SubscriptionListDateField filterSubscriptionDateField,
             final String filterSubscriptionStartDate,
             final String filterSubscriptionStartDatetime,
             final String filterSubscriptionEndDate,
@@ -1218,7 +1217,7 @@ public final class SubscriptionComponentsController extends BaseController {
             final Integer perPage,
             final ListSubscriptionComponentsSort sort,
             final ListSubscriptionComponentsForSiteDirection direction,
-            final ListSubscriptionComponentsDateField dateField,
+            final SubscriptionListDateField dateField,
             final String startDate,
             final String startDatetime,
             final String endDate,
@@ -1230,7 +1229,7 @@ public final class SubscriptionComponentsController extends BaseController {
             final Boolean filterUseSiteExchangeRate,
             final List<String> filterCurrencies,
             final List<SubscriptionState> filterSubscriptionStates,
-            final ListSubscriptionComponentsSubscriptionDateField filterSubscriptionDateField,
+            final SubscriptionListDateField filterSubscriptionDateField,
             final String filterSubscriptionStartDate,
             final String filterSubscriptionStartDatetime,
             final String filterSubscriptionEndDate,

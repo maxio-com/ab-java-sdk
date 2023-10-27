@@ -9,16 +9,18 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for Price type.
  */
 public class Price {
     private PriceStartingQuantity startingQuantity;
-    private PriceEndingQuantity endingQuantity;
+    private OptionalNullable<PriceEndingQuantity> endingQuantity;
     private PriceUnitPrice unitPrice;
 
     /**
@@ -37,6 +39,16 @@ public class Price {
             PriceStartingQuantity startingQuantity,
             PriceUnitPrice unitPrice,
             PriceEndingQuantity endingQuantity) {
+        this.startingQuantity = startingQuantity;
+        this.endingQuantity = OptionalNullable.of(endingQuantity);
+        this.unitPrice = unitPrice;
+    }
+
+    /**
+     * Internal initialization constructor.
+     */
+    protected Price(PriceStartingQuantity startingQuantity, PriceUnitPrice unitPrice,
+            OptionalNullable<PriceEndingQuantity> endingQuantity) {
         this.startingQuantity = startingQuantity;
         this.endingQuantity = endingQuantity;
         this.unitPrice = unitPrice;
@@ -61,13 +73,22 @@ public class Price {
     }
 
     /**
-     * Getter for EndingQuantity.
-     * @return Returns the PriceEndingQuantity
+     * Internal Getter for EndingQuantity.
+     * @return Returns the Internal PriceEndingQuantity
      */
     @JsonGetter("ending_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<PriceEndingQuantity> internalGetEndingQuantity() {
+        return this.endingQuantity;
+    }
+
+    /**
+     * Getter for EndingQuantity.
+     * @return Returns the PriceEndingQuantity
+     */
     public PriceEndingQuantity getEndingQuantity() {
-        return endingQuantity;
+        return OptionalNullable.getFrom(endingQuantity);
     }
 
     /**
@@ -76,7 +97,14 @@ public class Price {
      */
     @JsonSetter("ending_quantity")
     public void setEndingQuantity(PriceEndingQuantity endingQuantity) {
-        this.endingQuantity = endingQuantity;
+        this.endingQuantity = OptionalNullable.of(endingQuantity);
+    }
+
+    /**
+     * UnSetter for EndingQuantity.
+     */
+    public void unsetEndingQuantity() {
+        endingQuantity = null;
     }
 
     /**
@@ -115,8 +143,8 @@ public class Price {
      * @return a new {@link Price.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(startingQuantity, unitPrice)
-                .endingQuantity(getEndingQuantity());
+        Builder builder = new Builder(startingQuantity, unitPrice);
+        builder.endingQuantity = internalGetEndingQuantity();
         return builder;
     }
 
@@ -126,7 +154,7 @@ public class Price {
     public static class Builder {
         private PriceStartingQuantity startingQuantity;
         private PriceUnitPrice unitPrice;
-        private PriceEndingQuantity endingQuantity;
+        private OptionalNullable<PriceEndingQuantity> endingQuantity;
 
         /**
          * Initialization constructor.
@@ -170,7 +198,16 @@ public class Price {
          * @return Builder
          */
         public Builder endingQuantity(PriceEndingQuantity endingQuantity) {
-            this.endingQuantity = endingQuantity;
+            this.endingQuantity = OptionalNullable.of(endingQuantity);
+            return this;
+        }
+
+        /**
+         * UnSetter for endingQuantity.
+         * @return Builder
+         */
+        public Builder unsetEndingQuantity() {
+            endingQuantity = null;
             return this;
         }
 

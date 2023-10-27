@@ -27,7 +27,7 @@ public class Product {
     private OptionalNullable<String> accountingCode;
     private Boolean requestCreditCard;
     private OptionalNullable<Integer> expirationInterval;
-    private ProductExpirationIntervalUnit expirationIntervalUnit;
+    private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
     private String createdAt;
     private String updatedAt;
     private Integer priceInCents;
@@ -36,7 +36,7 @@ public class Product {
     private OptionalNullable<Integer> initialChargeInCents;
     private OptionalNullable<Integer> trialPriceInCents;
     private OptionalNullable<Integer> trialInterval;
-    private ProductTrialIntervalUnit trialIntervalUnit;
+    private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
     private OptionalNullable<String> archivedAt;
     private Boolean requireCreditCard;
     private OptionalNullable<String> returnParams;
@@ -150,7 +150,7 @@ public class Product {
         this.accountingCode = OptionalNullable.of(accountingCode);
         this.requestCreditCard = requestCreditCard;
         this.expirationInterval = OptionalNullable.of(expirationInterval);
-        this.expirationIntervalUnit = expirationIntervalUnit;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.priceInCents = priceInCents;
@@ -159,7 +159,7 @@ public class Product {
         this.initialChargeInCents = OptionalNullable.of(initialChargeInCents);
         this.trialPriceInCents = OptionalNullable.of(trialPriceInCents);
         this.trialInterval = OptionalNullable.of(trialInterval);
-        this.trialIntervalUnit = trialIntervalUnit;
+        this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
         this.archivedAt = OptionalNullable.of(archivedAt);
         this.requireCreditCard = requireCreditCard;
         this.returnParams = OptionalNullable.of(returnParams);
@@ -188,12 +188,13 @@ public class Product {
     protected Product(Integer id, String name, OptionalNullable<String> handle, String description,
             OptionalNullable<String> accountingCode, Boolean requestCreditCard,
             OptionalNullable<Integer> expirationInterval,
-            ProductExpirationIntervalUnit expirationIntervalUnit, String createdAt,
-            String updatedAt, Integer priceInCents, Integer interval,
+            OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit,
+            String createdAt, String updatedAt, Integer priceInCents, Integer interval,
             ProductIntervalUnit intervalUnit, OptionalNullable<Integer> initialChargeInCents,
             OptionalNullable<Integer> trialPriceInCents, OptionalNullable<Integer> trialInterval,
-            ProductTrialIntervalUnit trialIntervalUnit, OptionalNullable<String> archivedAt,
-            Boolean requireCreditCard, OptionalNullable<String> returnParams, Boolean taxable,
+            OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit,
+            OptionalNullable<String> archivedAt, Boolean requireCreditCard,
+            OptionalNullable<String> returnParams, Boolean taxable,
             OptionalNullable<String> updateReturnUrl, Boolean initialChargeAfterTrial,
             Integer versionNumber, OptionalNullable<String> updateReturnParams,
             ProductFamily productFamily, List<PublicSignupPage> publicSignupPages,
@@ -451,14 +452,24 @@ public class Product {
     }
 
     /**
+     * Internal Getter for ExpirationIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     * @return Returns the Internal ProductExpirationIntervalUnit
+     */
+    @JsonGetter("expiration_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ProductExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
+        return this.expirationIntervalUnit;
+    }
+
+    /**
      * Getter for ExpirationIntervalUnit.
      * A string representing the trial interval unit for this product, either month or day
      * @return Returns the ProductExpirationIntervalUnit
      */
-    @JsonGetter("expiration_interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ProductExpirationIntervalUnit getExpirationIntervalUnit() {
-        return expirationIntervalUnit;
+        return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
@@ -468,7 +479,15 @@ public class Product {
      */
     @JsonSetter("expiration_interval_unit")
     public void setExpirationIntervalUnit(ProductExpirationIntervalUnit expirationIntervalUnit) {
-        this.expirationIntervalUnit = expirationIntervalUnit;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+    }
+
+    /**
+     * UnSetter for ExpirationIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     */
+    public void unsetExpirationIntervalUnit() {
+        expirationIntervalUnit = null;
     }
 
     /**
@@ -704,14 +723,24 @@ public class Product {
     }
 
     /**
+     * Internal Getter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     * @return Returns the Internal ProductTrialIntervalUnit
+     */
+    @JsonGetter("trial_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ProductTrialIntervalUnit> internalGetTrialIntervalUnit() {
+        return this.trialIntervalUnit;
+    }
+
+    /**
      * Getter for TrialIntervalUnit.
      * A string representing the trial interval unit for this product, either month or day
      * @return Returns the ProductTrialIntervalUnit
      */
-    @JsonGetter("trial_interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ProductTrialIntervalUnit getTrialIntervalUnit() {
-        return trialIntervalUnit;
+        return OptionalNullable.getFrom(trialIntervalUnit);
     }
 
     /**
@@ -721,7 +750,15 @@ public class Product {
      */
     @JsonSetter("trial_interval_unit")
     public void setTrialIntervalUnit(ProductTrialIntervalUnit trialIntervalUnit) {
-        this.trialIntervalUnit = trialIntervalUnit;
+        this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
+    }
+
+    /**
+     * UnSetter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     */
+    public void unsetTrialIntervalUnit() {
+        trialIntervalUnit = null;
     }
 
     /**
@@ -1325,13 +1362,11 @@ public class Product {
                 .name(getName())
                 .description(getDescription())
                 .requestCreditCard(getRequestCreditCard())
-                .expirationIntervalUnit(getExpirationIntervalUnit())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .priceInCents(getPriceInCents())
                 .interval(getInterval())
                 .intervalUnit(getIntervalUnit())
-                .trialIntervalUnit(getTrialIntervalUnit())
                 .requireCreditCard(getRequireCreditCard())
                 .taxable(getTaxable())
                 .initialChargeAfterTrial(getInitialChargeAfterTrial())
@@ -1347,9 +1382,11 @@ public class Product {
         builder.handle = internalGetHandle();
         builder.accountingCode = internalGetAccountingCode();
         builder.expirationInterval = internalGetExpirationInterval();
+        builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         builder.initialChargeInCents = internalGetInitialChargeInCents();
         builder.trialPriceInCents = internalGetTrialPriceInCents();
         builder.trialInterval = internalGetTrialInterval();
+        builder.trialIntervalUnit = internalGetTrialIntervalUnit();
         builder.archivedAt = internalGetArchivedAt();
         builder.returnParams = internalGetReturnParams();
         builder.updateReturnUrl = internalGetUpdateReturnUrl();
@@ -1372,7 +1409,7 @@ public class Product {
         private OptionalNullable<String> accountingCode;
         private Boolean requestCreditCard;
         private OptionalNullable<Integer> expirationInterval;
-        private ProductExpirationIntervalUnit expirationIntervalUnit;
+        private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
         private String createdAt;
         private String updatedAt;
         private Integer priceInCents;
@@ -1381,7 +1418,7 @@ public class Product {
         private OptionalNullable<Integer> initialChargeInCents;
         private OptionalNullable<Integer> trialPriceInCents;
         private OptionalNullable<Integer> trialInterval;
-        private ProductTrialIntervalUnit trialIntervalUnit;
+        private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
         private OptionalNullable<String> archivedAt;
         private Boolean requireCreditCard;
         private OptionalNullable<String> returnParams;
@@ -1510,7 +1547,16 @@ public class Product {
          */
         public Builder expirationIntervalUnit(
                 ProductExpirationIntervalUnit expirationIntervalUnit) {
-            this.expirationIntervalUnit = expirationIntervalUnit;
+            this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetExpirationIntervalUnit() {
+            expirationIntervalUnit = null;
             return this;
         }
 
@@ -1627,7 +1673,16 @@ public class Product {
          * @return Builder
          */
         public Builder trialIntervalUnit(ProductTrialIntervalUnit trialIntervalUnit) {
-            this.trialIntervalUnit = trialIntervalUnit;
+            this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetTrialIntervalUnit() {
+            trialIntervalUnit = null;
             return this;
         }
 

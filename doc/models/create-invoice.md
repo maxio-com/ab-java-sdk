@@ -18,7 +18,7 @@
 | `BillingAddress` | [`CreateInvoiceAddress`](../../doc/models/create-invoice-address.md) | Optional | Overrides the default for the customer | CreateInvoiceAddress getBillingAddress() | setBillingAddress(CreateInvoiceAddress billingAddress) |
 | `ShippingAddress` | [`CreateInvoiceAddress`](../../doc/models/create-invoice-address.md) | Optional | Overrides the default for the customer | CreateInvoiceAddress getShippingAddress() | setShippingAddress(CreateInvoiceAddress shippingAddress) |
 | `Coupons` | [`List<CreateInvoiceCoupon>`](../../doc/models/create-invoice-coupon.md) | Optional | - | List<CreateInvoiceCoupon> getCoupons() | setCoupons(List<CreateInvoiceCoupon> coupons) |
-| `Status` | [`StatusCreateInvoice`](../../doc/models/status-create-invoice.md) | Optional | **Default**: `StatusCreateInvoice.OPEN` | StatusCreateInvoice getStatus() | setStatus(StatusCreateInvoice status) |
+| `Status` | [`Status1`](../../doc/models/status-1.md) | Optional | **Default**: `Status1.OPEN` | Status1 getStatus() | setStatus(Status1 status) |
 
 ## Example (as JSON)
 

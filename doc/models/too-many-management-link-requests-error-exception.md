@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Errors` | [`TooManyManagementLinkRequests`](../../doc/models/too-many-management-link-requests.md) | Optional | - | TooManyManagementLinkRequests getErrors() | setErrors(TooManyManagementLinkRequests errors) |
+| `Errors` | [`TooManyManagementLinkRequests`](../../doc/models/too-many-management-link-requests.md) | Required | - | TooManyManagementLinkRequests getErrors() | setErrors(TooManyManagementLinkRequests errors) |
 
 ## Example (as JSON)
 
