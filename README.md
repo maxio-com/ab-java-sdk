@@ -336,7 +336,7 @@ Here, you can add code to initialize the client library and instantiate a *Contr
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](doc/client.md)
 
 The following parameters are configurable for the API Client:
 
@@ -345,7 +345,7 @@ The following parameters are configurable for the API Client:
 | `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `"subdomain"` |
 | `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
-| `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-client-configuration.md) | Http Client Configuration instance. |
+| `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](doc/http-client-configuration.md) | Http Client Configuration instance. |
 | `basicAuthUserName` | `String` | The username to use with basic authentication |
 | `basicAuthPassword` | `String` | The password to use with basic authentication |
 
@@ -379,49 +379,49 @@ This API uses `Basic Authentication`.
 
 ## List of APIs
 
-* [API Exports](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/api-exports.md)
-* [Advance Invoice](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/advance-invoice.md)
-* [Billing Portal](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/billing-portal.md)
-* [Custom Fields](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/custom-fields.md)
-* [Events-Based Billing Segments](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/events-based-billing-segments.md)
-* [Payment Profiles](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/payment-profiles.md)
-* [Product Families](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/product-families.md)
-* [Product Price Points](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/product-price-points.md)
-* [Proforma Invoices](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/proforma-invoices.md)
-* [Reason Codes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/reason-codes.md)
-* [Referral Codes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/referral-codes.md)
-* [Sales Commissions](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/sales-commissions.md)
-* [Subscription Components](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-components.md)
-* [Subscription Groups](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-groups.md)
-* [Subscription Group Invoice Account](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-group-invoice-account.md)
-* [Subscription Group Status](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-group-status.md)
-* [Subscription Invoice Account](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-invoice-account.md)
-* [Subscription Notes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-notes.md)
-* [Subscription Products](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-products.md)
-* [Subscription Status](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscription-status.md)
-* [Coupons](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/coupons.md)
-* [Components](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/components.md)
-* [Customers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/customers.md)
-* [Events](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/events.md)
-* [Insights](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/insights.md)
-* [Invoices](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/invoices.md)
-* [Offers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/offers.md)
-* [Products](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/products.md)
-* [Sites](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/sites.md)
-* [Subscriptions](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/subscriptions.md)
-* [Webhooks](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/controllers/webhooks.md)
+* [API Exports](doc/controllers/api-exports.md)
+* [Advance Invoice](doc/controllers/advance-invoice.md)
+* [Billing Portal](doc/controllers/billing-portal.md)
+* [Custom Fields](doc/controllers/custom-fields.md)
+* [Events-Based Billing Segments](doc/controllers/events-based-billing-segments.md)
+* [Payment Profiles](doc/controllers/payment-profiles.md)
+* [Product Families](doc/controllers/product-families.md)
+* [Product Price Points](doc/controllers/product-price-points.md)
+* [Proforma Invoices](doc/controllers/proforma-invoices.md)
+* [Reason Codes](doc/controllers/reason-codes.md)
+* [Referral Codes](doc/controllers/referral-codes.md)
+* [Sales Commissions](doc/controllers/sales-commissions.md)
+* [Subscription Components](doc/controllers/subscription-components.md)
+* [Subscription Groups](doc/controllers/subscription-groups.md)
+* [Subscription Group Invoice Account](doc/controllers/subscription-group-invoice-account.md)
+* [Subscription Group Status](doc/controllers/subscription-group-status.md)
+* [Subscription Invoice Account](doc/controllers/subscription-invoice-account.md)
+* [Subscription Notes](doc/controllers/subscription-notes.md)
+* [Subscription Products](doc/controllers/subscription-products.md)
+* [Subscription Status](doc/controllers/subscription-status.md)
+* [Coupons](doc/controllers/coupons.md)
+* [Components](doc/controllers/components.md)
+* [Customers](doc/controllers/customers.md)
+* [Events](doc/controllers/events.md)
+* [Insights](doc/controllers/insights.md)
+* [Invoices](doc/controllers/invoices.md)
+* [Offers](doc/controllers/offers.md)
+* [Products](doc/controllers/products.md)
+* [Sites](doc/controllers/sites.md)
+* [Subscriptions](doc/controllers/subscriptions.md)
+* [Webhooks](doc/controllers/webhooks.md)
 
 ## Classes Documentation
 
-* [Utility Classes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/utility-classes.md)
-* [HttpRequest](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-request.md)
-* [HttpResponse](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-response.md)
-* [HttpStringResponse](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-string-response.md)
-* [HttpContext](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-context.md)
-* [HttpBodyRequest](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-body-request.md)
-* [Headers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/headers.md)
-* [ApiException](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/api-exception.md)
-* [Configuration Interface](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/configuration-interface.md)
-* [HttpClientConfiguration](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-client-configuration.md)
-* [HttpClientConfiguration.Builder](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-client-configuration-builder.md)
+* [Utility Classes](doc/utility-classes.md)
+* [HttpRequest](doc/http-request.md)
+* [HttpResponse](doc/http-response.md)
+* [HttpStringResponse](doc/http-string-response.md)
+* [HttpContext](doc/http-context.md)
+* [HttpBodyRequest](doc/http-body-request.md)
+* [Headers](doc/headers.md)
+* [ApiException](doc/api-exception.md)
+* [Configuration Interface](doc/configuration-interface.md)
+* [HttpClientConfiguration](doc/http-client-configuration.md)
+* [HttpClientConfiguration.Builder](doc/http-client-configuration-builder.md)
 

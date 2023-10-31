@@ -804,6 +804,7 @@ PreviewAllocationsRequest body = new PreviewAllocationsRequest.Builder(
         .build()
     )
 )
+.effectiveProrationDate("2023-11-01")
 .build();
 
 try {
