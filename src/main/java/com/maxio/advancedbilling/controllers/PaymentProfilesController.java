@@ -208,8 +208,7 @@ public final class PaymentProfilesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, CreatePaymentProfileResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -266,8 +265,7 @@ public final class PaymentProfilesController extends BaseController {
                                         ListPaymentProfilesResponse[].class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -313,8 +311,7 @@ public final class PaymentProfilesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ReadPaymentProfileResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -378,8 +375,7 @@ public final class PaymentProfilesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, UpdatePaymentProfileResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -416,8 +412,7 @@ public final class PaymentProfilesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -461,8 +456,7 @@ public final class PaymentProfilesController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -509,8 +503,7 @@ public final class PaymentProfilesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -550,8 +543,7 @@ public final class PaymentProfilesController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -598,8 +590,7 @@ public final class PaymentProfilesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -648,8 +639,7 @@ public final class PaymentProfilesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -689,8 +679,7 @@ public final class PaymentProfilesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, GetOneTimeTokenRequest.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -739,8 +728,7 @@ public final class PaymentProfilesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

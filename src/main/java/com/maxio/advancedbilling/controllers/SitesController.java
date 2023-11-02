@@ -67,8 +67,7 @@ public final class SitesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SiteResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -111,8 +110,7 @@ public final class SitesController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -160,8 +158,7 @@ public final class SitesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ListPublicKeysResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

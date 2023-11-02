@@ -156,8 +156,7 @@ public final class ProductFamiliesController extends BaseController {
                                         ProductResponse[].class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -198,8 +197,7 @@ public final class ProductFamiliesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ProductFamilyResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -270,8 +268,7 @@ public final class ProductFamiliesController extends BaseController {
                                         ProductFamilyResponse[].class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -309,8 +306,7 @@ public final class ProductFamiliesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ProductFamilyResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

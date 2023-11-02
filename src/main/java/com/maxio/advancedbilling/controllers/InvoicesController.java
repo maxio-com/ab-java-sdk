@@ -99,8 +99,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -276,8 +275,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ListInvoicesResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -314,8 +312,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -405,8 +402,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ListInvoiceEventsResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -467,8 +463,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -516,8 +511,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -599,8 +593,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ListCreditNotesResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -636,8 +629,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, CreditNote.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -687,8 +679,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -739,8 +730,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -789,8 +779,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -849,8 +838,7 @@ public final class InvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ConsolidatedInvoice.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -966,8 +954,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new NestedErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -1021,8 +1008,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -1066,8 +1052,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -1111,8 +1096,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -1180,8 +1164,7 @@ public final class InvoicesController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

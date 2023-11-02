@@ -69,8 +69,7 @@ public final class ReferralCodesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ReferralValidationResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }
