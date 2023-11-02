@@ -96,8 +96,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new EventBasedBillingSegmentErrorsException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -200,8 +199,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new EventBasedBillingListSegmentsErrorsException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -266,8 +264,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new EventBasedBillingSegmentErrorsException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -324,8 +321,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -388,8 +384,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new EventBasedBillingSegmentException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -452,8 +447,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                                 (reason, context) -> new EventBasedBillingSegmentException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

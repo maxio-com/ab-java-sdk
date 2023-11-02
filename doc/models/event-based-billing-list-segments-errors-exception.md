@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Errors` | [`Errors`](../../doc/models/errors.md) | Optional | - | Errors getErrors() | setErrors(Errors errors) |
+| `Errors` | [`Errors1`](../../doc/models/errors-1.md) | Optional | - | Errors1 getErrors() | setErrors(Errors1 errors) |
 
 ## Example (as JSON)
 
