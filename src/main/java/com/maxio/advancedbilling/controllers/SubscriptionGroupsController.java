@@ -87,8 +87,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 (reason, context) -> new SubscriptionGroupSignupErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -129,8 +128,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 (reason, context) -> new SingleStringErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -189,8 +187,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ListSubscriptionGroupsResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -229,8 +226,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, FullSubscriptionGroupResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -279,8 +275,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 (reason, context) -> new SubscriptionGroupUpdateErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -316,8 +311,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, DeleteSubscriptionGroupResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -355,8 +349,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, FullSubscriptionGroupResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -418,8 +411,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SubscriptionGroupResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -461,8 +453,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV
-))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

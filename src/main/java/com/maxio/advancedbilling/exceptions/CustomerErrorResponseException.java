@@ -8,41 +8,42 @@ package com.maxio.advancedbilling.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.CustomerError;
+import com.maxio.advancedbilling.models.Errors;
+import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
 import io.apimatic.coreinterfaces.http.Context;
 
 /**
- * This is a model class for CustomersJson422ErrorException type.
+ * This is a model class for CustomerErrorResponseException type.
  */
-public class CustomersJson422ErrorException extends ApiException {
-    private static final long serialVersionUID = 129112003262932050L;
-    private CustomerError errors;
+public class CustomerErrorResponseException extends ApiException {
+    private static final long serialVersionUID = -18428866054026842L;
+    private CustomerErrorResponseErrors errors;
 
     /**
      * Initialization constructor.
      * @param   reason  The reason for throwing exception
      * @param   context The context of the API exception
      */
-    public CustomersJson422ErrorException(String reason, Context context) {
+    public CustomerErrorResponseException(String reason, Context context) {
         super(reason, context);
     }
 
 
     /**
      * Getter for Errors.
-     * @return Returns the CustomerError
+     * @return Returns the CustomerErrorResponseErrors
      */
     @JsonGetter("errors")
-    public CustomerError getErrors() {
+    public CustomerErrorResponseErrors getErrors() {
         return this.errors;
     }
 
     /**
      * Setter for Errors.
-     * @param errors Value for CustomerError
+     * @param errors Value for CustomerErrorResponseErrors
      */
     @JsonSetter("errors")
-    private void setErrors(CustomerError errors) {
+    private void setErrors(CustomerErrorResponseErrors errors) {
         this.errors = errors;
     }
 }
