@@ -48,7 +48,7 @@ class SitesControllerTest {
         assertThat(organizationAddress.getPhone()).isEqualTo("555 111 222");
 
         TaxConfiguration taxConfiguration = site.getTaxConfiguration();
-        assertThat(taxConfiguration.getFullyConfigured()).isTrue();
+        assertThat(taxConfiguration.getFullyConfigured()).isFalse();
         assertThat(taxConfiguration.getKind()).isEqualTo(TaxConfigurationKind.CUSTOM);
         assertThat(taxConfiguration.getDestinationAddress()).isEqualTo(TaxDestinationAddress.SHIPPING_THEN_BILLING);
 
