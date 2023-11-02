@@ -2,10 +2,10 @@ name: Build & run E2E tests
 on:
   push:
     branches:
-      - "main"
+      - "tests"
   pull_request:
     branches:
-      - "main"
+      - "tests"
 jobs:
   test:
     runs-on: ubuntu-latest
