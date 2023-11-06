@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This is a container class for any-of types.
+ * This is a container class for one-of types.
  */
 @JsonDeserialize(using = CustomerErrorResponseErrors.CustomerErrorResponseErrorsDeserializer.class)
 public abstract class CustomerErrorResponseErrors {
@@ -47,15 +47,15 @@ public abstract class CustomerErrorResponseErrors {
     }
 
     /**
-     * Method to match from the provided any-of cases.
+     * Method to match from the provided one-of cases.
      * @param <R> The type to return after applying callback.
-     * @param cases The any-of type cases callback.
-     * @return The any-of matched case.
+     * @param cases The one-of type cases callback.
+     * @return The one-of matched case.
      */
     public abstract <R> R match(Cases<R> cases);
 
     /**
-     * This is interface for any-of cases.
+     * This is interface for one-of cases.
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
@@ -138,7 +138,7 @@ public abstract class CustomerErrorResponseErrors {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(CustomerErrorCase.class,
-                    ListOfStringCase.class), false);
+                    ListOfStringCase.class), true);
         }
     }
 

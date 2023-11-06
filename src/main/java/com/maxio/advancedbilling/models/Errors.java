@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.List;
 
 /**
  * This is a model class for Errors type.
  */
 public class Errors {
-    private String customer;
+    private List<String> perPage;
+    private List<String> pricePoint;
 
     /**
      * Default constructor.
@@ -24,30 +26,52 @@ public class Errors {
 
     /**
      * Initialization constructor.
-     * @param  customer  String value for customer.
+     * @param  perPage  List of String value for perPage.
+     * @param  pricePoint  List of String value for pricePoint.
      */
     public Errors(
-            String customer) {
-        this.customer = customer;
+            List<String> perPage,
+            List<String> pricePoint) {
+        this.perPage = perPage;
+        this.pricePoint = pricePoint;
     }
 
     /**
-     * Getter for Customer.
-     * @return Returns the String
+     * Getter for PerPage.
+     * @return Returns the List of String
      */
-    @JsonGetter("customer")
+    @JsonGetter("per_page")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCustomer() {
-        return customer;
+    public List<String> getPerPage() {
+        return perPage;
     }
 
     /**
-     * Setter for Customer.
-     * @param customer Value for String
+     * Setter for PerPage.
+     * @param perPage Value for List of String
      */
-    @JsonSetter("customer")
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    @JsonSetter("per_page")
+    public void setPerPage(List<String> perPage) {
+        this.perPage = perPage;
+    }
+
+    /**
+     * Getter for PricePoint.
+     * @return Returns the List of String
+     */
+    @JsonGetter("price_point")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getPricePoint() {
+        return pricePoint;
+    }
+
+    /**
+     * Setter for PricePoint.
+     * @param pricePoint Value for List of String
+     */
+    @JsonSetter("price_point")
+    public void setPricePoint(List<String> pricePoint) {
+        this.pricePoint = pricePoint;
     }
 
     /**
@@ -56,7 +80,7 @@ public class Errors {
      */
     @Override
     public String toString() {
-        return "Errors [" + "customer=" + customer + "]";
+        return "Errors [" + "perPage=" + perPage + ", pricePoint=" + pricePoint + "]";
     }
 
     /**
@@ -66,7 +90,8 @@ public class Errors {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .customer(getCustomer());
+                .perPage(getPerPage())
+                .pricePoint(getPricePoint());
         return builder;
     }
 
@@ -74,17 +99,28 @@ public class Errors {
      * Class to build instances of {@link Errors}.
      */
     public static class Builder {
-        private String customer;
+        private List<String> perPage;
+        private List<String> pricePoint;
 
 
 
         /**
-         * Setter for customer.
-         * @param  customer  String value for customer.
+         * Setter for perPage.
+         * @param  perPage  List of String value for perPage.
          * @return Builder
          */
-        public Builder customer(String customer) {
-            this.customer = customer;
+        public Builder perPage(List<String> perPage) {
+            this.perPage = perPage;
+            return this;
+        }
+
+        /**
+         * Setter for pricePoint.
+         * @param  pricePoint  List of String value for pricePoint.
+         * @return Builder
+         */
+        public Builder pricePoint(List<String> pricePoint) {
+            this.pricePoint = pricePoint;
             return this;
         }
 
@@ -93,7 +129,7 @@ public class Errors {
          * @return {@link Errors}
          */
         public Errors build() {
-            return new Errors(customer);
+            return new Errors(perPage, pricePoint);
         }
     }
 }

@@ -11,7 +11,6 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.CustomerErrorResponseException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
@@ -281,7 +280,7 @@ public final class CustomersController extends BaseController {
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
-                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                                (reason, context) -> new CustomerErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

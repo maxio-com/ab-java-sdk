@@ -8,7 +8,6 @@ package com.maxio.advancedbilling.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.Errors;
 import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
 import io.apimatic.coreinterfaces.http.Context;
 
