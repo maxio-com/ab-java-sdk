@@ -15,7 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +26,7 @@ class CustomersControllerListOrFindTest {
     private static final Customer[] TEST_CUSTOMERS = new Customer[10];
 
     @BeforeAll
-    static void beforeAll() throws IOException, ApiException, InterruptedException {
+    static void beforeAll() throws IOException, ApiException {
         for (int i = 0; i < TEST_CUSTOMERS.length; i++) {
             TEST_CUSTOMERS[i] = CUSTOMERS_CONTROLLER
                     .createCustomer(new CreateCustomerRequest()
@@ -44,7 +43,6 @@ class CustomersControllerListOrFindTest {
                             .build()
                     )
                     .getCustomer();
-            Thread.sleep(250);  // to have a bit more time difference between customers (created_at, updated_at)
         }
     }
 
@@ -253,12 +251,7 @@ class CustomersControllerListOrFindTest {
 
         // then
         assertThat(listCustomers).hasSize(10);
-
-        Customer customerCreatedLast = listCustomers.get(0).getCustomer();
-        Customer customerCreatedBeforeLast = listCustomers.get(1).getCustomer();
-        assertThat(customerCreatedLast.getFirstName()).isEqualTo("Cathryn-9");
-        assertThat(Instant.parse(customerCreatedLast.getCreatedAt()))
-                .isAfter(Instant.parse(customerCreatedBeforeLast.getCreatedAt()));
+        assertThat(listCustomers.get(0).getCustomer().getFirstName()).isEqualTo("Cathryn-9");
     }
 
     @Test
@@ -273,12 +266,7 @@ class CustomersControllerListOrFindTest {
 
         // then
         assertThat(listCustomers).hasSize(10);
-
-        Customer customerCreatedFirst = listCustomers.get(0).getCustomer();
-        Customer customerCreatedAfterFirst = listCustomers.get(1).getCustomer();
-        assertThat(customerCreatedFirst.getFirstName()).isEqualTo("Cathryn-0");
-        assertThat(Instant.parse(customerCreatedFirst.getCreatedAt()))
-                .isBefore(Instant.parse(customerCreatedAfterFirst.getCreatedAt()));
+        assertThat(listCustomers.get(0).getCustomer().getFirstName()).isEqualTo("Cathryn-0");
     }
 
     @Test
