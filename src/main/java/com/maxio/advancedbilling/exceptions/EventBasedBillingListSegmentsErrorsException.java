@@ -8,15 +8,15 @@ package com.maxio.advancedbilling.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.Errors1;
+import com.maxio.advancedbilling.models.Errors;
 import io.apimatic.coreinterfaces.http.Context;
 
 /**
  * This is a model class for EventBasedBillingListSegmentsErrorsException type.
  */
 public class EventBasedBillingListSegmentsErrorsException extends ApiException {
-    private static final long serialVersionUID = -31855399155193846L;
-    private Errors1 errors;
+    private static final long serialVersionUID = -31855400256883691L;
+    private Errors errors;
 
     /**
      * Initialization constructor.
@@ -30,19 +30,19 @@ public class EventBasedBillingListSegmentsErrorsException extends ApiException {
 
     /**
      * Getter for Errors.
-     * @return Returns the Errors1
+     * @return Returns the Errors
      */
     @JsonGetter("errors")
-    public Errors1 getErrors() {
+    public Errors getErrors() {
         return this.errors;
     }
 
     /**
      * Setter for Errors.
-     * @param errors Value for Errors1
+     * @param errors Value for Errors
      */
     @JsonSetter("errors")
-    private void setErrors(Errors1 errors) {
+    private void setErrors(Errors errors) {
         this.errors = errors;
     }
 }

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Errors` | [`CustomerErrorResponseErrors`](../../doc/models/containers/customer-error-response-errors.md) | Optional | This is a container for any-of cases. | CustomerErrorResponseErrors getErrors() | setErrors(CustomerErrorResponseErrors errors) |
+| `Errors` | [`CustomerErrorResponseErrors`](../../doc/models/containers/customer-error-response-errors.md) | Optional | This is a container for one-of cases. | CustomerErrorResponseErrors getErrors() | setErrors(CustomerErrorResponseErrors errors) |
 
 ## Example (as JSON)
 
