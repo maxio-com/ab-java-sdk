@@ -644,7 +644,7 @@ public final class SubscriptionsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
                 .build();
     }
 
@@ -799,7 +799,7 @@ public final class SubscriptionsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
                 .build();
     }
 
