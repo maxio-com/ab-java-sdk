@@ -211,7 +211,19 @@ By default, proforma invoices returned on the index will only include totals, no
 
 ```java
 List<ProformaInvoice> listProformaInvoices(
-    final ListProformaInvoicesInput input)
+    final String subscriptionId,
+    final String startDate,
+    final String endDate,
+    final Status status,
+    final Integer page,
+    final Integer perPage,
+    final Direction direction,
+    final Boolean lineItems,
+    final Boolean discounts,
+    final Boolean taxes,
+    final Boolean credits,
+    final Boolean payments,
+    final Boolean customFields)
 ```
 
 ## Parameters
@@ -239,22 +251,19 @@ List<ProformaInvoice> listProformaInvoices(
 ## Example Usage
 
 ```java
-ListProformaInvoicesInput listProformaInvoicesInput = new ListProformaInvoicesInput.Builder(
-    "subscription_id0"
-)
-.page(2)
-.perPage(50)
-.direction(Direction.DESC)
-.lineItems(false)
-.discounts(false)
-.taxes(false)
-.credits(false)
-.payments(false)
-.customFields(false)
-.build();
+String subscriptionId = "subscription_id0";
+Integer page = 2;
+Integer perPage = 50;
+Direction direction = Direction.DESC;
+Boolean lineItems = false;
+Boolean discounts = false;
+Boolean taxes = false;
+Boolean credits = false;
+Boolean payments = false;
+Boolean customFields = false;
 
 try {
-    List<ProformaInvoice> result = proformaInvoicesController.listProformaInvoices(listProformaInvoicesInput);
+    List<ProformaInvoice> result = proformaInvoicesController.listProformaInvoices(subscriptionId, null, null, null, page, perPage, direction, lineItems, discounts, taxes, credits, payments, customFields);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

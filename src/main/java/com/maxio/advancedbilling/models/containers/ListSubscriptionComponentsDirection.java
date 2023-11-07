@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ListAllProductPricePointsInputDirection.ListAllProductPricePointsInputDirectionDeserializer.class)
-public abstract class ListAllProductPricePointsInputDirection {
+@JsonDeserialize(using = ListSubscriptionComponentsDirection.ListSubscriptionComponentsDirectionDeserializer.class)
+public abstract class ListSubscriptionComponentsDirection {
     
     /**
      * This is Sorting direction case.
      * @param sortingDirection SortingDirection value for sortingDirection.
      * @return The SortingDirectionCase object.
      */
-    public static ListAllProductPricePointsInputDirection fromSortingDirection(
+    public static ListSubscriptionComponentsDirection fromSortingDirection(
             SortingDirection sortingDirection) {
         return sortingDirection == null ? null : new SortingDirectionCase(sortingDirection);
     }
@@ -64,7 +64,7 @@ public abstract class ListAllProductPricePointsInputDirection {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SortingDirection")
-    private static class SortingDirectionCase extends ListAllProductPricePointsInputDirection {
+    private static class SortingDirectionCase extends ListSubscriptionComponentsDirection {
 
         @JsonValue
         private SortingDirection sortingDirection;
@@ -99,13 +99,13 @@ public abstract class ListAllProductPricePointsInputDirection {
     }
 
     /**
-     * This is a custom deserializer class for ListAllProductPricePointsInputDirection.
+     * This is a custom deserializer class for ListSubscriptionComponentsDirection.
      */
-    protected static class ListAllProductPricePointsInputDirectionDeserializer
-            extends JsonDeserializer<ListAllProductPricePointsInputDirection> {
+    protected static class ListSubscriptionComponentsDirectionDeserializer
+            extends JsonDeserializer<ListSubscriptionComponentsDirection> {
 
         @Override
-        public ListAllProductPricePointsInputDirection deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ListSubscriptionComponentsDirection deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

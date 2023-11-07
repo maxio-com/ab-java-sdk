@@ -29,7 +29,11 @@ Access to the Sales Commission API endpoints is available to users with financia
 
 ```java
 List<SaleRepSettings> listSalesCommissionSettings(
-    final ListSalesCommissionSettingsInput input)
+    final String sellerId,
+    final String authorization,
+    final Boolean liveMode,
+    final Integer page,
+    final Integer perPage)
 ```
 
 ## Parameters
@@ -49,16 +53,13 @@ List<SaleRepSettings> listSalesCommissionSettings(
 ## Example Usage
 
 ```java
-ListSalesCommissionSettingsInput listSalesCommissionSettingsInput = new ListSalesCommissionSettingsInput.Builder(
-    "seller_id8"
-)
-.authorization("Bearer <<apiKey>>")
-.page(2)
-.perPage(100)
-.build();
+String sellerId = "seller_id8";
+String authorization = "Bearer <<apiKey>>";
+Integer page = 2;
+Integer perPage = 100;
 
 try {
-    List<SaleRepSettings> result = salesCommissionsController.listSalesCommissionSettings(listSalesCommissionSettingsInput);
+    List<SaleRepSettings> result = salesCommissionsController.listSalesCommissionSettings(sellerId, authorization, null, page, perPage);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -116,7 +117,11 @@ Access to the Sales Commission API endpoints is available to users with financia
 
 ```java
 List<ListSaleRepItem> listSalesReps(
-    final ListSalesRepsInput input)
+    final String sellerId,
+    final String authorization,
+    final Boolean liveMode,
+    final Integer page,
+    final Integer perPage)
 ```
 
 ## Parameters
@@ -136,16 +141,13 @@ List<ListSaleRepItem> listSalesReps(
 ## Example Usage
 
 ```java
-ListSalesRepsInput listSalesRepsInput = new ListSalesRepsInput.Builder(
-    "seller_id8"
-)
-.authorization("Bearer <<apiKey>>")
-.page(2)
-.perPage(100)
-.build();
+String sellerId = "seller_id8";
+String authorization = "Bearer <<apiKey>>";
+Integer page = 2;
+Integer perPage = 100;
 
 try {
-    List<ListSaleRepItem> result = salesCommissionsController.listSalesReps(listSalesRepsInput);
+    List<ListSaleRepItem> result = salesCommissionsController.listSalesReps(sellerId, authorization, null, page, perPage);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

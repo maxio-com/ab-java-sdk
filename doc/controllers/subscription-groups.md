@@ -175,7 +175,9 @@ Account balance information for the subscription groups is not returned by defau
 
 ```java
 ListSubscriptionGroupsResponse listSubscriptionGroups(
-    final ListSubscriptionGroupsInput input)
+    final Integer page,
+    final Integer perPage,
+    final String include)
 ```
 
 ## Parameters
@@ -193,13 +195,11 @@ ListSubscriptionGroupsResponse listSubscriptionGroups(
 ## Example Usage
 
 ```java
-ListSubscriptionGroupsInput listSubscriptionGroupsInput = new ListSubscriptionGroupsInput.Builder()
-    .page(2)
-    .perPage(50)
-    .build();
+Integer page = 2;
+Integer perPage = 50;
 
 try {
-    ListSubscriptionGroupsResponse result = subscriptionGroupsController.listSubscriptionGroups(listSubscriptionGroupsInput);
+    ListSubscriptionGroupsResponse result = subscriptionGroupsController.listSubscriptionGroups(page, perPage, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

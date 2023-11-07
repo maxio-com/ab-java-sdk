@@ -11,18 +11,18 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
+import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.CreateMetadataRequest;
 import com.maxio.advancedbilling.models.CreateMetafieldsRequest;
-import com.maxio.advancedbilling.models.ListMetadataInput;
-import com.maxio.advancedbilling.models.ListMetafieldsInput;
 import com.maxio.advancedbilling.models.ListMetafieldsResponse;
 import com.maxio.advancedbilling.models.Metadata;
 import com.maxio.advancedbilling.models.Metafield;
 import com.maxio.advancedbilling.models.PaginatedMetadata;
-import com.maxio.advancedbilling.models.ReadMetadataInput;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.UpdateMetadataRequest;
 import com.maxio.advancedbilling.models.UpdateMetafieldsRequest;
+import com.maxio.advancedbilling.models.containers.ListMetadataDirection;
+import com.maxio.advancedbilling.models.containers.ListMetafieldsDirection;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -112,35 +112,55 @@ public final class CustomFieldsController extends BaseController {
     /**
      * This endpoint lists metafields associated with a site. The metafield description and usage is
      * contained in the response.
-     * @param  input  ListMetafieldsInput object containing request parameters
+     * @param  resourceType  Required parameter: the resource type to which the metafields belong
+     * @param  name  Optional parameter: filter by the name of the metafield
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
+     *         in query `direction=asc`.
      * @return    Returns the ListMetafieldsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListMetafieldsResponse listMetafields(
-            final ListMetafieldsInput input) throws ApiException, IOException {
-        return prepareListMetafieldsRequest(input).execute();
+            final ResourceType resourceType,
+            final String name,
+            final Integer page,
+            final Integer perPage,
+            final ListMetafieldsDirection direction) throws ApiException, IOException {
+        return prepareListMetafieldsRequest(resourceType, name, page, perPage, direction).execute();
     }
 
     /**
      * Builds the ApiCall object for listMetafields.
      */
     private ApiCall<ListMetafieldsResponse, ApiException> prepareListMetafieldsRequest(
-            final ListMetafieldsInput input) throws IOException {
+            final ResourceType resourceType,
+            final String name,
+            final Integer page,
+            final Integer perPage,
+            final ListMetafieldsDirection direction) throws IOException {
         return new ApiCall.Builder<ListMetafieldsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/{resource_type}/metafields.json")
                         .queryParam(param -> param.key("name")
-                                .value(input.getName()).isRequired(false))
+                                .value(name).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
-                        .templateParam(param -> param.key("resource_type").value((input.getResourceType() != null) ? input.getResourceType().value() : null)
+                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                        .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -330,33 +350,50 @@ public final class CustomFieldsController extends BaseController {
      * This request will list all of the metadata belonging to a particular resource (ie.
      * subscription, customer) that is specified. ## Metadata Data This endpoint will also display
      * the current stats of your metadata to use as a tool for pagination.
-     * @param  input  ReadMetadataInput object containing request parameters
+     * @param  resourceType  Required parameter: the resource type to which the metafields belong
+     * @param  resourceId  Required parameter: The Chargify id of the customer or the subscription
+     *         for which the metadata applies
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
      * @return    Returns the PaginatedMetadata response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public PaginatedMetadata readMetadata(
-            final ReadMetadataInput input) throws ApiException, IOException {
-        return prepareReadMetadataRequest(input).execute();
+            final ResourceType resourceType,
+            final String resourceId,
+            final Integer page,
+            final Integer perPage) throws ApiException, IOException {
+        return prepareReadMetadataRequest(resourceType, resourceId, page, perPage).execute();
     }
 
     /**
      * Builds the ApiCall object for readMetadata.
      */
     private ApiCall<PaginatedMetadata, ApiException> prepareReadMetadataRequest(
-            final ReadMetadataInput input) throws IOException {
+            final ResourceType resourceType,
+            final String resourceId,
+            final Integer page,
+            final Integer perPage) throws IOException {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
-                        .templateParam(param -> param.key("resource_type").value((input.getResourceType() != null) ? input.getResourceType().value() : null)
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                        .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("resource_id").value(input.getResourceId())
+                        .templateParam(param -> param.key("resource_id").value(resourceId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -493,47 +530,101 @@ public final class CustomFieldsController extends BaseController {
      * `https://acme.chargify.com/subscriptions/metadata.json?resource_ids[]=1&amp;resource_ids[]=2` ##
      * Read Metadata for a Site This endpoint will list the number of pages of metadata information
      * that are contained within a site.
-     * @param  input  ListMetadataInput object containing request parameters
+     * @param  resourceType  Required parameter: the resource type to which the metafields belong
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  dateField  Optional parameter: The type of filter you would like to apply to your
+     *         search.
+     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns metadata with a timestamp at or after midnight
+     *         (12:00:00 AM) in your site’s time zone on the date specified.
+     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
+     *         the date_field. Returns metadata with a timestamp up to and including 11:59:59PM in
+     *         your site’s time zone on the date specified.
+     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
+     *         HH:MM:SS) with which to filter the date_field. Returns metadata with a timestamp at
+     *         or after exact time provided in query. You can specify timezone in query - otherwise
+     *         your site's time zone will be used. If provided, this parameter will be used instead
+     *         of start_date.
+     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
+     *         with which to filter the date_field. Returns metadata with a timestamp at or before
+     *         exact time provided in query. You can specify timezone in query - otherwise your
+     *         site's time zone will be used. If provided, this parameter will be used instead of
+     *         end_date.
+     * @param  withDeleted  Optional parameter: Allow to fetch deleted metadata.
+     * @param  resourceIds  Optional parameter: Allow to fetch metadata for multiple records based
+     *         on provided ids. Use in query:
+     *         `resource_ids[]=122&amp;resource_ids[]=123&amp;resource_ids[]=124`.
+     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
+     *         in query `direction=asc`.
      * @return    Returns the PaginatedMetadata response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public PaginatedMetadata listMetadata(
-            final ListMetadataInput input) throws ApiException, IOException {
-        return prepareListMetadataRequest(input).execute();
+            final ResourceType resourceType,
+            final Integer page,
+            final Integer perPage,
+            final BasicDateField dateField,
+            final String startDate,
+            final String endDate,
+            final String startDatetime,
+            final String endDatetime,
+            final Boolean withDeleted,
+            final List<Integer> resourceIds,
+            final ListMetadataDirection direction) throws ApiException, IOException {
+        return prepareListMetadataRequest(resourceType, page, perPage, dateField, startDate,
+                endDate, startDatetime, endDatetime, withDeleted, resourceIds, direction).execute();
     }
 
     /**
      * Builds the ApiCall object for listMetadata.
      */
     private ApiCall<PaginatedMetadata, ApiException> prepareListMetadataRequest(
-            final ListMetadataInput input) throws IOException {
+            final ResourceType resourceType,
+            final Integer page,
+            final Integer perPage,
+            final BasicDateField dateField,
+            final String startDate,
+            final String endDate,
+            final String startDatetime,
+            final String endDatetime,
+            final Boolean withDeleted,
+            final List<Integer> resourceIds,
+            final ListMetadataDirection direction) throws IOException {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/{resource_type}/metadata.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
                         .queryParam(param -> param.key("date_field")
-                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
+                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(input.getStartDate()).isRequired(false))
+                                .value(startDate).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(input.getEndDate()).isRequired(false))
+                                .value(endDate).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(input.getStartDatetime()).isRequired(false))
+                                .value(startDatetime).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(input.getEndDatetime()).isRequired(false))
+                                .value(endDatetime).isRequired(false))
                         .queryParam(param -> param.key("with_deleted")
-                                .value(input.getWithDeleted()).isRequired(false))
+                                .value(withDeleted).isRequired(false))
                         .queryParam(param -> param.key("resource_ids[]")
-                                .value(input.getResourceIds()).isRequired(false))
+                                .value(resourceIds).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
-                        .templateParam(param -> param.key("resource_type").value((input.getResourceType() != null) ? input.getResourceType().value() : null)
+                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                        .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

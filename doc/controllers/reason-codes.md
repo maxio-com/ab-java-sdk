@@ -86,7 +86,8 @@ This method gives a merchant the option to retrieve a list of all of the current
 
 ```java
 List<ReasonCodeResponse> listReasonCodes(
-    final ListReasonCodesInput input)
+    final Integer page,
+    final Integer perPage)
 ```
 
 ## Parameters
@@ -103,13 +104,11 @@ List<ReasonCodeResponse> listReasonCodes(
 ## Example Usage
 
 ```java
-ListReasonCodesInput listReasonCodesInput = new ListReasonCodesInput.Builder()
-    .page(2)
-    .perPage(50)
-    .build();
+Integer page = 2;
+Integer perPage = 50;
 
 try {
-    List<ReasonCodeResponse> result = reasonCodesController.listReasonCodes(listReasonCodesInput);
+    List<ReasonCodeResponse> result = reasonCodesController.listReasonCodes(page, perPage);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

@@ -490,7 +490,17 @@ This method allows to retrieve a list of Products belonging to a Site.
 
 ```java
 List<ProductResponse> listProducts(
-    final ListProductsInput input)
+    final BasicDateField dateField,
+    final String endDate,
+    final String endDatetime,
+    final String startDate,
+    final String startDatetime,
+    final Integer page,
+    final Integer perPage,
+    final Boolean includeArchived,
+    final ListProductsInclude include,
+    final IncludeNotNull filterPrepaidProductPricePointProductPricePointId,
+    final Boolean filterUseSiteExchangeRate)
 ```
 
 ## Parameters
@@ -516,16 +526,14 @@ List<ProductResponse> listProducts(
 ## Example Usage
 
 ```java
-ListProductsInput listProductsInput = new ListProductsInput.Builder()
-    .dateField(BasicDateField.UPDATED_AT)
-    .page(2)
-    .perPage(50)
-    .includeArchived(true)
-    .include(ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .build();
-
+BasicDateField dateField = BasicDateField.UPDATED_AT;
+Integer page = 2;
+Integer perPage = 50;
+Boolean includeArchived = true;
+ListProductsInclude include = ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    List<ProductResponse> result = productsController.listProducts(listProductsInput);
+    List<ProductResponse> result = productsController.listProducts(dateField, null, null, null, null, page, perPage, includeArchived, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

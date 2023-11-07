@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ListSubscriptionComponentsForSiteInputDirection.ListSubscriptionComponentsForSiteInputDirectionDeserializer.class)
-public abstract class ListSubscriptionComponentsForSiteInputDirection {
+@JsonDeserialize(using = ListAllComponentPricePointsDirection.ListAllComponentPricePointsDirectionDeserializer.class)
+public abstract class ListAllComponentPricePointsDirection {
     
     /**
      * This is Sorting direction case.
      * @param sortingDirection SortingDirection value for sortingDirection.
      * @return The SortingDirectionCase object.
      */
-    public static ListSubscriptionComponentsForSiteInputDirection fromSortingDirection(
+    public static ListAllComponentPricePointsDirection fromSortingDirection(
             SortingDirection sortingDirection) {
         return sortingDirection == null ? null : new SortingDirectionCase(sortingDirection);
     }
@@ -64,7 +64,7 @@ public abstract class ListSubscriptionComponentsForSiteInputDirection {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SortingDirection")
-    private static class SortingDirectionCase extends ListSubscriptionComponentsForSiteInputDirection {
+    private static class SortingDirectionCase extends ListAllComponentPricePointsDirection {
 
         @JsonValue
         private SortingDirection sortingDirection;
@@ -99,13 +99,13 @@ public abstract class ListSubscriptionComponentsForSiteInputDirection {
     }
 
     /**
-     * This is a custom deserializer class for ListSubscriptionComponentsForSiteInputDirection.
+     * This is a custom deserializer class for ListAllComponentPricePointsDirection.
      */
-    protected static class ListSubscriptionComponentsForSiteInputDirectionDeserializer
-            extends JsonDeserializer<ListSubscriptionComponentsForSiteInputDirection> {
+    protected static class ListAllComponentPricePointsDirectionDeserializer
+            extends JsonDeserializer<ListAllComponentPricePointsDirection> {
 
         @Override
-        public ListSubscriptionComponentsForSiteInputDirection deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ListAllComponentPricePointsDirection deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

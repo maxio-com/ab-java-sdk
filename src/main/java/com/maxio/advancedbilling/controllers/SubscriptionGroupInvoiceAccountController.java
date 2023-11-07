@@ -14,7 +14,7 @@ import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.DeductServiceCreditRequest;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
-import com.maxio.advancedbilling.models.ListPrepaymentsForSubscriptionGroupInput;
+import com.maxio.advancedbilling.models.ListSubscriptionGroupPrepaymentDateField;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupPrepaymentResponse;
 import com.maxio.advancedbilling.models.ServiceCredit;
 import com.maxio.advancedbilling.models.ServiceCreditResponse;
@@ -89,37 +89,67 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
 
     /**
      * This request will list a subscription group's prepayments.
-     * @param  input  ListPrepaymentsForSubscriptionGroupInput object containing request parameters
+     * @param  uid  Required parameter: The uid of the subscription group
+     * @param  filterDateField  Optional parameter: The type of filter you would like to apply to
+     *         your search. Use in query: `filter[date_field]=created_at`.
+     * @param  filterEndDate  Optional parameter: The end date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns prepayments with a timestamp up to and including
+     *         11:59:59PM in your site's time zone on the date specified. Use in query:
+     *         `filter[end_date]=2011-12-15`.
+     * @param  filterStartDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns prepayments with a timestamp at or after midnight
+     *         (12:00:00 AM) in your site's time zone on the date specified. Use in query:
+     *         `filter[start_date]=2011-12-15`.
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
      * @return    Returns the ListSubscriptionGroupPrepaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListSubscriptionGroupPrepaymentResponse listPrepaymentsForSubscriptionGroup(
-            final ListPrepaymentsForSubscriptionGroupInput input) throws ApiException, IOException {
-        return prepareListPrepaymentsForSubscriptionGroupRequest(input).execute();
+            final String uid,
+            final ListSubscriptionGroupPrepaymentDateField filterDateField,
+            final String filterEndDate,
+            final String filterStartDate,
+            final Integer page,
+            final Integer perPage) throws ApiException, IOException {
+        return prepareListPrepaymentsForSubscriptionGroupRequest(uid, filterDateField,
+                filterEndDate, filterStartDate, page, perPage).execute();
     }
 
     /**
      * Builds the ApiCall object for listPrepaymentsForSubscriptionGroup.
      */
     private ApiCall<ListSubscriptionGroupPrepaymentResponse, ApiException> prepareListPrepaymentsForSubscriptionGroupRequest(
-            final ListPrepaymentsForSubscriptionGroupInput input) throws IOException {
+            final String uid,
+            final ListSubscriptionGroupPrepaymentDateField filterDateField,
+            final String filterEndDate,
+            final String filterStartDate,
+            final Integer page,
+            final Integer perPage) throws IOException {
         return new ApiCall.Builder<ListSubscriptionGroupPrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscription_groups/{uid}/prepayments.json")
                         .queryParam(param -> param.key("filter[date_field]")
-                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
+                                .value((filterDateField != null) ? filterDateField.value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(input.getFilterEndDate()).isRequired(false))
+                                .value(filterEndDate).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(input.getFilterStartDate()).isRequired(false))
+                                .value(filterStartDate).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
-                        .templateParam(param -> param.key("uid").value(input.getUid())
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                        .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

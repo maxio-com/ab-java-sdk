@@ -37,7 +37,13 @@ This method allows you to fetch data about webhooks. You can pass query paramete
 
 ```java
 List<WebhookResponse> listWebhooks(
-    final ListWebhooksInput input)
+    final WebhookStatus status,
+    final String sinceDate,
+    final String untilDate,
+    final Integer page,
+    final Integer perPage,
+    final WebhookOrder order,
+    final Integer subscription)
 ```
 
 ## Parameters
@@ -59,13 +65,11 @@ List<WebhookResponse> listWebhooks(
 ## Example Usage
 
 ```java
-ListWebhooksInput listWebhooksInput = new ListWebhooksInput.Builder()
-    .page(2)
-    .perPage(50)
-    .build();
+Integer page = 2;
+Integer perPage = 50;
 
 try {
-    List<WebhookResponse> result = webhooksController.listWebhooks(listWebhooksInput);
+    List<WebhookResponse> result = webhooksController.listWebhooks(null, null, null, page, perPage, null, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

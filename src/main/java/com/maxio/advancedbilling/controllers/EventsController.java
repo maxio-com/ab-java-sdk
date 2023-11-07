@@ -11,10 +11,10 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CountResponse;
+import com.maxio.advancedbilling.models.Direction;
 import com.maxio.advancedbilling.models.EventResponse;
-import com.maxio.advancedbilling.models.ListEventsInput;
-import com.maxio.advancedbilling.models.ListSubscriptionEventsInput;
-import com.maxio.advancedbilling.models.ReadEventsCountInput;
+import com.maxio.advancedbilling.models.EventType;
+import com.maxio.advancedbilling.models.ListEventsDateField;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
@@ -57,48 +57,102 @@ public final class EventsController extends BaseController {
      * from trialing to active", "subscription_id": 205, "event_specific_data": {
      * "new_subscription_state": "active", "previous_subscription_state": "trialing" },
      * "created_at": "2012-01-30T10:43:33-05:00" } } ```.
-     * @param  input  ListEventsInput object containing request parameters
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  sinceId  Optional parameter: Returns events with an id greater than or equal to the
+     *         one specified
+     * @param  maxId  Optional parameter: Returns events with an id less than or equal to the one
+     *         specified
+     * @param  direction  Optional parameter: The sort direction of the returned events.
+     * @param  filter  Optional parameter: You can pass multiple event keys after comma. Use in
+     *         query `filter=signup_success,payment_success`.
+     * @param  dateField  Optional parameter: The type of filter you would like to apply to your
+     *         search.
+     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns components with a timestamp at or after midnight
+     *         (12:00:00 AM) in your site’s time zone on the date specified.
+     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
+     *         the date_field. Returns components with a timestamp up to and including 11:59:59PM in
+     *         your site’s time zone on the date specified.
+     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
+     *         HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at
+     *         or after exact time provided in query. You can specify timezone in query - otherwise
+     *         your site's time zone will be used. If provided, this parameter will be used instead
+     *         of start_date.
+     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
+     *         with which to filter the date_field. Returns components with a timestamp at or before
+     *         exact time provided in query. You can specify timezone in query - otherwise your
+     *         site's time zone will be used. If provided, this parameter will be used instead of
+     *         end_date.
      * @return    Returns the List of EventResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<EventResponse> listEvents(
-            final ListEventsInput input) throws ApiException, IOException {
-        return prepareListEventsRequest(input).execute();
+            final Integer page,
+            final Integer perPage,
+            final Integer sinceId,
+            final Integer maxId,
+            final Direction direction,
+            final List<EventType> filter,
+            final ListEventsDateField dateField,
+            final String startDate,
+            final String endDate,
+            final String startDatetime,
+            final String endDatetime) throws ApiException, IOException {
+        return prepareListEventsRequest(page, perPage, sinceId, maxId, direction, filter, dateField,
+                startDate, endDate, startDatetime, endDatetime).execute();
     }
 
     /**
      * Builds the ApiCall object for listEvents.
      */
     private ApiCall<List<EventResponse>, ApiException> prepareListEventsRequest(
-            final ListEventsInput input) throws IOException {
+            final Integer page,
+            final Integer perPage,
+            final Integer sinceId,
+            final Integer maxId,
+            final Direction direction,
+            final List<EventType> filter,
+            final ListEventsDateField dateField,
+            final String startDate,
+            final String endDate,
+            final String startDatetime,
+            final String endDatetime) throws IOException {
         return new ApiCall.Builder<List<EventResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/events.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
                         .queryParam(param -> param.key("since_id")
-                                .value(input.getSinceId()).isRequired(false))
+                                .value(sinceId).isRequired(false))
                         .queryParam(param -> param.key("max_id")
-                                .value(input.getMaxId()).isRequired(false))
+                                .value(maxId).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
+                                .value((direction != null) ? direction.value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("filter")
-                                .value(EventType.toValue(input.getFilter())).isRequired(false))
+                                .value(EventType.toValue(filter)).isRequired(false))
                         .queryParam(param -> param.key("date_field")
-                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
+                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(input.getStartDate()).isRequired(false))
+                                .value(startDate).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(input.getEndDate()).isRequired(false))
+                                .value(endDate).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(input.getStartDatetime()).isRequired(false))
+                                .value(startDatetime).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(input.getEndDatetime()).isRequired(false))
+                                .value(endDatetime).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -115,39 +169,68 @@ public final class EventsController extends BaseController {
     /**
      * The following request will return a list of events for a subscription. Each event type has
      * its own `event_specific_data` specified.
-     * @param  input  ListSubscriptionEventsInput object containing request parameters
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  sinceId  Optional parameter: Returns events with an id greater than or equal to the
+     *         one specified
+     * @param  maxId  Optional parameter: Returns events with an id less than or equal to the one
+     *         specified
+     * @param  direction  Optional parameter: The sort direction of the returned events.
+     * @param  filter  Optional parameter: You can pass multiple event keys after comma. Use in
+     *         query `filter=signup_success,payment_success`.
      * @return    Returns the List of EventResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<EventResponse> listSubscriptionEvents(
-            final ListSubscriptionEventsInput input) throws ApiException, IOException {
-        return prepareListSubscriptionEventsRequest(input).execute();
+            final String subscriptionId,
+            final Integer page,
+            final Integer perPage,
+            final Integer sinceId,
+            final Integer maxId,
+            final Direction direction,
+            final List<EventType> filter) throws ApiException, IOException {
+        return prepareListSubscriptionEventsRequest(subscriptionId, page, perPage, sinceId, maxId,
+                direction, filter).execute();
     }
 
     /**
      * Builds the ApiCall object for listSubscriptionEvents.
      */
     private ApiCall<List<EventResponse>, ApiException> prepareListSubscriptionEventsRequest(
-            final ListSubscriptionEventsInput input) throws IOException {
+            final String subscriptionId,
+            final Integer page,
+            final Integer perPage,
+            final Integer sinceId,
+            final Integer maxId,
+            final Direction direction,
+            final List<EventType> filter) throws IOException {
         return new ApiCall.Builder<List<EventResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/events.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
                         .queryParam(param -> param.key("since_id")
-                                .value(input.getSinceId()).isRequired(false))
+                                .value(sinceId).isRequired(false))
                         .queryParam(param -> param.key("max_id")
-                                .value(input.getMaxId()).isRequired(false))
+                                .value(maxId).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
+                                .value((direction != null) ? direction.value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("filter")
-                                .value(EventType.toValue(input.getFilter())).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                                .value(EventType.toValue(filter)).isRequired(false))
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -164,38 +247,64 @@ public final class EventsController extends BaseController {
 
     /**
      * Get a count of all the events for a given site by using this method.
-     * @param  input  ReadEventsCountInput object containing request parameters
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  sinceId  Optional parameter: Returns events with an id greater than or equal to the
+     *         one specified
+     * @param  maxId  Optional parameter: Returns events with an id less than or equal to the one
+     *         specified
+     * @param  direction  Optional parameter: The sort direction of the returned events.
+     * @param  filter  Optional parameter: You can pass multiple event keys after comma. Use in
+     *         query `filter=signup_success,payment_success`.
      * @return    Returns the CountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CountResponse readEventsCount(
-            final ReadEventsCountInput input) throws ApiException, IOException {
-        return prepareReadEventsCountRequest(input).execute();
+            final Integer page,
+            final Integer perPage,
+            final Integer sinceId,
+            final Integer maxId,
+            final Direction direction,
+            final List<EventType> filter) throws ApiException, IOException {
+        return prepareReadEventsCountRequest(page, perPage, sinceId, maxId, direction,
+                filter).execute();
     }
 
     /**
      * Builds the ApiCall object for readEventsCount.
      */
     private ApiCall<CountResponse, ApiException> prepareReadEventsCountRequest(
-            final ReadEventsCountInput input) throws IOException {
+            final Integer page,
+            final Integer perPage,
+            final Integer sinceId,
+            final Integer maxId,
+            final Direction direction,
+            final List<EventType> filter) throws IOException {
         return new ApiCall.Builder<CountResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/events/count.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
                         .queryParam(param -> param.key("since_id")
-                                .value(input.getSinceId()).isRequired(false))
+                                .value(sinceId).isRequired(false))
                         .queryParam(param -> param.key("max_id")
-                                .value(input.getMaxId()).isRequired(false))
+                                .value(maxId).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
+                                .value((direction != null) ? direction.value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("filter")
-                                .value(EventType.toValue(input.getFilter())).isRequired(false))
+                                .value(EventType.toValue(filter)).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

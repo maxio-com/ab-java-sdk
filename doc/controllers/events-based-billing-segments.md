@@ -109,7 +109,14 @@ You may specify component and/or price point by using either the numeric ID or t
 
 ```java
 ListSegmentsResponse listSegmentsForPricePoint(
-    final ListSegmentsForPricePointInput input)
+    final String componentId,
+    final String pricePointId,
+    final Integer page,
+    final Integer perPage,
+    final String filterSegmentProperty1Value,
+    final String filterSegmentProperty2Value,
+    final String filterSegmentProperty3Value,
+    final String filterSegmentProperty4Value)
 ```
 
 ## Parameters
@@ -132,16 +139,13 @@ ListSegmentsResponse listSegmentsForPricePoint(
 ## Example Usage
 
 ```java
-ListSegmentsForPricePointInput listSegmentsForPricePointInput = new ListSegmentsForPricePointInput.Builder(
-    "component_id8",
-    "price_point_id8"
-)
-.page(2)
-.perPage(50)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key').build();
-
+String componentId = "component_id8";
+String pricePointId = "price_point_id8";
+Integer page = 2;
+Integer perPage = 50;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    ListSegmentsResponse result = eventsBasedBillingSegmentsController.listSegmentsForPricePoint(listSegmentsForPricePointInput);
+    ListSegmentsResponse result = eventsBasedBillingSegmentsController.listSegmentsForPricePoint(componentId, pricePointId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

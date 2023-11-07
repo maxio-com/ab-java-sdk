@@ -17,7 +17,6 @@ import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BulkCreateSegments;
 import com.maxio.advancedbilling.models.BulkUpdateSegments;
 import com.maxio.advancedbilling.models.CreateSegmentRequest;
-import com.maxio.advancedbilling.models.ListSegmentsForPricePointInput;
 import com.maxio.advancedbilling.models.ListSegmentsResponse;
 import com.maxio.advancedbilling.models.SegmentResponse;
 import com.maxio.advancedbilling.models.UpdateSegmentRequest;
@@ -107,41 +106,81 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * access all of the segments. By default it will return `30` records. You can set `per_page` to
      * `200` at most. You may specify component and/or price point by using either the numeric ID or
      * the `handle:gold` syntax.
-     * @param  input  ListSegmentsForPricePointInput object containing request parameters
+     * @param  componentId  Required parameter: ID or Handle for the Component
+     * @param  pricePointId  Required parameter: ID or Handle for the Price Point belonging to the
+     *         Component
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 30. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  filterSegmentProperty1Value  Optional parameter: The value passed here would be used
+     *         to filter segments. Pass a value related to `segment_property_1` on attached Metric.
+     *         If empty string is passed, this filter would be rejected. Use in query
+     *         `filter[segment_property_1_value]=EU`.
+     * @param  filterSegmentProperty2Value  Optional parameter: The value passed here would be used
+     *         to filter segments. Pass a value related to `segment_property_2` on attached Metric.
+     *         If empty string is passed, this filter would be rejected.
+     * @param  filterSegmentProperty3Value  Optional parameter: The value passed here would be used
+     *         to filter segments. Pass a value related to `segment_property_3` on attached Metric.
+     *         If empty string is passed, this filter would be rejected.
+     * @param  filterSegmentProperty4Value  Optional parameter: The value passed here would be used
+     *         to filter segments. Pass a value related to `segment_property_4` on attached Metric.
+     *         If empty string is passed, this filter would be rejected.
      * @return    Returns the ListSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListSegmentsResponse listSegmentsForPricePoint(
-            final ListSegmentsForPricePointInput input) throws ApiException, IOException {
-        return prepareListSegmentsForPricePointRequest(input).execute();
+            final String componentId,
+            final String pricePointId,
+            final Integer page,
+            final Integer perPage,
+            final String filterSegmentProperty1Value,
+            final String filterSegmentProperty2Value,
+            final String filterSegmentProperty3Value,
+            final String filterSegmentProperty4Value) throws ApiException, IOException {
+        return prepareListSegmentsForPricePointRequest(componentId, pricePointId, page, perPage,
+                filterSegmentProperty1Value, filterSegmentProperty2Value,
+                filterSegmentProperty3Value, filterSegmentProperty4Value).execute();
     }
 
     /**
      * Builds the ApiCall object for listSegmentsForPricePoint.
      */
     private ApiCall<ListSegmentsResponse, ApiException> prepareListSegmentsForPricePointRequest(
-            final ListSegmentsForPricePointInput input) throws IOException {
+            final String componentId,
+            final String pricePointId,
+            final Integer page,
+            final Integer perPage,
+            final String filterSegmentProperty1Value,
+            final String filterSegmentProperty2Value,
+            final String filterSegmentProperty3Value,
+            final String filterSegmentProperty4Value) throws IOException {
         return new ApiCall.Builder<ListSegmentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/segments.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 30).isRequired(false))
                         .queryParam(param -> param.key("filter[segment_property_1_value]")
-                                .value(input.getFilterSegmentProperty1Value()).isRequired(false))
+                                .value(filterSegmentProperty1Value).isRequired(false))
                         .queryParam(param -> param.key("filter[segment_property_2_value]")
-                                .value(input.getFilterSegmentProperty2Value()).isRequired(false))
+                                .value(filterSegmentProperty2Value).isRequired(false))
                         .queryParam(param -> param.key("filter[segment_property_3_value]")
-                                .value(input.getFilterSegmentProperty3Value()).isRequired(false))
+                                .value(filterSegmentProperty3Value).isRequired(false))
                         .queryParam(param -> param.key("filter[segment_property_4_value]")
-                                .value(input.getFilterSegmentProperty4Value()).isRequired(false))
-                        .templateParam(param -> param.key("component_id").value(input.getComponentId())
+                                .value(filterSegmentProperty4Value).isRequired(false))
+                        .templateParam(param -> param.key("component_id").value(componentId)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("price_point_id").value(input.getPricePointId())
+                        .templateParam(param -> param.key("price_point_id").value(pricePointId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
