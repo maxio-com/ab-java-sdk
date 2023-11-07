@@ -58,8 +58,16 @@ public class Customer1 {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  chargifyId  Integer value for chargifyId.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  organization  String value for organization.
+     * @param  email  String value for email.
+     * @param  vatNumber  String value for vatNumber.
+     * @param  reference  String value for reference.
      */
+
     protected Customer1(Integer chargifyId, String firstName, String lastName,
             OptionalNullable<String> organization, String email, OptionalNullable<String> vatNumber,
             OptionalNullable<String> reference) {

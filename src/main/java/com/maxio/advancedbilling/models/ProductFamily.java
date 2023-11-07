@@ -58,8 +58,16 @@ public class ProductFamily {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  accountingCode  String value for accountingCode.
+     * @param  description  String value for description.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
      */
+
     protected ProductFamily(Integer id, String name, String handle,
             OptionalNullable<String> accountingCode, OptionalNullable<String> description,
             String createdAt, String updatedAt) {

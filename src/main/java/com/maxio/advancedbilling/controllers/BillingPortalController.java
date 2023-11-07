@@ -50,7 +50,7 @@ public final class BillingPortalController extends BaseController {
      * you need to provide your customer their Management URL through other means, you can retrieve
      * it via the API. Because the URL is cryptographically signed with a timestamp, it is not
      * possible for merchants to generate the URL without requesting it from Chargify. In order to
-     * prevent abuse & overuse, we ask that you request a new URL only when absolutely necessary.
+     * prevent abuse &amp; overuse, we ask that you request a new URL only when absolutely necessary.
      * Management URLs are good for 65 days, so you should re-use a previously generated one as much
      * as possible. If you use the URL frequently (such as to display on your website), please **do
      * not** make an API request to Chargify every time.

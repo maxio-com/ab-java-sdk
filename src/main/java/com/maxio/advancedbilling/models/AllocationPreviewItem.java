@@ -86,8 +86,23 @@ public class AllocationPreviewItem {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  componentId  Integer value for componentId.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  quantity  Double value for quantity.
+     * @param  previousQuantity  Integer value for previousQuantity.
+     * @param  memo  String value for memo.
+     * @param  timestamp  String value for timestamp.
+     * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
+     * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
+     * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  upgradeCharge  String value for upgradeCharge.
+     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  pricePointId  Integer value for pricePointId.
+     * @param  previousPricePointId  Integer value for previousPricePointId.
+     * @param  componentHandle  String value for componentHandle.
      */
+
     protected AllocationPreviewItem(Integer componentId, Integer subscriptionId, Double quantity,
             Integer previousQuantity, String memo, OptionalNullable<String> timestamp,
             String prorationUpgradeScheme, String prorationDowngradeScheme, Boolean accrueCharge,

@@ -45,8 +45,12 @@ public class Price {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  startingQuantity  PriceStartingQuantity value for startingQuantity.
+     * @param  unitPrice  PriceUnitPrice value for unitPrice.
+     * @param  endingQuantity  PriceEndingQuantity value for endingQuantity.
      */
+
     protected Price(PriceStartingQuantity startingQuantity, PriceUnitPrice unitPrice,
             OptionalNullable<PriceEndingQuantity> endingQuantity) {
         this.startingQuantity = startingQuantity;

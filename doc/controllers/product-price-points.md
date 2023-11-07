@@ -112,11 +112,7 @@ Use this endpoint to retrieve a list of product price points.
 
 ```java
 ListProductPricePointsResponse listProductPricePoints(
-    final int productId,
-    final Integer page,
-    final Integer perPage,
-    final Boolean currencyPrices,
-    final List<PricePointType> filterType)
+    final ListProductPricePointsInput input)
 ```
 
 ## Parameters
@@ -136,11 +132,15 @@ ListProductPricePointsResponse listProductPricePoints(
 ## Example Usage
 
 ```java
-int productId = 202;
-Integer page = 2;
-Integer perPage = 10;
-Liquid error: Value cannot be null. (Parameter 'key')try {
-    ListProductPricePointsResponse result = productPricePointsController.listProductPricePoints(productId, page, perPage, null, Liquid error: Value cannot be null. (Parameter 'key'));
+ListProductPricePointsInput listProductPricePointsInput = new ListProductPricePointsInput.Builder(
+    202
+)
+.page(2)
+.perPage(10)
+Liquid error: Value cannot be null. (Parameter 'key').build();
+
+try {
+    ListProductPricePointsResponse result = productPricePointsController.listProductPricePoints(listProductPricePointsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -769,25 +769,14 @@ This method allows retrieval of a list of Products Price Points belonging to a S
 
 ```java
 ListProductPricePointsResponse listAllProductPricePoints(
-    final ListAllProductPricePointsDirection direction,
-    final IncludeNotNull filterArchivedAt,
-    final BasicDateField filterDateField,
-    final String filterEndDate,
-    final String filterEndDatetime,
-    final List<Integer> filterIds,
-    final String filterStartDate,
-    final String filterStartDatetime,
-    final PricePointType filterType,
-    final ListProductsPricePointsInclude include,
-    final Integer page,
-    final Integer perPage)
+    final ListAllProductPricePointsInput input)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `direction` | [`ListAllProductPricePointsDirection`](../../doc/models/containers/list-all-product-price-points-direction.md) | Query, Optional | This is a container for one-of cases. |
+| `direction` | [`ListAllProductPricePointsInputDirection`](../../doc/models/containers/list-all-product-price-points-input-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `filterArchivedAt` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
 | `filterDateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query: `filter[date_field]=created_at`. |
 | `filterEndDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
@@ -807,12 +796,14 @@ ListProductPricePointsResponse listAllProductPricePoints(
 ## Example Usage
 
 ```java
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')ListProductsPricePointsInclude include = ListProductsPricePointsInclude.CURRENCY_PRICES;
-Integer page = 2;
-Integer perPage = 50;
+ListAllProductPricePointsInput listAllProductPricePointsInput = new ListAllProductPricePointsInput.Builder()
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .include(ListProductsPricePointsInclude.CURRENCY_PRICES)
+    .page(2)
+    .perPage(50)
+    .build();
 
 try {
-    ListProductPricePointsResponse result = productPricePointsController.listAllProductPricePoints(null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), include, page, perPage);
+    ListProductPricePointsResponse result = productPricePointsController.listAllProductPricePoints(listAllProductPricePointsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

@@ -278,8 +278,71 @@ public class Subscription {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  state  String value for state.
+     * @param  balanceInCents  Integer value for balanceInCents.
+     * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
+     * @param  productPriceInCents  Integer value for productPriceInCents.
+     * @param  productVersionNumber  Integer value for productVersionNumber.
+     * @param  currentPeriodEndsAt  String value for currentPeriodEndsAt.
+     * @param  nextAssessmentAt  String value for nextAssessmentAt.
+     * @param  trialStartedAt  String value for trialStartedAt.
+     * @param  trialEndedAt  String value for trialEndedAt.
+     * @param  activatedAt  String value for activatedAt.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  cancellationMessage  String value for cancellationMessage.
+     * @param  cancellationMethod  SubscriptionCancellationMethod value for cancellationMethod.
+     * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  currentPeriodStartedAt  String value for currentPeriodStartedAt.
+     * @param  previousState  String value for previousState.
+     * @param  signupPaymentId  Integer value for signupPaymentId.
+     * @param  signupRevenue  String value for signupRevenue.
+     * @param  delayedCancelAt  String value for delayedCancelAt.
+     * @param  couponCode  String value for couponCode.
+     * @param  snapDay  String value for snapDay.
+     * @param  paymentCollectionMethod  SubscriptionPaymentCollectionMethod value for
+     *         paymentCollectionMethod.
+     * @param  customer  Customer value for customer.
+     * @param  product  Product value for product.
+     * @param  creditCard  PaymentProfile value for creditCard.
+     * @param  group  SubscriptionGroup2 value for group.
+     * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
+     * @param  paymentType  String value for paymentType.
+     * @param  referralCode  String value for referralCode.
+     * @param  nextProductId  Integer value for nextProductId.
+     * @param  nextProductHandle  String value for nextProductHandle.
+     * @param  couponUseCount  Integer value for couponUseCount.
+     * @param  couponUsesAllowed  Integer value for couponUsesAllowed.
+     * @param  reasonCode  String value for reasonCode.
+     * @param  automaticallyResumeAt  String value for automaticallyResumeAt.
+     * @param  couponCodes  List of String value for couponCodes.
+     * @param  offerId  Integer value for offerId.
+     * @param  payerId  Integer value for payerId.
+     * @param  currentBillingAmountInCents  Integer value for currentBillingAmountInCents.
+     * @param  productPricePointId  Integer value for productPricePointId.
+     * @param  productPricePointType  String value for productPricePointType.
+     * @param  nextProductPricePointId  Integer value for nextProductPricePointId.
+     * @param  netTerms  Integer value for netTerms.
+     * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
+     * @param  reference  String value for reference.
+     * @param  onHoldAt  String value for onHoldAt.
+     * @param  prepaidDunning  Boolean value for prepaidDunning.
+     * @param  coupons  List of SubscriptionIncludedCoupon value for coupons.
+     * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
+     * @param  dunningCommunicationDelayTimeZone  String value for
+     *         dunningCommunicationDelayTimeZone.
+     * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
+     * @param  locale  String value for locale.
+     * @param  currency  String value for currency.
+     * @param  scheduledCancellationAt  String value for scheduledCancellationAt.
+     * @param  creditBalanceInCents  Integer value for creditBalanceInCents.
+     * @param  prepaymentBalanceInCents  Integer value for prepaymentBalanceInCents.
      */
+
     protected Subscription(Integer id, String state, Integer balanceInCents,
             Integer totalRevenueInCents, Integer productPriceInCents, Integer productVersionNumber,
             String currentPeriodEndsAt, String nextAssessmentAt,
@@ -1650,7 +1713,7 @@ public class Subscription {
     /**
      * Getter for PayerId.
      * On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to
-     * the Customer ID unless the 'Customer Hierarchies & WhoPays' feature is enabled.
+     * the Customer ID unless the 'Customer Hierarchies &amp; WhoPays' feature is enabled.
      * @return Returns the Integer
      */
     @JsonGetter("payer_id")
@@ -1662,7 +1725,7 @@ public class Subscription {
     /**
      * Setter for PayerId.
      * On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to
-     * the Customer ID unless the 'Customer Hierarchies & WhoPays' feature is enabled.
+     * the Customer ID unless the 'Customer Hierarchies &amp; WhoPays' feature is enabled.
      * @param payerId Value for Integer
      */
     @JsonSetter("payer_id")

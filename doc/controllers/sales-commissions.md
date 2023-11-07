@@ -29,11 +29,7 @@ Access to the Sales Commission API endpoints is available to users with financia
 
 ```java
 List<SaleRepSettings> listSalesCommissionSettings(
-    final String sellerId,
-    final String authorization,
-    final Boolean liveMode,
-    final Integer page,
-    final Integer perPage)
+    final ListSalesCommissionSettingsInput input)
 ```
 
 ## Parameters
@@ -53,13 +49,16 @@ List<SaleRepSettings> listSalesCommissionSettings(
 ## Example Usage
 
 ```java
-String sellerId = "seller_id8";
-String authorization = "Bearer <<apiKey>>";
-Integer page = 2;
-Integer perPage = 100;
+ListSalesCommissionSettingsInput listSalesCommissionSettingsInput = new ListSalesCommissionSettingsInput.Builder(
+    "seller_id8"
+)
+.authorization("Bearer <<apiKey>>")
+.page(2)
+.perPage(100)
+.build();
 
 try {
-    List<SaleRepSettings> result = salesCommissionsController.listSalesCommissionSettings(sellerId, authorization, null, page, perPage);
+    List<SaleRepSettings> result = salesCommissionsController.listSalesCommissionSettings(listSalesCommissionSettingsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -117,11 +116,7 @@ Access to the Sales Commission API endpoints is available to users with financia
 
 ```java
 List<ListSaleRepItem> listSalesReps(
-    final String sellerId,
-    final String authorization,
-    final Boolean liveMode,
-    final Integer page,
-    final Integer perPage)
+    final ListSalesRepsInput input)
 ```
 
 ## Parameters
@@ -141,13 +136,16 @@ List<ListSaleRepItem> listSalesReps(
 ## Example Usage
 
 ```java
-String sellerId = "seller_id8";
-String authorization = "Bearer <<apiKey>>";
-Integer page = 2;
-Integer perPage = 100;
+ListSalesRepsInput listSalesRepsInput = new ListSalesRepsInput.Builder(
+    "seller_id8"
+)
+.authorization("Bearer <<apiKey>>")
+.page(2)
+.perPage(100)
+.build();
 
 try {
-    List<ListSaleRepItem> result = salesCommissionsController.listSalesReps(sellerId, authorization, null, page, perPage);
+    List<ListSaleRepItem> result = salesCommissionsController.listSalesReps(listSalesRepsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

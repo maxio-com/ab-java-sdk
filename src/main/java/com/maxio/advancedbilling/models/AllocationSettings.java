@@ -42,8 +42,12 @@ public class AllocationSettings {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  upgradeCharge  String value for upgradeCharge.
+     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  accrueCharge  Boolean value for accrueCharge.
      */
+
     protected AllocationSettings(OptionalNullable<String> upgradeCharge,
             OptionalNullable<String> downgradeCredit, Boolean accrueCharge) {
         this.upgradeCharge = upgradeCharge;

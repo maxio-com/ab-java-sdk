@@ -67,8 +67,18 @@ public class CreateAllocation {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  quantity  double value for quantity.
+     * @param  componentId  Integer value for componentId.
+     * @param  memo  String value for memo.
+     * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
+     * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
+     * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  downgradeCredit  CreditType1 value for downgradeCredit.
+     * @param  upgradeCharge  CreditType1 value for upgradeCharge.
+     * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
      */
+
     protected CreateAllocation(double quantity, Integer componentId, String memo,
             String prorationDowngradeScheme, String prorationUpgradeScheme, Boolean accrueCharge,
             CreditType1 downgradeCredit, CreditType1 upgradeCharge,

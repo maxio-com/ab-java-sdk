@@ -50,8 +50,14 @@ public class ComponentCostDataRateTier {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  startingQuantity  Integer value for startingQuantity.
+     * @param  endingQuantity  Integer value for endingQuantity.
+     * @param  quantity  String value for quantity.
+     * @param  unitPrice  String value for unitPrice.
+     * @param  amount  String value for amount.
      */
+
     protected ComponentCostDataRateTier(Integer startingQuantity,
             OptionalNullable<Integer> endingQuantity, String quantity, String unitPrice,
             String amount) {

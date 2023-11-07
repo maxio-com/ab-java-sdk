@@ -70,8 +70,19 @@ public class InvoicePayment {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  transactionTime  String value for transactionTime.
+     * @param  memo  String value for memo.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     * @param  paymentMethod  InvoicePaymentMethod value for paymentMethod.
+     * @param  transactionId  Integer value for transactionId.
+     * @param  prepayment  Boolean value for prepayment.
+     * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  gatewayUsed  String value for gatewayUsed.
+     * @param  gatewayTransactionId  String value for gatewayTransactionId.
      */
+
     protected InvoicePayment(String transactionTime, String memo, String originalAmount,
             String appliedAmount, InvoicePaymentMethod paymentMethod, Integer transactionId,
             Boolean prepayment, OptionalNullable<String> gatewayHandle, String gatewayUsed,

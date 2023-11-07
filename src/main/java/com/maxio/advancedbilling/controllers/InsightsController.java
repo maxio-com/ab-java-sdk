@@ -12,19 +12,18 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.SubscriptionsMrrErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
-import com.maxio.advancedbilling.models.Direction;
 import com.maxio.advancedbilling.models.ListMRRResponse;
+import com.maxio.advancedbilling.models.ListMrrPerSubscriptionInput;
 import com.maxio.advancedbilling.models.MRRResponse;
+import com.maxio.advancedbilling.models.ReadMrrMovementsInput;
 import com.maxio.advancedbilling.models.SiteSummary;
 import com.maxio.advancedbilling.models.SubscriptionMRRResponse;
-import com.maxio.advancedbilling.models.containers.ReadMrrMovementsDirection;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -128,7 +127,7 @@ public final class InsightsController extends BaseController {
      * upgrade), we record an MRR movement. These records are accessible via the MRR Movements
      * endpoint. Each MRR Movement belongs to a subscription and contains a timestamp, category, and
      * an amount. `line_items` represent the subscription's product configuration at the time of the
-     * movement. ### Plan & Usage Breakouts In the MRR Report UI, we support a setting to [include
+     * movement. ### Plan &amp; Usage Breakouts In the MRR Report UI, we support a setting to [include
      * or
      * exclude](https://chargify.zendesk.com/hc/en-us/articles/4407838249627#displaying-component-based-metered-usage-in-mrr)
      * usage revenue. In the MRR APIs, responses include `plan` and `usage` breakouts. Plan includes
@@ -136,52 +135,35 @@ public final class InsightsController extends BaseController {
      * revenue from: * Metered Components * Prepaid Usage Components.
      * @deprecated
      * 
-     * @param  subscriptionId  Optional parameter: optionally filter results by subscription
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 10. The maximum allowed values is 50; any per_page
-     *         value over 50 will be changed to 50. Use in query `per_page=20`.
-     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
-     *         in query `direction=asc`.
+     * @param  input  ReadMrrMovementsInput object containing request parameters
      * @return    Returns the ListMRRResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
     public ListMRRResponse readMrrMovements(
-            final Integer subscriptionId,
-            final Integer page,
-            final Integer perPage,
-            final ReadMrrMovementsDirection direction) throws ApiException, IOException {
-        return prepareReadMrrMovementsRequest(subscriptionId, page, perPage, direction).execute();
+            final ReadMrrMovementsInput input) throws ApiException, IOException {
+        return prepareReadMrrMovementsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for readMrrMovements.
      */
     private ApiCall<ListMRRResponse, ApiException> prepareReadMrrMovementsRequest(
-            final Integer subscriptionId,
-            final Integer page,
-            final Integer perPage,
-            final ReadMrrMovementsDirection direction) throws IOException {
+            final ReadMrrMovementsInput input) throws IOException {
         return new ApiCall.Builder<ListMRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/mrr_movements.json")
                         .queryParam(param -> param.key("subscription_id")
-                                .value(subscriptionId).isRequired(false))
+                                .value(input.getSubscriptionId()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 10).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -199,61 +181,37 @@ public final class InsightsController extends BaseController {
      * subscription.
      * @deprecated
      * 
-     * @param  filterSubscriptionIds  Optional parameter: Submit ids in order to limit results. Use
-     *         in query: `filter[subscription_ids]=1,2,3`.
-     * @param  atTime  Optional parameter: Submit a timestamp in ISO8601 format to request MRR for a
-     *         historic time. Use in query: `at_time=2022-01-10T10:00:00-05:00`.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  direction  Optional parameter: Controls the order in which results are returned.
-     *         Records are ordered by subscription_id in ascending order by default. Use in query
-     *         `direction=desc`.
+     * @param  input  ListMrrPerSubscriptionInput object containing request parameters
      * @return    Returns the SubscriptionMRRResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
     public SubscriptionMRRResponse listMrrPerSubscription(
-            final List<Integer> filterSubscriptionIds,
-            final String atTime,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction) throws ApiException, IOException {
-        return prepareListMrrPerSubscriptionRequest(filterSubscriptionIds, atTime, page, perPage,
-                direction).execute();
+            final ListMrrPerSubscriptionInput input) throws ApiException, IOException {
+        return prepareListMrrPerSubscriptionRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listMrrPerSubscription.
      */
     private ApiCall<SubscriptionMRRResponse, ApiException> prepareListMrrPerSubscriptionRequest(
-            final List<Integer> filterSubscriptionIds,
-            final String atTime,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction) throws IOException {
+            final ListMrrPerSubscriptionInput input) throws IOException {
         return new ApiCall.Builder<SubscriptionMRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions_mrr.json")
                         .queryParam(param -> param.key("filter[subscription_ids]")
-                                .value(filterSubscriptionIds).isRequired(false))
+                                .value(input.getFilterSubscriptionIds()).isRequired(false))
                         .queryParam(param -> param.key("at_time")
-                                .value(atTime).isRequired(false))
+                                .value(input.getAtTime()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

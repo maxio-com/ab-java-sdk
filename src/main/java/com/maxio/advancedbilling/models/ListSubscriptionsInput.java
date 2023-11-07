@@ -375,7 +375,7 @@ public class ListSubscriptionsInput {
     /**
      * Getter for Metadata.
      * The value of the metadata field specified in the parameter. Use in query
-     * `metadata[my-field]=value&metadata[other-field]=another_value`.
+     * `metadata[my-field]=value&amp;metadata[other-field]=another_value`.
      * @return Returns the Map of String, String
      */
     @JsonGetter("metadata")
@@ -387,7 +387,7 @@ public class ListSubscriptionsInput {
     /**
      * Setter for Metadata.
      * The value of the metadata field specified in the parameter. Use in query
-     * `metadata[my-field]=value&metadata[other-field]=another_value`.
+     * `metadata[my-field]=value&amp;metadata[other-field]=another_value`.
      * @param metadata Value for Map of String, String
      */
     @JsonSetter("metadata")

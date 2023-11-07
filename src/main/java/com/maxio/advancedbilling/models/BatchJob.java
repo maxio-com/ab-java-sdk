@@ -50,8 +50,14 @@ public class BatchJob {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  finishedAt  String value for finishedAt.
+     * @param  rowCount  Integer value for rowCount.
+     * @param  createdAt  String value for createdAt.
+     * @param  completed  String value for completed.
      */
+
     protected BatchJob(Integer id, OptionalNullable<String> finishedAt,
             OptionalNullable<Integer> rowCount, OptionalNullable<String> createdAt,
             String completed) {

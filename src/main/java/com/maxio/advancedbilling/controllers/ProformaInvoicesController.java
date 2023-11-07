@@ -15,11 +15,10 @@ import com.maxio.advancedbilling.exceptions.ErrorMapResponseException;
 import com.maxio.advancedbilling.exceptions.ProformaBadRequestErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
-import com.maxio.advancedbilling.models.Direction;
+import com.maxio.advancedbilling.models.ListProformaInvoicesInput;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoicePreview;
 import com.maxio.advancedbilling.models.SignupProformaPreviewResponse;
-import com.maxio.advancedbilling.models.Status;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
@@ -218,99 +217,51 @@ public final class ProformaInvoicesController extends BaseController {
      * breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
      * To include breakdowns, pass the specific field as a key in the query with a value set to
      * `true`.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  startDate  Optional parameter: The beginning date range for the invoice's Due Date,
-     *         in the YYYY-MM-DD format.
-     * @param  endDate  Optional parameter: The ending date range for the invoice's Due Date, in the
-     *         YYYY-MM-DD format.
-     * @param  status  Optional parameter: The current status of the invoice. Allowed Values: draft,
-     *         open, paid, pending, voided
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  direction  Optional parameter: The sort direction of the returned invoices.
-     * @param  lineItems  Optional parameter: Include line items data
-     * @param  discounts  Optional parameter: Include discounts data
-     * @param  taxes  Optional parameter: Include taxes data
-     * @param  credits  Optional parameter: Include credits data
-     * @param  payments  Optional parameter: Include payments data
-     * @param  customFields  Optional parameter: Include custom fields data
+     * @param  input  ListProformaInvoicesInput object containing request parameters
      * @return    Returns the List of ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<ProformaInvoice> listProformaInvoices(
-            final String subscriptionId,
-            final String startDate,
-            final String endDate,
-            final Status status,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction,
-            final Boolean lineItems,
-            final Boolean discounts,
-            final Boolean taxes,
-            final Boolean credits,
-            final Boolean payments,
-            final Boolean customFields) throws ApiException, IOException {
-        return prepareListProformaInvoicesRequest(subscriptionId, startDate, endDate, status, page,
-                perPage, direction, lineItems, discounts, taxes, credits, payments,
-                customFields).execute();
+            final ListProformaInvoicesInput input) throws ApiException, IOException {
+        return prepareListProformaInvoicesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listProformaInvoices.
      */
     private ApiCall<List<ProformaInvoice>, ApiException> prepareListProformaInvoicesRequest(
-            final String subscriptionId,
-            final String startDate,
-            final String endDate,
-            final Status status,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction,
-            final Boolean lineItems,
-            final Boolean discounts,
-            final Boolean taxes,
-            final Boolean credits,
-            final Boolean payments,
-            final Boolean customFields) throws IOException {
+            final ListProformaInvoicesInput input) throws IOException {
         return new ApiCall.Builder<List<ProformaInvoice>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/proforma_invoices.json")
                         .queryParam(param -> param.key("start_date")
-                                .value(startDate).isRequired(false))
+                                .value(input.getStartDate()).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(endDate).isRequired(false))
+                                .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("status")
-                                .value((status != null) ? status.value() : null).isRequired(false))
+                                .value((input.getStatus() != null) ? input.getStatus().value() : null).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : "desc").isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("line_items")
-                                .value((lineItems != null) ? lineItems : false).isRequired(false))
+                                .value(input.getLineItems()).isRequired(false))
                         .queryParam(param -> param.key("discounts")
-                                .value((discounts != null) ? discounts : false).isRequired(false))
+                                .value(input.getDiscounts()).isRequired(false))
                         .queryParam(param -> param.key("taxes")
-                                .value((taxes != null) ? taxes : false).isRequired(false))
+                                .value(input.getTaxes()).isRequired(false))
                         .queryParam(param -> param.key("credits")
-                                .value((credits != null) ? credits : false).isRequired(false))
+                                .value(input.getCredits()).isRequired(false))
                         .queryParam(param -> param.key("payments")
-                                .value((payments != null) ? payments : false).isRequired(false))
+                                .value(input.getPayments()).isRequired(false))
                         .queryParam(param -> param.key("custom_fields")
-                                .value((customFields != null) ? customFields : false).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .value(input.getCustomFields()).isRequired(false))
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

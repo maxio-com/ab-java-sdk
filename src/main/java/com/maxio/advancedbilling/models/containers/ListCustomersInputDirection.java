@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ListSubscriptionComponentsForSiteDirection.ListSubscriptionComponentsForSiteDirectionDeserializer.class)
-public abstract class ListSubscriptionComponentsForSiteDirection {
+@JsonDeserialize(using = ListCustomersInputDirection.ListCustomersInputDirectionDeserializer.class)
+public abstract class ListCustomersInputDirection {
     
     /**
      * This is Sorting direction case.
      * @param sortingDirection SortingDirection value for sortingDirection.
      * @return The SortingDirectionCase object.
      */
-    public static ListSubscriptionComponentsForSiteDirection fromSortingDirection(
+    public static ListCustomersInputDirection fromSortingDirection(
             SortingDirection sortingDirection) {
         return sortingDirection == null ? null : new SortingDirectionCase(sortingDirection);
     }
@@ -64,7 +64,7 @@ public abstract class ListSubscriptionComponentsForSiteDirection {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SortingDirection")
-    private static class SortingDirectionCase extends ListSubscriptionComponentsForSiteDirection {
+    private static class SortingDirectionCase extends ListCustomersInputDirection {
 
         @JsonValue
         private SortingDirection sortingDirection;
@@ -99,13 +99,13 @@ public abstract class ListSubscriptionComponentsForSiteDirection {
     }
 
     /**
-     * This is a custom deserializer class for ListSubscriptionComponentsForSiteDirection.
+     * This is a custom deserializer class for ListCustomersInputDirection.
      */
-    protected static class ListSubscriptionComponentsForSiteDirectionDeserializer
-            extends JsonDeserializer<ListSubscriptionComponentsForSiteDirection> {
+    protected static class ListCustomersInputDirectionDeserializer
+            extends JsonDeserializer<ListCustomersInputDirection> {
 
         @Override
-        public ListSubscriptionComponentsForSiteDirection deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ListCustomersInputDirection deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

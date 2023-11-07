@@ -94,8 +94,25 @@ public class CreditNoteLineItem {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  title  String value for title.
+     * @param  description  String value for description.
+     * @param  quantity  String value for quantity.
+     * @param  unitPrice  String value for unitPrice.
+     * @param  subtotalAmount  String value for subtotalAmount.
+     * @param  discountAmount  String value for discountAmount.
+     * @param  taxAmount  String value for taxAmount.
+     * @param  totalAmount  String value for totalAmount.
+     * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
+     * @param  periodRangeStart  String value for periodRangeStart.
+     * @param  periodRangeEnd  String value for periodRangeEnd.
+     * @param  productId  Integer value for productId.
+     * @param  productVersion  Integer value for productVersion.
+     * @param  componentId  Integer value for componentId.
+     * @param  pricePointId  Integer value for pricePointId.
      */
+
     protected CreditNoteLineItem(String uid, String title, String description, String quantity,
             String unitPrice, String subtotalAmount, String discountAmount, String taxAmount,
             String totalAmount, Boolean tieredUnitPrice, String periodRangeStart,

@@ -107,8 +107,28 @@ public class Offer {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  siteId  Integer value for siteId.
+     * @param  productFamilyId  Integer value for productFamilyId.
+     * @param  productId  Integer value for productId.
+     * @param  productPricePointId  Integer value for productPricePointId.
+     * @param  productRevisableNumber  Integer value for productRevisableNumber.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  description  String value for description.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  archivedAt  String value for archivedAt.
+     * @param  offerItems  List of OfferItem value for offerItems.
+     * @param  offerDiscounts  List of OfferDiscount value for offerDiscounts.
+     * @param  productFamilyName  String value for productFamilyName.
+     * @param  productName  String value for productName.
+     * @param  productPricePointName  String value for productPricePointName.
+     * @param  productPriceInCents  Integer value for productPriceInCents.
+     * @param  offerSignupPages  List of OfferSignupPage value for offerSignupPages.
      */
+
     protected Offer(Integer id, Integer siteId, Integer productFamilyId, Integer productId,
             Integer productPricePointId, Integer productRevisableNumber, String name, String handle,
             String description, String createdAt, String updatedAt,

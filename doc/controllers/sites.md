@@ -149,8 +149,7 @@ This endpoint returns public keys used for Chargify.js.
 
 ```java
 ListPublicKeysResponse listChargifyJsPublicKeys(
-    final Integer page,
-    final Integer perPage)
+    final ListChargifyJsPublicKeysInput input)
 ```
 
 ## Parameters
@@ -167,11 +166,13 @@ ListPublicKeysResponse listChargifyJsPublicKeys(
 ## Example Usage
 
 ```java
-Integer page = 2;
-Integer perPage = 50;
+ListChargifyJsPublicKeysInput listChargifyJsPublicKeysInput = new ListChargifyJsPublicKeysInput.Builder()
+    .page(2)
+    .perPage(50)
+    .build();
 
 try {
-    ListPublicKeysResponse result = sitesController.listChargifyJsPublicKeys(page, perPage);
+    ListPublicKeysResponse result = sitesController.listChargifyJsPublicKeys(listChargifyJsPublicKeysInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

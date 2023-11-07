@@ -38,8 +38,11 @@ public class CreateProductFamily {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
      */
+
     protected CreateProductFamily(String name, OptionalNullable<String> description) {
         this.name = name;
         this.description = description;

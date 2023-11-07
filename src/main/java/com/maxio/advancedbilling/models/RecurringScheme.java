@@ -19,7 +19,9 @@ import java.util.TreeMap;
 public enum RecurringScheme {
     DO_NOT_RECUR,
 
-    RECUR_INDEFINITELY;
+    RECUR_INDEFINITELY,
+
+    RECUR_WITH_DURATION;
 
 
     private static TreeMap<String, RecurringScheme> valueMap = new TreeMap<>();
@@ -28,9 +30,11 @@ public enum RecurringScheme {
     static {
         DO_NOT_RECUR.value = "do_not_recur";
         RECUR_INDEFINITELY.value = "recur_indefinitely";
+        RECUR_WITH_DURATION.value = "recur_with_duration";
 
         valueMap.put("do_not_recur", DO_NOT_RECUR);
         valueMap.put("recur_indefinitely", RECUR_INDEFINITELY);
+        valueMap.put("recur_with_duration", RECUR_WITH_DURATION);
     }
 
     /**

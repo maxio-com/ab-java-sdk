@@ -62,8 +62,17 @@ public class DunningStepData {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  dayThreshold  int value for dayThreshold.
+     * @param  action  String value for action.
+     * @param  sendEmail  boolean value for sendEmail.
+     * @param  sendBccEmail  boolean value for sendBccEmail.
+     * @param  sendSms  boolean value for sendSms.
+     * @param  emailBody  String value for emailBody.
+     * @param  emailSubject  String value for emailSubject.
+     * @param  smsBody  String value for smsBody.
      */
+
     protected DunningStepData(int dayThreshold, String action, boolean sendEmail,
             boolean sendBccEmail, boolean sendSms, OptionalNullable<String> emailBody,
             OptionalNullable<String> emailSubject, OptionalNullable<String> smsBody) {

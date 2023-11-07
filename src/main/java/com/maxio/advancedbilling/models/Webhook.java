@@ -78,8 +78,21 @@ public class Webhook {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  event  String value for event.
+     * @param  id  Integer value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  lastError  String value for lastError.
+     * @param  lastErrorAt  String value for lastErrorAt.
+     * @param  acceptedAt  String value for acceptedAt.
+     * @param  lastSentAt  String value for lastSentAt.
+     * @param  lastSentUrl  String value for lastSentUrl.
+     * @param  successful  Boolean value for successful.
+     * @param  body  String value for body.
+     * @param  signature  String value for signature.
+     * @param  signatureHmacSha256  String value for signatureHmacSha256.
      */
+
     protected Webhook(String event, Integer id, String createdAt, String lastError,
             String lastErrorAt, OptionalNullable<String> acceptedAt, String lastSentAt,
             String lastSentUrl, Boolean successful, String body, String signature,

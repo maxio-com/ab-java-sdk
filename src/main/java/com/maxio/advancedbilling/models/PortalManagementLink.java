@@ -54,8 +54,15 @@ public class PortalManagementLink {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  url  String value for url.
+     * @param  fetchCount  Integer value for fetchCount.
+     * @param  createdAt  String value for createdAt.
+     * @param  newLinkAvailableAt  String value for newLinkAvailableAt.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  lastInviteSentAt  String value for lastInviteSentAt.
      */
+
     protected PortalManagementLink(String url, Integer fetchCount, String createdAt,
             String newLinkAvailableAt, String expiresAt,
             OptionalNullable<String> lastInviteSentAt) {

@@ -50,8 +50,14 @@ public class CouponRestriction {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  itemType  RestrictionType value for itemType.
+     * @param  itemId  Integer value for itemId.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
      */
+
     protected CouponRestriction(Integer id, RestrictionType itemType, Integer itemId, String name,
             OptionalNullable<String> handle) {
         this.id = id;

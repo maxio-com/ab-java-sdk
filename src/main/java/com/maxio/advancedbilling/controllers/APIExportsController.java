@@ -13,6 +13,9 @@ import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BatchJobResponse;
 import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.ListExportedInvoicesInput;
+import com.maxio.advancedbilling.models.ListExportedProformaInvoicesInput;
+import com.maxio.advancedbilling.models.ListExportedSubscriptionsInput;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.Subscription;
 import io.apimatic.core.ApiCall;
@@ -38,45 +41,32 @@ public final class APIExportsController extends BaseController {
     /**
      * This API returns an array of exported proforma invoices for a provided `batch_id`. Pay close
      * attention to pagination in order to control responses from the server. Example: `GET
-     * https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&page=1`.
-     * @param  batchId  Required parameter: Id of a Batch Job.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 100. The maximum allowed values is 10000; any per_page
-     *         value over 10000 will be changed to 10000.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
+     * https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&amp;page=1`.
+     * @param  input  ListExportedProformaInvoicesInput object containing request parameters
      * @return    Returns the List of ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<ProformaInvoice> listExportedProformaInvoices(
-            final String batchId,
-            final Integer perPage,
-            final Integer page) throws ApiException, IOException {
-        return prepareListExportedProformaInvoicesRequest(batchId, perPage, page).execute();
+            final ListExportedProformaInvoicesInput input) throws ApiException, IOException {
+        return prepareListExportedProformaInvoicesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listExportedProformaInvoices.
      */
     private ApiCall<List<ProformaInvoice>, ApiException> prepareListExportedProformaInvoicesRequest(
-            final String batchId,
-            final Integer perPage,
-            final Integer page) throws IOException {
+            final ListExportedProformaInvoicesInput input) throws IOException {
         return new ApiCall.Builder<List<ProformaInvoice>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/api_exports/proforma_invoices/{batch_id}/rows.json")
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 100).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
-                        .templateParam(param -> param.key("batch_id").value(batchId)
+                                .value(input.getPage()).isRequired(false))
+                        .templateParam(param -> param.key("batch_id").value(input.getBatchId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -94,45 +84,32 @@ public final class APIExportsController extends BaseController {
     /**
      * This API returns an array of exported invoices for a provided `batch_id`. Pay close attention
      * to pagination in order to control responses from the server. Example: `GET
-     * https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&page=1`.
-     * @param  batchId  Required parameter: Id of a Batch Job.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 100. The maximum allowed values is 10000; any per_page
-     *         value over 10000 will be changed to 10000.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
+     * https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&amp;page=1`.
+     * @param  input  ListExportedInvoicesInput object containing request parameters
      * @return    Returns the List of Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<Invoice> listExportedInvoices(
-            final String batchId,
-            final Integer perPage,
-            final Integer page) throws ApiException, IOException {
-        return prepareListExportedInvoicesRequest(batchId, perPage, page).execute();
+            final ListExportedInvoicesInput input) throws ApiException, IOException {
+        return prepareListExportedInvoicesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listExportedInvoices.
      */
     private ApiCall<List<Invoice>, ApiException> prepareListExportedInvoicesRequest(
-            final String batchId,
-            final Integer perPage,
-            final Integer page) throws IOException {
+            final ListExportedInvoicesInput input) throws IOException {
         return new ApiCall.Builder<List<Invoice>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/api_exports/invoices/{batch_id}/rows.json")
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 100).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
-                        .templateParam(param -> param.key("batch_id").value(batchId)
+                                .value(input.getPage()).isRequired(false))
+                        .templateParam(param -> param.key("batch_id").value(input.getBatchId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -150,45 +127,32 @@ public final class APIExportsController extends BaseController {
     /**
      * This API returns an array of exported subscriptions for a provided `batch_id`. Pay close
      * attention to pagination in order to control responses from the server. Example: `GET
-     * https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&page=1`.
-     * @param  batchId  Required parameter: Id of a Batch Job.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 100. The maximum allowed values is 10000; any per_page
-     *         value over 10000 will be changed to 10000.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
+     * https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&amp;page=1`.
+     * @param  input  ListExportedSubscriptionsInput object containing request parameters
      * @return    Returns the List of Subscription response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<Subscription> listExportedSubscriptions(
-            final String batchId,
-            final Integer perPage,
-            final Integer page) throws ApiException, IOException {
-        return prepareListExportedSubscriptionsRequest(batchId, perPage, page).execute();
+            final ListExportedSubscriptionsInput input) throws ApiException, IOException {
+        return prepareListExportedSubscriptionsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listExportedSubscriptions.
      */
     private ApiCall<List<Subscription>, ApiException> prepareListExportedSubscriptionsRequest(
-            final String batchId,
-            final Integer perPage,
-            final Integer page) throws IOException {
+            final ListExportedSubscriptionsInput input) throws IOException {
         return new ApiCall.Builder<List<Subscription>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/api_exports/subscriptions/{batch_id}/rows.json")
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 100).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
-                        .templateParam(param -> param.key("batch_id").value(batchId)
+                                .value(input.getPage()).isRequired(false))
+                        .templateParam(param -> param.key("batch_id").value(input.getBatchId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

@@ -82,8 +82,22 @@ public class UpdatePaymentProfile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  fullNumber  String value for fullNumber.
+     * @param  cardType  CardType value for cardType.
+     * @param  expirationMonth  String value for expirationMonth.
+     * @param  expirationYear  String value for expirationYear.
+     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingState  String value for billingState.
+     * @param  billingZip  String value for billingZip.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  billingAddress2  String value for billingAddress2.
      */
+
     protected UpdatePaymentProfile(String firstName, String lastName, String fullNumber,
             CardType cardType, String expirationMonth, String expirationYear,
             CurrentVault currentVault, String billingAddress, String billingCity,

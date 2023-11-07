@@ -23,19 +23,15 @@ import com.maxio.advancedbilling.models.CreateAllocationRequest;
 import com.maxio.advancedbilling.models.CreateUsageRequest;
 import com.maxio.advancedbilling.models.CreditSchemeRequest;
 import com.maxio.advancedbilling.models.EBBEvent;
-import com.maxio.advancedbilling.models.IncludeNotNull;
-import com.maxio.advancedbilling.models.ListSubscriptionComponentsInclude;
+import com.maxio.advancedbilling.models.ListSubscriptionComponentsForSiteInput;
+import com.maxio.advancedbilling.models.ListSubscriptionComponentsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionComponentsResponse;
-import com.maxio.advancedbilling.models.ListSubscriptionComponentsSort;
+import com.maxio.advancedbilling.models.ListUsagesInput;
 import com.maxio.advancedbilling.models.PreviewAllocationsRequest;
 import com.maxio.advancedbilling.models.SubscriptionComponentResponse;
-import com.maxio.advancedbilling.models.SubscriptionListDateField;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
-import com.maxio.advancedbilling.models.SubscriptionState;
 import com.maxio.advancedbilling.models.UpdateAllocationExpirationDate;
 import com.maxio.advancedbilling.models.UsageResponse;
-import com.maxio.advancedbilling.models.containers.ListSubscriptionComponentsDirection;
-import com.maxio.advancedbilling.models.containers.ListSubscriptionComponentsForSiteDirection;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -102,112 +98,51 @@ public final class SubscriptionComponentsController extends BaseController {
      * This request will list a subscription's applied components. ## Archived Components When
      * requesting to list components for a given subscription, if the subscription contains
      * **archived** components they will be listed in the server response.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  dateField  Optional parameter: The type of filter you'd like to apply to your search.
-     *         Use in query `date_field=updated_at`.
-     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
-     *         in query `direction=asc`.
-     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
-     *         the date_field. Returns components with a timestamp up to and including 11:59:59PM in
-     *         your site’s time zone on the date specified.
-     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
-     *         with which to filter the date_field. Returns components with a timestamp at or before
-     *         exact time provided in query. You can specify timezone in query - otherwise your
-     *         site''s time zone will be used. If provided, this parameter will be used instead of
-     *         end_date.
-     * @param  pricePointIds  Optional parameter: Allows fetching components allocation only if
-     *         price point id is present. Use in query `price_point_ids=not_null`.
-     * @param  productFamilyIds  Optional parameter: Allows fetching components allocation with
-     *         matching product family id based on provided ids. Use in query
-     *         `product_family_ids=1,2,3`.
-     * @param  sort  Optional parameter: The attribute by which to sort. Use in query
-     *         `sort=updated_at`.
-     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns components with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified.
-     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at
-     *         or after exact time provided in query. You can specify timezone in query - otherwise
-     *         your site''s time zone will be used. If provided, this parameter will be used instead
-     *         of start_date.
-     * @param  include  Optional parameter: Allows including additional data in the response. Use in
-     *         query `include=subscription`.
-     * @param  filterUseSiteExchangeRate  Optional parameter: Allows fetching components allocation
-     *         with matching use_site_exchange_rate based on provided value. Use in query
-     *         `filter[use_site_exchange_rate]=true`.
-     * @param  filterCurrencies  Optional parameter: Allows fetching components allocation with
-     *         matching currency based on provided values. Use in query
-     *         `filter[currencies]=EUR,USD`.
+     * @param  input  ListSubscriptionComponentsInput object containing request parameters
      * @return    Returns the List of SubscriptionComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<SubscriptionComponentResponse> listSubscriptionComponents(
-            final String subscriptionId,
-            final SubscriptionListDateField dateField,
-            final ListSubscriptionComponentsDirection direction,
-            final String endDate,
-            final String endDatetime,
-            final IncludeNotNull pricePointIds,
-            final List<Integer> productFamilyIds,
-            final ListSubscriptionComponentsSort sort,
-            final String startDate,
-            final String startDatetime,
-            final ListSubscriptionComponentsInclude include,
-            final Boolean filterUseSiteExchangeRate,
-            final List<String> filterCurrencies) throws ApiException, IOException {
-        return prepareListSubscriptionComponentsRequest(subscriptionId, dateField, direction,
-                endDate, endDatetime, pricePointIds, productFamilyIds, sort, startDate,
-                startDatetime, include, filterUseSiteExchangeRate, filterCurrencies).execute();
+            final ListSubscriptionComponentsInput input) throws ApiException, IOException {
+        return prepareListSubscriptionComponentsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listSubscriptionComponents.
      */
     private ApiCall<List<SubscriptionComponentResponse>, ApiException> prepareListSubscriptionComponentsRequest(
-            final String subscriptionId,
-            final SubscriptionListDateField dateField,
-            final ListSubscriptionComponentsDirection direction,
-            final String endDate,
-            final String endDatetime,
-            final IncludeNotNull pricePointIds,
-            final List<Integer> productFamilyIds,
-            final ListSubscriptionComponentsSort sort,
-            final String startDate,
-            final String startDatetime,
-            final ListSubscriptionComponentsInclude include,
-            final Boolean filterUseSiteExchangeRate,
-            final List<String> filterCurrencies) throws IOException {
+            final ListSubscriptionComponentsInput input) throws IOException {
         return new ApiCall.Builder<List<SubscriptionComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/components.json")
                         .queryParam(param -> param.key("date_field")
-                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
+                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(endDate).isRequired(false))
+                                .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(endDatetime).isRequired(false))
+                                .value(input.getEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("price_point_ids")
-                                .value((pricePointIds != null) ? pricePointIds.value() : null).isRequired(false))
+                                .value((input.getPricePointIds() != null) ? input.getPricePointIds().value() : null).isRequired(false))
                         .queryParam(param -> param.key("product_family_ids")
-                                .value(productFamilyIds).isRequired(false))
+                                .value(input.getProductFamilyIds()).isRequired(false))
                         .queryParam(param -> param.key("sort")
-                                .value((sort != null) ? sort.value() : null).isRequired(false))
+                                .value((input.getSort() != null) ? input.getSort().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(startDate).isRequired(false))
+                                .value(input.getStartDate()).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(startDatetime).isRequired(false))
+                                .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("include")
-                                .value((include != null) ? include.value() : null).isRequired(false))
+                                .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(filterUseSiteExchangeRate).isRequired(false))
+                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
                         .queryParam(param -> param.key("filter[currencies]")
-                                .value(filterCurrencies).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .value(input.getFilterCurrencies()).isRequired(false))
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -789,79 +724,45 @@ public final class SubscriptionComponentsController extends BaseController {
      * This endpoint is not compatible with quantity-based components. ## Since Date and Until Date
      * Usage Note: The `since_date` and `until_date` attributes each default to midnight on the date
      * specified. For example, in order to list usages for January 20th, you would need to append
-     * the following to the URL. ``` ?since_date=2016-01-20&until_date=2016-01-21 ``` ## Read Usage
+     * the following to the URL. ``` ?since_date=2016-01-20&amp;until_date=2016-01-21 ``` ## Read Usage
      * by Handle Use this endpoint to read the previously recorded components for a subscription.
      * You can now specify either the component id (integer) or the component handle prefixed by
      * "handle:" to specify the unique identifier for the component you are working with.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  componentId  Required parameter: Either the Chargify id for the component or the
-     *         component's handle prefixed by `handle:`
-     * @param  sinceId  Optional parameter: Returns usages with an id greater than or equal to the
-     *         one specified
-     * @param  maxId  Optional parameter: Returns usages with an id less than or equal to the one
-     *         specified
-     * @param  sinceDate  Optional parameter: Returns usages with a created_at date greater than or
-     *         equal to midnight (12:00 AM) on the date specified.
-     * @param  untilDate  Optional parameter: Returns usages with a created_at date less than or
-     *         equal to midnight (12:00 AM) on the date specified.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  input  ListUsagesInput object containing request parameters
      * @return    Returns the List of UsageResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<UsageResponse> listUsages(
-            final String subscriptionId,
-            final int componentId,
-            final Integer sinceId,
-            final Integer maxId,
-            final String sinceDate,
-            final String untilDate,
-            final Integer page,
-            final Integer perPage) throws ApiException, IOException {
-        return prepareListUsagesRequest(subscriptionId, componentId, sinceId, maxId, sinceDate,
-                untilDate, page, perPage).execute();
+            final ListUsagesInput input) throws ApiException, IOException {
+        return prepareListUsagesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listUsages.
      */
     private ApiCall<List<UsageResponse>, ApiException> prepareListUsagesRequest(
-            final String subscriptionId,
-            final int componentId,
-            final Integer sinceId,
-            final Integer maxId,
-            final String sinceDate,
-            final String untilDate,
-            final Integer page,
-            final Integer perPage) throws IOException {
+            final ListUsagesInput input) throws IOException {
         return new ApiCall.Builder<List<UsageResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}/usages.json")
                         .queryParam(param -> param.key("since_id")
-                                .value(sinceId).isRequired(false))
+                                .value(input.getSinceId()).isRequired(false))
                         .queryParam(param -> param.key("max_id")
-                                .value(maxId).isRequired(false))
+                                .value(input.getMaxId()).isRequired(false))
                         .queryParam(param -> param.key("since_date")
-                                .value(sinceDate).isRequired(false))
+                                .value(input.getSinceDate()).isRequired(false))
                         .queryParam(param -> param.key("until_date")
-                                .value(untilDate).isRequired(false))
+                                .value(input.getUntilDate()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .value(input.getPerPage()).isRequired(false))
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
+                        .templateParam(param -> param.key("component_id").value(input.getComponentId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -1080,191 +981,68 @@ public final class SubscriptionComponentsController extends BaseController {
 
     /**
      * This request will list components applied to each subscription.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  sort  Optional parameter: The attribute by which to sort. Use in query:
-     *         `sort=updated_at`.
-     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
-     *         in query `direction=asc`.
-     * @param  dateField  Optional parameter: The type of filter you'd like to apply to your search.
-     *         Use in query: `date_field=updated_at`.
-     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns components with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified. Use in query
-     *         `start_date=2011-12-15`.
-     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at
-     *         or after exact time provided in query. You can specify timezone in query - otherwise
-     *         your site''s time zone will be used. If provided, this parameter will be used instead
-     *         of start_date. Use in query `start_datetime=2022-07-01 09:00:05`.
-     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
-     *         the date_field. Returns components with a timestamp up to and including 11:59:59PM in
-     *         your site’s time zone on the date specified. Use in query `end_date=2011-12-16`.
-     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
-     *         with which to filter the date_field. Returns components with a timestamp at or before
-     *         exact time provided in query. You can specify timezone in query - otherwise your
-     *         site''s time zone will be used. If provided, this parameter will be used instead of
-     *         end_date. Use in query `end_datetime=2022-07-01 09:00:05`.
-     * @param  subscriptionIds  Optional parameter: Allows fetching components allocation with
-     *         matching subscription id based on provided ids. Use in query
-     *         `subscription_ids=1,2,3`.
-     * @param  pricePointIds  Optional parameter: Allows fetching components allocation only if
-     *         price point id is present. Use in query `price_point_ids=not_null`.
-     * @param  productFamilyIds  Optional parameter: Allows fetching components allocation with
-     *         matching product family id based on provided ids. Use in query
-     *         `product_family_ids=1,2,3`.
-     * @param  include  Optional parameter: Allows including additional data in the response. Use in
-     *         query `include=subscription`.
-     * @param  filterUseSiteExchangeRate  Optional parameter: Allows fetching components allocation
-     *         with matching use_site_exchange_rate based on provided value. Use in query
-     *         `filter[use_site_exchange_rate]=true`.
-     * @param  filterCurrencies  Optional parameter: Allows fetching components allocation with
-     *         matching currency based on provided values. Use in query
-     *         `filter[currencies]=USD,EUR`.
-     * @param  filterSubscriptionStates  Optional parameter: Allows fetching components allocations
-     *         that belong to the subscription with matching states based on provided values. To use
-     *         this filter you also have to include the following param in the request
-     *         `include=subscription`. Use in query
-     *         `filter[subscription][states]=active,canceled&include=subscription`.
-     * @param  filterSubscriptionDateField  Optional parameter: The type of filter you'd like to
-     *         apply to your search. To use this filter you also have to include the following param
-     *         in the request `include=subscription`.
-     * @param  filterSubscriptionStartDate  Optional parameter: The start date (format YYYY-MM-DD)
-     *         with which to filter the date_field. Returns components that belong to the
-     *         subscription with a timestamp at or after midnight (12:00:00 AM) in your site’s time
-     *         zone on the date specified. To use this filter you also have to include the following
-     *         param in the request `include=subscription`.
-     * @param  filterSubscriptionStartDatetime  Optional parameter: The start date and time (format
-     *         YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components that
-     *         belong to the subscription with a timestamp at or after exact time provided in query.
-     *         You can specify timezone in query - otherwise your site''s time zone will be used. If
-     *         provided, this parameter will be used instead of start_date. To use this filter you
-     *         also have to include the following param in the request `include=subscription`.
-     * @param  filterSubscriptionEndDate  Optional parameter: The end date (format YYYY-MM-DD) with
-     *         which to filter the date_field. Returns components that belong to the subscription
-     *         with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
-     *         specified. To use this filter you also have to include the following param in the
-     *         request `include=subscription`.
-     * @param  filterSubscriptionEndDatetime  Optional parameter: The end date and time (format
-     *         YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components that
-     *         belong to the subscription with a timestamp at or before exact time provided in
-     *         query. You can specify timezone in query - otherwise your site''s time zone will be
-     *         used. If provided, this parameter will be used instead of end_date. To use this
-     *         filter you also have to include the following param in the request
-     *         `include=subscription`.
+     * @param  input  ListSubscriptionComponentsForSiteInput object containing request parameters
      * @return    Returns the ListSubscriptionComponentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
-            final Integer page,
-            final Integer perPage,
-            final ListSubscriptionComponentsSort sort,
-            final ListSubscriptionComponentsForSiteDirection direction,
-            final SubscriptionListDateField dateField,
-            final String startDate,
-            final String startDatetime,
-            final String endDate,
-            final String endDatetime,
-            final List<Integer> subscriptionIds,
-            final IncludeNotNull pricePointIds,
-            final List<Integer> productFamilyIds,
-            final ListSubscriptionComponentsInclude include,
-            final Boolean filterUseSiteExchangeRate,
-            final List<String> filterCurrencies,
-            final List<SubscriptionState> filterSubscriptionStates,
-            final SubscriptionListDateField filterSubscriptionDateField,
-            final String filterSubscriptionStartDate,
-            final String filterSubscriptionStartDatetime,
-            final String filterSubscriptionEndDate,
-            final String filterSubscriptionEndDatetime) throws ApiException, IOException {
-        return prepareListSubscriptionComponentsForSiteRequest(page, perPage, sort, direction,
-                dateField, startDate, startDatetime, endDate, endDatetime, subscriptionIds,
-                pricePointIds, productFamilyIds, include, filterUseSiteExchangeRate,
-                filterCurrencies, filterSubscriptionStates, filterSubscriptionDateField,
-                filterSubscriptionStartDate, filterSubscriptionStartDatetime,
-                filterSubscriptionEndDate, filterSubscriptionEndDatetime).execute();
+            final ListSubscriptionComponentsForSiteInput input) throws ApiException, IOException {
+        return prepareListSubscriptionComponentsForSiteRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listSubscriptionComponentsForSite.
      */
     private ApiCall<ListSubscriptionComponentsResponse, ApiException> prepareListSubscriptionComponentsForSiteRequest(
-            final Integer page,
-            final Integer perPage,
-            final ListSubscriptionComponentsSort sort,
-            final ListSubscriptionComponentsForSiteDirection direction,
-            final SubscriptionListDateField dateField,
-            final String startDate,
-            final String startDatetime,
-            final String endDate,
-            final String endDatetime,
-            final List<Integer> subscriptionIds,
-            final IncludeNotNull pricePointIds,
-            final List<Integer> productFamilyIds,
-            final ListSubscriptionComponentsInclude include,
-            final Boolean filterUseSiteExchangeRate,
-            final List<String> filterCurrencies,
-            final List<SubscriptionState> filterSubscriptionStates,
-            final SubscriptionListDateField filterSubscriptionDateField,
-            final String filterSubscriptionStartDate,
-            final String filterSubscriptionStartDatetime,
-            final String filterSubscriptionEndDate,
-            final String filterSubscriptionEndDatetime) throws IOException {
+            final ListSubscriptionComponentsForSiteInput input) throws IOException {
         return new ApiCall.Builder<ListSubscriptionComponentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions_components.json")
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("sort")
-                                .value((sort != null) ? sort.value() : null).isRequired(false))
+                                .value((input.getSort() != null) ? input.getSort().value() : null).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("date_field")
-                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
+                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(startDate).isRequired(false))
+                                .value(input.getStartDate()).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(startDatetime).isRequired(false))
+                                .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(endDate).isRequired(false))
+                                .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(endDatetime).isRequired(false))
+                                .value(input.getEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("subscription_ids")
-                                .value(subscriptionIds).isRequired(false))
+                                .value(input.getSubscriptionIds()).isRequired(false))
                         .queryParam(param -> param.key("price_point_ids")
-                                .value((pricePointIds != null) ? pricePointIds.value() : null).isRequired(false))
+                                .value((input.getPricePointIds() != null) ? input.getPricePointIds().value() : null).isRequired(false))
                         .queryParam(param -> param.key("product_family_ids")
-                                .value(productFamilyIds).isRequired(false))
+                                .value(input.getProductFamilyIds()).isRequired(false))
                         .queryParam(param -> param.key("include")
-                                .value((include != null) ? include.value() : null).isRequired(false))
+                                .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(filterUseSiteExchangeRate).isRequired(false))
+                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
                         .queryParam(param -> param.key("filter[currencies]")
-                                .value(filterCurrencies).isRequired(false))
+                                .value(input.getFilterCurrencies()).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][states]")
-                                .value(SubscriptionState.toValue(filterSubscriptionStates)).isRequired(false))
+                                .value(SubscriptionState.toValue(input.getFilterSubscriptionStates())).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][date_field]")
-                                .value((filterSubscriptionDateField != null) ? filterSubscriptionDateField.value() : null).isRequired(false))
+                                .value((input.getFilterSubscriptionDateField() != null) ? input.getFilterSubscriptionDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][start_date]")
-                                .value(filterSubscriptionStartDate).isRequired(false))
+                                .value(input.getFilterSubscriptionStartDate()).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][start_datetime]")
-                                .value(filterSubscriptionStartDatetime).isRequired(false))
+                                .value(input.getFilterSubscriptionStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][end_date]")
-                                .value(filterSubscriptionEndDate).isRequired(false))
+                                .value(input.getFilterSubscriptionEndDate()).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][end_datetime]")
-                                .value(filterSubscriptionEndDatetime).isRequired(false))
+                                .value(input.getFilterSubscriptionEndDatetime()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

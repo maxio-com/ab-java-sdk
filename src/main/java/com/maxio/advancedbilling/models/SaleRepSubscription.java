@@ -70,8 +70,19 @@ public class SaleRepSubscription {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  siteName  String value for siteName.
+     * @param  subscriptionUrl  String value for subscriptionUrl.
+     * @param  customerName  String value for customerName.
+     * @param  createdAt  String value for createdAt.
+     * @param  mrr  String value for mrr.
+     * @param  usage  String value for usage.
+     * @param  recurring  String value for recurring.
+     * @param  lastPayment  String value for lastPayment.
+     * @param  churnDate  String value for churnDate.
      */
+
     protected SaleRepSubscription(Integer id, String siteName, String subscriptionUrl,
             String customerName, String createdAt, String mrr, String usage, String recurring,
             String lastPayment, OptionalNullable<String> churnDate) {

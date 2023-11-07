@@ -148,8 +148,38 @@ public class Coupon {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Double value for id.
+     * @param  name  String value for name.
+     * @param  code  String value for code.
+     * @param  description  String value for description.
+     * @param  amount  Double value for amount.
+     * @param  amountInCents  Integer value for amountInCents.
+     * @param  productFamilyId  Integer value for productFamilyId.
+     * @param  productFamilyName  String value for productFamilyName.
+     * @param  startDate  String value for startDate.
+     * @param  endDate  String value for endDate.
+     * @param  percentage  Double value for percentage.
+     * @param  recurring  Boolean value for recurring.
+     * @param  recurringScheme  RecurringScheme value for recurringScheme.
+     * @param  durationPeriodCount  Integer value for durationPeriodCount.
+     * @param  durationInterval  Integer value for durationInterval.
+     * @param  durationIntervalUnit  String value for durationIntervalUnit.
+     * @param  durationIntervalSpan  String value for durationIntervalSpan.
+     * @param  allowNegativeBalance  Boolean value for allowNegativeBalance.
+     * @param  archivedAt  String value for archivedAt.
+     * @param  conversionLimit  String value for conversionLimit.
+     * @param  stackable  Boolean value for stackable.
+     * @param  compoundingStrategy  CouponCompoundingStrategy value for compoundingStrategy.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  discountType  DiscountType value for discountType.
+     * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
+     * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
+     * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
      */
+
     protected Coupon(Double id, String name, String code, String description,
             OptionalNullable<Double> amount, OptionalNullable<Integer> amountInCents,
             Integer productFamilyId, String productFamilyName, String startDate,

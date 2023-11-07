@@ -58,8 +58,16 @@ public class CouponUsage {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  name  String value for name.
+     * @param  signups  Integer value for signups.
+     * @param  savings  Integer value for savings.
+     * @param  savingsInCents  Integer value for savingsInCents.
+     * @param  revenue  Integer value for revenue.
+     * @param  revenueInCents  Integer value for revenueInCents.
      */
+
     protected CouponUsage(Integer id, String name, Integer signups,
             OptionalNullable<Integer> savings, OptionalNullable<Integer> savingsInCents,
             OptionalNullable<Integer> revenue, Integer revenueInCents) {

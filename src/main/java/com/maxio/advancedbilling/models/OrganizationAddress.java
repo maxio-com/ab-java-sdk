@@ -62,8 +62,17 @@ public class OrganizationAddress {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  street  String value for street.
+     * @param  line2  String value for line2.
+     * @param  city  String value for city.
+     * @param  state  String value for state.
+     * @param  zip  String value for zip.
+     * @param  country  String value for country.
+     * @param  name  String value for name.
+     * @param  phone  String value for phone.
      */
+
     protected OrganizationAddress(OptionalNullable<String> street, OptionalNullable<String> line2,
             OptionalNullable<String> city, OptionalNullable<String> state,
             OptionalNullable<String> zip, OptionalNullable<String> country,

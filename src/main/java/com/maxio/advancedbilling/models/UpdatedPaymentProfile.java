@@ -110,8 +110,29 @@ public class UpdatedPaymentProfile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  cardType  String value for cardType.
+     * @param  expirationMonth  Integer value for expirationMonth.
+     * @param  expirationYear  Integer value for expirationYear.
+     * @param  customerId  Integer value for customerId.
+     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  vaultToken  String value for vaultToken.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingAddress2  String value for billingAddress2.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingState  String value for billingState.
+     * @param  billingZip  String value for billingZip.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  paymentType  String value for paymentType.
+     * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
+     * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  customerVaultToken  String value for customerVaultToken.
      */
+
     protected UpdatedPaymentProfile(Integer id, String firstName, String lastName, String cardType,
             Integer expirationMonth, Integer expirationYear, Integer customerId,
             CurrentVault currentVault, String vaultToken, String billingAddress,

@@ -242,8 +242,61 @@ public class Invoice {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  uid  String value for uid.
+     * @param  siteId  Integer value for siteId.
+     * @param  customerId  Integer value for customerId.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  number  String value for number.
+     * @param  sequenceNumber  Integer value for sequenceNumber.
+     * @param  transactionTime  LocalDateTime value for transactionTime.
+     * @param  createdAt  LocalDateTime value for createdAt.
+     * @param  updatedAt  LocalDateTime value for updatedAt.
+     * @param  issueDate  String value for issueDate.
+     * @param  dueDate  String value for dueDate.
+     * @param  paidDate  String value for paidDate.
+     * @param  status  Status value for status.
+     * @param  role  String value for role.
+     * @param  parentInvoiceId  Integer value for parentInvoiceId.
+     * @param  collectionMethod  String value for collectionMethod.
+     * @param  paymentInstructions  String value for paymentInstructions.
+     * @param  currency  String value for currency.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
+     * @param  parentInvoiceUid  String value for parentInvoiceUid.
+     * @param  subscriptionGroupId  Integer value for subscriptionGroupId.
+     * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
+     * @param  groupPrimarySubscriptionId  Integer value for groupPrimarySubscriptionId.
+     * @param  productName  String value for productName.
+     * @param  productFamilyName  String value for productFamilyName.
+     * @param  seller  InvoiceSeller value for seller.
+     * @param  customer  InvoiceCustomer value for customer.
+     * @param  payer  InvoicePayer value for payer.
+     * @param  recipientEmails  List of String value for recipientEmails.
+     * @param  netTerms  Integer value for netTerms.
+     * @param  memo  String value for memo.
+     * @param  billingAddress  InvoiceAddress value for billingAddress.
+     * @param  shippingAddress  InvoiceAddress value for shippingAddress.
+     * @param  subtotalAmount  String value for subtotalAmount.
+     * @param  discountAmount  String value for discountAmount.
+     * @param  taxAmount  String value for taxAmount.
+     * @param  totalAmount  String value for totalAmount.
+     * @param  creditAmount  String value for creditAmount.
+     * @param  refundAmount  String value for refundAmount.
+     * @param  paidAmount  String value for paidAmount.
+     * @param  dueAmount  String value for dueAmount.
+     * @param  lineItems  List of InvoiceLineItem value for lineItems.
+     * @param  discounts  List of InvoiceDiscount value for discounts.
+     * @param  taxes  List of InvoiceTax value for taxes.
+     * @param  credits  List of InvoiceCredit value for credits.
+     * @param  refunds  List of InvoiceRefund value for refunds.
+     * @param  payments  List of InvoicePayment value for payments.
+     * @param  customFields  List of InvoiceCustomField value for customFields.
+     * @param  displaySettings  InvoiceDisplaySettings value for displaySettings.
+     * @param  publicUrl  String value for publicUrl.
+     * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      */
+
     protected Invoice(Integer id, String uid, Integer siteId, Integer customerId,
             Integer subscriptionId, String number, Integer sequenceNumber,
             LocalDateTime transactionTime, LocalDateTime createdAt, LocalDateTime updatedAt,

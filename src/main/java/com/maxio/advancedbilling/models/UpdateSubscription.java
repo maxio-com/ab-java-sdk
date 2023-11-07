@@ -106,8 +106,27 @@ public class UpdateSubscription {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  creditCardAttributes  CreditCardAttributes value for creditCardAttributes.
+     * @param  productHandle  String value for productHandle.
+     * @param  productId  Integer value for productId.
+     * @param  productChangeDelayed  Boolean value for productChangeDelayed.
+     * @param  nextProductId  String value for nextProductId.
+     * @param  nextProductPricePointId  String value for nextProductPricePointId.
+     * @param  snapDay  UpdateSubscriptionSnapDay value for snapDay.
+     * @param  nextBillingAt  String value for nextBillingAt.
+     * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
+     * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
+     * @param  netTerms  UpdateSubscriptionNetTerms value for netTerms.
+     * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
+     * @param  reference  String value for reference.
+     * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+     * @param  components  List of UpdateSubscriptionComponent value for components.
+     * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
+     * @param  dunningCommunicationDelayTimeZone  String value for
+     *         dunningCommunicationDelayTimeZone.
      */
+
     protected UpdateSubscription(CreditCardAttributes creditCardAttributes, String productHandle,
             Integer productId, Boolean productChangeDelayed, String nextProductId,
             String nextProductPricePointId, UpdateSubscriptionSnapDay snapDay, String nextBillingAt,

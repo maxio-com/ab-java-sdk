@@ -102,8 +102,27 @@ public class CreateCustomer {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  email  String value for email.
+     * @param  ccEmails  String value for ccEmails.
+     * @param  organization  String value for organization.
+     * @param  reference  String value for reference.
+     * @param  address  String value for address.
+     * @param  address2  String value for address2.
+     * @param  city  String value for city.
+     * @param  state  String value for state.
+     * @param  zip  String value for zip.
+     * @param  country  String value for country.
+     * @param  phone  String value for phone.
+     * @param  locale  String value for locale.
+     * @param  vatNumber  String value for vatNumber.
+     * @param  taxExempt  Boolean value for taxExempt.
+     * @param  taxExemptReason  String value for taxExemptReason.
+     * @param  parentId  Integer value for parentId.
      */
+
     protected CreateCustomer(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address, String address2, String city,
             String state, String zip, String country, String phone, String locale, String vatNumber,
