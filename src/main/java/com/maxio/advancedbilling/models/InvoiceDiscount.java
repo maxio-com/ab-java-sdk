@@ -79,8 +79,21 @@ public class InvoiceDiscount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  title  String value for title.
+     * @param  description  String value for description.
+     * @param  code  String value for code.
+     * @param  sourceType  String value for sourceType.
+     * @param  sourceId  Integer value for sourceId.
+     * @param  discountType  String value for discountType.
+     * @param  percentage  String value for percentage.
+     * @param  eligibleAmount  String value for eligibleAmount.
+     * @param  discountAmount  String value for discountAmount.
+     * @param  transactionId  Integer value for transactionId.
+     * @param  lineItemBreakouts  List of InvoiceDiscountBreakout value for lineItemBreakouts.
      */
+
     protected InvoiceDiscount(String uid, String title, OptionalNullable<String> description,
             String code, String sourceType, Integer sourceId, String discountType,
             String percentage, String eligibleAmount, String discountAmount, Integer transactionId,

@@ -119,8 +119,31 @@ public class BankAccount {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  customerId  Integer value for customerId.
+     * @param  currentVault  BankAccountVault value for currentVault.
+     * @param  vaultToken  String value for vaultToken.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingState  String value for billingState.
+     * @param  billingZip  String value for billingZip.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  customerVaultToken  String value for customerVaultToken.
+     * @param  billingAddress2  String value for billingAddress2.
+     * @param  bankName  String value for bankName.
+     * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
+     * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
+     * @param  bankAccountType  String value for bankAccountType.
+     * @param  bankAccountHolderType  String value for bankAccountHolderType.
+     * @param  paymentType  String value for paymentType.
+     * @param  verified  Boolean value for verified.
+     * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
+     * @param  gatewayHandle  String value for gatewayHandle.
      */
+
     protected BankAccount(Integer id, String firstName, String lastName, Integer customerId,
             BankAccountVault currentVault, String vaultToken, String billingAddress,
             String billingCity, String billingState, String billingZip, String billingCountry,

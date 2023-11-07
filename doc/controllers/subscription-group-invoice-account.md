@@ -76,12 +76,7 @@ This request will list a subscription group's prepayments.
 
 ```java
 ListSubscriptionGroupPrepaymentResponse listPrepaymentsForSubscriptionGroup(
-    final String uid,
-    final ListSubscriptionGroupPrepaymentDateField filterDateField,
-    final String filterEndDate,
-    final String filterStartDate,
-    final Integer page,
-    final Integer perPage)
+    final ListPrepaymentsForSubscriptionGroupInput input)
 ```
 
 ## Parameters
@@ -102,12 +97,15 @@ ListSubscriptionGroupPrepaymentResponse listPrepaymentsForSubscriptionGroup(
 ## Example Usage
 
 ```java
-String uid = "uid0";
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Integer page = 2;
-Integer perPage = 50;
+ListPrepaymentsForSubscriptionGroupInput listPrepaymentsForSubscriptionGroupInput = new ListPrepaymentsForSubscriptionGroupInput.Builder(
+    "uid0"
+)
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key').page(2)
+.perPage(50)
+.build();
 
 try {
-    ListSubscriptionGroupPrepaymentResponse result = subscriptionGroupInvoiceAccountController.listPrepaymentsForSubscriptionGroup(uid, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), page, perPage);
+    ListSubscriptionGroupPrepaymentResponse result = subscriptionGroupInvoiceAccountController.listPrepaymentsForSubscriptionGroup(listPrepaymentsForSubscriptionGroupInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

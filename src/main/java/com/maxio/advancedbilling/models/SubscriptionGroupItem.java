@@ -70,8 +70,19 @@ public class SubscriptionGroupItem {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  reference  String value for reference.
+     * @param  productId  Integer value for productId.
+     * @param  productHandle  String value for productHandle.
+     * @param  productPricePointId  Integer value for productPricePointId.
+     * @param  productPricePointHandle  String value for productPricePointHandle.
+     * @param  currency  String value for currency.
+     * @param  couponCode  String value for couponCode.
+     * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
+     * @param  balanceInCents  Integer value for balanceInCents.
      */
+
     protected SubscriptionGroupItem(Integer id, OptionalNullable<String> reference,
             Integer productId, OptionalNullable<String> productHandle, Integer productPricePointId,
             String productPricePointHandle, String currency, OptionalNullable<String> couponCode,

@@ -62,8 +62,17 @@ public class InvoicePaymentMethod {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  details  String value for details.
+     * @param  kind  String value for kind.
+     * @param  memo  String value for memo.
+     * @param  type  String value for type.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  cardExpiration  String value for cardExpiration.
+     * @param  lastFour  String value for lastFour.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
      */
+
     protected InvoicePaymentMethod(String details, String kind, String memo, String type,
             String cardBrand, String cardExpiration, OptionalNullable<String> lastFour,
             String maskedCardNumber) {

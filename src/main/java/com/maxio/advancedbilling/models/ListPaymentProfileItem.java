@@ -114,8 +114,30 @@ public class ListPaymentProfileItem {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  customerId  Integer value for customerId.
+     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  vaultToken  String value for vaultToken.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingState  String value for billingState.
+     * @param  billingZip  String value for billingZip.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  customerVaultToken  String value for customerVaultToken.
+     * @param  billingAddress2  String value for billingAddress2.
+     * @param  bankName  String value for bankName.
+     * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
+     * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
+     * @param  bankAccountType  String value for bankAccountType.
+     * @param  bankAccountHolderType  String value for bankAccountHolderType.
+     * @param  paymentType  String value for paymentType.
+     * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
+     * @param  gatewayHandle  String value for gatewayHandle.
      */
+
     protected ListPaymentProfileItem(Integer id, String firstName, String lastName,
             Integer customerId, CurrentVault currentVault, String vaultToken, String billingAddress,
             String billingCity, String billingState, String billingZip, String billingCountry,

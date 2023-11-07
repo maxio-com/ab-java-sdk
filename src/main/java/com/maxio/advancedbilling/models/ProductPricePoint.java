@@ -122,8 +122,32 @@ public class ProductPricePoint {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  priceInCents  Integer value for priceInCents.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  String value for intervalUnit.
+     * @param  trialPriceInCents  Integer value for trialPriceInCents.
+     * @param  trialInterval  Integer value for trialInterval.
+     * @param  trialIntervalUnit  String value for trialIntervalUnit.
+     * @param  trialType  String value for trialType.
+     * @param  introductoryOffer  Boolean value for introductoryOffer.
+     * @param  initialChargeInCents  Integer value for initialChargeInCents.
+     * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
+     * @param  expirationInterval  Integer value for expirationInterval.
+     * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
+     * @param  productId  Integer value for productId.
+     * @param  archivedAt  String value for archivedAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  type  PricePointType value for type.
+     * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  subscriptionId  Integer value for subscriptionId.
      */
+
     protected ProductPricePoint(Integer id, String name, String handle, Integer priceInCents,
             Integer interval, String intervalUnit, Integer trialPriceInCents, Integer trialInterval,
             String trialIntervalUnit, String trialType, Boolean introductoryOffer,

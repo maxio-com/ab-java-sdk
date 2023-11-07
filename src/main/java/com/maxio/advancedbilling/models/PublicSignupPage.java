@@ -46,8 +46,13 @@ public class PublicSignupPage {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  returnUrl  String value for returnUrl.
+     * @param  returnParams  String value for returnParams.
+     * @param  url  String value for url.
      */
+
     protected PublicSignupPage(Integer id, OptionalNullable<String> returnUrl,
             OptionalNullable<String> returnParams, String url) {
         this.id = id;

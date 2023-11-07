@@ -54,8 +54,15 @@ public class InvoiceRefund {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  transactionId  Integer value for transactionId.
+     * @param  paymentId  Integer value for paymentId.
+     * @param  memo  String value for memo.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     * @param  gatewayTransactionId  String value for gatewayTransactionId.
      */
+
     protected InvoiceRefund(Integer transactionId, Integer paymentId, String memo,
             String originalAmount, String appliedAmount,
             OptionalNullable<String> gatewayTransactionId) {

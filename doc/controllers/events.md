@@ -82,17 +82,7 @@ Here’s an example event for the `subscription_state_change` event:
 
 ```java
 List<EventResponse> listEvents(
-    final Integer page,
-    final Integer perPage,
-    final Integer sinceId,
-    final Integer maxId,
-    final Direction direction,
-    final List<EventType> filter,
-    final ListEventsDateField dateField,
-    final String startDate,
-    final String endDate,
-    final String startDatetime,
-    final String endDatetime)
+    final ListEventsInput input)
 ```
 
 ## Parameters
@@ -118,18 +108,19 @@ List<EventResponse> listEvents(
 ## Example Usage
 
 ```java
-Integer page = 2;
-Integer perPage = 50;
-Direction direction = Direction.DESC;
-List<EventType> filter = Arrays.asList(
-    EventType.CUSTOM_FIELD_VALUE_CHANGE,
-    EventType.PAYMENT_SUCCESS
-);
-
-ListEventsDateField dateField = ListEventsDateField.CREATED_AT;
+ListEventsInput listEventsInput = new ListEventsInput.Builder()
+    .page(2)
+    .perPage(50)
+    .direction(Direction.DESC)
+    .filter(Arrays.asList(
+        EventType.CUSTOM_FIELD_VALUE_CHANGE,
+        EventType.PAYMENT_SUCCESS
+    ))
+    .dateField(ListEventsDateField.CREATED_AT)
+    .build();
 
 try {
-    List<EventResponse> result = eventsController.listEvents(page, perPage, null, null, direction, filter, dateField, null, null, null, null);
+    List<EventResponse> result = eventsController.listEvents(listEventsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -209,13 +200,7 @@ Each event type has its own `event_specific_data` specified.
 
 ```java
 List<EventResponse> listSubscriptionEvents(
-    final String subscriptionId,
-    final Integer page,
-    final Integer perPage,
-    final Integer sinceId,
-    final Integer maxId,
-    final Direction direction,
-    final List<EventType> filter)
+    final ListSubscriptionEventsInput input)
 ```
 
 ## Parameters
@@ -237,17 +222,20 @@ List<EventResponse> listSubscriptionEvents(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
-Integer page = 2;
-Integer perPage = 50;
-Direction direction = Direction.DESC;
-List<EventType> filter = Arrays.asList(
-    EventType.CUSTOM_FIELD_VALUE_CHANGE,
-    EventType.PAYMENT_SUCCESS
-);
+ListSubscriptionEventsInput listSubscriptionEventsInput = new ListSubscriptionEventsInput.Builder(
+    "subscription_id0"
+)
+.page(2)
+.perPage(50)
+.direction(Direction.DESC)
+.filter(Arrays.asList(
+        EventType.CUSTOM_FIELD_VALUE_CHANGE,
+        EventType.PAYMENT_SUCCESS
+    ))
+.build();
 
 try {
-    List<EventResponse> result = eventsController.listSubscriptionEvents(subscriptionId, page, perPage, null, null, direction, filter);
+    List<EventResponse> result = eventsController.listSubscriptionEvents(listSubscriptionEventsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -306,12 +294,7 @@ Get a count of all the events for a given site by using this method.
 
 ```java
 CountResponse readEventsCount(
-    final Integer page,
-    final Integer perPage,
-    final Integer sinceId,
-    final Integer maxId,
-    final Direction direction,
-    final List<EventType> filter)
+    final ReadEventsCountInput input)
 ```
 
 ## Parameters
@@ -332,16 +315,18 @@ CountResponse readEventsCount(
 ## Example Usage
 
 ```java
-Integer page = 2;
-Integer perPage = 50;
-Direction direction = Direction.DESC;
-List<EventType> filter = Arrays.asList(
-    EventType.CUSTOM_FIELD_VALUE_CHANGE,
-    EventType.PAYMENT_SUCCESS
-);
+ReadEventsCountInput readEventsCountInput = new ReadEventsCountInput.Builder()
+    .page(2)
+    .perPage(50)
+    .direction(Direction.DESC)
+    .filter(Arrays.asList(
+        EventType.CUSTOM_FIELD_VALUE_CHANGE,
+        EventType.PAYMENT_SUCCESS
+    ))
+    .build();
 
 try {
-    CountResponse result = eventsController.readEventsCount(page, perPage, null, null, direction, filter);
+    CountResponse result = eventsController.readEventsCount(readEventsCountInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

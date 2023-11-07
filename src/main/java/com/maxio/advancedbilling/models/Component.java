@@ -155,8 +155,40 @@ public class Component {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  pricingScheme  String value for pricingScheme.
+     * @param  unitName  String value for unitName.
+     * @param  unitPrice  String value for unitPrice.
+     * @param  productFamilyId  Integer value for productFamilyId.
+     * @param  productFamilyName  String value for productFamilyName.
+     * @param  pricePerUnitInCents  Integer value for pricePerUnitInCents.
+     * @param  kind  ComponentKind value for kind.
+     * @param  archived  Boolean value for archived.
+     * @param  taxable  Boolean value for taxable.
+     * @param  description  String value for description.
+     * @param  defaultPricePointId  Integer value for defaultPricePointId.
+     * @param  prices  List of ComponentPrice value for prices.
+     * @param  pricePointCount  Integer value for pricePointCount.
+     * @param  pricePointsUrl  String value for pricePointsUrl.
+     * @param  defaultPricePointName  String value for defaultPricePointName.
+     * @param  taxCode  String value for taxCode.
+     * @param  recurring  Boolean value for recurring.
+     * @param  upgradeCharge  String value for upgradeCharge.
+     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  archivedAt  String value for archivedAt.
+     * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
+     * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
+     * @param  itemCategory  ItemCategory value for itemCategory.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  accountingCode  String value for accountingCode.
+     * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
      */
+
     protected Component(Integer id, String name, String handle,
             OptionalNullable<String> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,

@@ -24,15 +24,16 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ListMetafieldsDirection.ListMetafieldsDirectionDeserializer.class)
-public abstract class ListMetafieldsDirection {
+@JsonDeserialize(using = ListMetadataInputDirection.ListMetadataInputDirectionDeserializer.class)
+public abstract class ListMetadataInputDirection {
     
     /**
      * This is Sorting direction case.
      * @param sortingDirection SortingDirection value for sortingDirection.
      * @return The SortingDirectionCase object.
      */
-    public static ListMetafieldsDirection fromSortingDirection(SortingDirection sortingDirection) {
+    public static ListMetadataInputDirection fromSortingDirection(
+            SortingDirection sortingDirection) {
         return sortingDirection == null ? null : new SortingDirectionCase(sortingDirection);
     }
 
@@ -63,7 +64,7 @@ public abstract class ListMetafieldsDirection {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SortingDirection")
-    private static class SortingDirectionCase extends ListMetafieldsDirection {
+    private static class SortingDirectionCase extends ListMetadataInputDirection {
 
         @JsonValue
         private SortingDirection sortingDirection;
@@ -98,13 +99,13 @@ public abstract class ListMetafieldsDirection {
     }
 
     /**
-     * This is a custom deserializer class for ListMetafieldsDirection.
+     * This is a custom deserializer class for ListMetadataInputDirection.
      */
-    protected static class ListMetafieldsDirectionDeserializer
-            extends JsonDeserializer<ListMetafieldsDirection> {
+    protected static class ListMetadataInputDirectionDeserializer
+            extends JsonDeserializer<ListMetadataInputDirection> {
 
         @Override
-        public ListMetafieldsDirection deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ListMetadataInputDirection deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

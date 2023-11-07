@@ -62,8 +62,17 @@ public class ComponentPrice {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  componentId  Integer value for componentId.
+     * @param  startingQuantity  Integer value for startingQuantity.
+     * @param  endingQuantity  Integer value for endingQuantity.
+     * @param  unitPrice  String value for unitPrice.
+     * @param  pricePointId  Integer value for pricePointId.
+     * @param  formattedUnitPrice  String value for formattedUnitPrice.
+     * @param  segmentId  Integer value for segmentId.
      */
+
     protected ComponentPrice(Integer id, Integer componentId, Integer startingQuantity,
             OptionalNullable<Integer> endingQuantity, String unitPrice, Integer pricePointId,
             String formattedUnitPrice, OptionalNullable<Integer> segmentId) {

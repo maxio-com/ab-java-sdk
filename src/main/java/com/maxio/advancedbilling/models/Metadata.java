@@ -54,8 +54,15 @@ public class Metadata {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  value  String value for value.
+     * @param  resourceId  Integer value for resourceId.
+     * @param  name  String value for name.
+     * @param  deletedAt  String value for deletedAt.
+     * @param  metafieldId  Double value for metafieldId.
      */
+
     protected Metadata(Integer id, String value, Integer resourceId, String name,
             OptionalNullable<String> deletedAt, Double metafieldId) {
         this.id = id;

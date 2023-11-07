@@ -46,8 +46,13 @@ public class Seller {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  address  InvoiceAddress value for address.
+     * @param  phone  String value for phone.
+     * @param  logoUrl  String value for logoUrl.
      */
+
     protected Seller(String name, InvoiceAddress address, String phone,
             OptionalNullable<String> logoUrl) {
         this.name = name;

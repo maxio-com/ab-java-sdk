@@ -95,8 +95,25 @@ public class Allocation {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  componentId  Integer value for componentId.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  quantity  Integer value for quantity.
+     * @param  previousQuantity  Integer value for previousQuantity.
+     * @param  memo  String value for memo.
+     * @param  timestamp  String value for timestamp.
+     * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
+     * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
+     * @param  pricePointId  Integer value for pricePointId.
+     * @param  pricePointName  String value for pricePointName.
+     * @param  pricePointHandle  String value for pricePointHandle.
+     * @param  previousPricePointId  Integer value for previousPricePointId.
+     * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  upgradeCharge  String value for upgradeCharge.
+     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  payment  AllocationPayment2 value for payment.
      */
+
     protected Allocation(Integer componentId, Integer subscriptionId, Integer quantity,
             Integer previousQuantity, OptionalNullable<String> memo, String timestamp,
             String prorationUpgradeScheme, String prorationDowngradeScheme, Integer pricePointId,

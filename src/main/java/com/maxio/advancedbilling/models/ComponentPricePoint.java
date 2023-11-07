@@ -88,8 +88,23 @@ public class ComponentPricePoint {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  type  PricePointType value for type.
+     * @param  mDefault  Boolean value for mDefault.
+     * @param  name  String value for name.
+     * @param  pricingScheme  String value for pricingScheme.
+     * @param  componentId  Integer value for componentId.
+     * @param  handle  String value for handle.
+     * @param  archivedAt  String value for archivedAt.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  prices  List of ComponentPricePointPrice value for prices.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      */
+
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
             String pricingScheme, Integer componentId, String handle,
             OptionalNullable<String> archivedAt, String createdAt, String updatedAt,

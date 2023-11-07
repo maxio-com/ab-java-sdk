@@ -60,7 +60,7 @@ public final class SubscriptionProductsController extends BaseController {
      * attribute to authenticate. Attach callback_url param to this URL if you want to be notified
      * about the result of 3D Secure authentication. Attach redirect_url param to this URL if you
      * want to redirect a customer back to your page after 3D Secure authentication. Example:
-     * https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&callback_url=https://localhost:4000&redirect_url=https://yourpage.com
+     * https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com
      * will do a POST request to https://localhost:4000 after payment is authenticated and will
      * redirect a customer to https://yourpage.com after 3DS authentication.", "action_link":
      * "http://acme.chargify.com/3d-secure/pi_1F0aGoJ2UDb3Q4av7zU3sHPh?one_time_token_id=242" } ```
@@ -76,7 +76,7 @@ public final class SubscriptionProductsController extends BaseController {
      * `redirect_url` or `callback_url`. The final URL that you send a customer to to complete 3D
      * Secure may resemble the following, where the first half is the `action_link` and the second
      * half contains a `redirect_url` and `callback_url`:
-     * `https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&callback_url=https://localhost:4000&redirect_url=https://yourpage.com`
+     * `https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com`
      * ### Example Redirect Flow You may wish to redirect customers to different pages depending on
      * whether their SCA was performed successfully. Here's an example flow to use as a reference:
      * 1. Create a migration via API; it requires 3DS 2. You receive a `gateway_payment_id` in the

@@ -132,8 +132,34 @@ public class PaymentProfileAttributes {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  chargifyToken  String value for chargifyToken.
+     * @param  id  Integer value for id.
+     * @param  paymentType  String value for paymentType.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  fullNumber  String value for fullNumber.
+     * @param  cardType  CardType value for cardType.
+     * @param  expirationMonth  PaymentProfileAttributesExpirationMonth value for expirationMonth.
+     * @param  expirationYear  PaymentProfileAttributesExpirationYear value for expirationYear.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingAddress2  String value for billingAddress2.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingState  String value for billingState.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  billingZip  String value for billingZip.
+     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  vaultToken  String value for vaultToken.
+     * @param  customerVaultToken  String value for customerVaultToken.
+     * @param  customerId  Integer value for customerId.
+     * @param  paypalEmail  String value for paypalEmail.
+     * @param  paymentMethodNonce  String value for paymentMethodNonce.
+     * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  cvv  String value for cvv.
+     * @param  lastFour  String value for lastFour.
      */
+
     protected PaymentProfileAttributes(String chargifyToken, Integer id, String paymentType,
             String firstName, String lastName, String maskedCardNumber, String fullNumber,
             CardType cardType, PaymentProfileAttributesExpirationMonth expirationMonth,

@@ -147,8 +147,38 @@ public class SubscriptionComponent {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  name  String value for name.
+     * @param  kind  String value for kind.
+     * @param  unitName  String value for unitName.
+     * @param  enabled  Boolean value for enabled.
+     * @param  unitBalance  Integer value for unitBalance.
+     * @param  currency  String value for currency.
+     * @param  allocatedQuantity  Integer value for allocatedQuantity.
+     * @param  pricingScheme  String value for pricingScheme.
+     * @param  componentId  Integer value for componentId.
+     * @param  componentHandle  String value for componentHandle.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  recurring  Boolean value for recurring.
+     * @param  upgradeCharge  String value for upgradeCharge.
+     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  archivedAt  String value for archivedAt.
+     * @param  pricePointId  Integer value for pricePointId.
+     * @param  pricePointHandle  String value for pricePointHandle.
+     * @param  pricePointType  SubscriptionComponentPricePointType value for pricePointType.
+     * @param  pricePointName  String value for pricePointName.
+     * @param  productFamilyId  Integer value for productFamilyId.
+     * @param  productFamilyHandle  String value for productFamilyHandle.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  description  String value for description.
+     * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
+     * @param  subscription  SubscriptionComponentSubscription value for subscription.
+     * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      */
+
     protected SubscriptionComponent(Integer id, String name, String kind, String unitName,
             Boolean enabled, Integer unitBalance, String currency, Integer allocatedQuantity,
             OptionalNullable<String> pricingScheme, Integer componentId,

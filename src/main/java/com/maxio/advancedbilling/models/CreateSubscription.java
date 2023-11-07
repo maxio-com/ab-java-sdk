@@ -240,8 +240,62 @@ public class CreateSubscription {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  productHandle  String value for productHandle.
+     * @param  productId  String value for productId.
+     * @param  productPricePointHandle  String value for productPricePointHandle.
+     * @param  productPricePointId  String value for productPricePointId.
+     * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+     * @param  couponCode  String value for couponCode.
+     * @param  couponCodes  List of String value for couponCodes.
+     * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
+     * @param  receivesInvoiceEmails  String value for receivesInvoiceEmails.
+     * @param  netTerms  String value for netTerms.
+     * @param  customerId  Integer value for customerId.
+     * @param  nextBillingAt  String value for nextBillingAt.
+     * @param  initialBillingAt  String value for initialBillingAt.
+     * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
+     * @param  salesRepId  Integer value for salesRepId.
+     * @param  paymentProfileId  Integer value for paymentProfileId.
+     * @param  reference  String value for reference.
+     * @param  customerAttributes  CustomerAttributes value for customerAttributes.
+     * @param  paymentProfileAttributes  PaymentProfileAttributes value for
+     *         paymentProfileAttributes.
+     * @param  creditCardAttributes  PaymentProfileAttributes value for creditCardAttributes.
+     * @param  bankAccountAttributes  BankAccountAttributes value for bankAccountAttributes.
+     * @param  components  List of CreateSubscriptionComponents value for components.
+     * @param  calendarBilling  CalendarBilling value for calendarBilling.
+     * @param  metafields  Map of String, value for metafields.
+     * @param  customerReference  String value for customerReference.
+     * @param  group  CreateSubscriptionGroup2 value for group.
+     * @param  ref  String value for ref.
+     * @param  cancellationMessage  String value for cancellationMessage.
+     * @param  cancellationMethod  String value for cancellationMethod.
+     * @param  currency  String value for currency.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  expirationTracksNextBillingChange  String value for
+     *         expirationTracksNextBillingChange.
+     * @param  agreementTerms  String value for agreementTerms.
+     * @param  authorizerFirstName  String value for authorizerFirstName.
+     * @param  authorizerLastName  String value for authorizerLastName.
+     * @param  calendarBillingFirstCharge  String value for calendarBillingFirstCharge.
+     * @param  reasonCode  String value for reasonCode.
+     * @param  productChangeDelayed  Boolean value for productChangeDelayed.
+     * @param  offerId  CreateSubscriptionOfferId value for offerId.
+     * @param  prepaidSubscriptionConfiguration  UpsertPrepaidConfiguration value for
+     *         prepaidSubscriptionConfiguration.
+     * @param  previousBillingAt  String value for previousBillingAt.
+     * @param  importMrr  Boolean value for importMrr.
+     * @param  canceledAt  String value for canceledAt.
+     * @param  activatedAt  String value for activatedAt.
+     * @param  agreementAcceptance  AgreementAcceptance value for agreementAcceptance.
+     * @param  achAgreement  ACHAgreement value for achAgreement.
+     * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
+     * @param  dunningCommunicationDelayTimeZone  String value for
+     *         dunningCommunicationDelayTimeZone.
+     * @param  skipBillingManifestTaxes  Boolean value for skipBillingManifestTaxes.
      */
+
     protected CreateSubscription(String productHandle, String productId,
             String productPricePointHandle, String productPricePointId,
             CustomPriceUsedForSubscriptionCreateUpdate customPrice, String couponCode,

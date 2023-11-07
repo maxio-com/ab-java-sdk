@@ -34,8 +34,10 @@ public class ActivateSubscriptionRequest {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  revertOnFailure  Boolean value for revertOnFailure.
      */
+
     protected ActivateSubscriptionRequest(OptionalNullable<Boolean> revertOnFailure) {
         this.revertOnFailure = revertOnFailure;
     }

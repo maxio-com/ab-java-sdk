@@ -161,8 +161,41 @@ public class CreatePaymentProfile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  chargifyToken  String value for chargifyToken.
+     * @param  id  Integer value for id.
+     * @param  paymentType  PaymentType value for paymentType.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  fullNumber  String value for fullNumber.
+     * @param  cardType  CardType value for cardType.
+     * @param  expirationMonth  CreatePaymentProfileExpirationMonth value for expirationMonth.
+     * @param  expirationYear  CreatePaymentProfileExpirationYear value for expirationYear.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingAddress2  String value for billingAddress2.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingState  String value for billingState.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  billingZip  String value for billingZip.
+     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  vaultToken  String value for vaultToken.
+     * @param  customerVaultToken  String value for customerVaultToken.
+     * @param  customerId  Integer value for customerId.
+     * @param  paypalEmail  String value for paypalEmail.
+     * @param  paymentMethodNonce  String value for paymentMethodNonce.
+     * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  cvv  String value for cvv.
+     * @param  bankName  String value for bankName.
+     * @param  bankIban  String value for bankIban.
+     * @param  bankRoutingNumber  String value for bankRoutingNumber.
+     * @param  bankAccountNumber  String value for bankAccountNumber.
+     * @param  bankBranchCode  String value for bankBranchCode.
+     * @param  bankAccountType  String value for bankAccountType.
+     * @param  bankAccountHolderType  String value for bankAccountHolderType.
+     * @param  lastFour  String value for lastFour.
      */
+
     protected CreatePaymentProfile(String chargifyToken, Integer id, PaymentType paymentType,
             String firstName, String lastName, String maskedCardNumber, String fullNumber,
             CardType cardType, CreatePaymentProfileExpirationMonth expirationMonth,

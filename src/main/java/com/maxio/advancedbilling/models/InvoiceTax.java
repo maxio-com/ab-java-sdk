@@ -76,8 +76,21 @@ public class InvoiceTax {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  title  String value for title.
+     * @param  description  String value for description.
+     * @param  sourceType  String value for sourceType.
+     * @param  sourceId  Integer value for sourceId.
+     * @param  percentage  String value for percentage.
+     * @param  taxableAmount  String value for taxableAmount.
+     * @param  taxAmount  String value for taxAmount.
+     * @param  transactionId  Integer value for transactionId.
+     * @param  lineItemBreakouts  List of InvoiceTaxBreakout value for lineItemBreakouts.
+     * @param  taxComponentBreakouts  List of InvoiceTaxComponentBreakout value for
+     *         taxComponentBreakouts.
      */
+
     protected InvoiceTax(String uid, String title, OptionalNullable<String> description,
             String sourceType, Integer sourceId, String percentage, String taxableAmount,
             String taxAmount, Integer transactionId, List<InvoiceTaxBreakout> lineItemBreakouts,

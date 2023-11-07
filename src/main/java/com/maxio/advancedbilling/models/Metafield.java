@@ -56,8 +56,15 @@ public class Metafield {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Double value for id.
+     * @param  name  String value for name.
+     * @param  scope  MetafieldScope value for scope.
+     * @param  dataCount  Integer value for dataCount.
+     * @param  inputType  String value for inputType.
+     * @param  mEnum  List of MetafieldEnum value for mEnum.
      */
+
     protected Metafield(Double id, String name, MetafieldScope scope, Integer dataCount,
             String inputType, OptionalNullable<List<MetafieldEnum>> mEnum) {
         this.id = id;

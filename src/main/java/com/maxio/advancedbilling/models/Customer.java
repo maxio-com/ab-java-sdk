@@ -138,8 +138,36 @@ public class Customer {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  email  String value for email.
+     * @param  ccEmails  String value for ccEmails.
+     * @param  organization  String value for organization.
+     * @param  reference  String value for reference.
+     * @param  id  Integer value for id.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  address  String value for address.
+     * @param  address2  String value for address2.
+     * @param  city  String value for city.
+     * @param  state  String value for state.
+     * @param  stateName  String value for stateName.
+     * @param  zip  String value for zip.
+     * @param  country  String value for country.
+     * @param  countryName  String value for countryName.
+     * @param  phone  String value for phone.
+     * @param  verified  Boolean value for verified.
+     * @param  portalCustomerCreatedAt  String value for portalCustomerCreatedAt.
+     * @param  portalInviteLastSentAt  String value for portalInviteLastSentAt.
+     * @param  portalInviteLastAcceptedAt  String value for portalInviteLastAcceptedAt.
+     * @param  taxExempt  Boolean value for taxExempt.
+     * @param  vatNumber  String value for vatNumber.
+     * @param  parentId  Integer value for parentId.
+     * @param  locale  String value for locale.
+     * @param  defaultSubscriptionGroupUid  String value for defaultSubscriptionGroupUid.
      */
+
     protected Customer(String firstName, String lastName, String email,
             OptionalNullable<String> ccEmails, OptionalNullable<String> organization,
             OptionalNullable<String> reference, Integer id, String createdAt, String updatedAt,
@@ -249,7 +277,7 @@ public class Customer {
     /**
      * Internal Getter for CcEmails.
      * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe@example.com, sue@example.com”)
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)
      * @return Returns the Internal String
      */
     @JsonGetter("cc_emails")
@@ -262,7 +290,7 @@ public class Customer {
     /**
      * Getter for CcEmails.
      * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe@example.com, sue@example.com”)
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)
      * @return Returns the String
      */
     public String getCcEmails() {
@@ -272,7 +300,7 @@ public class Customer {
     /**
      * Setter for CcEmails.
      * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe@example.com, sue@example.com”)
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)
      * @param ccEmails Value for String
      */
     @JsonSetter("cc_emails")
@@ -283,7 +311,7 @@ public class Customer {
     /**
      * UnSetter for CcEmails.
      * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe@example.com, sue@example.com”)
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)
      */
     public void unsetCcEmails() {
         ccEmails = null;

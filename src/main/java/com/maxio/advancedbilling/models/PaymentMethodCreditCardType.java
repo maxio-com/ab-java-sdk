@@ -51,8 +51,14 @@ public class PaymentMethodCreditCardType {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  cardExpiration  String value for cardExpiration.
+     * @param  lastFour  String value for lastFour.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  type  String value for type.
      */
+
     protected PaymentMethodCreditCardType(String cardBrand, String cardExpiration,
             OptionalNullable<String> lastFour, String maskedCardNumber, String type) {
         this.cardBrand = cardBrand;

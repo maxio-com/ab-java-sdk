@@ -60,8 +60,16 @@ public class ComponentCostData {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  componentCodeId  Integer value for componentCodeId.
+     * @param  pricePointId  Integer value for pricePointId.
+     * @param  productId  Integer value for productId.
+     * @param  quantity  String value for quantity.
+     * @param  amount  String value for amount.
+     * @param  pricingScheme  ComponentCostDataPricingScheme value for pricingScheme.
+     * @param  tiers  List of ComponentCostDataRateTier value for tiers.
      */
+
     protected ComponentCostData(OptionalNullable<Integer> componentCodeId, Integer pricePointId,
             Integer productId, String quantity, String amount,
             ComponentCostDataPricingScheme pricingScheme, List<ComponentCostDataRateTier> tiers) {

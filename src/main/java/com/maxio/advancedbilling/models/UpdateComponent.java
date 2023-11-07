@@ -66,8 +66,18 @@ public class UpdateComponent {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  handle  String value for handle.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
+     * @param  accountingCode  String value for accountingCode.
+     * @param  taxable  Boolean value for taxable.
+     * @param  taxCode  String value for taxCode.
+     * @param  itemCategory  ItemCategory value for itemCategory.
+     * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
+     * @param  upgradeCharge  CreditType value for upgradeCharge.
      */
+
     protected UpdateComponent(String handle, String name, OptionalNullable<String> description,
             String accountingCode, Boolean taxable, OptionalNullable<String> taxCode,
             ItemCategory itemCategory, Boolean displayOnHostedPage, CreditType upgradeCharge) {

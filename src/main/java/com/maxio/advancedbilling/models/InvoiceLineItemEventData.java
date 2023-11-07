@@ -111,8 +111,29 @@ public class InvoiceLineItemEventData {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  title  String value for title.
+     * @param  description  String value for description.
+     * @param  quantity  Integer value for quantity.
+     * @param  quantityDelta  Integer value for quantityDelta.
+     * @param  unitPrice  String value for unitPrice.
+     * @param  periodRangeStart  String value for periodRangeStart.
+     * @param  periodRangeEnd  String value for periodRangeEnd.
+     * @param  amount  String value for amount.
+     * @param  lineReferences  String value for lineReferences.
+     * @param  pricingDetailsIndex  Integer value for pricingDetailsIndex.
+     * @param  pricingDetails  List of InvoiceLineItemPricingDetail value for pricingDetails.
+     * @param  taxCode  String value for taxCode.
+     * @param  taxAmount  String value for taxAmount.
+     * @param  productId  Integer value for productId.
+     * @param  productPricePointId  Integer value for productPricePointId.
+     * @param  pricePointId  Integer value for pricePointId.
+     * @param  componentId  Integer value for componentId.
+     * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
+     * @param  customItem  Boolean value for customItem.
      */
+
     protected InvoiceLineItemEventData(String uid, String title, String description,
             Integer quantity, OptionalNullable<Integer> quantityDelta, String unitPrice,
             String periodRangeStart, String periodRangeEnd, String amount, String lineReferences,

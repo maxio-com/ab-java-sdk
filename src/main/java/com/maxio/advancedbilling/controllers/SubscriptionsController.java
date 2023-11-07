@@ -135,18 +135,18 @@ public final class SubscriptionsController extends BaseController {
      * bank account is being passed, the payment attributes should be changed to
      * `bank_account_attributes`. ```json { "subscription": { "product_handle": "pro-plan",
      * "customer_attributes": { "first_name": "Joe", "last_name": "Smith", "email":
-     * "j.smith@example.com" }, "credit_card_attributes": { "chargify_token":
+     * "j.smith{@literal @}example.com" }, "credit_card_attributes": { "chargify_token":
      * "tok_cwhvpfcnbtgkd8nfkzf9dnjn", "payment_type": "credit_card" } } } ``` ## Subscription with
      * vault token If you already have a customer and card stored in your payment gateway, you may
      * create a subscription with a `vault_token`. Providing the last_four, card type and expiration
      * date will allow the card to be displayed properly in the Chargify UI. ```json {
      * "subscription": { "product_handle": "pro-plan", "customer_attributes": { "first_name": "Joe",
-     * "last_name": "Smith", "email": "j.smith@example.com" }, "credit_card_attributes": {
+     * "last_name": "Smith", "email": "j.smith{@literal @}example.com" }, "credit_card_attributes": {
      * first_name: "Joe, last_name: "Smith", card_type: "visa", expiration_month: "05",
      * expiration_year: "2025", last_four: "1234", vault_token: "12345abc", current_vault:
      * "braintree_blue" } } ``` ## Subscription with Credit Card ```json "subscription": {
      * "product_handle": "basic", "customer_attributes": { "first_name": "Joe", "last_name": "Blow",
-     * "email": "joe@example.com", "zip": "02120", "state": "MA", "reference": "XYZ", "phone":
+     * "email": "joe{@literal @}example.com", "zip": "02120", "state": "MA", "reference": "XYZ", "phone":
      * "(617) 111 - 0000", "organization": "Acme", "country": "US", "city": "Boston", "address_2":
      * null, "address": "123 Mass Ave." }, "credit_card_attributes": { "last_name": "Smith",
      * "first_name": "Joe", "full_number": "4111111111111111", "expiration_year": "2021",
@@ -154,7 +154,7 @@ public final class SubscriptionsController extends BaseController {
      * "billing_country": "US", "billing_city": "Boston", "billing_address_2": null,
      * "billing_address": "123 Mass Ave." } } ``` ## Subscription with ACH as Payment Profile
      * ```json { "subscription": { "product_handle": "gold-product", "customer_attributes": {
-     * "first_name": "Joe", "last_name": "Blow", "email": "joe@example.com", "zip": "02120",
+     * "first_name": "Joe", "last_name": "Blow", "email": "joe{@literal @}example.com", "zip": "02120",
      * "state": "MA", "reference": "XYZ", "phone": "(617) 111 - 0000", "organization": "Acme",
      * "country": "US", "city": "Boston", "address_2": null, "address": "123 Mass Ave." },
      * "bank_account_attributes": { "bank_name": "Best Bank", "bank_routing_number": "021000089",
@@ -162,14 +162,14 @@ public final class SubscriptionsController extends BaseController {
      * "bank_account_holder_type": "business", "payment_type": "bank_account" } } } ``` ##
      * Subscription with PayPal payment profile ### With the nonce from Braintree JS ```json {
      * "subscription": { "product_handle":"test-product-b", "customer_attributes": {
-     * "first_name":"Amelia", "last_name":"Johnson", "email":"amelia@example.com",
+     * "first_name":"Amelia", "last_name":"Johnson", "email":"amelia{@literal @}example.com",
      * "organization":"My Awesome Company" }, "payment_profile_attributes":{ "paypal_email":
-     * "amelia@example.com", "current_vault": "braintree_blue", "payment_method_nonce":"abc123",
+     * "amelia{@literal @}example.com", "current_vault": "braintree_blue", "payment_method_nonce":"abc123",
      * "payment_type":"paypal_account" } } ``` ### With the Braintree Customer ID as the vault
      * token: ```json { "subscription": { "product_handle":"test-product-b", "customer_attributes":
-     * { "first_name":"Amelia", "last_name":"Johnson", "email":"amelia@example.com",
+     * { "first_name":"Amelia", "last_name":"Johnson", "email":"amelia{@literal @}example.com",
      * "organization":"My Awesome Company" }, "payment_profile_attributes":{ "paypal_email":
-     * "amelia@example.com", "current_vault": "braintree_blue", "vault_token":"58271347",
+     * "amelia{@literal @}example.com", "current_vault": "braintree_blue", "vault_token":"58271347",
      * "payment_type":"paypal_account" } } ``` ## Subscription using GoCardless Bank Number These
      * examples creates a customer, bank account and mandate in GoCardless. For more information on
      * GoCardless, please view the following two resources: + [Payment Profiles via API for
@@ -181,14 +181,14 @@ public final class SubscriptionsController extends BaseController {
      * + [Using Chargify.js with GoCardless - full
      * example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDIy-examples#full-example-with-direct-debit-gocardless-gateway)
      * ```json { "subscription": { "product_handle": "gold-product", "customer_attributes": {
-     * "first_name": "Jane", "last_name": "Doe", "email": "jd@chargify.test" },
+     * "first_name": "Jane", "last_name": "Doe", "email": "jd{@literal @}chargify.test" },
      * "bank_account_attributes": { "bank_name": "Royal Bank of France", "bank_account_number":
      * "0000000", "bank_routing_number": "0003", "bank_branch_code": "00006", "payment_type":
      * "bank_account", "billing_address": "20 Place de la Gare", "billing_city": "Colombes",
      * "billing_state": "Île-de-France", "billing_zip": "92700", "billing_country": "FR" } } } ```
      * ## Subscription using GoCardless IBAN Number ```json { "subscription": { "product_handle":
      * "gold-product", "customer_attributes": { "first_name": "Jane", "last_name": "Doe", "email":
-     * "jd@chargify.test" }, "bank_account_attributes": { "bank_name": "French Bank", "bank_iban":
+     * "jd{@literal @}chargify.test" }, "bank_account_attributes": { "bank_name": "French Bank", "bank_iban":
      * "FR1420041010050500013M02606", "payment_type": "bank_account", "billing_address": "20 Place
      * de la Gare", "billing_city": "Colombes", "billing_state": "Île-de-France", "billing_zip":
      * "92700", "billing_country": "FR" } } } ``` ## Subscription using Stripe SEPA Direct Debit For
@@ -202,7 +202,7 @@ public final class SubscriptionsController extends BaseController {
      * + [Using Chargify.js with Stripe SEPA Direct Debit - full
      * example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDIy-examples#full-example-with-sepa-direct-debit-stripe-gateway)
      * ```json { "subscription": { "product_handle": "gold-product", "customer_attributes": {
-     * "first_name": "Jane", "last_name": "Doe", "email": "jd@chargify.test" },
+     * "first_name": "Jane", "last_name": "Doe", "email": "jd{@literal @}chargify.test" },
      * "bank_account_attributes": { "bank_name": "Test Bank", "bank_iban": "DE89370400440532013000",
      * "payment_type": "bank_account" } } } ``` ## Subscription using Stripe BECS Direct Debit For
      * more information on Stripe Direct Debit, please view the following two resources: + [Payment
@@ -215,7 +215,7 @@ public final class SubscriptionsController extends BaseController {
      * + [Using Chargify.js with Stripe BECS Direct Debit - full
      * example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDIy-examples#full-example-with-becs-direct-debit-stripe-gateway)
      * ```json { "subscription": { "product_handle": "gold-product", "customer_attributes": {
-     * "first_name": "Jane", "last_name": "Doe", "email": "jd@chargify.test" },
+     * "first_name": "Jane", "last_name": "Doe", "email": "jd{@literal @}chargify.test" },
      * "bank_account_attributes": { "bank_name": "Test Bank", "bank_branch_code": "000000",
      * "bank_account_number": "000123456", "payment_type": "bank_account" } } } ``` ## 3D Secure -
      * Stripe It may happen that a payment needs 3D Secure Authentication when the subscription is
@@ -228,7 +228,7 @@ public final class SubscriptionsController extends BaseController {
      * attribute to authenticate. Attach callback_url param to this URL if you want to be notified
      * about the result of 3D Secure authentication. Attach redirect_url param to this URL if you
      * want to redirect a customer back to your page after 3D Secure authentication. Example:
-     * https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&callback_url=https://localhost:4000&redirect_url=https://yourpage.com
+     * https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com
      * will do a POST request to https://localhost:4000 after payment is authenticated and will
      * redirect a customer to https://yourpage.com after 3DS authentication.", "action_link":
      * "http://acme.chargify.com/3d-secure/pi_1F0aGoJ2UDb3Q4av7zU3sHPh?one_time_token_id=242" } ```
@@ -244,7 +244,7 @@ public final class SubscriptionsController extends BaseController {
      * `redirect_url` or `callback_url`. The final URL that you send a customer to to complete 3D
      * Secure may resemble the following, where the first half is the `action_link` and the second
      * half contains a `redirect_url` and `callback_url`:
-     * `https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&callback_url=https://localhost:4000&redirect_url=https://yourpage.com`
+     * `https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com`
      * ## 3D Secure - Checkout It may happen that a payment needs 3D Secure Authentication when the
      * subscription is created; this is referred to in our help docs as a [post-authentication
      * flow](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405177432077#psd2-flows-pre-authentication-and-post-authentication).
@@ -256,7 +256,7 @@ public final class SubscriptionsController extends BaseController {
      * be notified about the result of 3D Secure authentication. Attach redirect_url param to this
      * URL if you want to redirect a customer back to your page after 3D Secure authentication.
      * Example:
-     * https://mysite.chargify.com/3d-secure/pay_6gjofv7dlyrkpizlolsuspvtiu?one_time_token_id=123&callback_url=https://localhost:4000&redirect_url=https://yourpage.com
+     * https://mysite.chargify.com/3d-secure/pay_6gjofv7dlyrkpizlolsuspvtiu?one_time_token_id=123&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com
      * will do a POST request to https://localhost:4000 after payment is authenticated and will
      * redirect a customer to https://yourpage.com after 3DS authentication.", "action_link":
      * "http://mysite.chargify.com/3d-secure/pay_6gjofv7dlyrkpizlolsuspvtiu?one_time_token_id=123" }
@@ -272,7 +272,7 @@ public final class SubscriptionsController extends BaseController {
      * notified about the result, use `redirect_url` or `callback_url`. The final URL that you send
      * a customer to complete 3D Secure may resemble the following, where the first half is the
      * `action_link` and the second half contains a `redirect_url` and `callback_url`:
-     * `https://mysite.chargify.com/3d-secure/pay_6gjofv7dlyrkpizlolsuspvtiu?one_time_token_id=123&callback_url=https://localhost:4000&redirect_url=https://yourpage.com`
+     * `https://mysite.chargify.com/3d-secure/pay_6gjofv7dlyrkpizlolsuspvtiu?one_time_token_id=123&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com`
      * ### Example Redirect Flow You may wish to redirect customers to different pages depending on
      * whether their SCA was performed successfully. Here's an example flow to use as a reference:
      * 1. Create a subscription via API; it requires 3DS 2. You receive a `gateway_payment_id` in
@@ -324,7 +324,7 @@ public final class SubscriptionsController extends BaseController {
      * equivalent and will work as input to `next_billing_at`: ``` Aug 06 2030 11:34:00 -0400 Aug 06
      * 2030 11:34 -0400 2030-08-06T11:34:00-04:00 8/6/2030 11:34:00 EDT 8/6/2030 8:34:00 PDT
      * 2030-08-06T15:34:00Z ``` You may also pass just a date, in which case we will assume the time
-     * to be noon ``` 2010-08-06 ``` ## Subscription Hierarchies & WhoPays When subscription groups
+     * to be noon ``` 2010-08-06 ``` ## Subscription Hierarchies &amp; WhoPays When subscription groups
      * were first added to our Relationship Invoicing architecture, to group together invoices for
      * related subscriptions and allow for complex customer hierarchies and WhoPays scenarios, they
      * were designed to consist of a primary and a collection of group members. The primary would
@@ -393,7 +393,7 @@ public final class SubscriptionsController extends BaseController {
      * Additional urls that can be provided: `return_refund_policy_url`, `delivery_policy_url` and
      * `secure_checkout_policy_url`. ```json "subscription": { "product_handle": "gold-product",
      * "customer_attributes": { "first_name": "Jane", "last_name": "Doe", "email":
-     * "jd@chargify.test" }, "agreement_acceptance": { "ip_address": "1.2.3.4", "terms_url":
+     * "jd{@literal @}chargify.test" }, "agreement_acceptance": { "ip_address": "1.2.3.4", "terms_url":
      * "https://terms.url", "privacy_policy_url": "https://privacy_policy.url",
      * "return_refund_policy_url": "https://return_refund_policy.url", "delivery_policy_url":
      * "https://delivery_policy.url", "secure_checkout_policy_url":
@@ -406,7 +406,7 @@ public final class SubscriptionsController extends BaseController {
      * with the following nested parameters: `agreement_terms`, `authorizer_first_name`,
      * `authorizer_last_name` and `ip_address`. Each of them is required. ```json "subscription": {
      * "product_handle": "gold-product", "customer_attributes": { "first_name": "Jane", "last_name":
-     * "Doe", "email": "jd@chargify.test" }, "bank_account_attributes": { "bank_name": "Test Bank",
+     * "Doe", "email": "jd{@literal @}chargify.test" }, "bank_account_attributes": { "bank_name": "Test Bank",
      * "bank_routing_number": "021000089", "bank_account_number": "111111111111",
      * "bank_account_type": "checking", "bank_account_holder_type": "business", "payment_type":
      * "bank_account" }, "ach_agreement": { "agreement_terms": "ACH agreement terms",
@@ -610,7 +610,7 @@ public final class SubscriptionsController extends BaseController {
      * include[]=self_service_page_token parameter must be provided with the request.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  include  Optional parameter: Allows including additional data in the response. Use in
-     *         query: `include[]=coupons&include[]=self_service_page_token`.
+     *         query: `include[]=coupons&amp;include[]=self_service_page_token`.
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -755,13 +755,13 @@ public final class SubscriptionsController extends BaseController {
      * in the url. To confirm, supply the customer ID in the query string `ack` parameter. You may
      * also delete the customer record and/or payment profiles by passing `cascade` parameters. For
      * example, to delete just the customer record, the query params would be:
-     * `?ack={customer_id}&cascade[]=customer` If you need to remove subscriptions from a live site,
+     * `?ack={customer_id}&amp;cascade[]=customer` If you need to remove subscriptions from a live site,
      * please contact support to discuss your use case. ### Delete customer and payment profile The
-     * query params will be: `?ack={customer_id}&cascade[]=customer&cascade[]=payment_profile`.
+     * query params will be: `?ack={customer_id}&amp;cascade[]=customer&amp;cascade[]=payment_profile`.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  ack  Required parameter: id of the customer.
      * @param  cascade  Optional parameter: Options are "customer" or "payment_profile". Use in
-     *         query: `cascade[]=customer&cascade[]=payment_profile`.
+     *         query: `cascade[]=customer&amp;cascade[]=payment_profile`.
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */

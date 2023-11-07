@@ -15,11 +15,11 @@ import com.maxio.advancedbilling.exceptions.RefundPrepaymentAggregatedErrorsResp
 import com.maxio.advancedbilling.exceptions.RefundPrepaymentBaseErrorsResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.AccountBalances;
-import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.CreatePrepaymentRequest;
 import com.maxio.advancedbilling.models.CreatePrepaymentResponse;
 import com.maxio.advancedbilling.models.DeductServiceCreditRequest;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
+import com.maxio.advancedbilling.models.ListPrepaymentsInput;
 import com.maxio.advancedbilling.models.PrepaymentResponse;
 import com.maxio.advancedbilling.models.PrepaymentsResponse;
 import com.maxio.advancedbilling.models.RefundPrepaymentRequest;
@@ -129,68 +129,37 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
 
     /**
      * This request will list a subscription's prepayments.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  filterDateField  Optional parameter: The type of filter you would like to apply to
-     *         your search. created_at - Time when prepayment was created. application_at - Time
-     *         when prepayment was applied to invoice. Use in query `filter[date_field]=created_at`.
-     * @param  filterStartDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns prepayments with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified. Use in query
-     *         `filter[start_date]=2011-12-15`.
-     * @param  filterEndDate  Optional parameter: The end date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns prepayments with a timestamp up to and including
-     *         11:59:59PM in your site’s time zone on the date specified. Use in query
-     *         `filter[end_date]=2011-12-15`.
+     * @param  input  ListPrepaymentsInput object containing request parameters
      * @return    Returns the PrepaymentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public PrepaymentsResponse listPrepayments(
-            final String subscriptionId,
-            final Integer page,
-            final Integer perPage,
-            final BasicDateField filterDateField,
-            final String filterStartDate,
-            final String filterEndDate) throws ApiException, IOException {
-        return prepareListPrepaymentsRequest(subscriptionId, page, perPage, filterDateField,
-                filterStartDate, filterEndDate).execute();
+            final ListPrepaymentsInput input) throws ApiException, IOException {
+        return prepareListPrepaymentsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listPrepayments.
      */
     private ApiCall<PrepaymentsResponse, ApiException> prepareListPrepaymentsRequest(
-            final String subscriptionId,
-            final Integer page,
-            final Integer perPage,
-            final BasicDateField filterDateField,
-            final String filterStartDate,
-            final String filterEndDate) throws IOException {
+            final ListPrepaymentsInput input) throws IOException {
         return new ApiCall.Builder<PrepaymentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/prepayments.json")
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("filter[date_field]")
-                                .value((filterDateField != null) ? filterDateField.value() : null).isRequired(false))
+                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(filterStartDate).isRequired(false))
+                                .value(input.getFilterStartDate()).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(filterEndDate).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                                .value(input.getFilterEndDate()).isRequired(false))
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

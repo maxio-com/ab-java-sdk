@@ -183,8 +183,47 @@ public class Product {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  description  String value for description.
+     * @param  accountingCode  String value for accountingCode.
+     * @param  requestCreditCard  Boolean value for requestCreditCard.
+     * @param  expirationInterval  Integer value for expirationInterval.
+     * @param  expirationIntervalUnit  ProductExpirationIntervalUnit value for
+     *         expirationIntervalUnit.
+     * @param  createdAt  String value for createdAt.
+     * @param  updatedAt  String value for updatedAt.
+     * @param  priceInCents  Integer value for priceInCents.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  ProductIntervalUnit value for intervalUnit.
+     * @param  initialChargeInCents  Integer value for initialChargeInCents.
+     * @param  trialPriceInCents  Integer value for trialPriceInCents.
+     * @param  trialInterval  Integer value for trialInterval.
+     * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
+     * @param  archivedAt  String value for archivedAt.
+     * @param  requireCreditCard  Boolean value for requireCreditCard.
+     * @param  returnParams  String value for returnParams.
+     * @param  taxable  Boolean value for taxable.
+     * @param  updateReturnUrl  String value for updateReturnUrl.
+     * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
+     * @param  versionNumber  Integer value for versionNumber.
+     * @param  updateReturnParams  String value for updateReturnParams.
+     * @param  productFamily  ProductFamily value for productFamily.
+     * @param  publicSignupPages  List of PublicSignupPage value for publicSignupPages.
+     * @param  productPricePointName  String value for productPricePointName.
+     * @param  requestBillingAddress  Boolean value for requestBillingAddress.
+     * @param  requireBillingAddress  Boolean value for requireBillingAddress.
+     * @param  requireShippingAddress  Boolean value for requireShippingAddress.
+     * @param  taxCode  String value for taxCode.
+     * @param  defaultProductPricePointId  Integer value for defaultProductPricePointId.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  itemCategory  String value for itemCategory.
+     * @param  productPricePointId  Integer value for productPricePointId.
+     * @param  productPricePointHandle  String value for productPricePointHandle.
      */
+
     protected Product(Integer id, String name, OptionalNullable<String> handle, String description,
             OptionalNullable<String> accountingCode, Boolean requestCreditCard,
             OptionalNullable<Integer> expirationInterval,

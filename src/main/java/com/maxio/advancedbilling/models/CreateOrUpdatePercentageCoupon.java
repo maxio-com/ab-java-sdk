@@ -117,7 +117,7 @@ public class CreateOrUpdatePercentageCoupon {
     /**
      * Getter for Code.
      * may contain uppercase alphanumeric characters and these special characters (which allow for
-     * email addresses to be used): “%”, “@”, “+”, “-”, “_”, and “.”
+     * email addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
      * @return Returns the String
      */
     @JsonGetter("code")
@@ -128,7 +128,7 @@ public class CreateOrUpdatePercentageCoupon {
     /**
      * Setter for Code.
      * may contain uppercase alphanumeric characters and these special characters (which allow for
-     * email addresses to be used): “%”, “@”, “+”, “-”, “_”, and “.”
+     * email addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
      * @param code Value for String
      */
     @JsonSetter("code")

@@ -114,8 +114,30 @@ public class GetOneTimeTokenPaymentProfile {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  cardType  String value for cardType.
+     * @param  expirationMonth  double value for expirationMonth.
+     * @param  expirationYear  double value for expirationYear.
+     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  vaultToken  String value for vaultToken.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  billingState  String value for billingState.
+     * @param  billingZip  String value for billingZip.
+     * @param  paymentType  String value for paymentType.
+     * @param  disabled  boolean value for disabled.
+     * @param  siteGatewaySettingId  int value for siteGatewaySettingId.
+     * @param  id  String value for id.
+     * @param  customerId  String value for customerId.
+     * @param  billingAddress2  String value for billingAddress2.
+     * @param  customerVaultToken  String value for customerVaultToken.
+     * @param  gatewayHandle  String value for gatewayHandle.
      */
+
     protected GetOneTimeTokenPaymentProfile(String firstName, String lastName,
             String maskedCardNumber, String cardType, double expirationMonth, double expirationYear,
             CurrentVault currentVault, String vaultToken, String billingAddress, String billingCity,

@@ -58,8 +58,16 @@ public class SubscriptionIncludedCoupon {
     }
 
     /**
-     * Internal initialization constructor.
+     * Initialization constructor.
+     * @param  code  String value for code.
+     * @param  useCount  Integer value for useCount.
+     * @param  usesAllowed  Integer value for usesAllowed.
+     * @param  expiresAt  String value for expiresAt.
+     * @param  recurring  Boolean value for recurring.
+     * @param  amountInCents  Integer value for amountInCents.
+     * @param  percentage  String value for percentage.
      */
+
     protected SubscriptionIncludedCoupon(String code, Integer useCount, Integer usesAllowed,
             OptionalNullable<String> expiresAt, Boolean recurring,
             OptionalNullable<Integer> amountInCents, OptionalNullable<String> percentage) {

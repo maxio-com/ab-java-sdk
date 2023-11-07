@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CleanupScope;
+import com.maxio.advancedbilling.models.ListChargifyJsPublicKeysInput;
 import com.maxio.advancedbilling.models.ListPublicKeysResponse;
 import com.maxio.advancedbilling.models.SiteResponse;
 import io.apimatic.core.ApiCall;
@@ -40,7 +41,7 @@ public final class SitesController extends BaseController {
      * extremely relevant to this endpoint documentation. #### Relationship invoicing enabled If
      * site has RI enabled then you will see more settings like: "customer_hierarchy_enabled": true,
      * "whopays_enabled": true, "whopays_default_payer": "self" You can read more about these
-     * settings here: [Who Pays & Customer
+     * settings here: [Who Pays &amp; Customer
      * Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291).
      * @return    Returns the SiteResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -116,40 +117,30 @@ public final class SitesController extends BaseController {
 
     /**
      * This endpoint returns public keys used for Chargify.js.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  input  ListChargifyJsPublicKeysInput object containing request parameters
      * @return    Returns the ListPublicKeysResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListPublicKeysResponse listChargifyJsPublicKeys(
-            final Integer page,
-            final Integer perPage) throws ApiException, IOException {
-        return prepareListChargifyJsPublicKeysRequest(page, perPage).execute();
+            final ListChargifyJsPublicKeysInput input) throws ApiException, IOException {
+        return prepareListChargifyJsPublicKeysRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listChargifyJsPublicKeys.
      */
     private ApiCall<ListPublicKeysResponse, ApiException> prepareListChargifyJsPublicKeysRequest(
-            final Integer page,
-            final Integer perPage) throws IOException {
+            final ListChargifyJsPublicKeysInput input) throws IOException {
         return new ApiCall.Builder<ListPublicKeysResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/chargify_js_keys.json")
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
