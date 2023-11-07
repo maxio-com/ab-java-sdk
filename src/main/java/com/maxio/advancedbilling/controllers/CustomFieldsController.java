@@ -519,7 +519,7 @@ public final class CustomFieldsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
                 .build();
     }
 
@@ -634,7 +634,7 @@ public final class CustomFieldsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, PaginatedMetadata.class))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
                 .build();
     }
 }

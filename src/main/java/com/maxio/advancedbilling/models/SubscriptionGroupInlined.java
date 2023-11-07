@@ -17,7 +17,7 @@ public class SubscriptionGroupInlined {
     private String uid;
     private String scheme;
     private String primarySubscriptionId;
-    private String primary;
+    private Boolean primary;
 
     /**
      * Default constructor.
@@ -30,13 +30,13 @@ public class SubscriptionGroupInlined {
      * @param  uid  String value for uid.
      * @param  scheme  String value for scheme.
      * @param  primarySubscriptionId  String value for primarySubscriptionId.
-     * @param  primary  String value for primary.
+     * @param  primary  Boolean value for primary.
      */
     public SubscriptionGroupInlined(
             String uid,
             String scheme,
             String primarySubscriptionId,
-            String primary) {
+            Boolean primary) {
         this.uid = uid;
         this.scheme = scheme;
         this.primarySubscriptionId = primarySubscriptionId;
@@ -112,11 +112,11 @@ public class SubscriptionGroupInlined {
      * Getter for Primary.
      * A boolean indicating whether the subscription is the primary in the group. Applicable to
      * scheme 1.
-     * @return Returns the String
+     * @return Returns the Boolean
      */
     @JsonGetter("primary")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPrimary() {
+    public Boolean getPrimary() {
         return primary;
     }
 
@@ -124,10 +124,10 @@ public class SubscriptionGroupInlined {
      * Setter for Primary.
      * A boolean indicating whether the subscription is the primary in the group. Applicable to
      * scheme 1.
-     * @param primary Value for String
+     * @param primary Value for Boolean
      */
     @JsonSetter("primary")
-    public void setPrimary(String primary) {
+    public void setPrimary(Boolean primary) {
         this.primary = primary;
     }
 
@@ -162,7 +162,7 @@ public class SubscriptionGroupInlined {
         private String uid;
         private String scheme;
         private String primarySubscriptionId;
-        private String primary;
+        private Boolean primary;
 
 
 
@@ -198,10 +198,10 @@ public class SubscriptionGroupInlined {
 
         /**
          * Setter for primary.
-         * @param  primary  String value for primary.
+         * @param  primary  Boolean value for primary.
          * @return Builder
          */
-        public Builder primary(String primary) {
+        public Builder primary(Boolean primary) {
             this.primary = primary;
             return this;
         }

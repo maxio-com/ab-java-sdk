@@ -8,14 +8,52 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.maxio</groupId>
   <artifactId>advanced-billing-sdk</artifactId>
-  <version>1.0.0</version>
+  <version>0.0.2</version>
   <packaging>jar</packaging>
-  <name>AdvancedBilling</name>
+  <name>Advanced Billing</name>
+  <description>Ultimate billing and pricing flexibility for B2B SaaS.
+Maxio integrates directly into your product, so you can seamlessly manage your product catalog, bill customers, and collect payments.</description>
+  <url>https://www.maxio.com/product/advanced-billing</url>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <developers>
+    <developer>
+      <name>Michał Pieróg</name>
+      <email>michal.pierog@maxio.com</email>
+      <organization>Maxio</organization>
+      <organizationUrl>https://www.maxio.com/</organizationUrl>
+    </developer>
+    <developer>
+      <name>Patryk Grudzień</name>
+      <email>patryk.grudzien@maxio.com</email>
+      <organization>Maxio</organization>
+      <organizationUrl>https://www.maxio.com/</organizationUrl>
+    </developer>
+    <developer>
+      <name>Maciej Nędza</name>
+      <email>maciej.nedza@maxio.com</email>
+      <organization>Maxio</organization>
+      <organizationUrl>https://www.maxio.com/</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/maxio-com/ab-java-sdk.git</connection>
+    <developerConnection>scm:git:ssh://github.com/maxio-com/ab-java-sdk.git</developerConnection>
+    <url>https://github.com/maxio-com/ab-java-sdk</url>
+  </scm>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>io.apimatic</groupId>
@@ -105,6 +143,79 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <activation>
+          <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <!-- To release to Maven central -->
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+          <!-- To generate javadoc -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.10.4</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- To sign the artifacts -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <!-- This is necessary for gpg to not try to use the pinentry programs -->
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <licenses>
     <license>
       <name>MIT License</name>
