@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ListAllComponentPricePointsInputDirection.ListAllComponentPricePointsInputDirectionDeserializer.class)
-public abstract class ListAllComponentPricePointsInputDirection {
+@JsonDeserialize(using = ReadMrrMovementsDirection.ReadMrrMovementsDirectionDeserializer.class)
+public abstract class ReadMrrMovementsDirection {
     
     /**
      * This is Sorting direction case.
      * @param sortingDirection SortingDirection value for sortingDirection.
      * @return The SortingDirectionCase object.
      */
-    public static ListAllComponentPricePointsInputDirection fromSortingDirection(
+    public static ReadMrrMovementsDirection fromSortingDirection(
             SortingDirection sortingDirection) {
         return sortingDirection == null ? null : new SortingDirectionCase(sortingDirection);
     }
@@ -64,7 +64,7 @@ public abstract class ListAllComponentPricePointsInputDirection {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SortingDirection")
-    private static class SortingDirectionCase extends ListAllComponentPricePointsInputDirection {
+    private static class SortingDirectionCase extends ReadMrrMovementsDirection {
 
         @JsonValue
         private SortingDirection sortingDirection;
@@ -99,13 +99,13 @@ public abstract class ListAllComponentPricePointsInputDirection {
     }
 
     /**
-     * This is a custom deserializer class for ListAllComponentPricePointsInputDirection.
+     * This is a custom deserializer class for ReadMrrMovementsDirection.
      */
-    protected static class ListAllComponentPricePointsInputDirectionDeserializer
-            extends JsonDeserializer<ListAllComponentPricePointsInputDirection> {
+    protected static class ReadMrrMovementsDirectionDeserializer
+            extends JsonDeserializer<ReadMrrMovementsDirection> {
 
         @Override
-        public ListAllComponentPricePointsInputDirection deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ReadMrrMovementsDirection deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

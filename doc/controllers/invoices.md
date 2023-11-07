@@ -92,7 +92,28 @@ By default, invoices returned on the index will only include totals, not detaile
 
 ```java
 ListInvoicesResponse listInvoices(
-    final ListInvoicesInput input)
+    final String startDate,
+    final String endDate,
+    final Status status,
+    final Integer subscriptionId,
+    final String subscriptionGroupUid,
+    final Integer page,
+    final Integer perPage,
+    final Direction direction,
+    final Boolean lineItems,
+    final Boolean discounts,
+    final Boolean taxes,
+    final Boolean credits,
+    final Boolean payments,
+    final Boolean customFields,
+    final Boolean refunds,
+    final InvoiceDateField dateField,
+    final String startDatetime,
+    final String endDatetime,
+    final List<Integer> customerIds,
+    final List<String> number,
+    final List<Integer> productIds,
+    final InvoiceSortField sort)
 ```
 
 ## Parameters
@@ -129,36 +150,37 @@ ListInvoicesResponse listInvoices(
 ## Example Usage
 
 ```java
-ListInvoicesInput listInvoicesInput = new ListInvoicesInput.Builder()
-    .page(2)
-    .perPage(50)
-    .direction(Direction.DESC)
-    .lineItems(false)
-    .discounts(false)
-    .taxes(false)
-    .credits(false)
-    .payments(false)
-    .customFields(false)
-    .refunds(false)
-    .dateField(InvoiceDateField.ISSUE_DATE)
-    .customerIds(Arrays.asList(
-        1,
-        2,
-        3
-    ))
-    .number(Arrays.asList(
-        "1234",
-        "1235"
-    ))
-    .productIds(Arrays.asList(
-        23,
-        34
-    ))
-    .sort(InvoiceSortField.TOTAL_AMOUNT)
-    .build();
+Integer page = 2;
+Integer perPage = 50;
+Direction direction = Direction.DESC;
+Boolean lineItems = false;
+Boolean discounts = false;
+Boolean taxes = false;
+Boolean credits = false;
+Boolean payments = false;
+Boolean customFields = false;
+Boolean refunds = false;
+InvoiceDateField dateField = InvoiceDateField.ISSUE_DATE;
+List<Integer> customerIds = Arrays.asList(
+    1,
+    2,
+    3
+);
+
+List<String> number = Arrays.asList(
+    "1234",
+    "1235"
+);
+
+List<Integer> productIds = Arrays.asList(
+    23,
+    34
+);
+
+InvoiceSortField sort = InvoiceSortField.TOTAL_AMOUNT;
 
 try {
-    ListInvoicesResponse result = invoicesController.listInvoices(listInvoicesInput);
+    ListInvoicesResponse result = invoicesController.listInvoices(null, null, null, null, null, page, perPage, direction, lineItems, discounts, taxes, credits, payments, customFields, refunds, dateField, null, null, customerIds, number, productIds, sort);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -614,7 +636,13 @@ Note - invoice events that occurred prior to 09/05/2018 __will not__ contain an 
 
 ```java
 ListInvoiceEventsResponse listInvoiceEvents(
-    final ListInvoiceEventsInput input)
+    final String sinceDate,
+    final Integer sinceId,
+    final Integer page,
+    final Integer perPage,
+    final String invoiceUid,
+    final String withChangeInvoiceStatus,
+    final List<InvoiceEventType> eventTypes)
 ```
 
 ## Parameters
@@ -636,13 +664,10 @@ ListInvoiceEventsResponse listInvoiceEvents(
 ## Example Usage
 
 ```java
-ListInvoiceEventsInput listInvoiceEventsInput = new ListInvoiceEventsInput.Builder()
-    .page(2)
-    .perPage(100)
-    .build();
-
+Integer page = 2;
+Integer perPage = 100;
 try {
-    ListInvoiceEventsResponse result = invoicesController.listInvoiceEvents(listInvoiceEventsInput);
+    ListInvoiceEventsResponse result = invoicesController.listInvoiceEvents(null, null, page, perPage, null, null, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1239,7 +1264,14 @@ By default, the credit notes returned by this endpoint will exclude the arrays o
 
 ```java
 ListCreditNotesResponse listCreditNotes(
-    final ListCreditNotesInput input)
+    final Integer subscriptionId,
+    final Integer page,
+    final Integer perPage,
+    final Boolean lineItems,
+    final Boolean discounts,
+    final Boolean taxes,
+    final Boolean refunds,
+    final Boolean applications)
 ```
 
 ## Parameters
@@ -1262,18 +1294,16 @@ ListCreditNotesResponse listCreditNotes(
 ## Example Usage
 
 ```java
-ListCreditNotesInput listCreditNotesInput = new ListCreditNotesInput.Builder()
-    .page(2)
-    .perPage(50)
-    .lineItems(false)
-    .discounts(false)
-    .taxes(false)
-    .refunds(false)
-    .applications(false)
-    .build();
+Integer page = 2;
+Integer perPage = 50;
+Boolean lineItems = false;
+Boolean discounts = false;
+Boolean taxes = false;
+Boolean refunds = false;
+Boolean applications = false;
 
 try {
-    ListCreditNotesResponse result = invoicesController.listCreditNotes(listCreditNotesInput);
+    ListCreditNotesResponse result = invoicesController.listCreditNotes(null, page, perPage, lineItems, discounts, taxes, refunds, applications);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -2069,7 +2099,10 @@ Invoice segments returned on the index will only include totals, not detailed br
 
 ```java
 ConsolidatedInvoice listInvoiceSegments(
-    final ListInvoiceSegmentsInput input)
+    final String invoiceUid,
+    final Integer page,
+    final Integer perPage,
+    final Direction direction)
 ```
 
 ## Parameters
@@ -2088,16 +2121,13 @@ ConsolidatedInvoice listInvoiceSegments(
 ## Example Usage
 
 ```java
-ListInvoiceSegmentsInput listInvoiceSegmentsInput = new ListInvoiceSegmentsInput.Builder(
-    "invoice_uid0"
-)
-.page(2)
-.perPage(50)
-.direction(Direction.ASC)
-.build();
+String invoiceUid = "invoice_uid0";
+Integer page = 2;
+Integer perPage = 50;
+Direction direction = Direction.ASC;
 
 try {
-    ConsolidatedInvoice result = invoicesController.listInvoiceSegments(listInvoiceSegmentsInput);
+    ConsolidatedInvoice result = invoicesController.listInvoiceSegments(invoiceUid, page, perPage, direction);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

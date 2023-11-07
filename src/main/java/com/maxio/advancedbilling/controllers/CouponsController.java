@@ -13,15 +13,13 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.SingleStringErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
+import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.CouponCurrency;
 import com.maxio.advancedbilling.models.CouponCurrencyRequest;
 import com.maxio.advancedbilling.models.CouponResponse;
 import com.maxio.advancedbilling.models.CouponSubcodes;
 import com.maxio.advancedbilling.models.CouponSubcodesResponse;
 import com.maxio.advancedbilling.models.CouponUsage;
-import com.maxio.advancedbilling.models.ListCouponSubcodesInput;
-import com.maxio.advancedbilling.models.ListCouponsForProductFamilyInput;
-import com.maxio.advancedbilling.models.ListCouponsInput;
 import com.maxio.advancedbilling.models.containers.CreateCouponBody;
 import com.maxio.advancedbilling.models.containers.UpdateCouponBody;
 import io.apimatic.core.ApiCall;
@@ -106,49 +104,115 @@ public final class CouponsController extends BaseController {
      * List coupons for a specific Product Family in a Site. If the coupon is set to
      * `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If
      * the flag is set to false, it will return all of the defined prices for each currency.
-     * @param  input  ListCouponsForProductFamilyInput object containing request parameters
+     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
+     *         the coupon belongs
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 30. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  filterDateField  Optional parameter: The type of filter you would like to apply to
+     *         your search. Use in query `filter[date_field]=created_at`.
+     * @param  filterEndDate  Optional parameter: The end date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns coupons with a timestamp up to and including
+     *         11:59:59PM in your site’s time zone on the date specified. Use in query
+     *         `filter[date_field]=2011-12-15`.
+     * @param  filterEndDatetime  Optional parameter: The end date and time (format YYYY-MM-DD
+     *         HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or
+     *         before exact time provided in query. You can specify timezone in query - otherwise
+     *         your site's time zone will be used. If provided, this parameter will be used instead
+     *         of end_date. Use in query `?filter[end_datetime]=2011-12-1T10:15:30+01:00`.
+     * @param  filterStartDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns coupons with a timestamp at or after midnight
+     *         (12:00:00 AM) in your site’s time zone on the date specified. Use in query
+     *         `filter[start_date]=2011-12-17`.
+     * @param  filterStartDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
+     *         HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or
+     *         after exact time provided in query. You can specify timezone in query - otherwise
+     *         your site's time zone will be used. If provided, this parameter will be used instead
+     *         of start_date. Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`.
+     * @param  filterIds  Optional parameter: Allows fetching coupons with matching id based on
+     *         provided values. Use in query `filter[ids]=1,2,3`.
+     * @param  filterCodes  Optional parameter: Allows fetching coupons with matching codes based on
+     *         provided values. Use in query `filter[codes]=free,free_trial`.
+     * @param  currencyPrices  Optional parameter: When fetching coupons, if you have defined
+     *         multiple currencies at the site level, you can optionally pass the
+     *         `?currency_prices=true` query param to include an array of currency price data in the
+     *         response. Use in query `currency_prices=true`.
+     * @param  filterUseSiteExchangeRate  Optional parameter: Allows fetching coupons with matching
+     *         use_site_exchange_rate based on provided value. Use in query
+     *         `filter[use_site_exchange_rate]=true`.
      * @return    Returns the List of CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<CouponResponse> listCouponsForProductFamily(
-            final ListCouponsForProductFamilyInput input) throws ApiException, IOException {
-        return prepareListCouponsForProductFamilyRequest(input).execute();
+            final int productFamilyId,
+            final Integer page,
+            final Integer perPage,
+            final BasicDateField filterDateField,
+            final String filterEndDate,
+            final String filterEndDatetime,
+            final String filterStartDate,
+            final String filterStartDatetime,
+            final List<Integer> filterIds,
+            final List<String> filterCodes,
+            final Boolean currencyPrices,
+            final Boolean filterUseSiteExchangeRate) throws ApiException, IOException {
+        return prepareListCouponsForProductFamilyRequest(productFamilyId, page, perPage,
+                filterDateField, filterEndDate, filterEndDatetime, filterStartDate,
+                filterStartDatetime, filterIds, filterCodes, currencyPrices,
+                filterUseSiteExchangeRate).execute();
     }
 
     /**
      * Builds the ApiCall object for listCouponsForProductFamily.
      */
     private ApiCall<List<CouponResponse>, ApiException> prepareListCouponsForProductFamilyRequest(
-            final ListCouponsForProductFamilyInput input) throws IOException {
+            final int productFamilyId,
+            final Integer page,
+            final Integer perPage,
+            final BasicDateField filterDateField,
+            final String filterEndDate,
+            final String filterEndDatetime,
+            final String filterStartDate,
+            final String filterStartDatetime,
+            final List<Integer> filterIds,
+            final List<String> filterCodes,
+            final Boolean currencyPrices,
+            final Boolean filterUseSiteExchangeRate) throws IOException {
         return new ApiCall.Builder<List<CouponResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/product_families/{product_family_id}/coupons.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 30).isRequired(false))
                         .queryParam(param -> param.key("filter[date_field]")
-                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
+                                .value((filterDateField != null) ? filterDateField.value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(input.getFilterEndDate()).isRequired(false))
+                                .value(filterEndDate).isRequired(false))
                         .queryParam(param -> param.key("filter[end_datetime]")
-                                .value(input.getFilterEndDatetime()).isRequired(false))
+                                .value(filterEndDatetime).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(input.getFilterStartDate()).isRequired(false))
+                                .value(filterStartDate).isRequired(false))
                         .queryParam(param -> param.key("filter[start_datetime]")
-                                .value(input.getFilterStartDatetime()).isRequired(false))
+                                .value(filterStartDatetime).isRequired(false))
                         .queryParam(param -> param.key("filter[ids]")
-                                .value(input.getFilterIds()).isRequired(false))
+                                .value(filterIds).isRequired(false))
                         .queryParam(param -> param.key("filter[codes]")
-                                .value(input.getFilterCodes()).isRequired(false))
+                                .value(filterCodes).isRequired(false))
                         .queryParam(param -> param.key("currency_prices")
-                                .value(input.getCurrencyPrices()).isRequired(false))
+                                .value(currencyPrices).isRequired(false))
                         .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
-                        .templateParam(param -> param.key("product_family_id").value(input.getProductFamilyId()).isRequired(false)
+                                .value(filterUseSiteExchangeRate).isRequired(false))
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -358,58 +422,155 @@ public final class CouponsController extends BaseController {
      * You can retrieve a list of coupons. If the coupon is set to `use_site_exchange_rate: true`,
      * it will return pricing based on the current exchange rate. If the flag is set to false, it
      * will return all of the defined prices for each currency.
-     * @param  input  ListCouponsInput object containing request parameters
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 30. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  dateField  Optional parameter: The field was deprecated: on January 20, 2022. We
+     *         recommend using filter[date_field] instead to achieve the same result. The type of
+     *         filter you would like to apply to your search.
+     * @param  startDate  Optional parameter: The field was deprecated: on January 20, 2022. We
+     *         recommend using filter[start_date] instead to achieve the same result. The start date
+     *         (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
+     *         timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
+     *         specified.
+     * @param  endDate  Optional parameter: The field was deprecated: on January 20, 2022. We
+     *         recommend using filter[end_date] instead to achieve the same result. The end date
+     *         (format YYYY-MM-DD) with which to filter the date_field. Returns coupons with a
+     *         timestamp up to and including 11:59:59PM in your site’s time zone on the date
+     *         specified.
+     * @param  startDatetime  Optional parameter: The field was deprecated: on January 20, 2022. We
+     *         recommend using filter[start_datetime] instead to achieve the same result. The start
+     *         date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
+     *         Returns coupons with a timestamp at or after exact time provided in query. You can
+     *         specify timezone in query - otherwise your site's time zone will be used. If
+     *         provided, this parameter will be used instead of start_date.
+     * @param  endDatetime  Optional parameter: The field was deprecated: on January 20, 2022. We
+     *         recommend using filter[end_datetime] instead to achieve the same result. The end date
+     *         and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns
+     *         coupons with a timestamp at or before exact time provided in query. You can specify
+     *         timezone in query - otherwise your site's time zone will be used. If provided, this
+     *         parameter will be used instead of end_date.
+     * @param  filterIds  Optional parameter: Allows fetching coupons with matching id based on
+     *         provided values. Use in query `filter[ids]=1,2,3`.
+     * @param  filterCodes  Optional parameter: Allows fetching coupons with matching code based on
+     *         provided values. Use in query `filter[ids]=1,2,3`.
+     * @param  currencyPrices  Optional parameter: When fetching coupons, if you have defined
+     *         multiple currencies at the site level, you can optionally pass the
+     *         `?currency_prices=true` query param to include an array of currency price data in the
+     *         response. Use in query `currency_prices=true`.
+     * @param  filterEndDate  Optional parameter: The end date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns coupons with a timestamp up to and including
+     *         11:59:59PM in your site’s time zone on the date specified. Use in query
+     *         `filter[end_date]=2011-12-17`.
+     * @param  filterEndDatetime  Optional parameter: The end date and time (format YYYY-MM-DD
+     *         HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or
+     *         before exact time provided in query. You can specify timezone in query - otherwise
+     *         your site's time zone will be used. If provided, this parameter will be used instead
+     *         of end_date. Use in query `filter[end_datetime]=2011-12-19T10:15:30+01:00`.
+     * @param  filterStartDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
+     *         filter the date_field. Returns coupons with a timestamp at or after midnight
+     *         (12:00:00 AM) in your site’s time zone on the date specified. Use in query
+     *         `filter[start_date]=2011-12-19`.
+     * @param  filterStartDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
+     *         HH:MM:SS) with which to filter the date_field. Returns coupons with a timestamp at or
+     *         after exact time provided in query. You can specify timezone in query - otherwise
+     *         your site's time zone will be used. If provided, this parameter will be used instead
+     *         of start_date. Use in query `filter[start_datetime]=2011-12-19T10:15:30+01:00`.
+     * @param  filterDateField  Optional parameter: The type of filter you would like to apply to
+     *         your search. Use in query `filter[date_field]=updated_at`.
+     * @param  filterUseSiteExchangeRate  Optional parameter: Allows fetching coupons with matching
+     *         use_site_exchange_rate based on provided value. Use in query
+     *         `filter[use_site_exchange_rate]=true`.
      * @return    Returns the List of CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<CouponResponse> listCoupons(
-            final ListCouponsInput input) throws ApiException, IOException {
-        return prepareListCouponsRequest(input).execute();
+            final Integer page,
+            final Integer perPage,
+            final BasicDateField dateField,
+            final String startDate,
+            final String endDate,
+            final String startDatetime,
+            final String endDatetime,
+            final List<Integer> filterIds,
+            final List<String> filterCodes,
+            final Boolean currencyPrices,
+            final String filterEndDate,
+            final String filterEndDatetime,
+            final String filterStartDate,
+            final String filterStartDatetime,
+            final BasicDateField filterDateField,
+            final Boolean filterUseSiteExchangeRate) throws ApiException, IOException {
+        return prepareListCouponsRequest(page, perPage, dateField, startDate, endDate,
+                startDatetime, endDatetime, filterIds, filterCodes, currencyPrices, filterEndDate,
+                filterEndDatetime, filterStartDate, filterStartDatetime, filterDateField,
+                filterUseSiteExchangeRate).execute();
     }
 
     /**
      * Builds the ApiCall object for listCoupons.
      */
     private ApiCall<List<CouponResponse>, ApiException> prepareListCouponsRequest(
-            final ListCouponsInput input) throws IOException {
+            final Integer page,
+            final Integer perPage,
+            final BasicDateField dateField,
+            final String startDate,
+            final String endDate,
+            final String startDatetime,
+            final String endDatetime,
+            final List<Integer> filterIds,
+            final List<String> filterCodes,
+            final Boolean currencyPrices,
+            final String filterEndDate,
+            final String filterEndDatetime,
+            final String filterStartDate,
+            final String filterStartDatetime,
+            final BasicDateField filterDateField,
+            final Boolean filterUseSiteExchangeRate) throws IOException {
         return new ApiCall.Builder<List<CouponResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/coupons.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
+                                .value((perPage != null) ? perPage : 30).isRequired(false))
                         .queryParam(param -> param.key("date_field")
-                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
+                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(input.getStartDate()).isRequired(false))
+                                .value(startDate).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(input.getEndDate()).isRequired(false))
+                                .value(endDate).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(input.getStartDatetime()).isRequired(false))
+                                .value(startDatetime).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(input.getEndDatetime()).isRequired(false))
+                                .value(endDatetime).isRequired(false))
                         .queryParam(param -> param.key("filter[ids]")
-                                .value(input.getFilterIds()).isRequired(false))
+                                .value(filterIds).isRequired(false))
                         .queryParam(param -> param.key("filter[codes]")
-                                .value(input.getFilterCodes()).isRequired(false))
+                                .value(filterCodes).isRequired(false))
                         .queryParam(param -> param.key("currency_prices")
-                                .value(input.getCurrencyPrices()).isRequired(false))
+                                .value(currencyPrices).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(input.getFilterEndDate()).isRequired(false))
+                                .value(filterEndDate).isRequired(false))
                         .queryParam(param -> param.key("filter[end_datetime]")
-                                .value(input.getFilterEndDatetime()).isRequired(false))
+                                .value(filterEndDatetime).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(input.getFilterStartDate()).isRequired(false))
+                                .value(filterStartDate).isRequired(false))
                         .queryParam(param -> param.key("filter[start_datetime]")
-                                .value(input.getFilterStartDatetime()).isRequired(false))
+                                .value(filterStartDatetime).isRequired(false))
                         .queryParam(param -> param.key("filter[date_field]")
-                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
+                                .value((filterDateField != null) ? filterDateField.value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
+                                .value(filterUseSiteExchangeRate).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -632,31 +793,44 @@ public final class CouponsController extends BaseController {
 
     /**
      * This request allows you to request the subcodes that are attached to a coupon.
-     * @param  input  ListCouponSubcodesInput object containing request parameters
+     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
      * @return    Returns the CouponSubcodes response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CouponSubcodes listCouponSubcodes(
-            final ListCouponSubcodesInput input) throws ApiException, IOException {
-        return prepareListCouponSubcodesRequest(input).execute();
+            final int couponId,
+            final Integer page,
+            final Integer perPage) throws ApiException, IOException {
+        return prepareListCouponSubcodesRequest(couponId, page, perPage).execute();
     }
 
     /**
      * Builds the ApiCall object for listCouponSubcodes.
      */
     private ApiCall<CouponSubcodes, ApiException> prepareListCouponSubcodesRequest(
-            final ListCouponSubcodesInput input) throws IOException {
+            final int couponId,
+            final Integer page,
+            final Integer perPage) throws IOException {
         return new ApiCall.Builder<CouponSubcodes, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/coupons/{coupon_id}/codes.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
-                        .templateParam(param -> param.key("coupon_id").value(input.getCouponId()).isRequired(false)
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                        .templateParam(param -> param.key("coupon_id").value(couponId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

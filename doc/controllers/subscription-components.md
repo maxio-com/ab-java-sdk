@@ -102,7 +102,19 @@ When requesting to list components for a given subscription, if the subscription
 
 ```java
 List<SubscriptionComponentResponse> listSubscriptionComponents(
-    final ListSubscriptionComponentsInput input)
+    final String subscriptionId,
+    final SubscriptionListDateField dateField,
+    final ListSubscriptionComponentsDirection direction,
+    final String endDate,
+    final String endDatetime,
+    final IncludeNotNull pricePointIds,
+    final List<Integer> productFamilyIds,
+    final ListSubscriptionComponentsSort sort,
+    final String startDate,
+    final String startDatetime,
+    final ListSubscriptionComponentsInclude include,
+    final Boolean filterUseSiteExchangeRate,
+    final List<String> filterCurrencies)
 ```
 
 ## Parameters
@@ -111,7 +123,7 @@ List<SubscriptionComponentResponse> listSubscriptionComponents(
 |  --- | --- | --- | --- |
 | `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
 | `dateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
-| `direction` | [`ListSubscriptionComponentsInputDirection`](../../doc/models/containers/list-subscription-components-input-direction.md) | Query, Optional | This is a container for one-of cases. |
+| `direction` | [`ListSubscriptionComponentsDirection`](../../doc/models/containers/list-subscription-components-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
 | `pricePointIds` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
@@ -130,22 +142,19 @@ List<SubscriptionComponentResponse> listSubscriptionComponents(
 ## Example Usage
 
 ```java
-ListSubscriptionComponentsInput listSubscriptionComponentsInput = new ListSubscriptionComponentsInput.Builder(
-    "subscription_id0"
-)
-.dateField(SubscriptionListDateField.UPDATED_AT)
-.pricePointIds(IncludeNotNull.NOT_NULL)
-.productFamilyIds(Arrays.asList(
-        1,
-        2,
-        3
-    ))
-.sort(ListSubscriptionComponentsSort.UPDATED_AT)
-.include(ListSubscriptionComponentsInclude.SUBSCRIPTION)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key').build();
+String subscriptionId = "subscription_id0";
+SubscriptionListDateField dateField = SubscriptionListDateField.UPDATED_AT;
+IncludeNotNull pricePointIds = IncludeNotNull.NOT_NULL;
+List<Integer> productFamilyIds = Arrays.asList(
+    1,
+    2,
+    3
+);
 
-try {
-    List<SubscriptionComponentResponse> result = subscriptionComponentsController.listSubscriptionComponents(listSubscriptionComponentsInput);
+ListSubscriptionComponentsSort sort = ListSubscriptionComponentsSort.UPDATED_AT;
+ListSubscriptionComponentsInclude include = ListSubscriptionComponentsInclude.SUBSCRIPTION;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')try {
+    List<SubscriptionComponentResponse> result = subscriptionComponentsController.listSubscriptionComponents(subscriptionId, dateField, null, null, null, pricePointIds, productFamilyIds, sort, null, null, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1187,7 +1196,14 @@ Use this endpoint to read the previously recorded components for a subscription.
 
 ```java
 List<UsageResponse> listUsages(
-    final ListUsagesInput input)
+    final String subscriptionId,
+    final int componentId,
+    final Integer sinceId,
+    final Integer maxId,
+    final String sinceDate,
+    final String untilDate,
+    final Integer page,
+    final Integer perPage)
 ```
 
 ## Parameters
@@ -1210,16 +1226,13 @@ List<UsageResponse> listUsages(
 ## Example Usage
 
 ```java
-ListUsagesInput listUsagesInput = new ListUsagesInput.Builder(
-    "subscription_id0",
-    222
-)
-.page(2)
-.perPage(50)
-.build();
+String subscriptionId = "subscription_id0";
+int componentId = 222;
+Integer page = 2;
+Integer perPage = 50;
 
 try {
-    List<UsageResponse> result = subscriptionComponentsController.listUsages(listUsagesInput);
+    List<UsageResponse> result = subscriptionComponentsController.listUsages(subscriptionId, componentId, null, null, null, null, page, perPage);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1464,7 +1477,27 @@ This request will list components applied to each subscription.
 
 ```java
 ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
-    final ListSubscriptionComponentsForSiteInput input)
+    final Integer page,
+    final Integer perPage,
+    final ListSubscriptionComponentsSort sort,
+    final ListSubscriptionComponentsForSiteDirection direction,
+    final SubscriptionListDateField dateField,
+    final String startDate,
+    final String startDatetime,
+    final String endDate,
+    final String endDatetime,
+    final List<Integer> subscriptionIds,
+    final IncludeNotNull pricePointIds,
+    final List<Integer> productFamilyIds,
+    final ListSubscriptionComponentsInclude include,
+    final Boolean filterUseSiteExchangeRate,
+    final List<String> filterCurrencies,
+    final List<SubscriptionState> filterSubscriptionStates,
+    final SubscriptionListDateField filterSubscriptionDateField,
+    final String filterSubscriptionStartDate,
+    final String filterSubscriptionStartDatetime,
+    final String filterSubscriptionEndDate,
+    final String filterSubscriptionEndDatetime)
 ```
 
 ## Parameters
@@ -1474,7 +1507,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query: `sort=updated_at`. |
-| `direction` | [`ListSubscriptionComponentsForSiteInputDirection`](../../doc/models/containers/list-subscription-components-for-site-input-direction.md) | Query, Optional | This is a container for one-of cases. |
+| `direction` | [`ListSubscriptionComponentsForSiteDirection`](../../doc/models/containers/list-subscription-components-for-site-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `dateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2011-12-15`. |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
@@ -1500,27 +1533,27 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
 ## Example Usage
 
 ```java
-ListSubscriptionComponentsForSiteInput listSubscriptionComponentsForSiteInput = new ListSubscriptionComponentsForSiteInput.Builder()
-    .page(2)
-    .perPage(50)
-    .sort(ListSubscriptionComponentsSort.UPDATED_AT)
-    .dateField(SubscriptionListDateField.UPDATED_AT)
-    .subscriptionIds(Arrays.asList(
-        1,
-        2,
-        3
-    ))
-    .pricePointIds(IncludeNotNull.NOT_NULL)
-    .productFamilyIds(Arrays.asList(
-        1,
-        2,
-        3
-    ))
-    .include(ListSubscriptionComponentsInclude.SUBSCRIPTION)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .build();
+Integer page = 2;
+Integer perPage = 50;
+ListSubscriptionComponentsSort sort = ListSubscriptionComponentsSort.UPDATED_AT;
+SubscriptionListDateField dateField = SubscriptionListDateField.UPDATED_AT;
+List<Integer> subscriptionIds = Arrays.asList(
+    1,
+    2,
+    3
+);
 
+IncludeNotNull pricePointIds = IncludeNotNull.NOT_NULL;
+List<Integer> productFamilyIds = Arrays.asList(
+    1,
+    2,
+    3
+);
+
+ListSubscriptionComponentsInclude include = ListSubscriptionComponentsInclude.SUBSCRIPTION;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    ListSubscriptionComponentsResponse result = subscriptionComponentsController.listSubscriptionComponentsForSite(listSubscriptionComponentsForSiteInput);
+    ListSubscriptionComponentsResponse result = subscriptionComponentsController.listSubscriptionComponentsForSite(page, perPage, sort, null, dateField, null, null, null, null, subscriptionIds, pricePointIds, productFamilyIds, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

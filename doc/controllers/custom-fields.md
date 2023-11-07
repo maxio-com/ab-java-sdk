@@ -137,7 +137,11 @@ This endpoint lists metafields associated with a site. The metafield description
 
 ```java
 ListMetafieldsResponse listMetafields(
-    final ListMetafieldsInput input)
+    final ResourceType resourceType,
+    final String name,
+    final Integer page,
+    final Integer perPage,
+    final ListMetafieldsDirection direction)
 ```
 
 ## Parameters
@@ -148,7 +152,7 @@ ListMetafieldsResponse listMetafields(
 | `name` | `String` | Query, Optional | filter by the name of the metafield |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `direction` | [`ListMetafieldsInputDirection`](../../doc/models/containers/list-metafields-input-direction.md) | Query, Optional | This is a container for one-of cases. |
+| `direction` | [`ListMetafieldsDirection`](../../doc/models/containers/list-metafields-direction.md) | Query, Optional | This is a container for one-of cases. |
 
 ## Response Type
 
@@ -157,15 +161,12 @@ ListMetafieldsResponse listMetafields(
 ## Example Usage
 
 ```java
-ListMetafieldsInput listMetafieldsInput = new ListMetafieldsInput.Builder(
-    ResourceType.SUBSCRIPTIONS
-)
-.page(2)
-.perPage(50)
-.build();
+ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
+Integer page = 2;
+Integer perPage = 50;
 
 try {
-    ListMetafieldsResponse result = customFieldsController.listMetafields(listMetafieldsInput);
+    ListMetafieldsResponse result = customFieldsController.listMetafields(resourceType, null, page, perPage, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -374,7 +375,10 @@ This endpoint will also display the current stats of your metadata to use as a t
 
 ```java
 PaginatedMetadata readMetadata(
-    final ReadMetadataInput input)
+    final ResourceType resourceType,
+    final String resourceId,
+    final Integer page,
+    final Integer perPage)
 ```
 
 ## Parameters
@@ -393,16 +397,13 @@ PaginatedMetadata readMetadata(
 ## Example Usage
 
 ```java
-ReadMetadataInput readMetadataInput = new ReadMetadataInput.Builder(
-    ResourceType.SUBSCRIPTIONS,
-    "resource_id4"
-)
-.page(2)
-.perPage(50)
-.build();
+ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
+String resourceId = "resource_id4";
+Integer page = 2;
+Integer perPage = 50;
 
 try {
-    PaginatedMetadata result = customFieldsController.readMetadata(readMetadataInput);
+    PaginatedMetadata result = customFieldsController.readMetadata(resourceType, resourceId, page, perPage);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -539,7 +540,17 @@ This endpoint will list the number of pages of metadata information that are con
 
 ```java
 PaginatedMetadata listMetadata(
-    final ListMetadataInput input)
+    final ResourceType resourceType,
+    final Integer page,
+    final Integer perPage,
+    final BasicDateField dateField,
+    final String startDate,
+    final String endDate,
+    final String startDatetime,
+    final String endDatetime,
+    final Boolean withDeleted,
+    final List<Integer> resourceIds,
+    final ListMetadataDirection direction)
 ```
 
 ## Parameters
@@ -556,7 +567,7 @@ PaginatedMetadata listMetadata(
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns metadata with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
 | `withDeleted` | `Boolean` | Query, Optional | Allow to fetch deleted metadata. |
 | `resourceIds` | `List<Integer>` | Query, Optional | Allow to fetch metadata for multiple records based on provided ids. Use in query: `resource_ids[]=122&resource_ids[]=123&resource_ids[]=124`.<br>**Constraints**: *Maximum Items*: `50` |
-| `direction` | [`ListMetadataInputDirection`](../../doc/models/containers/list-metadata-input-direction.md) | Query, Optional | This is a container for one-of cases. |
+| `direction` | [`ListMetadataDirection`](../../doc/models/containers/list-metadata-direction.md) | Query, Optional | This is a container for one-of cases. |
 
 ## Response Type
 
@@ -565,16 +576,13 @@ PaginatedMetadata listMetadata(
 ## Example Usage
 
 ```java
-ListMetadataInput listMetadataInput = new ListMetadataInput.Builder(
-    ResourceType.SUBSCRIPTIONS
-)
-.page(2)
-.perPage(50)
-.dateField(BasicDateField.UPDATED_AT)
-Liquid error: Value cannot be null. (Parameter 'key').build();
-
+ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
+Integer page = 2;
+Integer perPage = 50;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
+Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    PaginatedMetadata result = customFieldsController.listMetadata(listMetadataInput);
+    PaginatedMetadata result = customFieldsController.listMetadata(resourceType, page, perPage, dateField, null, null, null, null, null, Liquid error: Value cannot be null. (Parameter 'key'), null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

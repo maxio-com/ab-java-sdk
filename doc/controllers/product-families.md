@@ -22,7 +22,18 @@ This method allows to retrieve a list of Products belonging to a Product Family.
 
 ```java
 List<ProductResponse> listProductsForProductFamily(
-    final ListProductsForProductFamilyInput input)
+    final int productFamilyId,
+    final Integer page,
+    final Integer perPage,
+    final BasicDateField dateField,
+    final String startDate,
+    final String endDate,
+    final String startDatetime,
+    final String endDatetime,
+    final Boolean includeArchived,
+    final ListProductsInclude include,
+    final IncludeNotNull filterPrepaidProductPricePointProductPricePointId,
+    final Boolean filterUseSiteExchangeRate)
 ```
 
 ## Parameters
@@ -49,17 +60,14 @@ List<ProductResponse> listProductsForProductFamily(
 ## Example Usage
 
 ```java
-ListProductsForProductFamilyInput listProductsForProductFamilyInput = new ListProductsForProductFamilyInput.Builder(
-    140
-)
-.page(2)
-.perPage(50)
-.dateField(BasicDateField.UPDATED_AT)
-.include(ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key').build();
-
+int productFamilyId = 140;
+Integer page = 2;
+Integer perPage = 50;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
+ListProductsInclude include = ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    List<ProductResponse> result = productFamiliesController.listProductsForProductFamily(listProductsForProductFamilyInput);
+    List<ProductResponse> result = productFamiliesController.listProductsForProductFamily(productFamilyId, page, perPage, dateField, null, null, null, null, null, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -237,7 +245,11 @@ This method allows to retrieve a list of Product Families for a site.
 
 ```java
 List<ProductFamilyResponse> listProductFamilies(
-    final ListProductFamiliesInput input)
+    final BasicDateField dateField,
+    final String startDate,
+    final String endDate,
+    final String startDatetime,
+    final String endDatetime)
 ```
 
 ## Parameters
@@ -257,12 +269,10 @@ List<ProductFamilyResponse> listProductFamilies(
 ## Example Usage
 
 ```java
-ListProductFamiliesInput listProductFamiliesInput = new ListProductFamiliesInput.Builder()
-    .dateField(BasicDateField.UPDATED_AT)
-    .build();
+BasicDateField dateField = BasicDateField.UPDATED_AT;
 
 try {
-    List<ProductFamilyResponse> result = productFamiliesController.listProductFamilies(listProductFamiliesInput);
+    List<ProductFamilyResponse> result = productFamiliesController.listProductFamilies(dateField, null, null, null, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

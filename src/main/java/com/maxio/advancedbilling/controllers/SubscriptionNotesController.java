@@ -11,7 +11,6 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
-import com.maxio.advancedbilling.models.ListSubscriptionNotesInput;
 import com.maxio.advancedbilling.models.SubscriptionNoteResponse;
 import com.maxio.advancedbilling.models.UpdateSubscriptionNoteRequest;
 import io.apimatic.core.ApiCall;
@@ -120,31 +119,44 @@ public final class SubscriptionNotesController extends BaseController {
     /**
      * Use this method to retrieve a list of Notes associated with a Subscription. The response will
      * be an array of Notes.
-     * @param  input  ListSubscriptionNotesInput object containing request parameters
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
      * @return    Returns the List of SubscriptionNoteResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<SubscriptionNoteResponse> listSubscriptionNotes(
-            final ListSubscriptionNotesInput input) throws ApiException, IOException {
-        return prepareListSubscriptionNotesRequest(input).execute();
+            final String subscriptionId,
+            final Integer page,
+            final Integer perPage) throws ApiException, IOException {
+        return prepareListSubscriptionNotesRequest(subscriptionId, page, perPage).execute();
     }
 
     /**
      * Builds the ApiCall object for listSubscriptionNotes.
      */
     private ApiCall<List<SubscriptionNoteResponse>, ApiException> prepareListSubscriptionNotesRequest(
-            final ListSubscriptionNotesInput input) throws IOException {
+            final String subscriptionId,
+            final Integer page,
+            final Integer perPage) throws IOException {
         return new ApiCall.Builder<List<SubscriptionNoteResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/notes.json")
                         .queryParam(param -> param.key("page")
-                                .value(input.getPage()).isRequired(false))
+                                .value((page != null) ? page : 1).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value(input.getPerPage()).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

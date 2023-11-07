@@ -446,7 +446,16 @@ This request will return a list of components for a site.
 
 ```java
 List<ComponentResponse> listComponents(
-    final ListComponentsInput input)
+    final BasicDateField dateField,
+    final String startDate,
+    final String endDate,
+    final String startDatetime,
+    final String endDatetime,
+    final Boolean includeArchived,
+    final Integer page,
+    final Integer perPage,
+    final List<String> filterIds,
+    final Boolean filterUseSiteExchangeRate)
 ```
 
 ## Parameters
@@ -471,14 +480,12 @@ List<ComponentResponse> listComponents(
 ## Example Usage
 
 ```java
-ListComponentsInput listComponentsInput = new ListComponentsInput.Builder()
-    .dateField(BasicDateField.UPDATED_AT)
-    .page(2)
-    .perPage(50)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .build();
-
+BasicDateField dateField = BasicDateField.UPDATED_AT;
+Integer page = 2;
+Integer perPage = 50;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    List<ComponentResponse> result = componentsController.listComponents(listComponentsInput);
+    List<ComponentResponse> result = componentsController.listComponents(dateField, null, null, null, null, null, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -675,7 +682,17 @@ This request will return a list of components for a particular product family.
 
 ```java
 List<ComponentResponse> listComponentsForProductFamily(
-    final ListComponentsForProductFamilyInput input)
+    final int productFamilyId,
+    final Boolean includeArchived,
+    final List<Integer> filterIds,
+    final Integer page,
+    final Integer perPage,
+    final BasicDateField dateField,
+    final String endDate,
+    final String endDatetime,
+    final String startDate,
+    final String startDatetime,
+    final Boolean filterUseSiteExchangeRate)
 ```
 
 ## Parameters
@@ -701,16 +718,13 @@ List<ComponentResponse> listComponentsForProductFamily(
 ## Example Usage
 
 ```java
-ListComponentsForProductFamilyInput listComponentsForProductFamilyInput = new ListComponentsForProductFamilyInput.Builder(
-    140
-)
-Liquid error: Value cannot be null. (Parameter 'key').page(2)
-.perPage(50)
-.dateField(BasicDateField.UPDATED_AT)
-Liquid error: Value cannot be null. (Parameter 'key').build();
-
+int productFamilyId = 140;
+Liquid error: Value cannot be null. (Parameter 'key')Integer page = 2;
+Integer perPage = 50;
+BasicDateField dateField = BasicDateField.UPDATED_AT;
+Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    List<ComponentResponse> result = componentsController.listComponentsForProductFamily(listComponentsForProductFamilyInput);
+    List<ComponentResponse> result = componentsController.listComponentsForProductFamily(productFamilyId, null, Liquid error: Value cannot be null. (Parameter 'key'), page, perPage, dateField, null, null, null, null, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -899,7 +913,11 @@ If the price point is set to `use_site_exchange_rate: true`, it will return pric
 
 ```java
 ComponentPricePointsResponse listComponentPricePoints(
-    final ListComponentPricePointsInput input)
+    final int componentId,
+    final Boolean currencyPrices,
+    final Integer page,
+    final Integer perPage,
+    final List<PricePointType> filterType)
 ```
 
 ## Parameters
@@ -919,15 +937,11 @@ ComponentPricePointsResponse listComponentPricePoints(
 ## Example Usage
 
 ```java
-ListComponentPricePointsInput listComponentPricePointsInput = new ListComponentPricePointsInput.Builder(
-    222
-)
-.page(2)
-.perPage(50)
-Liquid error: Value cannot be null. (Parameter 'key').build();
-
-try {
-    ComponentPricePointsResponse result = componentsController.listComponentPricePoints(listComponentPricePointsInput);
+int componentId = 222;
+Integer page = 2;
+Integer perPage = 50;
+Liquid error: Value cannot be null. (Parameter 'key')try {
+    ComponentPricePointsResponse result = componentsController.listComponentPricePoints(componentId, null, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1460,7 +1474,18 @@ This method allows to retrieve a list of Components Price Points belonging to a 
 
 ```java
 ListComponentsPricePointsResponse listAllComponentPricePoints(
-    final ListAllComponentPricePointsInput input)
+    final BasicDateField filterDateField,
+    final String filterEndDate,
+    final String filterEndDatetime,
+    final ListComponentsPricePointsInclude include,
+    final Integer page,
+    final Integer perPage,
+    final String filterStartDate,
+    final String filterStartDatetime,
+    final PricePointType filterType,
+    final ListAllComponentPricePointsDirection direction,
+    final List<Integer> filterIds,
+    final IncludeNotNull filterArchivedAt)
 ```
 
 ## Parameters
@@ -1476,7 +1501,7 @@ ListComponentsPricePointsResponse listAllComponentPricePoints(
 | `filterStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `filterStartDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
 | `filterType` | [`PricePointType`](../../doc/models/price-point-type.md) | Query, Optional | Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`. |
-| `direction` | [`ListAllComponentPricePointsInputDirection`](../../doc/models/containers/list-all-component-price-points-input-direction.md) | Query, Optional | This is a container for one-of cases. |
+| `direction` | [`ListAllComponentPricePointsDirection`](../../doc/models/containers/list-all-component-price-points-direction.md) | Query, Optional | This is a container for one-of cases. |
 | `filterIds` | `List<Integer>` | Query, Optional | Allows fetching price points with matching id based on provided values. Use in query: `filter[ids]=1,2,3`. |
 | `filterArchivedAt` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching price points only if archived_at is present or not. Use in query: `filter[archived_at]=not_null`. |
 
@@ -1487,14 +1512,12 @@ ListComponentsPricePointsResponse listAllComponentPricePoints(
 ## Example Usage
 
 ```java
-ListAllComponentPricePointsInput listAllComponentPricePointsInput = new ListAllComponentPricePointsInput.Builder()
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .include(ListComponentsPricePointsInclude.CURRENCY_PRICES)
-    .page(2)
-    .perPage(50)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .build();
-
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')ListComponentsPricePointsInclude include = ListComponentsPricePointsInclude.CURRENCY_PRICES;
+Integer page = 2;
+Integer perPage = 50;
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
 try {
-    ListComponentsPricePointsResponse result = componentsController.listAllComponentPricePoints(listAllComponentPricePointsInput);
+    ListComponentsPricePointsResponse result = componentsController.listAllComponentPricePoints(Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), include, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

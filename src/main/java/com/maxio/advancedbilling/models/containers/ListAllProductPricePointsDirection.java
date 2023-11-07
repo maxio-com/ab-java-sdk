@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ReadMrrMovementsInputDirection.ReadMrrMovementsInputDirectionDeserializer.class)
-public abstract class ReadMrrMovementsInputDirection {
+@JsonDeserialize(using = ListAllProductPricePointsDirection.ListAllProductPricePointsDirectionDeserializer.class)
+public abstract class ListAllProductPricePointsDirection {
     
     /**
      * This is Sorting direction case.
      * @param sortingDirection SortingDirection value for sortingDirection.
      * @return The SortingDirectionCase object.
      */
-    public static ReadMrrMovementsInputDirection fromSortingDirection(
+    public static ListAllProductPricePointsDirection fromSortingDirection(
             SortingDirection sortingDirection) {
         return sortingDirection == null ? null : new SortingDirectionCase(sortingDirection);
     }
@@ -64,7 +64,7 @@ public abstract class ReadMrrMovementsInputDirection {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SortingDirection")
-    private static class SortingDirectionCase extends ReadMrrMovementsInputDirection {
+    private static class SortingDirectionCase extends ListAllProductPricePointsDirection {
 
         @JsonValue
         private SortingDirection sortingDirection;
@@ -99,13 +99,13 @@ public abstract class ReadMrrMovementsInputDirection {
     }
 
     /**
-     * This is a custom deserializer class for ReadMrrMovementsInputDirection.
+     * This is a custom deserializer class for ListAllProductPricePointsDirection.
      */
-    protected static class ReadMrrMovementsInputDirectionDeserializer
-            extends JsonDeserializer<ReadMrrMovementsInputDirection> {
+    protected static class ListAllProductPricePointsDirectionDeserializer
+            extends JsonDeserializer<ListAllProductPricePointsDirection> {
 
         @Override
-        public ReadMrrMovementsInputDirection deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ListAllProductPricePointsDirection deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

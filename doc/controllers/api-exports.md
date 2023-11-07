@@ -29,7 +29,9 @@ Example: `GET https://{subdomain}.chargify.com/api_exports/proforma_invoices/123
 
 ```java
 List<ProformaInvoice> listExportedProformaInvoices(
-    final ListExportedProformaInvoicesInput input)
+    final String batchId,
+    final Integer perPage,
+    final Integer page)
 ```
 
 ## Parameters
@@ -47,15 +49,12 @@ List<ProformaInvoice> listExportedProformaInvoices(
 ## Example Usage
 
 ```java
-ListExportedProformaInvoicesInput listExportedProformaInvoicesInput = new ListExportedProformaInvoicesInput.Builder(
-    "batch_id8"
-)
-.perPage(100)
-.page(2)
-.build();
+String batchId = "batch_id8";
+Integer perPage = 100;
+Integer page = 2;
 
 try {
-    List<ProformaInvoice> result = aPIExportsController.listExportedProformaInvoices(listExportedProformaInvoicesInput);
+    List<ProformaInvoice> result = aPIExportsController.listExportedProformaInvoices(batchId, perPage, page);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -79,7 +78,9 @@ Example: `GET https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per
 
 ```java
 List<Invoice> listExportedInvoices(
-    final ListExportedInvoicesInput input)
+    final String batchId,
+    final Integer perPage,
+    final Integer page)
 ```
 
 ## Parameters
@@ -97,15 +98,12 @@ List<Invoice> listExportedInvoices(
 ## Example Usage
 
 ```java
-ListExportedInvoicesInput listExportedInvoicesInput = new ListExportedInvoicesInput.Builder(
-    "batch_id8"
-)
-.perPage(100)
-.page(2)
-.build();
+String batchId = "batch_id8";
+Integer perPage = 100;
+Integer page = 2;
 
 try {
-    List<Invoice> result = aPIExportsController.listExportedInvoices(listExportedInvoicesInput);
+    List<Invoice> result = aPIExportsController.listExportedInvoices(batchId, perPage, page);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -129,7 +127,9 @@ Example: `GET https://{subdomain}.chargify.com/api_exports/subscriptions/123/row
 
 ```java
 List<Subscription> listExportedSubscriptions(
-    final ListExportedSubscriptionsInput input)
+    final String batchId,
+    final Integer perPage,
+    final Integer page)
 ```
 
 ## Parameters
@@ -147,15 +147,12 @@ List<Subscription> listExportedSubscriptions(
 ## Example Usage
 
 ```java
-ListExportedSubscriptionsInput listExportedSubscriptionsInput = new ListExportedSubscriptionsInput.Builder(
-    "batch_id8"
-)
-.perPage(100)
-.page(2)
-.build();
+String batchId = "batch_id8";
+Integer perPage = 100;
+Integer page = 2;
 
 try {
-    List<Subscription> result = aPIExportsController.listExportedSubscriptions(listExportedSubscriptionsInput);
+    List<Subscription> result = aPIExportsController.listExportedSubscriptions(batchId, perPage, page);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
