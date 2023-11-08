@@ -19,29 +19,28 @@ import com.maxio.advancedbilling.models.CreateInvoiceRequest;
 import com.maxio.advancedbilling.models.CreateMultiInvoicePaymentRequest;
 import com.maxio.advancedbilling.models.CreditNote;
 import com.maxio.advancedbilling.models.CustomerChangesPreviewResponse;
-import com.maxio.advancedbilling.models.Direction;
 import com.maxio.advancedbilling.models.Invoice;
-import com.maxio.advancedbilling.models.InvoiceDateField;
 import com.maxio.advancedbilling.models.InvoiceEventType;
 import com.maxio.advancedbilling.models.InvoiceResponse;
-import com.maxio.advancedbilling.models.InvoiceSortField;
 import com.maxio.advancedbilling.models.IssueInvoiceRequest;
+import com.maxio.advancedbilling.models.ListCreditNotesInput;
 import com.maxio.advancedbilling.models.ListCreditNotesResponse;
+import com.maxio.advancedbilling.models.ListInvoiceEventsInput;
 import com.maxio.advancedbilling.models.ListInvoiceEventsResponse;
+import com.maxio.advancedbilling.models.ListInvoiceSegmentsInput;
+import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.ListInvoicesResponse;
 import com.maxio.advancedbilling.models.MultiInvoicePaymentResponse;
 import com.maxio.advancedbilling.models.PaymentResponse;
 import com.maxio.advancedbilling.models.RecordPaymentRequest;
 import com.maxio.advancedbilling.models.RefundInvoiceRequest;
 import com.maxio.advancedbilling.models.SendInvoiceRequest;
-import com.maxio.advancedbilling.models.Status;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -108,165 +107,70 @@ public final class InvoicesController extends BaseController {
      * for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`, or `refunds`.
      * To include breakdowns, pass the specific field as a key in the query with a value set to
      * `true`.
-     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns invoices with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified.
-     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
-     *         the date_field. Returns invoices with a timestamp up to and including 11:59:59PM in
-     *         your site’s time zone on the date specified.
-     * @param  status  Optional parameter: The current status of the invoice. Allowed Values: draft,
-     *         open, paid, pending, voided
-     * @param  subscriptionId  Optional parameter: The subscription's ID.
-     * @param  subscriptionGroupUid  Optional parameter: The UID of the subscription group you want
-     *         to fetch consolidated invoices for. This will return a paginated list of consolidated
-     *         invoices for the specified group.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  direction  Optional parameter: The sort direction of the returned invoices.
-     * @param  lineItems  Optional parameter: Include line items data
-     * @param  discounts  Optional parameter: Include discounts data
-     * @param  taxes  Optional parameter: Include taxes data
-     * @param  credits  Optional parameter: Include credits data
-     * @param  payments  Optional parameter: Include payments data
-     * @param  customFields  Optional parameter: Include custom fields data
-     * @param  refunds  Optional parameter: Include refunds data
-     * @param  dateField  Optional parameter: The type of filter you would like to apply to your
-     *         search. Use in query `date_field=issue_date`.
-     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at
-     *         or after exact time provided in query. You can specify timezone in query - otherwise
-     *         your site's time zone will be used. If provided, this parameter will be used instead
-     *         of start_date. Allowed to be used only along with date_field set to created_at or
-     *         updated_at.
-     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
-     *         with which to filter the date_field. Returns invoices with a timestamp at or before
-     *         exact time provided in query. You can specify timezone in query - otherwise your
-     *         site's time zone will be used. If provided, this parameter will be used instead of
-     *         end_date. Allowed to be used only along with date_field set to created_at or
-     *         updated_at.
-     * @param  customerIds  Optional parameter: Allows fetching invoices with matching customer id
-     *         based on provided values. Use in query `customer_ids=1,2,3`.
-     * @param  number  Optional parameter: Allows fetching invoices with matching invoice number
-     *         based on provided values. Use in query `number=1234,1235`.
-     * @param  productIds  Optional parameter: Allows fetching invoices with matching line items
-     *         product ids based on provided values. Use in query `product_ids=23,34`.
-     * @param  sort  Optional parameter: Allows specification of the order of the returned list. Use
-     *         in query `sort=total_amount`.
+     * @param  input  ListInvoicesInput object containing request parameters
      * @return    Returns the ListInvoicesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListInvoicesResponse listInvoices(
-            final String startDate,
-            final String endDate,
-            final Status status,
-            final Integer subscriptionId,
-            final String subscriptionGroupUid,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction,
-            final Boolean lineItems,
-            final Boolean discounts,
-            final Boolean taxes,
-            final Boolean credits,
-            final Boolean payments,
-            final Boolean customFields,
-            final Boolean refunds,
-            final InvoiceDateField dateField,
-            final String startDatetime,
-            final String endDatetime,
-            final List<Integer> customerIds,
-            final List<String> number,
-            final List<Integer> productIds,
-            final InvoiceSortField sort) throws ApiException, IOException {
-        return prepareListInvoicesRequest(startDate, endDate, status, subscriptionId,
-                subscriptionGroupUid, page, perPage, direction, lineItems, discounts, taxes,
-                credits, payments, customFields, refunds, dateField, startDatetime, endDatetime,
-                customerIds, number, productIds, sort).execute();
+            final ListInvoicesInput input) throws ApiException, IOException {
+        return prepareListInvoicesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listInvoices.
      */
     private ApiCall<ListInvoicesResponse, ApiException> prepareListInvoicesRequest(
-            final String startDate,
-            final String endDate,
-            final Status status,
-            final Integer subscriptionId,
-            final String subscriptionGroupUid,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction,
-            final Boolean lineItems,
-            final Boolean discounts,
-            final Boolean taxes,
-            final Boolean credits,
-            final Boolean payments,
-            final Boolean customFields,
-            final Boolean refunds,
-            final InvoiceDateField dateField,
-            final String startDatetime,
-            final String endDatetime,
-            final List<Integer> customerIds,
-            final List<String> number,
-            final List<Integer> productIds,
-            final InvoiceSortField sort) throws IOException {
+            final ListInvoicesInput input) throws IOException {
         return new ApiCall.Builder<ListInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/invoices.json")
                         .queryParam(param -> param.key("start_date")
-                                .value(startDate).isRequired(false))
+                                .value(input.getStartDate()).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(endDate).isRequired(false))
+                                .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("status")
-                                .value((status != null) ? status.value() : null).isRequired(false))
+                                .value((input.getStatus() != null) ? input.getStatus().value() : null).isRequired(false))
                         .queryParam(param -> param.key("subscription_id")
-                                .value(subscriptionId).isRequired(false))
+                                .value(input.getSubscriptionId()).isRequired(false))
                         .queryParam(param -> param.key("subscription_group_uid")
-                                .value(subscriptionGroupUid).isRequired(false))
+                                .value(input.getSubscriptionGroupUid()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : "desc").isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("line_items")
-                                .value((lineItems != null) ? lineItems : false).isRequired(false))
+                                .value(input.getLineItems()).isRequired(false))
                         .queryParam(param -> param.key("discounts")
-                                .value((discounts != null) ? discounts : false).isRequired(false))
+                                .value(input.getDiscounts()).isRequired(false))
                         .queryParam(param -> param.key("taxes")
-                                .value((taxes != null) ? taxes : false).isRequired(false))
+                                .value(input.getTaxes()).isRequired(false))
                         .queryParam(param -> param.key("credits")
-                                .value((credits != null) ? credits : false).isRequired(false))
+                                .value(input.getCredits()).isRequired(false))
                         .queryParam(param -> param.key("payments")
-                                .value((payments != null) ? payments : false).isRequired(false))
+                                .value(input.getPayments()).isRequired(false))
                         .queryParam(param -> param.key("custom_fields")
-                                .value((customFields != null) ? customFields : false).isRequired(false))
+                                .value(input.getCustomFields()).isRequired(false))
                         .queryParam(param -> param.key("refunds")
-                                .value((refunds != null) ? refunds : false).isRequired(false))
+                                .value(input.getRefunds()).isRequired(false))
                         .queryParam(param -> param.key("date_field")
-                                .value((dateField != null) ? dateField.value() : "due_date").isRequired(false))
+                                .value((input.getDateField() != null) ? input.getDateField().value() : "due_date").isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(startDatetime).isRequired(false))
+                                .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(endDatetime).isRequired(false))
+                                .value(input.getEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("customer_ids")
-                                .value(customerIds).isRequired(false))
+                                .value(input.getCustomerIds()).isRequired(false))
                         .queryParam(param -> param.key("number")
-                                .value(number).isRequired(false))
+                                .value(input.getNumber()).isRequired(false))
                         .queryParam(param -> param.key("product_ids")
-                                .value(productIds).isRequired(false))
+                                .value(input.getProductIds()).isRequired(false))
                         .queryParam(param -> param.key("sort")
-                                .value((sort != null) ? sort.value() : "number").isRequired(false))
+                                .value((input.getSort() != null) ? input.getSort().value() : "number").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -325,75 +229,40 @@ public final class InvoicesController extends BaseController {
      * order. If both a `since_date` and `since_id` are provided in request parameters, the
      * `since_date` will be used. Note - invoice events that occurred prior to 09/05/2018 __will
      * not__ contain an `invoice` snapshot.
-     * @param  sinceDate  Optional parameter: The timestamp in a format `YYYY-MM-DD T HH:MM:SS Z`,
-     *         or `YYYY-MM-DD`(in this case, it returns data from the beginning of the day). of the
-     *         event from which you want to start the search. All the events before the `since_date`
-     *         timestamp are not returned in the response.
-     * @param  sinceId  Optional parameter: The ID of the event from which you want to start the
-     *         search(ID is not included. e.g. if ID is set to 2, then all events with ID 3 and more
-     *         will be shown) This parameter is not used if since_date is defined.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 100. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200.
-     * @param  invoiceUid  Optional parameter: Providing an invoice_uid allows for scoping of the
-     *         invoice events to a single invoice or credit note.
-     * @param  withChangeInvoiceStatus  Optional parameter: Use this parameter if you want to fetch
-     *         also invoice events with change_invoice_status type.
-     * @param  eventTypes  Optional parameter: Filter results by event_type. Supply a comma
-     *         separated list of event types (listed above). Use in query:
-     *         `event_types=void_invoice,void_remainder`.
+     * @param  input  ListInvoiceEventsInput object containing request parameters
      * @return    Returns the ListInvoiceEventsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListInvoiceEventsResponse listInvoiceEvents(
-            final String sinceDate,
-            final Integer sinceId,
-            final Integer page,
-            final Integer perPage,
-            final String invoiceUid,
-            final String withChangeInvoiceStatus,
-            final List<InvoiceEventType> eventTypes) throws ApiException, IOException {
-        return prepareListInvoiceEventsRequest(sinceDate, sinceId, page, perPage, invoiceUid,
-                withChangeInvoiceStatus, eventTypes).execute();
+            final ListInvoiceEventsInput input) throws ApiException, IOException {
+        return prepareListInvoiceEventsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listInvoiceEvents.
      */
     private ApiCall<ListInvoiceEventsResponse, ApiException> prepareListInvoiceEventsRequest(
-            final String sinceDate,
-            final Integer sinceId,
-            final Integer page,
-            final Integer perPage,
-            final String invoiceUid,
-            final String withChangeInvoiceStatus,
-            final List<InvoiceEventType> eventTypes) throws IOException {
+            final ListInvoiceEventsInput input) throws IOException {
         return new ApiCall.Builder<ListInvoiceEventsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/invoices/events.json")
                         .queryParam(param -> param.key("since_date")
-                                .value(sinceDate).isRequired(false))
+                                .value(input.getSinceDate()).isRequired(false))
                         .queryParam(param -> param.key("since_id")
-                                .value(sinceId).isRequired(false))
+                                .value(input.getSinceId()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 100).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("invoice_uid")
-                                .value(invoiceUid).isRequired(false))
+                                .value(input.getInvoiceUid()).isRequired(false))
                         .queryParam(param -> param.key("with_change_invoice_status")
-                                .value(withChangeInvoiceStatus).isRequired(false))
+                                .value(input.getWithChangeInvoiceStatus()).isRequired(false))
                         .queryParam(param -> param.key("event_types")
-                                .value(InvoiceEventType.toValue(eventTypes)).isRequired(false))
+                                .value(InvoiceEventType.toValue(input.getEventTypes())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -520,71 +389,42 @@ public final class InvoicesController extends BaseController {
      * the credit notes returned by this endpoint will exclude the arrays of `line_items`,
      * `discounts`, `taxes`, `applications`, or `refunds`. To include these arrays, pass the
      * specific field as a key in the query with a value set to `true`.
-     * @param  subscriptionId  Optional parameter: The subscription's Chargify id
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  lineItems  Optional parameter: Include line items data
-     * @param  discounts  Optional parameter: Include discounts data
-     * @param  taxes  Optional parameter: Include taxes data
-     * @param  refunds  Optional parameter: Include refunds data
-     * @param  applications  Optional parameter: Include applications data
+     * @param  input  ListCreditNotesInput object containing request parameters
      * @return    Returns the ListCreditNotesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListCreditNotesResponse listCreditNotes(
-            final Integer subscriptionId,
-            final Integer page,
-            final Integer perPage,
-            final Boolean lineItems,
-            final Boolean discounts,
-            final Boolean taxes,
-            final Boolean refunds,
-            final Boolean applications) throws ApiException, IOException {
-        return prepareListCreditNotesRequest(subscriptionId, page, perPage, lineItems, discounts,
-                taxes, refunds, applications).execute();
+            final ListCreditNotesInput input) throws ApiException, IOException {
+        return prepareListCreditNotesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listCreditNotes.
      */
     private ApiCall<ListCreditNotesResponse, ApiException> prepareListCreditNotesRequest(
-            final Integer subscriptionId,
-            final Integer page,
-            final Integer perPage,
-            final Boolean lineItems,
-            final Boolean discounts,
-            final Boolean taxes,
-            final Boolean refunds,
-            final Boolean applications) throws IOException {
+            final ListCreditNotesInput input) throws IOException {
         return new ApiCall.Builder<ListCreditNotesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/credit_notes.json")
                         .queryParam(param -> param.key("subscription_id")
-                                .value(subscriptionId).isRequired(false))
+                                .value(input.getSubscriptionId()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("line_items")
-                                .value((lineItems != null) ? lineItems : false).isRequired(false))
+                                .value(input.getLineItems()).isRequired(false))
                         .queryParam(param -> param.key("discounts")
-                                .value((discounts != null) ? discounts : false).isRequired(false))
+                                .value(input.getDiscounts()).isRequired(false))
                         .queryParam(param -> param.key("taxes")
-                                .value((taxes != null) ? taxes : false).isRequired(false))
+                                .value(input.getTaxes()).isRequired(false))
                         .queryParam(param -> param.key("refunds")
-                                .value((refunds != null) ? refunds : false).isRequired(false))
+                                .value(input.getRefunds()).isRequired(false))
                         .queryParam(param -> param.key("applications")
-                                .value((applications != null) ? applications : false).isRequired(false))
+                                .value(input.getApplications()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -786,49 +626,33 @@ public final class InvoicesController extends BaseController {
     /**
      * Invoice segments returned on the index will only include totals, not detailed breakdowns for
      * `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
-     * @param  invoiceUid  Required parameter: The unique identifier of the consolidated invoice
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  direction  Optional parameter: Sort direction of the returned segments.
+     * @param  input  ListInvoiceSegmentsInput object containing request parameters
      * @return    Returns the ConsolidatedInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ConsolidatedInvoice listInvoiceSegments(
-            final String invoiceUid,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction) throws ApiException, IOException {
-        return prepareListInvoiceSegmentsRequest(invoiceUid, page, perPage, direction).execute();
+            final ListInvoiceSegmentsInput input) throws ApiException, IOException {
+        return prepareListInvoiceSegmentsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listInvoiceSegments.
      */
     private ApiCall<ConsolidatedInvoice, ApiException> prepareListInvoiceSegmentsRequest(
-            final String invoiceUid,
-            final Integer page,
-            final Integer perPage,
-            final Direction direction) throws IOException {
+            final ListInvoiceSegmentsInput input) throws IOException {
         return new ApiCall.Builder<ConsolidatedInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/invoices/{invoice_uid}/segments.json")
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : "asc").isRequired(false))
-                        .templateParam(param -> param.key("invoice_uid").value(invoiceUid)
+                                .value((input.getDirection() != null) ? input.getDirection().value() : "asc").isRequired(false))
+                        .templateParam(param -> param.key("invoice_uid").value(input.getInvoiceUid())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

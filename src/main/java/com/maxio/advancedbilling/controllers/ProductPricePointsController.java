@@ -13,20 +13,18 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.ErrorMapResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
-import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.BulkCreateProductPricePointsRequest;
 import com.maxio.advancedbilling.models.BulkCreateProductPricePointsResponse;
 import com.maxio.advancedbilling.models.CreateProductCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
-import com.maxio.advancedbilling.models.IncludeNotNull;
+import com.maxio.advancedbilling.models.ListAllProductPricePointsInput;
+import com.maxio.advancedbilling.models.ListProductPricePointsInput;
 import com.maxio.advancedbilling.models.ListProductPricePointsResponse;
-import com.maxio.advancedbilling.models.ListProductsPricePointsInclude;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.ProductPricePointCurrencyPrice;
 import com.maxio.advancedbilling.models.ProductPricePointResponse;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.UpdateProductPricePointRequest;
-import com.maxio.advancedbilling.models.containers.ListAllProductPricePointsDirection;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -94,61 +92,35 @@ public final class ProductPricePointsController extends BaseController {
 
     /**
      * Use this endpoint to retrieve a list of product price points.
-     * @param  productId  Required parameter: The id or handle of the product. When using the
-     *         handle, it must be prefixed with `handle:`
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 10. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200.
-     * @param  currencyPrices  Optional parameter: When fetching a product's price points, if you
-     *         have defined multiple currencies at the site level, you can optionally pass the
-     *         ?currency_prices=true query param to include an array of currency price data in the
-     *         response. If the product price point is set to use_site_exchange_rate: true, it will
-     *         return pricing based on the current exchange rate. If the flag is set to false, it
-     *         will return all of the defined prices for each currency.
-     * @param  filterType  Optional parameter: Use in query: `filter[type]=catalog,default`.
+     * @param  input  ListProductPricePointsInput object containing request parameters
      * @return    Returns the ListProductPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListProductPricePointsResponse listProductPricePoints(
-            final int productId,
-            final Integer page,
-            final Integer perPage,
-            final Boolean currencyPrices,
-            final List<PricePointType> filterType) throws ApiException, IOException {
-        return prepareListProductPricePointsRequest(productId, page, perPage, currencyPrices,
-                filterType).execute();
+            final ListProductPricePointsInput input) throws ApiException, IOException {
+        return prepareListProductPricePointsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listProductPricePoints.
      */
     private ApiCall<ListProductPricePointsResponse, ApiException> prepareListProductPricePointsRequest(
-            final int productId,
-            final Integer page,
-            final Integer perPage,
-            final Boolean currencyPrices,
-            final List<PricePointType> filterType) throws IOException {
+            final ListProductPricePointsInput input) throws IOException {
         return new ApiCall.Builder<ListProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/products/{product_id}/price_points.json")
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 10).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("currency_prices")
-                                .value(currencyPrices).isRequired(false))
+                                .value(input.getCurrencyPrices()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
-                                .value(PricePointType.toValue(filterType)).isRequired(false))
-                        .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
+                                .value(PricePointType.toValue(input.getFilterType())).isRequired(false))
+                        .templateParam(param -> param.key("product_id").value(input.getProductId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -539,110 +511,50 @@ public final class ProductPricePointsController extends BaseController {
 
     /**
      * This method allows retrieval of a list of Products Price Points belonging to a Site.
-     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
-     *         in query `direction=asc`.
-     * @param  filterArchivedAt  Optional parameter: Allows fetching price points only if
-     *         archived_at is present or not. Use in query: `filter[archived_at]=not_null`.
-     * @param  filterDateField  Optional parameter: The type of filter you would like to apply to
-     *         your search. Use in query: `filter[date_field]=created_at`.
-     * @param  filterEndDate  Optional parameter: The end date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns price points with a timestamp up to and including
-     *         11:59:59PM in your site’s time zone on the date specified.
-     * @param  filterEndDatetime  Optional parameter: The end date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp
-     *         at or before exact time provided in query. You can specify timezone in query -
-     *         otherwise your site's time zone will be used. If provided, this parameter will be
-     *         used instead of end_date.
-     * @param  filterIds  Optional parameter: Allows fetching price points with matching id based on
-     *         provided values. Use in query: `filter[ids]=1,2,3`.
-     * @param  filterStartDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns price points with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified.
-     * @param  filterStartDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp
-     *         at or after exact time provided in query. You can specify timezone in query -
-     *         otherwise your site's time zone will be used. If provided, this parameter will be
-     *         used instead of start_date.
-     * @param  filterType  Optional parameter: Allows fetching price points with matching type. Use
-     *         in query: `filter[type]=catalog,custom`.
-     * @param  include  Optional parameter: Allows including additional data in the response. Use in
-     *         query: `include=currency_prices`.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  input  ListAllProductPricePointsInput object containing request parameters
      * @return    Returns the ListProductPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListProductPricePointsResponse listAllProductPricePoints(
-            final ListAllProductPricePointsDirection direction,
-            final IncludeNotNull filterArchivedAt,
-            final BasicDateField filterDateField,
-            final String filterEndDate,
-            final String filterEndDatetime,
-            final List<Integer> filterIds,
-            final String filterStartDate,
-            final String filterStartDatetime,
-            final PricePointType filterType,
-            final ListProductsPricePointsInclude include,
-            final Integer page,
-            final Integer perPage) throws ApiException, IOException {
-        return prepareListAllProductPricePointsRequest(direction, filterArchivedAt, filterDateField,
-                filterEndDate, filterEndDatetime, filterIds, filterStartDate, filterStartDatetime,
-                filterType, include, page, perPage).execute();
+            final ListAllProductPricePointsInput input) throws ApiException, IOException {
+        return prepareListAllProductPricePointsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listAllProductPricePoints.
      */
     private ApiCall<ListProductPricePointsResponse, ApiException> prepareListAllProductPricePointsRequest(
-            final ListAllProductPricePointsDirection direction,
-            final IncludeNotNull filterArchivedAt,
-            final BasicDateField filterDateField,
-            final String filterEndDate,
-            final String filterEndDatetime,
-            final List<Integer> filterIds,
-            final String filterStartDate,
-            final String filterStartDatetime,
-            final PricePointType filterType,
-            final ListProductsPricePointsInclude include,
-            final Integer page,
-            final Integer perPage) throws IOException {
+            final ListAllProductPricePointsInput input) throws IOException {
         return new ApiCall.Builder<ListProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/products_price_points.json")
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[archived_at]")
-                                .value((filterArchivedAt != null) ? filterArchivedAt.value() : null).isRequired(false))
+                                .value((input.getFilterArchivedAt() != null) ? input.getFilterArchivedAt().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[date_field]")
-                                .value((filterDateField != null) ? filterDateField.value() : null).isRequired(false))
+                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(filterEndDate).isRequired(false))
+                                .value(input.getFilterEndDate()).isRequired(false))
                         .queryParam(param -> param.key("filter[end_datetime]")
-                                .value(filterEndDatetime).isRequired(false))
+                                .value(input.getFilterEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("filter[ids]")
-                                .value(filterIds).isRequired(false))
+                                .value(input.getFilterIds()).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(filterStartDate).isRequired(false))
+                                .value(input.getFilterStartDate()).isRequired(false))
                         .queryParam(param -> param.key("filter[start_datetime]")
-                                .value(filterStartDatetime).isRequired(false))
+                                .value(input.getFilterStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
-                                .value((filterType != null) ? filterType.value() : null).isRequired(false))
+                                .value((input.getFilterType() != null) ? input.getFilterType().value() : null).isRequired(false))
                         .queryParam(param -> param.key("include")
-                                .value((include != null) ? include.value() : null).isRequired(false))
+                                .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

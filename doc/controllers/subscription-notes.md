@@ -116,9 +116,7 @@ Use this method to retrieve a list of Notes associated with a Subscription. The 
 
 ```java
 List<SubscriptionNoteResponse> listSubscriptionNotes(
-    final String subscriptionId,
-    final Integer page,
-    final Integer perPage)
+    final ListSubscriptionNotesInput input)
 ```
 
 ## Parameters
@@ -136,12 +134,15 @@ List<SubscriptionNoteResponse> listSubscriptionNotes(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
-Integer page = 2;
-Integer perPage = 50;
+ListSubscriptionNotesInput listSubscriptionNotesInput = new ListSubscriptionNotesInput.Builder(
+    "subscription_id0"
+)
+.page(2)
+.perPage(50)
+.build();
 
 try {
-    List<SubscriptionNoteResponse> result = subscriptionNotesController.listSubscriptionNotes(subscriptionId, page, perPage);
+    List<SubscriptionNoteResponse> result = subscriptionNotesController.listSubscriptionNotes(listSubscriptionNotesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

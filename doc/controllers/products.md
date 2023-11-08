@@ -490,17 +490,7 @@ This method allows to retrieve a list of Products belonging to a Site.
 
 ```java
 List<ProductResponse> listProducts(
-    final BasicDateField dateField,
-    final String endDate,
-    final String endDatetime,
-    final String startDate,
-    final String startDatetime,
-    final Integer page,
-    final Integer perPage,
-    final Boolean includeArchived,
-    final ListProductsInclude include,
-    final IncludeNotNull filterPrepaidProductPricePointProductPricePointId,
-    final Boolean filterUseSiteExchangeRate)
+    final ListProductsInput input)
 ```
 
 ## Parameters
@@ -526,14 +516,16 @@ List<ProductResponse> listProducts(
 ## Example Usage
 
 ```java
-BasicDateField dateField = BasicDateField.UPDATED_AT;
-Integer page = 2;
-Integer perPage = 50;
-Boolean includeArchived = true;
-ListProductsInclude include = ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT;
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
+ListProductsInput listProductsInput = new ListProductsInput.Builder()
+    .dateField(BasicDateField.UPDATED_AT)
+    .page(2)
+    .perPage(50)
+    .includeArchived(true)
+    .include(ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT)
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .build();
+
 try {
-    List<ProductResponse> result = productsController.listProducts(dateField, null, null, null, null, page, perPage, includeArchived, include, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
+    List<ProductResponse> result = productsController.listProducts(listProductsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

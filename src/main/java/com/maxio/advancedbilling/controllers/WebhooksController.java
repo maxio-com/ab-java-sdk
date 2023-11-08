@@ -16,12 +16,11 @@ import com.maxio.advancedbilling.models.EnableWebhooksRequest;
 import com.maxio.advancedbilling.models.EnableWebhooksResponse;
 import com.maxio.advancedbilling.models.Endpoint;
 import com.maxio.advancedbilling.models.EndpointResponse;
+import com.maxio.advancedbilling.models.ListWebhooksInput;
 import com.maxio.advancedbilling.models.ReplayWebhooksRequest;
 import com.maxio.advancedbilling.models.ReplayWebhooksResponse;
 import com.maxio.advancedbilling.models.UpdateEndpointRequest;
-import com.maxio.advancedbilling.models.WebhookOrder;
 import com.maxio.advancedbilling.models.WebhookResponse;
-import com.maxio.advancedbilling.models.WebhookStatus;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -58,69 +57,40 @@ public final class WebhooksController extends BaseController {
      * payloads](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405357509645-Webhooks-Reference#events)
      * ## List Webhooks for a Site This method allows you to fetch data about webhooks. You can pass
      * query parameters if you want to filter webhooks.
-     * @param  status  Optional parameter: Webhooks with matching status would be returned.
-     * @param  sinceDate  Optional parameter: Format YYYY-MM-DD. Returns Webhooks with the
-     *         created_at date greater than or equal to the one specified.
-     * @param  untilDate  Optional parameter: Format YYYY-MM-DD. Returns Webhooks with the
-     *         created_at date less than or equal to the one specified.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  order  Optional parameter: The order in which the Webhooks are returned.
-     * @param  subscription  Optional parameter: The Chargify id of a subscription you'd like to
-     *         filter for
+     * @param  input  ListWebhooksInput object containing request parameters
      * @return    Returns the List of WebhookResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<WebhookResponse> listWebhooks(
-            final WebhookStatus status,
-            final String sinceDate,
-            final String untilDate,
-            final Integer page,
-            final Integer perPage,
-            final WebhookOrder order,
-            final Integer subscription) throws ApiException, IOException {
-        return prepareListWebhooksRequest(status, sinceDate, untilDate, page, perPage, order,
-                subscription).execute();
+            final ListWebhooksInput input) throws ApiException, IOException {
+        return prepareListWebhooksRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listWebhooks.
      */
     private ApiCall<List<WebhookResponse>, ApiException> prepareListWebhooksRequest(
-            final WebhookStatus status,
-            final String sinceDate,
-            final String untilDate,
-            final Integer page,
-            final Integer perPage,
-            final WebhookOrder order,
-            final Integer subscription) throws IOException {
+            final ListWebhooksInput input) throws IOException {
         return new ApiCall.Builder<List<WebhookResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/webhooks.json")
                         .queryParam(param -> param.key("status")
-                                .value((status != null) ? status.value() : null).isRequired(false))
+                                .value((input.getStatus() != null) ? input.getStatus().value() : null).isRequired(false))
                         .queryParam(param -> param.key("since_date")
-                                .value(sinceDate).isRequired(false))
+                                .value(input.getSinceDate()).isRequired(false))
                         .queryParam(param -> param.key("until_date")
-                                .value(untilDate).isRequired(false))
+                                .value(input.getUntilDate()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("order")
-                                .value((order != null) ? order.value() : null).isRequired(false))
+                                .value((input.getOrder() != null) ? input.getOrder().value() : null).isRequired(false))
                         .queryParam(param -> param.key("subscription")
-                                .value(subscription).isRequired(false))
+                                .value(input.getSubscription()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

@@ -352,9 +352,7 @@ This method will return all of the active `payment_profiles` for a Site, or for 
 
 ```java
 List<ListPaymentProfilesResponse> listPaymentProfiles(
-    final Integer page,
-    final Integer perPage,
-    final Integer customerId)
+    final ListPaymentProfilesInput input)
 ```
 
 ## Parameters
@@ -372,11 +370,13 @@ List<ListPaymentProfilesResponse> listPaymentProfiles(
 ## Example Usage
 
 ```java
-Integer page = 2;
-Integer perPage = 50;
+ListPaymentProfilesInput listPaymentProfilesInput = new ListPaymentProfilesInput.Builder()
+    .page(2)
+    .perPage(50)
+    .build();
 
 try {
-    List<ListPaymentProfilesResponse> result = paymentProfilesController.listPaymentProfiles(page, perPage, null);
+    List<ListPaymentProfilesResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

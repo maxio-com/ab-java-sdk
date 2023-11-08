@@ -121,18 +121,7 @@ If the coupon is set to `use_site_exchange_rate: true`, it will return pricing b
 
 ```java
 List<CouponResponse> listCouponsForProductFamily(
-    final int productFamilyId,
-    final Integer page,
-    final Integer perPage,
-    final BasicDateField filterDateField,
-    final String filterEndDate,
-    final String filterEndDatetime,
-    final String filterStartDate,
-    final String filterStartDatetime,
-    final List<Integer> filterIds,
-    final List<String> filterCodes,
-    final Boolean currencyPrices,
-    final Boolean filterUseSiteExchangeRate)
+    final ListCouponsForProductFamilyInput input)
 ```
 
 ## Parameters
@@ -159,13 +148,16 @@ List<CouponResponse> listCouponsForProductFamily(
 ## Example Usage
 
 ```java
-int productFamilyId = 140;
-Integer page = 2;
-Integer perPage = 50;
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Boolean currencyPrices = true;
-Liquid error: Value cannot be null. (Parameter 'key')
+ListCouponsForProductFamilyInput listCouponsForProductFamilyInput = new ListCouponsForProductFamilyInput.Builder(
+    140
+)
+.page(2)
+.perPage(50)
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key').currencyPrices(true)
+Liquid error: Value cannot be null. (Parameter 'key').build();
+
 try {
-    List<CouponResponse> result = couponsController.listCouponsForProductFamily(productFamilyId, page, perPage, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), currencyPrices, Liquid error: Value cannot be null. (Parameter 'key'));
+    List<CouponResponse> result = couponsController.listCouponsForProductFamily(listCouponsForProductFamilyInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -560,22 +552,7 @@ If the coupon is set to `use_site_exchange_rate: true`, it will return pricing b
 
 ```java
 List<CouponResponse> listCoupons(
-    final Integer page,
-    final Integer perPage,
-    final BasicDateField dateField,
-    final String startDate,
-    final String endDate,
-    final String startDatetime,
-    final String endDatetime,
-    final List<Integer> filterIds,
-    final List<String> filterCodes,
-    final Boolean currencyPrices,
-    final String filterEndDate,
-    final String filterEndDatetime,
-    final String filterStartDate,
-    final String filterStartDatetime,
-    final BasicDateField filterDateField,
-    final Boolean filterUseSiteExchangeRate)
+    final ListCouponsInput input)
 ```
 
 ## Parameters
@@ -606,13 +583,15 @@ List<CouponResponse> listCoupons(
 ## Example Usage
 
 ```java
-Integer page = 2;
-Integer perPage = 50;
-BasicDateField dateField = BasicDateField.UPDATED_AT;
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Boolean currencyPrices = true;
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')
+ListCouponsInput listCouponsInput = new ListCouponsInput.Builder()
+    .page(2)
+    .perPage(50)
+    .dateField(BasicDateField.UPDATED_AT)
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .currencyPrices(true)
+Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')    .build();
+
 try {
-    List<CouponResponse> result = couponsController.listCoupons(page, perPage, dateField, null, null, null, null, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), currencyPrices, Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'), Liquid error: Value cannot be null. (Parameter 'key'));
+    List<CouponResponse> result = couponsController.listCoupons(listCouponsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -992,9 +971,7 @@ This request allows you to request the subcodes that are attached to a coupon.
 
 ```java
 CouponSubcodes listCouponSubcodes(
-    final int couponId,
-    final Integer page,
-    final Integer perPage)
+    final ListCouponSubcodesInput input)
 ```
 
 ## Parameters
@@ -1012,12 +989,15 @@ CouponSubcodes listCouponSubcodes(
 ## Example Usage
 
 ```java
-int couponId = 162;
-Integer page = 2;
-Integer perPage = 50;
+ListCouponSubcodesInput listCouponSubcodesInput = new ListCouponSubcodesInput.Builder(
+    162
+)
+.page(2)
+.perPage(50)
+.build();
 
 try {
-    CouponSubcodes result = couponsController.listCouponSubcodes(couponId, page, perPage);
+    CouponSubcodes result = couponsController.listCouponSubcodes(listCouponSubcodesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
