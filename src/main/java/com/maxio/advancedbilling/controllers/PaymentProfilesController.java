@@ -17,6 +17,7 @@ import com.maxio.advancedbilling.models.BankAccountVerificationRequest;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreatePaymentProfileResponse;
 import com.maxio.advancedbilling.models.GetOneTimeTokenRequest;
+import com.maxio.advancedbilling.models.ListPaymentProfilesInput;
 import com.maxio.advancedbilling.models.ListPaymentProfilesResponse;
 import com.maxio.advancedbilling.models.PaymentProfileResponse;
 import com.maxio.advancedbilling.models.ReadPaymentProfileResponse;
@@ -216,46 +217,32 @@ public final class PaymentProfilesController extends BaseController {
      * This method will return all of the active `payment_profiles` for a Site, or for one Customer
      * within a site. If no payment profiles are found, this endpoint will return an empty array,
      * not a 404.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  customerId  Optional parameter: The ID of the customer for which you wish to list
-     *         payment profiles
+     * @param  input  ListPaymentProfilesInput object containing request parameters
      * @return    Returns the List of ListPaymentProfilesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<ListPaymentProfilesResponse> listPaymentProfiles(
-            final Integer page,
-            final Integer perPage,
-            final Integer customerId) throws ApiException, IOException {
-        return prepareListPaymentProfilesRequest(page, perPage, customerId).execute();
+            final ListPaymentProfilesInput input) throws ApiException, IOException {
+        return prepareListPaymentProfilesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listPaymentProfiles.
      */
     private ApiCall<List<ListPaymentProfilesResponse>, ApiException> prepareListPaymentProfilesRequest(
-            final Integer page,
-            final Integer perPage,
-            final Integer customerId) throws IOException {
+            final ListPaymentProfilesInput input) throws IOException {
         return new ApiCall.Builder<List<ListPaymentProfilesResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/payment_profiles.json")
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("customer_id")
-                                .value(customerId).isRequired(false))
+                                .value(input.getCustomerId()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

@@ -11,6 +11,8 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.ListSaleRepItem;
+import com.maxio.advancedbilling.models.ListSalesCommissionSettingsInput;
+import com.maxio.advancedbilling.models.ListSalesRepsInput;
 import com.maxio.advancedbilling.models.SaleRep;
 import com.maxio.advancedbilling.models.SaleRepSettings;
 import io.apimatic.core.ApiCall;
@@ -45,57 +47,36 @@ public final class SalesCommissionsController extends BaseController {
      * where the seller has the Advanced Analytics component enabled. For further information on
      * getting access to Advanced Analytics please contact Chargify support. &gt; Note: The request is
      * at seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
-     * @param  sellerId  Required parameter: The Chargify id of your seller account
-     * @param  authorization  Optional parameter: For authorization use user API key. See details
-     *         [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
-     * @param  liveMode  Optional parameter: This parameter indicates if records should be fetched
-     *         from live mode sites. Default value is true.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 100.
+     * @param  input  ListSalesCommissionSettingsInput object containing request parameters
      * @return    Returns the List of SaleRepSettings response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<SaleRepSettings> listSalesCommissionSettings(
-            final String sellerId,
-            final String authorization,
-            final Boolean liveMode,
-            final Integer page,
-            final Integer perPage) throws ApiException, IOException {
-        return prepareListSalesCommissionSettingsRequest(sellerId, authorization, liveMode, page,
-                perPage).execute();
+            final ListSalesCommissionSettingsInput input) throws ApiException, IOException {
+        return prepareListSalesCommissionSettingsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listSalesCommissionSettings.
      */
     private ApiCall<List<SaleRepSettings>, ApiException> prepareListSalesCommissionSettingsRequest(
-            final String sellerId,
-            final String authorization,
-            final Boolean liveMode,
-            final Integer page,
-            final Integer perPage) throws IOException {
+            final ListSalesCommissionSettingsInput input) throws IOException {
         return new ApiCall.Builder<List<SaleRepSettings>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/sellers/{seller_id}/sales_commission_settings.json")
                         .queryParam(param -> param.key("live_mode")
-                                .value(liveMode).isRequired(false))
+                                .value(input.getLiveMode()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 100).isRequired(false))
-                        .templateParam(param -> param.key("seller_id").value(sellerId)
+                                .value(input.getPerPage()).isRequired(false))
+                        .templateParam(param -> param.key("seller_id").value(input.getSellerId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Authorization")
-                                .value((authorization != null) ? authorization : "Bearer <<apiKey>>").isRequired(false))
+                                .value(input.getAuthorization()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -121,57 +102,36 @@ public final class SalesCommissionsController extends BaseController {
      * where the seller has the Advanced Analytics component enabled. For further information on
      * getting access to Advanced Analytics please contact Chargify support. &gt; Note: The request is
      * at seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
-     * @param  sellerId  Required parameter: The Chargify id of your seller account
-     * @param  authorization  Optional parameter: For authorization use user API key. See details
-     *         [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
-     * @param  liveMode  Optional parameter: This parameter indicates if records should be fetched
-     *         from live mode sites. Default value is true.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 100.
+     * @param  input  ListSalesRepsInput object containing request parameters
      * @return    Returns the List of ListSaleRepItem response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<ListSaleRepItem> listSalesReps(
-            final String sellerId,
-            final String authorization,
-            final Boolean liveMode,
-            final Integer page,
-            final Integer perPage) throws ApiException, IOException {
-        return prepareListSalesRepsRequest(sellerId, authorization, liveMode, page,
-                perPage).execute();
+            final ListSalesRepsInput input) throws ApiException, IOException {
+        return prepareListSalesRepsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listSalesReps.
      */
     private ApiCall<List<ListSaleRepItem>, ApiException> prepareListSalesRepsRequest(
-            final String sellerId,
-            final String authorization,
-            final Boolean liveMode,
-            final Integer page,
-            final Integer perPage) throws IOException {
+            final ListSalesRepsInput input) throws IOException {
         return new ApiCall.Builder<List<ListSaleRepItem>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/sellers/{seller_id}/sales_reps.json")
                         .queryParam(param -> param.key("live_mode")
-                                .value(liveMode).isRequired(false))
+                                .value(input.getLiveMode()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 100).isRequired(false))
-                        .templateParam(param -> param.key("seller_id").value(sellerId)
+                                .value(input.getPerPage()).isRequired(false))
+                        .templateParam(param -> param.key("seller_id").value(input.getSellerId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Authorization")
-                                .value((authorization != null) ? authorization : "Bearer <<apiKey>>").isRequired(false))
+                                .value(input.getAuthorization()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

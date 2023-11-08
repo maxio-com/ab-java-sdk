@@ -12,12 +12,11 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.CustomerErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
-import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.CustomerResponse;
+import com.maxio.advancedbilling.models.ListCustomersInput;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.UpdateCustomerRequest;
-import com.maxio.advancedbilling.models.containers.ListCustomersDirection;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -108,90 +107,44 @@ public final class CustomersController extends BaseController {
      * by a first or last name To retrieve a single, exact match by reference, please use the
      * [lookup
      * endpoint](https://developers.chargify.com/docs/api-docs/b710d8fbef104-read-customer-by-reference).
-     * @param  direction  Optional parameter: Direction to sort customers by time of creation
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 50. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  dateField  Optional parameter: The type of filter you would like to apply to your
-     *         search. Use in query: `date_field=created_at`.
-     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns subscriptions with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified.
-     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
-     *         the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM
-     *         in your site’s time zone on the date specified.
-     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp
-     *         at or after exact time provided in query. You can specify timezone in query -
-     *         otherwise your site's time zone will be used. If provided, this parameter will be
-     *         used instead of start_date.
-     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
-     *         with which to filter the date_field. Returns subscriptions with a timestamp at or
-     *         before exact time provided in query. You can specify timezone in query - otherwise
-     *         your site's time zone will be used. If provided, this parameter will be used instead
-     *         of end_date.
-     * @param  q  Optional parameter: A search query by which to filter customers (can be an email,
-     *         an ID, a reference, organization)
+     * @param  input  ListCustomersInput object containing request parameters
      * @return    Returns the List of CustomerResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<CustomerResponse> listCustomers(
-            final ListCustomersDirection direction,
-            final Integer page,
-            final Integer perPage,
-            final BasicDateField dateField,
-            final String startDate,
-            final String endDate,
-            final String startDatetime,
-            final String endDatetime,
-            final String q) throws ApiException, IOException {
-        return prepareListCustomersRequest(direction, page, perPage, dateField, startDate, endDate,
-                startDatetime, endDatetime, q).execute();
+            final ListCustomersInput input) throws ApiException, IOException {
+        return prepareListCustomersRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listCustomers.
      */
     private ApiCall<List<CustomerResponse>, ApiException> prepareListCustomersRequest(
-            final ListCustomersDirection direction,
-            final Integer page,
-            final Integer perPage,
-            final BasicDateField dateField,
-            final String startDate,
-            final String endDate,
-            final String startDatetime,
-            final String endDatetime,
-            final String q) throws IOException {
+            final ListCustomersInput input) throws IOException {
         return new ApiCall.Builder<List<CustomerResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/customers.json")
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 50).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("date_field")
-                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
+                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(startDate).isRequired(false))
+                                .value(input.getStartDate()).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(endDate).isRequired(false))
+                                .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(startDatetime).isRequired(false))
+                                .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(endDatetime).isRequired(false))
+                                .value(input.getEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("q")
-                                .value(q).isRequired(false))
+                                .value(input.getQ()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

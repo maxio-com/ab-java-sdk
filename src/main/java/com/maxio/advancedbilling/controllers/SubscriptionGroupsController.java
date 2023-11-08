@@ -19,6 +19,7 @@ import com.maxio.advancedbilling.models.AddSubscriptionToAGroup;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroupRequest;
 import com.maxio.advancedbilling.models.DeleteSubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
+import com.maxio.advancedbilling.models.ListSubscriptionGroupsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsResponse;
 import com.maxio.advancedbilling.models.SubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupRequest;
@@ -138,47 +139,32 @@ public final class SubscriptionGroupsController extends BaseController {
      * balance information for the subscription groups is not returned by default. If this
      * information is desired, the `include[]=account_balances` parameter must be provided with the
      * request.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  include  Optional parameter: A list of additional information to include in the
-     *         response. The following values are supported: - `account_balances`: Account balance
-     *         information for the subscription groups. Use in query: `include[]=account_balances`
+     * @param  input  ListSubscriptionGroupsInput object containing request parameters
      * @return    Returns the ListSubscriptionGroupsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListSubscriptionGroupsResponse listSubscriptionGroups(
-            final Integer page,
-            final Integer perPage,
-            final String include) throws ApiException, IOException {
-        return prepareListSubscriptionGroupsRequest(page, perPage, include).execute();
+            final ListSubscriptionGroupsInput input) throws ApiException, IOException {
+        return prepareListSubscriptionGroupsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listSubscriptionGroups.
      */
     private ApiCall<ListSubscriptionGroupsResponse, ApiException> prepareListSubscriptionGroupsRequest(
-            final Integer page,
-            final Integer perPage,
-            final String include) throws IOException {
+            final ListSubscriptionGroupsInput input) throws IOException {
         return new ApiCall.Builder<ListSubscriptionGroupsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscription_groups.json")
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("include")
-                                .value(include).isRequired(false))
+                                .value(input.getInclude()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

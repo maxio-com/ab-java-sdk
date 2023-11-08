@@ -12,7 +12,6 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
-import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.ComponentKindPath;
 import com.maxio.advancedbilling.models.ComponentPricePointResponse;
 import com.maxio.advancedbilling.models.ComponentPricePointsResponse;
@@ -21,15 +20,16 @@ import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.CreateComponentPricePointsRequest;
 import com.maxio.advancedbilling.models.CreateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.CurrencyPrice;
-import com.maxio.advancedbilling.models.IncludeNotNull;
-import com.maxio.advancedbilling.models.ListComponentsPricePointsInclude;
+import com.maxio.advancedbilling.models.ListAllComponentPricePointsInput;
+import com.maxio.advancedbilling.models.ListComponentPricePointsInput;
+import com.maxio.advancedbilling.models.ListComponentsForProductFamilyInput;
+import com.maxio.advancedbilling.models.ListComponentsInput;
 import com.maxio.advancedbilling.models.ListComponentsPricePointsResponse;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.UpdateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.UpdateComponentRequest;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.containers.CreateComponentBody;
-import com.maxio.advancedbilling.models.containers.ListAllComponentPricePointsDirection;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -304,98 +304,46 @@ public final class ComponentsController extends BaseController {
 
     /**
      * This request will return a list of components for a site.
-     * @param  dateField  Optional parameter: The type of filter you would like to apply to your
-     *         search.
-     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns components with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified.
-     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
-     *         the date_field. Returns components with a timestamp up to and including 11:59:59PM in
-     *         your site’s time zone on the date specified.
-     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at
-     *         or after exact time provided in query. You can specify timezone in query - otherwise
-     *         your site's time zone will be used. If provided, this parameter will be used instead
-     *         of start_date.
-     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
-     *         with which to filter the date_field. Returns components with a timestamp at or before
-     *         exact time provided in query. You can specify timezone in query - otherwise your
-     *         site's time zone will be used. If provided, this parameter will be used instead of
-     *         end_date. optional
-     * @param  includeArchived  Optional parameter: Include archived items
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  filterIds  Optional parameter: Allows fetching components with matching id based on
-     *         provided value. Use in query `filter[ids]=1,2,3`.
-     * @param  filterUseSiteExchangeRate  Optional parameter: Allows fetching components with
-     *         matching use_site_exchange_rate based on provided value (refers to default price
-     *         point). Use in query `filter[use_site_exchange_rate]=true`.
+     * @param  input  ListComponentsInput object containing request parameters
      * @return    Returns the List of ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<ComponentResponse> listComponents(
-            final BasicDateField dateField,
-            final String startDate,
-            final String endDate,
-            final String startDatetime,
-            final String endDatetime,
-            final Boolean includeArchived,
-            final Integer page,
-            final Integer perPage,
-            final List<String> filterIds,
-            final Boolean filterUseSiteExchangeRate) throws ApiException, IOException {
-        return prepareListComponentsRequest(dateField, startDate, endDate, startDatetime,
-                endDatetime, includeArchived, page, perPage, filterIds,
-                filterUseSiteExchangeRate).execute();
+            final ListComponentsInput input) throws ApiException, IOException {
+        return prepareListComponentsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listComponents.
      */
     private ApiCall<List<ComponentResponse>, ApiException> prepareListComponentsRequest(
-            final BasicDateField dateField,
-            final String startDate,
-            final String endDate,
-            final String startDatetime,
-            final String endDatetime,
-            final Boolean includeArchived,
-            final Integer page,
-            final Integer perPage,
-            final List<String> filterIds,
-            final Boolean filterUseSiteExchangeRate) throws IOException {
+            final ListComponentsInput input) throws IOException {
         return new ApiCall.Builder<List<ComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/components.json")
                         .queryParam(param -> param.key("date_field")
-                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
+                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(startDate).isRequired(false))
+                                .value(input.getStartDate()).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(endDate).isRequired(false))
+                                .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(startDatetime).isRequired(false))
+                                .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(endDatetime).isRequired(false))
+                                .value(input.getEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("include_archived")
-                                .value(includeArchived).isRequired(false))
+                                .value(input.getIncludeArchived()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("filter[ids]")
-                                .value(filterIds).isRequired(false))
+                                .value(input.getFilterIds()).isRequired(false))
                         .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(filterUseSiteExchangeRate).isRequired(false))
+                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
@@ -496,102 +444,47 @@ public final class ComponentsController extends BaseController {
 
     /**
      * This request will return a list of components for a particular product family.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family
-     * @param  includeArchived  Optional parameter: Include archived items.
-     * @param  filterIds  Optional parameter: Allows fetching components with matching id based on
-     *         provided value. Use in query `filter[ids]=1,2`.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  dateField  Optional parameter: The type of filter you would like to apply to your
-     *         search. Use in query `date_field=created_at`.
-     * @param  endDate  Optional parameter: The end date (format YYYY-MM-DD) with which to filter
-     *         the date_field. Returns components with a timestamp up to and including 11:59:59PM in
-     *         your site’s time zone on the date specified.
-     * @param  endDatetime  Optional parameter: The end date and time (format YYYY-MM-DD HH:MM:SS)
-     *         with which to filter the date_field. Returns components with a timestamp at or before
-     *         exact time provided in query. You can specify timezone in query - otherwise your
-     *         site's time zone will be used. If provided, this parameter will be used instead of
-     *         end_date. optional.
-     * @param  startDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns components with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified.
-     * @param  startDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at
-     *         or after exact time provided in query. You can specify timezone in query - otherwise
-     *         your site's time zone will be used. If provided, this parameter will be used instead
-     *         of start_date.
-     * @param  filterUseSiteExchangeRate  Optional parameter: Allows fetching components with
-     *         matching use_site_exchange_rate based on provided value (refers to default price
-     *         point). Use in query `filter[use_site_exchange_rate]=true`.
+     * @param  input  ListComponentsForProductFamilyInput object containing request parameters
      * @return    Returns the List of ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<ComponentResponse> listComponentsForProductFamily(
-            final int productFamilyId,
-            final Boolean includeArchived,
-            final List<Integer> filterIds,
-            final Integer page,
-            final Integer perPage,
-            final BasicDateField dateField,
-            final String endDate,
-            final String endDatetime,
-            final String startDate,
-            final String startDatetime,
-            final Boolean filterUseSiteExchangeRate) throws ApiException, IOException {
-        return prepareListComponentsForProductFamilyRequest(productFamilyId, includeArchived,
-                filterIds, page, perPage, dateField, endDate, endDatetime, startDate, startDatetime,
-                filterUseSiteExchangeRate).execute();
+            final ListComponentsForProductFamilyInput input) throws ApiException, IOException {
+        return prepareListComponentsForProductFamilyRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listComponentsForProductFamily.
      */
     private ApiCall<List<ComponentResponse>, ApiException> prepareListComponentsForProductFamilyRequest(
-            final int productFamilyId,
-            final Boolean includeArchived,
-            final List<Integer> filterIds,
-            final Integer page,
-            final Integer perPage,
-            final BasicDateField dateField,
-            final String endDate,
-            final String endDatetime,
-            final String startDate,
-            final String startDatetime,
-            final Boolean filterUseSiteExchangeRate) throws IOException {
+            final ListComponentsForProductFamilyInput input) throws IOException {
         return new ApiCall.Builder<List<ComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/product_families/{product_family_id}/components.json")
                         .queryParam(param -> param.key("include_archived")
-                                .value(includeArchived).isRequired(false))
+                                .value(input.getIncludeArchived()).isRequired(false))
                         .queryParam(param -> param.key("filter[ids]")
-                                .value(filterIds).isRequired(false))
+                                .value(input.getFilterIds()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("date_field")
-                                .value((dateField != null) ? dateField.value() : null).isRequired(false))
+                                .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(endDate).isRequired(false))
+                                .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(endDatetime).isRequired(false))
+                                .value(input.getEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(startDate).isRequired(false))
+                                .value(input.getStartDate()).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(startDatetime).isRequired(false))
+                                .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(filterUseSiteExchangeRate).isRequired(false))
-                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
+                        .templateParam(param -> param.key("product_family_id").value(input.getProductFamilyId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -657,55 +550,35 @@ public final class ComponentsController extends BaseController {
      * currency price data in the response. If the price point is set to `use_site_exchange_rate:
      * true`, it will return pricing based on the current exchange rate. If the flag is set to
      * false, it will return all of the defined prices for each currency.
-     * @param  componentId  Required parameter: The Chargify id of the component
-     * @param  currencyPrices  Optional parameter: Include an array of currency price data
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  filterType  Optional parameter: Use in query: `filter[type]=catalog,default`.
+     * @param  input  ListComponentPricePointsInput object containing request parameters
      * @return    Returns the ComponentPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ComponentPricePointsResponse listComponentPricePoints(
-            final int componentId,
-            final Boolean currencyPrices,
-            final Integer page,
-            final Integer perPage,
-            final List<PricePointType> filterType) throws ApiException, IOException {
-        return prepareListComponentPricePointsRequest(componentId, currencyPrices, page, perPage,
-                filterType).execute();
+            final ListComponentPricePointsInput input) throws ApiException, IOException {
+        return prepareListComponentPricePointsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listComponentPricePoints.
      */
     private ApiCall<ComponentPricePointsResponse, ApiException> prepareListComponentPricePointsRequest(
-            final int componentId,
-            final Boolean currencyPrices,
-            final Integer page,
-            final Integer perPage,
-            final List<PricePointType> filterType) throws IOException {
+            final ListComponentPricePointsInput input) throws IOException {
         return new ApiCall.Builder<ComponentPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/components/{component_id}/price_points.json")
                         .queryParam(param -> param.key("currency_prices")
-                                .value(currencyPrices).isRequired(false))
+                                .value(input.getCurrencyPrices()).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
-                                .value(PricePointType.toValue(filterType)).isRequired(false))
-                        .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
+                                .value(PricePointType.toValue(input.getFilterType())).isRequired(false))
+                        .templateParam(param -> param.key("component_id").value(input.getComponentId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -997,110 +870,50 @@ public final class ComponentsController extends BaseController {
 
     /**
      * This method allows to retrieve a list of Components Price Points belonging to a Site.
-     * @param  filterDateField  Optional parameter: The type of filter you would like to apply to
-     *         your search. Use in query: `filter[date_field]=created_at`.
-     * @param  filterEndDate  Optional parameter: The end date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns price points with a timestamp up to and including
-     *         11:59:59PM in your site’s time zone on the date specified.
-     * @param  filterEndDatetime  Optional parameter: The end date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp
-     *         at or before exact time provided in query. You can specify timezone in query -
-     *         otherwise your site's time zone will be used. If provided, this parameter will be
-     *         used instead of end_date.
-     * @param  include  Optional parameter: Allows including additional data in the response. Use in
-     *         query: `include=currency_prices`.
-     * @param  page  Optional parameter: Result records are organized in pages. By default, the
-     *         first page of results is displayed. The page parameter specifies a page number of
-     *         results to fetch. You can start navigating through the pages to consume the results.
-     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
-     *         to the query string. If there are no results to return, then an empty result set will
-     *         be returned. Use in query `page=1`.
-     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
-     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
-     *         value over 200 will be changed to 200. Use in query `per_page=200`.
-     * @param  filterStartDate  Optional parameter: The start date (format YYYY-MM-DD) with which to
-     *         filter the date_field. Returns price points with a timestamp at or after midnight
-     *         (12:00:00 AM) in your site’s time zone on the date specified.
-     * @param  filterStartDatetime  Optional parameter: The start date and time (format YYYY-MM-DD
-     *         HH:MM:SS) with which to filter the date_field. Returns price points with a timestamp
-     *         at or after exact time provided in query. You can specify timezone in query -
-     *         otherwise your site's time zone will be used. If provided, this parameter will be
-     *         used instead of start_date.
-     * @param  filterType  Optional parameter: Allows fetching price points with matching type. Use
-     *         in query: `filter[type]=custom,catalog`.
-     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
-     *         in query `direction=asc`.
-     * @param  filterIds  Optional parameter: Allows fetching price points with matching id based on
-     *         provided values. Use in query: `filter[ids]=1,2,3`.
-     * @param  filterArchivedAt  Optional parameter: Allows fetching price points only if
-     *         archived_at is present or not. Use in query: `filter[archived_at]=not_null`.
+     * @param  input  ListAllComponentPricePointsInput object containing request parameters
      * @return    Returns the ListComponentsPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListComponentsPricePointsResponse listAllComponentPricePoints(
-            final BasicDateField filterDateField,
-            final String filterEndDate,
-            final String filterEndDatetime,
-            final ListComponentsPricePointsInclude include,
-            final Integer page,
-            final Integer perPage,
-            final String filterStartDate,
-            final String filterStartDatetime,
-            final PricePointType filterType,
-            final ListAllComponentPricePointsDirection direction,
-            final List<Integer> filterIds,
-            final IncludeNotNull filterArchivedAt) throws ApiException, IOException {
-        return prepareListAllComponentPricePointsRequest(filterDateField, filterEndDate,
-                filterEndDatetime, include, page, perPage, filterStartDate, filterStartDatetime,
-                filterType, direction, filterIds, filterArchivedAt).execute();
+            final ListAllComponentPricePointsInput input) throws ApiException, IOException {
+        return prepareListAllComponentPricePointsRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listAllComponentPricePoints.
      */
     private ApiCall<ListComponentsPricePointsResponse, ApiException> prepareListAllComponentPricePointsRequest(
-            final BasicDateField filterDateField,
-            final String filterEndDate,
-            final String filterEndDatetime,
-            final ListComponentsPricePointsInclude include,
-            final Integer page,
-            final Integer perPage,
-            final String filterStartDate,
-            final String filterStartDatetime,
-            final PricePointType filterType,
-            final ListAllComponentPricePointsDirection direction,
-            final List<Integer> filterIds,
-            final IncludeNotNull filterArchivedAt) throws IOException {
+            final ListAllComponentPricePointsInput input) throws IOException {
         return new ApiCall.Builder<ListComponentsPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/components_price_points.json")
                         .queryParam(param -> param.key("filter[date_field]")
-                                .value((filterDateField != null) ? filterDateField.value() : null).isRequired(false))
+                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(filterEndDate).isRequired(false))
+                                .value(input.getFilterEndDate()).isRequired(false))
                         .queryParam(param -> param.key("filter[end_datetime]")
-                                .value(filterEndDatetime).isRequired(false))
+                                .value(input.getFilterEndDatetime()).isRequired(false))
                         .queryParam(param -> param.key("include")
-                                .value((include != null) ? include.value() : null).isRequired(false))
+                                .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
                         .queryParam(param -> param.key("page")
-                                .value((page != null) ? page : 1).isRequired(false))
+                                .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
-                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                                .value(input.getPerPage()).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(filterStartDate).isRequired(false))
+                                .value(input.getFilterStartDate()).isRequired(false))
                         .queryParam(param -> param.key("filter[start_datetime]")
-                                .value(filterStartDatetime).isRequired(false))
+                                .value(input.getFilterStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
-                                .value((filterType != null) ? filterType.value() : null).isRequired(false))
+                                .value((input.getFilterType() != null) ? input.getFilterType().value() : null).isRequired(false))
                         .queryParam(param -> param.key("direction")
-                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[ids]")
-                                .value(filterIds).isRequired(false))
+                                .value(input.getFilterIds()).isRequired(false))
                         .queryParam(param -> param.key("filter[archived_at]")
-                                .value((filterArchivedAt != null) ? filterArchivedAt.value() : null).isRequired(false))
+                                .value((input.getFilterArchivedAt() != null) ? input.getFilterArchivedAt().value() : null).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
