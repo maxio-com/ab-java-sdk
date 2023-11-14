@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Double` | Optional | - | Double getId() | setId(Double id) |
+| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Code` | `String` | Optional | - | String getCode() | setCode(String code) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
@@ -43,7 +43,7 @@
 
 ```json
 {
-  "id": 179.42,
+  "id": 22,
   "name": "name2",
   "code": "code0",
   "description": "description2",

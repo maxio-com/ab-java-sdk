@@ -24,7 +24,7 @@ public class FullSubscriptionGroupResponse {
     private String nextAssessmentAt;
     private String state;
     private Boolean cancelAtEndOfPeriod;
-    private Integer currentBillingAmountInCents;
+    private Long currentBillingAmountInCents;
     private SubscriptionGroupCustomer customer;
     private SubscriptionGroupBalances accountBalances;
 
@@ -45,7 +45,7 @@ public class FullSubscriptionGroupResponse {
      * @param  nextAssessmentAt  String value for nextAssessmentAt.
      * @param  state  String value for state.
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
-     * @param  currentBillingAmountInCents  Integer value for currentBillingAmountInCents.
+     * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
      * @param  customer  SubscriptionGroupCustomer value for customer.
      * @param  accountBalances  SubscriptionGroupBalances value for accountBalances.
      */
@@ -59,7 +59,7 @@ public class FullSubscriptionGroupResponse {
             String nextAssessmentAt,
             String state,
             Boolean cancelAtEndOfPeriod,
-            Integer currentBillingAmountInCents,
+            Long currentBillingAmountInCents,
             SubscriptionGroupCustomer customer,
             SubscriptionGroupBalances accountBalances) {
         this.uid = uid;
@@ -249,20 +249,20 @@ public class FullSubscriptionGroupResponse {
 
     /**
      * Getter for CurrentBillingAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("current_billing_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getCurrentBillingAmountInCents() {
+    public Long getCurrentBillingAmountInCents() {
         return currentBillingAmountInCents;
     }
 
     /**
      * Setter for CurrentBillingAmountInCents.
-     * @param currentBillingAmountInCents Value for Integer
+     * @param currentBillingAmountInCents Value for Long
      */
     @JsonSetter("current_billing_amount_in_cents")
-    public void setCurrentBillingAmountInCents(Integer currentBillingAmountInCents) {
+    public void setCurrentBillingAmountInCents(Long currentBillingAmountInCents) {
         this.currentBillingAmountInCents = currentBillingAmountInCents;
     }
 
@@ -354,7 +354,7 @@ public class FullSubscriptionGroupResponse {
         private String nextAssessmentAt;
         private String state;
         private Boolean cancelAtEndOfPeriod;
-        private Integer currentBillingAmountInCents;
+        private Long currentBillingAmountInCents;
         private SubscriptionGroupCustomer customer;
         private SubscriptionGroupBalances accountBalances;
 
@@ -452,10 +452,10 @@ public class FullSubscriptionGroupResponse {
 
         /**
          * Setter for currentBillingAmountInCents.
-         * @param  currentBillingAmountInCents  Integer value for currentBillingAmountInCents.
+         * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
          * @return Builder
          */
-        public Builder currentBillingAmountInCents(Integer currentBillingAmountInCents) {
+        public Builder currentBillingAmountInCents(Long currentBillingAmountInCents) {
             this.currentBillingAmountInCents = currentBillingAmountInCents;
             return this;
         }

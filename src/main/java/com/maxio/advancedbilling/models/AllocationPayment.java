@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for AllocationPayment type.
  */
 public class AllocationPayment {
-    private Double id;
-    private Integer amountInCents;
+    private Integer id;
+    private Long amountInCents;
     private Boolean success;
     private String memo;
 
@@ -27,14 +27,14 @@ public class AllocationPayment {
 
     /**
      * Initialization constructor.
-     * @param  id  Double value for id.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  id  Integer value for id.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  success  Boolean value for success.
      * @param  memo  String value for memo.
      */
     public AllocationPayment(
-            Double id,
-            Integer amountInCents,
+            Integer id,
+            Long amountInCents,
             Boolean success,
             String memo) {
         this.id = id;
@@ -45,39 +45,39 @@ public class AllocationPayment {
 
     /**
      * Getter for Id.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Double
+     * @param id Value for Integer
      */
     @JsonSetter("id")
-    public void setId(Double id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for Integer
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Integer amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -147,8 +147,8 @@ public class AllocationPayment {
      * Class to build instances of {@link AllocationPayment}.
      */
     public static class Builder {
-        private Double id;
-        private Integer amountInCents;
+        private Integer id;
+        private Long amountInCents;
         private Boolean success;
         private String memo;
 
@@ -156,20 +156,20 @@ public class AllocationPayment {
 
         /**
          * Setter for id.
-         * @param  id  Double value for id.
+         * @param  id  Integer value for id.
          * @return Builder
          */
-        public Builder id(Double id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Integer value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Integer amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `BalanceInCents` | `Integer` | Optional | The balance in cents. | Integer getBalanceInCents() | setBalanceInCents(Integer balanceInCents) |
+| `BalanceInCents` | `Long` | Optional | The balance in cents. | Long getBalanceInCents() | setBalanceInCents(Long balanceInCents) |
 
 ## Example (as JSON)
 

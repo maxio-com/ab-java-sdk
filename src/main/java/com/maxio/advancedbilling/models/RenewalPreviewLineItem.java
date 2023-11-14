@@ -16,10 +16,10 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class RenewalPreviewLineItem {
     private String transactionType;
     private String kind;
-    private Integer amountInCents;
+    private Long amountInCents;
     private String memo;
-    private Integer discountAmountInCents;
-    private Integer taxableAmountInCents;
+    private Long discountAmountInCents;
+    private Long taxableAmountInCents;
     private Integer productId;
     private String productName;
     private Integer componentId;
@@ -37,10 +37,10 @@ public class RenewalPreviewLineItem {
      * Initialization constructor.
      * @param  transactionType  String value for transactionType.
      * @param  kind  String value for kind.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  memo  String value for memo.
-     * @param  discountAmountInCents  Integer value for discountAmountInCents.
-     * @param  taxableAmountInCents  Integer value for taxableAmountInCents.
+     * @param  discountAmountInCents  Long value for discountAmountInCents.
+     * @param  taxableAmountInCents  Long value for taxableAmountInCents.
      * @param  productId  Integer value for productId.
      * @param  productName  String value for productName.
      * @param  componentId  Integer value for componentId.
@@ -51,10 +51,10 @@ public class RenewalPreviewLineItem {
     public RenewalPreviewLineItem(
             String transactionType,
             String kind,
-            Integer amountInCents,
+            Long amountInCents,
             String memo,
-            Integer discountAmountInCents,
-            Integer taxableAmountInCents,
+            Long discountAmountInCents,
+            Long taxableAmountInCents,
             Integer productId,
             String productName,
             Integer componentId,
@@ -115,20 +115,20 @@ public class RenewalPreviewLineItem {
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for Integer
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Integer amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -153,39 +153,39 @@ public class RenewalPreviewLineItem {
 
     /**
      * Getter for DiscountAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("discount_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getDiscountAmountInCents() {
+    public Long getDiscountAmountInCents() {
         return discountAmountInCents;
     }
 
     /**
      * Setter for DiscountAmountInCents.
-     * @param discountAmountInCents Value for Integer
+     * @param discountAmountInCents Value for Long
      */
     @JsonSetter("discount_amount_in_cents")
-    public void setDiscountAmountInCents(Integer discountAmountInCents) {
+    public void setDiscountAmountInCents(Long discountAmountInCents) {
         this.discountAmountInCents = discountAmountInCents;
     }
 
     /**
      * Getter for TaxableAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("taxable_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTaxableAmountInCents() {
+    public Long getTaxableAmountInCents() {
         return taxableAmountInCents;
     }
 
     /**
      * Setter for TaxableAmountInCents.
-     * @param taxableAmountInCents Value for Integer
+     * @param taxableAmountInCents Value for Long
      */
     @JsonSetter("taxable_amount_in_cents")
-    public void setTaxableAmountInCents(Integer taxableAmountInCents) {
+    public void setTaxableAmountInCents(Long taxableAmountInCents) {
         this.taxableAmountInCents = taxableAmountInCents;
     }
 
@@ -345,10 +345,10 @@ public class RenewalPreviewLineItem {
     public static class Builder {
         private String transactionType;
         private String kind;
-        private Integer amountInCents;
+        private Long amountInCents;
         private String memo;
-        private Integer discountAmountInCents;
-        private Integer taxableAmountInCents;
+        private Long discountAmountInCents;
+        private Long taxableAmountInCents;
         private Integer productId;
         private String productName;
         private Integer componentId;
@@ -380,10 +380,10 @@ public class RenewalPreviewLineItem {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Integer value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Integer amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }
@@ -400,20 +400,20 @@ public class RenewalPreviewLineItem {
 
         /**
          * Setter for discountAmountInCents.
-         * @param  discountAmountInCents  Integer value for discountAmountInCents.
+         * @param  discountAmountInCents  Long value for discountAmountInCents.
          * @return Builder
          */
-        public Builder discountAmountInCents(Integer discountAmountInCents) {
+        public Builder discountAmountInCents(Long discountAmountInCents) {
             this.discountAmountInCents = discountAmountInCents;
             return this;
         }
 
         /**
          * Setter for taxableAmountInCents.
-         * @param  taxableAmountInCents  Integer value for taxableAmountInCents.
+         * @param  taxableAmountInCents  Long value for taxableAmountInCents.
          * @return Builder
          */
-        public Builder taxableAmountInCents(Integer taxableAmountInCents) {
+        public Builder taxableAmountInCents(Long taxableAmountInCents) {
             this.taxableAmountInCents = taxableAmountInCents;
             return this;
         }

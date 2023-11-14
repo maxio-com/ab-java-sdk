@@ -12,7 +12,7 @@
 | `Name` | `String` | Required | the name of the coupon | String getName() | setName(String name) |
 | `Code` | `String` | Required | may contain uppercase alphanumeric characters and these special characters (which allow for email addresses to be used): “%”, “@”, “+”, “-”, “_”, and “.” | String getCode() | setCode(String code) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
-| `AmountInCents` | `int` | Required | - | int getAmountInCents() | setAmountInCents(int amountInCents) |
+| `AmountInCents` | `long` | Required | - | long getAmountInCents() | setAmountInCents(long amountInCents) |
 | `AllowNegativeBalance` | `String` | Optional | - | String getAllowNegativeBalance() | setAllowNegativeBalance(String allowNegativeBalance) |
 | `Recurring` | `String` | Optional | - | String getRecurring() | setRecurring(String recurring) |
 | `EndDate` | `String` | Optional | - | String getEndDate() | setEndDate(String endDate) |

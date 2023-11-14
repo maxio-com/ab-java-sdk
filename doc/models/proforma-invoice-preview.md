@@ -10,9 +10,9 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Uid` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getUid() | setUid(String uid) |
-| `SiteId` | `Double` | Optional | - | Double getSiteId() | setSiteId(Double siteId) |
-| `CustomerId` | `Double` | Optional | - | Double getCustomerId() | setCustomerId(Double customerId) |
-| `SubscriptionId` | `Double` | Optional | - | Double getSubscriptionId() | setSubscriptionId(Double subscriptionId) |
+| `SiteId` | `Integer` | Optional | - | Integer getSiteId() | setSiteId(Integer siteId) |
+| `CustomerId` | `Integer` | Optional | - | Integer getCustomerId() | setCustomerId(Integer customerId) |
+| `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `Number` | `String` | Optional | - | String getNumber() | setNumber(String number) |
 | `SequenceNumber` | `Integer` | Optional | - | Integer getSequenceNumber() | setSequenceNumber(Integer sequenceNumber) |
 | `CreatedAt` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getCreatedAt() | setCreatedAt(String createdAt) |
@@ -51,9 +51,9 @@
 ```json
 {
   "uid": "uid2",
-  "site_id": 127.58,
-  "customer_id": 51.9,
-  "subscription_id": 206.22,
+  "site_id": 214,
+  "customer_id": 70,
+  "subscription_id": 142,
   "number": "number0"
 }
 ```

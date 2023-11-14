@@ -10,10 +10,10 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
-| `InitialFundingAmountInCents` | `Integer` | Optional | - | Integer getInitialFundingAmountInCents() | setInitialFundingAmountInCents(Integer initialFundingAmountInCents) |
-| `ReplenishToAmountInCents` | `Integer` | Optional | - | Integer getReplenishToAmountInCents() | setReplenishToAmountInCents(Integer replenishToAmountInCents) |
+| `InitialFundingAmountInCents` | `Long` | Optional | - | Long getInitialFundingAmountInCents() | setInitialFundingAmountInCents(Long initialFundingAmountInCents) |
+| `ReplenishToAmountInCents` | `Long` | Optional | - | Long getReplenishToAmountInCents() | setReplenishToAmountInCents(Long replenishToAmountInCents) |
 | `AutoReplenish` | `Boolean` | Optional | - | Boolean getAutoReplenish() | setAutoReplenish(Boolean autoReplenish) |
-| `ReplenishThresholdAmountInCents` | `Integer` | Optional | - | Integer getReplenishThresholdAmountInCents() | setReplenishThresholdAmountInCents(Integer replenishThresholdAmountInCents) |
+| `ReplenishThresholdAmountInCents` | `Long` | Optional | - | Long getReplenishThresholdAmountInCents() | setReplenishThresholdAmountInCents(Long replenishThresholdAmountInCents) |
 
 ## Example (as JSON)
 

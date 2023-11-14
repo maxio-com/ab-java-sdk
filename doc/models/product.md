@@ -19,11 +19,11 @@
 | `ExpirationIntervalUnit` | [`ProductExpirationIntervalUnit`](../../doc/models/containers/product-expiration-interval-unit.md) | Optional | This is a container for one-of cases. | ProductExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(ProductExpirationIntervalUnit expirationIntervalUnit) |
 | `CreatedAt` | `String` | Optional | Timestamp indicating when this product was created | String getCreatedAt() | setCreatedAt(String createdAt) |
 | `UpdatedAt` | `String` | Optional | Timestamp indicating when this product was last updated | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
-| `PriceInCents` | `Integer` | Optional | The product price, in integer cents | Integer getPriceInCents() | setPriceInCents(Integer priceInCents) |
+| `PriceInCents` | `Long` | Optional | The product price, in integer cents | Long getPriceInCents() | setPriceInCents(Long priceInCents) |
 | `Interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this product would renew every 30 days | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`ProductIntervalUnit`](../../doc/models/containers/product-interval-unit.md) | Optional | This is a container for one-of cases. | ProductIntervalUnit getIntervalUnit() | setIntervalUnit(ProductIntervalUnit intervalUnit) |
-| `InitialChargeInCents` | `Integer` | Optional | The up front charge you have specified. | Integer getInitialChargeInCents() | setInitialChargeInCents(Integer initialChargeInCents) |
-| `TrialPriceInCents` | `Integer` | Optional | The price of the trial period for a subscription to this product, in integer cents. | Integer getTrialPriceInCents() | setTrialPriceInCents(Integer trialPriceInCents) |
+| `InitialChargeInCents` | `Long` | Optional | The up front charge you have specified. | Long getInitialChargeInCents() | setInitialChargeInCents(Long initialChargeInCents) |
+| `TrialPriceInCents` | `Long` | Optional | The price of the trial period for a subscription to this product, in integer cents. | Long getTrialPriceInCents() | setTrialPriceInCents(Long trialPriceInCents) |
 | `TrialInterval` | `Integer` | Optional | A numerical interval for the length of the trial period of a subscription to this product. See the description of interval for a description of how this value is coupled with an interval unit to calculate the full interval | Integer getTrialInterval() | setTrialInterval(Integer trialInterval) |
 | `TrialIntervalUnit` | [`ProductTrialIntervalUnit`](../../doc/models/containers/product-trial-interval-unit.md) | Optional | This is a container for one-of cases. | ProductTrialIntervalUnit getTrialIntervalUnit() | setTrialIntervalUnit(ProductTrialIntervalUnit trialIntervalUnit) |
 | `ArchivedAt` | `String` | Optional | Timestamp indicating when this product was archived | String getArchivedAt() | setArchivedAt(String archivedAt) |

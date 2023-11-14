@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for MRR type.
  */
 public class MRR {
-    private Integer amountInCents;
+    private Long amountInCents;
     private String amountFormatted;
     private String currency;
     private String currencySymbol;
@@ -29,7 +29,7 @@ public class MRR {
 
     /**
      * Initialization constructor.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  amountFormatted  String value for amountFormatted.
      * @param  currency  String value for currency.
      * @param  currencySymbol  String value for currencySymbol.
@@ -37,7 +37,7 @@ public class MRR {
      * @param  atTime  String value for atTime.
      */
     public MRR(
-            Integer amountInCents,
+            Long amountInCents,
             String amountFormatted,
             String currency,
             String currencySymbol,
@@ -53,20 +53,20 @@ public class MRR {
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for Integer
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Integer amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -198,7 +198,7 @@ public class MRR {
      * Class to build instances of {@link MRR}.
      */
     public static class Builder {
-        private Integer amountInCents;
+        private Long amountInCents;
         private String amountFormatted;
         private String currency;
         private String currencySymbol;
@@ -209,10 +209,10 @@ public class MRR {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Integer value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Integer amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class PaymentResponse {
     private List<Payment> paidInvoices;
-    private PrePayment prepayment;
+    private InvoicePrePayment prepayment;
 
     /**
      * Default constructor.
@@ -27,11 +27,11 @@ public class PaymentResponse {
     /**
      * Initialization constructor.
      * @param  paidInvoices  List of Payment value for paidInvoices.
-     * @param  prepayment  PrePayment value for prepayment.
+     * @param  prepayment  InvoicePrePayment value for prepayment.
      */
     public PaymentResponse(
             List<Payment> paidInvoices,
-            PrePayment prepayment) {
+            InvoicePrePayment prepayment) {
         this.paidInvoices = paidInvoices;
         this.prepayment = prepayment;
     }
@@ -57,20 +57,20 @@ public class PaymentResponse {
 
     /**
      * Getter for Prepayment.
-     * @return Returns the PrePayment
+     * @return Returns the InvoicePrePayment
      */
     @JsonGetter("prepayment")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PrePayment getPrepayment() {
+    public InvoicePrePayment getPrepayment() {
         return prepayment;
     }
 
     /**
      * Setter for Prepayment.
-     * @param prepayment Value for PrePayment
+     * @param prepayment Value for InvoicePrePayment
      */
     @JsonSetter("prepayment")
-    public void setPrepayment(PrePayment prepayment) {
+    public void setPrepayment(InvoicePrePayment prepayment) {
         this.prepayment = prepayment;
     }
 
@@ -101,7 +101,7 @@ public class PaymentResponse {
      */
     public static class Builder {
         private List<Payment> paidInvoices;
-        private PrePayment prepayment;
+        private InvoicePrePayment prepayment;
 
 
 
@@ -117,10 +117,10 @@ public class PaymentResponse {
 
         /**
          * Setter for prepayment.
-         * @param  prepayment  PrePayment value for prepayment.
+         * @param  prepayment  InvoicePrePayment value for prepayment.
          * @return Builder
          */
-        public Builder prepayment(PrePayment prepayment) {
+        public Builder prepayment(InvoicePrePayment prepayment) {
             this.prepayment = prepayment;
             return this;
         }

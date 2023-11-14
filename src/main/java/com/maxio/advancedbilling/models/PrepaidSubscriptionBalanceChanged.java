@@ -16,9 +16,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class PrepaidSubscriptionBalanceChanged {
     private String reason;
-    private int currentAccountBalanceInCents;
-    private int prepaymentAccountBalanceInCents;
-    private int currentUsageAmountInCents;
+    private long currentAccountBalanceInCents;
+    private long prepaymentAccountBalanceInCents;
+    private long currentUsageAmountInCents;
 
     /**
      * Default constructor.
@@ -29,16 +29,16 @@ public class PrepaidSubscriptionBalanceChanged {
     /**
      * Initialization constructor.
      * @param  reason  String value for reason.
-     * @param  currentAccountBalanceInCents  int value for currentAccountBalanceInCents.
-     * @param  prepaymentAccountBalanceInCents  int value for prepaymentAccountBalanceInCents.
-     * @param  currentUsageAmountInCents  int value for currentUsageAmountInCents.
+     * @param  currentAccountBalanceInCents  long value for currentAccountBalanceInCents.
+     * @param  prepaymentAccountBalanceInCents  long value for prepaymentAccountBalanceInCents.
+     * @param  currentUsageAmountInCents  long value for currentUsageAmountInCents.
      */
     @JsonCreator
     public PrepaidSubscriptionBalanceChanged(
             @JsonProperty("reason") String reason,
-            @JsonProperty("current_account_balance_in_cents") int currentAccountBalanceInCents,
-            @JsonProperty("prepayment_account_balance_in_cents") int prepaymentAccountBalanceInCents,
-            @JsonProperty("current_usage_amount_in_cents") int currentUsageAmountInCents) {
+            @JsonProperty("current_account_balance_in_cents") long currentAccountBalanceInCents,
+            @JsonProperty("prepayment_account_balance_in_cents") long prepaymentAccountBalanceInCents,
+            @JsonProperty("current_usage_amount_in_cents") long currentUsageAmountInCents) {
         this.reason = reason;
         this.currentAccountBalanceInCents = currentAccountBalanceInCents;
         this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
@@ -65,55 +65,55 @@ public class PrepaidSubscriptionBalanceChanged {
 
     /**
      * Getter for CurrentAccountBalanceInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("current_account_balance_in_cents")
-    public int getCurrentAccountBalanceInCents() {
+    public long getCurrentAccountBalanceInCents() {
         return currentAccountBalanceInCents;
     }
 
     /**
      * Setter for CurrentAccountBalanceInCents.
-     * @param currentAccountBalanceInCents Value for int
+     * @param currentAccountBalanceInCents Value for long
      */
     @JsonSetter("current_account_balance_in_cents")
-    public void setCurrentAccountBalanceInCents(int currentAccountBalanceInCents) {
+    public void setCurrentAccountBalanceInCents(long currentAccountBalanceInCents) {
         this.currentAccountBalanceInCents = currentAccountBalanceInCents;
     }
 
     /**
      * Getter for PrepaymentAccountBalanceInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("prepayment_account_balance_in_cents")
-    public int getPrepaymentAccountBalanceInCents() {
+    public long getPrepaymentAccountBalanceInCents() {
         return prepaymentAccountBalanceInCents;
     }
 
     /**
      * Setter for PrepaymentAccountBalanceInCents.
-     * @param prepaymentAccountBalanceInCents Value for int
+     * @param prepaymentAccountBalanceInCents Value for long
      */
     @JsonSetter("prepayment_account_balance_in_cents")
-    public void setPrepaymentAccountBalanceInCents(int prepaymentAccountBalanceInCents) {
+    public void setPrepaymentAccountBalanceInCents(long prepaymentAccountBalanceInCents) {
         this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
     }
 
     /**
      * Getter for CurrentUsageAmountInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("current_usage_amount_in_cents")
-    public int getCurrentUsageAmountInCents() {
+    public long getCurrentUsageAmountInCents() {
         return currentUsageAmountInCents;
     }
 
     /**
      * Setter for CurrentUsageAmountInCents.
-     * @param currentUsageAmountInCents Value for int
+     * @param currentUsageAmountInCents Value for long
      */
     @JsonSetter("current_usage_amount_in_cents")
-    public void setCurrentUsageAmountInCents(int currentUsageAmountInCents) {
+    public void setCurrentUsageAmountInCents(long currentUsageAmountInCents) {
         this.currentUsageAmountInCents = currentUsageAmountInCents;
     }
 
@@ -145,9 +145,9 @@ public class PrepaidSubscriptionBalanceChanged {
      */
     public static class Builder {
         private String reason;
-        private int currentAccountBalanceInCents;
-        private int prepaymentAccountBalanceInCents;
-        private int currentUsageAmountInCents;
+        private long currentAccountBalanceInCents;
+        private long prepaymentAccountBalanceInCents;
+        private long currentUsageAmountInCents;
 
         /**
          * Initialization constructor.
@@ -158,12 +158,12 @@ public class PrepaidSubscriptionBalanceChanged {
         /**
          * Initialization constructor.
          * @param  reason  String value for reason.
-         * @param  currentAccountBalanceInCents  int value for currentAccountBalanceInCents.
-         * @param  prepaymentAccountBalanceInCents  int value for prepaymentAccountBalanceInCents.
-         * @param  currentUsageAmountInCents  int value for currentUsageAmountInCents.
+         * @param  currentAccountBalanceInCents  long value for currentAccountBalanceInCents.
+         * @param  prepaymentAccountBalanceInCents  long value for prepaymentAccountBalanceInCents.
+         * @param  currentUsageAmountInCents  long value for currentUsageAmountInCents.
          */
-        public Builder(String reason, int currentAccountBalanceInCents,
-                int prepaymentAccountBalanceInCents, int currentUsageAmountInCents) {
+        public Builder(String reason, long currentAccountBalanceInCents,
+                long prepaymentAccountBalanceInCents, long currentUsageAmountInCents) {
             this.reason = reason;
             this.currentAccountBalanceInCents = currentAccountBalanceInCents;
             this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
@@ -182,30 +182,30 @@ public class PrepaidSubscriptionBalanceChanged {
 
         /**
          * Setter for currentAccountBalanceInCents.
-         * @param  currentAccountBalanceInCents  int value for currentAccountBalanceInCents.
+         * @param  currentAccountBalanceInCents  long value for currentAccountBalanceInCents.
          * @return Builder
          */
-        public Builder currentAccountBalanceInCents(int currentAccountBalanceInCents) {
+        public Builder currentAccountBalanceInCents(long currentAccountBalanceInCents) {
             this.currentAccountBalanceInCents = currentAccountBalanceInCents;
             return this;
         }
 
         /**
          * Setter for prepaymentAccountBalanceInCents.
-         * @param  prepaymentAccountBalanceInCents  int value for prepaymentAccountBalanceInCents.
+         * @param  prepaymentAccountBalanceInCents  long value for prepaymentAccountBalanceInCents.
          * @return Builder
          */
-        public Builder prepaymentAccountBalanceInCents(int prepaymentAccountBalanceInCents) {
+        public Builder prepaymentAccountBalanceInCents(long prepaymentAccountBalanceInCents) {
             this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
             return this;
         }
 
         /**
          * Setter for currentUsageAmountInCents.
-         * @param  currentUsageAmountInCents  int value for currentUsageAmountInCents.
+         * @param  currentUsageAmountInCents  long value for currentUsageAmountInCents.
          * @return Builder
          */
-        public Builder currentUsageAmountInCents(int currentUsageAmountInCents) {
+        public Builder currentUsageAmountInCents(long currentUsageAmountInCents) {
             this.currentUsageAmountInCents = currentUsageAmountInCents;
             return this;
         }

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for ComponentAllocationErrorItem type.
  */
 public class ComponentAllocationErrorItem {
-    private Double componentId;
+    private Integer componentId;
     private String message;
     private String kind;
     private String on;
@@ -27,13 +27,13 @@ public class ComponentAllocationErrorItem {
 
     /**
      * Initialization constructor.
-     * @param  componentId  Double value for componentId.
+     * @param  componentId  Integer value for componentId.
      * @param  message  String value for message.
      * @param  kind  String value for kind.
      * @param  on  String value for on.
      */
     public ComponentAllocationErrorItem(
-            Double componentId,
+            Integer componentId,
             String message,
             String kind,
             String on) {
@@ -45,20 +45,20 @@ public class ComponentAllocationErrorItem {
 
     /**
      * Getter for ComponentId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("component_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getComponentId() {
+    public Integer getComponentId() {
         return componentId;
     }
 
     /**
      * Setter for ComponentId.
-     * @param componentId Value for Double
+     * @param componentId Value for Integer
      */
     @JsonSetter("component_id")
-    public void setComponentId(Double componentId) {
+    public void setComponentId(Integer componentId) {
         this.componentId = componentId;
     }
 
@@ -147,7 +147,7 @@ public class ComponentAllocationErrorItem {
      * Class to build instances of {@link ComponentAllocationErrorItem}.
      */
     public static class Builder {
-        private Double componentId;
+        private Integer componentId;
         private String message;
         private String kind;
         private String on;
@@ -156,10 +156,10 @@ public class ComponentAllocationErrorItem {
 
         /**
          * Setter for componentId.
-         * @param  componentId  Double value for componentId.
+         * @param  componentId  Integer value for componentId.
          * @return Builder
          */
-        public Builder componentId(Double componentId) {
+        public Builder componentId(Integer componentId) {
             this.componentId = componentId;
             return this;
         }

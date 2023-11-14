@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `TransactionId` | `Double` | Optional | The numeric ID of the transaction. | Double getTransactionId() | setTransactionId(Double transactionId) |
+| `TransactionId` | `Integer` | Optional | The numeric ID of the transaction. | Integer getTransactionId() | setTransactionId(Integer transactionId) |
 | `TotalAmount` | `String` | Optional | Dollar amount of the sum of the paid invoices. | String getTotalAmount() | setTotalAmount(String totalAmount) |
 | `CurrencyCode` | `String` | Optional | The ISO 4217 currency code (3 character string) representing the currency of invoice transaction. | String getCurrencyCode() | setCurrencyCode(String currencyCode) |
 | `Applications` | [`List<InvoicePaymentApplication>`](../../doc/models/invoice-payment-application.md) | Optional | - | List<InvoicePaymentApplication> getApplications() | setApplications(List<InvoicePaymentApplication> applications) |
@@ -18,7 +18,7 @@
 
 ```json
 {
-  "transaction_id": 244.64,
+  "transaction_id": 144,
   "total_amount": "total_amount2",
   "currency_code": "currency_code2",
   "applications": [

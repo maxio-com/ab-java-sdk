@@ -19,15 +19,15 @@ public class ProductPricePoint {
     private Integer id;
     private String name;
     private String handle;
-    private Integer priceInCents;
+    private Long priceInCents;
     private Integer interval;
     private String intervalUnit;
-    private Integer trialPriceInCents;
+    private Long trialPriceInCents;
     private Integer trialInterval;
     private String trialIntervalUnit;
     private String trialType;
     private Boolean introductoryOffer;
-    private Integer initialChargeInCents;
+    private Long initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private Integer expirationInterval;
     private String expirationIntervalUnit;
@@ -51,15 +51,15 @@ public class ProductPricePoint {
      * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  priceInCents  Integer value for priceInCents.
+     * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  String value for intervalUnit.
-     * @param  trialPriceInCents  Integer value for trialPriceInCents.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  String value for trialIntervalUnit.
      * @param  trialType  String value for trialType.
      * @param  introductoryOffer  Boolean value for introductoryOffer.
-     * @param  initialChargeInCents  Integer value for initialChargeInCents.
+     * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
@@ -76,15 +76,15 @@ public class ProductPricePoint {
             Integer id,
             String name,
             String handle,
-            Integer priceInCents,
+            Long priceInCents,
             Integer interval,
             String intervalUnit,
-            Integer trialPriceInCents,
+            Long trialPriceInCents,
             Integer trialInterval,
             String trialIntervalUnit,
             String trialType,
             Boolean introductoryOffer,
-            Integer initialChargeInCents,
+            Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
             Integer expirationInterval,
             String expirationIntervalUnit,
@@ -126,15 +126,15 @@ public class ProductPricePoint {
      * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  priceInCents  Integer value for priceInCents.
+     * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  String value for intervalUnit.
-     * @param  trialPriceInCents  Integer value for trialPriceInCents.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  String value for trialIntervalUnit.
      * @param  trialType  String value for trialType.
      * @param  introductoryOffer  Boolean value for introductoryOffer.
-     * @param  initialChargeInCents  Integer value for initialChargeInCents.
+     * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
@@ -148,13 +148,13 @@ public class ProductPricePoint {
      * @param  subscriptionId  Integer value for subscriptionId.
      */
 
-    protected ProductPricePoint(Integer id, String name, String handle, Integer priceInCents,
-            Integer interval, String intervalUnit, Integer trialPriceInCents, Integer trialInterval,
+    protected ProductPricePoint(Integer id, String name, String handle, Long priceInCents,
+            Integer interval, String intervalUnit, Long trialPriceInCents, Integer trialInterval,
             String trialIntervalUnit, String trialType, Boolean introductoryOffer,
-            Integer initialChargeInCents, Boolean initialChargeAfterTrial,
-            Integer expirationInterval, String expirationIntervalUnit, Integer productId,
-            String archivedAt, String createdAt, String updatedAt, Boolean useSiteExchangeRate,
-            PricePointType type, Boolean taxIncluded, OptionalNullable<Integer> subscriptionId) {
+            Long initialChargeInCents, Boolean initialChargeAfterTrial, Integer expirationInterval,
+            String expirationIntervalUnit, Integer productId, String archivedAt, String createdAt,
+            String updatedAt, Boolean useSiteExchangeRate, PricePointType type, Boolean taxIncluded,
+            OptionalNullable<Integer> subscriptionId) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -239,20 +239,20 @@ public class ProductPricePoint {
 
     /**
      * Getter for PriceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPriceInCents() {
+    public Long getPriceInCents() {
         return priceInCents;
     }
 
     /**
      * Setter for PriceInCents.
-     * @param priceInCents Value for Integer
+     * @param priceInCents Value for Long
      */
     @JsonSetter("price_in_cents")
-    public void setPriceInCents(Integer priceInCents) {
+    public void setPriceInCents(Long priceInCents) {
         this.priceInCents = priceInCents;
     }
 
@@ -296,20 +296,20 @@ public class ProductPricePoint {
 
     /**
      * Getter for TrialPriceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("trial_price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTrialPriceInCents() {
+    public Long getTrialPriceInCents() {
         return trialPriceInCents;
     }
 
     /**
      * Setter for TrialPriceInCents.
-     * @param trialPriceInCents Value for Integer
+     * @param trialPriceInCents Value for Long
      */
     @JsonSetter("trial_price_in_cents")
-    public void setTrialPriceInCents(Integer trialPriceInCents) {
+    public void setTrialPriceInCents(Long trialPriceInCents) {
         this.trialPriceInCents = trialPriceInCents;
     }
 
@@ -393,20 +393,20 @@ public class ProductPricePoint {
 
     /**
      * Getter for InitialChargeInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("initial_charge_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getInitialChargeInCents() {
+    public Long getInitialChargeInCents() {
         return initialChargeInCents;
     }
 
     /**
      * Setter for InitialChargeInCents.
-     * @param initialChargeInCents Value for Integer
+     * @param initialChargeInCents Value for Long
      */
     @JsonSetter("initial_charge_in_cents")
-    public void setInitialChargeInCents(Integer initialChargeInCents) {
+    public void setInitialChargeInCents(Long initialChargeInCents) {
         this.initialChargeInCents = initialChargeInCents;
     }
 
@@ -706,15 +706,15 @@ public class ProductPricePoint {
         private Integer id;
         private String name;
         private String handle;
-        private Integer priceInCents;
+        private Long priceInCents;
         private Integer interval;
         private String intervalUnit;
-        private Integer trialPriceInCents;
+        private Long trialPriceInCents;
         private Integer trialInterval;
         private String trialIntervalUnit;
         private String trialType;
         private Boolean introductoryOffer;
-        private Integer initialChargeInCents;
+        private Long initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private Integer expirationInterval;
         private String expirationIntervalUnit;
@@ -761,10 +761,10 @@ public class ProductPricePoint {
 
         /**
          * Setter for priceInCents.
-         * @param  priceInCents  Integer value for priceInCents.
+         * @param  priceInCents  Long value for priceInCents.
          * @return Builder
          */
-        public Builder priceInCents(Integer priceInCents) {
+        public Builder priceInCents(Long priceInCents) {
             this.priceInCents = priceInCents;
             return this;
         }
@@ -791,10 +791,10 @@ public class ProductPricePoint {
 
         /**
          * Setter for trialPriceInCents.
-         * @param  trialPriceInCents  Integer value for trialPriceInCents.
+         * @param  trialPriceInCents  Long value for trialPriceInCents.
          * @return Builder
          */
-        public Builder trialPriceInCents(Integer trialPriceInCents) {
+        public Builder trialPriceInCents(Long trialPriceInCents) {
             this.trialPriceInCents = trialPriceInCents;
             return this;
         }
@@ -841,10 +841,10 @@ public class ProductPricePoint {
 
         /**
          * Setter for initialChargeInCents.
-         * @param  initialChargeInCents  Integer value for initialChargeInCents.
+         * @param  initialChargeInCents  Long value for initialChargeInCents.
          * @return Builder
          */
-        public Builder initialChargeInCents(Integer initialChargeInCents) {
+        public Builder initialChargeInCents(Long initialChargeInCents) {
             this.initialChargeInCents = initialChargeInCents;
             return this;
         }

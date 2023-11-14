@@ -25,7 +25,7 @@ public class Offer {
     private Integer productRevisableNumber;
     private String name;
     private String handle;
-    private String description;
+    private OptionalNullable<String> description;
     private String createdAt;
     private String updatedAt;
     private OptionalNullable<String> archivedAt;
@@ -34,7 +34,7 @@ public class Offer {
     private String productFamilyName;
     private String productName;
     private String productPricePointName;
-    private Integer productPriceInCents;
+    private Long productPriceInCents;
     private List<OfferSignupPage> offerSignupPages;
 
     /**
@@ -62,7 +62,7 @@ public class Offer {
      * @param  productFamilyName  String value for productFamilyName.
      * @param  productName  String value for productName.
      * @param  productPricePointName  String value for productPricePointName.
-     * @param  productPriceInCents  Integer value for productPriceInCents.
+     * @param  productPriceInCents  Long value for productPriceInCents.
      * @param  offerSignupPages  List of OfferSignupPage value for offerSignupPages.
      */
     public Offer(
@@ -83,7 +83,7 @@ public class Offer {
             String productFamilyName,
             String productName,
             String productPricePointName,
-            Integer productPriceInCents,
+            Long productPriceInCents,
             List<OfferSignupPage> offerSignupPages) {
         this.id = id;
         this.siteId = siteId;
@@ -93,7 +93,7 @@ public class Offer {
         this.productRevisableNumber = productRevisableNumber;
         this.name = name;
         this.handle = handle;
-        this.description = description;
+        this.description = OptionalNullable.of(description);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.archivedAt = OptionalNullable.of(archivedAt);
@@ -125,16 +125,16 @@ public class Offer {
      * @param  productFamilyName  String value for productFamilyName.
      * @param  productName  String value for productName.
      * @param  productPricePointName  String value for productPricePointName.
-     * @param  productPriceInCents  Integer value for productPriceInCents.
+     * @param  productPriceInCents  Long value for productPriceInCents.
      * @param  offerSignupPages  List of OfferSignupPage value for offerSignupPages.
      */
 
     protected Offer(Integer id, Integer siteId, Integer productFamilyId, Integer productId,
             Integer productPricePointId, Integer productRevisableNumber, String name, String handle,
-            String description, String createdAt, String updatedAt,
+            OptionalNullable<String> description, String createdAt, String updatedAt,
             OptionalNullable<String> archivedAt, List<OfferItem> offerItems,
             List<OfferDiscount> offerDiscounts, String productFamilyName, String productName,
-            String productPricePointName, Integer productPriceInCents,
+            String productPricePointName, Long productPriceInCents,
             List<OfferSignupPage> offerSignupPages) {
         this.id = id;
         this.siteId = siteId;
@@ -310,13 +310,22 @@ public class Offer {
     }
 
     /**
-     * Getter for Description.
-     * @return Returns the String
+     * Internal Getter for Description.
+     * @return Returns the Internal String
      */
     @JsonGetter("description")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
+    }
+
+    /**
+     * Getter for Description.
+     * @return Returns the String
+     */
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -325,7 +334,14 @@ public class Offer {
      */
     @JsonSetter("description")
     public void setDescription(String description) {
-        this.description = description;
+        this.description = OptionalNullable.of(description);
+    }
+
+    /**
+     * UnSetter for Description.
+     */
+    public void unsetDescription() {
+        description = null;
     }
 
     /**
@@ -498,20 +514,20 @@ public class Offer {
 
     /**
      * Getter for ProductPriceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("product_price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getProductPriceInCents() {
+    public Long getProductPriceInCents() {
         return productPriceInCents;
     }
 
     /**
      * Setter for ProductPriceInCents.
-     * @param productPriceInCents Value for Integer
+     * @param productPriceInCents Value for Long
      */
     @JsonSetter("product_price_in_cents")
-    public void setProductPriceInCents(Integer productPriceInCents) {
+    public void setProductPriceInCents(Long productPriceInCents) {
         this.productPriceInCents = productPriceInCents;
     }
 
@@ -566,7 +582,6 @@ public class Offer {
                 .productRevisableNumber(getProductRevisableNumber())
                 .name(getName())
                 .handle(getHandle())
-                .description(getDescription())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .offerItems(getOfferItems())
@@ -576,6 +591,7 @@ public class Offer {
                 .productPricePointName(getProductPricePointName())
                 .productPriceInCents(getProductPriceInCents())
                 .offerSignupPages(getOfferSignupPages());
+        builder.description = internalGetDescription();
         builder.archivedAt = internalGetArchivedAt();
         return builder;
     }
@@ -592,7 +608,7 @@ public class Offer {
         private Integer productRevisableNumber;
         private String name;
         private String handle;
-        private String description;
+        private OptionalNullable<String> description;
         private String createdAt;
         private String updatedAt;
         private OptionalNullable<String> archivedAt;
@@ -601,7 +617,7 @@ public class Offer {
         private String productFamilyName;
         private String productName;
         private String productPricePointName;
-        private Integer productPriceInCents;
+        private Long productPriceInCents;
         private List<OfferSignupPage> offerSignupPages;
 
 
@@ -692,7 +708,16 @@ public class Offer {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
@@ -787,10 +812,10 @@ public class Offer {
 
         /**
          * Setter for productPriceInCents.
-         * @param  productPriceInCents  Integer value for productPriceInCents.
+         * @param  productPriceInCents  Long value for productPriceInCents.
          * @return Builder
          */
-        public Builder productPriceInCents(Integer productPriceInCents) {
+        public Builder productPriceInCents(Long productPriceInCents) {
             this.productPriceInCents = productPriceInCents;
             return this;
         }

@@ -20,9 +20,9 @@ public class CouponUsage {
     private String name;
     private Integer signups;
     private OptionalNullable<Integer> savings;
-    private OptionalNullable<Integer> savingsInCents;
+    private OptionalNullable<Long> savingsInCents;
     private OptionalNullable<Integer> revenue;
-    private Integer revenueInCents;
+    private Long revenueInCents;
 
     /**
      * Default constructor.
@@ -36,18 +36,18 @@ public class CouponUsage {
      * @param  name  String value for name.
      * @param  signups  Integer value for signups.
      * @param  savings  Integer value for savings.
-     * @param  savingsInCents  Integer value for savingsInCents.
+     * @param  savingsInCents  Long value for savingsInCents.
      * @param  revenue  Integer value for revenue.
-     * @param  revenueInCents  Integer value for revenueInCents.
+     * @param  revenueInCents  Long value for revenueInCents.
      */
     public CouponUsage(
             Integer id,
             String name,
             Integer signups,
             Integer savings,
-            Integer savingsInCents,
+            Long savingsInCents,
             Integer revenue,
-            Integer revenueInCents) {
+            Long revenueInCents) {
         this.id = id;
         this.name = name;
         this.signups = signups;
@@ -63,14 +63,14 @@ public class CouponUsage {
      * @param  name  String value for name.
      * @param  signups  Integer value for signups.
      * @param  savings  Integer value for savings.
-     * @param  savingsInCents  Integer value for savingsInCents.
+     * @param  savingsInCents  Long value for savingsInCents.
      * @param  revenue  Integer value for revenue.
-     * @param  revenueInCents  Integer value for revenueInCents.
+     * @param  revenueInCents  Long value for revenueInCents.
      */
 
     protected CouponUsage(Integer id, String name, Integer signups,
-            OptionalNullable<Integer> savings, OptionalNullable<Integer> savingsInCents,
-            OptionalNullable<Integer> revenue, Integer revenueInCents) {
+            OptionalNullable<Integer> savings, OptionalNullable<Long> savingsInCents,
+            OptionalNullable<Integer> revenue, Long revenueInCents) {
         this.id = id;
         this.name = name;
         this.signups = signups;
@@ -185,31 +185,31 @@ public class CouponUsage {
     /**
      * Internal Getter for SavingsInCents.
      * Dollar amount of customer savings as a result of the coupon.
-     * @return Returns the Internal Integer
+     * @return Returns the Internal Long
      */
     @JsonGetter("savings_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Integer> internalGetSavingsInCents() {
+    protected OptionalNullable<Long> internalGetSavingsInCents() {
         return this.savingsInCents;
     }
 
     /**
      * Getter for SavingsInCents.
      * Dollar amount of customer savings as a result of the coupon.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
-    public Integer getSavingsInCents() {
+    public Long getSavingsInCents() {
         return OptionalNullable.getFrom(savingsInCents);
     }
 
     /**
      * Setter for SavingsInCents.
      * Dollar amount of customer savings as a result of the coupon.
-     * @param savingsInCents Value for Integer
+     * @param savingsInCents Value for Long
      */
     @JsonSetter("savings_in_cents")
-    public void setSavingsInCents(Integer savingsInCents) {
+    public void setSavingsInCents(Long savingsInCents) {
         this.savingsInCents = OptionalNullable.of(savingsInCents);
     }
 
@@ -263,21 +263,21 @@ public class CouponUsage {
     /**
      * Getter for RevenueInCents.
      * Total revenue of the all subscriptions that have received a discount from this coupon.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("revenue_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getRevenueInCents() {
+    public Long getRevenueInCents() {
         return revenueInCents;
     }
 
     /**
      * Setter for RevenueInCents.
      * Total revenue of the all subscriptions that have received a discount from this coupon.
-     * @param revenueInCents Value for Integer
+     * @param revenueInCents Value for Long
      */
     @JsonSetter("revenue_in_cents")
-    public void setRevenueInCents(Integer revenueInCents) {
+    public void setRevenueInCents(Long revenueInCents) {
         this.revenueInCents = revenueInCents;
     }
 
@@ -317,9 +317,9 @@ public class CouponUsage {
         private String name;
         private Integer signups;
         private OptionalNullable<Integer> savings;
-        private OptionalNullable<Integer> savingsInCents;
+        private OptionalNullable<Long> savingsInCents;
         private OptionalNullable<Integer> revenue;
-        private Integer revenueInCents;
+        private Long revenueInCents;
 
 
 
@@ -374,10 +374,10 @@ public class CouponUsage {
 
         /**
          * Setter for savingsInCents.
-         * @param  savingsInCents  Integer value for savingsInCents.
+         * @param  savingsInCents  Long value for savingsInCents.
          * @return Builder
          */
-        public Builder savingsInCents(Integer savingsInCents) {
+        public Builder savingsInCents(Long savingsInCents) {
             this.savingsInCents = OptionalNullable.of(savingsInCents);
             return this;
         }
@@ -412,10 +412,10 @@ public class CouponUsage {
 
         /**
          * Setter for revenueInCents.
-         * @param  revenueInCents  Integer value for revenueInCents.
+         * @param  revenueInCents  Long value for revenueInCents.
          * @return Builder
          */
-        public Builder revenueInCents(Integer revenueInCents) {
+        public Builder revenueInCents(Long revenueInCents) {
             this.revenueInCents = revenueInCents;
             return this;
         }

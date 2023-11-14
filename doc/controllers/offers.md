@@ -52,22 +52,23 @@ OfferResponse createOffer(
 
 ```java
 CreateOfferRequest body = new CreateOfferRequest.Builder(
-    new CreateOffer.Builder()
-        .name("Solo")
-        .handle("han_shot_first")
-        .description("A Star Wars Story")
-        .productId(31)
-        .productPricePointId(102)
-        .components(Arrays.asList(
+    new CreateOffer.Builder(
+        "Solo",
+        "han_shot_first",
+        31
+    )
+    .description("A Star Wars Story")
+    .productPricePointId(102)
+    .components(Arrays.asList(
             new CreateOfferComponent.Builder()
                 .componentId(24)
                 .startingQuantity(1)
                 .build()
         ))
-        .coupons(Arrays.asList(
+    .coupons(Arrays.asList(
             "DEF456"
         ))
-        .build()
+    .build()
 )
 .build();
 
@@ -135,8 +136,17 @@ try {
 This endpoint will list offers for a site.
 
 ```java
-ListOffersResponse listOffers()
+ListOffersResponse listOffers(
+    final ListOffersInput input)
 ```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `includeArchived` | `Boolean` | Query, Optional | Include archived products. Use in query: `include_archived=true`. |
 
 ## Response Type
 
@@ -145,8 +155,14 @@ ListOffersResponse listOffers()
 ## Example Usage
 
 ```java
+ListOffersInput listOffersInput = new ListOffersInput.Builder()
+    .page(2)
+    .perPage(50)
+    .includeArchived(true)
+    .build();
+
 try {
-    ListOffersResponse result = offersController.listOffers();
+    ListOffersResponse result = offersController.listOffers(listOffersInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

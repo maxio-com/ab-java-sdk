@@ -14,11 +14,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for ProformaCustomField type.
  */
 public class ProformaCustomField {
-    private Double ownerId;
+    private Integer ownerId;
     private String ownerType;
     private String name;
     private String value;
-    private Double metadatumId;
+    private Integer metadatumId;
 
     /**
      * Default constructor.
@@ -28,18 +28,18 @@ public class ProformaCustomField {
 
     /**
      * Initialization constructor.
-     * @param  ownerId  Double value for ownerId.
+     * @param  ownerId  Integer value for ownerId.
      * @param  ownerType  String value for ownerType.
      * @param  name  String value for name.
      * @param  value  String value for value.
-     * @param  metadatumId  Double value for metadatumId.
+     * @param  metadatumId  Integer value for metadatumId.
      */
     public ProformaCustomField(
-            Double ownerId,
+            Integer ownerId,
             String ownerType,
             String name,
             String value,
-            Double metadatumId) {
+            Integer metadatumId) {
         this.ownerId = ownerId;
         this.ownerType = ownerType;
         this.name = name;
@@ -49,20 +49,20 @@ public class ProformaCustomField {
 
     /**
      * Getter for OwnerId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("owner_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getOwnerId() {
+    public Integer getOwnerId() {
         return ownerId;
     }
 
     /**
      * Setter for OwnerId.
-     * @param ownerId Value for Double
+     * @param ownerId Value for Integer
      */
     @JsonSetter("owner_id")
-    public void setOwnerId(Double ownerId) {
+    public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -125,20 +125,20 @@ public class ProformaCustomField {
 
     /**
      * Getter for MetadatumId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("metadatum_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getMetadatumId() {
+    public Integer getMetadatumId() {
         return metadatumId;
     }
 
     /**
      * Setter for MetadatumId.
-     * @param metadatumId Value for Double
+     * @param metadatumId Value for Integer
      */
     @JsonSetter("metadatum_id")
-    public void setMetadatumId(Double metadatumId) {
+    public void setMetadatumId(Integer metadatumId) {
         this.metadatumId = metadatumId;
     }
 
@@ -171,20 +171,20 @@ public class ProformaCustomField {
      * Class to build instances of {@link ProformaCustomField}.
      */
     public static class Builder {
-        private Double ownerId;
+        private Integer ownerId;
         private String ownerType;
         private String name;
         private String value;
-        private Double metadatumId;
+        private Integer metadatumId;
 
 
 
         /**
          * Setter for ownerId.
-         * @param  ownerId  Double value for ownerId.
+         * @param  ownerId  Integer value for ownerId.
          * @return Builder
          */
-        public Builder ownerId(Double ownerId) {
+        public Builder ownerId(Integer ownerId) {
             this.ownerId = ownerId;
             return this;
         }
@@ -221,10 +221,10 @@ public class ProformaCustomField {
 
         /**
          * Setter for metadatumId.
-         * @param  metadatumId  Double value for metadatumId.
+         * @param  metadatumId  Integer value for metadatumId.
          * @return Builder
          */
-        public Builder metadatumId(Double metadatumId) {
+        public Builder metadatumId(Integer metadatumId) {
             this.metadatumId = metadatumId;
             return this;
         }

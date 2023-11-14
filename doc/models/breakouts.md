@@ -9,9 +9,9 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `PlanAmountInCents` | `Integer` | Optional | - | Integer getPlanAmountInCents() | setPlanAmountInCents(Integer planAmountInCents) |
+| `PlanAmountInCents` | `Long` | Optional | - | Long getPlanAmountInCents() | setPlanAmountInCents(Long planAmountInCents) |
 | `PlanAmountFormatted` | `String` | Optional | - | String getPlanAmountFormatted() | setPlanAmountFormatted(String planAmountFormatted) |
-| `UsageAmountInCents` | `Integer` | Optional | - | Integer getUsageAmountInCents() | setUsageAmountInCents(Integer usageAmountInCents) |
+| `UsageAmountInCents` | `Long` | Optional | - | Long getUsageAmountInCents() | setUsageAmountInCents(Long usageAmountInCents) |
 | `UsageAmountFormatted` | `String` | Optional | - | String getUsageAmountFormatted() | setUsageAmountFormatted(String usageAmountFormatted) |
 
 ## Example (as JSON)

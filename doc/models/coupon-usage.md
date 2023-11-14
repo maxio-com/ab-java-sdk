@@ -13,9 +13,9 @@
 | `Name` | `String` | Optional | Name of the product | String getName() | setName(String name) |
 | `Signups` | `Integer` | Optional | Number of times the coupon has been applied | Integer getSignups() | setSignups(Integer signups) |
 | `Savings` | `Integer` | Optional | Dollar amount of customer savings as a result of the coupon. | Integer getSavings() | setSavings(Integer savings) |
-| `SavingsInCents` | `Integer` | Optional | Dollar amount of customer savings as a result of the coupon. | Integer getSavingsInCents() | setSavingsInCents(Integer savingsInCents) |
+| `SavingsInCents` | `Long` | Optional | Dollar amount of customer savings as a result of the coupon. | Long getSavingsInCents() | setSavingsInCents(Long savingsInCents) |
 | `Revenue` | `Integer` | Optional | Total revenue of the all subscriptions that have received a discount from this coupon. | Integer getRevenue() | setRevenue(Integer revenue) |
-| `RevenueInCents` | `Integer` | Optional | Total revenue of the all subscriptions that have received a discount from this coupon. | Integer getRevenueInCents() | setRevenueInCents(Integer revenueInCents) |
+| `RevenueInCents` | `Long` | Optional | Total revenue of the all subscriptions that have received a discount from this coupon. | Long getRevenueInCents() | setRevenueInCents(Long revenueInCents) |
 
 ## Example (as JSON)
 

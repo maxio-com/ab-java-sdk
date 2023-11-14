@@ -50,7 +50,7 @@ CreateOrUpdateProductRequest body = new CreateOrUpdateProductRequest.Builder(
     new CreateOrUpdateProduct.Builder(
         "Gold Plan",
         "This is our gold plan.",
-        1000,
+        1000L,
         1,
         "month"
     )

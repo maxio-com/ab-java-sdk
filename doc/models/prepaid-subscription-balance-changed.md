@@ -10,9 +10,9 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Reason` | `String` | Required | - | String getReason() | setReason(String reason) |
-| `CurrentAccountBalanceInCents` | `int` | Required | - | int getCurrentAccountBalanceInCents() | setCurrentAccountBalanceInCents(int currentAccountBalanceInCents) |
-| `PrepaymentAccountBalanceInCents` | `int` | Required | - | int getPrepaymentAccountBalanceInCents() | setPrepaymentAccountBalanceInCents(int prepaymentAccountBalanceInCents) |
-| `CurrentUsageAmountInCents` | `int` | Required | - | int getCurrentUsageAmountInCents() | setCurrentUsageAmountInCents(int currentUsageAmountInCents) |
+| `CurrentAccountBalanceInCents` | `long` | Required | - | long getCurrentAccountBalanceInCents() | setCurrentAccountBalanceInCents(long currentAccountBalanceInCents) |
+| `PrepaymentAccountBalanceInCents` | `long` | Required | - | long getPrepaymentAccountBalanceInCents() | setPrepaymentAccountBalanceInCents(long prepaymentAccountBalanceInCents) |
+| `CurrentUsageAmountInCents` | `long` | Required | - | long getCurrentUsageAmountInCents() | setCurrentUsageAmountInCents(long currentUsageAmountInCents) |
 
 ## Example (as JSON)
 

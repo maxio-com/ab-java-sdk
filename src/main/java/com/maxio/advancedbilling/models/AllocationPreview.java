@@ -17,17 +17,17 @@ import java.util.List;
 public class AllocationPreview {
     private String startDate;
     private String endDate;
-    private Integer subtotalInCents;
-    private Integer totalTaxInCents;
-    private Integer totalDiscountInCents;
-    private Integer totalInCents;
+    private Long subtotalInCents;
+    private Long totalTaxInCents;
+    private Long totalDiscountInCents;
+    private Long totalInCents;
     private String direction;
     private String prorationScheme;
     private List<AllocationPreviewLineItem> lineItems;
     private Boolean accrueCharge;
     private List<AllocationPreviewItem> allocations;
     private String periodType;
-    private Integer existingBalanceInCents;
+    private Long existingBalanceInCents;
 
     /**
      * Default constructor.
@@ -39,32 +39,32 @@ public class AllocationPreview {
      * Initialization constructor.
      * @param  startDate  String value for startDate.
      * @param  endDate  String value for endDate.
-     * @param  subtotalInCents  Integer value for subtotalInCents.
-     * @param  totalTaxInCents  Integer value for totalTaxInCents.
-     * @param  totalDiscountInCents  Integer value for totalDiscountInCents.
-     * @param  totalInCents  Integer value for totalInCents.
+     * @param  subtotalInCents  Long value for subtotalInCents.
+     * @param  totalTaxInCents  Long value for totalTaxInCents.
+     * @param  totalDiscountInCents  Long value for totalDiscountInCents.
+     * @param  totalInCents  Long value for totalInCents.
      * @param  direction  String value for direction.
      * @param  prorationScheme  String value for prorationScheme.
      * @param  lineItems  List of AllocationPreviewLineItem value for lineItems.
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  allocations  List of AllocationPreviewItem value for allocations.
      * @param  periodType  String value for periodType.
-     * @param  existingBalanceInCents  Integer value for existingBalanceInCents.
+     * @param  existingBalanceInCents  Long value for existingBalanceInCents.
      */
     public AllocationPreview(
             String startDate,
             String endDate,
-            Integer subtotalInCents,
-            Integer totalTaxInCents,
-            Integer totalDiscountInCents,
-            Integer totalInCents,
+            Long subtotalInCents,
+            Long totalTaxInCents,
+            Long totalDiscountInCents,
+            Long totalInCents,
             String direction,
             String prorationScheme,
             List<AllocationPreviewLineItem> lineItems,
             Boolean accrueCharge,
             List<AllocationPreviewItem> allocations,
             String periodType,
-            Integer existingBalanceInCents) {
+            Long existingBalanceInCents) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.subtotalInCents = subtotalInCents;
@@ -120,77 +120,77 @@ public class AllocationPreview {
 
     /**
      * Getter for SubtotalInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("subtotal_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getSubtotalInCents() {
+    public Long getSubtotalInCents() {
         return subtotalInCents;
     }
 
     /**
      * Setter for SubtotalInCents.
-     * @param subtotalInCents Value for Integer
+     * @param subtotalInCents Value for Long
      */
     @JsonSetter("subtotal_in_cents")
-    public void setSubtotalInCents(Integer subtotalInCents) {
+    public void setSubtotalInCents(Long subtotalInCents) {
         this.subtotalInCents = subtotalInCents;
     }
 
     /**
      * Getter for TotalTaxInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_tax_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalTaxInCents() {
+    public Long getTotalTaxInCents() {
         return totalTaxInCents;
     }
 
     /**
      * Setter for TotalTaxInCents.
-     * @param totalTaxInCents Value for Integer
+     * @param totalTaxInCents Value for Long
      */
     @JsonSetter("total_tax_in_cents")
-    public void setTotalTaxInCents(Integer totalTaxInCents) {
+    public void setTotalTaxInCents(Long totalTaxInCents) {
         this.totalTaxInCents = totalTaxInCents;
     }
 
     /**
      * Getter for TotalDiscountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_discount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalDiscountInCents() {
+    public Long getTotalDiscountInCents() {
         return totalDiscountInCents;
     }
 
     /**
      * Setter for TotalDiscountInCents.
-     * @param totalDiscountInCents Value for Integer
+     * @param totalDiscountInCents Value for Long
      */
     @JsonSetter("total_discount_in_cents")
-    public void setTotalDiscountInCents(Integer totalDiscountInCents) {
+    public void setTotalDiscountInCents(Long totalDiscountInCents) {
         this.totalDiscountInCents = totalDiscountInCents;
     }
 
     /**
      * Getter for TotalInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalInCents() {
+    public Long getTotalInCents() {
         return totalInCents;
     }
 
     /**
      * Setter for TotalInCents.
-     * @param totalInCents Value for Integer
+     * @param totalInCents Value for Long
      */
     @JsonSetter("total_in_cents")
-    public void setTotalInCents(Integer totalInCents) {
+    public void setTotalInCents(Long totalInCents) {
         this.totalInCents = totalInCents;
     }
 
@@ -311,21 +311,21 @@ public class AllocationPreview {
     /**
      * Getter for ExistingBalanceInCents.
      * An integer representing the amount of the subscription's current balance
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("existing_balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getExistingBalanceInCents() {
+    public Long getExistingBalanceInCents() {
         return existingBalanceInCents;
     }
 
     /**
      * Setter for ExistingBalanceInCents.
      * An integer representing the amount of the subscription's current balance
-     * @param existingBalanceInCents Value for Integer
+     * @param existingBalanceInCents Value for Long
      */
     @JsonSetter("existing_balance_in_cents")
-    public void setExistingBalanceInCents(Integer existingBalanceInCents) {
+    public void setExistingBalanceInCents(Long existingBalanceInCents) {
         this.existingBalanceInCents = existingBalanceInCents;
     }
 
@@ -373,17 +373,17 @@ public class AllocationPreview {
     public static class Builder {
         private String startDate;
         private String endDate;
-        private Integer subtotalInCents;
-        private Integer totalTaxInCents;
-        private Integer totalDiscountInCents;
-        private Integer totalInCents;
+        private Long subtotalInCents;
+        private Long totalTaxInCents;
+        private Long totalDiscountInCents;
+        private Long totalInCents;
         private String direction;
         private String prorationScheme;
         private List<AllocationPreviewLineItem> lineItems;
         private Boolean accrueCharge;
         private List<AllocationPreviewItem> allocations;
         private String periodType;
-        private Integer existingBalanceInCents;
+        private Long existingBalanceInCents;
 
 
 
@@ -409,40 +409,40 @@ public class AllocationPreview {
 
         /**
          * Setter for subtotalInCents.
-         * @param  subtotalInCents  Integer value for subtotalInCents.
+         * @param  subtotalInCents  Long value for subtotalInCents.
          * @return Builder
          */
-        public Builder subtotalInCents(Integer subtotalInCents) {
+        public Builder subtotalInCents(Long subtotalInCents) {
             this.subtotalInCents = subtotalInCents;
             return this;
         }
 
         /**
          * Setter for totalTaxInCents.
-         * @param  totalTaxInCents  Integer value for totalTaxInCents.
+         * @param  totalTaxInCents  Long value for totalTaxInCents.
          * @return Builder
          */
-        public Builder totalTaxInCents(Integer totalTaxInCents) {
+        public Builder totalTaxInCents(Long totalTaxInCents) {
             this.totalTaxInCents = totalTaxInCents;
             return this;
         }
 
         /**
          * Setter for totalDiscountInCents.
-         * @param  totalDiscountInCents  Integer value for totalDiscountInCents.
+         * @param  totalDiscountInCents  Long value for totalDiscountInCents.
          * @return Builder
          */
-        public Builder totalDiscountInCents(Integer totalDiscountInCents) {
+        public Builder totalDiscountInCents(Long totalDiscountInCents) {
             this.totalDiscountInCents = totalDiscountInCents;
             return this;
         }
 
         /**
          * Setter for totalInCents.
-         * @param  totalInCents  Integer value for totalInCents.
+         * @param  totalInCents  Long value for totalInCents.
          * @return Builder
          */
-        public Builder totalInCents(Integer totalInCents) {
+        public Builder totalInCents(Long totalInCents) {
             this.totalInCents = totalInCents;
             return this;
         }
@@ -509,10 +509,10 @@ public class AllocationPreview {
 
         /**
          * Setter for existingBalanceInCents.
-         * @param  existingBalanceInCents  Integer value for existingBalanceInCents.
+         * @param  existingBalanceInCents  Long value for existingBalanceInCents.
          * @return Builder
          */
-        public Builder existingBalanceInCents(Integer existingBalanceInCents) {
+        public Builder existingBalanceInCents(Long existingBalanceInCents) {
             this.existingBalanceInCents = existingBalanceInCents;
             return this;
         }

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class InvoiceCustomField {
     private String name;
     private String value;
-    private Double ownerId;
+    private Integer ownerId;
     private String ownerType;
 
     /**
@@ -29,13 +29,13 @@ public class InvoiceCustomField {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  value  String value for value.
-     * @param  ownerId  Double value for ownerId.
+     * @param  ownerId  Integer value for ownerId.
      * @param  ownerType  String value for ownerType.
      */
     public InvoiceCustomField(
             String name,
             String value,
-            Double ownerId,
+            Integer ownerId,
             String ownerType) {
         this.name = name;
         this.value = value;
@@ -83,20 +83,20 @@ public class InvoiceCustomField {
 
     /**
      * Getter for OwnerId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("owner_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getOwnerId() {
+    public Integer getOwnerId() {
         return ownerId;
     }
 
     /**
      * Setter for OwnerId.
-     * @param ownerId Value for Double
+     * @param ownerId Value for Integer
      */
     @JsonSetter("owner_id")
-    public void setOwnerId(Double ownerId) {
+    public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -149,7 +149,7 @@ public class InvoiceCustomField {
     public static class Builder {
         private String name;
         private String value;
-        private Double ownerId;
+        private Integer ownerId;
         private String ownerType;
 
 
@@ -176,10 +176,10 @@ public class InvoiceCustomField {
 
         /**
          * Setter for ownerId.
-         * @param  ownerId  Double value for ownerId.
+         * @param  ownerId  Integer value for ownerId.
          * @return Builder
          */
-        public Builder ownerId(Double ownerId) {
+        public Builder ownerId(Integer ownerId) {
             this.ownerId = ownerId;
             return this;
         }

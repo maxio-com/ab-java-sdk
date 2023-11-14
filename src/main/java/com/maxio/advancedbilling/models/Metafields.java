@@ -15,7 +15,7 @@ import java.util.List;
  * This is a model class for Metafields type.
  */
 public class Metafields {
-    private Double id;
+    private Integer id;
     private String name;
     private MetafieldScope scope;
     private MetafieldInput inputType;
@@ -30,14 +30,14 @@ public class Metafields {
 
     /**
      * Initialization constructor.
-     * @param  id  Double value for id.
+     * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  scope  MetafieldScope value for scope.
      * @param  inputType  MetafieldInput value for inputType.
      * @param  mEnum  List of String value for mEnum.
      */
     public Metafields(
-            Double id,
+            Integer id,
             String name,
             MetafieldScope scope,
             MetafieldInput inputType,
@@ -51,20 +51,20 @@ public class Metafields {
 
     /**
      * Getter for Id.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Double
+     * @param id Value for Integer
      */
     @JsonSetter("id")
-    public void setId(Double id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -187,7 +187,7 @@ public class Metafields {
      * Class to build instances of {@link Metafields}.
      */
     public static class Builder {
-        private Double id;
+        private Integer id;
         private String name;
         private MetafieldScope scope;
         private MetafieldInput inputType = MetafieldInput.TEXT;
@@ -197,10 +197,10 @@ public class Metafields {
 
         /**
          * Setter for id.
-         * @param  id  Double value for id.
+         * @param  id  Integer value for id.
          * @return Builder
          */
-        public Builder id(Double id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }

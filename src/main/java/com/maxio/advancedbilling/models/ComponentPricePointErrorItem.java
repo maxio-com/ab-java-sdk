@@ -14,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for ComponentPricePointErrorItem type.
  */
 public class ComponentPricePointErrorItem {
-    private Double componentId;
+    private Integer componentId;
     private String message;
-    private Double pricePoint;
+    private Integer pricePoint;
 
     /**
      * Default constructor.
@@ -26,14 +26,14 @@ public class ComponentPricePointErrorItem {
 
     /**
      * Initialization constructor.
-     * @param  componentId  Double value for componentId.
+     * @param  componentId  Integer value for componentId.
      * @param  message  String value for message.
-     * @param  pricePoint  Double value for pricePoint.
+     * @param  pricePoint  Integer value for pricePoint.
      */
     public ComponentPricePointErrorItem(
-            Double componentId,
+            Integer componentId,
             String message,
-            Double pricePoint) {
+            Integer pricePoint) {
         this.componentId = componentId;
         this.message = message;
         this.pricePoint = pricePoint;
@@ -41,20 +41,20 @@ public class ComponentPricePointErrorItem {
 
     /**
      * Getter for ComponentId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("component_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getComponentId() {
+    public Integer getComponentId() {
         return componentId;
     }
 
     /**
      * Setter for ComponentId.
-     * @param componentId Value for Double
+     * @param componentId Value for Integer
      */
     @JsonSetter("component_id")
-    public void setComponentId(Double componentId) {
+    public void setComponentId(Integer componentId) {
         this.componentId = componentId;
     }
 
@@ -79,20 +79,20 @@ public class ComponentPricePointErrorItem {
 
     /**
      * Getter for PricePoint.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("price_point")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getPricePoint() {
+    public Integer getPricePoint() {
         return pricePoint;
     }
 
     /**
      * Setter for PricePoint.
-     * @param pricePoint Value for Double
+     * @param pricePoint Value for Integer
      */
     @JsonSetter("price_point")
-    public void setPricePoint(Double pricePoint) {
+    public void setPricePoint(Integer pricePoint) {
         this.pricePoint = pricePoint;
     }
 
@@ -123,18 +123,18 @@ public class ComponentPricePointErrorItem {
      * Class to build instances of {@link ComponentPricePointErrorItem}.
      */
     public static class Builder {
-        private Double componentId;
+        private Integer componentId;
         private String message;
-        private Double pricePoint;
+        private Integer pricePoint;
 
 
 
         /**
          * Setter for componentId.
-         * @param  componentId  Double value for componentId.
+         * @param  componentId  Integer value for componentId.
          * @return Builder
          */
-        public Builder componentId(Double componentId) {
+        public Builder componentId(Integer componentId) {
             this.componentId = componentId;
             return this;
         }
@@ -151,10 +151,10 @@ public class ComponentPricePointErrorItem {
 
         /**
          * Setter for pricePoint.
-         * @param  pricePoint  Double value for pricePoint.
+         * @param  pricePoint  Integer value for pricePoint.
          * @return Builder
          */
-        public Builder pricePoint(Double pricePoint) {
+        public Builder pricePoint(Integer pricePoint) {
             this.pricePoint = pricePoint;
             return this;
         }

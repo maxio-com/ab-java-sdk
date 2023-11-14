@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `State` | `String` | Required | - | String getState() | setState(String state) |
 | `SubscriptionId` | `int` | Required | - | int getSubscriptionId() | setSubscriptionId(int subscriptionId) |
-| `RevenueAtRiskInCents` | `int` | Required | - | int getRevenueAtRiskInCents() | setRevenueAtRiskInCents(int revenueAtRiskInCents) |
+| `RevenueAtRiskInCents` | `long` | Required | - | long getRevenueAtRiskInCents() | setRevenueAtRiskInCents(long revenueAtRiskInCents) |
 | `CreatedAt` | `String` | Required | - | String getCreatedAt() | setCreatedAt(String createdAt) |
 | `Attempts` | `int` | Required | - | int getAttempts() | setAttempts(int attempts) |
 | `LastAttemptedAt` | `String` | Required | - | String getLastAttemptedAt() | setLastAttemptedAt(String lastAttemptedAt) |

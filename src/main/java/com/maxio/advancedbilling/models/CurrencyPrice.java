@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class CurrencyPrice {
     private Integer id;
     private String currency;
-    private Integer price;
+    private Double price;
     private String formattedPrice;
     private Integer priceId;
     private Integer pricePointId;
@@ -31,7 +31,7 @@ public class CurrencyPrice {
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  currency  String value for currency.
-     * @param  price  Integer value for price.
+     * @param  price  Double value for price.
      * @param  formattedPrice  String value for formattedPrice.
      * @param  priceId  Integer value for priceId.
      * @param  pricePointId  Integer value for pricePointId.
@@ -39,7 +39,7 @@ public class CurrencyPrice {
     public CurrencyPrice(
             Integer id,
             String currency,
-            Integer price,
+            Double price,
             String formattedPrice,
             Integer priceId,
             Integer pricePointId) {
@@ -91,20 +91,20 @@ public class CurrencyPrice {
 
     /**
      * Getter for Price.
-     * @return Returns the Integer
+     * @return Returns the Double
      */
     @JsonGetter("price")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     /**
      * Setter for Price.
-     * @param price Value for Integer
+     * @param price Value for Double
      */
     @JsonSetter("price")
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -198,7 +198,7 @@ public class CurrencyPrice {
     public static class Builder {
         private Integer id;
         private String currency;
-        private Integer price;
+        private Double price;
         private String formattedPrice;
         private Integer priceId;
         private Integer pricePointId;
@@ -227,10 +227,10 @@ public class CurrencyPrice {
 
         /**
          * Setter for price.
-         * @param  price  Integer value for price.
+         * @param  price  Double value for price.
          * @return Builder
          */
-        public Builder price(Integer price) {
+        public Builder price(Double price) {
             this.price = price;
             return this;
         }

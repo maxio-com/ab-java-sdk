@@ -15,10 +15,10 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class PrepaidConfiguration {
     private Integer id;
-    private Integer initialFundingAmountInCents;
-    private Integer replenishToAmountInCents;
+    private Long initialFundingAmountInCents;
+    private Long replenishToAmountInCents;
     private Boolean autoReplenish;
-    private Integer replenishThresholdAmountInCents;
+    private Long replenishThresholdAmountInCents;
 
     /**
      * Default constructor.
@@ -29,17 +29,17 @@ public class PrepaidConfiguration {
     /**
      * Initialization constructor.
      * @param  id  Integer value for id.
-     * @param  initialFundingAmountInCents  Integer value for initialFundingAmountInCents.
-     * @param  replenishToAmountInCents  Integer value for replenishToAmountInCents.
+     * @param  initialFundingAmountInCents  Long value for initialFundingAmountInCents.
+     * @param  replenishToAmountInCents  Long value for replenishToAmountInCents.
      * @param  autoReplenish  Boolean value for autoReplenish.
-     * @param  replenishThresholdAmountInCents  Integer value for replenishThresholdAmountInCents.
+     * @param  replenishThresholdAmountInCents  Long value for replenishThresholdAmountInCents.
      */
     public PrepaidConfiguration(
             Integer id,
-            Integer initialFundingAmountInCents,
-            Integer replenishToAmountInCents,
+            Long initialFundingAmountInCents,
+            Long replenishToAmountInCents,
             Boolean autoReplenish,
-            Integer replenishThresholdAmountInCents) {
+            Long replenishThresholdAmountInCents) {
         this.id = id;
         this.initialFundingAmountInCents = initialFundingAmountInCents;
         this.replenishToAmountInCents = replenishToAmountInCents;
@@ -68,39 +68,39 @@ public class PrepaidConfiguration {
 
     /**
      * Getter for InitialFundingAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("initial_funding_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getInitialFundingAmountInCents() {
+    public Long getInitialFundingAmountInCents() {
         return initialFundingAmountInCents;
     }
 
     /**
      * Setter for InitialFundingAmountInCents.
-     * @param initialFundingAmountInCents Value for Integer
+     * @param initialFundingAmountInCents Value for Long
      */
     @JsonSetter("initial_funding_amount_in_cents")
-    public void setInitialFundingAmountInCents(Integer initialFundingAmountInCents) {
+    public void setInitialFundingAmountInCents(Long initialFundingAmountInCents) {
         this.initialFundingAmountInCents = initialFundingAmountInCents;
     }
 
     /**
      * Getter for ReplenishToAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("replenish_to_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getReplenishToAmountInCents() {
+    public Long getReplenishToAmountInCents() {
         return replenishToAmountInCents;
     }
 
     /**
      * Setter for ReplenishToAmountInCents.
-     * @param replenishToAmountInCents Value for Integer
+     * @param replenishToAmountInCents Value for Long
      */
     @JsonSetter("replenish_to_amount_in_cents")
-    public void setReplenishToAmountInCents(Integer replenishToAmountInCents) {
+    public void setReplenishToAmountInCents(Long replenishToAmountInCents) {
         this.replenishToAmountInCents = replenishToAmountInCents;
     }
 
@@ -125,20 +125,20 @@ public class PrepaidConfiguration {
 
     /**
      * Getter for ReplenishThresholdAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("replenish_threshold_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getReplenishThresholdAmountInCents() {
+    public Long getReplenishThresholdAmountInCents() {
         return replenishThresholdAmountInCents;
     }
 
     /**
      * Setter for ReplenishThresholdAmountInCents.
-     * @param replenishThresholdAmountInCents Value for Integer
+     * @param replenishThresholdAmountInCents Value for Long
      */
     @JsonSetter("replenish_threshold_amount_in_cents")
-    public void setReplenishThresholdAmountInCents(Integer replenishThresholdAmountInCents) {
+    public void setReplenishThresholdAmountInCents(Long replenishThresholdAmountInCents) {
         this.replenishThresholdAmountInCents = replenishThresholdAmountInCents;
     }
 
@@ -174,10 +174,10 @@ public class PrepaidConfiguration {
      */
     public static class Builder {
         private Integer id;
-        private Integer initialFundingAmountInCents;
-        private Integer replenishToAmountInCents;
+        private Long initialFundingAmountInCents;
+        private Long replenishToAmountInCents;
         private Boolean autoReplenish;
-        private Integer replenishThresholdAmountInCents;
+        private Long replenishThresholdAmountInCents;
 
 
 
@@ -193,20 +193,20 @@ public class PrepaidConfiguration {
 
         /**
          * Setter for initialFundingAmountInCents.
-         * @param  initialFundingAmountInCents  Integer value for initialFundingAmountInCents.
+         * @param  initialFundingAmountInCents  Long value for initialFundingAmountInCents.
          * @return Builder
          */
-        public Builder initialFundingAmountInCents(Integer initialFundingAmountInCents) {
+        public Builder initialFundingAmountInCents(Long initialFundingAmountInCents) {
             this.initialFundingAmountInCents = initialFundingAmountInCents;
             return this;
         }
 
         /**
          * Setter for replenishToAmountInCents.
-         * @param  replenishToAmountInCents  Integer value for replenishToAmountInCents.
+         * @param  replenishToAmountInCents  Long value for replenishToAmountInCents.
          * @return Builder
          */
-        public Builder replenishToAmountInCents(Integer replenishToAmountInCents) {
+        public Builder replenishToAmountInCents(Long replenishToAmountInCents) {
             this.replenishToAmountInCents = replenishToAmountInCents;
             return this;
         }
@@ -223,11 +223,10 @@ public class PrepaidConfiguration {
 
         /**
          * Setter for replenishThresholdAmountInCents.
-         * @param  replenishThresholdAmountInCents  Integer value for
-         *         replenishThresholdAmountInCents.
+         * @param  replenishThresholdAmountInCents  Long value for replenishThresholdAmountInCents.
          * @return Builder
          */
-        public Builder replenishThresholdAmountInCents(Integer replenishThresholdAmountInCents) {
+        public Builder replenishThresholdAmountInCents(Long replenishThresholdAmountInCents) {
             this.replenishThresholdAmountInCents = replenishThresholdAmountInCents;
             return this;
         }

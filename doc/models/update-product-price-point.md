@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
-| `PriceInCents` | `Integer` | Optional | - | Integer getPriceInCents() | setPriceInCents(Integer priceInCents) |
+| `PriceInCents` | `Long` | Optional | - | Long getPriceInCents() | setPriceInCents(Long priceInCents) |
 
 ## Example (as JSON)
 

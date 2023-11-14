@@ -15,7 +15,7 @@ import java.util.List;
  * This is a model class for MultiInvoicePayment type.
  */
 public class MultiInvoicePayment {
-    private Double transactionId;
+    private Integer transactionId;
     private String totalAmount;
     private String currencyCode;
     private List<InvoicePaymentApplication> applications;
@@ -28,13 +28,13 @@ public class MultiInvoicePayment {
 
     /**
      * Initialization constructor.
-     * @param  transactionId  Double value for transactionId.
+     * @param  transactionId  Integer value for transactionId.
      * @param  totalAmount  String value for totalAmount.
      * @param  currencyCode  String value for currencyCode.
      * @param  applications  List of InvoicePaymentApplication value for applications.
      */
     public MultiInvoicePayment(
-            Double transactionId,
+            Integer transactionId,
             String totalAmount,
             String currencyCode,
             List<InvoicePaymentApplication> applications) {
@@ -47,21 +47,21 @@ public class MultiInvoicePayment {
     /**
      * Getter for TransactionId.
      * The numeric ID of the transaction.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("transaction_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getTransactionId() {
+    public Integer getTransactionId() {
         return transactionId;
     }
 
     /**
      * Setter for TransactionId.
      * The numeric ID of the transaction.
-     * @param transactionId Value for Double
+     * @param transactionId Value for Integer
      */
     @JsonSetter("transaction_id")
-    public void setTransactionId(Double transactionId) {
+    public void setTransactionId(Integer transactionId) {
         this.transactionId = transactionId;
     }
 
@@ -157,7 +157,7 @@ public class MultiInvoicePayment {
      * Class to build instances of {@link MultiInvoicePayment}.
      */
     public static class Builder {
-        private Double transactionId;
+        private Integer transactionId;
         private String totalAmount;
         private String currencyCode;
         private List<InvoicePaymentApplication> applications;
@@ -166,10 +166,10 @@ public class MultiInvoicePayment {
 
         /**
          * Setter for transactionId.
-         * @param  transactionId  Double value for transactionId.
+         * @param  transactionId  Integer value for transactionId.
          * @return Builder
          */
-        public Builder transactionId(Double transactionId) {
+        public Builder transactionId(Integer transactionId) {
             this.transactionId = transactionId;
             return this;
         }

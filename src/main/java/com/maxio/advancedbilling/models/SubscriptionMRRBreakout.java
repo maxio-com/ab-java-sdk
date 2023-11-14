@@ -13,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for SubscriptionMRRBreakout type.
  */
 public class SubscriptionMRRBreakout {
-    private double planAmountInCents;
-    private double usageAmountInCents;
+    private long planAmountInCents;
+    private long usageAmountInCents;
 
     /**
      * Default constructor.
@@ -24,49 +24,49 @@ public class SubscriptionMRRBreakout {
 
     /**
      * Initialization constructor.
-     * @param  planAmountInCents  double value for planAmountInCents.
-     * @param  usageAmountInCents  double value for usageAmountInCents.
+     * @param  planAmountInCents  long value for planAmountInCents.
+     * @param  usageAmountInCents  long value for usageAmountInCents.
      */
     public SubscriptionMRRBreakout(
-            double planAmountInCents,
-            double usageAmountInCents) {
+            long planAmountInCents,
+            long usageAmountInCents) {
         this.planAmountInCents = planAmountInCents;
         this.usageAmountInCents = usageAmountInCents;
     }
 
     /**
      * Getter for PlanAmountInCents.
-     * @return Returns the double
+     * @return Returns the long
      */
     @JsonGetter("plan_amount_in_cents")
-    public double getPlanAmountInCents() {
+    public long getPlanAmountInCents() {
         return planAmountInCents;
     }
 
     /**
      * Setter for PlanAmountInCents.
-     * @param planAmountInCents Value for double
+     * @param planAmountInCents Value for long
      */
     @JsonSetter("plan_amount_in_cents")
-    public void setPlanAmountInCents(double planAmountInCents) {
+    public void setPlanAmountInCents(long planAmountInCents) {
         this.planAmountInCents = planAmountInCents;
     }
 
     /**
      * Getter for UsageAmountInCents.
-     * @return Returns the double
+     * @return Returns the long
      */
     @JsonGetter("usage_amount_in_cents")
-    public double getUsageAmountInCents() {
+    public long getUsageAmountInCents() {
         return usageAmountInCents;
     }
 
     /**
      * Setter for UsageAmountInCents.
-     * @param usageAmountInCents Value for double
+     * @param usageAmountInCents Value for long
      */
     @JsonSetter("usage_amount_in_cents")
-    public void setUsageAmountInCents(double usageAmountInCents) {
+    public void setUsageAmountInCents(long usageAmountInCents) {
         this.usageAmountInCents = usageAmountInCents;
     }
 
@@ -94,8 +94,8 @@ public class SubscriptionMRRBreakout {
      * Class to build instances of {@link SubscriptionMRRBreakout}.
      */
     public static class Builder {
-        private double planAmountInCents;
-        private double usageAmountInCents;
+        private long planAmountInCents;
+        private long usageAmountInCents;
 
         /**
          * Initialization constructor.
@@ -105,30 +105,30 @@ public class SubscriptionMRRBreakout {
 
         /**
          * Initialization constructor.
-         * @param  planAmountInCents  double value for planAmountInCents.
-         * @param  usageAmountInCents  double value for usageAmountInCents.
+         * @param  planAmountInCents  long value for planAmountInCents.
+         * @param  usageAmountInCents  long value for usageAmountInCents.
          */
-        public Builder(double planAmountInCents, double usageAmountInCents) {
+        public Builder(long planAmountInCents, long usageAmountInCents) {
             this.planAmountInCents = planAmountInCents;
             this.usageAmountInCents = usageAmountInCents;
         }
 
         /**
          * Setter for planAmountInCents.
-         * @param  planAmountInCents  double value for planAmountInCents.
+         * @param  planAmountInCents  long value for planAmountInCents.
          * @return Builder
          */
-        public Builder planAmountInCents(double planAmountInCents) {
+        public Builder planAmountInCents(long planAmountInCents) {
             this.planAmountInCents = planAmountInCents;
             return this;
         }
 
         /**
          * Setter for usageAmountInCents.
-         * @param  usageAmountInCents  double value for usageAmountInCents.
+         * @param  usageAmountInCents  long value for usageAmountInCents.
          * @return Builder
          */
-        public Builder usageAmountInCents(double usageAmountInCents) {
+        public Builder usageAmountInCents(long usageAmountInCents) {
             this.usageAmountInCents = usageAmountInCents;
             return this;
         }

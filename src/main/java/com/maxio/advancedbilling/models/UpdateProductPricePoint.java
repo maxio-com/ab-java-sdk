@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class UpdateProductPricePoint {
     private String handle;
-    private Integer priceInCents;
+    private Long priceInCents;
 
     /**
      * Default constructor.
@@ -26,11 +26,11 @@ public class UpdateProductPricePoint {
     /**
      * Initialization constructor.
      * @param  handle  String value for handle.
-     * @param  priceInCents  Integer value for priceInCents.
+     * @param  priceInCents  Long value for priceInCents.
      */
     public UpdateProductPricePoint(
             String handle,
-            Integer priceInCents) {
+            Long priceInCents) {
         this.handle = handle;
         this.priceInCents = priceInCents;
     }
@@ -56,20 +56,20 @@ public class UpdateProductPricePoint {
 
     /**
      * Getter for PriceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPriceInCents() {
+    public Long getPriceInCents() {
         return priceInCents;
     }
 
     /**
      * Setter for PriceInCents.
-     * @param priceInCents Value for Integer
+     * @param priceInCents Value for Long
      */
     @JsonSetter("price_in_cents")
-    public void setPriceInCents(Integer priceInCents) {
+    public void setPriceInCents(Long priceInCents) {
         this.priceInCents = priceInCents;
     }
 
@@ -100,7 +100,7 @@ public class UpdateProductPricePoint {
      */
     public static class Builder {
         private String handle;
-        private Integer priceInCents;
+        private Long priceInCents;
 
 
 
@@ -116,10 +116,10 @@ public class UpdateProductPricePoint {
 
         /**
          * Setter for priceInCents.
-         * @param  priceInCents  Integer value for priceInCents.
+         * @param  priceInCents  Long value for priceInCents.
          * @return Builder
          */
-        public Builder priceInCents(Integer priceInCents) {
+        public Builder priceInCents(Long priceInCents) {
             this.priceInCents = priceInCents;
             return this;
         }

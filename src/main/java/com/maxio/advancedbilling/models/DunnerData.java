@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class DunnerData {
     private String state;
     private int subscriptionId;
-    private int revenueAtRiskInCents;
+    private long revenueAtRiskInCents;
     private String createdAt;
     private int attempts;
     private String lastAttemptedAt;
@@ -30,7 +30,7 @@ public class DunnerData {
      * Initialization constructor.
      * @param  state  String value for state.
      * @param  subscriptionId  int value for subscriptionId.
-     * @param  revenueAtRiskInCents  int value for revenueAtRiskInCents.
+     * @param  revenueAtRiskInCents  long value for revenueAtRiskInCents.
      * @param  createdAt  String value for createdAt.
      * @param  attempts  int value for attempts.
      * @param  lastAttemptedAt  String value for lastAttemptedAt.
@@ -38,7 +38,7 @@ public class DunnerData {
     public DunnerData(
             String state,
             int subscriptionId,
-            int revenueAtRiskInCents,
+            long revenueAtRiskInCents,
             String createdAt,
             int attempts,
             String lastAttemptedAt) {
@@ -88,19 +88,19 @@ public class DunnerData {
 
     /**
      * Getter for RevenueAtRiskInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("revenue_at_risk_in_cents")
-    public int getRevenueAtRiskInCents() {
+    public long getRevenueAtRiskInCents() {
         return revenueAtRiskInCents;
     }
 
     /**
      * Setter for RevenueAtRiskInCents.
-     * @param revenueAtRiskInCents Value for int
+     * @param revenueAtRiskInCents Value for long
      */
     @JsonSetter("revenue_at_risk_in_cents")
-    public void setRevenueAtRiskInCents(int revenueAtRiskInCents) {
+    public void setRevenueAtRiskInCents(long revenueAtRiskInCents) {
         this.revenueAtRiskInCents = revenueAtRiskInCents;
     }
 
@@ -186,7 +186,7 @@ public class DunnerData {
     public static class Builder {
         private String state;
         private int subscriptionId;
-        private int revenueAtRiskInCents;
+        private long revenueAtRiskInCents;
         private String createdAt;
         private int attempts;
         private String lastAttemptedAt;
@@ -201,13 +201,13 @@ public class DunnerData {
          * Initialization constructor.
          * @param  state  String value for state.
          * @param  subscriptionId  int value for subscriptionId.
-         * @param  revenueAtRiskInCents  int value for revenueAtRiskInCents.
+         * @param  revenueAtRiskInCents  long value for revenueAtRiskInCents.
          * @param  createdAt  String value for createdAt.
          * @param  attempts  int value for attempts.
          * @param  lastAttemptedAt  String value for lastAttemptedAt.
          */
-        public Builder(String state, int subscriptionId, int revenueAtRiskInCents, String createdAt,
-                int attempts, String lastAttemptedAt) {
+        public Builder(String state, int subscriptionId, long revenueAtRiskInCents,
+                String createdAt, int attempts, String lastAttemptedAt) {
             this.state = state;
             this.subscriptionId = subscriptionId;
             this.revenueAtRiskInCents = revenueAtRiskInCents;
@@ -238,10 +238,10 @@ public class DunnerData {
 
         /**
          * Setter for revenueAtRiskInCents.
-         * @param  revenueAtRiskInCents  int value for revenueAtRiskInCents.
+         * @param  revenueAtRiskInCents  long value for revenueAtRiskInCents.
          * @return Builder
          */
-        public Builder revenueAtRiskInCents(int revenueAtRiskInCents) {
+        public Builder revenueAtRiskInCents(long revenueAtRiskInCents) {
             this.revenueAtRiskInCents = revenueAtRiskInCents;
             return this;
         }

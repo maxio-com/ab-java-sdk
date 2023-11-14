@@ -16,14 +16,14 @@ import java.util.List;
  */
 public class BillingManifest {
     private List<BillingManifestItem> lineItems;
-    private Integer totalInCents;
-    private Integer totalDiscountInCents;
-    private Integer totalTaxInCents;
-    private Integer subtotalInCents;
+    private Long totalInCents;
+    private Long totalDiscountInCents;
+    private Long totalTaxInCents;
+    private Long subtotalInCents;
     private String startDate;
     private String endDate;
     private String periodType;
-    private Integer existingBalanceInCents;
+    private Long existingBalanceInCents;
 
     /**
      * Default constructor.
@@ -34,25 +34,25 @@ public class BillingManifest {
     /**
      * Initialization constructor.
      * @param  lineItems  List of BillingManifestItem value for lineItems.
-     * @param  totalInCents  Integer value for totalInCents.
-     * @param  totalDiscountInCents  Integer value for totalDiscountInCents.
-     * @param  totalTaxInCents  Integer value for totalTaxInCents.
-     * @param  subtotalInCents  Integer value for subtotalInCents.
+     * @param  totalInCents  Long value for totalInCents.
+     * @param  totalDiscountInCents  Long value for totalDiscountInCents.
+     * @param  totalTaxInCents  Long value for totalTaxInCents.
+     * @param  subtotalInCents  Long value for subtotalInCents.
      * @param  startDate  String value for startDate.
      * @param  endDate  String value for endDate.
      * @param  periodType  String value for periodType.
-     * @param  existingBalanceInCents  Integer value for existingBalanceInCents.
+     * @param  existingBalanceInCents  Long value for existingBalanceInCents.
      */
     public BillingManifest(
             List<BillingManifestItem> lineItems,
-            Integer totalInCents,
-            Integer totalDiscountInCents,
-            Integer totalTaxInCents,
-            Integer subtotalInCents,
+            Long totalInCents,
+            Long totalDiscountInCents,
+            Long totalTaxInCents,
+            Long subtotalInCents,
             String startDate,
             String endDate,
             String periodType,
-            Integer existingBalanceInCents) {
+            Long existingBalanceInCents) {
         this.lineItems = lineItems;
         this.totalInCents = totalInCents;
         this.totalDiscountInCents = totalDiscountInCents;
@@ -85,77 +85,77 @@ public class BillingManifest {
 
     /**
      * Getter for TotalInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalInCents() {
+    public Long getTotalInCents() {
         return totalInCents;
     }
 
     /**
      * Setter for TotalInCents.
-     * @param totalInCents Value for Integer
+     * @param totalInCents Value for Long
      */
     @JsonSetter("total_in_cents")
-    public void setTotalInCents(Integer totalInCents) {
+    public void setTotalInCents(Long totalInCents) {
         this.totalInCents = totalInCents;
     }
 
     /**
      * Getter for TotalDiscountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_discount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalDiscountInCents() {
+    public Long getTotalDiscountInCents() {
         return totalDiscountInCents;
     }
 
     /**
      * Setter for TotalDiscountInCents.
-     * @param totalDiscountInCents Value for Integer
+     * @param totalDiscountInCents Value for Long
      */
     @JsonSetter("total_discount_in_cents")
-    public void setTotalDiscountInCents(Integer totalDiscountInCents) {
+    public void setTotalDiscountInCents(Long totalDiscountInCents) {
         this.totalDiscountInCents = totalDiscountInCents;
     }
 
     /**
      * Getter for TotalTaxInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_tax_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalTaxInCents() {
+    public Long getTotalTaxInCents() {
         return totalTaxInCents;
     }
 
     /**
      * Setter for TotalTaxInCents.
-     * @param totalTaxInCents Value for Integer
+     * @param totalTaxInCents Value for Long
      */
     @JsonSetter("total_tax_in_cents")
-    public void setTotalTaxInCents(Integer totalTaxInCents) {
+    public void setTotalTaxInCents(Long totalTaxInCents) {
         this.totalTaxInCents = totalTaxInCents;
     }
 
     /**
      * Getter for SubtotalInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("subtotal_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getSubtotalInCents() {
+    public Long getSubtotalInCents() {
         return subtotalInCents;
     }
 
     /**
      * Setter for SubtotalInCents.
-     * @param subtotalInCents Value for Integer
+     * @param subtotalInCents Value for Long
      */
     @JsonSetter("subtotal_in_cents")
-    public void setSubtotalInCents(Integer subtotalInCents) {
+    public void setSubtotalInCents(Long subtotalInCents) {
         this.subtotalInCents = subtotalInCents;
     }
 
@@ -218,20 +218,20 @@ public class BillingManifest {
 
     /**
      * Getter for ExistingBalanceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("existing_balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getExistingBalanceInCents() {
+    public Long getExistingBalanceInCents() {
         return existingBalanceInCents;
     }
 
     /**
      * Setter for ExistingBalanceInCents.
-     * @param existingBalanceInCents Value for Integer
+     * @param existingBalanceInCents Value for Long
      */
     @JsonSetter("existing_balance_in_cents")
-    public void setExistingBalanceInCents(Integer existingBalanceInCents) {
+    public void setExistingBalanceInCents(Long existingBalanceInCents) {
         this.existingBalanceInCents = existingBalanceInCents;
     }
 
@@ -272,14 +272,14 @@ public class BillingManifest {
      */
     public static class Builder {
         private List<BillingManifestItem> lineItems;
-        private Integer totalInCents;
-        private Integer totalDiscountInCents;
-        private Integer totalTaxInCents;
-        private Integer subtotalInCents;
+        private Long totalInCents;
+        private Long totalDiscountInCents;
+        private Long totalTaxInCents;
+        private Long subtotalInCents;
         private String startDate;
         private String endDate;
         private String periodType;
-        private Integer existingBalanceInCents;
+        private Long existingBalanceInCents;
 
 
 
@@ -295,40 +295,40 @@ public class BillingManifest {
 
         /**
          * Setter for totalInCents.
-         * @param  totalInCents  Integer value for totalInCents.
+         * @param  totalInCents  Long value for totalInCents.
          * @return Builder
          */
-        public Builder totalInCents(Integer totalInCents) {
+        public Builder totalInCents(Long totalInCents) {
             this.totalInCents = totalInCents;
             return this;
         }
 
         /**
          * Setter for totalDiscountInCents.
-         * @param  totalDiscountInCents  Integer value for totalDiscountInCents.
+         * @param  totalDiscountInCents  Long value for totalDiscountInCents.
          * @return Builder
          */
-        public Builder totalDiscountInCents(Integer totalDiscountInCents) {
+        public Builder totalDiscountInCents(Long totalDiscountInCents) {
             this.totalDiscountInCents = totalDiscountInCents;
             return this;
         }
 
         /**
          * Setter for totalTaxInCents.
-         * @param  totalTaxInCents  Integer value for totalTaxInCents.
+         * @param  totalTaxInCents  Long value for totalTaxInCents.
          * @return Builder
          */
-        public Builder totalTaxInCents(Integer totalTaxInCents) {
+        public Builder totalTaxInCents(Long totalTaxInCents) {
             this.totalTaxInCents = totalTaxInCents;
             return this;
         }
 
         /**
          * Setter for subtotalInCents.
-         * @param  subtotalInCents  Integer value for subtotalInCents.
+         * @param  subtotalInCents  Long value for subtotalInCents.
          * @return Builder
          */
-        public Builder subtotalInCents(Integer subtotalInCents) {
+        public Builder subtotalInCents(Long subtotalInCents) {
             this.subtotalInCents = subtotalInCents;
             return this;
         }
@@ -365,10 +365,10 @@ public class BillingManifest {
 
         /**
          * Setter for existingBalanceInCents.
-         * @param  existingBalanceInCents  Integer value for existingBalanceInCents.
+         * @param  existingBalanceInCents  Long value for existingBalanceInCents.
          * @return Builder
          */
-        public Builder existingBalanceInCents(Integer existingBalanceInCents) {
+        public Builder existingBalanceInCents(Long existingBalanceInCents) {
             this.existingBalanceInCents = existingBalanceInCents;
             return this;
         }

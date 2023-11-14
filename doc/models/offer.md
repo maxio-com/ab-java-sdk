@@ -26,7 +26,7 @@
 | `ProductFamilyName` | `String` | Optional | - | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
 | `ProductName` | `String` | Optional | - | String getProductName() | setProductName(String productName) |
 | `ProductPricePointName` | `String` | Optional | - | String getProductPricePointName() | setProductPricePointName(String productPricePointName) |
-| `ProductPriceInCents` | `Integer` | Optional | - | Integer getProductPriceInCents() | setProductPriceInCents(Integer productPriceInCents) |
+| `ProductPriceInCents` | `Long` | Optional | - | Long getProductPriceInCents() | setProductPriceInCents(Long productPriceInCents) |
 | `OfferSignupPages` | [`List<OfferSignupPage>`](../../doc/models/offer-signup-page.md) | Optional | - | List<OfferSignupPage> getOfferSignupPages() | setOfferSignupPages(List<OfferSignupPage> offerSignupPages) |
 
 ## Example (as JSON)

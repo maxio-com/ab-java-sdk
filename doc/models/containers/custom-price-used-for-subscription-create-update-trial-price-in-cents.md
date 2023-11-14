@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `String` | CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents.fromMString(String mString) |
-| `int` | CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents.fromNumber(int number) |
+| `long` | CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents.fromMLong(long mLong) |
 

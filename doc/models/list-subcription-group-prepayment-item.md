@@ -9,10 +9,10 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Double` | Optional | - | Double getId() | setId(Double id) |
+| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `SubscriptionGroupUid` | `String` | Optional | - | String getSubscriptionGroupUid() | setSubscriptionGroupUid(String subscriptionGroupUid) |
-| `AmountInCents` | `Double` | Optional | - | Double getAmountInCents() | setAmountInCents(Double amountInCents) |
-| `RemainingAmountInCents` | `Double` | Optional | - | Double getRemainingAmountInCents() | setRemainingAmountInCents(Double remainingAmountInCents) |
+| `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
+| `RemainingAmountInCents` | `Long` | Optional | - | Long getRemainingAmountInCents() | setRemainingAmountInCents(Long remainingAmountInCents) |
 | `Details` | `String` | Optional | - | String getDetails() | setDetails(String details) |
 | `External` | `Boolean` | Optional | - | Boolean getExternal() | setExternal(Boolean external) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
@@ -23,10 +23,10 @@
 
 ```json
 {
-  "id": 138.22,
+  "id": 254,
   "subscription_group_uid": "subscription_group_uid6",
-  "amount_in_cents": 137.4,
-  "remaining_amount_in_cents": 170.38,
+  "amount_in_cents": 172,
+  "remaining_amount_in_cents": 142,
   "details": "details2"
 }
 ```

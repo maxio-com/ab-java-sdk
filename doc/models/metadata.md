@@ -14,7 +14,7 @@
 | `ResourceId` | `Integer` | Optional | - | Integer getResourceId() | setResourceId(Integer resourceId) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `DeletedAt` | `String` | Optional | - | String getDeletedAt() | setDeletedAt(String deletedAt) |
-| `MetafieldId` | `Double` | Optional | - | Double getMetafieldId() | setMetafieldId(Double metafieldId) |
+| `MetafieldId` | `Integer` | Optional | - | Integer getMetafieldId() | setMetafieldId(Integer metafieldId) |
 
 ## Example (as JSON)
 

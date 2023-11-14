@@ -13,6 +13,7 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorMapResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CreateOfferRequest;
+import com.maxio.advancedbilling.models.ListOffersInput;
 import com.maxio.advancedbilling.models.ListOffersResponse;
 import com.maxio.advancedbilling.models.OfferResponse;
 import io.apimatic.core.ApiCall;
@@ -85,23 +86,32 @@ public final class OffersController extends BaseController {
 
     /**
      * This endpoint will list offers for a site.
+     * @param  input  ListOffersInput object containing request parameters
      * @return    Returns the ListOffersResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ListOffersResponse listOffers() throws ApiException, IOException {
-        return prepareListOffersRequest().execute();
+    public ListOffersResponse listOffers(
+            final ListOffersInput input) throws ApiException, IOException {
+        return prepareListOffersRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listOffers.
      */
-    private ApiCall<ListOffersResponse, ApiException> prepareListOffersRequest() throws IOException {
+    private ApiCall<ListOffersResponse, ApiException> prepareListOffersRequest(
+            final ListOffersInput input) throws IOException {
         return new ApiCall.Builder<ListOffersResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/offers.json")
+                        .queryParam(param -> param.key("page")
+                                .value(input.getPage()).isRequired(false))
+                        .queryParam(param -> param.key("per_page")
+                                .value(input.getPerPage()).isRequired(false))
+                        .queryParam(param -> param.key("include_archived")
+                                .value(input.getIncludeArchived()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))

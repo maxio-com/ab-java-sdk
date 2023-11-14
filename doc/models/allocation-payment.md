@@ -11,8 +11,8 @@ Information for captured payment, if applicable
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Double` | Optional | - | Double getId() | setId(Double id) |
-| `AmountInCents` | `Integer` | Optional | - | Integer getAmountInCents() | setAmountInCents(Integer amountInCents) |
+| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
+| `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `Success` | `Boolean` | Optional | - | Boolean getSuccess() | setSuccess(Boolean success) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 
@@ -20,7 +20,7 @@ Information for captured payment, if applicable
 
 ```json
 {
-  "id": 108.98,
+  "id": 146,
   "amount_in_cents": 232,
   "success": false,
   "memo": "memo2"

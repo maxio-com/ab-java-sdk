@@ -16,14 +16,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class CreateProductPricePoint {
     private String name;
     private String handle;
-    private int priceInCents;
+    private long priceInCents;
     private int interval;
     private String intervalUnit;
-    private Integer trialPriceInCents;
+    private Long trialPriceInCents;
     private Integer trialInterval;
     private String trialIntervalUnit;
     private String trialType;
-    private Integer initialChargeInCents;
+    private Long initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private Integer expirationInterval;
     private String expirationIntervalUnit;
@@ -39,15 +39,15 @@ public class CreateProductPricePoint {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  priceInCents  int value for priceInCents.
+     * @param  priceInCents  long value for priceInCents.
      * @param  interval  int value for interval.
      * @param  intervalUnit  String value for intervalUnit.
      * @param  handle  String value for handle.
-     * @param  trialPriceInCents  Integer value for trialPriceInCents.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  String value for trialIntervalUnit.
      * @param  trialType  String value for trialType.
-     * @param  initialChargeInCents  Integer value for initialChargeInCents.
+     * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
@@ -55,15 +55,15 @@ public class CreateProductPricePoint {
      */
     public CreateProductPricePoint(
             String name,
-            int priceInCents,
+            long priceInCents,
             int interval,
             String intervalUnit,
             String handle,
-            Integer trialPriceInCents,
+            Long trialPriceInCents,
             Integer trialInterval,
             String trialIntervalUnit,
             String trialType,
-            Integer initialChargeInCents,
+            Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
             Integer expirationInterval,
             String expirationIntervalUnit,
@@ -123,19 +123,19 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for PriceInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("price_in_cents")
-    public int getPriceInCents() {
+    public long getPriceInCents() {
         return priceInCents;
     }
 
     /**
      * Setter for PriceInCents.
-     * @param priceInCents Value for int
+     * @param priceInCents Value for long
      */
     @JsonSetter("price_in_cents")
-    public void setPriceInCents(int priceInCents) {
+    public void setPriceInCents(long priceInCents) {
         this.priceInCents = priceInCents;
     }
 
@@ -177,20 +177,20 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for TrialPriceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("trial_price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTrialPriceInCents() {
+    public Long getTrialPriceInCents() {
         return trialPriceInCents;
     }
 
     /**
      * Setter for TrialPriceInCents.
-     * @param trialPriceInCents Value for Integer
+     * @param trialPriceInCents Value for Long
      */
     @JsonSetter("trial_price_in_cents")
-    public void setTrialPriceInCents(Integer trialPriceInCents) {
+    public void setTrialPriceInCents(Long trialPriceInCents) {
         this.trialPriceInCents = trialPriceInCents;
     }
 
@@ -253,20 +253,20 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for InitialChargeInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("initial_charge_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getInitialChargeInCents() {
+    public Long getInitialChargeInCents() {
         return initialChargeInCents;
     }
 
     /**
      * Setter for InitialChargeInCents.
-     * @param initialChargeInCents Value for Integer
+     * @param initialChargeInCents Value for Long
      */
     @JsonSetter("initial_charge_in_cents")
-    public void setInitialChargeInCents(Integer initialChargeInCents) {
+    public void setInitialChargeInCents(Long initialChargeInCents) {
         this.initialChargeInCents = initialChargeInCents;
     }
 
@@ -391,15 +391,15 @@ public class CreateProductPricePoint {
      */
     public static class Builder {
         private String name;
-        private int priceInCents;
+        private long priceInCents;
         private int interval;
         private String intervalUnit;
         private String handle;
-        private Integer trialPriceInCents;
+        private Long trialPriceInCents;
         private Integer trialInterval;
         private String trialIntervalUnit;
         private String trialType;
-        private Integer initialChargeInCents;
+        private Long initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private Integer expirationInterval;
         private String expirationIntervalUnit;
@@ -414,11 +414,11 @@ public class CreateProductPricePoint {
         /**
          * Initialization constructor.
          * @param  name  String value for name.
-         * @param  priceInCents  int value for priceInCents.
+         * @param  priceInCents  long value for priceInCents.
          * @param  interval  int value for interval.
          * @param  intervalUnit  String value for intervalUnit.
          */
-        public Builder(String name, int priceInCents, int interval, String intervalUnit) {
+        public Builder(String name, long priceInCents, int interval, String intervalUnit) {
             this.name = name;
             this.priceInCents = priceInCents;
             this.interval = interval;
@@ -437,10 +437,10 @@ public class CreateProductPricePoint {
 
         /**
          * Setter for priceInCents.
-         * @param  priceInCents  int value for priceInCents.
+         * @param  priceInCents  long value for priceInCents.
          * @return Builder
          */
-        public Builder priceInCents(int priceInCents) {
+        public Builder priceInCents(long priceInCents) {
             this.priceInCents = priceInCents;
             return this;
         }
@@ -477,10 +477,10 @@ public class CreateProductPricePoint {
 
         /**
          * Setter for trialPriceInCents.
-         * @param  trialPriceInCents  Integer value for trialPriceInCents.
+         * @param  trialPriceInCents  Long value for trialPriceInCents.
          * @return Builder
          */
-        public Builder trialPriceInCents(Integer trialPriceInCents) {
+        public Builder trialPriceInCents(Long trialPriceInCents) {
             this.trialPriceInCents = trialPriceInCents;
             return this;
         }
@@ -517,10 +517,10 @@ public class CreateProductPricePoint {
 
         /**
          * Setter for initialChargeInCents.
-         * @param  initialChargeInCents  Integer value for initialChargeInCents.
+         * @param  initialChargeInCents  Long value for initialChargeInCents.
          * @return Builder
          */
-        public Builder initialChargeInCents(Integer initialChargeInCents) {
+        public Builder initialChargeInCents(Long initialChargeInCents) {
             this.initialChargeInCents = initialChargeInCents;
             return this;
         }

@@ -51,16 +51,16 @@ int productId = 202;
 CreateProductPricePointRequest body = new CreateProductPricePointRequest.Builder(
     new CreateProductPricePoint.Builder(
         "Educational",
-        1000,
+        1000L,
         1,
         "month"
     )
     .handle("educational")
-    .trialPriceInCents(4900)
+    .trialPriceInCents(4900L)
     .trialInterval(1)
     .trialIntervalUnit("month")
     .trialType("payment_expected")
-    .initialChargeInCents(120000)
+    .initialChargeInCents(120000L)
     .initialChargeAfterTrial(false)
     .expirationInterval(12)
     .expirationIntervalUnit("month")
@@ -212,7 +212,7 @@ int pricePointId = 10;
 UpdateProductPricePointRequest body = new UpdateProductPricePointRequest.Builder(
     new UpdateProductPricePoint.Builder()
         .handle("educational")
-        .priceInCents(1250)
+        .priceInCents(1250L)
         .build()
 )
 .build();
@@ -548,32 +548,32 @@ BulkCreateProductPricePointsRequest body = new BulkCreateProductPricePointsReque
     Arrays.asList(
         new CreateProductPricePoint.Builder(
             "Educational",
-            1000,
+            1000L,
             1,
             "month"
         )
         .handle("educational")
-        .trialPriceInCents(4900)
+        .trialPriceInCents(4900L)
         .trialInterval(1)
         .trialIntervalUnit("month")
         .trialType("payment_expected")
-        .initialChargeInCents(120000)
+        .initialChargeInCents(120000L)
         .initialChargeAfterTrial(false)
         .expirationInterval(12)
         .expirationIntervalUnit("month")
         .build(),
         new CreateProductPricePoint.Builder(
             "More Educational",
-            2000,
+            2000L,
             1,
             "month"
         )
         .handle("more-educational")
-        .trialPriceInCents(4900)
+        .trialPriceInCents(4900L)
         .trialInterval(1)
         .trialIntervalUnit("month")
         .trialType("payment_expected")
-        .initialChargeInCents(120000)
+        .initialChargeInCents(120000L)
         .initialChargeAfterTrial(false)
         .expirationInterval(12)
         .expirationIntervalUnit("month")

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for AccountBalance type.
  */
 public class AccountBalance {
-    private Integer balanceInCents;
+    private Long balanceInCents;
 
     /**
      * Default constructor.
@@ -24,31 +24,31 @@ public class AccountBalance {
 
     /**
      * Initialization constructor.
-     * @param  balanceInCents  Integer value for balanceInCents.
+     * @param  balanceInCents  Long value for balanceInCents.
      */
     public AccountBalance(
-            Integer balanceInCents) {
+            Long balanceInCents) {
         this.balanceInCents = balanceInCents;
     }
 
     /**
      * Getter for BalanceInCents.
      * The balance in cents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getBalanceInCents() {
+    public Long getBalanceInCents() {
         return balanceInCents;
     }
 
     /**
      * Setter for BalanceInCents.
      * The balance in cents.
-     * @param balanceInCents Value for Integer
+     * @param balanceInCents Value for Long
      */
     @JsonSetter("balance_in_cents")
-    public void setBalanceInCents(Integer balanceInCents) {
+    public void setBalanceInCents(Long balanceInCents) {
         this.balanceInCents = balanceInCents;
     }
 
@@ -76,16 +76,16 @@ public class AccountBalance {
      * Class to build instances of {@link AccountBalance}.
      */
     public static class Builder {
-        private Integer balanceInCents;
+        private Long balanceInCents;
 
 
 
         /**
          * Setter for balanceInCents.
-         * @param  balanceInCents  Integer value for balanceInCents.
+         * @param  balanceInCents  Long value for balanceInCents.
          * @return Builder
          */
-        public Builder balanceInCents(Integer balanceInCents) {
+        public Builder balanceInCents(Long balanceInCents) {
             this.balanceInCents = balanceInCents;
             return this;
         }
