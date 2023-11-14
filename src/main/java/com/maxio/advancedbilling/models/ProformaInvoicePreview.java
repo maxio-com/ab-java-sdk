@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class ProformaInvoicePreview {
     private String uid;
-    private Double siteId;
-    private Double customerId;
-    private Double subscriptionId;
+    private Integer siteId;
+    private Integer customerId;
+    private Integer subscriptionId;
     private String number;
     private Integer sequenceNumber;
     private String createdAt;
@@ -61,9 +61,9 @@ public class ProformaInvoicePreview {
     /**
      * Initialization constructor.
      * @param  uid  String value for uid.
-     * @param  siteId  Double value for siteId.
-     * @param  customerId  Double value for customerId.
-     * @param  subscriptionId  Double value for subscriptionId.
+     * @param  siteId  Integer value for siteId.
+     * @param  customerId  Integer value for customerId.
+     * @param  subscriptionId  Integer value for subscriptionId.
      * @param  number  String value for number.
      * @param  sequenceNumber  Integer value for sequenceNumber.
      * @param  createdAt  String value for createdAt.
@@ -99,9 +99,9 @@ public class ProformaInvoicePreview {
      */
     public ProformaInvoicePreview(
             String uid,
-            Double siteId,
-            Double customerId,
-            Double subscriptionId,
+            Integer siteId,
+            Integer customerId,
+            Integer subscriptionId,
             String number,
             Integer sequenceNumber,
             String createdAt,
@@ -193,58 +193,58 @@ public class ProformaInvoicePreview {
 
     /**
      * Getter for SiteId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("site_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getSiteId() {
+    public Integer getSiteId() {
         return siteId;
     }
 
     /**
      * Setter for SiteId.
-     * @param siteId Value for Double
+     * @param siteId Value for Integer
      */
     @JsonSetter("site_id")
-    public void setSiteId(Double siteId) {
+    public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
 
     /**
      * Getter for CustomerId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("customer_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
     /**
      * Setter for CustomerId.
-     * @param customerId Value for Double
+     * @param customerId Value for Integer
      */
     @JsonSetter("customer_id")
-    public void setCustomerId(Double customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
     /**
      * Getter for SubscriptionId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("subscription_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getSubscriptionId() {
+    public Integer getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
-     * @param subscriptionId Value for Double
+     * @param subscriptionId Value for Integer
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(Double subscriptionId) {
+    public void setSubscriptionId(Integer subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
@@ -934,9 +934,9 @@ public class ProformaInvoicePreview {
      */
     public static class Builder {
         private String uid;
-        private Double siteId;
-        private Double customerId;
-        private Double subscriptionId;
+        private Integer siteId;
+        private Integer customerId;
+        private Integer subscriptionId;
         private String number;
         private Integer sequenceNumber;
         private String createdAt;
@@ -984,30 +984,30 @@ public class ProformaInvoicePreview {
 
         /**
          * Setter for siteId.
-         * @param  siteId  Double value for siteId.
+         * @param  siteId  Integer value for siteId.
          * @return Builder
          */
-        public Builder siteId(Double siteId) {
+        public Builder siteId(Integer siteId) {
             this.siteId = siteId;
             return this;
         }
 
         /**
          * Setter for customerId.
-         * @param  customerId  Double value for customerId.
+         * @param  customerId  Integer value for customerId.
          * @return Builder
          */
-        public Builder customerId(Double customerId) {
+        public Builder customerId(Integer customerId) {
             this.customerId = customerId;
             return this;
         }
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  Double value for subscriptionId.
+         * @param  subscriptionId  Integer value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(Double subscriptionId) {
+        public Builder subscriptionId(Integer subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }

@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class PrepaymentAccountBalanceChanged {
     private String reason;
-    private int prepaymentAccountBalanceInCents;
-    private int prepaymentBalanceChangeInCents;
+    private long prepaymentAccountBalanceInCents;
+    private long prepaymentBalanceChangeInCents;
     private String currencyCode;
 
     /**
@@ -29,15 +29,15 @@ public class PrepaymentAccountBalanceChanged {
     /**
      * Initialization constructor.
      * @param  reason  String value for reason.
-     * @param  prepaymentAccountBalanceInCents  int value for prepaymentAccountBalanceInCents.
-     * @param  prepaymentBalanceChangeInCents  int value for prepaymentBalanceChangeInCents.
+     * @param  prepaymentAccountBalanceInCents  long value for prepaymentAccountBalanceInCents.
+     * @param  prepaymentBalanceChangeInCents  long value for prepaymentBalanceChangeInCents.
      * @param  currencyCode  String value for currencyCode.
      */
     @JsonCreator
     public PrepaymentAccountBalanceChanged(
             @JsonProperty("reason") String reason,
-            @JsonProperty("prepayment_account_balance_in_cents") int prepaymentAccountBalanceInCents,
-            @JsonProperty("prepayment_balance_change_in_cents") int prepaymentBalanceChangeInCents,
+            @JsonProperty("prepayment_account_balance_in_cents") long prepaymentAccountBalanceInCents,
+            @JsonProperty("prepayment_balance_change_in_cents") long prepaymentBalanceChangeInCents,
             @JsonProperty("currency_code") String currencyCode) {
         this.reason = reason;
         this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
@@ -65,37 +65,37 @@ public class PrepaymentAccountBalanceChanged {
 
     /**
      * Getter for PrepaymentAccountBalanceInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("prepayment_account_balance_in_cents")
-    public int getPrepaymentAccountBalanceInCents() {
+    public long getPrepaymentAccountBalanceInCents() {
         return prepaymentAccountBalanceInCents;
     }
 
     /**
      * Setter for PrepaymentAccountBalanceInCents.
-     * @param prepaymentAccountBalanceInCents Value for int
+     * @param prepaymentAccountBalanceInCents Value for long
      */
     @JsonSetter("prepayment_account_balance_in_cents")
-    public void setPrepaymentAccountBalanceInCents(int prepaymentAccountBalanceInCents) {
+    public void setPrepaymentAccountBalanceInCents(long prepaymentAccountBalanceInCents) {
         this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
     }
 
     /**
      * Getter for PrepaymentBalanceChangeInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("prepayment_balance_change_in_cents")
-    public int getPrepaymentBalanceChangeInCents() {
+    public long getPrepaymentBalanceChangeInCents() {
         return prepaymentBalanceChangeInCents;
     }
 
     /**
      * Setter for PrepaymentBalanceChangeInCents.
-     * @param prepaymentBalanceChangeInCents Value for int
+     * @param prepaymentBalanceChangeInCents Value for long
      */
     @JsonSetter("prepayment_balance_change_in_cents")
-    public void setPrepaymentBalanceChangeInCents(int prepaymentBalanceChangeInCents) {
+    public void setPrepaymentBalanceChangeInCents(long prepaymentBalanceChangeInCents) {
         this.prepaymentBalanceChangeInCents = prepaymentBalanceChangeInCents;
     }
 
@@ -145,8 +145,8 @@ public class PrepaymentAccountBalanceChanged {
      */
     public static class Builder {
         private String reason;
-        private int prepaymentAccountBalanceInCents;
-        private int prepaymentBalanceChangeInCents;
+        private long prepaymentAccountBalanceInCents;
+        private long prepaymentBalanceChangeInCents;
         private String currencyCode;
 
         /**
@@ -158,12 +158,12 @@ public class PrepaymentAccountBalanceChanged {
         /**
          * Initialization constructor.
          * @param  reason  String value for reason.
-         * @param  prepaymentAccountBalanceInCents  int value for prepaymentAccountBalanceInCents.
-         * @param  prepaymentBalanceChangeInCents  int value for prepaymentBalanceChangeInCents.
+         * @param  prepaymentAccountBalanceInCents  long value for prepaymentAccountBalanceInCents.
+         * @param  prepaymentBalanceChangeInCents  long value for prepaymentBalanceChangeInCents.
          * @param  currencyCode  String value for currencyCode.
          */
-        public Builder(String reason, int prepaymentAccountBalanceInCents,
-                int prepaymentBalanceChangeInCents, String currencyCode) {
+        public Builder(String reason, long prepaymentAccountBalanceInCents,
+                long prepaymentBalanceChangeInCents, String currencyCode) {
             this.reason = reason;
             this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
             this.prepaymentBalanceChangeInCents = prepaymentBalanceChangeInCents;
@@ -182,20 +182,20 @@ public class PrepaymentAccountBalanceChanged {
 
         /**
          * Setter for prepaymentAccountBalanceInCents.
-         * @param  prepaymentAccountBalanceInCents  int value for prepaymentAccountBalanceInCents.
+         * @param  prepaymentAccountBalanceInCents  long value for prepaymentAccountBalanceInCents.
          * @return Builder
          */
-        public Builder prepaymentAccountBalanceInCents(int prepaymentAccountBalanceInCents) {
+        public Builder prepaymentAccountBalanceInCents(long prepaymentAccountBalanceInCents) {
             this.prepaymentAccountBalanceInCents = prepaymentAccountBalanceInCents;
             return this;
         }
 
         /**
          * Setter for prepaymentBalanceChangeInCents.
-         * @param  prepaymentBalanceChangeInCents  int value for prepaymentBalanceChangeInCents.
+         * @param  prepaymentBalanceChangeInCents  long value for prepaymentBalanceChangeInCents.
          * @return Builder
          */
-        public Builder prepaymentBalanceChangeInCents(int prepaymentBalanceChangeInCents) {
+        public Builder prepaymentBalanceChangeInCents(long prepaymentBalanceChangeInCents) {
             this.prepaymentBalanceChangeInCents = prepaymentBalanceChangeInCents;
             return this;
         }

@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `String` | CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents.fromMString(String mString) |
-| `int` | CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents.fromNumber(int number) |
+| `long` | CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents.fromMLong(long mLong) |
 

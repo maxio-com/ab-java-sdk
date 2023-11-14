@@ -9,15 +9,15 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `PlanAmountInCents` | `double` | Required | - | double getPlanAmountInCents() | setPlanAmountInCents(double planAmountInCents) |
-| `UsageAmountInCents` | `double` | Required | - | double getUsageAmountInCents() | setUsageAmountInCents(double usageAmountInCents) |
+| `PlanAmountInCents` | `long` | Required | - | long getPlanAmountInCents() | setPlanAmountInCents(long planAmountInCents) |
+| `UsageAmountInCents` | `long` | Required | - | long getUsageAmountInCents() | setUsageAmountInCents(long usageAmountInCents) |
 
 ## Example (as JSON)
 
 ```json
 {
-  "plan_amount_in_cents": 109.6,
-  "usage_amount_in_cents": 207.96
+  "plan_amount_in_cents": 208,
+  "usage_amount_in_cents": 60
 }
 ```
 

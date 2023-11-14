@@ -1479,10 +1479,10 @@ PrepaidConfigurationResponse createPrepaidSubscription(
 String subscriptionId = "subscription_id0";
 UpsertPrepaidConfigurationRequest body = new UpsertPrepaidConfigurationRequest.Builder(
     new UpsertPrepaidConfiguration.Builder()
-        .initialFundingAmountInCents(50000)
-        .replenishToAmountInCents(50000)
+        .initialFundingAmountInCents(50000L)
+        .replenishToAmountInCents(50000L)
         .autoReplenish(true)
-        .replenishThresholdAmountInCents(10000)
+        .replenishThresholdAmountInCents(10000L)
         .build()
 )
 .build();

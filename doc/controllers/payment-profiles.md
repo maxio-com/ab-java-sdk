@@ -768,8 +768,8 @@ BankAccountResponse verifyBankAccount(
 int bankAccountId = 252;
 BankAccountVerificationRequest body = new BankAccountVerificationRequest.Builder(
     new BankAccountVerification.Builder()
-        .deposit1InCents(32)
-        .deposit2InCents(45)
+        .deposit1InCents(32L)
+        .deposit2InCents(45L)
         .build()
 )
 .build();

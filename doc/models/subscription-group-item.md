@@ -17,8 +17,8 @@
 | `ProductPricePointHandle` | `String` | Optional | - | String getProductPricePointHandle() | setProductPricePointHandle(String productPricePointHandle) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
 | `CouponCode` | `String` | Optional | - | String getCouponCode() | setCouponCode(String couponCode) |
-| `TotalRevenueInCents` | `Integer` | Optional | - | Integer getTotalRevenueInCents() | setTotalRevenueInCents(Integer totalRevenueInCents) |
-| `BalanceInCents` | `Integer` | Optional | - | Integer getBalanceInCents() | setBalanceInCents(Integer balanceInCents) |
+| `TotalRevenueInCents` | `Long` | Optional | - | Long getTotalRevenueInCents() | setTotalRevenueInCents(Long totalRevenueInCents) |
+| `BalanceInCents` | `Long` | Optional | - | Long getBalanceInCents() | setBalanceInCents(Long balanceInCents) |
 
 ## Example (as JSON)
 

@@ -11,9 +11,9 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | The subscription unique id within Chargify. | Integer getId() | setId(Integer id) |
 | `State` | `String` | Optional | The current state of the subscription. Please see the documentation for [Subscription States](https://help.chargify.com/subscriptions/subscription-states.html) | String getState() | setState(String state) |
-| `BalanceInCents` | `Integer` | Optional | Gives the current outstanding subscription balance in the number of cents. | Integer getBalanceInCents() | setBalanceInCents(Integer balanceInCents) |
-| `TotalRevenueInCents` | `Integer` | Optional | Gives the total revenue from the subscription in the number of cents. | Integer getTotalRevenueInCents() | setTotalRevenueInCents(Integer totalRevenueInCents) |
-| `ProductPriceInCents` | `Integer` | Optional | (Added Nov 5 2013) The recurring amount of the product (and version),currently subscribed. NOTE: this may differ from the current price of,the product, if you’ve changed the price of the product but haven’t,moved this subscription to a newer version. | Integer getProductPriceInCents() | setProductPriceInCents(Integer productPriceInCents) |
+| `BalanceInCents` | `Long` | Optional | Gives the current outstanding subscription balance in the number of cents. | Long getBalanceInCents() | setBalanceInCents(Long balanceInCents) |
+| `TotalRevenueInCents` | `Long` | Optional | Gives the total revenue from the subscription in the number of cents. | Long getTotalRevenueInCents() | setTotalRevenueInCents(Long totalRevenueInCents) |
+| `ProductPriceInCents` | `Long` | Optional | (Added Nov 5 2013) The recurring amount of the product (and version),currently subscribed. NOTE: this may differ from the current price of,the product, if you’ve changed the price of the product but haven’t,moved this subscription to a newer version. | Long getProductPriceInCents() | setProductPriceInCents(Long productPriceInCents) |
 | `ProductVersionNumber` | `Integer` | Optional | The version of the product for the subscription. Note that this is a deprecated field kept for backwards-compatibility. | Integer getProductVersionNumber() | setProductVersionNumber(Integer productVersionNumber) |
 | `CurrentPeriodEndsAt` | `String` | Optional | Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly scheduled attempted charge will occur) | String getCurrentPeriodEndsAt() | setCurrentPeriodEndsAt(String currentPeriodEndsAt) |
 | `NextAssessmentAt` | `String` | Optional | Timestamp that indicates when capture of payment will be tried or,retried. This value will usually track the current_period_ends_at, but,will diverge if a renewal payment fails and must be retried. In that,case, the current_period_ends_at will advance to the end of the next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases) | String getNextAssessmentAt() | setNextAssessmentAt(String nextAssessmentAt) |
@@ -51,7 +51,7 @@
 | `CouponCodes` | `List<String>` | Optional | An array for all the coupons attached to the subscription. | List<String> getCouponCodes() | setCouponCodes(List<String> couponCodes) |
 | `OfferId` | `Integer` | Optional | The ID of the offer associated with the subscription. | Integer getOfferId() | setOfferId(Integer offerId) |
 | `PayerId` | `Integer` | Optional | On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to the Customer ID unless the 'Customer Hierarchies & WhoPays' feature is enabled. | Integer getPayerId() | setPayerId(Integer payerId) |
-| `CurrentBillingAmountInCents` | `Integer` | Optional | The balance in cents plus the estimated renewal amount in cents. | Integer getCurrentBillingAmountInCents() | setCurrentBillingAmountInCents(Integer currentBillingAmountInCents) |
+| `CurrentBillingAmountInCents` | `Long` | Optional | The balance in cents plus the estimated renewal amount in cents. | Long getCurrentBillingAmountInCents() | setCurrentBillingAmountInCents(Long currentBillingAmountInCents) |
 | `ProductPricePointId` | `Integer` | Optional | The product price point currently subscribed to. | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
 | `ProductPricePointType` | `String` | Optional | One of the following: custom, default, catalog. | String getProductPricePointType() | setProductPricePointType(String productPricePointType) |
 | `NextProductPricePointId` | `Integer` | Optional | If a delayed product change is scheduled, the ID of the product price point that the subscription will be changed to at the next renewal. | Integer getNextProductPricePointId() | setNextProductPricePointId(Integer nextProductPricePointId) |
@@ -67,8 +67,8 @@
 | `Locale` | `String` | Optional | - | String getLocale() | setLocale(String locale) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
 | `ScheduledCancellationAt` | `String` | Optional | - | String getScheduledCancellationAt() | setScheduledCancellationAt(String scheduledCancellationAt) |
-| `CreditBalanceInCents` | `Integer` | Optional | - | Integer getCreditBalanceInCents() | setCreditBalanceInCents(Integer creditBalanceInCents) |
-| `PrepaymentBalanceInCents` | `Integer` | Optional | - | Integer getPrepaymentBalanceInCents() | setPrepaymentBalanceInCents(Integer prepaymentBalanceInCents) |
+| `CreditBalanceInCents` | `Long` | Optional | - | Long getCreditBalanceInCents() | setCreditBalanceInCents(Long creditBalanceInCents) |
+| `PrepaymentBalanceInCents` | `Long` | Optional | - | Long getPrepaymentBalanceInCents() | setPrepaymentBalanceInCents(Long prepaymentBalanceInCents) |
 
 ## Example (as JSON)
 

@@ -11,17 +11,17 @@
 |  --- | --- | --- | --- | --- | --- |
 | `StartDate` | `String` | Optional | - | String getStartDate() | setStartDate(String startDate) |
 | `EndDate` | `String` | Optional | - | String getEndDate() | setEndDate(String endDate) |
-| `SubtotalInCents` | `Integer` | Optional | - | Integer getSubtotalInCents() | setSubtotalInCents(Integer subtotalInCents) |
-| `TotalTaxInCents` | `Integer` | Optional | - | Integer getTotalTaxInCents() | setTotalTaxInCents(Integer totalTaxInCents) |
-| `TotalDiscountInCents` | `Integer` | Optional | - | Integer getTotalDiscountInCents() | setTotalDiscountInCents(Integer totalDiscountInCents) |
-| `TotalInCents` | `Integer` | Optional | - | Integer getTotalInCents() | setTotalInCents(Integer totalInCents) |
+| `SubtotalInCents` | `Long` | Optional | - | Long getSubtotalInCents() | setSubtotalInCents(Long subtotalInCents) |
+| `TotalTaxInCents` | `Long` | Optional | - | Long getTotalTaxInCents() | setTotalTaxInCents(Long totalTaxInCents) |
+| `TotalDiscountInCents` | `Long` | Optional | - | Long getTotalDiscountInCents() | setTotalDiscountInCents(Long totalDiscountInCents) |
+| `TotalInCents` | `Long` | Optional | - | Long getTotalInCents() | setTotalInCents(Long totalInCents) |
 | `Direction` | `String` | Optional | - | String getDirection() | setDirection(String direction) |
 | `ProrationScheme` | `String` | Optional | - | String getProrationScheme() | setProrationScheme(String prorationScheme) |
 | `LineItems` | [`List<AllocationPreviewLineItem>`](../../doc/models/allocation-preview-line-item.md) | Optional | - | List<AllocationPreviewLineItem> getLineItems() | setLineItems(List<AllocationPreviewLineItem> lineItems) |
 | `AccrueCharge` | `Boolean` | Optional | - | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |
 | `Allocations` | [`List<AllocationPreviewItem>`](../../doc/models/allocation-preview-item.md) | Optional | - | List<AllocationPreviewItem> getAllocations() | setAllocations(List<AllocationPreviewItem> allocations) |
 | `PeriodType` | `String` | Optional | - | String getPeriodType() | setPeriodType(String periodType) |
-| `ExistingBalanceInCents` | `Integer` | Optional | An integer representing the amount of the subscription's current balance | Integer getExistingBalanceInCents() | setExistingBalanceInCents(Integer existingBalanceInCents) |
+| `ExistingBalanceInCents` | `Long` | Optional | An integer representing the amount of the subscription's current balance | Long getExistingBalanceInCents() | setExistingBalanceInCents(Long existingBalanceInCents) |
 
 ## Example (as JSON)
 

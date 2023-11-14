@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
+| `Id` | `Long` | Optional | - | Long getId() | setId(Long id) |
 | `Uid` | `String` | Optional | Unique identifier for the invoice. It is generated automatically by Chargify and has the prefix "inv_" followed by alphanumeric characters. | String getUid() | setUid(String uid) |
 | `SiteId` | `Integer` | Optional | ID of the site to which the invoice belongs. | Integer getSiteId() | setSiteId(Integer siteId) |
 | `CustomerId` | `Integer` | Optional | ID of the customer to which the invoice belongs. | Integer getCustomerId() | setCustomerId(Integer customerId) |

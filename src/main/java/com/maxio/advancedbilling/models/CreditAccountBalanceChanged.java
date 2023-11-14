@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class CreditAccountBalanceChanged {
     private String reason;
-    private int serviceCreditAccountBalanceInCents;
-    private int serviceCreditBalanceChangeInCents;
+    private long serviceCreditAccountBalanceInCents;
+    private long serviceCreditBalanceChangeInCents;
     private String currencyCode;
     private String atTime;
 
@@ -30,16 +30,17 @@ public class CreditAccountBalanceChanged {
     /**
      * Initialization constructor.
      * @param  reason  String value for reason.
-     * @param  serviceCreditAccountBalanceInCents  int value for serviceCreditAccountBalanceInCents.
-     * @param  serviceCreditBalanceChangeInCents  int value for serviceCreditBalanceChangeInCents.
+     * @param  serviceCreditAccountBalanceInCents  long value for
+     *         serviceCreditAccountBalanceInCents.
+     * @param  serviceCreditBalanceChangeInCents  long value for serviceCreditBalanceChangeInCents.
      * @param  currencyCode  String value for currencyCode.
      * @param  atTime  String value for atTime.
      */
     @JsonCreator
     public CreditAccountBalanceChanged(
             @JsonProperty("reason") String reason,
-            @JsonProperty("service_credit_account_balance_in_cents") int serviceCreditAccountBalanceInCents,
-            @JsonProperty("service_credit_balance_change_in_cents") int serviceCreditBalanceChangeInCents,
+            @JsonProperty("service_credit_account_balance_in_cents") long serviceCreditAccountBalanceInCents,
+            @JsonProperty("service_credit_balance_change_in_cents") long serviceCreditBalanceChangeInCents,
             @JsonProperty("currency_code") String currencyCode,
             @JsonProperty("at_time") String atTime) {
         this.reason = reason;
@@ -69,37 +70,37 @@ public class CreditAccountBalanceChanged {
 
     /**
      * Getter for ServiceCreditAccountBalanceInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("service_credit_account_balance_in_cents")
-    public int getServiceCreditAccountBalanceInCents() {
+    public long getServiceCreditAccountBalanceInCents() {
         return serviceCreditAccountBalanceInCents;
     }
 
     /**
      * Setter for ServiceCreditAccountBalanceInCents.
-     * @param serviceCreditAccountBalanceInCents Value for int
+     * @param serviceCreditAccountBalanceInCents Value for long
      */
     @JsonSetter("service_credit_account_balance_in_cents")
-    public void setServiceCreditAccountBalanceInCents(int serviceCreditAccountBalanceInCents) {
+    public void setServiceCreditAccountBalanceInCents(long serviceCreditAccountBalanceInCents) {
         this.serviceCreditAccountBalanceInCents = serviceCreditAccountBalanceInCents;
     }
 
     /**
      * Getter for ServiceCreditBalanceChangeInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("service_credit_balance_change_in_cents")
-    public int getServiceCreditBalanceChangeInCents() {
+    public long getServiceCreditBalanceChangeInCents() {
         return serviceCreditBalanceChangeInCents;
     }
 
     /**
      * Setter for ServiceCreditBalanceChangeInCents.
-     * @param serviceCreditBalanceChangeInCents Value for int
+     * @param serviceCreditBalanceChangeInCents Value for long
      */
     @JsonSetter("service_credit_balance_change_in_cents")
-    public void setServiceCreditBalanceChangeInCents(int serviceCreditBalanceChangeInCents) {
+    public void setServiceCreditBalanceChangeInCents(long serviceCreditBalanceChangeInCents) {
         this.serviceCreditBalanceChangeInCents = serviceCreditBalanceChangeInCents;
     }
 
@@ -167,8 +168,8 @@ public class CreditAccountBalanceChanged {
      */
     public static class Builder {
         private String reason;
-        private int serviceCreditAccountBalanceInCents;
-        private int serviceCreditBalanceChangeInCents;
+        private long serviceCreditAccountBalanceInCents;
+        private long serviceCreditBalanceChangeInCents;
         private String currencyCode;
         private String atTime;
 
@@ -181,15 +182,15 @@ public class CreditAccountBalanceChanged {
         /**
          * Initialization constructor.
          * @param  reason  String value for reason.
-         * @param  serviceCreditAccountBalanceInCents  int value for
+         * @param  serviceCreditAccountBalanceInCents  long value for
          *         serviceCreditAccountBalanceInCents.
-         * @param  serviceCreditBalanceChangeInCents  int value for
+         * @param  serviceCreditBalanceChangeInCents  long value for
          *         serviceCreditBalanceChangeInCents.
          * @param  currencyCode  String value for currencyCode.
          * @param  atTime  String value for atTime.
          */
-        public Builder(String reason, int serviceCreditAccountBalanceInCents,
-                int serviceCreditBalanceChangeInCents, String currencyCode, String atTime) {
+        public Builder(String reason, long serviceCreditAccountBalanceInCents,
+                long serviceCreditBalanceChangeInCents, String currencyCode, String atTime) {
             this.reason = reason;
             this.serviceCreditAccountBalanceInCents = serviceCreditAccountBalanceInCents;
             this.serviceCreditBalanceChangeInCents = serviceCreditBalanceChangeInCents;
@@ -209,23 +210,23 @@ public class CreditAccountBalanceChanged {
 
         /**
          * Setter for serviceCreditAccountBalanceInCents.
-         * @param  serviceCreditAccountBalanceInCents  int value for
+         * @param  serviceCreditAccountBalanceInCents  long value for
          *         serviceCreditAccountBalanceInCents.
          * @return Builder
          */
         public Builder serviceCreditAccountBalanceInCents(
-                int serviceCreditAccountBalanceInCents) {
+                long serviceCreditAccountBalanceInCents) {
             this.serviceCreditAccountBalanceInCents = serviceCreditAccountBalanceInCents;
             return this;
         }
 
         /**
          * Setter for serviceCreditBalanceChangeInCents.
-         * @param  serviceCreditBalanceChangeInCents  int value for
+         * @param  serviceCreditBalanceChangeInCents  long value for
          *         serviceCreditBalanceChangeInCents.
          * @return Builder
          */
-        public Builder serviceCreditBalanceChangeInCents(int serviceCreditBalanceChangeInCents) {
+        public Builder serviceCreditBalanceChangeInCents(long serviceCreditBalanceChangeInCents) {
             this.serviceCreditBalanceChangeInCents = serviceCreditBalanceChangeInCents;
             return this;
         }

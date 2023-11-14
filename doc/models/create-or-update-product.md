@@ -14,7 +14,7 @@
 | `Description` | `String` | Required | - | String getDescription() | setDescription(String description) |
 | `AccountingCode` | `String` | Optional | - | String getAccountingCode() | setAccountingCode(String accountingCode) |
 | `RequireCreditCard` | `Boolean` | Optional | - | Boolean getRequireCreditCard() | setRequireCreditCard(Boolean requireCreditCard) |
-| `PriceInCents` | `int` | Required | - | int getPriceInCents() | setPriceInCents(int priceInCents) |
+| `PriceInCents` | `long` | Required | - | long getPriceInCents() | setPriceInCents(long priceInCents) |
 | `Interval` | `int` | Required | - | int getInterval() | setInterval(int interval) |
 | `IntervalUnit` | `String` | Required | - | String getIntervalUnit() | setIntervalUnit(String intervalUnit) |
 | `AutoCreateSignupPage` | `Boolean` | Optional | - | Boolean getAutoCreateSignupPage() | setAutoCreateSignupPage(Boolean autoCreateSignupPage) |

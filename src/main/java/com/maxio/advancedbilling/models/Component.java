@@ -25,7 +25,7 @@ public class Component {
     private OptionalNullable<String> unitPrice;
     private Integer productFamilyId;
     private String productFamilyName;
-    private OptionalNullable<Integer> pricePerUnitInCents;
+    private OptionalNullable<Long> pricePerUnitInCents;
     private ComponentKind kind;
     private Boolean archived;
     private Boolean taxable;
@@ -65,7 +65,7 @@ public class Component {
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
-     * @param  pricePerUnitInCents  Integer value for pricePerUnitInCents.
+     * @param  pricePerUnitInCents  Long value for pricePerUnitInCents.
      * @param  kind  ComponentKind value for kind.
      * @param  archived  Boolean value for archived.
      * @param  taxable  Boolean value for taxable.
@@ -98,7 +98,7 @@ public class Component {
             String unitPrice,
             Integer productFamilyId,
             String productFamilyName,
-            Integer pricePerUnitInCents,
+            Long pricePerUnitInCents,
             ComponentKind kind,
             Boolean archived,
             Boolean taxable,
@@ -164,7 +164,7 @@ public class Component {
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
-     * @param  pricePerUnitInCents  Integer value for pricePerUnitInCents.
+     * @param  pricePerUnitInCents  Long value for pricePerUnitInCents.
      * @param  kind  ComponentKind value for kind.
      * @param  archived  Boolean value for archived.
      * @param  taxable  Boolean value for taxable.
@@ -192,7 +192,7 @@ public class Component {
     protected Component(Integer id, String name, String handle,
             OptionalNullable<String> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
-            OptionalNullable<Integer> pricePerUnitInCents, ComponentKind kind, Boolean archived,
+            OptionalNullable<Long> pricePerUnitInCents, ComponentKind kind, Boolean archived,
             Boolean taxable, OptionalNullable<String> description, Integer defaultPricePointId,
             OptionalNullable<List<ComponentPrice>> prices, Integer pricePointCount,
             String pricePointsUrl, String defaultPricePointName, OptionalNullable<String> taxCode,
@@ -460,31 +460,31 @@ public class Component {
     /**
      * Internal Getter for PricePerUnitInCents.
      * deprecated - use unit_price instead
-     * @return Returns the Internal Integer
+     * @return Returns the Internal Long
      */
     @JsonGetter("price_per_unit_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Integer> internalGetPricePerUnitInCents() {
+    protected OptionalNullable<Long> internalGetPricePerUnitInCents() {
         return this.pricePerUnitInCents;
     }
 
     /**
      * Getter for PricePerUnitInCents.
      * deprecated - use unit_price instead
-     * @return Returns the Integer
+     * @return Returns the Long
      */
-    public Integer getPricePerUnitInCents() {
+    public Long getPricePerUnitInCents() {
         return OptionalNullable.getFrom(pricePerUnitInCents);
     }
 
     /**
      * Setter for PricePerUnitInCents.
      * deprecated - use unit_price instead
-     * @param pricePerUnitInCents Value for Integer
+     * @param pricePerUnitInCents Value for Long
      */
     @JsonSetter("price_per_unit_in_cents")
-    public void setPricePerUnitInCents(Integer pricePerUnitInCents) {
+    public void setPricePerUnitInCents(Long pricePerUnitInCents) {
         this.pricePerUnitInCents = OptionalNullable.of(pricePerUnitInCents);
     }
 
@@ -1177,7 +1177,7 @@ public class Component {
         private OptionalNullable<String> unitPrice;
         private Integer productFamilyId;
         private String productFamilyName;
-        private OptionalNullable<Integer> pricePerUnitInCents;
+        private OptionalNullable<Long> pricePerUnitInCents;
         private ComponentKind kind;
         private Boolean archived;
         private Boolean taxable;
@@ -1303,10 +1303,10 @@ public class Component {
 
         /**
          * Setter for pricePerUnitInCents.
-         * @param  pricePerUnitInCents  Integer value for pricePerUnitInCents.
+         * @param  pricePerUnitInCents  Long value for pricePerUnitInCents.
          * @return Builder
          */
-        public Builder pricePerUnitInCents(Integer pricePerUnitInCents) {
+        public Builder pricePerUnitInCents(Long pricePerUnitInCents) {
             this.pricePerUnitInCents = OptionalNullable.of(pricePerUnitInCents);
             return this;
         }

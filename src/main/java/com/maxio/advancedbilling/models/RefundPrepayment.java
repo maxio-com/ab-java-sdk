@@ -15,7 +15,7 @@ import com.maxio.advancedbilling.models.containers.RefundPrepaymentAmount;
  * This is a model class for RefundPrepayment type.
  */
 public class RefundPrepayment {
-    private double amountInCents;
+    private long amountInCents;
     private RefundPrepaymentAmount amount;
     private String memo;
     private Boolean external;
@@ -28,13 +28,13 @@ public class RefundPrepayment {
 
     /**
      * Initialization constructor.
-     * @param  amountInCents  double value for amountInCents.
+     * @param  amountInCents  long value for amountInCents.
      * @param  amount  RefundPrepaymentAmount value for amount.
      * @param  memo  String value for memo.
      * @param  external  Boolean value for external.
      */
     public RefundPrepayment(
-            double amountInCents,
+            long amountInCents,
             RefundPrepaymentAmount amount,
             String memo,
             Boolean external) {
@@ -47,20 +47,20 @@ public class RefundPrepayment {
     /**
      * Getter for AmountInCents.
      * `amount` is not required if you pass `amount_in_cents`.
-     * @return Returns the double
+     * @return Returns the long
      */
     @JsonGetter("amount_in_cents")
-    public double getAmountInCents() {
+    public long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
      * `amount` is not required if you pass `amount_in_cents`.
-     * @param amountInCents Value for double
+     * @param amountInCents Value for long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(double amountInCents) {
+    public void setAmountInCents(long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -152,7 +152,7 @@ public class RefundPrepayment {
      * Class to build instances of {@link RefundPrepayment}.
      */
     public static class Builder {
-        private double amountInCents;
+        private long amountInCents;
         private RefundPrepaymentAmount amount;
         private String memo;
         private Boolean external;
@@ -165,11 +165,11 @@ public class RefundPrepayment {
 
         /**
          * Initialization constructor.
-         * @param  amountInCents  double value for amountInCents.
+         * @param  amountInCents  long value for amountInCents.
          * @param  amount  RefundPrepaymentAmount value for amount.
          * @param  memo  String value for memo.
          */
-        public Builder(double amountInCents, RefundPrepaymentAmount amount, String memo) {
+        public Builder(long amountInCents, RefundPrepaymentAmount amount, String memo) {
             this.amountInCents = amountInCents;
             this.amount = amount;
             this.memo = memo;
@@ -177,10 +177,10 @@ public class RefundPrepayment {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  double value for amountInCents.
+         * @param  amountInCents  long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(double amountInCents) {
+        public Builder amountInCents(long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }

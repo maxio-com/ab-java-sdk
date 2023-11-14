@@ -20,7 +20,7 @@ public class CreateOrUpdateFlatAmountCoupon {
     private String name;
     private String code;
     private String description;
-    private int amountInCents;
+    private long amountInCents;
     private String allowNegativeBalance;
     private String recurring;
     private String endDate;
@@ -40,7 +40,7 @@ public class CreateOrUpdateFlatAmountCoupon {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  code  String value for code.
-     * @param  amountInCents  int value for amountInCents.
+     * @param  amountInCents  long value for amountInCents.
      * @param  description  String value for description.
      * @param  allowNegativeBalance  String value for allowNegativeBalance.
      * @param  recurring  String value for recurring.
@@ -55,7 +55,7 @@ public class CreateOrUpdateFlatAmountCoupon {
     public CreateOrUpdateFlatAmountCoupon(
             String name,
             String code,
-            int amountInCents,
+            long amountInCents,
             String description,
             String allowNegativeBalance,
             String recurring,
@@ -83,13 +83,13 @@ public class CreateOrUpdateFlatAmountCoupon {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  code  String value for code.
-     * @param  amountInCents  int value for amountInCents.
+     * @param  amountInCents  long value for amountInCents.
      */
     @JsonCreator
     protected CreateOrUpdateFlatAmountCoupon(
             @JsonProperty("name") String name,
             @JsonProperty("code") String code,
-            @JsonProperty("amount_in_cents") int amountInCents) {
+            @JsonProperty("amount_in_cents") long amountInCents) {
         this(name, code, amountInCents, null, null, null, null, null, null, null, null, null);
     }
 
@@ -156,19 +156,19 @@ public class CreateOrUpdateFlatAmountCoupon {
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("amount_in_cents")
-    public int getAmountInCents() {
+    public long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for int
+     * @param amountInCents Value for long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(int amountInCents) {
+    public void setAmountInCents(long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -364,7 +364,7 @@ public class CreateOrUpdateFlatAmountCoupon {
     public static class Builder {
         private String name;
         private String code;
-        private int amountInCents;
+        private long amountInCents;
         private String description;
         private String allowNegativeBalance;
         private String recurring;
@@ -385,9 +385,9 @@ public class CreateOrUpdateFlatAmountCoupon {
          * Initialization constructor.
          * @param  name  String value for name.
          * @param  code  String value for code.
-         * @param  amountInCents  int value for amountInCents.
+         * @param  amountInCents  long value for amountInCents.
          */
-        public Builder(String name, String code, int amountInCents) {
+        public Builder(String name, String code, long amountInCents) {
             this.name = name;
             this.code = code;
             this.amountInCents = amountInCents;
@@ -415,10 +415,10 @@ public class CreateOrUpdateFlatAmountCoupon {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  int value for amountInCents.
+         * @param  amountInCents  long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(int amountInCents) {
+        public Builder amountInCents(long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }

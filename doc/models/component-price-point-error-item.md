@@ -9,17 +9,17 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `ComponentId` | `Double` | Optional | - | Double getComponentId() | setComponentId(Double componentId) |
+| `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `Message` | `String` | Optional | - | String getMessage() | setMessage(String message) |
-| `PricePoint` | `Double` | Optional | - | Double getPricePoint() | setPricePoint(Double pricePoint) |
+| `PricePoint` | `Integer` | Optional | - | Integer getPricePoint() | setPricePoint(Integer pricePoint) |
 
 ## Example (as JSON)
 
 ```json
 {
-  "component_id": 119.82,
+  "component_id": 206,
   "message": "message4",
-  "price_point": 88.56
+  "price_point": 152
 }
 ```
 

@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Timestamp` | `String` | Optional | - | String getTimestamp() | setTimestamp(String timestamp) |
-| `AmountInCents` | `Integer` | Optional | - | Integer getAmountInCents() | setAmountInCents(Integer amountInCents) |
+| `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `AmountFormatted` | `String` | Optional | - | String getAmountFormatted() | setAmountFormatted(String amountFormatted) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
 | `Category` | `String` | Optional | - | String getCategory() | setCategory(String category) |

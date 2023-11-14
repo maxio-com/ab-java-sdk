@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class SubscriptionGroupPrepaymentResponse {
     private Integer id;
-    private Integer amountInCents;
-    private Integer endingBalanceInCents;
+    private Long amountInCents;
+    private Long endingBalanceInCents;
     private ServiceCreditType entryType;
     private String memo;
 
@@ -29,15 +29,15 @@ public class SubscriptionGroupPrepaymentResponse {
     /**
      * Initialization constructor.
      * @param  id  Integer value for id.
-     * @param  amountInCents  Integer value for amountInCents.
-     * @param  endingBalanceInCents  Integer value for endingBalanceInCents.
+     * @param  amountInCents  Long value for amountInCents.
+     * @param  endingBalanceInCents  Long value for endingBalanceInCents.
      * @param  entryType  ServiceCreditType value for entryType.
      * @param  memo  String value for memo.
      */
     public SubscriptionGroupPrepaymentResponse(
             Integer id,
-            Integer amountInCents,
-            Integer endingBalanceInCents,
+            Long amountInCents,
+            Long endingBalanceInCents,
             ServiceCreditType entryType,
             String memo) {
         this.id = id;
@@ -69,42 +69,42 @@ public class SubscriptionGroupPrepaymentResponse {
     /**
      * Getter for AmountInCents.
      * The amount in cents of the entry.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
      * The amount in cents of the entry.
-     * @param amountInCents Value for Integer
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Integer amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
     /**
      * Getter for EndingBalanceInCents.
      * The ending balance in cents of the account.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("ending_balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getEndingBalanceInCents() {
+    public Long getEndingBalanceInCents() {
         return endingBalanceInCents;
     }
 
     /**
      * Setter for EndingBalanceInCents.
      * The ending balance in cents of the account.
-     * @param endingBalanceInCents Value for Integer
+     * @param endingBalanceInCents Value for Long
      */
     @JsonSetter("ending_balance_in_cents")
-    public void setEndingBalanceInCents(Integer endingBalanceInCents) {
+    public void setEndingBalanceInCents(Long endingBalanceInCents) {
         this.endingBalanceInCents = endingBalanceInCents;
     }
 
@@ -181,8 +181,8 @@ public class SubscriptionGroupPrepaymentResponse {
      */
     public static class Builder {
         private Integer id;
-        private Integer amountInCents;
-        private Integer endingBalanceInCents;
+        private Long amountInCents;
+        private Long endingBalanceInCents;
         private ServiceCreditType entryType;
         private String memo;
 
@@ -200,20 +200,20 @@ public class SubscriptionGroupPrepaymentResponse {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Integer value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Integer amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }
 
         /**
          * Setter for endingBalanceInCents.
-         * @param  endingBalanceInCents  Integer value for endingBalanceInCents.
+         * @param  endingBalanceInCents  Long value for endingBalanceInCents.
          * @return Builder
          */
-        public Builder endingBalanceInCents(Integer endingBalanceInCents) {
+        public Builder endingBalanceInCents(Long endingBalanceInCents) {
             this.endingBalanceInCents = endingBalanceInCents;
             return this;
         }

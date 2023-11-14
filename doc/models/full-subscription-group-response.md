@@ -18,7 +18,7 @@
 | `NextAssessmentAt` | `String` | Optional | - | String getNextAssessmentAt() | setNextAssessmentAt(String nextAssessmentAt) |
 | `State` | `String` | Optional | - | String getState() | setState(String state) |
 | `CancelAtEndOfPeriod` | `Boolean` | Optional | - | Boolean getCancelAtEndOfPeriod() | setCancelAtEndOfPeriod(Boolean cancelAtEndOfPeriod) |
-| `CurrentBillingAmountInCents` | `Integer` | Optional | - | Integer getCurrentBillingAmountInCents() | setCurrentBillingAmountInCents(Integer currentBillingAmountInCents) |
+| `CurrentBillingAmountInCents` | `Long` | Optional | - | Long getCurrentBillingAmountInCents() | setCurrentBillingAmountInCents(Long currentBillingAmountInCents) |
 | `Customer` | [`SubscriptionGroupCustomer`](../../doc/models/subscription-group-customer.md) | Optional | - | SubscriptionGroupCustomer getCustomer() | setCustomer(SubscriptionGroupCustomer customer) |
 | `AccountBalances` | [`SubscriptionGroupBalances`](../../doc/models/subscription-group-balances.md) | Optional | - | SubscriptionGroupBalances getAccountBalances() | setAccountBalances(SubscriptionGroupBalances accountBalances) |
 

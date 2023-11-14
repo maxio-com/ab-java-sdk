@@ -14,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for Breakouts type.
  */
 public class Breakouts {
-    private Integer planAmountInCents;
+    private Long planAmountInCents;
     private String planAmountFormatted;
-    private Integer usageAmountInCents;
+    private Long usageAmountInCents;
     private String usageAmountFormatted;
 
     /**
@@ -27,15 +27,15 @@ public class Breakouts {
 
     /**
      * Initialization constructor.
-     * @param  planAmountInCents  Integer value for planAmountInCents.
+     * @param  planAmountInCents  Long value for planAmountInCents.
      * @param  planAmountFormatted  String value for planAmountFormatted.
-     * @param  usageAmountInCents  Integer value for usageAmountInCents.
+     * @param  usageAmountInCents  Long value for usageAmountInCents.
      * @param  usageAmountFormatted  String value for usageAmountFormatted.
      */
     public Breakouts(
-            Integer planAmountInCents,
+            Long planAmountInCents,
             String planAmountFormatted,
-            Integer usageAmountInCents,
+            Long usageAmountInCents,
             String usageAmountFormatted) {
         this.planAmountInCents = planAmountInCents;
         this.planAmountFormatted = planAmountFormatted;
@@ -45,20 +45,20 @@ public class Breakouts {
 
     /**
      * Getter for PlanAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("plan_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPlanAmountInCents() {
+    public Long getPlanAmountInCents() {
         return planAmountInCents;
     }
 
     /**
      * Setter for PlanAmountInCents.
-     * @param planAmountInCents Value for Integer
+     * @param planAmountInCents Value for Long
      */
     @JsonSetter("plan_amount_in_cents")
-    public void setPlanAmountInCents(Integer planAmountInCents) {
+    public void setPlanAmountInCents(Long planAmountInCents) {
         this.planAmountInCents = planAmountInCents;
     }
 
@@ -83,20 +83,20 @@ public class Breakouts {
 
     /**
      * Getter for UsageAmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("usage_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getUsageAmountInCents() {
+    public Long getUsageAmountInCents() {
         return usageAmountInCents;
     }
 
     /**
      * Setter for UsageAmountInCents.
-     * @param usageAmountInCents Value for Integer
+     * @param usageAmountInCents Value for Long
      */
     @JsonSetter("usage_amount_in_cents")
-    public void setUsageAmountInCents(Integer usageAmountInCents) {
+    public void setUsageAmountInCents(Long usageAmountInCents) {
         this.usageAmountInCents = usageAmountInCents;
     }
 
@@ -148,19 +148,19 @@ public class Breakouts {
      * Class to build instances of {@link Breakouts}.
      */
     public static class Builder {
-        private Integer planAmountInCents;
+        private Long planAmountInCents;
         private String planAmountFormatted;
-        private Integer usageAmountInCents;
+        private Long usageAmountInCents;
         private String usageAmountFormatted;
 
 
 
         /**
          * Setter for planAmountInCents.
-         * @param  planAmountInCents  Integer value for planAmountInCents.
+         * @param  planAmountInCents  Long value for planAmountInCents.
          * @return Builder
          */
-        public Builder planAmountInCents(Integer planAmountInCents) {
+        public Builder planAmountInCents(Long planAmountInCents) {
             this.planAmountInCents = planAmountInCents;
             return this;
         }
@@ -177,10 +177,10 @@ public class Breakouts {
 
         /**
          * Setter for usageAmountInCents.
-         * @param  usageAmountInCents  Integer value for usageAmountInCents.
+         * @param  usageAmountInCents  Long value for usageAmountInCents.
          * @return Builder
          */
-        public Builder usageAmountInCents(Integer usageAmountInCents) {
+        public Builder usageAmountInCents(Long usageAmountInCents) {
             this.usageAmountInCents = usageAmountInCents;
             return this;
         }

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `ComponentId` | `Double` | Optional | - | Double getComponentId() | setComponentId(Double componentId) |
+| `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `Message` | `String` | Optional | - | String getMessage() | setMessage(String message) |
 | `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
 | `On` | `String` | Optional | - | String getOn() | setOn(String on) |
@@ -18,7 +18,7 @@
 
 ```json
 {
-  "component_id": 40.28,
+  "component_id": 188,
   "message": "message0",
   "kind": "kind8",
   "on": "on0"

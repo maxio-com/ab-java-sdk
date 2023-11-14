@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Movement {
     private String timestamp;
-    private Integer amountInCents;
+    private Long amountInCents;
     private String amountFormatted;
     private String description;
     private String category;
@@ -34,7 +34,7 @@ public class Movement {
     /**
      * Initialization constructor.
      * @param  timestamp  String value for timestamp.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  amountFormatted  String value for amountFormatted.
      * @param  description  String value for description.
      * @param  category  String value for category.
@@ -45,7 +45,7 @@ public class Movement {
      */
     public Movement(
             String timestamp,
-            Integer amountInCents,
+            Long amountInCents,
             String amountFormatted,
             String description,
             String category,
@@ -85,20 +85,20 @@ public class Movement {
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for Integer
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Integer amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -271,7 +271,7 @@ public class Movement {
      */
     public static class Builder {
         private String timestamp;
-        private Integer amountInCents;
+        private Long amountInCents;
         private String amountFormatted;
         private String description;
         private String category;
@@ -294,10 +294,10 @@ public class Movement {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Integer value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Integer amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }

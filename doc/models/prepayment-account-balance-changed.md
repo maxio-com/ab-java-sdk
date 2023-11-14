@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Reason` | `String` | Required | - | String getReason() | setReason(String reason) |
-| `PrepaymentAccountBalanceInCents` | `int` | Required | - | int getPrepaymentAccountBalanceInCents() | setPrepaymentAccountBalanceInCents(int prepaymentAccountBalanceInCents) |
-| `PrepaymentBalanceChangeInCents` | `int` | Required | - | int getPrepaymentBalanceChangeInCents() | setPrepaymentBalanceChangeInCents(int prepaymentBalanceChangeInCents) |
+| `PrepaymentAccountBalanceInCents` | `long` | Required | - | long getPrepaymentAccountBalanceInCents() | setPrepaymentAccountBalanceInCents(long prepaymentAccountBalanceInCents) |
+| `PrepaymentBalanceChangeInCents` | `long` | Required | - | long getPrepaymentBalanceChangeInCents() | setPrepaymentBalanceChangeInCents(long prepaymentBalanceChangeInCents) |
 | `CurrencyCode` | `String` | Required | - | String getCurrencyCode() | setCurrencyCode(String currencyCode) |
 
 ## Example (as JSON)

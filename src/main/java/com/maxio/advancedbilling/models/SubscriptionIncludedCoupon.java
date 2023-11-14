@@ -21,7 +21,7 @@ public class SubscriptionIncludedCoupon {
     private Integer usesAllowed;
     private OptionalNullable<String> expiresAt;
     private Boolean recurring;
-    private OptionalNullable<Integer> amountInCents;
+    private OptionalNullable<Long> amountInCents;
     private OptionalNullable<String> percentage;
 
     /**
@@ -37,7 +37,7 @@ public class SubscriptionIncludedCoupon {
      * @param  usesAllowed  Integer value for usesAllowed.
      * @param  expiresAt  String value for expiresAt.
      * @param  recurring  Boolean value for recurring.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  percentage  String value for percentage.
      */
     public SubscriptionIncludedCoupon(
@@ -46,7 +46,7 @@ public class SubscriptionIncludedCoupon {
             Integer usesAllowed,
             String expiresAt,
             Boolean recurring,
-            Integer amountInCents,
+            Long amountInCents,
             String percentage) {
         this.code = code;
         this.useCount = useCount;
@@ -64,13 +64,13 @@ public class SubscriptionIncludedCoupon {
      * @param  usesAllowed  Integer value for usesAllowed.
      * @param  expiresAt  String value for expiresAt.
      * @param  recurring  Boolean value for recurring.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  percentage  String value for percentage.
      */
 
     protected SubscriptionIncludedCoupon(String code, Integer useCount, Integer usesAllowed,
             OptionalNullable<String> expiresAt, Boolean recurring,
-            OptionalNullable<Integer> amountInCents, OptionalNullable<String> percentage) {
+            OptionalNullable<Long> amountInCents, OptionalNullable<String> percentage) {
         this.code = code;
         this.useCount = useCount;
         this.usesAllowed = usesAllowed;
@@ -193,29 +193,29 @@ public class SubscriptionIncludedCoupon {
 
     /**
      * Internal Getter for AmountInCents.
-     * @return Returns the Internal Integer
+     * @return Returns the Internal Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Integer> internalGetAmountInCents() {
+    protected OptionalNullable<Long> internalGetAmountInCents() {
         return this.amountInCents;
     }
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
-    public Integer getAmountInCents() {
+    public Long getAmountInCents() {
         return OptionalNullable.getFrom(amountInCents);
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for Integer
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Integer amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = OptionalNullable.of(amountInCents);
     }
 
@@ -299,7 +299,7 @@ public class SubscriptionIncludedCoupon {
         private Integer usesAllowed;
         private OptionalNullable<String> expiresAt;
         private Boolean recurring;
-        private OptionalNullable<Integer> amountInCents;
+        private OptionalNullable<Long> amountInCents;
         private OptionalNullable<String> percentage;
 
 
@@ -365,10 +365,10 @@ public class SubscriptionIncludedCoupon {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Integer value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Integer amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = OptionalNullable.of(amountInCents);
             return this;
         }

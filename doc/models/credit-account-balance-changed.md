@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Reason` | `String` | Required | - | String getReason() | setReason(String reason) |
-| `ServiceCreditAccountBalanceInCents` | `int` | Required | - | int getServiceCreditAccountBalanceInCents() | setServiceCreditAccountBalanceInCents(int serviceCreditAccountBalanceInCents) |
-| `ServiceCreditBalanceChangeInCents` | `int` | Required | - | int getServiceCreditBalanceChangeInCents() | setServiceCreditBalanceChangeInCents(int serviceCreditBalanceChangeInCents) |
+| `ServiceCreditAccountBalanceInCents` | `long` | Required | - | long getServiceCreditAccountBalanceInCents() | setServiceCreditAccountBalanceInCents(long serviceCreditAccountBalanceInCents) |
+| `ServiceCreditBalanceChangeInCents` | `long` | Required | - | long getServiceCreditBalanceChangeInCents() | setServiceCreditBalanceChangeInCents(long serviceCreditBalanceChangeInCents) |
 | `CurrencyCode` | `String` | Required | - | String getCurrencyCode() | setCurrencyCode(String currencyCode) |
 | `AtTime` | `String` | Required | - | String getAtTime() | setAtTime(String atTime) |
 

@@ -11,10 +11,10 @@
 |  --- | --- | --- | --- | --- | --- |
 | `TransactionType` | `String` | Optional | - | String getTransactionType() | setTransactionType(String transactionType) |
 | `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
-| `AmountInCents` | `Integer` | Optional | - | Integer getAmountInCents() | setAmountInCents(Integer amountInCents) |
+| `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
-| `DiscountAmountInCents` | `Integer` | Optional | - | Integer getDiscountAmountInCents() | setDiscountAmountInCents(Integer discountAmountInCents) |
-| `TaxableAmountInCents` | `Integer` | Optional | - | Integer getTaxableAmountInCents() | setTaxableAmountInCents(Integer taxableAmountInCents) |
+| `DiscountAmountInCents` | `Long` | Optional | - | Long getDiscountAmountInCents() | setDiscountAmountInCents(Long discountAmountInCents) |
+| `TaxableAmountInCents` | `Long` | Optional | - | Long getTaxableAmountInCents() | setTaxableAmountInCents(Long taxableAmountInCents) |
 | `ProductId` | `Integer` | Optional | - | Integer getProductId() | setProductId(Integer productId) |
 | `ProductName` | `String` | Optional | - | String getProductName() | setProductName(String productName) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |

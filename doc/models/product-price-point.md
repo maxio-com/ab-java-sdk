@@ -12,15 +12,15 @@
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
-| `PriceInCents` | `Integer` | Optional | - | Integer getPriceInCents() | setPriceInCents(Integer priceInCents) |
+| `PriceInCents` | `Long` | Optional | - | Long getPriceInCents() | setPriceInCents(Long priceInCents) |
 | `Interval` | `Integer` | Optional | - | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | `String` | Optional | - | String getIntervalUnit() | setIntervalUnit(String intervalUnit) |
-| `TrialPriceInCents` | `Integer` | Optional | - | Integer getTrialPriceInCents() | setTrialPriceInCents(Integer trialPriceInCents) |
+| `TrialPriceInCents` | `Long` | Optional | - | Long getTrialPriceInCents() | setTrialPriceInCents(Long trialPriceInCents) |
 | `TrialInterval` | `Integer` | Optional | - | Integer getTrialInterval() | setTrialInterval(Integer trialInterval) |
 | `TrialIntervalUnit` | `String` | Optional | - | String getTrialIntervalUnit() | setTrialIntervalUnit(String trialIntervalUnit) |
 | `TrialType` | `String` | Optional | - | String getTrialType() | setTrialType(String trialType) |
 | `IntroductoryOffer` | `Boolean` | Optional | reserved for future use | Boolean getIntroductoryOffer() | setIntroductoryOffer(Boolean introductoryOffer) |
-| `InitialChargeInCents` | `Integer` | Optional | - | Integer getInitialChargeInCents() | setInitialChargeInCents(Integer initialChargeInCents) |
+| `InitialChargeInCents` | `Long` | Optional | - | Long getInitialChargeInCents() | setInitialChargeInCents(Long initialChargeInCents) |
 | `InitialChargeAfterTrial` | `Boolean` | Optional | - | Boolean getInitialChargeAfterTrial() | setInitialChargeAfterTrial(Boolean initialChargeAfterTrial) |
 | `ExpirationInterval` | `Integer` | Optional | - | Integer getExpirationInterval() | setExpirationInterval(Integer expirationInterval) |
 | `ExpirationIntervalUnit` | `String` | Optional | - | String getExpirationIntervalUnit() | setExpirationIntervalUnit(String expirationIntervalUnit) |

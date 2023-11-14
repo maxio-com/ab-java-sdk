@@ -14,10 +14,10 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for ListSubcriptionGroupPrepaymentItem type.
  */
 public class ListSubcriptionGroupPrepaymentItem {
-    private Double id;
+    private Integer id;
     private String subscriptionGroupUid;
-    private Double amountInCents;
-    private Double remainingAmountInCents;
+    private Long amountInCents;
+    private Long remainingAmountInCents;
     private String details;
     private Boolean external;
     private String memo;
@@ -32,10 +32,10 @@ public class ListSubcriptionGroupPrepaymentItem {
 
     /**
      * Initialization constructor.
-     * @param  id  Double value for id.
+     * @param  id  Integer value for id.
      * @param  subscriptionGroupUid  String value for subscriptionGroupUid.
-     * @param  amountInCents  Double value for amountInCents.
-     * @param  remainingAmountInCents  Double value for remainingAmountInCents.
+     * @param  amountInCents  Long value for amountInCents.
+     * @param  remainingAmountInCents  Long value for remainingAmountInCents.
      * @param  details  String value for details.
      * @param  external  Boolean value for external.
      * @param  memo  String value for memo.
@@ -43,10 +43,10 @@ public class ListSubcriptionGroupPrepaymentItem {
      * @param  createdAt  String value for createdAt.
      */
     public ListSubcriptionGroupPrepaymentItem(
-            Double id,
+            Integer id,
             String subscriptionGroupUid,
-            Double amountInCents,
-            Double remainingAmountInCents,
+            Long amountInCents,
+            Long remainingAmountInCents,
             String details,
             Boolean external,
             String memo,
@@ -65,20 +65,20 @@ public class ListSubcriptionGroupPrepaymentItem {
 
     /**
      * Getter for Id.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Double
+     * @param id Value for Integer
      */
     @JsonSetter("id")
-    public void setId(Double id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -103,39 +103,39 @@ public class ListSubcriptionGroupPrepaymentItem {
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the Double
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for Double
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Double amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
     /**
      * Getter for RemainingAmountInCents.
-     * @return Returns the Double
+     * @return Returns the Long
      */
     @JsonGetter("remaining_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getRemainingAmountInCents() {
+    public Long getRemainingAmountInCents() {
         return remainingAmountInCents;
     }
 
     /**
      * Setter for RemainingAmountInCents.
-     * @param remainingAmountInCents Value for Double
+     * @param remainingAmountInCents Value for Long
      */
     @JsonSetter("remaining_amount_in_cents")
-    public void setRemainingAmountInCents(Double remainingAmountInCents) {
+    public void setRemainingAmountInCents(Long remainingAmountInCents) {
         this.remainingAmountInCents = remainingAmountInCents;
     }
 
@@ -276,10 +276,10 @@ public class ListSubcriptionGroupPrepaymentItem {
      * Class to build instances of {@link ListSubcriptionGroupPrepaymentItem}.
      */
     public static class Builder {
-        private Double id;
+        private Integer id;
         private String subscriptionGroupUid;
-        private Double amountInCents;
-        private Double remainingAmountInCents;
+        private Long amountInCents;
+        private Long remainingAmountInCents;
         private String details;
         private Boolean external;
         private String memo;
@@ -290,10 +290,10 @@ public class ListSubcriptionGroupPrepaymentItem {
 
         /**
          * Setter for id.
-         * @param  id  Double value for id.
+         * @param  id  Integer value for id.
          * @return Builder
          */
-        public Builder id(Double id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
@@ -310,20 +310,20 @@ public class ListSubcriptionGroupPrepaymentItem {
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Double value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Double amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }
 
         /**
          * Setter for remainingAmountInCents.
-         * @param  remainingAmountInCents  Double value for remainingAmountInCents.
+         * @param  remainingAmountInCents  Long value for remainingAmountInCents.
          * @return Builder
          */
-        public Builder remainingAmountInCents(Double remainingAmountInCents) {
+        public Builder remainingAmountInCents(Long remainingAmountInCents) {
             this.remainingAmountInCents = remainingAmountInCents;
             return this;
         }

@@ -20,7 +20,7 @@ import java.util.List;
  * This is a model class for Invoice type.
  */
 public class Invoice {
-    private Integer id;
+    private Long id;
     private String uid;
     private Integer siteId;
     private Integer customerId;
@@ -81,7 +81,7 @@ public class Invoice {
 
     /**
      * Initialization constructor.
-     * @param  id  Integer value for id.
+     * @param  id  Long value for id.
      * @param  uid  String value for uid.
      * @param  siteId  Integer value for siteId.
      * @param  customerId  Integer value for customerId.
@@ -135,7 +135,7 @@ public class Invoice {
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      */
     public Invoice(
-            Integer id,
+            Long id,
             String uid,
             Integer siteId,
             Integer customerId,
@@ -243,7 +243,7 @@ public class Invoice {
 
     /**
      * Initialization constructor.
-     * @param  id  Integer value for id.
+     * @param  id  Long value for id.
      * @param  uid  String value for uid.
      * @param  siteId  Integer value for siteId.
      * @param  customerId  Integer value for customerId.
@@ -297,7 +297,7 @@ public class Invoice {
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      */
 
-    protected Invoice(Integer id, String uid, Integer siteId, Integer customerId,
+    protected Invoice(Long id, String uid, Integer siteId, Integer customerId,
             Integer subscriptionId, String number, Integer sequenceNumber,
             LocalDateTime transactionTime, LocalDateTime createdAt, LocalDateTime updatedAt,
             String issueDate, String dueDate, OptionalNullable<String> paidDate, Status status,
@@ -373,20 +373,20 @@ public class Invoice {
 
     /**
      * Getter for Id.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Integer
+     * @param id Value for Long
      */
     @JsonSetter("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -1692,7 +1692,7 @@ public class Invoice {
      * Class to build instances of {@link Invoice}.
      */
     public static class Builder {
-        private Integer id;
+        private Long id;
         private String uid;
         private Integer siteId;
         private Integer customerId;
@@ -1749,10 +1749,10 @@ public class Invoice {
 
         /**
          * Setter for id.
-         * @param  id  Integer value for id.
+         * @param  id  Long value for id.
          * @return Builder
          */
-        public Builder id(Integer id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }

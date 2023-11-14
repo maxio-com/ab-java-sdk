@@ -18,7 +18,7 @@ public class CreateOffer {
     private String name;
     private String handle;
     private String description;
-    private Integer productId;
+    private int productId;
     private Integer productPricePointId;
     private List<CreateOfferComponent> components;
     private List<String> coupons;
@@ -33,8 +33,8 @@ public class CreateOffer {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
+     * @param  productId  int value for productId.
      * @param  description  String value for description.
-     * @param  productId  Integer value for productId.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  components  List of CreateOfferComponent value for components.
      * @param  coupons  List of String value for coupons.
@@ -42,8 +42,8 @@ public class CreateOffer {
     public CreateOffer(
             String name,
             String handle,
+            int productId,
             String description,
-            Integer productId,
             Integer productPricePointId,
             List<CreateOfferComponent> components,
             List<String> coupons) {
@@ -61,7 +61,6 @@ public class CreateOffer {
      * @return Returns the String
      */
     @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -80,7 +79,6 @@ public class CreateOffer {
      * @return Returns the String
      */
     @JsonGetter("handle")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getHandle() {
         return handle;
     }
@@ -115,20 +113,19 @@ public class CreateOffer {
 
     /**
      * Getter for ProductId.
-     * @return Returns the Integer
+     * @return Returns the int
      */
     @JsonGetter("product_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getProductId() {
+    public int getProductId() {
         return productId;
     }
 
     /**
      * Setter for ProductId.
-     * @param productId Value for Integer
+     * @param productId Value for int
      */
     @JsonSetter("product_id")
-    public void setProductId(Integer productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 
@@ -195,9 +192,9 @@ public class CreateOffer {
      */
     @Override
     public String toString() {
-        return "CreateOffer [" + "name=" + name + ", handle=" + handle + ", description="
-                + description + ", productId=" + productId + ", productPricePointId="
-                + productPricePointId + ", components=" + components + ", coupons=" + coupons + "]";
+        return "CreateOffer [" + "name=" + name + ", handle=" + handle + ", productId=" + productId
+                + ", description=" + description + ", productPricePointId=" + productPricePointId
+                + ", components=" + components + ", coupons=" + coupons + "]";
     }
 
     /**
@@ -206,11 +203,8 @@ public class CreateOffer {
      * @return a new {@link CreateOffer.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .name(getName())
-                .handle(getHandle())
+        Builder builder = new Builder(name, handle, productId)
                 .description(getDescription())
-                .productId(getProductId())
                 .productPricePointId(getProductPricePointId())
                 .components(getComponents())
                 .coupons(getCoupons());
@@ -223,13 +217,29 @@ public class CreateOffer {
     public static class Builder {
         private String name;
         private String handle;
+        private int productId;
         private String description;
-        private Integer productId;
         private Integer productPricePointId;
         private List<CreateOfferComponent> components;
         private List<String> coupons;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  name  String value for name.
+         * @param  handle  String value for handle.
+         * @param  productId  int value for productId.
+         */
+        public Builder(String name, String handle, int productId) {
+            this.name = name;
+            this.handle = handle;
+            this.productId = productId;
+        }
 
         /**
          * Setter for name.
@@ -252,22 +262,22 @@ public class CreateOffer {
         }
 
         /**
+         * Setter for productId.
+         * @param  productId  int value for productId.
+         * @return Builder
+         */
+        public Builder productId(int productId) {
+            this.productId = productId;
+            return this;
+        }
+
+        /**
          * Setter for description.
          * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
             this.description = description;
-            return this;
-        }
-
-        /**
-         * Setter for productId.
-         * @param  productId  Integer value for productId.
-         * @return Builder
-         */
-        public Builder productId(Integer productId) {
-            this.productId = productId;
             return this;
         }
 
@@ -306,7 +316,7 @@ public class CreateOffer {
          * @return {@link CreateOffer}
          */
         public CreateOffer build() {
-            return new CreateOffer(name, handle, description, productId, productPricePointId,
+            return new CreateOffer(name, handle, productId, description, productPricePointId,
                     components, coupons);
         }
     }

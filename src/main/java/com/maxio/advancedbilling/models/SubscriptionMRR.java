@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for SubscriptionMRR type.
  */
 public class SubscriptionMRR {
-    private double subscriptionId;
-    private double mrrAmountInCents;
+    private int subscriptionId;
+    private long mrrAmountInCents;
     private SubscriptionMRRBreakout breakouts;
 
     /**
@@ -26,13 +26,13 @@ public class SubscriptionMRR {
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  double value for subscriptionId.
-     * @param  mrrAmountInCents  double value for mrrAmountInCents.
+     * @param  subscriptionId  int value for subscriptionId.
+     * @param  mrrAmountInCents  long value for mrrAmountInCents.
      * @param  breakouts  SubscriptionMRRBreakout value for breakouts.
      */
     public SubscriptionMRR(
-            double subscriptionId,
-            double mrrAmountInCents,
+            int subscriptionId,
+            long mrrAmountInCents,
             SubscriptionMRRBreakout breakouts) {
         this.subscriptionId = subscriptionId;
         this.mrrAmountInCents = mrrAmountInCents;
@@ -41,37 +41,37 @@ public class SubscriptionMRR {
 
     /**
      * Getter for SubscriptionId.
-     * @return Returns the double
+     * @return Returns the int
      */
     @JsonGetter("subscription_id")
-    public double getSubscriptionId() {
+    public int getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
-     * @param subscriptionId Value for double
+     * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(double subscriptionId) {
+    public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
     /**
      * Getter for MrrAmountInCents.
-     * @return Returns the double
+     * @return Returns the long
      */
     @JsonGetter("mrr_amount_in_cents")
-    public double getMrrAmountInCents() {
+    public long getMrrAmountInCents() {
         return mrrAmountInCents;
     }
 
     /**
      * Setter for MrrAmountInCents.
-     * @param mrrAmountInCents Value for double
+     * @param mrrAmountInCents Value for long
      */
     @JsonSetter("mrr_amount_in_cents")
-    public void setMrrAmountInCents(double mrrAmountInCents) {
+    public void setMrrAmountInCents(long mrrAmountInCents) {
         this.mrrAmountInCents = mrrAmountInCents;
     }
 
@@ -119,8 +119,8 @@ public class SubscriptionMRR {
      * Class to build instances of {@link SubscriptionMRR}.
      */
     public static class Builder {
-        private double subscriptionId;
-        private double mrrAmountInCents;
+        private int subscriptionId;
+        private long mrrAmountInCents;
         private SubscriptionMRRBreakout breakouts;
 
         /**
@@ -131,30 +131,30 @@ public class SubscriptionMRR {
 
         /**
          * Initialization constructor.
-         * @param  subscriptionId  double value for subscriptionId.
-         * @param  mrrAmountInCents  double value for mrrAmountInCents.
+         * @param  subscriptionId  int value for subscriptionId.
+         * @param  mrrAmountInCents  long value for mrrAmountInCents.
          */
-        public Builder(double subscriptionId, double mrrAmountInCents) {
+        public Builder(int subscriptionId, long mrrAmountInCents) {
             this.subscriptionId = subscriptionId;
             this.mrrAmountInCents = mrrAmountInCents;
         }
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  double value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(double subscriptionId) {
+        public Builder subscriptionId(int subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }
 
         /**
          * Setter for mrrAmountInCents.
-         * @param  mrrAmountInCents  double value for mrrAmountInCents.
+         * @param  mrrAmountInCents  long value for mrrAmountInCents.
          * @return Builder
          */
-        public Builder mrrAmountInCents(double mrrAmountInCents) {
+        public Builder mrrAmountInCents(long mrrAmountInCents) {
             this.mrrAmountInCents = mrrAmountInCents;
             return this;
         }

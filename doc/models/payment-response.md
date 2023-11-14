@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `PaidInvoices` | [`List<Payment>`](../../doc/models/payment.md) | Optional | - | List<Payment> getPaidInvoices() | setPaidInvoices(List<Payment> paidInvoices) |
-| `Prepayment` | [`PrePayment`](../../doc/models/pre-payment.md) | Optional | - | PrePayment getPrepayment() | setPrepayment(PrePayment prepayment) |
+| `Prepayment` | [`InvoicePrePayment`](../../doc/models/invoice-pre-payment.md) | Optional | - | InvoicePrePayment getPrepayment() | setPrepayment(InvoicePrePayment prepayment) |
 
 ## Example (as JSON)
 

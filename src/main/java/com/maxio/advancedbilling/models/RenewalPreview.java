@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class RenewalPreview {
     private String nextAssessmentAt;
-    private Integer subtotalInCents;
-    private Integer totalTaxInCents;
-    private Integer totalDiscountInCents;
-    private Integer totalInCents;
-    private Integer existingBalanceInCents;
-    private Integer totalAmountDueInCents;
+    private Long subtotalInCents;
+    private Long totalTaxInCents;
+    private Long totalDiscountInCents;
+    private Long totalInCents;
+    private Long existingBalanceInCents;
+    private Long totalAmountDueInCents;
     private Boolean uncalculatedTaxes;
     private List<RenewalPreviewLineItem> lineItems;
 
@@ -34,23 +34,23 @@ public class RenewalPreview {
     /**
      * Initialization constructor.
      * @param  nextAssessmentAt  String value for nextAssessmentAt.
-     * @param  subtotalInCents  Integer value for subtotalInCents.
-     * @param  totalTaxInCents  Integer value for totalTaxInCents.
-     * @param  totalDiscountInCents  Integer value for totalDiscountInCents.
-     * @param  totalInCents  Integer value for totalInCents.
-     * @param  existingBalanceInCents  Integer value for existingBalanceInCents.
-     * @param  totalAmountDueInCents  Integer value for totalAmountDueInCents.
+     * @param  subtotalInCents  Long value for subtotalInCents.
+     * @param  totalTaxInCents  Long value for totalTaxInCents.
+     * @param  totalDiscountInCents  Long value for totalDiscountInCents.
+     * @param  totalInCents  Long value for totalInCents.
+     * @param  existingBalanceInCents  Long value for existingBalanceInCents.
+     * @param  totalAmountDueInCents  Long value for totalAmountDueInCents.
      * @param  uncalculatedTaxes  Boolean value for uncalculatedTaxes.
      * @param  lineItems  List of RenewalPreviewLineItem value for lineItems.
      */
     public RenewalPreview(
             String nextAssessmentAt,
-            Integer subtotalInCents,
-            Integer totalTaxInCents,
-            Integer totalDiscountInCents,
-            Integer totalInCents,
-            Integer existingBalanceInCents,
-            Integer totalAmountDueInCents,
+            Long subtotalInCents,
+            Long totalTaxInCents,
+            Long totalDiscountInCents,
+            Long totalInCents,
+            Long existingBalanceInCents,
+            Long totalAmountDueInCents,
             Boolean uncalculatedTaxes,
             List<RenewalPreviewLineItem> lineItems) {
         this.nextAssessmentAt = nextAssessmentAt;
@@ -89,11 +89,11 @@ public class RenewalPreview {
      * Getter for SubtotalInCents.
      * An integer representing the amount of the total pre-tax, pre-discount charges that will be
      * assessed at the next renewal
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("subtotal_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getSubtotalInCents() {
+    public Long getSubtotalInCents() {
         return subtotalInCents;
     }
 
@@ -101,31 +101,31 @@ public class RenewalPreview {
      * Setter for SubtotalInCents.
      * An integer representing the amount of the total pre-tax, pre-discount charges that will be
      * assessed at the next renewal
-     * @param subtotalInCents Value for Integer
+     * @param subtotalInCents Value for Long
      */
     @JsonSetter("subtotal_in_cents")
-    public void setSubtotalInCents(Integer subtotalInCents) {
+    public void setSubtotalInCents(Long subtotalInCents) {
         this.subtotalInCents = subtotalInCents;
     }
 
     /**
      * Getter for TotalTaxInCents.
      * An integer representing the total tax charges that will be assessed at the next renewal
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_tax_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalTaxInCents() {
+    public Long getTotalTaxInCents() {
         return totalTaxInCents;
     }
 
     /**
      * Setter for TotalTaxInCents.
      * An integer representing the total tax charges that will be assessed at the next renewal
-     * @param totalTaxInCents Value for Integer
+     * @param totalTaxInCents Value for Long
      */
     @JsonSetter("total_tax_in_cents")
-    public void setTotalTaxInCents(Integer totalTaxInCents) {
+    public void setTotalTaxInCents(Long totalTaxInCents) {
         this.totalTaxInCents = totalTaxInCents;
     }
 
@@ -133,11 +133,11 @@ public class RenewalPreview {
      * Getter for TotalDiscountInCents.
      * An integer representing the amount of the coupon discounts that will be applied to the next
      * renewal
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_discount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalDiscountInCents() {
+    public Long getTotalDiscountInCents() {
         return totalDiscountInCents;
     }
 
@@ -145,10 +145,10 @@ public class RenewalPreview {
      * Setter for TotalDiscountInCents.
      * An integer representing the amount of the coupon discounts that will be applied to the next
      * renewal
-     * @param totalDiscountInCents Value for Integer
+     * @param totalDiscountInCents Value for Long
      */
     @JsonSetter("total_discount_in_cents")
-    public void setTotalDiscountInCents(Integer totalDiscountInCents) {
+    public void setTotalDiscountInCents(Long totalDiscountInCents) {
         this.totalDiscountInCents = totalDiscountInCents;
     }
 
@@ -156,11 +156,11 @@ public class RenewalPreview {
      * Getter for TotalInCents.
      * An integer representing the total amount owed, less any discounts, that will be assessed at
      * the next renewal
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalInCents() {
+    public Long getTotalInCents() {
         return totalInCents;
     }
 
@@ -168,52 +168,52 @@ public class RenewalPreview {
      * Setter for TotalInCents.
      * An integer representing the total amount owed, less any discounts, that will be assessed at
      * the next renewal
-     * @param totalInCents Value for Integer
+     * @param totalInCents Value for Long
      */
     @JsonSetter("total_in_cents")
-    public void setTotalInCents(Integer totalInCents) {
+    public void setTotalInCents(Long totalInCents) {
         this.totalInCents = totalInCents;
     }
 
     /**
      * Getter for ExistingBalanceInCents.
      * An integer representing the amount of the subscription’s current balance
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("existing_balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getExistingBalanceInCents() {
+    public Long getExistingBalanceInCents() {
         return existingBalanceInCents;
     }
 
     /**
      * Setter for ExistingBalanceInCents.
      * An integer representing the amount of the subscription’s current balance
-     * @param existingBalanceInCents Value for Integer
+     * @param existingBalanceInCents Value for Long
      */
     @JsonSetter("existing_balance_in_cents")
-    public void setExistingBalanceInCents(Integer existingBalanceInCents) {
+    public void setExistingBalanceInCents(Long existingBalanceInCents) {
         this.existingBalanceInCents = existingBalanceInCents;
     }
 
     /**
      * Getter for TotalAmountDueInCents.
      * An integer representing the existing_balance_in_cents plus the total_in_cents
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_amount_due_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalAmountDueInCents() {
+    public Long getTotalAmountDueInCents() {
         return totalAmountDueInCents;
     }
 
     /**
      * Setter for TotalAmountDueInCents.
      * An integer representing the existing_balance_in_cents plus the total_in_cents
-     * @param totalAmountDueInCents Value for Integer
+     * @param totalAmountDueInCents Value for Long
      */
     @JsonSetter("total_amount_due_in_cents")
-    public void setTotalAmountDueInCents(Integer totalAmountDueInCents) {
+    public void setTotalAmountDueInCents(Long totalAmountDueInCents) {
         this.totalAmountDueInCents = totalAmountDueInCents;
     }
 
@@ -303,12 +303,12 @@ public class RenewalPreview {
      */
     public static class Builder {
         private String nextAssessmentAt;
-        private Integer subtotalInCents;
-        private Integer totalTaxInCents;
-        private Integer totalDiscountInCents;
-        private Integer totalInCents;
-        private Integer existingBalanceInCents;
-        private Integer totalAmountDueInCents;
+        private Long subtotalInCents;
+        private Long totalTaxInCents;
+        private Long totalDiscountInCents;
+        private Long totalInCents;
+        private Long existingBalanceInCents;
+        private Long totalAmountDueInCents;
         private Boolean uncalculatedTaxes;
         private List<RenewalPreviewLineItem> lineItems;
 
@@ -326,60 +326,60 @@ public class RenewalPreview {
 
         /**
          * Setter for subtotalInCents.
-         * @param  subtotalInCents  Integer value for subtotalInCents.
+         * @param  subtotalInCents  Long value for subtotalInCents.
          * @return Builder
          */
-        public Builder subtotalInCents(Integer subtotalInCents) {
+        public Builder subtotalInCents(Long subtotalInCents) {
             this.subtotalInCents = subtotalInCents;
             return this;
         }
 
         /**
          * Setter for totalTaxInCents.
-         * @param  totalTaxInCents  Integer value for totalTaxInCents.
+         * @param  totalTaxInCents  Long value for totalTaxInCents.
          * @return Builder
          */
-        public Builder totalTaxInCents(Integer totalTaxInCents) {
+        public Builder totalTaxInCents(Long totalTaxInCents) {
             this.totalTaxInCents = totalTaxInCents;
             return this;
         }
 
         /**
          * Setter for totalDiscountInCents.
-         * @param  totalDiscountInCents  Integer value for totalDiscountInCents.
+         * @param  totalDiscountInCents  Long value for totalDiscountInCents.
          * @return Builder
          */
-        public Builder totalDiscountInCents(Integer totalDiscountInCents) {
+        public Builder totalDiscountInCents(Long totalDiscountInCents) {
             this.totalDiscountInCents = totalDiscountInCents;
             return this;
         }
 
         /**
          * Setter for totalInCents.
-         * @param  totalInCents  Integer value for totalInCents.
+         * @param  totalInCents  Long value for totalInCents.
          * @return Builder
          */
-        public Builder totalInCents(Integer totalInCents) {
+        public Builder totalInCents(Long totalInCents) {
             this.totalInCents = totalInCents;
             return this;
         }
 
         /**
          * Setter for existingBalanceInCents.
-         * @param  existingBalanceInCents  Integer value for existingBalanceInCents.
+         * @param  existingBalanceInCents  Long value for existingBalanceInCents.
          * @return Builder
          */
-        public Builder existingBalanceInCents(Integer existingBalanceInCents) {
+        public Builder existingBalanceInCents(Long existingBalanceInCents) {
             this.existingBalanceInCents = existingBalanceInCents;
             return this;
         }
 
         /**
          * Setter for totalAmountDueInCents.
-         * @param  totalAmountDueInCents  Integer value for totalAmountDueInCents.
+         * @param  totalAmountDueInCents  Long value for totalAmountDueInCents.
          * @return Builder
          */
-        public Builder totalAmountDueInCents(Integer totalAmountDueInCents) {
+        public Builder totalAmountDueInCents(Long totalAmountDueInCents) {
             this.totalAmountDueInCents = totalAmountDueInCents;
             return this;
         }

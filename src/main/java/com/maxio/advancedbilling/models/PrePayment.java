@@ -11,168 +11,423 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for PrePayment type.
+ * This is a model class for Prepayment type.
  */
-public class PrePayment {
-    private String subscriptionId;
-    private String amountInCents;
-    private String endingBalanceInCents;
+public class Prepayment {
+    private int id;
+    private int subscriptionId;
+    private long amountInCents;
+    private long remainingAmountInCents;
+    private Long refundedAmountInCents;
+    private String details;
+    private boolean external;
+    private String memo;
+    private PrepaymentMethod paymentType;
+    private String createdAt;
 
     /**
      * Default constructor.
      */
-    public PrePayment() {
+    public Prepayment() {
     }
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  String value for subscriptionId.
-     * @param  amountInCents  String value for amountInCents.
-     * @param  endingBalanceInCents  String value for endingBalanceInCents.
+     * @param  id  int value for id.
+     * @param  subscriptionId  int value for subscriptionId.
+     * @param  amountInCents  long value for amountInCents.
+     * @param  remainingAmountInCents  long value for remainingAmountInCents.
+     * @param  external  boolean value for external.
+     * @param  memo  String value for memo.
+     * @param  createdAt  String value for createdAt.
+     * @param  refundedAmountInCents  Long value for refundedAmountInCents.
+     * @param  details  String value for details.
+     * @param  paymentType  PrepaymentMethod value for paymentType.
      */
-    public PrePayment(
-            String subscriptionId,
-            String amountInCents,
-            String endingBalanceInCents) {
+    public Prepayment(
+            int id,
+            int subscriptionId,
+            long amountInCents,
+            long remainingAmountInCents,
+            boolean external,
+            String memo,
+            String createdAt,
+            Long refundedAmountInCents,
+            String details,
+            PrepaymentMethod paymentType) {
+        this.id = id;
         this.subscriptionId = subscriptionId;
         this.amountInCents = amountInCents;
-        this.endingBalanceInCents = endingBalanceInCents;
+        this.remainingAmountInCents = remainingAmountInCents;
+        this.refundedAmountInCents = refundedAmountInCents;
+        this.details = details;
+        this.external = external;
+        this.memo = memo;
+        this.paymentType = paymentType;
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Getter for Id.
+     * @return Returns the int
+     */
+    @JsonGetter("id")
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Setter for Id.
+     * @param id Value for int
+     */
+    @JsonSetter("id")
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
      * Getter for SubscriptionId.
-     * The subscription id for the prepayment account
-     * @return Returns the String
+     * @return Returns the int
      */
     @JsonGetter("subscription_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSubscriptionId() {
+    public int getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
-     * The subscription id for the prepayment account
-     * @param subscriptionId Value for String
+     * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(String subscriptionId) {
+    public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
     /**
      * Getter for AmountInCents.
-     * The amount in cents of the prepayment that was created as a result of this payment.
-     * @return Returns the String
+     * @return Returns the long
      */
     @JsonGetter("amount_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAmountInCents() {
+    public long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
-     * The amount in cents of the prepayment that was created as a result of this payment.
-     * @param amountInCents Value for String
+     * @param amountInCents Value for long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(String amountInCents) {
+    public void setAmountInCents(long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
     /**
-     * Getter for EndingBalanceInCents.
-     * The total balance of the prepayment account for this subscription including any prior
-     * prepayments
+     * Getter for RemainingAmountInCents.
+     * @return Returns the long
+     */
+    @JsonGetter("remaining_amount_in_cents")
+    public long getRemainingAmountInCents() {
+        return remainingAmountInCents;
+    }
+
+    /**
+     * Setter for RemainingAmountInCents.
+     * @param remainingAmountInCents Value for long
+     */
+    @JsonSetter("remaining_amount_in_cents")
+    public void setRemainingAmountInCents(long remainingAmountInCents) {
+        this.remainingAmountInCents = remainingAmountInCents;
+    }
+
+    /**
+     * Getter for RefundedAmountInCents.
+     * @return Returns the Long
+     */
+    @JsonGetter("refunded_amount_in_cents")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getRefundedAmountInCents() {
+        return refundedAmountInCents;
+    }
+
+    /**
+     * Setter for RefundedAmountInCents.
+     * @param refundedAmountInCents Value for Long
+     */
+    @JsonSetter("refunded_amount_in_cents")
+    public void setRefundedAmountInCents(Long refundedAmountInCents) {
+        this.refundedAmountInCents = refundedAmountInCents;
+    }
+
+    /**
+     * Getter for Details.
      * @return Returns the String
      */
-    @JsonGetter("ending_balance_in_cents")
+    @JsonGetter("details")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndingBalanceInCents() {
-        return endingBalanceInCents;
+    public String getDetails() {
+        return details;
     }
 
     /**
-     * Setter for EndingBalanceInCents.
-     * The total balance of the prepayment account for this subscription including any prior
-     * prepayments
-     * @param endingBalanceInCents Value for String
+     * Setter for Details.
+     * @param details Value for String
      */
-    @JsonSetter("ending_balance_in_cents")
-    public void setEndingBalanceInCents(String endingBalanceInCents) {
-        this.endingBalanceInCents = endingBalanceInCents;
+    @JsonSetter("details")
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     /**
-     * Converts this PrePayment into string format.
+     * Getter for External.
+     * @return Returns the boolean
+     */
+    @JsonGetter("external")
+    public boolean getExternal() {
+        return external;
+    }
+
+    /**
+     * Setter for External.
+     * @param external Value for boolean
+     */
+    @JsonSetter("external")
+    public void setExternal(boolean external) {
+        this.external = external;
+    }
+
+    /**
+     * Getter for Memo.
+     * @return Returns the String
+     */
+    @JsonGetter("memo")
+    public String getMemo() {
+        return memo;
+    }
+
+    /**
+     * Setter for Memo.
+     * @param memo Value for String
+     */
+    @JsonSetter("memo")
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    /**
+     * Getter for PaymentType.
+     * The payment type of the prepayment.
+     * @return Returns the PrepaymentMethod
+     */
+    @JsonGetter("payment_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PrepaymentMethod getPaymentType() {
+        return paymentType;
+    }
+
+    /**
+     * Setter for PaymentType.
+     * The payment type of the prepayment.
+     * @param paymentType Value for PrepaymentMethod
+     */
+    @JsonSetter("payment_type")
+    public void setPaymentType(PrepaymentMethod paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    /**
+     * Getter for CreatedAt.
+     * @return Returns the String
+     */
+    @JsonGetter("created_at")
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Setter for CreatedAt.
+     * @param createdAt Value for String
+     */
+    @JsonSetter("created_at")
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Converts this Prepayment into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PrePayment [" + "subscriptionId=" + subscriptionId + ", amountInCents="
-                + amountInCents + ", endingBalanceInCents=" + endingBalanceInCents + "]";
+        return "Prepayment [" + "id=" + id + ", subscriptionId=" + subscriptionId
+                + ", amountInCents=" + amountInCents + ", remainingAmountInCents="
+                + remainingAmountInCents + ", external=" + external + ", memo=" + memo
+                + ", createdAt=" + createdAt + ", refundedAmountInCents=" + refundedAmountInCents
+                + ", details=" + details + ", paymentType=" + paymentType + "]";
     }
 
     /**
-     * Builds a new {@link PrePayment.Builder} object.
+     * Builds a new {@link Prepayment.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PrePayment.Builder} object
+     * @return a new {@link Prepayment.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .subscriptionId(getSubscriptionId())
-                .amountInCents(getAmountInCents())
-                .endingBalanceInCents(getEndingBalanceInCents());
+        Builder builder = new Builder(id, subscriptionId, amountInCents, remainingAmountInCents,
+                external, memo, createdAt)
+                .refundedAmountInCents(getRefundedAmountInCents())
+                .details(getDetails())
+                .paymentType(getPaymentType());
         return builder;
     }
 
     /**
-     * Class to build instances of {@link PrePayment}.
+     * Class to build instances of {@link Prepayment}.
      */
     public static class Builder {
-        private String subscriptionId;
-        private String amountInCents;
-        private String endingBalanceInCents;
+        private int id;
+        private int subscriptionId;
+        private long amountInCents;
+        private long remainingAmountInCents;
+        private boolean external;
+        private String memo;
+        private String createdAt;
+        private Long refundedAmountInCents;
+        private String details;
+        private PrepaymentMethod paymentType;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  id  int value for id.
+         * @param  subscriptionId  int value for subscriptionId.
+         * @param  amountInCents  long value for amountInCents.
+         * @param  remainingAmountInCents  long value for remainingAmountInCents.
+         * @param  external  boolean value for external.
+         * @param  memo  String value for memo.
+         * @param  createdAt  String value for createdAt.
+         */
+        public Builder(int id, int subscriptionId, long amountInCents, long remainingAmountInCents,
+                boolean external, String memo, String createdAt) {
+            this.id = id;
+            this.subscriptionId = subscriptionId;
+            this.amountInCents = amountInCents;
+            this.remainingAmountInCents = remainingAmountInCents;
+            this.external = external;
+            this.memo = memo;
+            this.createdAt = createdAt;
+        }
+
+        /**
+         * Setter for id.
+         * @param  id  int value for id.
+         * @return Builder
+         */
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(String subscriptionId) {
+        public Builder subscriptionId(int subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  String value for amountInCents.
+         * @param  amountInCents  long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(String amountInCents) {
+        public Builder amountInCents(long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }
 
         /**
-         * Setter for endingBalanceInCents.
-         * @param  endingBalanceInCents  String value for endingBalanceInCents.
+         * Setter for remainingAmountInCents.
+         * @param  remainingAmountInCents  long value for remainingAmountInCents.
          * @return Builder
          */
-        public Builder endingBalanceInCents(String endingBalanceInCents) {
-            this.endingBalanceInCents = endingBalanceInCents;
+        public Builder remainingAmountInCents(long remainingAmountInCents) {
+            this.remainingAmountInCents = remainingAmountInCents;
             return this;
         }
 
         /**
-         * Builds a new {@link PrePayment} object using the set fields.
-         * @return {@link PrePayment}
+         * Setter for external.
+         * @param  external  boolean value for external.
+         * @return Builder
          */
-        public PrePayment build() {
-            return new PrePayment(subscriptionId, amountInCents, endingBalanceInCents);
+        public Builder external(boolean external) {
+            this.external = external;
+            return this;
+        }
+
+        /**
+         * Setter for memo.
+         * @param  memo  String value for memo.
+         * @return Builder
+         */
+        public Builder memo(String memo) {
+            this.memo = memo;
+            return this;
+        }
+
+        /**
+         * Setter for createdAt.
+         * @param  createdAt  String value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(String createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * Setter for refundedAmountInCents.
+         * @param  refundedAmountInCents  Long value for refundedAmountInCents.
+         * @return Builder
+         */
+        public Builder refundedAmountInCents(Long refundedAmountInCents) {
+            this.refundedAmountInCents = refundedAmountInCents;
+            return this;
+        }
+
+        /**
+         * Setter for details.
+         * @param  details  String value for details.
+         * @return Builder
+         */
+        public Builder details(String details) {
+            this.details = details;
+            return this;
+        }
+
+        /**
+         * Setter for paymentType.
+         * @param  paymentType  PrepaymentMethod value for paymentType.
+         * @return Builder
+         */
+        public Builder paymentType(PrepaymentMethod paymentType) {
+            this.paymentType = paymentType;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link Prepayment} object using the set fields.
+         * @return {@link Prepayment}
+         */
+        public Prepayment build() {
+            return new Prepayment(id, subscriptionId, amountInCents, remainingAmountInCents,
+                    external, memo, createdAt, refundedAmountInCents, details, paymentType);
         }
     }
 }

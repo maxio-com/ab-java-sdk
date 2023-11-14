@@ -38,12 +38,12 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
     }
 
     /**
-     * This is Number case.
-     * @param number int value for number.
-     * @return The NumberCase object.
+     * This is Long case.
+     * @param mLong long value for mLong.
+     * @return The MLongCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromNumber(int number) {
-        return new NumberCase(number);
+    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromMLong(long mLong) {
+        return new MLongCase(mLong);
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
     public interface Cases<R> {
         R mString(String mString);
 
-        R number(int number);
+        R mLong(long mLong);
     }
 
     /**
@@ -100,28 +100,28 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
     }
 
     /**
-     * This is a implementation class for NumberCase.
+     * This is a implementation class for MLongCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "int")
-    private static class NumberCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
+    @TypeCombinatorCase(type = "long")
+    private static class MLongCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
 
         @JsonValue
-        private int number;
+        private long mLong;
 
-        NumberCase(int number) {
-            this.number = number;
+        MLongCase(long mLong) {
+            this.mLong = mLong;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.number(this.number);
+            return cases.mLong(this.mLong);
         }
 
         @JsonCreator
-        private NumberCase(JsonNode jsonNode) throws IOException {
-            if (jsonNode.isInt()) {
-                this.number = ApiHelper.deserialize(jsonNode, Integer.class);
+        private MLongCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isLong()) {
+                this.mLong = ApiHelper.deserialize(jsonNode, Long.class);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -129,7 +129,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
 
         @Override
         public String toString() {
-            return String.valueOf(number);
+            return String.valueOf(mLong);
         }
     }
 
@@ -145,7 +145,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(MStringCase.class,
-                    NumberCase.class), true);
+                    MLongCase.class), true);
         }
     }
 

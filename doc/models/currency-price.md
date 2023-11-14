@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
-| `Price` | `Integer` | Optional | - | Integer getPrice() | setPrice(Integer price) |
+| `Price` | `Double` | Optional | - | Double getPrice() | setPrice(Double price) |
 | `FormattedPrice` | `String` | Optional | - | String getFormattedPrice() | setFormattedPrice(String formattedPrice) |
 | `PriceId` | `Integer` | Optional | - | Integer getPriceId() | setPriceId(Integer priceId) |
 | `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
@@ -22,7 +22,7 @@
 {
   "id": 88,
   "currency": "currency6",
-  "price": 40,
+  "price": 41.36,
   "formatted_price": "formatted_price4",
   "price_id": 178
 }

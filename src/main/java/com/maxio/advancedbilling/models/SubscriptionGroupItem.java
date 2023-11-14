@@ -24,8 +24,8 @@ public class SubscriptionGroupItem {
     private String productPricePointHandle;
     private String currency;
     private OptionalNullable<String> couponCode;
-    private Integer totalRevenueInCents;
-    private Integer balanceInCents;
+    private Long totalRevenueInCents;
+    private Long balanceInCents;
 
     /**
      * Default constructor.
@@ -43,8 +43,8 @@ public class SubscriptionGroupItem {
      * @param  productPricePointHandle  String value for productPricePointHandle.
      * @param  currency  String value for currency.
      * @param  couponCode  String value for couponCode.
-     * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
-     * @param  balanceInCents  Integer value for balanceInCents.
+     * @param  totalRevenueInCents  Long value for totalRevenueInCents.
+     * @param  balanceInCents  Long value for balanceInCents.
      */
     public SubscriptionGroupItem(
             Integer id,
@@ -55,8 +55,8 @@ public class SubscriptionGroupItem {
             String productPricePointHandle,
             String currency,
             String couponCode,
-            Integer totalRevenueInCents,
-            Integer balanceInCents) {
+            Long totalRevenueInCents,
+            Long balanceInCents) {
         this.id = id;
         this.reference = OptionalNullable.of(reference);
         this.productId = productId;
@@ -79,14 +79,14 @@ public class SubscriptionGroupItem {
      * @param  productPricePointHandle  String value for productPricePointHandle.
      * @param  currency  String value for currency.
      * @param  couponCode  String value for couponCode.
-     * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
-     * @param  balanceInCents  Integer value for balanceInCents.
+     * @param  totalRevenueInCents  Long value for totalRevenueInCents.
+     * @param  balanceInCents  Long value for balanceInCents.
      */
 
     protected SubscriptionGroupItem(Integer id, OptionalNullable<String> reference,
             Integer productId, OptionalNullable<String> productHandle, Integer productPricePointId,
             String productPricePointHandle, String currency, OptionalNullable<String> couponCode,
-            Integer totalRevenueInCents, Integer balanceInCents) {
+            Long totalRevenueInCents, Long balanceInCents) {
         this.id = id;
         this.reference = reference;
         this.productId = productId;
@@ -301,39 +301,39 @@ public class SubscriptionGroupItem {
 
     /**
      * Getter for TotalRevenueInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_revenue_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalRevenueInCents() {
+    public Long getTotalRevenueInCents() {
         return totalRevenueInCents;
     }
 
     /**
      * Setter for TotalRevenueInCents.
-     * @param totalRevenueInCents Value for Integer
+     * @param totalRevenueInCents Value for Long
      */
     @JsonSetter("total_revenue_in_cents")
-    public void setTotalRevenueInCents(Integer totalRevenueInCents) {
+    public void setTotalRevenueInCents(Long totalRevenueInCents) {
         this.totalRevenueInCents = totalRevenueInCents;
     }
 
     /**
      * Getter for BalanceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getBalanceInCents() {
+    public Long getBalanceInCents() {
         return balanceInCents;
     }
 
     /**
      * Setter for BalanceInCents.
-     * @param balanceInCents Value for Integer
+     * @param balanceInCents Value for Long
      */
     @JsonSetter("balance_in_cents")
-    public void setBalanceInCents(Integer balanceInCents) {
+    public void setBalanceInCents(Long balanceInCents) {
         this.balanceInCents = balanceInCents;
     }
 
@@ -382,8 +382,8 @@ public class SubscriptionGroupItem {
         private String productPricePointHandle;
         private String currency;
         private OptionalNullable<String> couponCode;
-        private Integer totalRevenueInCents;
-        private Integer balanceInCents;
+        private Long totalRevenueInCents;
+        private Long balanceInCents;
 
 
 
@@ -496,20 +496,20 @@ public class SubscriptionGroupItem {
 
         /**
          * Setter for totalRevenueInCents.
-         * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
+         * @param  totalRevenueInCents  Long value for totalRevenueInCents.
          * @return Builder
          */
-        public Builder totalRevenueInCents(Integer totalRevenueInCents) {
+        public Builder totalRevenueInCents(Long totalRevenueInCents) {
             this.totalRevenueInCents = totalRevenueInCents;
             return this;
         }
 
         /**
          * Setter for balanceInCents.
-         * @param  balanceInCents  Integer value for balanceInCents.
+         * @param  balanceInCents  Long value for balanceInCents.
          * @return Builder
          */
-        public Builder balanceInCents(Integer balanceInCents) {
+        public Builder balanceInCents(Long balanceInCents) {
             this.balanceInCents = balanceInCents;
             return this;
         }

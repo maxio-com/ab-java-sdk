@@ -21,7 +21,7 @@ public class Metadata {
     private Integer resourceId;
     private String name;
     private OptionalNullable<String> deletedAt;
-    private Double metafieldId;
+    private Integer metafieldId;
 
     /**
      * Default constructor.
@@ -36,7 +36,7 @@ public class Metadata {
      * @param  resourceId  Integer value for resourceId.
      * @param  name  String value for name.
      * @param  deletedAt  String value for deletedAt.
-     * @param  metafieldId  Double value for metafieldId.
+     * @param  metafieldId  Integer value for metafieldId.
      */
     public Metadata(
             Integer id,
@@ -44,7 +44,7 @@ public class Metadata {
             Integer resourceId,
             String name,
             String deletedAt,
-            Double metafieldId) {
+            Integer metafieldId) {
         this.id = id;
         this.value = value;
         this.resourceId = resourceId;
@@ -60,11 +60,11 @@ public class Metadata {
      * @param  resourceId  Integer value for resourceId.
      * @param  name  String value for name.
      * @param  deletedAt  String value for deletedAt.
-     * @param  metafieldId  Double value for metafieldId.
+     * @param  metafieldId  Integer value for metafieldId.
      */
 
     protected Metadata(Integer id, String value, Integer resourceId, String name,
-            OptionalNullable<String> deletedAt, Double metafieldId) {
+            OptionalNullable<String> deletedAt, Integer metafieldId) {
         this.id = id;
         this.value = value;
         this.resourceId = resourceId;
@@ -186,20 +186,20 @@ public class Metadata {
 
     /**
      * Getter for MetafieldId.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("metafield_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getMetafieldId() {
+    public Integer getMetafieldId() {
         return metafieldId;
     }
 
     /**
      * Setter for MetafieldId.
-     * @param metafieldId Value for Double
+     * @param metafieldId Value for Integer
      */
     @JsonSetter("metafield_id")
-    public void setMetafieldId(Double metafieldId) {
+    public void setMetafieldId(Integer metafieldId) {
         this.metafieldId = metafieldId;
     }
 
@@ -239,7 +239,7 @@ public class Metadata {
         private Integer resourceId;
         private String name;
         private OptionalNullable<String> deletedAt;
-        private Double metafieldId;
+        private Integer metafieldId;
 
 
 
@@ -304,10 +304,10 @@ public class Metadata {
 
         /**
          * Setter for metafieldId.
-         * @param  metafieldId  Double value for metafieldId.
+         * @param  metafieldId  Integer value for metafieldId.
          * @return Builder
          */
-        public Builder metafieldId(Double metafieldId) {
+        public Builder metafieldId(Integer metafieldId) {
             this.metafieldId = metafieldId;
             return this;
         }

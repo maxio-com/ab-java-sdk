@@ -30,11 +30,11 @@ public class Product {
     private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
     private String createdAt;
     private String updatedAt;
-    private Integer priceInCents;
+    private Long priceInCents;
     private Integer interval;
     private ProductIntervalUnit intervalUnit;
-    private OptionalNullable<Integer> initialChargeInCents;
-    private OptionalNullable<Integer> trialPriceInCents;
+    private OptionalNullable<Long> initialChargeInCents;
+    private OptionalNullable<Long> trialPriceInCents;
     private OptionalNullable<Integer> trialInterval;
     private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
     private OptionalNullable<String> archivedAt;
@@ -77,11 +77,11 @@ public class Product {
      *         expirationIntervalUnit.
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
-     * @param  priceInCents  Integer value for priceInCents.
+     * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  ProductIntervalUnit value for intervalUnit.
-     * @param  initialChargeInCents  Integer value for initialChargeInCents.
-     * @param  trialPriceInCents  Integer value for trialPriceInCents.
+     * @param  initialChargeInCents  Long value for initialChargeInCents.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
      * @param  archivedAt  String value for archivedAt.
@@ -116,11 +116,11 @@ public class Product {
             ProductExpirationIntervalUnit expirationIntervalUnit,
             String createdAt,
             String updatedAt,
-            Integer priceInCents,
+            Long priceInCents,
             Integer interval,
             ProductIntervalUnit intervalUnit,
-            Integer initialChargeInCents,
-            Integer trialPriceInCents,
+            Long initialChargeInCents,
+            Long trialPriceInCents,
             Integer trialInterval,
             ProductTrialIntervalUnit trialIntervalUnit,
             String archivedAt,
@@ -195,11 +195,11 @@ public class Product {
      *         expirationIntervalUnit.
      * @param  createdAt  String value for createdAt.
      * @param  updatedAt  String value for updatedAt.
-     * @param  priceInCents  Integer value for priceInCents.
+     * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  ProductIntervalUnit value for intervalUnit.
-     * @param  initialChargeInCents  Integer value for initialChargeInCents.
-     * @param  trialPriceInCents  Integer value for trialPriceInCents.
+     * @param  initialChargeInCents  Long value for initialChargeInCents.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
      * @param  archivedAt  String value for archivedAt.
@@ -228,9 +228,9 @@ public class Product {
             OptionalNullable<String> accountingCode, Boolean requestCreditCard,
             OptionalNullable<Integer> expirationInterval,
             OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit,
-            String createdAt, String updatedAt, Integer priceInCents, Integer interval,
-            ProductIntervalUnit intervalUnit, OptionalNullable<Integer> initialChargeInCents,
-            OptionalNullable<Integer> trialPriceInCents, OptionalNullable<Integer> trialInterval,
+            String createdAt, String updatedAt, Long priceInCents, Integer interval,
+            ProductIntervalUnit intervalUnit, OptionalNullable<Long> initialChargeInCents,
+            OptionalNullable<Long> trialPriceInCents, OptionalNullable<Integer> trialInterval,
             OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit,
             OptionalNullable<String> archivedAt, Boolean requireCreditCard,
             OptionalNullable<String> returnParams, Boolean taxable,
@@ -574,21 +574,21 @@ public class Product {
     /**
      * Getter for PriceInCents.
      * The product price, in integer cents
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPriceInCents() {
+    public Long getPriceInCents() {
         return priceInCents;
     }
 
     /**
      * Setter for PriceInCents.
      * The product price, in integer cents
-     * @param priceInCents Value for Integer
+     * @param priceInCents Value for Long
      */
     @JsonSetter("price_in_cents")
-    public void setPriceInCents(Integer priceInCents) {
+    public void setPriceInCents(Long priceInCents) {
         this.priceInCents = priceInCents;
     }
 
@@ -639,31 +639,31 @@ public class Product {
     /**
      * Internal Getter for InitialChargeInCents.
      * The up front charge you have specified.
-     * @return Returns the Internal Integer
+     * @return Returns the Internal Long
      */
     @JsonGetter("initial_charge_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Integer> internalGetInitialChargeInCents() {
+    protected OptionalNullable<Long> internalGetInitialChargeInCents() {
         return this.initialChargeInCents;
     }
 
     /**
      * Getter for InitialChargeInCents.
      * The up front charge you have specified.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
-    public Integer getInitialChargeInCents() {
+    public Long getInitialChargeInCents() {
         return OptionalNullable.getFrom(initialChargeInCents);
     }
 
     /**
      * Setter for InitialChargeInCents.
      * The up front charge you have specified.
-     * @param initialChargeInCents Value for Integer
+     * @param initialChargeInCents Value for Long
      */
     @JsonSetter("initial_charge_in_cents")
-    public void setInitialChargeInCents(Integer initialChargeInCents) {
+    public void setInitialChargeInCents(Long initialChargeInCents) {
         this.initialChargeInCents = OptionalNullable.of(initialChargeInCents);
     }
 
@@ -678,31 +678,31 @@ public class Product {
     /**
      * Internal Getter for TrialPriceInCents.
      * The price of the trial period for a subscription to this product, in integer cents.
-     * @return Returns the Internal Integer
+     * @return Returns the Internal Long
      */
     @JsonGetter("trial_price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Integer> internalGetTrialPriceInCents() {
+    protected OptionalNullable<Long> internalGetTrialPriceInCents() {
         return this.trialPriceInCents;
     }
 
     /**
      * Getter for TrialPriceInCents.
      * The price of the trial period for a subscription to this product, in integer cents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
-    public Integer getTrialPriceInCents() {
+    public Long getTrialPriceInCents() {
         return OptionalNullable.getFrom(trialPriceInCents);
     }
 
     /**
      * Setter for TrialPriceInCents.
      * The price of the trial period for a subscription to this product, in integer cents.
-     * @param trialPriceInCents Value for Integer
+     * @param trialPriceInCents Value for Long
      */
     @JsonSetter("trial_price_in_cents")
-    public void setTrialPriceInCents(Integer trialPriceInCents) {
+    public void setTrialPriceInCents(Long trialPriceInCents) {
         this.trialPriceInCents = OptionalNullable.of(trialPriceInCents);
     }
 
@@ -1451,11 +1451,11 @@ public class Product {
         private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
         private String createdAt;
         private String updatedAt;
-        private Integer priceInCents;
+        private Long priceInCents;
         private Integer interval;
         private ProductIntervalUnit intervalUnit;
-        private OptionalNullable<Integer> initialChargeInCents;
-        private OptionalNullable<Integer> trialPriceInCents;
+        private OptionalNullable<Long> initialChargeInCents;
+        private OptionalNullable<Long> trialPriceInCents;
         private OptionalNullable<Integer> trialInterval;
         private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
         private OptionalNullable<String> archivedAt;
@@ -1621,10 +1621,10 @@ public class Product {
 
         /**
          * Setter for priceInCents.
-         * @param  priceInCents  Integer value for priceInCents.
+         * @param  priceInCents  Long value for priceInCents.
          * @return Builder
          */
-        public Builder priceInCents(Integer priceInCents) {
+        public Builder priceInCents(Long priceInCents) {
             this.priceInCents = priceInCents;
             return this;
         }
@@ -1651,10 +1651,10 @@ public class Product {
 
         /**
          * Setter for initialChargeInCents.
-         * @param  initialChargeInCents  Integer value for initialChargeInCents.
+         * @param  initialChargeInCents  Long value for initialChargeInCents.
          * @return Builder
          */
-        public Builder initialChargeInCents(Integer initialChargeInCents) {
+        public Builder initialChargeInCents(Long initialChargeInCents) {
             this.initialChargeInCents = OptionalNullable.of(initialChargeInCents);
             return this;
         }
@@ -1670,10 +1670,10 @@ public class Product {
 
         /**
          * Setter for trialPriceInCents.
-         * @param  trialPriceInCents  Integer value for trialPriceInCents.
+         * @param  trialPriceInCents  Long value for trialPriceInCents.
          * @return Builder
          */
-        public Builder trialPriceInCents(Integer trialPriceInCents) {
+        public Builder trialPriceInCents(Long trialPriceInCents) {
             this.trialPriceInCents = OptionalNullable.of(trialPriceInCents);
             return this;
         }

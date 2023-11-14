@@ -14,11 +14,11 @@ import com.maxio.advancedbilling.models.containers.EventEventSpecificData;
  * This is a model class for Event type.
  */
 public class Event {
-    private double id;
+    private int id;
     private String key;
     private String message;
-    private double subscriptionId;
-    private double customerId;
+    private int subscriptionId;
+    private int customerId;
     private String createdAt;
     private EventEventSpecificData eventSpecificData;
 
@@ -30,20 +30,20 @@ public class Event {
 
     /**
      * Initialization constructor.
-     * @param  id  double value for id.
+     * @param  id  int value for id.
      * @param  key  String value for key.
      * @param  message  String value for message.
-     * @param  subscriptionId  double value for subscriptionId.
-     * @param  customerId  double value for customerId.
+     * @param  subscriptionId  int value for subscriptionId.
+     * @param  customerId  int value for customerId.
      * @param  createdAt  String value for createdAt.
      * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
      */
     public Event(
-            double id,
+            int id,
             String key,
             String message,
-            double subscriptionId,
-            double customerId,
+            int subscriptionId,
+            int customerId,
             String createdAt,
             EventEventSpecificData eventSpecificData) {
         this.id = id;
@@ -57,19 +57,19 @@ public class Event {
 
     /**
      * Getter for Id.
-     * @return Returns the double
+     * @return Returns the int
      */
     @JsonGetter("id")
-    public double getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for double
+     * @param id Value for int
      */
     @JsonSetter("id")
-    public void setId(double id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -111,37 +111,37 @@ public class Event {
 
     /**
      * Getter for SubscriptionId.
-     * @return Returns the double
+     * @return Returns the int
      */
     @JsonGetter("subscription_id")
-    public double getSubscriptionId() {
+    public int getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
-     * @param subscriptionId Value for double
+     * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(double subscriptionId) {
+    public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
     /**
      * Getter for CustomerId.
-     * @return Returns the double
+     * @return Returns the int
      */
     @JsonGetter("customer_id")
-    public double getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
     /**
      * Setter for CustomerId.
-     * @param customerId Value for double
+     * @param customerId Value for int
      */
     @JsonSetter("customer_id")
-    public void setCustomerId(double customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
@@ -207,11 +207,11 @@ public class Event {
      * Class to build instances of {@link Event}.
      */
     public static class Builder {
-        private double id;
+        private int id;
         private String key;
         private String message;
-        private double subscriptionId;
-        private double customerId;
+        private int subscriptionId;
+        private int customerId;
         private String createdAt;
         private EventEventSpecificData eventSpecificData;
 
@@ -223,16 +223,16 @@ public class Event {
 
         /**
          * Initialization constructor.
-         * @param  id  double value for id.
+         * @param  id  int value for id.
          * @param  key  String value for key.
          * @param  message  String value for message.
-         * @param  subscriptionId  double value for subscriptionId.
-         * @param  customerId  double value for customerId.
+         * @param  subscriptionId  int value for subscriptionId.
+         * @param  customerId  int value for customerId.
          * @param  createdAt  String value for createdAt.
          * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
          */
-        public Builder(double id, String key, String message, double subscriptionId,
-                double customerId, String createdAt, EventEventSpecificData eventSpecificData) {
+        public Builder(int id, String key, String message, int subscriptionId, int customerId,
+                String createdAt, EventEventSpecificData eventSpecificData) {
             this.id = id;
             this.key = key;
             this.message = message;
@@ -244,10 +244,10 @@ public class Event {
 
         /**
          * Setter for id.
-         * @param  id  double value for id.
+         * @param  id  int value for id.
          * @return Builder
          */
-        public Builder id(double id) {
+        public Builder id(int id) {
             this.id = id;
             return this;
         }
@@ -274,20 +274,20 @@ public class Event {
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  double value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(double subscriptionId) {
+        public Builder subscriptionId(int subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }
 
         /**
          * Setter for customerId.
-         * @param  customerId  double value for customerId.
+         * @param  customerId  int value for customerId.
          * @return Builder
          */
-        public Builder customerId(double customerId) {
+        public Builder customerId(int customerId) {
             this.customerId = customerId;
             return this;
         }

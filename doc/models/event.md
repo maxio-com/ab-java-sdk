@@ -9,11 +9,11 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `double` | Required | - | double getId() | setId(double id) |
+| `Id` | `int` | Required | - | int getId() | setId(int id) |
 | `Key` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getKey() | setKey(String key) |
 | `Message` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getMessage() | setMessage(String message) |
-| `SubscriptionId` | `double` | Required | - | double getSubscriptionId() | setSubscriptionId(double subscriptionId) |
-| `CustomerId` | `double` | Required | - | double getCustomerId() | setCustomerId(double customerId) |
+| `SubscriptionId` | `int` | Required | - | int getSubscriptionId() | setSubscriptionId(int subscriptionId) |
+| `CustomerId` | `int` | Required | - | int getCustomerId() | setCustomerId(int customerId) |
 | `CreatedAt` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getCreatedAt() | setCreatedAt(String createdAt) |
 | `EventSpecificData` | [`EventEventSpecificData`](../../doc/models/containers/event-event-specific-data.md) | Required | This is a container for one-of cases. | EventEventSpecificData getEventSpecificData() | setEventSpecificData(EventEventSpecificData eventSpecificData) |
 
@@ -21,11 +21,11 @@
 
 ```json
 {
-  "id": 159.12,
+  "id": 40,
   "key": "key2",
   "message": "message8",
-  "subscription_id": 185.82,
-  "customer_id": 31.5,
+  "subscription_id": 150,
+  "customer_id": 78,
   "created_at": "created_at0",
   "event_specific_data": {
     "previous_unit_balance": null,

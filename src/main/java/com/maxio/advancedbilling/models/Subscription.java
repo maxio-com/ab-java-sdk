@@ -22,9 +22,9 @@ import java.util.List;
 public class Subscription {
     private Integer id;
     private String state;
-    private Integer balanceInCents;
-    private Integer totalRevenueInCents;
-    private Integer productPriceInCents;
+    private Long balanceInCents;
+    private Long totalRevenueInCents;
+    private Long productPriceInCents;
     private Integer productVersionNumber;
     private String currentPeriodEndsAt;
     private String nextAssessmentAt;
@@ -62,7 +62,7 @@ public class Subscription {
     private List<String> couponCodes;
     private OptionalNullable<Integer> offerId;
     private Integer payerId;
-    private Integer currentBillingAmountInCents;
+    private Long currentBillingAmountInCents;
     private Integer productPricePointId;
     private String productPricePointType;
     private OptionalNullable<Integer> nextProductPricePointId;
@@ -78,8 +78,8 @@ public class Subscription {
     private OptionalNullable<String> locale;
     private String currency;
     private OptionalNullable<String> scheduledCancellationAt;
-    private Integer creditBalanceInCents;
-    private Integer prepaymentBalanceInCents;
+    private Long creditBalanceInCents;
+    private Long prepaymentBalanceInCents;
 
     /**
      * Default constructor.
@@ -92,9 +92,9 @@ public class Subscription {
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  state  String value for state.
-     * @param  balanceInCents  Integer value for balanceInCents.
-     * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
-     * @param  productPriceInCents  Integer value for productPriceInCents.
+     * @param  balanceInCents  Long value for balanceInCents.
+     * @param  totalRevenueInCents  Long value for totalRevenueInCents.
+     * @param  productPriceInCents  Long value for productPriceInCents.
      * @param  productVersionNumber  Integer value for productVersionNumber.
      * @param  currentPeriodEndsAt  String value for currentPeriodEndsAt.
      * @param  nextAssessmentAt  String value for nextAssessmentAt.
@@ -133,7 +133,7 @@ public class Subscription {
      * @param  couponCodes  List of String value for couponCodes.
      * @param  offerId  Integer value for offerId.
      * @param  payerId  Integer value for payerId.
-     * @param  currentBillingAmountInCents  Integer value for currentBillingAmountInCents.
+     * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  productPricePointType  String value for productPricePointType.
      * @param  nextProductPricePointId  Integer value for nextProductPricePointId.
@@ -150,15 +150,15 @@ public class Subscription {
      * @param  locale  String value for locale.
      * @param  currency  String value for currency.
      * @param  scheduledCancellationAt  String value for scheduledCancellationAt.
-     * @param  creditBalanceInCents  Integer value for creditBalanceInCents.
-     * @param  prepaymentBalanceInCents  Integer value for prepaymentBalanceInCents.
+     * @param  creditBalanceInCents  Long value for creditBalanceInCents.
+     * @param  prepaymentBalanceInCents  Long value for prepaymentBalanceInCents.
      */
     public Subscription(
             Integer id,
             String state,
-            Integer balanceInCents,
-            Integer totalRevenueInCents,
-            Integer productPriceInCents,
+            Long balanceInCents,
+            Long totalRevenueInCents,
+            Long productPriceInCents,
             Integer productVersionNumber,
             String currentPeriodEndsAt,
             String nextAssessmentAt,
@@ -196,7 +196,7 @@ public class Subscription {
             List<String> couponCodes,
             Integer offerId,
             Integer payerId,
-            Integer currentBillingAmountInCents,
+            Long currentBillingAmountInCents,
             Integer productPricePointId,
             String productPricePointType,
             Integer nextProductPricePointId,
@@ -212,8 +212,8 @@ public class Subscription {
             String locale,
             String currency,
             String scheduledCancellationAt,
-            Integer creditBalanceInCents,
-            Integer prepaymentBalanceInCents) {
+            Long creditBalanceInCents,
+            Long prepaymentBalanceInCents) {
         this.id = id;
         this.state = state;
         this.balanceInCents = balanceInCents;
@@ -281,9 +281,9 @@ public class Subscription {
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  state  String value for state.
-     * @param  balanceInCents  Integer value for balanceInCents.
-     * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
-     * @param  productPriceInCents  Integer value for productPriceInCents.
+     * @param  balanceInCents  Long value for balanceInCents.
+     * @param  totalRevenueInCents  Long value for totalRevenueInCents.
+     * @param  productPriceInCents  Long value for productPriceInCents.
      * @param  productVersionNumber  Integer value for productVersionNumber.
      * @param  currentPeriodEndsAt  String value for currentPeriodEndsAt.
      * @param  nextAssessmentAt  String value for nextAssessmentAt.
@@ -322,7 +322,7 @@ public class Subscription {
      * @param  couponCodes  List of String value for couponCodes.
      * @param  offerId  Integer value for offerId.
      * @param  payerId  Integer value for payerId.
-     * @param  currentBillingAmountInCents  Integer value for currentBillingAmountInCents.
+     * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  productPricePointType  String value for productPricePointType.
      * @param  nextProductPricePointId  Integer value for nextProductPricePointId.
@@ -339,16 +339,16 @@ public class Subscription {
      * @param  locale  String value for locale.
      * @param  currency  String value for currency.
      * @param  scheduledCancellationAt  String value for scheduledCancellationAt.
-     * @param  creditBalanceInCents  Integer value for creditBalanceInCents.
-     * @param  prepaymentBalanceInCents  Integer value for prepaymentBalanceInCents.
+     * @param  creditBalanceInCents  Long value for creditBalanceInCents.
+     * @param  prepaymentBalanceInCents  Long value for prepaymentBalanceInCents.
      */
 
-    protected Subscription(Integer id, String state, Integer balanceInCents,
-            Integer totalRevenueInCents, Integer productPriceInCents, Integer productVersionNumber,
-            String currentPeriodEndsAt, String nextAssessmentAt,
-            OptionalNullable<String> trialStartedAt, OptionalNullable<String> trialEndedAt,
-            String activatedAt, OptionalNullable<String> expiresAt, String createdAt,
-            String updatedAt, OptionalNullable<String> cancellationMessage,
+    protected Subscription(Integer id, String state, Long balanceInCents, Long totalRevenueInCents,
+            Long productPriceInCents, Integer productVersionNumber, String currentPeriodEndsAt,
+            String nextAssessmentAt, OptionalNullable<String> trialStartedAt,
+            OptionalNullable<String> trialEndedAt, String activatedAt,
+            OptionalNullable<String> expiresAt, String createdAt, String updatedAt,
+            OptionalNullable<String> cancellationMessage,
             OptionalNullable<SubscriptionCancellationMethod> cancellationMethod,
             OptionalNullable<Boolean> cancelAtEndOfPeriod, OptionalNullable<String> canceledAt,
             String currentPeriodStartedAt, String previousState, Integer signupPaymentId,
@@ -362,7 +362,7 @@ public class Subscription {
             OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
             OptionalNullable<String> reasonCode, OptionalNullable<String> automaticallyResumeAt,
             List<String> couponCodes, OptionalNullable<Integer> offerId, Integer payerId,
-            Integer currentBillingAmountInCents, Integer productPricePointId,
+            Long currentBillingAmountInCents, Integer productPricePointId,
             String productPricePointType, OptionalNullable<Integer> nextProductPricePointId,
             OptionalNullable<Integer> netTerms,
             OptionalNullable<Integer> storedCredentialTransactionId,
@@ -372,7 +372,7 @@ public class Subscription {
             OptionalNullable<String> dunningCommunicationDelayTimeZone,
             OptionalNullable<Boolean> receivesInvoiceEmails, OptionalNullable<String> locale,
             String currency, OptionalNullable<String> scheduledCancellationAt,
-            Integer creditBalanceInCents, Integer prepaymentBalanceInCents) {
+            Long creditBalanceInCents, Long prepaymentBalanceInCents) {
         this.id = id;
         this.state = state;
         this.balanceInCents = balanceInCents;
@@ -482,42 +482,42 @@ public class Subscription {
     /**
      * Getter for BalanceInCents.
      * Gives the current outstanding subscription balance in the number of cents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getBalanceInCents() {
+    public Long getBalanceInCents() {
         return balanceInCents;
     }
 
     /**
      * Setter for BalanceInCents.
      * Gives the current outstanding subscription balance in the number of cents.
-     * @param balanceInCents Value for Integer
+     * @param balanceInCents Value for Long
      */
     @JsonSetter("balance_in_cents")
-    public void setBalanceInCents(Integer balanceInCents) {
+    public void setBalanceInCents(Long balanceInCents) {
         this.balanceInCents = balanceInCents;
     }
 
     /**
      * Getter for TotalRevenueInCents.
      * Gives the total revenue from the subscription in the number of cents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("total_revenue_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getTotalRevenueInCents() {
+    public Long getTotalRevenueInCents() {
         return totalRevenueInCents;
     }
 
     /**
      * Setter for TotalRevenueInCents.
      * Gives the total revenue from the subscription in the number of cents.
-     * @param totalRevenueInCents Value for Integer
+     * @param totalRevenueInCents Value for Long
      */
     @JsonSetter("total_revenue_in_cents")
-    public void setTotalRevenueInCents(Integer totalRevenueInCents) {
+    public void setTotalRevenueInCents(Long totalRevenueInCents) {
         this.totalRevenueInCents = totalRevenueInCents;
     }
 
@@ -526,11 +526,11 @@ public class Subscription {
      * (Added Nov 5 2013) The recurring amount of the product (and version),currently subscribed.
      * NOTE: this may differ from the current price of,the product, if you’ve changed the price of
      * the product but haven’t,moved this subscription to a newer version.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("product_price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getProductPriceInCents() {
+    public Long getProductPriceInCents() {
         return productPriceInCents;
     }
 
@@ -539,10 +539,10 @@ public class Subscription {
      * (Added Nov 5 2013) The recurring amount of the product (and version),currently subscribed.
      * NOTE: this may differ from the current price of,the product, if you’ve changed the price of
      * the product but haven’t,moved this subscription to a newer version.
-     * @param productPriceInCents Value for Integer
+     * @param productPriceInCents Value for Long
      */
     @JsonSetter("product_price_in_cents")
-    public void setProductPriceInCents(Integer productPriceInCents) {
+    public void setProductPriceInCents(Long productPriceInCents) {
         this.productPriceInCents = productPriceInCents;
     }
 
@@ -1736,21 +1736,21 @@ public class Subscription {
     /**
      * Getter for CurrentBillingAmountInCents.
      * The balance in cents plus the estimated renewal amount in cents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("current_billing_amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getCurrentBillingAmountInCents() {
+    public Long getCurrentBillingAmountInCents() {
         return currentBillingAmountInCents;
     }
 
     /**
      * Setter for CurrentBillingAmountInCents.
      * The balance in cents plus the estimated renewal amount in cents.
-     * @param currentBillingAmountInCents Value for Integer
+     * @param currentBillingAmountInCents Value for Long
      */
     @JsonSetter("current_billing_amount_in_cents")
-    public void setCurrentBillingAmountInCents(Integer currentBillingAmountInCents) {
+    public void setCurrentBillingAmountInCents(Long currentBillingAmountInCents) {
         this.currentBillingAmountInCents = currentBillingAmountInCents;
     }
 
@@ -2239,39 +2239,39 @@ public class Subscription {
 
     /**
      * Getter for CreditBalanceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("credit_balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getCreditBalanceInCents() {
+    public Long getCreditBalanceInCents() {
         return creditBalanceInCents;
     }
 
     /**
      * Setter for CreditBalanceInCents.
-     * @param creditBalanceInCents Value for Integer
+     * @param creditBalanceInCents Value for Long
      */
     @JsonSetter("credit_balance_in_cents")
-    public void setCreditBalanceInCents(Integer creditBalanceInCents) {
+    public void setCreditBalanceInCents(Long creditBalanceInCents) {
         this.creditBalanceInCents = creditBalanceInCents;
     }
 
     /**
      * Getter for PrepaymentBalanceInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("prepayment_balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPrepaymentBalanceInCents() {
+    public Long getPrepaymentBalanceInCents() {
         return prepaymentBalanceInCents;
     }
 
     /**
      * Setter for PrepaymentBalanceInCents.
-     * @param prepaymentBalanceInCents Value for Integer
+     * @param prepaymentBalanceInCents Value for Long
      */
     @JsonSetter("prepayment_balance_in_cents")
-    public void setPrepaymentBalanceInCents(Integer prepaymentBalanceInCents) {
+    public void setPrepaymentBalanceInCents(Long prepaymentBalanceInCents) {
         this.prepaymentBalanceInCents = prepaymentBalanceInCents;
     }
 
@@ -2392,9 +2392,9 @@ public class Subscription {
     public static class Builder {
         private Integer id;
         private String state;
-        private Integer balanceInCents;
-        private Integer totalRevenueInCents;
-        private Integer productPriceInCents;
+        private Long balanceInCents;
+        private Long totalRevenueInCents;
+        private Long productPriceInCents;
         private Integer productVersionNumber;
         private String currentPeriodEndsAt;
         private String nextAssessmentAt;
@@ -2432,7 +2432,7 @@ public class Subscription {
         private List<String> couponCodes;
         private OptionalNullable<Integer> offerId;
         private Integer payerId;
-        private Integer currentBillingAmountInCents;
+        private Long currentBillingAmountInCents;
         private Integer productPricePointId;
         private String productPricePointType;
         private OptionalNullable<Integer> nextProductPricePointId;
@@ -2448,8 +2448,8 @@ public class Subscription {
         private OptionalNullable<String> locale;
         private String currency;
         private OptionalNullable<String> scheduledCancellationAt;
-        private Integer creditBalanceInCents;
-        private Integer prepaymentBalanceInCents;
+        private Long creditBalanceInCents;
+        private Long prepaymentBalanceInCents;
 
 
 
@@ -2475,30 +2475,30 @@ public class Subscription {
 
         /**
          * Setter for balanceInCents.
-         * @param  balanceInCents  Integer value for balanceInCents.
+         * @param  balanceInCents  Long value for balanceInCents.
          * @return Builder
          */
-        public Builder balanceInCents(Integer balanceInCents) {
+        public Builder balanceInCents(Long balanceInCents) {
             this.balanceInCents = balanceInCents;
             return this;
         }
 
         /**
          * Setter for totalRevenueInCents.
-         * @param  totalRevenueInCents  Integer value for totalRevenueInCents.
+         * @param  totalRevenueInCents  Long value for totalRevenueInCents.
          * @return Builder
          */
-        public Builder totalRevenueInCents(Integer totalRevenueInCents) {
+        public Builder totalRevenueInCents(Long totalRevenueInCents) {
             this.totalRevenueInCents = totalRevenueInCents;
             return this;
         }
 
         /**
          * Setter for productPriceInCents.
-         * @param  productPriceInCents  Integer value for productPriceInCents.
+         * @param  productPriceInCents  Long value for productPriceInCents.
          * @return Builder
          */
-        public Builder productPriceInCents(Integer productPriceInCents) {
+        public Builder productPriceInCents(Long productPriceInCents) {
             this.productPriceInCents = productPriceInCents;
             return this;
         }
@@ -3066,10 +3066,10 @@ public class Subscription {
 
         /**
          * Setter for currentBillingAmountInCents.
-         * @param  currentBillingAmountInCents  Integer value for currentBillingAmountInCents.
+         * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
          * @return Builder
          */
-        public Builder currentBillingAmountInCents(Integer currentBillingAmountInCents) {
+        public Builder currentBillingAmountInCents(Long currentBillingAmountInCents) {
             this.currentBillingAmountInCents = currentBillingAmountInCents;
             return this;
         }
@@ -3312,20 +3312,20 @@ public class Subscription {
 
         /**
          * Setter for creditBalanceInCents.
-         * @param  creditBalanceInCents  Integer value for creditBalanceInCents.
+         * @param  creditBalanceInCents  Long value for creditBalanceInCents.
          * @return Builder
          */
-        public Builder creditBalanceInCents(Integer creditBalanceInCents) {
+        public Builder creditBalanceInCents(Long creditBalanceInCents) {
             this.creditBalanceInCents = creditBalanceInCents;
             return this;
         }
 
         /**
          * Setter for prepaymentBalanceInCents.
-         * @param  prepaymentBalanceInCents  Integer value for prepaymentBalanceInCents.
+         * @param  prepaymentBalanceInCents  Long value for prepaymentBalanceInCents.
          * @return Builder
          */
-        public Builder prepaymentBalanceInCents(Integer prepaymentBalanceInCents) {
+        public Builder prepaymentBalanceInCents(Long prepaymentBalanceInCents) {
             this.prepaymentBalanceInCents = prepaymentBalanceInCents;
             return this;
         }

@@ -19,7 +19,7 @@ public class CreateOrUpdateProduct {
     private String description;
     private String accountingCode;
     private Boolean requireCreditCard;
-    private int priceInCents;
+    private long priceInCents;
     private int interval;
     private String intervalUnit;
     private Boolean autoCreateSignupPage;
@@ -35,7 +35,7 @@ public class CreateOrUpdateProduct {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  description  String value for description.
-     * @param  priceInCents  int value for priceInCents.
+     * @param  priceInCents  long value for priceInCents.
      * @param  interval  int value for interval.
      * @param  intervalUnit  String value for intervalUnit.
      * @param  handle  String value for handle.
@@ -47,7 +47,7 @@ public class CreateOrUpdateProduct {
     public CreateOrUpdateProduct(
             String name,
             String description,
-            int priceInCents,
+            long priceInCents,
             int interval,
             String intervalUnit,
             String handle,
@@ -162,19 +162,19 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for PriceInCents.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("price_in_cents")
-    public int getPriceInCents() {
+    public long getPriceInCents() {
         return priceInCents;
     }
 
     /**
      * Setter for PriceInCents.
-     * @param priceInCents Value for int
+     * @param priceInCents Value for long
      */
     @JsonSetter("price_in_cents")
-    public void setPriceInCents(int priceInCents) {
+    public void setPriceInCents(long priceInCents) {
         this.priceInCents = priceInCents;
     }
 
@@ -286,7 +286,7 @@ public class CreateOrUpdateProduct {
     public static class Builder {
         private String name;
         private String description;
-        private int priceInCents;
+        private long priceInCents;
         private int interval;
         private String intervalUnit;
         private String handle;
@@ -305,11 +305,11 @@ public class CreateOrUpdateProduct {
          * Initialization constructor.
          * @param  name  String value for name.
          * @param  description  String value for description.
-         * @param  priceInCents  int value for priceInCents.
+         * @param  priceInCents  long value for priceInCents.
          * @param  interval  int value for interval.
          * @param  intervalUnit  String value for intervalUnit.
          */
-        public Builder(String name, String description, int priceInCents, int interval,
+        public Builder(String name, String description, long priceInCents, int interval,
                 String intervalUnit) {
             this.name = name;
             this.description = description;
@@ -340,10 +340,10 @@ public class CreateOrUpdateProduct {
 
         /**
          * Setter for priceInCents.
-         * @param  priceInCents  int value for priceInCents.
+         * @param  priceInCents  long value for priceInCents.
          * @return Builder
          */
-        public Builder priceInCents(int priceInCents) {
+        public Builder priceInCents(long priceInCents) {
             this.priceInCents = priceInCents;
             return this;
         }

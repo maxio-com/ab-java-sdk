@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
+import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorStringCase;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -27,6 +28,15 @@ import java.util.List;
 @JsonDeserialize(using = MetafieldEnum.MetafieldEnumDeserializer.class)
 public abstract class MetafieldEnum {
     
+    /**
+     * This is String case.
+     * @param mString String value for mString.
+     * @return The MStringCase object.
+     */
+    public static MetafieldEnum fromMString(String mString) {
+        return mString == null ? null : new MStringCase(mString);
+    }
+
     /**
      * This is List of String case.
      * @param listOfString List of String value for listOfString.
@@ -49,7 +59,44 @@ public abstract class MetafieldEnum {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
+        R mString(String mString);
+
         R listOfString(List<String> listOfString);
+    }
+
+    /**
+     * This is a implementation class for MStringCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorStringCase
+    @TypeCombinatorCase(type = "String")
+    private static class MStringCase extends MetafieldEnum {
+
+        @JsonValue
+        private String mString;
+
+        MStringCase(String mString) {
+            this.mString = mString;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.mString(this.mString);
+        }
+
+        @JsonCreator
+        private MStringCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isTextual()) {
+                this.mString = ApiHelper.deserialize(jsonNode, String.class);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        @Override
+        public String toString() {
+            return mString.toString();
+        }
     }
 
     /**
@@ -94,7 +141,8 @@ public abstract class MetafieldEnum {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(ListOfStringCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(MStringCase.class,
+                    ListOfStringCase.class), true);
         }
     }
 

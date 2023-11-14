@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for BankAccountVerification type.
  */
 public class BankAccountVerification {
-    private Integer deposit1InCents;
-    private Integer deposit2InCents;
+    private Long deposit1InCents;
+    private Long deposit2InCents;
 
     /**
      * Default constructor.
@@ -25,51 +25,51 @@ public class BankAccountVerification {
 
     /**
      * Initialization constructor.
-     * @param  deposit1InCents  Integer value for deposit1InCents.
-     * @param  deposit2InCents  Integer value for deposit2InCents.
+     * @param  deposit1InCents  Long value for deposit1InCents.
+     * @param  deposit2InCents  Long value for deposit2InCents.
      */
     public BankAccountVerification(
-            Integer deposit1InCents,
-            Integer deposit2InCents) {
+            Long deposit1InCents,
+            Long deposit2InCents) {
         this.deposit1InCents = deposit1InCents;
         this.deposit2InCents = deposit2InCents;
     }
 
     /**
      * Getter for Deposit1InCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("deposit_1_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getDeposit1InCents() {
+    public Long getDeposit1InCents() {
         return deposit1InCents;
     }
 
     /**
      * Setter for Deposit1InCents.
-     * @param deposit1InCents Value for Integer
+     * @param deposit1InCents Value for Long
      */
     @JsonSetter("deposit_1_in_cents")
-    public void setDeposit1InCents(Integer deposit1InCents) {
+    public void setDeposit1InCents(Long deposit1InCents) {
         this.deposit1InCents = deposit1InCents;
     }
 
     /**
      * Getter for Deposit2InCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("deposit_2_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getDeposit2InCents() {
+    public Long getDeposit2InCents() {
         return deposit2InCents;
     }
 
     /**
      * Setter for Deposit2InCents.
-     * @param deposit2InCents Value for Integer
+     * @param deposit2InCents Value for Long
      */
     @JsonSetter("deposit_2_in_cents")
-    public void setDeposit2InCents(Integer deposit2InCents) {
+    public void setDeposit2InCents(Long deposit2InCents) {
         this.deposit2InCents = deposit2InCents;
     }
 
@@ -99,27 +99,27 @@ public class BankAccountVerification {
      * Class to build instances of {@link BankAccountVerification}.
      */
     public static class Builder {
-        private Integer deposit1InCents;
-        private Integer deposit2InCents;
+        private Long deposit1InCents;
+        private Long deposit2InCents;
 
 
 
         /**
          * Setter for deposit1InCents.
-         * @param  deposit1InCents  Integer value for deposit1InCents.
+         * @param  deposit1InCents  Long value for deposit1InCents.
          * @return Builder
          */
-        public Builder deposit1InCents(Integer deposit1InCents) {
+        public Builder deposit1InCents(Long deposit1InCents) {
             this.deposit1InCents = deposit1InCents;
             return this;
         }
 
         /**
          * Setter for deposit2InCents.
-         * @param  deposit2InCents  Integer value for deposit2InCents.
+         * @param  deposit2InCents  Long value for deposit2InCents.
          * @return Builder
          */
-        public Builder deposit2InCents(Integer deposit2InCents) {
+        public Builder deposit2InCents(Long deposit2InCents) {
             this.deposit2InCents = deposit2InCents;
             return this;
         }

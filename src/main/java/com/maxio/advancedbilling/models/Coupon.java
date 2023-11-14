@@ -18,7 +18,7 @@ import java.util.List;
  * This is a model class for Coupon type.
  */
 public class Coupon {
-    private Double id;
+    private Integer id;
     private String name;
     private String code;
     private String description;
@@ -56,7 +56,7 @@ public class Coupon {
 
     /**
      * Initialization constructor.
-     * @param  id  Double value for id.
+     * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  code  String value for code.
      * @param  description  String value for description.
@@ -87,7 +87,7 @@ public class Coupon {
      * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
      */
     public Coupon(
-            Double id,
+            Integer id,
             String name,
             String code,
             String description,
@@ -149,7 +149,7 @@ public class Coupon {
 
     /**
      * Initialization constructor.
-     * @param  id  Double value for id.
+     * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  code  String value for code.
      * @param  description  String value for description.
@@ -180,7 +180,7 @@ public class Coupon {
      * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
      */
 
-    protected Coupon(Double id, String name, String code, String description,
+    protected Coupon(Integer id, String name, String code, String description,
             OptionalNullable<Double> amount, OptionalNullable<Integer> amountInCents,
             Integer productFamilyId, String productFamilyName, String startDate,
             OptionalNullable<String> endDate, OptionalNullable<Double> percentage,
@@ -227,20 +227,20 @@ public class Coupon {
 
     /**
      * Getter for Id.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Double
+     * @param id Value for Integer
      */
     @JsonSetter("id")
-    public void setId(Double id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -986,7 +986,7 @@ public class Coupon {
      * Class to build instances of {@link Coupon}.
      */
     public static class Builder {
-        private Double id;
+        private Integer id;
         private String name;
         private String code;
         private String description;
@@ -1020,10 +1020,10 @@ public class Coupon {
 
         /**
          * Setter for id.
-         * @param  id  Double value for id.
+         * @param  id  Integer value for id.
          * @return Builder
          */
-        public Builder id(Double id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }

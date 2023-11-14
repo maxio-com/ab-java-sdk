@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Deposit1InCents` | `Integer` | Optional | - | Integer getDeposit1InCents() | setDeposit1InCents(Integer deposit1InCents) |
-| `Deposit2InCents` | `Integer` | Optional | - | Integer getDeposit2InCents() | setDeposit2InCents(Integer deposit2InCents) |
+| `Deposit1InCents` | `Long` | Optional | - | Long getDeposit1InCents() | setDeposit1InCents(Long deposit1InCents) |
+| `Deposit2InCents` | `Long` | Optional | - | Long getDeposit2InCents() | setDeposit2InCents(Long deposit2InCents) |
 
 ## Example (as JSON)
 

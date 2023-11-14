@@ -10,14 +10,14 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `LineItems` | [`List<BillingManifestItem>`](../../doc/models/billing-manifest-item.md) | Optional | - | List<BillingManifestItem> getLineItems() | setLineItems(List<BillingManifestItem> lineItems) |
-| `TotalInCents` | `Integer` | Optional | - | Integer getTotalInCents() | setTotalInCents(Integer totalInCents) |
-| `TotalDiscountInCents` | `Integer` | Optional | - | Integer getTotalDiscountInCents() | setTotalDiscountInCents(Integer totalDiscountInCents) |
-| `TotalTaxInCents` | `Integer` | Optional | - | Integer getTotalTaxInCents() | setTotalTaxInCents(Integer totalTaxInCents) |
-| `SubtotalInCents` | `Integer` | Optional | - | Integer getSubtotalInCents() | setSubtotalInCents(Integer subtotalInCents) |
+| `TotalInCents` | `Long` | Optional | - | Long getTotalInCents() | setTotalInCents(Long totalInCents) |
+| `TotalDiscountInCents` | `Long` | Optional | - | Long getTotalDiscountInCents() | setTotalDiscountInCents(Long totalDiscountInCents) |
+| `TotalTaxInCents` | `Long` | Optional | - | Long getTotalTaxInCents() | setTotalTaxInCents(Long totalTaxInCents) |
+| `SubtotalInCents` | `Long` | Optional | - | Long getSubtotalInCents() | setSubtotalInCents(Long subtotalInCents) |
 | `StartDate` | `String` | Optional | - | String getStartDate() | setStartDate(String startDate) |
 | `EndDate` | `String` | Optional | - | String getEndDate() | setEndDate(String endDate) |
 | `PeriodType` | `String` | Optional | - | String getPeriodType() | setPeriodType(String periodType) |
-| `ExistingBalanceInCents` | `Integer` | Optional | - | Integer getExistingBalanceInCents() | setExistingBalanceInCents(Integer existingBalanceInCents) |
+| `ExistingBalanceInCents` | `Long` | Optional | - | Long getExistingBalanceInCents() | setExistingBalanceInCents(Long existingBalanceInCents) |
 
 ## Example (as JSON)
 
