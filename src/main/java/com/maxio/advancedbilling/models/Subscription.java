@@ -61,7 +61,7 @@ public class Subscription {
     private OptionalNullable<String> automaticallyResumeAt;
     private List<String> couponCodes;
     private OptionalNullable<Integer> offerId;
-    private Integer payerId;
+    private OptionalNullable<Integer> payerId;
     private Long currentBillingAmountInCents;
     private Integer productPricePointId;
     private String productPricePointType;
@@ -255,7 +255,7 @@ public class Subscription {
         this.automaticallyResumeAt = OptionalNullable.of(automaticallyResumeAt);
         this.couponCodes = couponCodes;
         this.offerId = OptionalNullable.of(offerId);
-        this.payerId = payerId;
+        this.payerId = OptionalNullable.of(payerId);
         this.currentBillingAmountInCents = currentBillingAmountInCents;
         this.productPricePointId = productPricePointId;
         this.productPricePointType = productPricePointType;
@@ -361,10 +361,10 @@ public class Subscription {
             OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
             OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
             OptionalNullable<String> reasonCode, OptionalNullable<String> automaticallyResumeAt,
-            List<String> couponCodes, OptionalNullable<Integer> offerId, Integer payerId,
-            Long currentBillingAmountInCents, Integer productPricePointId,
-            String productPricePointType, OptionalNullable<Integer> nextProductPricePointId,
-            OptionalNullable<Integer> netTerms,
+            List<String> couponCodes, OptionalNullable<Integer> offerId,
+            OptionalNullable<Integer> payerId, Long currentBillingAmountInCents,
+            Integer productPricePointId, String productPricePointType,
+            OptionalNullable<Integer> nextProductPricePointId, OptionalNullable<Integer> netTerms,
             OptionalNullable<Integer> storedCredentialTransactionId,
             OptionalNullable<String> reference, OptionalNullable<String> onHoldAt,
             Boolean prepaidDunning, List<SubscriptionIncludedCoupon> coupons,
@@ -1711,15 +1711,26 @@ public class Subscription {
     }
 
     /**
+     * Internal Getter for PayerId.
+     * On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to
+     * the Customer ID unless the 'Customer Hierarchies &amp; WhoPays' feature is enabled.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("payer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetPayerId() {
+        return this.payerId;
+    }
+
+    /**
      * Getter for PayerId.
      * On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to
      * the Customer ID unless the 'Customer Hierarchies &amp; WhoPays' feature is enabled.
      * @return Returns the Integer
      */
-    @JsonGetter("payer_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getPayerId() {
-        return payerId;
+        return OptionalNullable.getFrom(payerId);
     }
 
     /**
@@ -1730,7 +1741,16 @@ public class Subscription {
      */
     @JsonSetter("payer_id")
     public void setPayerId(Integer payerId) {
-        this.payerId = payerId;
+        this.payerId = OptionalNullable.of(payerId);
+    }
+
+    /**
+     * UnSetter for PayerId.
+     * On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to
+     * the Customer ID unless the 'Customer Hierarchies &amp; WhoPays' feature is enabled.
+     */
+    public void unsetPayerId() {
+        payerId = null;
     }
 
     /**
@@ -2343,7 +2363,6 @@ public class Subscription {
                 .creditCard(getCreditCard())
                 .bankAccount(getBankAccount())
                 .couponCodes(getCouponCodes())
-                .payerId(getPayerId())
                 .currentBillingAmountInCents(getCurrentBillingAmountInCents())
                 .productPricePointId(getProductPricePointId())
                 .productPricePointType(getProductPricePointType())
@@ -2374,6 +2393,7 @@ public class Subscription {
         builder.reasonCode = internalGetReasonCode();
         builder.automaticallyResumeAt = internalGetAutomaticallyResumeAt();
         builder.offerId = internalGetOfferId();
+        builder.payerId = internalGetPayerId();
         builder.nextProductPricePointId = internalGetNextProductPricePointId();
         builder.netTerms = internalGetNetTerms();
         builder.storedCredentialTransactionId = internalGetStoredCredentialTransactionId();
@@ -2431,7 +2451,7 @@ public class Subscription {
         private OptionalNullable<String> automaticallyResumeAt;
         private List<String> couponCodes;
         private OptionalNullable<Integer> offerId;
-        private Integer payerId;
+        private OptionalNullable<Integer> payerId;
         private Long currentBillingAmountInCents;
         private Integer productPricePointId;
         private String productPricePointType;
@@ -3060,7 +3080,16 @@ public class Subscription {
          * @return Builder
          */
         public Builder payerId(Integer payerId) {
-            this.payerId = payerId;
+            this.payerId = OptionalNullable.of(payerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for payerId.
+         * @return Builder
+         */
+        public Builder unsetPayerId() {
+            payerId = null;
             return this;
         }
 

@@ -19,7 +19,7 @@ import java.util.List;
 public class Component {
     private Integer id;
     private String name;
-    private String handle;
+    private OptionalNullable<String> handle;
     private OptionalNullable<String> pricingScheme;
     private String unitName;
     private OptionalNullable<String> unitPrice;
@@ -44,7 +44,7 @@ public class Component {
     private OptionalNullable<String> archivedAt;
     private Boolean hideDateRangeOnInvoice;
     private Boolean allowFractionalQuantities;
-    private ItemCategory itemCategory;
+    private OptionalNullable<ItemCategory> itemCategory;
     private OptionalNullable<Boolean> useSiteExchangeRate;
     private OptionalNullable<String> accountingCode;
     private Integer eventBasedBillingMetricId;
@@ -123,7 +123,7 @@ public class Component {
             Integer eventBasedBillingMetricId) {
         this.id = id;
         this.name = name;
-        this.handle = handle;
+        this.handle = OptionalNullable.of(handle);
         this.pricingScheme = OptionalNullable.of(pricingScheme);
         this.unitName = unitName;
         this.unitPrice = OptionalNullable.of(unitPrice);
@@ -148,7 +148,7 @@ public class Component {
         this.archivedAt = OptionalNullable.of(archivedAt);
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
         this.allowFractionalQuantities = allowFractionalQuantities;
-        this.itemCategory = itemCategory;
+        this.itemCategory = OptionalNullable.of(itemCategory);
         this.useSiteExchangeRate = OptionalNullable.of(useSiteExchangeRate);
         this.accountingCode = OptionalNullable.of(accountingCode);
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
@@ -189,7 +189,7 @@ public class Component {
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
      */
 
-    protected Component(Integer id, String name, String handle,
+    protected Component(Integer id, String name, OptionalNullable<String> handle,
             OptionalNullable<String> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
             OptionalNullable<Long> pricePerUnitInCents, ComponentKind kind, Boolean archived,
@@ -199,7 +199,7 @@ public class Component {
             Boolean recurring, OptionalNullable<String> upgradeCharge,
             OptionalNullable<String> downgradeCredit, String createdAt, String updatedAt,
             OptionalNullable<String> archivedAt, Boolean hideDateRangeOnInvoice,
-            Boolean allowFractionalQuantities, ItemCategory itemCategory,
+            Boolean allowFractionalQuantities, OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
             Integer eventBasedBillingMetricId) {
         this.id = id;
@@ -280,14 +280,24 @@ public class Component {
     }
 
     /**
+     * Internal Getter for Handle.
+     * The component API handle
+     * @return Returns the Internal String
+     */
+    @JsonGetter("handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetHandle() {
+        return this.handle;
+    }
+
+    /**
      * Getter for Handle.
      * The component API handle
      * @return Returns the String
      */
-    @JsonGetter("handle")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getHandle() {
-        return handle;
+        return OptionalNullable.getFrom(handle);
     }
 
     /**
@@ -297,7 +307,15 @@ public class Component {
      */
     @JsonSetter("handle")
     public void setHandle(String handle) {
-        this.handle = handle;
+        this.handle = OptionalNullable.of(handle);
+    }
+
+    /**
+     * UnSetter for Handle.
+     * The component API handle
+     */
+    public void unsetHandle() {
+        handle = null;
     }
 
     /**
@@ -981,15 +999,26 @@ public class Component {
     }
 
     /**
+     * Internal Getter for ItemCategory.
+     * One of the following: Business Software, Consumer Software, Digital Services, Physical Goods,
+     * Other
+     * @return Returns the Internal ItemCategory
+     */
+    @JsonGetter("item_category")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ItemCategory> internalGetItemCategory() {
+        return this.itemCategory;
+    }
+
+    /**
      * Getter for ItemCategory.
      * One of the following: Business Software, Consumer Software, Digital Services, Physical Goods,
      * Other
      * @return Returns the ItemCategory
      */
-    @JsonGetter("item_category")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ItemCategory getItemCategory() {
-        return itemCategory;
+        return OptionalNullable.getFrom(itemCategory);
     }
 
     /**
@@ -1000,7 +1029,16 @@ public class Component {
      */
     @JsonSetter("item_category")
     public void setItemCategory(ItemCategory itemCategory) {
-        this.itemCategory = itemCategory;
+        this.itemCategory = OptionalNullable.of(itemCategory);
+    }
+
+    /**
+     * UnSetter for ItemCategory.
+     * One of the following: Business Software, Consumer Software, Digital Services, Physical Goods,
+     * Other
+     */
+    public void unsetItemCategory() {
+        itemCategory = null;
     }
 
     /**
@@ -1133,7 +1171,6 @@ public class Component {
         Builder builder = new Builder()
                 .id(getId())
                 .name(getName())
-                .handle(getHandle())
                 .unitName(getUnitName())
                 .productFamilyId(getProductFamilyId())
                 .productFamilyName(getProductFamilyName())
@@ -1149,8 +1186,8 @@ public class Component {
                 .updatedAt(getUpdatedAt())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
-                .itemCategory(getItemCategory())
                 .eventBasedBillingMetricId(getEventBasedBillingMetricId());
+        builder.handle = internalGetHandle();
         builder.pricingScheme = internalGetPricingScheme();
         builder.unitPrice = internalGetUnitPrice();
         builder.pricePerUnitInCents = internalGetPricePerUnitInCents();
@@ -1160,6 +1197,7 @@ public class Component {
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
         builder.archivedAt = internalGetArchivedAt();
+        builder.itemCategory = internalGetItemCategory();
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.accountingCode = internalGetAccountingCode();
         return builder;
@@ -1171,7 +1209,7 @@ public class Component {
     public static class Builder {
         private Integer id;
         private String name;
-        private String handle;
+        private OptionalNullable<String> handle;
         private OptionalNullable<String> pricingScheme;
         private String unitName;
         private OptionalNullable<String> unitPrice;
@@ -1196,7 +1234,7 @@ public class Component {
         private OptionalNullable<String> archivedAt;
         private Boolean hideDateRangeOnInvoice;
         private Boolean allowFractionalQuantities;
-        private ItemCategory itemCategory;
+        private OptionalNullable<ItemCategory> itemCategory;
         private OptionalNullable<Boolean> useSiteExchangeRate;
         private OptionalNullable<String> accountingCode;
         private Integer eventBasedBillingMetricId;
@@ -1229,7 +1267,16 @@ public class Component {
          * @return Builder
          */
         public Builder handle(String handle) {
-            this.handle = handle;
+            this.handle = OptionalNullable.of(handle);
+            return this;
+        }
+
+        /**
+         * UnSetter for handle.
+         * @return Builder
+         */
+        public Builder unsetHandle() {
+            handle = null;
             return this;
         }
 
@@ -1560,7 +1607,16 @@ public class Component {
          * @return Builder
          */
         public Builder itemCategory(ItemCategory itemCategory) {
-            this.itemCategory = itemCategory;
+            this.itemCategory = OptionalNullable.of(itemCategory);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemCategory.
+         * @return Builder
+         */
+        public Builder unsetItemCategory() {
+            itemCategory = null;
             return this;
         }
 
