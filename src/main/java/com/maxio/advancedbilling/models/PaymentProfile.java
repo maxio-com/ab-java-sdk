@@ -36,7 +36,7 @@ public class PaymentProfile {
     private PaymentType paymentType;
     private Boolean disabled;
     private String chargifyToken;
-    private Integer siteGatewaySettingId;
+    private OptionalNullable<Integer> siteGatewaySettingId;
     private OptionalNullable<String> gatewayHandle;
 
     /**
@@ -114,7 +114,7 @@ public class PaymentProfile {
         this.paymentType = paymentType;
         this.disabled = disabled;
         this.chargifyToken = chargifyToken;
-        this.siteGatewaySettingId = siteGatewaySettingId;
+        this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
     }
 
@@ -151,7 +151,7 @@ public class PaymentProfile {
             OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
             OptionalNullable<String> billingAddress2, PaymentType paymentType, Boolean disabled,
-            String chargifyToken, Integer siteGatewaySettingId,
+            String chargifyToken, OptionalNullable<Integer> siteGatewaySettingId,
             OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
@@ -750,13 +750,22 @@ public class PaymentProfile {
     }
 
     /**
-     * Getter for SiteGatewaySettingId.
-     * @return Returns the Integer
+     * Internal Getter for SiteGatewaySettingId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("site_gateway_setting_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetSiteGatewaySettingId() {
+        return this.siteGatewaySettingId;
+    }
+
+    /**
+     * Getter for SiteGatewaySettingId.
+     * @return Returns the Integer
+     */
     public Integer getSiteGatewaySettingId() {
-        return siteGatewaySettingId;
+        return OptionalNullable.getFrom(siteGatewaySettingId);
     }
 
     /**
@@ -765,7 +774,14 @@ public class PaymentProfile {
      */
     @JsonSetter("site_gateway_setting_id")
     public void setSiteGatewaySettingId(Integer siteGatewaySettingId) {
-        this.siteGatewaySettingId = siteGatewaySettingId;
+        this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
+    }
+
+    /**
+     * UnSetter for SiteGatewaySettingId.
+     */
+    public void unsetSiteGatewaySettingId() {
+        siteGatewaySettingId = null;
     }
 
     /**
@@ -844,8 +860,7 @@ public class PaymentProfile {
                 .currentVault(getCurrentVault())
                 .paymentType(getPaymentType())
                 .disabled(getDisabled())
-                .chargifyToken(getChargifyToken())
-                .siteGatewaySettingId(getSiteGatewaySettingId());
+                .chargifyToken(getChargifyToken());
         builder.vaultToken = internalGetVaultToken();
         builder.billingAddress = internalGetBillingAddress();
         builder.billingCity = internalGetBillingCity();
@@ -854,6 +869,7 @@ public class PaymentProfile {
         builder.billingCountry = internalGetBillingCountry();
         builder.customerVaultToken = internalGetCustomerVaultToken();
         builder.billingAddress2 = internalGetBillingAddress2();
+        builder.siteGatewaySettingId = internalGetSiteGatewaySettingId();
         builder.gatewayHandle = internalGetGatewayHandle();
         return builder;
     }
@@ -882,7 +898,7 @@ public class PaymentProfile {
         private PaymentType paymentType = PaymentType.CREDIT_CARD;
         private Boolean disabled;
         private String chargifyToken;
-        private Integer siteGatewaySettingId;
+        private OptionalNullable<Integer> siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
 
 
@@ -1165,7 +1181,16 @@ public class PaymentProfile {
          * @return Builder
          */
         public Builder siteGatewaySettingId(Integer siteGatewaySettingId) {
-            this.siteGatewaySettingId = siteGatewaySettingId;
+            this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
+            return this;
+        }
+
+        /**
+         * UnSetter for siteGatewaySettingId.
+         * @return Builder
+         */
+        public Builder unsetSiteGatewaySettingId() {
+            siteGatewaySettingId = null;
             return this;
         }
 

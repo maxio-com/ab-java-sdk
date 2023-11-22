@@ -22,7 +22,7 @@ public class UpdateComponent {
     private String accountingCode;
     private Boolean taxable;
     private OptionalNullable<String> taxCode;
-    private ItemCategory itemCategory;
+    private OptionalNullable<ItemCategory> itemCategory;
     private Boolean displayOnHostedPage;
     private CreditType upgradeCharge;
 
@@ -60,7 +60,7 @@ public class UpdateComponent {
         this.accountingCode = accountingCode;
         this.taxable = taxable;
         this.taxCode = OptionalNullable.of(taxCode);
-        this.itemCategory = itemCategory;
+        this.itemCategory = OptionalNullable.of(itemCategory);
         this.displayOnHostedPage = displayOnHostedPage;
         this.upgradeCharge = upgradeCharge;
     }
@@ -80,7 +80,8 @@ public class UpdateComponent {
 
     protected UpdateComponent(String handle, String name, OptionalNullable<String> description,
             String accountingCode, Boolean taxable, OptionalNullable<String> taxCode,
-            ItemCategory itemCategory, Boolean displayOnHostedPage, CreditType upgradeCharge) {
+            OptionalNullable<ItemCategory> itemCategory, Boolean displayOnHostedPage,
+            CreditType upgradeCharge) {
         this.handle = handle;
         this.name = name;
         this.description = description;
@@ -259,15 +260,26 @@ public class UpdateComponent {
     }
 
     /**
+     * Internal Getter for ItemCategory.
+     * One of the following: Business Software, Consumer Software, Digital Services, Physical Goods,
+     * Other
+     * @return Returns the Internal ItemCategory
+     */
+    @JsonGetter("item_category")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ItemCategory> internalGetItemCategory() {
+        return this.itemCategory;
+    }
+
+    /**
      * Getter for ItemCategory.
      * One of the following: Business Software, Consumer Software, Digital Services, Physical Goods,
      * Other
      * @return Returns the ItemCategory
      */
-    @JsonGetter("item_category")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ItemCategory getItemCategory() {
-        return itemCategory;
+        return OptionalNullable.getFrom(itemCategory);
     }
 
     /**
@@ -278,7 +290,16 @@ public class UpdateComponent {
      */
     @JsonSetter("item_category")
     public void setItemCategory(ItemCategory itemCategory) {
-        this.itemCategory = itemCategory;
+        this.itemCategory = OptionalNullable.of(itemCategory);
+    }
+
+    /**
+     * UnSetter for ItemCategory.
+     * One of the following: Business Software, Consumer Software, Digital Services, Physical Goods,
+     * Other
+     */
+    public void unsetItemCategory() {
+        itemCategory = null;
     }
 
     /**
@@ -347,11 +368,11 @@ public class UpdateComponent {
                 .name(getName())
                 .accountingCode(getAccountingCode())
                 .taxable(getTaxable())
-                .itemCategory(getItemCategory())
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .upgradeCharge(getUpgradeCharge());
         builder.description = internalGetDescription();
         builder.taxCode = internalGetTaxCode();
+        builder.itemCategory = internalGetItemCategory();
         return builder;
     }
 
@@ -365,7 +386,7 @@ public class UpdateComponent {
         private String accountingCode;
         private Boolean taxable;
         private OptionalNullable<String> taxCode;
-        private ItemCategory itemCategory;
+        private OptionalNullable<ItemCategory> itemCategory;
         private Boolean displayOnHostedPage;
         private CreditType upgradeCharge;
 
@@ -455,7 +476,16 @@ public class UpdateComponent {
          * @return Builder
          */
         public Builder itemCategory(ItemCategory itemCategory) {
-            this.itemCategory = itemCategory;
+            this.itemCategory = OptionalNullable.of(itemCategory);
+            return this;
+        }
+
+        /**
+         * UnSetter for itemCategory.
+         * @return Builder
+         */
+        public Builder unsetItemCategory() {
+            itemCategory = null;
             return this;
         }
 
