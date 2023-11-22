@@ -76,6 +76,9 @@ public final class ProductsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProductResponse.class))
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -202,6 +205,9 @@ public final class ProductsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProductResponse.class))
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
