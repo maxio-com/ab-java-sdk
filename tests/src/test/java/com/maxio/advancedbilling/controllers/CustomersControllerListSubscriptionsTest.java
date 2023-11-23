@@ -21,6 +21,7 @@ import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationYear;
+import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class CustomersControllerListSubscriptionsTest {
 
@@ -43,15 +43,8 @@ class CustomersControllerListSubscriptionsTest {
 
     @Test
     void shouldReturn404WhenCustomerNotExists() {
-        // given
-        int notExistingCustomerId = 12345;
-
         // when - then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> customersController.listCustomerSubscriptions(notExistingCustomerId))
-                .withMessage("HTTP Response Not OK")
-                .extracting(ApiException::getResponseCode)
-                .isEqualTo(404);
+        CommonAssertions.assertNotFound(() -> customersController.listCustomerSubscriptions(12345));
     }
 
     @Test

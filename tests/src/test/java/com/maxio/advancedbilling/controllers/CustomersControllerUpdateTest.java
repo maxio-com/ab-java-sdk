@@ -10,6 +10,7 @@ import com.maxio.advancedbilling.models.CustomerError;
 import com.maxio.advancedbilling.models.UpdateCustomer;
 import com.maxio.advancedbilling.models.UpdateCustomerRequest;
 import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
+import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -129,14 +130,11 @@ class CustomersControllerUpdateTest {
 
     @Test
     void shouldReturn404WhenNotExists() {
-        int notExistingCustomerId = 123;
-
         // when - then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> customersController.updateCustomer(notExistingCustomerId, new UpdateCustomerRequest()))
-                .withMessage("Not Found")
-                .extracting(ApiException::getResponseCode)
-                .isEqualTo(404);
+        CommonAssertions.assertNotFound(
+                () -> customersController.updateCustomer(123, new UpdateCustomerRequest()),
+                "Not Found"
+        );
     }
 
     @Test

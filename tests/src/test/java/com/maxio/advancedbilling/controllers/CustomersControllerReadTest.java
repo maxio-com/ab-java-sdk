@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CustomersControllerReadTest {
@@ -53,15 +53,8 @@ class CustomersControllerReadTest {
 
     @Test
     void shouldReturn404WhenReadByNotExistingChargifyID() {
-        // given
-        int notExistingChargifyId = 12345;
-
         // when - then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> CUSTOMERS_CONTROLLER.readCustomer(notExistingChargifyId))
-                .withMessage("HTTP Response Not OK")
-                .extracting(ApiException::getResponseCode)
-                .isEqualTo(404);
+        assertNotFound(() -> CUSTOMERS_CONTROLLER.readCustomer(12345));
     }
 
     @Test
@@ -78,15 +71,8 @@ class CustomersControllerReadTest {
 
     @Test
     void shouldReturn404WhenReadByNotExistingReference() {
-        // given
-        String notExistingReference = "not-existing-reference";
-
         // when - then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> CUSTOMERS_CONTROLLER.readCustomerByReference(notExistingReference))
-                .withMessage("HTTP Response Not OK")
-                .extracting(ApiException::getResponseCode)
-                .isEqualTo(404);
+        assertNotFound(() -> CUSTOMERS_CONTROLLER.readCustomerByReference("not-existing-reference"));
     }
 
     private void assertCustomerAllProperties(Customer customer) {
