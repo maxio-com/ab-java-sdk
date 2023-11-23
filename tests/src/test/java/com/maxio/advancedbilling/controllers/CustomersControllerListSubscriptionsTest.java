@@ -51,17 +51,12 @@ class CustomersControllerListSubscriptionsTest {
     void shouldReturnEmptyListWhenCustomerHasNoSubscriptions() throws IOException, ApiException {
         // given
         int customerId = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .reference(RandomStringUtils.randomAlphanumeric(10))
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .reference(RandomStringUtils.randomAlphanumeric(10))
+                        .build())
                 )
                 .getCustomer()
                 .getId();
@@ -77,77 +72,53 @@ class CustomersControllerListSubscriptionsTest {
     void shouldReturnListOfSubscriptionsForCustomer() throws IOException, ApiException {
         // given
         int customerId = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .reference(RandomStringUtils.randomAlphanumeric(10))
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .reference(RandomStringUtils.randomAlphanumeric(10))
+                        .build())
                 )
                 .getCustomer()
                 .getId();
 
         CreatedPaymentProfile paymentProfile = paymentProfilesController
-                .createPaymentProfile(new CreatePaymentProfileRequest()
-                        .toBuilder()
-                        .paymentProfile(new CreatePaymentProfile()
-                                .toBuilder()
-                                .customerId(customerId)
-                                .paymentType(PaymentType.CREDIT_CARD)
-                                .expirationMonth(CreatePaymentProfileExpirationMonth.fromNumber(10))
-                                .expirationYear(CreatePaymentProfileExpirationYear.fromNumber(2025))
-                                .fullNumber("5424000000000015")
-                                .build()
-                        )
-                        .build()
+                .createPaymentProfile(new CreatePaymentProfileRequest(new CreatePaymentProfile.Builder()
+                        .customerId(customerId)
+                        .paymentType(PaymentType.CREDIT_CARD)
+                        .expirationMonth(CreatePaymentProfileExpirationMonth.fromNumber(10))
+                        .expirationYear(CreatePaymentProfileExpirationYear.fromNumber(2025))
+                        .fullNumber("5424000000000015")
+                        .build())
                 )
                 .getPaymentProfile();
 
         ProductFamily productFamily = productFamiliesController
-                .createProductFamily(new CreateProductFamilyRequest()
-                        .toBuilder()
-                        .productFamily(new CreateProductFamily()
-                                .toBuilder()
-                                .name("Test Product Family")
-                                .build()
-                        )
-                        .build()
+                .createProductFamily(new CreateProductFamilyRequest(new CreateProductFamily.Builder()
+                        .name("Test Product Family")
+                        .build())
                 )
                 .getProductFamily();
 
         Product product = productsController
                 .createProduct(
                         productFamily.getId(),
-                        new CreateOrUpdateProductRequest()
-                                .toBuilder()
-                                .product(new CreateOrUpdateProduct()
-                                        .toBuilder()
-                                        .name("Test Product")
-                                        .handle("test-product")
-                                        .intervalUnit("month")
-                                        .interval(2)
-                                        .build()
-                                )
+                        new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
+                                .name("Test Product")
+                                .handle("test-product")
+                                .intervalUnit("month")
+                                .interval(2)
                                 .build()
+                        )
                 )
                 .getProduct();
 
         Subscription subscription = subscriptionsController
-                .createSubscription(new CreateSubscriptionRequest()
-                        .toBuilder()
-                        .subscription(new CreateSubscription()
-                                .toBuilder()
-                                .customerId(customerId)
-                                .paymentProfileId(paymentProfile.getId())
-                                .productId(Integer.toString(product.getId()))
-                                .build()
-                        )
-                        .build()
+                .createSubscription(new CreateSubscriptionRequest(new CreateSubscription.Builder()
+                        .customerId(customerId)
+                        .paymentProfileId(paymentProfile.getId())
+                        .productId(Integer.toString(product.getId()))
+                        .build())
                 )
                 .getSubscription();
 
