@@ -11,18 +11,13 @@ import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class ProductsControllerTestBase {
     protected static final ProductsController productsController = TestClient.createClient().getProductsController();
     protected static ProductFamily productFamily;
-
-    protected static List<Integer> productsIds = new ArrayList<>();
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
@@ -33,13 +28,6 @@ public abstract class ProductsControllerTestBase {
                         new CreateProductFamily("Test Product Family "
                                 + RandomStringUtils.randomAlphanumeric(5), null)))
                 .getProductFamily();
-    }
-
-    @AfterAll
-    static void tearUp() throws IOException, ApiException {
-        for (Integer productsId : productsIds) {
-            productsController.archiveProduct(productsId);
-        }
     }
 
     protected Product createProduct() throws IOException, ApiException {
@@ -59,7 +47,6 @@ public abstract class ProductsControllerTestBase {
                                 .build()
                 ))
                 .getProduct();
-        productsIds.add(product.getId());
         return product;
     }
 

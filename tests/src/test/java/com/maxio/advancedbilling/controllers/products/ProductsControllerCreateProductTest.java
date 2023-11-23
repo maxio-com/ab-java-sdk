@@ -44,7 +44,6 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                                 .build()
                 ))
                 .getProduct();
-        productsIds.add(product.getId());
 
         // then
         assertAll(
@@ -121,7 +120,6 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                                     .build()
                     ))
                     .getProduct();
-        productsIds.add(product.getId());
         // then
         assertAll(
                 () -> assertThat(product.getName()).isEqualTo("Sample product full"),
@@ -195,7 +193,6 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                             createOrUpdateProduct
                     ))
                     .getProduct();
-        productsIds.add(product.getId());
         // then
         String expectedErrorMessage = String.format(
                 "API Handle: must be unique - '%s' has been taken by another Product in this Site.",
