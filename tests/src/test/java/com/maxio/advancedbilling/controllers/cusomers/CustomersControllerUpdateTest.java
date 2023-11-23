@@ -1,6 +1,7 @@
-package com.maxio.advancedbilling.controllers;
+package com.maxio.advancedbilling.controllers.cusomers;
 
 import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.controllers.CustomersController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.CustomerErrorResponseException;
 import com.maxio.advancedbilling.models.CreateCustomer;

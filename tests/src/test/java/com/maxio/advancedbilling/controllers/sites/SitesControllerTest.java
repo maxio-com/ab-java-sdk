@@ -1,6 +1,7 @@
-package com.maxio.advancedbilling.controllers;
+package com.maxio.advancedbilling.controllers.sites;
 
 import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.controllers.SitesController;
 import com.maxio.advancedbilling.models.AllocationSettings;
 import com.maxio.advancedbilling.models.NetTerms;
 import com.maxio.advancedbilling.models.OrganizationAddress;
