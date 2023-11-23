@@ -89,6 +89,10 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionComponentResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -152,6 +156,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         SubscriptionComponentResponse[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -198,6 +203,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, BulkComponentSPricePointAssignment.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ComponentPricePointErrorException(reason, context)))
@@ -239,6 +245,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -328,6 +335,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, AllocationResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -387,8 +395,12 @@ public final class SubscriptionComponentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         AllocationResponse[].class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -442,8 +454,12 @@ public final class SubscriptionComponentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         AllocationResponse[].class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -499,6 +515,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, AllocationPreviewResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ComponentAllocationErrorException(reason, context)))
@@ -710,6 +727,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, UsageResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -772,6 +790,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         UsageResponse[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -1050,6 +1069,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSubscriptionComponentsResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

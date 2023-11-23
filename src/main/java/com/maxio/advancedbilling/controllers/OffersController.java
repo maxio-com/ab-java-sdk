@@ -75,6 +75,7 @@ public final class OffersController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, OfferResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorMapResponseException(reason, context)))
@@ -118,6 +119,7 @@ public final class OffersController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListOffersResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -155,6 +157,7 @@ public final class OffersController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, OfferResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))

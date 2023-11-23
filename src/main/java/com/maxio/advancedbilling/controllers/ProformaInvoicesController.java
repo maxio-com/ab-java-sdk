@@ -116,8 +116,12 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                        .nullify404(false)
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -156,8 +160,12 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                        .nullify404(false)
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -200,6 +208,7 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                        .nullify404(false)
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
                                 (reason, context) -> new ApiException(reason, context)))
@@ -270,6 +279,7 @@ public final class ProformaInvoicesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         ProformaInvoice[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -318,8 +328,12 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                        .nullify404(false)
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -371,8 +385,12 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoicePreview.class))
+                        .nullify404(false)
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -424,6 +442,7 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                        .nullify404(false)
                         .localErrorCase("400",
                                  ErrorCase.setReason("Bad Request",
                                 (reason, context) -> new ProformaBadRequestErrorResponseException(reason, context)))
@@ -486,6 +505,7 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SignupProformaPreviewResponse.class))
+                        .nullify404(false)
                         .localErrorCase("400",
                                  ErrorCase.setReason("Bad Request",
                                 (reason, context) -> new ProformaBadRequestErrorResponseException(reason, context)))

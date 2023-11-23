@@ -274,16 +274,16 @@ Install the SDK by adding the following dependency in your project's pom.xml fil
 <dependency>
   <groupId>com.maxio</groupId>
   <artifactId>advanced-billing-sdk</artifactId>
-  <version>0.0.5</version>
+  <version>0.0.6</version>
 </dependency>
 ```
 
 You can also view the package at:
-https://mvnrepository.com/artifact/com.maxio/advanced-billing-sdk/0.0.5
+https://mvnrepository.com/artifact/com.maxio/advanced-billing-sdk/0.0.6
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/client.md)
 
 The following parameters are configurable for the API Client:
 
@@ -292,7 +292,7 @@ The following parameters are configurable for the API Client:
 | `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `"subdomain"` |
 | `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
-| `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-client-configuration.md) | Http Client Configuration instance. |
+| `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-client-configuration.md) | Http Client Configuration instance. |
 | `basicAuthUserName` | `String` | The username to use with basic authentication |
 | `basicAuthPassword` | `String` | The password to use with basic authentication |
 
@@ -326,49 +326,49 @@ This API uses `Basic Authentication`.
 
 ## List of APIs
 
-* [API Exports](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/api-exports.md)
-* [Advance Invoice](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/advance-invoice.md)
-* [Billing Portal](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/billing-portal.md)
-* [Custom Fields](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/custom-fields.md)
-* [Events-Based Billing Segments](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/events-based-billing-segments.md)
-* [Payment Profiles](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/payment-profiles.md)
-* [Product Families](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/product-families.md)
-* [Product Price Points](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/product-price-points.md)
-* [Proforma Invoices](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/proforma-invoices.md)
-* [Reason Codes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/reason-codes.md)
-* [Referral Codes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/referral-codes.md)
-* [Sales Commissions](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/sales-commissions.md)
-* [Subscription Components](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-components.md)
-* [Subscription Groups](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-groups.md)
-* [Subscription Group Invoice Account](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-group-invoice-account.md)
-* [Subscription Group Status](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-group-status.md)
-* [Subscription Invoice Account](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-invoice-account.md)
-* [Subscription Notes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-notes.md)
-* [Subscription Products](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-products.md)
-* [Subscription Status](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscription-status.md)
-* [Coupons](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/coupons.md)
-* [Components](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/components.md)
-* [Customers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/customers.md)
-* [Events](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/events.md)
-* [Insights](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/insights.md)
-* [Invoices](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/invoices.md)
-* [Offers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/offers.md)
-* [Products](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/products.md)
-* [Sites](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/sites.md)
-* [Subscriptions](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/subscriptions.md)
-* [Webhooks](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/controllers/webhooks.md)
+* [API Exports](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/api-exports.md)
+* [Advance Invoice](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/advance-invoice.md)
+* [Billing Portal](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/billing-portal.md)
+* [Custom Fields](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/custom-fields.md)
+* [Events-Based Billing Segments](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/events-based-billing-segments.md)
+* [Payment Profiles](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/payment-profiles.md)
+* [Product Families](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/product-families.md)
+* [Product Price Points](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/product-price-points.md)
+* [Proforma Invoices](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/proforma-invoices.md)
+* [Reason Codes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/reason-codes.md)
+* [Referral Codes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/referral-codes.md)
+* [Sales Commissions](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/sales-commissions.md)
+* [Subscription Components](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-components.md)
+* [Subscription Groups](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-groups.md)
+* [Subscription Group Invoice Account](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-group-invoice-account.md)
+* [Subscription Group Status](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-group-status.md)
+* [Subscription Invoice Account](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-invoice-account.md)
+* [Subscription Notes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-notes.md)
+* [Subscription Products](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-products.md)
+* [Subscription Status](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscription-status.md)
+* [Coupons](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/coupons.md)
+* [Components](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/components.md)
+* [Customers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/customers.md)
+* [Events](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/events.md)
+* [Insights](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/insights.md)
+* [Invoices](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/invoices.md)
+* [Offers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/offers.md)
+* [Products](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/products.md)
+* [Sites](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/sites.md)
+* [Subscriptions](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/subscriptions.md)
+* [Webhooks](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/controllers/webhooks.md)
 
 ## Classes Documentation
 
-* [Utility Classes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/utility-classes.md)
-* [HttpRequest](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-request.md)
-* [HttpResponse](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-response.md)
-* [HttpStringResponse](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-string-response.md)
-* [HttpContext](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-context.md)
-* [HttpBodyRequest](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-body-request.md)
-* [Headers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/headers.md)
-* [ApiException](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/api-exception.md)
-* [Configuration Interface](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/configuration-interface.md)
-* [HttpClientConfiguration](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-client-configuration.md)
-* [HttpClientConfiguration.Builder](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.5/doc/http-client-configuration-builder.md)
+* [Utility Classes](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/utility-classes.md)
+* [HttpRequest](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-request.md)
+* [HttpResponse](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-response.md)
+* [HttpStringResponse](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-string-response.md)
+* [HttpContext](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-context.md)
+* [HttpBodyRequest](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-body-request.md)
+* [Headers](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/headers.md)
+* [ApiException](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/api-exception.md)
+* [Configuration Interface](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/configuration-interface.md)
+* [HttpClientConfiguration](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-client-configuration.md)
+* [HttpClientConfiguration.Builder](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.6/doc/http-client-configuration-builder.md)
 

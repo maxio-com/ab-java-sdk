@@ -7,7 +7,6 @@ import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerError;
-import com.maxio.advancedbilling.models.CustomerResponse;
 import com.maxio.advancedbilling.models.UpdateCustomer;
 import com.maxio.advancedbilling.models.UpdateCustomerRequest;
 import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
@@ -129,15 +128,15 @@ class CustomersControllerUpdateTest {
     }
 
     @Test
-    void shouldReturnNullWhenNotExists() throws IOException, ApiException {
+    void shouldReturn404WhenNotExists() {
         int notExistingCustomerId = 123;
 
-        // when
-        CustomerResponse customerResponse = customersController
-                .updateCustomer(notExistingCustomerId, new UpdateCustomerRequest());
-
-        // then
-        assertThat(customerResponse).isNull();
+        // when - then
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(() -> customersController.updateCustomer(notExistingCustomerId, new UpdateCustomerRequest()))
+                .withMessage("Not Found")
+                .extracting(ApiException::getResponseCode)
+                .isEqualTo(404);
     }
 
     @Test

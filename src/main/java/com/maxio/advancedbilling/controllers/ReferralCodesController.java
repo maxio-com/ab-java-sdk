@@ -67,6 +67,10 @@ public final class ReferralCodesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ReferralValidationResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new SingleStringErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

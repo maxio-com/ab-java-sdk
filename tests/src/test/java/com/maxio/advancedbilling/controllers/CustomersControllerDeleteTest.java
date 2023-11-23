@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class CustomersControllerDeleteTest {
@@ -40,7 +39,11 @@ class CustomersControllerDeleteTest {
         customersController.deleteCustomer(chargifyId);
 
         // then
-        assertThat(customersController.readCustomer(chargifyId)).isNull();
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(() -> customersController.readCustomer(chargifyId))
+                .withMessage("HTTP Response Not OK")
+                .extracting(CoreApiException::getResponseCode)
+                .isEqualTo(404);
     }
 
     @Test

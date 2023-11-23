@@ -74,6 +74,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, AccountBalances.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -121,6 +122,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CreatePrepaymentResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -167,11 +169,15 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PrepaymentsResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -217,6 +223,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ServiceCredit.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -312,9 +319,13 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PrepaymentResponse.class))
+                        .nullify404(false)
                         .localErrorCase("400",
                                  ErrorCase.setReason("Bad Request",
                                 (reason, context) -> new RefundPrepaymentBaseErrorsResponseException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity",
                                 (reason, context) -> new RefundPrepaymentAggregatedErrorsResponseException(reason, context)))

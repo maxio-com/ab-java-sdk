@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class CustomersControllerListSubscriptionsTest {
 
@@ -41,15 +42,16 @@ class CustomersControllerListSubscriptionsTest {
     private final SubscriptionsController subscriptionsController = advancedBillingClient.getSubscriptionsController();
 
     @Test
-    void shouldReturnNullWhenCustomerNotExists() throws IOException, ApiException {
+    void shouldReturn404WhenCustomerNotExists() {
         // given
         int notExistingCustomerId = 12345;
 
         // when - then
-        List<SubscriptionResponse> subscriptionResponses = customersController.listCustomerSubscriptions(notExistingCustomerId);
-
-        // then
-        assertThat(subscriptionResponses).isNull();
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(() -> customersController.listCustomerSubscriptions(notExistingCustomerId))
+                .withMessage("HTTP Response Not OK")
+                .extracting(ApiException::getResponseCode)
+                .isEqualTo(404);
     }
 
     @Test
