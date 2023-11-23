@@ -3,11 +3,11 @@ package com.maxio.advancedbilling.controllers.products;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -28,7 +28,7 @@ public class ProductsControllerReadProductTest extends ProductsControllerTestBas
                 () -> assertThat(readProduct.getDescription()).isEqualTo("A sample product for testing"),
                 () -> assertThat(readProduct.getPriceInCents()).isEqualTo(1000),
                 () -> assertThat(readProduct.getInterval()).isEqualTo(1),
-                () -> assertThat(product.getIntervalUnit().match(i -> i).value()).isEqualTo(IntervalUnit.MONTH.value()),
+                () -> assertThat(readProduct.getIntervalUnit().match(i -> i).value()).isEqualTo(IntervalUnit.MONTH.value()),
 
                 () -> assertThat(readProduct.getId()).isNotNull(),
                 () -> assertThat(readProduct.getCreatedAt()).isEqualTo(product.getCreatedAt()),
@@ -61,23 +61,22 @@ public class ProductsControllerReadProductTest extends ProductsControllerTestBas
                 () -> assertThat(readProduct.getProductPricePointId()).isEqualTo(product.getProductPricePointId()),
                 () -> assertThat(readProduct.getProductPricePointHandle()).isEqualTo(product.getProductPricePointHandle()),
 
-                () -> assertThat(product.getProductFamily().getId()).isEqualTo(productFamily.getId()),
-                () -> assertThat(product.getProductFamily().getName()).isEqualTo(productFamily.getName()),
-                () -> assertThat(product.getProductFamily().getHandle()).isEqualTo(productFamily.getHandle()),
-                () -> assertThat(product.getProductFamily().getAccountingCode()).isEqualTo(productFamily.getAccountingCode()),
-                () -> assertThat(product.getProductFamily().getDescription()).isEqualTo(productFamily.getDescription()),
-                () -> assertThat(product.getProductFamily().getCreatedAt()).isEqualTo(productFamily.getCreatedAt()),
-                () -> assertThat(product.getProductFamily().getUpdatedAt()).isEqualTo(productFamily.getUpdatedAt()),
+                () -> assertThat(readProduct.getProductFamily().getId()).isEqualTo(productFamily.getId()),
+                () -> assertThat(readProduct.getProductFamily().getName()).isEqualTo(productFamily.getName()),
+                () -> assertThat(readProduct.getProductFamily().getHandle()).isEqualTo(productFamily.getHandle()),
+                () -> assertThat(readProduct.getProductFamily().getAccountingCode()).isEqualTo(productFamily.getAccountingCode()),
+                () -> assertThat(readProduct.getProductFamily().getDescription()).isEqualTo(productFamily.getDescription()),
+                () -> assertThat(readProduct.getProductFamily().getCreatedAt()).isEqualTo(productFamily.getCreatedAt()),
+                () -> assertThat(readProduct.getProductFamily().getUpdatedAt()).isEqualTo(productFamily.getUpdatedAt()),
 
-                () -> assertThat(product.getPublicSignupPages()).isEmpty()
+                () -> assertThat(readProduct.getPublicSignupPages()).isEmpty()
         );
     }
 
     @Test
-    void shouldNotArchiveNotOwnedProduct() throws IOException, ApiException {
+    void shouldNotArchiveNotOwnedProduct() {
         // when-then
-        ProductResponse productResponse = productsController.readProduct(99999999);
-        assertThat(productResponse).isNull();
+        assertNotFound(() -> productsController.readProduct(99999999));
     }
 
 }

@@ -49,8 +49,7 @@ public abstract class ProductsControllerTestBase {
     protected static Product createProductWithHandle(String handle) throws IOException, ApiException {
         Product product = productsController
                 .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
-                        new CreateOrUpdateProduct()
-                                .toBuilder()
+                        new CreateOrUpdateProduct.Builder()
                                 .name("Initial Sample product-" + RandomStringUtils.randomAlphanumeric(5))
                                 .handle(handle)
                                 .description("A sample product for testing")

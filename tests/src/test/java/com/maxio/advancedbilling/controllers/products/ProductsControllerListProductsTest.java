@@ -73,10 +73,10 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).startDate(startDateFilterIncludeElements).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).startDate(startDateFilterIncludeElements).build()
         );
         List<ProductResponse> productList2 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).startDate(startDateFilterExcludeElements).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).startDate(startDateFilterExcludeElements).build()
         );
 
         // then
@@ -95,10 +95,10 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).endDate(endDateFilterIncludeElements).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).endDate(endDateFilterIncludeElements).build()
         );
         List<ProductResponse> productList2 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).endDate(endDateFilterExcludeElements).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).endDate(endDateFilterExcludeElements).build()
         );
 
         // then
@@ -117,10 +117,10 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).startDatetime(savedProductCreatedAt).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).startDatetime(savedProductCreatedAt).build()
         );
         List<ProductResponse> productList2 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).startDatetime(startDateTimeFilterExcludeElements).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).startDatetime(startDateTimeFilterExcludeElements).build()
         );
 
         // then
@@ -138,10 +138,10 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).endDatetime(endDateTimeFilterIncludeElements).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).endDatetime(endDateTimeFilterIncludeElements).build()
         );
         List<ProductResponse> productList2 = productsController.listProducts(
-                new ListProductsInput().toBuilder().dateField(CREATED_AT).endDatetime(endDateTimeFilterExcludeElements).build()
+                new ListProductsInput.Builder().dateField(CREATED_AT).endDatetime(endDateTimeFilterExcludeElements).build()
         );
 
         // then
@@ -239,14 +239,14 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
 
     private static void archiveAllSiteProducts() throws IOException, ApiException {
         List<ProductResponse> productResponses = productsController.listProducts(
-                new ListProductsInput().toBuilder().perPage(200).build()
+                new ListProductsInput.Builder().perPage(200).build()
         );
         while (productResponses.size() > 0) {
             for (ProductResponse p: productResponses) {
                 productsController.archiveProduct(p.getProduct().getId());
             }
             productResponses = productsController.listProducts(
-                    new ListProductsInput().toBuilder().perPage(200).build()
+                    new ListProductsInput.Builder().perPage(200).build()
             );
         }
     }

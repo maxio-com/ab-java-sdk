@@ -3,13 +3,13 @@ package com.maxio.advancedbilling.controllers.products;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Collections;
 
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.TimeUtils.parseStringTimestamp;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -55,10 +55,9 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
     }
 
     @Test
-    void shouldNotArchiveNotOwnedProduct() throws IOException, ApiException {
+    void shouldNotArchiveNotOwnedProduct() {
         // when-then
-        ProductResponse productResponse = productsController.archiveProduct(99999999);
-        assertThat(productResponse).isNull();
+        assertNotFound(() -> productsController.archiveProduct(99999999));
     }
 
 }

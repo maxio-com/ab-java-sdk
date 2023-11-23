@@ -6,8 +6,6 @@ import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductResponse;
-import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.TimeUtils.parseStringTimestamp;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -34,8 +33,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
         Product product = createProduct();
 
         Product updatedProduct = productsController.updateProduct(product.getId(), new CreateOrUpdateProductRequest(
-                new CreateOrUpdateProduct()
-                        .toBuilder()
+                new CreateOrUpdateProduct.Builder()
                         .name("Updated Product")
                         .handle("updated_handle")
                         .description("Updated Description")
@@ -111,8 +109,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
         assertThatExceptionOfType(ErrorListResponseException.class)
                 .isThrownBy(() -> productsController.updateProduct(
                         product2.getId(), new CreateOrUpdateProductRequest(
-                                new CreateOrUpdateProduct()
-                                        .toBuilder()
+                                new CreateOrUpdateProduct.Builder()
                                         .name("Updated Product")
                                         .handle(product1.getHandle())
                                         .description("Updated Description")
@@ -132,7 +129,8 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
 
     @ParameterizedTest
     @MethodSource("argsForShouldNotUpdateProductWithBlankBasicParameters")
-    void shouldNotUpdateProductWithBlankBasicParameters(CreateOrUpdateProduct updateProduct, List<String> errorMessages) throws IOException, ApiException {
+    void shouldNotUpdateProductWithBlankBasicParameters(CreateOrUpdateProduct updateProduct,
+                                                        List<String> errorMessages) throws IOException, ApiException {
         // when - then
         Product product = createProduct();
         assertThatExceptionOfType(ErrorListResponseException.class)
@@ -142,31 +140,29 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                 .withMessage("Unprocessable Entity (WebDAV)")
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors().toString())
-                            .isEqualTo(CustomerErrorResponseErrors.fromListOfString(errorMessages).toString());
+                    assertThat(e.getErrors()).hasSameElementsAs(errorMessages);
                 });
     }
 
     @Test
-    void shouldNotUpdateNotOwnedProduct() throws IOException, ApiException {
+    void shouldNotUpdateNotOwnedProduct() {
         // when-then
-        ProductResponse productResponse = productsController.updateProduct(999999, new CreateOrUpdateProductRequest());
-        assertThat(productResponse).isNull();
+        assertNotFound(() -> productsController.updateProduct(999999, new CreateOrUpdateProductRequest()));
     }
 
     private static Stream<Arguments> argsForShouldNotUpdateProductWithBlankBasicParameters() {
-        CreateOrUpdateProduct customerTemplate = new CreateOrUpdateProduct().toBuilder().name("test-name").handle("product-handle-test")
+        CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder().name("test-name").handle("product-handle-test")
                 .description("test description").priceInCents(11).interval(1).intervalUnit("month").build();
         return Stream.of(
                 Arguments.of(
-                        customerTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")
+                        productTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")
                 ),
                 Arguments.of(
-                        customerTemplate.toBuilder().intervalUnit(null).build(), List.of("Interval unit: cannot be blank.",
+                        productTemplate.toBuilder().intervalUnit(null).build(), List.of("Interval unit: cannot be blank.",
                                 "Interval unit: must be 'month' or 'day'.")
                 ),
                 Arguments.of(
-                        customerTemplate.toBuilder().handle("VERY INVALID HANDLE").build(),
+                        productTemplate.toBuilder().handle("VERY INVALID HANDLE").build(),
                         List.of("API Handle: may only contain lowercase letters, numbers, underscores, and dashes")
                 )
         );

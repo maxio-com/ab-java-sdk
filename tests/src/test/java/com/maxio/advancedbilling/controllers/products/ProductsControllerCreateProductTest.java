@@ -6,7 +6,6 @@ import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,8 +33,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
                 .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
-                        new CreateOrUpdateProduct()
-                                .toBuilder()
+                        new CreateOrUpdateProduct.Builder()
                                 .name("Sample product")
                                 .handle(handle)
                                 .description("A sample product for testing")
@@ -108,8 +106,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
                     .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
-                            new CreateOrUpdateProduct()
-                                    .toBuilder()
+                            new CreateOrUpdateProduct.Builder()
                                     .name("Sample product full")
                                     .handle(handle)
                                     .description("A sample product for testing")
@@ -186,8 +183,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     void shouldNotCreateProductWithExistingHandle() throws IOException, ApiException {
         // when
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
-        CreateOrUpdateProduct createOrUpdateProduct = new CreateOrUpdateProduct()
-                .toBuilder()
+        CreateOrUpdateProduct createOrUpdateProduct = new CreateOrUpdateProduct.Builder()
                 .name("Sample product full")
                 .handle(handle)
                 .priceInCents(1000)
@@ -226,8 +222,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 .withMessage("Unprocessable Entity (WebDAV)")
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors().toString())
-                            .isEqualTo(CustomerErrorResponseErrors.fromListOfString(errorMessages).toString());
+                    assertThat(e.getErrors()).hasSameElementsAs(errorMessages);
                 });
     }
 
@@ -235,8 +230,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     void shouldNotCreateProductForNotOwnedProductFamily() {
         // when
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
-        CreateOrUpdateProduct createOrUpdateProduct = new CreateOrUpdateProduct()
-                .toBuilder()
+        CreateOrUpdateProduct createOrUpdateProduct = new CreateOrUpdateProduct.Builder()
                 .name("Sample product full")
                 .handle(handle)
                 .priceInCents(1000)
@@ -259,18 +253,18 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     }
 
     private static Stream<Arguments> argsForShouldNotCreateProductWhenBasicParametersAreBlank() {
-        CreateOrUpdateProduct customerTemplate = new CreateOrUpdateProduct().toBuilder().name("test-name").handle("product-handle-test")
+        CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder().name("test-name").handle("product-handle-test")
                 .description("test description").priceInCents(11).interval(1).intervalUnit("month").build();
         return Stream.of(
                 Arguments.of(
-                        customerTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")
+                        productTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")
                 ),
                 Arguments.of(
-                        customerTemplate.toBuilder().intervalUnit(null).build(), List.of("Interval unit: cannot be blank.",
+                        productTemplate.toBuilder().intervalUnit(null).build(), List.of("Interval unit: cannot be blank.",
                                 "Interval unit: must be 'month' or 'day'.")
                 ),
                 Arguments.of(
-                        customerTemplate.toBuilder().handle("VERY INVALID HANDLE").build(),
+                        productTemplate.toBuilder().handle("VERY INVALID HANDLE").build(),
                         List.of("API Handle: may only contain lowercase letters, numbers, underscores, and dashes")
                 ),
                 Arguments.of(
