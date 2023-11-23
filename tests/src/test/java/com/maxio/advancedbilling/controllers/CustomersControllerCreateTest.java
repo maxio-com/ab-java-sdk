@@ -31,16 +31,11 @@ class CustomersControllerCreateTest {
     void shouldCreateCustomerWhenOnlyRequiredParametersAreProvided() throws IOException, ApiException {
         // when
         Customer customer = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .build())
                 )
                 .getCustomer();
 
@@ -82,31 +77,26 @@ class CustomersControllerCreateTest {
     void shouldCreateCustomerWhenAllParametersAreProvided() throws IOException, ApiException {
         // when
         Customer customer = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .ccEmails("washington@example.com")
-                                .organization("Maxio")
-                                .reference("123")
-                                .address("739 Stephon Bypass")
-                                .address2("Apt. 123")
-                                .city("San Antonio")
-                                .state("TX")
-                                .zip("78015")
-                                .country("US")
-                                .phone("555-111-222")
-                                .locale("es-MX")
-                                .vatNumber("123")
-                                .taxExempt(true)
-                                .taxExemptReason("N")   // Local government (US only)
-                                .parentId(null)
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .ccEmails("washington@example.com")
+                        .organization("Maxio")
+                        .reference("123")
+                        .address("739 Stephon Bypass")
+                        .address2("Apt. 123")
+                        .city("San Antonio")
+                        .state("TX")
+                        .zip("78015")
+                        .country("US")
+                        .phone("555-111-222")
+                        .locale("es-MX")
+                        .vatNumber("123")
+                        .taxExempt(true)
+                        .taxExemptReason("N")   // Local government (US only)
+                        .parentId(null)
+                        .build())
                 )
                 .getCustomer();
 
@@ -165,12 +155,7 @@ class CustomersControllerCreateTest {
     void shouldNotCreateCustomerWhenAnyOfTheRequiredParameterIsMissing(CreateCustomer createCustomer, List<String> errorMessages) {
         // when - then
         assertThatExceptionOfType(CustomerErrorResponseException.class)
-                .isThrownBy(() -> customersController
-                        .createCustomer(new CreateCustomerRequest()
-                                .toBuilder()
-                                .customer(createCustomer)
-                                .build())
-                )
+                .isThrownBy(() -> customersController.createCustomer(new CreateCustomerRequest(createCustomer)))
                 .withMessage("Unprocessable Entity (WebDAV)")
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
@@ -186,31 +171,31 @@ class CustomersControllerCreateTest {
 
         return Stream.of(
                 Arguments.of(
-                        new CreateCustomer().toBuilder().build(),
+                        new CreateCustomer(),
                         Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.", "Email address: cannot be blank.")
                 ),
                 Arguments.of(
-                        new CreateCustomer().toBuilder().firstName(firstName).build(),
+                        new CreateCustomer.Builder().firstName(firstName).build(),
                         Arrays.asList("Last name: cannot be blank.", "Email address: cannot be blank.")
                 ),
                 Arguments.of(
-                        new CreateCustomer().toBuilder().lastName(lastName).build(),
+                        new CreateCustomer.Builder().lastName(lastName).build(),
                         Arrays.asList("First name: cannot be blank.", "Email address: cannot be blank.")
                 ),
                 Arguments.of(
-                        new CreateCustomer().toBuilder().email(email).build(),
+                        new CreateCustomer.Builder().email(email).build(),
                         Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.")
                 ),
                 Arguments.of(
-                        new CreateCustomer().toBuilder().firstName(firstName).lastName(lastName).build(),
+                        new CreateCustomer.Builder().firstName(firstName).lastName(lastName).build(),
                         Collections.singletonList("Email address: cannot be blank.")
                 ),
                 Arguments.of(
-                        new CreateCustomer().toBuilder().firstName(firstName).email(email).build(),
+                        new CreateCustomer.Builder().firstName(firstName).email(email).build(),
                         Collections.singletonList("Last name: cannot be blank.")
                 ),
                 Arguments.of(
-                        new CreateCustomer().toBuilder().lastName(lastName).email(email).build(),
+                        new CreateCustomer.Builder().lastName(lastName).email(email).build(),
                         Collections.singletonList("First name: cannot be blank.")
                 )
         );
