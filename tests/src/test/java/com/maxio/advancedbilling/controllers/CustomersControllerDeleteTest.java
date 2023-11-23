@@ -4,14 +4,12 @@ import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
-import io.apimatic.core.types.CoreApiException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 
 class CustomersControllerDeleteTest {
 
@@ -21,17 +19,12 @@ class CustomersControllerDeleteTest {
     void shouldDeleteCustomerByChargifyID() throws IOException, ApiException {
         // given
         int chargifyId = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .reference(RandomStringUtils.randomAlphanumeric(10))
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .reference(RandomStringUtils.randomAlphanumeric(10))
+                        .build())
                 )
                 .getCustomer()
                 .getId();
@@ -40,19 +33,12 @@ class CustomersControllerDeleteTest {
         customersController.deleteCustomer(chargifyId);
 
         // then
-        assertThat(customersController.readCustomer(chargifyId)).isNull();
+        assertNotFound(() -> customersController.readCustomer(chargifyId));
     }
 
     @Test
     void shouldNotDeleteCustomerAndReturn404WhenProvidingNotExistingChargifyID() {
-        // given
-        int notExistingChargifyID = 12345;
-
         // when - then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> customersController.deleteCustomer(notExistingChargifyID))
-                .withMessage("HTTP Response Not OK")
-                .extracting(CoreApiException::getResponseCode)
-                .isEqualTo(404);
+        assertNotFound(() -> customersController.deleteCustomer(12345));
     }
 }

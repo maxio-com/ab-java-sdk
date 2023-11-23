@@ -21,6 +21,7 @@ import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationYear;
+import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -41,32 +42,21 @@ class CustomersControllerListSubscriptionsTest {
     private final SubscriptionsController subscriptionsController = advancedBillingClient.getSubscriptionsController();
 
     @Test
-    void shouldReturnNullWhenCustomerNotExists() throws IOException, ApiException {
-        // given
-        int notExistingCustomerId = 12345;
-
+    void shouldReturn404WhenCustomerNotExists() {
         // when - then
-        List<SubscriptionResponse> subscriptionResponses = customersController.listCustomerSubscriptions(notExistingCustomerId);
-
-        // then
-        assertThat(subscriptionResponses).isNull();
+        CommonAssertions.assertNotFound(() -> customersController.listCustomerSubscriptions(12345));
     }
 
     @Test
     void shouldReturnEmptyListWhenCustomerHasNoSubscriptions() throws IOException, ApiException {
         // given
         int customerId = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .reference(RandomStringUtils.randomAlphanumeric(10))
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .reference(RandomStringUtils.randomAlphanumeric(10))
+                        .build())
                 )
                 .getCustomer()
                 .getId();
@@ -82,77 +72,53 @@ class CustomersControllerListSubscriptionsTest {
     void shouldReturnListOfSubscriptionsForCustomer() throws IOException, ApiException {
         // given
         int customerId = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .reference(RandomStringUtils.randomAlphanumeric(10))
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .reference(RandomStringUtils.randomAlphanumeric(10))
+                        .build())
                 )
                 .getCustomer()
                 .getId();
 
         CreatedPaymentProfile paymentProfile = paymentProfilesController
-                .createPaymentProfile(new CreatePaymentProfileRequest()
-                        .toBuilder()
-                        .paymentProfile(new CreatePaymentProfile()
-                                .toBuilder()
-                                .customerId(customerId)
-                                .paymentType(PaymentType.CREDIT_CARD)
-                                .expirationMonth(CreatePaymentProfileExpirationMonth.fromNumber(10))
-                                .expirationYear(CreatePaymentProfileExpirationYear.fromNumber(2025))
-                                .fullNumber("5424000000000015")
-                                .build()
-                        )
-                        .build()
+                .createPaymentProfile(new CreatePaymentProfileRequest(new CreatePaymentProfile.Builder()
+                        .customerId(customerId)
+                        .paymentType(PaymentType.CREDIT_CARD)
+                        .expirationMonth(CreatePaymentProfileExpirationMonth.fromNumber(10))
+                        .expirationYear(CreatePaymentProfileExpirationYear.fromNumber(2025))
+                        .fullNumber("5424000000000015")
+                        .build())
                 )
                 .getPaymentProfile();
 
         ProductFamily productFamily = productFamiliesController
-                .createProductFamily(new CreateProductFamilyRequest()
-                        .toBuilder()
-                        .productFamily(new CreateProductFamily()
-                                .toBuilder()
-                                .name("Test Product Family")
-                                .build()
-                        )
-                        .build()
+                .createProductFamily(new CreateProductFamilyRequest(new CreateProductFamily.Builder()
+                        .name("Test Product Family")
+                        .build())
                 )
                 .getProductFamily();
 
         Product product = productsController
                 .createProduct(
                         productFamily.getId(),
-                        new CreateOrUpdateProductRequest()
-                                .toBuilder()
-                                .product(new CreateOrUpdateProduct()
-                                        .toBuilder()
-                                        .name("Test Product")
-                                        .handle("test-product")
-                                        .intervalUnit("month")
-                                        .interval(2)
-                                        .build()
-                                )
+                        new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
+                                .name("Test Product")
+                                .handle("test-product")
+                                .intervalUnit("month")
+                                .interval(2)
                                 .build()
+                        )
                 )
                 .getProduct();
 
         Subscription subscription = subscriptionsController
-                .createSubscription(new CreateSubscriptionRequest()
-                        .toBuilder()
-                        .subscription(new CreateSubscription()
-                                .toBuilder()
-                                .customerId(customerId)
-                                .paymentProfileId(paymentProfile.getId())
-                                .productId(Integer.toString(product.getId()))
-                                .build()
-                        )
-                        .build()
+                .createSubscription(new CreateSubscriptionRequest(new CreateSubscription.Builder()
+                        .customerId(customerId)
+                        .paymentProfileId(paymentProfile.getId())
+                        .productId(Integer.toString(product.getId()))
+                        .build())
                 )
                 .getSubscription();
 

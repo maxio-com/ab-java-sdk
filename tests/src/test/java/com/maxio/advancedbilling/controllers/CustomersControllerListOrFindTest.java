@@ -30,18 +30,13 @@ class CustomersControllerListOrFindTest {
     static void beforeAll() throws IOException, ApiException {
         for (int i = 0; i < TEST_CUSTOMERS.length; i++) {
             TEST_CUSTOMERS[i] = CUSTOMERS_CONTROLLER
-                    .createCustomer(new CreateCustomerRequest()
-                            .toBuilder()
-                            .customer(new CreateCustomer()
-                                    .toBuilder()
-                                    .firstName(String.format("Cathryn-%s", i))
-                                    .lastName(String.format("Washington-%s", i))
-                                    .email(String.format("martha-%s@example.com", i))
-                                    .organization("Maxio.com")
-                                    .reference(RandomStringUtils.randomAlphanumeric(10))
-                                    .build()
-                            )
-                            .build()
+                    .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                            .firstName(String.format("Cathryn-%s", i))
+                            .lastName(String.format("Washington-%s", i))
+                            .email(String.format("martha-%s@example.com", i))
+                            .organization("Maxio.com")
+                            .reference(RandomStringUtils.randomAlphanumeric(10))
+                            .build())
                     )
                     .getCustomer();
         }
@@ -59,9 +54,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(email).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(email).build());
 
         // then
         assertThat(listCustomers).hasSize(1);
@@ -106,9 +99,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(notExistingEmail).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(notExistingEmail).build());
 
         // then
         assertThat(listCustomers).isEmpty();
@@ -121,9 +112,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(chargifyId.toString()).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(chargifyId.toString()).build());
 
         // then
         assertThat(listCustomers).hasSize(1);
@@ -136,9 +125,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(notExistingChargifyId).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(notExistingChargifyId).build());
 
         // then
         assertThat(listCustomers).isEmpty();
@@ -151,9 +138,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(organization).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(organization).build());
 
         // then
         assertThat(listCustomers).hasSize(10);
@@ -166,9 +151,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(notExistingOrganization).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(notExistingOrganization).build());
 
         // then
         assertThat(listCustomers).isEmpty();
@@ -181,9 +164,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(reference).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(reference).build());
 
         // then
         assertThat(listCustomers).hasSize(1);
@@ -196,9 +177,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(notExistingReference).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(notExistingReference).build());
 
         // then
         assertThat(listCustomers).isEmpty();
@@ -211,9 +190,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(firstName).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(firstName).build());
 
         // then
         assertThat(listCustomers).hasSize(1);
@@ -226,9 +203,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(notExistingFirstName).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(notExistingFirstName).build());
 
         // then
         assertThat(listCustomers).isEmpty();
@@ -241,9 +216,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(lastName).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(lastName).build());
 
         // then
         assertThat(listCustomers).hasSize(1);
@@ -256,9 +229,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
-                        .q(notExistingLastName).build()
-                );
+                .listCustomers(new ListCustomersInput.Builder().q(notExistingLastName).build());
 
         // then
         assertThat(listCustomers).isEmpty();
@@ -272,9 +243,10 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .direction(sortDescDirection)
-                        .q(organization).build()
+                        .q(organization)
+                        .build()
                 );
 
         // then
@@ -290,9 +262,10 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .direction(sortAscDirection)
-                        .q(organization).build()
+                        .q(organization)
+                        .build()
                 );
 
         // then
@@ -309,7 +282,7 @@ class CustomersControllerListOrFindTest {
         // when
         // 1st page (default if not provided)
         List<CustomerResponse> listCustomersOnPage1 = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .page(1)
                         .perPage(perPage)
                         .q(organization)
@@ -318,7 +291,7 @@ class CustomersControllerListOrFindTest {
 
         // 2nd page
         List<CustomerResponse> listCustomersOnPage2 = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .page(2)
                         .perPage(perPage)
                         .q(organization)
@@ -327,7 +300,7 @@ class CustomersControllerListOrFindTest {
 
         // 3rd page
         List<CustomerResponse> listCustomersOnPage3 = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .page(3)
                         .perPage(perPage)
                         .q(organization)
@@ -336,7 +309,7 @@ class CustomersControllerListOrFindTest {
 
         // 4th page
         List<CustomerResponse> listCustomersOnPage4 = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .page(4)
                         .perPage(perPage)
                         .q(organization)
@@ -345,7 +318,7 @@ class CustomersControllerListOrFindTest {
 
         // n-th page
         List<CustomerResponse> listCustomersOnPageN = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .page(5)
                         .perPage(perPage)
                         .q(organization)
@@ -370,7 +343,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .dateField(createdAt)
                         .startDate(createdAtStartDate)
                         .endDate(createdAtEndDate)
@@ -392,7 +365,7 @@ class CustomersControllerListOrFindTest {
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
-                .listCustomers(new ListCustomersInput().toBuilder()
+                .listCustomers(new ListCustomersInput.Builder()
                         .dateField(updatedAt)
                         .startDate(updatedAtStartDateTime)
                         .endDate(updatedAtEndDateTime)

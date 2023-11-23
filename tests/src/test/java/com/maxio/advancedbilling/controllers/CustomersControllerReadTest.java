@@ -5,13 +5,13 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.Customer;
-import com.maxio.advancedbilling.models.CustomerResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -24,17 +24,12 @@ class CustomersControllerReadTest {
     @BeforeAll
     static void beforeAll() throws IOException, ApiException {
         TEST_CUSTOMER = CUSTOMERS_CONTROLLER
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .reference(RandomStringUtils.randomAlphanumeric(10))
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .reference(RandomStringUtils.randomAlphanumeric(10))
+                        .build())
                 )
                 .getCustomer();
     }
@@ -52,15 +47,9 @@ class CustomersControllerReadTest {
     }
 
     @Test
-    void shouldReturnNullWhenReadByNotExistingChargifyID() throws IOException, ApiException {
-        // given
-        int notExistingChargifyId = 12345;
-
-        // when
-        CustomerResponse customerResponse = CUSTOMERS_CONTROLLER.readCustomer(notExistingChargifyId);
-
-        // then
-        assertThat(customerResponse).isNull();
+    void shouldReturn404WhenReadByNotExistingChargifyID() {
+        // when - then
+        assertNotFound(() -> CUSTOMERS_CONTROLLER.readCustomer(12345));
     }
 
     @Test
@@ -76,15 +65,9 @@ class CustomersControllerReadTest {
     }
 
     @Test
-    void shouldReturnNullWhenReadByNotExistingReference() throws IOException, ApiException {
-        // given
-        String notExistingReference = "not-existing-reference";
-
-        // when
-        CustomerResponse customerResponse = CUSTOMERS_CONTROLLER.readCustomerByReference(notExistingReference);
-
-        // then
-        assertThat(customerResponse).isNull();
+    void shouldReturn404WhenReadByNotExistingReference() {
+        // when - then
+        assertNotFound(() -> CUSTOMERS_CONTROLLER.readCustomerByReference("not-existing-reference"));
     }
 
     private void assertCustomerAllProperties(Customer customer) {

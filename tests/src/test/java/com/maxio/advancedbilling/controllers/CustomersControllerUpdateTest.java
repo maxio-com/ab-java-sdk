@@ -7,10 +7,10 @@ import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerError;
-import com.maxio.advancedbilling.models.CustomerResponse;
 import com.maxio.advancedbilling.models.UpdateCustomer;
 import com.maxio.advancedbilling.models.UpdateCustomerRequest;
 import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
+import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,17 +36,12 @@ class CustomersControllerUpdateTest {
     @BeforeEach
     void setUp() throws IOException, ApiException {
         customerId = customersController
-                .createCustomer(new CreateCustomerRequest()
-                        .toBuilder()
-                        .customer(new CreateCustomer()
-                                .toBuilder()
-                                .firstName("Cathryn")
-                                .lastName("Washington")
-                                .email("martha@example.com")
-                                .reference(RandomStringUtils.randomAlphanumeric(10))
-                                .build()
-                        )
-                        .build()
+                .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
+                        .firstName("Cathryn")
+                        .lastName("Washington")
+                        .email("martha@example.com")
+                        .reference(RandomStringUtils.randomAlphanumeric(10))
+                        .build())
                 )
                 .getCustomer()
                 .getId();
@@ -58,7 +53,7 @@ class CustomersControllerUpdateTest {
         Customer customer = customersController
                 .updateCustomer(
                         customerId,
-                        new UpdateCustomerRequest(new UpdateCustomer().toBuilder().firstName("Martha").build())
+                        new UpdateCustomerRequest(new UpdateCustomer.Builder().firstName("Martha").build())
                 )
                 .getCustomer();
 
@@ -74,7 +69,7 @@ class CustomersControllerUpdateTest {
         Customer customer = customersController
                 .updateCustomer(
                         customerId,
-                        new UpdateCustomerRequest(new UpdateCustomer().toBuilder().lastName("Newman").build())
+                        new UpdateCustomerRequest(new UpdateCustomer.Builder().lastName("Newman").build())
                 )
                 .getCustomer();
 
@@ -90,7 +85,7 @@ class CustomersControllerUpdateTest {
         Customer customer = customersController
                 .updateCustomer(
                         customerId,
-                        new UpdateCustomerRequest(new UpdateCustomer().toBuilder().email("company@test.com").build())
+                        new UpdateCustomerRequest(new UpdateCustomer.Builder().email("company@test.com").build())
                 )
                 .getCustomer();
 
@@ -106,8 +101,7 @@ class CustomersControllerUpdateTest {
         Customer customer = customersController
                 .updateCustomer(
                         customerId,
-                        new UpdateCustomerRequest(new UpdateCustomer()
-                                .toBuilder()
+                        new UpdateCustomerRequest(new UpdateCustomer.Builder()
                                 .firstName("Martha")
                                 .lastName("Newman")
                                 .email("company@test.com")
@@ -129,15 +123,12 @@ class CustomersControllerUpdateTest {
     }
 
     @Test
-    void shouldReturnNullWhenNotExists() throws IOException, ApiException {
-        int notExistingCustomerId = 123;
-
-        // when
-        CustomerResponse customerResponse = customersController
-                .updateCustomer(notExistingCustomerId, new UpdateCustomerRequest());
-
-        // then
-        assertThat(customerResponse).isNull();
+    void shouldReturn404WhenNotExists() {
+        // when - then
+        CommonAssertions.assertNotFound(
+                () -> customersController.updateCustomer(123, new UpdateCustomerRequest()),
+                "Not Found"
+        );
     }
 
     @Test
@@ -194,31 +185,31 @@ class CustomersControllerUpdateTest {
     private static Stream<Arguments> argsForShouldNotUpdateCustomerWhenBasicParametersAreBlank() {
         return Stream.of(
                 Arguments.of(
-                        new UpdateCustomer().toBuilder().firstName("").lastName("").email("").build(),
+                        new UpdateCustomer.Builder().firstName("").lastName("").email("").build(),
                         Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.", "Email address: cannot be blank.")
                 ),
                 Arguments.of(
-                        new UpdateCustomer().toBuilder().firstName("").build(),
+                        new UpdateCustomer.Builder().firstName("").build(),
                         Collections.singletonList("First name: cannot be blank.")
                 ),
                 Arguments.of(
-                        new UpdateCustomer().toBuilder().lastName("").build(),
+                        new UpdateCustomer.Builder().lastName("").build(),
                         Collections.singletonList("Last name: cannot be blank.")
                 ),
                 Arguments.of(
-                        new UpdateCustomer().toBuilder().email("").build(),
+                        new UpdateCustomer.Builder().email("").build(),
                         Collections.singletonList("Email address: cannot be blank.")
                 ),
                 Arguments.of(
-                        new UpdateCustomer().toBuilder().firstName("").lastName("").build(),
+                        new UpdateCustomer.Builder().firstName("").lastName("").build(),
                         Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.")
                 ),
                 Arguments.of(
-                        new UpdateCustomer().toBuilder().firstName("").email("").build(),
+                        new UpdateCustomer.Builder().firstName("").email("").build(),
                         Arrays.asList("First name: cannot be blank.", "Email address: cannot be blank.")
                 ),
                 Arguments.of(
-                        new UpdateCustomer().toBuilder().lastName("").email("").build(),
+                        new UpdateCustomer.Builder().lastName("").email("").build(),
                         Arrays.asList("Last name: cannot be blank.", "Email address: cannot be blank.")
                 )
         );
