@@ -77,6 +77,7 @@ public final class ReasonCodesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ReasonCodeResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -120,6 +121,7 @@ public final class ReasonCodesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         ReasonCodeResponse[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -157,6 +159,10 @@ public final class ReasonCodesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ReasonCodeResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -200,6 +206,10 @@ public final class ReasonCodesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ReasonCodeResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -237,6 +247,10 @@ public final class ReasonCodesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ReasonCodesJsonResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

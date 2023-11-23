@@ -90,6 +90,7 @@ public final class CustomersController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new CustomerErrorResponseException(reason, context)))
@@ -152,6 +153,7 @@ public final class CustomersController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         CustomerResponse[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -188,6 +190,7 @@ public final class CustomersController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -231,6 +234,10 @@ public final class CustomersController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new CustomerErrorResponseException(reason, context)))
@@ -304,6 +311,7 @@ public final class CustomersController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -341,6 +349,7 @@ public final class CustomersController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         SubscriptionResponse[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

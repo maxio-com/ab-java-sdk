@@ -89,6 +89,7 @@ public final class BillingPortalController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -135,6 +136,7 @@ public final class BillingPortalController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PortalManagementLink.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -184,6 +186,10 @@ public final class BillingPortalController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ResentInvitation.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -225,6 +231,7 @@ public final class BillingPortalController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, RevokedInvitation.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ApiException(reason, context)))

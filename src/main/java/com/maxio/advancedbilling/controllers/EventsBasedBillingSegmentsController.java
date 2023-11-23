@@ -86,11 +86,15 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SegmentResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -149,11 +153,15 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSegmentsResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -214,11 +222,15 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SegmentResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -334,11 +346,15 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSegmentsResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
@@ -397,11 +413,15 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSegmentsResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",

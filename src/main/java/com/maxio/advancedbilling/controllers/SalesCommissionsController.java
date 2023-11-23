@@ -84,6 +84,7 @@ public final class SalesCommissionsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         SaleRepSettings[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -139,6 +140,7 @@ public final class SalesCommissionsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         ListSaleRepItem[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -220,6 +222,7 @@ public final class SalesCommissionsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SaleRep.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

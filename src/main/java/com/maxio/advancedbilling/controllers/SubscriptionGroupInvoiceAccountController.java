@@ -78,6 +78,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionGroupPrepaymentResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -127,11 +128,15 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSubscriptionGroupPrepaymentResponse.class))
+                        .nullify404(false)
                         .localErrorCase("401",
                                  ErrorCase.setReason("Unauthorized",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("403",
                                  ErrorCase.setReason("Forbidden",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -178,6 +183,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ServiceCreditResponse.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -225,6 +231,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ServiceCredit.class))
+                        .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))

@@ -103,6 +103,7 @@ public final class CustomFieldsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         Metafield[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -148,6 +149,7 @@ public final class CustomFieldsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListMetafieldsResponse.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -205,6 +207,7 @@ public final class CustomFieldsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         Metafield[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -320,6 +323,7 @@ public final class CustomFieldsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         Metadata[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -364,6 +368,7 @@ public final class CustomFieldsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PaginatedMetadata.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -420,6 +425,7 @@ public final class CustomFieldsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         Metadata[].class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -541,6 +547,7 @@ public final class CustomFieldsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PaginatedMetadata.class))
+                        .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.PLAIN))

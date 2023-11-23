@@ -5,7 +5,6 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.Customer;
-import com.maxio.advancedbilling.models.CustomerResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CustomersControllerReadTest {
@@ -52,15 +52,16 @@ class CustomersControllerReadTest {
     }
 
     @Test
-    void shouldReturnNullWhenReadByNotExistingChargifyID() throws IOException, ApiException {
+    void shouldReturn404WhenReadByNotExistingChargifyID() {
         // given
         int notExistingChargifyId = 12345;
 
-        // when
-        CustomerResponse customerResponse = CUSTOMERS_CONTROLLER.readCustomer(notExistingChargifyId);
-
-        // then
-        assertThat(customerResponse).isNull();
+        // when - then
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(() -> CUSTOMERS_CONTROLLER.readCustomer(notExistingChargifyId))
+                .withMessage("HTTP Response Not OK")
+                .extracting(ApiException::getResponseCode)
+                .isEqualTo(404);
     }
 
     @Test
@@ -76,15 +77,16 @@ class CustomersControllerReadTest {
     }
 
     @Test
-    void shouldReturnNullWhenReadByNotExistingReference() throws IOException, ApiException {
+    void shouldReturn404WhenReadByNotExistingReference() {
         // given
         String notExistingReference = "not-existing-reference";
 
-        // when
-        CustomerResponse customerResponse = CUSTOMERS_CONTROLLER.readCustomerByReference(notExistingReference);
-
-        // then
-        assertThat(customerResponse).isNull();
+        // when - then
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(() -> CUSTOMERS_CONTROLLER.readCustomerByReference(notExistingReference))
+                .withMessage("HTTP Response Not OK")
+                .extracting(ApiException::getResponseCode)
+                .isEqualTo(404);
     }
 
     private void assertCustomerAllProperties(Customer customer) {
