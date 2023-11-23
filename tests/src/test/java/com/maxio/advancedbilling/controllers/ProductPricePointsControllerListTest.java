@@ -39,31 +39,21 @@ class ProductPricePointsControllerListTest {
     @BeforeEach
     void setUp() throws IOException, ApiException {
         ProductFamily productFamily = productFamiliesController
-                .createProductFamily(new CreateProductFamilyRequest()
-                        .toBuilder()
-                        .productFamily(new CreateProductFamily()
-                                .toBuilder()
-                                .name(randomAlphabetic(10))
-                                .build()
-                        )
-                        .build()
+                .createProductFamily(new CreateProductFamilyRequest(
+                        new CreateProductFamily.Builder().name(randomAlphabetic(10)).build())
                 )
                 .getProductFamily();
 
         product = productsController
                 .createProduct(
                         productFamily.getId(),
-                        new CreateOrUpdateProductRequest()
-                                .toBuilder()
-                                .product(new CreateOrUpdateProduct()
-                                        .toBuilder()
-                                        .name(randomAlphabetic(10))
-                                        .handle(String.format("product-handle-%s", randomNumeric(5)))
-                                        .intervalUnit("month")
-                                        .interval(2)
-                                        .build()
-                                )
+                        new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
+                                .name(randomAlphabetic(10))
+                                .handle(String.format("product-handle-%s", randomNumeric(5)))
+                                .intervalUnit("month")
+                                .interval(2)
                                 .build()
+                        )
                 )
                 .getProduct();
     }
@@ -72,11 +62,7 @@ class ProductPricePointsControllerListTest {
     void shouldReturn404WhenProductNotExists() {
         // when - then
         CommonAssertions.assertNotFound(() -> productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
-                        .productId(12345)
-                        .build()
-                )
+                .listProductPricePoints(new ListProductPricePointsInput.Builder(12345).build())
         );
     }
 
@@ -84,11 +70,7 @@ class ProductPricePointsControllerListTest {
     void shouldReturnListWithOriginalPricePointOnly() throws IOException, ApiException {
         // when
         List<ProductPricePoint> productPricePoints = productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
-                        .productId(product.getId())
-                        .build()
-                )
+                .listProductPricePoints(new ListProductPricePointsInput.Builder(product.getId()).build())
                 .getPricePoints();
 
         // then
@@ -128,8 +110,7 @@ class ProductPricePointsControllerListTest {
         productPricePointsController
                 .createProductPricePoint(
                         product.getId(),
-                        new CreateProductPricePointRequest(new CreateProductPricePoint()
-                                .toBuilder()
+                        new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
                                 .name("custom-price-point-name")
                                 .interval(1)
                                 .intervalUnit("month")
@@ -140,11 +121,7 @@ class ProductPricePointsControllerListTest {
 
         // when
         List<ProductPricePoint> productPricePoints = productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
-                        .productId(product.getId())
-                        .build()
-                )
+                .listProductPricePoints(new ListProductPricePointsInput.Builder(product.getId()).build())
                 .getPricePoints();
 
         // then
@@ -161,8 +138,7 @@ class ProductPricePointsControllerListTest {
 
         // when
         List<ProductPricePoint> productPricePointsPage1 = productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
+                .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .page(1)
                         .perPage(2)
@@ -170,8 +146,7 @@ class ProductPricePointsControllerListTest {
                 )
                 .getPricePoints();
         List<ProductPricePoint> productPricePointsPage2 = productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
+                .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .page(2)
                         .perPage(2)
@@ -179,8 +154,7 @@ class ProductPricePointsControllerListTest {
                 )
                 .getPricePoints();
         List<ProductPricePoint> productPricePointsPage3 = productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
+                .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .page(3)
                         .perPage(2)
@@ -200,8 +174,7 @@ class ProductPricePointsControllerListTest {
         productPricePointsController
                 .createProductPricePoint(
                         product.getId(),
-                        new CreateProductPricePointRequest(new CreateProductPricePoint()
-                                .toBuilder()
+                        new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
                                 .name("custom-price-point-name")
                                 .interval(1)
                                 .intervalUnit("month")
@@ -212,8 +185,7 @@ class ProductPricePointsControllerListTest {
 
         // when - then
         List<ProductPricePoint> pricePointsOfDefaultType = productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
+                .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .filterType(Collections.singletonList(PricePointType.ENUM_DEFAULT))
                         .build()
@@ -224,8 +196,7 @@ class ProductPricePointsControllerListTest {
                 .containsExactly("Original");
 
         List<ProductPricePoint> pricePointsOfCatalogType = productPricePointsController
-                .listProductPricePoints(new ListProductPricePointsInput()
-                        .toBuilder()
+                .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .filterType(Collections.singletonList(PricePointType.CATALOG))
                         .build()
@@ -241,8 +212,7 @@ class ProductPricePointsControllerListTest {
             productPricePointsController
                     .createProductPricePoint(
                             product.getId(),
-                            new CreateProductPricePointRequest(new CreateProductPricePoint()
-                                    .toBuilder()
+                            new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
                                     .name(randomAlphabetic(10))
                                     .interval(1)
                                     .intervalUnit("month")
