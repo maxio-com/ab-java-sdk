@@ -1,7 +1,10 @@
-package com.maxio.advancedbilling.controllers;
+package com.maxio.advancedbilling.controllers.productpricepoints;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.controllers.ProductFamiliesController;
+import com.maxio.advancedbilling.controllers.ProductPricePointsController;
+import com.maxio.advancedbilling.controllers.ProductsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;

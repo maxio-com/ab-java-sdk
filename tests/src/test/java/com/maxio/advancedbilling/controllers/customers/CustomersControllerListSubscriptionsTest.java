@@ -1,7 +1,12 @@
-package com.maxio.advancedbilling.controllers;
+package com.maxio.advancedbilling.controllers.customers;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.controllers.CustomersController;
+import com.maxio.advancedbilling.controllers.PaymentProfilesController;
+import com.maxio.advancedbilling.controllers.ProductFamiliesController;
+import com.maxio.advancedbilling.controllers.ProductsController;
+import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
