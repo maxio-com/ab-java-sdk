@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdateFlatAmountCouponCompoundingStrategy;
 
 /**
  * This is a model class for CreateOrUpdateFlatAmountCoupon type.
@@ -26,7 +25,7 @@ public class CreateOrUpdateFlatAmountCoupon {
     private String endDate;
     private String productFamilyId;
     private String stackable;
-    private CreateOrUpdateFlatAmountCouponCompoundingStrategy compoundingStrategy;
+    private CompoundingStrategy compoundingStrategy;
     private Boolean excludeMidPeriodAllocations;
     private Boolean applyOnCancelAtEndOfPeriod;
 
@@ -47,8 +46,7 @@ public class CreateOrUpdateFlatAmountCoupon {
      * @param  endDate  String value for endDate.
      * @param  productFamilyId  String value for productFamilyId.
      * @param  stackable  String value for stackable.
-     * @param  compoundingStrategy  CreateOrUpdateFlatAmountCouponCompoundingStrategy value for
-     *         compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
      */
@@ -62,7 +60,7 @@ public class CreateOrUpdateFlatAmountCoupon {
             String endDate,
             String productFamilyId,
             String stackable,
-            CreateOrUpdateFlatAmountCouponCompoundingStrategy compoundingStrategy,
+            CompoundingStrategy compoundingStrategy,
             Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod) {
         this.name = name;
@@ -269,20 +267,20 @@ public class CreateOrUpdateFlatAmountCoupon {
 
     /**
      * Getter for CompoundingStrategy.
-     * @return Returns the CreateOrUpdateFlatAmountCouponCompoundingStrategy
+     * @return Returns the CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreateOrUpdateFlatAmountCouponCompoundingStrategy getCompoundingStrategy() {
+    public CompoundingStrategy getCompoundingStrategy() {
         return compoundingStrategy;
     }
 
     /**
      * Setter for CompoundingStrategy.
-     * @param compoundingStrategy Value for CreateOrUpdateFlatAmountCouponCompoundingStrategy
+     * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CreateOrUpdateFlatAmountCouponCompoundingStrategy compoundingStrategy) {
+    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
         this.compoundingStrategy = compoundingStrategy;
     }
 
@@ -371,7 +369,7 @@ public class CreateOrUpdateFlatAmountCoupon {
         private String endDate;
         private String productFamilyId;
         private String stackable;
-        private CreateOrUpdateFlatAmountCouponCompoundingStrategy compoundingStrategy;
+        private CompoundingStrategy compoundingStrategy;
         private Boolean excludeMidPeriodAllocations;
         private Boolean applyOnCancelAtEndOfPeriod;
 
@@ -485,12 +483,10 @@ public class CreateOrUpdateFlatAmountCoupon {
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CreateOrUpdateFlatAmountCouponCompoundingStrategy value for
-         *         compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(
-                CreateOrUpdateFlatAmountCouponCompoundingStrategy compoundingStrategy) {
+        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
             this.compoundingStrategy = compoundingStrategy;
             return this;
         }

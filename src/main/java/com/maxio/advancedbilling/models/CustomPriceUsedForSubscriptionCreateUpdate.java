@@ -10,13 +10,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit;
 import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents;
 import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateInterval;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit;
 import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdatePriceInCents;
 import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateTrialInterval;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit;
 import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents;
 
 /**
@@ -27,14 +24,14 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     private String handle;
     private CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents;
     private CustomPriceUsedForSubscriptionCreateUpdateInterval interval;
-    private CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit intervalUnit;
+    private IntervalUnit intervalUnit;
     private CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents;
     private CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval;
-    private CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit trialIntervalUnit;
+    private IntervalUnit trialIntervalUnit;
     private CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval;
-    private CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit expirationIntervalUnit;
+    private IntervalUnit expirationIntervalUnit;
     private Boolean taxIncluded;
 
     /**
@@ -50,22 +47,18 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
      * @param  priceInCents  CustomPriceUsedForSubscriptionCreateUpdatePriceInCents value for
      *         priceInCents.
      * @param  interval  CustomPriceUsedForSubscriptionCreateUpdateInterval value for interval.
-     * @param  intervalUnit  CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit value for
-     *         intervalUnit.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  trialPriceInCents  CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents value
      *         for trialPriceInCents.
      * @param  trialInterval  CustomPriceUsedForSubscriptionCreateUpdateTrialInterval value for
      *         trialInterval.
-     * @param  trialIntervalUnit  CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit value
-     *         for trialIntervalUnit.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
      * @param  initialChargeInCents  CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents
      *         value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval
      *         value for expirationInterval.
-     * @param  expirationIntervalUnit
-     *         CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit value for
-     *         expirationIntervalUnit.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      * @param  taxIncluded  Boolean value for taxIncluded.
      */
     public CustomPriceUsedForSubscriptionCreateUpdate(
@@ -73,14 +66,14 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
             String handle,
             CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents,
             CustomPriceUsedForSubscriptionCreateUpdateInterval interval,
-            CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit intervalUnit,
+            IntervalUnit intervalUnit,
             CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents,
             CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval,
-            CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit trialIntervalUnit,
+            IntervalUnit trialIntervalUnit,
             CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents,
             Boolean initialChargeAfterTrial,
             CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval,
-            CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit expirationIntervalUnit,
+            IntervalUnit expirationIntervalUnit,
             Boolean taxIncluded) {
         this.name = name;
         this.handle = handle;
@@ -184,21 +177,21 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     /**
      * Getter for IntervalUnit.
      * Required if using `custom_price` attribute.
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit getIntervalUnit() {
+    public IntervalUnit getIntervalUnit() {
         return intervalUnit;
     }
 
     /**
      * Setter for IntervalUnit.
      * Required if using `custom_price` attribute.
-     * @param intervalUnit Value for CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit
+     * @param intervalUnit Value for IntervalUnit
      */
     @JsonSetter("interval_unit")
-    public void setIntervalUnit(CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit intervalUnit) {
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
         this.intervalUnit = intervalUnit;
     }
 
@@ -247,21 +240,21 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     /**
      * Getter for TrialIntervalUnit.
      * (Optional)
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("trial_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit getTrialIntervalUnit() {
+    public IntervalUnit getTrialIntervalUnit() {
         return trialIntervalUnit;
     }
 
     /**
      * Setter for TrialIntervalUnit.
      * (Optional)
-     * @param trialIntervalUnit Value for CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit
+     * @param trialIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("trial_interval_unit")
-    public void setTrialIntervalUnit(CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit trialIntervalUnit) {
+    public void setTrialIntervalUnit(IntervalUnit trialIntervalUnit) {
         this.trialIntervalUnit = trialIntervalUnit;
     }
 
@@ -331,21 +324,21 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     /**
      * Getter for ExpirationIntervalUnit.
      * (Optional)
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit getExpirationIntervalUnit() {
+    public IntervalUnit getExpirationIntervalUnit() {
         return expirationIntervalUnit;
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
      * (Optional)
-     * @param expirationIntervalUnit Value for CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit
+     * @param expirationIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
@@ -417,14 +410,14 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
         private String handle;
         private CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents;
         private CustomPriceUsedForSubscriptionCreateUpdateInterval interval;
-        private CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit intervalUnit;
+        private IntervalUnit intervalUnit;
         private CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents;
         private CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval;
-        private CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit trialIntervalUnit;
+        private IntervalUnit trialIntervalUnit;
         private CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval;
-        private CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit expirationIntervalUnit;
+        private IntervalUnit expirationIntervalUnit;
         private Boolean taxIncluded;
 
 
@@ -473,12 +466,10 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
 
         /**
          * Setter for intervalUnit.
-         * @param  intervalUnit  CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit value for
-         *         intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
          * @return Builder
          */
-        public Builder intervalUnit(
-                CustomPriceUsedForSubscriptionCreateUpdateIntervalUnit intervalUnit) {
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
             this.intervalUnit = intervalUnit;
             return this;
         }
@@ -509,12 +500,10 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
 
         /**
          * Setter for trialIntervalUnit.
-         * @param  trialIntervalUnit  CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit
-         *         value for trialIntervalUnit.
+         * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
          * @return Builder
          */
-        public Builder trialIntervalUnit(
-                CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalUnit trialIntervalUnit) {
+        public Builder trialIntervalUnit(IntervalUnit trialIntervalUnit) {
             this.trialIntervalUnit = trialIntervalUnit;
             return this;
         }
@@ -556,13 +545,10 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit
-         *         CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit value for
-         *         expirationIntervalUnit.
+         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(
-                CustomPriceUsedForSubscriptionCreateUpdateExpirationIntervalUnit expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = expirationIntervalUnit;
             return this;
         }

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
-import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponCompoundingStrategy;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponPercentage;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponProductFamilyId;
 
@@ -23,7 +22,7 @@ public class CreateInvoiceCoupon {
     private CreateInvoiceCouponAmount amount;
     private String description;
     private CreateInvoiceCouponProductFamilyId productFamilyId;
-    private CreateInvoiceCouponCompoundingStrategy compoundingStrategy;
+    private CompoundingStrategy compoundingStrategy;
 
     /**
      * Default constructor.
@@ -38,8 +37,7 @@ public class CreateInvoiceCoupon {
      * @param  amount  CreateInvoiceCouponAmount value for amount.
      * @param  description  String value for description.
      * @param  productFamilyId  CreateInvoiceCouponProductFamilyId value for productFamilyId.
-     * @param  compoundingStrategy  CreateInvoiceCouponCompoundingStrategy value for
-     *         compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      */
     public CreateInvoiceCoupon(
             String code,
@@ -47,7 +45,7 @@ public class CreateInvoiceCoupon {
             CreateInvoiceCouponAmount amount,
             String description,
             CreateInvoiceCouponProductFamilyId productFamilyId,
-            CreateInvoiceCouponCompoundingStrategy compoundingStrategy) {
+            CompoundingStrategy compoundingStrategy) {
         this.code = code;
         this.percentage = percentage;
         this.amount = amount;
@@ -153,20 +151,20 @@ public class CreateInvoiceCoupon {
 
     /**
      * Getter for CompoundingStrategy.
-     * @return Returns the CreateInvoiceCouponCompoundingStrategy
+     * @return Returns the CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreateInvoiceCouponCompoundingStrategy getCompoundingStrategy() {
+    public CompoundingStrategy getCompoundingStrategy() {
         return compoundingStrategy;
     }
 
     /**
      * Setter for CompoundingStrategy.
-     * @param compoundingStrategy Value for CreateInvoiceCouponCompoundingStrategy
+     * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CreateInvoiceCouponCompoundingStrategy compoundingStrategy) {
+    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
         this.compoundingStrategy = compoundingStrategy;
     }
 
@@ -206,7 +204,7 @@ public class CreateInvoiceCoupon {
         private CreateInvoiceCouponAmount amount;
         private String description;
         private CreateInvoiceCouponProductFamilyId productFamilyId;
-        private CreateInvoiceCouponCompoundingStrategy compoundingStrategy;
+        private CompoundingStrategy compoundingStrategy;
 
 
 
@@ -262,12 +260,10 @@ public class CreateInvoiceCoupon {
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CreateInvoiceCouponCompoundingStrategy value for
-         *         compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(
-                CreateInvoiceCouponCompoundingStrategy compoundingStrategy) {
+        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
             this.compoundingStrategy = compoundingStrategy;
             return this;
         }

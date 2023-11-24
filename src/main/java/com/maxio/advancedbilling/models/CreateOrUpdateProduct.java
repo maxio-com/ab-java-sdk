@@ -21,7 +21,7 @@ public class CreateOrUpdateProduct {
     private Boolean requireCreditCard;
     private long priceInCents;
     private int interval;
-    private String intervalUnit;
+    private IntervalUnit intervalUnit;
     private Boolean autoCreateSignupPage;
     private String taxCode;
 
@@ -37,7 +37,7 @@ public class CreateOrUpdateProduct {
      * @param  description  String value for description.
      * @param  priceInCents  long value for priceInCents.
      * @param  interval  int value for interval.
-     * @param  intervalUnit  String value for intervalUnit.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  handle  String value for handle.
      * @param  accountingCode  String value for accountingCode.
      * @param  requireCreditCard  Boolean value for requireCreditCard.
@@ -49,7 +49,7 @@ public class CreateOrUpdateProduct {
             String description,
             long priceInCents,
             int interval,
-            String intervalUnit,
+            IntervalUnit intervalUnit,
             String handle,
             String accountingCode,
             Boolean requireCreditCard,
@@ -69,6 +69,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for Name.
+     * The product name
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -78,6 +79,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for Name.
+     * The product name
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -87,6 +89,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for Handle.
+     * The product API handle
      * @return Returns the String
      */
     @JsonGetter("handle")
@@ -97,6 +100,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for Handle.
+     * The product API handle
      * @param handle Value for String
      */
     @JsonSetter("handle")
@@ -106,6 +110,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for Description.
+     * The product description
      * @return Returns the String
      */
     @JsonGetter("description")
@@ -115,6 +120,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for Description.
+     * The product description
      * @param description Value for String
      */
     @JsonSetter("description")
@@ -124,6 +130,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for AccountingCode.
+     * E.g. Internal ID or SKU Number
      * @return Returns the String
      */
     @JsonGetter("accounting_code")
@@ -134,6 +141,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for AccountingCode.
+     * E.g. Internal ID or SKU Number
      * @param accountingCode Value for String
      */
     @JsonSetter("accounting_code")
@@ -143,6 +151,8 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for RequireCreditCard.
+     * Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup
+     * Page users, please read this attribute from under the signup page.
      * @return Returns the Boolean
      */
     @JsonGetter("require_credit_card")
@@ -153,6 +163,8 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for RequireCreditCard.
+     * Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup
+     * Page users, please read this attribute from under the signup page.
      * @param requireCreditCard Value for Boolean
      */
     @JsonSetter("require_credit_card")
@@ -162,6 +174,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for PriceInCents.
+     * The product price, in integer cents
      * @return Returns the long
      */
     @JsonGetter("price_in_cents")
@@ -171,6 +184,7 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for PriceInCents.
+     * The product price, in integer cents
      * @param priceInCents Value for long
      */
     @JsonSetter("price_in_cents")
@@ -180,6 +194,8 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product would renew every 30 days
      * @return Returns the int
      */
     @JsonGetter("interval")
@@ -189,6 +205,8 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product would renew every 30 days
      * @param interval Value for int
      */
     @JsonSetter("interval")
@@ -198,19 +216,21 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for IntervalUnit.
-     * @return Returns the String
+     * A string representing the interval unit for this product, either month or day
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("interval_unit")
-    public String getIntervalUnit() {
+    public IntervalUnit getIntervalUnit() {
         return intervalUnit;
     }
 
     /**
      * Setter for IntervalUnit.
-     * @param intervalUnit Value for String
+     * A string representing the interval unit for this product, either month or day
+     * @param intervalUnit Value for IntervalUnit
      */
     @JsonSetter("interval_unit")
-    public void setIntervalUnit(String intervalUnit) {
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
         this.intervalUnit = intervalUnit;
     }
 
@@ -235,6 +255,9 @@ public class CreateOrUpdateProduct {
 
     /**
      * Getter for TaxCode.
+     * A string representing the tax code related to the product type. This is especially important
+     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
+     * characters.
      * @return Returns the String
      */
     @JsonGetter("tax_code")
@@ -245,6 +268,9 @@ public class CreateOrUpdateProduct {
 
     /**
      * Setter for TaxCode.
+     * A string representing the tax code related to the product type. This is especially important
+     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
+     * characters.
      * @param taxCode Value for String
      */
     @JsonSetter("tax_code")
@@ -288,7 +314,7 @@ public class CreateOrUpdateProduct {
         private String description;
         private long priceInCents;
         private int interval;
-        private String intervalUnit;
+        private IntervalUnit intervalUnit;
         private String handle;
         private String accountingCode;
         private Boolean requireCreditCard;
@@ -307,10 +333,10 @@ public class CreateOrUpdateProduct {
          * @param  description  String value for description.
          * @param  priceInCents  long value for priceInCents.
          * @param  interval  int value for interval.
-         * @param  intervalUnit  String value for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
          */
         public Builder(String name, String description, long priceInCents, int interval,
-                String intervalUnit) {
+                IntervalUnit intervalUnit) {
             this.name = name;
             this.description = description;
             this.priceInCents = priceInCents;
@@ -360,10 +386,10 @@ public class CreateOrUpdateProduct {
 
         /**
          * Setter for intervalUnit.
-         * @param  intervalUnit  String value for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
          * @return Builder
          */
-        public Builder intervalUnit(String intervalUnit) {
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
             this.intervalUnit = intervalUnit;
             return this;
         }

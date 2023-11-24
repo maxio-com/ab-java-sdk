@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.ListSubscriptionsInputDirection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -33,7 +32,7 @@ public class ListSubscriptionsInput {
     private LocalDateTime startDatetime;
     private LocalDateTime endDatetime;
     private Map<String, String> metadata;
-    private ListSubscriptionsInputDirection direction;
+    private SortingDirection direction;
     private SubscriptionSort sort;
 
     /**
@@ -59,7 +58,7 @@ public class ListSubscriptionsInput {
      * @param  startDatetime  LocalDateTime value for startDatetime.
      * @param  endDatetime  LocalDateTime value for endDatetime.
      * @param  metadata  Map of String, value for metadata.
-     * @param  direction  ListSubscriptionsInputDirection value for direction.
+     * @param  direction  SortingDirection value for direction.
      * @param  sort  SubscriptionSort value for sort.
      */
     public ListSubscriptionsInput(
@@ -75,7 +74,7 @@ public class ListSubscriptionsInput {
             LocalDateTime startDatetime,
             LocalDateTime endDatetime,
             Map<String, String> metadata,
-            ListSubscriptionsInputDirection direction,
+            SortingDirection direction,
             SubscriptionSort sort) {
         this.page = page;
         this.perPage = perPage;
@@ -398,21 +397,21 @@ public class ListSubscriptionsInput {
     /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the ListSubscriptionsInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListSubscriptionsInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for ListSubscriptionsInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ListSubscriptionsInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -491,7 +490,7 @@ public class ListSubscriptionsInput {
         private LocalDateTime startDatetime;
         private LocalDateTime endDatetime;
         private Map<String, String> metadata;
-        private ListSubscriptionsInputDirection direction;
+        private SortingDirection direction;
         private SubscriptionSort sort = SubscriptionSort.SIGNUP_DATE;
 
 
@@ -618,10 +617,10 @@ public class ListSubscriptionsInput {
 
         /**
          * Setter for direction.
-         * @param  direction  ListSubscriptionsInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ListSubscriptionsInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

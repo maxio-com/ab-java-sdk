@@ -18,7 +18,7 @@
 | `RolloverPrepaidRemainder` | `Boolean` | Optional | Boolean which controls whether or not remaining units should be rolled over to the next period | Boolean getRolloverPrepaidRemainder() | setRolloverPrepaidRemainder(Boolean rolloverPrepaidRemainder) |
 | `RenewPrepaidAllocation` | `Boolean` | Optional | Boolean which controls whether or not the allocated quantity should be renewed at the beginning of each period | Boolean getRenewPrepaidAllocation() | setRenewPrepaidAllocation(Boolean renewPrepaidAllocation) |
 | `ExpirationInterval` | `Double` | Optional | (only for prepaid usage components where rollover_prepaid_remainder is true) The number of `expiration_interval_unit`s after which rollover amounts should expire | Double getExpirationInterval() | setExpirationInterval(Double expirationInterval) |
-| `ExpirationIntervalUnit` | [`CreatePrepaidUsageComponentPricePointExpirationIntervalUnit`](../../doc/models/containers/create-prepaid-usage-component-price-point-expiration-interval-unit.md) | Optional | This is a container for one-of cases. | CreatePrepaidUsageComponentPricePointExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(CreatePrepaidUsageComponentPricePointExpirationIntervalUnit expirationIntervalUnit) |
+| `ExpirationIntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | - | IntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) |
 
 ## Example (as JSON)
 
@@ -34,7 +34,7 @@
     }
   ],
   "overage_pricing": {
-    "pricing_scheme": "volume",
+    "pricing_scheme": "stairstep",
     "prices": [
       {
         "starting_quantity": 242,

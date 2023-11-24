@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.models.ExtendedIntervalUnit;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -27,13 +28,13 @@ import java.util.Arrays;
 public abstract class ProductExpirationIntervalUnit {
     
     /**
-     * This is ProductExpirationIntervalUnitCase0 case.
-     * @param productExpirationIntervalUnitCase0 ProductExpirationIntervalUnitCase0 value for productExpirationIntervalUnitCase0.
-     * @return The Case0 object.
+     * This is Extended Interval Unit case.
+     * @param extendedIntervalUnit ExtendedIntervalUnit value for extendedIntervalUnit.
+     * @return The ExtendedIntervalUnitCase object.
      */
-    public static ProductExpirationIntervalUnit fromProductExpirationIntervalUnitCase0(
-            ProductExpirationIntervalUnitCase0 productExpirationIntervalUnitCase0) {
-        return productExpirationIntervalUnitCase0 == null ? null : new Case0(productExpirationIntervalUnitCase0);
+    public static ProductExpirationIntervalUnit fromExtendedIntervalUnit(
+            ExtendedIntervalUnit extendedIntervalUnit) {
+        return extendedIntervalUnit == null ? null : new ExtendedIntervalUnitCase(extendedIntervalUnit);
     }
 
     /**
@@ -49,40 +50,40 @@ public abstract class ProductExpirationIntervalUnit {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R productExpirationIntervalUnitCase0(ProductExpirationIntervalUnitCase0 productExpirationIntervalUnitCase0);
+        R extendedIntervalUnit(ExtendedIntervalUnit extendedIntervalUnit);
     }
 
     /**
-     * This is a implementation class for Case0Case.
+     * This is a implementation class for ExtendedIntervalUnitCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "ProductExpirationIntervalUnitCase0")
-    private static class Case0 extends ProductExpirationIntervalUnit {
+    @TypeCombinatorCase(type = "ExtendedIntervalUnit")
+    private static class ExtendedIntervalUnitCase extends ProductExpirationIntervalUnit {
 
         @JsonValue
-        private ProductExpirationIntervalUnitCase0 case0;
+        private ExtendedIntervalUnit extendedIntervalUnit;
 
-        Case0(ProductExpirationIntervalUnitCase0 case0) {
-            this.case0 = case0;
+        ExtendedIntervalUnitCase(ExtendedIntervalUnit extendedIntervalUnit) {
+            this.extendedIntervalUnit = extendedIntervalUnit;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.productExpirationIntervalUnitCase0(this.case0);
+            return cases.extendedIntervalUnit(this.extendedIntervalUnit);
         }
 
         @JsonCreator
-        private Case0(JsonNode jsonNode) throws IOException {
-            this.case0 = ApiHelper.deserialize(jsonNode,
-                ProductExpirationIntervalUnitCase0.class);
-            if (this.case0 == null) {
+        private ExtendedIntervalUnitCase(JsonNode jsonNode) throws IOException {
+            this.extendedIntervalUnit = 
+                ExtendedIntervalUnit.fromString(ApiHelper.deserialize(jsonNode, String.class));
+            if (this.extendedIntervalUnit == null) {
                 throw new IllegalArgumentException();
             }
         }
 
         @Override
         public String toString() {
-            return case0.toString();
+            return extendedIntervalUnit.toString();
         }
     }
 
@@ -97,7 +98,7 @@ public abstract class ProductExpirationIntervalUnit {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(Case0.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(ExtendedIntervalUnitCase.class), true);
         }
     }
 

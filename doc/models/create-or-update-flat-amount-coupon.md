@@ -18,7 +18,7 @@
 | `EndDate` | `String` | Optional | - | String getEndDate() | setEndDate(String endDate) |
 | `ProductFamilyId` | `String` | Optional | - | String getProductFamilyId() | setProductFamilyId(String productFamilyId) |
 | `Stackable` | `String` | Optional | - | String getStackable() | setStackable(String stackable) |
-| `CompoundingStrategy` | [`CreateOrUpdateFlatAmountCouponCompoundingStrategy`](../../doc/models/containers/create-or-update-flat-amount-coupon-compounding-strategy.md) | Optional | This is a container for one-of cases. | CreateOrUpdateFlatAmountCouponCompoundingStrategy getCompoundingStrategy() | setCompoundingStrategy(CreateOrUpdateFlatAmountCouponCompoundingStrategy compoundingStrategy) |
+| `CompoundingStrategy` | [`CompoundingStrategy`](../../doc/models/compounding-strategy.md) | Optional | - | CompoundingStrategy getCompoundingStrategy() | setCompoundingStrategy(CompoundingStrategy compoundingStrategy) |
 | `ExcludeMidPeriodAllocations` | `Boolean` | Optional | - | Boolean getExcludeMidPeriodAllocations() | setExcludeMidPeriodAllocations(Boolean excludeMidPeriodAllocations) |
 | `ApplyOnCancelAtEndOfPeriod` | `Boolean` | Optional | - | Boolean getApplyOnCancelAtEndOfPeriod() | setApplyOnCancelAtEndOfPeriod(Boolean applyOnCancelAtEndOfPeriod) |
 

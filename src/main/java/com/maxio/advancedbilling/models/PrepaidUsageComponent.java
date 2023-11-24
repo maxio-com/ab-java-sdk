@@ -9,8 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.PrepaidUsageComponentExpirationIntervalUnit;
-import com.maxio.advancedbilling.models.containers.PrepaidUsageComponentPricingScheme;
 import com.maxio.advancedbilling.models.containers.PrepaidUsageComponentUnitPrice;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class PrepaidUsageComponent {
     private String description;
     private String handle;
     private Boolean taxable;
-    private PrepaidUsageComponentPricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private String upgradeCharge;
     private String downgradeCredit;
@@ -36,7 +34,7 @@ public class PrepaidUsageComponent {
     private Boolean rolloverPrepaidRemainder;
     private Boolean renewPrepaidAllocation;
     private Double expirationInterval;
-    private PrepaidUsageComponentExpirationIntervalUnit expirationIntervalUnit;
+    private IntervalUnit expirationIntervalUnit;
     private Boolean displayOnHostedPage;
     private Boolean allowFractionalQuantities;
     private List<Integer> publicSignupPageIds;
@@ -54,7 +52,7 @@ public class PrepaidUsageComponent {
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
-     * @param  pricingScheme  PrepaidUsageComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  upgradeCharge  String value for upgradeCharge.
      * @param  downgradeCredit  String value for downgradeCredit.
@@ -67,8 +65,7 @@ public class PrepaidUsageComponent {
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  expirationInterval  Double value for expirationInterval.
-     * @param  expirationIntervalUnit  PrepaidUsageComponentExpirationIntervalUnit value for
-     *         expirationIntervalUnit.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
@@ -79,7 +76,7 @@ public class PrepaidUsageComponent {
             String description,
             String handle,
             Boolean taxable,
-            PrepaidUsageComponentPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             List<Price> prices,
             String upgradeCharge,
             String downgradeCredit,
@@ -92,7 +89,7 @@ public class PrepaidUsageComponent {
             Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation,
             Double expirationInterval,
-            PrepaidUsageComponentExpirationIntervalUnit expirationIntervalUnit,
+            IntervalUnit expirationIntervalUnit,
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
             List<Integer> publicSignupPageIds) {
@@ -240,11 +237,11 @@ public class PrepaidUsageComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the PrepaidUsageComponentPricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PrepaidUsageComponentPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -253,10 +250,10 @@ public class PrepaidUsageComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for PrepaidUsageComponentPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(PrepaidUsageComponentPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -528,20 +525,20 @@ public class PrepaidUsageComponent {
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * @return Returns the PrepaidUsageComponentExpirationIntervalUnit
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PrepaidUsageComponentExpirationIntervalUnit getExpirationIntervalUnit() {
+    public IntervalUnit getExpirationIntervalUnit() {
         return expirationIntervalUnit;
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * @param expirationIntervalUnit Value for PrepaidUsageComponentExpirationIntervalUnit
+     * @param expirationIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(PrepaidUsageComponentExpirationIntervalUnit expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
@@ -663,7 +660,7 @@ public class PrepaidUsageComponent {
         private String description;
         private String handle;
         private Boolean taxable;
-        private PrepaidUsageComponentPricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private List<Price> prices;
         private String upgradeCharge;
         private String downgradeCredit;
@@ -676,7 +673,7 @@ public class PrepaidUsageComponent {
         private Boolean rolloverPrepaidRemainder;
         private Boolean renewPrepaidAllocation;
         private Double expirationInterval;
-        private PrepaidUsageComponentExpirationIntervalUnit expirationIntervalUnit;
+        private IntervalUnit expirationIntervalUnit;
         private Boolean displayOnHostedPage;
         private Boolean allowFractionalQuantities;
         private List<Integer> publicSignupPageIds;
@@ -735,10 +732,10 @@ public class PrepaidUsageComponent {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  PrepaidUsageComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(PrepaidUsageComponentPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }
@@ -865,12 +862,10 @@ public class PrepaidUsageComponent {
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  PrepaidUsageComponentExpirationIntervalUnit value for
-         *         expirationIntervalUnit.
+         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(
-                PrepaidUsageComponentExpirationIntervalUnit expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = expirationIntervalUnit;
             return this;
         }

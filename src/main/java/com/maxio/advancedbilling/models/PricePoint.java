@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.PricePointExpirationIntervalUnit;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public class PricePoint {
     private Boolean rolloverPrepaidRemainder;
     private Boolean renewPrepaidAllocation;
     private Double expirationInterval;
-    private PricePointExpirationIntervalUnit expirationIntervalUnit;
+    private IntervalUnit expirationIntervalUnit;
 
     /**
      * Default constructor.
@@ -45,8 +44,7 @@ public class PricePoint {
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  expirationInterval  Double value for expirationInterval.
-     * @param  expirationIntervalUnit  PricePointExpirationIntervalUnit value for
-     *         expirationIntervalUnit.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      */
     public PricePoint(
             String name,
@@ -58,7 +56,7 @@ public class PricePoint {
             Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation,
             Double expirationInterval,
-            PricePointExpirationIntervalUnit expirationIntervalUnit) {
+            IntervalUnit expirationIntervalUnit) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
@@ -260,20 +258,20 @@ public class PricePoint {
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * @return Returns the PricePointExpirationIntervalUnit
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PricePointExpirationIntervalUnit getExpirationIntervalUnit() {
+    public IntervalUnit getExpirationIntervalUnit() {
         return expirationIntervalUnit;
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * @param expirationIntervalUnit Value for PricePointExpirationIntervalUnit
+     * @param expirationIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(PricePointExpirationIntervalUnit expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
@@ -324,7 +322,7 @@ public class PricePoint {
         private Boolean rolloverPrepaidRemainder;
         private Boolean renewPrepaidAllocation;
         private Double expirationInterval;
-        private PricePointExpirationIntervalUnit expirationIntervalUnit;
+        private IntervalUnit expirationIntervalUnit;
 
 
 
@@ -420,12 +418,10 @@ public class PricePoint {
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  PricePointExpirationIntervalUnit value for
-         *         expirationIntervalUnit.
+         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(
-                PricePointExpirationIntervalUnit expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = expirationIntervalUnit;
             return this;
         }

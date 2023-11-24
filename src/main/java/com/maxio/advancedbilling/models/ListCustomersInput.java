@@ -9,13 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ListCustomersInputDirection;
 
 /**
  * This is a model class for ListCustomersInput type.
  */
 public class ListCustomersInput {
-    private ListCustomersInputDirection direction;
+    private SortingDirection direction;
     private Integer page;
     private Integer perPage;
     private BasicDateField dateField;
@@ -35,7 +34,7 @@ public class ListCustomersInput {
 
     /**
      * Initialization constructor.
-     * @param  direction  ListCustomersInputDirection value for direction.
+     * @param  direction  SortingDirection value for direction.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  dateField  BasicDateField value for dateField.
@@ -46,7 +45,7 @@ public class ListCustomersInput {
      * @param  q  String value for q.
      */
     public ListCustomersInput(
-            ListCustomersInputDirection direction,
+            SortingDirection direction,
             Integer page,
             Integer perPage,
             BasicDateField dateField,
@@ -69,21 +68,21 @@ public class ListCustomersInput {
     /**
      * Getter for Direction.
      * Direction to sort customers by time of creation
-     * @return Returns the ListCustomersInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListCustomersInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Direction to sort customers by time of creation
-     * @param direction Value for ListCustomersInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ListCustomersInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -326,7 +325,7 @@ public class ListCustomersInput {
      * Class to build instances of {@link ListCustomersInput}.
      */
     public static class Builder {
-        private ListCustomersInputDirection direction;
+        private SortingDirection direction;
         private Integer page = 1;
         private Integer perPage = 50;
         private BasicDateField dateField;
@@ -340,10 +339,10 @@ public class ListCustomersInput {
 
         /**
          * Setter for direction.
-         * @param  direction  ListCustomersInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ListCustomersInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

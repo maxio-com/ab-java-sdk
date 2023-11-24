@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.QuantityBasedComponentPricingScheme;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class QuantityBasedComponent {
     private String description;
     private String handle;
     private Boolean taxable;
-    private QuantityBasedComponentPricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private String upgradeCharge;
     private String downgradeCredit;
@@ -46,7 +45,7 @@ public class QuantityBasedComponent {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  unitName  String value for unitName.
-     * @param  pricingScheme  QuantityBasedComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
@@ -66,7 +65,7 @@ public class QuantityBasedComponent {
     public QuantityBasedComponent(
             String name,
             String unitName,
-            QuantityBasedComponentPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             String description,
             String handle,
             Boolean taxable,
@@ -220,10 +219,10 @@ public class QuantityBasedComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the QuantityBasedComponentPricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    public QuantityBasedComponentPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -232,10 +231,10 @@ public class QuantityBasedComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for QuantityBasedComponentPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(QuantityBasedComponentPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -541,7 +540,7 @@ public class QuantityBasedComponent {
     public static class Builder {
         private String name;
         private String unitName;
-        private QuantityBasedComponentPricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private String description;
         private String handle;
         private Boolean taxable;
@@ -568,10 +567,9 @@ public class QuantityBasedComponent {
          * Initialization constructor.
          * @param  name  String value for name.
          * @param  unitName  String value for unitName.
-         * @param  pricingScheme  QuantityBasedComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          */
-        public Builder(String name, String unitName,
-                QuantityBasedComponentPricingScheme pricingScheme) {
+        public Builder(String name, String unitName, PricingScheme pricingScheme) {
             this.name = name;
             this.unitName = unitName;
             this.pricingScheme = pricingScheme;
@@ -599,10 +597,10 @@ public class QuantityBasedComponent {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  QuantityBasedComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(QuantityBasedComponentPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

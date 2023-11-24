@@ -9,16 +9,21 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * This is a model class for ListProductsInput type.
  */
 public class ListProductsInput {
     private BasicDateField dateField;
-    private String endDate;
-    private String endDatetime;
-    private String startDate;
-    private String startDatetime;
+    private LocalDate endDate;
+    private LocalDateTime endDatetime;
+    private LocalDate startDate;
+    private LocalDateTime startDatetime;
     private Integer page;
     private Integer perPage;
     private Boolean includeArchived;
@@ -37,10 +42,10 @@ public class ListProductsInput {
     /**
      * Initialization constructor.
      * @param  dateField  BasicDateField value for dateField.
-     * @param  endDate  String value for endDate.
-     * @param  endDatetime  String value for endDatetime.
-     * @param  startDate  String value for startDate.
-     * @param  startDatetime  String value for startDatetime.
+     * @param  endDate  LocalDate value for endDate.
+     * @param  endDatetime  LocalDateTime value for endDatetime.
+     * @param  startDate  LocalDate value for startDate.
+     * @param  startDatetime  LocalDateTime value for startDatetime.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  includeArchived  Boolean value for includeArchived.
@@ -51,10 +56,10 @@ public class ListProductsInput {
      */
     public ListProductsInput(
             BasicDateField dateField,
-            String endDate,
-            String endDatetime,
-            String startDate,
-            String startDatetime,
+            LocalDate endDate,
+            LocalDateTime endDatetime,
+            LocalDate startDate,
+            LocalDateTime startDatetime,
             Integer page,
             Integer perPage,
             Boolean includeArchived,
@@ -102,11 +107,12 @@ public class ListProductsInput {
      * Getter for EndDate.
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a
      * timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("end_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -114,10 +120,11 @@ public class ListProductsInput {
      * Setter for EndDate.
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a
      * timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.
-     * @param endDate Value for String
+     * @param endDate Value for LocalDate
      */
     @JsonSetter("end_date")
-    public void setEndDate(String endDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -127,11 +134,12 @@ public class ListProductsInput {
      * Returns products with a timestamp at or before exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of end_date.
-     * @return Returns the String
+     * @return Returns the LocalDateTime
      */
     @JsonGetter("end_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDatetime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public LocalDateTime getEndDatetime() {
         return endDatetime;
     }
 
@@ -141,10 +149,11 @@ public class ListProductsInput {
      * Returns products with a timestamp at or before exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of end_date.
-     * @param endDatetime Value for String
+     * @param endDatetime Value for LocalDateTime
      */
     @JsonSetter("end_datetime")
-    public void setEndDatetime(String endDatetime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setEndDatetime(LocalDateTime endDatetime) {
         this.endDatetime = endDatetime;
     }
 
@@ -153,11 +162,12 @@ public class ListProductsInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with
      * a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("start_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -166,10 +176,11 @@ public class ListProductsInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with
      * a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified.
-     * @param startDate Value for String
+     * @param startDate Value for LocalDate
      */
     @JsonSetter("start_date")
-    public void setStartDate(String startDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -179,11 +190,12 @@ public class ListProductsInput {
      * Returns products with a timestamp at or after exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of start_date.
-     * @return Returns the String
+     * @return Returns the LocalDateTime
      */
     @JsonGetter("start_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDatetime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public LocalDateTime getStartDatetime() {
         return startDatetime;
     }
 
@@ -193,10 +205,11 @@ public class ListProductsInput {
      * Returns products with a timestamp at or after exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of start_date.
-     * @param startDatetime Value for String
+     * @param startDatetime Value for LocalDateTime
      */
     @JsonSetter("start_datetime")
-    public void setStartDatetime(String startDatetime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setStartDatetime(LocalDateTime startDatetime) {
         this.startDatetime = startDatetime;
     }
 
@@ -389,10 +402,10 @@ public class ListProductsInput {
      */
     public static class Builder {
         private BasicDateField dateField;
-        private String endDate;
-        private String endDatetime;
-        private String startDate;
-        private String startDatetime;
+        private LocalDate endDate;
+        private LocalDateTime endDatetime;
+        private LocalDate startDate;
+        private LocalDateTime startDatetime;
         private Integer page = 1;
         private Integer perPage = 20;
         private Boolean includeArchived;
@@ -414,40 +427,40 @@ public class ListProductsInput {
 
         /**
          * Setter for endDate.
-         * @param  endDate  String value for endDate.
+         * @param  endDate  LocalDate value for endDate.
          * @return Builder
          */
-        public Builder endDate(String endDate) {
+        public Builder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }
 
         /**
          * Setter for endDatetime.
-         * @param  endDatetime  String value for endDatetime.
+         * @param  endDatetime  LocalDateTime value for endDatetime.
          * @return Builder
          */
-        public Builder endDatetime(String endDatetime) {
+        public Builder endDatetime(LocalDateTime endDatetime) {
             this.endDatetime = endDatetime;
             return this;
         }
 
         /**
          * Setter for startDate.
-         * @param  startDate  String value for startDate.
+         * @param  startDate  LocalDate value for startDate.
          * @return Builder
          */
-        public Builder startDate(String startDate) {
+        public Builder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
         /**
          * Setter for startDatetime.
-         * @param  startDatetime  String value for startDatetime.
+         * @param  startDatetime  LocalDateTime value for startDatetime.
          * @return Builder
          */
-        public Builder startDatetime(String startDatetime) {
+        public Builder startDatetime(LocalDateTime startDatetime) {
             this.startDatetime = startDatetime;
             return this;
         }

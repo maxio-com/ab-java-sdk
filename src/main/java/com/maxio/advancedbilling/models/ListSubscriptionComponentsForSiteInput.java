@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ListSubscriptionComponentsForSiteInputDirection;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public class ListSubscriptionComponentsForSiteInput {
     private Integer page;
     private Integer perPage;
     private ListSubscriptionComponentsSort sort;
-    private ListSubscriptionComponentsForSiteInputDirection direction;
+    private SortingDirection direction;
     private SubscriptionListDateField dateField;
     private String startDate;
     private String startDatetime;
@@ -51,7 +50,7 @@ public class ListSubscriptionComponentsForSiteInput {
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  sort  ListSubscriptionComponentsSort value for sort.
-     * @param  direction  ListSubscriptionComponentsForSiteInputDirection value for direction.
+     * @param  direction  SortingDirection value for direction.
      * @param  dateField  SubscriptionListDateField value for dateField.
      * @param  startDate  String value for startDate.
      * @param  startDatetime  String value for startDatetime.
@@ -76,7 +75,7 @@ public class ListSubscriptionComponentsForSiteInput {
             Integer page,
             Integer perPage,
             ListSubscriptionComponentsSort sort,
-            ListSubscriptionComponentsForSiteInputDirection direction,
+            SortingDirection direction,
             SubscriptionListDateField dateField,
             String startDate,
             String startDatetime,
@@ -195,21 +194,21 @@ public class ListSubscriptionComponentsForSiteInput {
     /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the ListSubscriptionComponentsForSiteInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListSubscriptionComponentsForSiteInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for ListSubscriptionComponentsForSiteInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ListSubscriptionComponentsForSiteInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -697,7 +696,7 @@ public class ListSubscriptionComponentsForSiteInput {
         private Integer page = 1;
         private Integer perPage = 20;
         private ListSubscriptionComponentsSort sort;
-        private ListSubscriptionComponentsForSiteInputDirection direction;
+        private SortingDirection direction;
         private SubscriptionListDateField dateField;
         private String startDate;
         private String startDatetime;
@@ -750,10 +749,10 @@ public class ListSubscriptionComponentsForSiteInput {
 
         /**
          * Setter for direction.
-         * @param  direction  ListSubscriptionComponentsForSiteInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ListSubscriptionComponentsForSiteInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

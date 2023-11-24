@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.CreatePrepaidUsageComponentPricePointExpirationIntervalUnit;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public class CreatePrepaidUsageComponentPricePoint {
     private Boolean rolloverPrepaidRemainder;
     private Boolean renewPrepaidAllocation;
     private Double expirationInterval;
-    private CreatePrepaidUsageComponentPricePointExpirationIntervalUnit expirationIntervalUnit;
+    private IntervalUnit expirationIntervalUnit;
 
     /**
      * Default constructor.
@@ -47,8 +46,7 @@ public class CreatePrepaidUsageComponentPricePoint {
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  expirationInterval  Double value for expirationInterval.
-     * @param  expirationIntervalUnit  CreatePrepaidUsageComponentPricePointExpirationIntervalUnit
-     *         value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      */
     public CreatePrepaidUsageComponentPricePoint(
             String name,
@@ -60,7 +58,7 @@ public class CreatePrepaidUsageComponentPricePoint {
             Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation,
             Double expirationInterval,
-            CreatePrepaidUsageComponentPricePointExpirationIntervalUnit expirationIntervalUnit) {
+            IntervalUnit expirationIntervalUnit) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
@@ -274,20 +272,20 @@ public class CreatePrepaidUsageComponentPricePoint {
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * @return Returns the CreatePrepaidUsageComponentPricePointExpirationIntervalUnit
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreatePrepaidUsageComponentPricePointExpirationIntervalUnit getExpirationIntervalUnit() {
+    public IntervalUnit getExpirationIntervalUnit() {
         return expirationIntervalUnit;
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * @param expirationIntervalUnit Value for CreatePrepaidUsageComponentPricePointExpirationIntervalUnit
+     * @param expirationIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(CreatePrepaidUsageComponentPricePointExpirationIntervalUnit expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
@@ -334,7 +332,7 @@ public class CreatePrepaidUsageComponentPricePoint {
         private Boolean rolloverPrepaidRemainder;
         private Boolean renewPrepaidAllocation;
         private Double expirationInterval;
-        private CreatePrepaidUsageComponentPricePointExpirationIntervalUnit expirationIntervalUnit;
+        private IntervalUnit expirationIntervalUnit;
 
         /**
          * Initialization constructor.
@@ -449,13 +447,10 @@ public class CreatePrepaidUsageComponentPricePoint {
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit
-         *         CreatePrepaidUsageComponentPricePointExpirationIntervalUnit value for
-         *         expirationIntervalUnit.
+         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(
-                CreatePrepaidUsageComponentPricePointExpirationIntervalUnit expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = expirationIntervalUnit;
             return this;
         }

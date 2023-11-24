@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ReadMrrMovementsInputDirection;
 
 /**
  * This is a model class for ReadMrrMovementsInput type.
@@ -18,7 +17,7 @@ public class ReadMrrMovementsInput {
     private Integer subscriptionId;
     private Integer page;
     private Integer perPage;
-    private ReadMrrMovementsInputDirection direction;
+    private SortingDirection direction;
 
     /**
      * Default constructor.
@@ -33,13 +32,13 @@ public class ReadMrrMovementsInput {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  direction  ReadMrrMovementsInputDirection value for direction.
+     * @param  direction  SortingDirection value for direction.
      */
     public ReadMrrMovementsInput(
             Integer subscriptionId,
             Integer page,
             Integer perPage,
-            ReadMrrMovementsInputDirection direction) {
+            SortingDirection direction) {
         this.subscriptionId = subscriptionId;
         this.page = page;
         this.perPage = perPage;
@@ -124,21 +123,21 @@ public class ReadMrrMovementsInput {
     /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the ReadMrrMovementsInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ReadMrrMovementsInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for ReadMrrMovementsInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ReadMrrMovementsInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -173,7 +172,7 @@ public class ReadMrrMovementsInput {
         private Integer subscriptionId;
         private Integer page = 1;
         private Integer perPage = 10;
-        private ReadMrrMovementsInputDirection direction;
+        private SortingDirection direction;
 
 
 
@@ -209,10 +208,10 @@ public class ReadMrrMovementsInput {
 
         /**
          * Setter for direction.
-         * @param  direction  ReadMrrMovementsInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ReadMrrMovementsInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

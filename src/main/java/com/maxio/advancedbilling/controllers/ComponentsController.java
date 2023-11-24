@@ -922,7 +922,7 @@ public final class ComponentsController extends BaseController {
                         .queryParam(param -> param.key("filter[start_datetime]")
                                 .value(input.getFilterStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
-                                .value((input.getFilterType() != null) ? input.getFilterType().value() : null).isRequired(false))
+                                .value(PricePointType.toValue(input.getFilterType())).isRequired(false))
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[ids]")

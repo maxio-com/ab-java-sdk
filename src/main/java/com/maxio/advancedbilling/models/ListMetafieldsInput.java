@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ListMetafieldsInputDirection;
 
 /**
  * This is a model class for ListMetafieldsInput type.
@@ -19,7 +18,7 @@ public class ListMetafieldsInput {
     private String name;
     private Integer page;
     private Integer perPage;
-    private ListMetafieldsInputDirection direction;
+    private SortingDirection direction;
 
     /**
      * Default constructor.
@@ -35,14 +34,14 @@ public class ListMetafieldsInput {
      * @param  name  String value for name.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  direction  ListMetafieldsInputDirection value for direction.
+     * @param  direction  SortingDirection value for direction.
      */
     public ListMetafieldsInput(
             ResourceType resourceType,
             String name,
             Integer page,
             Integer perPage,
-            ListMetafieldsInputDirection direction) {
+            SortingDirection direction) {
         this.resourceType = resourceType;
         this.name = name;
         this.page = page;
@@ -148,21 +147,21 @@ public class ListMetafieldsInput {
     /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the ListMetafieldsInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListMetafieldsInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for ListMetafieldsInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ListMetafieldsInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -198,7 +197,7 @@ public class ListMetafieldsInput {
         private String name;
         private Integer page = 1;
         private Integer perPage = 20;
-        private ListMetafieldsInputDirection direction;
+        private SortingDirection direction;
 
         /**
          * Initialization constructor.
@@ -256,10 +255,10 @@ public class ListMetafieldsInput {
 
         /**
          * Setter for direction.
-         * @param  direction  ListMetafieldsInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ListMetafieldsInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

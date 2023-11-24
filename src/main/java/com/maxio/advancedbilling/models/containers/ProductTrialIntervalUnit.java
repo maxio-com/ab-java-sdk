@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.models.IntervalUnit;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -27,13 +28,12 @@ import java.util.Arrays;
 public abstract class ProductTrialIntervalUnit {
     
     /**
-     * This is ProductTrialIntervalUnitCase0 case.
-     * @param productTrialIntervalUnitCase0 ProductTrialIntervalUnitCase0 value for productTrialIntervalUnitCase0.
-     * @return The Case0 object.
+     * This is Interval Unit case.
+     * @param intervalUnit IntervalUnit value for intervalUnit.
+     * @return The IntervalUnitCase object.
      */
-    public static ProductTrialIntervalUnit fromProductTrialIntervalUnitCase0(
-            ProductTrialIntervalUnitCase0 productTrialIntervalUnitCase0) {
-        return productTrialIntervalUnitCase0 == null ? null : new Case0(productTrialIntervalUnitCase0);
+    public static ProductTrialIntervalUnit fromIntervalUnit(IntervalUnit intervalUnit) {
+        return intervalUnit == null ? null : new IntervalUnitCase(intervalUnit);
     }
 
     /**
@@ -49,40 +49,40 @@ public abstract class ProductTrialIntervalUnit {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R productTrialIntervalUnitCase0(ProductTrialIntervalUnitCase0 productTrialIntervalUnitCase0);
+        R intervalUnit(IntervalUnit intervalUnit);
     }
 
     /**
-     * This is a implementation class for Case0Case.
+     * This is a implementation class for IntervalUnitCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "ProductTrialIntervalUnitCase0")
-    private static class Case0 extends ProductTrialIntervalUnit {
+    @TypeCombinatorCase(type = "IntervalUnit")
+    private static class IntervalUnitCase extends ProductTrialIntervalUnit {
 
         @JsonValue
-        private ProductTrialIntervalUnitCase0 case0;
+        private IntervalUnit intervalUnit;
 
-        Case0(ProductTrialIntervalUnitCase0 case0) {
-            this.case0 = case0;
+        IntervalUnitCase(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.productTrialIntervalUnitCase0(this.case0);
+            return cases.intervalUnit(this.intervalUnit);
         }
 
         @JsonCreator
-        private Case0(JsonNode jsonNode) throws IOException {
-            this.case0 = ApiHelper.deserialize(jsonNode,
-                ProductTrialIntervalUnitCase0.class);
-            if (this.case0 == null) {
+        private IntervalUnitCase(JsonNode jsonNode) throws IOException {
+            this.intervalUnit = 
+                IntervalUnit.fromString(ApiHelper.deserialize(jsonNode, String.class));
+            if (this.intervalUnit == null) {
                 throw new IllegalArgumentException();
             }
         }
 
         @Override
         public String toString() {
-            return case0.toString();
+            return intervalUnit.toString();
         }
     }
 
@@ -97,7 +97,7 @@ public abstract class ProductTrialIntervalUnit {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(Case0.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(IntervalUnitCase.class), true);
         }
     }
 
