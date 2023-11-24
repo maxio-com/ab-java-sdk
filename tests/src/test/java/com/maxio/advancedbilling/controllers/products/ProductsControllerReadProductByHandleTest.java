@@ -1,7 +1,6 @@
 package com.maxio.advancedbilling.controllers.products;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
 import org.junit.jupiter.api.Test;
 

@@ -9,20 +9,16 @@ import com.maxio.advancedbilling.models.ListProductsInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.ProductResponse;
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static com.maxio.advancedbilling.models.BasicDateField.CREATED_AT;
-import static com.maxio.advancedbilling.utils.TimeUtils.parseStringTimestamp;
-import static com.maxio.advancedbilling.utils.TimeUtils.toTimestamp;
-import static com.maxio.advancedbilling.utils.TimeUtils.toTruncatedTimestamp;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProductsControllerListProductsTest extends ProductsControllerTestBase {
@@ -64,12 +60,10 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
     }
 
     @Test
-    void shouldListProductsFilteringByStartDate() throws IOException, ApiException, ParseException {
+    void shouldListProductsFilteringByStartDate() throws IOException, ApiException {
         // given
-        Date savedProductCreatedAt = parseStringTimestamp(savedProducts.get(0).getCreatedAt());
-        String startDateFilterIncludeElements = toTruncatedTimestamp(savedProductCreatedAt);
-        String startDateFilterExcludeElements = toTruncatedTimestamp(DateUtils
-                .addDays(savedProductCreatedAt, 1));
+        LocalDate startDateFilterIncludeElements = savedProducts.get(0).getCreatedAt().toLocalDate();
+        LocalDate startDateFilterExcludeElements = startDateFilterIncludeElements.plusDays(1);
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
@@ -86,12 +80,10 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
     }
 
     @Test
-    void shouldListProductsFilteringByEndDate() throws IOException, ApiException, ParseException {
+    void shouldListProductsFilteringByEndDate() throws IOException, ApiException {
         // given
-        Date savedProductCreatedAt = parseStringTimestamp(savedProducts.get(0).getCreatedAt());
-        String endDateFilterIncludeElements = toTruncatedTimestamp(savedProductCreatedAt);
-        String endDateFilterExcludeElements = toTruncatedTimestamp(DateUtils
-                .addDays(savedProductCreatedAt, -1));
+        LocalDate endDateFilterIncludeElements = savedProducts.get(0).getCreatedAt().toLocalDate();
+        LocalDate endDateFilterExcludeElements = endDateFilterIncludeElements.plusDays(-1);
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
@@ -109,11 +101,10 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
     }
 
     @Test
-    void shouldListProductsFilteringByStartDateTime() throws IOException, ApiException, ParseException {
+    void shouldListProductsFilteringByStartDateTime() throws IOException, ApiException {
         // given
-        String savedProductCreatedAt = savedProducts.get(0).getCreatedAt();
-        String startDateTimeFilterExcludeElements = toTimestamp(DateUtils
-                .addMinutes(parseStringTimestamp(savedProductCreatedAt), 5));
+        LocalDateTime savedProductCreatedAt = savedProducts.get(0).getCreatedAt();
+        LocalDateTime startDateTimeFilterExcludeElements = savedProductCreatedAt.plusMinutes(5);
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
@@ -130,11 +121,11 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
     }
 
     @Test
-    void shouldListProductsFilteringByEndDateTime() throws IOException, ApiException, ParseException {
+    void shouldListProductsFilteringByEndDateTime() throws IOException, ApiException {
         // given
-        Date savedProductCreatedAt = parseStringTimestamp(savedProducts.get(0).getCreatedAt());
-        String endDateTimeFilterIncludeElements = toTimestamp(DateUtils.addMinutes(savedProductCreatedAt, 5));
-        String endDateTimeFilterExcludeElements = toTimestamp(DateUtils.addMinutes(savedProductCreatedAt, -5));
+        LocalDateTime savedProductCreatedAt = savedProducts.get(0).getCreatedAt();
+        LocalDateTime endDateTimeFilterIncludeElements = savedProductCreatedAt.plusMinutes(5);
+        LocalDateTime endDateTimeFilterExcludeElements = savedProductCreatedAt.plusMinutes(-5);
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(

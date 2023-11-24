@@ -10,7 +10,6 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerResponse;
 import com.maxio.advancedbilling.models.ListCustomersInput;
 import com.maxio.advancedbilling.models.SortingDirection;
-import com.maxio.advancedbilling.models.containers.ListCustomersInputDirection;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -240,7 +239,7 @@ class CustomersControllerListOrFindTest {
     void shouldReturnNotEmptyListWhenSearchingByExistingOrganizationAndSortDescDirection() throws IOException, ApiException {
         // given
         String organization = "Maxio.com";
-        ListCustomersInputDirection sortDescDirection = ListCustomersInputDirection.fromSortingDirection(SortingDirection.DESC);
+        SortingDirection sortDescDirection = SortingDirection.DESC;
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER
@@ -259,7 +258,7 @@ class CustomersControllerListOrFindTest {
     void shouldReturnNotEmptyListWhenSearchingByExistingOrganizationAndSortAscDirection() throws IOException, ApiException {
         // given
         String organization = "Maxio.com";
-        ListCustomersInputDirection sortAscDirection = ListCustomersInputDirection.fromSortingDirection(SortingDirection.ASC);
+        SortingDirection sortAscDirection = SortingDirection.ASC;
 
         // when
         List<CustomerResponse> listCustomers = CUSTOMERS_CONTROLLER

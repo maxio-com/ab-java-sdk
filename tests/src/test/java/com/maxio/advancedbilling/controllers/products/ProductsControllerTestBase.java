@@ -8,6 +8,7 @@ import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.CreateProductFamily;
 import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
+import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -43,7 +44,7 @@ abstract class ProductsControllerTestBase {
                                 .description("A sample product for testing")
                                 .priceInCents(1000)
                                 .interval(1)
-                                .intervalUnit("month")
+                                .intervalUnit(IntervalUnit.MONTH)
                                 .build()
                 ))
                 .getProduct();

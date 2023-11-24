@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.time.Instant;
 
 import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.TimeUtils.parseStringTimestamp;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -30,7 +29,7 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
         assertAll(
                 () -> assertThat(archivedProduct.getId()).isEqualTo(product.getId()),
                 () -> assertThat(archivedProduct.getArchivedAt()).isNotNull(),
-                () -> assertThat(parseStringTimestamp(archivedProduct.getArchivedAt())).isAfterOrEqualTo(timestamp)
+                () -> assertThat(archivedProduct.getArchivedAt()).isAfterOrEqualTo(timestamp)
         );
     }
 
