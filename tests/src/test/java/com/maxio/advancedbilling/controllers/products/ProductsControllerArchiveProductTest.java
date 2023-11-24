@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.util.Collections;
 
 import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.TimeUtils.parseStringTimestamp;
@@ -50,7 +49,7 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
                 .withMessage("Unprocessable Entity (WebDAV)")
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).hasSameElementsAs(Collections.singletonList("Product cannot be archived."));
+                    assertThat(e.getErrors()).containsExactlyInAnyOrder("Product cannot be archived.");
                 });
     }
 

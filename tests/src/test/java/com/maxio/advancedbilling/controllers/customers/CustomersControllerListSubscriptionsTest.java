@@ -1,4 +1,4 @@
-package com.maxio.advancedbilling.controllers.cusomers;
+package com.maxio.advancedbilling.controllers.customers;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;

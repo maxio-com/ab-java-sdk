@@ -122,7 +122,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                 .withMessage("Unprocessable Entity (WebDAV)")
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).hasSameElementsAs(Collections.singletonList(expectedErrorMessage));
+                    assertThat(e.getErrors()).containsExactlyInAnyOrder(expectedErrorMessage);
 
                 });
     }
