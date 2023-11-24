@@ -11,7 +11,6 @@ public class TimeUtils {
     private static final SimpleDateFormat TRUNCATED_DATE_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd");
 
-
     public static Date parseStringTimestamp(String source) throws ParseException {
         return AB_DATE_FORMAT.parse(source);
     }

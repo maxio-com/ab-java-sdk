@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
 
-public abstract class ProductsControllerTestBase {
+abstract class ProductsControllerTestBase {
     protected static final ProductsController productsController = TestClient.createClient().getProductsController();
     protected static ProductFamily productFamily;
 
