@@ -13,13 +13,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.TimeUtils.parseStringTimestamp;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -29,7 +29,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
     @Test
     void shouldUpdateProductWithAllParameters() throws IOException, ApiException {
         // when
-        Instant timestamp = Instant.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
         Product product = createProduct();
 
         Product updatedProduct = productsController.updateProduct(product.getId(), new CreateOrUpdateProductRequest(
@@ -39,7 +39,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                         .description("Updated Description")
                         .priceInCents(2000)
                         .interval(2)
-                        .intervalUnit(IntervalUnit.DAY.value())
+                        .intervalUnit(IntervalUnit.DAY)
 
                         .accountingCode("acccode")
                         .taxCode("taxcode")
@@ -54,9 +54,9 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                 () -> assertThat(updatedProduct.getDescription()).isEqualTo("Updated Description"),
                 () -> assertThat(updatedProduct.getPriceInCents()).isEqualTo(2000),
                 () -> assertThat(updatedProduct.getInterval()).isEqualTo(2),
-                () -> assertThat(updatedProduct.getIntervalUnit().match(i -> i).value()).isEqualTo(IntervalUnit.DAY.value()),
-                () -> assertThat(parseStringTimestamp(updatedProduct.getCreatedAt())).isAfterOrEqualTo(timestamp),
-                () -> assertThat(parseStringTimestamp(updatedProduct.getUpdatedAt())).isAfterOrEqualTo(timestamp),
+                () -> assertThat(updatedProduct.getIntervalUnit()).isEqualTo(IntervalUnit.DAY),
+                () -> assertThat(updatedProduct.getCreatedAt()).isAfterOrEqualTo(timestamp),
+                () -> assertThat(updatedProduct.getUpdatedAt()).isAfterOrEqualTo(timestamp),
                 () -> assertThat(updatedProduct.getAccountingCode()).isEqualTo("acccode"),
                 () -> assertThat(updatedProduct.getRequestCreditCard()).isTrue(),
                 () -> assertThat(updatedProduct.getTaxCode()).isEqualTo("taxcode"),
@@ -115,7 +115,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                                         .description("Updated Description")
                                         .priceInCents(2000)
                                         .interval(2)
-                                        .intervalUnit(IntervalUnit.DAY.value())
+                                        .intervalUnit(IntervalUnit.DAY)
                                         .build()
                         ))
                 )
@@ -152,7 +152,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
 
     private static Stream<Arguments> argsForShouldNotUpdateProductWithBlankBasicParameters() {
         CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder().name("test-name").handle("product-handle-test")
-                .description("test description").priceInCents(11).interval(1).intervalUnit("month").build();
+                .description("test description").priceInCents(11).interval(1).intervalUnit(IntervalUnit.MONTH).build();
         return Stream.of(
                 Arguments.of(
                         productTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")

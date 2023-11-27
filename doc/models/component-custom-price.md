@@ -11,14 +11,14 @@ Create or update custom pricing unique to the subscription. Used in place of `pr
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `PricingScheme` | [`ComponentCustomPricePricingScheme`](../../doc/models/containers/component-custom-price-pricing-scheme.md) | Optional | This is a container for one-of cases. | ComponentCustomPricePricingScheme getPricingScheme() | setPricingScheme(ComponentCustomPricePricingScheme pricingScheme) |
+| `PricingScheme` | [`PricingScheme1`](../../doc/models/pricing-scheme-1.md) | Optional | Omit for On/Off components | PricingScheme1 getPricingScheme() | setPricingScheme(PricingScheme1 pricingScheme) |
 | `Prices` | [`List<Price>`](../../doc/models/price.md) | Optional | On/off components only need one price bracket starting at 1 | List<Price> getPrices() | setPrices(List<Price> prices) |
 
 ## Example (as JSON)
 
 ```json
 {
-  "pricing_scheme": "volume",
+  "pricing_scheme": "stairstep",
   "prices": [
     {
       "starting_quantity": 242,

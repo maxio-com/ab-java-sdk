@@ -12,9 +12,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.ListSubscriptionsInputDirection;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
@@ -30,10 +29,10 @@ public class ListSubscriptionsInput {
     private SubscriptionDateField dateField;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDateTime startDatetime;
-    private LocalDateTime endDatetime;
+    private ZonedDateTime startDatetime;
+    private ZonedDateTime endDatetime;
     private Map<String, String> metadata;
-    private ListSubscriptionsInputDirection direction;
+    private SortingDirection direction;
     private SubscriptionSort sort;
 
     /**
@@ -56,10 +55,10 @@ public class ListSubscriptionsInput {
      * @param  dateField  SubscriptionDateField value for dateField.
      * @param  startDate  LocalDate value for startDate.
      * @param  endDate  LocalDate value for endDate.
-     * @param  startDatetime  LocalDateTime value for startDatetime.
-     * @param  endDatetime  LocalDateTime value for endDatetime.
+     * @param  startDatetime  ZonedDateTime value for startDatetime.
+     * @param  endDatetime  ZonedDateTime value for endDatetime.
      * @param  metadata  Map of String, value for metadata.
-     * @param  direction  ListSubscriptionsInputDirection value for direction.
+     * @param  direction  SortingDirection value for direction.
      * @param  sort  SubscriptionSort value for sort.
      */
     public ListSubscriptionsInput(
@@ -72,10 +71,10 @@ public class ListSubscriptionsInput {
             SubscriptionDateField dateField,
             LocalDate startDate,
             LocalDate endDate,
-            LocalDateTime startDatetime,
-            LocalDateTime endDatetime,
+            ZonedDateTime startDatetime,
+            ZonedDateTime endDatetime,
             Map<String, String> metadata,
-            ListSubscriptionsInputDirection direction,
+            SortingDirection direction,
             SubscriptionSort sort) {
         this.page = page;
         this.perPage = perPage;
@@ -319,12 +318,12 @@ public class ListSubscriptionsInput {
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01
      * 09:00:05`.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("start_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getStartDatetime() {
+    public ZonedDateTime getStartDatetime() {
         return startDatetime;
     }
 
@@ -335,11 +334,11 @@ public class ListSubscriptionsInput {
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01
      * 09:00:05`.
-     * @param startDatetime Value for LocalDateTime
+     * @param startDatetime Value for ZonedDateTime
      */
     @JsonSetter("start_datetime")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setStartDatetime(LocalDateTime startDatetime) {
+    public void setStartDatetime(ZonedDateTime startDatetime) {
         this.startDatetime = startDatetime;
     }
 
@@ -349,12 +348,12 @@ public class ListSubscriptionsInput {
      * Returns subscriptions with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("end_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getEndDatetime() {
+    public ZonedDateTime getEndDatetime() {
         return endDatetime;
     }
 
@@ -364,11 +363,11 @@ public class ListSubscriptionsInput {
      * Returns subscriptions with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`.
-     * @param endDatetime Value for LocalDateTime
+     * @param endDatetime Value for ZonedDateTime
      */
     @JsonSetter("end_datetime")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setEndDatetime(LocalDateTime endDatetime) {
+    public void setEndDatetime(ZonedDateTime endDatetime) {
         this.endDatetime = endDatetime;
     }
 
@@ -398,21 +397,21 @@ public class ListSubscriptionsInput {
     /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the ListSubscriptionsInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListSubscriptionsInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for ListSubscriptionsInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ListSubscriptionsInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -488,10 +487,10 @@ public class ListSubscriptionsInput {
         private SubscriptionDateField dateField;
         private LocalDate startDate;
         private LocalDate endDate;
-        private LocalDateTime startDatetime;
-        private LocalDateTime endDatetime;
+        private ZonedDateTime startDatetime;
+        private ZonedDateTime endDatetime;
         private Map<String, String> metadata;
-        private ListSubscriptionsInputDirection direction;
+        private SortingDirection direction;
         private SubscriptionSort sort = SubscriptionSort.SIGNUP_DATE;
 
 
@@ -588,20 +587,20 @@ public class ListSubscriptionsInput {
 
         /**
          * Setter for startDatetime.
-         * @param  startDatetime  LocalDateTime value for startDatetime.
+         * @param  startDatetime  ZonedDateTime value for startDatetime.
          * @return Builder
          */
-        public Builder startDatetime(LocalDateTime startDatetime) {
+        public Builder startDatetime(ZonedDateTime startDatetime) {
             this.startDatetime = startDatetime;
             return this;
         }
 
         /**
          * Setter for endDatetime.
-         * @param  endDatetime  LocalDateTime value for endDatetime.
+         * @param  endDatetime  ZonedDateTime value for endDatetime.
          * @return Builder
          */
-        public Builder endDatetime(LocalDateTime endDatetime) {
+        public Builder endDatetime(ZonedDateTime endDatetime) {
             this.endDatetime = endDatetime;
             return this;
         }
@@ -618,10 +617,10 @@ public class ListSubscriptionsInput {
 
         /**
          * Setter for direction.
-         * @param  direction  ListSubscriptionsInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ListSubscriptionsInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

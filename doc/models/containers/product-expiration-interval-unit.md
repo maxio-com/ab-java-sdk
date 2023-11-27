@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`ProductExpirationIntervalUnitCase0`](../../../doc/models/containers/product-expiration-interval-unit-case-0.md) | ProductExpirationIntervalUnit.fromProductExpirationIntervalUnitCase0(ProductExpirationIntervalUnitCase0 productExpirationIntervalUnitCase0) |
+| [`ExtendedIntervalUnit`](../../../doc/models/extended-interval-unit.md) | ProductExpirationIntervalUnit.fromExtendedIntervalUnit(ExtendedIntervalUnit extendedIntervalUnit) |
 

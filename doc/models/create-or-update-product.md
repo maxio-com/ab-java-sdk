@@ -9,16 +9,16 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Name` | `String` | Required | - | String getName() | setName(String name) |
-| `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
-| `Description` | `String` | Required | - | String getDescription() | setDescription(String description) |
-| `AccountingCode` | `String` | Optional | - | String getAccountingCode() | setAccountingCode(String accountingCode) |
-| `RequireCreditCard` | `Boolean` | Optional | - | Boolean getRequireCreditCard() | setRequireCreditCard(Boolean requireCreditCard) |
-| `PriceInCents` | `long` | Required | - | long getPriceInCents() | setPriceInCents(long priceInCents) |
-| `Interval` | `int` | Required | - | int getInterval() | setInterval(int interval) |
-| `IntervalUnit` | `String` | Required | - | String getIntervalUnit() | setIntervalUnit(String intervalUnit) |
+| `Name` | `String` | Required | The product name | String getName() | setName(String name) |
+| `Handle` | `String` | Optional | The product API handle | String getHandle() | setHandle(String handle) |
+| `Description` | `String` | Required | The product description | String getDescription() | setDescription(String description) |
+| `AccountingCode` | `String` | Optional | E.g. Internal ID or SKU Number | String getAccountingCode() | setAccountingCode(String accountingCode) |
+| `RequireCreditCard` | `Boolean` | Optional | Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup Page users, please read this attribute from under the signup page. | Boolean getRequireCreditCard() | setRequireCreditCard(Boolean requireCreditCard) |
+| `PriceInCents` | `long` | Required | The product price, in integer cents | long getPriceInCents() | setPriceInCents(long priceInCents) |
+| `Interval` | `int` | Required | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this product would renew every 30 days | int getInterval() | setInterval(int interval) |
+| `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Required | A string representing the interval unit for this product, either month or day | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
 | `AutoCreateSignupPage` | `Boolean` | Optional | - | Boolean getAutoCreateSignupPage() | setAutoCreateSignupPage(Boolean autoCreateSignupPage) |
-| `TaxCode` | `String` | Optional | - | String getTaxCode() | setTaxCode(String taxCode) |
+| `TaxCode` | `String` | Optional | A string representing the tax code related to the product type. This is especially important when using the Avalara service to tax based on locale. This attribute has a max length of 10 characters.<br>**Constraints**: *Maximum Length*: `10` | String getTaxCode() | setTaxCode(String taxCode) |
 
 ## Example (as JSON)
 
@@ -31,7 +31,7 @@
   "require_credit_card": false,
   "price_in_cents": 190,
   "interval": 174,
-  "interval_unit": "interval_unit8",
+  "interval_unit": "day",
   "auto_create_signup_page": false,
   "tax_code": "tax_code6"
 }

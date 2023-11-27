@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.models.CompoundingStrategy;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -27,13 +28,13 @@ import java.util.Arrays;
 public abstract class CouponCompoundingStrategy {
     
     /**
-     * This is CouponCompoundingStrategyCase0 case.
-     * @param couponCompoundingStrategyCase0 CouponCompoundingStrategyCase0 value for couponCompoundingStrategyCase0.
-     * @return The Case0 object.
+     * This is Compounding Strategy case.
+     * @param compoundingStrategy CompoundingStrategy value for compoundingStrategy.
+     * @return The CompoundingStrategyCase object.
      */
-    public static CouponCompoundingStrategy fromCouponCompoundingStrategyCase0(
-            CouponCompoundingStrategyCase0 couponCompoundingStrategyCase0) {
-        return couponCompoundingStrategyCase0 == null ? null : new Case0(couponCompoundingStrategyCase0);
+    public static CouponCompoundingStrategy fromCompoundingStrategy(
+            CompoundingStrategy compoundingStrategy) {
+        return compoundingStrategy == null ? null : new CompoundingStrategyCase(compoundingStrategy);
     }
 
     /**
@@ -49,40 +50,40 @@ public abstract class CouponCompoundingStrategy {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R couponCompoundingStrategyCase0(CouponCompoundingStrategyCase0 couponCompoundingStrategyCase0);
+        R compoundingStrategy(CompoundingStrategy compoundingStrategy);
     }
 
     /**
-     * This is a implementation class for Case0Case.
+     * This is a implementation class for CompoundingStrategyCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "CouponCompoundingStrategyCase0")
-    private static class Case0 extends CouponCompoundingStrategy {
+    @TypeCombinatorCase(type = "CompoundingStrategy")
+    private static class CompoundingStrategyCase extends CouponCompoundingStrategy {
 
         @JsonValue
-        private CouponCompoundingStrategyCase0 case0;
+        private CompoundingStrategy compoundingStrategy;
 
-        Case0(CouponCompoundingStrategyCase0 case0) {
-            this.case0 = case0;
+        CompoundingStrategyCase(CompoundingStrategy compoundingStrategy) {
+            this.compoundingStrategy = compoundingStrategy;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.couponCompoundingStrategyCase0(this.case0);
+            return cases.compoundingStrategy(this.compoundingStrategy);
         }
 
         @JsonCreator
-        private Case0(JsonNode jsonNode) throws IOException {
-            this.case0 = ApiHelper.deserialize(jsonNode,
-                CouponCompoundingStrategyCase0.class);
-            if (this.case0 == null) {
+        private CompoundingStrategyCase(JsonNode jsonNode) throws IOException {
+            this.compoundingStrategy = 
+                CompoundingStrategy.fromString(ApiHelper.deserialize(jsonNode, String.class));
+            if (this.compoundingStrategy == null) {
                 throw new IllegalArgumentException();
             }
         }
 
         @Override
         public String toString() {
-            return case0.toString();
+            return compoundingStrategy.toString();
         }
     }
 
@@ -97,7 +98,7 @@ public abstract class CouponCompoundingStrategy {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(Case0.class), false);
+            return ApiHelper.deserialize(node, Arrays.asList(CompoundingStrategyCase.class), false);
         }
     }
 

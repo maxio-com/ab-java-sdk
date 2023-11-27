@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ListMetadataInputDirection;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public class ListMetadataInput {
     private String endDatetime;
     private Boolean withDeleted;
     private List<Integer> resourceIds;
-    private ListMetadataInputDirection direction;
+    private SortingDirection direction;
 
     /**
      * Default constructor.
@@ -48,7 +47,7 @@ public class ListMetadataInput {
      * @param  endDatetime  String value for endDatetime.
      * @param  withDeleted  Boolean value for withDeleted.
      * @param  resourceIds  List of Integer value for resourceIds.
-     * @param  direction  ListMetadataInputDirection value for direction.
+     * @param  direction  SortingDirection value for direction.
      */
     public ListMetadataInput(
             ResourceType resourceType,
@@ -61,7 +60,7 @@ public class ListMetadataInput {
             String endDatetime,
             Boolean withDeleted,
             List<Integer> resourceIds,
-            ListMetadataInputDirection direction) {
+            SortingDirection direction) {
         this.resourceType = resourceType;
         this.page = page;
         this.perPage = perPage;
@@ -319,21 +318,21 @@ public class ListMetadataInput {
     /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the ListMetadataInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListMetadataInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for ListMetadataInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ListMetadataInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -384,7 +383,7 @@ public class ListMetadataInput {
         private String endDatetime;
         private Boolean withDeleted;
         private List<Integer> resourceIds;
-        private ListMetadataInputDirection direction;
+        private SortingDirection direction;
 
         /**
          * Initialization constructor.
@@ -502,10 +501,10 @@ public class ListMetadataInput {
 
         /**
          * Setter for direction.
-         * @param  direction  ListMetadataInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ListMetadataInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

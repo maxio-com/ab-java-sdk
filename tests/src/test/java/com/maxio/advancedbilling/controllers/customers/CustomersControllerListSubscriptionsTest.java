@@ -19,6 +19,7 @@ import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.CreatedPaymentProfile;
+import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
@@ -111,7 +112,7 @@ class CustomersControllerListSubscriptionsTest {
                         new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
                                 .name("Test Product")
                                 .handle("test-product")
-                                .intervalUnit("month")
+                                .intervalUnit(IntervalUnit.MONTH)
                                 .interval(2)
                                 .build()
                         )

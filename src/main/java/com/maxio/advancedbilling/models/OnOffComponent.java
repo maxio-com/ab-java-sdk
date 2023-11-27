@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.OnOffComponentPricingScheme;
 import com.maxio.advancedbilling.models.containers.OnOffComponentUnitPrice;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class OnOffComponent {
     private String description;
     private String handle;
     private Boolean taxable;
-    private OnOffComponentPricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private String upgradeCharge;
     private String downgradeCredit;
@@ -44,7 +43,7 @@ public class OnOffComponent {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  pricingScheme  OnOffComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  unitName  String value for unitName.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
@@ -63,7 +62,7 @@ public class OnOffComponent {
      */
     public OnOffComponent(
             String name,
-            OnOffComponentPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             String unitName,
             String description,
             String handle,
@@ -217,10 +216,10 @@ public class OnOffComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the OnOffComponentPricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    public OnOffComponentPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -229,10 +228,10 @@ public class OnOffComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for OnOffComponentPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(OnOffComponentPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -517,7 +516,7 @@ public class OnOffComponent {
      */
     public static class Builder {
         private String name;
-        private OnOffComponentPricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private String unitName;
         private String description;
         private String handle;
@@ -543,9 +542,9 @@ public class OnOffComponent {
         /**
          * Initialization constructor.
          * @param  name  String value for name.
-         * @param  pricingScheme  OnOffComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          */
-        public Builder(String name, OnOffComponentPricingScheme pricingScheme) {
+        public Builder(String name, PricingScheme pricingScheme) {
             this.name = name;
             this.pricingScheme = pricingScheme;
         }
@@ -562,10 +561,10 @@ public class OnOffComponent {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  OnOffComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(OnOffComponentPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

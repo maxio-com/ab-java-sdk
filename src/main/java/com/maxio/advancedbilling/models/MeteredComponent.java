@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.MeteredComponentPricingScheme;
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class MeteredComponent {
     private String description;
     private String handle;
     private Boolean taxable;
-    private MeteredComponentPricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private String upgradeCharge;
     private String downgradeCredit;
@@ -45,7 +44,7 @@ public class MeteredComponent {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  unitName  String value for unitName.
-     * @param  pricingScheme  MeteredComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
@@ -64,7 +63,7 @@ public class MeteredComponent {
     public MeteredComponent(
             String name,
             String unitName,
-            MeteredComponentPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             String description,
             String handle,
             Boolean taxable,
@@ -216,10 +215,10 @@ public class MeteredComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the MeteredComponentPricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    public MeteredComponentPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -228,10 +227,10 @@ public class MeteredComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for MeteredComponentPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(MeteredComponentPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -516,7 +515,7 @@ public class MeteredComponent {
     public static class Builder {
         private String name;
         private String unitName;
-        private MeteredComponentPricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private String description;
         private String handle;
         private Boolean taxable;
@@ -542,9 +541,9 @@ public class MeteredComponent {
          * Initialization constructor.
          * @param  name  String value for name.
          * @param  unitName  String value for unitName.
-         * @param  pricingScheme  MeteredComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          */
-        public Builder(String name, String unitName, MeteredComponentPricingScheme pricingScheme) {
+        public Builder(String name, String unitName, PricingScheme pricingScheme) {
             this.name = name;
             this.unitName = unitName;
             this.pricingScheme = pricingScheme;
@@ -572,10 +571,10 @@ public class MeteredComponent {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  MeteredComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(MeteredComponentPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

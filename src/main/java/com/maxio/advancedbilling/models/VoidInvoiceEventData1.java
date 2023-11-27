@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for VoidInvoiceEventData1 type.
@@ -21,7 +21,7 @@ public class VoidInvoiceEventData1 {
     private CreditNote creditNoteAttributes;
     private String memo;
     private String appliedAmount;
-    private LocalDateTime transactionTime;
+    private ZonedDateTime transactionTime;
 
     /**
      * Default constructor.
@@ -34,13 +34,13 @@ public class VoidInvoiceEventData1 {
      * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
      * @param  memo  String value for memo.
      * @param  appliedAmount  String value for appliedAmount.
-     * @param  transactionTime  LocalDateTime value for transactionTime.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
      */
     public VoidInvoiceEventData1(
             CreditNote creditNoteAttributes,
             String memo,
             String appliedAmount,
-            LocalDateTime transactionTime) {
+            ZonedDateTime transactionTime) {
         this.creditNoteAttributes = creditNoteAttributes;
         this.memo = memo;
         this.appliedAmount = appliedAmount;
@@ -111,23 +111,23 @@ public class VoidInvoiceEventData1 {
     /**
      * Getter for TransactionTime.
      * The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getTransactionTime() {
+    public ZonedDateTime getTransactionTime() {
         return transactionTime;
     }
 
     /**
      * Setter for TransactionTime.
      * The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
-     * @param transactionTime Value for LocalDateTime
+     * @param transactionTime Value for ZonedDateTime
      */
     @JsonSetter("transaction_time")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setTransactionTime(LocalDateTime transactionTime) {
+    public void setTransactionTime(ZonedDateTime transactionTime) {
         this.transactionTime = transactionTime;
     }
 
@@ -163,7 +163,7 @@ public class VoidInvoiceEventData1 {
         private CreditNote creditNoteAttributes;
         private String memo;
         private String appliedAmount;
-        private LocalDateTime transactionTime;
+        private ZonedDateTime transactionTime;
 
 
 
@@ -199,10 +199,10 @@ public class VoidInvoiceEventData1 {
 
         /**
          * Setter for transactionTime.
-         * @param  transactionTime  LocalDateTime value for transactionTime.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
          * @return Builder
          */
-        public Builder transactionTime(LocalDateTime transactionTime) {
+        public Builder transactionTime(ZonedDateTime transactionTime) {
             this.transactionTime = transactionTime;
             return this;
         }

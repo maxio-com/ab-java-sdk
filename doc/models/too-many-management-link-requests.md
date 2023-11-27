@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Error` | `String` | Required | - | String getError() | setError(String error) |
-| `NewLinkAvailableAt` | `LocalDateTime` | Required | - | LocalDateTime getNewLinkAvailableAt() | setNewLinkAvailableAt(LocalDateTime newLinkAvailableAt) |
+| `NewLinkAvailableAt` | `ZonedDateTime` | Required | - | ZonedDateTime getNewLinkAvailableAt() | setNewLinkAvailableAt(ZonedDateTime newLinkAvailableAt) |
 
 ## Example (as JSON)
 

@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponCompoundingStrategy;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
 
 /**
@@ -27,7 +26,7 @@ public class CreateOrUpdatePercentageCoupon {
     private String endDate;
     private String productFamilyId;
     private String stackable;
-    private CreateOrUpdatePercentageCouponCompoundingStrategy compoundingStrategy;
+    private CompoundingStrategy compoundingStrategy;
     private Boolean excludeMidPeriodAllocations;
     private Boolean applyOnCancelAtEndOfPeriod;
 
@@ -48,8 +47,7 @@ public class CreateOrUpdatePercentageCoupon {
      * @param  endDate  String value for endDate.
      * @param  productFamilyId  String value for productFamilyId.
      * @param  stackable  String value for stackable.
-     * @param  compoundingStrategy  CreateOrUpdatePercentageCouponCompoundingStrategy value for
-     *         compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
      */
@@ -63,7 +61,7 @@ public class CreateOrUpdatePercentageCoupon {
             String endDate,
             String productFamilyId,
             String stackable,
-            CreateOrUpdatePercentageCouponCompoundingStrategy compoundingStrategy,
+            CompoundingStrategy compoundingStrategy,
             Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod) {
         this.name = name;
@@ -270,20 +268,20 @@ public class CreateOrUpdatePercentageCoupon {
 
     /**
      * Getter for CompoundingStrategy.
-     * @return Returns the CreateOrUpdatePercentageCouponCompoundingStrategy
+     * @return Returns the CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreateOrUpdatePercentageCouponCompoundingStrategy getCompoundingStrategy() {
+    public CompoundingStrategy getCompoundingStrategy() {
         return compoundingStrategy;
     }
 
     /**
      * Setter for CompoundingStrategy.
-     * @param compoundingStrategy Value for CreateOrUpdatePercentageCouponCompoundingStrategy
+     * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CreateOrUpdatePercentageCouponCompoundingStrategy compoundingStrategy) {
+    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
         this.compoundingStrategy = compoundingStrategy;
     }
 
@@ -372,7 +370,7 @@ public class CreateOrUpdatePercentageCoupon {
         private String endDate;
         private String productFamilyId;
         private String stackable;
-        private CreateOrUpdatePercentageCouponCompoundingStrategy compoundingStrategy;
+        private CompoundingStrategy compoundingStrategy;
         private Boolean excludeMidPeriodAllocations;
         private Boolean applyOnCancelAtEndOfPeriod;
 
@@ -487,12 +485,10 @@ public class CreateOrUpdatePercentageCoupon {
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CreateOrUpdatePercentageCouponCompoundingStrategy value for
-         *         compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(
-                CreateOrUpdatePercentageCouponCompoundingStrategy compoundingStrategy) {
+        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
             this.compoundingStrategy = compoundingStrategy;
             return this;
         }

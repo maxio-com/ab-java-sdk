@@ -11,14 +11,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for TooManyManagementLinkRequests type.
  */
 public class TooManyManagementLinkRequests {
     private String error;
-    private LocalDateTime newLinkAvailableAt;
+    private ZonedDateTime newLinkAvailableAt;
 
     /**
      * Default constructor.
@@ -29,11 +29,11 @@ public class TooManyManagementLinkRequests {
     /**
      * Initialization constructor.
      * @param  error  String value for error.
-     * @param  newLinkAvailableAt  LocalDateTime value for newLinkAvailableAt.
+     * @param  newLinkAvailableAt  ZonedDateTime value for newLinkAvailableAt.
      */
     public TooManyManagementLinkRequests(
             String error,
-            LocalDateTime newLinkAvailableAt) {
+            ZonedDateTime newLinkAvailableAt) {
         this.error = error;
         this.newLinkAvailableAt = newLinkAvailableAt;
     }
@@ -58,21 +58,21 @@ public class TooManyManagementLinkRequests {
 
     /**
      * Getter for NewLinkAvailableAt.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("new_link_available_at")
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getNewLinkAvailableAt() {
+    public ZonedDateTime getNewLinkAvailableAt() {
         return newLinkAvailableAt;
     }
 
     /**
      * Setter for NewLinkAvailableAt.
-     * @param newLinkAvailableAt Value for LocalDateTime
+     * @param newLinkAvailableAt Value for ZonedDateTime
      */
     @JsonSetter("new_link_available_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setNewLinkAvailableAt(LocalDateTime newLinkAvailableAt) {
+    public void setNewLinkAvailableAt(ZonedDateTime newLinkAvailableAt) {
         this.newLinkAvailableAt = newLinkAvailableAt;
     }
 
@@ -101,7 +101,7 @@ public class TooManyManagementLinkRequests {
      */
     public static class Builder {
         private String error;
-        private LocalDateTime newLinkAvailableAt;
+        private ZonedDateTime newLinkAvailableAt;
 
         /**
          * Initialization constructor.
@@ -112,9 +112,9 @@ public class TooManyManagementLinkRequests {
         /**
          * Initialization constructor.
          * @param  error  String value for error.
-         * @param  newLinkAvailableAt  LocalDateTime value for newLinkAvailableAt.
+         * @param  newLinkAvailableAt  ZonedDateTime value for newLinkAvailableAt.
          */
-        public Builder(String error, LocalDateTime newLinkAvailableAt) {
+        public Builder(String error, ZonedDateTime newLinkAvailableAt) {
             this.error = error;
             this.newLinkAvailableAt = newLinkAvailableAt;
         }
@@ -131,10 +131,10 @@ public class TooManyManagementLinkRequests {
 
         /**
          * Setter for newLinkAvailableAt.
-         * @param  newLinkAvailableAt  LocalDateTime value for newLinkAvailableAt.
+         * @param  newLinkAvailableAt  ZonedDateTime value for newLinkAvailableAt.
          * @return Builder
          */
-        public Builder newLinkAvailableAt(LocalDateTime newLinkAvailableAt) {
+        public Builder newLinkAvailableAt(ZonedDateTime newLinkAvailableAt) {
             this.newLinkAvailableAt = newLinkAvailableAt;
             return this;
         }

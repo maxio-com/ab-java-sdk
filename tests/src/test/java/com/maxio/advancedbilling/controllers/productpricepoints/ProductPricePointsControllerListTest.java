@@ -12,6 +12,7 @@ import com.maxio.advancedbilling.models.CreateProductFamily;
 import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.CreateProductPricePoint;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
+import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListProductPricePointsInput;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
@@ -53,7 +54,7 @@ class ProductPricePointsControllerListTest {
                         new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
                                 .name(randomAlphabetic(10))
                                 .handle(String.format("product-handle-%s", randomNumeric(5)))
-                                .intervalUnit("month")
+                                .intervalUnit(IntervalUnit.MONTH)
                                 .interval(2)
                                 .build()
                         )

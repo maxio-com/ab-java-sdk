@@ -77,7 +77,7 @@ This endpoint returns your site's current MRR, including plan and usage breakout
 
 ```java
 MRRResponse readMrr(
-    final LocalDateTime atTime,
+    final ZonedDateTime atTime,
     final Integer subscriptionId)
 ```
 
@@ -85,7 +85,7 @@ MRRResponse readMrr(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `atTime` | `LocalDateTime` | Query, Optional | submit a timestamp in ISO8601 format to request MRR for a historic time |
+| `atTime` | `ZonedDateTime` | Query, Optional | submit a timestamp in ISO8601 format to request MRR for a historic time |
 | `subscriptionId` | `Integer` | Query, Optional | submit the id of a subscription in order to limit results |
 
 ## Response Type
@@ -167,7 +167,7 @@ ListMRRResponse readMrrMovements(
 | `subscriptionId` | `Integer` | Query, Optional | optionally filter results by subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 50; any per_page value over 50 will be changed to 50.<br>Use in query `per_page=20`.<br>**Default**: `10`<br>**Constraints**: `<= 50` |
-| `direction` | [`ReadMrrMovementsInputDirection`](../../doc/models/containers/read-mrr-movements-input-direction.md) | Query, Optional | This is a container for one-of cases. |
+| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 
 ## Response Type
 

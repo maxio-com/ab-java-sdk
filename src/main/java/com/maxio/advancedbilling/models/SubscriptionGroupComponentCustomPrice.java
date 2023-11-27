@@ -9,14 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroupComponentCustomPricePricingScheme;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionGroupComponentCustomPrice type.
  */
 public class SubscriptionGroupComponentCustomPrice {
-    private SubscriptionGroupComponentCustomPricePricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private List<ComponentCustomPrice> overagePricing;
 
@@ -28,13 +27,12 @@ public class SubscriptionGroupComponentCustomPrice {
 
     /**
      * Initialization constructor.
-     * @param  pricingScheme  SubscriptionGroupComponentCustomPricePricingScheme value for
-     *         pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  overagePricing  List of ComponentCustomPrice value for overagePricing.
      */
     public SubscriptionGroupComponentCustomPrice(
-            SubscriptionGroupComponentCustomPricePricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             List<Price> prices,
             List<ComponentCustomPrice> overagePricing) {
         this.pricingScheme = pricingScheme;
@@ -47,11 +45,11 @@ public class SubscriptionGroupComponentCustomPrice {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the SubscriptionGroupComponentCustomPricePricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionGroupComponentCustomPricePricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -60,10 +58,10 @@ public class SubscriptionGroupComponentCustomPrice {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for SubscriptionGroupComponentCustomPricePricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(SubscriptionGroupComponentCustomPricePricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -132,7 +130,7 @@ public class SubscriptionGroupComponentCustomPrice {
      * Class to build instances of {@link SubscriptionGroupComponentCustomPrice}.
      */
     public static class Builder {
-        private SubscriptionGroupComponentCustomPricePricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private List<Price> prices;
         private List<ComponentCustomPrice> overagePricing;
 
@@ -140,12 +138,10 @@ public class SubscriptionGroupComponentCustomPrice {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  SubscriptionGroupComponentCustomPricePricingScheme value for
-         *         pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(
-                SubscriptionGroupComponentCustomPricePricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

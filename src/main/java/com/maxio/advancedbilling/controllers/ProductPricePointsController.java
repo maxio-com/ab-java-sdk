@@ -565,7 +565,7 @@ public final class ProductPricePointsController extends BaseController {
                         .queryParam(param -> param.key("filter[start_datetime]")
                                 .value(input.getFilterStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
-                                .value((input.getFilterType() != null) ? input.getFilterType().value() : null).isRequired(false))
+                                .value(PricePointType.toValue(input.getFilterType())).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
                         .queryParam(param -> param.key("page")

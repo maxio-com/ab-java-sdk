@@ -52,7 +52,7 @@ CreateOrUpdateProductRequest body = new CreateOrUpdateProductRequest.Builder(
         "This is our gold plan.",
         1000L,
         1,
-        "month"
+        IntervalUnit.MONTH
     )
     .handle("gold")
     .accountingCode("123")
@@ -510,10 +510,10 @@ List<ProductResponse> listProducts(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
-| `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
-| `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. |
+| `endDate` | `LocalDate` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
+| `endDatetime` | `ZonedDateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
+| `startDate` | `LocalDate` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
+| `startDatetime` | `ZonedDateTime` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns products with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `includeArchived` | `Boolean` | Query, Optional | Include archived products. Use in query: `include_archived=true`. |
@@ -560,8 +560,8 @@ try {
       "request_credit_card": true,
       "expiration_interval": 0,
       "expiration_interval_unit": "month",
-      "created_at": "string",
-      "updated_at": "string",
+      "created_at": "2023-11-23T10:28:34-05:00",
+      "updated_at": "2023-11-23T10:28:34-05:00",
       "price_in_cents": 0,
       "interval": 0,
       "interval_unit": "month",
@@ -569,7 +569,7 @@ try {
       "trial_price_in_cents": 0,
       "trial_interval": 0,
       "trial_interval_unit": "month",
-      "archived_at": "string",
+      "archived_at": null,
       "require_credit_card": true,
       "return_params": "string",
       "taxable": true,

@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`CouponCompoundingStrategyCase0`](../../../doc/models/containers/coupon-compounding-strategy-case-0.md) | CouponCompoundingStrategy.fromCouponCompoundingStrategyCase0(CouponCompoundingStrategyCase0 couponCompoundingStrategyCase0) |
+| [`CompoundingStrategy`](../../../doc/models/compounding-strategy.md) | CouponCompoundingStrategy.fromCompoundingStrategy(CompoundingStrategy compoundingStrategy) |
 

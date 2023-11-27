@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.EBBComponentPricingScheme;
 import com.maxio.advancedbilling.models.containers.EBBComponentUnitPrice;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class EBBComponent {
     private String description;
     private String handle;
     private Boolean taxable;
-    private EBBComponentPricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private String upgradeCharge;
     private String downgradeCredit;
@@ -43,7 +42,7 @@ public class EBBComponent {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  unitName  String value for unitName.
-     * @param  pricingScheme  EBBComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  eventBasedBillingMetricId  int value for eventBasedBillingMetricId.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
@@ -60,7 +59,7 @@ public class EBBComponent {
     public EBBComponent(
             String name,
             String unitName,
-            EBBComponentPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             int eventBasedBillingMetricId,
             String description,
             String handle,
@@ -208,10 +207,10 @@ public class EBBComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the EBBComponentPricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    public EBBComponentPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -220,10 +219,10 @@ public class EBBComponent {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for EBBComponentPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(EBBComponentPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -463,7 +462,7 @@ public class EBBComponent {
     public static class Builder {
         private String name;
         private String unitName;
-        private EBBComponentPricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private int eventBasedBillingMetricId;
         private String description;
         private String handle;
@@ -487,10 +486,10 @@ public class EBBComponent {
          * Initialization constructor.
          * @param  name  String value for name.
          * @param  unitName  String value for unitName.
-         * @param  pricingScheme  EBBComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @param  eventBasedBillingMetricId  int value for eventBasedBillingMetricId.
          */
-        public Builder(String name, String unitName, EBBComponentPricingScheme pricingScheme,
+        public Builder(String name, String unitName, PricingScheme pricingScheme,
                 int eventBasedBillingMetricId) {
             this.name = name;
             this.unitName = unitName;
@@ -520,10 +519,10 @@ public class EBBComponent {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  EBBComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(EBBComponentPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

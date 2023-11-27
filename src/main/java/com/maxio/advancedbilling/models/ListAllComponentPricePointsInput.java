@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ListAllComponentPricePointsInputDirection;
 import java.util.List;
 
 /**
@@ -24,8 +23,8 @@ public class ListAllComponentPricePointsInput {
     private Integer perPage;
     private String filterStartDate;
     private String filterStartDatetime;
-    private PricePointType filterType;
-    private ListAllComponentPricePointsInputDirection direction;
+    private List<PricePointType> filterType;
+    private SortingDirection direction;
     private List<Integer> filterIds;
     private IncludeNotNull filterArchivedAt;
 
@@ -47,8 +46,8 @@ public class ListAllComponentPricePointsInput {
      * @param  perPage  Integer value for perPage.
      * @param  filterStartDate  String value for filterStartDate.
      * @param  filterStartDatetime  String value for filterStartDatetime.
-     * @param  filterType  PricePointType value for filterType.
-     * @param  direction  ListAllComponentPricePointsInputDirection value for direction.
+     * @param  filterType  List of PricePointType value for filterType.
+     * @param  direction  SortingDirection value for direction.
      * @param  filterIds  List of Integer value for filterIds.
      * @param  filterArchivedAt  IncludeNotNull value for filterArchivedAt.
      */
@@ -61,8 +60,8 @@ public class ListAllComponentPricePointsInput {
             Integer perPage,
             String filterStartDate,
             String filterStartDatetime,
-            PricePointType filterType,
-            ListAllComponentPricePointsInputDirection direction,
+            List<PricePointType> filterType,
+            SortingDirection direction,
             List<Integer> filterIds,
             IncludeNotNull filterArchivedAt) {
         this.filterDateField = filterDateField;
@@ -284,42 +283,42 @@ public class ListAllComponentPricePointsInput {
     /**
      * Getter for FilterType.
      * Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`.
-     * @return Returns the PricePointType
+     * @return Returns the List of PricePointType
      */
     @JsonGetter("filter[type]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PricePointType getFilterType() {
+    public List<PricePointType> getFilterType() {
         return filterType;
     }
 
     /**
      * Setter for FilterType.
      * Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`.
-     * @param filterType Value for PricePointType
+     * @param filterType Value for List of PricePointType
      */
     @JsonSetter("filter[type]")
-    public void setFilterType(PricePointType filterType) {
+    public void setFilterType(List<PricePointType> filterType) {
         this.filterType = filterType;
     }
 
     /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the ListAllComponentPricePointsInputDirection
+     * @return Returns the SortingDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListAllComponentPricePointsInputDirection getDirection() {
+    public SortingDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for ListAllComponentPricePointsInputDirection
+     * @param direction Value for SortingDirection
      */
     @JsonSetter("direction")
-    public void setDirection(ListAllComponentPricePointsInputDirection direction) {
+    public void setDirection(SortingDirection direction) {
         this.direction = direction;
     }
 
@@ -417,8 +416,8 @@ public class ListAllComponentPricePointsInput {
         private Integer perPage = 20;
         private String filterStartDate;
         private String filterStartDatetime;
-        private PricePointType filterType;
-        private ListAllComponentPricePointsInputDirection direction;
+        private List<PricePointType> filterType;
+        private SortingDirection direction;
         private List<Integer> filterIds;
         private IncludeNotNull filterArchivedAt;
 
@@ -506,20 +505,20 @@ public class ListAllComponentPricePointsInput {
 
         /**
          * Setter for filterType.
-         * @param  filterType  PricePointType value for filterType.
+         * @param  filterType  List of PricePointType value for filterType.
          * @return Builder
          */
-        public Builder filterType(PricePointType filterType) {
+        public Builder filterType(List<PricePointType> filterType) {
             this.filterType = filterType;
             return this;
         }
 
         /**
          * Setter for direction.
-         * @param  direction  ListAllComponentPricePointsInputDirection value for direction.
+         * @param  direction  SortingDirection value for direction.
          * @return Builder
          */
-        public Builder direction(ListAllComponentPricePointsInputDirection direction) {
+        public Builder direction(SortingDirection direction) {
             this.direction = direction;
             return this;
         }

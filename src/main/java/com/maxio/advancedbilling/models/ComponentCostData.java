@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maxio.advancedbilling.models.containers.ComponentCostDataPricingScheme;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class ComponentCostData {
     private Integer productId;
     private String quantity;
     private String amount;
-    private ComponentCostDataPricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<ComponentCostDataRateTier> tiers;
 
     /**
@@ -39,7 +38,7 @@ public class ComponentCostData {
      * @param  productId  Integer value for productId.
      * @param  quantity  String value for quantity.
      * @param  amount  String value for amount.
-     * @param  pricingScheme  ComponentCostDataPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  tiers  List of ComponentCostDataRateTier value for tiers.
      */
     public ComponentCostData(
@@ -48,7 +47,7 @@ public class ComponentCostData {
             Integer productId,
             String quantity,
             String amount,
-            ComponentCostDataPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             List<ComponentCostDataRateTier> tiers) {
         this.componentCodeId = OptionalNullable.of(componentCodeId);
         this.pricePointId = pricePointId;
@@ -66,13 +65,13 @@ public class ComponentCostData {
      * @param  productId  Integer value for productId.
      * @param  quantity  String value for quantity.
      * @param  amount  String value for amount.
-     * @param  pricingScheme  ComponentCostDataPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  tiers  List of ComponentCostDataRateTier value for tiers.
      */
 
     protected ComponentCostData(OptionalNullable<Integer> componentCodeId, Integer pricePointId,
-            Integer productId, String quantity, String amount,
-            ComponentCostDataPricingScheme pricingScheme, List<ComponentCostDataRateTier> tiers) {
+            Integer productId, String quantity, String amount, PricingScheme pricingScheme,
+            List<ComponentCostDataRateTier> tiers) {
         this.componentCodeId = componentCodeId;
         this.pricePointId = pricePointId;
         this.productId = productId;
@@ -198,11 +197,11 @@ public class ComponentCostData {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the ComponentCostDataPricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ComponentCostDataPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -211,10 +210,10 @@ public class ComponentCostData {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for ComponentCostDataPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(ComponentCostDataPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -274,7 +273,7 @@ public class ComponentCostData {
         private Integer productId;
         private String quantity;
         private String amount;
-        private ComponentCostDataPricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private List<ComponentCostDataRateTier> tiers;
 
 
@@ -340,10 +339,10 @@ public class ComponentCostData {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  ComponentCostDataPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(ComponentCostDataPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

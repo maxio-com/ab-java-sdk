@@ -9,14 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ComponentCustomPricePricingScheme;
 import java.util.List;
 
 /**
  * This is a model class for ComponentCustomPrice type.
  */
 public class ComponentCustomPrice {
-    private ComponentCustomPricePricingScheme pricingScheme;
+    private PricingScheme1 pricingScheme;
     private List<Price> prices;
 
     /**
@@ -27,11 +26,11 @@ public class ComponentCustomPrice {
 
     /**
      * Initialization constructor.
-     * @param  pricingScheme  ComponentCustomPricePricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme1 value for pricingScheme.
      * @param  prices  List of Price value for prices.
      */
     public ComponentCustomPrice(
-            ComponentCustomPricePricingScheme pricingScheme,
+            PricingScheme1 pricingScheme,
             List<Price> prices) {
         this.pricingScheme = pricingScheme;
         this.prices = prices;
@@ -40,21 +39,21 @@ public class ComponentCustomPrice {
     /**
      * Getter for PricingScheme.
      * Omit for On/Off components
-     * @return Returns the ComponentCustomPricePricingScheme
+     * @return Returns the PricingScheme1
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ComponentCustomPricePricingScheme getPricingScheme() {
+    public PricingScheme1 getPricingScheme() {
         return pricingScheme;
     }
 
     /**
      * Setter for PricingScheme.
      * Omit for On/Off components
-     * @param pricingScheme Value for ComponentCustomPricePricingScheme
+     * @param pricingScheme Value for PricingScheme1
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(ComponentCustomPricePricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme1 pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -105,17 +104,17 @@ public class ComponentCustomPrice {
      * Class to build instances of {@link ComponentCustomPrice}.
      */
     public static class Builder {
-        private ComponentCustomPricePricingScheme pricingScheme;
+        private PricingScheme1 pricingScheme;
         private List<Price> prices;
 
 
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  ComponentCustomPricePricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme1 value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(ComponentCustomPricePricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme1 pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

@@ -6,11 +6,11 @@
 
 package com.maxio.advancedbilling;
 
-import io.apimatic.core.utilities.LocalDateTimeHelper;
+import io.apimatic.core.utilities.ZonedDateTimeHelper;
 
 /**
  * This is a utility class for DateTime operations.
  */
-public class DateTimeHelper extends LocalDateTimeHelper {
+public class DateTimeHelper extends ZonedDateTimeHelper {
 
 }

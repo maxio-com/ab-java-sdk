@@ -9,14 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.OveragePricingPricingScheme;
 import java.util.List;
 
 /**
  * This is a model class for OveragePricing type.
  */
 public class OveragePricing {
-    private OveragePricingPricingScheme pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
 
     /**
@@ -27,11 +26,11 @@ public class OveragePricing {
 
     /**
      * Initialization constructor.
-     * @param  pricingScheme  OveragePricingPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      */
     public OveragePricing(
-            OveragePricingPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             List<Price> prices) {
         this.pricingScheme = pricingScheme;
         this.prices = prices;
@@ -42,10 +41,10 @@ public class OveragePricing {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @return Returns the OveragePricingPricingScheme
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    public OveragePricingPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
@@ -54,10 +53,10 @@ public class OveragePricing {
      * The identifier for the pricing scheme. See [Product
      * Components](https://help.chargify.com/products/product-components.html) for an overview of
      * pricing schemes.
-     * @param pricingScheme Value for OveragePricingPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(OveragePricingPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -104,7 +103,7 @@ public class OveragePricing {
      * Class to build instances of {@link OveragePricing}.
      */
     public static class Builder {
-        private OveragePricingPricingScheme pricingScheme;
+        private PricingScheme pricingScheme;
         private List<Price> prices;
 
         /**
@@ -115,18 +114,18 @@ public class OveragePricing {
 
         /**
          * Initialization constructor.
-         * @param  pricingScheme  OveragePricingPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          */
-        public Builder(OveragePricingPricingScheme pricingScheme) {
+        public Builder(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
         }
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  OveragePricingPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(OveragePricingPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

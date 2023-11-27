@@ -14,12 +14,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.maxio.advancedbilling.utils.TimeUtils.parseStringTimestamp;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -29,7 +29,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     @Test
     void shouldCreateProductWhenOnlyRequiredParametersAreProvided() throws IOException, ApiException {
         // when
-        Instant timestamp = Instant.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
                 .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
@@ -39,7 +39,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                                 .description("A sample product for testing")
                                 .priceInCents(1000)
                                 .interval(1)
-                                .intervalUnit("month")
+                                .intervalUnit(IntervalUnit.MONTH)
                                 .requireCreditCard(true)
                                 .build()
                 ))
@@ -52,11 +52,11 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 () -> assertThat(product.getDescription()).isEqualTo("A sample product for testing"),
                 () -> assertThat(product.getPriceInCents()).isEqualTo(1000),
                 () -> assertThat(product.getInterval()).isEqualTo(1),
-                () -> assertThat(product.getIntervalUnit().match(i -> i).value()).isEqualTo(IntervalUnit.MONTH.value()),
+                () -> assertThat(product.getIntervalUnit()).isEqualTo(IntervalUnit.MONTH),
 
                 () -> assertThat(product.getId()).isNotNull(),
-                () -> assertThat(parseStringTimestamp(product.getCreatedAt())).isAfterOrEqualTo(timestamp),
-                () -> assertThat(parseStringTimestamp(product.getUpdatedAt())).isAfterOrEqualTo(timestamp),
+                () -> assertThat(product.getCreatedAt()).isAfterOrEqualTo(timestamp),
+                () -> assertThat(product.getUpdatedAt()).isAfterOrEqualTo(timestamp),
 
                 () -> assertThat(product.getAccountingCode()).isNull(),
                 () -> assertThat(product.getRequestCreditCard()).isTrue(),
@@ -101,7 +101,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     @Test
     void shouldCreateProductWhenAllParametersAreProvided() throws IOException, ApiException {
         // when
-        Instant timestamp = Instant.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
                     .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
@@ -111,7 +111,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                                     .description("A sample product for testing")
                                     .priceInCents(1000)
                                     .interval(1)
-                                    .intervalUnit("month")
+                                    .intervalUnit(IntervalUnit.MONTH)
                                     .requireCreditCard(true)
 
                                     .accountingCode("code")
@@ -127,13 +127,13 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 () -> assertThat(product.getDescription()).isEqualTo("A sample product for testing"),
                 () -> assertThat(product.getPriceInCents()).isEqualTo(1000),
                 () -> assertThat(product.getInterval()).isEqualTo(1),
-                () -> assertThat(product.getIntervalUnit().match(i -> i).value()).isEqualTo(IntervalUnit.MONTH.value()),
+                () -> assertThat(product.getIntervalUnit()).isEqualTo(IntervalUnit.MONTH),
                 () -> assertThat(product.getTaxCode()).isEqualTo("taxcode"),
                 () -> assertThat(product.getAccountingCode()).isEqualTo("code"),
 
                 () -> assertThat(product.getId()).isNotNull(),
-                () -> assertThat(parseStringTimestamp(product.getCreatedAt())).isAfterOrEqualTo(timestamp),
-                () -> assertThat(parseStringTimestamp(product.getUpdatedAt())).isAfterOrEqualTo(timestamp),
+                () -> assertThat(product.getCreatedAt()).isAfterOrEqualTo(timestamp),
+                () -> assertThat(product.getUpdatedAt()).isAfterOrEqualTo(timestamp),
 
                 () -> assertThat(product.getRequestCreditCard()).isTrue(),
                 () -> assertThat(product.getExpirationInterval()).isNull(),
@@ -186,7 +186,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 .handle(handle)
                 .priceInCents(1000)
                 .interval(1)
-                .intervalUnit("month")
+                .intervalUnit(IntervalUnit.MONTH)
                 .build();
         Product product = productsController
                     .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
@@ -232,7 +232,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 .handle(handle)
                 .priceInCents(1000)
                 .interval(1)
-                .intervalUnit("month")
+                .intervalUnit(IntervalUnit.MONTH)
                 .build();
 
         // then
@@ -251,7 +251,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
 
     private static Stream<Arguments> argsForShouldNotCreateProductWhenBasicParametersAreBlank() {
         CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder().name("test-name").handle("product-handle-test")
-                .description("test description").priceInCents(11).interval(1).intervalUnit("month").build();
+                .description("test description").priceInCents(11).interval(1).intervalUnit(IntervalUnit.MONTH).build();
         return Stream.of(
                 Arguments.of(
                         productTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")

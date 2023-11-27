@@ -80,9 +80,7 @@ CreateCouponBody body = CreateCouponBody.fromCreateOrUpdateCoupon(
             .endDate("2012-08-29T12:00:00-04:00")
             .productFamilyId("2")
             .stackable("true")
-            .compoundingStrategy(CreateOrUpdatePercentageCouponCompoundingStrategy.fromCompoundingStrategy(
-                    CompoundingStrategy.COMPOUND
-                ))
+            .compoundingStrategy(CompoundingStrategy.COMPOUND)
             .excludeMidPeriodAllocations(true)
             .applyOnCancelAtEndOfPeriod(true)
             .build()
@@ -419,9 +417,7 @@ UpdateCouponBody body = UpdateCouponBody.fromCreateOrUpdateCoupon(
             .endDate("2012-08-29T12:00:00-04:00")
             .productFamilyId("2")
             .stackable("true")
-            .compoundingStrategy(CreateOrUpdatePercentageCouponCompoundingStrategy.fromCompoundingStrategy(
-                    CompoundingStrategy.COMPOUND
-                ))
+            .compoundingStrategy(CompoundingStrategy.COMPOUND)
             .build()
         ))
         .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
