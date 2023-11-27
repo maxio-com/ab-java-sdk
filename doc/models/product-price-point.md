@@ -10,28 +10,28 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
-| `Name` | `String` | Optional | - | String getName() | setName(String name) |
-| `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
-| `PriceInCents` | `Long` | Optional | - | Long getPriceInCents() | setPriceInCents(Long priceInCents) |
-| `Interval` | `Integer` | Optional | - | Integer getInterval() | setInterval(Integer interval) |
-| `IntervalUnit` | `String` | Optional | - | String getIntervalUnit() | setIntervalUnit(String intervalUnit) |
-| `TrialPriceInCents` | `Long` | Optional | - | Long getTrialPriceInCents() | setTrialPriceInCents(Long trialPriceInCents) |
-| `TrialInterval` | `Integer` | Optional | - | Integer getTrialInterval() | setTrialInterval(Integer trialInterval) |
-| `TrialIntervalUnit` | `String` | Optional | - | String getTrialIntervalUnit() | setTrialIntervalUnit(String trialIntervalUnit) |
+| `Name` | `String` | Optional | The product price point name | String getName() | setName(String name) |
+| `Handle` | `String` | Optional | The product price point API handle | String getHandle() | setHandle(String handle) |
+| `PriceInCents` | `Long` | Optional | The product price point price, in integer cents | Long getPriceInCents() | setPriceInCents(Long priceInCents) |
+| `Interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this product price point would renew every 30 days | Integer getInterval() | setInterval(Integer interval) |
+| `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this product price point, either month or day | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
+| `TrialPriceInCents` | `Long` | Optional | The product price point trial price, in integer cents | Long getTrialPriceInCents() | setTrialPriceInCents(Long trialPriceInCents) |
+| `TrialInterval` | `Integer` | Optional | The numerical trial interval. i.e. an interval of ‘30’ coupled with an trial_interval_unit of day would mean this product price point would renew every 30 days | Integer getTrialInterval() | setTrialInterval(Integer trialInterval) |
+| `TrialIntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the trial interval unit for this product price point, either month or day | IntervalUnit getTrialIntervalUnit() | setTrialIntervalUnit(IntervalUnit trialIntervalUnit) |
 | `TrialType` | `String` | Optional | - | String getTrialType() | setTrialType(String trialType) |
 | `IntroductoryOffer` | `Boolean` | Optional | reserved for future use | Boolean getIntroductoryOffer() | setIntroductoryOffer(Boolean introductoryOffer) |
-| `InitialChargeInCents` | `Long` | Optional | - | Long getInitialChargeInCents() | setInitialChargeInCents(Long initialChargeInCents) |
+| `InitialChargeInCents` | `Long` | Optional | The product price point initial charge, in integer cents | Long getInitialChargeInCents() | setInitialChargeInCents(Long initialChargeInCents) |
 | `InitialChargeAfterTrial` | `Boolean` | Optional | - | Boolean getInitialChargeAfterTrial() | setInitialChargeAfterTrial(Boolean initialChargeAfterTrial) |
-| `ExpirationInterval` | `Integer` | Optional | - | Integer getExpirationInterval() | setExpirationInterval(Integer expirationInterval) |
-| `ExpirationIntervalUnit` | `String` | Optional | - | String getExpirationIntervalUnit() | setExpirationIntervalUnit(String expirationIntervalUnit) |
-| `ProductId` | `Integer` | Optional | - | Integer getProductId() | setProductId(Integer productId) |
-| `ArchivedAt` | `String` | Optional | - | String getArchivedAt() | setArchivedAt(String archivedAt) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `UpdatedAt` | `String` | Optional | - | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
+| `ExpirationInterval` | `Integer` | Optional | The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an expiration_interval_unit of day would mean this product price point would expire every 30 days | Integer getExpirationInterval() | setExpirationInterval(Integer expirationInterval) |
+| `ExpirationIntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the expiration interval unit for this product price point, either month or day | IntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) |
+| `ProductId` | `Integer` | Optional | The product id this price point belongs to | Integer getProductId() | setProductId(Integer productId) |
+| `ArchivedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this price point was archived | ZonedDateTime getArchivedAt() | setArchivedAt(ZonedDateTime archivedAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this price point was created | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this price point was last updated | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `UseSiteExchangeRate` | `Boolean` | Optional | Whether or not to use the site's exchange rate or define your own pricing when your site has multiple currencies defined. | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
-| `Type` | [`PricePointType`](../../doc/models/price-point-type.md) | Optional | Price point type. We expose the following types:<br><br>1. **default**: a price point that is marked as a default price for a certain product.<br>2. **custom**: a custom price point.<br>3. **catalog**: a price point that is **not** marked as a default price for a certain product and is **not** a custom one. | PricePointType getType() | setType(PricePointType type) |
-| `TaxIncluded` | `Boolean` | Optional | - | Boolean getTaxIncluded() | setTaxIncluded(Boolean taxIncluded) |
-| `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
+| `Type` | [`PricePointType2`](../../doc/models/price-point-type-2.md) | Optional | The type of price point | PricePointType2 getType() | setType(PricePointType2 type) |
+| `TaxIncluded` | `Boolean` | Optional | Whether or not the price point includes tax | Boolean getTaxIncluded() | setTaxIncluded(Boolean taxIncluded) |
+| `SubscriptionId` | `Integer` | Optional | The subscription id this price point belongs to | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 
 ## Example (as JSON)
 
