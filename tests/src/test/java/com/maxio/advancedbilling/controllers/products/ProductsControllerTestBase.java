@@ -36,7 +36,7 @@ abstract class ProductsControllerTestBase {
     }
 
     protected static Product createProductWithHandle(String handle) throws IOException, ApiException {
-        Product product = productsController
+        return productsController
                 .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
                         new CreateOrUpdateProduct.Builder()
                                 .name("Initial Sample product-" + RandomStringUtils.randomAlphanumeric(5))
@@ -48,7 +48,6 @@ abstract class ProductsControllerTestBase {
                                 .build()
                 ))
                 .getProduct();
-        return product;
     }
 
 }

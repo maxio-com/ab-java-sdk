@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,8 +104,8 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
     @Test
     void shouldListProductsFilteringByStartDateTime() throws IOException, ApiException {
         // given
-        LocalDateTime savedProductCreatedAt = savedProducts.get(0).getCreatedAt();
-        LocalDateTime startDateTimeFilterExcludeElements = savedProductCreatedAt.plusMinutes(5);
+        ZonedDateTime savedProductCreatedAt = savedProducts.get(0).getCreatedAt();
+        ZonedDateTime startDateTimeFilterExcludeElements = savedProductCreatedAt.plusMinutes(5);
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(
@@ -123,9 +124,9 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
     @Test
     void shouldListProductsFilteringByEndDateTime() throws IOException, ApiException {
         // given
-        LocalDateTime savedProductCreatedAt = savedProducts.get(0).getCreatedAt();
-        LocalDateTime endDateTimeFilterIncludeElements = savedProductCreatedAt.plusMinutes(5);
-        LocalDateTime endDateTimeFilterExcludeElements = savedProductCreatedAt.plusMinutes(-5);
+        ZonedDateTime savedProductCreatedAt = savedProducts.get(0).getCreatedAt();
+        ZonedDateTime endDateTimeFilterIncludeElements = savedProductCreatedAt.plusMinutes(5);
+        ZonedDateTime endDateTimeFilterExcludeElements = savedProductCreatedAt.plusMinutes(-5);
 
         // when
         List<ProductResponse> productList1 = productsController.listProducts(

@@ -6,12 +6,14 @@ import com.maxio.advancedbilling.models.Product;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductsControllerArchiveProductTest extends ProductsControllerTestBase {
 
@@ -21,7 +23,7 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
         Product product = createProduct();
 
         // when
-        String timestamp = Instant.now().toString();
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
         productsController.archiveProduct(product.getId());
 
         // then
@@ -29,7 +31,7 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
         assertAll(
                 () -> assertThat(archivedProduct.getId()).isEqualTo(product.getId()),
                 () -> assertThat(archivedProduct.getArchivedAt()).isNotNull(),
-                () -> assertThat(archivedProduct.getArchivedAt()).isAfterOrEqualTo(timestamp)
+                () -> assertTrue(archivedProduct.getArchivedAt().isAfter(timestamp))
         );
     }
 

@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
     @Test
     void shouldUpdateProductWithAllParameters() throws IOException, ApiException {
         // when
-        String timestamp = Instant.now().minus(5, ChronoUnit.SECONDS).toString();
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
         Product product = createProduct();
 
         Product updatedProduct = productsController.updateProduct(product.getId(), new CreateOrUpdateProductRequest(

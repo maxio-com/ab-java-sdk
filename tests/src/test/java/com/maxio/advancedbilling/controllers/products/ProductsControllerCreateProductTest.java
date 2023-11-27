@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     @Test
     void shouldCreateProductWhenOnlyRequiredParametersAreProvided() throws IOException, ApiException {
         // when
-        String timestamp = Instant.now().minus(5, ChronoUnit.SECONDS).toString();
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
                 .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
@@ -100,7 +101,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     @Test
     void shouldCreateProductWhenAllParametersAreProvided() throws IOException, ApiException {
         // when
-        String timestamp = Instant.now().minus(5, ChronoUnit.SECONDS).toString();
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
                     .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
