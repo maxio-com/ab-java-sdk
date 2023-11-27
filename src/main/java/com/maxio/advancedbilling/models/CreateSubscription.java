@@ -25,9 +25,9 @@ import java.util.Map;
  */
 public class CreateSubscription {
     private String productHandle;
-    private String productId;
+    private Integer productId;
     private String productPricePointHandle;
-    private String productPricePointId;
+    private Integer productPricePointId;
     private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
     private String couponCode;
     private List<String> couponCodes;
@@ -86,9 +86,9 @@ public class CreateSubscription {
     /**
      * Initialization constructor.
      * @param  productHandle  String value for productHandle.
-     * @param  productId  String value for productId.
+     * @param  productId  Integer value for productId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
-     * @param  productPricePointId  String value for productPricePointId.
+     * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
      * @param  couponCode  String value for couponCode.
      * @param  couponCodes  List of String value for couponCodes.
@@ -141,9 +141,9 @@ public class CreateSubscription {
      */
     public CreateSubscription(
             String productHandle,
-            String productId,
+            Integer productId,
             String productPricePointHandle,
-            String productPricePointId,
+            Integer productPricePointId,
             CustomPriceUsedForSubscriptionCreateUpdate customPrice,
             String couponCode,
             List<String> couponCodes,
@@ -245,9 +245,9 @@ public class CreateSubscription {
     /**
      * Initialization constructor.
      * @param  productHandle  String value for productHandle.
-     * @param  productId  String value for productId.
+     * @param  productId  Integer value for productId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
-     * @param  productPricePointId  String value for productPricePointId.
+     * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
      * @param  couponCode  String value for couponCode.
      * @param  couponCodes  List of String value for couponCodes.
@@ -299,8 +299,8 @@ public class CreateSubscription {
      * @param  skipBillingManifestTaxes  Boolean value for skipBillingManifestTaxes.
      */
 
-    protected CreateSubscription(String productHandle, String productId,
-            String productPricePointHandle, String productPricePointId,
+    protected CreateSubscription(String productHandle, Integer productId,
+            String productPricePointHandle, Integer productPricePointId,
             CustomPriceUsedForSubscriptionCreateUpdate customPrice, String couponCode,
             List<String> couponCodes, PaymentCollectionMethod paymentCollectionMethod,
             String receivesInvoiceEmails, String netTerms, Integer customerId,
@@ -402,11 +402,11 @@ public class CreateSubscription {
      * Getter for ProductId.
      * The Product ID of the product for which you are creating a subscription. The product ID is
      * not currently published, so we recommend using the API Handle instead.
-     * @return Returns the String
+     * @return Returns the Integer
      */
     @JsonGetter("product_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
@@ -414,10 +414,10 @@ public class CreateSubscription {
      * Setter for ProductId.
      * The Product ID of the product for which you are creating a subscription. The product ID is
      * not currently published, so we recommend using the API Handle instead.
-     * @param productId Value for String
+     * @param productId Value for Integer
      */
     @JsonSetter("product_id")
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -445,21 +445,21 @@ public class CreateSubscription {
     /**
      * Getter for ProductPricePointId.
      * The ID of the particular price point on the product.
-     * @return Returns the String
+     * @return Returns the Integer
      */
     @JsonGetter("product_price_point_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getProductPricePointId() {
+    public Integer getProductPricePointId() {
         return productPricePointId;
     }
 
     /**
      * Setter for ProductPricePointId.
      * The ID of the particular price point on the product.
-     * @param productPricePointId Value for String
+     * @param productPricePointId Value for Integer
      */
     @JsonSetter("product_price_point_id")
-    public void setProductPricePointId(String productPricePointId) {
+    public void setProductPricePointId(Integer productPricePointId) {
         this.productPricePointId = productPricePointId;
     }
 
@@ -1671,9 +1671,9 @@ public class CreateSubscription {
      */
     public static class Builder {
         private String productHandle;
-        private String productId;
+        private Integer productId;
         private String productPricePointHandle;
-        private String productPricePointId;
+        private Integer productPricePointId;
         private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
         private String couponCode;
         private List<String> couponCodes;
@@ -1735,10 +1735,10 @@ public class CreateSubscription {
 
         /**
          * Setter for productId.
-         * @param  productId  String value for productId.
+         * @param  productId  Integer value for productId.
          * @return Builder
          */
-        public Builder productId(String productId) {
+        public Builder productId(Integer productId) {
             this.productId = productId;
             return this;
         }
@@ -1755,10 +1755,10 @@ public class CreateSubscription {
 
         /**
          * Setter for productPricePointId.
-         * @param  productPricePointId  String value for productPricePointId.
+         * @param  productPricePointId  Integer value for productPricePointId.
          * @return Builder
          */
-        public Builder productPricePointId(String productPricePointId) {
+        public Builder productPricePointId(Integer productPricePointId) {
             this.productPricePointId = productPricePointId;
             return this;
         }

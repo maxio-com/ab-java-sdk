@@ -10,9 +10,9 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `ProductHandle` | `String` | Optional | The API Handle of the product for which you are creating a subscription. Required, unless a `product_id` is given instead. | String getProductHandle() | setProductHandle(String productHandle) |
-| `ProductId` | `String` | Optional | The Product ID of the product for which you are creating a subscription. The product ID is not currently published, so we recommend using the API Handle instead. | String getProductId() | setProductId(String productId) |
+| `ProductId` | `Integer` | Optional | The Product ID of the product for which you are creating a subscription. The product ID is not currently published, so we recommend using the API Handle instead. | Integer getProductId() | setProductId(Integer productId) |
 | `ProductPricePointHandle` | `String` | Optional | The user-friendly API handle of a product's particular price point. | String getProductPricePointHandle() | setProductPricePointHandle(String productPricePointHandle) |
-| `ProductPricePointId` | `String` | Optional | The ID of the particular price point on the product. | String getProductPricePointId() | setProductPricePointId(String productPricePointId) |
+| `ProductPricePointId` | `Integer` | Optional | The ID of the particular price point on the product. | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
 | `CustomPrice` | [`CustomPriceUsedForSubscriptionCreateUpdate`](../../doc/models/custom-price-used-for-subscription-create-update.md) | Optional | (Optional) Used in place of `product_price_point_id` to define a custom price point unique to the subscription | CustomPriceUsedForSubscriptionCreateUpdate getCustomPrice() | setCustomPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) |
 | `CouponCode` | `String` | Optional | (deprecated) The coupon code of the single coupon currently applied to the subscription. See coupon_codes instead as subscriptions can now have more than one coupon. | String getCouponCode() | setCouponCode(String couponCode) |
 | `CouponCodes` | `List<String>` | Optional | An array for all the coupons attached to the subscription. | List<String> getCouponCodes() | setCouponCodes(List<String> couponCodes) |
@@ -72,9 +72,9 @@
   "dunning_communication_delay_time_zone": "\"Eastern Time (US & Canada)\"",
   "skip_billing_manifest_taxes": false,
   "product_handle": "product_handle6",
-  "product_id": "product_id8",
+  "product_id": 212,
   "product_price_point_handle": "product_price_point_handle0",
-  "product_price_point_id": "product_price_point_id6",
+  "product_price_point_id": 136,
   "custom_price": {
     "name": "name4",
     "handle": "handle0",
