@@ -123,7 +123,7 @@ class CustomersControllerListSubscriptionsTest {
                 .createSubscription(new CreateSubscriptionRequest(new CreateSubscription.Builder()
                         .customerId(customerId)
                         .paymentProfileId(paymentProfile.getId())
-                        .productId(Integer.toString(product.getId()))
+                        .productId(product.getId())
                         .build())
                 )
                 .getSubscription();

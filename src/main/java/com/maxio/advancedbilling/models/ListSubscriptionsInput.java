@@ -22,7 +22,7 @@ import java.util.Map;
 public class ListSubscriptionsInput {
     private Integer page;
     private Integer perPage;
-    private SubscriptionState state;
+    private SubscriptionStateFilter state;
     private Integer product;
     private Integer productPricePointId;
     private Integer coupon;
@@ -48,7 +48,7 @@ public class ListSubscriptionsInput {
      * Initialization constructor.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  state  SubscriptionState value for state.
+     * @param  state  SubscriptionStateFilter value for state.
      * @param  product  Integer value for product.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  coupon  Integer value for coupon.
@@ -64,7 +64,7 @@ public class ListSubscriptionsInput {
     public ListSubscriptionsInput(
             Integer page,
             Integer perPage,
-            SubscriptionState state,
+            SubscriptionStateFilter state,
             Integer product,
             Integer productPricePointId,
             Integer coupon,
@@ -149,21 +149,21 @@ public class ListSubscriptionsInput {
     /**
      * Getter for State.
      * The current state of the subscription
-     * @return Returns the SubscriptionState
+     * @return Returns the SubscriptionStateFilter
      */
     @JsonGetter("state")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionState getState() {
+    public SubscriptionStateFilter getState() {
         return state;
     }
 
     /**
      * Setter for State.
      * The current state of the subscription
-     * @param state Value for SubscriptionState
+     * @param state Value for SubscriptionStateFilter
      */
     @JsonSetter("state")
-    public void setState(SubscriptionState state) {
+    public void setState(SubscriptionStateFilter state) {
         this.state = state;
     }
 
@@ -480,7 +480,7 @@ public class ListSubscriptionsInput {
     public static class Builder {
         private Integer page = 1;
         private Integer perPage = 20;
-        private SubscriptionState state;
+        private SubscriptionStateFilter state;
         private Integer product;
         private Integer productPricePointId;
         private Integer coupon;
@@ -517,10 +517,10 @@ public class ListSubscriptionsInput {
 
         /**
          * Setter for state.
-         * @param  state  SubscriptionState value for state.
+         * @param  state  SubscriptionStateFilter value for state.
          * @return Builder
          */
-        public Builder state(SubscriptionState state) {
+        public Builder state(SubscriptionStateFilter state) {
             this.state = state;
             return this;
         }

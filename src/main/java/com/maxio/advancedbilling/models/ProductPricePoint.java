@@ -9,8 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ProductPricePoint type.
@@ -21,20 +24,20 @@ public class ProductPricePoint {
     private String handle;
     private Long priceInCents;
     private Integer interval;
-    private String intervalUnit;
+    private IntervalUnit intervalUnit;
     private Long trialPriceInCents;
     private Integer trialInterval;
-    private String trialIntervalUnit;
+    private IntervalUnit trialIntervalUnit;
     private String trialType;
     private Boolean introductoryOffer;
     private Long initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private Integer expirationInterval;
-    private String expirationIntervalUnit;
+    private IntervalUnit expirationIntervalUnit;
     private Integer productId;
-    private String archivedAt;
-    private String createdAt;
-    private String updatedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private Boolean useSiteExchangeRate;
     private PricePointType type;
     private Boolean taxIncluded;
@@ -53,20 +56,20 @@ public class ProductPricePoint {
      * @param  handle  String value for handle.
      * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
-     * @param  intervalUnit  String value for intervalUnit.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
-     * @param  trialIntervalUnit  String value for trialIntervalUnit.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
      * @param  trialType  String value for trialType.
      * @param  introductoryOffer  Boolean value for introductoryOffer.
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      * @param  productId  Integer value for productId.
-     * @param  archivedAt  String value for archivedAt.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  type  PricePointType value for type.
      * @param  taxIncluded  Boolean value for taxIncluded.
@@ -78,20 +81,20 @@ public class ProductPricePoint {
             String handle,
             Long priceInCents,
             Integer interval,
-            String intervalUnit,
+            IntervalUnit intervalUnit,
             Long trialPriceInCents,
             Integer trialInterval,
-            String trialIntervalUnit,
+            IntervalUnit trialIntervalUnit,
             String trialType,
             Boolean introductoryOffer,
             Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
             Integer expirationInterval,
-            String expirationIntervalUnit,
+            IntervalUnit expirationIntervalUnit,
             Integer productId,
-            String archivedAt,
-            String createdAt,
-            String updatedAt,
+            ZonedDateTime archivedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             Boolean useSiteExchangeRate,
             PricePointType type,
             Boolean taxIncluded,
@@ -112,7 +115,7 @@ public class ProductPricePoint {
         this.expirationInterval = expirationInterval;
         this.expirationIntervalUnit = expirationIntervalUnit;
         this.productId = productId;
-        this.archivedAt = archivedAt;
+        this.archivedAt = OptionalNullable.of(archivedAt);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.useSiteExchangeRate = useSiteExchangeRate;
@@ -128,20 +131,20 @@ public class ProductPricePoint {
      * @param  handle  String value for handle.
      * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
-     * @param  intervalUnit  String value for intervalUnit.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
-     * @param  trialIntervalUnit  String value for trialIntervalUnit.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
      * @param  trialType  String value for trialType.
      * @param  introductoryOffer  Boolean value for introductoryOffer.
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      * @param  productId  Integer value for productId.
-     * @param  archivedAt  String value for archivedAt.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  type  PricePointType value for type.
      * @param  taxIncluded  Boolean value for taxIncluded.
@@ -149,12 +152,13 @@ public class ProductPricePoint {
      */
 
     protected ProductPricePoint(Integer id, String name, String handle, Long priceInCents,
-            Integer interval, String intervalUnit, Long trialPriceInCents, Integer trialInterval,
-            String trialIntervalUnit, String trialType, Boolean introductoryOffer,
-            Long initialChargeInCents, Boolean initialChargeAfterTrial, Integer expirationInterval,
-            String expirationIntervalUnit, Integer productId, String archivedAt, String createdAt,
-            String updatedAt, Boolean useSiteExchangeRate, PricePointType type, Boolean taxIncluded,
-            OptionalNullable<Integer> subscriptionId) {
+            Integer interval, IntervalUnit intervalUnit, Long trialPriceInCents,
+            Integer trialInterval, IntervalUnit trialIntervalUnit, String trialType,
+            Boolean introductoryOffer, Long initialChargeInCents, Boolean initialChargeAfterTrial,
+            Integer expirationInterval, IntervalUnit expirationIntervalUnit, Integer productId,
+            OptionalNullable<ZonedDateTime> archivedAt, ZonedDateTime createdAt,
+            ZonedDateTime updatedAt, Boolean useSiteExchangeRate, PricePointType type,
+            Boolean taxIncluded, OptionalNullable<Integer> subscriptionId) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -201,6 +205,7 @@ public class ProductPricePoint {
 
     /**
      * Getter for Name.
+     * The product price point name
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -211,6 +216,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for Name.
+     * The product price point name
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -220,6 +226,7 @@ public class ProductPricePoint {
 
     /**
      * Getter for Handle.
+     * The product price point API handle
      * @return Returns the String
      */
     @JsonGetter("handle")
@@ -230,6 +237,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for Handle.
+     * The product price point API handle
      * @param handle Value for String
      */
     @JsonSetter("handle")
@@ -239,6 +247,7 @@ public class ProductPricePoint {
 
     /**
      * Getter for PriceInCents.
+     * The product price point price, in integer cents
      * @return Returns the Long
      */
     @JsonGetter("price_in_cents")
@@ -249,6 +258,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for PriceInCents.
+     * The product price point price, in integer cents
      * @param priceInCents Value for Long
      */
     @JsonSetter("price_in_cents")
@@ -258,6 +268,8 @@ public class ProductPricePoint {
 
     /**
      * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product price point would renew every 30 days
      * @return Returns the Integer
      */
     @JsonGetter("interval")
@@ -268,6 +280,8 @@ public class ProductPricePoint {
 
     /**
      * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product price point would renew every 30 days
      * @param interval Value for Integer
      */
     @JsonSetter("interval")
@@ -277,25 +291,28 @@ public class ProductPricePoint {
 
     /**
      * Getter for IntervalUnit.
-     * @return Returns the String
+     * A string representing the interval unit for this product price point, either month or day
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getIntervalUnit() {
+    public IntervalUnit getIntervalUnit() {
         return intervalUnit;
     }
 
     /**
      * Setter for IntervalUnit.
-     * @param intervalUnit Value for String
+     * A string representing the interval unit for this product price point, either month or day
+     * @param intervalUnit Value for IntervalUnit
      */
     @JsonSetter("interval_unit")
-    public void setIntervalUnit(String intervalUnit) {
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
         this.intervalUnit = intervalUnit;
     }
 
     /**
      * Getter for TrialPriceInCents.
+     * The product price point trial price, in integer cents
      * @return Returns the Long
      */
     @JsonGetter("trial_price_in_cents")
@@ -306,6 +323,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for TrialPriceInCents.
+     * The product price point trial price, in integer cents
      * @param trialPriceInCents Value for Long
      */
     @JsonSetter("trial_price_in_cents")
@@ -315,6 +333,8 @@ public class ProductPricePoint {
 
     /**
      * Getter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with an trial_interval_unit of
+     * day would mean this product price point would renew every 30 days
      * @return Returns the Integer
      */
     @JsonGetter("trial_interval")
@@ -325,6 +345,8 @@ public class ProductPricePoint {
 
     /**
      * Setter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with an trial_interval_unit of
+     * day would mean this product price point would renew every 30 days
      * @param trialInterval Value for Integer
      */
     @JsonSetter("trial_interval")
@@ -334,20 +356,24 @@ public class ProductPricePoint {
 
     /**
      * Getter for TrialIntervalUnit.
-     * @return Returns the String
+     * A string representing the trial interval unit for this product price point, either month or
+     * day
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("trial_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTrialIntervalUnit() {
+    public IntervalUnit getTrialIntervalUnit() {
         return trialIntervalUnit;
     }
 
     /**
      * Setter for TrialIntervalUnit.
-     * @param trialIntervalUnit Value for String
+     * A string representing the trial interval unit for this product price point, either month or
+     * day
+     * @param trialIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("trial_interval_unit")
-    public void setTrialIntervalUnit(String trialIntervalUnit) {
+    public void setTrialIntervalUnit(IntervalUnit trialIntervalUnit) {
         this.trialIntervalUnit = trialIntervalUnit;
     }
 
@@ -393,6 +419,7 @@ public class ProductPricePoint {
 
     /**
      * Getter for InitialChargeInCents.
+     * The product price point initial charge, in integer cents
      * @return Returns the Long
      */
     @JsonGetter("initial_charge_in_cents")
@@ -403,6 +430,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for InitialChargeInCents.
+     * The product price point initial charge, in integer cents
      * @param initialChargeInCents Value for Long
      */
     @JsonSetter("initial_charge_in_cents")
@@ -431,6 +459,9 @@ public class ProductPricePoint {
 
     /**
      * Getter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product price point would expire every 30
+     * days
      * @return Returns the Integer
      */
     @JsonGetter("expiration_interval")
@@ -441,6 +472,9 @@ public class ProductPricePoint {
 
     /**
      * Setter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product price point would expire every 30
+     * days
      * @param expirationInterval Value for Integer
      */
     @JsonSetter("expiration_interval")
@@ -450,25 +484,30 @@ public class ProductPricePoint {
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * @return Returns the String
+     * A string representing the expiration interval unit for this product price point, either month
+     * or day
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getExpirationIntervalUnit() {
+    public IntervalUnit getExpirationIntervalUnit() {
         return expirationIntervalUnit;
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * @param expirationIntervalUnit Value for String
+     * A string representing the expiration interval unit for this product price point, either month
+     * or day
+     * @param expirationIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(String expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
     /**
      * Getter for ProductId.
+     * The product id this price point belongs to
      * @return Returns the Integer
      */
     @JsonGetter("product_id")
@@ -479,6 +518,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for ProductId.
+     * The product id this price point belongs to
      * @param productId Value for Integer
      */
     @JsonSetter("product_id")
@@ -487,59 +527,88 @@ public class ProductPricePoint {
     }
 
     /**
-     * Getter for ArchivedAt.
-     * @return Returns the String
+     * Internal Getter for ArchivedAt.
+     * Timestamp indicating when this price point was archived
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getArchivedAt() {
-        return archivedAt;
+    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
+        return this.archivedAt;
+    }
+
+    /**
+     * Getter for ArchivedAt.
+     * Timestamp indicating when this price point was archived
+     * @return Returns the ZonedDateTime
+     */
+    public ZonedDateTime getArchivedAt() {
+        return OptionalNullable.getFrom(archivedAt);
     }
 
     /**
      * Setter for ArchivedAt.
-     * @param archivedAt Value for String
+     * Timestamp indicating when this price point was archived
+     * @param archivedAt Value for ZonedDateTime
      */
     @JsonSetter("archived_at")
-    public void setArchivedAt(String archivedAt) {
-        this.archivedAt = archivedAt;
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setArchivedAt(ZonedDateTime archivedAt) {
+        this.archivedAt = OptionalNullable.of(archivedAt);
+    }
+
+    /**
+     * UnSetter for ArchivedAt.
+     * Timestamp indicating when this price point was archived
+     */
+    public void unsetArchivedAt() {
+        archivedAt = null;
     }
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * Timestamp indicating when this price point was created
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * Timestamp indicating when this price point was created
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * Timestamp indicating when this price point was last updated
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * Timestamp indicating when this price point was last updated
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -568,10 +637,7 @@ public class ProductPricePoint {
 
     /**
      * Getter for Type.
-     * Price point type. We expose the following types: 1. **default**: a price point that is marked
-     * as a default price for a certain product. 2. **custom**: a custom price point. 3.
-     * **catalog**: a price point that is **not** marked as a default price for a certain product
-     * and is **not** a custom one.
+     * The type of price point
      * @return Returns the PricePointType
      */
     @JsonGetter("type")
@@ -582,10 +648,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for Type.
-     * Price point type. We expose the following types: 1. **default**: a price point that is marked
-     * as a default price for a certain product. 2. **custom**: a custom price point. 3.
-     * **catalog**: a price point that is **not** marked as a default price for a certain product
-     * and is **not** a custom one.
+     * The type of price point
      * @param type Value for PricePointType
      */
     @JsonSetter("type")
@@ -595,6 +658,7 @@ public class ProductPricePoint {
 
     /**
      * Getter for TaxIncluded.
+     * Whether or not the price point includes tax
      * @return Returns the Boolean
      */
     @JsonGetter("tax_included")
@@ -605,6 +669,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for TaxIncluded.
+     * Whether or not the price point includes tax
      * @param taxIncluded Value for Boolean
      */
     @JsonSetter("tax_included")
@@ -614,6 +679,7 @@ public class ProductPricePoint {
 
     /**
      * Internal Getter for SubscriptionId.
+     * The subscription id this price point belongs to
      * @return Returns the Internal Integer
      */
     @JsonGetter("subscription_id")
@@ -625,6 +691,7 @@ public class ProductPricePoint {
 
     /**
      * Getter for SubscriptionId.
+     * The subscription id this price point belongs to
      * @return Returns the Integer
      */
     public Integer getSubscriptionId() {
@@ -633,6 +700,7 @@ public class ProductPricePoint {
 
     /**
      * Setter for SubscriptionId.
+     * The subscription id this price point belongs to
      * @param subscriptionId Value for Integer
      */
     @JsonSetter("subscription_id")
@@ -642,6 +710,7 @@ public class ProductPricePoint {
 
     /**
      * UnSetter for SubscriptionId.
+     * The subscription id this price point belongs to
      */
     public void unsetSubscriptionId() {
         subscriptionId = null;
@@ -689,12 +758,12 @@ public class ProductPricePoint {
                 .expirationInterval(getExpirationInterval())
                 .expirationIntervalUnit(getExpirationIntervalUnit())
                 .productId(getProductId())
-                .archivedAt(getArchivedAt())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .type(getType())
                 .taxIncluded(getTaxIncluded());
+        builder.archivedAt = internalGetArchivedAt();
         builder.subscriptionId = internalGetSubscriptionId();
         return builder;
     }
@@ -708,20 +777,20 @@ public class ProductPricePoint {
         private String handle;
         private Long priceInCents;
         private Integer interval;
-        private String intervalUnit;
+        private IntervalUnit intervalUnit;
         private Long trialPriceInCents;
         private Integer trialInterval;
-        private String trialIntervalUnit;
+        private IntervalUnit trialIntervalUnit;
         private String trialType;
         private Boolean introductoryOffer;
         private Long initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private Integer expirationInterval;
-        private String expirationIntervalUnit;
+        private IntervalUnit expirationIntervalUnit;
         private Integer productId;
-        private String archivedAt;
-        private String createdAt;
-        private String updatedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private Boolean useSiteExchangeRate;
         private PricePointType type;
         private Boolean taxIncluded;
@@ -781,10 +850,10 @@ public class ProductPricePoint {
 
         /**
          * Setter for intervalUnit.
-         * @param  intervalUnit  String value for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
          * @return Builder
          */
-        public Builder intervalUnit(String intervalUnit) {
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
             this.intervalUnit = intervalUnit;
             return this;
         }
@@ -811,10 +880,10 @@ public class ProductPricePoint {
 
         /**
          * Setter for trialIntervalUnit.
-         * @param  trialIntervalUnit  String value for trialIntervalUnit.
+         * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
          * @return Builder
          */
-        public Builder trialIntervalUnit(String trialIntervalUnit) {
+        public Builder trialIntervalUnit(IntervalUnit trialIntervalUnit) {
             this.trialIntervalUnit = trialIntervalUnit;
             return this;
         }
@@ -871,10 +940,10 @@ public class ProductPricePoint {
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(String expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = expirationIntervalUnit;
             return this;
         }
@@ -891,30 +960,39 @@ public class ProductPricePoint {
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  String value for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(String archivedAt) {
-            this.archivedAt = archivedAt;
+        public Builder archivedAt(ZonedDateTime archivedAt) {
+            this.archivedAt = OptionalNullable.of(archivedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for archivedAt.
+         * @return Builder
+         */
+        public Builder unsetArchivedAt() {
+            archivedAt = null;
             return this;
         }
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
