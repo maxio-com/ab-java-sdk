@@ -16,7 +16,7 @@ import com.maxio.advancedbilling.models.containers.SubscriptionCancellationMetho
 import com.maxio.advancedbilling.models.containers.SubscriptionGroup2;
 import com.maxio.advancedbilling.models.containers.SubscriptionPaymentCollectionMethod;
 import io.apimatic.core.types.OptionalNullable;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -29,23 +29,23 @@ public class Subscription {
     private Long totalRevenueInCents;
     private Long productPriceInCents;
     private Integer productVersionNumber;
-    private LocalDateTime currentPeriodEndsAt;
-    private LocalDateTime nextAssessmentAt;
-    private OptionalNullable<LocalDateTime> trialStartedAt;
-    private OptionalNullable<LocalDateTime> trialEndedAt;
-    private LocalDateTime activatedAt;
-    private OptionalNullable<LocalDateTime> expiresAt;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private ZonedDateTime currentPeriodEndsAt;
+    private ZonedDateTime nextAssessmentAt;
+    private OptionalNullable<ZonedDateTime> trialStartedAt;
+    private OptionalNullable<ZonedDateTime> trialEndedAt;
+    private ZonedDateTime activatedAt;
+    private OptionalNullable<ZonedDateTime> expiresAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private OptionalNullable<String> cancellationMessage;
     private OptionalNullable<SubscriptionCancellationMethod> cancellationMethod;
     private OptionalNullable<Boolean> cancelAtEndOfPeriod;
-    private OptionalNullable<LocalDateTime> canceledAt;
-    private LocalDateTime currentPeriodStartedAt;
+    private OptionalNullable<ZonedDateTime> canceledAt;
+    private ZonedDateTime currentPeriodStartedAt;
     private String previousState;
     private Integer signupPaymentId;
     private String signupRevenue;
-    private OptionalNullable<LocalDateTime> delayedCancelAt;
+    private OptionalNullable<ZonedDateTime> delayedCancelAt;
     private OptionalNullable<String> couponCode;
     private OptionalNullable<String> snapDay;
     private OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod;
@@ -80,7 +80,7 @@ public class Subscription {
     private OptionalNullable<Boolean> receivesInvoiceEmails;
     private OptionalNullable<String> locale;
     private String currency;
-    private OptionalNullable<LocalDateTime> scheduledCancellationAt;
+    private OptionalNullable<ZonedDateTime> scheduledCancellationAt;
     private Long creditBalanceInCents;
     private Long prepaymentBalanceInCents;
 
@@ -99,23 +99,23 @@ public class Subscription {
      * @param  totalRevenueInCents  Long value for totalRevenueInCents.
      * @param  productPriceInCents  Long value for productPriceInCents.
      * @param  productVersionNumber  Integer value for productVersionNumber.
-     * @param  currentPeriodEndsAt  LocalDateTime value for currentPeriodEndsAt.
-     * @param  nextAssessmentAt  LocalDateTime value for nextAssessmentAt.
-     * @param  trialStartedAt  LocalDateTime value for trialStartedAt.
-     * @param  trialEndedAt  LocalDateTime value for trialEndedAt.
-     * @param  activatedAt  LocalDateTime value for activatedAt.
-     * @param  expiresAt  LocalDateTime value for expiresAt.
-     * @param  createdAt  LocalDateTime value for createdAt.
-     * @param  updatedAt  LocalDateTime value for updatedAt.
+     * @param  currentPeriodEndsAt  ZonedDateTime value for currentPeriodEndsAt.
+     * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
+     * @param  trialStartedAt  ZonedDateTime value for trialStartedAt.
+     * @param  trialEndedAt  ZonedDateTime value for trialEndedAt.
+     * @param  activatedAt  ZonedDateTime value for activatedAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  cancellationMessage  String value for cancellationMessage.
      * @param  cancellationMethod  SubscriptionCancellationMethod value for cancellationMethod.
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
-     * @param  canceledAt  LocalDateTime value for canceledAt.
-     * @param  currentPeriodStartedAt  LocalDateTime value for currentPeriodStartedAt.
+     * @param  canceledAt  ZonedDateTime value for canceledAt.
+     * @param  currentPeriodStartedAt  ZonedDateTime value for currentPeriodStartedAt.
      * @param  previousState  String value for previousState.
      * @param  signupPaymentId  Integer value for signupPaymentId.
      * @param  signupRevenue  String value for signupRevenue.
-     * @param  delayedCancelAt  LocalDateTime value for delayedCancelAt.
+     * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
      * @param  couponCode  String value for couponCode.
      * @param  snapDay  String value for snapDay.
      * @param  paymentCollectionMethod  SubscriptionPaymentCollectionMethod value for
@@ -152,7 +152,7 @@ public class Subscription {
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
      * @param  locale  String value for locale.
      * @param  currency  String value for currency.
-     * @param  scheduledCancellationAt  LocalDateTime value for scheduledCancellationAt.
+     * @param  scheduledCancellationAt  ZonedDateTime value for scheduledCancellationAt.
      * @param  creditBalanceInCents  Long value for creditBalanceInCents.
      * @param  prepaymentBalanceInCents  Long value for prepaymentBalanceInCents.
      */
@@ -163,23 +163,23 @@ public class Subscription {
             Long totalRevenueInCents,
             Long productPriceInCents,
             Integer productVersionNumber,
-            LocalDateTime currentPeriodEndsAt,
-            LocalDateTime nextAssessmentAt,
-            LocalDateTime trialStartedAt,
-            LocalDateTime trialEndedAt,
-            LocalDateTime activatedAt,
-            LocalDateTime expiresAt,
-            LocalDateTime createdAt,
-            LocalDateTime updatedAt,
+            ZonedDateTime currentPeriodEndsAt,
+            ZonedDateTime nextAssessmentAt,
+            ZonedDateTime trialStartedAt,
+            ZonedDateTime trialEndedAt,
+            ZonedDateTime activatedAt,
+            ZonedDateTime expiresAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             String cancellationMessage,
             SubscriptionCancellationMethod cancellationMethod,
             Boolean cancelAtEndOfPeriod,
-            LocalDateTime canceledAt,
-            LocalDateTime currentPeriodStartedAt,
+            ZonedDateTime canceledAt,
+            ZonedDateTime currentPeriodStartedAt,
             String previousState,
             Integer signupPaymentId,
             String signupRevenue,
-            LocalDateTime delayedCancelAt,
+            ZonedDateTime delayedCancelAt,
             String couponCode,
             String snapDay,
             SubscriptionPaymentCollectionMethod paymentCollectionMethod,
@@ -214,7 +214,7 @@ public class Subscription {
             Boolean receivesInvoiceEmails,
             String locale,
             String currency,
-            LocalDateTime scheduledCancellationAt,
+            ZonedDateTime scheduledCancellationAt,
             Long creditBalanceInCents,
             Long prepaymentBalanceInCents) {
         this.id = id;
@@ -288,23 +288,23 @@ public class Subscription {
      * @param  totalRevenueInCents  Long value for totalRevenueInCents.
      * @param  productPriceInCents  Long value for productPriceInCents.
      * @param  productVersionNumber  Integer value for productVersionNumber.
-     * @param  currentPeriodEndsAt  LocalDateTime value for currentPeriodEndsAt.
-     * @param  nextAssessmentAt  LocalDateTime value for nextAssessmentAt.
-     * @param  trialStartedAt  LocalDateTime value for trialStartedAt.
-     * @param  trialEndedAt  LocalDateTime value for trialEndedAt.
-     * @param  activatedAt  LocalDateTime value for activatedAt.
-     * @param  expiresAt  LocalDateTime value for expiresAt.
-     * @param  createdAt  LocalDateTime value for createdAt.
-     * @param  updatedAt  LocalDateTime value for updatedAt.
+     * @param  currentPeriodEndsAt  ZonedDateTime value for currentPeriodEndsAt.
+     * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
+     * @param  trialStartedAt  ZonedDateTime value for trialStartedAt.
+     * @param  trialEndedAt  ZonedDateTime value for trialEndedAt.
+     * @param  activatedAt  ZonedDateTime value for activatedAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  cancellationMessage  String value for cancellationMessage.
      * @param  cancellationMethod  SubscriptionCancellationMethod value for cancellationMethod.
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
-     * @param  canceledAt  LocalDateTime value for canceledAt.
-     * @param  currentPeriodStartedAt  LocalDateTime value for currentPeriodStartedAt.
+     * @param  canceledAt  ZonedDateTime value for canceledAt.
+     * @param  currentPeriodStartedAt  ZonedDateTime value for currentPeriodStartedAt.
      * @param  previousState  String value for previousState.
      * @param  signupPaymentId  Integer value for signupPaymentId.
      * @param  signupRevenue  String value for signupRevenue.
-     * @param  delayedCancelAt  LocalDateTime value for delayedCancelAt.
+     * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
      * @param  couponCode  String value for couponCode.
      * @param  snapDay  String value for snapDay.
      * @param  paymentCollectionMethod  SubscriptionPaymentCollectionMethod value for
@@ -341,23 +341,23 @@ public class Subscription {
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
      * @param  locale  String value for locale.
      * @param  currency  String value for currency.
-     * @param  scheduledCancellationAt  LocalDateTime value for scheduledCancellationAt.
+     * @param  scheduledCancellationAt  ZonedDateTime value for scheduledCancellationAt.
      * @param  creditBalanceInCents  Long value for creditBalanceInCents.
      * @param  prepaymentBalanceInCents  Long value for prepaymentBalanceInCents.
      */
 
     protected Subscription(Integer id, String state, Long balanceInCents, Long totalRevenueInCents,
             Long productPriceInCents, Integer productVersionNumber,
-            LocalDateTime currentPeriodEndsAt, LocalDateTime nextAssessmentAt,
-            OptionalNullable<LocalDateTime> trialStartedAt,
-            OptionalNullable<LocalDateTime> trialEndedAt, LocalDateTime activatedAt,
-            OptionalNullable<LocalDateTime> expiresAt, LocalDateTime createdAt,
-            LocalDateTime updatedAt, OptionalNullable<String> cancellationMessage,
+            ZonedDateTime currentPeriodEndsAt, ZonedDateTime nextAssessmentAt,
+            OptionalNullable<ZonedDateTime> trialStartedAt,
+            OptionalNullable<ZonedDateTime> trialEndedAt, ZonedDateTime activatedAt,
+            OptionalNullable<ZonedDateTime> expiresAt, ZonedDateTime createdAt,
+            ZonedDateTime updatedAt, OptionalNullable<String> cancellationMessage,
             OptionalNullable<SubscriptionCancellationMethod> cancellationMethod,
             OptionalNullable<Boolean> cancelAtEndOfPeriod,
-            OptionalNullable<LocalDateTime> canceledAt, LocalDateTime currentPeriodStartedAt,
+            OptionalNullable<ZonedDateTime> canceledAt, ZonedDateTime currentPeriodStartedAt,
             String previousState, Integer signupPaymentId, String signupRevenue,
-            OptionalNullable<LocalDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
+            OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
             OptionalNullable<String> snapDay,
             OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod,
             Customer customer, Product product, PaymentProfile creditCard,
@@ -376,7 +376,7 @@ public class Subscription {
             Boolean dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone,
             OptionalNullable<Boolean> receivesInvoiceEmails, OptionalNullable<String> locale,
-            String currency, OptionalNullable<LocalDateTime> scheduledCancellationAt,
+            String currency, OptionalNullable<ZonedDateTime> scheduledCancellationAt,
             Long creditBalanceInCents, Long prepaymentBalanceInCents) {
         this.id = id;
         this.state = state;
@@ -578,12 +578,12 @@ public class Subscription {
      * Getter for CurrentPeriodEndsAt.
      * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
      * scheduled attempted charge will occur)
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("current_period_ends_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getCurrentPeriodEndsAt() {
+    public ZonedDateTime getCurrentPeriodEndsAt() {
         return currentPeriodEndsAt;
     }
 
@@ -591,11 +591,11 @@ public class Subscription {
      * Setter for CurrentPeriodEndsAt.
      * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
      * scheduled attempted charge will occur)
-     * @param currentPeriodEndsAt Value for LocalDateTime
+     * @param currentPeriodEndsAt Value for ZonedDateTime
      */
     @JsonSetter("current_period_ends_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setCurrentPeriodEndsAt(LocalDateTime currentPeriodEndsAt) {
+    public void setCurrentPeriodEndsAt(ZonedDateTime currentPeriodEndsAt) {
         this.currentPeriodEndsAt = currentPeriodEndsAt;
     }
 
@@ -606,12 +606,12 @@ public class Subscription {
      * must be retried. In that,case, the current_period_ends_at will advance to the end of the
      * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
      * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("next_assessment_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getNextAssessmentAt() {
+    public ZonedDateTime getNextAssessmentAt() {
         return nextAssessmentAt;
     }
 
@@ -622,43 +622,43 @@ public class Subscription {
      * must be retried. In that,case, the current_period_ends_at will advance to the end of the
      * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
      * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
-     * @param nextAssessmentAt Value for LocalDateTime
+     * @param nextAssessmentAt Value for ZonedDateTime
      */
     @JsonSetter("next_assessment_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setNextAssessmentAt(LocalDateTime nextAssessmentAt) {
+    public void setNextAssessmentAt(ZonedDateTime nextAssessmentAt) {
         this.nextAssessmentAt = nextAssessmentAt;
     }
 
     /**
      * Internal Getter for TrialStartedAt.
      * Timestamp for when the trial period (if any) began
-     * @return Returns the Internal LocalDateTime
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("trial_started_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
-    protected OptionalNullable<LocalDateTime> internalGetTrialStartedAt() {
+    protected OptionalNullable<ZonedDateTime> internalGetTrialStartedAt() {
         return this.trialStartedAt;
     }
 
     /**
      * Getter for TrialStartedAt.
      * Timestamp for when the trial period (if any) began
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
-    public LocalDateTime getTrialStartedAt() {
+    public ZonedDateTime getTrialStartedAt() {
         return OptionalNullable.getFrom(trialStartedAt);
     }
 
     /**
      * Setter for TrialStartedAt.
      * Timestamp for when the trial period (if any) began
-     * @param trialStartedAt Value for LocalDateTime
+     * @param trialStartedAt Value for ZonedDateTime
      */
     @JsonSetter("trial_started_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setTrialStartedAt(LocalDateTime trialStartedAt) {
+    public void setTrialStartedAt(ZonedDateTime trialStartedAt) {
         this.trialStartedAt = OptionalNullable.of(trialStartedAt);
     }
 
@@ -673,32 +673,32 @@ public class Subscription {
     /**
      * Internal Getter for TrialEndedAt.
      * Timestamp for when the trial period (if any) ended
-     * @return Returns the Internal LocalDateTime
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("trial_ended_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
-    protected OptionalNullable<LocalDateTime> internalGetTrialEndedAt() {
+    protected OptionalNullable<ZonedDateTime> internalGetTrialEndedAt() {
         return this.trialEndedAt;
     }
 
     /**
      * Getter for TrialEndedAt.
      * Timestamp for when the trial period (if any) ended
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
-    public LocalDateTime getTrialEndedAt() {
+    public ZonedDateTime getTrialEndedAt() {
         return OptionalNullable.getFrom(trialEndedAt);
     }
 
     /**
      * Setter for TrialEndedAt.
      * Timestamp for when the trial period (if any) ended
-     * @param trialEndedAt Value for LocalDateTime
+     * @param trialEndedAt Value for ZonedDateTime
      */
     @JsonSetter("trial_ended_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setTrialEndedAt(LocalDateTime trialEndedAt) {
+    public void setTrialEndedAt(ZonedDateTime trialEndedAt) {
         this.trialEndedAt = OptionalNullable.of(trialEndedAt);
     }
 
@@ -714,12 +714,12 @@ public class Subscription {
      * Getter for ActivatedAt.
      * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
      * in the case of no trial)
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("activated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getActivatedAt() {
+    public ZonedDateTime getActivatedAt() {
         return activatedAt;
     }
 
@@ -727,43 +727,43 @@ public class Subscription {
      * Setter for ActivatedAt.
      * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
      * in the case of no trial)
-     * @param activatedAt Value for LocalDateTime
+     * @param activatedAt Value for ZonedDateTime
      */
     @JsonSetter("activated_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setActivatedAt(LocalDateTime activatedAt) {
+    public void setActivatedAt(ZonedDateTime activatedAt) {
         this.activatedAt = activatedAt;
     }
 
     /**
      * Internal Getter for ExpiresAt.
      * Timestamp giving the expiration date of this subscription (if any)
-     * @return Returns the Internal LocalDateTime
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("expires_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
-    protected OptionalNullable<LocalDateTime> internalGetExpiresAt() {
+    protected OptionalNullable<ZonedDateTime> internalGetExpiresAt() {
         return this.expiresAt;
     }
 
     /**
      * Getter for ExpiresAt.
      * Timestamp giving the expiration date of this subscription (if any)
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
-    public LocalDateTime getExpiresAt() {
+    public ZonedDateTime getExpiresAt() {
         return OptionalNullable.getFrom(expiresAt);
     }
 
     /**
      * Setter for ExpiresAt.
      * Timestamp giving the expiration date of this subscription (if any)
-     * @param expiresAt Value for LocalDateTime
+     * @param expiresAt Value for ZonedDateTime
      */
     @JsonSetter("expires_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setExpiresAt(LocalDateTime expiresAt) {
+    public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = OptionalNullable.of(expiresAt);
     }
 
@@ -778,46 +778,46 @@ public class Subscription {
     /**
      * Getter for CreatedAt.
      * The creation date for this subscription
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
      * The creation date for this subscription
-     * @param createdAt Value for LocalDateTime
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
      * The date of last update for this subscription
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getUpdatedAt() {
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
      * The date of last update for this subscription
-     * @param updatedAt Value for LocalDateTime
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -945,32 +945,32 @@ public class Subscription {
     /**
      * Internal Getter for CanceledAt.
      * The timestamp of the most recent cancellation
-     * @return Returns the Internal LocalDateTime
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("canceled_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
-    protected OptionalNullable<LocalDateTime> internalGetCanceledAt() {
+    protected OptionalNullable<ZonedDateTime> internalGetCanceledAt() {
         return this.canceledAt;
     }
 
     /**
      * Getter for CanceledAt.
      * The timestamp of the most recent cancellation
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
-    public LocalDateTime getCanceledAt() {
+    public ZonedDateTime getCanceledAt() {
         return OptionalNullable.getFrom(canceledAt);
     }
 
     /**
      * Setter for CanceledAt.
      * The timestamp of the most recent cancellation
-     * @param canceledAt Value for LocalDateTime
+     * @param canceledAt Value for ZonedDateTime
      */
     @JsonSetter("canceled_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setCanceledAt(LocalDateTime canceledAt) {
+    public void setCanceledAt(ZonedDateTime canceledAt) {
         this.canceledAt = OptionalNullable.of(canceledAt);
     }
 
@@ -985,23 +985,23 @@ public class Subscription {
     /**
      * Getter for CurrentPeriodStartedAt.
      * Timestamp relating to the start of the current (recurring) period
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("current_period_started_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getCurrentPeriodStartedAt() {
+    public ZonedDateTime getCurrentPeriodStartedAt() {
         return currentPeriodStartedAt;
     }
 
     /**
      * Setter for CurrentPeriodStartedAt.
      * Timestamp relating to the start of the current (recurring) period
-     * @param currentPeriodStartedAt Value for LocalDateTime
+     * @param currentPeriodStartedAt Value for ZonedDateTime
      */
     @JsonSetter("current_period_started_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setCurrentPeriodStartedAt(LocalDateTime currentPeriodStartedAt) {
+    public void setCurrentPeriodStartedAt(ZonedDateTime currentPeriodStartedAt) {
         this.currentPeriodStartedAt = currentPeriodStartedAt;
     }
 
@@ -1075,32 +1075,32 @@ public class Subscription {
     /**
      * Internal Getter for DelayedCancelAt.
      * Timestamp for when the subscription is currently set to cancel.
-     * @return Returns the Internal LocalDateTime
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("delayed_cancel_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
-    protected OptionalNullable<LocalDateTime> internalGetDelayedCancelAt() {
+    protected OptionalNullable<ZonedDateTime> internalGetDelayedCancelAt() {
         return this.delayedCancelAt;
     }
 
     /**
      * Getter for DelayedCancelAt.
      * Timestamp for when the subscription is currently set to cancel.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
-    public LocalDateTime getDelayedCancelAt() {
+    public ZonedDateTime getDelayedCancelAt() {
         return OptionalNullable.getFrom(delayedCancelAt);
     }
 
     /**
      * Setter for DelayedCancelAt.
      * Timestamp for when the subscription is currently set to cancel.
-     * @param delayedCancelAt Value for LocalDateTime
+     * @param delayedCancelAt Value for ZonedDateTime
      */
     @JsonSetter("delayed_cancel_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setDelayedCancelAt(LocalDateTime delayedCancelAt) {
+    public void setDelayedCancelAt(ZonedDateTime delayedCancelAt) {
         this.delayedCancelAt = OptionalNullable.of(delayedCancelAt);
     }
 
@@ -2246,30 +2246,30 @@ public class Subscription {
 
     /**
      * Internal Getter for ScheduledCancellationAt.
-     * @return Returns the Internal LocalDateTime
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("scheduled_cancellation_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
-    protected OptionalNullable<LocalDateTime> internalGetScheduledCancellationAt() {
+    protected OptionalNullable<ZonedDateTime> internalGetScheduledCancellationAt() {
         return this.scheduledCancellationAt;
     }
 
     /**
      * Getter for ScheduledCancellationAt.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
-    public LocalDateTime getScheduledCancellationAt() {
+    public ZonedDateTime getScheduledCancellationAt() {
         return OptionalNullable.getFrom(scheduledCancellationAt);
     }
 
     /**
      * Setter for ScheduledCancellationAt.
-     * @param scheduledCancellationAt Value for LocalDateTime
+     * @param scheduledCancellationAt Value for ZonedDateTime
      */
     @JsonSetter("scheduled_cancellation_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setScheduledCancellationAt(LocalDateTime scheduledCancellationAt) {
+    public void setScheduledCancellationAt(ZonedDateTime scheduledCancellationAt) {
         this.scheduledCancellationAt = OptionalNullable.of(scheduledCancellationAt);
     }
 
@@ -2439,23 +2439,23 @@ public class Subscription {
         private Long totalRevenueInCents;
         private Long productPriceInCents;
         private Integer productVersionNumber;
-        private LocalDateTime currentPeriodEndsAt;
-        private LocalDateTime nextAssessmentAt;
-        private OptionalNullable<LocalDateTime> trialStartedAt;
-        private OptionalNullable<LocalDateTime> trialEndedAt;
-        private LocalDateTime activatedAt;
-        private OptionalNullable<LocalDateTime> expiresAt;
-        private LocalDateTime createdAt;
-        private LocalDateTime updatedAt;
+        private ZonedDateTime currentPeriodEndsAt;
+        private ZonedDateTime nextAssessmentAt;
+        private OptionalNullable<ZonedDateTime> trialStartedAt;
+        private OptionalNullable<ZonedDateTime> trialEndedAt;
+        private ZonedDateTime activatedAt;
+        private OptionalNullable<ZonedDateTime> expiresAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private OptionalNullable<String> cancellationMessage;
         private OptionalNullable<SubscriptionCancellationMethod> cancellationMethod;
         private OptionalNullable<Boolean> cancelAtEndOfPeriod;
-        private OptionalNullable<LocalDateTime> canceledAt;
-        private LocalDateTime currentPeriodStartedAt;
+        private OptionalNullable<ZonedDateTime> canceledAt;
+        private ZonedDateTime currentPeriodStartedAt;
         private String previousState;
         private Integer signupPaymentId;
         private String signupRevenue;
-        private OptionalNullable<LocalDateTime> delayedCancelAt;
+        private OptionalNullable<ZonedDateTime> delayedCancelAt;
         private OptionalNullable<String> couponCode;
         private OptionalNullable<String> snapDay;
         private OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod;
@@ -2490,7 +2490,7 @@ public class Subscription {
         private OptionalNullable<Boolean> receivesInvoiceEmails;
         private OptionalNullable<String> locale;
         private String currency;
-        private OptionalNullable<LocalDateTime> scheduledCancellationAt;
+        private OptionalNullable<ZonedDateTime> scheduledCancellationAt;
         private Long creditBalanceInCents;
         private Long prepaymentBalanceInCents;
 
@@ -2558,30 +2558,30 @@ public class Subscription {
 
         /**
          * Setter for currentPeriodEndsAt.
-         * @param  currentPeriodEndsAt  LocalDateTime value for currentPeriodEndsAt.
+         * @param  currentPeriodEndsAt  ZonedDateTime value for currentPeriodEndsAt.
          * @return Builder
          */
-        public Builder currentPeriodEndsAt(LocalDateTime currentPeriodEndsAt) {
+        public Builder currentPeriodEndsAt(ZonedDateTime currentPeriodEndsAt) {
             this.currentPeriodEndsAt = currentPeriodEndsAt;
             return this;
         }
 
         /**
          * Setter for nextAssessmentAt.
-         * @param  nextAssessmentAt  LocalDateTime value for nextAssessmentAt.
+         * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
          * @return Builder
          */
-        public Builder nextAssessmentAt(LocalDateTime nextAssessmentAt) {
+        public Builder nextAssessmentAt(ZonedDateTime nextAssessmentAt) {
             this.nextAssessmentAt = nextAssessmentAt;
             return this;
         }
 
         /**
          * Setter for trialStartedAt.
-         * @param  trialStartedAt  LocalDateTime value for trialStartedAt.
+         * @param  trialStartedAt  ZonedDateTime value for trialStartedAt.
          * @return Builder
          */
-        public Builder trialStartedAt(LocalDateTime trialStartedAt) {
+        public Builder trialStartedAt(ZonedDateTime trialStartedAt) {
             this.trialStartedAt = OptionalNullable.of(trialStartedAt);
             return this;
         }
@@ -2597,10 +2597,10 @@ public class Subscription {
 
         /**
          * Setter for trialEndedAt.
-         * @param  trialEndedAt  LocalDateTime value for trialEndedAt.
+         * @param  trialEndedAt  ZonedDateTime value for trialEndedAt.
          * @return Builder
          */
-        public Builder trialEndedAt(LocalDateTime trialEndedAt) {
+        public Builder trialEndedAt(ZonedDateTime trialEndedAt) {
             this.trialEndedAt = OptionalNullable.of(trialEndedAt);
             return this;
         }
@@ -2616,20 +2616,20 @@ public class Subscription {
 
         /**
          * Setter for activatedAt.
-         * @param  activatedAt  LocalDateTime value for activatedAt.
+         * @param  activatedAt  ZonedDateTime value for activatedAt.
          * @return Builder
          */
-        public Builder activatedAt(LocalDateTime activatedAt) {
+        public Builder activatedAt(ZonedDateTime activatedAt) {
             this.activatedAt = activatedAt;
             return this;
         }
 
         /**
          * Setter for expiresAt.
-         * @param  expiresAt  LocalDateTime value for expiresAt.
+         * @param  expiresAt  ZonedDateTime value for expiresAt.
          * @return Builder
          */
-        public Builder expiresAt(LocalDateTime expiresAt) {
+        public Builder expiresAt(ZonedDateTime expiresAt) {
             this.expiresAt = OptionalNullable.of(expiresAt);
             return this;
         }
@@ -2645,20 +2645,20 @@ public class Subscription {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  LocalDateTime value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(LocalDateTime createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  LocalDateTime value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(LocalDateTime updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
@@ -2722,10 +2722,10 @@ public class Subscription {
 
         /**
          * Setter for canceledAt.
-         * @param  canceledAt  LocalDateTime value for canceledAt.
+         * @param  canceledAt  ZonedDateTime value for canceledAt.
          * @return Builder
          */
-        public Builder canceledAt(LocalDateTime canceledAt) {
+        public Builder canceledAt(ZonedDateTime canceledAt) {
             this.canceledAt = OptionalNullable.of(canceledAt);
             return this;
         }
@@ -2741,10 +2741,10 @@ public class Subscription {
 
         /**
          * Setter for currentPeriodStartedAt.
-         * @param  currentPeriodStartedAt  LocalDateTime value for currentPeriodStartedAt.
+         * @param  currentPeriodStartedAt  ZonedDateTime value for currentPeriodStartedAt.
          * @return Builder
          */
-        public Builder currentPeriodStartedAt(LocalDateTime currentPeriodStartedAt) {
+        public Builder currentPeriodStartedAt(ZonedDateTime currentPeriodStartedAt) {
             this.currentPeriodStartedAt = currentPeriodStartedAt;
             return this;
         }
@@ -2781,10 +2781,10 @@ public class Subscription {
 
         /**
          * Setter for delayedCancelAt.
-         * @param  delayedCancelAt  LocalDateTime value for delayedCancelAt.
+         * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
          * @return Builder
          */
-        public Builder delayedCancelAt(LocalDateTime delayedCancelAt) {
+        public Builder delayedCancelAt(ZonedDateTime delayedCancelAt) {
             this.delayedCancelAt = OptionalNullable.of(delayedCancelAt);
             return this;
         }
@@ -3345,10 +3345,10 @@ public class Subscription {
 
         /**
          * Setter for scheduledCancellationAt.
-         * @param  scheduledCancellationAt  LocalDateTime value for scheduledCancellationAt.
+         * @param  scheduledCancellationAt  ZonedDateTime value for scheduledCancellationAt.
          * @return Builder
          */
-        public Builder scheduledCancellationAt(LocalDateTime scheduledCancellationAt) {
+        public Builder scheduledCancellationAt(ZonedDateTime scheduledCancellationAt) {
             this.scheduledCancellationAt = OptionalNullable.of(scheduledCancellationAt);
             return this;
         }

@@ -23,7 +23,7 @@ import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -88,7 +88,7 @@ public final class InsightsController extends BaseController {
      */
     @Deprecated
     public MRRResponse readMrr(
-            final LocalDateTime atTime,
+            final ZonedDateTime atTime,
             final Integer subscriptionId) throws ApiException, IOException {
         return prepareReadMrrRequest(atTime, subscriptionId).execute();
     }
@@ -97,7 +97,7 @@ public final class InsightsController extends BaseController {
      * Builds the ApiCall object for readMrr.
      */
     private ApiCall<MRRResponse, ApiException> prepareReadMrrRequest(
-            final LocalDateTime atTime,
+            final ZonedDateTime atTime,
             final Integer subscriptionId) throws IOException {
         return new ApiCall.Builder<MRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())

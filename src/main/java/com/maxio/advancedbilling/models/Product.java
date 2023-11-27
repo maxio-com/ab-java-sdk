@@ -15,7 +15,7 @@ import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.ProductExpirationIntervalUnit;
 import com.maxio.advancedbilling.models.containers.ProductTrialIntervalUnit;
 import io.apimatic.core.types.OptionalNullable;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -30,8 +30,8 @@ public class Product {
     private Boolean requestCreditCard;
     private OptionalNullable<Integer> expirationInterval;
     private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private Long priceInCents;
     private Integer interval;
     private IntervalUnit intervalUnit;
@@ -39,7 +39,7 @@ public class Product {
     private OptionalNullable<Long> trialPriceInCents;
     private OptionalNullable<Integer> trialInterval;
     private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
-    private OptionalNullable<LocalDateTime> archivedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
     private Boolean requireCreditCard;
     private OptionalNullable<String> returnParams;
     private Boolean taxable;
@@ -77,8 +77,8 @@ public class Product {
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ProductExpirationIntervalUnit value for
      *         expirationIntervalUnit.
-     * @param  createdAt  LocalDateTime value for createdAt.
-     * @param  updatedAt  LocalDateTime value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
@@ -86,7 +86,7 @@ public class Product {
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
-     * @param  archivedAt  LocalDateTime value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  requireCreditCard  Boolean value for requireCreditCard.
      * @param  returnParams  String value for returnParams.
      * @param  taxable  Boolean value for taxable.
@@ -116,8 +116,8 @@ public class Product {
             Boolean requestCreditCard,
             Integer expirationInterval,
             ProductExpirationIntervalUnit expirationIntervalUnit,
-            LocalDateTime createdAt,
-            LocalDateTime updatedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             Long priceInCents,
             Integer interval,
             IntervalUnit intervalUnit,
@@ -125,7 +125,7 @@ public class Product {
             Long trialPriceInCents,
             Integer trialInterval,
             ProductTrialIntervalUnit trialIntervalUnit,
-            LocalDateTime archivedAt,
+            ZonedDateTime archivedAt,
             Boolean requireCreditCard,
             String returnParams,
             Boolean taxable,
@@ -195,8 +195,8 @@ public class Product {
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ProductExpirationIntervalUnit value for
      *         expirationIntervalUnit.
-     * @param  createdAt  LocalDateTime value for createdAt.
-     * @param  updatedAt  LocalDateTime value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  priceInCents  Long value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
@@ -204,7 +204,7 @@ public class Product {
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
-     * @param  archivedAt  LocalDateTime value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  requireCreditCard  Boolean value for requireCreditCard.
      * @param  returnParams  String value for returnParams.
      * @param  taxable  Boolean value for taxable.
@@ -230,11 +230,11 @@ public class Product {
             OptionalNullable<String> accountingCode, Boolean requestCreditCard,
             OptionalNullable<Integer> expirationInterval,
             OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit,
-            LocalDateTime createdAt, LocalDateTime updatedAt, Long priceInCents, Integer interval,
+            ZonedDateTime createdAt, ZonedDateTime updatedAt, Long priceInCents, Integer interval,
             IntervalUnit intervalUnit, OptionalNullable<Long> initialChargeInCents,
             OptionalNullable<Long> trialPriceInCents, OptionalNullable<Integer> trialInterval,
             OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit,
-            OptionalNullable<LocalDateTime> archivedAt, Boolean requireCreditCard,
+            OptionalNullable<ZonedDateTime> archivedAt, Boolean requireCreditCard,
             OptionalNullable<String> returnParams, Boolean taxable,
             OptionalNullable<String> updateReturnUrl, Boolean initialChargeAfterTrial,
             Integer versionNumber, OptionalNullable<String> updateReturnParams,
@@ -534,46 +534,46 @@ public class Product {
     /**
      * Getter for CreatedAt.
      * Timestamp indicating when this product was created
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
      * Timestamp indicating when this product was created
-     * @param createdAt Value for LocalDateTime
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
      * Timestamp indicating when this product was last updated
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getUpdatedAt() {
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
      * Timestamp indicating when this product was last updated
-     * @param updatedAt Value for LocalDateTime
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -809,32 +809,32 @@ public class Product {
     /**
      * Internal Getter for ArchivedAt.
      * Timestamp indicating when this product was archived
-     * @return Returns the Internal LocalDateTime
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
-    protected OptionalNullable<LocalDateTime> internalGetArchivedAt() {
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
         return this.archivedAt;
     }
 
     /**
      * Getter for ArchivedAt.
      * Timestamp indicating when this product was archived
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
-    public LocalDateTime getArchivedAt() {
+    public ZonedDateTime getArchivedAt() {
         return OptionalNullable.getFrom(archivedAt);
     }
 
     /**
      * Setter for ArchivedAt.
      * Timestamp indicating when this product was archived
-     * @param archivedAt Value for LocalDateTime
+     * @param archivedAt Value for ZonedDateTime
      */
     @JsonSetter("archived_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setArchivedAt(LocalDateTime archivedAt) {
+    public void setArchivedAt(ZonedDateTime archivedAt) {
         this.archivedAt = OptionalNullable.of(archivedAt);
     }
 
@@ -1456,8 +1456,8 @@ public class Product {
         private Boolean requestCreditCard;
         private OptionalNullable<Integer> expirationInterval;
         private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
-        private LocalDateTime createdAt;
-        private LocalDateTime updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private Long priceInCents;
         private Integer interval;
         private IntervalUnit intervalUnit;
@@ -1465,7 +1465,7 @@ public class Product {
         private OptionalNullable<Long> trialPriceInCents;
         private OptionalNullable<Integer> trialInterval;
         private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
-        private OptionalNullable<LocalDateTime> archivedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
         private Boolean requireCreditCard;
         private OptionalNullable<String> returnParams;
         private Boolean taxable;
@@ -1608,20 +1608,20 @@ public class Product {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  LocalDateTime value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(LocalDateTime createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  LocalDateTime value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(LocalDateTime updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
@@ -1734,10 +1734,10 @@ public class Product {
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  LocalDateTime value for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(LocalDateTime archivedAt) {
+        public Builder archivedAt(ZonedDateTime archivedAt) {
             this.archivedAt = OptionalNullable.of(archivedAt);
             return this;
         }
