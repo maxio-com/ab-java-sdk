@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -27,9 +27,9 @@ public class Invoice {
     private Integer subscriptionId;
     private String number;
     private Integer sequenceNumber;
-    private LocalDateTime transactionTime;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private ZonedDateTime transactionTime;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private String issueDate;
     private String dueDate;
     private OptionalNullable<String> paidDate;
@@ -88,9 +88,9 @@ public class Invoice {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  number  String value for number.
      * @param  sequenceNumber  Integer value for sequenceNumber.
-     * @param  transactionTime  LocalDateTime value for transactionTime.
-     * @param  createdAt  LocalDateTime value for createdAt.
-     * @param  updatedAt  LocalDateTime value for updatedAt.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  issueDate  String value for issueDate.
      * @param  dueDate  String value for dueDate.
      * @param  paidDate  String value for paidDate.
@@ -142,9 +142,9 @@ public class Invoice {
             Integer subscriptionId,
             String number,
             Integer sequenceNumber,
-            LocalDateTime transactionTime,
-            LocalDateTime createdAt,
-            LocalDateTime updatedAt,
+            ZonedDateTime transactionTime,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             String issueDate,
             String dueDate,
             String paidDate,
@@ -250,9 +250,9 @@ public class Invoice {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  number  String value for number.
      * @param  sequenceNumber  Integer value for sequenceNumber.
-     * @param  transactionTime  LocalDateTime value for transactionTime.
-     * @param  createdAt  LocalDateTime value for createdAt.
-     * @param  updatedAt  LocalDateTime value for updatedAt.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  issueDate  String value for issueDate.
      * @param  dueDate  String value for dueDate.
      * @param  paidDate  String value for paidDate.
@@ -299,7 +299,7 @@ public class Invoice {
 
     protected Invoice(Long id, String uid, Integer siteId, Integer customerId,
             Integer subscriptionId, String number, Integer sequenceNumber,
-            LocalDateTime transactionTime, LocalDateTime createdAt, LocalDateTime updatedAt,
+            ZonedDateTime transactionTime, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             String issueDate, String dueDate, OptionalNullable<String> paidDate, Status status,
             String role, OptionalNullable<Integer> parentInvoiceId, String collectionMethod,
             String paymentInstructions, String currency,
@@ -526,64 +526,64 @@ public class Invoice {
 
     /**
      * Getter for TransactionTime.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getTransactionTime() {
+    public ZonedDateTime getTransactionTime() {
         return transactionTime;
     }
 
     /**
      * Setter for TransactionTime.
-     * @param transactionTime Value for LocalDateTime
+     * @param transactionTime Value for ZonedDateTime
      */
     @JsonSetter("transaction_time")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setTransactionTime(LocalDateTime transactionTime) {
+    public void setTransactionTime(ZonedDateTime transactionTime) {
         this.transactionTime = transactionTime;
     }
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for LocalDateTime
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getUpdatedAt() {
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for LocalDateTime
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -1699,9 +1699,9 @@ public class Invoice {
         private Integer subscriptionId;
         private String number;
         private Integer sequenceNumber;
-        private LocalDateTime transactionTime;
-        private LocalDateTime createdAt;
-        private LocalDateTime updatedAt;
+        private ZonedDateTime transactionTime;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private String issueDate;
         private String dueDate;
         private OptionalNullable<String> paidDate;
@@ -1819,30 +1819,30 @@ public class Invoice {
 
         /**
          * Setter for transactionTime.
-         * @param  transactionTime  LocalDateTime value for transactionTime.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
          * @return Builder
          */
-        public Builder transactionTime(LocalDateTime transactionTime) {
+        public Builder transactionTime(ZonedDateTime transactionTime) {
             this.transactionTime = transactionTime;
             return this;
         }
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  LocalDateTime value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(LocalDateTime createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  LocalDateTime value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(LocalDateTime updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }

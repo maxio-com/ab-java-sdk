@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
@@ -29,8 +29,8 @@ public class ListSubscriptionsInput {
     private SubscriptionDateField dateField;
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDateTime startDatetime;
-    private LocalDateTime endDatetime;
+    private ZonedDateTime startDatetime;
+    private ZonedDateTime endDatetime;
     private Map<String, String> metadata;
     private SortingDirection direction;
     private SubscriptionSort sort;
@@ -55,8 +55,8 @@ public class ListSubscriptionsInput {
      * @param  dateField  SubscriptionDateField value for dateField.
      * @param  startDate  LocalDate value for startDate.
      * @param  endDate  LocalDate value for endDate.
-     * @param  startDatetime  LocalDateTime value for startDatetime.
-     * @param  endDatetime  LocalDateTime value for endDatetime.
+     * @param  startDatetime  ZonedDateTime value for startDatetime.
+     * @param  endDatetime  ZonedDateTime value for endDatetime.
      * @param  metadata  Map of String, value for metadata.
      * @param  direction  SortingDirection value for direction.
      * @param  sort  SubscriptionSort value for sort.
@@ -71,8 +71,8 @@ public class ListSubscriptionsInput {
             SubscriptionDateField dateField,
             LocalDate startDate,
             LocalDate endDate,
-            LocalDateTime startDatetime,
-            LocalDateTime endDatetime,
+            ZonedDateTime startDatetime,
+            ZonedDateTime endDatetime,
             Map<String, String> metadata,
             SortingDirection direction,
             SubscriptionSort sort) {
@@ -318,12 +318,12 @@ public class ListSubscriptionsInput {
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01
      * 09:00:05`.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("start_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getStartDatetime() {
+    public ZonedDateTime getStartDatetime() {
         return startDatetime;
     }
 
@@ -334,11 +334,11 @@ public class ListSubscriptionsInput {
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01
      * 09:00:05`.
-     * @param startDatetime Value for LocalDateTime
+     * @param startDatetime Value for ZonedDateTime
      */
     @JsonSetter("start_datetime")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setStartDatetime(LocalDateTime startDatetime) {
+    public void setStartDatetime(ZonedDateTime startDatetime) {
         this.startDatetime = startDatetime;
     }
 
@@ -348,12 +348,12 @@ public class ListSubscriptionsInput {
      * Returns subscriptions with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("end_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getEndDatetime() {
+    public ZonedDateTime getEndDatetime() {
         return endDatetime;
     }
 
@@ -363,11 +363,11 @@ public class ListSubscriptionsInput {
      * Returns subscriptions with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`.
-     * @param endDatetime Value for LocalDateTime
+     * @param endDatetime Value for ZonedDateTime
      */
     @JsonSetter("end_datetime")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setEndDatetime(LocalDateTime endDatetime) {
+    public void setEndDatetime(ZonedDateTime endDatetime) {
         this.endDatetime = endDatetime;
     }
 
@@ -487,8 +487,8 @@ public class ListSubscriptionsInput {
         private SubscriptionDateField dateField;
         private LocalDate startDate;
         private LocalDate endDate;
-        private LocalDateTime startDatetime;
-        private LocalDateTime endDatetime;
+        private ZonedDateTime startDatetime;
+        private ZonedDateTime endDatetime;
         private Map<String, String> metadata;
         private SortingDirection direction;
         private SubscriptionSort sort = SubscriptionSort.SIGNUP_DATE;
@@ -587,20 +587,20 @@ public class ListSubscriptionsInput {
 
         /**
          * Setter for startDatetime.
-         * @param  startDatetime  LocalDateTime value for startDatetime.
+         * @param  startDatetime  ZonedDateTime value for startDatetime.
          * @return Builder
          */
-        public Builder startDatetime(LocalDateTime startDatetime) {
+        public Builder startDatetime(ZonedDateTime startDatetime) {
             this.startDatetime = startDatetime;
             return this;
         }
 
         /**
          * Setter for endDatetime.
-         * @param  endDatetime  LocalDateTime value for endDatetime.
+         * @param  endDatetime  ZonedDateTime value for endDatetime.
          * @return Builder
          */
-        public Builder endDatetime(LocalDateTime endDatetime) {
+        public Builder endDatetime(ZonedDateTime endDatetime) {
             this.endDatetime = endDatetime;
             return this;
         }

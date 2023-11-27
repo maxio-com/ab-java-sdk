@@ -16,7 +16,7 @@ import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponents;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroup2;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionOfferId;
 import io.apimatic.core.types.OptionalNullable;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +35,8 @@ public class CreateSubscription {
     private String receivesInvoiceEmails;
     private String netTerms;
     private Integer customerId;
-    private LocalDateTime nextBillingAt;
-    private LocalDateTime initialBillingAt;
+    private ZonedDateTime nextBillingAt;
+    private ZonedDateTime initialBillingAt;
     private Integer storedCredentialTransactionId;
     private Integer salesRepId;
     private Integer paymentProfileId;
@@ -54,7 +54,7 @@ public class CreateSubscription {
     private String cancellationMessage;
     private String cancellationMethod;
     private String currency;
-    private LocalDateTime expiresAt;
+    private ZonedDateTime expiresAt;
     private String expirationTracksNextBillingChange;
     private String agreementTerms;
     private String authorizerFirstName;
@@ -64,10 +64,10 @@ public class CreateSubscription {
     private Boolean productChangeDelayed;
     private CreateSubscriptionOfferId offerId;
     private UpsertPrepaidConfiguration prepaidSubscriptionConfiguration;
-    private LocalDateTime previousBillingAt;
+    private ZonedDateTime previousBillingAt;
     private Boolean importMrr;
     private String canceledAt;
-    private LocalDateTime activatedAt;
+    private ZonedDateTime activatedAt;
     private AgreementAcceptance agreementAcceptance;
     private ACHAgreement achAgreement;
     private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
@@ -96,8 +96,8 @@ public class CreateSubscription {
      * @param  receivesInvoiceEmails  String value for receivesInvoiceEmails.
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
-     * @param  nextBillingAt  LocalDateTime value for nextBillingAt.
-     * @param  initialBillingAt  LocalDateTime value for initialBillingAt.
+     * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
+     * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  salesRepId  Integer value for salesRepId.
      * @param  paymentProfileId  Integer value for paymentProfileId.
@@ -116,7 +116,7 @@ public class CreateSubscription {
      * @param  cancellationMessage  String value for cancellationMessage.
      * @param  cancellationMethod  String value for cancellationMethod.
      * @param  currency  String value for currency.
-     * @param  expiresAt  LocalDateTime value for expiresAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  expirationTracksNextBillingChange  String value for
      *         expirationTracksNextBillingChange.
      * @param  agreementTerms  String value for agreementTerms.
@@ -128,10 +128,10 @@ public class CreateSubscription {
      * @param  offerId  CreateSubscriptionOfferId value for offerId.
      * @param  prepaidSubscriptionConfiguration  UpsertPrepaidConfiguration value for
      *         prepaidSubscriptionConfiguration.
-     * @param  previousBillingAt  LocalDateTime value for previousBillingAt.
+     * @param  previousBillingAt  ZonedDateTime value for previousBillingAt.
      * @param  importMrr  Boolean value for importMrr.
      * @param  canceledAt  String value for canceledAt.
-     * @param  activatedAt  LocalDateTime value for activatedAt.
+     * @param  activatedAt  ZonedDateTime value for activatedAt.
      * @param  agreementAcceptance  AgreementAcceptance value for agreementAcceptance.
      * @param  achAgreement  ACHAgreement value for achAgreement.
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
@@ -151,8 +151,8 @@ public class CreateSubscription {
             String receivesInvoiceEmails,
             String netTerms,
             Integer customerId,
-            LocalDateTime nextBillingAt,
-            LocalDateTime initialBillingAt,
+            ZonedDateTime nextBillingAt,
+            ZonedDateTime initialBillingAt,
             Integer storedCredentialTransactionId,
             Integer salesRepId,
             Integer paymentProfileId,
@@ -170,7 +170,7 @@ public class CreateSubscription {
             String cancellationMessage,
             String cancellationMethod,
             String currency,
-            LocalDateTime expiresAt,
+            ZonedDateTime expiresAt,
             String expirationTracksNextBillingChange,
             String agreementTerms,
             String authorizerFirstName,
@@ -180,10 +180,10 @@ public class CreateSubscription {
             Boolean productChangeDelayed,
             CreateSubscriptionOfferId offerId,
             UpsertPrepaidConfiguration prepaidSubscriptionConfiguration,
-            LocalDateTime previousBillingAt,
+            ZonedDateTime previousBillingAt,
             Boolean importMrr,
             String canceledAt,
-            LocalDateTime activatedAt,
+            ZonedDateTime activatedAt,
             AgreementAcceptance agreementAcceptance,
             ACHAgreement achAgreement,
             Boolean dunningCommunicationDelayEnabled,
@@ -255,8 +255,8 @@ public class CreateSubscription {
      * @param  receivesInvoiceEmails  String value for receivesInvoiceEmails.
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
-     * @param  nextBillingAt  LocalDateTime value for nextBillingAt.
-     * @param  initialBillingAt  LocalDateTime value for initialBillingAt.
+     * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
+     * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  salesRepId  Integer value for salesRepId.
      * @param  paymentProfileId  Integer value for paymentProfileId.
@@ -275,7 +275,7 @@ public class CreateSubscription {
      * @param  cancellationMessage  String value for cancellationMessage.
      * @param  cancellationMethod  String value for cancellationMethod.
      * @param  currency  String value for currency.
-     * @param  expiresAt  LocalDateTime value for expiresAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  expirationTracksNextBillingChange  String value for
      *         expirationTracksNextBillingChange.
      * @param  agreementTerms  String value for agreementTerms.
@@ -287,10 +287,10 @@ public class CreateSubscription {
      * @param  offerId  CreateSubscriptionOfferId value for offerId.
      * @param  prepaidSubscriptionConfiguration  UpsertPrepaidConfiguration value for
      *         prepaidSubscriptionConfiguration.
-     * @param  previousBillingAt  LocalDateTime value for previousBillingAt.
+     * @param  previousBillingAt  ZonedDateTime value for previousBillingAt.
      * @param  importMrr  Boolean value for importMrr.
      * @param  canceledAt  String value for canceledAt.
-     * @param  activatedAt  LocalDateTime value for activatedAt.
+     * @param  activatedAt  ZonedDateTime value for activatedAt.
      * @param  agreementAcceptance  AgreementAcceptance value for agreementAcceptance.
      * @param  achAgreement  ACHAgreement value for achAgreement.
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
@@ -304,7 +304,7 @@ public class CreateSubscription {
             CustomPriceUsedForSubscriptionCreateUpdate customPrice, String couponCode,
             List<String> couponCodes, PaymentCollectionMethod paymentCollectionMethod,
             String receivesInvoiceEmails, String netTerms, Integer customerId,
-            LocalDateTime nextBillingAt, LocalDateTime initialBillingAt,
+            ZonedDateTime nextBillingAt, ZonedDateTime initialBillingAt,
             Integer storedCredentialTransactionId, Integer salesRepId, Integer paymentProfileId,
             String reference, CustomerAttributes customerAttributes,
             PaymentProfileAttributes paymentProfileAttributes,
@@ -313,14 +313,14 @@ public class CreateSubscription {
             List<CreateSubscriptionComponents> components, CalendarBilling calendarBilling,
             Map<String, String> metafields, String customerReference,
             CreateSubscriptionGroup2 group, String ref, String cancellationMessage,
-            String cancellationMethod, String currency, LocalDateTime expiresAt,
+            String cancellationMethod, String currency, ZonedDateTime expiresAt,
             String expirationTracksNextBillingChange, String agreementTerms,
             String authorizerFirstName, String authorizerLastName,
             String calendarBillingFirstCharge, String reasonCode, Boolean productChangeDelayed,
             CreateSubscriptionOfferId offerId,
             UpsertPrepaidConfiguration prepaidSubscriptionConfiguration,
-            LocalDateTime previousBillingAt, Boolean importMrr, String canceledAt,
-            LocalDateTime activatedAt, AgreementAcceptance agreementAcceptance,
+            ZonedDateTime previousBillingAt, Boolean importMrr, String canceledAt,
+            ZonedDateTime activatedAt, AgreementAcceptance agreementAcceptance,
             ACHAgreement achAgreement, OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone,
             Boolean skipBillingManifestTaxes) {
@@ -636,12 +636,12 @@ public class CreateSubscription {
      * trial and/or initial charges will be assessed and charged at the time of subscription
      * creation. If the card cannot be successfully charged, the subscription will not be created.
      * See further notes in the section on Importing Subscriptions.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("next_billing_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getNextBillingAt() {
+    public ZonedDateTime getNextBillingAt() {
         return nextBillingAt;
     }
 
@@ -657,11 +657,11 @@ public class CreateSubscription {
      * trial and/or initial charges will be assessed and charged at the time of subscription
      * creation. If the card cannot be successfully charged, the subscription will not be created.
      * See further notes in the section on Importing Subscriptions.
-     * @param nextBillingAt Value for LocalDateTime
+     * @param nextBillingAt Value for ZonedDateTime
      */
     @JsonSetter("next_billing_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setNextBillingAt(LocalDateTime nextBillingAt) {
+    public void setNextBillingAt(ZonedDateTime nextBillingAt) {
         this.nextBillingAt = nextBillingAt;
     }
 
@@ -678,12 +678,12 @@ public class CreateSubscription {
      * either before or after the trial, as configured on the price point. If the payment is due at
      * the initial_billing_at and it fails the subscription will be immediately canceled. See
      * further notes in the section on Delayed Signups.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("initial_billing_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getInitialBillingAt() {
+    public ZonedDateTime getInitialBillingAt() {
         return initialBillingAt;
     }
 
@@ -700,11 +700,11 @@ public class CreateSubscription {
      * either before or after the trial, as configured on the price point. If the payment is due at
      * the initial_billing_at and it fails the subscription will be immediately canceled. See
      * further notes in the section on Delayed Signups.
-     * @param initialBillingAt Value for LocalDateTime
+     * @param initialBillingAt Value for ZonedDateTime
      */
     @JsonSetter("initial_billing_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setInitialBillingAt(LocalDateTime initialBillingAt) {
+    public void setInitialBillingAt(ZonedDateTime initialBillingAt) {
         this.initialBillingAt = initialBillingAt;
     }
 
@@ -1097,12 +1097,12 @@ public class CreateSubscription {
      * Getter for ExpiresAt.
      * Timestamp giving the expiration date of this subscription (if any). You may manually change
      * the expiration date at any point during a subscription period.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("expires_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getExpiresAt() {
+    public ZonedDateTime getExpiresAt() {
         return expiresAt;
     }
 
@@ -1110,11 +1110,11 @@ public class CreateSubscription {
      * Setter for ExpiresAt.
      * Timestamp giving the expiration date of this subscription (if any). You may manually change
      * the expiration date at any point during a subscription period.
-     * @param expiresAt Value for LocalDateTime
+     * @param expiresAt Value for ZonedDateTime
      */
     @JsonSetter("expires_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setExpiresAt(LocalDateTime expiresAt) {
+    public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 
@@ -1330,12 +1330,12 @@ public class CreateSubscription {
      * during the subscription import. Can only be used if next_billing_at is also passed. Using
      * this option will allow you to set the period start for the subscription so mid period
      * component allocations have the correct prorated amount.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("previous_billing_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getPreviousBillingAt() {
+    public ZonedDateTime getPreviousBillingAt() {
         return previousBillingAt;
     }
 
@@ -1346,11 +1346,11 @@ public class CreateSubscription {
      * during the subscription import. Can only be used if next_billing_at is also passed. Using
      * this option will allow you to set the period start for the subscription so mid period
      * component allocations have the correct prorated amount.
-     * @param previousBillingAt Value for LocalDateTime
+     * @param previousBillingAt Value for ZonedDateTime
      */
     @JsonSetter("previous_billing_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setPreviousBillingAt(LocalDateTime previousBillingAt) {
+    public void setPreviousBillingAt(ZonedDateTime previousBillingAt) {
         this.previousBillingAt = previousBillingAt;
     }
 
@@ -1400,22 +1400,22 @@ public class CreateSubscription {
 
     /**
      * Getter for ActivatedAt.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("activated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getActivatedAt() {
+    public ZonedDateTime getActivatedAt() {
         return activatedAt;
     }
 
     /**
      * Setter for ActivatedAt.
-     * @param activatedAt Value for LocalDateTime
+     * @param activatedAt Value for ZonedDateTime
      */
     @JsonSetter("activated_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setActivatedAt(LocalDateTime activatedAt) {
+    public void setActivatedAt(ZonedDateTime activatedAt) {
         this.activatedAt = activatedAt;
     }
 
@@ -1681,8 +1681,8 @@ public class CreateSubscription {
         private String receivesInvoiceEmails;
         private String netTerms;
         private Integer customerId;
-        private LocalDateTime nextBillingAt;
-        private LocalDateTime initialBillingAt;
+        private ZonedDateTime nextBillingAt;
+        private ZonedDateTime initialBillingAt;
         private Integer storedCredentialTransactionId;
         private Integer salesRepId;
         private Integer paymentProfileId;
@@ -1700,7 +1700,7 @@ public class CreateSubscription {
         private String cancellationMessage;
         private String cancellationMethod;
         private String currency;
-        private LocalDateTime expiresAt;
+        private ZonedDateTime expiresAt;
         private String expirationTracksNextBillingChange;
         private String agreementTerms;
         private String authorizerFirstName;
@@ -1710,10 +1710,10 @@ public class CreateSubscription {
         private Boolean productChangeDelayed;
         private CreateSubscriptionOfferId offerId;
         private UpsertPrepaidConfiguration prepaidSubscriptionConfiguration;
-        private LocalDateTime previousBillingAt;
+        private ZonedDateTime previousBillingAt;
         private Boolean importMrr;
         private String canceledAt;
-        private LocalDateTime activatedAt;
+        private ZonedDateTime activatedAt;
         private AgreementAcceptance agreementAcceptance;
         private ACHAgreement achAgreement;
         private OptionalNullable<Boolean> dunningCommunicationDelayEnabled =
@@ -1836,20 +1836,20 @@ public class CreateSubscription {
 
         /**
          * Setter for nextBillingAt.
-         * @param  nextBillingAt  LocalDateTime value for nextBillingAt.
+         * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
          * @return Builder
          */
-        public Builder nextBillingAt(LocalDateTime nextBillingAt) {
+        public Builder nextBillingAt(ZonedDateTime nextBillingAt) {
             this.nextBillingAt = nextBillingAt;
             return this;
         }
 
         /**
          * Setter for initialBillingAt.
-         * @param  initialBillingAt  LocalDateTime value for initialBillingAt.
+         * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
          * @return Builder
          */
-        public Builder initialBillingAt(LocalDateTime initialBillingAt) {
+        public Builder initialBillingAt(ZonedDateTime initialBillingAt) {
             this.initialBillingAt = initialBillingAt;
             return this;
         }
@@ -2028,10 +2028,10 @@ public class CreateSubscription {
 
         /**
          * Setter for expiresAt.
-         * @param  expiresAt  LocalDateTime value for expiresAt.
+         * @param  expiresAt  ZonedDateTime value for expiresAt.
          * @return Builder
          */
-        public Builder expiresAt(LocalDateTime expiresAt) {
+        public Builder expiresAt(ZonedDateTime expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
@@ -2132,10 +2132,10 @@ public class CreateSubscription {
 
         /**
          * Setter for previousBillingAt.
-         * @param  previousBillingAt  LocalDateTime value for previousBillingAt.
+         * @param  previousBillingAt  ZonedDateTime value for previousBillingAt.
          * @return Builder
          */
-        public Builder previousBillingAt(LocalDateTime previousBillingAt) {
+        public Builder previousBillingAt(ZonedDateTime previousBillingAt) {
             this.previousBillingAt = previousBillingAt;
             return this;
         }
@@ -2162,10 +2162,10 @@ public class CreateSubscription {
 
         /**
          * Setter for activatedAt.
-         * @param  activatedAt  LocalDateTime value for activatedAt.
+         * @param  activatedAt  ZonedDateTime value for activatedAt.
          * @return Builder
          */
-        public Builder activatedAt(LocalDateTime activatedAt) {
+        public Builder activatedAt(ZonedDateTime activatedAt) {
             this.activatedAt = activatedAt;
             return this;
         }

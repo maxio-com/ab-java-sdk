@@ -16,9 +16,9 @@
 | `SubscriptionId` | `Integer` | Optional | ID of the subscription that generated the invoice. | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `Number` | `String` | Optional | A unique, identifying string that appears on the invoice and in places the invoice is referenced.<br><br>While the UID is long and not appropriate to show to customers, the number is usually shorter and consumable by the customer and the merchant alike. | String getNumber() | setNumber(String number) |
 | `SequenceNumber` | `Integer` | Optional | A monotonically increasing number assigned to invoices as they are created.  This number is unique within a site and can be used to sort and order invoices. | Integer getSequenceNumber() | setSequenceNumber(Integer sequenceNumber) |
-| `TransactionTime` | `LocalDateTime` | Optional | - | LocalDateTime getTransactionTime() | setTransactionTime(LocalDateTime transactionTime) |
-| `CreatedAt` | `LocalDateTime` | Optional | - | LocalDateTime getCreatedAt() | setCreatedAt(LocalDateTime createdAt) |
-| `UpdatedAt` | `LocalDateTime` | Optional | - | LocalDateTime getUpdatedAt() | setUpdatedAt(LocalDateTime updatedAt) |
+| `TransactionTime` | `ZonedDateTime` | Optional | - | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `IssueDate` | `String` | Optional | Date the invoice was issued to the customer.  This is the date that the invoice was made available for payment.<br><br>The format is `"YYYY-MM-DD"`. | String getIssueDate() | setIssueDate(String issueDate) |
 | `DueDate` | `String` | Optional | Date the invoice is due.<br><br>The format is `"YYYY-MM-DD"`. | String getDueDate() | setDueDate(String dueDate) |
 | `PaidDate` | `String` | Optional | Date the invoice became fully paid.<br><br>If partial payments are applied to the invoice, this date will not be present until payment has been made in full.<br><br>The format is `"YYYY-MM-DD"`. | String getPaidDate() | setPaidDate(String paidDate) |

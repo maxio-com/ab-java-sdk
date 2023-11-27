@@ -19,7 +19,7 @@ Example schema for an `refund_invoice` event
 | `PaymentId` | `Integer` | Optional | The ID of the payment transaction to be refunded. | Integer getPaymentId() | setPaymentId(Integer paymentId) |
 | `RefundAmount` | `String` | Optional | The amount of the refund. | String getRefundAmount() | setRefundAmount(String refundAmount) |
 | `RefundId` | `Integer` | Optional | The ID of the refund transaction. | Integer getRefundId() | setRefundId(Integer refundId) |
-| `TransactionTime` | `LocalDateTime` | Optional | The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z" | LocalDateTime getTransactionTime() | setTransactionTime(LocalDateTime transactionTime) |
+| `TransactionTime` | `ZonedDateTime` | Optional | The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z" | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
 
 ## Example (as JSON)
 

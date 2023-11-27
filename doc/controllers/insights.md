@@ -77,7 +77,7 @@ This endpoint returns your site's current MRR, including plan and usage breakout
 
 ```java
 MRRResponse readMrr(
-    final LocalDateTime atTime,
+    final ZonedDateTime atTime,
     final Integer subscriptionId)
 ```
 
@@ -85,7 +85,7 @@ MRRResponse readMrr(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `atTime` | `LocalDateTime` | Query, Optional | submit a timestamp in ISO8601 format to request MRR for a historic time |
+| `atTime` | `ZonedDateTime` | Query, Optional | submit a timestamp in ISO8601 format to request MRR for a historic time |
 | `subscriptionId` | `Integer` | Query, Optional | submit the id of a subscription in order to limit results |
 
 ## Response Type

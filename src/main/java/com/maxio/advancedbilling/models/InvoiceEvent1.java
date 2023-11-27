@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceEvent1PaymentMethod;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public class InvoiceEvent1 {
     private String creditNoteUid;
     private String originalAmount;
     private String appliedAmount;
-    private LocalDateTime transactionTime;
+    private ZonedDateTime transactionTime;
     private String memo;
     private String role;
     private Boolean consolidatedInvoice;
@@ -62,7 +62,7 @@ public class InvoiceEvent1 {
      * @param  creditNoteUid  String value for creditNoteUid.
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
-     * @param  transactionTime  LocalDateTime value for transactionTime.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
      * @param  memo  String value for memo.
      * @param  role  String value for role.
      * @param  consolidatedInvoice  Boolean value for consolidatedInvoice.
@@ -92,7 +92,7 @@ public class InvoiceEvent1 {
             String creditNoteUid,
             String originalAmount,
             String appliedAmount,
-            LocalDateTime transactionTime,
+            ZonedDateTime transactionTime,
             String memo,
             String role,
             Boolean consolidatedInvoice,
@@ -257,23 +257,23 @@ public class InvoiceEvent1 {
     /**
      * Getter for TransactionTime.
      * The time the credit note was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getTransactionTime() {
+    public ZonedDateTime getTransactionTime() {
         return transactionTime;
     }
 
     /**
      * Setter for TransactionTime.
      * The time the credit note was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
-     * @param transactionTime Value for LocalDateTime
+     * @param transactionTime Value for ZonedDateTime
      */
     @JsonSetter("transaction_time")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setTransactionTime(LocalDateTime transactionTime) {
+    public void setTransactionTime(ZonedDateTime transactionTime) {
         this.transactionTime = transactionTime;
     }
 
@@ -828,7 +828,7 @@ public class InvoiceEvent1 {
         private String creditNoteUid;
         private String originalAmount;
         private String appliedAmount;
-        private LocalDateTime transactionTime;
+        private ZonedDateTime transactionTime;
         private String memo;
         private String role;
         private Boolean consolidatedInvoice;
@@ -906,10 +906,10 @@ public class InvoiceEvent1 {
 
         /**
          * Setter for transactionTime.
-         * @param  transactionTime  LocalDateTime value for transactionTime.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
          * @return Builder
          */
-        public Builder transactionTime(LocalDateTime transactionTime) {
+        public Builder transactionTime(ZonedDateTime transactionTime) {
             this.transactionTime = transactionTime;
             return this;
         }

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ListProductsInput type.
@@ -21,9 +21,9 @@ import java.time.LocalDateTime;
 public class ListProductsInput {
     private BasicDateField dateField;
     private LocalDate endDate;
-    private LocalDateTime endDatetime;
+    private ZonedDateTime endDatetime;
     private LocalDate startDate;
-    private LocalDateTime startDatetime;
+    private ZonedDateTime startDatetime;
     private Integer page;
     private Integer perPage;
     private Boolean includeArchived;
@@ -43,9 +43,9 @@ public class ListProductsInput {
      * Initialization constructor.
      * @param  dateField  BasicDateField value for dateField.
      * @param  endDate  LocalDate value for endDate.
-     * @param  endDatetime  LocalDateTime value for endDatetime.
+     * @param  endDatetime  ZonedDateTime value for endDatetime.
      * @param  startDate  LocalDate value for startDate.
-     * @param  startDatetime  LocalDateTime value for startDatetime.
+     * @param  startDatetime  ZonedDateTime value for startDatetime.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  includeArchived  Boolean value for includeArchived.
@@ -57,9 +57,9 @@ public class ListProductsInput {
     public ListProductsInput(
             BasicDateField dateField,
             LocalDate endDate,
-            LocalDateTime endDatetime,
+            ZonedDateTime endDatetime,
             LocalDate startDate,
-            LocalDateTime startDatetime,
+            ZonedDateTime startDatetime,
             Integer page,
             Integer perPage,
             Boolean includeArchived,
@@ -134,12 +134,12 @@ public class ListProductsInput {
      * Returns products with a timestamp at or before exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of end_date.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("end_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getEndDatetime() {
+    public ZonedDateTime getEndDatetime() {
         return endDatetime;
     }
 
@@ -149,11 +149,11 @@ public class ListProductsInput {
      * Returns products with a timestamp at or before exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of end_date.
-     * @param endDatetime Value for LocalDateTime
+     * @param endDatetime Value for ZonedDateTime
      */
     @JsonSetter("end_datetime")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setEndDatetime(LocalDateTime endDatetime) {
+    public void setEndDatetime(ZonedDateTime endDatetime) {
         this.endDatetime = endDatetime;
     }
 
@@ -190,12 +190,12 @@ public class ListProductsInput {
      * Returns products with a timestamp at or after exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of start_date.
-     * @return Returns the LocalDateTime
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("start_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public LocalDateTime getStartDatetime() {
+    public ZonedDateTime getStartDatetime() {
         return startDatetime;
     }
 
@@ -205,11 +205,11 @@ public class ListProductsInput {
      * Returns products with a timestamp at or after exact time provided in query. You can specify
      * timezone in query - otherwise your site''s time zone will be used. If provided, this
      * parameter will be used instead of start_date.
-     * @param startDatetime Value for LocalDateTime
+     * @param startDatetime Value for ZonedDateTime
      */
     @JsonSetter("start_datetime")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setStartDatetime(LocalDateTime startDatetime) {
+    public void setStartDatetime(ZonedDateTime startDatetime) {
         this.startDatetime = startDatetime;
     }
 
@@ -403,9 +403,9 @@ public class ListProductsInput {
     public static class Builder {
         private BasicDateField dateField;
         private LocalDate endDate;
-        private LocalDateTime endDatetime;
+        private ZonedDateTime endDatetime;
         private LocalDate startDate;
-        private LocalDateTime startDatetime;
+        private ZonedDateTime startDatetime;
         private Integer page = 1;
         private Integer perPage = 20;
         private Boolean includeArchived;
@@ -437,10 +437,10 @@ public class ListProductsInput {
 
         /**
          * Setter for endDatetime.
-         * @param  endDatetime  LocalDateTime value for endDatetime.
+         * @param  endDatetime  ZonedDateTime value for endDatetime.
          * @return Builder
          */
-        public Builder endDatetime(LocalDateTime endDatetime) {
+        public Builder endDatetime(ZonedDateTime endDatetime) {
             this.endDatetime = endDatetime;
             return this;
         }
@@ -457,10 +457,10 @@ public class ListProductsInput {
 
         /**
          * Setter for startDatetime.
-         * @param  startDatetime  LocalDateTime value for startDatetime.
+         * @param  startDatetime  ZonedDateTime value for startDatetime.
          * @return Builder
          */
-        public Builder startDatetime(LocalDateTime startDatetime) {
+        public Builder startDatetime(ZonedDateTime startDatetime) {
             this.startDatetime = startDatetime;
             return this;
         }
