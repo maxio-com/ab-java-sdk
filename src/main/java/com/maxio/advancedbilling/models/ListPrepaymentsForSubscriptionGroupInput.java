@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
 
 /**
  * This is a model class for ListPrepaymentsForSubscriptionGroupInput type.
@@ -16,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class ListPrepaymentsForSubscriptionGroupInput {
     private String uid;
     private ListSubscriptionGroupPrepaymentDateField filterDateField;
-    private String filterEndDate;
-    private String filterStartDate;
+    private LocalDate filterEndDate;
+    private LocalDate filterStartDate;
     private Integer page;
     private Integer perPage;
 
@@ -33,16 +37,16 @@ public class ListPrepaymentsForSubscriptionGroupInput {
      * Initialization constructor.
      * @param  uid  String value for uid.
      * @param  filterDateField  ListSubscriptionGroupPrepaymentDateField value for filterDateField.
-     * @param  filterEndDate  String value for filterEndDate.
-     * @param  filterStartDate  String value for filterStartDate.
+     * @param  filterEndDate  LocalDate value for filterEndDate.
+     * @param  filterStartDate  LocalDate value for filterStartDate.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      */
     public ListPrepaymentsForSubscriptionGroupInput(
             String uid,
             ListSubscriptionGroupPrepaymentDateField filterDateField,
-            String filterEndDate,
-            String filterStartDate,
+            LocalDate filterEndDate,
+            LocalDate filterStartDate,
             Integer page,
             Integer perPage) {
         this.uid = uid;
@@ -101,11 +105,12 @@ public class ListPrepaymentsForSubscriptionGroupInput {
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp up to and including 11:59:59PM in your site's time zone on the date
      * specified. Use in query: `filter[end_date]=2011-12-15`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("filter[end_date]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterEndDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getFilterEndDate() {
         return filterEndDate;
     }
 
@@ -114,10 +119,11 @@ public class ListPrepaymentsForSubscriptionGroupInput {
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp up to and including 11:59:59PM in your site's time zone on the date
      * specified. Use in query: `filter[end_date]=2011-12-15`.
-     * @param filterEndDate Value for String
+     * @param filterEndDate Value for LocalDate
      */
     @JsonSetter("filter[end_date]")
-    public void setFilterEndDate(String filterEndDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setFilterEndDate(LocalDate filterEndDate) {
         this.filterEndDate = filterEndDate;
     }
 
@@ -126,11 +132,12 @@ public class ListPrepaymentsForSubscriptionGroupInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp at or after midnight (12:00:00 AM) in your site's time zone on the date
      * specified. Use in query: `filter[start_date]=2011-12-15`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("filter[start_date]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterStartDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getFilterStartDate() {
         return filterStartDate;
     }
 
@@ -139,10 +146,11 @@ public class ListPrepaymentsForSubscriptionGroupInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp at or after midnight (12:00:00 AM) in your site's time zone on the date
      * specified. Use in query: `filter[start_date]=2011-12-15`.
-     * @param filterStartDate Value for String
+     * @param filterStartDate Value for LocalDate
      */
     @JsonSetter("filter[start_date]")
-    public void setFilterStartDate(String filterStartDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setFilterStartDate(LocalDate filterStartDate) {
         this.filterStartDate = filterStartDate;
     }
 
@@ -232,8 +240,8 @@ public class ListPrepaymentsForSubscriptionGroupInput {
     public static class Builder {
         private String uid;
         private ListSubscriptionGroupPrepaymentDateField filterDateField;
-        private String filterEndDate;
-        private String filterStartDate;
+        private LocalDate filterEndDate;
+        private LocalDate filterStartDate;
         private Integer page = 1;
         private Integer perPage = 20;
 
@@ -274,20 +282,20 @@ public class ListPrepaymentsForSubscriptionGroupInput {
 
         /**
          * Setter for filterEndDate.
-         * @param  filterEndDate  String value for filterEndDate.
+         * @param  filterEndDate  LocalDate value for filterEndDate.
          * @return Builder
          */
-        public Builder filterEndDate(String filterEndDate) {
+        public Builder filterEndDate(LocalDate filterEndDate) {
             this.filterEndDate = filterEndDate;
             return this;
         }
 
         /**
          * Setter for filterStartDate.
-         * @param  filterStartDate  String value for filterStartDate.
+         * @param  filterStartDate  LocalDate value for filterStartDate.
          * @return Builder
          */
-        public Builder filterStartDate(String filterStartDate) {
+        public Builder filterStartDate(LocalDate filterStartDate) {
             this.filterStartDate = filterStartDate;
             return this;
         }

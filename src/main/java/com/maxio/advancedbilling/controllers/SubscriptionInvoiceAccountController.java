@@ -8,6 +8,7 @@ package com.maxio.advancedbilling.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
@@ -158,9 +159,9 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .queryParam(param -> param.key("filter[date_field]")
                                 .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(input.getFilterStartDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getFilterStartDate())).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(input.getFilterEndDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getFilterEndDate())).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
