@@ -5,6 +5,7 @@ import com.maxio.advancedbilling.controllers.ProductPricePointsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateProductPricePoint;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
+import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListProductsInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
@@ -14,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
         Product productWithChangedPricePoint = createProductWithHandle("list-products-5");
         ProductPricePointsController productPricePointsController = TestClient.createClient().getProductPricePointsController();
         CreateProductPricePointRequest createProductPricePointRequest = new CreateProductPricePointRequest(
-                new CreateProductPricePoint.Builder().useSiteExchangeRate(false).interval(1).intervalUnit("month")
+                new CreateProductPricePoint.Builder().useSiteExchangeRate(false).interval(1).intervalUnit(IntervalUnit.MONTH)
                         .priceInCents(22).name("Price point to promote").build()
         );
         ProductPricePoint pricePoint = productPricePointsController
@@ -233,7 +233,7 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
         List<ProductResponse> productResponses = productsController.listProducts(
                 new ListProductsInput.Builder().perPage(200).build()
         );
-        while (productResponses.size() > 0) {
+        while (!productResponses.isEmpty()) {
             for (ProductResponse p: productResponses) {
                 productsController.archiveProduct(p.getProduct().getId());
             }

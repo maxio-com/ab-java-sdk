@@ -873,7 +873,7 @@ List<SubscriptionResponse> listSubscriptions(
 |  --- | --- | --- | --- |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
-| `state` | [`SubscriptionState`](../../doc/models/subscription-state.md) | Query, Optional | The current state of the subscription |
+| `state` | [`SubscriptionStateFilter`](../../doc/models/subscription-state-filter.md) | Query, Optional | The current state of the subscription |
 | `product` | `Integer` | Query, Optional | The product id of the subscription. (Note that the product handle cannot be used.) |
 | `productPricePointId` | `Integer` | Query, Optional | The ID of the product price point. If supplied, product is required |
 | `coupon` | `Integer` | Query, Optional | The numeric id of the coupon currently applied to the subscription. (This can be found in the URL when editing a coupon. Note that the coupon code cannot be used.) |

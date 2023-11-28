@@ -18,15 +18,15 @@ public class CreateProductPricePoint {
     private String handle;
     private long priceInCents;
     private int interval;
-    private String intervalUnit;
+    private IntervalUnit intervalUnit;
     private Long trialPriceInCents;
     private Integer trialInterval;
-    private String trialIntervalUnit;
+    private IntervalUnit trialIntervalUnit;
     private String trialType;
     private Long initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private Integer expirationInterval;
-    private String expirationIntervalUnit;
+    private IntervalUnit expirationIntervalUnit;
     private Boolean useSiteExchangeRate;
 
     /**
@@ -41,32 +41,32 @@ public class CreateProductPricePoint {
      * @param  name  String value for name.
      * @param  priceInCents  long value for priceInCents.
      * @param  interval  int value for interval.
-     * @param  intervalUnit  String value for intervalUnit.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  handle  String value for handle.
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
-     * @param  trialIntervalUnit  String value for trialIntervalUnit.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
      * @param  trialType  String value for trialType.
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      */
     public CreateProductPricePoint(
             String name,
             long priceInCents,
             int interval,
-            String intervalUnit,
+            IntervalUnit intervalUnit,
             String handle,
             Long trialPriceInCents,
             Integer trialInterval,
-            String trialIntervalUnit,
+            IntervalUnit trialIntervalUnit,
             String trialType,
             Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
             Integer expirationInterval,
-            String expirationIntervalUnit,
+            IntervalUnit expirationIntervalUnit,
             Boolean useSiteExchangeRate) {
         this.name = name;
         this.handle = handle;
@@ -86,6 +86,7 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for Name.
+     * The product price point name
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -95,6 +96,7 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for Name.
+     * The product price point name
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -104,6 +106,7 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for Handle.
+     * The product price point API handle
      * @return Returns the String
      */
     @JsonGetter("handle")
@@ -114,6 +117,7 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for Handle.
+     * The product price point API handle
      * @param handle Value for String
      */
     @JsonSetter("handle")
@@ -123,6 +127,7 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for PriceInCents.
+     * The product price point price, in integer cents
      * @return Returns the long
      */
     @JsonGetter("price_in_cents")
@@ -132,6 +137,7 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for PriceInCents.
+     * The product price point price, in integer cents
      * @param priceInCents Value for long
      */
     @JsonSetter("price_in_cents")
@@ -141,6 +147,8 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product price point would renew every 30 days
      * @return Returns the int
      */
     @JsonGetter("interval")
@@ -150,6 +158,8 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product price point would renew every 30 days
      * @param interval Value for int
      */
     @JsonSetter("interval")
@@ -159,24 +169,27 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for IntervalUnit.
-     * @return Returns the String
+     * A string representing the interval unit for this product price point, either month or day
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("interval_unit")
-    public String getIntervalUnit() {
+    public IntervalUnit getIntervalUnit() {
         return intervalUnit;
     }
 
     /**
      * Setter for IntervalUnit.
-     * @param intervalUnit Value for String
+     * A string representing the interval unit for this product price point, either month or day
+     * @param intervalUnit Value for IntervalUnit
      */
     @JsonSetter("interval_unit")
-    public void setIntervalUnit(String intervalUnit) {
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
         this.intervalUnit = intervalUnit;
     }
 
     /**
      * Getter for TrialPriceInCents.
+     * The product price point trial price, in integer cents
      * @return Returns the Long
      */
     @JsonGetter("trial_price_in_cents")
@@ -187,6 +200,7 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for TrialPriceInCents.
+     * The product price point trial price, in integer cents
      * @param trialPriceInCents Value for Long
      */
     @JsonSetter("trial_price_in_cents")
@@ -196,6 +210,8 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with an trial_interval_unit of
+     * day would mean this product price point would renew every 30 days
      * @return Returns the Integer
      */
     @JsonGetter("trial_interval")
@@ -206,6 +222,8 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with an trial_interval_unit of
+     * day would mean this product price point would renew every 30 days
      * @param trialInterval Value for Integer
      */
     @JsonSetter("trial_interval")
@@ -215,20 +233,24 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for TrialIntervalUnit.
-     * @return Returns the String
+     * A string representing the trial interval unit for this product price point, either month or
+     * day
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("trial_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTrialIntervalUnit() {
+    public IntervalUnit getTrialIntervalUnit() {
         return trialIntervalUnit;
     }
 
     /**
      * Setter for TrialIntervalUnit.
-     * @param trialIntervalUnit Value for String
+     * A string representing the trial interval unit for this product price point, either month or
+     * day
+     * @param trialIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("trial_interval_unit")
-    public void setTrialIntervalUnit(String trialIntervalUnit) {
+    public void setTrialIntervalUnit(IntervalUnit trialIntervalUnit) {
         this.trialIntervalUnit = trialIntervalUnit;
     }
 
@@ -253,6 +275,7 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for InitialChargeInCents.
+     * The product price point initial charge, in integer cents
      * @return Returns the Long
      */
     @JsonGetter("initial_charge_in_cents")
@@ -263,6 +286,7 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for InitialChargeInCents.
+     * The product price point initial charge, in integer cents
      * @param initialChargeInCents Value for Long
      */
     @JsonSetter("initial_charge_in_cents")
@@ -291,6 +315,9 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product price point would expire every 30
+     * days
      * @return Returns the Integer
      */
     @JsonGetter("expiration_interval")
@@ -301,6 +328,9 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product price point would expire every 30
+     * days
      * @param expirationInterval Value for Integer
      */
     @JsonSetter("expiration_interval")
@@ -310,20 +340,24 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * @return Returns the String
+     * A string representing the expiration interval unit for this product price point, either month
+     * or day
+     * @return Returns the IntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getExpirationIntervalUnit() {
+    public IntervalUnit getExpirationIntervalUnit() {
         return expirationIntervalUnit;
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * @param expirationIntervalUnit Value for String
+     * A string representing the expiration interval unit for this product price point, either month
+     * or day
+     * @param expirationIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(String expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
@@ -393,16 +427,16 @@ public class CreateProductPricePoint {
         private String name;
         private long priceInCents;
         private int interval;
-        private String intervalUnit;
+        private IntervalUnit intervalUnit;
         private String handle;
         private Long trialPriceInCents;
         private Integer trialInterval;
-        private String trialIntervalUnit;
+        private IntervalUnit trialIntervalUnit;
         private String trialType;
         private Long initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private Integer expirationInterval;
-        private String expirationIntervalUnit;
+        private IntervalUnit expirationIntervalUnit;
         private Boolean useSiteExchangeRate = true;
 
         /**
@@ -416,9 +450,9 @@ public class CreateProductPricePoint {
          * @param  name  String value for name.
          * @param  priceInCents  long value for priceInCents.
          * @param  interval  int value for interval.
-         * @param  intervalUnit  String value for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
          */
-        public Builder(String name, long priceInCents, int interval, String intervalUnit) {
+        public Builder(String name, long priceInCents, int interval, IntervalUnit intervalUnit) {
             this.name = name;
             this.priceInCents = priceInCents;
             this.interval = interval;
@@ -457,10 +491,10 @@ public class CreateProductPricePoint {
 
         /**
          * Setter for intervalUnit.
-         * @param  intervalUnit  String value for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
          * @return Builder
          */
-        public Builder intervalUnit(String intervalUnit) {
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
             this.intervalUnit = intervalUnit;
             return this;
         }
@@ -497,10 +531,10 @@ public class CreateProductPricePoint {
 
         /**
          * Setter for trialIntervalUnit.
-         * @param  trialIntervalUnit  String value for trialIntervalUnit.
+         * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
          * @return Builder
          */
-        public Builder trialIntervalUnit(String trialIntervalUnit) {
+        public Builder trialIntervalUnit(IntervalUnit trialIntervalUnit) {
             this.trialIntervalUnit = trialIntervalUnit;
             return this;
         }
@@ -547,10 +581,10 @@ public class CreateProductPricePoint {
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  String value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(String expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = expirationIntervalUnit;
             return this;
         }

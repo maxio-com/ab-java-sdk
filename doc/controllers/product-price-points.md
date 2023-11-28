@@ -53,17 +53,17 @@ CreateProductPricePointRequest body = new CreateProductPricePointRequest.Builder
         "Educational",
         1000L,
         1,
-        "month"
+        IntervalUnit.MONTH
     )
     .handle("educational")
     .trialPriceInCents(4900L)
     .trialInterval(1)
-    .trialIntervalUnit("month")
+    .trialIntervalUnit(IntervalUnit.MONTH)
     .trialType("payment_expected")
     .initialChargeInCents(120000L)
     .initialChargeAfterTrial(false)
     .expirationInterval(12)
-    .expirationIntervalUnit("month")
+    .expirationIntervalUnit(IntervalUnit.MONTH)
     .build()
 )
 .build();
@@ -98,9 +98,9 @@ try {
     "expiration_interval": 12,
     "expiration_interval_unit": "month",
     "product_id": 901,
-    "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-    "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-    "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
   }
 }
 ```
@@ -176,9 +176,9 @@ try {
       "expiration_interval": 12,
       "expiration_interval_unit": "month",
       "product_id": 901,
-      "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-      "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-      "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+      "archived_at": "2023-11-30T06:37:20-05:00",
+      "created_at": "2023-11-27T06:37:20-05:00",
+      "updated_at": "2023-11-27T06:37:20-05:00"
     }
   ]
 }
@@ -253,9 +253,9 @@ try {
     "expiration_interval": 12,
     "expiration_interval_unit": "month",
     "product_id": 901,
-    "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-    "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-    "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
   }
 }
 ```
@@ -320,9 +320,9 @@ try {
     "expiration_interval": 12,
     "expiration_interval_unit": "month",
     "product_id": 901,
-    "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-    "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-    "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
   }
 }
 ```
@@ -385,9 +385,9 @@ try {
     "expiration_interval": 12,
     "expiration_interval_unit": "month",
     "product_id": 901,
-    "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-    "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-    "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
   }
 }
 ```
@@ -450,9 +450,9 @@ try {
     "expiration_interval": 12,
     "expiration_interval_unit": "month",
     "product_id": 901,
-    "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-    "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-    "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
   }
 }
 ```
@@ -517,9 +517,9 @@ try {
     "expiration_interval": 12,
     "expiration_interval_unit": "month",
     "product_id": 901,
-    "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-    "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-    "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+    "archived_at": "2023-11-30T06:37:20-05:00",
+    "created_at": "2023-11-27T06:37:20-05:00",
+    "updated_at": "2023-11-27T06:37:20-05:00"
   }
 }
 ```
@@ -556,33 +556,33 @@ BulkCreateProductPricePointsRequest body = new BulkCreateProductPricePointsReque
             "Educational",
             1000L,
             1,
-            "month"
+            IntervalUnit.MONTH
         )
         .handle("educational")
         .trialPriceInCents(4900L)
         .trialInterval(1)
-        .trialIntervalUnit("month")
+        .trialIntervalUnit(IntervalUnit.MONTH)
         .trialType("payment_expected")
         .initialChargeInCents(120000L)
         .initialChargeAfterTrial(false)
         .expirationInterval(12)
-        .expirationIntervalUnit("month")
+        .expirationIntervalUnit(IntervalUnit.MONTH)
         .build(),
         new CreateProductPricePoint.Builder(
             "More Educational",
             2000L,
             1,
-            "month"
+            IntervalUnit.MONTH
         )
         .handle("more-educational")
         .trialPriceInCents(4900L)
         .trialInterval(1)
-        .trialIntervalUnit("month")
+        .trialIntervalUnit(IntervalUnit.MONTH)
         .trialType("payment_expected")
         .initialChargeInCents(120000L)
         .initialChargeAfterTrial(false)
         .expirationInterval(12)
-        .expirationIntervalUnit("month")
+        .expirationIntervalUnit(IntervalUnit.MONTH)
         .build()
     )
 )
@@ -619,9 +619,9 @@ try {
       "expiration_interval": 12,
       "expiration_interval_unit": "month",
       "product_id": 901,
-      "archived_at": "Tue, 30 Oct 2018 18:49:47 EDT -04:00",
-      "created_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00",
-      "updated_at": "Tue, 23 Oct 2018 18:49:47 EDT -04:00"
+      "archived_at": "2023-11-30T06:37:20-05:00",
+      "created_at": "2023-11-27T06:37:20-05:00",
+      "updated_at": "2023-11-27T06:37:20-05:00"
     }
   ]
 }

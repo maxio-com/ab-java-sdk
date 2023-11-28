@@ -86,7 +86,7 @@ class ProductPricePointsControllerListTest {
                 () -> assertThat(defaultPricePoint.getHandle()).isNotNull(),
                 () -> assertThat(defaultPricePoint.getPriceInCents()).isEqualTo(0),
                 () -> assertThat(defaultPricePoint.getInterval()).isEqualTo(2),
-                () -> assertThat(defaultPricePoint.getIntervalUnit()).isEqualTo("month"),
+                () -> assertThat(defaultPricePoint.getIntervalUnit()).isEqualTo(IntervalUnit.MONTH),
                 () -> assertThat(defaultPricePoint.getTrialPriceInCents()).isNull(),
                 () -> assertThat(defaultPricePoint.getTrialInterval()).isNull(),
                 () -> assertThat(defaultPricePoint.getTrialIntervalUnit()).isNull(),
@@ -117,7 +117,7 @@ class ProductPricePointsControllerListTest {
                         new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
                                 .name("custom-price-point-name")
                                 .interval(1)
-                                .intervalUnit("month")
+                                .intervalUnit(IntervalUnit.MONTH)
                                 .priceInCents(100L)
                                 .build()
                         )
@@ -181,7 +181,7 @@ class ProductPricePointsControllerListTest {
                         new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
                                 .name("custom-price-point-name")
                                 .interval(1)
-                                .intervalUnit("month")
+                                .intervalUnit(IntervalUnit.MONTH)
                                 .priceInCents(100L)
                                 .build()
                         )
@@ -219,7 +219,7 @@ class ProductPricePointsControllerListTest {
                             new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
                                     .name(randomAlphabetic(10))
                                     .interval(1)
-                                    .intervalUnit("month")
+                                    .intervalUnit(IntervalUnit.MONTH)
                                     .priceInCents(Long.parseLong(randomNumeric(3)))
                                     .build()
                             )

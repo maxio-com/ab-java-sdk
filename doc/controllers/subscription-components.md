@@ -314,7 +314,7 @@ try {
 {
   "subscription": {
     "id": -80293620,
-    "state": "mollit exercitation ipsum",
+    "state": "active",
     "trial_started_at": null,
     "trial_ended_at": null,
     "activated_at": "2023-11-23T10:28:34-05:00",
@@ -1486,7 +1486,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
 | `include` | [`ListSubscriptionComponentsInclude`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription`. |
 | `filterUseSiteExchangeRate` | `Boolean` | Query, Optional | Allows fetching components allocation with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. |
 | `filterCurrencies` | `List<String>` | Query, Optional | Allows fetching components allocation with matching currency based on provided values. Use in query `filter[currencies]=USD,EUR`. |
-| `filterSubscriptionStates` | [`List<SubscriptionState>`](../../doc/models/subscription-state.md) | Query, Optional | Allows fetching components allocations that belong to the subscription with matching states based on provided values. To use this filter you also have to include the following param in the request `include=subscription`. Use in query `filter[subscription][states]=active,canceled&include=subscription`. |
+| `filterSubscriptionStates` | [`List<SubscriptionStateFilter>`](../../doc/models/subscription-state-filter.md) | Query, Optional | Allows fetching components allocations that belong to the subscription with matching states based on provided values. To use this filter you also have to include the following param in the request `include=subscription`. Use in query `filter[subscription][states]=active,canceled&include=subscription`. |
 | `filterSubscriptionDateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionStartDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. To use this filter you also have to include the following param in the request `include=subscription`. |
 | `filterSubscriptionStartDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components that belong to the subscription with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. To use this filter you also have to include the following param in the request `include=subscription`. |

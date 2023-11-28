@@ -30,7 +30,7 @@ import com.maxio.advancedbilling.models.ListUsagesInput;
 import com.maxio.advancedbilling.models.PreviewAllocationsRequest;
 import com.maxio.advancedbilling.models.SubscriptionComponentResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
-import com.maxio.advancedbilling.models.SubscriptionState;
+import com.maxio.advancedbilling.models.SubscriptionStateFilter;
 import com.maxio.advancedbilling.models.UpdateAllocationExpirationDate;
 import com.maxio.advancedbilling.models.UsageResponse;
 import io.apimatic.core.ApiCall;
@@ -1052,7 +1052,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .queryParam(param -> param.key("filter[currencies]")
                                 .value(input.getFilterCurrencies()).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][states]")
-                                .value(SubscriptionState.toValue(input.getFilterSubscriptionStates())).isRequired(false))
+                                .value(SubscriptionStateFilter.toValue(input.getFilterSubscriptionStates())).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][date_field]")
                                 .value((input.getFilterSubscriptionDateField() != null) ? input.getFilterSubscriptionDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[subscription][start_date]")

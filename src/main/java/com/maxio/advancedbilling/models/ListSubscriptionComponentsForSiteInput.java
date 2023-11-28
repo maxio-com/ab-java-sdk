@@ -30,7 +30,7 @@ public class ListSubscriptionComponentsForSiteInput {
     private ListSubscriptionComponentsInclude include;
     private Boolean filterUseSiteExchangeRate;
     private List<String> filterCurrencies;
-    private List<SubscriptionState> filterSubscriptionStates;
+    private List<SubscriptionStateFilter> filterSubscriptionStates;
     private SubscriptionListDateField filterSubscriptionDateField;
     private String filterSubscriptionStartDate;
     private String filterSubscriptionStartDatetime;
@@ -62,7 +62,7 @@ public class ListSubscriptionComponentsForSiteInput {
      * @param  include  ListSubscriptionComponentsInclude value for include.
      * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
      * @param  filterCurrencies  List of String value for filterCurrencies.
-     * @param  filterSubscriptionStates  List of SubscriptionState value for
+     * @param  filterSubscriptionStates  List of SubscriptionStateFilter value for
      *         filterSubscriptionStates.
      * @param  filterSubscriptionDateField  SubscriptionListDateField value for
      *         filterSubscriptionDateField.
@@ -87,7 +87,7 @@ public class ListSubscriptionComponentsForSiteInput {
             ListSubscriptionComponentsInclude include,
             Boolean filterUseSiteExchangeRate,
             List<String> filterCurrencies,
-            List<SubscriptionState> filterSubscriptionStates,
+            List<SubscriptionStateFilter> filterSubscriptionStates,
             SubscriptionListDateField filterSubscriptionDateField,
             String filterSubscriptionStartDate,
             String filterSubscriptionStartDatetime,
@@ -481,11 +481,11 @@ public class ListSubscriptionComponentsForSiteInput {
      * based on provided values. To use this filter you also have to include the following param in
      * the request `include=subscription`. Use in query
      * `filter[subscription][states]=active,canceled&amp;include=subscription`.
-     * @return Returns the List of SubscriptionState
+     * @return Returns the List of SubscriptionStateFilter
      */
     @JsonGetter("filter[subscription][states]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<SubscriptionState> getFilterSubscriptionStates() {
+    public List<SubscriptionStateFilter> getFilterSubscriptionStates() {
         return filterSubscriptionStates;
     }
 
@@ -495,10 +495,10 @@ public class ListSubscriptionComponentsForSiteInput {
      * based on provided values. To use this filter you also have to include the following param in
      * the request `include=subscription`. Use in query
      * `filter[subscription][states]=active,canceled&amp;include=subscription`.
-     * @param filterSubscriptionStates Value for List of SubscriptionState
+     * @param filterSubscriptionStates Value for List of SubscriptionStateFilter
      */
     @JsonSetter("filter[subscription][states]")
-    public void setFilterSubscriptionStates(List<SubscriptionState> filterSubscriptionStates) {
+    public void setFilterSubscriptionStates(List<SubscriptionStateFilter> filterSubscriptionStates) {
         this.filterSubscriptionStates = filterSubscriptionStates;
     }
 
@@ -708,7 +708,7 @@ public class ListSubscriptionComponentsForSiteInput {
         private ListSubscriptionComponentsInclude include;
         private Boolean filterUseSiteExchangeRate;
         private List<String> filterCurrencies;
-        private List<SubscriptionState> filterSubscriptionStates;
+        private List<SubscriptionStateFilter> filterSubscriptionStates;
         private SubscriptionListDateField filterSubscriptionDateField;
         private String filterSubscriptionStartDate;
         private String filterSubscriptionStartDatetime;
@@ -869,12 +869,12 @@ public class ListSubscriptionComponentsForSiteInput {
 
         /**
          * Setter for filterSubscriptionStates.
-         * @param  filterSubscriptionStates  List of SubscriptionState value for
+         * @param  filterSubscriptionStates  List of SubscriptionStateFilter value for
          *         filterSubscriptionStates.
          * @return Builder
          */
         public Builder filterSubscriptionStates(
-                List<SubscriptionState> filterSubscriptionStates) {
+                List<SubscriptionStateFilter> filterSubscriptionStates) {
             this.filterSubscriptionStates = filterSubscriptionStates;
             return this;
         }
