@@ -9,6 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -18,11 +23,11 @@ public class ListAllProductPricePointsInput {
     private SortingDirection direction;
     private IncludeNotNull filterArchivedAt;
     private BasicDateField filterDateField;
-    private String filterEndDate;
-    private String filterEndDatetime;
+    private LocalDate filterEndDate;
+    private ZonedDateTime filterEndDatetime;
     private List<Integer> filterIds;
-    private String filterStartDate;
-    private String filterStartDatetime;
+    private LocalDate filterStartDate;
+    private ZonedDateTime filterStartDatetime;
     private List<PricePointType> filterType;
     private ListProductsPricePointsInclude include;
     private Integer page;
@@ -41,11 +46,11 @@ public class ListAllProductPricePointsInput {
      * @param  direction  SortingDirection value for direction.
      * @param  filterArchivedAt  IncludeNotNull value for filterArchivedAt.
      * @param  filterDateField  BasicDateField value for filterDateField.
-     * @param  filterEndDate  String value for filterEndDate.
-     * @param  filterEndDatetime  String value for filterEndDatetime.
+     * @param  filterEndDate  LocalDate value for filterEndDate.
+     * @param  filterEndDatetime  ZonedDateTime value for filterEndDatetime.
      * @param  filterIds  List of Integer value for filterIds.
-     * @param  filterStartDate  String value for filterStartDate.
-     * @param  filterStartDatetime  String value for filterStartDatetime.
+     * @param  filterStartDate  LocalDate value for filterStartDate.
+     * @param  filterStartDatetime  ZonedDateTime value for filterStartDatetime.
      * @param  filterType  List of PricePointType value for filterType.
      * @param  include  ListProductsPricePointsInclude value for include.
      * @param  page  Integer value for page.
@@ -55,11 +60,11 @@ public class ListAllProductPricePointsInput {
             SortingDirection direction,
             IncludeNotNull filterArchivedAt,
             BasicDateField filterDateField,
-            String filterEndDate,
-            String filterEndDatetime,
+            LocalDate filterEndDate,
+            ZonedDateTime filterEndDatetime,
             List<Integer> filterIds,
-            String filterStartDate,
-            String filterStartDatetime,
+            LocalDate filterStartDate,
+            ZonedDateTime filterStartDatetime,
             List<PricePointType> filterType,
             ListProductsPricePointsInclude include,
             Integer page,
@@ -150,11 +155,12 @@ public class ListAllProductPricePointsInput {
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
      * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
      * specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("filter[end_date]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterEndDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getFilterEndDate() {
         return filterEndDate;
     }
 
@@ -163,10 +169,11 @@ public class ListAllProductPricePointsInput {
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
      * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
      * specified.
-     * @param filterEndDate Value for String
+     * @param filterEndDate Value for LocalDate
      */
     @JsonSetter("filter[end_date]")
-    public void setFilterEndDate(String filterEndDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setFilterEndDate(LocalDate filterEndDate) {
         this.filterEndDate = filterEndDate;
     }
 
@@ -176,11 +183,12 @@ public class ListAllProductPricePointsInput {
      * Returns price points with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of end_date.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("filter[end_datetime]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterEndDatetime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getFilterEndDatetime() {
         return filterEndDatetime;
     }
 
@@ -190,10 +198,11 @@ public class ListAllProductPricePointsInput {
      * Returns price points with a timestamp at or before exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of end_date.
-     * @param filterEndDatetime Value for String
+     * @param filterEndDatetime Value for ZonedDateTime
      */
     @JsonSetter("filter[end_datetime]")
-    public void setFilterEndDatetime(String filterEndDatetime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setFilterEndDatetime(ZonedDateTime filterEndDatetime) {
         this.filterEndDatetime = filterEndDatetime;
     }
 
@@ -225,11 +234,12 @@ public class ListAllProductPricePointsInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
      * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("filter[start_date]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterStartDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getFilterStartDate() {
         return filterStartDate;
     }
 
@@ -238,10 +248,11 @@ public class ListAllProductPricePointsInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
      * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified.
-     * @param filterStartDate Value for String
+     * @param filterStartDate Value for LocalDate
      */
     @JsonSetter("filter[start_date]")
-    public void setFilterStartDate(String filterStartDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setFilterStartDate(LocalDate filterStartDate) {
         this.filterStartDate = filterStartDate;
     }
 
@@ -251,11 +262,12 @@ public class ListAllProductPricePointsInput {
      * Returns price points with a timestamp at or after exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of start_date.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("filter[start_datetime]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterStartDatetime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getFilterStartDatetime() {
         return filterStartDatetime;
     }
 
@@ -265,10 +277,11 @@ public class ListAllProductPricePointsInput {
      * Returns price points with a timestamp at or after exact time provided in query. You can
      * specify timezone in query - otherwise your site's time zone will be used. If provided, this
      * parameter will be used instead of start_date.
-     * @param filterStartDatetime Value for String
+     * @param filterStartDatetime Value for ZonedDateTime
      */
     @JsonSetter("filter[start_datetime]")
-    public void setFilterStartDatetime(String filterStartDatetime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setFilterStartDatetime(ZonedDateTime filterStartDatetime) {
         this.filterStartDatetime = filterStartDatetime;
     }
 
@@ -411,11 +424,11 @@ public class ListAllProductPricePointsInput {
         private SortingDirection direction;
         private IncludeNotNull filterArchivedAt;
         private BasicDateField filterDateField;
-        private String filterEndDate;
-        private String filterEndDatetime;
+        private LocalDate filterEndDate;
+        private ZonedDateTime filterEndDatetime;
         private List<Integer> filterIds;
-        private String filterStartDate;
-        private String filterStartDatetime;
+        private LocalDate filterStartDate;
+        private ZonedDateTime filterStartDatetime;
         private List<PricePointType> filterType;
         private ListProductsPricePointsInclude include;
         private Integer page = 1;
@@ -455,20 +468,20 @@ public class ListAllProductPricePointsInput {
 
         /**
          * Setter for filterEndDate.
-         * @param  filterEndDate  String value for filterEndDate.
+         * @param  filterEndDate  LocalDate value for filterEndDate.
          * @return Builder
          */
-        public Builder filterEndDate(String filterEndDate) {
+        public Builder filterEndDate(LocalDate filterEndDate) {
             this.filterEndDate = filterEndDate;
             return this;
         }
 
         /**
          * Setter for filterEndDatetime.
-         * @param  filterEndDatetime  String value for filterEndDatetime.
+         * @param  filterEndDatetime  ZonedDateTime value for filterEndDatetime.
          * @return Builder
          */
-        public Builder filterEndDatetime(String filterEndDatetime) {
+        public Builder filterEndDatetime(ZonedDateTime filterEndDatetime) {
             this.filterEndDatetime = filterEndDatetime;
             return this;
         }
@@ -485,20 +498,20 @@ public class ListAllProductPricePointsInput {
 
         /**
          * Setter for filterStartDate.
-         * @param  filterStartDate  String value for filterStartDate.
+         * @param  filterStartDate  LocalDate value for filterStartDate.
          * @return Builder
          */
-        public Builder filterStartDate(String filterStartDate) {
+        public Builder filterStartDate(LocalDate filterStartDate) {
             this.filterStartDate = filterStartDate;
             return this;
         }
 
         /**
          * Setter for filterStartDatetime.
-         * @param  filterStartDatetime  String value for filterStartDatetime.
+         * @param  filterStartDatetime  ZonedDateTime value for filterStartDatetime.
          * @return Builder
          */
-        public Builder filterStartDatetime(String filterStartDatetime) {
+        public Builder filterStartDatetime(ZonedDateTime filterStartDatetime) {
             this.filterStartDatetime = filterStartDatetime;
             return this;
         }

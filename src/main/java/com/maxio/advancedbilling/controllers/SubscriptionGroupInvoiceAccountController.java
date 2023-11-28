@@ -8,6 +8,7 @@ package com.maxio.advancedbilling.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
@@ -113,9 +114,9 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                         .queryParam(param -> param.key("filter[date_field]")
                                 .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
-                                .value(input.getFilterEndDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getFilterEndDate())).isRequired(false))
                         .queryParam(param -> param.key("filter[start_date]")
-                                .value(input.getFilterStartDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getFilterStartDate())).isRequired(false))
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")

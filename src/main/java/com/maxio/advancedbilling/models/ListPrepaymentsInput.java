@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
 
 /**
  * This is a model class for ListPrepaymentsInput type.
@@ -18,8 +22,8 @@ public class ListPrepaymentsInput {
     private Integer page;
     private Integer perPage;
     private BasicDateField filterDateField;
-    private String filterStartDate;
-    private String filterEndDate;
+    private LocalDate filterStartDate;
+    private LocalDate filterEndDate;
 
     /**
      * Default constructor.
@@ -35,16 +39,16 @@ public class ListPrepaymentsInput {
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  filterDateField  BasicDateField value for filterDateField.
-     * @param  filterStartDate  String value for filterStartDate.
-     * @param  filterEndDate  String value for filterEndDate.
+     * @param  filterStartDate  LocalDate value for filterStartDate.
+     * @param  filterEndDate  LocalDate value for filterEndDate.
      */
     public ListPrepaymentsInput(
             String subscriptionId,
             Integer page,
             Integer perPage,
             BasicDateField filterDateField,
-            String filterStartDate,
-            String filterEndDate) {
+            LocalDate filterStartDate,
+            LocalDate filterEndDate) {
         this.subscriptionId = subscriptionId;
         this.page = page;
         this.perPage = perPage;
@@ -157,11 +161,12 @@ public class ListPrepaymentsInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified. Use in query `filter[start_date]=2011-12-15`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("filter[start_date]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterStartDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getFilterStartDate() {
         return filterStartDate;
     }
 
@@ -170,10 +175,11 @@ public class ListPrepaymentsInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified. Use in query `filter[start_date]=2011-12-15`.
-     * @param filterStartDate Value for String
+     * @param filterStartDate Value for LocalDate
      */
     @JsonSetter("filter[start_date]")
-    public void setFilterStartDate(String filterStartDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setFilterStartDate(LocalDate filterStartDate) {
         this.filterStartDate = filterStartDate;
     }
 
@@ -182,11 +188,12 @@ public class ListPrepaymentsInput {
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
      * specified. Use in query `filter[end_date]=2011-12-15`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("filter[end_date]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterEndDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getFilterEndDate() {
         return filterEndDate;
     }
 
@@ -195,10 +202,11 @@ public class ListPrepaymentsInput {
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
      * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
      * specified. Use in query `filter[end_date]=2011-12-15`.
-     * @param filterEndDate Value for String
+     * @param filterEndDate Value for LocalDate
      */
     @JsonSetter("filter[end_date]")
-    public void setFilterEndDate(String filterEndDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setFilterEndDate(LocalDate filterEndDate) {
         this.filterEndDate = filterEndDate;
     }
 
@@ -236,8 +244,8 @@ public class ListPrepaymentsInput {
         private Integer page = 1;
         private Integer perPage = 20;
         private BasicDateField filterDateField;
-        private String filterStartDate;
-        private String filterEndDate;
+        private LocalDate filterStartDate;
+        private LocalDate filterEndDate;
 
         /**
          * Initialization constructor.
@@ -295,20 +303,20 @@ public class ListPrepaymentsInput {
 
         /**
          * Setter for filterStartDate.
-         * @param  filterStartDate  String value for filterStartDate.
+         * @param  filterStartDate  LocalDate value for filterStartDate.
          * @return Builder
          */
-        public Builder filterStartDate(String filterStartDate) {
+        public Builder filterStartDate(LocalDate filterStartDate) {
             this.filterStartDate = filterStartDate;
             return this;
         }
 
         /**
          * Setter for filterEndDate.
-         * @param  filterEndDate  String value for filterEndDate.
+         * @param  filterEndDate  LocalDate value for filterEndDate.
          * @return Builder
          */
-        public Builder filterEndDate(String filterEndDate) {
+        public Builder filterEndDate(LocalDate filterEndDate) {
             this.filterEndDate = filterEndDate;
             return this;
         }
