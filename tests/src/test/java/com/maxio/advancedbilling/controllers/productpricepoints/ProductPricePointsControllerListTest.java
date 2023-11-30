@@ -1,22 +1,10 @@
 package com.maxio.advancedbilling.controllers.productpricepoints;
 
-import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
-import com.maxio.advancedbilling.controllers.ProductFamiliesController;
-import com.maxio.advancedbilling.controllers.ProductPricePointsController;
-import com.maxio.advancedbilling.controllers.ProductsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
-import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
-import com.maxio.advancedbilling.models.CreateProductFamily;
-import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
-import com.maxio.advancedbilling.models.CreateProductPricePoint;
-import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListProductPricePointsInput;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,45 +15,22 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class ProductPricePointsControllerListTest {
-
-    private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
-    private final ProductFamiliesController productFamiliesController = advancedBillingClient.getProductFamiliesController();
-    private final ProductPricePointsController productPricePointsController = advancedBillingClient.getProductPricePointsController();
-    private final ProductsController productsController = advancedBillingClient.getProductsController();
+class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
 
     private Product product;
 
     @BeforeEach
-    void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = productFamiliesController
-                .createProductFamily(new CreateProductFamilyRequest(
-                        new CreateProductFamily.Builder().name(randomAlphabetic(10)).build())
-                )
-                .getProductFamily();
-
-        product = productsController
-                .createProduct(
-                        productFamily.getId(),
-                        new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
-                                .name(randomAlphabetic(10))
-                                .handle(String.format("product-handle-%s", randomNumeric(5)))
-                                .intervalUnit(IntervalUnit.MONTH)
-                                .interval(2)
-                                .build()
-                        )
-                )
-                .getProduct();
+    void beforeEach() throws IOException, ApiException {
+        product = createProduct();
     }
 
     @Test
     void shouldReturn404WhenProductNotExists() {
         // when - then
-        CommonAssertions.assertNotFound(() -> productPricePointsController
+        CommonAssertions.assertNotFound(() -> PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder(12345).build())
         );
     }
@@ -73,7 +38,7 @@ class ProductPricePointsControllerListTest {
     @Test
     void shouldReturnListWithOriginalPricePointOnly() throws IOException, ApiException {
         // when
-        List<ProductPricePoint> productPricePoints = productPricePointsController
+        List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder(product.getId()).build())
                 .getPricePoints();
 
@@ -111,20 +76,13 @@ class ProductPricePointsControllerListTest {
     @Test
     void shouldReturnListWithAllPricePoints() throws IOException, ApiException {
         // given
-        productPricePointsController
-                .createProductPricePoint(
-                        product.getId(),
-                        new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
-                                .name("custom-price-point-name")
-                                .interval(1)
-                                .intervalUnit(IntervalUnit.MONTH)
-                                .priceInCents(100L)
-                                .build()
-                        )
-                );
+        createProductPricePoint(
+                product.getId(),
+                defaultBuilder().name("custom-price-point-name").build()
+        );
 
         // when
-        List<ProductPricePoint> productPricePoints = productPricePointsController
+        List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder(product.getId()).build())
                 .getPricePoints();
 
@@ -138,10 +96,15 @@ class ProductPricePointsControllerListTest {
     @Test
     void shouldReturnListWithPagedPricePoints() throws IOException, ApiException {
         // given
-        createPricePoints(4);   // + 1 default price point assigned to the product
+        for (int i = 0; i < 4; i++) {
+            createProductPricePoint(
+                    product.getId(),
+                    defaultBuilder().name(randomAlphabetic(10)).build()
+            );
+        }
 
         // when
-        List<ProductPricePoint> productPricePointsPage1 = productPricePointsController
+        List<ProductPricePoint> productPricePointsPage1 = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .page(1)
@@ -149,7 +112,7 @@ class ProductPricePointsControllerListTest {
                         .build()
                 )
                 .getPricePoints();
-        List<ProductPricePoint> productPricePointsPage2 = productPricePointsController
+        List<ProductPricePoint> productPricePointsPage2 = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .page(2)
@@ -157,7 +120,7 @@ class ProductPricePointsControllerListTest {
                         .build()
                 )
                 .getPricePoints();
-        List<ProductPricePoint> productPricePointsPage3 = productPricePointsController
+        List<ProductPricePoint> productPricePointsPage3 = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .page(3)
@@ -175,55 +138,34 @@ class ProductPricePointsControllerListTest {
     @Test
     void shouldReturnListUsingTypeFilter() throws IOException, ApiException {
         // given
-        productPricePointsController
-                .createProductPricePoint(
-                        product.getId(),
-                        new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
-                                .name("custom-price-point-name")
-                                .interval(1)
-                                .intervalUnit(IntervalUnit.MONTH)
-                                .priceInCents(100L)
-                                .build()
-                        )
-                );
+        createProductPricePoint(
+                product.getId(),
+                defaultBuilder().name("custom-price-point-name").build()
+        );
 
         // when - then
-        List<ProductPricePoint> pricePointsOfDefaultType = productPricePointsController
+        List<ProductPricePoint> pricePointsOfDefaultType = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .filterType(Collections.singletonList(PricePointType.ENUM_DEFAULT))
                         .build()
-                ).getPricePoints();
+                )
+                .getPricePoints();
         assertThat(pricePointsOfDefaultType)
                 .hasSize(1)
                 .extracting(ProductPricePoint::getName)
                 .containsExactly("Original");
 
-        List<ProductPricePoint> pricePointsOfCatalogType = productPricePointsController
+        List<ProductPricePoint> pricePointsOfCatalogType = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
                         .productId(product.getId())
                         .filterType(Collections.singletonList(PricePointType.CATALOG))
                         .build()
-                ).getPricePoints();
+                )
+                .getPricePoints();
         assertThat(pricePointsOfCatalogType)
                 .hasSize(1)
                 .extracting(ProductPricePoint::getName)
                 .containsExactly("custom-price-point-name");
-    }
-
-    private void createPricePoints(int count) throws IOException, ApiException {
-        for (int i = 0; i < count; i++) {
-            productPricePointsController
-                    .createProductPricePoint(
-                            product.getId(),
-                            new CreateProductPricePointRequest(new CreateProductPricePoint.Builder()
-                                    .name(randomAlphabetic(10))
-                                    .interval(1)
-                                    .intervalUnit(IntervalUnit.MONTH)
-                                    .priceInCents(Long.parseLong(randomNumeric(3)))
-                                    .build()
-                            )
-                    );
-        }
     }
 }
