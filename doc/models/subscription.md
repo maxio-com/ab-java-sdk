@@ -47,7 +47,7 @@
 | `CouponUseCount` | `Integer` | Optional | (deprecated) How many times the subscription's single coupon has been used. This field has no replacement for multiple coupons. | Integer getCouponUseCount() | setCouponUseCount(Integer couponUseCount) |
 | `CouponUsesAllowed` | `Integer` | Optional | (deprecated) How many times the subscription's single coupon may be used. This field has no replacement for multiple coupons. | Integer getCouponUsesAllowed() | setCouponUsesAllowed(Integer couponUsesAllowed) |
 | `ReasonCode` | `String` | Optional | If the subscription is canceled, this is their churn code. | String getReasonCode() | setReasonCode(String reasonCode) |
-| `AutomaticallyResumeAt` | `String` | Optional | The date the subscription is scheduled to automatically resume from the on_hold state. | String getAutomaticallyResumeAt() | setAutomaticallyResumeAt(String automaticallyResumeAt) |
+| `AutomaticallyResumeAt` | `ZonedDateTime` | Optional | The date the subscription is scheduled to automatically resume from the on_hold state. | ZonedDateTime getAutomaticallyResumeAt() | setAutomaticallyResumeAt(ZonedDateTime automaticallyResumeAt) |
 | `CouponCodes` | `List<String>` | Optional | An array for all the coupons attached to the subscription. | List<String> getCouponCodes() | setCouponCodes(List<String> couponCodes) |
 | `OfferId` | `Integer` | Optional | The ID of the offer associated with the subscription. | Integer getOfferId() | setOfferId(Integer offerId) |
 | `PayerId` | `Integer` | Optional | On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to the Customer ID unless the 'Customer Hierarchies & WhoPays' feature is enabled. | Integer getPayerId() | setPayerId(Integer payerId) |

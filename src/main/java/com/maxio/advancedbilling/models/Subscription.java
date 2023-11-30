@@ -58,7 +58,7 @@ public class Subscription {
     private OptionalNullable<Integer> couponUseCount;
     private OptionalNullable<Integer> couponUsesAllowed;
     private OptionalNullable<String> reasonCode;
-    private OptionalNullable<String> automaticallyResumeAt;
+    private OptionalNullable<ZonedDateTime> automaticallyResumeAt;
     private List<String> couponCodes;
     private OptionalNullable<Integer> offerId;
     private OptionalNullable<Integer> payerId;
@@ -129,7 +129,7 @@ public class Subscription {
      * @param  couponUseCount  Integer value for couponUseCount.
      * @param  couponUsesAllowed  Integer value for couponUsesAllowed.
      * @param  reasonCode  String value for reasonCode.
-     * @param  automaticallyResumeAt  String value for automaticallyResumeAt.
+     * @param  automaticallyResumeAt  ZonedDateTime value for automaticallyResumeAt.
      * @param  couponCodes  List of String value for couponCodes.
      * @param  offerId  Integer value for offerId.
      * @param  payerId  Integer value for payerId.
@@ -192,7 +192,7 @@ public class Subscription {
             Integer couponUseCount,
             Integer couponUsesAllowed,
             String reasonCode,
-            String automaticallyResumeAt,
+            ZonedDateTime automaticallyResumeAt,
             List<String> couponCodes,
             Integer offerId,
             Integer payerId,
@@ -317,7 +317,7 @@ public class Subscription {
      * @param  couponUseCount  Integer value for couponUseCount.
      * @param  couponUsesAllowed  Integer value for couponUsesAllowed.
      * @param  reasonCode  String value for reasonCode.
-     * @param  automaticallyResumeAt  String value for automaticallyResumeAt.
+     * @param  automaticallyResumeAt  ZonedDateTime value for automaticallyResumeAt.
      * @param  couponCodes  List of String value for couponCodes.
      * @param  offerId  Integer value for offerId.
      * @param  payerId  Integer value for payerId.
@@ -360,11 +360,12 @@ public class Subscription {
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
             OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
             OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
-            OptionalNullable<String> reasonCode, OptionalNullable<String> automaticallyResumeAt,
-            List<String> couponCodes, OptionalNullable<Integer> offerId,
-            OptionalNullable<Integer> payerId, Long currentBillingAmountInCents,
-            Integer productPricePointId, String productPricePointType,
-            OptionalNullable<Integer> nextProductPricePointId, OptionalNullable<Integer> netTerms,
+            OptionalNullable<String> reasonCode,
+            OptionalNullable<ZonedDateTime> automaticallyResumeAt, List<String> couponCodes,
+            OptionalNullable<Integer> offerId, OptionalNullable<Integer> payerId,
+            Long currentBillingAmountInCents, Integer productPricePointId,
+            String productPricePointType, OptionalNullable<Integer> nextProductPricePointId,
+            OptionalNullable<Integer> netTerms,
             OptionalNullable<Integer> storedCredentialTransactionId,
             OptionalNullable<String> reference, OptionalNullable<ZonedDateTime> onHoldAt,
             Boolean prepaidDunning, List<SubscriptionIncludedCoupon> coupons,
@@ -1691,31 +1692,32 @@ public class Subscription {
     /**
      * Internal Getter for AutomaticallyResumeAt.
      * The date the subscription is scheduled to automatically resume from the on_hold state.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("automatically_resume_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetAutomaticallyResumeAt() {
+    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetAutomaticallyResumeAt() {
         return this.automaticallyResumeAt;
     }
 
     /**
      * Getter for AutomaticallyResumeAt.
      * The date the subscription is scheduled to automatically resume from the on_hold state.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getAutomaticallyResumeAt() {
+    public ZonedDateTime getAutomaticallyResumeAt() {
         return OptionalNullable.getFrom(automaticallyResumeAt);
     }
 
     /**
      * Setter for AutomaticallyResumeAt.
      * The date the subscription is scheduled to automatically resume from the on_hold state.
-     * @param automaticallyResumeAt Value for String
+     * @param automaticallyResumeAt Value for ZonedDateTime
      */
     @JsonSetter("automatically_resume_at")
-    public void setAutomaticallyResumeAt(String automaticallyResumeAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setAutomaticallyResumeAt(ZonedDateTime automaticallyResumeAt) {
         this.automaticallyResumeAt = OptionalNullable.of(automaticallyResumeAt);
     }
 
@@ -2527,7 +2529,7 @@ public class Subscription {
         private OptionalNullable<Integer> couponUseCount;
         private OptionalNullable<Integer> couponUsesAllowed;
         private OptionalNullable<String> reasonCode;
-        private OptionalNullable<String> automaticallyResumeAt;
+        private OptionalNullable<ZonedDateTime> automaticallyResumeAt;
         private List<String> couponCodes;
         private OptionalNullable<Integer> offerId;
         private OptionalNullable<Integer> payerId;
@@ -3088,10 +3090,10 @@ public class Subscription {
 
         /**
          * Setter for automaticallyResumeAt.
-         * @param  automaticallyResumeAt  String value for automaticallyResumeAt.
+         * @param  automaticallyResumeAt  ZonedDateTime value for automaticallyResumeAt.
          * @return Builder
          */
-        public Builder automaticallyResumeAt(String automaticallyResumeAt) {
+        public Builder automaticallyResumeAt(ZonedDateTime automaticallyResumeAt) {
             this.automaticallyResumeAt = OptionalNullable.of(automaticallyResumeAt);
             return this;
         }
