@@ -40,7 +40,8 @@ public class SubscriptionStatusControllerUpdateAutomaticResumptionTest extends S
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
-        assertThat(pausedSubscription.getAutomaticallyResumeAt()).isEqualTo(resumeAt);
+        assertThat(pausedSubscription.getAutomaticallyResumeAt().toEpochSecond())
+                .isEqualTo(resumeAt.toEpochSecond());
     }
 
     @Test

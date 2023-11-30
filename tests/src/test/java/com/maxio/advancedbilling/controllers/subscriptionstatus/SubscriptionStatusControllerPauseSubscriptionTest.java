@@ -59,7 +59,8 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
-        assertThat(pausedSubscription.getAutomaticallyResumeAt()).isEqualTo(resumeAt);
+        assertThat(pausedSubscription.getAutomaticallyResumeAt().toEpochSecond())
+                .isEqualTo(resumeAt.toEpochSecond());
         assertThat(pausedSubscription.getOnHoldAt()).isAfter(timestamp);
     }
 
