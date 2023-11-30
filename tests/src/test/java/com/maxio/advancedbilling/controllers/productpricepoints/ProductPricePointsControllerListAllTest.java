@@ -28,7 +28,7 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
     private static Product product;
     private static ProductPricePoint archivedProductPricePoint;
 
-    private static final LinkedList<ProductPricePoint> PRODUCT_PRICE_POINTS_OF_TYPE_CATALOG = new LinkedList<>();
+    private static final List<ProductPricePoint> PRODUCT_PRICE_POINTS_OF_TYPE_CATALOG = new LinkedList<>();
 
     @BeforeAll
     static void beforeAll() throws IOException, ApiException {
@@ -103,7 +103,9 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
 
         // then
         assertThat(productPricePoints).hasSize(4);
-        assertThat(productPricePoints.get(0).getCreatedAt()).isAfter(productPricePoints.get(1).getCreatedAt());
+        for (int i = 0; i < productPricePoints.size() - 1; i++) {
+            assertThat(productPricePoints.get(i).getCreatedAt()).isAfter(productPricePoints.get(i + 1).getCreatedAt());
+        }
     }
 
     @Test
@@ -154,7 +156,7 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
     }
 
     @Test
-    void shouldReturnEmptyListWhenIdsFilterContainsIncorrectValues() throws IOException, ApiException {
+    void shouldReturnEmptyListWhenIdsFilterContainsNonExistentValues() throws IOException, ApiException {
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(

@@ -17,8 +17,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -36,7 +34,7 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
     }
 
     @Test
-    void shouldReturn200AndCreatePricePoint() throws IOException, ApiException {
+    void shouldReturn201AndCreatePricePoint() throws IOException, ApiException {
         // when
         ProductPricePoint productPricePoint = createProductPricePoint(
                 product.getId(), defaultBuilder().name("Educational").handle("educational").build()
@@ -85,24 +83,8 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
                     assertThat(e.getErrors())
-                            .extracting(
-                                    ProductPricePointErrors::getPricePoint,
-                                    ProductPricePointErrors::getInterval,
-                                    ProductPricePointErrors::getIntervalUnit,
-                                    ProductPricePointErrors::getName,
-                                    ProductPricePointErrors::getPrice,
-                                    ProductPricePointErrors::getPriceInCents
-                            )
-                            .containsExactlyElementsOf(
-                                    Arrays.asList(
-                                            "can't be blank",
-                                            null,
-                                            null,
-                                            null,
-                                            null,
-                                            null
-                                    )
-                            );
+                            .usingRecursiveComparison()
+                            .isEqualTo(new ProductPricePointErrors.Builder().pricePoint("can't be blank").build());
                 });
     }
 
@@ -115,30 +97,19 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
                     assertThat(e.getErrors())
-                            .extracting(
-                                    ProductPricePointErrors::getPricePoint,
-                                    ProductPricePointErrors::getInterval,
-                                    ProductPricePointErrors::getIntervalUnit,
-                                    ProductPricePointErrors::getName,
-                                    ProductPricePointErrors::getPrice,
-                                    ProductPricePointErrors::getPriceInCents
-                            )
-                            .containsExactlyElementsOf(
-                                    Arrays.asList(
-                                            null,
-                                            Collections.singletonList("Recurring Interval: must be greater than or equal to 1."),
-                                            Arrays.asList("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."),
-                                            Collections.singletonList("Name: cannot be blank."),
-                                            null,
-                                            null
-                                    )
+                            .usingRecursiveComparison()
+                            .isEqualTo(new ProductPricePointErrors.Builder()
+                                    .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
+                                    .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                    .name(List.of("Name: cannot be blank."))
+                                    .build()
                             );
                 });
     }
 
     @ParameterizedTest
     @MethodSource("argsForShouldReturn422WhenRequiredParametersAreMissing")
-    void shouldReturn422WhenRequiredParametersAreMissing(CreateProductPricePointRequest request, List<List<String>> expectedErrors) {
+    void shouldReturn422WhenRequiredParametersAreMissing(CreateProductPricePointRequest request, ProductPricePointErrors expectedErrors) {
         // when - then
         assertThatExceptionOfType(ProductPricePointErrorResponseException.class)
                 .isThrownBy(() -> PRODUCT_PRICE_POINTS_CONTROLLER.createProductPricePoint(product.getId(), request))
@@ -146,14 +117,8 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);
                     assertThat(e.getErrors())
-                            .extracting(
-                                    ProductPricePointErrors::getInterval,
-                                    ProductPricePointErrors::getIntervalUnit,
-                                    ProductPricePointErrors::getName,
-                                    ProductPricePointErrors::getPrice,
-                                    ProductPricePointErrors::getPriceInCents
-                            )
-                            .containsExactlyElementsOf(expectedErrors);
+                            .usingRecursiveComparison()
+                            .isEqualTo(expectedErrors);
                 });
     }
 
@@ -163,22 +128,20 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                         new CreateProductPricePointRequest(
                                 new CreateProductPricePoint.Builder().name("").build()
                         ),
-                        Arrays.asList(
-                                List.of("Recurring Interval: must be greater than or equal to 1."),
-                                List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."),
-                                List.of("Name: cannot be blank."),
-                                null, null
-                        )
+                        new ProductPricePointErrors.Builder()
+                                .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
+                                .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                .name(List.of("Name: cannot be blank."))
+                                .build()
                 ),
                 Arguments.of(
                         new CreateProductPricePointRequest(
                                 new CreateProductPricePoint.Builder().name("price point name").build()
                         ),
-                        Arrays.asList(
-                                List.of("Recurring Interval: must be greater than or equal to 1."),
-                                List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."),
-                                null, null, null
-                        )
+                        new ProductPricePointErrors.Builder()
+                                .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
+                                .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                .build()
                 ),
                 Arguments.of(
                         new CreateProductPricePointRequest(
@@ -187,13 +150,11 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                                         .priceInCents(-100L)
                                         .build()
                         ),
-                        Arrays.asList(
-                                List.of("Recurring Interval: must be greater than or equal to 1."),
-                                List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."),
-                                null,
-                                List.of("Price: must be greater than or equal to 0."),
-                                null
-                        )
+                        new ProductPricePointErrors.Builder()
+                                .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
+                                .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                .price(List.of("Price: must be greater than or equal to 0."))
+                                .build()
                 ),
                 Arguments.of(
                         new CreateProductPricePointRequest(
@@ -203,13 +164,10 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                                         .interval(0)
                                         .build()
                         ),
-                        Arrays.asList(
-                                List.of("Recurring Interval: must be greater than or equal to 1."),
-                                List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."),
-                                null,
-                                null,
-                                null
-                        )
+                        new ProductPricePointErrors.Builder()
+                                .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
+                                .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                .build()
                 ),
                 Arguments.of(
                         new CreateProductPricePointRequest(
@@ -218,13 +176,11 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                                         .interval(-1)
                                         .build()
                         ),
-                        Arrays.asList(
-                                List.of("Recurring Interval: must be greater than or equal to 1."),
-                                List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."),
-                                List.of("Name: cannot be blank."),
-                                null,
-                                null
-                        )
+                        new ProductPricePointErrors.Builder()
+                                .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
+                                .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                .name(List.of("Name: cannot be blank."))
+                                .build()
                 ),
                 Arguments.of(
                         new CreateProductPricePointRequest(
@@ -235,13 +191,9 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                                         .intervalUnit(null)
                                         .build()
                         ),
-                        Arrays.asList(
-                                null,
-                                List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."),
-                                null,
-                                null,
-                                null
-                        )
+                        new ProductPricePointErrors.Builder()
+                                .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                .build()
                 )
         );
     }
