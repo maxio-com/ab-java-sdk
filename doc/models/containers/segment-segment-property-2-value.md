@@ -9,8 +9,8 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | SegmentSegmentProperty2Value.fromMString(String mString) |
+| `String` | SegmentSegmentProperty2Value.fromString(String string) |
 | `double` | SegmentSegmentProperty2Value.fromPrecision(double precision) |
 | `int` | SegmentSegmentProperty2Value.fromNumber(int number) |
-| `boolean` | SegmentSegmentProperty2Value.fromMBoolean(boolean mBoolean) |
+| `boolean` | SegmentSegmentProperty2Value.fromBoolean(boolean mBoolean) |
 

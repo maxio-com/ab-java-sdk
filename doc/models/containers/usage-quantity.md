@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | UsageQuantity.fromNumber(int number) |
-| `String` | UsageQuantity.fromMString(String mString) |
+| `String` | UsageQuantity.fromString(String string) |
 

@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | SubscriptionGroupSignupComponentUnitBalance.fromMString(String mString) |
+| `String` | SubscriptionGroupSignupComponentUnitBalance.fromString(String string) |
 | `int` | SubscriptionGroupSignupComponentUnitBalance.fromNumber(int number) |
 

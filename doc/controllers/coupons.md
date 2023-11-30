@@ -70,7 +70,7 @@ CreateCouponBody body = CreateCouponBody.fromCreateOrUpdateCoupon(
             new CreateOrUpdatePercentageCoupon.Builder(
                 "15% off",
                 "15OFF",
-                CreateOrUpdatePercentageCouponPercentage.fromMString(
+                CreateOrUpdatePercentageCouponPercentage.fromString(
                     "15"
                 )
             )
@@ -407,7 +407,7 @@ UpdateCouponBody body = UpdateCouponBody.fromCreateOrUpdateCoupon(
             new CreateOrUpdatePercentageCoupon.Builder(
                 "15% off",
                 "15OFF",
-                CreateOrUpdatePercentageCouponPercentage.fromMString(
+                CreateOrUpdatePercentageCouponPercentage.fromString(
                     "15"
                 )
             )

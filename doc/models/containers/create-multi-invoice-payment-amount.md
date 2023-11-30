@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateMultiInvoicePaymentAmount.fromMString(String mString) |
+| `String` | CreateMultiInvoicePaymentAmount.fromString(String string) |
 | `double` | CreateMultiInvoicePaymentAmount.fromPrecision(double precision) |
 

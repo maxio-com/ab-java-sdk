@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | CreateSubscriptionComponentPricePointId.fromNumber(int number) |
-| `String` | CreateSubscriptionComponentPricePointId.fromMString(String mString) |
+| `String` | CreateSubscriptionComponentPricePointId.fromString(String string) |
 

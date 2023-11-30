@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateSubscriptionOfferId.fromMString(String mString) |
+| `String` | CreateSubscriptionOfferId.fromString(String string) |
 | `int` | CreateSubscriptionOfferId.fromNumber(int number) |
 

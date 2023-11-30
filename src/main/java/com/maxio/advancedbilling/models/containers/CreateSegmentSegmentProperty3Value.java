@@ -29,11 +29,11 @@ public abstract class CreateSegmentSegmentProperty3Value {
     
     /**
      * This is String case.
-     * @param mString String value for mString.
-     * @return The MStringCase object.
+     * @param string String value for string.
+     * @return The StringCase object.
      */
-    public static CreateSegmentSegmentProperty3Value fromMString(String mString) {
-        return mString == null ? null : new MStringCase(mString);
+    public static CreateSegmentSegmentProperty3Value fromString(String string) {
+        return string == null ? null : new StringCase(string);
     }
 
     /**
@@ -57,10 +57,10 @@ public abstract class CreateSegmentSegmentProperty3Value {
     /**
      * This is Boolean case.
      * @param mBoolean boolean value for mBoolean.
-     * @return The MBooleanCase object.
+     * @return The BooleanCase object.
      */
-    public static CreateSegmentSegmentProperty3Value fromMBoolean(boolean mBoolean) {
-        return new MBooleanCase(mBoolean);
+    public static CreateSegmentSegmentProperty3Value fromBoolean(boolean mBoolean) {
+        return new BooleanCase(mBoolean);
     }
 
     /**
@@ -76,7 +76,7 @@ public abstract class CreateSegmentSegmentProperty3Value {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R mString(String mString);
+        R string(String string);
 
         R precision(double precision);
 
@@ -86,29 +86,29 @@ public abstract class CreateSegmentSegmentProperty3Value {
     }
 
     /**
-     * This is a implementation class for MStringCase.
+     * This is a implementation class for StringCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class MStringCase extends CreateSegmentSegmentProperty3Value {
+    private static class StringCase extends CreateSegmentSegmentProperty3Value {
 
         @JsonValue
-        private String mString;
+        private String string;
 
-        MStringCase(String mString) {
-            this.mString = mString;
+        StringCase(String string) {
+            this.string = string;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.mString(this.mString);
+            return cases.string(this.string);
         }
 
         @JsonCreator
-        private MStringCase(JsonNode jsonNode) throws IOException {
+        private StringCase(JsonNode jsonNode) throws IOException {
             if (jsonNode.isTextual()) {
-                this.mString = ApiHelper.deserialize(jsonNode, String.class);
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -116,7 +116,7 @@ public abstract class CreateSegmentSegmentProperty3Value {
 
         @Override
         public String toString() {
-            return mString.toString();
+            return string.toString();
         }
     }
 
@@ -189,16 +189,16 @@ public abstract class CreateSegmentSegmentProperty3Value {
     }
 
     /**
-     * This is a implementation class for MBooleanCase.
+     * This is a implementation class for BooleanCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "boolean")
-    private static class MBooleanCase extends CreateSegmentSegmentProperty3Value {
+    private static class BooleanCase extends CreateSegmentSegmentProperty3Value {
 
         @JsonValue
         private boolean mBoolean;
 
-        MBooleanCase(boolean mBoolean) {
+        BooleanCase(boolean mBoolean) {
             this.mBoolean = mBoolean;
         }
 
@@ -208,7 +208,7 @@ public abstract class CreateSegmentSegmentProperty3Value {
         }
 
         @JsonCreator
-        private MBooleanCase(JsonNode jsonNode) throws IOException {
+        private BooleanCase(JsonNode jsonNode) throws IOException {
             if (jsonNode.isBoolean()) {
                 this.mBoolean = ApiHelper.deserialize(jsonNode, Boolean.class);
             } else {
@@ -233,8 +233,8 @@ public abstract class CreateSegmentSegmentProperty3Value {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(MStringCase.class, PrecisionCase.class,
-                    NumberCase.class, MBooleanCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(StringCase.class, PrecisionCase.class,
+                    NumberCase.class, BooleanCase.class), true);
         }
     }
 

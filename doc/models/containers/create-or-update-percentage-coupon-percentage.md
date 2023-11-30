@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `double` | CreateOrUpdatePercentageCouponPercentage.fromPrecision(double precision) |
-| `String` | CreateOrUpdatePercentageCouponPercentage.fromMString(String mString) |
+| `String` | CreateOrUpdatePercentageCouponPercentage.fromString(String string) |
 

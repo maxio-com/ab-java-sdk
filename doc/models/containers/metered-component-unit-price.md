@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | MeteredComponentUnitPrice.fromMString(String mString) |
+| `String` | MeteredComponentUnitPrice.fromString(String string) |
 | `double` | MeteredComponentUnitPrice.fromPrecision(double precision) |
 

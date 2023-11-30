@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | QuantityBasedComponentUnitPrice.fromMString(String mString) |
+| `String` | QuantityBasedComponentUnitPrice.fromString(String string) |
 | `double` | QuantityBasedComponentUnitPrice.fromPrecision(double precision) |
 

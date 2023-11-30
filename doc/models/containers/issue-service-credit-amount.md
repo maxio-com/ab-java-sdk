@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `double` | IssueServiceCreditAmount.fromPrecision(double precision) |
-| `String` | IssueServiceCreditAmount.fromMString(String mString) |
+| `String` | IssueServiceCreditAmount.fromString(String string) |
 

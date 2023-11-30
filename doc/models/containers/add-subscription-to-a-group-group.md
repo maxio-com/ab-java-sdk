@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | [`GroupSettings`](../../../doc/models/group-settings.md) | AddSubscriptionToAGroupGroup.fromGroupSettings(GroupSettings groupSettings) |
-| `boolean` | AddSubscriptionToAGroupGroup.fromMBoolean(boolean mBoolean) |
+| `boolean` | AddSubscriptionToAGroupGroup.fromBoolean(boolean mBoolean) |
 

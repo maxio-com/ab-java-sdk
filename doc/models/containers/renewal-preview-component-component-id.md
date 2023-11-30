@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | RenewalPreviewComponentComponentId.fromMString(String mString) |
+| `String` | RenewalPreviewComponentComponentId.fromString(String string) |
 | `int` | RenewalPreviewComponentComponentId.fromNumber(int number) |
 

@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | PriceEndingQuantity.fromNumber(int number) |
-| `String` | PriceEndingQuantity.fromMString(String mString) |
+| `String` | PriceEndingQuantity.fromString(String string) |
 

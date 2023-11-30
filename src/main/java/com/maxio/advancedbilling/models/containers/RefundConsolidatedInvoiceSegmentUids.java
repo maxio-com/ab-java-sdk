@@ -39,11 +39,11 @@ public abstract class RefundConsolidatedInvoiceSegmentUids {
 
     /**
      * This is String case.
-     * @param mString String value for mString.
-     * @return The MStringCase object.
+     * @param string String value for string.
+     * @return The StringCase object.
      */
-    public static RefundConsolidatedInvoiceSegmentUids fromMString(String mString) {
-        return mString == null ? null : new MStringCase(mString);
+    public static RefundConsolidatedInvoiceSegmentUids fromString(String string) {
+        return string == null ? null : new StringCase(string);
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class RefundConsolidatedInvoiceSegmentUids {
     public interface Cases<R> {
         R listOfString(List<String> listOfString);
 
-        R mString(String mString);
+        R string(String string);
     }
 
     /**
@@ -96,29 +96,29 @@ public abstract class RefundConsolidatedInvoiceSegmentUids {
     }
 
     /**
-     * This is a implementation class for MStringCase.
+     * This is a implementation class for StringCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class MStringCase extends RefundConsolidatedInvoiceSegmentUids {
+    private static class StringCase extends RefundConsolidatedInvoiceSegmentUids {
 
         @JsonValue
-        private String mString;
+        private String string;
 
-        MStringCase(String mString) {
-            this.mString = mString;
+        StringCase(String string) {
+            this.string = string;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.mString(this.mString);
+            return cases.string(this.string);
         }
 
         @JsonCreator
-        private MStringCase(JsonNode jsonNode) throws IOException {
+        private StringCase(JsonNode jsonNode) throws IOException {
             if (jsonNode.isTextual()) {
-                this.mString = ApiHelper.deserialize(jsonNode, String.class);
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -126,7 +126,7 @@ public abstract class RefundConsolidatedInvoiceSegmentUids {
 
         @Override
         public String toString() {
-            return mString.toString();
+            return string.toString();
         }
     }
 
@@ -142,7 +142,7 @@ public abstract class RefundConsolidatedInvoiceSegmentUids {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(ListOfStringCase.class,
-                    MStringCase.class), true);
+                    StringCase.class), true);
         }
     }
 

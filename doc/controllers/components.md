@@ -846,22 +846,22 @@ CreateComponentPricePointRequest body = new CreateComponentPricePointRequest.Bui
             "stairstep",
             Arrays.asList(
                 new Price.Builder(
-                    PriceStartingQuantity.fromMString(
+                    PriceStartingQuantity.fromString(
                         "1"
                     ),
-                    PriceUnitPrice.fromMString(
+                    PriceUnitPrice.fromString(
                         "5.00"
                     )
                 )
-                .endingQuantity(PriceEndingQuantity.fromMString(
+                .endingQuantity(PriceEndingQuantity.fromString(
                         "100"
                     ))
                 .build(),
                 new Price.Builder(
-                    PriceStartingQuantity.fromMString(
+                    PriceStartingQuantity.fromString(
                         "101"
                     ),
-                    PriceUnitPrice.fromMString(
+                    PriceUnitPrice.fromString(
                         "4.00"
                     )
                 )

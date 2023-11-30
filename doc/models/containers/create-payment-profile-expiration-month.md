@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | CreatePaymentProfileExpirationMonth.fromNumber(int number) |
-| `String` | CreatePaymentProfileExpirationMonth.fromMString(String mString) |
+| `String` | CreatePaymentProfileExpirationMonth.fromString(String string) |
 

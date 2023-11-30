@@ -225,13 +225,13 @@ BulkComponentSPricePointAssignment body = new BulkComponentSPricePointAssignment
             .build(),
         new ComponentSPricePointAssignment.Builder()
             .componentId(998)
-            .pricePoint(ComponentSPricePointAssignmentPricePoint.fromMString(
+            .pricePoint(ComponentSPricePointAssignmentPricePoint.fromString(
                 "wholesale-handle"
             ))
             .build(),
         new ComponentSPricePointAssignment.Builder()
             .componentId(999)
-            .pricePoint(ComponentSPricePointAssignmentPricePoint.fromMString(
+            .pricePoint(ComponentSPricePointAssignmentPricePoint.fromString(
                 "_default"
             ))
             .build()
@@ -332,7 +332,7 @@ try {
     "snap_day": null,
     "cancellation_method": "dunning",
     "current_period_started_at": "2023-11-23T10:28:34-05:00",
-    "previous_state": "occaecat proident sunt cillum ",
+    "previous_state": "active",
     "signup_payment_id": -45156092,
     "signup_revenue": "do aliquip ea",
     "delayed_cancel_at": null,

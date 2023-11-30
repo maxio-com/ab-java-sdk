@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateOrUpdateSegmentPriceUnitPrice.fromMString(String mString) |
+| `String` | CreateOrUpdateSegmentPriceUnitPrice.fromString(String string) |
 | `double` | CreateOrUpdateSegmentPriceUnitPrice.fromPrecision(double precision) |
 

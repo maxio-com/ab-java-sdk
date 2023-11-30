@@ -39,10 +39,10 @@ public abstract class CreateSubscriptionGroup2 {
     /**
      * This is Boolean case.
      * @param mBoolean boolean value for mBoolean.
-     * @return The MBooleanCase object.
+     * @return The BooleanCase object.
      */
-    public static CreateSubscriptionGroup2 fromMBoolean(boolean mBoolean) {
-        return new MBooleanCase(mBoolean);
+    public static CreateSubscriptionGroup2 fromBoolean(boolean mBoolean) {
+        return new BooleanCase(mBoolean);
     }
 
     /**
@@ -95,16 +95,16 @@ public abstract class CreateSubscriptionGroup2 {
     }
 
     /**
-     * This is a implementation class for MBooleanCase.
+     * This is a implementation class for BooleanCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "boolean")
-    private static class MBooleanCase extends CreateSubscriptionGroup2 {
+    private static class BooleanCase extends CreateSubscriptionGroup2 {
 
         @JsonValue
         private boolean mBoolean;
 
-        MBooleanCase(boolean mBoolean) {
+        BooleanCase(boolean mBoolean) {
             this.mBoolean = mBoolean;
         }
 
@@ -114,7 +114,7 @@ public abstract class CreateSubscriptionGroup2 {
         }
 
         @JsonCreator
-        private MBooleanCase(JsonNode jsonNode) throws IOException {
+        private BooleanCase(JsonNode jsonNode) throws IOException {
             if (jsonNode.isBoolean()) {
                 this.mBoolean = ApiHelper.deserialize(jsonNode, Boolean.class);
             } else {
@@ -140,7 +140,7 @@ public abstract class CreateSubscriptionGroup2 {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(GroupSettingsCase.class,
-                    MBooleanCase.class), true);
+                    BooleanCase.class), true);
         }
     }
 

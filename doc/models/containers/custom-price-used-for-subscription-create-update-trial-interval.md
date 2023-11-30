@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CustomPriceUsedForSubscriptionCreateUpdateTrialInterval.fromMString(String mString) |
+| `String` | CustomPriceUsedForSubscriptionCreateUpdateTrialInterval.fromString(String string) |
 | `int` | CustomPriceUsedForSubscriptionCreateUpdateTrialInterval.fromNumber(int number) |
 

@@ -29,21 +29,20 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
     
     /**
      * This is String case.
-     * @param mString String value for mString.
-     * @return The MStringCase object.
+     * @param string String value for string.
+     * @return The StringCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromMString(
-            String mString) {
-        return mString == null ? null : new MStringCase(mString);
+    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromString(String string) {
+        return string == null ? null : new StringCase(string);
     }
 
     /**
      * This is Long case.
      * @param mLong long value for mLong.
-     * @return The MLongCase object.
+     * @return The LongCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromMLong(long mLong) {
-        return new MLongCase(mLong);
+    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromLong(long mLong) {
+        return new LongCase(mLong);
     }
 
     /**
@@ -59,35 +58,35 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R mString(String mString);
+        R string(String string);
 
         R mLong(long mLong);
     }
 
     /**
-     * This is a implementation class for MStringCase.
+     * This is a implementation class for StringCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class MStringCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
+    private static class StringCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
 
         @JsonValue
-        private String mString;
+        private String string;
 
-        MStringCase(String mString) {
-            this.mString = mString;
+        StringCase(String string) {
+            this.string = string;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.mString(this.mString);
+            return cases.string(this.string);
         }
 
         @JsonCreator
-        private MStringCase(JsonNode jsonNode) throws IOException {
+        private StringCase(JsonNode jsonNode) throws IOException {
             if (jsonNode.isTextual()) {
-                this.mString = ApiHelper.deserialize(jsonNode, String.class);
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -95,21 +94,21 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
 
         @Override
         public String toString() {
-            return mString.toString();
+            return string.toString();
         }
     }
 
     /**
-     * This is a implementation class for MLongCase.
+     * This is a implementation class for LongCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "long")
-    private static class MLongCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
+    private static class LongCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
 
         @JsonValue
         private long mLong;
 
-        MLongCase(long mLong) {
+        LongCase(long mLong) {
             this.mLong = mLong;
         }
 
@@ -119,7 +118,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
         }
 
         @JsonCreator
-        private MLongCase(JsonNode jsonNode) throws IOException {
+        private LongCase(JsonNode jsonNode) throws IOException {
             if (jsonNode.isLong()) {
                 this.mLong = ApiHelper.deserialize(jsonNode, Long.class);
             } else {
@@ -144,8 +143,8 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(MStringCase.class,
-                    MLongCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(StringCase.class,
+                    LongCase.class), true);
         }
     }
 

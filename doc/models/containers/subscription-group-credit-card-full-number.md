@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | SubscriptionGroupCreditCardFullNumber.fromMString(String mString) |
+| `String` | SubscriptionGroupCreditCardFullNumber.fromString(String string) |
 | `int` | SubscriptionGroupCreditCardFullNumber.fromNumber(int number) |
 

@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateInvoiceCouponAmount.fromMString(String mString) |
+| `String` | CreateInvoiceCouponAmount.fromString(String string) |
 | `double` | CreateInvoiceCouponAmount.fromPrecision(double precision) |
 

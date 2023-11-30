@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | SubscriptionGroupCreditCardExpirationMonth.fromMString(String mString) |
+| `String` | SubscriptionGroupCreditCardExpirationMonth.fromString(String string) |
 | `int` | SubscriptionGroupCreditCardExpirationMonth.fromNumber(int number) |
 

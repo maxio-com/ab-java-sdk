@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | PaymentProfileAttributesExpirationYear.fromNumber(int number) |
-| `String` | PaymentProfileAttributesExpirationYear.fromMString(String mString) |
+| `String` | PaymentProfileAttributesExpirationYear.fromString(String string) |
 
