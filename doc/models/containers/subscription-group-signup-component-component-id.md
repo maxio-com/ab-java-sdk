@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | SubscriptionGroupSignupComponentComponentId.fromMString(String mString) |
+| `String` | SubscriptionGroupSignupComponentComponentId.fromString(String string) |
 | `int` | SubscriptionGroupSignupComponentComponentId.fromNumber(int number) |
 

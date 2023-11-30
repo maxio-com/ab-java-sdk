@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateAllocationPricePointId.fromMString(String mString) |
+| `String` | CreateAllocationPricePointId.fromString(String string) |
 | `int` | CreateAllocationPricePointId.fromNumber(int number) |
 

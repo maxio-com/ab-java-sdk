@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | PrepaidUsageComponentUnitPrice.fromMString(String mString) |
+| `String` | PrepaidUsageComponentUnitPrice.fromString(String string) |
 | `double` | PrepaidUsageComponentUnitPrice.fromPrecision(double precision) |
 

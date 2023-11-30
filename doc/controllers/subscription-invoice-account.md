@@ -223,7 +223,7 @@ ServiceCredit issueServiceCredit(
 String subscriptionId = "subscription_id0";
 IssueServiceCreditRequest body = new IssueServiceCreditRequest.Builder(
     new IssueServiceCredit.Builder(
-        IssueServiceCreditAmount.fromMString(
+        IssueServiceCreditAmount.fromString(
             "1"
         ),
         "Courtesy credit"
@@ -282,7 +282,7 @@ Void deductServiceCredit(
 String subscriptionId = "subscription_id0";
 DeductServiceCreditRequest body = new DeductServiceCreditRequest.Builder(
     new DeductServiceCredit.Builder(
-        DeductServiceCreditAmount.fromMString(
+        DeductServiceCreditAmount.fromString(
             "1"
         ),
         "Deduction"

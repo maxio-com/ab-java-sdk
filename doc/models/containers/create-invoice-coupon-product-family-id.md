@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateInvoiceCouponProductFamilyId.fromMString(String mString) |
+| `String` | CreateInvoiceCouponProductFamilyId.fromString(String string) |
 | `int` | CreateInvoiceCouponProductFamilyId.fromNumber(int number) |
 

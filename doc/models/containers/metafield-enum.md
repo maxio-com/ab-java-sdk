@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | MetafieldEnum.fromMString(String mString) |
+| `String` | MetafieldEnum.fromString(String string) |
 | `List<String>` | MetafieldEnum.fromListOfString(List<String> listOfString) |
 

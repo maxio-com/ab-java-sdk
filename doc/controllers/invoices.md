@@ -1167,7 +1167,7 @@ MultiInvoicePaymentResponse recordExternalPaymentForInvoices(
 ```java
 CreateMultiInvoicePaymentRequest body = new CreateMultiInvoicePaymentRequest.Builder(
     new CreateMultiInvoicePayment.Builder(
-        CreateMultiInvoicePaymentAmount.fromMString(
+        CreateMultiInvoicePaymentAmount.fromString(
             "100.00"
         ),
         Arrays.asList(
@@ -2579,7 +2579,7 @@ CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
                 .quantity(CreateInvoiceItemQuantity.fromPrecision(
                     12D
                 ))
-                .unitPrice(CreateInvoiceItemUnitPrice.fromMString(
+                .unitPrice(CreateInvoiceItemUnitPrice.fromString(
                     "150.00"
                 ))
                 .build()

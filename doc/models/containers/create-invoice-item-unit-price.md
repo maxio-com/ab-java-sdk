@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `double` | CreateInvoiceItemUnitPrice.fromPrecision(double precision) |
-| `String` | CreateInvoiceItemUnitPrice.fromMString(String mString) |
+| `String` | CreateInvoiceItemUnitPrice.fromString(String string) |
 

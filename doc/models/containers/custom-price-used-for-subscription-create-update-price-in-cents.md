@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CustomPriceUsedForSubscriptionCreateUpdatePriceInCents.fromMString(String mString) |
-| `long` | CustomPriceUsedForSubscriptionCreateUpdatePriceInCents.fromMLong(long mLong) |
+| `String` | CustomPriceUsedForSubscriptionCreateUpdatePriceInCents.fromString(String string) |
+| `long` | CustomPriceUsedForSubscriptionCreateUpdatePriceInCents.fromLong(long mLong) |
 

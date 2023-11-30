@@ -42,7 +42,7 @@ public class Subscription {
     private OptionalNullable<Boolean> cancelAtEndOfPeriod;
     private OptionalNullable<ZonedDateTime> canceledAt;
     private ZonedDateTime currentPeriodStartedAt;
-    private String previousState;
+    private SubscriptionState previousState;
     private Integer signupPaymentId;
     private String signupRevenue;
     private OptionalNullable<ZonedDateTime> delayedCancelAt;
@@ -112,7 +112,7 @@ public class Subscription {
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
      * @param  canceledAt  ZonedDateTime value for canceledAt.
      * @param  currentPeriodStartedAt  ZonedDateTime value for currentPeriodStartedAt.
-     * @param  previousState  String value for previousState.
+     * @param  previousState  SubscriptionState value for previousState.
      * @param  signupPaymentId  Integer value for signupPaymentId.
      * @param  signupRevenue  String value for signupRevenue.
      * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
@@ -176,7 +176,7 @@ public class Subscription {
             Boolean cancelAtEndOfPeriod,
             ZonedDateTime canceledAt,
             ZonedDateTime currentPeriodStartedAt,
-            String previousState,
+            SubscriptionState previousState,
             Integer signupPaymentId,
             String signupRevenue,
             ZonedDateTime delayedCancelAt,
@@ -301,7 +301,7 @@ public class Subscription {
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
      * @param  canceledAt  ZonedDateTime value for canceledAt.
      * @param  currentPeriodStartedAt  ZonedDateTime value for currentPeriodStartedAt.
-     * @param  previousState  String value for previousState.
+     * @param  previousState  SubscriptionState value for previousState.
      * @param  signupPaymentId  Integer value for signupPaymentId.
      * @param  signupRevenue  String value for signupRevenue.
      * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
@@ -356,7 +356,7 @@ public class Subscription {
             OptionalNullable<SubscriptionCancellationMethod> cancellationMethod,
             OptionalNullable<Boolean> cancelAtEndOfPeriod,
             OptionalNullable<ZonedDateTime> canceledAt, ZonedDateTime currentPeriodStartedAt,
-            String previousState, Integer signupPaymentId, String signupRevenue,
+            SubscriptionState previousState, Integer signupPaymentId, String signupRevenue,
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
             OptionalNullable<String> snapDay,
             OptionalNullable<SubscriptionPaymentCollectionMethod> paymentCollectionMethod,
@@ -1095,11 +1095,11 @@ public class Subscription {
      * Getter for PreviousState.
      * Only valid for webhook payloads The previous state for webhooks that have indicated a change
      * in state. For normal API calls, this will always be the same as the state (current state)
-     * @return Returns the String
+     * @return Returns the SubscriptionState
      */
     @JsonGetter("previous_state")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPreviousState() {
+    public SubscriptionState getPreviousState() {
         return previousState;
     }
 
@@ -1107,10 +1107,10 @@ public class Subscription {
      * Setter for PreviousState.
      * Only valid for webhook payloads The previous state for webhooks that have indicated a change
      * in state. For normal API calls, this will always be the same as the state (current state)
-     * @param previousState Value for String
+     * @param previousState Value for SubscriptionState
      */
     @JsonSetter("previous_state")
-    public void setPreviousState(String previousState) {
+    public void setPreviousState(SubscriptionState previousState) {
         this.previousState = previousState;
     }
 
@@ -2538,7 +2538,7 @@ public class Subscription {
         private OptionalNullable<Boolean> cancelAtEndOfPeriod;
         private OptionalNullable<ZonedDateTime> canceledAt;
         private ZonedDateTime currentPeriodStartedAt;
-        private String previousState;
+        private SubscriptionState previousState;
         private Integer signupPaymentId;
         private String signupRevenue;
         private OptionalNullable<ZonedDateTime> delayedCancelAt;
@@ -2837,10 +2837,10 @@ public class Subscription {
 
         /**
          * Setter for previousState.
-         * @param  previousState  String value for previousState.
+         * @param  previousState  SubscriptionState value for previousState.
          * @return Builder
          */
-        public Builder previousState(String previousState) {
+        public Builder previousState(SubscriptionState previousState) {
             this.previousState = previousState;
             return this;
         }

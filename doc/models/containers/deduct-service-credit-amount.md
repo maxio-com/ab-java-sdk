@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | DeductServiceCreditAmount.fromMString(String mString) |
+| `String` | DeductServiceCreditAmount.fromString(String string) |
 | `double` | DeductServiceCreditAmount.fromPrecision(double precision) |
 

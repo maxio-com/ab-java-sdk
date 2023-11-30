@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `List<String>` | RefundSegmentUids.fromListOfString(List<String> listOfString) |
-| `String` | RefundSegmentUids.fromMString(String mString) |
+| `String` | RefundSegmentUids.fromString(String string) |
 

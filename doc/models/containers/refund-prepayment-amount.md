@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | RefundPrepaymentAmount.fromMString(String mString) |
+| `String` | RefundPrepaymentAmount.fromString(String string) |
 | `double` | RefundPrepaymentAmount.fromPrecision(double precision) |
 

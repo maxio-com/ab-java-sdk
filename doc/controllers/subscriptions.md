@@ -677,10 +677,10 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
             .lastName("Smith")
             .fullNumber("4111111111111111")
             .cardType(CardType.VISA)
-            .expirationMonth(PaymentProfileAttributesExpirationMonth.fromMString(
+            .expirationMonth(PaymentProfileAttributesExpirationMonth.fromString(
                 "1"
             ))
-            .expirationYear(PaymentProfileAttributesExpirationYear.fromMString(
+            .expirationYear(PaymentProfileAttributesExpirationYear.fromString(
                 "2021"
             ))
             .billingAddress("123 Mass Ave.")

@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `double` | CreateInvoiceItemQuantity.fromPrecision(double precision) |
-| `String` | CreateInvoiceItemQuantity.fromMString(String mString) |
+| `String` | CreateInvoiceItemQuantity.fromString(String string) |
 

@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | OnOffComponentUnitPrice.fromMString(String mString) |
+| `String` | OnOffComponentUnitPrice.fromString(String string) |
 | `double` | OnOffComponentUnitPrice.fromPrecision(double precision) |
 

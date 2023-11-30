@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | CalendarBillingSnapDay.fromNumber(int number) |
-| `String` | CalendarBillingSnapDay.fromMString(String mString) |
+| `String` | CalendarBillingSnapDay.fromString(String string) |
 

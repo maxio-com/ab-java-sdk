@@ -1055,7 +1055,7 @@ ReactivateSubscriptionRequest body = new ReactivateSubscriptionRequest.Builder()
     .preserveBalance(true)
     .couponCode("10OFF")
     .useCreditsAndPrepayments(true)
-    .resume(ReactivateSubscriptionRequestResume.fromMBoolean(
+    .resume(ReactivateSubscriptionRequestResume.fromBoolean(
         true
     ))
     .build();
@@ -1374,7 +1374,7 @@ RenewalPreviewRequest body = new RenewalPreviewRequest.Builder()
             .quantity(10000)
             .build(),
         new RenewalPreviewComponent.Builder()
-            .componentId(RenewalPreviewComponentComponentId.fromMString(
+            .componentId(RenewalPreviewComponentComponentId.fromString(
                 "handle:small-instance-hours"
             ))
             .quantity(10000)
@@ -1383,11 +1383,11 @@ RenewalPreviewRequest body = new RenewalPreviewRequest.Builder()
             ))
             .build(),
         new RenewalPreviewComponent.Builder()
-            .componentId(RenewalPreviewComponentComponentId.fromMString(
+            .componentId(RenewalPreviewComponentComponentId.fromString(
                 "handle:large-instance-hours"
             ))
             .quantity(100)
-            .pricePointId(RenewalPreviewComponentPricePointId.fromMString(
+            .pricePointId(RenewalPreviewComponentPricePointId.fromString(
                 "handle:startup-pricing"
             ))
             .build()

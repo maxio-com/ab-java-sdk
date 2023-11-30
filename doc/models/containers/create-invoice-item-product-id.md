@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateInvoiceItemProductId.fromMString(String mString) |
+| `String` | CreateInvoiceItemProductId.fromString(String string) |
 | `int` | CreateInvoiceItemProductId.fromNumber(int number) |
 

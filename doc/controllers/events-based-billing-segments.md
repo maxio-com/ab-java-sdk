@@ -52,10 +52,10 @@ CreateSegmentRequest body = new CreateSegmentRequest.Builder(
     new CreateSegment.Builder(
         "volume"
     )
-    .segmentProperty1Value(CreateSegmentSegmentProperty1Value.fromMString(
+    .segmentProperty1Value(CreateSegmentSegmentProperty1Value.fromString(
             "France"
         ))
-    .segmentProperty2Value(CreateSegmentSegmentProperty2Value.fromMString(
+    .segmentProperty2Value(CreateSegmentSegmentProperty2Value.fromString(
             "Spain"
         ))
     .prices(Arrays.asList(

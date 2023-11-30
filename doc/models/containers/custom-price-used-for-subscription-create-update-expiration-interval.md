@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval.fromMString(String mString) |
+| `String` | CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval.fromString(String string) |
 | `int` | CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval.fromNumber(int number) |
 

@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | CreateInvoicePaymentAmount.fromMString(String mString) |
+| `String` | CreateInvoicePaymentAmount.fromString(String string) |
 | `double` | CreateInvoicePaymentAmount.fromPrecision(double precision) |
 

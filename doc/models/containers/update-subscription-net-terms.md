@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | UpdateSubscriptionNetTerms.fromMString(String mString) |
+| `String` | UpdateSubscriptionNetTerms.fromString(String string) |
 | `int` | UpdateSubscriptionNetTerms.fromNumber(int number) |
 

@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | ComponentSPricePointAssignmentPricePoint.fromMString(String mString) |
+| `String` | ComponentSPricePointAssignmentPricePoint.fromString(String string) |
 | `int` | ComponentSPricePointAssignmentPricePoint.fromNumber(int number) |
 

@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | SubscriptionGroupSignupComponentAllocatedQuantity.fromMString(String mString) |
+| `String` | SubscriptionGroupSignupComponentAllocatedQuantity.fromString(String string) |
 | `int` | SubscriptionGroupSignupComponentAllocatedQuantity.fromNumber(int number) |
 

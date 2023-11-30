@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `boolean` | ReactivateSubscriptionRequestResume.fromMBoolean(boolean mBoolean) |
+| `boolean` | ReactivateSubscriptionRequestResume.fromBoolean(boolean mBoolean) |
 | [`ResumeOptions`](../../../doc/models/resume-options.md) | ReactivateSubscriptionRequestResume.fromResumeOptions(ResumeOptions resumeOptions) |
 

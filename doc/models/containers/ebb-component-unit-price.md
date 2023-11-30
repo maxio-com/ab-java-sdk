@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| `String` | EBBComponentUnitPrice.fromMString(String mString) |
+| `String` | EBBComponentUnitPrice.fromString(String string) |
 | `double` | EBBComponentUnitPrice.fromPrecision(double precision) |
 

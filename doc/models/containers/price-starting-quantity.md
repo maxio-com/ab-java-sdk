@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | PriceStartingQuantity.fromNumber(int number) |
-| `String` | PriceStartingQuantity.fromMString(String mString) |
+| `String` | PriceStartingQuantity.fromString(String string) |
 
