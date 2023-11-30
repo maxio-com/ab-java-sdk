@@ -24,14 +24,14 @@ Returns the `balance_in_cents` of the Subscription's Pending Discount, Service C
 
 ```java
 AccountBalances readAccountBalances(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -40,7 +40,7 @@ AccountBalances readAccountBalances(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     AccountBalances result = subscriptionInvoiceAccountController.readAccountBalances(subscriptionId);
@@ -65,7 +65,7 @@ Please note that you **can't** pass `amount_in_cents`.
 
 ```java
 CreatePrepaymentResponse createPrepayment(
-    final String subscriptionId,
+    final int subscriptionId,
     final CreatePrepaymentRequest body)
 ```
 
@@ -73,7 +73,7 @@ CreatePrepaymentResponse createPrepayment(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`CreatePrepaymentRequest`](../../doc/models/create-prepayment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -83,7 +83,7 @@ CreatePrepaymentResponse createPrepayment(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 CreatePrepaymentRequest body = new CreatePrepaymentRequest.Builder(
     new CreatePrepayment.Builder(
         100D,
@@ -135,7 +135,7 @@ PrepaymentsResponse listPrepayments(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 | `filterDateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. created_at - Time when prepayment was created. application_at - Time when prepayment was applied to invoice. Use in query `filter[date_field]=created_at`. |
@@ -150,7 +150,7 @@ PrepaymentsResponse listPrepayments(
 
 ```java
 ListPrepaymentsInput listPrepaymentsInput = new ListPrepaymentsInput.Builder(
-    "subscription_id0"
+    222
 )
 .page(2)
 .perPage(50)
@@ -202,7 +202,7 @@ Credit will be added to the subscription in the amount specified in the request 
 
 ```java
 ServiceCredit issueServiceCredit(
-    final String subscriptionId,
+    final int subscriptionId,
     final IssueServiceCreditRequest body)
 ```
 
@@ -210,7 +210,7 @@ ServiceCredit issueServiceCredit(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`IssueServiceCreditRequest`](../../doc/models/issue-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -220,7 +220,7 @@ ServiceCredit issueServiceCredit(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 IssueServiceCreditRequest body = new IssueServiceCreditRequest.Builder(
     new IssueServiceCredit.Builder(
         IssueServiceCreditAmount.fromString(
@@ -261,7 +261,7 @@ Credit will be removed from the subscription in the amount specified in the requ
 
 ```java
 Void deductServiceCredit(
-    final String subscriptionId,
+    final int subscriptionId,
     final DeductServiceCreditRequest body)
 ```
 
@@ -269,7 +269,7 @@ Void deductServiceCredit(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`DeductServiceCreditRequest`](../../doc/models/deduct-service-credit-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -279,7 +279,7 @@ Void deductServiceCredit(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 DeductServiceCreditRequest body = new DeductServiceCreditRequest.Builder(
     new DeductServiceCredit.Builder(
         DeductServiceCreditAmount.fromString(
@@ -315,7 +315,7 @@ The amount may be passed either as a decimal, with `amount`, or an integer in ce
 
 ```java
 PrepaymentResponse refundPrepayment(
-    final String subscriptionId,
+    final int subscriptionId,
     final String prepaymentId,
     final RefundPrepaymentRequest body)
 ```
@@ -324,7 +324,7 @@ PrepaymentResponse refundPrepayment(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `prepaymentId` | `String` | Template, Required | id of prepayment |
 | `body` | [`RefundPrepaymentRequest`](../../doc/models/refund-prepayment-request.md) | Body, Optional | - |
 
@@ -335,7 +335,7 @@ PrepaymentResponse refundPrepayment(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 String prepaymentId = "prepayment_id8";
 try {
     PrepaymentResponse result = subscriptionInvoiceAccountController.refundPrepayment(subscriptionId, prepaymentId, null);

@@ -9,12 +9,16 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for AutoResume type.
  */
 public class AutoResume {
-    private String automaticallyResumeAt;
+    private ZonedDateTime automaticallyResumeAt;
 
     /**
      * Default constructor.
@@ -24,29 +28,31 @@ public class AutoResume {
 
     /**
      * Initialization constructor.
-     * @param  automaticallyResumeAt  String value for automaticallyResumeAt.
+     * @param  automaticallyResumeAt  ZonedDateTime value for automaticallyResumeAt.
      */
     public AutoResume(
-            String automaticallyResumeAt) {
+            ZonedDateTime automaticallyResumeAt) {
         this.automaticallyResumeAt = automaticallyResumeAt;
     }
 
     /**
      * Getter for AutomaticallyResumeAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("automatically_resume_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAutomaticallyResumeAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getAutomaticallyResumeAt() {
         return automaticallyResumeAt;
     }
 
     /**
      * Setter for AutomaticallyResumeAt.
-     * @param automaticallyResumeAt Value for String
+     * @param automaticallyResumeAt Value for ZonedDateTime
      */
     @JsonSetter("automatically_resume_at")
-    public void setAutomaticallyResumeAt(String automaticallyResumeAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setAutomaticallyResumeAt(ZonedDateTime automaticallyResumeAt) {
         this.automaticallyResumeAt = automaticallyResumeAt;
     }
 
@@ -74,16 +80,16 @@ public class AutoResume {
      * Class to build instances of {@link AutoResume}.
      */
     public static class Builder {
-        private String automaticallyResumeAt;
+        private ZonedDateTime automaticallyResumeAt;
 
 
 
         /**
          * Setter for automaticallyResumeAt.
-         * @param  automaticallyResumeAt  String value for automaticallyResumeAt.
+         * @param  automaticallyResumeAt  ZonedDateTime value for automaticallyResumeAt.
          * @return Builder
          */
-        public Builder automaticallyResumeAt(String automaticallyResumeAt) {
+        public Builder automaticallyResumeAt(ZonedDateTime automaticallyResumeAt) {
             this.automaticallyResumeAt = automaticallyResumeAt;
             return this;
         }

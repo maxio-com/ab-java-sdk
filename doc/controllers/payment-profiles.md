@@ -710,7 +710,7 @@ This will delete a payment profile belonging to the customer on the subscription
 
 ```java
 Void deleteSubscriptionsPaymentProfile(
-    final String subscriptionId,
+    final int subscriptionId,
     final String paymentProfileId)
 ```
 
@@ -718,7 +718,7 @@ Void deleteSubscriptionsPaymentProfile(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `paymentProfileId` | `String` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -728,7 +728,7 @@ Void deleteSubscriptionsPaymentProfile(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 String paymentProfileId = "payment_profile_id2";
 
 try {
@@ -867,7 +867,7 @@ You must elect to change the existing payment profile to a new payment profile I
 
 ```java
 PaymentProfileResponse updateSubscriptionDefaultPaymentProfile(
-    final String subscriptionId,
+    final int subscriptionId,
     final int paymentProfileId)
 ```
 
@@ -875,7 +875,7 @@ PaymentProfileResponse updateSubscriptionDefaultPaymentProfile(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -885,7 +885,7 @@ PaymentProfileResponse updateSubscriptionDefaultPaymentProfile(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int paymentProfileId = 198;
 
 try {
@@ -1068,14 +1068,14 @@ These error responses are designed to prevent excessive or invalid requests, and
 
 ```java
 Void sendRequestUpdatePaymentEmail(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -1084,7 +1084,7 @@ Void sendRequestUpdatePaymentEmail(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     paymentProfilesController.sendRequestUpdatePaymentEmail(subscriptionId);

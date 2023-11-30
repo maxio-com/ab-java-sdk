@@ -557,7 +557,7 @@ To create a new subscription into a subscription group, please reference the fol
 
 ```java
 SubscriptionGroupResponse createSubscriptionGroupHierarchy(
-    final String subscriptionId,
+    final int subscriptionId,
     final AddSubscriptionToAGroup body)
 ```
 
@@ -565,7 +565,7 @@ SubscriptionGroupResponse createSubscriptionGroupHierarchy(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`AddSubscriptionToAGroup`](../../doc/models/add-subscription-to-a-group.md) | Body, Optional | - |
 
 ## Response Type
@@ -575,7 +575,7 @@ SubscriptionGroupResponse createSubscriptionGroupHierarchy(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 AddSubscriptionToAGroup body = new AddSubscriptionToAGroup.Builder()
     .group(AddSubscriptionToAGroupGroup.fromGroupSettings(
         new GroupSettings.Builder(
@@ -633,14 +633,14 @@ For sites making use of the [Relationship Billing](https://chargify.zendesk.com/
 
 ```java
 Void removeSubscriptionFromGroup(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -649,7 +649,7 @@ Void removeSubscriptionFromGroup(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     subscriptionGroupsController.removeSubscriptionFromGroup(subscriptionId);

@@ -424,7 +424,7 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void deleteSubscriptionsPaymentProfile(
-            final String subscriptionId,
+            final int subscriptionId,
             final String paymentProfileId) throws ApiException, IOException {
         prepareDeleteSubscriptionsPaymentProfileRequest(subscriptionId, paymentProfileId).execute();
     }
@@ -433,14 +433,14 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for deleteSubscriptionsPaymentProfile.
      */
     private ApiCall<Void, ApiException> prepareDeleteSubscriptionsPaymentProfileRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final String paymentProfileId) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
                                 .shouldEncode(true))
@@ -556,7 +556,7 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public PaymentProfileResponse updateSubscriptionDefaultPaymentProfile(
-            final String subscriptionId,
+            final int subscriptionId,
             final int paymentProfileId) throws ApiException, IOException {
         return prepareUpdateSubscriptionDefaultPaymentProfileRequest(subscriptionId,
                 paymentProfileId).execute();
@@ -566,14 +566,14 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for updateSubscriptionDefaultPaymentProfile.
      */
     private ApiCall<PaymentProfileResponse, ApiException> prepareUpdateSubscriptionDefaultPaymentProfileRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}/change_payment_profile.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
@@ -704,7 +704,7 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void sendRequestUpdatePaymentEmail(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         prepareSendRequestUpdatePaymentEmailRequest(subscriptionId).execute();
     }
 
@@ -712,13 +712,13 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for sendRequestUpdatePaymentEmail.
      */
     private ApiCall<Void, ApiException> prepareSendRequestUpdatePaymentEmailRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/request_payment_profiles_update.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))

@@ -63,7 +63,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionComponentResponse readSubscriptionComponent(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId) throws ApiException, IOException {
         return prepareReadSubscriptionComponentRequest(subscriptionId, componentId).execute();
     }
@@ -72,14 +72,14 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for readSubscriptionComponent.
      */
     private ApiCall<SubscriptionComponentResponse, ApiException> prepareReadSubscriptionComponentRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId) throws IOException {
         return new ApiCall.Builder<SubscriptionComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -147,7 +147,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
                         .queryParam(param -> param.key("filter[currencies]")
                                 .value(input.getFilterCurrencies()).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -174,7 +174,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public BulkComponentSPricePointAssignment updateSubscriptionComponentsPricePoints(
-            final String subscriptionId,
+            final int subscriptionId,
             final BulkComponentSPricePointAssignment body) throws ApiException, IOException {
         return prepareUpdateSubscriptionComponentsPricePointsRequest(subscriptionId,
                 body).execute();
@@ -184,7 +184,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for updateSubscriptionComponentsPricePoints.
      */
     private ApiCall<BulkComponentSPricePointAssignment, ApiException> prepareUpdateSubscriptionComponentsPricePointsRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final BulkComponentSPricePointAssignment body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<BulkComponentSPricePointAssignment, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -193,7 +193,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/price_points.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -223,7 +223,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse resetSubscriptionComponentsPricePoints(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return prepareResetSubscriptionComponentsPricePointsRequest(subscriptionId).execute();
     }
 
@@ -231,13 +231,13 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for resetSubscriptionComponentsPricePoints.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareResetSubscriptionComponentsPricePointsRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/price_points/reset.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -303,7 +303,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public AllocationResponse allocateComponent(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final CreateAllocationRequest body) throws ApiException, IOException {
         return prepareAllocateComponentRequest(subscriptionId, componentId, body).execute();
@@ -313,7 +313,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for allocateComponent.
      */
     private ApiCall<AllocationResponse, ApiException> prepareAllocateComponentRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final CreateAllocationRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<AllocationResponse, ApiException>()
@@ -323,7 +323,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -364,7 +364,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<AllocationResponse> listAllocations(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final Integer page) throws ApiException, IOException {
         return prepareListAllocationsRequest(subscriptionId, componentId, page).execute();
@@ -374,7 +374,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for listAllocations.
      */
     private ApiCall<List<AllocationResponse>, ApiException> prepareListAllocationsRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final Integer page) throws IOException {
         return new ApiCall.Builder<List<AllocationResponse>, ApiException>()
@@ -384,7 +384,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations.json")
                         .queryParam(param -> param.key("page")
                                 .value((page != null) ? page : 1).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -425,7 +425,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public List<AllocationResponse> allocateComponents(
-            final String subscriptionId,
+            final int subscriptionId,
             final AllocateComponents body) throws ApiException, IOException {
         return prepareAllocateComponentsRequest(subscriptionId, body).execute();
     }
@@ -434,7 +434,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for allocateComponents.
      */
     private ApiCall<List<AllocationResponse>, ApiException> prepareAllocateComponentsRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final AllocateComponents body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<List<AllocationResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -443,7 +443,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/allocations.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -487,7 +487,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public AllocationPreviewResponse previewAllocations(
-            final String subscriptionId,
+            final int subscriptionId,
             final PreviewAllocationsRequest body) throws ApiException, IOException {
         return preparePreviewAllocationsRequest(subscriptionId, body).execute();
     }
@@ -496,7 +496,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for previewAllocations.
      */
     private ApiCall<AllocationPreviewResponse, ApiException> preparePreviewAllocationsRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final PreviewAllocationsRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<AllocationPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -505,7 +505,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/allocations/preview.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -544,7 +544,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void updatePrepaidUsageAllocation(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final int allocationId,
             final UpdateAllocationExpirationDate body) throws ApiException, IOException {
@@ -556,7 +556,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for updatePrepaidUsageAllocation.
      */
     private ApiCall<Void, ApiException> prepareUpdatePrepaidUsageAllocationRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final int allocationId,
             final UpdateAllocationExpirationDate body) throws JsonProcessingException, IOException {
@@ -567,7 +567,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -608,7 +608,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void deletePrepaidUsageAllocation(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final int allocationId,
             final CreditSchemeRequest body) throws ApiException, IOException {
@@ -620,7 +620,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for deletePrepaidUsageAllocation.
      */
     private ApiCall<Void, ApiException> prepareDeletePrepaidUsageAllocationRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final int allocationId,
             final CreditSchemeRequest body) throws JsonProcessingException, IOException {
@@ -631,7 +631,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -695,7 +695,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public UsageResponse createUsage(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final CreateUsageRequest body) throws ApiException, IOException {
         return prepareCreateUsageRequest(subscriptionId, componentId, body).execute();
@@ -705,7 +705,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for createUsage.
      */
     private ApiCall<UsageResponse, ApiException> prepareCreateUsageRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int componentId,
             final CreateUsageRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<UsageResponse, ApiException>()
@@ -715,7 +715,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/components/{component_id}/usages.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -779,7 +779,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(input.getComponentId()).isRequired(false)
                                 .shouldEncode(true))

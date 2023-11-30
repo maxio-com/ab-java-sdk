@@ -31,7 +31,7 @@ Full documentation on how to use Notes in the Chargify UI can be located [here](
 
 ```java
 SubscriptionNoteResponse createSubscriptionNote(
-    final String subscriptionId,
+    final int subscriptionId,
     final UpdateSubscriptionNoteRequest body)
 ```
 
@@ -39,7 +39,7 @@ SubscriptionNoteResponse createSubscriptionNote(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
@@ -49,7 +49,7 @@ SubscriptionNoteResponse createSubscriptionNote(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 UpdateSubscriptionNoteRequest body = new UpdateSubscriptionNoteRequest.Builder(
     new UpdateSubscriptionNote.Builder(
         "New test note.",
@@ -76,14 +76,14 @@ Use the following method to delete a note for a Subscription.
 
 ```java
 Void deleteSubscriptionNote(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -92,7 +92,7 @@ Void deleteSubscriptionNote(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     subscriptionNotesController.deleteSubscriptionNote(subscriptionId);
@@ -123,7 +123,7 @@ List<SubscriptionNoteResponse> listSubscriptionNotes(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 
@@ -135,7 +135,7 @@ List<SubscriptionNoteResponse> listSubscriptionNotes(
 
 ```java
 ListSubscriptionNotesInput listSubscriptionNotesInput = new ListSubscriptionNotesInput.Builder(
-    "subscription_id0"
+    222
 )
 .page(2)
 .perPage(50)
@@ -185,7 +185,7 @@ Once you have obtained the ID of the note you wish to read, use this method to s
 
 ```java
 SubscriptionNoteResponse readSubscriptionNote(
-    final String subscriptionId,
+    final int subscriptionId,
     final String noteId)
 ```
 
@@ -193,7 +193,7 @@ SubscriptionNoteResponse readSubscriptionNote(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `noteId` | `String` | Template, Required | The Chargify id of the note |
 
 ## Response Type
@@ -203,7 +203,7 @@ SubscriptionNoteResponse readSubscriptionNote(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 String noteId = "note_id8";
 
 try {
@@ -238,7 +238,7 @@ Use the following method to update a note for a Subscription.
 
 ```java
 SubscriptionNoteResponse updateSubscriptionNote(
-    final String subscriptionId,
+    final int subscriptionId,
     final String noteId,
     final UpdateSubscriptionNoteRequest body)
 ```
@@ -247,7 +247,7 @@ SubscriptionNoteResponse updateSubscriptionNote(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `noteId` | `String` | Template, Required | The Chargify id of the note |
 | `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
@@ -258,7 +258,7 @@ SubscriptionNoteResponse updateSubscriptionNote(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 String noteId = "note_id8";
 UpdateSubscriptionNoteRequest body = new UpdateSubscriptionNoteRequest.Builder(
     new UpdateSubscriptionNote.Builder(

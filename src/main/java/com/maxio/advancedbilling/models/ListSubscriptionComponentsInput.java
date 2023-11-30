@@ -15,7 +15,7 @@ import java.util.List;
  * This is a model class for ListSubscriptionComponentsInput type.
  */
 public class ListSubscriptionComponentsInput {
-    private String subscriptionId;
+    private int subscriptionId;
     private SubscriptionListDateField dateField;
     private SortingDirection direction;
     private String endDate;
@@ -37,7 +37,7 @@ public class ListSubscriptionComponentsInput {
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  String value for subscriptionId.
+     * @param  subscriptionId  int value for subscriptionId.
      * @param  dateField  SubscriptionListDateField value for dateField.
      * @param  direction  SortingDirection value for direction.
      * @param  endDate  String value for endDate.
@@ -52,7 +52,7 @@ public class ListSubscriptionComponentsInput {
      * @param  filterCurrencies  List of String value for filterCurrencies.
      */
     public ListSubscriptionComponentsInput(
-            String subscriptionId,
+            int subscriptionId,
             SubscriptionListDateField dateField,
             SortingDirection direction,
             String endDate,
@@ -83,20 +83,20 @@ public class ListSubscriptionComponentsInput {
     /**
      * Getter for SubscriptionId.
      * The Chargify id of the subscription
-     * @return Returns the String
+     * @return Returns the int
      */
     @JsonGetter("subscription_id")
-    public String getSubscriptionId() {
+    public int getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
      * The Chargify id of the subscription
-     * @param subscriptionId Value for String
+     * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(String subscriptionId) {
+    public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
@@ -419,7 +419,7 @@ public class ListSubscriptionComponentsInput {
      * Class to build instances of {@link ListSubscriptionComponentsInput}.
      */
     public static class Builder {
-        private String subscriptionId;
+        private int subscriptionId;
         private SubscriptionListDateField dateField;
         private SortingDirection direction;
         private String endDate;
@@ -441,18 +441,18 @@ public class ListSubscriptionComponentsInput {
 
         /**
          * Initialization constructor.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          */
-        public Builder(String subscriptionId) {
+        public Builder(int subscriptionId) {
             this.subscriptionId = subscriptionId;
         }
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(String subscriptionId) {
+        public Builder subscriptionId(int subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }

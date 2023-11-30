@@ -50,7 +50,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse retrySubscription(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return prepareRetrySubscriptionRequest(subscriptionId).execute();
     }
 
@@ -58,13 +58,13 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for retrySubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareRetrySubscriptionRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/retry.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -92,7 +92,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse cancelSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final CancellationRequest body) throws ApiException, IOException {
         return prepareCancelSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -101,7 +101,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for cancelSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareCancelSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final CancellationRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -110,7 +110,7 @@ public final class SubscriptionStatusController extends BaseController {
                         .path("/subscriptions/{subscription_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -126,7 +126,7 @@ public final class SubscriptionStatusController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
-                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -145,7 +145,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse resumeSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final ResumptionCharge calendarBillingResumptionCharge) throws ApiException, IOException {
         return prepareResumeSubscriptionRequest(subscriptionId,
                 calendarBillingResumptionCharge).execute();
@@ -155,7 +155,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for resumeSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareResumeSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final ResumptionCharge calendarBillingResumptionCharge) throws IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -164,7 +164,7 @@ public final class SubscriptionStatusController extends BaseController {
                         .path("/subscriptions/{subscription_id}/resume.json")
                         .queryParam(param -> param.key("calendar_billing['resumption_charge']")
                                 .value((calendarBillingResumptionCharge != null) ? calendarBillingResumptionCharge.value() : "prorated").isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -173,6 +173,9 @@ public final class SubscriptionStatusController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -189,7 +192,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse pauseSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final PauseRequest body) throws ApiException, IOException {
         return preparePauseSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -198,7 +201,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for pauseSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> preparePauseSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final PauseRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -207,7 +210,7 @@ public final class SubscriptionStatusController extends BaseController {
                         .path("/subscriptions/{subscription_id}/hold.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -240,7 +243,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse updateAutomaticSubscriptionResumption(
-            final String subscriptionId,
+            final int subscriptionId,
             final PauseRequest body) throws ApiException, IOException {
         return prepareUpdateAutomaticSubscriptionResumptionRequest(subscriptionId, body).execute();
     }
@@ -249,7 +252,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for updateAutomaticSubscriptionResumption.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareUpdateAutomaticSubscriptionResumptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final PauseRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -258,7 +261,7 @@ public final class SubscriptionStatusController extends BaseController {
                         .path("/subscriptions/{subscription_id}/hold.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -269,6 +272,9 @@ public final class SubscriptionStatusController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -352,7 +358,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse reactivateSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final ReactivateSubscriptionRequest body) throws ApiException, IOException {
         return prepareReactivateSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -361,7 +367,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for reactivateSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareReactivateSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final ReactivateSubscriptionRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -370,7 +376,7 @@ public final class SubscriptionStatusController extends BaseController {
                         .path("/subscriptions/{subscription_id}/reactivate.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -402,7 +408,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public DelayedCancellationResponse initiateDelayedCancellation(
-            final String subscriptionId,
+            final int subscriptionId,
             final CancellationRequest body) throws ApiException, IOException {
         return prepareInitiateDelayedCancellationRequest(subscriptionId, body).execute();
     }
@@ -411,7 +417,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for initiateDelayedCancellation.
      */
     private ApiCall<DelayedCancellationResponse, ApiException> prepareInitiateDelayedCancellationRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final CancellationRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<DelayedCancellationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -420,7 +426,7 @@ public final class SubscriptionStatusController extends BaseController {
                         .path("/subscriptions/{subscription_id}/delayed_cancel.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -451,7 +457,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public DelayedCancellationResponse stopDelayedCancellation(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return prepareStopDelayedCancellationRequest(subscriptionId).execute();
     }
 
@@ -459,13 +465,13 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for stopDelayedCancellation.
      */
     private ApiCall<DelayedCancellationResponse, ApiException> prepareStopDelayedCancellationRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<DelayedCancellationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/delayed_cancel.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -492,7 +498,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse cancelDunning(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return prepareCancelDunningRequest(subscriptionId).execute();
     }
 
@@ -500,13 +506,13 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for cancelDunning.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareCancelDunningRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/cancel_dunning.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -550,7 +556,7 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public RenewalPreviewResponse previewRenewal(
-            final String subscriptionId,
+            final int subscriptionId,
             final RenewalPreviewRequest body) throws ApiException, IOException {
         return preparePreviewRenewalRequest(subscriptionId, body).execute();
     }
@@ -559,7 +565,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for previewRenewal.
      */
     private ApiCall<RenewalPreviewResponse, ApiException> preparePreviewRenewalRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final RenewalPreviewRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<RenewalPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -568,7 +574,7 @@ public final class SubscriptionStatusController extends BaseController {
                         .path("/subscriptions/{subscription_id}/renewals/preview.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))

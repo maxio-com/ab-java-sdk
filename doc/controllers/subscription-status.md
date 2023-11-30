@@ -36,14 +36,14 @@ The response will be `422 "Unprocessable Entity`.
 
 ```java
 SubscriptionResponse retrySubscription(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -52,7 +52,7 @@ SubscriptionResponse retrySubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     SubscriptionResponse result = subscriptionStatusController.retrySubscription(subscriptionId);
@@ -214,7 +214,7 @@ The DELETE action causes the cancellation of the Subscription. This means, the m
 
 ```java
 SubscriptionResponse cancelSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final CancellationRequest body)
 ```
 
@@ -222,7 +222,7 @@ SubscriptionResponse cancelSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`CancellationRequest`](../../doc/models/cancellation-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -232,7 +232,7 @@ SubscriptionResponse cancelSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 try {
     SubscriptionResponse result = subscriptionStatusController.cancelSubscription(subscriptionId, null);
     System.out.println(result);
@@ -384,7 +384,7 @@ try {
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
 
 
 # Resume Subscription
@@ -393,7 +393,7 @@ Resume a paused (on-hold) subscription. If the normal next renewal date has not 
 
 ```java
 SubscriptionResponse resumeSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final ResumptionCharge calendarBillingResumptionCharge)
 ```
 
@@ -401,7 +401,7 @@ SubscriptionResponse resumeSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `calendarBillingResumptionCharge` | [`ResumptionCharge`](../../doc/models/resumption-charge.md) | Query, Optional | (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled<br>**Default**: `ResumptionCharge.PRORATED` |
 
 ## Response Type
@@ -411,7 +411,7 @@ SubscriptionResponse resumeSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 Liquid error: Value cannot be null. (Parameter 'key')
 try {
     SubscriptionResponse result = subscriptionStatusController.resumeSubscription(subscriptionId, Liquid error: Value cannot be null. (Parameter 'key'));
@@ -532,6 +532,12 @@ try {
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
 
 # Pause Subscription
 
@@ -543,7 +549,7 @@ You may not place a subscription on hold if the `next_billing` date is within 24
 
 ```java
 SubscriptionResponse pauseSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final PauseRequest body)
 ```
 
@@ -551,7 +557,7 @@ SubscriptionResponse pauseSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
 
 ## Response Type
@@ -561,10 +567,10 @@ SubscriptionResponse pauseSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 PauseRequest body = new PauseRequest.Builder()
     .hold(new AutoResume.Builder()
-        .automaticallyResumeAt("2017-05-25T11:25:00Z")
+        .automaticallyResumeAt(DateTimeHelper.fromRfc8601DateTime("2017-05-25T11:25:00Z"))
         .build())
     .build();
 
@@ -706,7 +712,7 @@ Alternately, you can change the `automatically_resume_at` to `null` if you would
 
 ```java
 SubscriptionResponse updateAutomaticSubscriptionResumption(
-    final String subscriptionId,
+    final int subscriptionId,
     final PauseRequest body)
 ```
 
@@ -714,7 +720,7 @@ SubscriptionResponse updateAutomaticSubscriptionResumption(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
 
 ## Response Type
@@ -724,10 +730,10 @@ SubscriptionResponse updateAutomaticSubscriptionResumption(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 PauseRequest body = new PauseRequest.Builder()
     .hold(new AutoResume.Builder()
-        .automaticallyResumeAt("2019-01-20")
+        .automaticallyResumeAt(DateTimeHelper.fromRfc8601DateTime("2019-01-20T00:00:00"))
         .build())
     .build();
 
@@ -862,6 +868,12 @@ try {
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Reactivate Subscription
@@ -1028,7 +1040,7 @@ PUT request sent to:
 
 ```java
 SubscriptionResponse reactivateSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final ReactivateSubscriptionRequest body)
 ```
 
@@ -1036,7 +1048,7 @@ SubscriptionResponse reactivateSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`ReactivateSubscriptionRequest`](../../doc/models/reactivate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1046,7 +1058,7 @@ SubscriptionResponse reactivateSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 ReactivateSubscriptionRequest body = new ReactivateSubscriptionRequest.Builder()
     .calendarBilling(new ReactivationBilling.Builder()
         .reactivationCharge(ReactivationCharge.PRORATED)
@@ -1197,7 +1209,7 @@ Note that you cannot set `cancel_at_end_of_period` at subscription creation, or 
 
 ```java
 DelayedCancellationResponse initiateDelayedCancellation(
-    final String subscriptionId,
+    final int subscriptionId,
     final CancellationRequest body)
 ```
 
@@ -1205,7 +1217,7 @@ DelayedCancellationResponse initiateDelayedCancellation(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`CancellationRequest`](../../doc/models/cancellation-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1215,7 +1227,7 @@ DelayedCancellationResponse initiateDelayedCancellation(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 try {
     DelayedCancellationResponse result = subscriptionStatusController.initiateDelayedCancellation(subscriptionId, null);
     System.out.println(result);
@@ -1241,14 +1253,14 @@ This endpoint is idempotent. If the subscription was not set to cancel in the fu
 
 ```java
 DelayedCancellationResponse stopDelayedCancellation(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -1257,7 +1269,7 @@ DelayedCancellationResponse stopDelayedCancellation(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     DelayedCancellationResponse result = subscriptionStatusController.stopDelayedCancellation(subscriptionId);
@@ -1290,14 +1302,14 @@ If a subscription is currently in dunning, the subscription will be set to activ
 
 ```java
 SubscriptionResponse cancelDunning(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -1306,7 +1318,7 @@ SubscriptionResponse cancelDunning(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     SubscriptionResponse result = subscriptionStatusController.cancelDunning(subscriptionId);
@@ -1346,7 +1358,7 @@ You can request a `POST` to obtain this data from the endpoint without any side 
 
 ```java
 RenewalPreviewResponse previewRenewal(
-    final String subscriptionId,
+    final int subscriptionId,
     final RenewalPreviewRequest body)
 ```
 
@@ -1354,7 +1366,7 @@ RenewalPreviewResponse previewRenewal(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`RenewalPreviewRequest`](../../doc/models/renewal-preview-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1364,7 +1376,7 @@ RenewalPreviewResponse previewRenewal(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 RenewalPreviewRequest body = new RenewalPreviewRequest.Builder()
     .components(Arrays.asList(
         new RenewalPreviewComponent.Builder()

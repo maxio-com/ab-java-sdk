@@ -960,7 +960,7 @@ Note: If you change the product associated with a subscription that contains a `
 
 ```java
 SubscriptionResponse updateSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final UpdateSubscriptionRequest body)
 ```
 
@@ -968,7 +968,7 @@ SubscriptionResponse updateSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`UpdateSubscriptionRequest`](../../doc/models/update-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -978,7 +978,7 @@ SubscriptionResponse updateSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder(
     new UpdateSubscription.Builder()
         .creditCardAttributes(new CreditCardAttributes.Builder()
@@ -1128,7 +1128,7 @@ Self-Service Page token for the subscription is not returned by default. If this
 
 ```java
 SubscriptionResponse readSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final List<SubscriptionInclude> include)
 ```
 
@@ -1136,7 +1136,7 @@ SubscriptionResponse readSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `include` | [`List<SubscriptionInclude>`](../../doc/models/subscription-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
 
 ## Response Type
@@ -1146,7 +1146,7 @@ SubscriptionResponse readSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 Liquid error: Value cannot be null. (Parameter 'key')try {
     SubscriptionResponse result = subscriptionsController.readSubscription(subscriptionId, Liquid error: Value cannot be null. (Parameter 'key'));
     System.out.println(result);
@@ -1321,7 +1321,7 @@ If unpermitted parameters are sent, a 400 HTTP response is sent along with a str
 
 ```java
 Void overrideSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final OverrideSubscriptionRequest body)
 ```
 
@@ -1329,7 +1329,7 @@ Void overrideSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`OverrideSubscriptionRequest`](../../doc/models/override-subscription-request.md) | Body, Optional | Only these fields are available to be set. |
 
 ## Response Type
@@ -1339,7 +1339,7 @@ Void overrideSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 OverrideSubscriptionRequest body = new OverrideSubscriptionRequest.Builder(
     new OverrideSubscription.Builder()
         .activatedAt("1999-12-01")
@@ -1414,7 +1414,7 @@ The query params will be: `?ack={customer_id}&cascade[]=customer&cascade[]=payme
 
 ```java
 Void purgeSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final int ack,
     final List<SubscriptionPurgeType> cascade)
 ```
@@ -1423,7 +1423,7 @@ Void purgeSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `ack` | `int` | Query, Required | id of the customer. |
 | `cascade` | [`List<SubscriptionPurgeType>`](../../doc/models/subscription-purge-type.md) | Query, Optional | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
 
@@ -1434,7 +1434,7 @@ Void purgeSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int ack = 252;
 Liquid error: Value cannot be null. (Parameter 'key')try {
     subscriptionsController.purgeSubscription(subscriptionId, ack, Liquid error: Value cannot be null. (Parameter 'key'));
@@ -1458,7 +1458,7 @@ Use this endpoint to update a subscription's prepaid configuration.
 
 ```java
 PrepaidConfigurationResponse createPrepaidSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final UpsertPrepaidConfigurationRequest body)
 ```
 
@@ -1466,7 +1466,7 @@ PrepaidConfigurationResponse createPrepaidSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`UpsertPrepaidConfigurationRequest`](../../doc/models/upsert-prepaid-configuration-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1476,7 +1476,7 @@ PrepaidConfigurationResponse createPrepaidSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 UpsertPrepaidConfigurationRequest body = new UpsertPrepaidConfigurationRequest.Builder(
     new UpsertPrepaidConfiguration.Builder()
         .initialFundingAmountInCents(50000L)
@@ -1708,7 +1708,7 @@ For this reason, using this query parameter on this endpoint has been deprecated
 
 ```java
 SubscriptionResponse applyCouponToSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final String code,
     final AddCouponsRequest body)
 ```
@@ -1717,7 +1717,7 @@ SubscriptionResponse applyCouponToSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `code` | `String` | Query, Optional | A code for the coupon that would be applied to a subscription |
 | `body` | [`AddCouponsRequest`](../../doc/models/add-coupons-request.md) | Body, Optional | - |
 
@@ -1728,7 +1728,7 @@ SubscriptionResponse applyCouponToSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 AddCouponsRequest body = new AddCouponsRequest.Builder()
     .codes(Arrays.asList(
         "COUPON_1",
@@ -1911,7 +1911,7 @@ For more information on the expected behaviour of removing a coupon from a subsc
 
 ```java
 String deleteCouponFromSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final String couponCode)
 ```
 
@@ -1919,7 +1919,7 @@ String deleteCouponFromSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `couponCode` | `String` | Query, Optional | The coupon code |
 
 ## Response Type
@@ -1929,7 +1929,7 @@ String deleteCouponFromSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     String result = subscriptionsController.deleteCouponFromSubscription(subscriptionId, null);
@@ -2002,7 +2002,7 @@ When the `revert_on_failure` parameter is set to `true`, the subscription's stat
 
 ```java
 SubscriptionResponse activateSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final ActivateSubscriptionRequest body)
 ```
 
@@ -2010,7 +2010,7 @@ SubscriptionResponse activateSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`ActivateSubscriptionRequest`](../../doc/models/activate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -2020,7 +2020,7 @@ SubscriptionResponse activateSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 try {
     SubscriptionResponse result = subscriptionsController.activateSubscription(subscriptionId, null);
     System.out.println(result);

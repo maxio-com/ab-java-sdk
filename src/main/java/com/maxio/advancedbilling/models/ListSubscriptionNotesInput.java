@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for ListSubscriptionNotesInput type.
  */
 public class ListSubscriptionNotesInput {
-    private String subscriptionId;
+    private int subscriptionId;
     private Integer page;
     private Integer perPage;
 
@@ -28,12 +28,12 @@ public class ListSubscriptionNotesInput {
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  String value for subscriptionId.
+     * @param  subscriptionId  int value for subscriptionId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      */
     public ListSubscriptionNotesInput(
-            String subscriptionId,
+            int subscriptionId,
             Integer page,
             Integer perPage) {
         this.subscriptionId = subscriptionId;
@@ -44,20 +44,20 @@ public class ListSubscriptionNotesInput {
     /**
      * Getter for SubscriptionId.
      * The Chargify id of the subscription
-     * @return Returns the String
+     * @return Returns the int
      */
     @JsonGetter("subscription_id")
-    public String getSubscriptionId() {
+    public int getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
      * The Chargify id of the subscription
-     * @param subscriptionId Value for String
+     * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(String subscriptionId) {
+    public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
@@ -141,7 +141,7 @@ public class ListSubscriptionNotesInput {
      * Class to build instances of {@link ListSubscriptionNotesInput}.
      */
     public static class Builder {
-        private String subscriptionId;
+        private int subscriptionId;
         private Integer page = 1;
         private Integer perPage = 20;
 
@@ -153,18 +153,18 @@ public class ListSubscriptionNotesInput {
 
         /**
          * Initialization constructor.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          */
-        public Builder(String subscriptionId) {
+        public Builder(int subscriptionId) {
             this.subscriptionId = subscriptionId;
         }
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(String subscriptionId) {
+        public Builder subscriptionId(int subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }

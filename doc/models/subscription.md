@@ -24,7 +24,7 @@
 | `CreatedAt` | `ZonedDateTime` | Optional | The creation date for this subscription | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `UpdatedAt` | `ZonedDateTime` | Optional | The date of last update for this subscription | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `CancellationMessage` | `String` | Optional | Seller-provided reason for, or note about, the cancellation. | String getCancellationMessage() | setCancellationMessage(String cancellationMessage) |
-| `CancellationMethod` | [`SubscriptionCancellationMethod`](../../doc/models/containers/subscription-cancellation-method.md) | Optional | This is a container for one-of cases. | SubscriptionCancellationMethod getCancellationMethod() | setCancellationMethod(SubscriptionCancellationMethod cancellationMethod) |
+| `CancellationMethod` | [`CancellationMethod`](../../doc/models/cancellation-method.md) | Optional | The process used to cancel the subscription, if the subscription has been canceled. It is nil if the subscription's state is not canceled. | CancellationMethod getCancellationMethod() | setCancellationMethod(CancellationMethod cancellationMethod) |
 | `CancelAtEndOfPeriod` | `Boolean` | Optional | Whether or not the subscription will (or has) canceled at the end of the period. | Boolean getCancelAtEndOfPeriod() | setCancelAtEndOfPeriod(Boolean cancelAtEndOfPeriod) |
 | `CanceledAt` | `ZonedDateTime` | Optional | The timestamp of the most recent cancellation | ZonedDateTime getCanceledAt() | setCanceledAt(ZonedDateTime canceledAt) |
 | `CurrentPeriodStartedAt` | `ZonedDateTime` | Optional | Timestamp relating to the start of the current (recurring) period | ZonedDateTime getCurrentPeriodStartedAt() | setCurrentPeriodStartedAt(ZonedDateTime currentPeriodStartedAt) |
@@ -34,11 +34,11 @@
 | `DelayedCancelAt` | `ZonedDateTime` | Optional | Timestamp for when the subscription is currently set to cancel. | ZonedDateTime getDelayedCancelAt() | setDelayedCancelAt(ZonedDateTime delayedCancelAt) |
 | `CouponCode` | `String` | Optional | (deprecated) The coupon code of the single coupon currently applied to the subscription. See coupon_codes instead as subscriptions can now have more than one coupon. | String getCouponCode() | setCouponCode(String couponCode) |
 | `SnapDay` | `String` | Optional | The day of the month that the subscription will charge according to calendar billing rules, if used. | String getSnapDay() | setSnapDay(String snapDay) |
-| `PaymentCollectionMethod` | [`SubscriptionPaymentCollectionMethod`](../../doc/models/containers/subscription-payment-collection-method.md) | Optional | This is a container for one-of cases. | SubscriptionPaymentCollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(SubscriptionPaymentCollectionMethod paymentCollectionMethod) |
+| `PaymentCollectionMethod` | [`PaymentCollectionMethod`](../../doc/models/payment-collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`.<br>**Default**: `PaymentCollectionMethod.AUTOMATIC` | PaymentCollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) |
 | `Customer` | [`Customer`](../../doc/models/customer.md) | Optional | - | Customer getCustomer() | setCustomer(Customer customer) |
 | `Product` | [`Product`](../../doc/models/product.md) | Optional | - | Product getProduct() | setProduct(Product product) |
 | `CreditCard` | [`PaymentProfile`](../../doc/models/payment-profile.md) | Optional | - | PaymentProfile getCreditCard() | setCreditCard(PaymentProfile creditCard) |
-| `Group` | [`SubscriptionGroup2`](../../doc/models/containers/subscription-group-2.md) | Optional | This is a container for one-of cases. | SubscriptionGroup2 getGroup() | setGroup(SubscriptionGroup2 group) |
+| `Group` | [`SubscriptionGroupInlined`](../../doc/models/subscription-group-inlined.md) | Optional | - | SubscriptionGroupInlined getGroup() | setGroup(SubscriptionGroupInlined group) |
 | `BankAccount` | [`SubscriptionBankAccount`](../../doc/models/subscription-bank-account.md) | Optional | - | SubscriptionBankAccount getBankAccount() | setBankAccount(SubscriptionBankAccount bankAccount) |
 | `PaymentType` | `String` | Optional | The payment profile type for the active profile on file. | String getPaymentType() | setPaymentType(String paymentType) |
 | `ReferralCode` | `String` | Optional | The subscription's unique code that can be given to referrals. | String getReferralCode() | setReferralCode(String referralCode) |
@@ -58,7 +58,7 @@
 | `NetTerms` | `Integer` | Optional | On Relationship Invoicing, the number of days before a renewal invoice is due. | Integer getNetTerms() | setNetTerms(Integer netTerms) |
 | `StoredCredentialTransactionId` | `Integer` | Optional | For European sites subject to PSD2 and using 3D Secure, this can be used to reference a previous transaction for the customer. This will ensure the card will be charged successfully at renewal. | Integer getStoredCredentialTransactionId() | setStoredCredentialTransactionId(Integer storedCredentialTransactionId) |
 | `Reference` | `String` | Optional | The reference value (provided by your app) for the subscription itelf. | String getReference() | setReference(String reference) |
-| `OnHoldAt` | `String` | Optional | The timestamp of the most recent on hold action. | String getOnHoldAt() | setOnHoldAt(String onHoldAt) |
+| `OnHoldAt` | `ZonedDateTime` | Optional | The timestamp of the most recent on hold action. | ZonedDateTime getOnHoldAt() | setOnHoldAt(ZonedDateTime onHoldAt) |
 | `PrepaidDunning` | `Boolean` | Optional | Boolean representing whether the subscription is prepaid and currently in dunning. Only returned for Relationship Invoicing sites with the feature enabled | Boolean getPrepaidDunning() | setPrepaidDunning(Boolean prepaidDunning) |
 | `Coupons` | [`List<SubscriptionIncludedCoupon>`](../../doc/models/subscription-included-coupon.md) | Optional | Additional coupon data. To use this data you also have to include the following param in the request`include[]=coupons`.<br>Only in Read Subscription Endpoint. | List<SubscriptionIncludedCoupon> getCoupons() | setCoupons(List<SubscriptionIncludedCoupon> coupons) |
 | `DunningCommunicationDelayEnabled` | `Boolean` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute.<br>**Default**: `false` | Boolean getDunningCommunicationDelayEnabled() | setDunningCommunicationDelayEnabled(Boolean dunningCommunicationDelayEnabled) |
@@ -74,6 +74,7 @@
 
 ```json
 {
+  "payment_collection_method": "automatic",
   "credit_card": {
     "id": 10088716,
     "first_name": "Test",

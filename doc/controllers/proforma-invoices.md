@@ -169,14 +169,14 @@ Proforma invoices are only available on Relationship Invoicing sites. To create 
 
 ```java
 ProformaInvoice createProformaInvoice(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -185,7 +185,7 @@ ProformaInvoice createProformaInvoice(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     ProformaInvoice result = proformaInvoicesController.createProformaInvoice(subscriptionId);
@@ -218,7 +218,7 @@ List<ProformaInvoice> listProformaInvoices(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `startDate` | `String` | Query, Optional | The beginning date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `endDate` | `String` | Query, Optional | The ending date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `status` | [`Status`](../../doc/models/status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
@@ -240,7 +240,7 @@ List<ProformaInvoice> listProformaInvoices(
 
 ```java
 ListProformaInvoicesInput listProformaInvoicesInput = new ListProformaInvoicesInput.Builder(
-    "subscription_id0"
+    222
 )
 .page(2)
 .perPage(50)
@@ -328,14 +328,14 @@ Alternatively, if you have some proforma invoices already, you may make a previe
 
 ```java
 ProformaInvoicePreview previewProformaInvoice(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -344,7 +344,7 @@ ProformaInvoicePreview previewProformaInvoice(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     ProformaInvoicePreview result = proformaInvoicesController.previewProformaInvoice(subscriptionId);

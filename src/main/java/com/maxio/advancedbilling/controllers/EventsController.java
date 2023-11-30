@@ -149,7 +149,7 @@ public final class EventsController extends BaseController {
                                 .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("filter")
                                 .value(EventType.toValue(input.getFilter())).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

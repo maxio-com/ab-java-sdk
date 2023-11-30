@@ -1886,7 +1886,7 @@ Only ungrouped or primary subscriptions may be paid using the "bulk" payment req
 
 ```java
 PaymentResponse recordPaymentForSubscription(
-    final String subscriptionId,
+    final int subscriptionId,
     final RecordPaymentRequest body)
 ```
 
@@ -1894,7 +1894,7 @@ PaymentResponse recordPaymentForSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`RecordPaymentRequest`](../../doc/models/record-payment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1904,7 +1904,7 @@ PaymentResponse recordPaymentForSubscription(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 RecordPaymentRequest body = new RecordPaymentRequest.Builder(
     new CreatePayment.Builder(
         "10.0",
@@ -2552,7 +2552,7 @@ By default, invoices will be created with open status. Possible alternative is `
 
 ```java
 InvoiceResponse createInvoice(
-    final String subscriptionId,
+    final int subscriptionId,
     final CreateInvoiceRequest body)
 ```
 
@@ -2560,7 +2560,7 @@ InvoiceResponse createInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`CreateInvoiceRequest`](../../doc/models/create-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -2570,7 +2570,7 @@ InvoiceResponse createInvoice(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
     new CreateInvoice.Builder()
         .lineItems(Arrays.asList(

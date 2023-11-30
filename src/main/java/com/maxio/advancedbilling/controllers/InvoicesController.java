@@ -494,7 +494,7 @@ public final class InvoicesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public PaymentResponse recordPaymentForSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final RecordPaymentRequest body) throws ApiException, IOException {
         return prepareRecordPaymentForSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -503,7 +503,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for recordPaymentForSubscription.
      */
     private ApiCall<PaymentResponse, ApiException> prepareRecordPaymentForSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final RecordPaymentRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<PaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -512,7 +512,7 @@ public final class InvoicesController extends BaseController {
                         .path("/subscriptions/{subscription_id}/payments.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -760,7 +760,7 @@ public final class InvoicesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public InvoiceResponse createInvoice(
-            final String subscriptionId,
+            final int subscriptionId,
             final CreateInvoiceRequest body) throws ApiException, IOException {
         return prepareCreateInvoiceRequest(subscriptionId, body).execute();
     }
@@ -769,7 +769,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for createInvoice.
      */
     private ApiCall<InvoiceResponse, ApiException> prepareCreateInvoiceRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final CreateInvoiceRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<InvoiceResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -778,7 +778,7 @@ public final class InvoicesController extends BaseController {
                         .path("/subscriptions/{subscription_id}/invoices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))

@@ -53,7 +53,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public AccountBalances readAccountBalances(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return prepareReadAccountBalancesRequest(subscriptionId).execute();
     }
 
@@ -61,13 +61,13 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Builds the ApiCall object for readAccountBalances.
      */
     private ApiCall<AccountBalances, ApiException> prepareReadAccountBalancesRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<AccountBalances, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/account_balances.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -95,7 +95,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CreatePrepaymentResponse createPrepayment(
-            final String subscriptionId,
+            final int subscriptionId,
             final CreatePrepaymentRequest body) throws ApiException, IOException {
         return prepareCreatePrepaymentRequest(subscriptionId, body).execute();
     }
@@ -104,7 +104,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Builds the ApiCall object for createPrepayment.
      */
     private ApiCall<CreatePrepaymentResponse, ApiException> prepareCreatePrepaymentRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final CreatePrepaymentRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<CreatePrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -113,7 +113,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .path("/subscriptions/{subscription_id}/prepayments.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -162,7 +162,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                                 .value(DateTimeHelper.toSimpleDate(input.getFilterStartDate())).isRequired(false))
                         .queryParam(param -> param.key("filter[end_date]")
                                 .value(DateTimeHelper.toSimpleDate(input.getFilterEndDate())).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -196,7 +196,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ServiceCredit issueServiceCredit(
-            final String subscriptionId,
+            final int subscriptionId,
             final IssueServiceCreditRequest body) throws ApiException, IOException {
         return prepareIssueServiceCreditRequest(subscriptionId, body).execute();
     }
@@ -205,7 +205,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Builds the ApiCall object for issueServiceCredit.
      */
     private ApiCall<ServiceCredit, ApiException> prepareIssueServiceCreditRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final IssueServiceCreditRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ServiceCredit, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -214,7 +214,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .path("/subscriptions/{subscription_id}/service_credits.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -240,7 +240,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void deductServiceCredit(
-            final String subscriptionId,
+            final int subscriptionId,
             final DeductServiceCreditRequest body) throws ApiException, IOException {
         prepareDeductServiceCreditRequest(subscriptionId, body).execute();
     }
@@ -249,7 +249,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Builds the ApiCall object for deductServiceCredit.
      */
     private ApiCall<Void, ApiException> prepareDeductServiceCreditRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final DeductServiceCreditRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -258,7 +258,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .path("/subscriptions/{subscription_id}/service_credit_deductions.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -288,7 +288,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public PrepaymentResponse refundPrepayment(
-            final String subscriptionId,
+            final int subscriptionId,
             final String prepaymentId,
             final RefundPrepaymentRequest body) throws ApiException, IOException {
         return prepareRefundPrepaymentRequest(subscriptionId, prepaymentId, body).execute();
@@ -298,7 +298,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Builds the ApiCall object for refundPrepayment.
      */
     private ApiCall<PrepaymentResponse, ApiException> prepareRefundPrepaymentRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final String prepaymentId,
             final RefundPrepaymentRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<PrepaymentResponse, ApiException>()
@@ -308,7 +308,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .path("/subscriptions/{subscription_id}/prepayments/{prepayment_id}/refunds.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("prepayment_id").value(prepaymentId)
                                 .shouldEncode(true))

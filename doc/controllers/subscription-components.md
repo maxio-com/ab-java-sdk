@@ -35,7 +35,7 @@ This request will list information regarding a specific component owned by a sub
 
 ```java
 SubscriptionComponentResponse readSubscriptionComponent(
-    final String subscriptionId,
+    final int subscriptionId,
     final int componentId)
 ```
 
@@ -43,7 +43,7 @@ SubscriptionComponentResponse readSubscriptionComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | The Chargify id of the component. Alternatively, the component's handle prefixed by `handle:` |
 
 ## Response Type
@@ -53,7 +53,7 @@ SubscriptionComponentResponse readSubscriptionComponent(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int componentId = 222;
 
 try {
@@ -109,7 +109,7 @@ List<SubscriptionComponentResponse> listSubscriptionComponents(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `dateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
@@ -131,7 +131,7 @@ List<SubscriptionComponentResponse> listSubscriptionComponents(
 
 ```java
 ListSubscriptionComponentsInput listSubscriptionComponentsInput = new ListSubscriptionComponentsInput.Builder(
-    "subscription_id0"
+    222
 )
 .dateField(SubscriptionListDateField.UPDATED_AT)
 .pricePointIds(IncludeNotNull.NOT_NULL)
@@ -196,7 +196,7 @@ The `price_point` key can take either a:
 
 ```java
 BulkComponentSPricePointAssignment updateSubscriptionComponentsPricePoints(
-    final String subscriptionId,
+    final int subscriptionId,
     final BulkComponentSPricePointAssignment body)
 ```
 
@@ -204,7 +204,7 @@ BulkComponentSPricePointAssignment updateSubscriptionComponentsPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`BulkComponentSPricePointAssignment`](../../doc/models/bulk-component-s-price-point-assignment.md) | Body, Optional | - |
 
 ## Response Type
@@ -214,7 +214,7 @@ BulkComponentSPricePointAssignment updateSubscriptionComponentsPricePoints(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 BulkComponentSPricePointAssignment body = new BulkComponentSPricePointAssignment.Builder()
     .components(Arrays.asList(
         new ComponentSPricePointAssignment.Builder()
@@ -280,14 +280,14 @@ Resets all of a subscription's components to use the current default.
 
 ```java
 SubscriptionResponse resetSubscriptionComponentsPricePoints(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -296,7 +296,7 @@ SubscriptionResponse resetSubscriptionComponentsPricePoints(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     SubscriptionResponse result = subscriptionComponentsController.resetSubscriptionComponentsPricePoints(subscriptionId);
@@ -464,7 +464,7 @@ See the tables below for valid values.
 
 ```java
 AllocationResponse allocateComponent(
-    final String subscriptionId,
+    final int subscriptionId,
     final int componentId,
     final CreateAllocationRequest body)
 ```
@@ -473,7 +473,7 @@ AllocationResponse allocateComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | The Chargify id of the component |
 | `body` | [`CreateAllocationRequest`](../../doc/models/create-allocation-request.md) | Body, Optional | - |
 
@@ -484,7 +484,7 @@ AllocationResponse allocateComponent(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int componentId = 222;
 CreateAllocationRequest body = new CreateAllocationRequest.Builder(
     new CreateAllocation.Builder(
@@ -559,7 +559,7 @@ puts component.allocated_quantity
 
 ```java
 List<AllocationResponse> listAllocations(
-    final String subscriptionId,
+    final int subscriptionId,
     final int componentId,
     final Integer page)
 ```
@@ -568,7 +568,7 @@ List<AllocationResponse> listAllocations(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | The Chargify id of the component |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 
@@ -579,7 +579,7 @@ List<AllocationResponse> listAllocations(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int componentId = 222;
 Integer page = 2;
 
@@ -643,7 +643,7 @@ This endpoint only responds to JSON. It is not available for XML.
 
 ```java
 List<AllocationResponse> allocateComponents(
-    final String subscriptionId,
+    final int subscriptionId,
     final AllocateComponents body)
 ```
 
@@ -651,7 +651,7 @@ List<AllocationResponse> allocateComponents(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`AllocateComponents`](../../doc/models/allocate-components.md) | Body, Optional | - |
 
 ## Response Type
@@ -661,7 +661,7 @@ List<AllocationResponse> allocateComponents(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 AllocateComponents body = new AllocateComponents.Builder()
     .prorationUpgradeScheme("prorate-attempt-capture")
     .prorationDowngradeScheme("no-prorate")
@@ -761,7 +761,7 @@ See example below for Fine-Grained Component Control response.
 
 ```java
 AllocationPreviewResponse previewAllocations(
-    final String subscriptionId,
+    final int subscriptionId,
     final PreviewAllocationsRequest body)
 ```
 
@@ -769,7 +769,7 @@ AllocationPreviewResponse previewAllocations(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`PreviewAllocationsRequest`](../../doc/models/preview-allocations-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -779,7 +779,7 @@ AllocationPreviewResponse previewAllocations(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 PreviewAllocationsRequest body = new PreviewAllocationsRequest.Builder(
     Arrays.asList(
         new CreateAllocation.Builder(
@@ -934,7 +934,7 @@ A few limitations exist when changing an allocation's expiration date:
 
 ```java
 Void updatePrepaidUsageAllocation(
-    final String subscriptionId,
+    final int subscriptionId,
     final int componentId,
     final int allocationId,
     final UpdateAllocationExpirationDate body)
@@ -944,7 +944,7 @@ Void updatePrepaidUsageAllocation(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | The Chargify id of the component |
 | `allocationId` | `int` | Template, Required | The Chargify id of the allocation |
 | `body` | [`UpdateAllocationExpirationDate`](../../doc/models/update-allocation-expiration-date.md) | Body, Optional | - |
@@ -956,7 +956,7 @@ Void updatePrepaidUsageAllocation(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int componentId = 222;
 int allocationId = 24;
 UpdateAllocationExpirationDate body = new UpdateAllocationExpirationDate.Builder()
@@ -995,7 +995,7 @@ By default, destroying an allocation will generate a service credit on the subsc
 
 ```java
 Void deletePrepaidUsageAllocation(
-    final String subscriptionId,
+    final int subscriptionId,
     final int componentId,
     final int allocationId,
     final CreditSchemeRequest body)
@@ -1005,7 +1005,7 @@ Void deletePrepaidUsageAllocation(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | The Chargify id of the component |
 | `allocationId` | `int` | Template, Required | The Chargify id of the allocation |
 | `body` | [`CreditSchemeRequest`](../../doc/models/credit-scheme-request.md) | Body, Optional | - |
@@ -1017,7 +1017,7 @@ Void deletePrepaidUsageAllocation(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int componentId = 222;
 int allocationId = 24;
 CreditSchemeRequest body = new CreditSchemeRequest.Builder(
@@ -1102,7 +1102,7 @@ A. No. Usage should be reported as one API call per component on a single subscr
 
 ```java
 UsageResponse createUsage(
-    final String subscriptionId,
+    final int subscriptionId,
     final int componentId,
     final CreateUsageRequest body)
 ```
@@ -1111,7 +1111,7 @@ UsageResponse createUsage(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | Either the Chargify id for the component or the component's handle prefixed by `handle:` |
 | `body` | [`CreateUsageRequest`](../../doc/models/create-usage-request.md) | Body, Optional | - |
 
@@ -1122,7 +1122,7 @@ UsageResponse createUsage(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 int componentId = 222;
 CreateUsageRequest body = new CreateUsageRequest.Builder(
     new CreateUsage.Builder()
@@ -1194,7 +1194,7 @@ List<UsageResponse> listUsages(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | Either the Chargify id for the component or the component's handle prefixed by `handle:` |
 | `sinceId` | `Integer` | Query, Optional | Returns usages with an id greater than or equal to the one specified |
 | `maxId` | `Integer` | Query, Optional | Returns usages with an id less than or equal to the one specified |
@@ -1211,7 +1211,7 @@ List<UsageResponse> listUsages(
 
 ```java
 ListUsagesInput listUsagesInput = new ListUsagesInput.Builder(
-    "subscription_id0",
+    222,
     222
 )
 .page(2)
