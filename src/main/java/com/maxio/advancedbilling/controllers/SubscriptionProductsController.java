@@ -96,7 +96,7 @@ public final class SubscriptionProductsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse migrateSubscriptionProduct(
-            final String subscriptionId,
+            final int subscriptionId,
             final SubscriptionProductMigrationRequest body) throws ApiException, IOException {
         return prepareMigrateSubscriptionProductRequest(subscriptionId, body).execute();
     }
@@ -105,7 +105,7 @@ public final class SubscriptionProductsController extends BaseController {
      * Builds the ApiCall object for migrateSubscriptionProduct.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareMigrateSubscriptionProductRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final SubscriptionProductMigrationRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -114,7 +114,7 @@ public final class SubscriptionProductsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/migrations.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -147,7 +147,7 @@ public final class SubscriptionProductsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionMigrationPreviewResponse previewSubscriptionProductMigration(
-            final String subscriptionId,
+            final int subscriptionId,
             final SubscriptionMigrationPreviewRequest body) throws ApiException, IOException {
         return preparePreviewSubscriptionProductMigrationRequest(subscriptionId, body).execute();
     }
@@ -156,7 +156,7 @@ public final class SubscriptionProductsController extends BaseController {
      * Builds the ApiCall object for previewSubscriptionProductMigration.
      */
     private ApiCall<SubscriptionMigrationPreviewResponse, ApiException> preparePreviewSubscriptionProductMigrationRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final SubscriptionMigrationPreviewRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionMigrationPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -165,7 +165,7 @@ public final class SubscriptionProductsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/migrations/preview.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))

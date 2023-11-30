@@ -24,7 +24,7 @@ We recommend using either the create or preview endpoints for proforma invoices 
 
 ```java
 Invoice issueAdvanceInvoice(
-    final String subscriptionId,
+    final int subscriptionId,
     final IssueAdvanceInvoiceRequest body)
 ```
 
@@ -32,7 +32,7 @@ Invoice issueAdvanceInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`IssueAdvanceInvoiceRequest`](../../doc/models/issue-advance-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -42,7 +42,7 @@ Invoice issueAdvanceInvoice(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 IssueAdvanceInvoiceRequest body = new IssueAdvanceInvoiceRequest.Builder()
     .force(true)
     .build();
@@ -72,14 +72,14 @@ Once an advance invoice has been generated for a subscription's upcoming renewal
 
 ```java
 Invoice readAdvanceInvoice(
-    final String subscriptionId)
+    final int subscriptionId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 
 ## Response Type
 
@@ -88,7 +88,7 @@ Invoice readAdvanceInvoice(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 
 try {
     Invoice result = advanceInvoiceController.readAdvanceInvoice(subscriptionId);
@@ -115,7 +115,7 @@ A `reason` is required in order to void, and the invoice must have an open statu
 
 ```java
 Invoice voidAdvanceInvoice(
-    final String subscriptionId,
+    final int subscriptionId,
     final VoidInvoiceRequest body)
 ```
 
@@ -123,7 +123,7 @@ Invoice voidAdvanceInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`VoidInvoiceRequest`](../../doc/models/void-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -133,7 +133,7 @@ Invoice voidAdvanceInvoice(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 try {
     Invoice result = advanceInvoiceController.voidAdvanceInvoice(subscriptionId, null);
     System.out.println(result);

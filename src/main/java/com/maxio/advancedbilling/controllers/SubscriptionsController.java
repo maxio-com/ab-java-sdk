@@ -569,7 +569,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse updateSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final UpdateSubscriptionRequest body) throws ApiException, IOException {
         return prepareUpdateSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -578,7 +578,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for updateSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareUpdateSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final UpdateSubscriptionRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -587,7 +587,7 @@ public final class SubscriptionsController extends BaseController {
                         .path("/subscriptions/{subscription_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -619,7 +619,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse readSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final List<SubscriptionInclude> include) throws ApiException, IOException {
         return prepareReadSubscriptionRequest(subscriptionId, include).execute();
     }
@@ -628,7 +628,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for readSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareReadSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final List<SubscriptionInclude> include) throws IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -637,7 +637,7 @@ public final class SubscriptionsController extends BaseController {
                         .path("/subscriptions/{subscription_id}.json")
                         .queryParam(param -> param.key("include[]")
                                 .value(SubscriptionInclude.toValue(include)).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -680,7 +680,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void overrideSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final OverrideSubscriptionRequest body) throws ApiException, IOException {
         prepareOverrideSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -689,7 +689,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for overrideSubscription.
      */
     private ApiCall<Void, ApiException> prepareOverrideSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final OverrideSubscriptionRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -698,7 +698,7 @@ public final class SubscriptionsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/override.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -771,7 +771,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void purgeSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final int ack,
             final List<SubscriptionPurgeType> cascade) throws ApiException, IOException {
         preparePurgeSubscriptionRequest(subscriptionId, ack, cascade).execute();
@@ -781,7 +781,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for purgeSubscription.
      */
     private ApiCall<Void, ApiException> preparePurgeSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final int ack,
             final List<SubscriptionPurgeType> cascade) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
@@ -793,7 +793,7 @@ public final class SubscriptionsController extends BaseController {
                                 .value(ack).isRequired(false))
                         .queryParam(param -> param.key("cascade[]")
                                 .value(SubscriptionPurgeType.toValue(cascade)).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
@@ -817,7 +817,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public PrepaidConfigurationResponse createPrepaidSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final UpsertPrepaidConfigurationRequest body) throws ApiException, IOException {
         return prepareCreatePrepaidSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -826,7 +826,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for createPrepaidSubscription.
      */
     private ApiCall<PrepaidConfigurationResponse, ApiException> prepareCreatePrepaidSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final UpsertPrepaidConfigurationRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<PrepaidConfigurationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -835,7 +835,7 @@ public final class SubscriptionsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/prepaid_configurations.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -932,7 +932,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse applyCouponToSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final String code,
             final AddCouponsRequest body) throws ApiException, IOException {
         return prepareApplyCouponToSubscriptionRequest(subscriptionId, code, body).execute();
@@ -942,7 +942,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for applyCouponToSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareApplyCouponToSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final String code,
             final AddCouponsRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
@@ -954,7 +954,7 @@ public final class SubscriptionsController extends BaseController {
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .queryParam(param -> param.key("code")
                                 .value(code).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -985,7 +985,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public String deleteCouponFromSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final String couponCode) throws ApiException, IOException {
         return prepareDeleteCouponFromSubscriptionRequest(subscriptionId, couponCode).execute();
     }
@@ -994,7 +994,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for deleteCouponFromSubscription.
      */
     private ApiCall<String, ApiException> prepareDeleteCouponFromSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final String couponCode) throws IOException {
         return new ApiCall.Builder<String, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -1003,7 +1003,7 @@ public final class SubscriptionsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/remove_coupon.json")
                         .queryParam(param -> param.key("coupon_code")
                                 .value(couponCode).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))
@@ -1053,7 +1053,7 @@ public final class SubscriptionsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionResponse activateSubscription(
-            final String subscriptionId,
+            final int subscriptionId,
             final ActivateSubscriptionRequest body) throws ApiException, IOException {
         return prepareActivateSubscriptionRequest(subscriptionId, body).execute();
     }
@@ -1062,7 +1062,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for activateSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareActivateSubscriptionRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final ActivateSubscriptionRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -1071,7 +1071,7 @@ public final class SubscriptionsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/activate.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))

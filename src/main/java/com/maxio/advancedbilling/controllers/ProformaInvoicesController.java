@@ -186,7 +186,7 @@ public final class ProformaInvoicesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProformaInvoice createProformaInvoice(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return prepareCreateProformaInvoiceRequest(subscriptionId).execute();
     }
 
@@ -194,13 +194,13 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for createProformaInvoice.
      */
     private ApiCall<ProformaInvoice, ApiException> prepareCreateProformaInvoiceRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/proforma_invoices.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -270,7 +270,7 @@ public final class ProformaInvoicesController extends BaseController {
                                 .value(input.getPayments()).isRequired(false))
                         .queryParam(param -> param.key("custom_fields")
                                 .value(input.getCustomFields()).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -363,7 +363,7 @@ public final class ProformaInvoicesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProformaInvoicePreview previewProformaInvoice(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return preparePreviewProformaInvoiceRequest(subscriptionId).execute();
     }
 
@@ -371,13 +371,13 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for previewProformaInvoice.
      */
     private ApiCall<ProformaInvoicePreview, ApiException> preparePreviewProformaInvoiceRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<ProformaInvoicePreview, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/proforma_invoices/preview.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

@@ -75,7 +75,7 @@ You may wish to redirect customers to different pages depending on whether their
 
 ```java
 SubscriptionResponse migrateSubscriptionProduct(
-    final String subscriptionId,
+    final int subscriptionId,
     final SubscriptionProductMigrationRequest body)
 ```
 
@@ -83,7 +83,7 @@ SubscriptionResponse migrateSubscriptionProduct(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`SubscriptionProductMigrationRequest`](../../doc/models/subscription-product-migration-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -93,7 +93,7 @@ SubscriptionResponse migrateSubscriptionProduct(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 SubscriptionProductMigrationRequest body = new SubscriptionProductMigrationRequest.Builder(
     new SubscriptionProductMigration.Builder()
         .productId(3801242)
@@ -256,7 +256,7 @@ This will calculate the prorated adjustment, charge, payment and credit applied 
 
 ```java
 SubscriptionMigrationPreviewResponse previewSubscriptionProductMigration(
-    final String subscriptionId,
+    final int subscriptionId,
     final SubscriptionMigrationPreviewRequest body)
 ```
 
@@ -264,7 +264,7 @@ SubscriptionMigrationPreviewResponse previewSubscriptionProductMigration(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `String` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `body` | [`SubscriptionMigrationPreviewRequest`](../../doc/models/subscription-migration-preview-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -274,7 +274,7 @@ SubscriptionMigrationPreviewResponse previewSubscriptionProductMigration(
 ## Example Usage
 
 ```java
-String subscriptionId = "subscription_id0";
+int subscriptionId = 222;
 SubscriptionMigrationPreviewRequest body = new SubscriptionMigrationPreviewRequest.Builder(
     new SubscriptionMigrationPreviewOptions.Builder()
         .includeTrial(false)

@@ -380,7 +380,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionGroupResponse createSubscriptionGroupHierarchy(
-            final String subscriptionId,
+            final int subscriptionId,
             final AddSubscriptionToAGroup body) throws ApiException, IOException {
         return prepareCreateSubscriptionGroupHierarchyRequest(subscriptionId, body).execute();
     }
@@ -389,7 +389,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for createSubscriptionGroupHierarchy.
      */
     private ApiCall<SubscriptionGroupResponse, ApiException> prepareCreateSubscriptionGroupHierarchyRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final AddSubscriptionToAGroup body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -398,7 +398,7 @@ public final class SubscriptionGroupsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/group.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -425,7 +425,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void removeSubscriptionFromGroup(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         prepareRemoveSubscriptionFromGroupRequest(subscriptionId).execute();
     }
 
@@ -433,13 +433,13 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for removeSubscriptionFromGroup.
      */
     private ApiCall<Void, ApiException> prepareRemoveSubscriptionFromGroupRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/group.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))

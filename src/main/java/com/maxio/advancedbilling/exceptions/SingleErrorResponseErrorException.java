@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.coreinterfaces.http.Context;
 
 /**
- * This is a model class for SingleErrorResponseException type.
+ * This is a model class for SingleErrorResponseErrorException type.
  */
-public class SingleErrorResponseException extends ApiException {
-    private static final long serialVersionUID = 91482264436075798L;
+public class SingleErrorResponseErrorException extends ApiException {
+    private static final long serialVersionUID = -33656825763779007L;
     private String error;
 
     /**
@@ -22,7 +22,7 @@ public class SingleErrorResponseException extends ApiException {
      * @param   reason  The reason for throwing exception
      * @param   context The context of the API exception
      */
-    public SingleErrorResponseException(String reason, Context context) {
+    public SingleErrorResponseErrorException(String reason, Context context) {
         super(reason, context);
     }
 

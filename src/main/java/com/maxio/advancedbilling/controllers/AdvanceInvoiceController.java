@@ -52,7 +52,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public Invoice issueAdvanceInvoice(
-            final String subscriptionId,
+            final int subscriptionId,
             final IssueAdvanceInvoiceRequest body) throws ApiException, IOException {
         return prepareIssueAdvanceInvoiceRequest(subscriptionId, body).execute();
     }
@@ -61,7 +61,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * Builds the ApiCall object for issueAdvanceInvoice.
      */
     private ApiCall<Invoice, ApiException> prepareIssueAdvanceInvoiceRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final IssueAdvanceInvoiceRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -70,7 +70,7 @@ public final class AdvanceInvoiceController extends BaseController {
                         .path("/subscriptions/{subscription_id}/advance_invoice/issue.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -106,7 +106,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public Invoice readAdvanceInvoice(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         return prepareReadAdvanceInvoiceRequest(subscriptionId).execute();
     }
 
@@ -114,13 +114,13 @@ public final class AdvanceInvoiceController extends BaseController {
      * Builds the ApiCall object for readAdvanceInvoice.
      */
     private ApiCall<Invoice, ApiException> prepareReadAdvanceInvoiceRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/advance_invoice.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -154,7 +154,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public Invoice voidAdvanceInvoice(
-            final String subscriptionId,
+            final int subscriptionId,
             final VoidInvoiceRequest body) throws ApiException, IOException {
         return prepareVoidAdvanceInvoiceRequest(subscriptionId, body).execute();
     }
@@ -163,7 +163,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * Builds the ApiCall object for voidAdvanceInvoice.
      */
     private ApiCall<Invoice, ApiException> prepareVoidAdvanceInvoiceRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final VoidInvoiceRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -172,7 +172,7 @@ public final class AdvanceInvoiceController extends BaseController {
                         .path("/subscriptions/{subscription_id}/advance_invoice/void.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))

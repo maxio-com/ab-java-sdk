@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for ListUsagesInput type.
  */
 public class ListUsagesInput {
-    private String subscriptionId;
+    private int subscriptionId;
     private int componentId;
     private Integer sinceId;
     private Integer maxId;
@@ -33,7 +33,7 @@ public class ListUsagesInput {
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  String value for subscriptionId.
+     * @param  subscriptionId  int value for subscriptionId.
      * @param  componentId  int value for componentId.
      * @param  sinceId  Integer value for sinceId.
      * @param  maxId  Integer value for maxId.
@@ -43,7 +43,7 @@ public class ListUsagesInput {
      * @param  perPage  Integer value for perPage.
      */
     public ListUsagesInput(
-            String subscriptionId,
+            int subscriptionId,
             int componentId,
             Integer sinceId,
             Integer maxId,
@@ -64,20 +64,20 @@ public class ListUsagesInput {
     /**
      * Getter for SubscriptionId.
      * The Chargify id of the subscription
-     * @return Returns the String
+     * @return Returns the int
      */
     @JsonGetter("subscription_id")
-    public String getSubscriptionId() {
+    public int getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
      * The Chargify id of the subscription
-     * @param subscriptionId Value for String
+     * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(String subscriptionId) {
+    public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
@@ -275,7 +275,7 @@ public class ListUsagesInput {
      * Class to build instances of {@link ListUsagesInput}.
      */
     public static class Builder {
-        private String subscriptionId;
+        private int subscriptionId;
         private int componentId;
         private Integer sinceId;
         private Integer maxId;
@@ -292,20 +292,20 @@ public class ListUsagesInput {
 
         /**
          * Initialization constructor.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @param  componentId  int value for componentId.
          */
-        public Builder(String subscriptionId, int componentId) {
+        public Builder(int subscriptionId, int componentId) {
             this.subscriptionId = subscriptionId;
             this.componentId = componentId;
         }
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(String subscriptionId) {
+        public Builder subscriptionId(int subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }

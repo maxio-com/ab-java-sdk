@@ -47,7 +47,7 @@ public final class SubscriptionNotesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionNoteResponse createSubscriptionNote(
-            final String subscriptionId,
+            final int subscriptionId,
             final UpdateSubscriptionNoteRequest body) throws ApiException, IOException {
         return prepareCreateSubscriptionNoteRequest(subscriptionId, body).execute();
     }
@@ -56,7 +56,7 @@ public final class SubscriptionNotesController extends BaseController {
      * Builds the ApiCall object for createSubscriptionNote.
      */
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareCreateSubscriptionNoteRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final UpdateSubscriptionNoteRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -65,7 +65,7 @@ public final class SubscriptionNotesController extends BaseController {
                         .path("/subscriptions/{subscription_id}/notes.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -89,7 +89,7 @@ public final class SubscriptionNotesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void deleteSubscriptionNote(
-            final String subscriptionId) throws ApiException, IOException {
+            final int subscriptionId) throws ApiException, IOException {
         prepareDeleteSubscriptionNoteRequest(subscriptionId).execute();
     }
 
@@ -97,13 +97,13 @@ public final class SubscriptionNotesController extends BaseController {
      * Builds the ApiCall object for deleteSubscriptionNote.
      */
     private ApiCall<Void, ApiException> prepareDeleteSubscriptionNoteRequest(
-            final String subscriptionId) throws IOException {
+            final int subscriptionId) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/notes.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))
@@ -145,7 +145,7 @@ public final class SubscriptionNotesController extends BaseController {
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId())
+                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -171,7 +171,7 @@ public final class SubscriptionNotesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionNoteResponse readSubscriptionNote(
-            final String subscriptionId,
+            final int subscriptionId,
             final String noteId) throws ApiException, IOException {
         return prepareReadSubscriptionNoteRequest(subscriptionId, noteId).execute();
     }
@@ -180,14 +180,14 @@ public final class SubscriptionNotesController extends BaseController {
      * Builds the ApiCall object for readSubscriptionNote.
      */
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareReadSubscriptionNoteRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final String noteId) throws IOException {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}/notes/{note_id}.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("note_id").value(noteId)
                                 .shouldEncode(true))
@@ -214,7 +214,7 @@ public final class SubscriptionNotesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SubscriptionNoteResponse updateSubscriptionNote(
-            final String subscriptionId,
+            final int subscriptionId,
             final String noteId,
             final UpdateSubscriptionNoteRequest body) throws ApiException, IOException {
         return prepareUpdateSubscriptionNoteRequest(subscriptionId, noteId, body).execute();
@@ -224,7 +224,7 @@ public final class SubscriptionNotesController extends BaseController {
      * Builds the ApiCall object for updateSubscriptionNote.
      */
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareUpdateSubscriptionNoteRequest(
-            final String subscriptionId,
+            final int subscriptionId,
             final String noteId,
             final UpdateSubscriptionNoteRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
@@ -234,7 +234,7 @@ public final class SubscriptionNotesController extends BaseController {
                         .path("/subscriptions/{subscription_id}/notes/{note_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId)
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("note_id").value(noteId)
                                 .shouldEncode(true))
