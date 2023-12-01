@@ -730,6 +730,23 @@ try {
 }
 ```
 
+## Example Response *(as JSON)*
+
+```json
+{
+  "currency_prices": [
+    {
+      "id": 123,
+      "currency": "EUR",
+      "price": 100,
+      "formatted_price": "€123,00",
+      "product_price_point_id": 32669,
+      "role": "baseline"
+    }
+  ]
+}
+```
+
 ## Errors
 
 | HTTP Status Code | Error Description | Exception Class |
@@ -746,7 +763,7 @@ When updating the pricing, it needs to mirror the structure of your primary pric
 Note: Currency Prices are not able to be updated for custom product price points.
 
 ```java
-List<ProductPricePointCurrencyPrice> updateProductCurrencyPrices(
+ProductPricePointCurrencyPrice updateProductCurrencyPrices(
     final int productPricePointId,
     final UpdateCurrencyPricesRequest body)
 ```
@@ -760,7 +777,7 @@ List<ProductPricePointCurrencyPrice> updateProductCurrencyPrices(
 
 ## Response Type
 
-[`List<ProductPricePointCurrencyPrice>`](../../doc/models/product-price-point-currency-price.md)
+[`ProductPricePointCurrencyPrice`](../../doc/models/product-price-point-currency-price.md)
 
 ## Example Usage
 
@@ -783,7 +800,7 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
 .build();
 
 try {
-    List<ProductPricePointCurrencyPrice> result = productPricePointsController.updateProductCurrencyPrices(productPricePointId, body);
+    ProductPricePointCurrencyPrice result = productPricePointsController.updateProductCurrencyPrices(productPricePointId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -795,16 +812,18 @@ try {
 ## Example Response *(as JSON)*
 
 ```json
-[
-  {
-    "id": 0,
-    "currency": "string",
-    "price": 0,
-    "formatted_price": "string",
-    "product_price_point_id": 0,
-    "role": "baseline"
-  }
-]
+{
+  "currency_prices": [
+    {
+      "id": 123,
+      "currency": "EUR",
+      "price": 100,
+      "formatted_price": "€123,00",
+      "product_price_point_id": 32669,
+      "role": "baseline"
+    }
+  ]
+}
 ```
 
 

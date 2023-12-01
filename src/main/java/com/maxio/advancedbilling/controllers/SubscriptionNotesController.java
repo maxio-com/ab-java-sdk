@@ -83,42 +83,6 @@ public final class SubscriptionNotesController extends BaseController {
     }
 
     /**
-     * Use the following method to delete a note for a Subscription.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    public void deleteSubscriptionNote(
-            final int subscriptionId) throws ApiException, IOException {
-        prepareDeleteSubscriptionNoteRequest(subscriptionId).execute();
-    }
-
-    /**
-     * Builds the ApiCall object for deleteSubscriptionNote.
-     */
-    private ApiCall<Void, ApiException> prepareDeleteSubscriptionNoteRequest(
-            final int subscriptionId) throws IOException {
-        return new ApiCall.Builder<Void, ApiException>()
-                .globalConfig(getGlobalConfiguration())
-                .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
-                        .path("/subscriptions/{subscription_id}/notes.json")
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
-                                .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
-                        .httpMethod(HttpMethod.DELETE))
-                .responseHandler(responseHandler -> responseHandler
-                        .nullify404(false)
-                        .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
-                .build();
-    }
-
-    /**
      * Use this method to retrieve a list of Notes associated with a Subscription. The response will
      * be an array of Notes.
      * @param  input  ListSubscriptionNotesInput object containing request parameters
@@ -172,7 +136,7 @@ public final class SubscriptionNotesController extends BaseController {
      */
     public SubscriptionNoteResponse readSubscriptionNote(
             final int subscriptionId,
-            final String noteId) throws ApiException, IOException {
+            final int noteId) throws ApiException, IOException {
         return prepareReadSubscriptionNoteRequest(subscriptionId, noteId).execute();
     }
 
@@ -181,7 +145,7 @@ public final class SubscriptionNotesController extends BaseController {
      */
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareReadSubscriptionNoteRequest(
             final int subscriptionId,
-            final String noteId) throws IOException {
+            final int noteId) throws IOException {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -189,7 +153,7 @@ public final class SubscriptionNotesController extends BaseController {
                         .path("/subscriptions/{subscription_id}/notes/{note_id}.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("note_id").value(noteId)
+                        .templateParam(param -> param.key("note_id").value(noteId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -215,7 +179,7 @@ public final class SubscriptionNotesController extends BaseController {
      */
     public SubscriptionNoteResponse updateSubscriptionNote(
             final int subscriptionId,
-            final String noteId,
+            final int noteId,
             final UpdateSubscriptionNoteRequest body) throws ApiException, IOException {
         return prepareUpdateSubscriptionNoteRequest(subscriptionId, noteId, body).execute();
     }
@@ -225,7 +189,7 @@ public final class SubscriptionNotesController extends BaseController {
      */
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareUpdateSubscriptionNoteRequest(
             final int subscriptionId,
-            final String noteId,
+            final int noteId,
             final UpdateSubscriptionNoteRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -236,7 +200,7 @@ public final class SubscriptionNotesController extends BaseController {
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("note_id").value(noteId)
+                        .templateParam(param -> param.key("note_id").value(noteId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -247,6 +211,47 @@ public final class SubscriptionNotesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionNoteResponse.class))
                         .nullify404(false)
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .endpointConfiguration(param -> param
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                .build();
+    }
+
+    /**
+     * Use the following method to delete a note for a Subscription.
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  noteId  Required parameter: The Chargify id of the note
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public void deleteSubscriptionNote(
+            final int subscriptionId,
+            final int noteId) throws ApiException, IOException {
+        prepareDeleteSubscriptionNoteRequest(subscriptionId, noteId).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for deleteSubscriptionNote.
+     */
+    private ApiCall<Void, ApiException> prepareDeleteSubscriptionNoteRequest(
+            final int subscriptionId,
+            final int noteId) throws IOException {
+        return new ApiCall.Builder<Void, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/subscriptions/{subscription_id}/notes/{note_id}.json")
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("note_id").value(noteId).isRequired(false)
+                                .shouldEncode(true))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.DELETE))
+                .responseHandler(responseHandler -> responseHandler
+                        .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

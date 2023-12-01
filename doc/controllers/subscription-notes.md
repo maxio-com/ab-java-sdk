@@ -11,10 +11,10 @@ SubscriptionNotesController subscriptionNotesController = client.getSubscription
 ## Methods
 
 * [Create Subscription Note](../../doc/controllers/subscription-notes.md#create-subscription-note)
-* [Delete Subscription Note](../../doc/controllers/subscription-notes.md#delete-subscription-note)
 * [List Subscription Notes](../../doc/controllers/subscription-notes.md#list-subscription-notes)
 * [Read Subscription Note](../../doc/controllers/subscription-notes.md#read-subscription-note)
 * [Update Subscription Note](../../doc/controllers/subscription-notes.md#update-subscription-note)
+* [Delete Subscription Note](../../doc/controllers/subscription-notes.md#delete-subscription-note)
 
 
 # Create Subscription Note
@@ -68,46 +68,6 @@ try {
     e.printStackTrace();
 }
 ```
-
-
-# Delete Subscription Note
-
-Use the following method to delete a note for a Subscription.
-
-```java
-Void deleteSubscriptionNote(
-    final int subscriptionId)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-
-## Response Type
-
-`void`
-
-## Example Usage
-
-```java
-int subscriptionId = 222;
-
-try {
-    subscriptionNotesController.deleteSubscriptionNote(subscriptionId);
-} catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
 
 
 # List Subscription Notes
@@ -186,7 +146,7 @@ Once you have obtained the ID of the note you wish to read, use this method to s
 ```java
 SubscriptionNoteResponse readSubscriptionNote(
     final int subscriptionId,
-    final String noteId)
+    final int noteId)
 ```
 
 ## Parameters
@@ -194,7 +154,7 @@ SubscriptionNoteResponse readSubscriptionNote(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `noteId` | `String` | Template, Required | The Chargify id of the note |
+| `noteId` | `int` | Template, Required | The Chargify id of the note |
 
 ## Response Type
 
@@ -204,7 +164,7 @@ SubscriptionNoteResponse readSubscriptionNote(
 
 ```java
 int subscriptionId = 222;
-String noteId = "note_id8";
+int noteId = 66;
 
 try {
     SubscriptionNoteResponse result = subscriptionNotesController.readSubscriptionNote(subscriptionId, noteId);
@@ -239,7 +199,7 @@ Use the following method to update a note for a Subscription.
 ```java
 SubscriptionNoteResponse updateSubscriptionNote(
     final int subscriptionId,
-    final String noteId,
+    final int noteId,
     final UpdateSubscriptionNoteRequest body)
 ```
 
@@ -248,7 +208,7 @@ SubscriptionNoteResponse updateSubscriptionNote(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `noteId` | `String` | Template, Required | The Chargify id of the note |
+| `noteId` | `int` | Template, Required | The Chargify id of the note |
 | `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
@@ -259,7 +219,7 @@ SubscriptionNoteResponse updateSubscriptionNote(
 
 ```java
 int subscriptionId = 222;
-String noteId = "note_id8";
+int noteId = 66;
 UpdateSubscriptionNoteRequest body = new UpdateSubscriptionNoteRequest.Builder(
     new UpdateSubscriptionNote.Builder(
         "Modified test note.",
@@ -278,4 +238,47 @@ try {
     e.printStackTrace();
 }
 ```
+
+
+# Delete Subscription Note
+
+Use the following method to delete a note for a Subscription.
+
+```java
+Void deleteSubscriptionNote(
+    final int subscriptionId,
+    final int noteId)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `noteId` | `int` | Template, Required | The Chargify id of the note |
+
+## Response Type
+
+`void`
+
+## Example Usage
+
+```java
+int subscriptionId = 222;
+int noteId = 66;
+
+try {
+    subscriptionNotesController.deleteSubscriptionNote(subscriptionId, noteId);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
 

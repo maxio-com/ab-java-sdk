@@ -33,7 +33,6 @@ import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -490,11 +489,11 @@ public final class ProductPricePointsController extends BaseController {
      * able to be updated for custom product price points.
      * @param  productPricePointId  Required parameter: The Chargify id of the product price point
      * @param  body  Optional parameter: Example:
-     * @return    Returns the List of ProductPricePointCurrencyPrice response from the API call
+     * @return    Returns the ProductPricePointCurrencyPrice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<ProductPricePointCurrencyPrice> updateProductCurrencyPrices(
+    public ProductPricePointCurrencyPrice updateProductCurrencyPrices(
             final int productPricePointId,
             final UpdateCurrencyPricesRequest body) throws ApiException, IOException {
         return prepareUpdateProductCurrencyPricesRequest(productPricePointId, body).execute();
@@ -503,10 +502,10 @@ public final class ProductPricePointsController extends BaseController {
     /**
      * Builds the ApiCall object for updateProductCurrencyPrices.
      */
-    private ApiCall<List<ProductPricePointCurrencyPrice>, ApiException> prepareUpdateProductCurrencyPricesRequest(
+    private ApiCall<ProductPricePointCurrencyPrice, ApiException> prepareUpdateProductCurrencyPricesRequest(
             final int productPricePointId,
             final UpdateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<List<ProductPricePointCurrencyPrice>, ApiException>()
+        return new ApiCall.Builder<ProductPricePointCurrencyPrice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -522,8 +521,7 @@ public final class ProductPricePointsController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserializeArray(response,
-                                        ProductPricePointCurrencyPrice[].class))
+                                response -> ApiHelper.deserialize(response, ProductPricePointCurrencyPrice.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
