@@ -26,6 +26,7 @@ public class CreateAllocation {
     private CreditType1 downgradeCredit;
     private CreditType1 upgradeCharge;
     private OptionalNullable<CreateAllocationPricePointId> pricePointId;
+    private BillingSchedule billingSchedule;
 
     /**
      * Default constructor.
@@ -44,6 +45,7 @@ public class CreateAllocation {
      * @param  downgradeCredit  CreditType1 value for downgradeCredit.
      * @param  upgradeCharge  CreditType1 value for upgradeCharge.
      * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
+     * @param  billingSchedule  BillingSchedule value for billingSchedule.
      */
     public CreateAllocation(
             double quantity,
@@ -54,7 +56,8 @@ public class CreateAllocation {
             Boolean accrueCharge,
             CreditType1 downgradeCredit,
             CreditType1 upgradeCharge,
-            CreateAllocationPricePointId pricePointId) {
+            CreateAllocationPricePointId pricePointId,
+            BillingSchedule billingSchedule) {
         this.quantity = quantity;
         this.componentId = componentId;
         this.memo = memo;
@@ -64,6 +67,7 @@ public class CreateAllocation {
         this.downgradeCredit = downgradeCredit;
         this.upgradeCharge = upgradeCharge;
         this.pricePointId = OptionalNullable.of(pricePointId);
+        this.billingSchedule = billingSchedule;
     }
 
     /**
@@ -77,12 +81,14 @@ public class CreateAllocation {
      * @param  downgradeCredit  CreditType1 value for downgradeCredit.
      * @param  upgradeCharge  CreditType1 value for upgradeCharge.
      * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
+     * @param  billingSchedule  BillingSchedule value for billingSchedule.
      */
 
     protected CreateAllocation(double quantity, Integer componentId, String memo,
             String prorationDowngradeScheme, String prorationUpgradeScheme, Boolean accrueCharge,
             CreditType1 downgradeCredit, CreditType1 upgradeCharge,
-            OptionalNullable<CreateAllocationPricePointId> pricePointId) {
+            OptionalNullable<CreateAllocationPricePointId> pricePointId,
+            BillingSchedule billingSchedule) {
         this.quantity = quantity;
         this.componentId = componentId;
         this.memo = memo;
@@ -92,6 +98,7 @@ public class CreateAllocation {
         this.downgradeCredit = downgradeCredit;
         this.upgradeCharge = upgradeCharge;
         this.pricePointId = pricePointId;
+        this.billingSchedule = billingSchedule;
     }
 
     /**
@@ -323,6 +330,31 @@ public class CreateAllocation {
     }
 
     /**
+     * Getter for BillingSchedule.
+     * This attribute is particularly useful when you need to align billing events for different
+     * components on distinct schedules within a subscription. Please note this only works for site
+     * with Multifrequency enabled
+     * @return Returns the BillingSchedule
+     */
+    @JsonGetter("billing_schedule")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public BillingSchedule getBillingSchedule() {
+        return billingSchedule;
+    }
+
+    /**
+     * Setter for BillingSchedule.
+     * This attribute is particularly useful when you need to align billing events for different
+     * components on distinct schedules within a subscription. Please note this only works for site
+     * with Multifrequency enabled
+     * @param billingSchedule Value for BillingSchedule
+     */
+    @JsonSetter("billing_schedule")
+    public void setBillingSchedule(BillingSchedule billingSchedule) {
+        this.billingSchedule = billingSchedule;
+    }
+
+    /**
      * Converts this CreateAllocation into string format.
      * @return String representation of this class
      */
@@ -332,7 +364,8 @@ public class CreateAllocation {
                 + ", memo=" + memo + ", prorationDowngradeScheme=" + prorationDowngradeScheme
                 + ", prorationUpgradeScheme=" + prorationUpgradeScheme + ", accrueCharge="
                 + accrueCharge + ", downgradeCredit=" + downgradeCredit + ", upgradeCharge="
-                + upgradeCharge + ", pricePointId=" + pricePointId + "]";
+                + upgradeCharge + ", pricePointId=" + pricePointId + ", billingSchedule="
+                + billingSchedule + "]";
     }
 
     /**
@@ -348,7 +381,8 @@ public class CreateAllocation {
                 .prorationUpgradeScheme(getProrationUpgradeScheme())
                 .accrueCharge(getAccrueCharge())
                 .downgradeCredit(getDowngradeCredit())
-                .upgradeCharge(getUpgradeCharge());
+                .upgradeCharge(getUpgradeCharge())
+                .billingSchedule(getBillingSchedule());
         builder.pricePointId = internalGetPricePointId();
         return builder;
     }
@@ -366,6 +400,7 @@ public class CreateAllocation {
         private CreditType1 downgradeCredit;
         private CreditType1 upgradeCharge;
         private OptionalNullable<CreateAllocationPricePointId> pricePointId;
+        private BillingSchedule billingSchedule;
 
         /**
          * Initialization constructor.
@@ -481,13 +516,23 @@ public class CreateAllocation {
         }
 
         /**
+         * Setter for billingSchedule.
+         * @param  billingSchedule  BillingSchedule value for billingSchedule.
+         * @return Builder
+         */
+        public Builder billingSchedule(BillingSchedule billingSchedule) {
+            this.billingSchedule = billingSchedule;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateAllocation} object using the set fields.
          * @return {@link CreateAllocation}
          */
         public CreateAllocation build() {
             return new CreateAllocation(quantity, componentId, memo, prorationDowngradeScheme,
                     prorationUpgradeScheme, accrueCharge, downgradeCredit, upgradeCharge,
-                    pricePointId);
+                    pricePointId, billingSchedule);
         }
     }
 }

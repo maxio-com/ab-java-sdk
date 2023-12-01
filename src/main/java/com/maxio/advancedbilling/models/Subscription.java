@@ -64,7 +64,7 @@ public class Subscription {
     private OptionalNullable<Integer> payerId;
     private Long currentBillingAmountInCents;
     private Integer productPricePointId;
-    private String productPricePointType;
+    private PricePointType productPricePointType;
     private OptionalNullable<Integer> nextProductPricePointId;
     private OptionalNullable<Integer> netTerms;
     private OptionalNullable<Integer> storedCredentialTransactionId;
@@ -135,7 +135,7 @@ public class Subscription {
      * @param  payerId  Integer value for payerId.
      * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
      * @param  productPricePointId  Integer value for productPricePointId.
-     * @param  productPricePointType  String value for productPricePointType.
+     * @param  productPricePointType  PricePointType value for productPricePointType.
      * @param  nextProductPricePointId  Integer value for nextProductPricePointId.
      * @param  netTerms  Integer value for netTerms.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
@@ -198,7 +198,7 @@ public class Subscription {
             Integer payerId,
             Long currentBillingAmountInCents,
             Integer productPricePointId,
-            String productPricePointType,
+            PricePointType productPricePointType,
             Integer nextProductPricePointId,
             Integer netTerms,
             Integer storedCredentialTransactionId,
@@ -323,7 +323,7 @@ public class Subscription {
      * @param  payerId  Integer value for payerId.
      * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
      * @param  productPricePointId  Integer value for productPricePointId.
-     * @param  productPricePointType  String value for productPricePointType.
+     * @param  productPricePointType  PricePointType value for productPricePointType.
      * @param  nextProductPricePointId  Integer value for nextProductPricePointId.
      * @param  netTerms  Integer value for netTerms.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
@@ -364,7 +364,7 @@ public class Subscription {
             OptionalNullable<ZonedDateTime> automaticallyResumeAt, List<String> couponCodes,
             OptionalNullable<Integer> offerId, OptionalNullable<Integer> payerId,
             Long currentBillingAmountInCents, Integer productPricePointId,
-            String productPricePointType, OptionalNullable<Integer> nextProductPricePointId,
+            PricePointType productPricePointType, OptionalNullable<Integer> nextProductPricePointId,
             OptionalNullable<Integer> netTerms,
             OptionalNullable<Integer> storedCredentialTransactionId,
             OptionalNullable<String> reference, OptionalNullable<ZonedDateTime> onHoldAt,
@@ -1876,22 +1876,28 @@ public class Subscription {
 
     /**
      * Getter for ProductPricePointType.
-     * One of the following: custom, default, catalog.
-     * @return Returns the String
+     * Price point type. We expose the following types: 1. **default**: a price point that is marked
+     * as a default price for a certain product. 2. **custom**: a custom price point. 3.
+     * **catalog**: a price point that is **not** marked as a default price for a certain product
+     * and is **not** a custom one.
+     * @return Returns the PricePointType
      */
     @JsonGetter("product_price_point_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getProductPricePointType() {
+    public PricePointType getProductPricePointType() {
         return productPricePointType;
     }
 
     /**
      * Setter for ProductPricePointType.
-     * One of the following: custom, default, catalog.
-     * @param productPricePointType Value for String
+     * Price point type. We expose the following types: 1. **default**: a price point that is marked
+     * as a default price for a certain product. 2. **custom**: a custom price point. 3.
+     * **catalog**: a price point that is **not** marked as a default price for a certain product
+     * and is **not** a custom one.
+     * @param productPricePointType Value for PricePointType
      */
     @JsonSetter("product_price_point_type")
-    public void setProductPricePointType(String productPricePointType) {
+    public void setProductPricePointType(PricePointType productPricePointType) {
         this.productPricePointType = productPricePointType;
     }
 
@@ -2535,7 +2541,7 @@ public class Subscription {
         private OptionalNullable<Integer> payerId;
         private Long currentBillingAmountInCents;
         private Integer productPricePointId;
-        private String productPricePointType;
+        private PricePointType productPricePointType;
         private OptionalNullable<Integer> nextProductPricePointId;
         private OptionalNullable<Integer> netTerms;
         private OptionalNullable<Integer> storedCredentialTransactionId;
@@ -3177,10 +3183,10 @@ public class Subscription {
 
         /**
          * Setter for productPricePointType.
-         * @param  productPricePointType  String value for productPricePointType.
+         * @param  productPricePointType  PricePointType value for productPricePointType.
          * @return Builder
          */
-        public Builder productPricePointType(String productPricePointType) {
+        public Builder productPricePointType(PricePointType productPricePointType) {
             this.productPricePointType = productPricePointType;
             return this;
         }

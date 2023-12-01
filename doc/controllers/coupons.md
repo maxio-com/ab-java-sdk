@@ -46,7 +46,7 @@ You can restrict a coupon to only apply to specific products / components by opt
 ```java
 CouponResponse createCoupon(
     final int productFamilyId,
-    final CreateCouponBody body)
+    final CreateOrUpdateCoupon body)
 ```
 
 ## Parameters
@@ -54,7 +54,7 @@ CouponResponse createCoupon(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the coupon belongs |
-| `body` | [`CreateCouponBody`](../../doc/models/containers/create-coupon-body.md) | Body, Optional | This is a container for one-of cases. |
+| `body` | [`CreateOrUpdateCoupon`](../../doc/models/create-or-update-coupon.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -64,36 +64,35 @@ CouponResponse createCoupon(
 
 ```java
 int productFamilyId = 140;
-CreateCouponBody body = CreateCouponBody.fromCreateOrUpdateCoupon(
-    new CreateOrUpdateCoupon.Builder()
-        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
-            new CreateOrUpdatePercentageCoupon.Builder(
-                "15% off",
-                "15OFF",
-                CreateOrUpdatePercentageCouponPercentage.fromString(
-                    "15"
-                )
+CreateOrUpdateCoupon body = new CreateOrUpdateCoupon.Builder()
+    .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
+        new CreateOrUpdatePercentageCoupon.Builder(
+            "15% off",
+            "15OFF",
+            CreateOrUpdatePercentageCouponPercentage.fromString(
+                "15"
             )
-            .description("15% off for life")
-            .allowNegativeBalance("false")
-            .recurring("false")
-            .endDate("2012-08-29T12:00:00-04:00")
-            .productFamilyId("2")
-            .stackable("true")
-            .compoundingStrategy(CompoundingStrategy.COMPOUND)
-            .excludeMidPeriodAllocations(true)
-            .applyOnCancelAtEndOfPeriod(true)
-            .build()
-        ))
-        .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
-            put("1", true);
-        }})
-        .restrictedComponents(new LinkedHashMap<String, Boolean>() {{
-            put("1", true);
-            put("2", false);
-        }})
+        )
+        .description("15% off for life")
+        .allowNegativeBalance("false")
+        .recurring("false")
+        .endDate("2012-08-29T12:00:00-04:00")
+        .productFamilyId("2")
+        .stackable("true")
+        .compoundingStrategy(CompoundingStrategy.COMPOUND)
+        .excludeMidPeriodAllocations(true)
+        .applyOnCancelAtEndOfPeriod(true)
         .build()
-);
+    ))
+    .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
+        put("1", true);
+    }})
+    .restrictedComponents(new LinkedHashMap<String, Boolean>() {{
+        put("1", true);
+        put("2", false);
+    }})
+    .build();
+
 try {
     CouponResponse result = couponsController.createCoupon(productFamilyId, body);
     System.out.println(result);
@@ -381,7 +380,7 @@ You can restrict a coupon to only apply to specific products / components by opt
 CouponResponse updateCoupon(
     final int productFamilyId,
     final int couponId,
-    final UpdateCouponBody body)
+    final CreateOrUpdateCoupon body)
 ```
 
 ## Parameters
@@ -390,7 +389,7 @@ CouponResponse updateCoupon(
 |  --- | --- | --- | --- |
 | `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the coupon belongs |
 | `couponId` | `int` | Template, Required | The Chargify id of the coupon |
-| `body` | [`UpdateCouponBody`](../../doc/models/containers/update-coupon-body.md) | Body, Optional | This is a container for one-of cases. |
+| `body` | [`CreateOrUpdateCoupon`](../../doc/models/create-or-update-coupon.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -401,34 +400,33 @@ CouponResponse updateCoupon(
 ```java
 int productFamilyId = 140;
 int couponId = 162;
-UpdateCouponBody body = UpdateCouponBody.fromCreateOrUpdateCoupon(
-    new CreateOrUpdateCoupon.Builder()
-        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
-            new CreateOrUpdatePercentageCoupon.Builder(
-                "15% off",
-                "15OFF",
-                CreateOrUpdatePercentageCouponPercentage.fromString(
-                    "15"
-                )
+CreateOrUpdateCoupon body = new CreateOrUpdateCoupon.Builder()
+    .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
+        new CreateOrUpdatePercentageCoupon.Builder(
+            "15% off",
+            "15OFF",
+            CreateOrUpdatePercentageCouponPercentage.fromString(
+                "15"
             )
-            .description("15% off for life")
-            .allowNegativeBalance("false")
-            .recurring("false")
-            .endDate("2012-08-29T12:00:00-04:00")
-            .productFamilyId("2")
-            .stackable("true")
-            .compoundingStrategy(CompoundingStrategy.COMPOUND)
-            .build()
-        ))
-        .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
-            put("1", true);
-        }})
-        .restrictedComponents(new LinkedHashMap<String, Boolean>() {{
-            put("1", true);
-            put("2", false);
-        }})
+        )
+        .description("15% off for life")
+        .allowNegativeBalance("false")
+        .recurring("false")
+        .endDate("2012-08-29T12:00:00-04:00")
+        .productFamilyId("2")
+        .stackable("true")
+        .compoundingStrategy(CompoundingStrategy.COMPOUND)
         .build()
-);
+    ))
+    .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
+        put("1", true);
+    }})
+    .restrictedComponents(new LinkedHashMap<String, Boolean>() {{
+        put("1", true);
+        put("2", false);
+    }})
+    .build();
+
 try {
     CouponResponse result = couponsController.updateCoupon(productFamilyId, couponId, body);
     System.out.println(result);

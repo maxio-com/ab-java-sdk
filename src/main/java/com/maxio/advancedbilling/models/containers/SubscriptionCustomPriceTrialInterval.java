@@ -24,26 +24,25 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents.CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCentsDeserializer.class)
-public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents {
+@JsonDeserialize(using = SubscriptionCustomPriceTrialInterval.SubscriptionCustomPriceTrialIntervalDeserializer.class)
+public abstract class SubscriptionCustomPriceTrialInterval {
     
     /**
      * This is String case.
      * @param string String value for string.
      * @return The StringCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents fromString(
-            String string) {
+    public static SubscriptionCustomPriceTrialInterval fromString(String string) {
         return string == null ? null : new StringCase(string);
     }
 
     /**
-     * This is Long case.
-     * @param mLong long value for mLong.
-     * @return The LongCase object.
+     * This is Number case.
+     * @param number int value for number.
+     * @return The NumberCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents fromLong(long mLong) {
-        return new LongCase(mLong);
+    public static SubscriptionCustomPriceTrialInterval fromNumber(int number) {
+        return new NumberCase(number);
     }
 
     /**
@@ -61,7 +60,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCent
     public interface Cases<R> {
         R string(String string);
 
-        R mLong(long mLong);
+        R number(int number);
     }
 
     /**
@@ -70,7 +69,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCent
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class StringCase extends CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents {
+    private static class StringCase extends SubscriptionCustomPriceTrialInterval {
 
         @JsonValue
         private String string;
@@ -100,28 +99,28 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCent
     }
 
     /**
-     * This is a implementation class for LongCase.
+     * This is a implementation class for NumberCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "long")
-    private static class LongCase extends CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents {
+    @TypeCombinatorCase(type = "int")
+    private static class NumberCase extends SubscriptionCustomPriceTrialInterval {
 
         @JsonValue
-        private long mLong;
+        private int number;
 
-        LongCase(long mLong) {
-            this.mLong = mLong;
+        NumberCase(int number) {
+            this.number = number;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.mLong(this.mLong);
+            return cases.number(this.number);
         }
 
         @JsonCreator
-        private LongCase(JsonNode jsonNode) throws IOException {
-            if (jsonNode.isLong()) {
-                this.mLong = ApiHelper.deserialize(jsonNode, Long.class);
+        private NumberCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isInt()) {
+                this.number = ApiHelper.deserialize(jsonNode, Integer.class);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -129,23 +128,23 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCent
 
         @Override
         public String toString() {
-            return String.valueOf(mLong);
+            return String.valueOf(number);
         }
     }
 
     /**
-     * This is a custom deserializer class for CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents.
+     * This is a custom deserializer class for SubscriptionCustomPriceTrialInterval.
      */
-    protected static class CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCentsDeserializer
-            extends JsonDeserializer<CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents> {
+    protected static class SubscriptionCustomPriceTrialIntervalDeserializer
+            extends JsonDeserializer<SubscriptionCustomPriceTrialInterval> {
 
         @Override
-        public CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents deserialize(JsonParser jp, DeserializationContext ctxt)
+        public SubscriptionCustomPriceTrialInterval deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(StringCase.class,
-                    LongCase.class), true);
+                    NumberCase.class), true);
         }
     }
 

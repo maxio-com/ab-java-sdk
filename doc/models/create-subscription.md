@@ -13,7 +13,7 @@
 | `ProductId` | `Integer` | Optional | The Product ID of the product for which you are creating a subscription. The product ID is not currently published, so we recommend using the API Handle instead. | Integer getProductId() | setProductId(Integer productId) |
 | `ProductPricePointHandle` | `String` | Optional | The user-friendly API handle of a product's particular price point. | String getProductPricePointHandle() | setProductPricePointHandle(String productPricePointHandle) |
 | `ProductPricePointId` | `Integer` | Optional | The ID of the particular price point on the product. | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
-| `CustomPrice` | [`CustomPriceUsedForSubscriptionCreateUpdate`](../../doc/models/custom-price-used-for-subscription-create-update.md) | Optional | (Optional) Used in place of `product_price_point_id` to define a custom price point unique to the subscription | CustomPriceUsedForSubscriptionCreateUpdate getCustomPrice() | setCustomPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) |
+| `CustomPrice` | [`SubscriptionCustomPrice`](../../doc/models/subscription-custom-price.md) | Optional | (Optional) Used in place of `product_price_point_id` to define a custom price point unique to the subscription | SubscriptionCustomPrice getCustomPrice() | setCustomPrice(SubscriptionCustomPrice customPrice) |
 | `CouponCode` | `String` | Optional | (deprecated) The coupon code of the single coupon currently applied to the subscription. See coupon_codes instead as subscriptions can now have more than one coupon. | String getCouponCode() | setCouponCode(String couponCode) |
 | `CouponCodes` | `List<String>` | Optional | An array for all the coupons attached to the subscription. | List<String> getCouponCodes() | setCouponCodes(List<String> couponCodes) |
 | `PaymentCollectionMethod` | [`PaymentCollectionMethod`](../../doc/models/payment-collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`.<br>**Default**: `PaymentCollectionMethod.AUTOMATIC` | PaymentCollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) |
@@ -30,7 +30,7 @@
 | `PaymentProfileAttributes` | [`PaymentProfileAttributes`](../../doc/models/payment-profile-attributes.md) | Optional | alias to credit_card_attributes | PaymentProfileAttributes getPaymentProfileAttributes() | setPaymentProfileAttributes(PaymentProfileAttributes paymentProfileAttributes) |
 | `CreditCardAttributes` | [`PaymentProfileAttributes`](../../doc/models/payment-profile-attributes.md) | Optional | Credit Card data to create a new Subscription. Interchangeable with `payment_profile_attributes` property. | PaymentProfileAttributes getCreditCardAttributes() | setCreditCardAttributes(PaymentProfileAttributes creditCardAttributes) |
 | `BankAccountAttributes` | [`BankAccountAttributes`](../../doc/models/bank-account-attributes.md) | Optional | - | BankAccountAttributes getBankAccountAttributes() | setBankAccountAttributes(BankAccountAttributes bankAccountAttributes) |
-| `Components` | [`List<CreateSubscriptionComponents>`](../../doc/models/containers/create-subscription-components.md) | Optional | This is List of a container for one-of cases. | List<CreateSubscriptionComponents> getComponents() | setComponents(List<CreateSubscriptionComponents> components) |
+| `Components` | [`List<CreateSubscriptionComponent>`](../../doc/models/create-subscription-component.md) | Optional | (Optional) An array of component ids and quantities to be added to the subscription. See [Components](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677) for more information. | List<CreateSubscriptionComponent> getComponents() | setComponents(List<CreateSubscriptionComponent> components) |
 | `CalendarBilling` | [`CalendarBilling`](../../doc/models/calendar-billing.md) | Optional | (Optional). Cannot be used when also specifying next_billing_at | CalendarBilling getCalendarBilling() | setCalendarBilling(CalendarBilling calendarBilling) |
 | `Metafields` | `Map<String, String>` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. | Map<String, String> getMetafields() | setMetafields(Map<String, String> metafields) |
 | `CustomerReference` | `String` | Optional | The reference value (provided by your app) of an existing customer within Chargify. Required, unless a `customer_id` or a set of `customer_attributes` is given. | String getCustomerReference() | setCustomerReference(String customerReference) |
@@ -80,7 +80,10 @@
     "handle": "handle0",
     "price_in_cents": "String3",
     "interval": "String3",
-    "interval_unit": "day"
+    "interval_unit": "day",
+    "trial_price_in_cents": "String3",
+    "trial_interval": "String5",
+    "trial_interval_unit": "day"
   }
 }
 ```
