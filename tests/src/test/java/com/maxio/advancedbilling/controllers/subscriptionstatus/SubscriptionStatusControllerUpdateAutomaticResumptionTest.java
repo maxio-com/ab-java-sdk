@@ -87,7 +87,7 @@ public class SubscriptionStatusControllerUpdateAutomaticResumptionTest extends S
     }
 
     @Test
-    void shouldNotUpdateUnownedSubscriptionAutomaticResumptionDate() {
+    void shouldNotUpdateNonExistentSubscriptionAutomaticResumptionDate() {
         assertNotFound(() -> subscriptionStatusController.updateAutomaticSubscriptionResumption(99999999, null));
     }
 

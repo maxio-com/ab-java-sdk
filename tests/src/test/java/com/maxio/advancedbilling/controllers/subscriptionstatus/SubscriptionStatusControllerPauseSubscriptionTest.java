@@ -86,7 +86,7 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
     }
 
     @Test
-    void shouldNotPauseUnownedSubscription() {
+    void shouldNotPauseNonExistentSubscription() {
         assertNotFound(() -> subscriptionStatusController.pauseSubscription(99999999, null));
     }
 

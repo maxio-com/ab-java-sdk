@@ -56,7 +56,7 @@ public class SubscriptionStatusResumeSubscriptionTest extends SubscriptionStatus
     }
 
     @Test
-    void shouldNotResumeUnownedSubscription() {
+    void shouldNotResumeNonExistentSubscription() {
         assertNotFound(() -> subscriptionStatusController.resumeSubscription(99999999, null));
     }
 

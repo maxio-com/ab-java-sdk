@@ -36,8 +36,7 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
         assertThat(cancelledSubscription.getState()).isEqualTo(SubscriptionState.CANCELED);
         assertThat(cancelledSubscription.getUpdatedAt()).isAfter(timestamp);
         assertThat(cancelledSubscription.getCanceledAt()).isAfter(timestamp);
-        assertThat(cancelledSubscription.getCancellationMethod().toString())
-                .isEqualTo(CancellationMethod.MERCHANT_API.toString());
+        assertThat(cancelledSubscription.getCancellationMethod()).isEqualTo(CancellationMethod.MERCHANT_API);
         assertThat(cancelledSubscription.getReasonCode())
                 .isEqualTo("CH:Unknown");
     }
@@ -68,14 +67,13 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
         assertThat(cancelledSubscription.getState()).isEqualTo(SubscriptionState.CANCELED);
         assertThat(cancelledSubscription.getUpdatedAt()).isAfter(timestamp);
         assertThat(cancelledSubscription.getCanceledAt()).isAfter(timestamp);
-        assertThat(cancelledSubscription.getCancellationMethod().toString())
-                .isEqualTo(CancellationMethod.MERCHANT_API.toString());
+        assertThat(cancelledSubscription.getCancellationMethod()).isEqualTo(CancellationMethod.MERCHANT_API);
         assertThat(cancelledSubscription.getReasonCode()).isEqualTo(reasonCode);
         assertThat(cancelledSubscription.getCancellationMessage()).isEqualTo(cancellationMessage);
     }
 
     @Test
-    void shouldNotRetryUnownedSubscription() {
+    void shouldNotRetryNonExistentSubscription() {
         assertNotFound(() -> subscriptionStatusController.cancelSubscription(99999999, null),
                 "Not Found");
     }
@@ -96,8 +94,7 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
 
         // when-then
         assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> subscriptionStatusController.cancelSubscription(subscription.getId(), cancellationRequest)
-                )
+                .isThrownBy(() -> subscriptionStatusController.cancelSubscription(subscription.getId(), cancellationRequest))
                 .withMessage("Unprocessable Entity (WebDAV)")
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);

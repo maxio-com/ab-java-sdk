@@ -49,7 +49,7 @@ public class SubscriptionStatusControllerRetrySubscriptionTest extends Subscript
     }
 
     @Test
-    void shouldNotRetryUnownedSubscription() {
+    void shouldNotRetryNonExistentSubscription() {
         assertNotFound(() -> subscriptionStatusController.retrySubscription(99999999));
     }
 
