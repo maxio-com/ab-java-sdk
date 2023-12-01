@@ -24,16 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = CustomPriceUsedForSubscriptionCreateUpdateTrialInterval.CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalDeserializer.class)
-public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialInterval {
+@JsonDeserialize(using = SubscriptionCustomPriceInterval.SubscriptionCustomPriceIntervalDeserializer.class)
+public abstract class SubscriptionCustomPriceInterval {
     
     /**
      * This is String case.
      * @param string String value for string.
      * @return The StringCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdateTrialInterval fromString(
-            String string) {
+    public static SubscriptionCustomPriceInterval fromString(String string) {
         return string == null ? null : new StringCase(string);
     }
 
@@ -42,7 +41,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialInterval {
      * @param number int value for number.
      * @return The NumberCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdateTrialInterval fromNumber(int number) {
+    public static SubscriptionCustomPriceInterval fromNumber(int number) {
         return new NumberCase(number);
     }
 
@@ -70,7 +69,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialInterval {
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class StringCase extends CustomPriceUsedForSubscriptionCreateUpdateTrialInterval {
+    private static class StringCase extends SubscriptionCustomPriceInterval {
 
         @JsonValue
         private String string;
@@ -104,7 +103,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialInterval {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "int")
-    private static class NumberCase extends CustomPriceUsedForSubscriptionCreateUpdateTrialInterval {
+    private static class NumberCase extends SubscriptionCustomPriceInterval {
 
         @JsonValue
         private int number;
@@ -134,13 +133,13 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdateTrialInterval {
     }
 
     /**
-     * This is a custom deserializer class for CustomPriceUsedForSubscriptionCreateUpdateTrialInterval.
+     * This is a custom deserializer class for SubscriptionCustomPriceInterval.
      */
-    protected static class CustomPriceUsedForSubscriptionCreateUpdateTrialIntervalDeserializer
-            extends JsonDeserializer<CustomPriceUsedForSubscriptionCreateUpdateTrialInterval> {
+    protected static class SubscriptionCustomPriceIntervalDeserializer
+            extends JsonDeserializer<SubscriptionCustomPriceInterval> {
 
         @Override
-        public CustomPriceUsedForSubscriptionCreateUpdateTrialInterval deserialize(JsonParser jp, DeserializationContext ctxt)
+        public SubscriptionCustomPriceInterval deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

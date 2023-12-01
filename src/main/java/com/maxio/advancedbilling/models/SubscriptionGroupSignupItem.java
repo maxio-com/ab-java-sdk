@@ -26,7 +26,7 @@ public class SubscriptionGroupSignupItem {
     private String currency;
     private List<String> couponCodes;
     private List<SubscriptionGroupSignupComponent> components;
-    private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
+    private SubscriptionCustomPrice customPrice;
     private CalendarBilling calendarBilling;
     private Map<String, String> metafields;
 
@@ -48,7 +48,7 @@ public class SubscriptionGroupSignupItem {
      * @param  currency  String value for currency.
      * @param  couponCodes  List of String value for couponCodes.
      * @param  components  List of SubscriptionGroupSignupComponent value for components.
-     * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+     * @param  customPrice  SubscriptionCustomPrice value for customPrice.
      * @param  calendarBilling  CalendarBilling value for calendarBilling.
      * @param  metafields  Map of String, value for metafields.
      */
@@ -63,7 +63,7 @@ public class SubscriptionGroupSignupItem {
             String currency,
             List<String> couponCodes,
             List<SubscriptionGroupSignupComponent> components,
-            CustomPriceUsedForSubscriptionCreateUpdate customPrice,
+            SubscriptionCustomPrice customPrice,
             CalendarBilling calendarBilling,
             Map<String, String> metafields) {
         this.productHandle = productHandle;
@@ -305,11 +305,11 @@ public class SubscriptionGroupSignupItem {
      * Getter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
      * the subscription
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdate
+     * @return Returns the SubscriptionCustomPrice
      */
     @JsonGetter("custom_price")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdate getCustomPrice() {
+    public SubscriptionCustomPrice getCustomPrice() {
         return customPrice;
     }
 
@@ -317,10 +317,10 @@ public class SubscriptionGroupSignupItem {
      * Setter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
      * the subscription
-     * @param customPrice Value for CustomPriceUsedForSubscriptionCreateUpdate
+     * @param customPrice Value for SubscriptionCustomPrice
      */
     @JsonSetter("custom_price")
-    public void setCustomPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) {
+    public void setCustomPrice(SubscriptionCustomPrice customPrice) {
         this.customPrice = customPrice;
     }
 
@@ -420,7 +420,7 @@ public class SubscriptionGroupSignupItem {
         private String currency;
         private List<String> couponCodes;
         private List<SubscriptionGroupSignupComponent> components;
-        private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
+        private SubscriptionCustomPrice customPrice;
         private CalendarBilling calendarBilling;
         private Map<String, String> metafields;
 
@@ -528,10 +528,10 @@ public class SubscriptionGroupSignupItem {
 
         /**
          * Setter for customPrice.
-         * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+         * @param  customPrice  SubscriptionCustomPrice value for customPrice.
          * @return Builder
          */
-        public Builder customPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) {
+        public Builder customPrice(SubscriptionCustomPrice customPrice) {
             this.customPrice = customPrice;
             return this;
         }

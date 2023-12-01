@@ -9,70 +9,68 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateInterval;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdatePriceInCents;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateTrialInterval;
-import com.maxio.advancedbilling.models.containers.CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceExpirationInterval;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInitialChargeInCents;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInterval;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPricePriceInCents;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialInterval;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialPriceInCents;
 
 /**
- * This is a model class for CustomPriceUsedForSubscriptionCreateUpdate type.
+ * This is a model class for SubscriptionCustomPrice type.
  */
-public class CustomPriceUsedForSubscriptionCreateUpdate {
+public class SubscriptionCustomPrice {
     private String name;
     private String handle;
-    private CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents;
-    private CustomPriceUsedForSubscriptionCreateUpdateInterval interval;
+    private SubscriptionCustomPricePriceInCents priceInCents;
+    private SubscriptionCustomPriceInterval interval;
     private IntervalUnit intervalUnit;
-    private CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents;
-    private CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval;
+    private SubscriptionCustomPriceTrialPriceInCents trialPriceInCents;
+    private SubscriptionCustomPriceTrialInterval trialInterval;
     private IntervalUnit trialIntervalUnit;
-    private CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents;
+    private SubscriptionCustomPriceInitialChargeInCents initialChargeInCents;
     private Boolean initialChargeAfterTrial;
-    private CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval;
+    private SubscriptionCustomPriceExpirationInterval expirationInterval;
     private IntervalUnit expirationIntervalUnit;
     private Boolean taxIncluded;
 
     /**
      * Default constructor.
      */
-    public CustomPriceUsedForSubscriptionCreateUpdate() {
+    public SubscriptionCustomPrice() {
     }
 
     /**
      * Initialization constructor.
+     * @param  priceInCents  SubscriptionCustomPricePriceInCents value for priceInCents.
+     * @param  interval  SubscriptionCustomPriceInterval value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  priceInCents  CustomPriceUsedForSubscriptionCreateUpdatePriceInCents value for
-     *         priceInCents.
-     * @param  interval  CustomPriceUsedForSubscriptionCreateUpdateInterval value for interval.
-     * @param  intervalUnit  IntervalUnit value for intervalUnit.
-     * @param  trialPriceInCents  CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents value
-     *         for trialPriceInCents.
-     * @param  trialInterval  CustomPriceUsedForSubscriptionCreateUpdateTrialInterval value for
-     *         trialInterval.
+     * @param  trialPriceInCents  SubscriptionCustomPriceTrialPriceInCents value for
+     *         trialPriceInCents.
+     * @param  trialInterval  SubscriptionCustomPriceTrialInterval value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
-     * @param  initialChargeInCents  CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents
-     *         value for initialChargeInCents.
+     * @param  initialChargeInCents  SubscriptionCustomPriceInitialChargeInCents value for
+     *         initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
-     * @param  expirationInterval  CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval
-     *         value for expirationInterval.
+     * @param  expirationInterval  SubscriptionCustomPriceExpirationInterval value for
+     *         expirationInterval.
      * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      * @param  taxIncluded  Boolean value for taxIncluded.
      */
-    public CustomPriceUsedForSubscriptionCreateUpdate(
+    public SubscriptionCustomPrice(
+            SubscriptionCustomPricePriceInCents priceInCents,
+            SubscriptionCustomPriceInterval interval,
+            IntervalUnit intervalUnit,
             String name,
             String handle,
-            CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents,
-            CustomPriceUsedForSubscriptionCreateUpdateInterval interval,
-            IntervalUnit intervalUnit,
-            CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents,
-            CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval,
+            SubscriptionCustomPriceTrialPriceInCents trialPriceInCents,
+            SubscriptionCustomPriceTrialInterval trialInterval,
             IntervalUnit trialIntervalUnit,
-            CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents,
+            SubscriptionCustomPriceInitialChargeInCents initialChargeInCents,
             Boolean initialChargeAfterTrial,
-            CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval,
+            SubscriptionCustomPriceExpirationInterval expirationInterval,
             IntervalUnit expirationIntervalUnit,
             Boolean taxIncluded) {
         this.name = name;
@@ -135,42 +133,40 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     /**
      * Getter for PriceInCents.
      * Required if using `custom_price` attribute.
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdatePriceInCents
+     * @return Returns the SubscriptionCustomPricePriceInCents
      */
     @JsonGetter("price_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdatePriceInCents getPriceInCents() {
+    public SubscriptionCustomPricePriceInCents getPriceInCents() {
         return priceInCents;
     }
 
     /**
      * Setter for PriceInCents.
      * Required if using `custom_price` attribute.
-     * @param priceInCents Value for CustomPriceUsedForSubscriptionCreateUpdatePriceInCents
+     * @param priceInCents Value for SubscriptionCustomPricePriceInCents
      */
     @JsonSetter("price_in_cents")
-    public void setPriceInCents(CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents) {
+    public void setPriceInCents(SubscriptionCustomPricePriceInCents priceInCents) {
         this.priceInCents = priceInCents;
     }
 
     /**
      * Getter for Interval.
      * Required if using `custom_price` attribute.
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateInterval
+     * @return Returns the SubscriptionCustomPriceInterval
      */
     @JsonGetter("interval")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateInterval getInterval() {
+    public SubscriptionCustomPriceInterval getInterval() {
         return interval;
     }
 
     /**
      * Setter for Interval.
      * Required if using `custom_price` attribute.
-     * @param interval Value for CustomPriceUsedForSubscriptionCreateUpdateInterval
+     * @param interval Value for SubscriptionCustomPriceInterval
      */
     @JsonSetter("interval")
-    public void setInterval(CustomPriceUsedForSubscriptionCreateUpdateInterval interval) {
+    public void setInterval(SubscriptionCustomPriceInterval interval) {
         this.interval = interval;
     }
 
@@ -180,7 +176,6 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
      * @return Returns the IntervalUnit
      */
     @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
         return intervalUnit;
     }
@@ -198,42 +193,42 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     /**
      * Getter for TrialPriceInCents.
      * (Optional)
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents
+     * @return Returns the SubscriptionCustomPriceTrialPriceInCents
      */
     @JsonGetter("trial_price_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents getTrialPriceInCents() {
+    public SubscriptionCustomPriceTrialPriceInCents getTrialPriceInCents() {
         return trialPriceInCents;
     }
 
     /**
      * Setter for TrialPriceInCents.
      * (Optional)
-     * @param trialPriceInCents Value for CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents
+     * @param trialPriceInCents Value for SubscriptionCustomPriceTrialPriceInCents
      */
     @JsonSetter("trial_price_in_cents")
-    public void setTrialPriceInCents(CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents) {
+    public void setTrialPriceInCents(SubscriptionCustomPriceTrialPriceInCents trialPriceInCents) {
         this.trialPriceInCents = trialPriceInCents;
     }
 
     /**
      * Getter for TrialInterval.
      * (Optional)
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateTrialInterval
+     * @return Returns the SubscriptionCustomPriceTrialInterval
      */
     @JsonGetter("trial_interval")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateTrialInterval getTrialInterval() {
+    public SubscriptionCustomPriceTrialInterval getTrialInterval() {
         return trialInterval;
     }
 
     /**
      * Setter for TrialInterval.
      * (Optional)
-     * @param trialInterval Value for CustomPriceUsedForSubscriptionCreateUpdateTrialInterval
+     * @param trialInterval Value for SubscriptionCustomPriceTrialInterval
      */
     @JsonSetter("trial_interval")
-    public void setTrialInterval(CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval) {
+    public void setTrialInterval(SubscriptionCustomPriceTrialInterval trialInterval) {
         this.trialInterval = trialInterval;
     }
 
@@ -261,21 +256,21 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     /**
      * Getter for InitialChargeInCents.
      * (Optional)
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents
+     * @return Returns the SubscriptionCustomPriceInitialChargeInCents
      */
     @JsonGetter("initial_charge_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents getInitialChargeInCents() {
+    public SubscriptionCustomPriceInitialChargeInCents getInitialChargeInCents() {
         return initialChargeInCents;
     }
 
     /**
      * Setter for InitialChargeInCents.
      * (Optional)
-     * @param initialChargeInCents Value for CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents
+     * @param initialChargeInCents Value for SubscriptionCustomPriceInitialChargeInCents
      */
     @JsonSetter("initial_charge_in_cents")
-    public void setInitialChargeInCents(CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents) {
+    public void setInitialChargeInCents(SubscriptionCustomPriceInitialChargeInCents initialChargeInCents) {
         this.initialChargeInCents = initialChargeInCents;
     }
 
@@ -303,21 +298,21 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     /**
      * Getter for ExpirationInterval.
      * (Optional)
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval
+     * @return Returns the SubscriptionCustomPriceExpirationInterval
      */
     @JsonGetter("expiration_interval")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval getExpirationInterval() {
+    public SubscriptionCustomPriceExpirationInterval getExpirationInterval() {
         return expirationInterval;
     }
 
     /**
      * Setter for ExpirationInterval.
      * (Optional)
-     * @param expirationInterval Value for CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval
+     * @param expirationInterval Value for SubscriptionCustomPriceExpirationInterval
      */
     @JsonSetter("expiration_interval")
-    public void setExpirationInterval(CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval) {
+    public void setExpirationInterval(SubscriptionCustomPriceExpirationInterval expirationInterval) {
         this.expirationInterval = expirationInterval;
     }
 
@@ -364,15 +359,15 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     }
 
     /**
-     * Converts this CustomPriceUsedForSubscriptionCreateUpdate into string format.
+     * Converts this SubscriptionCustomPrice into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "CustomPriceUsedForSubscriptionCreateUpdate [" + "name=" + name + ", handle="
-                + handle + ", priceInCents=" + priceInCents + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", trialPriceInCents=" + trialPriceInCents
-                + ", trialInterval=" + trialInterval + ", trialIntervalUnit=" + trialIntervalUnit
+        return "SubscriptionCustomPrice [" + "priceInCents=" + priceInCents + ", interval="
+                + interval + ", intervalUnit=" + intervalUnit + ", name=" + name + ", handle="
+                + handle + ", trialPriceInCents=" + trialPriceInCents + ", trialInterval="
+                + trialInterval + ", trialIntervalUnit=" + trialIntervalUnit
                 + ", initialChargeInCents=" + initialChargeInCents + ", initialChargeAfterTrial="
                 + initialChargeAfterTrial + ", expirationInterval=" + expirationInterval
                 + ", expirationIntervalUnit=" + expirationIntervalUnit + ", taxIncluded="
@@ -380,17 +375,14 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     }
 
     /**
-     * Builds a new {@link CustomPriceUsedForSubscriptionCreateUpdate.Builder} object.
+     * Builds a new {@link SubscriptionCustomPrice.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link CustomPriceUsedForSubscriptionCreateUpdate.Builder} object
+     * @return a new {@link SubscriptionCustomPrice.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
+        Builder builder = new Builder(priceInCents, interval, intervalUnit)
                 .name(getName())
                 .handle(getHandle())
-                .priceInCents(getPriceInCents())
-                .interval(getInterval())
-                .intervalUnit(getIntervalUnit())
                 .trialPriceInCents(getTrialPriceInCents())
                 .trialInterval(getTrialInterval())
                 .trialIntervalUnit(getTrialIntervalUnit())
@@ -403,24 +395,71 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
     }
 
     /**
-     * Class to build instances of {@link CustomPriceUsedForSubscriptionCreateUpdate}.
+     * Class to build instances of {@link SubscriptionCustomPrice}.
      */
     public static class Builder {
+        private SubscriptionCustomPricePriceInCents priceInCents;
+        private SubscriptionCustomPriceInterval interval;
+        private IntervalUnit intervalUnit;
         private String name;
         private String handle;
-        private CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents;
-        private CustomPriceUsedForSubscriptionCreateUpdateInterval interval;
-        private IntervalUnit intervalUnit;
-        private CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents;
-        private CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval;
+        private SubscriptionCustomPriceTrialPriceInCents trialPriceInCents;
+        private SubscriptionCustomPriceTrialInterval trialInterval;
         private IntervalUnit trialIntervalUnit;
-        private CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents;
+        private SubscriptionCustomPriceInitialChargeInCents initialChargeInCents;
         private Boolean initialChargeAfterTrial;
-        private CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval;
+        private SubscriptionCustomPriceExpirationInterval expirationInterval;
         private IntervalUnit expirationIntervalUnit;
         private Boolean taxIncluded;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  priceInCents  SubscriptionCustomPricePriceInCents value for priceInCents.
+         * @param  interval  SubscriptionCustomPriceInterval value for interval.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         */
+        public Builder(SubscriptionCustomPricePriceInCents priceInCents,
+                SubscriptionCustomPriceInterval interval, IntervalUnit intervalUnit) {
+            this.priceInCents = priceInCents;
+            this.interval = interval;
+            this.intervalUnit = intervalUnit;
+        }
+
+        /**
+         * Setter for priceInCents.
+         * @param  priceInCents  SubscriptionCustomPricePriceInCents value for priceInCents.
+         * @return Builder
+         */
+        public Builder priceInCents(SubscriptionCustomPricePriceInCents priceInCents) {
+            this.priceInCents = priceInCents;
+            return this;
+        }
+
+        /**
+         * Setter for interval.
+         * @param  interval  SubscriptionCustomPriceInterval value for interval.
+         * @return Builder
+         */
+        public Builder interval(SubscriptionCustomPriceInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
 
         /**
          * Setter for name.
@@ -443,57 +482,23 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
         }
 
         /**
-         * Setter for priceInCents.
-         * @param  priceInCents  CustomPriceUsedForSubscriptionCreateUpdatePriceInCents value for
-         *         priceInCents.
-         * @return Builder
-         */
-        public Builder priceInCents(
-                CustomPriceUsedForSubscriptionCreateUpdatePriceInCents priceInCents) {
-            this.priceInCents = priceInCents;
-            return this;
-        }
-
-        /**
-         * Setter for interval.
-         * @param  interval  CustomPriceUsedForSubscriptionCreateUpdateInterval value for interval.
-         * @return Builder
-         */
-        public Builder interval(CustomPriceUsedForSubscriptionCreateUpdateInterval interval) {
-            this.interval = interval;
-            return this;
-        }
-
-        /**
-         * Setter for intervalUnit.
-         * @param  intervalUnit  IntervalUnit value for intervalUnit.
-         * @return Builder
-         */
-        public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
-            return this;
-        }
-
-        /**
          * Setter for trialPriceInCents.
-         * @param  trialPriceInCents  CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents
-         *         value for trialPriceInCents.
+         * @param  trialPriceInCents  SubscriptionCustomPriceTrialPriceInCents value for
+         *         trialPriceInCents.
          * @return Builder
          */
         public Builder trialPriceInCents(
-                CustomPriceUsedForSubscriptionCreateUpdateTrialPriceInCents trialPriceInCents) {
+                SubscriptionCustomPriceTrialPriceInCents trialPriceInCents) {
             this.trialPriceInCents = trialPriceInCents;
             return this;
         }
 
         /**
          * Setter for trialInterval.
-         * @param  trialInterval  CustomPriceUsedForSubscriptionCreateUpdateTrialInterval value for
-         *         trialInterval.
+         * @param  trialInterval  SubscriptionCustomPriceTrialInterval value for trialInterval.
          * @return Builder
          */
-        public Builder trialInterval(
-                CustomPriceUsedForSubscriptionCreateUpdateTrialInterval trialInterval) {
+        public Builder trialInterval(SubscriptionCustomPriceTrialInterval trialInterval) {
             this.trialInterval = trialInterval;
             return this;
         }
@@ -510,13 +515,12 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
 
         /**
          * Setter for initialChargeInCents.
-         * @param  initialChargeInCents
-         *         CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents value for
+         * @param  initialChargeInCents  SubscriptionCustomPriceInitialChargeInCents value for
          *         initialChargeInCents.
          * @return Builder
          */
         public Builder initialChargeInCents(
-                CustomPriceUsedForSubscriptionCreateUpdateInitialChargeInCents initialChargeInCents) {
+                SubscriptionCustomPriceInitialChargeInCents initialChargeInCents) {
             this.initialChargeInCents = initialChargeInCents;
             return this;
         }
@@ -533,12 +537,12 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
 
         /**
          * Setter for expirationInterval.
-         * @param  expirationInterval  CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval
-         *         value for expirationInterval.
+         * @param  expirationInterval  SubscriptionCustomPriceExpirationInterval value for
+         *         expirationInterval.
          * @return Builder
          */
         public Builder expirationInterval(
-                CustomPriceUsedForSubscriptionCreateUpdateExpirationInterval expirationInterval) {
+                SubscriptionCustomPriceExpirationInterval expirationInterval) {
             this.expirationInterval = expirationInterval;
             return this;
         }
@@ -564,15 +568,14 @@ public class CustomPriceUsedForSubscriptionCreateUpdate {
         }
 
         /**
-         * Builds a new {@link CustomPriceUsedForSubscriptionCreateUpdate} object using the set
-         * fields.
-         * @return {@link CustomPriceUsedForSubscriptionCreateUpdate}
+         * Builds a new {@link SubscriptionCustomPrice} object using the set fields.
+         * @return {@link SubscriptionCustomPrice}
          */
-        public CustomPriceUsedForSubscriptionCreateUpdate build() {
-            return new CustomPriceUsedForSubscriptionCreateUpdate(name, handle, priceInCents,
-                    interval, intervalUnit, trialPriceInCents, trialInterval, trialIntervalUnit,
-                    initialChargeInCents, initialChargeAfterTrial, expirationInterval,
-                    expirationIntervalUnit, taxIncluded);
+        public SubscriptionCustomPrice build() {
+            return new SubscriptionCustomPrice(priceInCents, interval, intervalUnit, name, handle,
+                    trialPriceInCents, trialInterval, trialIntervalUnit, initialChargeInCents,
+                    initialChargeAfterTrial, expirationInterval, expirationIntervalUnit,
+                    taxIncluded);
         }
     }
 }

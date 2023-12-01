@@ -20,11 +20,10 @@ import com.maxio.advancedbilling.models.CouponResponse;
 import com.maxio.advancedbilling.models.CouponSubcodes;
 import com.maxio.advancedbilling.models.CouponSubcodesResponse;
 import com.maxio.advancedbilling.models.CouponUsage;
+import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
 import com.maxio.advancedbilling.models.ListCouponSubcodesInput;
 import com.maxio.advancedbilling.models.ListCouponsForProductFamilyInput;
 import com.maxio.advancedbilling.models.ListCouponsInput;
-import com.maxio.advancedbilling.models.containers.CreateCouponBody;
-import com.maxio.advancedbilling.models.containers.UpdateCouponBody;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -67,7 +66,7 @@ public final class CouponsController extends BaseController {
      */
     public CouponResponse createCoupon(
             final int productFamilyId,
-            final CreateCouponBody body) throws ApiException, IOException {
+            final CreateOrUpdateCoupon body) throws ApiException, IOException {
         return prepareCreateCouponRequest(productFamilyId, body).execute();
     }
 
@@ -76,14 +75,14 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponResponse, ApiException> prepareCreateCouponRequest(
             final int productFamilyId,
-            final CreateCouponBody body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateCoupon body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/product_families/{product_family_id}/coupons.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
-                        .bodySerializer(() ->  ApiHelper.serializeTypeCombinator(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
@@ -279,7 +278,7 @@ public final class CouponsController extends BaseController {
     public CouponResponse updateCoupon(
             final int productFamilyId,
             final int couponId,
-            final UpdateCouponBody body) throws ApiException, IOException {
+            final CreateOrUpdateCoupon body) throws ApiException, IOException {
         return prepareUpdateCouponRequest(productFamilyId, couponId, body).execute();
     }
 
@@ -289,14 +288,14 @@ public final class CouponsController extends BaseController {
     private ApiCall<CouponResponse, ApiException> prepareUpdateCouponRequest(
             final int productFamilyId,
             final int couponId,
-            final UpdateCouponBody body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateCoupon body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/product_families/{product_family_id}/coupons/{coupon_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
-                        .bodySerializer(() ->  ApiHelper.serializeTypeCombinator(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("coupon_id").value(couponId).isRequired(false)

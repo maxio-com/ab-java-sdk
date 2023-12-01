@@ -32,7 +32,7 @@ public class UpdateSubscription {
     private UpdateSubscriptionNetTerms netTerms;
     private Integer storedCredentialTransactionId;
     private String reference;
-    private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
+    private SubscriptionCustomPrice customPrice;
     private List<UpdateSubscriptionComponent> components;
     private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
     private OptionalNullable<String> dunningCommunicationDelayTimeZone;
@@ -60,7 +60,7 @@ public class UpdateSubscription {
      * @param  netTerms  UpdateSubscriptionNetTerms value for netTerms.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  reference  String value for reference.
-     * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+     * @param  customPrice  SubscriptionCustomPrice value for customPrice.
      * @param  components  List of UpdateSubscriptionComponent value for components.
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
      * @param  dunningCommunicationDelayTimeZone  String value for
@@ -80,7 +80,7 @@ public class UpdateSubscription {
             UpdateSubscriptionNetTerms netTerms,
             Integer storedCredentialTransactionId,
             String reference,
-            CustomPriceUsedForSubscriptionCreateUpdate customPrice,
+            SubscriptionCustomPrice customPrice,
             List<UpdateSubscriptionComponent> components,
             Boolean dunningCommunicationDelayEnabled,
             String dunningCommunicationDelayTimeZone) {
@@ -120,7 +120,7 @@ public class UpdateSubscription {
      * @param  netTerms  UpdateSubscriptionNetTerms value for netTerms.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  reference  String value for reference.
-     * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+     * @param  customPrice  SubscriptionCustomPrice value for customPrice.
      * @param  components  List of UpdateSubscriptionComponent value for components.
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
      * @param  dunningCommunicationDelayTimeZone  String value for
@@ -132,7 +132,7 @@ public class UpdateSubscription {
             String nextProductPricePointId, UpdateSubscriptionSnapDay snapDay, String nextBillingAt,
             String paymentCollectionMethod, Boolean receivesInvoiceEmails,
             UpdateSubscriptionNetTerms netTerms, Integer storedCredentialTransactionId,
-            String reference, CustomPriceUsedForSubscriptionCreateUpdate customPrice,
+            String reference, SubscriptionCustomPrice customPrice,
             List<UpdateSubscriptionComponent> components,
             OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone) {
@@ -416,11 +416,11 @@ public class UpdateSubscription {
      * Getter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
      * the subscription
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdate
+     * @return Returns the SubscriptionCustomPrice
      */
     @JsonGetter("custom_price")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdate getCustomPrice() {
+    public SubscriptionCustomPrice getCustomPrice() {
         return customPrice;
     }
 
@@ -428,10 +428,10 @@ public class UpdateSubscription {
      * Setter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
      * the subscription
-     * @param customPrice Value for CustomPriceUsedForSubscriptionCreateUpdate
+     * @param customPrice Value for SubscriptionCustomPrice
      */
     @JsonSetter("custom_price")
-    public void setCustomPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) {
+    public void setCustomPrice(SubscriptionCustomPrice customPrice) {
         this.customPrice = customPrice;
     }
 
@@ -606,7 +606,7 @@ public class UpdateSubscription {
         private UpdateSubscriptionNetTerms netTerms;
         private Integer storedCredentialTransactionId;
         private String reference;
-        private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
+        private SubscriptionCustomPrice customPrice;
         private List<UpdateSubscriptionComponent> components;
         private OptionalNullable<Boolean> dunningCommunicationDelayEnabled =
                 OptionalNullable.of(false);
@@ -746,10 +746,10 @@ public class UpdateSubscription {
 
         /**
          * Setter for customPrice.
-         * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+         * @param  customPrice  SubscriptionCustomPrice value for customPrice.
          * @return Builder
          */
-        public Builder customPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) {
+        public Builder customPrice(SubscriptionCustomPrice customPrice) {
             this.customPrice = customPrice;
             return this;
         }

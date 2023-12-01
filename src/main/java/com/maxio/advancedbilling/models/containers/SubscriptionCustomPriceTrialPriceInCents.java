@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = CustomPriceUsedForSubscriptionCreateUpdatePriceInCents.CustomPriceUsedForSubscriptionCreateUpdatePriceInCentsDeserializer.class)
-public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
+@JsonDeserialize(using = SubscriptionCustomPriceTrialPriceInCents.SubscriptionCustomPriceTrialPriceInCentsDeserializer.class)
+public abstract class SubscriptionCustomPriceTrialPriceInCents {
     
     /**
      * This is String case.
      * @param string String value for string.
      * @return The StringCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromString(String string) {
+    public static SubscriptionCustomPriceTrialPriceInCents fromString(String string) {
         return string == null ? null : new StringCase(string);
     }
 
@@ -41,7 +41,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
      * @param mLong long value for mLong.
      * @return The LongCase object.
      */
-    public static CustomPriceUsedForSubscriptionCreateUpdatePriceInCents fromLong(long mLong) {
+    public static SubscriptionCustomPriceTrialPriceInCents fromLong(long mLong) {
         return new LongCase(mLong);
     }
 
@@ -69,7 +69,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class StringCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
+    private static class StringCase extends SubscriptionCustomPriceTrialPriceInCents {
 
         @JsonValue
         private String string;
@@ -103,7 +103,7 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "long")
-    private static class LongCase extends CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
+    private static class LongCase extends SubscriptionCustomPriceTrialPriceInCents {
 
         @JsonValue
         private long mLong;
@@ -133,13 +133,13 @@ public abstract class CustomPriceUsedForSubscriptionCreateUpdatePriceInCents {
     }
 
     /**
-     * This is a custom deserializer class for CustomPriceUsedForSubscriptionCreateUpdatePriceInCents.
+     * This is a custom deserializer class for SubscriptionCustomPriceTrialPriceInCents.
      */
-    protected static class CustomPriceUsedForSubscriptionCreateUpdatePriceInCentsDeserializer
-            extends JsonDeserializer<CustomPriceUsedForSubscriptionCreateUpdatePriceInCents> {
+    protected static class SubscriptionCustomPriceTrialPriceInCentsDeserializer
+            extends JsonDeserializer<SubscriptionCustomPriceTrialPriceInCents> {
 
         @Override
-        public CustomPriceUsedForSubscriptionCreateUpdatePriceInCents deserialize(JsonParser jp, DeserializationContext ctxt)
+        public SubscriptionCustomPriceTrialPriceInCents deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

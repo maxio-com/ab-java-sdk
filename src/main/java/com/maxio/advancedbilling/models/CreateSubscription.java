@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponents;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroup2;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionOfferId;
 import io.apimatic.core.types.OptionalNullable;
@@ -28,7 +27,7 @@ public class CreateSubscription {
     private Integer productId;
     private String productPricePointHandle;
     private Integer productPricePointId;
-    private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
+    private SubscriptionCustomPrice customPrice;
     private String couponCode;
     private List<String> couponCodes;
     private PaymentCollectionMethod paymentCollectionMethod;
@@ -45,7 +44,7 @@ public class CreateSubscription {
     private PaymentProfileAttributes paymentProfileAttributes;
     private PaymentProfileAttributes creditCardAttributes;
     private BankAccountAttributes bankAccountAttributes;
-    private List<CreateSubscriptionComponents> components;
+    private List<CreateSubscriptionComponent> components;
     private CalendarBilling calendarBilling;
     private Map<String, String> metafields;
     private String customerReference;
@@ -89,7 +88,7 @@ public class CreateSubscription {
      * @param  productId  Integer value for productId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
      * @param  productPricePointId  Integer value for productPricePointId.
-     * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+     * @param  customPrice  SubscriptionCustomPrice value for customPrice.
      * @param  couponCode  String value for couponCode.
      * @param  couponCodes  List of String value for couponCodes.
      * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
@@ -107,7 +106,7 @@ public class CreateSubscription {
      *         paymentProfileAttributes.
      * @param  creditCardAttributes  PaymentProfileAttributes value for creditCardAttributes.
      * @param  bankAccountAttributes  BankAccountAttributes value for bankAccountAttributes.
-     * @param  components  List of CreateSubscriptionComponents value for components.
+     * @param  components  List of CreateSubscriptionComponent value for components.
      * @param  calendarBilling  CalendarBilling value for calendarBilling.
      * @param  metafields  Map of String, value for metafields.
      * @param  customerReference  String value for customerReference.
@@ -144,7 +143,7 @@ public class CreateSubscription {
             Integer productId,
             String productPricePointHandle,
             Integer productPricePointId,
-            CustomPriceUsedForSubscriptionCreateUpdate customPrice,
+            SubscriptionCustomPrice customPrice,
             String couponCode,
             List<String> couponCodes,
             PaymentCollectionMethod paymentCollectionMethod,
@@ -161,7 +160,7 @@ public class CreateSubscription {
             PaymentProfileAttributes paymentProfileAttributes,
             PaymentProfileAttributes creditCardAttributes,
             BankAccountAttributes bankAccountAttributes,
-            List<CreateSubscriptionComponents> components,
+            List<CreateSubscriptionComponent> components,
             CalendarBilling calendarBilling,
             Map<String, String> metafields,
             String customerReference,
@@ -248,7 +247,7 @@ public class CreateSubscription {
      * @param  productId  Integer value for productId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
      * @param  productPricePointId  Integer value for productPricePointId.
-     * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+     * @param  customPrice  SubscriptionCustomPrice value for customPrice.
      * @param  couponCode  String value for couponCode.
      * @param  couponCodes  List of String value for couponCodes.
      * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
@@ -266,7 +265,7 @@ public class CreateSubscription {
      *         paymentProfileAttributes.
      * @param  creditCardAttributes  PaymentProfileAttributes value for creditCardAttributes.
      * @param  bankAccountAttributes  BankAccountAttributes value for bankAccountAttributes.
-     * @param  components  List of CreateSubscriptionComponents value for components.
+     * @param  components  List of CreateSubscriptionComponent value for components.
      * @param  calendarBilling  CalendarBilling value for calendarBilling.
      * @param  metafields  Map of String, value for metafields.
      * @param  customerReference  String value for customerReference.
@@ -301,16 +300,16 @@ public class CreateSubscription {
 
     protected CreateSubscription(String productHandle, Integer productId,
             String productPricePointHandle, Integer productPricePointId,
-            CustomPriceUsedForSubscriptionCreateUpdate customPrice, String couponCode,
-            List<String> couponCodes, PaymentCollectionMethod paymentCollectionMethod,
-            String receivesInvoiceEmails, String netTerms, Integer customerId,
-            ZonedDateTime nextBillingAt, ZonedDateTime initialBillingAt,
-            Integer storedCredentialTransactionId, Integer salesRepId, Integer paymentProfileId,
-            String reference, CustomerAttributes customerAttributes,
+            SubscriptionCustomPrice customPrice, String couponCode, List<String> couponCodes,
+            PaymentCollectionMethod paymentCollectionMethod, String receivesInvoiceEmails,
+            String netTerms, Integer customerId, ZonedDateTime nextBillingAt,
+            ZonedDateTime initialBillingAt, Integer storedCredentialTransactionId,
+            Integer salesRepId, Integer paymentProfileId, String reference,
+            CustomerAttributes customerAttributes,
             PaymentProfileAttributes paymentProfileAttributes,
             PaymentProfileAttributes creditCardAttributes,
             BankAccountAttributes bankAccountAttributes,
-            List<CreateSubscriptionComponents> components, CalendarBilling calendarBilling,
+            List<CreateSubscriptionComponent> components, CalendarBilling calendarBilling,
             Map<String, String> metafields, String customerReference,
             CreateSubscriptionGroup2 group, String ref, String cancellationMessage,
             String cancellationMethod, String currency, ZonedDateTime expiresAt,
@@ -467,11 +466,11 @@ public class CreateSubscription {
      * Getter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
      * the subscription
-     * @return Returns the CustomPriceUsedForSubscriptionCreateUpdate
+     * @return Returns the SubscriptionCustomPrice
      */
     @JsonGetter("custom_price")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomPriceUsedForSubscriptionCreateUpdate getCustomPrice() {
+    public SubscriptionCustomPrice getCustomPrice() {
         return customPrice;
     }
 
@@ -479,10 +478,10 @@ public class CreateSubscription {
      * Setter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
      * the subscription
-     * @param customPrice Value for CustomPriceUsedForSubscriptionCreateUpdate
+     * @param customPrice Value for SubscriptionCustomPrice
      */
     @JsonSetter("custom_price")
-    public void setCustomPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) {
+    public void setCustomPrice(SubscriptionCustomPrice customPrice) {
         this.customPrice = customPrice;
     }
 
@@ -891,11 +890,11 @@ public class CreateSubscription {
      * (Optional) An array of component ids and quantities to be added to the subscription. See
      * [Components](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677) for more
      * information.
-     * @return Returns the List of CreateSubscriptionComponents
+     * @return Returns the List of CreateSubscriptionComponent
      */
     @JsonGetter("components")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<CreateSubscriptionComponents> getComponents() {
+    public List<CreateSubscriptionComponent> getComponents() {
         return components;
     }
 
@@ -904,10 +903,10 @@ public class CreateSubscription {
      * (Optional) An array of component ids and quantities to be added to the subscription. See
      * [Components](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677) for more
      * information.
-     * @param components Value for List of CreateSubscriptionComponents
+     * @param components Value for List of CreateSubscriptionComponent
      */
     @JsonSetter("components")
-    public void setComponents(List<CreateSubscriptionComponents> components) {
+    public void setComponents(List<CreateSubscriptionComponent> components) {
         this.components = components;
     }
 
@@ -1674,7 +1673,7 @@ public class CreateSubscription {
         private Integer productId;
         private String productPricePointHandle;
         private Integer productPricePointId;
-        private CustomPriceUsedForSubscriptionCreateUpdate customPrice;
+        private SubscriptionCustomPrice customPrice;
         private String couponCode;
         private List<String> couponCodes;
         private PaymentCollectionMethod paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
@@ -1691,7 +1690,7 @@ public class CreateSubscription {
         private PaymentProfileAttributes paymentProfileAttributes;
         private PaymentProfileAttributes creditCardAttributes;
         private BankAccountAttributes bankAccountAttributes;
-        private List<CreateSubscriptionComponents> components;
+        private List<CreateSubscriptionComponent> components;
         private CalendarBilling calendarBilling;
         private Map<String, String> metafields;
         private String customerReference;
@@ -1765,10 +1764,10 @@ public class CreateSubscription {
 
         /**
          * Setter for customPrice.
-         * @param  customPrice  CustomPriceUsedForSubscriptionCreateUpdate value for customPrice.
+         * @param  customPrice  SubscriptionCustomPrice value for customPrice.
          * @return Builder
          */
-        public Builder customPrice(CustomPriceUsedForSubscriptionCreateUpdate customPrice) {
+        public Builder customPrice(SubscriptionCustomPrice customPrice) {
             this.customPrice = customPrice;
             return this;
         }
@@ -1938,10 +1937,10 @@ public class CreateSubscription {
 
         /**
          * Setter for components.
-         * @param  components  List of CreateSubscriptionComponents value for components.
+         * @param  components  List of CreateSubscriptionComponent value for components.
          * @return Builder
          */
-        public Builder components(List<CreateSubscriptionComponents> components) {
+        public Builder components(List<CreateSubscriptionComponent> components) {
             this.components = components;
             return this;
         }
