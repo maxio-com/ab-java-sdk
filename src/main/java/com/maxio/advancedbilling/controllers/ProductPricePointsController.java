@@ -25,6 +25,7 @@ import com.maxio.advancedbilling.models.ListProductPricePointsResponse;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.ProductPricePointCurrencyPrice;
 import com.maxio.advancedbilling.models.ProductPricePointResponse;
+import com.maxio.advancedbilling.models.ProductResponse;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.UpdateProductPricePointRequest;
 import io.apimatic.core.ApiCall;
@@ -344,23 +345,23 @@ public final class ProductPricePointsController extends BaseController {
      * @param  productId  Required parameter: The Chargify id of the product to which the price
      *         point belongs
      * @param  pricePointId  Required parameter: The Chargify id of the product price point
-     * @return    Returns the ProductPricePointResponse response from the API call
+     * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ProductPricePointResponse setDefaultPricePointForProduct(
+    public ProductResponse promoteProductPricePointToDefault(
             final int productId,
             final int pricePointId) throws ApiException, IOException {
-        return prepareSetDefaultPricePointForProductRequest(productId, pricePointId).execute();
+        return preparePromoteProductPricePointToDefaultRequest(productId, pricePointId).execute();
     }
 
     /**
-     * Builds the ApiCall object for setDefaultPricePointForProduct.
+     * Builds the ApiCall object for promoteProductPricePointToDefault.
      */
-    private ApiCall<ProductPricePointResponse, ApiException> prepareSetDefaultPricePointForProductRequest(
+    private ApiCall<ProductResponse, ApiException> preparePromoteProductPricePointToDefaultRequest(
             final int productId,
             final int pricePointId) throws IOException {
-        return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
+        return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -374,7 +375,7 @@ public final class ProductPricePointsController extends BaseController {
                         .httpMethod(HttpMethod.PATCH))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ProductPricePointResponse.class))
+                                response -> ApiHelper.deserialize(response, ProductResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

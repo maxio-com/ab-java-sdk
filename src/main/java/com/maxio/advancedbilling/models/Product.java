@@ -25,7 +25,7 @@ public class Product {
     private Integer id;
     private String name;
     private OptionalNullable<String> handle;
-    private String description;
+    private OptionalNullable<String> description;
     private OptionalNullable<String> accountingCode;
     private Boolean requestCreditCard;
     private OptionalNullable<Integer> expirationInterval;
@@ -148,7 +148,7 @@ public class Product {
         this.id = id;
         this.name = name;
         this.handle = OptionalNullable.of(handle);
-        this.description = description;
+        this.description = OptionalNullable.of(description);
         this.accountingCode = OptionalNullable.of(accountingCode);
         this.requestCreditCard = requestCreditCard;
         this.expirationInterval = OptionalNullable.of(expirationInterval);
@@ -226,9 +226,9 @@ public class Product {
      * @param  productPricePointHandle  String value for productPricePointHandle.
      */
 
-    protected Product(Integer id, String name, OptionalNullable<String> handle, String description,
-            OptionalNullable<String> accountingCode, Boolean requestCreditCard,
-            OptionalNullable<Integer> expirationInterval,
+    protected Product(Integer id, String name, OptionalNullable<String> handle,
+            OptionalNullable<String> description, OptionalNullable<String> accountingCode,
+            Boolean requestCreditCard, OptionalNullable<Integer> expirationInterval,
             OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit,
             ZonedDateTime createdAt, ZonedDateTime updatedAt, Long priceInCents, Integer interval,
             IntervalUnit intervalUnit, OptionalNullable<Long> initialChargeInCents,
@@ -363,14 +363,24 @@ public class Product {
     }
 
     /**
+     * Internal Getter for Description.
+     * The product description
+     * @return Returns the Internal String
+     */
+    @JsonGetter("description")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDescription() {
+        return this.description;
+    }
+
+    /**
      * Getter for Description.
      * The product description
      * @return Returns the String
      */
-    @JsonGetter("description")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDescription() {
-        return description;
+        return OptionalNullable.getFrom(description);
     }
 
     /**
@@ -380,7 +390,15 @@ public class Product {
      */
     @JsonSetter("description")
     public void setDescription(String description) {
-        this.description = description;
+        this.description = OptionalNullable.of(description);
+    }
+
+    /**
+     * UnSetter for Description.
+     * The product description
+     */
+    public void unsetDescription() {
+        description = null;
     }
 
     /**
@@ -1406,7 +1424,6 @@ public class Product {
         Builder builder = new Builder()
                 .id(getId())
                 .name(getName())
-                .description(getDescription())
                 .requestCreditCard(getRequestCreditCard())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
@@ -1426,6 +1443,7 @@ public class Product {
                 .defaultProductPricePointId(getDefaultProductPricePointId())
                 .productPricePointId(getProductPricePointId());
         builder.handle = internalGetHandle();
+        builder.description = internalGetDescription();
         builder.accountingCode = internalGetAccountingCode();
         builder.expirationInterval = internalGetExpirationInterval();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
@@ -1451,7 +1469,7 @@ public class Product {
         private Integer id;
         private String name;
         private OptionalNullable<String> handle;
-        private String description;
+        private OptionalNullable<String> description;
         private OptionalNullable<String> accountingCode;
         private Boolean requestCreditCard;
         private OptionalNullable<Integer> expirationInterval;
@@ -1533,7 +1551,16 @@ public class Product {
          * @return Builder
          */
         public Builder description(String description) {
-            this.description = description;
+            this.description = OptionalNullable.of(description);
+            return this;
+        }
+
+        /**
+         * UnSetter for description.
+         * @return Builder
+         */
+        public Builder unsetDescription() {
+            description = null;
             return this;
         }
 
