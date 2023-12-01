@@ -16,7 +16,7 @@ ProductPricePointsController productPricePointsController = client.getProductPri
 * [Read Product Price Point](../../doc/controllers/product-price-points.md#read-product-price-point)
 * [Archive Product Price Point](../../doc/controllers/product-price-points.md#archive-product-price-point)
 * [Unarchive Product Price Point](../../doc/controllers/product-price-points.md#unarchive-product-price-point)
-* [Set Default Price Point for Product](../../doc/controllers/product-price-points.md#set-default-price-point-for-product)
+* [Promote Product Price Point to Default](../../doc/controllers/product-price-points.md#promote-product-price-point-to-default)
 * [Create Product Price Points](../../doc/controllers/product-price-points.md#create-product-price-points)
 * [Create Product Currency Prices](../../doc/controllers/product-price-points.md#create-product-currency-prices)
 * [Update Product Currency Prices](../../doc/controllers/product-price-points.md#update-product-currency-prices)
@@ -464,14 +464,14 @@ try {
 ```
 
 
-# Set Default Price Point for Product
+# Promote Product Price Point to Default
 
 Use this endpoint to make a product price point the default for the product.
 
 Note: Custom product price points are not able to be set as the default for a product.
 
 ```java
-ProductPricePointResponse setDefaultPricePointForProduct(
+ProductResponse promoteProductPricePointToDefault(
     final int productId,
     final int pricePointId)
 ```
@@ -485,7 +485,7 @@ ProductPricePointResponse setDefaultPricePointForProduct(
 
 ## Response Type
 
-[`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
+[`ProductResponse`](../../doc/models/product-response.md)
 
 ## Example Usage
 
@@ -494,7 +494,7 @@ int productId = 202;
 int pricePointId = 10;
 
 try {
-    ProductPricePointResponse result = productPricePointsController.setDefaultPricePointForProduct(productId, pricePointId);
+    ProductResponse result = productPricePointsController.promoteProductPricePointToDefault(productId, pricePointId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -507,25 +507,52 @@ try {
 
 ```json
 {
-  "price_point": {
-    "id": 283,
+  "product": {
+    "id": 29778,
     "name": "Educational",
     "handle": "educational",
-    "price_in_cents": 1000,
-    "interval": 1,
+    "description": null,
+    "accounting_code": null,
+    "request_credit_card": true,
+    "expiration_interval": 12,
+    "expiration_interval_unit": "month",
+    "created_at": "2023-12-01T06:56:12-05:00",
+    "updated_at": "2023-12-01T06:56:26-05:00",
+    "price_in_cents": 100,
+    "interval": 2,
     "interval_unit": "month",
+    "initial_charge_in_cents": 120000,
     "trial_price_in_cents": 4900,
     "trial_interval": 1,
     "trial_interval_unit": "month",
-    "trial_type": "payment_expected",
-    "initial_charge_in_cents": 120000,
+    "archived_at": null,
+    "require_credit_card": true,
+    "return_params": null,
+    "taxable": false,
+    "update_return_url": null,
+    "tax_code": null,
     "initial_charge_after_trial": false,
-    "expiration_interval": 12,
-    "expiration_interval_unit": "month",
-    "product_id": 901,
-    "archived_at": "2023-11-30T06:37:20-05:00",
-    "created_at": "2023-11-27T06:37:20-05:00",
-    "updated_at": "2023-11-27T06:37:20-05:00"
+    "version_number": 1,
+    "update_return_params": null,
+    "default_product_price_point_id": 32395,
+    "request_billing_address": false,
+    "require_billing_address": false,
+    "require_shipping_address": false,
+    "use_site_exchange_rate": true,
+    "item_category": null,
+    "product_price_point_id": 32395,
+    "product_price_point_name": "Default",
+    "product_price_point_handle": "uuid:8c878f50-726e-013c-c71b-0286551bb34f",
+    "product_family": {
+      "id": 933860,
+      "name": "Acme Projects",
+      "description": "Amazing project management tool",
+      "handle": "acme-projects",
+      "accounting_code": null,
+      "created_at": "2023-12-01T06:56:12-05:00",
+      "updated_at": "2023-12-01T06:56:12-05:00"
+    },
+    "public_signup_pages": []
   }
 }
 ```

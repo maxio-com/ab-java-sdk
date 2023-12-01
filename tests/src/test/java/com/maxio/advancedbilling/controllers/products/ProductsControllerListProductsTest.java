@@ -44,7 +44,7 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
         ProductPricePoint pricePoint = productPricePointsController
                 .createProductPricePoint(productWithChangedPricePoint.getId(), createProductPricePointRequest)
                 .getPricePoint();
-        productPricePointsController.setDefaultPricePointForProduct(productWithChangedPricePoint.getId(), pricePoint.getId());
+        productPricePointsController.promoteProductPricePointToDefault(productWithChangedPricePoint.getId(), pricePoint.getId());
         productWithChangedPricePoint = productsController.readProduct(productWithChangedPricePoint.getId()).getProduct();
         savedProducts.add(productWithChangedPricePoint);
     }
