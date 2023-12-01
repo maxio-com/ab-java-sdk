@@ -10,7 +10,6 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.ProductPricePointErrors;
 import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
-import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,13 +20,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest {
 
-    private static Product product;
+    private Product product;
 
     @BeforeEach
     void beforeEach() throws IOException, ApiException {
@@ -72,56 +72,50 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
     @Test
     void shouldReturn404WhenCreatingPricePointForNotExistingProduct() {
         // when - then
-        CommonAssertions.assertNotFound(() -> createProductPricePoint(12345, null));
+        assertNotFound(() -> createProductPricePoint(12345, null));
     }
 
     @Test
     void shouldReturn422WhenPricePointInRequestIsNull() {
         // when - then
-        assertThatExceptionOfType(ProductPricePointErrorResponseException.class)
-                .isThrownBy(() -> createProductPricePoint(product.getId(), null))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors())
-                            .usingRecursiveComparison()
-                            .isEqualTo(new ProductPricePointErrors.Builder().pricePoint("can't be blank").build());
-                });
+        assertUnprocessableEntity(
+                ProductPricePointErrorResponseException.class,
+                () -> createProductPricePoint(product.getId(), null),
+                e -> assertThat(e.getErrors())
+                        .usingRecursiveComparison()
+                        .isEqualTo(new ProductPricePointErrors.Builder().pricePoint("can't be blank").build())
+        );
     }
 
     @Test
     void shouldReturn422WhenPricePointRequestIsEmpty() {
         // when - then
-        assertThatExceptionOfType(ProductPricePointErrorResponseException.class)
-                .isThrownBy(() -> createProductPricePoint(product.getId(), new CreateProductPricePoint()))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors())
-                            .usingRecursiveComparison()
-                            .isEqualTo(new ProductPricePointErrors.Builder()
-                                    .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
-                                    .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
-                                    .name(List.of("Name: cannot be blank."))
-                                    .build()
-                            );
-                });
+        assertUnprocessableEntity(
+                ProductPricePointErrorResponseException.class,
+                () -> createProductPricePoint(product.getId(), new CreateProductPricePoint()),
+                e -> assertThat(e.getErrors())
+                        .usingRecursiveComparison()
+                        .isEqualTo(new ProductPricePointErrors.Builder()
+                                .interval(List.of("Recurring Interval: must be greater than or equal to 1."))
+                                .intervalUnit(List.of("Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."))
+                                .name(List.of("Name: cannot be blank."))
+                                .build()
+                        )
+        );
     }
 
     @ParameterizedTest
     @MethodSource("argsForShouldReturn422WhenRequiredParametersAreMissing")
     void shouldReturn422WhenRequiredParametersAreMissing(CreateProductPricePointRequest request, ProductPricePointErrors expectedErrors) {
         // when - then
-        assertThatExceptionOfType(ProductPricePointErrorResponseException.class)
-                .isThrownBy(() -> PRODUCT_PRICE_POINTS_CONTROLLER
-                        .createProductPricePoint(CreateProductPricePointProductId.fromNumber(product.getId()), request))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors())
-                            .usingRecursiveComparison()
-                            .isEqualTo(expectedErrors);
-                });
+        assertUnprocessableEntity(
+                ProductPricePointErrorResponseException.class,
+                () -> PRODUCT_PRICE_POINTS_CONTROLLER
+                        .createProductPricePoint(CreateProductPricePointProductId.fromNumber(product.getId()), request),
+                e -> assertThat(e.getErrors())
+                        .usingRecursiveComparison()
+                        .isEqualTo(expectedErrors)
+        );
     }
 
     private static Stream<Arguments> argsForShouldReturn422WhenRequiredParametersAreMissing() {
