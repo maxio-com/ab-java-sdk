@@ -523,6 +523,9 @@ public final class ProductPricePointsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProductPricePointCurrencyPrice.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
