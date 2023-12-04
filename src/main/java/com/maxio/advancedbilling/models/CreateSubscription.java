@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroup2;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionOfferId;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -48,7 +47,7 @@ public class CreateSubscription {
     private CalendarBilling calendarBilling;
     private Map<String, String> metafields;
     private String customerReference;
-    private CreateSubscriptionGroup2 group;
+    private GroupSettings group;
     private String ref;
     private String cancellationMessage;
     private String cancellationMethod;
@@ -62,7 +61,7 @@ public class CreateSubscription {
     private String reasonCode;
     private Boolean productChangeDelayed;
     private CreateSubscriptionOfferId offerId;
-    private UpsertPrepaidConfiguration prepaidSubscriptionConfiguration;
+    private UpsertPrepaidConfiguration prepaidConfiguration;
     private ZonedDateTime previousBillingAt;
     private Boolean importMrr;
     private String canceledAt;
@@ -110,7 +109,7 @@ public class CreateSubscription {
      * @param  calendarBilling  CalendarBilling value for calendarBilling.
      * @param  metafields  Map of String, value for metafields.
      * @param  customerReference  String value for customerReference.
-     * @param  group  CreateSubscriptionGroup2 value for group.
+     * @param  group  GroupSettings value for group.
      * @param  ref  String value for ref.
      * @param  cancellationMessage  String value for cancellationMessage.
      * @param  cancellationMethod  String value for cancellationMethod.
@@ -125,8 +124,7 @@ public class CreateSubscription {
      * @param  reasonCode  String value for reasonCode.
      * @param  productChangeDelayed  Boolean value for productChangeDelayed.
      * @param  offerId  CreateSubscriptionOfferId value for offerId.
-     * @param  prepaidSubscriptionConfiguration  UpsertPrepaidConfiguration value for
-     *         prepaidSubscriptionConfiguration.
+     * @param  prepaidConfiguration  UpsertPrepaidConfiguration value for prepaidConfiguration.
      * @param  previousBillingAt  ZonedDateTime value for previousBillingAt.
      * @param  importMrr  Boolean value for importMrr.
      * @param  canceledAt  String value for canceledAt.
@@ -164,7 +162,7 @@ public class CreateSubscription {
             CalendarBilling calendarBilling,
             Map<String, String> metafields,
             String customerReference,
-            CreateSubscriptionGroup2 group,
+            GroupSettings group,
             String ref,
             String cancellationMessage,
             String cancellationMethod,
@@ -178,7 +176,7 @@ public class CreateSubscription {
             String reasonCode,
             Boolean productChangeDelayed,
             CreateSubscriptionOfferId offerId,
-            UpsertPrepaidConfiguration prepaidSubscriptionConfiguration,
+            UpsertPrepaidConfiguration prepaidConfiguration,
             ZonedDateTime previousBillingAt,
             Boolean importMrr,
             String canceledAt,
@@ -227,7 +225,7 @@ public class CreateSubscription {
         this.reasonCode = reasonCode;
         this.productChangeDelayed = productChangeDelayed;
         this.offerId = offerId;
-        this.prepaidSubscriptionConfiguration = prepaidSubscriptionConfiguration;
+        this.prepaidConfiguration = prepaidConfiguration;
         this.previousBillingAt = previousBillingAt;
         this.importMrr = importMrr;
         this.canceledAt = canceledAt;
@@ -269,7 +267,7 @@ public class CreateSubscription {
      * @param  calendarBilling  CalendarBilling value for calendarBilling.
      * @param  metafields  Map of String, value for metafields.
      * @param  customerReference  String value for customerReference.
-     * @param  group  CreateSubscriptionGroup2 value for group.
+     * @param  group  GroupSettings value for group.
      * @param  ref  String value for ref.
      * @param  cancellationMessage  String value for cancellationMessage.
      * @param  cancellationMethod  String value for cancellationMethod.
@@ -284,8 +282,7 @@ public class CreateSubscription {
      * @param  reasonCode  String value for reasonCode.
      * @param  productChangeDelayed  Boolean value for productChangeDelayed.
      * @param  offerId  CreateSubscriptionOfferId value for offerId.
-     * @param  prepaidSubscriptionConfiguration  UpsertPrepaidConfiguration value for
-     *         prepaidSubscriptionConfiguration.
+     * @param  prepaidConfiguration  UpsertPrepaidConfiguration value for prepaidConfiguration.
      * @param  previousBillingAt  ZonedDateTime value for previousBillingAt.
      * @param  importMrr  Boolean value for importMrr.
      * @param  canceledAt  String value for canceledAt.
@@ -310,14 +307,12 @@ public class CreateSubscription {
             PaymentProfileAttributes creditCardAttributes,
             BankAccountAttributes bankAccountAttributes,
             List<CreateSubscriptionComponent> components, CalendarBilling calendarBilling,
-            Map<String, String> metafields, String customerReference,
-            CreateSubscriptionGroup2 group, String ref, String cancellationMessage,
-            String cancellationMethod, String currency, ZonedDateTime expiresAt,
-            String expirationTracksNextBillingChange, String agreementTerms,
-            String authorizerFirstName, String authorizerLastName,
+            Map<String, String> metafields, String customerReference, GroupSettings group,
+            String ref, String cancellationMessage, String cancellationMethod, String currency,
+            ZonedDateTime expiresAt, String expirationTracksNextBillingChange,
+            String agreementTerms, String authorizerFirstName, String authorizerLastName,
             String calendarBillingFirstCharge, String reasonCode, Boolean productChangeDelayed,
-            CreateSubscriptionOfferId offerId,
-            UpsertPrepaidConfiguration prepaidSubscriptionConfiguration,
+            CreateSubscriptionOfferId offerId, UpsertPrepaidConfiguration prepaidConfiguration,
             ZonedDateTime previousBillingAt, Boolean importMrr, String canceledAt,
             ZonedDateTime activatedAt, AgreementAcceptance agreementAcceptance,
             ACHAgreement achAgreement, OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
@@ -362,7 +357,7 @@ public class CreateSubscription {
         this.reasonCode = reasonCode;
         this.productChangeDelayed = productChangeDelayed;
         this.offerId = offerId;
-        this.prepaidSubscriptionConfiguration = prepaidSubscriptionConfiguration;
+        this.prepaidConfiguration = prepaidConfiguration;
         this.previousBillingAt = previousBillingAt;
         this.importMrr = importMrr;
         this.canceledAt = canceledAt;
@@ -979,20 +974,20 @@ public class CreateSubscription {
 
     /**
      * Getter for Group.
-     * @return Returns the CreateSubscriptionGroup2
+     * @return Returns the GroupSettings
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreateSubscriptionGroup2 getGroup() {
+    public GroupSettings getGroup() {
         return group;
     }
 
     /**
      * Setter for Group.
-     * @param group Value for CreateSubscriptionGroup2
+     * @param group Value for GroupSettings
      */
     @JsonSetter("group")
-    public void setGroup(CreateSubscriptionGroup2 group) {
+    public void setGroup(GroupSettings group) {
         this.group = group;
     }
 
@@ -1304,22 +1299,22 @@ public class CreateSubscription {
     }
 
     /**
-     * Getter for PrepaidSubscriptionConfiguration.
+     * Getter for PrepaidConfiguration.
      * @return Returns the UpsertPrepaidConfiguration
      */
-    @JsonGetter("prepaid_subscription_configuration")
+    @JsonGetter("prepaid_configuration")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public UpsertPrepaidConfiguration getPrepaidSubscriptionConfiguration() {
-        return prepaidSubscriptionConfiguration;
+    public UpsertPrepaidConfiguration getPrepaidConfiguration() {
+        return prepaidConfiguration;
     }
 
     /**
-     * Setter for PrepaidSubscriptionConfiguration.
-     * @param prepaidSubscriptionConfiguration Value for UpsertPrepaidConfiguration
+     * Setter for PrepaidConfiguration.
+     * @param prepaidConfiguration Value for UpsertPrepaidConfiguration
      */
-    @JsonSetter("prepaid_subscription_configuration")
-    public void setPrepaidSubscriptionConfiguration(UpsertPrepaidConfiguration prepaidSubscriptionConfiguration) {
-        this.prepaidSubscriptionConfiguration = prepaidSubscriptionConfiguration;
+    @JsonSetter("prepaid_configuration")
+    public void setPrepaidConfiguration(UpsertPrepaidConfiguration prepaidConfiguration) {
+        this.prepaidConfiguration = prepaidConfiguration;
     }
 
     /**
@@ -1597,7 +1592,7 @@ public class CreateSubscription {
                 + authorizerFirstName + ", authorizerLastName=" + authorizerLastName
                 + ", calendarBillingFirstCharge=" + calendarBillingFirstCharge + ", reasonCode="
                 + reasonCode + ", productChangeDelayed=" + productChangeDelayed + ", offerId="
-                + offerId + ", prepaidSubscriptionConfiguration=" + prepaidSubscriptionConfiguration
+                + offerId + ", prepaidConfiguration=" + prepaidConfiguration
                 + ", previousBillingAt=" + previousBillingAt + ", importMrr=" + importMrr
                 + ", canceledAt=" + canceledAt + ", activatedAt=" + activatedAt
                 + ", agreementAcceptance=" + agreementAcceptance + ", achAgreement=" + achAgreement
@@ -1652,7 +1647,7 @@ public class CreateSubscription {
                 .reasonCode(getReasonCode())
                 .productChangeDelayed(getProductChangeDelayed())
                 .offerId(getOfferId())
-                .prepaidSubscriptionConfiguration(getPrepaidSubscriptionConfiguration())
+                .prepaidConfiguration(getPrepaidConfiguration())
                 .previousBillingAt(getPreviousBillingAt())
                 .importMrr(getImportMrr())
                 .canceledAt(getCanceledAt())
@@ -1694,7 +1689,7 @@ public class CreateSubscription {
         private CalendarBilling calendarBilling;
         private Map<String, String> metafields;
         private String customerReference;
-        private CreateSubscriptionGroup2 group;
+        private GroupSettings group;
         private String ref;
         private String cancellationMessage;
         private String cancellationMethod;
@@ -1708,7 +1703,7 @@ public class CreateSubscription {
         private String reasonCode;
         private Boolean productChangeDelayed;
         private CreateSubscriptionOfferId offerId;
-        private UpsertPrepaidConfiguration prepaidSubscriptionConfiguration;
+        private UpsertPrepaidConfiguration prepaidConfiguration;
         private ZonedDateTime previousBillingAt;
         private Boolean importMrr;
         private String canceledAt;
@@ -1977,10 +1972,10 @@ public class CreateSubscription {
 
         /**
          * Setter for group.
-         * @param  group  CreateSubscriptionGroup2 value for group.
+         * @param  group  GroupSettings value for group.
          * @return Builder
          */
-        public Builder group(CreateSubscriptionGroup2 group) {
+        public Builder group(GroupSettings group) {
             this.group = group;
             return this;
         }
@@ -2118,14 +2113,12 @@ public class CreateSubscription {
         }
 
         /**
-         * Setter for prepaidSubscriptionConfiguration.
-         * @param  prepaidSubscriptionConfiguration  UpsertPrepaidConfiguration value for
-         *         prepaidSubscriptionConfiguration.
+         * Setter for prepaidConfiguration.
+         * @param  prepaidConfiguration  UpsertPrepaidConfiguration value for prepaidConfiguration.
          * @return Builder
          */
-        public Builder prepaidSubscriptionConfiguration(
-                UpsertPrepaidConfiguration prepaidSubscriptionConfiguration) {
-            this.prepaidSubscriptionConfiguration = prepaidSubscriptionConfiguration;
+        public Builder prepaidConfiguration(UpsertPrepaidConfiguration prepaidConfiguration) {
+            this.prepaidConfiguration = prepaidConfiguration;
             return this;
         }
 
@@ -2258,10 +2251,9 @@ public class CreateSubscription {
                     cancellationMethod, currency, expiresAt, expirationTracksNextBillingChange,
                     agreementTerms, authorizerFirstName, authorizerLastName,
                     calendarBillingFirstCharge, reasonCode, productChangeDelayed, offerId,
-                    prepaidSubscriptionConfiguration, previousBillingAt, importMrr, canceledAt,
-                    activatedAt, agreementAcceptance, achAgreement,
-                    dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone,
-                    skipBillingManifestTaxes);
+                    prepaidConfiguration, previousBillingAt, importMrr, canceledAt, activatedAt,
+                    agreementAcceptance, achAgreement, dunningCommunicationDelayEnabled,
+                    dunningCommunicationDelayTimeZone, skipBillingManifestTaxes);
         }
     }
 }

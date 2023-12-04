@@ -35,7 +35,7 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
     @BeforeAll
     static void beforeAll() throws IOException, ApiException {
         archiveAllSiteProducts();
-        archiveAllSitePricePointsExcludingDefault();
+        archiveAllSiteCatalogPricePoints();
 
         product = createProduct();    // this creates a default price point
         for (int i = 0; i < 3; i++) {

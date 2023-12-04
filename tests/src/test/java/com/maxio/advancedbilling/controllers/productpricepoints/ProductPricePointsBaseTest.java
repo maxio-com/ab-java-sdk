@@ -26,7 +26,6 @@ import com.maxio.advancedbilling.models.containers.CreateProductPricePointProduc
 import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
-import java.util.EnumSet;
 import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
@@ -83,8 +82,10 @@ abstract class ProductPricePointsBaseTest {
             fail(e.getMessage(), e);
         }
 
-        return PRODUCT_PRICE_POINTS_CONTROLLER
-                .createProductPricePoint(CreateProductPricePointProductId.fromNumber(productId), new CreateProductPricePointRequest(createProductPricePoint));
+        return PRODUCT_PRICE_POINTS_CONTROLLER.createProductPricePoint(
+                CreateProductPricePointProductId.fromNumber(productId),
+                new CreateProductPricePointRequest(createProductPricePoint)
+        );
     }
 
     protected static CreateProductPricePoint.Builder defaultBuilder() {
@@ -103,16 +104,17 @@ abstract class ProductPricePointsBaseTest {
     }
 
     // when archiving default price point, {"errors":["Cannot archive the default price point."]} is returned
-    protected static void archiveAllSitePricePointsExcludingDefault() throws IOException, ApiException {
-        List<ProductPricePoint> sitePricePointsExcludingDefault = listAllSitePricePointsPerPage200ExcludingDefault();
-        while (!sitePricePointsExcludingDefault.isEmpty()) {
-            for (ProductPricePoint pricePoint : sitePricePointsExcludingDefault) {
+    // when archiving custom price point, {"errors":["The custom product price point cannot be archived."]} is returned
+    protected static void archiveAllSiteCatalogPricePoints() throws IOException, ApiException {
+        List<ProductPricePoint> siteCatalogPricePoints = listAllSiteCatalogPricePointsPerPage200();
+        while (!siteCatalogPricePoints.isEmpty()) {
+            for (ProductPricePoint pricePoint : siteCatalogPricePoints) {
                 PRODUCT_PRICE_POINTS_CONTROLLER.archiveProductPricePoint(
                         ArchiveProductPricePointProductId.fromNumber(pricePoint.getProductId()),
                         ArchiveProductPricePointPricePointId.fromNumber(pricePoint.getId())
                 );
             }
-            sitePricePointsExcludingDefault = listAllSitePricePointsPerPage200ExcludingDefault();
+            siteCatalogPricePoints = listAllSiteCatalogPricePointsPerPage200();
         }
     }
 
@@ -126,20 +128,16 @@ abstract class ProductPricePointsBaseTest {
         }
     }
 
-    protected static List<PricePointType> pricePointTypesExcludingDefault() {
-        return EnumSet.complementOf(EnumSet.of(PricePointType.ENUM_DEFAULT)).stream().toList();
-    }
-
     private static List<ProductResponse> listAllSiteProductsPerPage200() throws IOException, ApiException {
         return PRODUCTS_CONTROLLER.listProducts(
                 new ListProductsInput.Builder().perPage(200).build()
         );
     }
 
-    private static List<ProductPricePoint> listAllSitePricePointsPerPage200ExcludingDefault() throws IOException, ApiException {
+    private static List<ProductPricePoint> listAllSiteCatalogPricePointsPerPage200() throws IOException, ApiException {
         return PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(new ListAllProductPricePointsInput.Builder()
-                        .filterType(pricePointTypesExcludingDefault())
+                        .filterType(List.of(PricePointType.CATALOG))
                         .perPage(200)
                         .build()
                 )

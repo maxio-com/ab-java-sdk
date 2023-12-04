@@ -13,6 +13,7 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
+import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKindPath;
 import com.maxio.advancedbilling.models.ComponentPricePointResponse;
 import com.maxio.advancedbilling.models.ComponentPricePointsResponse;
@@ -267,11 +268,11 @@ public final class ComponentsController extends BaseController {
      *         the component belongs
      * @param  componentId  Required parameter: Either the Chargify id of the component or the
      *         handle for the component prefixed with `handle:`
-     * @return    Returns the ComponentResponse response from the API call
+     * @return    Returns the Component response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentResponse archiveComponent(
+    public Component archiveComponent(
             final int productFamilyId,
             final String componentId) throws ApiException, IOException {
         return prepareArchiveComponentRequest(productFamilyId, componentId).execute();
@@ -280,10 +281,10 @@ public final class ComponentsController extends BaseController {
     /**
      * Builds the ApiCall object for archiveComponent.
      */
-    private ApiCall<ComponentResponse, ApiException> prepareArchiveComponentRequest(
+    private ApiCall<Component, ApiException> prepareArchiveComponentRequest(
             final int productFamilyId,
             final String componentId) throws IOException {
-        return new ApiCall.Builder<ComponentResponse, ApiException>()
+        return new ApiCall.Builder<Component, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -297,7 +298,7 @@ public final class ComponentsController extends BaseController {
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ComponentResponse.class))
+                                response -> ApiHelper.deserialize(response, Component.class))
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",

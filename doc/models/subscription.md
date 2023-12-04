@@ -69,6 +69,7 @@
 | `ScheduledCancellationAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getScheduledCancellationAt() | setScheduledCancellationAt(ZonedDateTime scheduledCancellationAt) |
 | `CreditBalanceInCents` | `Long` | Optional | - | Long getCreditBalanceInCents() | setCreditBalanceInCents(Long creditBalanceInCents) |
 | `PrepaymentBalanceInCents` | `Long` | Optional | - | Long getPrepaymentBalanceInCents() | setPrepaymentBalanceInCents(Long prepaymentBalanceInCents) |
+| `PrepaidConfiguration` | [`PrepaidConfiguration`](../../doc/models/prepaid-configuration.md) | Optional | - | PrepaidConfiguration getPrepaidConfiguration() | setPrepaidConfiguration(PrepaidConfiguration prepaidConfiguration) |
 
 ## Example (as JSON)
 
