@@ -9,13 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.ListProductPricePointsInputProductId;
 import java.util.List;
 
 /**
  * This is a model class for ListProductPricePointsInput type.
  */
 public class ListProductPricePointsInput {
-    private int productId;
+    private ListProductPricePointsInputProductId productId;
     private Integer page;
     private Integer perPage;
     private Boolean currencyPrices;
@@ -31,14 +32,14 @@ public class ListProductPricePointsInput {
 
     /**
      * Initialization constructor.
-     * @param  productId  int value for productId.
+     * @param  productId  ListProductPricePointsInputProductId value for productId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  currencyPrices  Boolean value for currencyPrices.
      * @param  filterType  List of PricePointType value for filterType.
      */
     public ListProductPricePointsInput(
-            int productId,
+            ListProductPricePointsInputProductId productId,
             Integer page,
             Integer perPage,
             Boolean currencyPrices,
@@ -53,20 +54,20 @@ public class ListProductPricePointsInput {
     /**
      * Getter for ProductId.
      * The id or handle of the product. When using the handle, it must be prefixed with `handle:`
-     * @return Returns the int
+     * @return Returns the ListProductPricePointsInputProductId
      */
     @JsonGetter("product_id")
-    public int getProductId() {
+    public ListProductPricePointsInputProductId getProductId() {
         return productId;
     }
 
     /**
      * Setter for ProductId.
      * The id or handle of the product. When using the handle, it must be prefixed with `handle:`
-     * @param productId Value for int
+     * @param productId Value for ListProductPricePointsInputProductId
      */
     @JsonSetter("product_id")
-    public void setProductId(int productId) {
+    public void setProductId(ListProductPricePointsInputProductId productId) {
         this.productId = productId;
     }
 
@@ -201,7 +202,7 @@ public class ListProductPricePointsInput {
      * Class to build instances of {@link ListProductPricePointsInput}.
      */
     public static class Builder {
-        private int productId;
+        private ListProductPricePointsInputProductId productId;
         private Integer page = 1;
         private Integer perPage = 10;
         private Boolean currencyPrices;
@@ -215,18 +216,18 @@ public class ListProductPricePointsInput {
 
         /**
          * Initialization constructor.
-         * @param  productId  int value for productId.
+         * @param  productId  ListProductPricePointsInputProductId value for productId.
          */
-        public Builder(int productId) {
+        public Builder(ListProductPricePointsInputProductId productId) {
             this.productId = productId;
         }
 
         /**
          * Setter for productId.
-         * @param  productId  int value for productId.
+         * @param  productId  ListProductPricePointsInputProductId value for productId.
          * @return Builder
          */
-        public Builder productId(int productId) {
+        public Builder productId(ListProductPricePointsInputProductId productId) {
             this.productId = productId;
             return this;
         }

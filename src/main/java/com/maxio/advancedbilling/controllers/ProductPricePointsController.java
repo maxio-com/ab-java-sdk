@@ -28,12 +28,18 @@ import com.maxio.advancedbilling.models.ProductPricePointResponse;
 import com.maxio.advancedbilling.models.ProductResponse;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.UpdateProductPricePointRequest;
+import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointPricePointId;
+import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointProductId;
+import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
+import com.maxio.advancedbilling.models.containers.ReadProductPricePointPricePointId;
+import com.maxio.advancedbilling.models.containers.ReadProductPricePointProductId;
+import com.maxio.advancedbilling.models.containers.UpdateProductPricePointPricePointId;
+import com.maxio.advancedbilling.models.containers.UpdateProductPricePointProductId;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -59,7 +65,7 @@ public final class ProductPricePointsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProductPricePointResponse createProductPricePoint(
-            final int productId,
+            final CreateProductPricePointProductId productId,
             final CreateProductPricePointRequest body) throws ApiException, IOException {
         return prepareCreateProductPricePointRequest(productId, body).execute();
     }
@@ -68,7 +74,7 @@ public final class ProductPricePointsController extends BaseController {
      * Builds the ApiCall object for createProductPricePoint.
      */
     private ApiCall<ProductPricePointResponse, ApiException> prepareCreateProductPricePointRequest(
-            final int productId,
+            final CreateProductPricePointProductId productId,
             final CreateProductPricePointRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -77,7 +83,7 @@ public final class ProductPricePointsController extends BaseController {
                         .path("/products/{product_id}/price_points.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
+                        .templateParam(param -> param.key("product_id").value(productId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -127,7 +133,7 @@ public final class ProductPricePointsController extends BaseController {
                                 .value(input.getCurrencyPrices()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
                                 .value(PricePointType.toValue(input.getFilterType())).isRequired(false))
-                        .templateParam(param -> param.key("product_id").value(input.getProductId()).isRequired(false)
+                        .templateParam(param -> param.key("product_id").value(input.getProductId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -155,8 +161,8 @@ public final class ProductPricePointsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProductPricePointResponse updateProductPricePoint(
-            final int productId,
-            final int pricePointId,
+            final UpdateProductPricePointProductId productId,
+            final UpdateProductPricePointPricePointId pricePointId,
             final UpdateProductPricePointRequest body) throws ApiException, IOException {
         return prepareUpdateProductPricePointRequest(productId, pricePointId, body).execute();
     }
@@ -165,8 +171,8 @@ public final class ProductPricePointsController extends BaseController {
      * Builds the ApiCall object for updateProductPricePoint.
      */
     private ApiCall<ProductPricePointResponse, ApiException> prepareUpdateProductPricePointRequest(
-            final int productId,
-            final int pricePointId,
+            final UpdateProductPricePointProductId productId,
+            final UpdateProductPricePointPricePointId pricePointId,
             final UpdateProductPricePointRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -175,9 +181,9 @@ public final class ProductPricePointsController extends BaseController {
                         .path("/products/{product_id}/price_points/{price_point_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
+                        .templateParam(param -> param.key("product_id").value(productId)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("price_point_id").value(pricePointId).isRequired(false)
+                        .templateParam(param -> param.key("price_point_id").value(pricePointId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -211,8 +217,8 @@ public final class ProductPricePointsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProductPricePointResponse readProductPricePoint(
-            final int productId,
-            final int pricePointId,
+            final ReadProductPricePointProductId productId,
+            final ReadProductPricePointPricePointId pricePointId,
             final Boolean currencyPrices) throws ApiException, IOException {
         return prepareReadProductPricePointRequest(productId, pricePointId,
                 currencyPrices).execute();
@@ -222,8 +228,8 @@ public final class ProductPricePointsController extends BaseController {
      * Builds the ApiCall object for readProductPricePoint.
      */
     private ApiCall<ProductPricePointResponse, ApiException> prepareReadProductPricePointRequest(
-            final int productId,
-            final int pricePointId,
+            final ReadProductPricePointProductId productId,
+            final ReadProductPricePointPricePointId pricePointId,
             final Boolean currencyPrices) throws IOException {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -232,9 +238,9 @@ public final class ProductPricePointsController extends BaseController {
                         .path("/products/{product_id}/price_points/{price_point_id}.json")
                         .queryParam(param -> param.key("currency_prices")
                                 .value(currencyPrices).isRequired(false))
-                        .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
+                        .templateParam(param -> param.key("product_id").value(productId)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("price_point_id").value(pricePointId).isRequired(false)
+                        .templateParam(param -> param.key("price_point_id").value(pricePointId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -260,8 +266,8 @@ public final class ProductPricePointsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProductPricePointResponse archiveProductPricePoint(
-            final int productId,
-            final int pricePointId) throws ApiException, IOException {
+            final ArchiveProductPricePointProductId productId,
+            final ArchiveProductPricePointPricePointId pricePointId) throws ApiException, IOException {
         return prepareArchiveProductPricePointRequest(productId, pricePointId).execute();
     }
 
@@ -269,16 +275,16 @@ public final class ProductPricePointsController extends BaseController {
      * Builds the ApiCall object for archiveProductPricePoint.
      */
     private ApiCall<ProductPricePointResponse, ApiException> prepareArchiveProductPricePointRequest(
-            final int productId,
-            final int pricePointId) throws IOException {
+            final ArchiveProductPricePointProductId productId,
+            final ArchiveProductPricePointPricePointId pricePointId) throws IOException {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/products/{product_id}/price_points/{price_point_id}.json")
-                        .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
+                        .templateParam(param -> param.key("product_id").value(productId)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("price_point_id").value(pricePointId).isRequired(false)
+                        .templateParam(param -> param.key("price_point_id").value(pricePointId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -490,11 +496,11 @@ public final class ProductPricePointsController extends BaseController {
      * able to be updated for custom product price points.
      * @param  productPricePointId  Required parameter: The Chargify id of the product price point
      * @param  body  Optional parameter: Example:
-     * @return    Returns the List of ProductPricePointCurrencyPrice response from the API call
+     * @return    Returns the ProductPricePointCurrencyPrice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<ProductPricePointCurrencyPrice> updateProductCurrencyPrices(
+    public ProductPricePointCurrencyPrice updateProductCurrencyPrices(
             final int productPricePointId,
             final UpdateCurrencyPricesRequest body) throws ApiException, IOException {
         return prepareUpdateProductCurrencyPricesRequest(productPricePointId, body).execute();
@@ -503,10 +509,10 @@ public final class ProductPricePointsController extends BaseController {
     /**
      * Builds the ApiCall object for updateProductCurrencyPrices.
      */
-    private ApiCall<List<ProductPricePointCurrencyPrice>, ApiException> prepareUpdateProductCurrencyPricesRequest(
+    private ApiCall<ProductPricePointCurrencyPrice, ApiException> prepareUpdateProductCurrencyPricesRequest(
             final int productPricePointId,
             final UpdateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<List<ProductPricePointCurrencyPrice>, ApiException>()
+        return new ApiCall.Builder<ProductPricePointCurrencyPrice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -522,9 +528,11 @@ public final class ProductPricePointsController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserializeArray(response,
-                                        ProductPricePointCurrencyPrice[].class))
+                                response -> ApiHelper.deserialize(response, ProductPricePointCurrencyPrice.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

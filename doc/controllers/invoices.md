@@ -605,6 +605,9 @@ Exposed event types are:
 + change_invoice_status
 + change_invoice_collection_method
 + remove_payment
++ failed_payment
++ apply_debit_note
++ create_debit_note
 
 Invoice events are returned in ascending order.
 

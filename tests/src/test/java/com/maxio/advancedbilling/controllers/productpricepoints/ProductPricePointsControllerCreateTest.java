@@ -9,6 +9,7 @@ import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.ProductPricePointErrors;
+import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
 import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -112,7 +113,8 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
     void shouldReturn422WhenRequiredParametersAreMissing(CreateProductPricePointRequest request, ProductPricePointErrors expectedErrors) {
         // when - then
         assertThatExceptionOfType(ProductPricePointErrorResponseException.class)
-                .isThrownBy(() -> PRODUCT_PRICE_POINTS_CONTROLLER.createProductPricePoint(product.getId(), request))
+                .isThrownBy(() -> PRODUCT_PRICE_POINTS_CONTROLLER
+                        .createProductPricePoint(CreateProductPricePointProductId.fromNumber(product.getId()), request))
                 .withMessage("Unprocessable Entity (WebDAV)")
                 .satisfies(e -> {
                     assertThat(e.getResponseCode()).isEqualTo(422);

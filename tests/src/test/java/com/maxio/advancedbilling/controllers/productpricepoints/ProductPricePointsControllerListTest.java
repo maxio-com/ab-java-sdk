@@ -6,6 +6,7 @@ import com.maxio.advancedbilling.models.ListProductPricePointsInput;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
+import com.maxio.advancedbilling.models.containers.ListProductPricePointsInputProductId;
 import com.maxio.advancedbilling.utils.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,8 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
     void shouldReturn404WhenProductNotExists() {
         // when - then
         CommonAssertions.assertNotFound(() -> PRODUCT_PRICE_POINTS_CONTROLLER
-                .listProductPricePoints(new ListProductPricePointsInput.Builder(12345).build())
+                .listProductPricePoints(new ListProductPricePointsInput
+                        .Builder(ListProductPricePointsInputProductId.fromNumber(12345)).build())
         );
     }
 
@@ -39,7 +41,8 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
     void shouldReturnListWithOriginalPricePointOnly() throws IOException, ApiException {
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
-                .listProductPricePoints(new ListProductPricePointsInput.Builder(product.getId()).build())
+                .listProductPricePoints(new ListProductPricePointsInput
+                        .Builder(ListProductPricePointsInputProductId.fromNumber(product.getId())).build())
                 .getPricePoints();
 
         // then
@@ -83,7 +86,8 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
 
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
-                .listProductPricePoints(new ListProductPricePointsInput.Builder(product.getId()).build())
+                .listProductPricePoints(new ListProductPricePointsInput
+                        .Builder(ListProductPricePointsInputProductId.fromNumber(product.getId())).build())
                 .getPricePoints();
 
         // then
@@ -106,7 +110,7 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
         // when
         List<ProductPricePoint> productPricePointsPage1 = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
-                        .productId(product.getId())
+                        .productId(ListProductPricePointsInputProductId.fromNumber(product.getId()))
                         .page(1)
                         .perPage(2)
                         .build()
@@ -114,7 +118,7 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
                 .getPricePoints();
         List<ProductPricePoint> productPricePointsPage2 = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
-                        .productId(product.getId())
+                        .productId(ListProductPricePointsInputProductId.fromNumber(product.getId()))
                         .page(2)
                         .perPage(2)
                         .build()
@@ -122,7 +126,7 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
                 .getPricePoints();
         List<ProductPricePoint> productPricePointsPage3 = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
-                        .productId(product.getId())
+                        .productId(ListProductPricePointsInputProductId.fromNumber(product.getId()))
                         .page(3)
                         .perPage(2)
                         .build()
@@ -146,7 +150,7 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
         // when - then
         List<ProductPricePoint> pricePointsOfDefaultType = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
-                        .productId(product.getId())
+                        .productId(ListProductPricePointsInputProductId.fromNumber(product.getId()))
                         .filterType(Collections.singletonList(PricePointType.ENUM_DEFAULT))
                         .build()
                 )
@@ -158,7 +162,7 @@ class ProductPricePointsControllerListTest extends ProductPricePointsBaseTest {
 
         List<ProductPricePoint> pricePointsOfCatalogType = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listProductPricePoints(new ListProductPricePointsInput.Builder()
-                        .productId(product.getId())
+                        .productId(ListProductPricePointsInputProductId.fromNumber(product.getId()))
                         .filterType(Collections.singletonList(PricePointType.CATALOG))
                         .build()
                 )

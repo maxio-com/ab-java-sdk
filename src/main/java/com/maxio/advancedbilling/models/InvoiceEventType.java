@@ -21,6 +21,8 @@ public enum InvoiceEventType {
 
     APPLY_CREDIT_NOTE,
 
+    CREATE_CREDIT_NOTE,
+
     APPLY_PAYMENT,
 
     APPLY_DEBIT_NOTE,
@@ -37,7 +39,9 @@ public enum InvoiceEventType {
 
     CHANGE_INVOICE_COLLECTION_METHOD,
 
-    REMOVE_PAYMENT;
+    REMOVE_PAYMENT,
+
+    FAILED_PAYMENT;
 
 
     private static TreeMap<String, InvoiceEventType> valueMap = new TreeMap<>();
@@ -46,6 +50,7 @@ public enum InvoiceEventType {
     static {
         ISSUE_INVOICE.value = "issue_invoice";
         APPLY_CREDIT_NOTE.value = "apply_credit_note";
+        CREATE_CREDIT_NOTE.value = "create_credit_note";
         APPLY_PAYMENT.value = "apply_payment";
         APPLY_DEBIT_NOTE.value = "apply_debit_note";
         REFUND_INVOICE.value = "refund_invoice";
@@ -55,9 +60,11 @@ public enum InvoiceEventType {
         CHANGE_INVOICE_STATUS.value = "change_invoice_status";
         CHANGE_INVOICE_COLLECTION_METHOD.value = "change_invoice_collection_method";
         REMOVE_PAYMENT.value = "remove_payment";
+        FAILED_PAYMENT.value = "failed_payment";
 
         valueMap.put("issue_invoice", ISSUE_INVOICE);
         valueMap.put("apply_credit_note", APPLY_CREDIT_NOTE);
+        valueMap.put("create_credit_note", CREATE_CREDIT_NOTE);
         valueMap.put("apply_payment", APPLY_PAYMENT);
         valueMap.put("apply_debit_note", APPLY_DEBIT_NOTE);
         valueMap.put("refund_invoice", REFUND_INVOICE);
@@ -67,6 +74,7 @@ public enum InvoiceEventType {
         valueMap.put("change_invoice_status", CHANGE_INVOICE_STATUS);
         valueMap.put("change_invoice_collection_method", CHANGE_INVOICE_COLLECTION_METHOD);
         valueMap.put("remove_payment", REMOVE_PAYMENT);
+        valueMap.put("failed_payment", FAILED_PAYMENT);
     }
 
     /**

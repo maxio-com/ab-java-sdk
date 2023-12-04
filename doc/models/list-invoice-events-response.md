@@ -21,7 +21,7 @@
   "events": [
     {
       "id": 68,
-      "event_type": "issue_invoice",
+      "event_type": "void_remainder",
       "event_data": {
         "uid": "uid2",
         "credit_note_number": "credit_note_number4",
