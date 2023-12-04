@@ -9,6 +9,8 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -19,8 +21,8 @@ public class AllocateComponents {
     private String prorationDowngradeScheme;
     private List<CreateAllocationRequest> allocations;
     private Boolean accrueCharge;
-    private String upgradeCharge;
-    private String downgradeCredit;
+    private OptionalNullable<CreditType> upgradeCharge;
+    private OptionalNullable<CreditType> downgradeCredit;
     private PaymentCollectionMethod1 paymentCollectionMethod;
 
     /**
@@ -38,8 +40,8 @@ public class AllocateComponents {
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
      * @param  allocations  List of CreateAllocationRequest value for allocations.
      * @param  accrueCharge  Boolean value for accrueCharge.
-     * @param  upgradeCharge  String value for upgradeCharge.
-     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for paymentCollectionMethod.
      */
     public AllocateComponents(
@@ -47,8 +49,33 @@ public class AllocateComponents {
             String prorationDowngradeScheme,
             List<CreateAllocationRequest> allocations,
             Boolean accrueCharge,
-            String upgradeCharge,
-            String downgradeCredit,
+            CreditType upgradeCharge,
+            CreditType downgradeCredit,
+            PaymentCollectionMethod1 paymentCollectionMethod) {
+        this.prorationUpgradeScheme = prorationUpgradeScheme;
+        this.prorationDowngradeScheme = prorationDowngradeScheme;
+        this.allocations = allocations;
+        this.accrueCharge = accrueCharge;
+        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
+        this.paymentCollectionMethod = paymentCollectionMethod;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
+     * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
+     * @param  allocations  List of CreateAllocationRequest value for allocations.
+     * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  downgradeCredit  CreditType value for downgradeCredit.
+     * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for paymentCollectionMethod.
+     */
+
+    protected AllocateComponents(String prorationUpgradeScheme, String prorationDowngradeScheme,
+            List<CreateAllocationRequest> allocations, Boolean accrueCharge,
+            OptionalNullable<CreditType> upgradeCharge,
+            OptionalNullable<CreditType> downgradeCredit,
             PaymentCollectionMethod1 paymentCollectionMethod) {
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
@@ -136,41 +163,89 @@ public class AllocateComponents {
     }
 
     /**
-     * Getter for UpgradeCharge.
-     * @return Returns the String
+     * Internal Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the Internal CreditType
      */
     @JsonGetter("upgrade_charge")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpgradeCharge() {
-        return upgradeCharge;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CreditType> internalGetUpgradeCharge() {
+        return this.upgradeCharge;
+    }
+
+    /**
+     * Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the CreditType
+     */
+    public CreditType getUpgradeCharge() {
+        return OptionalNullable.getFrom(upgradeCharge);
     }
 
     /**
      * Setter for UpgradeCharge.
-     * @param upgradeCharge Value for String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @param upgradeCharge Value for CreditType
      */
     @JsonSetter("upgrade_charge")
-    public void setUpgradeCharge(String upgradeCharge) {
-        this.upgradeCharge = upgradeCharge;
+    public void setUpgradeCharge(CreditType upgradeCharge) {
+        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+    }
+
+    /**
+     * UnSetter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     */
+    public void unsetUpgradeCharge() {
+        upgradeCharge = null;
+    }
+
+    /**
+     * Internal Getter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the Internal CreditType
+     */
+    @JsonGetter("downgrade_credit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CreditType> internalGetDowngradeCredit() {
+        return this.downgradeCredit;
     }
 
     /**
      * Getter for DowngradeCredit.
-     * @return Returns the String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the CreditType
      */
-    @JsonGetter("downgrade_credit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDowngradeCredit() {
-        return downgradeCredit;
+    public CreditType getDowngradeCredit() {
+        return OptionalNullable.getFrom(downgradeCredit);
     }
 
     /**
      * Setter for DowngradeCredit.
-     * @param downgradeCredit Value for String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @param downgradeCredit Value for CreditType
      */
     @JsonSetter("downgrade_credit")
-    public void setDowngradeCredit(String downgradeCredit) {
-        this.downgradeCredit = downgradeCredit;
+    public void setDowngradeCredit(CreditType downgradeCredit) {
+        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
+    }
+
+    /**
+     * UnSetter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     */
+    public void unsetDowngradeCredit() {
+        downgradeCredit = null;
     }
 
     /**
@@ -220,9 +295,9 @@ public class AllocateComponents {
                 .prorationDowngradeScheme(getProrationDowngradeScheme())
                 .allocations(getAllocations())
                 .accrueCharge(getAccrueCharge())
-                .upgradeCharge(getUpgradeCharge())
-                .downgradeCredit(getDowngradeCredit())
                 .paymentCollectionMethod(getPaymentCollectionMethod());
+        builder.upgradeCharge = internalGetUpgradeCharge();
+        builder.downgradeCredit = internalGetDowngradeCredit();
         return builder;
     }
 
@@ -234,8 +309,8 @@ public class AllocateComponents {
         private String prorationDowngradeScheme = "no-prorate";
         private List<CreateAllocationRequest> allocations;
         private Boolean accrueCharge;
-        private String upgradeCharge;
-        private String downgradeCredit;
+        private OptionalNullable<CreditType> upgradeCharge;
+        private OptionalNullable<CreditType> downgradeCredit;
         private PaymentCollectionMethod1 paymentCollectionMethod =
                 PaymentCollectionMethod1.AUTOMATIC;
 
@@ -283,21 +358,39 @@ public class AllocateComponents {
 
         /**
          * Setter for upgradeCharge.
-         * @param  upgradeCharge  String value for upgradeCharge.
+         * @param  upgradeCharge  CreditType value for upgradeCharge.
          * @return Builder
          */
-        public Builder upgradeCharge(String upgradeCharge) {
-            this.upgradeCharge = upgradeCharge;
+        public Builder upgradeCharge(CreditType upgradeCharge) {
+            this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+            return this;
+        }
+
+        /**
+         * UnSetter for upgradeCharge.
+         * @return Builder
+         */
+        public Builder unsetUpgradeCharge() {
+            upgradeCharge = null;
             return this;
         }
 
         /**
          * Setter for downgradeCredit.
-         * @param  downgradeCredit  String value for downgradeCredit.
+         * @param  downgradeCredit  CreditType value for downgradeCredit.
          * @return Builder
          */
-        public Builder downgradeCredit(String downgradeCredit) {
-            this.downgradeCredit = downgradeCredit;
+        public Builder downgradeCredit(CreditType downgradeCredit) {
+            this.downgradeCredit = OptionalNullable.of(downgradeCredit);
+            return this;
+        }
+
+        /**
+         * UnSetter for downgradeCredit.
+         * @return Builder
+         */
+        public Builder unsetDowngradeCredit() {
+            downgradeCredit = null;
             return this;
         }
 

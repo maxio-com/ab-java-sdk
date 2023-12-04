@@ -13,8 +13,8 @@
 | `ProrationDowngradeScheme` | `String` | Optional | **Default**: `"no-prorate"` | String getProrationDowngradeScheme() | setProrationDowngradeScheme(String prorationDowngradeScheme) |
 | `Allocations` | [`List<CreateAllocationRequest>`](../../doc/models/create-allocation-request.md) | Optional | - | List<CreateAllocationRequest> getAllocations() | setAllocations(List<CreateAllocationRequest> allocations) |
 | `AccrueCharge` | `Boolean` | Optional | - | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |
-| `UpgradeCharge` | `String` | Optional | - | String getUpgradeCharge() | setUpgradeCharge(String upgradeCharge) |
-| `DowngradeCredit` | `String` | Optional | - | String getDowngradeCredit() | setDowngradeCredit(String downgradeCredit) |
+| `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
+| `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
 | `PaymentCollectionMethod` | [`PaymentCollectionMethod1`](../../doc/models/payment-collection-method-1.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription<br>**Default**: `PaymentCollectionMethod1.AUTOMATIC` | PaymentCollectionMethod1 getPaymentCollectionMethod() | setPaymentCollectionMethod(PaymentCollectionMethod1 paymentCollectionMethod) |
 
 ## Example (as JSON)
@@ -47,7 +47,7 @@
     }
   ],
   "accrue_charge": false,
-  "upgrade_charge": "upgrade_charge4"
+  "upgrade_charge": "full"
 }
 ```
 

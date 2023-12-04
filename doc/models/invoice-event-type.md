@@ -13,6 +13,7 @@ Invoice Event Type
 |  --- |
 | `IssueInvoice` |
 | `ApplyCreditNote` |
+| `CreateCreditNote` |
 | `ApplyPayment` |
 | `ApplyDebitNote` |
 | `RefundInvoice` |
@@ -22,4 +23,5 @@ Invoice Event Type
 | `ChangeInvoiceStatus` |
 | `ChangeInvoiceCollectionMethod` |
 | `RemovePayment` |
+| `FailedPayment` |
 
