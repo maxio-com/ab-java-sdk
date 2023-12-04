@@ -371,7 +371,7 @@ try {
 Sending a DELETE request to this endpoint will archive the component. All current subscribers will be unffected; their subscription/purchase will continue to be charged as usual.
 
 ```java
-ComponentResponse archiveComponent(
+Component archiveComponent(
     final int productFamilyId,
     final String componentId)
 ```
@@ -385,7 +385,7 @@ ComponentResponse archiveComponent(
 
 ## Response Type
 
-[`ComponentResponse`](../../doc/models/component-response.md)
+[`Component`](../../doc/models/component.md)
 
 ## Example Usage
 
@@ -394,7 +394,7 @@ int productFamilyId = 140;
 String componentId = "component_id8";
 
 try {
-    ComponentResponse result = componentsController.archiveComponent(productFamilyId, componentId);
+    Component result = componentsController.archiveComponent(productFamilyId, componentId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -407,27 +407,25 @@ try {
 
 ```json
 {
-  "component": {
-    "id": 25407138,
-    "name": "cillum aute",
-    "pricing_scheme": "in incididu",
-    "unit_name": "nulla in",
-    "unit_price": "Excepteur veniam",
-    "product_family_id": -56705047,
-    "kind": "prepaid_usage_component",
-    "archived": true,
-    "taxable": false,
-    "description": "reprehenderit laborum qui fugiat",
-    "default_price_point_id": -64328176,
-    "price_point_count": 15252407,
-    "price_points_url": "dolor mollit consequat",
-    "tax_code": "ea nisi",
-    "recurring": false,
-    "created_at": "dolor qui deserunt tempor",
-    "default_price_point_name": "cupidatat Lorem non aliqua",
-    "product_family_name": "do elit",
-    "hide_date_range_on_invoice": false
-  }
+  "id": 25407138,
+  "name": "cillum aute",
+  "pricing_scheme": "in incididu",
+  "unit_name": "nulla in",
+  "unit_price": "Excepteur veniam",
+  "product_family_id": -56705047,
+  "kind": "prepaid_usage_component",
+  "archived": true,
+  "taxable": false,
+  "description": "reprehenderit laborum qui fugiat",
+  "default_price_point_id": -64328176,
+  "price_point_count": 15252407,
+  "price_points_url": "dolor mollit consequat",
+  "tax_code": "ea nisi",
+  "recurring": false,
+  "created_at": "dolor qui deserunt tempor",
+  "default_price_point_name": "cupidatat Lorem non aliqua",
+  "product_family_name": "do elit",
+  "hide_date_range_on_invoice": false
 }
 ```
 
