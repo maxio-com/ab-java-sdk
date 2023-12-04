@@ -29,7 +29,7 @@ ProductPricePointsController productPricePointsController = client.getProductPri
 
 ```java
 ProductPricePointResponse createProductPricePoint(
-    final int productId,
+    final CreateProductPricePointProductId productId,
     final CreateProductPricePointRequest body)
 ```
 
@@ -37,7 +37,7 @@ ProductPricePointResponse createProductPricePoint(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productId` | `int` | Template, Required | The id or handle of the product. When using the handle, it must be prefixed with `handle:` |
+| `productId` | [`CreateProductPricePointProductId`](../../doc/models/containers/create-product-price-point-product-id.md) | Template, Required | This is a container for one-of cases. |
 | `body` | [`CreateProductPricePointRequest`](../../doc/models/create-product-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -47,7 +47,9 @@ ProductPricePointResponse createProductPricePoint(
 ## Example Usage
 
 ```java
-int productId = 202;
+CreateProductPricePointProductId productId = CreateProductPricePointProductId.fromNumber(
+    124
+);
 CreateProductPricePointRequest body = new CreateProductPricePointRequest.Builder(
     new CreateProductPricePoint.Builder(
         "Educational",
@@ -125,7 +127,7 @@ ListProductPricePointsResponse listProductPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productId` | `int` | Template, Required | The id or handle of the product. When using the handle, it must be prefixed with `handle:` |
+| `productId` | [`ListProductPricePointsInputProductId`](../../doc/models/containers/list-product-price-points-input-product-id.md) | Template, Required | This is a container for one-of cases. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: `10`<br>**Constraints**: `<= 200` |
 | `currencyPrices` | `Boolean` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
@@ -139,7 +141,9 @@ ListProductPricePointsResponse listProductPricePoints(
 
 ```java
 ListProductPricePointsInput listProductPricePointsInput = new ListProductPricePointsInput.Builder(
-    202
+    ListProductPricePointsInputProductId.fromNumber(
+        124
+    )
 )
 .page(2)
 .perPage(10)
@@ -193,8 +197,8 @@ Note: Custom product price points are not able to be updated.
 
 ```java
 ProductPricePointResponse updateProductPricePoint(
-    final int productId,
-    final int pricePointId,
+    final UpdateProductPricePointProductId productId,
+    final UpdateProductPricePointPricePointId pricePointId,
     final UpdateProductPricePointRequest body)
 ```
 
@@ -202,8 +206,8 @@ ProductPricePointResponse updateProductPricePoint(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productId` | `int` | Template, Required | The id or handle of the product. When using the handle, it must be prefixed with `handle:` |
-| `pricePointId` | `int` | Template, Required | The id or handle of the price point. When using the handle, it must be prefixed with `handle:` |
+| `productId` | [`UpdateProductPricePointProductId`](../../doc/models/containers/update-product-price-point-product-id.md) | Template, Required | This is a container for one-of cases. |
+| `pricePointId` | [`UpdateProductPricePointPricePointId`](../../doc/models/containers/update-product-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
 | `body` | [`UpdateProductPricePointRequest`](../../doc/models/update-product-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -213,8 +217,12 @@ ProductPricePointResponse updateProductPricePoint(
 ## Example Usage
 
 ```java
-int productId = 202;
-int pricePointId = 10;
+UpdateProductPricePointProductId productId = UpdateProductPricePointProductId.fromNumber(
+    124
+);
+UpdateProductPricePointPricePointId pricePointId = UpdateProductPricePointPricePointId.fromNumber(
+    188
+);
 UpdateProductPricePointRequest body = new UpdateProductPricePointRequest.Builder(
     new UpdateProductPricePoint.Builder()
         .handle("educational")
@@ -267,8 +275,8 @@ Use this endpoint to retrieve details for a specific product price point.
 
 ```java
 ProductPricePointResponse readProductPricePoint(
-    final int productId,
-    final int pricePointId,
+    final ReadProductPricePointProductId productId,
+    final ReadProductPricePointPricePointId pricePointId,
     final Boolean currencyPrices)
 ```
 
@@ -276,8 +284,8 @@ ProductPricePointResponse readProductPricePoint(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productId` | `int` | Template, Required | The id or handle of the product. When using the handle, it must be prefixed with `handle:` |
-| `pricePointId` | `int` | Template, Required | The id or handle of the price point. When using the handle, it must be prefixed with `handle:` |
+| `productId` | [`ReadProductPricePointProductId`](../../doc/models/containers/read-product-price-point-product-id.md) | Template, Required | This is a container for one-of cases. |
+| `pricePointId` | [`ReadProductPricePointPricePointId`](../../doc/models/containers/read-product-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
 | `currencyPrices` | `Boolean` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
 
 ## Response Type
@@ -287,8 +295,12 @@ ProductPricePointResponse readProductPricePoint(
 ## Example Usage
 
 ```java
-int productId = 202;
-int pricePointId = 10;
+ReadProductPricePointProductId productId = ReadProductPricePointProductId.fromNumber(
+    124
+);
+ReadProductPricePointPricePointId pricePointId = ReadProductPricePointPricePointId.fromNumber(
+    188
+);
 
 try {
     ProductPricePointResponse result = productPricePointsController.readProductPricePoint(productId, pricePointId, null);
@@ -334,16 +346,16 @@ Use this endpoint to archive a product price point.
 
 ```java
 ProductPricePointResponse archiveProductPricePoint(
-    final int productId,
-    final int pricePointId)
+    final ArchiveProductPricePointProductId productId,
+    final ArchiveProductPricePointPricePointId pricePointId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productId` | `int` | Template, Required | The id or handle of the product. When using the handle, it must be prefixed with `handle:` |
-| `pricePointId` | `int` | Template, Required | The id or handle of the price point. When using the handle, it must be prefixed with `handle:` |
+| `productId` | [`ArchiveProductPricePointProductId`](../../doc/models/containers/archive-product-price-point-product-id.md) | Template, Required | This is a container for one-of cases. |
+| `pricePointId` | [`ArchiveProductPricePointPricePointId`](../../doc/models/containers/archive-product-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
 
 ## Response Type
 
@@ -352,8 +364,12 @@ ProductPricePointResponse archiveProductPricePoint(
 ## Example Usage
 
 ```java
-int productId = 202;
-int pricePointId = 10;
+ArchiveProductPricePointProductId productId = ArchiveProductPricePointProductId.fromNumber(
+    124
+);
+ArchiveProductPricePointPricePointId pricePointId = ArchiveProductPricePointPricePointId.fromNumber(
+    188
+);
 
 try {
     ProductPricePointResponse result = productPricePointsController.archiveProductPricePoint(productId, pricePointId);

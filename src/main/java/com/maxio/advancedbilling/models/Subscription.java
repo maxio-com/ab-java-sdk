@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroup2;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -49,7 +50,7 @@ public class Subscription {
     private Customer customer;
     private Product product;
     private PaymentProfile creditCard;
-    private SubscriptionGroupInlined group;
+    private OptionalNullable<SubscriptionGroup2> group;
     private SubscriptionBankAccount bankAccount;
     private OptionalNullable<String> paymentType;
     private OptionalNullable<String> referralCode;
@@ -120,7 +121,7 @@ public class Subscription {
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  PaymentProfile value for creditCard.
-     * @param  group  SubscriptionGroupInlined value for group.
+     * @param  group  SubscriptionGroup2 value for group.
      * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
@@ -183,7 +184,7 @@ public class Subscription {
             Customer customer,
             Product product,
             PaymentProfile creditCard,
-            SubscriptionGroupInlined group,
+            SubscriptionGroup2 group,
             SubscriptionBankAccount bankAccount,
             String paymentType,
             String referralCode,
@@ -243,7 +244,7 @@ public class Subscription {
         this.customer = customer;
         this.product = product;
         this.creditCard = creditCard;
-        this.group = group;
+        this.group = OptionalNullable.of(group);
         this.bankAccount = bankAccount;
         this.paymentType = OptionalNullable.of(paymentType);
         this.referralCode = OptionalNullable.of(referralCode);
@@ -308,7 +309,7 @@ public class Subscription {
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  PaymentProfile value for creditCard.
-     * @param  group  SubscriptionGroupInlined value for group.
+     * @param  group  SubscriptionGroup2 value for group.
      * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
@@ -356,7 +357,7 @@ public class Subscription {
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
             OptionalNullable<String> snapDay, PaymentCollectionMethod paymentCollectionMethod,
             Customer customer, Product product, PaymentProfile creditCard,
-            SubscriptionGroupInlined group, SubscriptionBankAccount bankAccount,
+            OptionalNullable<SubscriptionGroup2> group, SubscriptionBankAccount bankAccount,
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
             OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
             OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
@@ -719,7 +720,7 @@ public class Subscription {
      */
     @JsonGetter("trial_started_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetTrialStartedAt() {
         return this.trialStartedAt;
     }
@@ -759,7 +760,7 @@ public class Subscription {
      */
     @JsonGetter("trial_ended_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetTrialEndedAt() {
         return this.trialEndedAt;
     }
@@ -824,7 +825,7 @@ public class Subscription {
      */
     @JsonGetter("expires_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetExpiresAt() {
         return this.expiresAt;
     }
@@ -1031,7 +1032,7 @@ public class Subscription {
      */
     @JsonGetter("canceled_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetCanceledAt() {
         return this.canceledAt;
     }
@@ -1161,7 +1162,7 @@ public class Subscription {
      */
     @JsonGetter("delayed_cancel_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetDelayedCancelAt() {
         return this.delayedCancelAt;
     }
@@ -1363,22 +1364,38 @@ public class Subscription {
     }
 
     /**
-     * Getter for Group.
-     * @return Returns the SubscriptionGroupInlined
+     * Internal Getter for Group.
+     * @return Returns the Internal SubscriptionGroup2
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionGroupInlined getGroup() {
-        return group;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<SubscriptionGroup2> internalGetGroup() {
+        return this.group;
+    }
+
+    /**
+     * Getter for Group.
+     * @return Returns the SubscriptionGroup2
+     */
+    public SubscriptionGroup2 getGroup() {
+        return OptionalNullable.getFrom(group);
     }
 
     /**
      * Setter for Group.
-     * @param group Value for SubscriptionGroupInlined
+     * @param group Value for SubscriptionGroup2
      */
     @JsonSetter("group")
-    public void setGroup(SubscriptionGroupInlined group) {
-        this.group = group;
+    public void setGroup(SubscriptionGroup2 group) {
+        this.group = OptionalNullable.of(group);
+    }
+
+    /**
+     * UnSetter for Group.
+     */
+    public void unsetGroup() {
+        group = null;
     }
 
     /**
@@ -1696,7 +1713,7 @@ public class Subscription {
      */
     @JsonGetter("automatically_resume_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetAutomaticallyResumeAt() {
         return this.automaticallyResumeAt;
     }
@@ -2076,7 +2093,7 @@ public class Subscription {
      */
     @JsonGetter("on_hold_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetOnHoldAt() {
         return this.onHoldAt;
     }
@@ -2314,7 +2331,7 @@ public class Subscription {
      */
     @JsonGetter("scheduled_cancellation_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetScheduledCancellationAt() {
         return this.scheduledCancellationAt;
     }
@@ -2449,7 +2466,6 @@ public class Subscription {
                 .customer(getCustomer())
                 .product(getProduct())
                 .creditCard(getCreditCard())
-                .group(getGroup())
                 .bankAccount(getBankAccount())
                 .couponCodes(getCouponCodes())
                 .currentBillingAmountInCents(getCurrentBillingAmountInCents())
@@ -2471,6 +2487,7 @@ public class Subscription {
         builder.delayedCancelAt = internalGetDelayedCancelAt();
         builder.couponCode = internalGetCouponCode();
         builder.snapDay = internalGetSnapDay();
+        builder.group = internalGetGroup();
         builder.paymentType = internalGetPaymentType();
         builder.referralCode = internalGetReferralCode();
         builder.nextProductId = internalGetNextProductId();
@@ -2526,7 +2543,7 @@ public class Subscription {
         private Customer customer;
         private Product product;
         private PaymentProfile creditCard;
-        private SubscriptionGroupInlined group;
+        private OptionalNullable<SubscriptionGroup2> group;
         private SubscriptionBankAccount bankAccount;
         private OptionalNullable<String> paymentType;
         private OptionalNullable<String> referralCode;
@@ -2943,11 +2960,20 @@ public class Subscription {
 
         /**
          * Setter for group.
-         * @param  group  SubscriptionGroupInlined value for group.
+         * @param  group  SubscriptionGroup2 value for group.
          * @return Builder
          */
-        public Builder group(SubscriptionGroupInlined group) {
-            this.group = group;
+        public Builder group(SubscriptionGroup2 group) {
+            this.group = OptionalNullable.of(group);
+            return this;
+        }
+
+        /**
+         * UnSetter for group.
+         * @return Builder
+         */
+        public Builder unsetGroup() {
+            group = null;
             return this;
         }
 

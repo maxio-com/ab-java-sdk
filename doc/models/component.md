@@ -29,8 +29,8 @@
 | `DefaultPricePointName` | `String` | Optional | - | String getDefaultPricePointName() | setDefaultPricePointName(String defaultPricePointName) |
 | `TaxCode` | `String` | Optional | A string representing the tax code related to the component type. This is especially important when using the Avalara service to tax based on locale. This attribute has a max length of 10 characters. | String getTaxCode() | setTaxCode(String taxCode) |
 | `Recurring` | `Boolean` | Optional | - | Boolean getRecurring() | setRecurring(Boolean recurring) |
-| `UpgradeCharge` | `String` | Optional | - | String getUpgradeCharge() | setUpgradeCharge(String upgradeCharge) |
-| `DowngradeCredit` | `String` | Optional | - | String getDowngradeCredit() | setDowngradeCredit(String downgradeCredit) |
+| `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
+| `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
 | `CreatedAt` | `String` | Optional | Timestamp indicating when this component was created | String getCreatedAt() | setCreatedAt(String createdAt) |
 | `UpdatedAt` | `String` | Optional | Timestamp indicating when this component was updated | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
 | `ArchivedAt` | `String` | Optional | Timestamp indicating when this component was archived | String getArchivedAt() | setArchivedAt(String archivedAt) |

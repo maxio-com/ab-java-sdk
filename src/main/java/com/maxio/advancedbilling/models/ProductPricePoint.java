@@ -533,7 +533,7 @@ public class ProductPricePoint {
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
     protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
         return this.archivedAt;
     }

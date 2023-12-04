@@ -24,7 +24,7 @@ public class UpdateComponent {
     private OptionalNullable<String> taxCode;
     private OptionalNullable<ItemCategory> itemCategory;
     private Boolean displayOnHostedPage;
-    private CreditType upgradeCharge;
+    private OptionalNullable<CreditType> upgradeCharge;
 
     /**
      * Default constructor.
@@ -62,7 +62,7 @@ public class UpdateComponent {
         this.taxCode = OptionalNullable.of(taxCode);
         this.itemCategory = OptionalNullable.of(itemCategory);
         this.displayOnHostedPage = displayOnHostedPage;
-        this.upgradeCharge = upgradeCharge;
+        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
     }
 
     /**
@@ -81,7 +81,7 @@ public class UpdateComponent {
     protected UpdateComponent(String handle, String name, OptionalNullable<String> description,
             String accountingCode, Boolean taxable, OptionalNullable<String> taxCode,
             OptionalNullable<ItemCategory> itemCategory, Boolean displayOnHostedPage,
-            CreditType upgradeCharge) {
+            OptionalNullable<CreditType> upgradeCharge) {
         this.handle = handle;
         this.name = name;
         this.description = description;
@@ -322,26 +322,46 @@ public class UpdateComponent {
     }
 
     /**
-     * Getter for UpgradeCharge.
-     * The type of charge to be applied when a component is upgraded. Valid values are: `prorated`,
-     * `full`, `none`.
-     * @return Returns the CreditType
+     * Internal Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the Internal CreditType
      */
     @JsonGetter("upgrade_charge")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CreditType> internalGetUpgradeCharge() {
+        return this.upgradeCharge;
+    }
+
+    /**
+     * Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the CreditType
+     */
     public CreditType getUpgradeCharge() {
-        return upgradeCharge;
+        return OptionalNullable.getFrom(upgradeCharge);
     }
 
     /**
      * Setter for UpgradeCharge.
-     * The type of charge to be applied when a component is upgraded. Valid values are: `prorated`,
-     * `full`, `none`.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
      * @param upgradeCharge Value for CreditType
      */
     @JsonSetter("upgrade_charge")
     public void setUpgradeCharge(CreditType upgradeCharge) {
-        this.upgradeCharge = upgradeCharge;
+        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+    }
+
+    /**
+     * UnSetter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     */
+    public void unsetUpgradeCharge() {
+        upgradeCharge = null;
     }
 
     /**
@@ -368,11 +388,11 @@ public class UpdateComponent {
                 .name(getName())
                 .accountingCode(getAccountingCode())
                 .taxable(getTaxable())
-                .displayOnHostedPage(getDisplayOnHostedPage())
-                .upgradeCharge(getUpgradeCharge());
+                .displayOnHostedPage(getDisplayOnHostedPage());
         builder.description = internalGetDescription();
         builder.taxCode = internalGetTaxCode();
         builder.itemCategory = internalGetItemCategory();
+        builder.upgradeCharge = internalGetUpgradeCharge();
         return builder;
     }
 
@@ -388,7 +408,7 @@ public class UpdateComponent {
         private OptionalNullable<String> taxCode;
         private OptionalNullable<ItemCategory> itemCategory;
         private Boolean displayOnHostedPage;
-        private CreditType upgradeCharge;
+        private OptionalNullable<CreditType> upgradeCharge;
 
 
 
@@ -505,7 +525,16 @@ public class UpdateComponent {
          * @return Builder
          */
         public Builder upgradeCharge(CreditType upgradeCharge) {
-            this.upgradeCharge = upgradeCharge;
+            this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+            return this;
+        }
+
+        /**
+         * UnSetter for upgradeCharge.
+         * @return Builder
+         */
+        public Builder unsetUpgradeCharge() {
+            upgradeCharge = null;
             return this;
         }
 

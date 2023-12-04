@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.PrepaidUsageComponentUnitPrice;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -23,8 +25,8 @@ public class PrepaidUsageComponent {
     private Boolean taxable;
     private PricingScheme pricingScheme;
     private List<Price> prices;
-    private String upgradeCharge;
-    private String downgradeCredit;
+    private OptionalNullable<CreditType> upgradeCharge;
+    private OptionalNullable<CreditType> downgradeCredit;
     private List<PrepaidComponentPricePoint> pricePoints;
     private PrepaidUsageComponentUnitPrice unitPrice;
     private String taxCode;
@@ -54,8 +56,8 @@ public class PrepaidUsageComponent {
      * @param  taxable  Boolean value for taxable.
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
-     * @param  upgradeCharge  String value for upgradeCharge.
-     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of PrepaidComponentPricePoint value for pricePoints.
      * @param  unitPrice  PrepaidUsageComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
@@ -78,8 +80,8 @@ public class PrepaidUsageComponent {
             Boolean taxable,
             PricingScheme pricingScheme,
             List<Price> prices,
-            String upgradeCharge,
-            String downgradeCredit,
+            CreditType upgradeCharge,
+            CreditType downgradeCredit,
             List<PrepaidComponentPricePoint> pricePoints,
             PrepaidUsageComponentUnitPrice unitPrice,
             String taxCode,
@@ -93,6 +95,66 @@ public class PrepaidUsageComponent {
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
             List<Integer> publicSignupPageIds) {
+        this.name = name;
+        this.unitName = unitName;
+        this.description = description;
+        this.handle = handle;
+        this.taxable = taxable;
+        this.pricingScheme = pricingScheme;
+        this.prices = prices;
+        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
+        this.pricePoints = pricePoints;
+        this.unitPrice = unitPrice;
+        this.taxCode = taxCode;
+        this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
+        this.priceInCents = priceInCents;
+        this.overagePricing = overagePricing;
+        this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
+        this.renewPrepaidAllocation = renewPrepaidAllocation;
+        this.expirationInterval = expirationInterval;
+        this.expirationIntervalUnit = expirationIntervalUnit;
+        this.displayOnHostedPage = displayOnHostedPage;
+        this.allowFractionalQuantities = allowFractionalQuantities;
+        this.publicSignupPageIds = publicSignupPageIds;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  unitName  String value for unitName.
+     * @param  description  String value for description.
+     * @param  handle  String value for handle.
+     * @param  taxable  Boolean value for taxable.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  prices  List of Price value for prices.
+     * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  downgradeCredit  CreditType value for downgradeCredit.
+     * @param  pricePoints  List of PrepaidComponentPricePoint value for pricePoints.
+     * @param  unitPrice  PrepaidUsageComponentUnitPrice value for unitPrice.
+     * @param  taxCode  String value for taxCode.
+     * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
+     * @param  priceInCents  String value for priceInCents.
+     * @param  overagePricing  OveragePricing value for overagePricing.
+     * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
+     * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
+     * @param  expirationInterval  Double value for expirationInterval.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
+     * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
+     * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
+     */
+
+    protected PrepaidUsageComponent(String name, String unitName, String description, String handle,
+            Boolean taxable, PricingScheme pricingScheme, List<Price> prices,
+            OptionalNullable<CreditType> upgradeCharge,
+            OptionalNullable<CreditType> downgradeCredit,
+            List<PrepaidComponentPricePoint> pricePoints, PrepaidUsageComponentUnitPrice unitPrice,
+            String taxCode, Boolean hideDateRangeOnInvoice, String priceInCents,
+            OveragePricing overagePricing, Boolean rolloverPrepaidRemainder,
+            Boolean renewPrepaidAllocation, Double expirationInterval,
+            IntervalUnit expirationIntervalUnit, Boolean displayOnHostedPage,
+            Boolean allowFractionalQuantities, List<Integer> publicSignupPageIds) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -283,41 +345,89 @@ public class PrepaidUsageComponent {
     }
 
     /**
-     * Getter for UpgradeCharge.
-     * @return Returns the String
+     * Internal Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the Internal CreditType
      */
     @JsonGetter("upgrade_charge")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpgradeCharge() {
-        return upgradeCharge;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CreditType> internalGetUpgradeCharge() {
+        return this.upgradeCharge;
+    }
+
+    /**
+     * Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the CreditType
+     */
+    public CreditType getUpgradeCharge() {
+        return OptionalNullable.getFrom(upgradeCharge);
     }
 
     /**
      * Setter for UpgradeCharge.
-     * @param upgradeCharge Value for String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @param upgradeCharge Value for CreditType
      */
     @JsonSetter("upgrade_charge")
-    public void setUpgradeCharge(String upgradeCharge) {
-        this.upgradeCharge = upgradeCharge;
+    public void setUpgradeCharge(CreditType upgradeCharge) {
+        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+    }
+
+    /**
+     * UnSetter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     */
+    public void unsetUpgradeCharge() {
+        upgradeCharge = null;
+    }
+
+    /**
+     * Internal Getter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the Internal CreditType
+     */
+    @JsonGetter("downgrade_credit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CreditType> internalGetDowngradeCredit() {
+        return this.downgradeCredit;
     }
 
     /**
      * Getter for DowngradeCredit.
-     * @return Returns the String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the CreditType
      */
-    @JsonGetter("downgrade_credit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDowngradeCredit() {
-        return downgradeCredit;
+    public CreditType getDowngradeCredit() {
+        return OptionalNullable.getFrom(downgradeCredit);
     }
 
     /**
      * Setter for DowngradeCredit.
-     * @param downgradeCredit Value for String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @param downgradeCredit Value for CreditType
      */
     @JsonSetter("downgrade_credit")
-    public void setDowngradeCredit(String downgradeCredit) {
-        this.downgradeCredit = downgradeCredit;
+    public void setDowngradeCredit(CreditType downgradeCredit) {
+        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
+    }
+
+    /**
+     * UnSetter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     */
+    public void unsetDowngradeCredit() {
+        downgradeCredit = null;
     }
 
     /**
@@ -633,8 +743,6 @@ public class PrepaidUsageComponent {
                 .taxable(getTaxable())
                 .pricingScheme(getPricingScheme())
                 .prices(getPrices())
-                .upgradeCharge(getUpgradeCharge())
-                .downgradeCredit(getDowngradeCredit())
                 .pricePoints(getPricePoints())
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
@@ -648,6 +756,8 @@ public class PrepaidUsageComponent {
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .publicSignupPageIds(getPublicSignupPageIds());
+        builder.upgradeCharge = internalGetUpgradeCharge();
+        builder.downgradeCredit = internalGetDowngradeCredit();
         return builder;
     }
 
@@ -662,8 +772,8 @@ public class PrepaidUsageComponent {
         private Boolean taxable;
         private PricingScheme pricingScheme;
         private List<Price> prices;
-        private String upgradeCharge;
-        private String downgradeCredit;
+        private OptionalNullable<CreditType> upgradeCharge;
+        private OptionalNullable<CreditType> downgradeCredit;
         private List<PrepaidComponentPricePoint> pricePoints;
         private PrepaidUsageComponentUnitPrice unitPrice;
         private String taxCode;
@@ -752,21 +862,39 @@ public class PrepaidUsageComponent {
 
         /**
          * Setter for upgradeCharge.
-         * @param  upgradeCharge  String value for upgradeCharge.
+         * @param  upgradeCharge  CreditType value for upgradeCharge.
          * @return Builder
          */
-        public Builder upgradeCharge(String upgradeCharge) {
-            this.upgradeCharge = upgradeCharge;
+        public Builder upgradeCharge(CreditType upgradeCharge) {
+            this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+            return this;
+        }
+
+        /**
+         * UnSetter for upgradeCharge.
+         * @return Builder
+         */
+        public Builder unsetUpgradeCharge() {
+            upgradeCharge = null;
             return this;
         }
 
         /**
          * Setter for downgradeCredit.
-         * @param  downgradeCredit  String value for downgradeCredit.
+         * @param  downgradeCredit  CreditType value for downgradeCredit.
          * @return Builder
          */
-        public Builder downgradeCredit(String downgradeCredit) {
-            this.downgradeCredit = downgradeCredit;
+        public Builder downgradeCredit(CreditType downgradeCredit) {
+            this.downgradeCredit = OptionalNullable.of(downgradeCredit);
+            return this;
+        }
+
+        /**
+         * UnSetter for downgradeCredit.
+         * @return Builder
+         */
+        public Builder unsetDowngradeCredit() {
+            downgradeCredit = null;
             return this;
         }
 

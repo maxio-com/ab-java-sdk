@@ -17,6 +17,7 @@ public class CreateUsage {
     private Double quantity;
     private String pricePointId;
     private String memo;
+    private BillingSchedule billingSchedule;
 
     /**
      * Default constructor.
@@ -29,14 +30,17 @@ public class CreateUsage {
      * @param  quantity  Double value for quantity.
      * @param  pricePointId  String value for pricePointId.
      * @param  memo  String value for memo.
+     * @param  billingSchedule  BillingSchedule value for billingSchedule.
      */
     public CreateUsage(
             Double quantity,
             String pricePointId,
-            String memo) {
+            String memo,
+            BillingSchedule billingSchedule) {
         this.quantity = quantity;
         this.pricePointId = pricePointId;
         this.memo = memo;
+        this.billingSchedule = billingSchedule;
     }
 
     /**
@@ -99,13 +103,38 @@ public class CreateUsage {
     }
 
     /**
+     * Getter for BillingSchedule.
+     * This attribute is particularly useful when you need to align billing events for different
+     * components on distinct schedules within a subscription. Please note this only works for site
+     * with Multifrequency enabled
+     * @return Returns the BillingSchedule
+     */
+    @JsonGetter("billing_schedule")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public BillingSchedule getBillingSchedule() {
+        return billingSchedule;
+    }
+
+    /**
+     * Setter for BillingSchedule.
+     * This attribute is particularly useful when you need to align billing events for different
+     * components on distinct schedules within a subscription. Please note this only works for site
+     * with Multifrequency enabled
+     * @param billingSchedule Value for BillingSchedule
+     */
+    @JsonSetter("billing_schedule")
+    public void setBillingSchedule(BillingSchedule billingSchedule) {
+        this.billingSchedule = billingSchedule;
+    }
+
+    /**
      * Converts this CreateUsage into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "CreateUsage [" + "quantity=" + quantity + ", pricePointId=" + pricePointId
-                + ", memo=" + memo + "]";
+                + ", memo=" + memo + ", billingSchedule=" + billingSchedule + "]";
     }
 
     /**
@@ -117,7 +146,8 @@ public class CreateUsage {
         Builder builder = new Builder()
                 .quantity(getQuantity())
                 .pricePointId(getPricePointId())
-                .memo(getMemo());
+                .memo(getMemo())
+                .billingSchedule(getBillingSchedule());
         return builder;
     }
 
@@ -128,6 +158,7 @@ public class CreateUsage {
         private Double quantity;
         private String pricePointId;
         private String memo;
+        private BillingSchedule billingSchedule;
 
 
 
@@ -162,11 +193,21 @@ public class CreateUsage {
         }
 
         /**
+         * Setter for billingSchedule.
+         * @param  billingSchedule  BillingSchedule value for billingSchedule.
+         * @return Builder
+         */
+        public Builder billingSchedule(BillingSchedule billingSchedule) {
+            this.billingSchedule = billingSchedule;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateUsage} object using the set fields.
          * @return {@link CreateUsage}
          */
         public CreateUsage build() {
-            return new CreateUsage(quantity, pricePointId, memo);
+            return new CreateUsage(quantity, pricePointId, memo, billingSchedule);
         }
     }
 }

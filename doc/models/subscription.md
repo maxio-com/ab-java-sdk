@@ -38,7 +38,7 @@
 | `Customer` | [`Customer`](../../doc/models/customer.md) | Optional | - | Customer getCustomer() | setCustomer(Customer customer) |
 | `Product` | [`Product`](../../doc/models/product.md) | Optional | - | Product getProduct() | setProduct(Product product) |
 | `CreditCard` | [`PaymentProfile`](../../doc/models/payment-profile.md) | Optional | - | PaymentProfile getCreditCard() | setCreditCard(PaymentProfile creditCard) |
-| `Group` | [`SubscriptionGroupInlined`](../../doc/models/subscription-group-inlined.md) | Optional | - | SubscriptionGroupInlined getGroup() | setGroup(SubscriptionGroupInlined group) |
+| `Group` | [`SubscriptionGroup2`](../../doc/models/containers/subscription-group-2.md) | Optional | This is a container for one-of cases. | SubscriptionGroup2 getGroup() | setGroup(SubscriptionGroup2 group) |
 | `BankAccount` | [`SubscriptionBankAccount`](../../doc/models/subscription-bank-account.md) | Optional | - | SubscriptionBankAccount getBankAccount() | setBankAccount(SubscriptionBankAccount bankAccount) |
 | `PaymentType` | `String` | Optional | The payment profile type for the active profile on file. | String getPaymentType() | setPaymentType(String paymentType) |
 | `ReferralCode` | `String` | Optional | The subscription's unique code that can be given to referrals. | String getReferralCode() | setReferralCode(String referralCode) |

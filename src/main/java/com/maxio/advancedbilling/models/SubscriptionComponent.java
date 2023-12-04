@@ -30,8 +30,8 @@ public class SubscriptionComponent {
     private OptionalNullable<String> componentHandle;
     private Integer subscriptionId;
     private Boolean recurring;
-    private OptionalNullable<String> upgradeCharge;
-    private OptionalNullable<String> downgradeCredit;
+    private OptionalNullable<CreditType> upgradeCharge;
+    private OptionalNullable<CreditType> downgradeCredit;
     private OptionalNullable<String> archivedAt;
     private OptionalNullable<Integer> pricePointId;
     private OptionalNullable<String> pricePointHandle;
@@ -68,8 +68,8 @@ public class SubscriptionComponent {
      * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  recurring  Boolean value for recurring.
-     * @param  upgradeCharge  String value for upgradeCharge.
-     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  archivedAt  String value for archivedAt.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
@@ -99,8 +99,8 @@ public class SubscriptionComponent {
             String componentHandle,
             Integer subscriptionId,
             Boolean recurring,
-            String upgradeCharge,
-            String downgradeCredit,
+            CreditType upgradeCharge,
+            CreditType downgradeCredit,
             String archivedAt,
             Integer pricePointId,
             String pricePointHandle,
@@ -161,8 +161,8 @@ public class SubscriptionComponent {
      * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  recurring  Boolean value for recurring.
-     * @param  upgradeCharge  String value for upgradeCharge.
-     * @param  downgradeCredit  String value for downgradeCredit.
+     * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  archivedAt  String value for archivedAt.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
@@ -183,9 +183,9 @@ public class SubscriptionComponent {
             Boolean enabled, Integer unitBalance, String currency, Integer allocatedQuantity,
             OptionalNullable<String> pricingScheme, Integer componentId,
             OptionalNullable<String> componentHandle, Integer subscriptionId, Boolean recurring,
-            OptionalNullable<String> upgradeCharge, OptionalNullable<String> downgradeCredit,
-            OptionalNullable<String> archivedAt, OptionalNullable<Integer> pricePointId,
-            OptionalNullable<String> pricePointHandle,
+            OptionalNullable<CreditType> upgradeCharge,
+            OptionalNullable<CreditType> downgradeCredit, OptionalNullable<String> archivedAt,
+            OptionalNullable<Integer> pricePointId, OptionalNullable<String> pricePointHandle,
             SubscriptionComponentPricePointType pricePointType,
             OptionalNullable<String> pricePointName, Integer productFamilyId,
             String productFamilyHandle, String createdAt, String updatedAt,
@@ -510,34 +510,42 @@ public class SubscriptionComponent {
 
     /**
      * Internal Getter for UpgradeCharge.
-     * @return Returns the Internal String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the Internal CreditType
      */
     @JsonGetter("upgrade_charge")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetUpgradeCharge() {
+    protected OptionalNullable<CreditType> internalGetUpgradeCharge() {
         return this.upgradeCharge;
     }
 
     /**
      * Getter for UpgradeCharge.
-     * @return Returns the String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the CreditType
      */
-    public String getUpgradeCharge() {
+    public CreditType getUpgradeCharge() {
         return OptionalNullable.getFrom(upgradeCharge);
     }
 
     /**
      * Setter for UpgradeCharge.
-     * @param upgradeCharge Value for String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @param upgradeCharge Value for CreditType
      */
     @JsonSetter("upgrade_charge")
-    public void setUpgradeCharge(String upgradeCharge) {
+    public void setUpgradeCharge(CreditType upgradeCharge) {
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
     }
 
     /**
      * UnSetter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
      */
     public void unsetUpgradeCharge() {
         upgradeCharge = null;
@@ -545,34 +553,42 @@ public class SubscriptionComponent {
 
     /**
      * Internal Getter for DowngradeCredit.
-     * @return Returns the Internal String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the Internal CreditType
      */
     @JsonGetter("downgrade_credit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetDowngradeCredit() {
+    protected OptionalNullable<CreditType> internalGetDowngradeCredit() {
         return this.downgradeCredit;
     }
 
     /**
      * Getter for DowngradeCredit.
-     * @return Returns the String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @return Returns the CreditType
      */
-    public String getDowngradeCredit() {
+    public CreditType getDowngradeCredit() {
         return OptionalNullable.getFrom(downgradeCredit);
     }
 
     /**
      * Setter for DowngradeCredit.
-     * @param downgradeCredit Value for String
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * @param downgradeCredit Value for CreditType
      */
     @JsonSetter("downgrade_credit")
-    public void setDowngradeCredit(String downgradeCredit) {
+    public void setDowngradeCredit(CreditType downgradeCredit) {
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
     }
 
     /**
      * UnSetter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
      */
     public void unsetDowngradeCredit() {
         downgradeCredit = null;
@@ -1020,8 +1036,8 @@ public class SubscriptionComponent {
         private OptionalNullable<String> componentHandle;
         private Integer subscriptionId;
         private Boolean recurring;
-        private OptionalNullable<String> upgradeCharge;
-        private OptionalNullable<String> downgradeCredit;
+        private OptionalNullable<CreditType> upgradeCharge;
+        private OptionalNullable<CreditType> downgradeCredit;
         private OptionalNullable<String> archivedAt;
         private OptionalNullable<Integer> pricePointId;
         private OptionalNullable<String> pricePointHandle;
@@ -1189,10 +1205,10 @@ public class SubscriptionComponent {
 
         /**
          * Setter for upgradeCharge.
-         * @param  upgradeCharge  String value for upgradeCharge.
+         * @param  upgradeCharge  CreditType value for upgradeCharge.
          * @return Builder
          */
-        public Builder upgradeCharge(String upgradeCharge) {
+        public Builder upgradeCharge(CreditType upgradeCharge) {
             this.upgradeCharge = OptionalNullable.of(upgradeCharge);
             return this;
         }
@@ -1208,10 +1224,10 @@ public class SubscriptionComponent {
 
         /**
          * Setter for downgradeCredit.
-         * @param  downgradeCredit  String value for downgradeCredit.
+         * @param  downgradeCredit  CreditType value for downgradeCredit.
          * @return Builder
          */
-        public Builder downgradeCredit(String downgradeCredit) {
+        public Builder downgradeCredit(CreditType downgradeCredit) {
             this.downgradeCredit = OptionalNullable.of(downgradeCredit);
             return this;
         }
