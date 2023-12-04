@@ -19,7 +19,7 @@ public class UpdateComponent {
     private String handle;
     private String name;
     private OptionalNullable<String> description;
-    private String accountingCode;
+    private OptionalNullable<String> accountingCode;
     private Boolean taxable;
     private OptionalNullable<String> taxCode;
     private OptionalNullable<ItemCategory> itemCategory;
@@ -57,7 +57,7 @@ public class UpdateComponent {
         this.handle = handle;
         this.name = name;
         this.description = OptionalNullable.of(description);
-        this.accountingCode = accountingCode;
+        this.accountingCode = OptionalNullable.of(accountingCode);
         this.taxable = taxable;
         this.taxCode = OptionalNullable.of(taxCode);
         this.itemCategory = OptionalNullable.of(itemCategory);
@@ -79,9 +79,9 @@ public class UpdateComponent {
      */
 
     protected UpdateComponent(String handle, String name, OptionalNullable<String> description,
-            String accountingCode, Boolean taxable, OptionalNullable<String> taxCode,
-            OptionalNullable<ItemCategory> itemCategory, Boolean displayOnHostedPage,
-            OptionalNullable<CreditType> upgradeCharge) {
+            OptionalNullable<String> accountingCode, Boolean taxable,
+            OptionalNullable<String> taxCode, OptionalNullable<ItemCategory> itemCategory,
+            Boolean displayOnHostedPage, OptionalNullable<CreditType> upgradeCharge) {
         this.handle = handle;
         this.name = name;
         this.description = description;
@@ -173,13 +173,22 @@ public class UpdateComponent {
     }
 
     /**
-     * Getter for AccountingCode.
-     * @return Returns the String
+     * Internal Getter for AccountingCode.
+     * @return Returns the Internal String
      */
     @JsonGetter("accounting_code")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetAccountingCode() {
+        return this.accountingCode;
+    }
+
+    /**
+     * Getter for AccountingCode.
+     * @return Returns the String
+     */
     public String getAccountingCode() {
-        return accountingCode;
+        return OptionalNullable.getFrom(accountingCode);
     }
 
     /**
@@ -188,7 +197,14 @@ public class UpdateComponent {
      */
     @JsonSetter("accounting_code")
     public void setAccountingCode(String accountingCode) {
-        this.accountingCode = accountingCode;
+        this.accountingCode = OptionalNullable.of(accountingCode);
+    }
+
+    /**
+     * UnSetter for AccountingCode.
+     */
+    public void unsetAccountingCode() {
+        accountingCode = null;
     }
 
     /**
@@ -386,10 +402,10 @@ public class UpdateComponent {
         Builder builder = new Builder()
                 .handle(getHandle())
                 .name(getName())
-                .accountingCode(getAccountingCode())
                 .taxable(getTaxable())
                 .displayOnHostedPage(getDisplayOnHostedPage());
         builder.description = internalGetDescription();
+        builder.accountingCode = internalGetAccountingCode();
         builder.taxCode = internalGetTaxCode();
         builder.itemCategory = internalGetItemCategory();
         builder.upgradeCharge = internalGetUpgradeCharge();
@@ -403,7 +419,7 @@ public class UpdateComponent {
         private String handle;
         private String name;
         private OptionalNullable<String> description;
-        private String accountingCode;
+        private OptionalNullable<String> accountingCode;
         private Boolean taxable;
         private OptionalNullable<String> taxCode;
         private OptionalNullable<ItemCategory> itemCategory;
@@ -457,7 +473,16 @@ public class UpdateComponent {
          * @return Builder
          */
         public Builder accountingCode(String accountingCode) {
-            this.accountingCode = accountingCode;
+            this.accountingCode = OptionalNullable.of(accountingCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for accountingCode.
+         * @return Builder
+         */
+        public Builder unsetAccountingCode() {
+            accountingCode = null;
             return this;
         }
 

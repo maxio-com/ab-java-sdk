@@ -86,7 +86,7 @@ On Relationship Invoicing Architecture use the `remittance` collection method.
 
 ## Prepaid Subscription
 
-A prepaid subscription can be created with the usual subscription creation parameters, specifying `prepaid` as the `payment_collection_method` and including a nested `prepaid_subscription_configuration`.
+A prepaid subscription can be created with the usual subscription creation parameters, specifying `prepaid` as the `payment_collection_method` and including a nested `prepaid_configuration`.
 
 After a prepaid subscription has been created, additional funds can be manually added to the prepayment account through the [Create Prepayment Endpoint](https://developers.chargify.com/docs/api-docs/7ec482de77ba7-create-prepayment).
 
