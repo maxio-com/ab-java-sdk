@@ -10,6 +10,7 @@ import com.maxio.advancedbilling.models.ListProductsInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.ProductResponse;
+import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,8 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
                         .priceInCents(22).name("Price point to promote").build()
         );
         ProductPricePoint pricePoint = productPricePointsController
-                .createProductPricePoint(productWithChangedPricePoint.getId(), createProductPricePointRequest)
+                .createProductPricePoint(CreateProductPricePointProductId.fromNumber(productWithChangedPricePoint.getId()),
+                        createProductPricePointRequest)
                 .getPricePoint();
         productPricePointsController.promoteProductPricePointToDefault(productWithChangedPricePoint.getId(), pricePoint.getId());
         productWithChangedPricePoint = productsController.readProduct(productWithChangedPricePoint.getId()).getProduct();

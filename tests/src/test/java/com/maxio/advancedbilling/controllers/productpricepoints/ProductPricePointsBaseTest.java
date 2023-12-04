@@ -20,6 +20,9 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.ProductPricePointResponse;
 import com.maxio.advancedbilling.models.ProductResponse;
+import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointPricePointId;
+import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointProductId;
+import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
 import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
@@ -81,7 +84,7 @@ abstract class ProductPricePointsBaseTest {
         }
 
         return PRODUCT_PRICE_POINTS_CONTROLLER
-                .createProductPricePoint(productId, new CreateProductPricePointRequest(createProductPricePoint));
+                .createProductPricePoint(CreateProductPricePointProductId.fromNumber(productId), new CreateProductPricePointRequest(createProductPricePoint));
     }
 
     protected static CreateProductPricePoint.Builder defaultBuilder() {
@@ -105,8 +108,8 @@ abstract class ProductPricePointsBaseTest {
         while (!sitePricePointsExcludingDefault.isEmpty()) {
             for (ProductPricePoint pricePoint : sitePricePointsExcludingDefault) {
                 PRODUCT_PRICE_POINTS_CONTROLLER.archiveProductPricePoint(
-                        pricePoint.getProductId(),
-                        pricePoint.getId()
+                        ArchiveProductPricePointProductId.fromNumber(pricePoint.getProductId()),
+                        ArchiveProductPricePointPricePointId.fromNumber(pricePoint.getId())
                 );
             }
             sitePricePointsExcludingDefault = listAllSitePricePointsPerPage200ExcludingDefault();

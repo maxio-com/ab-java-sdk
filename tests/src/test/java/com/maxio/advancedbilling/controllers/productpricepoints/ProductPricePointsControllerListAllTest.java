@@ -9,6 +9,8 @@ import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.SortingDirection;
+import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointPricePointId;
+import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointProductId;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -46,8 +48,13 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         }
 
         archivedProductPricePoint = PRODUCT_PRICE_POINTS_CONTROLLER.archiveProductPricePoint(
-                        product.getId(),
-                        createProductPricePoint(product.getId(), defaultBuilder().name("archived-test-price-point-%s".formatted(randomAlphabetic(5))).build()).getPricePoint().getId()
+                        ArchiveProductPricePointProductId.fromNumber(product.getId()),
+                        ArchiveProductPricePointPricePointId.fromNumber(
+                                createProductPricePoint(product.getId(),
+                                        defaultBuilder()
+                                                .name("archived-test-price-point-%s".formatted(randomAlphabetic(5)))
+                                                .build()).getPricePoint().getId()
+                        )
                 )
                 .getPricePoint();
     }
