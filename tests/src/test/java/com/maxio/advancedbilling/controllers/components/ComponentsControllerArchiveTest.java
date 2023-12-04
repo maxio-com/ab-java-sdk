@@ -3,7 +3,6 @@ package com.maxio.advancedbilling.controllers.components;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Component;
-import com.maxio.advancedbilling.models.ComponentResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,13 +19,13 @@ public class ComponentsControllerArchiveTest extends ComponentsControllerTestBas
         Component component = createComponent();
 
         // when
-        ComponentResponse archivedComponent = componentsController
+        Component archivedComponent = componentsController
                         .archiveComponent(productFamilyId, String.valueOf(component.getId()));
 
         // then
-        assertThat(archivedComponent.getComponent().getId()).isEqualTo(component.getId());
-        assertThat(archivedComponent.getComponent().getArchived()).isTrue();
-        assertThat(archivedComponent.getComponent().getArchivedAt()).isNotNull();
+        assertThat(archivedComponent.getId()).isEqualTo(component.getId());
+        assertThat(archivedComponent.getArchived()).isTrue();
+        assertThat(archivedComponent.getArchivedAt()).isNotNull();
     }
 
     @Test

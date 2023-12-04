@@ -82,7 +82,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
                 () -> assertThat(updatedComponent.getId()).isEqualTo(component.getId()),
                 () -> assertThat(updatedComponent.getName()).isEqualTo(component.getName()),
                 () -> assertThat(updatedComponent.getHandle()).isEqualTo(component.getHandle()),
-                //() -> assertThat(updatedComponent.getAccountingCode()).isNull(),
+                () -> assertThat(updatedComponent.getAccountingCode()).isNull(),
                 () -> assertThat(updatedComponent.getTaxCode()).isNull(),
                 () -> assertThat(updatedComponent.getItemCategory()).isNull(),
                 () -> assertThat(updatedComponent.getUpgradeCharge()).isNull(),
