@@ -583,53 +583,134 @@ public class SubscriptionsControllerCreateTest {
     }
 
     private void assertBasicSubscriptionFields(Subscription subscription) {
-        assertThat(subscription).isNotNull();
-        assertThat(subscription.getId()).isNotNull();
-        assertThat(subscription.getState()).isEqualTo(SubscriptionState.ACTIVE);
-        assertThat(subscription.getPreviousState()).isEqualTo(SubscriptionState.ACTIVE);
-        assertThat(subscription.getProductVersionNumber()).isEqualTo(1);
+        assertThat(subscription)
+                .as("subscription shouldn't be null")
+                .isNotNull();
+        assertThat(subscription.getId())
+                .as("subscriptionId shouldn't be null")
+                .isNotNull();
+        assertThat(subscription.getState())
+                .as("state is active")
+                .isEqualTo(SubscriptionState.ACTIVE);
+        assertThat(subscription.getPreviousState())
+                .as("previousState is active")
+                .isEqualTo(SubscriptionState.ACTIVE);
+        assertThat(subscription.getProductVersionNumber())
+                .as("getProductVersionNumber")
+                .isEqualTo(1);
 
         // Subtract 5 min to have some margin
-        assertThat(subscription.getCurrentPeriodStartedAt()).isAfter(ZonedDateTime.now().minusMinutes(5));
-        assertThat(subscription.getCurrentPeriodEndsAt()).isAfter(ZonedDateTime.now().plusDays(30).minusMinutes(5));
-        assertThat(subscription.getTrialStartedAt()).isNull();
-        assertThat(subscription.getTrialEndedAt()).isNull();
-        assertThat(subscription.getActivatedAt()).isAfter(ZonedDateTime.now().minusMinutes(5));
-        assertThat(subscription.getExpiresAt()).isNull();
-        assertThat(subscription.getCreatedAt()).isAfter(ZonedDateTime.now().minusMinutes(5));
-        assertThat(subscription.getUpdatedAt()).isAfter(ZonedDateTime.now().minusMinutes(5));
+        assertThat(subscription.getCurrentPeriodStartedAt())
+                .as("getCurrentPeriodStartedAt")
+                .isAfter(ZonedDateTime.now().minusMinutes(5));
+        assertThat(subscription.getCurrentPeriodEndsAt())
+                .as("getCurrentPeriodEndsAt")
+                .isAfter(ZonedDateTime.now().plusDays(30).minusMinutes(5));
+        assertThat(subscription.getTrialStartedAt())
+                .as("getTrialStartedAt")
+                .isNull();
+        assertThat(subscription.getTrialEndedAt())
+                .as("getTrialEndedAt")
+                .isNull();
+        assertThat(subscription.getActivatedAt())
+                .as("getActivatedAt")
+                .isAfter(ZonedDateTime.now().minusMinutes(5));
+        assertThat(subscription.getExpiresAt())
+                .as("getExpiresAt")
+                .isNull();
+        assertThat(subscription.getCreatedAt())
+                .as("getCreatedAt")
+                .isAfter(ZonedDateTime.now().minusMinutes(5));
+        assertThat(subscription.getUpdatedAt())
+                .as("getUpdatedAt")
+                .isAfter(ZonedDateTime.now().minusMinutes(5));
 
-        assertThat(subscription.getCancellationMessage()).isNull();
-        assertThat(subscription.getCancellationMethod()).isNull();
-        assertThat(subscription.getCanceledAt()).isNull();
-        assertThat(subscription.getDelayedCancelAt()).isNull();
+        assertThat(subscription.getCancellationMessage())
+                .as("getCancellationMessage")
+                .isNull();
+        assertThat(subscription.getCancellationMethod())
+                .as("getCancellationMethod")
+                .isNull();
+        assertThat(subscription.getCanceledAt())
+                .as("getCanceledAt")
+                .isNull();
+        assertThat(subscription.getDelayedCancelAt())
+                .as("getDelayedCancelAt")
+                .isNull();
 
-        assertThat(subscription.getSignupPaymentId()).isNotNull().isGreaterThan(1);
-        assertThat(subscription.getSnapDay()).isNull();
+        assertThat(subscription.getSignupPaymentId())
+                .as("getSignupPaymentId")
+                .isNotNull().isGreaterThan(1);
+        assertThat(subscription.getSnapDay())
+                .as("getSnapDay")
+                .isNull();
 
-        assertThat(subscription.getReferralCode()).isNull();
-        assertThat(subscription.getNextProductId()).isNull();
-        assertThat(subscription.getNextProductHandle()).isNull();
-        assertThat(subscription.getReasonCode()).isNull();
-        assertThat(subscription.getAutomaticallyResumeAt()).isNull();
-        assertThat(subscription.getOfferId()).isNull();
-        assertThat(subscription.getPayerId()).isNull();
-        assertThat(subscription.getCreditBalanceInCents()).isEqualTo(0);
-        assertThat(subscription.getNextProductPricePointId()).isNull();
-        assertThat(subscription.getStoredCredentialTransactionId()).isNull();
-        assertThat(subscription.getReference()).isNull();
-        assertThat(subscription.getOnHoldAt()).isNull();
-        assertThat(subscription.getPrepaidDunning()).isFalse();
-        assertThat(subscription.getCoupons()).isNull();
-        assertThat(subscription.getDunningCommunicationDelayEnabled()).isFalse();
-        assertThat(subscription.getDunningCommunicationDelayTimeZone()).isNull();
-        assertThat(subscription.getReceivesInvoiceEmails()).isNull();
-        assertThat(subscription.getLocale()).isNull();
-        assertThat(subscription.getCurrency()).isEqualTo("USD");
-        assertThat(subscription.getScheduledCancellationAt()).isNull();
-        assertThat(subscription.getCurrentBillingAmountInCents()).isNull();
+        assertThat(subscription.getReferralCode())
+                .as("getReferralCode")
+                .isNull();
+        assertThat(subscription.getNextProductId())
+                .as("getNextProductId")
+                .isNull();
+        assertThat(subscription.getNextProductHandle())
+                .as("getNextProductHandle")
+                .isNull();
+        assertThat(subscription.getReasonCode())
+                .as("getReasonCode")
+                .isNull();
+        assertThat(subscription.getAutomaticallyResumeAt())
+                .as("getAutomaticallyResumeAt")
+                .isNull();
+        assertThat(subscription.getOfferId())
+                .as("getOfferId")
+                .isNull();
+        assertThat(subscription.getPayerId())
+                .as("getPayerId")
+                .isNull();
+        assertThat(subscription.getCreditBalanceInCents())
+                .as("getCreditBalanceInCents")
+                .isEqualTo(0);
+        assertThat(subscription.getNextProductPricePointId())
+                .as("getNextProductPricePointId")
+                .isNull();
+        assertThat(subscription.getStoredCredentialTransactionId())
+                .as("getStoredCredentialTransactionId")
+                .isNull();
+        assertThat(subscription.getReference())
+                .as("getReference")
+                .isNull();
+        assertThat(subscription.getOnHoldAt())
+                .as("getOnHoldAt")
+                .isNull();
+        assertThat(subscription.getPrepaidDunning())
+                .as("getPrepaidDunning")
+                .isFalse();
+        assertThat(subscription.getCoupons())
+                .as("getCoupons")
+                .isNull();
+        assertThat(subscription.getDunningCommunicationDelayEnabled())
+                .as("getDunningCommunicationDelayEnabled")
+                .isFalse();
+        assertThat(subscription.getDunningCommunicationDelayTimeZone())
+                .as("getDunningCommunicationDelayTimeZone")
+                .isNull();
+        assertThat(subscription.getReceivesInvoiceEmails())
+                .as("getReceivesInvoiceEmails")
+                .isNull();
+        assertThat(subscription.getLocale())
+                .as("getLocale")
+                .isNull();
+        assertThat(subscription.getCurrency())
+                .as("getCurrency")
+                .isEqualTo("USD");
+        assertThat(subscription.getScheduledCancellationAt())
+                .as("getScheduledCancellationAt")
+                .isNull();
+        assertThat(subscription.getCurrentBillingAmountInCents())
+                .as("getCurrentBillingAmountInCents")
+                .isNull();
 
         assertThat(subscription.getCustomer())
+                .as("getCustomer")
                 .isNotNull()
                 .usingRecursiveComparison(RecursiveComparisonConfiguration.builder()
                         .withIgnoredFields("createdAt", "updatedAt", "verified")
