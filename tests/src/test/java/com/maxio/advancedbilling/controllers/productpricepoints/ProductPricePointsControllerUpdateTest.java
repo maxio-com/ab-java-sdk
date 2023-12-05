@@ -16,8 +16,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.CommonAssertions.assertUnprocessableEntityNotOk;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntityNotOk;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductPricePointsControllerUpdateTest extends ProductPricePointsBaseTest {

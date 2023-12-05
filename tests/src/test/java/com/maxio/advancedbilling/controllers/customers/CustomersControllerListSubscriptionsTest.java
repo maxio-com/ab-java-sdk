@@ -27,7 +27,7 @@ import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationYear;
-import com.maxio.advancedbilling.utils.CommonAssertions;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CustomersControllerListSubscriptionsTest {
@@ -101,7 +102,7 @@ class CustomersControllerListSubscriptionsTest {
 
         ProductFamily productFamily = productFamiliesController
                 .createProductFamily(new CreateProductFamilyRequest(new CreateProductFamily.Builder()
-                        .name("Test Product Family")
+                        .name("Test Product Family " + randomNumeric(5))
                         .build())
                 )
                 .getProductFamily();
@@ -110,8 +111,8 @@ class CustomersControllerListSubscriptionsTest {
                 .createProduct(
                         productFamily.getId(),
                         new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
-                                .name("Test Product")
-                                .handle("test-product")
+                                .name("Test Product " + randomNumeric(5))
+                                .handle("test-product-" + randomNumeric(5))
                                 .intervalUnit(IntervalUnit.MONTH)
                                 .interval(2)
                                 .build()

@@ -7,7 +7,7 @@ import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.containers.ListProductPricePointsInputProductId;
-import com.maxio.advancedbilling.utils.CommonAssertions;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

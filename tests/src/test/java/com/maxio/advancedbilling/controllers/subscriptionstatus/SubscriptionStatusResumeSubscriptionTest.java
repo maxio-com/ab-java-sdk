@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit;
 
 import static com.maxio.advancedbilling.models.SubscriptionState.ACTIVE;
 import static com.maxio.advancedbilling.models.SubscriptionState.ON_HOLD;
-import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 

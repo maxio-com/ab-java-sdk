@@ -4,7 +4,6 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.BankAccountAttributes;
 import com.maxio.advancedbilling.models.BankAccountVault;
 import com.maxio.advancedbilling.models.CardType;
@@ -46,7 +45,9 @@ import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInitia
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInterval;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPricePriceInCents;
 import com.maxio.advancedbilling.utils.TestSetup;
+import com.maxio.advancedbilling.utils.TestTeardown;
 import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -55,8 +56,8 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.tuple;
 
 public class SubscriptionsControllerCreateTest {
@@ -75,6 +76,11 @@ public class SubscriptionsControllerCreateTest {
         CUSTOMER = TEST_SETUP.createCustomer();
     }
 
+    @AfterAll
+    static void teardown() throws IOException, ApiException {
+        new TestTeardown().deleteCustomer(CUSTOMER);
+    }
+
     @Test
     void shouldThrowExceptionIfCustomerIsMissing() {
         // given
@@ -85,13 +91,10 @@ public class SubscriptionsControllerCreateTest {
         );
 
         // when then
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> SUBSCRIPTIONS_CONTROLLER.createSubscription(request))
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors())
-                            .containsExactlyInAnyOrder("A Customer must be specified for the subscription to be valid.");
-                });
+        assertThatErrorListResponse(() -> SUBSCRIPTIONS_CONTROLLER.createSubscription(request))
+                .hasErrorCode(422)
+                .hasUnprocessableEntityMessage()
+                .hasErrors("A Customer must be specified for the subscription to be valid.");
     }
 
     @Test

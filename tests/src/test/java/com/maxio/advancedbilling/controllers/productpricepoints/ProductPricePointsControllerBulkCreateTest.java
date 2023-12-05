@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.CommonAssertions.assertUnprocessableEntity;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseTest {

@@ -1,8 +1,9 @@
-package com.maxio.advancedbilling.utils;
+package com.maxio.advancedbilling.utils.assertions;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
 import org.assertj.core.api.ThrowableAssert;
 
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,6 +13,10 @@ public class CommonAssertions {
 
     private CommonAssertions() {
         // utility class
+    }
+
+    public static <V> ErrorListResponseAssert assertThatErrorListResponse(Callable<V> throwingCallable) {
+        return new ErrorListResponseAssert(throwingCallable);
     }
 
     public static void assertNotFound(ThrowableAssert.ThrowingCallable throwingCallable) {

@@ -9,7 +9,7 @@ import com.maxio.advancedbilling.models.CurrencyPriceRole;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.UpdateCurrencyPrice;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
-import com.maxio.advancedbilling.utils.CommonAssertions;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductPricePointsControllerUpdateCurrencyPricesTest extends ProductPricePointsBaseTest {
