@@ -11,7 +11,7 @@ import com.maxio.advancedbilling.models.CustomerError;
 import com.maxio.advancedbilling.models.UpdateCustomer;
 import com.maxio.advancedbilling.models.UpdateCustomerRequest;
 import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
-import com.maxio.advancedbilling.utils.CommonAssertions;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
