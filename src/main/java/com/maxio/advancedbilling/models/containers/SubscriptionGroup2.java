@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
-import com.maxio.advancedbilling.models.SubscriptionGroupInlined;
+import com.maxio.advancedbilling.models.NestedSubscriptionGroup;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -28,13 +28,13 @@ import java.util.Arrays;
 public abstract class SubscriptionGroup2 {
     
     /**
-     * This is Subscription Group Inlined case.
-     * @param subscriptionGroupInlined SubscriptionGroupInlined value for subscriptionGroupInlined.
-     * @return The SubscriptionGroupInlinedCase object.
+     * This is Nested Subscription Group case.
+     * @param nestedSubscriptionGroup NestedSubscriptionGroup value for nestedSubscriptionGroup.
+     * @return The NestedSubscriptionGroupCase object.
      */
-    public static SubscriptionGroup2 fromSubscriptionGroupInlined(
-            SubscriptionGroupInlined subscriptionGroupInlined) {
-        return subscriptionGroupInlined == null ? null : new SubscriptionGroupInlinedCase(subscriptionGroupInlined);
+    public static SubscriptionGroup2 fromNestedSubscriptionGroup(
+            NestedSubscriptionGroup nestedSubscriptionGroup) {
+        return nestedSubscriptionGroup == null ? null : new NestedSubscriptionGroupCase(nestedSubscriptionGroup);
     }
 
     /**
@@ -50,37 +50,37 @@ public abstract class SubscriptionGroup2 {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R subscriptionGroupInlined(SubscriptionGroupInlined subscriptionGroupInlined);
+        R nestedSubscriptionGroup(NestedSubscriptionGroup nestedSubscriptionGroup);
     }
 
     /**
-     * This is a implementation class for SubscriptionGroupInlinedCase.
+     * This is a implementation class for NestedSubscriptionGroupCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SubscriptionGroupInlined")
-    private static class SubscriptionGroupInlinedCase extends SubscriptionGroup2 {
+    @TypeCombinatorCase(type = "NestedSubscriptionGroup")
+    private static class NestedSubscriptionGroupCase extends SubscriptionGroup2 {
 
         @JsonValue
-        private SubscriptionGroupInlined subscriptionGroupInlined;
+        private NestedSubscriptionGroup nestedSubscriptionGroup;
 
-        SubscriptionGroupInlinedCase(SubscriptionGroupInlined subscriptionGroupInlined) {
-            this.subscriptionGroupInlined = subscriptionGroupInlined;
+        NestedSubscriptionGroupCase(NestedSubscriptionGroup nestedSubscriptionGroup) {
+            this.nestedSubscriptionGroup = nestedSubscriptionGroup;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.subscriptionGroupInlined(this.subscriptionGroupInlined);
+            return cases.nestedSubscriptionGroup(this.nestedSubscriptionGroup);
         }
 
         @JsonCreator
-        private SubscriptionGroupInlinedCase(JsonNode jsonNode) throws IOException {
-            this.subscriptionGroupInlined = ApiHelper.deserialize(jsonNode,
-                SubscriptionGroupInlined.class);
+        private NestedSubscriptionGroupCase(JsonNode jsonNode) throws IOException {
+            this.nestedSubscriptionGroup = ApiHelper.deserialize(jsonNode,
+                NestedSubscriptionGroup.class);
         }
 
         @Override
         public String toString() {
-            return subscriptionGroupInlined.toString();
+            return nestedSubscriptionGroup.toString();
         }
     }
 
@@ -96,7 +96,7 @@ public abstract class SubscriptionGroup2 {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(
-                    SubscriptionGroupInlinedCase.class), true);
+                    NestedSubscriptionGroupCase.class), true);
         }
     }
 

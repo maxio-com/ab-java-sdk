@@ -11,31 +11,31 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for SubscriptionGroupInlined type.
+ * This is a model class for NestedSubscriptionGroup type.
  */
-public class SubscriptionGroupInlined {
+public class NestedSubscriptionGroup {
     private String uid;
-    private String scheme;
-    private String primarySubscriptionId;
+    private Integer scheme;
+    private Integer primarySubscriptionId;
     private Boolean primary;
 
     /**
      * Default constructor.
      */
-    public SubscriptionGroupInlined() {
+    public NestedSubscriptionGroup() {
     }
 
     /**
      * Initialization constructor.
      * @param  uid  String value for uid.
-     * @param  scheme  String value for scheme.
-     * @param  primarySubscriptionId  String value for primarySubscriptionId.
+     * @param  scheme  Integer value for scheme.
+     * @param  primarySubscriptionId  Integer value for primarySubscriptionId.
      * @param  primary  Boolean value for primary.
      */
-    public SubscriptionGroupInlined(
+    public NestedSubscriptionGroup(
             String uid,
-            String scheme,
-            String primarySubscriptionId,
+            Integer scheme,
+            Integer primarySubscriptionId,
             Boolean primary) {
         this.uid = uid;
         this.scheme = scheme;
@@ -68,11 +68,11 @@ public class SubscriptionGroupInlined {
      * Getter for Scheme.
      * Whether the group is configured to rely on a primary subscription for billing. At this time,
      * it will always be 1.
-     * @return Returns the String
+     * @return Returns the Integer
      */
     @JsonGetter("scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getScheme() {
+    public Integer getScheme() {
         return scheme;
     }
 
@@ -80,31 +80,31 @@ public class SubscriptionGroupInlined {
      * Setter for Scheme.
      * Whether the group is configured to rely on a primary subscription for billing. At this time,
      * it will always be 1.
-     * @param scheme Value for String
+     * @param scheme Value for Integer
      */
     @JsonSetter("scheme")
-    public void setScheme(String scheme) {
+    public void setScheme(Integer scheme) {
         this.scheme = scheme;
     }
 
     /**
      * Getter for PrimarySubscriptionId.
      * The subscription ID of the primary within the group. Applicable to scheme 1.
-     * @return Returns the String
+     * @return Returns the Integer
      */
     @JsonGetter("primary_subscription_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPrimarySubscriptionId() {
+    public Integer getPrimarySubscriptionId() {
         return primarySubscriptionId;
     }
 
     /**
      * Setter for PrimarySubscriptionId.
      * The subscription ID of the primary within the group. Applicable to scheme 1.
-     * @param primarySubscriptionId Value for String
+     * @param primarySubscriptionId Value for Integer
      */
     @JsonSetter("primary_subscription_id")
-    public void setPrimarySubscriptionId(String primarySubscriptionId) {
+    public void setPrimarySubscriptionId(Integer primarySubscriptionId) {
         this.primarySubscriptionId = primarySubscriptionId;
     }
 
@@ -132,19 +132,19 @@ public class SubscriptionGroupInlined {
     }
 
     /**
-     * Converts this SubscriptionGroupInlined into string format.
+     * Converts this NestedSubscriptionGroup into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "SubscriptionGroupInlined [" + "uid=" + uid + ", scheme=" + scheme
+        return "NestedSubscriptionGroup [" + "uid=" + uid + ", scheme=" + scheme
                 + ", primarySubscriptionId=" + primarySubscriptionId + ", primary=" + primary + "]";
     }
 
     /**
-     * Builds a new {@link SubscriptionGroupInlined.Builder} object.
+     * Builds a new {@link NestedSubscriptionGroup.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link SubscriptionGroupInlined.Builder} object
+     * @return a new {@link NestedSubscriptionGroup.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -156,12 +156,12 @@ public class SubscriptionGroupInlined {
     }
 
     /**
-     * Class to build instances of {@link SubscriptionGroupInlined}.
+     * Class to build instances of {@link NestedSubscriptionGroup}.
      */
     public static class Builder {
         private String uid;
-        private String scheme;
-        private String primarySubscriptionId;
+        private Integer scheme;
+        private Integer primarySubscriptionId;
         private Boolean primary;
 
 
@@ -178,20 +178,20 @@ public class SubscriptionGroupInlined {
 
         /**
          * Setter for scheme.
-         * @param  scheme  String value for scheme.
+         * @param  scheme  Integer value for scheme.
          * @return Builder
          */
-        public Builder scheme(String scheme) {
+        public Builder scheme(Integer scheme) {
             this.scheme = scheme;
             return this;
         }
 
         /**
          * Setter for primarySubscriptionId.
-         * @param  primarySubscriptionId  String value for primarySubscriptionId.
+         * @param  primarySubscriptionId  Integer value for primarySubscriptionId.
          * @return Builder
          */
-        public Builder primarySubscriptionId(String primarySubscriptionId) {
+        public Builder primarySubscriptionId(Integer primarySubscriptionId) {
             this.primarySubscriptionId = primarySubscriptionId;
             return this;
         }
@@ -207,11 +207,11 @@ public class SubscriptionGroupInlined {
         }
 
         /**
-         * Builds a new {@link SubscriptionGroupInlined} object using the set fields.
-         * @return {@link SubscriptionGroupInlined}
+         * Builds a new {@link NestedSubscriptionGroup} object using the set fields.
+         * @return {@link NestedSubscriptionGroup}
          */
-        public SubscriptionGroupInlined build() {
-            return new SubscriptionGroupInlined(uid, scheme, primarySubscriptionId, primary);
+        public NestedSubscriptionGroup build() {
+            return new NestedSubscriptionGroup(uid, scheme, primarySubscriptionId, primary);
         }
     }
 }
