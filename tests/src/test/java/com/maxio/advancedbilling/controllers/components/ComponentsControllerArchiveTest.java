@@ -8,18 +8,18 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ComponentsControllerArchiveTest extends ComponentsControllerTestBase {
 
     @Test
     void shouldArchiveComponent() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
 
         // when
-        Component archivedComponent = componentsController
+        Component archivedComponent = COMPONENTS_CONTROLLER
                         .archiveComponent(productFamilyId, String.valueOf(component.getId()));
 
         // then
@@ -31,30 +31,28 @@ public class ComponentsControllerArchiveTest extends ComponentsControllerTestBas
     @Test
     void shouldNotArchiveAlreadyArchivedComponent() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
 
         // when
-        componentsController
+        COMPONENTS_CONTROLLER
                 .archiveComponent(productFamilyId, String.valueOf(component.getId()));
 
         // then
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> componentsController
-                        .archiveComponent(productFamilyId, String.valueOf(component.getId()))
-                )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors())
-                            .containsExactlyInAnyOrder("Component cannot be archived. " +
-                                    "Please make sure it hasn't already been archived.");
-                });
+        assertUnprocessableEntity(
+                ErrorListResponseException.class,
+                () -> COMPONENTS_CONTROLLER
+                        .archiveComponent(productFamilyId, String.valueOf(component.getId())),
+                e -> assertThat(e.getErrors())
+                        .containsExactlyInAnyOrder("Component cannot be archived. " +
+                                "Please make sure it hasn't already been archived.")
+
+        );
     }
 
     @Test
     void shouldNotArchiveNonExistentComponents() {
         // when-then
-        assertNotFound(() -> componentsController.archiveComponent(productFamilyId, "999999"));
+        assertNotFound(() -> COMPONENTS_CONTROLLER.archiveComponent(productFamilyId, "999999"));
     }
 
 }

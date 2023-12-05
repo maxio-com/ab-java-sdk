@@ -14,10 +14,10 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
     @Test
     void shouldReadComponentById() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
 
         // when
-        Component foundComponent = componentsController
+        Component foundComponent = COMPONENTS_CONTROLLER
                         .readComponentById(productFamilyId, String.valueOf(component.getId()))
                         .getComponent();
 
@@ -29,10 +29,10 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
     @Test
     void shouldReadComponentByHandle() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
 
         // when
-        Component foundComponent = componentsController
+        Component foundComponent = COMPONENTS_CONTROLLER
                 .readComponentById(productFamilyId, "handle:" + component.getHandle())
                 .getComponent();
 
@@ -43,13 +43,13 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
 
     @Test
     void shouldNotReadNonExistentComponentUsingId() {
-        assertNotFound(() -> componentsController.readComponentById(productFamilyId,
+        assertNotFound(() -> COMPONENTS_CONTROLLER.readComponentById(productFamilyId,
                 "non-existent-id"));
     }
 
     @Test
     void shouldNotReadNonExistentComponentUsingHandle() {
-        assertNotFound(() -> componentsController.readComponentById(productFamilyId,
+        assertNotFound(() -> COMPONENTS_CONTROLLER.readComponentById(productFamilyId,
                 "handle:non-existent-id"));
     }
 

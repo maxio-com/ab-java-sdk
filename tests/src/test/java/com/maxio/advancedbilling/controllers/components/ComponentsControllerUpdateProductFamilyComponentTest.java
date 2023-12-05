@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static com.maxio.advancedbilling.utils.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ComponentsControllerUpdateProductFamilyComponentTest extends ComponentsControllerTestBase {
@@ -22,7 +22,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
     @Test
     void shouldUpdateProductFamilyComponent() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
         UpdateComponent updateComponent = new UpdateComponent.Builder()
                 .name("updatedName")
                 .handle("updated-handle-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase())
@@ -36,7 +36,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
                 .build();
 
         // when
-        Component updatedComponent = componentsController
+        Component updatedComponent = COMPONENTS_CONTROLLER
                         .updateProductFamilyComponent(productFamilyId,
                                 String.valueOf(component.getId()),
                                 new UpdateComponentRequest(updateComponent)
@@ -60,7 +60,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
     @Test
     void shouldUpdateProductFamilyComponentSettingValuesToNulls() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
         UpdateComponent updateComponent = new UpdateComponent.Builder()
                 .description(null)
                 .accountingCode(null)
@@ -70,7 +70,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
                 .build();
 
         // when
-        Component updatedComponent = componentsController
+        Component updatedComponent = COMPONENTS_CONTROLLER
                 .updateProductFamilyComponent(productFamilyId,
                         String.valueOf(component.getId()),
                         new UpdateComponentRequest(updateComponent)
@@ -93,46 +93,42 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
     @Test
     void shouldReturn422WhenHandleIsIncorrect() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
         UpdateComponent updateComponent = new UpdateComponent.Builder()
                 .handle("updatedHandle")
                 .build();
 
         // when-then
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> componentsController.updateProductFamilyComponent(productFamilyId,
-                        String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).containsExactlyInAnyOrder("Handle must start with a letter " +
-                            "or number and may only contain lowercase letters, numbers, or the characters ':', '-', or '_'.");
-                });
+        assertUnprocessableEntity(
+                ErrorListResponseException.class,
+                () -> COMPONENTS_CONTROLLER.updateProductFamilyComponent(productFamilyId,
+                        String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
+                e -> assertThat(e.getErrors()).containsExactlyInAnyOrder("Handle must start with a letter " +
+                        "or number and may only contain lowercase letters, numbers, or the characters ':', '-', or '_'.")
+        );
     }
 
     @Test
     void shouldReturn422WhenHandleIsAlreadyTaken() throws IOException, ApiException {
         // given
-        Component component = createComponent();
-        Component component2 = createComponent();
+        Component component = createQuantityBasedComponent();
+        Component component2 = createQuantityBasedComponent();
         UpdateComponent updateComponent = new UpdateComponent.Builder()
                 .handle(component2.getHandle())
                 .build();
 
         // when-then
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> componentsController.updateProductFamilyComponent(productFamilyId,
-                        String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).containsExactlyInAnyOrder("Handle must be unique within a Site.");
-                });
+        assertUnprocessableEntity(
+                ErrorListResponseException.class,
+                () -> COMPONENTS_CONTROLLER.updateProductFamilyComponent(productFamilyId,
+                        String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
+                e -> assertThat(e.getErrors()).containsExactlyInAnyOrder("Handle must be unique within a Site.")
+        );
     }
 
     @Test
     void shouldNotUpdateNonExistentComponent() {
-        assertNotFound(() -> componentsController
+        assertNotFound(() -> COMPONENTS_CONTROLLER
                 .updateProductFamilyComponent(productFamilyId, "99999", null));
     }
 

@@ -14,10 +14,10 @@ public class ComponentsControllerFindTest extends ComponentsControllerTestBase {
     @Test
     void shouldFindComponent() throws IOException, ApiException {
         // given
-        Component component = createComponent();
+        Component component = createQuantityBasedComponent();
 
         // when
-        Component foundComponent = componentsController
+        Component foundComponent = COMPONENTS_CONTROLLER
                         .readComponentByHandle(component.getHandle())
                         .getComponent();
 
@@ -28,7 +28,7 @@ public class ComponentsControllerFindTest extends ComponentsControllerTestBase {
 
     @Test
     void shouldNotFindNonExistentComponent() {
-        assertNotFound(() -> componentsController.readComponentByHandle("non-existent-handle"));
+        assertNotFound(() -> COMPONENTS_CONTROLLER.readComponentByHandle("non-existent-handle"));
     }
 
 }

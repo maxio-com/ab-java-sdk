@@ -20,21 +20,21 @@ import java.io.IOException;
 
 public class ComponentsControllerTestBase {
 
-    protected static final ComponentsController componentsController = TestClient.createClient().getComponentsController();
+    protected static final ComponentsController COMPONENTS_CONTROLLER = TestClient.createClient().getComponentsController();
     protected static int productFamilyId;
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
         ProductFamiliesController productFamiliesController = TestClient.createClient()
                 .getProductFamiliesController();
-        String seed = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
-
         productFamilyId = productFamiliesController.createProductFamily(new CreateProductFamilyRequest(
-                        new CreateProductFamily("Test Product Family " + seed, null)))
+                        new CreateProductFamily("Test Product Family " +
+                                RandomStringUtils.randomAlphanumeric(5).toLowerCase(),
+                                null)))
                 .getProductFamily().getId();
     }
 
-    protected Component createComponent() throws IOException, ApiException {
+    protected Component createQuantityBasedComponent() throws IOException, ApiException {
         String seed = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         QuantityBasedComponent quantityBasedComponent = new QuantityBasedComponent.Builder()
                 .name("testcomponent-" + seed)
@@ -45,7 +45,7 @@ public class ComponentsControllerTestBase {
                 .build();
         CreateQuantityBasedComponent createQuantityBasedComponent = new CreateQuantityBasedComponent(quantityBasedComponent);
 
-        return componentsController.createComponent(productFamilyId,
+        return COMPONENTS_CONTROLLER.createComponent(productFamilyId,
                         ComponentKindPath.QUANTITY_BASED_COMPONENTS,
                         CreateComponentBody.fromCreateQuantityBasedComponent(createQuantityBasedComponent))
                 .getComponent();
