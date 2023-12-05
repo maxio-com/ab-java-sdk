@@ -11,7 +11,7 @@ ComponentsController componentsController = client.getComponentsController();
 ## Methods
 
 * [Create Component](../../doc/controllers/components.md#create-component)
-* [Read Component by Handle](../../doc/controllers/components.md#read-component-by-handle)
+* [Find Component](../../doc/controllers/components.md#find-component)
 * [Read Component by Id](../../doc/controllers/components.md#read-component-by-id)
 * [Update Product Family Component](../../doc/controllers/components.md#update-product-family-component)
 * [Archive Component](../../doc/controllers/components.md#archive-component)
@@ -147,12 +147,12 @@ try {
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Read Component by Handle
+# Find Component
 
 This request will return information regarding a component having the handle you provide. You can identify your components with a handle so you don't have to save or reference the IDs we generate.
 
 ```java
-ComponentResponse readComponentByHandle(
+ComponentResponse findComponent(
     final String handle)
 ```
 
@@ -172,7 +172,7 @@ ComponentResponse readComponentByHandle(
 String handle = "handle6";
 
 try {
-    ComponentResponse result = componentsController.readComponentByHandle(handle);
+    ComponentResponse result = componentsController.findComponent(handle);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

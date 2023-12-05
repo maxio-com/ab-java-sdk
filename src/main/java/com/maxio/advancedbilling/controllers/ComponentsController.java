@@ -128,15 +128,15 @@ public final class ComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentResponse readComponentByHandle(
+    public ComponentResponse findComponent(
             final String handle) throws ApiException, IOException {
-        return prepareReadComponentByHandleRequest(handle).execute();
+        return prepareFindComponentRequest(handle).execute();
     }
 
     /**
-     * Builds the ApiCall object for readComponentByHandle.
+     * Builds the ApiCall object for findComponent.
      */
-    private ApiCall<ComponentResponse, ApiException> prepareReadComponentByHandleRequest(
+    private ApiCall<ComponentResponse, ApiException> prepareFindComponentRequest(
             final String handle) throws IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
