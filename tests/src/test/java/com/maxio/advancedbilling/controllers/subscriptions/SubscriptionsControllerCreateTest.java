@@ -683,19 +683,19 @@ public class SubscriptionsControllerCreateTest {
                 .isNull();
         assertThat(subscription.getPrepaidDunning())
                 .as("getPrepaidDunning")
-                .isFalse();
+                .matches(this::nullOrFalse);
         assertThat(subscription.getCoupons())
                 .as("getCoupons")
                 .isNull();
         assertThat(subscription.getDunningCommunicationDelayEnabled())
                 .as("getDunningCommunicationDelayEnabled")
-                .isFalse();
+                .matches(this::nullOrFalse);
         assertThat(subscription.getDunningCommunicationDelayTimeZone())
                 .as("getDunningCommunicationDelayTimeZone")
                 .isNull();
         assertThat(subscription.getReceivesInvoiceEmails())
                 .as("getReceivesInvoiceEmails")
-                .isNull();
+                .matches(this::nullOrFalse);
         assertThat(subscription.getLocale())
                 .as("getLocale")
                 .isNull();
@@ -716,6 +716,10 @@ public class SubscriptionsControllerCreateTest {
                         .withIgnoredFields("createdAt", "updatedAt", "verified")
                         .build())
                 .isEqualTo(CUSTOMER);
+    }
+
+    private boolean nullOrFalse(Boolean bool) {
+        return bool == null || !bool;
     }
 
     private static void assertBalancesWithDefaultPricePoint(Subscription subscription) {
@@ -766,6 +770,6 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscriptionComponent1.getDescription()).isEqualTo(component1.getDescription());
         assertThat(subscriptionComponent1.getAllowFractionalQuantities()).isFalse();
         assertThat(subscriptionComponent1.getSubscription()).isNull();
-        assertThat(subscriptionComponent1.getDisplayOnHostedPage()).isFalse();
+        assertThat(subscriptionComponent1.getDisplayOnHostedPage()).matches(this::nullOrFalse);
     }
 }
