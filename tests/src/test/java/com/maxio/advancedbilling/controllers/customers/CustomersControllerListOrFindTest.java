@@ -10,6 +10,7 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerResponse;
 import com.maxio.advancedbilling.models.ListCustomersInput;
 import com.maxio.advancedbilling.models.SortingDirection;
+import com.maxio.advancedbilling.utils.TestTeardown;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,8 @@ class CustomersControllerListOrFindTest {
 
     @BeforeAll
     static void beforeAll() throws IOException, ApiException {
+        new TestTeardown().deleteCustomers();
+
         for (int i = 0; i < TEST_CUSTOMERS.length; i++) {
             TEST_CUSTOMERS[i] = CUSTOMERS_CONTROLLER
                     .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()

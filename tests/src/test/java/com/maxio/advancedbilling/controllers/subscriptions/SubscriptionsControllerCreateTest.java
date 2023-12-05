@@ -2,6 +2,7 @@ package com.maxio.advancedbilling.controllers.subscriptions;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BankAccountAttributes;
@@ -516,6 +517,11 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscription1Group.getPrimarySubscriptionId()).isEqualTo(subscription1.getId());
         assertThat(subscription1Group.getPrimary()).isTrue();
         assertThat(subscription1Group.getScheme()).isEqualTo(1);
+
+        // teardown
+        SubscriptionGroupsController subscriptionGroupsController = CLIENT.getSubscriptionGroupsController();
+        subscriptionGroupsController.removeSubscriptionFromGroup(subscription2.getId());
+        subscriptionGroupsController.removeSubscriptionFromGroup(subscription1.getId());
     }
 
     @Test
