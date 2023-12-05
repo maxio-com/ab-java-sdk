@@ -9,5 +9,5 @@
 
 | Type | Factory Method |
 |  --- | --- |
-| [`SubscriptionGroupInlined`](../../../doc/models/subscription-group-inlined.md) | SubscriptionGroup2.fromSubscriptionGroupInlined(SubscriptionGroupInlined subscriptionGroupInlined) |
+| [`NestedSubscriptionGroup`](../../../doc/models/nested-subscription-group.md) | SubscriptionGroup2.fromNestedSubscriptionGroup(NestedSubscriptionGroup nestedSubscriptionGroup) |
 
