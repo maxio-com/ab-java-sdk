@@ -587,7 +587,7 @@ This request will update a component.
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
 ```java
-Void updateComponent(
+ComponentResponse updateComponent(
     final String componentId,
     final UpdateComponentRequest body)
 ```
@@ -601,7 +601,7 @@ Void updateComponent(
 
 ## Response Type
 
-`void`
+[`ComponentResponse`](../../doc/models/component-response.md)
 
 ## Example Usage
 
@@ -615,13 +615,50 @@ UpdateComponentRequest body = new UpdateComponentRequest.Builder(
 .build();
 
 try {
-    componentsController.updateComponent(componentId, body);
+    ComponentResponse result = componentsController.updateComponent(componentId, body);
+    System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {
     e.printStackTrace();
 }
 ```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 399853,
+    "name": "Annual Support Services",
+    "pricing_scheme": null,
+    "unit_name": "on/off",
+    "unit_price": "100.0",
+    "product_family_id": 997233,
+    "price_per_unit_in_cents": null,
+    "kind": "on_off_component",
+    "archived": false,
+    "taxable": true,
+    "description": "Prepay for support services",
+    "default_price_point_id": 121003,
+    "price_point_count": 4,
+    "price_points_url": "https://general-goods.chargify.com/components/399853/price_points",
+    "tax_code": "D0000000",
+    "recurring": true,
+    "upgrade_charge": null,
+    "downgrade_credit": null,
+    "created_at": "2019-08-02T05:54:53-04:00",
+    "default_price_point_name": "Original",
+    "product_family_name": "Chargify"
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Update Default Price Point for Component
