@@ -12,13 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for AutoResume type.
  */
 public class AutoResume {
-    private ZonedDateTime automaticallyResumeAt;
+    private OptionalNullable<ZonedDateTime> automaticallyResumeAt;
 
     /**
      * Default constructor.
@@ -32,18 +33,35 @@ public class AutoResume {
      */
     public AutoResume(
             ZonedDateTime automaticallyResumeAt) {
+        this.automaticallyResumeAt = OptionalNullable.of(automaticallyResumeAt);
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  automaticallyResumeAt  ZonedDateTime value for automaticallyResumeAt.
+     */
+
+    protected AutoResume(OptionalNullable<ZonedDateTime> automaticallyResumeAt) {
         this.automaticallyResumeAt = automaticallyResumeAt;
+    }
+
+    /**
+     * Internal Getter for AutomaticallyResumeAt.
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("automatically_resume_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetAutomaticallyResumeAt() {
+        return this.automaticallyResumeAt;
     }
 
     /**
      * Getter for AutomaticallyResumeAt.
      * @return Returns the ZonedDateTime
      */
-    @JsonGetter("automatically_resume_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getAutomaticallyResumeAt() {
-        return automaticallyResumeAt;
+        return OptionalNullable.getFrom(automaticallyResumeAt);
     }
 
     /**
@@ -53,7 +71,14 @@ public class AutoResume {
     @JsonSetter("automatically_resume_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setAutomaticallyResumeAt(ZonedDateTime automaticallyResumeAt) {
-        this.automaticallyResumeAt = automaticallyResumeAt;
+        this.automaticallyResumeAt = OptionalNullable.of(automaticallyResumeAt);
+    }
+
+    /**
+     * UnSetter for AutomaticallyResumeAt.
+     */
+    public void unsetAutomaticallyResumeAt() {
+        automaticallyResumeAt = null;
     }
 
     /**
@@ -71,8 +96,8 @@ public class AutoResume {
      * @return a new {@link AutoResume.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .automaticallyResumeAt(getAutomaticallyResumeAt());
+        Builder builder = new Builder();
+        builder.automaticallyResumeAt = internalGetAutomaticallyResumeAt();
         return builder;
     }
 
@@ -80,7 +105,7 @@ public class AutoResume {
      * Class to build instances of {@link AutoResume}.
      */
     public static class Builder {
-        private ZonedDateTime automaticallyResumeAt;
+        private OptionalNullable<ZonedDateTime> automaticallyResumeAt;
 
 
 
@@ -90,7 +115,16 @@ public class AutoResume {
          * @return Builder
          */
         public Builder automaticallyResumeAt(ZonedDateTime automaticallyResumeAt) {
-            this.automaticallyResumeAt = automaticallyResumeAt;
+            this.automaticallyResumeAt = OptionalNullable.of(automaticallyResumeAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for automaticallyResumeAt.
+         * @return Builder
+         */
+        public Builder unsetAutomaticallyResumeAt() {
+            automaticallyResumeAt = null;
             return this;
         }
 
