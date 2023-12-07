@@ -3,8 +3,10 @@ package com.maxio.advancedbilling.utils;
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerResponse;
+import com.maxio.advancedbilling.models.ListComponentsInput;
 import com.maxio.advancedbilling.models.ListCustomersInput;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import org.slf4j.Logger;
@@ -51,4 +53,25 @@ public class TestTeardown {
                         .perPage(200)
                         .build());
     }
+
+    public void deleteComponents() throws IOException, ApiException {
+        List<ComponentResponse> components = listComponents();
+        while (!components.isEmpty()) {
+            for (ComponentResponse component : components) {
+                advancedBillingClient.getComponentsController()
+                        .archiveComponent(component.getComponent().getProductFamilyId(),
+                                String.valueOf(component.getComponent().getId()));
+            }
+            components = listComponents();
+        }
+    }
+
+    public List<ComponentResponse> listComponents() throws IOException, ApiException {
+        return advancedBillingClient.getComponentsController()
+                .listComponents(new ListComponentsInput.Builder()
+                        .page(1)
+                        .perPage(200)
+                        .build());
+    }
+
 }

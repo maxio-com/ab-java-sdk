@@ -65,4 +65,17 @@ public class CommonAssertions {
                 .satisfies(e -> assertThat(e.getResponseCode()).isEqualTo(422))
                 .satisfies(additionalRequirements);
     }
+
+    public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable) {
+        assertUnauthorized(throwingCallable, "HTTP Basic: Access denied.");
+    }
+
+    public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable, String exceptionMessage) {
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(throwingCallable)
+                .withMessage(exceptionMessage)
+                .extracting(ApiException::getResponseCode)
+                .isEqualTo(401);
+    }
+
 }
