@@ -1,0 +1,65 @@
+package com.maxio.advancedbilling.controllers.subscriptionstatus;
+
+import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.CancellationOptions;
+import com.maxio.advancedbilling.models.CancellationRequest;
+import com.maxio.advancedbilling.models.ReactivateSubscriptionRequest;
+import com.maxio.advancedbilling.models.ReactivationBilling;
+import com.maxio.advancedbilling.models.ReactivationCharge;
+import com.maxio.advancedbilling.models.Subscription;
+import com.maxio.advancedbilling.models.containers.ReactivateSubscriptionRequestResume;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class SubscriptionStatusControllerReactivateSubscriptionTest extends SubscriptionStatusControllerTestBase {
+
+    @Test
+    void shouldRetryFailedSubscription() throws IOException, ApiException {
+        // given
+        Subscription subscription = createSubscription();
+        subscriptionStatusController.cancelSubscription(subscription.getId(), new CancellationRequest(
+                new CancellationOptions()
+        ));
+
+        // when
+        Subscription reactivatedSubscription = subscriptionStatusController.reactivateSubscription(subscription.getId(),
+                        new ReactivateSubscriptionRequest.Builder()
+                                .calendarBilling(new ReactivationBilling(ReactivationCharge.PRORATED))
+                                .includeTrial(true)
+                                .preserveBalance(true)
+                                .couponCode("ff")
+                                .useCreditsAndPrepayments(true)
+                                .resume(ReactivateSubscriptionRequestResume.fromBoolean(true))
+                                .build())
+                .getSubscription();
+
+        // then
+        assertThat(reactivatedSubscription).usingRecursiveComparison()
+                .ignoringFields("updatedAt")
+                .isEqualTo(subscription);
+    }
+
+    @Test
+    void shouldNotReactivateActiveSubscription() throws IOException, ApiException {
+        // given
+        Subscription subscription = createSubscription();
+
+        // when-then
+        assertThatErrorListResponse(() -> subscriptionStatusController.reactivateSubscription(subscription.getId(),
+                new ReactivateSubscriptionRequest()))
+                .hasErrorCode(422)
+                .hasUnprocessableEntityMessage()
+                .hasErrors("Cannot reactivate a subscription that is not marked \"Canceled\", \"Unpaid\", or \"Trial Ended\".");
+    }
+
+    @Test
+    void shouldNotReactivateNonExistentSubscription() {
+        assertNotFound(() -> subscriptionStatusController.reactivateSubscription(5, new ReactivateSubscriptionRequest()));
+    }
+
+}
