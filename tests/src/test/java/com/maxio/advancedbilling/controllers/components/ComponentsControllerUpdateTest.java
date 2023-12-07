@@ -1,5 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
+import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Component;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -126,6 +128,16 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
     @Test
     void shouldNotUpdateNonExistentComponent() {
         assertNotFound(() -> COMPONENTS_CONTROLLER.updateComponent("99999", null));
+    }
+
+    @Test
+    void shouldNotUpdateComponentProvidingInvalidCredentials() throws IOException, ApiException {
+        // given
+        Component component = createQuantityBasedComponent();
+
+        // when-then
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+                .updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest()));
     }
 
 }

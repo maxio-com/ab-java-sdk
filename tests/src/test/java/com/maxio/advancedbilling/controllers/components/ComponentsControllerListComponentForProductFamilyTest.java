@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,7 +51,7 @@ public class ComponentsControllerListComponentForProductFamilyTest extends Compo
     }
 
     @Test
-    void shouldNotListComponentsProvidingInvalidCredentials() {
+    void shouldNotListComponentsForProductFamilyProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .listComponentsForProductFamily(new ListComponentsForProductFamilyInput.Builder()
                         .productFamilyId(4)

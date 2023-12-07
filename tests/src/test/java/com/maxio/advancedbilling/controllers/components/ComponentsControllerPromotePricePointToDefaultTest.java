@@ -1,5 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
+import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,29 +27,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
     void shouldPromoteComponentPricePointToDefault() throws IOException, ApiException {
         // given
         Component component = createQuantityBasedComponent();
-        CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
-                .name("New price point")
-                .handle("new-price-point-" + randomNumeric(5))
-                .pricingScheme("stairstep")
-                .prices(
-                        List.of(
-                                new Price.Builder()
-                                        .unitPrice(PriceUnitPrice.fromPrecision(5.00))
-                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
-                                        .endingQuantity(PriceEndingQuantity.fromNumber(2))
-                                        .build()
-                        )
-                )
-                .build();
-
-        ComponentPricePoint catalogPricePoint = COMPONENTS_CONTROLLER
-                .createComponentPricePoint(component.getId(),
-                        new CreateComponentPricePointRequest(
-                                CreateComponentPricePointRequestPricePoint
-                                        .fromCreateComponentPricePoint(
-                                                createComponentPricePoint
-                                        )
-                        )).getPricePoint();
+        ComponentPricePoint catalogPricePoint = createCatalogPricePoint(component.getId());
 
         // when
         Component componentWithUpdatedPricePoint = COMPONENTS_CONTROLLER
@@ -81,6 +61,44 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
                 .updateDefaultPricePointForComponent(component.getId(), 3))
                 .hasErrorCode(422)
                 .hasHttpNotOkMessage();
+    }
+
+    @Test
+    void shouldNotPromoteComponentPricePointToDefaultProvidingInvalidCredentials() throws IOException, ApiException {
+        // given
+        Component component = createQuantityBasedComponent();
+        ComponentPricePoint catalogPricePoint = createCatalogPricePoint(component.getId());
+
+        // when-then
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+                .updateDefaultPricePointForComponent(component.getId(), catalogPricePoint.getId())
+        );
+    }
+
+    private ComponentPricePoint createCatalogPricePoint(int componentId) throws IOException, ApiException {
+        CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
+                .name("New price point")
+                .handle("new-price-point-" + randomNumeric(5))
+                .pricingScheme("stairstep")
+                .prices(
+                        List.of(
+                                new Price.Builder()
+                                        .unitPrice(PriceUnitPrice.fromPrecision(5.00))
+                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
+                                        .endingQuantity(PriceEndingQuantity.fromNumber(2))
+                                        .build()
+                        )
+                )
+                .build();
+
+        return COMPONENTS_CONTROLLER
+                .createComponentPricePoint(componentId,
+                        new CreateComponentPricePointRequest(
+                                CreateComponentPricePointRequestPricePoint
+                                        .fromCreateComponentPricePoint(
+                                                createComponentPricePoint
+                                        )
+                        )).getPricePoint();
     }
 
 }
