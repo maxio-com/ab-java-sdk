@@ -670,7 +670,7 @@ See [Price Points Documentation](https://chargify.zendesk.com/hc/en-us/articles/
 Note: Custom price points are not able to be set as the default for a component.
 
 ```java
-Void updateDefaultPricePointForComponent(
+ComponentResponse updateDefaultPricePointForComponent(
     final int componentId,
     final int pricePointId)
 ```
@@ -684,7 +684,7 @@ Void updateDefaultPricePointForComponent(
 
 ## Response Type
 
-`void`
+[`ComponentResponse`](../../doc/models/component-response.md)
 
 ## Example Usage
 
@@ -693,11 +693,45 @@ int componentId = 222;
 int pricePointId = 10;
 
 try {
-    componentsController.updateDefaultPricePointForComponent(componentId, pricePointId);
+    ComponentResponse result = componentsController.updateDefaultPricePointForComponent(componentId, pricePointId);
+    System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {
     e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 292609,
+    "name": "Text messages",
+    "pricing_scheme": "stairstep",
+    "unit_name": "text message",
+    "unit_price": null,
+    "product_family_id": 528484,
+    "price_per_unit_in_cents": null,
+    "kind": "metered_component",
+    "archived": false,
+    "taxable": false,
+    "description": null,
+    "created_at": "2019-08-02T05:54:53-04:00",
+    "prices": [
+      {
+        "id": 47,
+        "component_id": 292609,
+        "starting_quantity": 1,
+        "ending_quantity": null,
+        "unit_price": "1.0",
+        "price_point_id": 173,
+        "formatted_unit_price": "$1.00"
+      }
+    ],
+    "default_price_point_name": "Original"
+  }
 }
 ```
 
