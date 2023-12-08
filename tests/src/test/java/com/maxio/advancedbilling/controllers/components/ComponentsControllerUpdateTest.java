@@ -19,7 +19,7 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class ComponentsControllerUpdateProductFamilyComponentTest extends ComponentsControllerTestBase {
+public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase {
 
     @Test
     void shouldUpdateProductFamilyComponent() throws IOException, ApiException {
@@ -39,11 +39,10 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
 
         // when
         Component updatedComponent = COMPONENTS_CONTROLLER
-                        .updateProductFamilyComponent(productFamilyId,
-                                String.valueOf(component.getId()),
-                                new UpdateComponentRequest(updateComponent)
-                                )
-                        .getComponent();
+                .updateComponent(String.valueOf(component.getId()),
+                        new UpdateComponentRequest(updateComponent)
+                )
+                .getComponent();
 
         // then
         assertAll(
@@ -56,7 +55,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
                 () -> assertThat(updatedComponent.getItemCategory()).isEqualTo(ItemCategory.ENUM_DIGITAL_SERVICES),
                 () -> assertThat(updatedComponent.getUpgradeCharge()).isEqualTo(CreditType.FULL),
                 () -> assertThat(updatedComponent.getUpdatedAt()).isNotNull()
-                );
+        );
     }
 
     @Test
@@ -103,8 +102,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
         // when-then
         assertUnprocessableEntity(
                 ErrorListResponseException.class,
-                () -> COMPONENTS_CONTROLLER.updateProductFamilyComponent(productFamilyId,
-                        String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
+                () -> COMPONENTS_CONTROLLER.updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
                 e -> assertThat(e.getErrors()).containsExactlyInAnyOrder("Handle must start with a letter " +
                         "or number and may only contain lowercase letters, numbers, or the characters ':', '-', or '_'.")
         );
@@ -122,16 +120,14 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
         // when-then
         assertUnprocessableEntity(
                 ErrorListResponseException.class,
-                () -> COMPONENTS_CONTROLLER.updateProductFamilyComponent(productFamilyId,
-                        String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
+                () -> COMPONENTS_CONTROLLER.updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
                 e -> assertThat(e.getErrors()).containsExactlyInAnyOrder("Handle must be unique within a Site.")
         );
     }
 
     @Test
     void shouldNotUpdateNonExistentComponent() {
-        assertNotFound(() -> COMPONENTS_CONTROLLER
-                .updateProductFamilyComponent(productFamilyId, "99999", null));
+        assertNotFound(() -> COMPONENTS_CONTROLLER.updateComponent("99999", null));
     }
 
     @Test
@@ -141,8 +137,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
 
         // when-then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
-                .updateProductFamilyComponent(productFamilyId, String.valueOf(component.getId()),
-                        new UpdateComponentRequest()));
+                .updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest()));
     }
 
 }
