@@ -135,7 +135,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
     }
 
     @Test
-    void shouldNotUpdateComponentProvidingInvalidCredentials() throws IOException, ApiException {
+    void shouldNotUpdateComponentWhenProvidingInvalidCredentials() throws IOException, ApiException {
         // given
         Component component = createQuantityBasedComponent();
 

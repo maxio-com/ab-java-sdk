@@ -56,7 +56,7 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
     }
 
     @Test
-    void shouldNotReadComponentProvidingInvalidCredentials() throws IOException, ApiException {
+    void shouldNotReadComponentWhenProvidingInvalidCredentials() throws IOException, ApiException {
         // given
         Component component = createQuantityBasedComponent();
 

@@ -39,10 +39,10 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
 
         // when
         Component updatedComponent = COMPONENTS_CONTROLLER
-                        .updateComponent(String.valueOf(component.getId()),
-                                new UpdateComponentRequest(updateComponent)
-                                )
-                        .getComponent();
+                .updateComponent(String.valueOf(component.getId()),
+                        new UpdateComponentRequest(updateComponent)
+                )
+                .getComponent();
 
         // then
         assertAll(
@@ -55,7 +55,7 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
                 () -> assertThat(updatedComponent.getItemCategory()).isEqualTo(ItemCategory.ENUM_DIGITAL_SERVICES),
                 () -> assertThat(updatedComponent.getUpgradeCharge()).isEqualTo(CreditType.FULL),
                 () -> assertThat(updatedComponent.getUpdatedAt()).isNotNull()
-                );
+        );
     }
 
     @Test
@@ -131,7 +131,7 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
     }
 
     @Test
-    void shouldNotUpdateComponentProvidingInvalidCredentials() throws IOException, ApiException {
+    void shouldNotUpdateComponentWhenProvidingInvalidCredentials() throws IOException, ApiException {
         // given
         Component component = createQuantityBasedComponent();
 

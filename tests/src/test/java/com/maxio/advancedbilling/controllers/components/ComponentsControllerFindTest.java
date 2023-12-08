@@ -35,7 +35,7 @@ public class ComponentsControllerFindTest extends ComponentsControllerTestBase {
     }
 
     @Test
-    void shouldNotFindComponentProvidingInvalidCredentials() throws IOException, ApiException {
+    void shouldNotFindComponentWhenProvidingInvalidCredentials() throws IOException, ApiException {
         // given
         Component component = createQuantityBasedComponent();
 

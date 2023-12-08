@@ -25,7 +25,7 @@ public class ComponentsControllerListTest extends ComponentsControllerTestBase {
     void shouldListComponents() throws IOException, ApiException {
         // given
         ComponentResponse component1 = new ComponentResponse(createQuantityBasedComponent());
-        ComponentResponse component2 = new ComponentResponse(TEST_SETUP.createMeteredComponent(productFamily, 2));
+        ComponentResponse component2 = new ComponentResponse(createMeteredComponent(2));
 
         // when
         List<ComponentResponse> componentResponseList = COMPONENTS_CONTROLLER.listComponents(
@@ -41,7 +41,7 @@ public class ComponentsControllerListTest extends ComponentsControllerTestBase {
     }
 
     @Test
-    void shouldNotListComponentsProvidingInvalidCredentials() {
+    void shouldNotListComponentsWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .listComponents(new ListComponentsInput()));
     }

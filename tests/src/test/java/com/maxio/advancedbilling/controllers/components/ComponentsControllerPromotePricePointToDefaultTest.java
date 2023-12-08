@@ -64,7 +64,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
     }
 
     @Test
-    void shouldNotPromoteComponentPricePointToDefaultProvidingInvalidCredentials() throws IOException, ApiException {
+    void shouldNotPromoteComponentPricePointToDefaultWhenProvidingInvalidCredentials() throws IOException, ApiException {
         // given
         Component component = createQuantityBasedComponent();
         ComponentPricePoint catalogPricePoint = createCatalogPricePoint(component.getId());

@@ -27,8 +27,8 @@ public class ComponentsControllerTestBase {
         return TEST_SETUP.createQuantityBasedComponent(productFamilyId);
     }
 
-    protected void removeAllComponents() {
-
+    protected Component createMeteredComponent(double unitPrice) throws IOException, ApiException {
+        return TEST_SETUP.createMeteredComponent(productFamily, unitPrice);
     }
 
 }

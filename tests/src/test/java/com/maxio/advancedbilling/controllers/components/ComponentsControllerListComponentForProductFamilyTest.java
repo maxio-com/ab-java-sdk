@@ -26,7 +26,7 @@ public class ComponentsControllerListComponentForProductFamilyTest extends Compo
     void shouldListComponentsForProductFamily() throws IOException, ApiException {
         // given
         ComponentResponse component1 = new ComponentResponse(createQuantityBasedComponent());
-        ComponentResponse component2 = new ComponentResponse(TEST_SETUP.createMeteredComponent(productFamily, 2));
+        ComponentResponse component2 = new ComponentResponse(createMeteredComponent(2));
 
         // when
         List<ComponentResponse> componentResponseList = COMPONENTS_CONTROLLER.listComponentsForProductFamily(
@@ -51,7 +51,7 @@ public class ComponentsControllerListComponentForProductFamilyTest extends Compo
     }
 
     @Test
-    void shouldNotListComponentsForProductFamilyProvidingInvalidCredentials() {
+    void shouldNotListComponentsForProductFamilyWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .listComponentsForProductFamily(new ListComponentsForProductFamilyInput.Builder()
                         .productFamilyId(4)
