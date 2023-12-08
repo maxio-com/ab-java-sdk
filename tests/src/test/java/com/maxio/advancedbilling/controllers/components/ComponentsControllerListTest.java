@@ -18,7 +18,7 @@ public class ComponentsControllerListTest extends ComponentsControllerTestBase {
 
     @BeforeAll
     static void removeActiveComponents() throws IOException, ApiException {
-        new TestTeardown().deleteComponents();
+        new TestTeardown().archiveComponents();
     }
 
     @Test

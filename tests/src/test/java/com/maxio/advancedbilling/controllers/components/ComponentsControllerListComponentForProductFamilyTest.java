@@ -19,7 +19,7 @@ public class ComponentsControllerListComponentForProductFamilyTest extends Compo
 
     @BeforeAll
     static void removeActiveComponents() throws IOException, ApiException {
-        new TestTeardown().deleteComponents();
+        new TestTeardown().archiveComponents();
     }
 
     @Test
