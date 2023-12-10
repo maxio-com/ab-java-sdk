@@ -55,4 +55,5 @@ public class ComponentsControllerArchiveTest extends ComponentsControllerTestBas
         assertNotFound(() -> COMPONENTS_CONTROLLER.archiveComponent(productFamilyId, "999999"));
     }
 
+
 }

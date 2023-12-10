@@ -18,6 +18,17 @@ public class TestClient {
                 .build();
     }
 
+    public static AdvancedBillingClient createInvalidCredentialsClient() {
+        return new AdvancedBillingClient.Builder()
+                .httpClientConfig(configBuilder -> configBuilder
+                        .timeout(10))
+                .basicAuthCredentials("123", "abc")
+                .environment(Environment.PRODUCTION)
+                .subdomain(getEnvValue(SUBDOMAIN_ENV))
+                .domain(getEnvValue(DOMAIN_ENV))
+                .build();
+    }
+
     private static String getEnvValue(String key) {
         String envValue = System.getenv(key);
         if (envValue == null) {

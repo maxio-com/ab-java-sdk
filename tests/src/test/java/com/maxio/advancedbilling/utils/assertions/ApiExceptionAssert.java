@@ -12,7 +12,7 @@ public class ApiExceptionAssert<E extends ApiException, A extends ApiExceptionAs
         super(e);
     }
 
-    <V> ApiExceptionAssert(Callable<V> runnable) {
+    public <V> ApiExceptionAssert(Callable<V> runnable) {
         super(runnable);
     }
 

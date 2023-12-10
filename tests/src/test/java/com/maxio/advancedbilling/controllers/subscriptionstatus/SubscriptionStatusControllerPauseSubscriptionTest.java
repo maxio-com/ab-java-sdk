@@ -65,6 +65,36 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
     }
 
     @Test
+    void shouldUpdatePausedSubscriptionAutomaticResumptionDateToNull() throws IOException, ApiException {
+        // given
+        Subscription subscription = createSubscription();
+        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime resumeAt = ZonedDateTime.now().plusDays(3);
+        PauseRequest pauseRequest = new PauseRequest(
+                new AutoResume(resumeAt)
+        );
+        PauseRequest updateResumptionDateRequest = new PauseRequest(
+                new AutoResume(null)
+        );
+
+        // when
+        subscriptionStatusController
+                .pauseSubscription(subscription.getId(), pauseRequest);
+        Subscription pausedSubscription = subscriptionStatusController
+                .updateAutomaticSubscriptionResumption(subscription.getId(), updateResumptionDateRequest)
+                .getSubscription();
+
+        // then
+        assertThat(pausedSubscription).usingRecursiveComparison()
+                .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
+                        "productPricePointType", "automaticallyResumeAt")
+                .isEqualTo(subscription);
+        assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
+        assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
+        assertThat(pausedSubscription.getAutomaticallyResumeAt()).isNull();
+    }
+
+    @Test
     void shouldNotPauseAlreadyPausedSubscription() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();

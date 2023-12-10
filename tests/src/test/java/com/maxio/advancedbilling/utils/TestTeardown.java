@@ -3,9 +3,9 @@ package com.maxio.advancedbilling.utils;
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
-import com.maxio.advancedbilling.models.CustomerResponse;
-import com.maxio.advancedbilling.models.ListCustomersInput;
+import com.maxio.advancedbilling.models.ListComponentsInput;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,21 +34,24 @@ public class TestTeardown {
         LOGGER.info("Customer deleted: {}", customer.getId());
     }
 
-    public void deleteCustomers() throws IOException, ApiException {
-        List<CustomerResponse> customers = listCustomers();
-        while (!customers.isEmpty()) {
-            for (CustomerResponse customer : customers) {
-                deleteCustomer(customer.getCustomer());
+    public void archiveComponents() throws IOException, ApiException {
+        List<ComponentResponse> components = listComponents();
+        while (!components.isEmpty()) {
+            for (ComponentResponse component : components) {
+                advancedBillingClient.getComponentsController()
+                        .archiveComponent(component.getComponent().getProductFamilyId(),
+                                String.valueOf(component.getComponent().getId()));
             }
-            customers = listCustomers();
+            components = listComponents();
         }
     }
 
-    public List<CustomerResponse> listCustomers() throws IOException, ApiException {
-        return advancedBillingClient.getCustomersController()
-                .listCustomers(new ListCustomersInput.Builder()
+    private List<ComponentResponse> listComponents() throws IOException, ApiException {
+        return advancedBillingClient.getComponentsController()
+                .listComponents(new ListComponentsInput.Builder()
                         .page(1)
                         .perPage(200)
                         .build());
     }
+
 }

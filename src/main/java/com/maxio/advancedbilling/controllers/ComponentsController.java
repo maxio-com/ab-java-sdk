@@ -370,22 +370,23 @@ public final class ComponentsController extends BaseController {
      * or handle. When using the handle, it must be prefixed with `handle:`.
      * @param  componentId  Required parameter: The id or handle of the component
      * @param  body  Optional parameter: Example:
+     * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public void updateComponent(
+    public ComponentResponse updateComponent(
             final String componentId,
             final UpdateComponentRequest body) throws ApiException, IOException {
-        prepareUpdateComponentRequest(componentId, body).execute();
+        return prepareUpdateComponentRequest(componentId, body).execute();
     }
 
     /**
      * Builds the ApiCall object for updateComponent.
      */
-    private ApiCall<Void, ApiException> prepareUpdateComponentRequest(
+    private ApiCall<ComponentResponse, ApiException> prepareUpdateComponentRequest(
             final String componentId,
             final UpdateComponentRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<Void, ApiException>()
+        return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -396,10 +397,16 @@ public final class ComponentsController extends BaseController {
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ComponentResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -416,22 +423,24 @@ public final class ComponentsController extends BaseController {
      * @param  componentId  Required parameter: The Chargify id of the component to which the price
      *         point belongs
      * @param  pricePointId  Required parameter: The Chargify id of the price point
+     * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public void updateDefaultPricePointForComponent(
+    public ComponentResponse updateDefaultPricePointForComponent(
             final int componentId,
             final int pricePointId) throws ApiException, IOException {
-        prepareUpdateDefaultPricePointForComponentRequest(componentId, pricePointId).execute();
+        return prepareUpdateDefaultPricePointForComponentRequest(componentId,
+                pricePointId).execute();
     }
 
     /**
      * Builds the ApiCall object for updateDefaultPricePointForComponent.
      */
-    private ApiCall<Void, ApiException> prepareUpdateDefaultPricePointForComponentRequest(
+    private ApiCall<ComponentResponse, ApiException> prepareUpdateDefaultPricePointForComponentRequest(
             final int componentId,
             final int pricePointId) throws IOException {
-        return new ApiCall.Builder<Void, ApiException>()
+        return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -440,9 +449,12 @@ public final class ComponentsController extends BaseController {
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("price_point_id").value(pricePointId).isRequired(false)
                                 .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ComponentResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
