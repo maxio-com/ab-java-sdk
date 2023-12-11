@@ -229,9 +229,10 @@ public final class InvoicesController extends BaseController {
      * Exposed event types are: + issue_invoice + apply_credit_note + apply_payment + refund_invoice
      * + void_invoice + void_remainder + backport_invoice + change_invoice_status +
      * change_invoice_collection_method + remove_payment + failed_payment + apply_debit_note +
-     * create_debit_note Invoice events are returned in ascending order. If both a `since_date` and
-     * `since_id` are provided in request parameters, the `since_date` will be used. Note - invoice
-     * events that occurred prior to 09/05/2018 __will not__ contain an `invoice` snapshot.
+     * create_debit_note + change_chargeback_status Invoice events are returned in ascending order.
+     * If both a `since_date` and `since_id` are provided in request parameters, the `since_date`
+     * will be used. Note - invoice events that occurred prior to 09/05/2018 __will not__ contain an
+     * `invoice` snapshot.
      * @param  input  ListInvoiceEventsInput object containing request parameters
      * @return    Returns the ListInvoiceEventsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

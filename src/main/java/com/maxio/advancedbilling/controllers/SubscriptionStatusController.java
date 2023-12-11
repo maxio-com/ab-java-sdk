@@ -585,6 +585,9 @@ public final class SubscriptionStatusController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, RenewalPreviewResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

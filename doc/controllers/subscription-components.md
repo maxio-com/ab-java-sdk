@@ -163,9 +163,9 @@ try {
       "component_id": 0,
       "subscription_id": 0,
       "allocated_quantity": 0,
-      "pricing_scheme": "string",
+      "pricing_scheme": "per_unit",
       "name": "string",
-      "kind": "string",
+      "kind": "quantity_based_component",
       "unit_name": "string",
       "price_point_id": 0,
       "price_point_handle": "string",
@@ -174,8 +174,8 @@ try {
       "enabled": true,
       "unit_balance": 0,
       "id": 0,
-      "created_at": "string",
-      "updated_at": "string",
+      "created_at": "2022-02-22T14:07:00-05:00",
+      "updated_at": "2022-02-22T14:07:00-05:00",
       "component_handle": "string",
       "archived_at": "string"
     }

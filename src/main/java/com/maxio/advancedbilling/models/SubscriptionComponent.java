@@ -9,9 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.containers.SubscriptionComponentAllocatedQuantity;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentPricePointType;
+import com.maxio.advancedbilling.models.containers.SubscriptionComponentPricingScheme;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionComponent type.
@@ -19,13 +24,13 @@ import io.apimatic.core.types.OptionalNullable;
 public class SubscriptionComponent {
     private Integer id;
     private String name;
-    private String kind;
+    private ComponentKind kind;
     private String unitName;
     private Boolean enabled;
     private Integer unitBalance;
     private String currency;
-    private Integer allocatedQuantity;
-    private OptionalNullable<String> pricingScheme;
+    private SubscriptionComponentAllocatedQuantity allocatedQuantity;
+    private OptionalNullable<SubscriptionComponentPricingScheme> pricingScheme;
     private Integer componentId;
     private OptionalNullable<String> componentHandle;
     private Integer subscriptionId;
@@ -39,8 +44,8 @@ public class SubscriptionComponent {
     private OptionalNullable<String> pricePointName;
     private Integer productFamilyId;
     private String productFamilyHandle;
-    private String createdAt;
-    private String updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private OptionalNullable<Boolean> useSiteExchangeRate;
     private OptionalNullable<String> description;
     private Boolean allowFractionalQuantities;
@@ -57,13 +62,14 @@ public class SubscriptionComponent {
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  name  String value for name.
-     * @param  kind  String value for kind.
+     * @param  kind  ComponentKind value for kind.
      * @param  unitName  String value for unitName.
      * @param  enabled  Boolean value for enabled.
      * @param  unitBalance  Integer value for unitBalance.
      * @param  currency  String value for currency.
-     * @param  allocatedQuantity  Integer value for allocatedQuantity.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  allocatedQuantity  SubscriptionComponentAllocatedQuantity value for
+     *         allocatedQuantity.
+     * @param  pricingScheme  SubscriptionComponentPricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
@@ -77,8 +83,8 @@ public class SubscriptionComponent {
      * @param  pricePointName  String value for pricePointName.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyHandle  String value for productFamilyHandle.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  description  String value for description.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
@@ -88,13 +94,13 @@ public class SubscriptionComponent {
     public SubscriptionComponent(
             Integer id,
             String name,
-            String kind,
+            ComponentKind kind,
             String unitName,
             Boolean enabled,
             Integer unitBalance,
             String currency,
-            Integer allocatedQuantity,
-            String pricingScheme,
+            SubscriptionComponentAllocatedQuantity allocatedQuantity,
+            SubscriptionComponentPricingScheme pricingScheme,
             Integer componentId,
             String componentHandle,
             Integer subscriptionId,
@@ -108,8 +114,8 @@ public class SubscriptionComponent {
             String pricePointName,
             Integer productFamilyId,
             String productFamilyHandle,
-            String createdAt,
-            String updatedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             Boolean useSiteExchangeRate,
             String description,
             Boolean allowFractionalQuantities,
@@ -150,13 +156,14 @@ public class SubscriptionComponent {
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  name  String value for name.
-     * @param  kind  String value for kind.
+     * @param  kind  ComponentKind value for kind.
      * @param  unitName  String value for unitName.
      * @param  enabled  Boolean value for enabled.
      * @param  unitBalance  Integer value for unitBalance.
      * @param  currency  String value for currency.
-     * @param  allocatedQuantity  Integer value for allocatedQuantity.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  allocatedQuantity  SubscriptionComponentAllocatedQuantity value for
+     *         allocatedQuantity.
+     * @param  pricingScheme  SubscriptionComponentPricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
@@ -170,8 +177,8 @@ public class SubscriptionComponent {
      * @param  pricePointName  String value for pricePointName.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyHandle  String value for productFamilyHandle.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  description  String value for description.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
@@ -179,16 +186,17 @@ public class SubscriptionComponent {
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      */
 
-    protected SubscriptionComponent(Integer id, String name, String kind, String unitName,
-            Boolean enabled, Integer unitBalance, String currency, Integer allocatedQuantity,
-            OptionalNullable<String> pricingScheme, Integer componentId,
+    protected SubscriptionComponent(Integer id, String name, ComponentKind kind, String unitName,
+            Boolean enabled, Integer unitBalance, String currency,
+            SubscriptionComponentAllocatedQuantity allocatedQuantity,
+            OptionalNullable<SubscriptionComponentPricingScheme> pricingScheme, Integer componentId,
             OptionalNullable<String> componentHandle, Integer subscriptionId, Boolean recurring,
             OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, OptionalNullable<String> archivedAt,
             OptionalNullable<Integer> pricePointId, OptionalNullable<String> pricePointHandle,
             SubscriptionComponentPricePointType pricePointType,
             OptionalNullable<String> pricePointName, Integer productFamilyId,
-            String productFamilyHandle, String createdAt, String updatedAt,
+            String productFamilyHandle, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> description,
             Boolean allowFractionalQuantities, SubscriptionComponentSubscription subscription,
             Boolean displayOnHostedPage) {
@@ -263,20 +271,22 @@ public class SubscriptionComponent {
 
     /**
      * Getter for Kind.
-     * @return Returns the String
+     * A handle for the component type
+     * @return Returns the ComponentKind
      */
     @JsonGetter("kind")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getKind() {
+    public ComponentKind getKind() {
         return kind;
     }
 
     /**
      * Setter for Kind.
-     * @param kind Value for String
+     * A handle for the component type
+     * @param kind Value for ComponentKind
      */
     @JsonSetter("kind")
-    public void setKind(String kind) {
+    public void setKind(ComponentKind kind) {
         this.kind = kind;
     }
 
@@ -362,11 +372,11 @@ public class SubscriptionComponent {
      * Getter for AllocatedQuantity.
      * For Quantity-based components: The current allocation for the component on the given
      * subscription. For On/Off components: Use 1 for on. Use 0 for off.
-     * @return Returns the Integer
+     * @return Returns the SubscriptionComponentAllocatedQuantity
      */
     @JsonGetter("allocated_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAllocatedQuantity() {
+    public SubscriptionComponentAllocatedQuantity getAllocatedQuantity() {
         return allocatedQuantity;
     }
 
@@ -374,38 +384,38 @@ public class SubscriptionComponent {
      * Setter for AllocatedQuantity.
      * For Quantity-based components: The current allocation for the component on the given
      * subscription. For On/Off components: Use 1 for on. Use 0 for off.
-     * @param allocatedQuantity Value for Integer
+     * @param allocatedQuantity Value for SubscriptionComponentAllocatedQuantity
      */
     @JsonSetter("allocated_quantity")
-    public void setAllocatedQuantity(Integer allocatedQuantity) {
+    public void setAllocatedQuantity(SubscriptionComponentAllocatedQuantity allocatedQuantity) {
         this.allocatedQuantity = allocatedQuantity;
     }
 
     /**
      * Internal Getter for PricingScheme.
-     * @return Returns the Internal String
+     * @return Returns the Internal SubscriptionComponentPricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetPricingScheme() {
+    protected OptionalNullable<SubscriptionComponentPricingScheme> internalGetPricingScheme() {
         return this.pricingScheme;
     }
 
     /**
      * Getter for PricingScheme.
-     * @return Returns the String
+     * @return Returns the SubscriptionComponentPricingScheme
      */
-    public String getPricingScheme() {
+    public SubscriptionComponentPricingScheme getPricingScheme() {
         return OptionalNullable.getFrom(pricingScheme);
     }
 
     /**
      * Setter for PricingScheme.
-     * @param pricingScheme Value for String
+     * @param pricingScheme Value for SubscriptionComponentPricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(String pricingScheme) {
+    public void setPricingScheme(SubscriptionComponentPricingScheme pricingScheme) {
         this.pricingScheme = OptionalNullable.of(pricingScheme);
     }
 
@@ -793,39 +803,43 @@ public class SubscriptionComponent {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -1025,13 +1039,13 @@ public class SubscriptionComponent {
     public static class Builder {
         private Integer id;
         private String name;
-        private String kind;
+        private ComponentKind kind;
         private String unitName;
         private Boolean enabled;
         private Integer unitBalance;
         private String currency;
-        private Integer allocatedQuantity;
-        private OptionalNullable<String> pricingScheme;
+        private SubscriptionComponentAllocatedQuantity allocatedQuantity;
+        private OptionalNullable<SubscriptionComponentPricingScheme> pricingScheme;
         private Integer componentId;
         private OptionalNullable<String> componentHandle;
         private Integer subscriptionId;
@@ -1045,8 +1059,8 @@ public class SubscriptionComponent {
         private OptionalNullable<String> pricePointName;
         private Integer productFamilyId;
         private String productFamilyHandle;
-        private String createdAt;
-        private String updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private OptionalNullable<Boolean> useSiteExchangeRate;
         private OptionalNullable<String> description;
         private Boolean allowFractionalQuantities;
@@ -1077,10 +1091,10 @@ public class SubscriptionComponent {
 
         /**
          * Setter for kind.
-         * @param  kind  String value for kind.
+         * @param  kind  ComponentKind value for kind.
          * @return Builder
          */
-        public Builder kind(String kind) {
+        public Builder kind(ComponentKind kind) {
             this.kind = kind;
             return this;
         }
@@ -1127,20 +1141,22 @@ public class SubscriptionComponent {
 
         /**
          * Setter for allocatedQuantity.
-         * @param  allocatedQuantity  Integer value for allocatedQuantity.
+         * @param  allocatedQuantity  SubscriptionComponentAllocatedQuantity value for
+         *         allocatedQuantity.
          * @return Builder
          */
-        public Builder allocatedQuantity(Integer allocatedQuantity) {
+        public Builder allocatedQuantity(
+                SubscriptionComponentAllocatedQuantity allocatedQuantity) {
             this.allocatedQuantity = allocatedQuantity;
             return this;
         }
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  SubscriptionComponentPricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(String pricingScheme) {
+        public Builder pricingScheme(SubscriptionComponentPricingScheme pricingScheme) {
             this.pricingScheme = OptionalNullable.of(pricingScheme);
             return this;
         }
@@ -1349,20 +1365,20 @@ public class SubscriptionComponent {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }

@@ -15,7 +15,7 @@ import java.util.List;
  * This is a model class for ComponentCustomPrice type.
  */
 public class ComponentCustomPrice {
-    private PricingScheme1 pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
 
     /**
@@ -26,11 +26,11 @@ public class ComponentCustomPrice {
 
     /**
      * Initialization constructor.
-     * @param  pricingScheme  PricingScheme1 value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      */
     public ComponentCustomPrice(
-            PricingScheme1 pricingScheme,
+            PricingScheme pricingScheme,
             List<Price> prices) {
         this.pricingScheme = pricingScheme;
         this.prices = prices;
@@ -39,21 +39,21 @@ public class ComponentCustomPrice {
     /**
      * Getter for PricingScheme.
      * Omit for On/Off components
-     * @return Returns the PricingScheme1
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PricingScheme1 getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
     /**
      * Setter for PricingScheme.
      * Omit for On/Off components
-     * @param pricingScheme Value for PricingScheme1
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(PricingScheme1 pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -104,17 +104,17 @@ public class ComponentCustomPrice {
      * Class to build instances of {@link ComponentCustomPrice}.
      */
     public static class Builder {
-        private PricingScheme1 pricingScheme;
+        private PricingScheme pricingScheme;
         private List<Price> prices;
 
 
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  PricingScheme1 value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(PricingScheme1 pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

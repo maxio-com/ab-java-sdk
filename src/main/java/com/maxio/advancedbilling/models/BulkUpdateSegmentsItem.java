@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class BulkUpdateSegmentsItem {
     private int id;
-    private String pricingScheme;
+    private PricingScheme pricingScheme;
     private List<CreateOrUpdateSegmentPrice> prices;
 
     /**
@@ -27,12 +27,12 @@ public class BulkUpdateSegmentsItem {
     /**
      * Initialization constructor.
      * @param  id  int value for id.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of CreateOrUpdateSegmentPrice value for prices.
      */
     public BulkUpdateSegmentsItem(
             int id,
-            String pricingScheme,
+            PricingScheme pricingScheme,
             List<CreateOrUpdateSegmentPrice> prices) {
         this.id = id;
         this.pricingScheme = pricingScheme;
@@ -61,27 +61,25 @@ public class BulkUpdateSegmentsItem {
 
     /**
      * Getter for PricingScheme.
-     * The handle for the pricing scheme. Available options: per_unit, volume, tiered, stairstep.
-     * See [Price Bracket
-     * Rules](https://help.chargify.com/products/product-components.html#price-bracket-rules) for an
-     * overview of pricing schemes.
-     * @return Returns the String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    public String getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
     /**
      * Setter for PricingScheme.
-     * The handle for the pricing scheme. Available options: per_unit, volume, tiered, stairstep.
-     * See [Price Bracket
-     * Rules](https://help.chargify.com/products/product-components.html#price-bracket-rules) for an
-     * overview of pricing schemes.
-     * @param pricingScheme Value for String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(String pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -128,7 +126,7 @@ public class BulkUpdateSegmentsItem {
      */
     public static class Builder {
         private int id;
-        private String pricingScheme;
+        private PricingScheme pricingScheme;
         private List<CreateOrUpdateSegmentPrice> prices;
 
         /**
@@ -140,10 +138,11 @@ public class BulkUpdateSegmentsItem {
         /**
          * Initialization constructor.
          * @param  id  int value for id.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @param  prices  List of CreateOrUpdateSegmentPrice value for prices.
          */
-        public Builder(int id, String pricingScheme, List<CreateOrUpdateSegmentPrice> prices) {
+        public Builder(int id, PricingScheme pricingScheme,
+                List<CreateOrUpdateSegmentPrice> prices) {
             this.id = id;
             this.pricingScheme = pricingScheme;
             this.prices = prices;
@@ -161,10 +160,10 @@ public class BulkUpdateSegmentsItem {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(String pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.models.containers.ComponentPricingScheme;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Component {
     private Integer id;
     private String name;
     private OptionalNullable<String> handle;
-    private OptionalNullable<String> pricingScheme;
+    private OptionalNullable<ComponentPricingScheme> pricingScheme;
     private String unitName;
     private OptionalNullable<String> unitPrice;
     private Integer productFamilyId;
@@ -60,7 +61,7 @@ public class Component {
      * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  ComponentPricingScheme value for pricingScheme.
      * @param  unitName  String value for unitName.
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
@@ -93,7 +94,7 @@ public class Component {
             Integer id,
             String name,
             String handle,
-            String pricingScheme,
+            ComponentPricingScheme pricingScheme,
             String unitName,
             String unitPrice,
             Integer productFamilyId,
@@ -159,7 +160,7 @@ public class Component {
      * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  ComponentPricingScheme value for pricingScheme.
      * @param  unitName  String value for unitName.
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
@@ -190,7 +191,7 @@ public class Component {
      */
 
     protected Component(Integer id, String name, OptionalNullable<String> handle,
-            OptionalNullable<String> pricingScheme, String unitName,
+            OptionalNullable<ComponentPricingScheme> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
             OptionalNullable<Long> pricePerUnitInCents, ComponentKind kind, Boolean archived,
             Boolean taxable, OptionalNullable<String> description, Integer defaultPricePointId,
@@ -320,50 +321,34 @@ public class Component {
 
     /**
      * Internal Getter for PricingScheme.
-     * The handle for the pricing scheme. Available options: per_unit, volume, tiered, stairstep.
-     * See [Price Bracket
-     * Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-bracket-rules) for
-     * an overview of pricing schemes.
-     * @return Returns the Internal String
+     * @return Returns the Internal ComponentPricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetPricingScheme() {
+    protected OptionalNullable<ComponentPricingScheme> internalGetPricingScheme() {
         return this.pricingScheme;
     }
 
     /**
      * Getter for PricingScheme.
-     * The handle for the pricing scheme. Available options: per_unit, volume, tiered, stairstep.
-     * See [Price Bracket
-     * Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-bracket-rules) for
-     * an overview of pricing schemes.
-     * @return Returns the String
+     * @return Returns the ComponentPricingScheme
      */
-    public String getPricingScheme() {
+    public ComponentPricingScheme getPricingScheme() {
         return OptionalNullable.getFrom(pricingScheme);
     }
 
     /**
      * Setter for PricingScheme.
-     * The handle for the pricing scheme. Available options: per_unit, volume, tiered, stairstep.
-     * See [Price Bracket
-     * Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-bracket-rules) for
-     * an overview of pricing schemes.
-     * @param pricingScheme Value for String
+     * @param pricingScheme Value for ComponentPricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(String pricingScheme) {
+    public void setPricingScheme(ComponentPricingScheme pricingScheme) {
         this.pricingScheme = OptionalNullable.of(pricingScheme);
     }
 
     /**
      * UnSetter for PricingScheme.
-     * The handle for the pricing scheme. Available options: per_unit, volume, tiered, stairstep.
-     * See [Price Bracket
-     * Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-bracket-rules) for
-     * an overview of pricing schemes.
      */
     public void unsetPricingScheme() {
         pricingScheme = null;
@@ -1226,7 +1211,7 @@ public class Component {
         private Integer id;
         private String name;
         private OptionalNullable<String> handle;
-        private OptionalNullable<String> pricingScheme;
+        private OptionalNullable<ComponentPricingScheme> pricingScheme;
         private String unitName;
         private OptionalNullable<String> unitPrice;
         private Integer productFamilyId;
@@ -1298,10 +1283,10 @@ public class Component {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  ComponentPricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(String pricingScheme) {
+        public Builder pricingScheme(ComponentPricingScheme pricingScheme) {
             this.pricingScheme = OptionalNullable.of(pricingScheme);
             return this;
         }
