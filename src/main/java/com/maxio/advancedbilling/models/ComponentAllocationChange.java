@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.ComponentAllocationChangeAllocatedQuantity;
 
 /**
  * This is a model class for ComponentAllocationChange type.
@@ -22,7 +23,7 @@ public class ComponentAllocationChange {
     private String componentHandle;
     private String memo;
     private int allocationId;
-    private Integer allocatedQuantity;
+    private ComponentAllocationChangeAllocatedQuantity allocatedQuantity;
 
     /**
      * Default constructor.
@@ -38,7 +39,8 @@ public class ComponentAllocationChange {
      * @param  componentHandle  String value for componentHandle.
      * @param  memo  String value for memo.
      * @param  allocationId  int value for allocationId.
-     * @param  allocatedQuantity  Integer value for allocatedQuantity.
+     * @param  allocatedQuantity  ComponentAllocationChangeAllocatedQuantity value for
+     *         allocatedQuantity.
      */
     public ComponentAllocationChange(
             int previousAllocation,
@@ -47,7 +49,7 @@ public class ComponentAllocationChange {
             String componentHandle,
             String memo,
             int allocationId,
-            Integer allocatedQuantity) {
+            ComponentAllocationChangeAllocatedQuantity allocatedQuantity) {
         this.previousAllocation = previousAllocation;
         this.newAllocation = newAllocation;
         this.componentId = componentId;
@@ -188,20 +190,20 @@ public class ComponentAllocationChange {
 
     /**
      * Getter for AllocatedQuantity.
-     * @return Returns the Integer
+     * @return Returns the ComponentAllocationChangeAllocatedQuantity
      */
     @JsonGetter("allocated_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAllocatedQuantity() {
+    public ComponentAllocationChangeAllocatedQuantity getAllocatedQuantity() {
         return allocatedQuantity;
     }
 
     /**
      * Setter for AllocatedQuantity.
-     * @param allocatedQuantity Value for Integer
+     * @param allocatedQuantity Value for ComponentAllocationChangeAllocatedQuantity
      */
     @JsonSetter("allocated_quantity")
-    public void setAllocatedQuantity(Integer allocatedQuantity) {
+    public void setAllocatedQuantity(ComponentAllocationChangeAllocatedQuantity allocatedQuantity) {
         this.allocatedQuantity = allocatedQuantity;
     }
 
@@ -239,7 +241,7 @@ public class ComponentAllocationChange {
         private String componentHandle;
         private String memo;
         private int allocationId;
-        private Integer allocatedQuantity;
+        private ComponentAllocationChangeAllocatedQuantity allocatedQuantity;
 
         /**
          * Initialization constructor.
@@ -328,10 +330,12 @@ public class ComponentAllocationChange {
 
         /**
          * Setter for allocatedQuantity.
-         * @param  allocatedQuantity  Integer value for allocatedQuantity.
+         * @param  allocatedQuantity  ComponentAllocationChangeAllocatedQuantity value for
+         *         allocatedQuantity.
          * @return Builder
          */
-        public Builder allocatedQuantity(Integer allocatedQuantity) {
+        public Builder allocatedQuantity(
+                ComponentAllocationChangeAllocatedQuantity allocatedQuantity) {
             this.allocatedQuantity = allocatedQuantity;
             return this;
         }
