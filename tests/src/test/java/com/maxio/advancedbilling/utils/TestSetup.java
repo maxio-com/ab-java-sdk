@@ -16,17 +16,23 @@ import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.CreateProductFamily;
 import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.CreateQuantityBasedComponent;
+import com.maxio.advancedbilling.models.CreateSubscription;
+import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.MeteredComponent;
+import com.maxio.advancedbilling.models.PaymentProfileAttributes;
 import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
+import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateComponentBody;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
+import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
+import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -144,5 +150,24 @@ public class TestSetup {
                         ))
                         .build())
                 .getCoupon();
+    }
+
+    public Subscription createSubscription(int productId, int customerId) throws IOException {
+        return advancedBillingClient.getSubscriptionsController()
+                .createSubscription(
+                        new CreateSubscriptionRequest(
+                                new CreateSubscription.Builder()
+                                        .productId(productId)
+                                        .customerId(customerId)
+                                        .creditCardAttributes(
+                                                new PaymentProfileAttributes.Builder()
+                                                        .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(12))
+                                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2024))
+                                                        .fullNumber("1")
+                                                        .build()
+                                        )
+                                        .build()
+                        )
+                ).getSubscription();
     }
 }
