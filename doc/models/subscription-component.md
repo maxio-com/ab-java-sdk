@@ -17,7 +17,7 @@
 | `UnitBalance` | `Integer` | Optional | - | Integer getUnitBalance() | setUnitBalance(Integer unitBalance) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
 | `AllocatedQuantity` | `Integer` | Optional | For Quantity-based components: The current allocation for the component on the given subscription. For On/Off components: Use 1 for on. Use 0 for off. | Integer getAllocatedQuantity() | setAllocatedQuantity(Integer allocatedQuantity) |
-| `PricingScheme` | `String` | Optional | - | String getPricingScheme() | setPricingScheme(String pricingScheme) |
+| `PricingScheme` | [`SubscriptionComponentPricingScheme`](../../doc/models/containers/subscription-component-pricing-scheme.md) | Optional | This is a container for one-of cases. | SubscriptionComponentPricingScheme getPricingScheme() | setPricingScheme(SubscriptionComponentPricingScheme pricingScheme) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |

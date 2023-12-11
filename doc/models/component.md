@@ -12,7 +12,7 @@
 | `Id` | `Integer` | Optional | The unique ID assigned to the component by Chargify. This ID can be used to fetch the component from the API. | Integer getId() | setId(Integer id) |
 | `Name` | `String` | Optional | The name of the Component, suitable for display on statements. i.e. Text Messages. | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | The component API handle | String getHandle() | setHandle(String handle) |
-| `PricingScheme` | `String` | Optional | The handle for the pricing scheme. Available options: per_unit, volume, tiered, stairstep. See [Price Bracket Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-bracket-rules) for an overview of pricing schemes. | String getPricingScheme() | setPricingScheme(String pricingScheme) |
+| `PricingScheme` | [`ComponentPricingScheme`](../../doc/models/containers/component-pricing-scheme.md) | Optional | This is a container for one-of cases. | ComponentPricingScheme getPricingScheme() | setPricingScheme(ComponentPricingScheme pricingScheme) |
 | `UnitName` | `String` | Optional | The name of the unit that the component’s usage is measured in. i.e. message | String getUnitName() | setUnitName(String unitName) |
 | `UnitPrice` | `String` | Optional | The amount the customer will be charged per unit. This field is only populated for ‘per_unit’ pricing schemes, otherwise it may be null. | String getUnitPrice() | setUnitPrice(String unitPrice) |
 | `ProductFamilyId` | `Integer` | Optional | The id of the Product Family to which the Component belongs | Integer getProductFamilyId() | setProductFamilyId(Integer productFamilyId) |
@@ -49,7 +49,7 @@
   "id": 24,
   "name": "name2",
   "handle": "handle8",
-  "pricing_scheme": "pricing_scheme6",
+  "pricing_scheme": "tiered",
   "unit_name": "unit_name4"
 }
 ```

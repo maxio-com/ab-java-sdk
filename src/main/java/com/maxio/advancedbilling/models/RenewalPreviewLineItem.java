@@ -26,6 +26,8 @@ public class RenewalPreviewLineItem {
     private String componentHandle;
     private String componentName;
     private String productHandle;
+    private String periodRangeStart;
+    private String periodRangeEnd;
 
     /**
      * Default constructor.
@@ -47,6 +49,8 @@ public class RenewalPreviewLineItem {
      * @param  componentHandle  String value for componentHandle.
      * @param  componentName  String value for componentName.
      * @param  productHandle  String value for productHandle.
+     * @param  periodRangeStart  String value for periodRangeStart.
+     * @param  periodRangeEnd  String value for periodRangeEnd.
      */
     public RenewalPreviewLineItem(
             String transactionType,
@@ -60,7 +64,9 @@ public class RenewalPreviewLineItem {
             Integer componentId,
             String componentHandle,
             String componentName,
-            String productHandle) {
+            String productHandle,
+            String periodRangeStart,
+            String periodRangeEnd) {
         this.transactionType = transactionType;
         this.kind = kind;
         this.amountInCents = amountInCents;
@@ -73,6 +79,8 @@ public class RenewalPreviewLineItem {
         this.componentHandle = componentHandle;
         this.componentName = componentName;
         this.productHandle = productHandle;
+        this.periodRangeStart = periodRangeStart;
+        this.periodRangeEnd = periodRangeEnd;
     }
 
     /**
@@ -304,6 +312,44 @@ public class RenewalPreviewLineItem {
     }
 
     /**
+     * Getter for PeriodRangeStart.
+     * @return Returns the String
+     */
+    @JsonGetter("period_range_start")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getPeriodRangeStart() {
+        return periodRangeStart;
+    }
+
+    /**
+     * Setter for PeriodRangeStart.
+     * @param periodRangeStart Value for String
+     */
+    @JsonSetter("period_range_start")
+    public void setPeriodRangeStart(String periodRangeStart) {
+        this.periodRangeStart = periodRangeStart;
+    }
+
+    /**
+     * Getter for PeriodRangeEnd.
+     * @return Returns the String
+     */
+    @JsonGetter("period_range_end")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getPeriodRangeEnd() {
+        return periodRangeEnd;
+    }
+
+    /**
+     * Setter for PeriodRangeEnd.
+     * @param periodRangeEnd Value for String
+     */
+    @JsonSetter("period_range_end")
+    public void setPeriodRangeEnd(String periodRangeEnd) {
+        this.periodRangeEnd = periodRangeEnd;
+    }
+
+    /**
      * Converts this RenewalPreviewLineItem into string format.
      * @return String representation of this class
      */
@@ -314,7 +360,8 @@ public class RenewalPreviewLineItem {
                 + discountAmountInCents + ", taxableAmountInCents=" + taxableAmountInCents
                 + ", productId=" + productId + ", productName=" + productName + ", componentId="
                 + componentId + ", componentHandle=" + componentHandle + ", componentName="
-                + componentName + ", productHandle=" + productHandle + "]";
+                + componentName + ", productHandle=" + productHandle + ", periodRangeStart="
+                + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd + "]";
     }
 
     /**
@@ -335,7 +382,9 @@ public class RenewalPreviewLineItem {
                 .componentId(getComponentId())
                 .componentHandle(getComponentHandle())
                 .componentName(getComponentName())
-                .productHandle(getProductHandle());
+                .productHandle(getProductHandle())
+                .periodRangeStart(getPeriodRangeStart())
+                .periodRangeEnd(getPeriodRangeEnd());
         return builder;
     }
 
@@ -355,6 +404,8 @@ public class RenewalPreviewLineItem {
         private String componentHandle;
         private String componentName;
         private String productHandle;
+        private String periodRangeStart;
+        private String periodRangeEnd;
 
 
 
@@ -479,13 +530,34 @@ public class RenewalPreviewLineItem {
         }
 
         /**
+         * Setter for periodRangeStart.
+         * @param  periodRangeStart  String value for periodRangeStart.
+         * @return Builder
+         */
+        public Builder periodRangeStart(String periodRangeStart) {
+            this.periodRangeStart = periodRangeStart;
+            return this;
+        }
+
+        /**
+         * Setter for periodRangeEnd.
+         * @param  periodRangeEnd  String value for periodRangeEnd.
+         * @return Builder
+         */
+        public Builder periodRangeEnd(String periodRangeEnd) {
+            this.periodRangeEnd = periodRangeEnd;
+            return this;
+        }
+
+        /**
          * Builds a new {@link RenewalPreviewLineItem} object using the set fields.
          * @return {@link RenewalPreviewLineItem}
          */
         public RenewalPreviewLineItem build() {
             return new RenewalPreviewLineItem(transactionType, kind, amountInCents, memo,
                     discountAmountInCents, taxableAmountInCents, productId, productName,
-                    componentId, componentHandle, componentName, productHandle);
+                    componentId, componentHandle, componentName, productHandle, periodRangeStart,
+                    periodRangeEnd);
         }
     }
 }

@@ -50,7 +50,7 @@ String componentId = "component_id8";
 String pricePointId = "price_point_id8";
 CreateSegmentRequest body = new CreateSegmentRequest.Builder(
     new CreateSegment.Builder(
-        "volume"
+        PricingScheme.VOLUME
     )
     .segmentProperty1Value(CreateSegmentSegmentProperty1Value.fromString(
             "France"

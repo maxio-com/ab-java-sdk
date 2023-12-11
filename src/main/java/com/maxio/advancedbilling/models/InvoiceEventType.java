@@ -41,7 +41,9 @@ public enum InvoiceEventType {
 
     REMOVE_PAYMENT,
 
-    FAILED_PAYMENT;
+    FAILED_PAYMENT,
+
+    CHANGE_CHARGEBACK_STATUS;
 
 
     private static TreeMap<String, InvoiceEventType> valueMap = new TreeMap<>();
@@ -61,6 +63,7 @@ public enum InvoiceEventType {
         CHANGE_INVOICE_COLLECTION_METHOD.value = "change_invoice_collection_method";
         REMOVE_PAYMENT.value = "remove_payment";
         FAILED_PAYMENT.value = "failed_payment";
+        CHANGE_CHARGEBACK_STATUS.value = "change_chargeback_status";
 
         valueMap.put("issue_invoice", ISSUE_INVOICE);
         valueMap.put("apply_credit_note", APPLY_CREDIT_NOTE);
@@ -75,6 +78,7 @@ public enum InvoiceEventType {
         valueMap.put("change_invoice_collection_method", CHANGE_INVOICE_COLLECTION_METHOD);
         valueMap.put("remove_payment", REMOVE_PAYMENT);
         valueMap.put("failed_payment", FAILED_PAYMENT);
+        valueMap.put("change_chargeback_status", CHANGE_CHARGEBACK_STATUS);
     }
 
     /**
