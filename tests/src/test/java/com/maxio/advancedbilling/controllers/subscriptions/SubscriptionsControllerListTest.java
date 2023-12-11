@@ -61,6 +61,8 @@ public class SubscriptionsControllerListTest {
 
     @BeforeAll
     static void setUp() throws IOException, ApiException {
+        new TestTeardown().deleteSubscriptions();
+
         PRODUCT_FAMILY = TEST_SETUP.createProductFamily();
         PRODUCT1 = TEST_SETUP.createProduct(PRODUCT_FAMILY);
         PRODUCT2 = TEST_SETUP.createProduct(PRODUCT_FAMILY);
