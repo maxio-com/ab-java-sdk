@@ -23,7 +23,7 @@ public class Segment {
     private Integer componentId;
     private Integer pricePointId;
     private Integer eventBasedBillingMetricId;
-    private String pricingScheme;
+    private PricingScheme pricingScheme;
     private SegmentSegmentProperty1Value segmentProperty1Value;
     private SegmentSegmentProperty2Value segmentProperty2Value;
     private SegmentSegmentProperty3Value segmentProperty3Value;
@@ -44,7 +44,7 @@ public class Segment {
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  segmentProperty1Value  SegmentSegmentProperty1Value value for segmentProperty1Value.
      * @param  segmentProperty2Value  SegmentSegmentProperty2Value value for segmentProperty2Value.
      * @param  segmentProperty3Value  SegmentSegmentProperty3Value value for segmentProperty3Value.
@@ -58,7 +58,7 @@ public class Segment {
             Integer componentId,
             Integer pricePointId,
             Integer eventBasedBillingMetricId,
-            String pricingScheme,
+            PricingScheme pricingScheme,
             SegmentSegmentProperty1Value segmentProperty1Value,
             SegmentSegmentProperty2Value segmentProperty2Value,
             SegmentSegmentProperty3Value segmentProperty3Value,
@@ -158,20 +158,26 @@ public class Segment {
 
     /**
      * Getter for PricingScheme.
-     * @return Returns the String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
     /**
      * Setter for PricingScheme.
-     * @param pricingScheme Value for String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(String pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -353,7 +359,7 @@ public class Segment {
         private Integer componentId;
         private Integer pricePointId;
         private Integer eventBasedBillingMetricId;
-        private String pricingScheme;
+        private PricingScheme pricingScheme;
         private SegmentSegmentProperty1Value segmentProperty1Value;
         private SegmentSegmentProperty2Value segmentProperty2Value;
         private SegmentSegmentProperty3Value segmentProperty3Value;
@@ -406,10 +412,10 @@ public class Segment {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(String pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

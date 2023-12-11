@@ -11,7 +11,7 @@ Create or update custom pricing unique to the subscription. Used in place of `pr
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `PricingScheme` | [`PricingScheme1`](../../doc/models/pricing-scheme-1.md) | Optional | Omit for On/Off components | PricingScheme1 getPricingScheme() | setPricingScheme(PricingScheme1 pricingScheme) |
+| `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | Omit for On/Off components | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `Prices` | [`List<Price>`](../../doc/models/price.md) | Optional | On/off components only need one price bracket starting at 1 | List<Price> getPrices() | setPrices(List<Price> prices) |
 
 ## Example (as JSON)

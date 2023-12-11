@@ -24,4 +24,5 @@ Invoice Event Type
 | `ChangeInvoiceCollectionMethod` |
 | `RemovePayment` |
 | `FailedPayment` |
+| `ChangeChargebackStatus` |
 

@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Name` | `String` | Required | - | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
-| `PricingScheme` | `String` | Required | - | String getPricingScheme() | setPricingScheme(String pricingScheme) |
+| `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `Prices` | [`List<Price>`](../../doc/models/price.md) | Required | - | List<Price> getPrices() | setPrices(List<Price> prices) |
 | `OveragePricing` | [`OveragePricing`](../../doc/models/overage-pricing.md) | Required | - | OveragePricing getOveragePricing() | setOveragePricing(OveragePricing overagePricing) |
 | `UseSiteExchangeRate` | `Boolean` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site.<br>**Default**: `true` | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
@@ -25,7 +25,7 @@
 ```json
 {
   "name": "name0",
-  "pricing_scheme": "pricing_scheme8",
+  "pricing_scheme": "per_unit",
   "prices": [
     {
       "starting_quantity": 242,

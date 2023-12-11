@@ -409,7 +409,7 @@ try {
 {
   "id": 25407138,
   "name": "cillum aute",
-  "pricing_scheme": "in incididu",
+  "pricing_scheme": "stairstep",
   "unit_name": "nulla in",
   "unit_price": "Excepteur veniam",
   "product_family_id": -56705047,
@@ -912,7 +912,7 @@ CreateComponentPricePointRequest body = new CreateComponentPricePointRequest.Bui
     CreateComponentPricePointRequestPricePoint.fromCreateComponentPricePoint(
         new CreateComponentPricePoint.Builder(
             "Wholesale",
-            "stairstep",
+            PricingScheme.STAIRSTEP,
             Arrays.asList(
                 new Price.Builder(
                     PriceStartingQuantity.fromString(
@@ -1083,7 +1083,7 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
         CreateComponentPricePointsRequestPricePoints.fromCreateComponentPricePoint(
             new CreateComponentPricePoint.Builder(
                 "Wholesale",
-                "per_unit",
+                PricingScheme.PER_UNIT,
                 Arrays.asList(
                     new Price.Builder(
                         PriceStartingQuantity.fromNumber(
@@ -1102,7 +1102,7 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
         CreateComponentPricePointsRequestPricePoints.fromCreateComponentPricePoint(
             new CreateComponentPricePoint.Builder(
                 "MSRP",
-                "per_unit",
+                PricingScheme.PER_UNIT,
                 Arrays.asList(
                     new Price.Builder(
                         PriceStartingQuantity.fromNumber(
@@ -1121,7 +1121,7 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
         CreateComponentPricePointsRequestPricePoints.fromCreateComponentPricePoint(
             new CreateComponentPricePoint.Builder(
                 "Special Pricing",
-                "per_unit",
+                PricingScheme.PER_UNIT,
                 Arrays.asList(
                     new Price.Builder(
                         PriceStartingQuantity.fromNumber(
