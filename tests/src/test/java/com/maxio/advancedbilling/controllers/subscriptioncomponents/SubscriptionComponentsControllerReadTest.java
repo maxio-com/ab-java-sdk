@@ -10,6 +10,8 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionComponent;
+import com.maxio.advancedbilling.models.containers.SubscriptionComponentAllocatedQuantity;
+import com.maxio.advancedbilling.utils.matchers.SubscriptionComponentAllocatedQuantityGetter;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -43,9 +45,8 @@ public class SubscriptionComponentsControllerReadTest extends SubscriptionCompon
         // then
         assertThat(subscriptionComponent.getId()).isNotNull();
         assertThat(subscriptionComponent.getName()).isEqualTo(component.getName());
-        assertThat(subscriptionComponent.getKind()).isEqualTo(component.getKind().value());
+        assertThat(subscriptionComponent.getKind()).isEqualTo(component.getKind());
         assertThat(subscriptionComponent.getCurrency()).isEqualTo(subscription.getCurrency());
-//        assertThat(subscriptionComponent.getAllocatedQuantity()).isEqualTo("0.0");
         assertThat(subscriptionComponent.getPricingScheme()).isNull();
         assertThat(subscriptionComponent.getComponentId()).isEqualTo(component.getId());
         assertThat(subscriptionComponent.getComponentHandle()).isEqualTo(component.getHandle());
@@ -67,6 +68,8 @@ public class SubscriptionComponentsControllerReadTest extends SubscriptionCompon
         assertThat(subscriptionComponent.getDisplayOnHostedPage()).isFalse();
         assertThat(subscriptionComponent.getCreatedAt()).isNotNull();
         assertThat(subscriptionComponent.getUpdatedAt()).isNotNull();
+        assertThat(subscriptionComponent.getAllocatedQuantity()
+                .match(new SubscriptionComponentAllocatedQuantityGetter<Integer>())).isEqualTo(0);
     }
 
 }
