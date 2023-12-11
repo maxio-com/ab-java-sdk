@@ -608,6 +608,7 @@ Exposed event types are:
 + failed_payment
 + apply_debit_note
 + create_debit_note
++ change_chargeback_status
 
 Invoice events are returned in ascending order.
 

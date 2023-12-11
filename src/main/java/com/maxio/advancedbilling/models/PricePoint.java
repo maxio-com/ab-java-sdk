@@ -17,7 +17,7 @@ import java.util.List;
 public class PricePoint {
     private String name;
     private String handle;
-    private String pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private Boolean useSiteExchangeRate;
     private OveragePricing overagePricing;
@@ -37,7 +37,7 @@ public class PricePoint {
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  overagePricing  OveragePricing value for overagePricing.
@@ -49,7 +49,7 @@ public class PricePoint {
     public PricePoint(
             String name,
             String handle,
-            String pricingScheme,
+            PricingScheme pricingScheme,
             List<Price> prices,
             Boolean useSiteExchangeRate,
             OveragePricing overagePricing,
@@ -109,20 +109,26 @@ public class PricePoint {
 
     /**
      * Getter for PricingScheme.
-     * @return Returns the String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
     /**
      * Setter for PricingScheme.
-     * @param pricingScheme Value for String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(String pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -315,7 +321,7 @@ public class PricePoint {
     public static class Builder {
         private String name;
         private String handle;
-        private String pricingScheme;
+        private PricingScheme pricingScheme;
         private List<Price> prices;
         private Boolean useSiteExchangeRate = true;
         private OveragePricing overagePricing;
@@ -348,10 +354,10 @@ public class PricePoint {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(String pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

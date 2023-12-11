@@ -7,6 +7,7 @@ import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.CreateComponentPricePoint;
 import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.Price;
+import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
@@ -42,7 +43,8 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
                         "defaultPricePointName", "pricePointCount", "unitPrice")
                 .isEqualTo(component);
         assertThat(componentWithUpdatedPricePoint.getDefaultPricePointId()).isEqualTo(catalogPricePoint.getId());
-        assertThat(componentWithUpdatedPricePoint.getPricingScheme()).isEqualTo(catalogPricePoint.getPricingScheme());
+        assertThat(componentWithUpdatedPricePoint.getPricingScheme().match(p -> p).value())
+                .isEqualTo(catalogPricePoint.getPricingScheme().value());
         assertThat(componentWithUpdatedPricePoint.getPrices()).usingRecursiveComparison()
                 .isEqualTo(catalogPricePoint.getPrices());
         assertThat(componentWithUpdatedPricePoint.getDefaultPricePointName()).isEqualTo(catalogPricePoint.getName());
@@ -79,7 +81,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
         CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
                 .name("New price point")
                 .handle("new-price-point-" + randomNumeric(5))
-                .pricingScheme("stairstep")
+                .pricingScheme(PricingScheme.STAIRSTEP)
                 .prices(
                         List.of(
                                 new Price.Builder()

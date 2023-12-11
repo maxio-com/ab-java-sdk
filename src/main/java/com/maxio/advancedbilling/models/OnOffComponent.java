@@ -23,7 +23,6 @@ public class OnOffComponent {
     private String description;
     private String handle;
     private Boolean taxable;
-    private PricingScheme pricingScheme;
     private List<Price> prices;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
@@ -45,7 +44,6 @@ public class OnOffComponent {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  unitName  String value for unitName.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
@@ -64,7 +62,6 @@ public class OnOffComponent {
      */
     public OnOffComponent(
             String name,
-            PricingScheme pricingScheme,
             String unitName,
             String description,
             String handle,
@@ -85,7 +82,6 @@ public class OnOffComponent {
         this.description = description;
         this.handle = handle;
         this.taxable = taxable;
-        this.pricingScheme = pricingScheme;
         this.prices = prices;
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
@@ -102,7 +98,6 @@ public class OnOffComponent {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  unitName  String value for unitName.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
@@ -120,9 +115,8 @@ public class OnOffComponent {
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
      */
 
-    protected OnOffComponent(String name, PricingScheme pricingScheme, String unitName,
-            String description, String handle, Boolean taxable, List<Price> prices,
-            OptionalNullable<CreditType> upgradeCharge,
+    protected OnOffComponent(String name, String unitName, String description, String handle,
+            Boolean taxable, List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             OnOffComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
             String priceInCents, Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
@@ -132,7 +126,6 @@ public class OnOffComponent {
         this.description = description;
         this.handle = handle;
         this.taxable = taxable;
-        this.pricingScheme = pricingScheme;
         this.prices = prices;
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
@@ -258,30 +251,6 @@ public class OnOffComponent {
     @JsonSetter("taxable")
     public void setTaxable(Boolean taxable) {
         this.taxable = taxable;
-    }
-
-    /**
-     * Getter for PricingScheme.
-     * The identifier for the pricing scheme. See [Product
-     * Components](https://help.chargify.com/products/product-components.html) for an overview of
-     * pricing schemes.
-     * @return Returns the PricingScheme
-     */
-    @JsonGetter("pricing_scheme")
-    public PricingScheme getPricingScheme() {
-        return pricingScheme;
-    }
-
-    /**
-     * Setter for PricingScheme.
-     * The identifier for the pricing scheme. See [Product
-     * Components](https://help.chargify.com/products/product-components.html) for an overview of
-     * pricing schemes.
-     * @param pricingScheme Value for PricingScheme
-     */
-    @JsonSetter("pricing_scheme")
-    public void setPricingScheme(PricingScheme pricingScheme) {
-        this.pricingScheme = pricingScheme;
     }
 
     /**
@@ -573,14 +542,14 @@ public class OnOffComponent {
      */
     @Override
     public String toString() {
-        return "OnOffComponent [" + "name=" + name + ", pricingScheme=" + pricingScheme
-                + ", unitName=" + unitName + ", description=" + description + ", handle=" + handle
-                + ", taxable=" + taxable + ", prices=" + prices + ", upgradeCharge=" + upgradeCharge
-                + ", downgradeCredit=" + downgradeCredit + ", pricePoints=" + pricePoints
-                + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice="
-                + hideDateRangeOnInvoice + ", priceInCents=" + priceInCents
-                + ", displayOnHostedPage=" + displayOnHostedPage + ", allowFractionalQuantities="
-                + allowFractionalQuantities + ", publicSignupPageIds=" + publicSignupPageIds + "]";
+        return "OnOffComponent [" + "name=" + name + ", unitName=" + unitName + ", description="
+                + description + ", handle=" + handle + ", taxable=" + taxable + ", prices=" + prices
+                + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit=" + downgradeCredit
+                + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice + ", taxCode="
+                + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", priceInCents="
+                + priceInCents + ", displayOnHostedPage=" + displayOnHostedPage
+                + ", allowFractionalQuantities=" + allowFractionalQuantities
+                + ", publicSignupPageIds=" + publicSignupPageIds + "]";
     }
 
     /**
@@ -589,7 +558,7 @@ public class OnOffComponent {
      * @return a new {@link OnOffComponent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name, pricingScheme)
+        Builder builder = new Builder(name)
                 .unitName(getUnitName())
                 .description(getDescription())
                 .handle(getHandle())
@@ -613,7 +582,6 @@ public class OnOffComponent {
      */
     public static class Builder {
         private String name;
-        private PricingScheme pricingScheme;
         private String unitName;
         private String description;
         private String handle;
@@ -639,11 +607,9 @@ public class OnOffComponent {
         /**
          * Initialization constructor.
          * @param  name  String value for name.
-         * @param  pricingScheme  PricingScheme value for pricingScheme.
          */
-        public Builder(String name, PricingScheme pricingScheme) {
+        public Builder(String name) {
             this.name = name;
-            this.pricingScheme = pricingScheme;
         }
 
         /**
@@ -653,16 +619,6 @@ public class OnOffComponent {
          */
         public Builder name(String name) {
             this.name = name;
-            return this;
-        }
-
-        /**
-         * Setter for pricingScheme.
-         * @param  pricingScheme  PricingScheme value for pricingScheme.
-         * @return Builder
-         */
-        public Builder pricingScheme(PricingScheme pricingScheme) {
-            this.pricingScheme = pricingScheme;
             return this;
         }
 
@@ -839,8 +795,8 @@ public class OnOffComponent {
          * @return {@link OnOffComponent}
          */
         public OnOffComponent build() {
-            return new OnOffComponent(name, pricingScheme, unitName, description, handle, taxable,
-                    prices, upgradeCharge, downgradeCredit, pricePoints, unitPrice, taxCode,
+            return new OnOffComponent(name, unitName, description, handle, taxable, prices,
+                    upgradeCharge, downgradeCredit, pricePoints, unitPrice, taxCode,
                     hideDateRangeOnInvoice, priceInCents, displayOnHostedPage,
                     allowFractionalQuantities, publicSignupPageIds);
         }

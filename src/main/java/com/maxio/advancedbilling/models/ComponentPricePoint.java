@@ -21,7 +21,7 @@ public class ComponentPricePoint {
     private PricePointType type;
     private Boolean mDefault;
     private String name;
-    private String pricingScheme;
+    private PricingScheme pricingScheme;
     private Integer componentId;
     private String handle;
     private OptionalNullable<String> archivedAt;
@@ -45,7 +45,7 @@ public class ComponentPricePoint {
      * @param  type  PricePointType value for type.
      * @param  mDefault  Boolean value for mDefault.
      * @param  name  String value for name.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  handle  String value for handle.
      * @param  archivedAt  String value for archivedAt.
@@ -61,7 +61,7 @@ public class ComponentPricePoint {
             PricePointType type,
             Boolean mDefault,
             String name,
-            String pricingScheme,
+            PricingScheme pricingScheme,
             Integer componentId,
             String handle,
             String archivedAt,
@@ -93,7 +93,7 @@ public class ComponentPricePoint {
      * @param  type  PricePointType value for type.
      * @param  mDefault  Boolean value for mDefault.
      * @param  name  String value for name.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  handle  String value for handle.
      * @param  archivedAt  String value for archivedAt.
@@ -106,7 +106,7 @@ public class ComponentPricePoint {
      */
 
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
-            String pricingScheme, Integer componentId, String handle,
+            PricingScheme pricingScheme, Integer componentId, String handle,
             OptionalNullable<String> archivedAt, String createdAt, String updatedAt,
             List<ComponentPricePointPrice> prices, Boolean useSiteExchangeRate,
             Integer subscriptionId, Boolean taxIncluded) {
@@ -214,20 +214,26 @@ public class ComponentPricePoint {
 
     /**
      * Getter for PricingScheme.
-     * @return Returns the String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
     /**
      * Setter for PricingScheme.
-     * @param pricingScheme Value for String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(String pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -472,7 +478,7 @@ public class ComponentPricePoint {
         private PricePointType type;
         private Boolean mDefault;
         private String name;
-        private String pricingScheme;
+        private PricingScheme pricingScheme;
         private Integer componentId;
         private String handle;
         private OptionalNullable<String> archivedAt;
@@ -527,10 +533,10 @@ public class ComponentPricePoint {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(String pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }

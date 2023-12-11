@@ -753,7 +753,8 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscriptionComponent1.getKind()).isEqualTo(component1.getKind().toString());
         assertThat(subscriptionComponent1.getName()).isEqualTo(component1.getName());
         assertThat(subscriptionComponent1.getUnitName()).isEqualTo(component1.getUnitName());
-        assertThat(subscriptionComponent1.getPricingScheme()).isEqualTo(component1.getPricingScheme());
+        assertThat(subscriptionComponent1.getPricingScheme().match(p -> p).value())
+                .isEqualTo(component1.getPricingScheme().match(p -> p).value());
         assertThat(subscriptionComponent1.getComponentHandle()).isEqualTo(component1.getHandle());
         assertThat(subscriptionComponent1.getSubscriptionId()).isEqualTo(subscription.getId());
         assertThat(subscriptionComponent1.getRecurring()).isFalse();

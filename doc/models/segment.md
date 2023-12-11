@@ -13,7 +13,7 @@
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
 | `EventBasedBillingMetricId` | `Integer` | Optional | - | Integer getEventBasedBillingMetricId() | setEventBasedBillingMetricId(Integer eventBasedBillingMetricId) |
-| `PricingScheme` | `String` | Optional | - | String getPricingScheme() | setPricingScheme(String pricingScheme) |
+| `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `SegmentProperty1Value` | [`SegmentSegmentProperty1Value`](../../doc/models/containers/segment-segment-property-1-value.md) | Optional | This is a container for one-of cases. | SegmentSegmentProperty1Value getSegmentProperty1Value() | setSegmentProperty1Value(SegmentSegmentProperty1Value segmentProperty1Value) |
 | `SegmentProperty2Value` | [`SegmentSegmentProperty2Value`](../../doc/models/containers/segment-segment-property-2-value.md) | Optional | This is a container for one-of cases. | SegmentSegmentProperty2Value getSegmentProperty2Value() | setSegmentProperty2Value(SegmentSegmentProperty2Value segmentProperty2Value) |
 | `SegmentProperty3Value` | [`SegmentSegmentProperty3Value`](../../doc/models/containers/segment-segment-property-3-value.md) | Optional | This is a container for one-of cases. | SegmentSegmentProperty3Value getSegmentProperty3Value() | setSegmentProperty3Value(SegmentSegmentProperty3Value segmentProperty3Value) |
@@ -30,7 +30,7 @@
   "component_id": 116,
   "price_point_id": 140,
   "event_based_billing_metric_id": 200,
-  "pricing_scheme": "pricing_scheme0"
+  "pricing_scheme": "stairstep"
 }
 ```
 

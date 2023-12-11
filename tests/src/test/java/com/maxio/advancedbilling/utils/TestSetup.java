@@ -5,7 +5,10 @@ import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKindPath;
+import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.Coupon;
+import com.maxio.advancedbilling.models.CreateComponentPricePoint;
+import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.CreateMeteredComponent;
@@ -19,18 +22,24 @@ import com.maxio.advancedbilling.models.CreateQuantityBasedComponent;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.MeteredComponent;
+import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
 import com.maxio.advancedbilling.models.containers.CreateComponentBody;
+import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
+import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
@@ -145,4 +154,32 @@ public class TestSetup {
                         .build())
                 .getCoupon();
     }
+
+    public ComponentPricePoint createPricePointForComponent(int componentId, double unitPrice) throws IOException, ApiException {
+        String name = "Price Point " + randomNumeric(5);
+        String handle = name.toLowerCase().replace(" ", "-");
+        CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
+                .name(name)
+                .handle(handle)
+                .pricingScheme(PricingScheme.PER_UNIT)
+                .prices(
+                        List.of(
+                                new Price.Builder()
+                                        .unitPrice(PriceUnitPrice.fromPrecision(unitPrice))
+                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
+                                        .build()
+                        )
+                )
+                .build();
+
+        return advancedBillingClient.getComponentsController()
+                .createComponentPricePoint(componentId,
+                        new CreateComponentPricePointRequest(
+                                CreateComponentPricePointRequestPricePoint
+                                        .fromCreateComponentPricePoint(
+                                                createComponentPricePoint
+                                        )
+                        )).getPricePoint();
+    }
+
 }

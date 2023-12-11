@@ -163,7 +163,7 @@ try {
       "component_id": 0,
       "subscription_id": 0,
       "allocated_quantity": 0,
-      "pricing_scheme": "string",
+      "pricing_scheme": "per_unit",
       "name": "string",
       "kind": "string",
       "unit_name": "string",

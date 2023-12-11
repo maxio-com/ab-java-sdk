@@ -21,6 +21,8 @@
 | `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
 | `ComponentName` | `String` | Optional | - | String getComponentName() | setComponentName(String componentName) |
 | `ProductHandle` | `String` | Optional | - | String getProductHandle() | setProductHandle(String productHandle) |
+| `PeriodRangeStart` | `String` | Optional | - | String getPeriodRangeStart() | setPeriodRangeStart(String periodRangeStart) |
+| `PeriodRangeEnd` | `String` | Optional | - | String getPeriodRangeEnd() | setPeriodRangeEnd(String periodRangeEnd) |
 
 ## Example (as JSON)
 

@@ -19,7 +19,7 @@ import java.util.List;
 public class CreatePrepaidUsageComponentPricePoint {
     private String name;
     private String handle;
-    private String pricingScheme;
+    private PricingScheme pricingScheme;
     private List<Price> prices;
     private OveragePricing overagePricing;
     private Boolean useSiteExchangeRate;
@@ -38,7 +38,7 @@ public class CreatePrepaidUsageComponentPricePoint {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  overagePricing  OveragePricing value for overagePricing.
      * @param  handle  String value for handle.
@@ -50,7 +50,7 @@ public class CreatePrepaidUsageComponentPricePoint {
      */
     public CreatePrepaidUsageComponentPricePoint(
             String name,
-            String pricingScheme,
+            PricingScheme pricingScheme,
             List<Price> prices,
             OveragePricing overagePricing,
             String handle,
@@ -74,14 +74,14 @@ public class CreatePrepaidUsageComponentPricePoint {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  pricingScheme  String value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  overagePricing  OveragePricing value for overagePricing.
      */
     @JsonCreator
     protected CreatePrepaidUsageComponentPricePoint(
             @JsonProperty("name") String name,
-            @JsonProperty("pricing_scheme") String pricingScheme,
+            @JsonProperty("pricing_scheme") PricingScheme pricingScheme,
             @JsonProperty("prices") List<Price> prices,
             @JsonProperty("overage_pricing") OveragePricing overagePricing) {
         this(name, pricingScheme, prices, overagePricing, null, null, null, null, null, null);
@@ -126,19 +126,25 @@ public class CreatePrepaidUsageComponentPricePoint {
 
     /**
      * Getter for PricingScheme.
-     * @return Returns the String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    public String getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
 
     /**
      * Setter for PricingScheme.
-     * @param pricingScheme Value for String
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(String pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = pricingScheme;
     }
 
@@ -324,7 +330,7 @@ public class CreatePrepaidUsageComponentPricePoint {
      */
     public static class Builder {
         private String name;
-        private String pricingScheme;
+        private PricingScheme pricingScheme;
         private List<Price> prices;
         private OveragePricing overagePricing;
         private String handle;
@@ -343,11 +349,11 @@ public class CreatePrepaidUsageComponentPricePoint {
         /**
          * Initialization constructor.
          * @param  name  String value for name.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @param  prices  List of Price value for prices.
          * @param  overagePricing  OveragePricing value for overagePricing.
          */
-        public Builder(String name, String pricingScheme, List<Price> prices,
+        public Builder(String name, PricingScheme pricingScheme, List<Price> prices,
                 OveragePricing overagePricing) {
             this.name = name;
             this.pricingScheme = pricingScheme;
@@ -367,10 +373,10 @@ public class CreatePrepaidUsageComponentPricePoint {
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  String value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(String pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = pricingScheme;
             return this;
         }
