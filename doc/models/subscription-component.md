@@ -11,12 +11,12 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
-| `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
+| `Kind` | [`ComponentKind`](../../doc/models/component-kind.md) | Optional | A handle for the component type | ComponentKind getKind() | setKind(ComponentKind kind) |
 | `UnitName` | `String` | Optional | - | String getUnitName() | setUnitName(String unitName) |
 | `Enabled` | `Boolean` | Optional | (for on/off components) indicates if the component is enabled for the subscription | Boolean getEnabled() | setEnabled(Boolean enabled) |
 | `UnitBalance` | `Integer` | Optional | - | Integer getUnitBalance() | setUnitBalance(Integer unitBalance) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
-| `AllocatedQuantity` | `Integer` | Optional | For Quantity-based components: The current allocation for the component on the given subscription. For On/Off components: Use 1 for on. Use 0 for off. | Integer getAllocatedQuantity() | setAllocatedQuantity(Integer allocatedQuantity) |
+| `AllocatedQuantity` | [`SubscriptionComponentAllocatedQuantity`](../../doc/models/containers/subscription-component-allocated-quantity.md) | Optional | This is a container for one-of cases. | SubscriptionComponentAllocatedQuantity getAllocatedQuantity() | setAllocatedQuantity(SubscriptionComponentAllocatedQuantity allocatedQuantity) |
 | `PricingScheme` | [`SubscriptionComponentPricingScheme`](../../doc/models/containers/subscription-component-pricing-scheme.md) | Optional | This is a container for one-of cases. | SubscriptionComponentPricingScheme getPricingScheme() | setPricingScheme(SubscriptionComponentPricingScheme pricingScheme) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
@@ -31,8 +31,8 @@
 | `PricePointName` | `String` | Optional | - | String getPricePointName() | setPricePointName(String pricePointName) |
 | `ProductFamilyId` | `Integer` | Optional | - | Integer getProductFamilyId() | setProductFamilyId(Integer productFamilyId) |
 | `ProductFamilyHandle` | `String` | Optional | - | String getProductFamilyHandle() | setProductFamilyHandle(String productFamilyHandle) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `UpdatedAt` | `String` | Optional | - | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `UseSiteExchangeRate` | `Boolean` | Optional | - | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
 | `AllowFractionalQuantities` | `Boolean` | Optional | - | Boolean getAllowFractionalQuantities() | setAllowFractionalQuantities(Boolean allowFractionalQuantities) |
@@ -45,7 +45,7 @@
 {
   "id": 20,
   "name": "name8",
-  "kind": "kind6",
+  "kind": "quantity_based_component",
   "unit_name": "unit_name0",
   "enabled": false
 }

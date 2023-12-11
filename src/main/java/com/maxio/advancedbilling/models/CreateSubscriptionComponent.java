@@ -9,6 +9,7 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentAllocatedQuantity;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentPricePointId;
 
@@ -19,7 +20,7 @@ public class CreateSubscriptionComponent {
     private CreateSubscriptionComponentComponentId componentId;
     private Boolean enabled;
     private Integer unitBalance;
-    private Integer allocatedQuantity;
+    private CreateSubscriptionComponentAllocatedQuantity allocatedQuantity;
     private Integer quantity;
     private CreateSubscriptionComponentPricePointId pricePointId;
     private ComponentCustomPrice customPrice;
@@ -35,7 +36,8 @@ public class CreateSubscriptionComponent {
      * @param  componentId  CreateSubscriptionComponentComponentId value for componentId.
      * @param  enabled  Boolean value for enabled.
      * @param  unitBalance  Integer value for unitBalance.
-     * @param  allocatedQuantity  Integer value for allocatedQuantity.
+     * @param  allocatedQuantity  CreateSubscriptionComponentAllocatedQuantity value for
+     *         allocatedQuantity.
      * @param  quantity  Integer value for quantity.
      * @param  pricePointId  CreateSubscriptionComponentPricePointId value for pricePointId.
      * @param  customPrice  ComponentCustomPrice value for customPrice.
@@ -44,7 +46,7 @@ public class CreateSubscriptionComponent {
             CreateSubscriptionComponentComponentId componentId,
             Boolean enabled,
             Integer unitBalance,
-            Integer allocatedQuantity,
+            CreateSubscriptionComponentAllocatedQuantity allocatedQuantity,
             Integer quantity,
             CreateSubscriptionComponentPricePointId pricePointId,
             ComponentCustomPrice customPrice) {
@@ -121,21 +123,21 @@ public class CreateSubscriptionComponent {
     /**
      * Getter for AllocatedQuantity.
      * Used for quantity based components.
-     * @return Returns the Integer
+     * @return Returns the CreateSubscriptionComponentAllocatedQuantity
      */
     @JsonGetter("allocated_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getAllocatedQuantity() {
+    public CreateSubscriptionComponentAllocatedQuantity getAllocatedQuantity() {
         return allocatedQuantity;
     }
 
     /**
      * Setter for AllocatedQuantity.
      * Used for quantity based components.
-     * @param allocatedQuantity Value for Integer
+     * @param allocatedQuantity Value for CreateSubscriptionComponentAllocatedQuantity
      */
     @JsonSetter("allocated_quantity")
-    public void setAllocatedQuantity(Integer allocatedQuantity) {
+    public void setAllocatedQuantity(CreateSubscriptionComponentAllocatedQuantity allocatedQuantity) {
         this.allocatedQuantity = allocatedQuantity;
     }
 
@@ -238,7 +240,7 @@ public class CreateSubscriptionComponent {
         private CreateSubscriptionComponentComponentId componentId;
         private Boolean enabled;
         private Integer unitBalance;
-        private Integer allocatedQuantity;
+        private CreateSubscriptionComponentAllocatedQuantity allocatedQuantity;
         private Integer quantity;
         private CreateSubscriptionComponentPricePointId pricePointId;
         private ComponentCustomPrice customPrice;
@@ -277,10 +279,12 @@ public class CreateSubscriptionComponent {
 
         /**
          * Setter for allocatedQuantity.
-         * @param  allocatedQuantity  Integer value for allocatedQuantity.
+         * @param  allocatedQuantity  CreateSubscriptionComponentAllocatedQuantity value for
+         *         allocatedQuantity.
          * @return Builder
          */
-        public Builder allocatedQuantity(Integer allocatedQuantity) {
+        public Builder allocatedQuantity(
+                CreateSubscriptionComponentAllocatedQuantity allocatedQuantity) {
             this.allocatedQuantity = allocatedQuantity;
             return this;
         }
