@@ -1,16 +1,17 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
+import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.models.CancellationOptions;
-import com.maxio.advancedbilling.models.CancellationRequest;
 import com.maxio.advancedbilling.models.Component;
-import com.maxio.advancedbilling.models.ReactivateSubscriptionRequest;
-import com.maxio.advancedbilling.models.ReactivationBilling;
-import com.maxio.advancedbilling.models.ReactivationCharge;
+import com.maxio.advancedbilling.models.ComponentPricePoint;
+import com.maxio.advancedbilling.models.RenewalPreview;
 import com.maxio.advancedbilling.models.RenewalPreviewComponent;
+import com.maxio.advancedbilling.models.RenewalPreviewLineItem;
 import com.maxio.advancedbilling.models.RenewalPreviewRequest;
 import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.models.containers.ReactivateSubscriptionRequestResume;
+import com.maxio.advancedbilling.models.containers.RenewalPreviewComponentComponentId;
+import com.maxio.advancedbilling.models.containers.RenewalPreviewComponentPricePointId;
+import com.maxio.advancedbilling.utils.TestSetup;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubscriptionStatusControllerPreviewRenewalTest extends SubscriptionStatusControllerTestBase {
@@ -26,44 +28,132 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
     void shouldPreviewRenewal() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();
-        subscriptionStatusController.cancelSubscription(subscription.getId(), new CancellationRequest(
-                new CancellationOptions()
-        ));
-        Component component =
+
+        TestSetup testSetup = new TestSetup();
+        Component component1 = testSetup.createQuantityBasedComponent(productFamilyId);
+        Component component2 = testSetup.createQuantityBasedComponent(productFamilyId);
+        ComponentPricePoint component2CatalogPricePoint = testSetup
+                .createPricePointForComponent(component2.getId(), 5.0);
+
+        Component component3 = testSetup.createQuantityBasedComponent(productFamilyId);
+        ComponentPricePoint component3CatalogPricePoint = testSetup
+                .createPricePointForComponent(component3.getId(), 8.0);
 
         // when
-        subscriptionStatusController.previewRenewal(subscription.getId(),
+        RenewalPreview renewalPreview = subscriptionStatusController.previewRenewal(subscription.getId(),
                 new RenewalPreviewRequest(
                         List.of(
                                 new RenewalPreviewComponent(
-                                        123,
+                                        RenewalPreviewComponentComponentId.fromNumber(component1.getId()),
                                         10000,
+                                        null
+                                ),
+                                new RenewalPreviewComponent(
+                                        RenewalPreviewComponentComponentId.fromString("handle:" + component2.getHandle()),
+                                        10000,
+                                        RenewalPreviewComponentPricePointId.fromNumber(component2CatalogPricePoint.getId())
+                                ),
+                                new RenewalPreviewComponent(
+                                        RenewalPreviewComponentComponentId.fromNumber(component3.getId()),
+                                        100,
+                                        RenewalPreviewComponentPricePointId.fromString("handle:" + component3CatalogPricePoint.getHandle())
                                 )
                         )
-                ))
+                )).getRenewalPreview();
+        long expectedProductPrice = product.getPriceInCents();
+        long expectedComponent1Price = 10000 * 100;
+        long expectedComponent2Price = 5 * 10000 * 100;
+        long expectedComponent3Price = 8 * 100 * 100;
+        long expectedTotalPrice = expectedProductPrice + expectedComponent1Price + expectedComponent2Price + expectedComponent3Price;
 
         // then
-        assertThat(reactivatedSubscription).usingRecursiveComparison()
-                .ignoringFields("updatedAt")
-                .isEqualTo(subscription);
+        assertThat(renewalPreview.getNextAssessmentAt()).isNotNull();
+        assertThat(renewalPreview.getTotalTaxInCents()).isZero();
+        assertThat(renewalPreview.getTotalDiscountInCents()).isZero();
+        assertThat(renewalPreview.getExistingBalanceInCents()).isZero();
+        assertThat(renewalPreview.getTotalInCents()).isEqualTo(expectedTotalPrice);
+        assertThat(renewalPreview.getTotalAmountDueInCents()).isEqualTo(expectedTotalPrice);
+        assertThat(renewalPreview.getSubtotalInCents()).isEqualTo(expectedTotalPrice);
+        assertThat(renewalPreview.getUncalculatedTaxes()).isFalse();
+        assertThat(renewalPreview.getLineItems()).usingRecursiveFieldByFieldElementComparatorIgnoringFields("memo")
+                .containsExactlyInAnyOrder(
+                        new RenewalPreviewLineItem.Builder()
+                                .transactionType("charge")
+                                .kind("baseline")
+                                .amountInCents(product.getPriceInCents())
+                                .discountAmountInCents(0L)
+                                .taxableAmountInCents(0L)
+                                .productId(product.getId())
+                                .productName(product.getName())
+                                .productHandle(product.getHandle())
+                                .build(),
+                        new RenewalPreviewLineItem.Builder()
+                                .transactionType("charge")
+                                .kind("quantity_based_component")
+                                .amountInCents(expectedComponent1Price)
+                                .discountAmountInCents(0L)
+                                .taxableAmountInCents(0L)
+                                .componentId(component1.getId())
+                                .componentName(component1.getName())
+                                .componentHandle(component1.getHandle())
+                                .build(),
+                        new RenewalPreviewLineItem.Builder()
+                                .transactionType("charge")
+                                .kind("quantity_based_component")
+                                .amountInCents(expectedComponent2Price)
+                                .discountAmountInCents(0L)
+                                .taxableAmountInCents(0L)
+                                .componentId(component2.getId())
+                                .componentName(component2.getName())
+                                .componentHandle(component2.getHandle())
+                                .build(),
+                        new RenewalPreviewLineItem.Builder()
+                                .transactionType("charge")
+                                .kind("quantity_based_component")
+                                .amountInCents(expectedComponent3Price)
+                                .discountAmountInCents(0L)
+                                .taxableAmountInCents(0L)
+                                .componentId(component3.getId())
+                                .componentName(component3.getName())
+                                .componentHandle(component3.getHandle())
+                                .build()
+                );
     }
 
     @Test
-    void shouldNotReactivateActiveSubscription() throws IOException, ApiException {
+    void shouldNotPreviewRenewalForNonExistentSubscription() {
+        assertNotFound(() -> subscriptionStatusController.previewRenewal(5, new RenewalPreviewRequest()));
+    }
+
+    @Test
+    void shouldNotPreviewRenewalWhenComponentDoesNotExist() throws IOException, ApiException {
+        // given
+        Subscription subscription = createSubscription();
+        RenewalPreviewRequest request = new RenewalPreviewRequest(
+                List.of(
+                        new RenewalPreviewComponent(
+                                RenewalPreviewComponentComponentId.fromNumber(12),
+                                10000,
+                                null
+                        )
+                ));
+
+        // when-then
+        assertThatErrorListResponse(() -> subscriptionStatusController.previewRenewal(subscription.getId(), request))
+                .hasErrorCode(422)
+                .hasUnprocessableEntityMessage()
+                .hasErrors("Couldn't find Component by 12");
+    }
+
+    @Test
+    void shouldNotPreviewRenewalWhenProvidingInvalidCredentials() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();
 
         // when-then
-        assertThatErrorListResponse(() -> subscriptionStatusController.reactivateSubscription(subscription.getId(),
-                new ReactivateSubscriptionRequest()))
-                .hasErrorCode(422)
-                .hasUnprocessableEntityMessage()
-                .hasErrors("Cannot reactivate a subscription that is not marked \"Canceled\", \"Unpaid\", or \"Trial Ended\".");
-    }
-
-    @Test
-    void shouldNotReactivateNonExistentSubscription() {
-        assertNotFound(() -> subscriptionStatusController.reactivateSubscription(5, new ReactivateSubscriptionRequest()));
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionStatusController()
+                .previewRenewal(subscription.getId(),
+                        new RenewalPreviewRequest()));
     }
 
 }

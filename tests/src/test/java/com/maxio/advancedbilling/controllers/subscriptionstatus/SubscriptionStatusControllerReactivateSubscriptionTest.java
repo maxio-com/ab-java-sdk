@@ -1,5 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
+import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CancellationOptions;
 import com.maxio.advancedbilling.models.CancellationRequest;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubscriptionStatusControllerReactivateSubscriptionTest extends SubscriptionStatusControllerTestBase {
@@ -60,6 +62,17 @@ public class SubscriptionStatusControllerReactivateSubscriptionTest extends Subs
     @Test
     void shouldNotReactivateNonExistentSubscription() {
         assertNotFound(() -> subscriptionStatusController.reactivateSubscription(5, new ReactivateSubscriptionRequest()));
+    }
+
+    @Test
+    void shouldNotReactivateSubscriptionWhenProvidingInvalidCredentials() throws IOException, ApiException {
+        // given
+        Subscription subscription = createSubscription();
+
+        // when-then
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionStatusController()
+                .reactivateSubscription(subscription.getId(),
+                        new ReactivateSubscriptionRequest()));
     }
 
 }

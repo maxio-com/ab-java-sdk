@@ -15,7 +15,7 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class SubscriptionStatusResumeSubscriptionTest extends SubscriptionStatusControllerTestBase {
+public class SubscriptionStatusControllerResumeSubscriptionTest extends SubscriptionStatusControllerTestBase {
 
     @Test
     void shouldResumePausedSubscription() throws IOException, ApiException {

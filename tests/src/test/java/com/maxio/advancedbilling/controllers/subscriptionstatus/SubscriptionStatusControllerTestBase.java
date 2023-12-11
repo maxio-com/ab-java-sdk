@@ -17,6 +17,7 @@ import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.PaymentProfileAttributes;
+import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
@@ -32,8 +33,9 @@ abstract class SubscriptionStatusControllerTestBase {
     protected static final SubscriptionsController subscriptionsController = TestClient.createClient().getSubscriptionsController();
     protected static final SubscriptionStatusController subscriptionStatusController = TestClient.createClient().getSubscriptionStatusController();
 
-
+    protected static int productFamilyId;
     protected static int productId;
+    protected static Product product;
     protected static Customer customer;
     protected static Subscription subscription;
 
@@ -46,8 +48,9 @@ abstract class SubscriptionStatusControllerTestBase {
         ProductFamily productFamily = productFamiliesController.createProductFamily(new CreateProductFamilyRequest(
                         new CreateProductFamily("Test Product Family " + seed, null)))
                 .getProductFamily();
+        productFamilyId = productFamily.getId();
 
-        productId = productsController
+        product = productsController
                 .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
                         new CreateOrUpdateProduct.Builder()
                                 .name("Initial Sample product-" + RandomStringUtils.randomAlphanumeric(5))
@@ -57,7 +60,8 @@ abstract class SubscriptionStatusControllerTestBase {
                                 .intervalUnit(IntervalUnit.MONTH)
                                 .build()
                 ))
-                .getProduct().getId();
+                .getProduct();
+        productId = product.getId();
 
         customer = TestClient.createClient().getCustomersController()
                 .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
