@@ -750,7 +750,7 @@ public class SubscriptionsControllerCreateTest {
     private void assertSubscriptionComponent(Component component1, SubscriptionComponent subscriptionComponent1, Subscription subscription) {
         assertThat(subscriptionComponent1.getId()).isNotNull().isGreaterThan(1);
         assertThat(subscriptionComponent1.getName()).isEqualTo(component1.getName());
-        assertThat(subscriptionComponent1.getKind()).isEqualTo(component1.getKind().toString());
+        assertThat(subscriptionComponent1.getKind()).isEqualTo(component1.getKind());
         assertThat(subscriptionComponent1.getName()).isEqualTo(component1.getName());
         assertThat(subscriptionComponent1.getUnitName()).isEqualTo(component1.getUnitName());
         assertThat(subscriptionComponent1.getPricingScheme().match(p -> p).value())
