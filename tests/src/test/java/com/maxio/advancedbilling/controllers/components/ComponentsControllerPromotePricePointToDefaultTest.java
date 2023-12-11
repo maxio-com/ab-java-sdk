@@ -43,7 +43,8 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
                         "defaultPricePointName", "pricePointCount", "unitPrice")
                 .isEqualTo(component);
         assertThat(componentWithUpdatedPricePoint.getDefaultPricePointId()).isEqualTo(catalogPricePoint.getId());
-        assertThat(componentWithUpdatedPricePoint.getPricingScheme()).isEqualTo(catalogPricePoint.getPricingScheme());
+        assertThat(componentWithUpdatedPricePoint.getPricingScheme().match(p -> p).value())
+                .isEqualTo(catalogPricePoint.getPricingScheme().value());
         assertThat(componentWithUpdatedPricePoint.getPrices()).usingRecursiveComparison()
                 .isEqualTo(catalogPricePoint.getPrices());
         assertThat(componentWithUpdatedPricePoint.getDefaultPricePointName()).isEqualTo(catalogPricePoint.getName());

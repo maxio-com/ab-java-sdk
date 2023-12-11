@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.maxio.advancedbilling.models.SubscriptionState.CANCELED;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
@@ -42,8 +43,9 @@ public class SubscriptionStatusControllerReactivateSubscriptionTest extends Subs
 
         // then
         assertThat(reactivatedSubscription).usingRecursiveComparison()
-                .ignoringFields("updatedAt")
+                .ignoringFields("updatedAt", "cancelAtEndOfPeriod", "previousState", "productPricePointType")
                 .isEqualTo(subscription);
+        assertThat(reactivatedSubscription.getPreviousState()).isEqualTo(CANCELED);
     }
 
     @Test
@@ -56,7 +58,7 @@ public class SubscriptionStatusControllerReactivateSubscriptionTest extends Subs
                 new ReactivateSubscriptionRequest()))
                 .hasErrorCode(422)
                 .hasUnprocessableEntityMessage()
-                .hasErrors("Cannot reactivate a subscription that is not marked \"Canceled\", \"Unpaid\", or \"Trial Ended\".");
+                .hasErrors("Cannot reactivate a subscription that is not marked \"Canceled\" or \"Trial Ended\".");
     }
 
     @Test
