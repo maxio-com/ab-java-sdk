@@ -388,7 +388,11 @@ public class SubscriptionsControllerListTest {
                 .hasSize(2)
                 .extracting(SubscriptionResponse::getSubscription)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields(IGNORED_FIELDS)
-                .containsExactlyElementsOf(ALL_SUBSCRIPTIONS.subList(ALL_SUBSCRIPTIONS.size() - 2, ALL_SUBSCRIPTIONS.size()).reversed());
+                .containsExactlyElementsOf(
+                        List.of(
+                                ALL_SUBSCRIPTIONS.get(ALL_SUBSCRIPTIONS.size() - 1),
+                                ALL_SUBSCRIPTIONS.get(ALL_SUBSCRIPTIONS.size() - 2)
+                        ));
     }
 
     @ParameterizedTest
