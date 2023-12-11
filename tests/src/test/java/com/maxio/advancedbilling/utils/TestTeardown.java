@@ -36,6 +36,7 @@ public class TestTeardown {
     }
 
     public void deleteSubscriptions() throws IOException, ApiException {
+        LOGGER.info("Deleting all subscriptions");
         List<SubscriptionResponse> subscriptions = advancedBillingClient.getSubscriptionsController()
                 .listSubscriptions(new ListSubscriptionsInput());
 
