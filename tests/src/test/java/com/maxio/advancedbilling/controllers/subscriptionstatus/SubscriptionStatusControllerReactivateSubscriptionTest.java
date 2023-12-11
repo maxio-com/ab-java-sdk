@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SubscriptionStatusControllerReactivateSubscriptionTest extends SubscriptionStatusControllerTestBase {
 
     @Test
-    void shouldRetryFailedSubscription() throws IOException, ApiException {
+    void shouldReactivateSubscription() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();
         subscriptionStatusController.cancelSubscription(subscription.getId(), new CancellationRequest(

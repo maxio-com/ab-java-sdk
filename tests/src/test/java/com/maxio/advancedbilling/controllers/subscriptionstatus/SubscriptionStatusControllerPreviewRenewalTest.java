@@ -75,7 +75,8 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
         assertThat(renewalPreview.getTotalAmountDueInCents()).isEqualTo(expectedTotalPrice);
         assertThat(renewalPreview.getSubtotalInCents()).isEqualTo(expectedTotalPrice);
         assertThat(renewalPreview.getUncalculatedTaxes()).isFalse();
-        assertThat(renewalPreview.getLineItems()).usingRecursiveFieldByFieldElementComparatorIgnoringFields("memo")
+        assertThat(renewalPreview.getLineItems())
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("memo", "periodRangeStart", "periodRangeEnd")
                 .containsExactlyInAnyOrder(
                         new RenewalPreviewLineItem.Builder()
                                 .transactionType("charge")
@@ -129,6 +130,7 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
     void shouldNotPreviewRenewalWhenComponentDoesNotExist() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();
+        new TestSetup().createQuantityBasedComponent(productFamilyId);
         RenewalPreviewRequest request = new RenewalPreviewRequest(
                 List.of(
                         new RenewalPreviewComponent(

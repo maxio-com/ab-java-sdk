@@ -161,7 +161,7 @@ public class TestSetup {
         CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
                 .name(name)
                 .handle(handle)
-                .pricingScheme("per_unit")
+                .pricingScheme(PricingScheme.PER_UNIT)
                 .prices(
                         List.of(
                                 new Price.Builder()
