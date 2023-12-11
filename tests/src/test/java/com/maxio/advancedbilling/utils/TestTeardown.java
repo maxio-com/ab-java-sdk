@@ -38,14 +38,21 @@ public class TestTeardown {
     public void deleteSubscriptions() throws IOException, ApiException {
         LOGGER.info("Deleting all subscriptions");
         List<SubscriptionResponse> subscriptions = advancedBillingClient.getSubscriptionsController()
-                .listSubscriptions(new ListSubscriptionsInput());
+                .listSubscriptions(new ListSubscriptionsInput.Builder().perPage(200).build());
 
-        for (SubscriptionResponse subscription : subscriptions) {
-            LOGGER.info("Purging subscription: {}", subscription.getSubscription().getId());
-            advancedBillingClient.getSubscriptionsController()
-                    .purgeSubscription(subscription.getSubscription().getId(), subscription.getSubscription().getCustomer().getId(), null);
-            LOGGER.info("Subscription purged successfully: {}", subscription.getSubscription().getId());
+        while (!subscriptions.isEmpty()) {
+            LOGGER.info("Subscription batch: {}", subscriptions.size());
+            for (SubscriptionResponse subscription : subscriptions) {
+                LOGGER.info("Purging subscription: {}", subscription.getSubscription().getId());
+                advancedBillingClient.getSubscriptionsController()
+                        .purgeSubscription(subscription.getSubscription().getId(), subscription.getSubscription().getCustomer().getId(), null);
+                LOGGER.info("Subscription purged successfully: {}", subscription.getSubscription().getId());
+            }
+
+            subscriptions = advancedBillingClient.getSubscriptionsController()
+                    .listSubscriptions(new ListSubscriptionsInput.Builder().perPage(200).build());
         }
+
     }
 
     public void archiveComponents() throws IOException, ApiException {
