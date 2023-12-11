@@ -3,6 +3,7 @@ package com.maxio.advancedbilling.utils;
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKindPath;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
@@ -18,21 +19,30 @@ import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.CreateProductFamily;
 import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
+import com.maxio.advancedbilling.models.CreateProductPricePoint;
+import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
 import com.maxio.advancedbilling.models.CreateQuantityBasedComponent;
+import com.maxio.advancedbilling.models.CreateSubscription;
+import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.MeteredComponent;
+import com.maxio.advancedbilling.models.PaymentProfileAttributes;
 import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
+import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
+import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateComponentBody;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
+import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
-import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
+import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
@@ -40,6 +50,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
+import java.util.function.Consumer;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
@@ -70,6 +82,23 @@ public class TestSetup {
                                         .build()
                         ))
                 .getProduct();
+    }
+
+    public ProductPricePoint createProductPricePoint(Product product, String name) throws IOException, ApiException {
+        String handle = name.toLowerCase().replace(" ", "-");
+        return advancedBillingClient.getProductPricePointsController()
+                .createProductPricePoint(
+                        CreateProductPricePointProductId.fromNumber(product.getId()),
+                        new CreateProductPricePointRequest(
+                                new CreateProductPricePoint.Builder()
+                                        .name(name)
+                                        .handle(handle)
+                                        .priceInCents(new Random().nextInt(1, 100000))
+                                        .interval(1)
+                                        .intervalUnit(IntervalUnit.MONTH)
+                                        .build()
+                        ))
+                .getPricePoint();
     }
 
     public Component createMeteredComponent(ProductFamily productFamily, double unitPrice) throws IOException, ApiException {
@@ -149,6 +178,7 @@ public class TestSetup {
                                         .code("PERCENTAGE_DISCOUNT_" + randomNumeric(5))
                                         .description("Huuuuge percentage discount: " + percentage)
                                         .percentage(CreateOrUpdatePercentageCouponPercentage.fromString(percentage))
+                                        .stackable("true")
                                         .build()
                         ))
                         .build())
@@ -182,4 +212,31 @@ public class TestSetup {
                         )).getPricePoint();
     }
 
+    public Subscription createSubscription(Customer customer, Product product) throws IOException, ApiException {
+        return createSubscription(customer, product, b -> {
+        });
+    }
+
+    public Subscription createSubscription(Customer customer, Product product, Consumer<CreateSubscription.Builder> customizer) throws IOException, ApiException {
+        CreateSubscription.Builder builder = new CreateSubscription.Builder()
+                .productId(product.getId())
+                .customerId(customer.getId())
+                .creditCardAttributes(new PaymentProfileAttributes.Builder()
+                        .billingAddress("My Billing Address")
+                        .billingCity("New York")
+                        .billingCountry("USA")
+                        .billingState("NY")
+                        .billingZip("10001")
+                        .customerId(customer.getId())
+                        .fullNumber("4111 1111 1111 1111")
+                        .cardType(CardType.VISA)
+                        .cvv("123")
+                        .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
+                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                        .build());
+        customizer.accept(builder);
+        return advancedBillingClient.getSubscriptionsController()
+                .createSubscription(new CreateSubscriptionRequest(builder.build()))
+                .getSubscription();
+    }
 }

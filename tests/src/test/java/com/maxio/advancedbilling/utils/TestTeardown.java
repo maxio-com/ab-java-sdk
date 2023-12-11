@@ -6,6 +6,7 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListComponentsInput;
+import com.maxio.advancedbilling.models.ListSubscriptionsInput;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,26 @@ public class TestTeardown {
         LOGGER.info("Deleting customer: {}", customer.getId());
         advancedBillingClient.getCustomersController().deleteCustomer(customer.getId());
         LOGGER.info("Customer deleted: {}", customer.getId());
+    }
+
+    public void deleteSubscriptions() throws IOException, ApiException {
+        LOGGER.info("Deleting all subscriptions");
+        List<SubscriptionResponse> subscriptions = advancedBillingClient.getSubscriptionsController()
+                .listSubscriptions(new ListSubscriptionsInput.Builder().perPage(200).build());
+
+        while (!subscriptions.isEmpty()) {
+            LOGGER.info("Subscription batch: {}", subscriptions.size());
+            for (SubscriptionResponse subscription : subscriptions) {
+                LOGGER.info("Purging subscription: {}", subscription.getSubscription().getId());
+                advancedBillingClient.getSubscriptionsController()
+                        .purgeSubscription(subscription.getSubscription().getId(), subscription.getSubscription().getCustomer().getId(), null);
+                LOGGER.info("Subscription purged successfully: {}", subscription.getSubscription().getId());
+            }
+
+            subscriptions = advancedBillingClient.getSubscriptionsController()
+                    .listSubscriptions(new ListSubscriptionsInput.Builder().perPage(200).build());
+        }
+
     }
 
     public void archiveComponents() throws IOException, ApiException {
