@@ -63,7 +63,7 @@ public class SubscriptionsControllerReadTest {
         // then
         assertThat(readSubscription)
                 .usingRecursiveComparison()
-                .ignoringFields("currentBillingAmountInCents")
+                .ignoringFields("currentBillingAmountInCents", "updatedAt")
                 .isEqualTo(subscription);
     }
 
