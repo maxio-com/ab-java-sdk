@@ -23,6 +23,7 @@ import com.maxio.advancedbilling.models.ListSubscriptionsInput;
 import com.maxio.advancedbilling.models.OverrideSubscriptionRequest;
 import com.maxio.advancedbilling.models.PrepaidConfigurationResponse;
 import com.maxio.advancedbilling.models.SubscriptionInclude;
+import com.maxio.advancedbilling.models.SubscriptionListInclude;
 import com.maxio.advancedbilling.models.SubscriptionPreviewResponse;
 import com.maxio.advancedbilling.models.SubscriptionPurgeType;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
@@ -506,6 +507,8 @@ public final class SubscriptionsController extends BaseController {
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("sort")
                                 .value((input.getSort() != null) ? input.getSort().value() : "signup_date").isRequired(false))
+                        .queryParam(param -> param.key("include[]")
+                                .value(SubscriptionListInclude.toValue(input.getInclude())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
