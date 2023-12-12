@@ -15,6 +15,7 @@ import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.SortingDirection;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionDateField;
+import com.maxio.advancedbilling.models.SubscriptionListInclude;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.SubscriptionSort;
 import com.maxio.advancedbilling.models.SubscriptionStateFilter;
@@ -154,6 +155,26 @@ public class SubscriptionsControllerListTest {
                 .hasSize(7)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields(IGNORED_FIELDS)
                 .containsExactlyInAnyOrderElementsOf(ALL_SUBSCRIPTIONS);
+
+        assertThat(subscriptions)
+                .extracting(SubscriptionResponse::getSubscription)
+                .extracting(Subscription::getSelfServicePageToken)
+                .containsOnlyNulls();
+    }
+
+    @Test
+    void shouldIncludeSelfServicePageToken() throws IOException, ApiException {
+        // when
+        List<SubscriptionResponse> subscriptions = SUBSCRIPTIONS_CONTROLLER
+                .listSubscriptions(new ListSubscriptionsInput.Builder()
+                        .include(List.of(SubscriptionListInclude.SELF_SERVICE_PAGE_TOKEN))
+                        .build());
+
+        // then
+        assertThat(subscriptions)
+                .extracting(SubscriptionResponse::getSubscription)
+                .extracting(Subscription::getSelfServicePageToken)
+                .doesNotContainNull();
     }
 
     @Test

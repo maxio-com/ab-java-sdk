@@ -70,6 +70,7 @@
 | `CreditBalanceInCents` | `Long` | Optional | - | Long getCreditBalanceInCents() | setCreditBalanceInCents(Long creditBalanceInCents) |
 | `PrepaymentBalanceInCents` | `Long` | Optional | - | Long getPrepaymentBalanceInCents() | setPrepaymentBalanceInCents(Long prepaymentBalanceInCents) |
 | `PrepaidConfiguration` | [`PrepaidConfiguration`](../../doc/models/prepaid-configuration.md) | Optional | - | PrepaidConfiguration getPrepaidConfiguration() | setPrepaidConfiguration(PrepaidConfiguration prepaidConfiguration) |
+| `SelfServicePageToken` | `String` | Optional | Returned only for list/read Subscription operation when `include[]=self_service_page_token` parameter is provided. | String getSelfServicePageToken() | setSelfServicePageToken(String selfServicePageToken) |
 
 ## Example (as JSON)
 

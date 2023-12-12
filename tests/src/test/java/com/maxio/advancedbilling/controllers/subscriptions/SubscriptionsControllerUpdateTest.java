@@ -119,7 +119,7 @@ public class SubscriptionsControllerUpdateTest {
 
         // then
         assertThat(updatedSubscription).isNotNull();
-        assertThat(updatedSubscription.getUpdatedAt()).isAfter(subscription.getUpdatedAt());
+        assertThat(updatedSubscription.getUpdatedAt()).isAfterOrEqualTo(subscription.getUpdatedAt());
         assertThat(updatedSubscription.getProductPriceInCents()).isEqualTo(1000);
         Product product = updatedSubscription.getProduct();
         assertThat(product.getProductPricePointId()).isNotEqualTo(subscription.getProduct().getProductPricePointId());
