@@ -885,6 +885,7 @@ List<SubscriptionResponse> listSubscriptions(
 | `metadata` | `Map<String, String>` | Query, Optional | The value of the metadata field specified in the parameter. Use in query `metadata[my-field]=value&metadata[other-field]=another_value`. |
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
 | `sort` | [`SubscriptionSort`](../../doc/models/subscription-sort.md) | Query, Optional | The attribute by which to sort<br>**Default**: `SubscriptionSort.SIGNUP_DATE` |
+| `include` | [`List<SubscriptionListInclude>`](../../doc/models/subscription-list-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=self_service_page_token`. |
 
 ## Response Type
 
@@ -901,7 +902,7 @@ ListSubscriptionsInput listSubscriptionsInput = new ListSubscriptionsInput.Build
     .startDatetime(DateTimeHelper.fromRfc8601DateTime("2022-07-01 09:00:05"))
     .endDatetime(DateTimeHelper.fromRfc8601DateTime("2022-08-01 10:00:05"))
     .sort(SubscriptionSort.SIGNUP_DATE)
-    .build();
+Liquid error: Value cannot be null. (Parameter 'key')    .build();
 
 try {
     List<SubscriptionResponse> result = subscriptionsController.listSubscriptions(listSubscriptionsInput);

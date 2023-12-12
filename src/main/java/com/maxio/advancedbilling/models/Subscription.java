@@ -82,6 +82,7 @@ public class Subscription {
     private Long creditBalanceInCents;
     private Long prepaymentBalanceInCents;
     private PrepaidConfiguration prepaidConfiguration;
+    private String selfServicePageToken;
 
     /**
      * Default constructor.
@@ -155,6 +156,7 @@ public class Subscription {
      * @param  creditBalanceInCents  Long value for creditBalanceInCents.
      * @param  prepaymentBalanceInCents  Long value for prepaymentBalanceInCents.
      * @param  prepaidConfiguration  PrepaidConfiguration value for prepaidConfiguration.
+     * @param  selfServicePageToken  String value for selfServicePageToken.
      */
     public Subscription(
             Integer id,
@@ -217,7 +219,8 @@ public class Subscription {
             ZonedDateTime scheduledCancellationAt,
             Long creditBalanceInCents,
             Long prepaymentBalanceInCents,
-            PrepaidConfiguration prepaidConfiguration) {
+            PrepaidConfiguration prepaidConfiguration,
+            String selfServicePageToken) {
         this.id = id;
         this.state = state;
         this.balanceInCents = balanceInCents;
@@ -280,6 +283,7 @@ public class Subscription {
         this.creditBalanceInCents = creditBalanceInCents;
         this.prepaymentBalanceInCents = prepaymentBalanceInCents;
         this.prepaidConfiguration = prepaidConfiguration;
+        this.selfServicePageToken = selfServicePageToken;
     }
 
     /**
@@ -346,6 +350,7 @@ public class Subscription {
      * @param  creditBalanceInCents  Long value for creditBalanceInCents.
      * @param  prepaymentBalanceInCents  Long value for prepaymentBalanceInCents.
      * @param  prepaidConfiguration  PrepaidConfiguration value for prepaidConfiguration.
+     * @param  selfServicePageToken  String value for selfServicePageToken.
      */
 
     protected Subscription(Integer id, SubscriptionState state, Long balanceInCents,
@@ -380,7 +385,7 @@ public class Subscription {
             OptionalNullable<Boolean> receivesInvoiceEmails, OptionalNullable<String> locale,
             String currency, OptionalNullable<ZonedDateTime> scheduledCancellationAt,
             Long creditBalanceInCents, Long prepaymentBalanceInCents,
-            PrepaidConfiguration prepaidConfiguration) {
+            PrepaidConfiguration prepaidConfiguration, String selfServicePageToken) {
         this.id = id;
         this.state = state;
         this.balanceInCents = balanceInCents;
@@ -442,6 +447,7 @@ public class Subscription {
         this.creditBalanceInCents = creditBalanceInCents;
         this.prepaymentBalanceInCents = prepaymentBalanceInCents;
         this.prepaidConfiguration = prepaidConfiguration;
+        this.selfServicePageToken = selfServicePageToken;
     }
 
     /**
@@ -2426,6 +2432,29 @@ public class Subscription {
     }
 
     /**
+     * Getter for SelfServicePageToken.
+     * Returned only for list/read Subscription operation when `include[]=self_service_page_token`
+     * parameter is provided.
+     * @return Returns the String
+     */
+    @JsonGetter("self_service_page_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getSelfServicePageToken() {
+        return selfServicePageToken;
+    }
+
+    /**
+     * Setter for SelfServicePageToken.
+     * Returned only for list/read Subscription operation when `include[]=self_service_page_token`
+     * parameter is provided.
+     * @param selfServicePageToken Value for String
+     */
+    @JsonSetter("self_service_page_token")
+    public void setSelfServicePageToken(String selfServicePageToken) {
+        this.selfServicePageToken = selfServicePageToken;
+    }
+
+    /**
      * Converts this Subscription into string format.
      * @return String representation of this class
      */
@@ -2463,7 +2492,8 @@ public class Subscription {
                 + ", receivesInvoiceEmails=" + receivesInvoiceEmails + ", locale=" + locale
                 + ", currency=" + currency + ", scheduledCancellationAt=" + scheduledCancellationAt
                 + ", creditBalanceInCents=" + creditBalanceInCents + ", prepaymentBalanceInCents="
-                + prepaymentBalanceInCents + ", prepaidConfiguration=" + prepaidConfiguration + "]";
+                + prepaymentBalanceInCents + ", prepaidConfiguration=" + prepaidConfiguration
+                + ", selfServicePageToken=" + selfServicePageToken + "]";
     }
 
     /**
@@ -2503,7 +2533,8 @@ public class Subscription {
                 .currency(getCurrency())
                 .creditBalanceInCents(getCreditBalanceInCents())
                 .prepaymentBalanceInCents(getPrepaymentBalanceInCents())
-                .prepaidConfiguration(getPrepaidConfiguration());
+                .prepaidConfiguration(getPrepaidConfiguration())
+                .selfServicePageToken(getSelfServicePageToken());
         builder.trialStartedAt = internalGetTrialStartedAt();
         builder.trialEndedAt = internalGetTrialEndedAt();
         builder.expiresAt = internalGetExpiresAt();
@@ -2602,6 +2633,7 @@ public class Subscription {
         private Long creditBalanceInCents;
         private Long prepaymentBalanceInCents;
         private PrepaidConfiguration prepaidConfiguration;
+        private String selfServicePageToken;
 
 
 
@@ -3492,6 +3524,16 @@ public class Subscription {
         }
 
         /**
+         * Setter for selfServicePageToken.
+         * @param  selfServicePageToken  String value for selfServicePageToken.
+         * @return Builder
+         */
+        public Builder selfServicePageToken(String selfServicePageToken) {
+            this.selfServicePageToken = selfServicePageToken;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Subscription} object using the set fields.
          * @return {@link Subscription}
          */
@@ -3510,7 +3552,8 @@ public class Subscription {
                     storedCredentialTransactionId, reference, onHoldAt, prepaidDunning, coupons,
                     dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone,
                     receivesInvoiceEmails, locale, currency, scheduledCancellationAt,
-                    creditBalanceInCents, prepaymentBalanceInCents, prepaidConfiguration);
+                    creditBalanceInCents, prepaymentBalanceInCents, prepaidConfiguration,
+                    selfServicePageToken);
         }
     }
 }

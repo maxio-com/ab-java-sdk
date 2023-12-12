@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +35,7 @@ public class ListSubscriptionsInput {
     private Map<String, String> metadata;
     private SortingDirection direction;
     private SubscriptionSort sort;
+    private List<SubscriptionListInclude> include;
 
     /**
      * Default constructor.
@@ -60,6 +62,7 @@ public class ListSubscriptionsInput {
      * @param  metadata  Map of String, value for metadata.
      * @param  direction  SortingDirection value for direction.
      * @param  sort  SubscriptionSort value for sort.
+     * @param  include  List of SubscriptionListInclude value for include.
      */
     public ListSubscriptionsInput(
             Integer page,
@@ -75,7 +78,8 @@ public class ListSubscriptionsInput {
             ZonedDateTime endDatetime,
             Map<String, String> metadata,
             SortingDirection direction,
-            SubscriptionSort sort) {
+            SubscriptionSort sort,
+            List<SubscriptionListInclude> include) {
         this.page = page;
         this.perPage = perPage;
         this.state = state;
@@ -90,6 +94,7 @@ public class ListSubscriptionsInput {
         this.metadata = metadata;
         this.direction = direction;
         this.sort = sort;
+        this.include = include;
     }
 
     /**
@@ -437,6 +442,29 @@ public class ListSubscriptionsInput {
     }
 
     /**
+     * Getter for Include.
+     * Allows including additional data in the response. Use in query:
+     * `include[]=self_service_page_token`.
+     * @return Returns the List of SubscriptionListInclude
+     */
+    @JsonGetter("include[]")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<SubscriptionListInclude> getInclude() {
+        return include;
+    }
+
+    /**
+     * Setter for Include.
+     * Allows including additional data in the response. Use in query:
+     * `include[]=self_service_page_token`.
+     * @param include Value for List of SubscriptionListInclude
+     */
+    @JsonSetter("include[]")
+    public void setInclude(List<SubscriptionListInclude> include) {
+        this.include = include;
+    }
+
+    /**
      * Converts this ListSubscriptionsInput into string format.
      * @return String representation of this class
      */
@@ -447,7 +475,7 @@ public class ListSubscriptionsInput {
                 + ", coupon=" + coupon + ", dateField=" + dateField + ", startDate=" + startDate
                 + ", endDate=" + endDate + ", startDatetime=" + startDatetime + ", endDatetime="
                 + endDatetime + ", metadata=" + metadata + ", direction=" + direction + ", sort="
-                + sort + "]";
+                + sort + ", include=" + include + "]";
     }
 
     /**
@@ -470,7 +498,8 @@ public class ListSubscriptionsInput {
                 .endDatetime(getEndDatetime())
                 .metadata(getMetadata())
                 .direction(getDirection())
-                .sort(getSort());
+                .sort(getSort())
+                .include(getInclude());
         return builder;
     }
 
@@ -492,6 +521,7 @@ public class ListSubscriptionsInput {
         private Map<String, String> metadata;
         private SortingDirection direction;
         private SubscriptionSort sort = SubscriptionSort.SIGNUP_DATE;
+        private List<SubscriptionListInclude> include;
 
 
 
@@ -636,13 +666,23 @@ public class ListSubscriptionsInput {
         }
 
         /**
+         * Setter for include.
+         * @param  include  List of SubscriptionListInclude value for include.
+         * @return Builder
+         */
+        public Builder include(List<SubscriptionListInclude> include) {
+            this.include = include;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListSubscriptionsInput} object using the set fields.
          * @return {@link ListSubscriptionsInput}
          */
         public ListSubscriptionsInput build() {
             return new ListSubscriptionsInput(page, perPage, state, product, productPricePointId,
                     coupon, dateField, startDate, endDate, startDatetime, endDatetime, metadata,
-                    direction, sort);
+                    direction, sort, include);
         }
     }
 }
