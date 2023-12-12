@@ -1,5 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 
+import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AllocationResponse;
 import com.maxio.advancedbilling.models.Component;
@@ -16,19 +17,26 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 public class SubscriptionComponentsControllerReadTest extends SubscriptionComponentsControllerTestBase {
 
+    ProductFamily productFamily = TEST_SETUP.createProductFamily();
+    Product product = TEST_SETUP.createProduct(productFamily);
+    Component component = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
+    Customer customer = TEST_SETUP.createCustomer();
+    Subscription subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
+
+    public SubscriptionComponentsControllerReadTest() throws IOException, ApiException {
+    }
+
     @Test
     void shouldReadSubscriptionComponent() throws IOException, ApiException {
         // given
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        Product product = TEST_SETUP.createProduct(productFamily);
-        Component component = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        Customer customer = TEST_SETUP.createCustomer();
-        Subscription subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
+
 
         // when
 //        AllocationResponse allocationResponse = SUBSCRIPTION_COMPONENTS_CONTROLLER
@@ -70,6 +78,25 @@ public class SubscriptionComponentsControllerReadTest extends SubscriptionCompon
         assertThat(subscriptionComponent.getUpdatedAt()).isNotNull();
         assertThat(subscriptionComponent.getAllocatedQuantity()
                 .match(new SubscriptionComponentAllocatedQuantityGetter<Integer>())).isEqualTo(0);
+    }
+
+    @Test
+    void shouldNotReadComponentWhenSubscriptionDoesNotExist() {
+        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.readSubscriptionComponent(123,
+                component.getId()), "Not Found");
+    }
+
+    @Test
+    void shouldNotReadNonExistentSubscriptionComponent() {
+        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.readSubscriptionComponent(subscription.getId(),
+                123), "Not Found");
+    }
+
+    @Test
+    void shouldNotReadSubscriptionComponentWhenProvidingInvalidCredentials() {
+        // when-then
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
+                .readSubscriptionComponent(subscription.getId(), component.getId()));
     }
 
 }

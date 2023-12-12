@@ -45,6 +45,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
@@ -101,15 +102,19 @@ public class TestSetup {
     }
 
     public Component createQuantityBasedComponent(int productFamilyId) throws IOException, ApiException {
+        return createQuantityBasedComponent(productFamilyId, b -> {});
+    }
+
+    public Component createQuantityBasedComponent(int productFamilyId, Consumer<QuantityBasedComponent.Builder> customizer) throws IOException, ApiException {
         String seed = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
-        QuantityBasedComponent quantityBasedComponent = new QuantityBasedComponent.Builder()
+        QuantityBasedComponent.Builder quantityBasedComponentBuilder = new QuantityBasedComponent.Builder()
                 .name("testcomponent-" + seed)
                 .handle("test-handle-" + seed)
                 .unitName("unit")
                 .pricingScheme(PricingScheme.PER_UNIT)
-                .unitPrice(QuantityBasedComponentUnitPrice.fromPrecision(1.0))
-                .build();
-        CreateQuantityBasedComponent createQuantityBasedComponent = new CreateQuantityBasedComponent(quantityBasedComponent);
+                .unitPrice(QuantityBasedComponentUnitPrice.fromPrecision(1.0));
+        customizer.accept(quantityBasedComponentBuilder);
+        CreateQuantityBasedComponent createQuantityBasedComponent = new CreateQuantityBasedComponent(quantityBasedComponentBuilder.build());
 
         return advancedBillingClient.getComponentsController().createComponent(productFamilyId,
                         ComponentKindPath.QUANTITY_BASED_COMPONENTS,
