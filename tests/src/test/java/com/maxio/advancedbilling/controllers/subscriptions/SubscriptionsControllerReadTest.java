@@ -83,10 +83,11 @@ public class SubscriptionsControllerReadTest {
         // then
         assertThat(subscriptionIncludeAll)
                 .usingRecursiveComparison()
-                .ignoringFields("coupons")
+                .ignoringFields("coupons", "selfServicePageToken")
                 .isEqualTo(subscriptionIncludeNone);
 
         assertThat(subscriptionIncludeNone.getCoupons()).isNull();
+        assertThat(subscriptionIncludeNone.getSelfServicePageToken()).isNull();
         assertThat(subscriptionIncludeAll.getCoupons())
                 .isNotNull()
                 .hasSize(1)
@@ -98,5 +99,6 @@ public class SubscriptionsControllerReadTest {
                         .recurring(false)
                         .percentage("0.5")
                         .build());
+        assertThat(subscriptionIncludeAll.getSelfServicePageToken()).isNotNull();
     }
 }
