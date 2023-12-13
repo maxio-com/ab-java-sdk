@@ -15,8 +15,9 @@ import java.util.List;
  * This is a model class for SubscriptionAddCouponErrorException type.
  */
 public class SubscriptionAddCouponErrorException extends ApiException {
-    private static final long serialVersionUID = -6232654840138521883L;
+    private static final long serialVersionUID = -3943714668426410804L;
     private List<String> codes;
+    private List<String> couponCode;
     private List<String> couponCodes;
     private List<String> subscription;
 
@@ -46,6 +47,24 @@ public class SubscriptionAddCouponErrorException extends ApiException {
     @JsonSetter("codes")
     private void setCodes(List<String> codes) {
         this.codes = codes;
+    }
+
+    /**
+     * Getter for CouponCode.
+     * @return Returns the List of String
+     */
+    @JsonGetter("coupon_code")
+    public List<String> getCouponCode() {
+        return this.couponCode;
+    }
+
+    /**
+     * Setter for CouponCode.
+     * @param couponCode Value for List of String
+     */
+    @JsonSetter("coupon_code")
+    private void setCouponCode(List<String> couponCode) {
+        this.couponCode = couponCode;
     }
 
     /**
