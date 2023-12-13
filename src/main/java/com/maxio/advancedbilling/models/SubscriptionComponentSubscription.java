@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for SubscriptionComponentSubscription type.
  */
 public class SubscriptionComponentSubscription {
-    private String state;
+    private Object state;
     private String updatedAt;
 
     /**
@@ -25,11 +25,11 @@ public class SubscriptionComponentSubscription {
 
     /**
      * Initialization constructor.
-     * @param  state  String value for state.
+     * @param  state  Object value for state.
      * @param  updatedAt  String value for updatedAt.
      */
     public SubscriptionComponentSubscription(
-            String state,
+            Object state,
             String updatedAt) {
         this.state = state;
         this.updatedAt = updatedAt;
@@ -37,20 +37,20 @@ public class SubscriptionComponentSubscription {
 
     /**
      * Getter for State.
-     * @return Returns the String
+     * @return Returns the Object
      */
     @JsonGetter("state")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getState() {
+    public Object getState() {
         return state;
     }
 
     /**
      * Setter for State.
-     * @param state Value for String
+     * @param state Value for Object
      */
     @JsonSetter("state")
-    public void setState(String state) {
+    public void setState(Object state) {
         this.state = state;
     }
 
@@ -99,17 +99,17 @@ public class SubscriptionComponentSubscription {
      * Class to build instances of {@link SubscriptionComponentSubscription}.
      */
     public static class Builder {
-        private String state;
+        private Object state;
         private String updatedAt;
 
 
 
         /**
          * Setter for state.
-         * @param  state  String value for state.
+         * @param  state  Object value for state.
          * @return Builder
          */
-        public Builder state(String state) {
+        public Builder state(Object state) {
             this.state = state;
             return this;
         }

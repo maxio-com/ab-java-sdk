@@ -8,6 +8,7 @@ package com.maxio.advancedbilling.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ComponentAllocationErrorException;
@@ -33,6 +34,7 @@ import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.SubscriptionStateFilter;
 import com.maxio.advancedbilling.models.UpdateAllocationExpirationDate;
 import com.maxio.advancedbilling.models.UsageResponse;
+import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -696,7 +698,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     public UsageResponse createUsage(
             final int subscriptionId,
-            final int componentId,
+            final CreateUsageComponentId componentId,
             final CreateUsageRequest body) throws ApiException, IOException {
         return prepareCreateUsageRequest(subscriptionId, componentId, body).execute();
     }
@@ -706,7 +708,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<UsageResponse, ApiException> prepareCreateUsageRequest(
             final int subscriptionId,
-            final int componentId,
+            final CreateUsageComponentId componentId,
             final CreateUsageRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<UsageResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -717,7 +719,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
+                        .templateParam(param -> param.key("component_id").value(componentId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -772,16 +774,16 @@ public final class SubscriptionComponentsController extends BaseController {
                         .queryParam(param -> param.key("max_id")
                                 .value(input.getMaxId()).isRequired(false))
                         .queryParam(param -> param.key("since_date")
-                                .value(input.getSinceDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getSinceDate())).isRequired(false))
                         .queryParam(param -> param.key("until_date")
-                                .value(input.getUntilDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getUntilDate())).isRequired(false))
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("component_id").value(input.getComponentId()).isRequired(false)
+                        .templateParam(param -> param.key("component_id").value(input.getComponentId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
