@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class IssueInvoiceEventData {
     private InvoiceConsolidationLevel consolidationLevel;
-    private Status fromStatus;
-    private Status toStatus;
+    private InvoiceStatus fromStatus;
+    private InvoiceStatus toStatus;
     private String dueAmount;
     private String totalAmount;
 
@@ -29,15 +29,15 @@ public class IssueInvoiceEventData {
     /**
      * Initialization constructor.
      * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
-     * @param  fromStatus  Status value for fromStatus.
-     * @param  toStatus  Status value for toStatus.
+     * @param  fromStatus  InvoiceStatus value for fromStatus.
+     * @param  toStatus  InvoiceStatus value for toStatus.
      * @param  dueAmount  String value for dueAmount.
      * @param  totalAmount  String value for totalAmount.
      */
     public IssueInvoiceEventData(
             InvoiceConsolidationLevel consolidationLevel,
-            Status fromStatus,
-            Status toStatus,
+            InvoiceStatus fromStatus,
+            InvoiceStatus toStatus,
             String dueAmount,
             String totalAmount) {
         this.consolidationLevel = consolidationLevel;
@@ -85,11 +85,11 @@ public class IssueInvoiceEventData {
      * The status of the invoice before event occurence. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @return Returns the Status
+     * @return Returns the InvoiceStatus
      */
     @JsonGetter("from_status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Status getFromStatus() {
+    public InvoiceStatus getFromStatus() {
         return fromStatus;
     }
 
@@ -98,10 +98,10 @@ public class IssueInvoiceEventData {
      * The status of the invoice before event occurence. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @param fromStatus Value for Status
+     * @param fromStatus Value for InvoiceStatus
      */
     @JsonSetter("from_status")
-    public void setFromStatus(Status fromStatus) {
+    public void setFromStatus(InvoiceStatus fromStatus) {
         this.fromStatus = fromStatus;
     }
 
@@ -110,11 +110,11 @@ public class IssueInvoiceEventData {
      * The status of the invoice after event occurence. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @return Returns the Status
+     * @return Returns the InvoiceStatus
      */
     @JsonGetter("to_status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Status getToStatus() {
+    public InvoiceStatus getToStatus() {
         return toStatus;
     }
 
@@ -123,10 +123,10 @@ public class IssueInvoiceEventData {
      * The status of the invoice after event occurence. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @param toStatus Value for Status
+     * @param toStatus Value for InvoiceStatus
      */
     @JsonSetter("to_status")
-    public void setToStatus(Status toStatus) {
+    public void setToStatus(InvoiceStatus toStatus) {
         this.toStatus = toStatus;
     }
 
@@ -203,8 +203,8 @@ public class IssueInvoiceEventData {
      */
     public static class Builder {
         private InvoiceConsolidationLevel consolidationLevel;
-        private Status fromStatus;
-        private Status toStatus;
+        private InvoiceStatus fromStatus;
+        private InvoiceStatus toStatus;
         private String dueAmount;
         private String totalAmount;
 
@@ -222,20 +222,20 @@ public class IssueInvoiceEventData {
 
         /**
          * Setter for fromStatus.
-         * @param  fromStatus  Status value for fromStatus.
+         * @param  fromStatus  InvoiceStatus value for fromStatus.
          * @return Builder
          */
-        public Builder fromStatus(Status fromStatus) {
+        public Builder fromStatus(InvoiceStatus fromStatus) {
             this.fromStatus = fromStatus;
             return this;
         }
 
         /**
          * Setter for toStatus.
-         * @param  toStatus  Status value for toStatus.
+         * @param  toStatus  InvoiceStatus value for toStatus.
          * @return Builder
          */
-        public Builder toStatus(Status toStatus) {
+        public Builder toStatus(InvoiceStatus toStatus) {
             this.toStatus = toStatus;
             return this;
         }

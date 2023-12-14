@@ -25,7 +25,7 @@ public class Coupon {
     private OptionalNullable<Double> amount;
     private OptionalNullable<Integer> amountInCents;
     private Integer productFamilyId;
-    private String productFamilyName;
+    private OptionalNullable<String> productFamilyName;
     private String startDate;
     private OptionalNullable<String> endDate;
     private OptionalNullable<Double> percentage;
@@ -34,7 +34,7 @@ public class Coupon {
     private OptionalNullable<Integer> durationPeriodCount;
     private OptionalNullable<Integer> durationInterval;
     private OptionalNullable<String> durationIntervalUnit;
-    private String durationIntervalSpan;
+    private OptionalNullable<String> durationIntervalSpan;
     private Boolean allowNegativeBalance;
     private OptionalNullable<String> archivedAt;
     private OptionalNullable<String> conversionLimit;
@@ -123,7 +123,7 @@ public class Coupon {
         this.amount = OptionalNullable.of(amount);
         this.amountInCents = OptionalNullable.of(amountInCents);
         this.productFamilyId = productFamilyId;
-        this.productFamilyName = productFamilyName;
+        this.productFamilyName = OptionalNullable.of(productFamilyName);
         this.startDate = startDate;
         this.endDate = OptionalNullable.of(endDate);
         this.percentage = OptionalNullable.of(percentage);
@@ -132,7 +132,7 @@ public class Coupon {
         this.durationPeriodCount = OptionalNullable.of(durationPeriodCount);
         this.durationInterval = OptionalNullable.of(durationInterval);
         this.durationIntervalUnit = OptionalNullable.of(durationIntervalUnit);
-        this.durationIntervalSpan = durationIntervalSpan;
+        this.durationIntervalSpan = OptionalNullable.of(durationIntervalSpan);
         this.allowNegativeBalance = allowNegativeBalance;
         this.archivedAt = OptionalNullable.of(archivedAt);
         this.conversionLimit = OptionalNullable.of(conversionLimit);
@@ -182,18 +182,18 @@ public class Coupon {
 
     protected Coupon(Integer id, String name, String code, String description,
             OptionalNullable<Double> amount, OptionalNullable<Integer> amountInCents,
-            Integer productFamilyId, String productFamilyName, String startDate,
+            Integer productFamilyId, OptionalNullable<String> productFamilyName, String startDate,
             OptionalNullable<String> endDate, OptionalNullable<Double> percentage,
             Boolean recurring, RecurringScheme recurringScheme,
             OptionalNullable<Integer> durationPeriodCount,
             OptionalNullable<Integer> durationInterval,
-            OptionalNullable<String> durationIntervalUnit, String durationIntervalSpan,
-            Boolean allowNegativeBalance, OptionalNullable<String> archivedAt,
-            OptionalNullable<String> conversionLimit, Boolean stackable,
-            CouponCompoundingStrategy compoundingStrategy, Boolean useSiteExchangeRate,
-            String createdAt, String updatedAt, DiscountType discountType,
-            Boolean excludeMidPeriodAllocations, Boolean applyOnCancelAtEndOfPeriod,
-            List<CouponRestriction> couponRestrictions) {
+            OptionalNullable<String> durationIntervalUnit,
+            OptionalNullable<String> durationIntervalSpan, Boolean allowNegativeBalance,
+            OptionalNullable<String> archivedAt, OptionalNullable<String> conversionLimit,
+            Boolean stackable, CouponCompoundingStrategy compoundingStrategy,
+            Boolean useSiteExchangeRate, String createdAt, String updatedAt,
+            DiscountType discountType, Boolean excludeMidPeriodAllocations,
+            Boolean applyOnCancelAtEndOfPeriod, List<CouponRestriction> couponRestrictions) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -391,13 +391,22 @@ public class Coupon {
     }
 
     /**
-     * Getter for ProductFamilyName.
-     * @return Returns the String
+     * Internal Getter for ProductFamilyName.
+     * @return Returns the Internal String
      */
     @JsonGetter("product_family_name")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetProductFamilyName() {
+        return this.productFamilyName;
+    }
+
+    /**
+     * Getter for ProductFamilyName.
+     * @return Returns the String
+     */
     public String getProductFamilyName() {
-        return productFamilyName;
+        return OptionalNullable.getFrom(productFamilyName);
     }
 
     /**
@@ -406,7 +415,14 @@ public class Coupon {
      */
     @JsonSetter("product_family_name")
     public void setProductFamilyName(String productFamilyName) {
-        this.productFamilyName = productFamilyName;
+        this.productFamilyName = OptionalNullable.of(productFamilyName);
+    }
+
+    /**
+     * UnSetter for ProductFamilyName.
+     */
+    public void unsetProductFamilyName() {
+        productFamilyName = null;
     }
 
     /**
@@ -642,13 +658,22 @@ public class Coupon {
     }
 
     /**
-     * Getter for DurationIntervalSpan.
-     * @return Returns the String
+     * Internal Getter for DurationIntervalSpan.
+     * @return Returns the Internal String
      */
     @JsonGetter("duration_interval_span")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDurationIntervalSpan() {
+        return this.durationIntervalSpan;
+    }
+
+    /**
+     * Getter for DurationIntervalSpan.
+     * @return Returns the String
+     */
     public String getDurationIntervalSpan() {
-        return durationIntervalSpan;
+        return OptionalNullable.getFrom(durationIntervalSpan);
     }
 
     /**
@@ -657,7 +682,14 @@ public class Coupon {
      */
     @JsonSetter("duration_interval_span")
     public void setDurationIntervalSpan(String durationIntervalSpan) {
-        this.durationIntervalSpan = durationIntervalSpan;
+        this.durationIntervalSpan = OptionalNullable.of(durationIntervalSpan);
+    }
+
+    /**
+     * UnSetter for DurationIntervalSpan.
+     */
+    public void unsetDurationIntervalSpan() {
+        durationIntervalSpan = null;
     }
 
     /**
@@ -955,11 +987,9 @@ public class Coupon {
                 .code(getCode())
                 .description(getDescription())
                 .productFamilyId(getProductFamilyId())
-                .productFamilyName(getProductFamilyName())
                 .startDate(getStartDate())
                 .recurring(getRecurring())
                 .recurringScheme(getRecurringScheme())
-                .durationIntervalSpan(getDurationIntervalSpan())
                 .allowNegativeBalance(getAllowNegativeBalance())
                 .stackable(getStackable())
                 .compoundingStrategy(getCompoundingStrategy())
@@ -972,11 +1002,13 @@ public class Coupon {
                 .couponRestrictions(getCouponRestrictions());
         builder.amount = internalGetAmount();
         builder.amountInCents = internalGetAmountInCents();
+        builder.productFamilyName = internalGetProductFamilyName();
         builder.endDate = internalGetEndDate();
         builder.percentage = internalGetPercentage();
         builder.durationPeriodCount = internalGetDurationPeriodCount();
         builder.durationInterval = internalGetDurationInterval();
         builder.durationIntervalUnit = internalGetDurationIntervalUnit();
+        builder.durationIntervalSpan = internalGetDurationIntervalSpan();
         builder.archivedAt = internalGetArchivedAt();
         builder.conversionLimit = internalGetConversionLimit();
         return builder;
@@ -993,7 +1025,7 @@ public class Coupon {
         private OptionalNullable<Double> amount;
         private OptionalNullable<Integer> amountInCents;
         private Integer productFamilyId;
-        private String productFamilyName;
+        private OptionalNullable<String> productFamilyName;
         private String startDate;
         private OptionalNullable<String> endDate;
         private OptionalNullable<Double> percentage;
@@ -1002,7 +1034,7 @@ public class Coupon {
         private OptionalNullable<Integer> durationPeriodCount;
         private OptionalNullable<Integer> durationInterval;
         private OptionalNullable<String> durationIntervalUnit;
-        private String durationIntervalSpan;
+        private OptionalNullable<String> durationIntervalSpan;
         private Boolean allowNegativeBalance;
         private OptionalNullable<String> archivedAt;
         private OptionalNullable<String> conversionLimit;
@@ -1112,7 +1144,16 @@ public class Coupon {
          * @return Builder
          */
         public Builder productFamilyName(String productFamilyName) {
-            this.productFamilyName = productFamilyName;
+            this.productFamilyName = OptionalNullable.of(productFamilyName);
+            return this;
+        }
+
+        /**
+         * UnSetter for productFamilyName.
+         * @return Builder
+         */
+        public Builder unsetProductFamilyName() {
+            productFamilyName = null;
             return this;
         }
 
@@ -1247,7 +1288,16 @@ public class Coupon {
          * @return Builder
          */
         public Builder durationIntervalSpan(String durationIntervalSpan) {
-            this.durationIntervalSpan = durationIntervalSpan;
+            this.durationIntervalSpan = OptionalNullable.of(durationIntervalSpan);
+            return this;
+        }
+
+        /**
+         * UnSetter for durationIntervalSpan.
+         * @return Builder
+         */
+        public Builder unsetDurationIntervalSpan() {
+            durationIntervalSpan = null;
             return this;
         }
 
