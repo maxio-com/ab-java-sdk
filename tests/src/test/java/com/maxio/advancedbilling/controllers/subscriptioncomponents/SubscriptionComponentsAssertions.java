@@ -36,7 +36,7 @@ public class SubscriptionComponentsAssertions {
         assertSubscriptionComponent(subscriptionComponent, expectedComponent, subscription, productFamily);
 
         assertThat(subscriptionComponent.getSubscription()).isNotNull();
-        assertThat(subscriptionComponent.getSubscription().getState()).isEqualTo(subscription.getState().value());
+        assertThat(subscriptionComponent.getSubscription().getState()).isEqualTo(subscription.getState());
         assertThat(subscriptionComponent.getSubscription().getUpdatedAt()).isNotNull();
         assertThat(subscriptionComponent.getSubscriptionId()).isEqualTo(subscription.getId());
     }

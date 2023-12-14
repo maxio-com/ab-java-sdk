@@ -11,7 +11,10 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.Usage;
+import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
 import com.maxio.advancedbilling.utils.TestSetup;
+import com.maxio.advancedbilling.utils.TestTeardown;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -45,10 +48,16 @@ public class SubscriptionComponentsControllerCreateUsageTest {
         subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
     }
 
+    @AfterAll
+    static void teardown() throws IOException, ApiException {
+        new TestTeardown().deleteCustomer(customer);
+    }
+
     @Test
     void shouldCreateMeteredComponentUsage() throws IOException, ApiException {
         // given
-        Usage usage = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(), meteredComponent.getId(),
+        Usage usage = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+                CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
                                 .quantity(10.0)
@@ -63,7 +72,8 @@ public class SubscriptionComponentsControllerCreateUsageTest {
     @Test
     void shouldCreatePrepaidComponentUsage() throws IOException, ApiException {
         // given
-        Usage usage = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(), prepaidComponent.getId(),
+        Usage usage = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+                CreateUsageComponentId.fromNumber(prepaidComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
                                 .quantity(3.0)
@@ -86,7 +96,7 @@ public class SubscriptionComponentsControllerCreateUsageTest {
 
         // when - then
         assertThatErrorListResponse(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(
-                subscription.getId(), quantityBasedComponent.getId(),
+                subscription.getId(), CreateUsageComponentId.fromNumber(quantityBasedComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder().quantity(2.0).build()
                 ))
@@ -102,20 +112,20 @@ public class SubscriptionComponentsControllerCreateUsageTest {
     @Test
     void shouldNotCreateUsageWhenSubscriptionDoesNotExist() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(123,
-                meteredComponent.getId(), null));
+                CreateUsageComponentId.fromNumber(meteredComponent.getId()), null));
     }
 
     @Test
     void shouldNotCreateUsageWhenComponentDoesNotExist() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
-                123, null));
+                CreateUsageComponentId.fromNumber(123), null));
     }
 
     @Test
     void shouldNotCreateUsageWhenProvidingInvalidCredentials() {
         // when-then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
-                .createUsage(subscription.getId(), meteredComponent.getId(), null));
+                .createUsage(subscription.getId(), CreateUsageComponentId.fromNumber(meteredComponent.getId()), null));
     }
 
 }

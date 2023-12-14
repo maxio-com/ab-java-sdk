@@ -13,11 +13,16 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.Usage;
 import com.maxio.advancedbilling.models.UsageResponse;
+import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
+import com.maxio.advancedbilling.models.containers.ListUsagesInputComponentId;
 import com.maxio.advancedbilling.utils.TestSetup;
+import com.maxio.advancedbilling.utils.TestTeardown;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.maxio.advancedbilling.controllers.subscriptioncomponents.SubscriptionComponentsAssertions.assertUsage;
@@ -31,7 +36,6 @@ public class SubscriptionComponentsControllerListUsagesTest {
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
             TestClient.createClient().getSubscriptionComponentsController();
 
-    private static ProductFamily productFamily;
     private static Component meteredComponent;
     private static Customer customer;
     private static Subscription subscription;
@@ -41,28 +45,31 @@ public class SubscriptionComponentsControllerListUsagesTest {
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
+        ProductFamily productFamily = TEST_SETUP.createProductFamily();
         Product product = TEST_SETUP.createProduct(productFamily);
         meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 1.0);
 
         customer = TEST_SETUP.createCustomer();
         subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
 
-        usage1 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(), meteredComponent.getId(),
+        usage1 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+                CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
                                 .quantity(10.0)
                                 .memo("created usage")
                                 .build()
                 )).getUsage();
-        usage2 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(), meteredComponent.getId(),
+        usage2 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+                CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
                                 .quantity(50.0)
                                 .memo("created usage 2")
                                 .build()
                 )).getUsage();
-        usage3 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(), meteredComponent.getId(),
+        usage3 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+                CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
                                 .quantity(22.0)
@@ -71,12 +78,17 @@ public class SubscriptionComponentsControllerListUsagesTest {
                 )).getUsage();
     }
 
+    @AfterAll
+    static void teardown() throws IOException, ApiException {
+        new TestTeardown().deleteCustomer(customer);
+    }
+
     @Test
     void shouldListUsages() throws IOException, ApiException {
         // when
         List<UsageResponse> usages = SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
                 .subscriptionId(subscription.getId())
-                .componentId(meteredComponent.getId())
+                .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
                 .build()
         );
 
@@ -92,9 +104,9 @@ public class SubscriptionComponentsControllerListUsagesTest {
         // when
         List<UsageResponse> usages = SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
                 .subscriptionId(subscription.getId())
-                .componentId(meteredComponent.getId())
-                        .sinceDate("2022-10-25")
-                        .untilDate("2022-11-23")
+                .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
+                        .sinceDate(LocalDate.parse("2022-10-25"))
+                        .untilDate(LocalDate.parse("2022-11-23"))
                 .build()
         );
 
@@ -107,7 +119,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
         // when
         List<UsageResponse> usages = SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
                 .subscriptionId(subscription.getId())
-                .componentId(meteredComponent.getId())
+                .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
                 .sinceId(usage1.getId())
                 .maxId(usage2.getId())
                 .build()
@@ -123,7 +135,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     void shouldNotListUsagesWhenSubscriptionDoesNotExist() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
                 .subscriptionId(123)
-                .componentId(meteredComponent.getId())
+                .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
                 .build()));
     }
 
@@ -131,7 +143,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     void shouldNotListUsagesWhenComponentDoesNotExist() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
                 .subscriptionId(subscription.getId())
-                .componentId(123)
+                .componentId(ListUsagesInputComponentId.fromNumber(123))
                 .build()));
     }
 
@@ -139,7 +151,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     void shouldNotCreateUsageWhenProvidingInvalidCredentials() {
         // when-then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
-                .createUsage(subscription.getId(), meteredComponent.getId(), null));
+                .createUsage(subscription.getId(), CreateUsageComponentId.fromNumber(meteredComponent.getId()), null));
     }
 
 }
