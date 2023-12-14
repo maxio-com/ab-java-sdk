@@ -10,7 +10,7 @@
   <artifactId>advanced-billing-sdk</artifactId>
   <version>0.0.3</version>
   <packaging>jar</packaging>
-  <name>Advanced Billing</name>
+  <name>Advanced Billing SDK</name>
   <description>Ultimate billing and pricing flexibility for B2B SaaS.
 Maxio integrates directly into your product, so you can seamlessly manage your product catalog, bill customers, and collect payments.</description>
   <url>https://www.maxio.com/product/advanced-billing</url>
