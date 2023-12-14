@@ -17,6 +17,7 @@ import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdatePercentageCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
+import com.maxio.advancedbilling.models.CreatePrepaidComponent;
 import com.maxio.advancedbilling.models.CreateProductFamily;
 import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.CreateProductPricePoint;
@@ -27,7 +28,9 @@ import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.MeteredComponent;
+import com.maxio.advancedbilling.models.OveragePricing;
 import com.maxio.advancedbilling.models.PaymentProfileAttributes;
+import com.maxio.advancedbilling.models.PrepaidUsageComponent;
 import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.Product;
@@ -43,6 +46,7 @@ import com.maxio.advancedbilling.models.containers.CreateProductPricePointProduc
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
+import com.maxio.advancedbilling.models.containers.PrepaidUsageComponentUnitPrice;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
@@ -125,20 +129,59 @@ public class TestSetup {
     }
 
     public Component createQuantityBasedComponent(int productFamilyId) throws IOException, ApiException {
+        return createQuantityBasedComponent(productFamilyId, b -> {});
+    }
+
+    public Component createQuantityBasedComponent(int productFamilyId, Consumer<QuantityBasedComponent.Builder> customizer) throws IOException, ApiException {
         String seed = RandomStringUtils.randomAlphanumeric(5).toLowerCase();
-        QuantityBasedComponent quantityBasedComponent = new QuantityBasedComponent.Builder()
+        QuantityBasedComponent.Builder quantityBasedComponentBuilder = new QuantityBasedComponent.Builder()
                 .name("testcomponent-" + seed)
                 .handle("test-handle-" + seed)
                 .unitName("unit")
                 .pricingScheme(PricingScheme.PER_UNIT)
-                .unitPrice(QuantityBasedComponentUnitPrice.fromPrecision(1.0))
-                .build();
-        CreateQuantityBasedComponent createQuantityBasedComponent = new CreateQuantityBasedComponent(quantityBasedComponent);
+                .unitPrice(QuantityBasedComponentUnitPrice.fromPrecision(1.0));
+        customizer.accept(quantityBasedComponentBuilder);
+        CreateQuantityBasedComponent createQuantityBasedComponent = new CreateQuantityBasedComponent(quantityBasedComponentBuilder.build());
 
         return advancedBillingClient.getComponentsController().createComponent(productFamilyId,
                         ComponentKindPath.QUANTITY_BASED_COMPONENTS,
                         CreateComponentBody.fromCreateQuantityBasedComponent(createQuantityBasedComponent))
                 .getComponent();
+    }
+
+    public Component createPrepaidComponent(ProductFamily productFamily, double unitPrice) throws IOException, ApiException {
+        String componentName = "Test Prepaid Component " + randomNumeric(5);
+        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
+        return advancedBillingClient.getComponentsController()
+                .createComponent(
+                        productFamily.getId(),
+                        ComponentKindPath.PREPAID_USAGE_COMPONENTS,
+                        CreateComponentBody.fromCreatePrepaidComponent(
+                                new CreatePrepaidComponent(
+                                        new PrepaidUsageComponent.Builder()
+                                                .name(componentName)
+                                                .handle(handle)
+                                                .unitName("unit")
+                                                .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(unitPrice))
+                                                .description("Description for: " + componentName)
+                                                .allowFractionalQuantities(false)
+                                                .pricingScheme(PricingScheme.PER_UNIT)
+                                                .overagePricing(
+                                                        new OveragePricing.Builder()
+                                                                .pricingScheme(PricingScheme.PER_UNIT)
+                                                                .prices(List.of(
+                                                                                new Price.Builder()
+                                                                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
+                                                                                        .unitPrice(PriceUnitPrice.fromPrecision(1.0))
+                                                                                        .build()
+                                                                        )
+                                                                )
+                                                                .build()
+                                                )
+                                                .build()
+                                )
+                        )
+                ).getComponent();
     }
 
     public Customer createCustomer() throws IOException, ApiException {
