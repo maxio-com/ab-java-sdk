@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,7 +20,7 @@ import java.util.List;
  */
 public class CreateInvoice {
     private List<CreateInvoiceItem> lineItems;
-    private String issueDate;
+    private LocalDate issueDate;
     private Integer netTerms;
     private String paymentInstructions;
     private String memo;
@@ -24,19 +28,19 @@ public class CreateInvoice {
     private CreateInvoiceAddress billingAddress;
     private CreateInvoiceAddress shippingAddress;
     private List<CreateInvoiceCoupon> coupons;
-    private Status1 status;
+    private CreateInvoiceStatus status;
 
     /**
      * Default constructor.
      */
     public CreateInvoice() {
-        status = Status1.OPEN;
+        status = CreateInvoiceStatus.OPEN;
     }
 
     /**
      * Initialization constructor.
      * @param  lineItems  List of CreateInvoiceItem value for lineItems.
-     * @param  issueDate  String value for issueDate.
+     * @param  issueDate  LocalDate value for issueDate.
      * @param  netTerms  Integer value for netTerms.
      * @param  paymentInstructions  String value for paymentInstructions.
      * @param  memo  String value for memo.
@@ -44,11 +48,11 @@ public class CreateInvoice {
      * @param  billingAddress  CreateInvoiceAddress value for billingAddress.
      * @param  shippingAddress  CreateInvoiceAddress value for shippingAddress.
      * @param  coupons  List of CreateInvoiceCoupon value for coupons.
-     * @param  status  Status1 value for status.
+     * @param  status  CreateInvoiceStatus value for status.
      */
     public CreateInvoice(
             List<CreateInvoiceItem> lineItems,
-            String issueDate,
+            LocalDate issueDate,
             Integer netTerms,
             String paymentInstructions,
             String memo,
@@ -56,7 +60,7 @@ public class CreateInvoice {
             CreateInvoiceAddress billingAddress,
             CreateInvoiceAddress shippingAddress,
             List<CreateInvoiceCoupon> coupons,
-            Status1 status) {
+            CreateInvoiceStatus status) {
         this.lineItems = lineItems;
         this.issueDate = issueDate;
         this.netTerms = netTerms;
@@ -90,20 +94,22 @@ public class CreateInvoice {
 
     /**
      * Getter for IssueDate.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("issue_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getIssueDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
     /**
      * Setter for IssueDate.
-     * @param issueDate Value for String
+     * @param issueDate Value for LocalDate
      */
     @JsonSetter("issue_date")
-    public void setIssueDate(String issueDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
@@ -256,20 +262,20 @@ public class CreateInvoice {
 
     /**
      * Getter for Status.
-     * @return Returns the Status1
+     * @return Returns the CreateInvoiceStatus
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Status1 getStatus() {
+    public CreateInvoiceStatus getStatus() {
         return status;
     }
 
     /**
      * Setter for Status.
-     * @param status Value for Status1
+     * @param status Value for CreateInvoiceStatus
      */
     @JsonSetter("status")
-    public void setStatus(Status1 status) {
+    public void setStatus(CreateInvoiceStatus status) {
         this.status = status;
     }
 
@@ -311,7 +317,7 @@ public class CreateInvoice {
      */
     public static class Builder {
         private List<CreateInvoiceItem> lineItems;
-        private String issueDate;
+        private LocalDate issueDate;
         private Integer netTerms;
         private String paymentInstructions;
         private String memo;
@@ -319,7 +325,7 @@ public class CreateInvoice {
         private CreateInvoiceAddress billingAddress;
         private CreateInvoiceAddress shippingAddress;
         private List<CreateInvoiceCoupon> coupons;
-        private Status1 status = Status1.OPEN;
+        private CreateInvoiceStatus status = CreateInvoiceStatus.OPEN;
 
 
 
@@ -335,10 +341,10 @@ public class CreateInvoice {
 
         /**
          * Setter for issueDate.
-         * @param  issueDate  String value for issueDate.
+         * @param  issueDate  LocalDate value for issueDate.
          * @return Builder
          */
-        public Builder issueDate(String issueDate) {
+        public Builder issueDate(LocalDate issueDate) {
             this.issueDate = issueDate;
             return this;
         }
@@ -415,10 +421,10 @@ public class CreateInvoice {
 
         /**
          * Setter for status.
-         * @param  status  Status1 value for status.
+         * @param  status  CreateInvoiceStatus value for status.
          * @return Builder
          */
-        public Builder status(Status1 status) {
+        public Builder status(CreateInvoiceStatus status) {
             this.status = status;
             return this;
         }
