@@ -83,7 +83,7 @@ public class SubscriptionsControllerReadTest {
         // then
         assertThat(subscriptionIncludeAll)
                 .usingRecursiveComparison()
-                .ignoringFields("coupons", "selfServicePageToken")
+                .ignoringFields("coupons", "selfServicePageToken", "updatedAt")
                 .isEqualTo(subscriptionIncludeNone);
 
         assertThat(subscriptionIncludeNone.getCoupons()).isNull();

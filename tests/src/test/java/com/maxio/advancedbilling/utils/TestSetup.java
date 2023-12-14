@@ -213,6 +213,10 @@ public class TestSetup {
     }
 
     public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage) throws IOException, ApiException {
+        return createPercentageCoupon(productFamily, percentage, "true");
+    }
+
+    public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage, String stackable) throws IOException, ApiException {
         return advancedBillingClient.getCouponsController()
                 .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
                         .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
@@ -221,7 +225,7 @@ public class TestSetup {
                                         .code("PERCENTAGE_DISCOUNT_" + randomNumeric(5))
                                         .description("Huuuuge percentage discount: " + percentage)
                                         .percentage(CreateOrUpdatePercentageCouponPercentage.fromString(percentage))
-                                        .stackable("true")
+                                        .stackable(stackable)
                                         .build()
                         ))
                         .build())

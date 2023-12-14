@@ -1103,7 +1103,7 @@ A. No. Usage should be reported as one API call per component on a single subscr
 ```java
 UsageResponse createUsage(
     final int subscriptionId,
-    final int componentId,
+    final CreateUsageComponentId componentId,
     final CreateUsageRequest body)
 ```
 
@@ -1112,7 +1112,7 @@ UsageResponse createUsage(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `componentId` | `int` | Template, Required | Either the Chargify id for the component or the component's handle prefixed by `handle:` |
+| `componentId` | [`CreateUsageComponentId`](../../doc/models/containers/create-usage-component-id.md) | Template, Required | This is a container for one-of cases. |
 | `body` | [`CreateUsageRequest`](../../doc/models/create-usage-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1123,7 +1123,9 @@ UsageResponse createUsage(
 
 ```java
 int subscriptionId = 222;
-int componentId = 222;
+CreateUsageComponentId componentId = CreateUsageComponentId.fromNumber(
+    144
+);
 CreateUsageRequest body = new CreateUsageRequest.Builder(
     new CreateUsage.Builder()
         .quantity(1000D)
@@ -1195,11 +1197,11 @@ List<UsageResponse> listUsages(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `componentId` | `int` | Template, Required | Either the Chargify id for the component or the component's handle prefixed by `handle:` |
+| `componentId` | [`ListUsagesInputComponentId`](../../doc/models/containers/list-usages-input-component-id.md) | Template, Required | This is a container for one-of cases. |
 | `sinceId` | `Integer` | Query, Optional | Returns usages with an id greater than or equal to the one specified |
 | `maxId` | `Integer` | Query, Optional | Returns usages with an id less than or equal to the one specified |
-| `sinceDate` | `String` | Query, Optional | Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the date specified. |
-| `untilDate` | `String` | Query, Optional | Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date specified. |
+| `sinceDate` | `LocalDate` | Query, Optional | Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the date specified. |
+| `untilDate` | `LocalDate` | Query, Optional | Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date specified. |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
 
@@ -1212,7 +1214,9 @@ List<UsageResponse> listUsages(
 ```java
 ListUsagesInput listUsagesInput = new ListUsagesInput.Builder(
     222,
-    222
+    ListUsagesInputComponentId.fromNumber(
+        144
+    )
 )
 .page(2)
 .perPage(50)
