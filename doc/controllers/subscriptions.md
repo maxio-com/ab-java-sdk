@@ -1343,10 +1343,10 @@ Void overrideSubscription(
 int subscriptionId = 222;
 OverrideSubscriptionRequest body = new OverrideSubscriptionRequest.Builder(
     new OverrideSubscription.Builder()
-        .activatedAt("1999-12-01")
-        .canceledAt("2000-12-31")
+        .activatedAt(DateTimeHelper.fromRfc8601DateTime("1999-12-01T10:28:34-05:00"))
+        .canceledAt(DateTimeHelper.fromRfc8601DateTime("2000-12-31T10:28:34-05:00"))
         .cancellationMessage("Original cancellation in 2000")
-        .expiresAt("2001-07-15")
+        .expiresAt(DateTimeHelper.fromRfc8601DateTime("2001-07-15T10:28:34-05:00"))
         .build()
 )
 .build();
@@ -1365,7 +1365,7 @@ try {
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Bad Request | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseErrorException`](../../doc/models/single-error-response-error-exception.md) |
 
 
 # Read Subscription by Reference
