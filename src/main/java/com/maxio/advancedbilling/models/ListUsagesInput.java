@@ -9,17 +9,22 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.containers.ListUsagesInputComponentId;
+import java.time.LocalDate;
 
 /**
  * This is a model class for ListUsagesInput type.
  */
 public class ListUsagesInput {
     private int subscriptionId;
-    private int componentId;
+    private ListUsagesInputComponentId componentId;
     private Integer sinceId;
     private Integer maxId;
-    private String sinceDate;
-    private String untilDate;
+    private LocalDate sinceDate;
+    private LocalDate untilDate;
     private Integer page;
     private Integer perPage;
 
@@ -34,21 +39,21 @@ public class ListUsagesInput {
     /**
      * Initialization constructor.
      * @param  subscriptionId  int value for subscriptionId.
-     * @param  componentId  int value for componentId.
+     * @param  componentId  ListUsagesInputComponentId value for componentId.
      * @param  sinceId  Integer value for sinceId.
      * @param  maxId  Integer value for maxId.
-     * @param  sinceDate  String value for sinceDate.
-     * @param  untilDate  String value for untilDate.
+     * @param  sinceDate  LocalDate value for sinceDate.
+     * @param  untilDate  LocalDate value for untilDate.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      */
     public ListUsagesInput(
             int subscriptionId,
-            int componentId,
+            ListUsagesInputComponentId componentId,
             Integer sinceId,
             Integer maxId,
-            String sinceDate,
-            String untilDate,
+            LocalDate sinceDate,
+            LocalDate untilDate,
             Integer page,
             Integer perPage) {
         this.subscriptionId = subscriptionId;
@@ -84,20 +89,20 @@ public class ListUsagesInput {
     /**
      * Getter for ComponentId.
      * Either the Chargify id for the component or the component's handle prefixed by `handle:`
-     * @return Returns the int
+     * @return Returns the ListUsagesInputComponentId
      */
     @JsonGetter("component_id")
-    public int getComponentId() {
+    public ListUsagesInputComponentId getComponentId() {
         return componentId;
     }
 
     /**
      * Setter for ComponentId.
      * Either the Chargify id for the component or the component's handle prefixed by `handle:`
-     * @param componentId Value for int
+     * @param componentId Value for ListUsagesInputComponentId
      */
     @JsonSetter("component_id")
-    public void setComponentId(int componentId) {
+    public void setComponentId(ListUsagesInputComponentId componentId) {
         this.componentId = componentId;
     }
 
@@ -147,11 +152,12 @@ public class ListUsagesInput {
      * Getter for SinceDate.
      * Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the
      * date specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("since_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSinceDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getSinceDate() {
         return sinceDate;
     }
 
@@ -159,10 +165,11 @@ public class ListUsagesInput {
      * Setter for SinceDate.
      * Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the
      * date specified.
-     * @param sinceDate Value for String
+     * @param sinceDate Value for LocalDate
      */
     @JsonSetter("since_date")
-    public void setSinceDate(String sinceDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setSinceDate(LocalDate sinceDate) {
         this.sinceDate = sinceDate;
     }
 
@@ -170,11 +177,12 @@ public class ListUsagesInput {
      * Getter for UntilDate.
      * Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date
      * specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("until_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUntilDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getUntilDate() {
         return untilDate;
     }
 
@@ -182,10 +190,11 @@ public class ListUsagesInput {
      * Setter for UntilDate.
      * Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date
      * specified.
-     * @param untilDate Value for String
+     * @param untilDate Value for LocalDate
      */
     @JsonSetter("until_date")
-    public void setUntilDate(String untilDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setUntilDate(LocalDate untilDate) {
         this.untilDate = untilDate;
     }
 
@@ -276,11 +285,11 @@ public class ListUsagesInput {
      */
     public static class Builder {
         private int subscriptionId;
-        private int componentId;
+        private ListUsagesInputComponentId componentId;
         private Integer sinceId;
         private Integer maxId;
-        private String sinceDate;
-        private String untilDate;
+        private LocalDate sinceDate;
+        private LocalDate untilDate;
         private Integer page = 1;
         private Integer perPage = 20;
 
@@ -293,9 +302,9 @@ public class ListUsagesInput {
         /**
          * Initialization constructor.
          * @param  subscriptionId  int value for subscriptionId.
-         * @param  componentId  int value for componentId.
+         * @param  componentId  ListUsagesInputComponentId value for componentId.
          */
-        public Builder(int subscriptionId, int componentId) {
+        public Builder(int subscriptionId, ListUsagesInputComponentId componentId) {
             this.subscriptionId = subscriptionId;
             this.componentId = componentId;
         }
@@ -312,10 +321,10 @@ public class ListUsagesInput {
 
         /**
          * Setter for componentId.
-         * @param  componentId  int value for componentId.
+         * @param  componentId  ListUsagesInputComponentId value for componentId.
          * @return Builder
          */
-        public Builder componentId(int componentId) {
+        public Builder componentId(ListUsagesInputComponentId componentId) {
             this.componentId = componentId;
             return this;
         }
@@ -342,20 +351,20 @@ public class ListUsagesInput {
 
         /**
          * Setter for sinceDate.
-         * @param  sinceDate  String value for sinceDate.
+         * @param  sinceDate  LocalDate value for sinceDate.
          * @return Builder
          */
-        public Builder sinceDate(String sinceDate) {
+        public Builder sinceDate(LocalDate sinceDate) {
             this.sinceDate = sinceDate;
             return this;
         }
 
         /**
          * Setter for untilDate.
-         * @param  untilDate  String value for untilDate.
+         * @param  untilDate  LocalDate value for untilDate.
          * @return Builder
          */
-        public Builder untilDate(String untilDate) {
+        public Builder untilDate(LocalDate untilDate) {
             this.untilDate = untilDate;
             return this;
         }
