@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class Payment {
     private String invoiceUid;
-    private Status status;
+    private InvoiceStatus status;
     private String dueAmount;
     private String paidAmount;
 
@@ -28,13 +28,13 @@ public class Payment {
     /**
      * Initialization constructor.
      * @param  invoiceUid  String value for invoiceUid.
-     * @param  status  Status value for status.
+     * @param  status  InvoiceStatus value for status.
      * @param  dueAmount  String value for dueAmount.
      * @param  paidAmount  String value for paidAmount.
      */
     public Payment(
             String invoiceUid,
-            Status status,
+            InvoiceStatus status,
             String dueAmount,
             String paidAmount) {
         this.invoiceUid = invoiceUid;
@@ -69,11 +69,11 @@ public class Payment {
      * The current status of the invoice. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @return Returns the Status
+     * @return Returns the InvoiceStatus
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Status getStatus() {
+    public InvoiceStatus getStatus() {
         return status;
     }
 
@@ -82,10 +82,10 @@ public class Payment {
      * The current status of the invoice. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @param status Value for Status
+     * @param status Value for InvoiceStatus
      */
     @JsonSetter("status")
-    public void setStatus(Status status) {
+    public void setStatus(InvoiceStatus status) {
         this.status = status;
     }
 
@@ -160,7 +160,7 @@ public class Payment {
      */
     public static class Builder {
         private String invoiceUid;
-        private Status status;
+        private InvoiceStatus status;
         private String dueAmount;
         private String paidAmount;
 
@@ -178,10 +178,10 @@ public class Payment {
 
         /**
          * Setter for status.
-         * @param  status  Status value for status.
+         * @param  status  InvoiceStatus value for status.
          * @return Builder
          */
-        public Builder status(Status status) {
+        public Builder status(InvoiceStatus status) {
             this.status = status;
             return this;
         }

@@ -14,23 +14,39 @@ import java.util.TreeMap;
 
 
 /**
- * Status1 to be used.
+ * InvoiceStatus to be used.
  */
-public enum Status1 {
+public enum InvoiceStatus {
     DRAFT,
 
-    OPEN;
+    OPEN,
+
+    PAID,
+
+    PENDING,
+
+    VOIDED,
+
+    CANCELED;
 
 
-    private static TreeMap<String, Status1> valueMap = new TreeMap<>();
+    private static TreeMap<String, InvoiceStatus> valueMap = new TreeMap<>();
     private String value;
 
     static {
         DRAFT.value = "draft";
         OPEN.value = "open";
+        PAID.value = "paid";
+        PENDING.value = "pending";
+        VOIDED.value = "voided";
+        CANCELED.value = "canceled";
 
         valueMap.put("draft", DRAFT);
         valueMap.put("open", OPEN);
+        valueMap.put("paid", PAID);
+        valueMap.put("pending", PENDING);
+        valueMap.put("voided", VOIDED);
+        valueMap.put("canceled", CANCELED);
     }
 
     /**
@@ -40,8 +56,8 @@ public enum Status1 {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static Status1 constructFromString(String toConvert) throws IOException {
-        Status1 enumValue = fromString(toConvert);
+    public static InvoiceStatus constructFromString(String toConvert) throws IOException {
+        InvoiceStatus enumValue = fromString(toConvert);
         if (enumValue == null)
         {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
@@ -54,7 +70,7 @@ public enum Status1 {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static Status1 fromString(String toConvert) {
+    public static InvoiceStatus fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -76,16 +92,16 @@ public enum Status1 {
     }
 
     /**
-     * Convert list of Status1 values to list of string values.
-     * @param toConvert The list of Status1 values to convert.
+     * Convert list of InvoiceStatus values to list of string values.
+     * @param toConvert The list of InvoiceStatus values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<Status1> toConvert) {
+    public static List<String> toValue(List<InvoiceStatus> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (Status1 enumValue : toConvert) {
+        for (InvoiceStatus enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

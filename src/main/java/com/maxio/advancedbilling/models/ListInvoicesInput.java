@@ -17,7 +17,7 @@ import java.util.List;
 public class ListInvoicesInput {
     private String startDate;
     private String endDate;
-    private Status status;
+    private InvoiceStatus status;
     private Integer subscriptionId;
     private String subscriptionGroupUid;
     private Integer page;
@@ -60,7 +60,7 @@ public class ListInvoicesInput {
      * Initialization constructor.
      * @param  startDate  String value for startDate.
      * @param  endDate  String value for endDate.
-     * @param  status  Status value for status.
+     * @param  status  InvoiceStatus value for status.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  subscriptionGroupUid  String value for subscriptionGroupUid.
      * @param  page  Integer value for page.
@@ -84,7 +84,7 @@ public class ListInvoicesInput {
     public ListInvoicesInput(
             String startDate,
             String endDate,
-            Status status,
+            InvoiceStatus status,
             Integer subscriptionId,
             String subscriptionGroupUid,
             Integer page,
@@ -179,21 +179,21 @@ public class ListInvoicesInput {
     /**
      * Getter for Status.
      * The current status of the invoice. Allowed Values: draft, open, paid, pending, voided
-     * @return Returns the Status
+     * @return Returns the InvoiceStatus
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Status getStatus() {
+    public InvoiceStatus getStatus() {
         return status;
     }
 
     /**
      * Setter for Status.
      * The current status of the invoice. Allowed Values: draft, open, paid, pending, voided
-     * @param status Value for Status
+     * @param status Value for InvoiceStatus
      */
     @JsonSetter("status")
-    public void setStatus(Status status) {
+    public void setStatus(InvoiceStatus status) {
         this.status = status;
     }
 
@@ -689,7 +689,7 @@ public class ListInvoicesInput {
     public static class Builder {
         private String startDate;
         private String endDate;
-        private Status status;
+        private InvoiceStatus status;
         private Integer subscriptionId;
         private String subscriptionGroupUid;
         private Integer page = 1;
@@ -734,10 +734,10 @@ public class ListInvoicesInput {
 
         /**
          * Setter for status.
-         * @param  status  Status value for status.
+         * @param  status  InvoiceStatus value for status.
          * @return Builder
          */
-        public Builder status(Status status) {
+        public Builder status(InvoiceStatus status) {
             this.status = status;
             return this;
         }

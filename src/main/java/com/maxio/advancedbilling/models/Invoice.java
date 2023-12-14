@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -30,10 +31,10 @@ public class Invoice {
     private ZonedDateTime transactionTime;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
-    private String issueDate;
-    private String dueDate;
-    private OptionalNullable<String> paidDate;
-    private Status status;
+    private LocalDate issueDate;
+    private LocalDate dueDate;
+    private OptionalNullable<LocalDate> paidDate;
+    private InvoiceStatus status;
     private String role;
     private OptionalNullable<Integer> parentInvoiceId;
     private String collectionMethod;
@@ -91,10 +92,10 @@ public class Invoice {
      * @param  transactionTime  ZonedDateTime value for transactionTime.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
-     * @param  issueDate  String value for issueDate.
-     * @param  dueDate  String value for dueDate.
-     * @param  paidDate  String value for paidDate.
-     * @param  status  Status value for status.
+     * @param  issueDate  LocalDate value for issueDate.
+     * @param  dueDate  LocalDate value for dueDate.
+     * @param  paidDate  LocalDate value for paidDate.
+     * @param  status  InvoiceStatus value for status.
      * @param  role  String value for role.
      * @param  parentInvoiceId  Integer value for parentInvoiceId.
      * @param  collectionMethod  String value for collectionMethod.
@@ -145,10 +146,10 @@ public class Invoice {
             ZonedDateTime transactionTime,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
-            String issueDate,
-            String dueDate,
-            String paidDate,
-            Status status,
+            LocalDate issueDate,
+            LocalDate dueDate,
+            LocalDate paidDate,
+            InvoiceStatus status,
             String role,
             Integer parentInvoiceId,
             String collectionMethod,
@@ -253,10 +254,10 @@ public class Invoice {
      * @param  transactionTime  ZonedDateTime value for transactionTime.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
-     * @param  issueDate  String value for issueDate.
-     * @param  dueDate  String value for dueDate.
-     * @param  paidDate  String value for paidDate.
-     * @param  status  Status value for status.
+     * @param  issueDate  LocalDate value for issueDate.
+     * @param  dueDate  LocalDate value for dueDate.
+     * @param  paidDate  LocalDate value for paidDate.
+     * @param  status  InvoiceStatus value for status.
      * @param  role  String value for role.
      * @param  parentInvoiceId  Integer value for parentInvoiceId.
      * @param  collectionMethod  String value for collectionMethod.
@@ -300,9 +301,9 @@ public class Invoice {
     protected Invoice(Long id, String uid, Integer siteId, Integer customerId,
             Integer subscriptionId, String number, Integer sequenceNumber,
             ZonedDateTime transactionTime, ZonedDateTime createdAt, ZonedDateTime updatedAt,
-            String issueDate, String dueDate, OptionalNullable<String> paidDate, Status status,
-            String role, OptionalNullable<Integer> parentInvoiceId, String collectionMethod,
-            String paymentInstructions, String currency,
+            LocalDate issueDate, LocalDate dueDate, OptionalNullable<LocalDate> paidDate,
+            InvoiceStatus status, String role, OptionalNullable<Integer> parentInvoiceId,
+            String collectionMethod, String paymentInstructions, String currency,
             InvoiceConsolidationLevel consolidationLevel, OptionalNullable<String> parentInvoiceUid,
             OptionalNullable<Integer> subscriptionGroupId,
             OptionalNullable<Integer> parentInvoiceNumber,
@@ -591,11 +592,12 @@ public class Invoice {
      * Getter for IssueDate.
      * Date the invoice was issued to the customer. This is the date that the invoice was made
      * available for payment. The format is `"YYYY-MM-DD"`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("issue_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getIssueDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
@@ -603,31 +605,34 @@ public class Invoice {
      * Setter for IssueDate.
      * Date the invoice was issued to the customer. This is the date that the invoice was made
      * available for payment. The format is `"YYYY-MM-DD"`.
-     * @param issueDate Value for String
+     * @param issueDate Value for LocalDate
      */
     @JsonSetter("issue_date")
-    public void setIssueDate(String issueDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
     /**
      * Getter for DueDate.
      * Date the invoice is due. The format is `"YYYY-MM-DD"`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("due_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDueDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
     /**
      * Setter for DueDate.
      * Date the invoice is due. The format is `"YYYY-MM-DD"`.
-     * @param dueDate Value for String
+     * @param dueDate Value for LocalDate
      */
     @JsonSetter("due_date")
-    public void setDueDate(String dueDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -635,12 +640,12 @@ public class Invoice {
      * Internal Getter for PaidDate.
      * Date the invoice became fully paid. If partial payments are applied to the invoice, this date
      * will not be present until payment has been made in full. The format is `"YYYY-MM-DD"`.
-     * @return Returns the Internal String
+     * @return Returns the Internal LocalDate
      */
     @JsonGetter("paid_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetPaidDate() {
+    @JsonSerialize(using = OptionalNullable.SimpleDateSerializer.class)
+    protected OptionalNullable<LocalDate> internalGetPaidDate() {
         return this.paidDate;
     }
 
@@ -648,9 +653,9 @@ public class Invoice {
      * Getter for PaidDate.
      * Date the invoice became fully paid. If partial payments are applied to the invoice, this date
      * will not be present until payment has been made in full. The format is `"YYYY-MM-DD"`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
-    public String getPaidDate() {
+    public LocalDate getPaidDate() {
         return OptionalNullable.getFrom(paidDate);
     }
 
@@ -658,10 +663,11 @@ public class Invoice {
      * Setter for PaidDate.
      * Date the invoice became fully paid. If partial payments are applied to the invoice, this date
      * will not be present until payment has been made in full. The format is `"YYYY-MM-DD"`.
-     * @param paidDate Value for String
+     * @param paidDate Value for LocalDate
      */
     @JsonSetter("paid_date")
-    public void setPaidDate(String paidDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPaidDate(LocalDate paidDate) {
         this.paidDate = OptionalNullable.of(paidDate);
     }
 
@@ -679,11 +685,11 @@ public class Invoice {
      * The current status of the invoice. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @return Returns the Status
+     * @return Returns the InvoiceStatus
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Status getStatus() {
+    public InvoiceStatus getStatus() {
         return status;
     }
 
@@ -692,10 +698,10 @@ public class Invoice {
      * The current status of the invoice. See [Invoice
      * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
      * for more.
-     * @param status Value for Status
+     * @param status Value for InvoiceStatus
      */
     @JsonSetter("status")
-    public void setStatus(Status status) {
+    public void setStatus(InvoiceStatus status) {
         this.status = status;
     }
 
@@ -1702,10 +1708,10 @@ public class Invoice {
         private ZonedDateTime transactionTime;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
-        private String issueDate;
-        private String dueDate;
-        private OptionalNullable<String> paidDate;
-        private Status status;
+        private LocalDate issueDate;
+        private LocalDate dueDate;
+        private OptionalNullable<LocalDate> paidDate;
+        private InvoiceStatus status;
         private String role;
         private OptionalNullable<Integer> parentInvoiceId;
         private String collectionMethod;
@@ -1849,30 +1855,30 @@ public class Invoice {
 
         /**
          * Setter for issueDate.
-         * @param  issueDate  String value for issueDate.
+         * @param  issueDate  LocalDate value for issueDate.
          * @return Builder
          */
-        public Builder issueDate(String issueDate) {
+        public Builder issueDate(LocalDate issueDate) {
             this.issueDate = issueDate;
             return this;
         }
 
         /**
          * Setter for dueDate.
-         * @param  dueDate  String value for dueDate.
+         * @param  dueDate  LocalDate value for dueDate.
          * @return Builder
          */
-        public Builder dueDate(String dueDate) {
+        public Builder dueDate(LocalDate dueDate) {
             this.dueDate = dueDate;
             return this;
         }
 
         /**
          * Setter for paidDate.
-         * @param  paidDate  String value for paidDate.
+         * @param  paidDate  LocalDate value for paidDate.
          * @return Builder
          */
-        public Builder paidDate(String paidDate) {
+        public Builder paidDate(LocalDate paidDate) {
             this.paidDate = OptionalNullable.of(paidDate);
             return this;
         }
@@ -1888,10 +1894,10 @@ public class Invoice {
 
         /**
          * Setter for status.
-         * @param  status  Status value for status.
+         * @param  status  InvoiceStatus value for status.
          * @return Builder
          */
-        public Builder status(Status status) {
+        public Builder status(InvoiceStatus status) {
             this.status = status;
             return this;
         }

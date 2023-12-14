@@ -19,10 +19,10 @@
 | `TransactionTime` | `ZonedDateTime` | Optional | - | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
-| `IssueDate` | `String` | Optional | Date the invoice was issued to the customer.  This is the date that the invoice was made available for payment.<br><br>The format is `"YYYY-MM-DD"`. | String getIssueDate() | setIssueDate(String issueDate) |
-| `DueDate` | `String` | Optional | Date the invoice is due.<br><br>The format is `"YYYY-MM-DD"`. | String getDueDate() | setDueDate(String dueDate) |
-| `PaidDate` | `String` | Optional | Date the invoice became fully paid.<br><br>If partial payments are applied to the invoice, this date will not be present until payment has been made in full.<br><br>The format is `"YYYY-MM-DD"`. | String getPaidDate() | setPaidDate(String paidDate) |
-| `Status` | [`Status`](../../doc/models/status.md) | Optional | The current status of the invoice. See [Invoice Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns) for more. | Status getStatus() | setStatus(Status status) |
+| `IssueDate` | `LocalDate` | Optional | Date the invoice was issued to the customer.  This is the date that the invoice was made available for payment.<br><br>The format is `"YYYY-MM-DD"`. | LocalDate getIssueDate() | setIssueDate(LocalDate issueDate) |
+| `DueDate` | `LocalDate` | Optional | Date the invoice is due.<br><br>The format is `"YYYY-MM-DD"`. | LocalDate getDueDate() | setDueDate(LocalDate dueDate) |
+| `PaidDate` | `LocalDate` | Optional | Date the invoice became fully paid.<br><br>If partial payments are applied to the invoice, this date will not be present until payment has been made in full.<br><br>The format is `"YYYY-MM-DD"`. | LocalDate getPaidDate() | setPaidDate(LocalDate paidDate) |
+| `Status` | [`InvoiceStatus`](../../doc/models/invoice-status.md) | Optional | The current status of the invoice. See [Invoice Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns) for more. | InvoiceStatus getStatus() | setStatus(InvoiceStatus status) |
 | `Role` | `String` | Optional | - | String getRole() | setRole(String role) |
 | `ParentInvoiceId` | `Integer` | Optional | - | Integer getParentInvoiceId() | setParentInvoiceId(Integer parentInvoiceId) |
 | `CollectionMethod` | `String` | Optional | The collection method of the invoice, which is either "automatic" (tried and retried on an existing payment method by Chargify) or "remittance" (payment must be remitted by the customer or keyed in by the merchant). | String getCollectionMethod() | setCollectionMethod(String collectionMethod) |
@@ -66,6 +66,9 @@
 
 ```json
 {
+  "issue_date": "2024-01-01",
+  "due_date": "2024-01-01",
+  "paid_date": "2024-01-01",
   "id": 252,
   "uid": "uid0",
   "site_id": 178,
