@@ -71,20 +71,25 @@ public class TestSetup {
     }
 
     public Product createProduct(ProductFamily productFamily) throws IOException, ApiException {
+        return createProduct(productFamily, b -> {
+        });
+    }
+
+    public Product createProduct(ProductFamily productFamily, Consumer<CreateOrUpdateProduct.Builder> customizer)
+            throws IOException, ApiException {
         String productName = "My Super Product " + randomNumeric(5);
         String handle = productName.toLowerCase().replace(" ", "-");
+
+        CreateOrUpdateProduct.Builder builder = new CreateOrUpdateProduct.Builder()
+                .name(productName)
+                .handle(handle)
+                .intervalUnit(IntervalUnit.MONTH)
+                .interval(1)
+                .requireCreditCard(false);
+        customizer.accept(builder);
+
         return advancedBillingClient.getProductsController()
-                .createProduct(
-                        productFamily.getId(),
-                        new CreateOrUpdateProductRequest(
-                                new CreateOrUpdateProduct.Builder()
-                                        .name(productName)
-                                        .handle(handle)
-                                        .intervalUnit(IntervalUnit.MONTH)
-                                        .interval(1)
-                                        .requireCreditCard(false)
-                                        .build()
-                        ))
+                .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(builder.build()))
                 .getProduct();
     }
 
@@ -280,7 +285,8 @@ public class TestSetup {
                         .cvv("123")
                         .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
                         .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
-                        .build());
+                        .build()
+                );
         customizer.accept(builder);
         return advancedBillingClient.getSubscriptionsController()
                 .createSubscription(new CreateSubscriptionRequest(builder.build()))

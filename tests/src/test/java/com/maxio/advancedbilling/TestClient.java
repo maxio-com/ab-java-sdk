@@ -5,13 +5,13 @@ public class TestClient {
     private static final String DOMAIN_ENV = "DOMAIN";
     private static final String API_KEY_ENV = "API_KEY";
 
-    private static final String USER_NAME = "X";
+    private static final String PASSWORD = "X";
 
     public static AdvancedBillingClient createClient() {
         return new AdvancedBillingClient.Builder()
                 .httpClientConfig(configBuilder -> configBuilder
                         .timeout(10))
-                .basicAuthCredentials(getEnvValue(API_KEY_ENV), USER_NAME)
+                .basicAuthCredentials(getEnvValue(API_KEY_ENV), PASSWORD)
                 .environment(Environment.PRODUCTION)
                 .subdomain(getEnvValue(SUBDOMAIN_ENV))
                 .domain(getEnvValue(DOMAIN_ENV))
