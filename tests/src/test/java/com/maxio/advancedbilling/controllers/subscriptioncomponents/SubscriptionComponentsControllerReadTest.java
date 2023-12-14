@@ -39,7 +39,7 @@ public class SubscriptionComponentsControllerReadTest {
         Product product = TEST_SETUP.createProduct(productFamily);
         component = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
         customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
+        subscription = TEST_SETUP.createSubscription(customer, product);
     }
 
     @AfterAll

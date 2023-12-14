@@ -45,7 +45,7 @@ public class SubscriptionComponentsControllerCreateUsageTest {
         prepaidComponent = TEST_SETUP.createPrepaidComponent(productFamily, 1.0);
 
         customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
+        subscription = TEST_SETUP.createSubscription(customer, product);
     }
 
     @AfterAll

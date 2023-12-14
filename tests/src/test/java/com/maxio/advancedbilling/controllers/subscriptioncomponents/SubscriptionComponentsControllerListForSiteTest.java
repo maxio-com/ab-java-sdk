@@ -66,7 +66,7 @@ public class SubscriptionComponentsControllerListForSiteTest {
         component3 = TEST_SETUP.createMeteredComponent(productFamily, 1.0);
 
         customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
+        subscription = TEST_SETUP.createSubscription(customer, product);
 
         // looks like list components for site might have some caching which can be invalidated by calling this endpoint first.
         SUBSCRIPTION_COMPONENTS_CONTROLLER

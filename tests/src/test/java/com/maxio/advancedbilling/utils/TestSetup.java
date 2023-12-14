@@ -232,24 +232,6 @@ public class TestSetup {
                 .getCoupon();
     }
 
-    public Subscription createSubscription(int productId, int customerId) throws IOException, ApiException {
-        return advancedBillingClient.getSubscriptionsController()
-                .createSubscription(
-                        new CreateSubscriptionRequest(
-                                new CreateSubscription.Builder()
-                                        .productId(productId)
-                                        .customerId(customerId)
-                                        .creditCardAttributes(
-                                                new PaymentProfileAttributes.Builder()
-                                                        .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(12))
-                                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2024))
-                                                        .fullNumber("1")
-                                                        .build()
-                                        )
-                                        .build()
-                        )
-                ).getSubscription();
-    }
     public ComponentPricePoint createPricePointForComponent(int componentId, double unitPrice) throws IOException, ApiException {
         String name = "Price Point " + randomNumeric(5);
         String handle = name.toLowerCase().replace(" ", "-");

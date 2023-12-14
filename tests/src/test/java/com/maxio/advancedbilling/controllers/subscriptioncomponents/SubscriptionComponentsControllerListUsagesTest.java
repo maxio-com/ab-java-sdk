@@ -50,7 +50,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
         meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 1.0);
 
         customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(product.getId(), customer.getId());
+        subscription = TEST_SETUP.createSubscription(customer, product);
 
         usage1 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
                 CreateUsageComponentId.fromNumber(meteredComponent.getId()),
@@ -94,9 +94,9 @@ public class SubscriptionComponentsControllerListUsagesTest {
 
         // then
         assertThat(usages.size()).isEqualTo(3);
-        assertUsage(usage1, meteredComponent, subscription,10, "created usage");
-        assertUsage(usage2, meteredComponent, subscription,50, "created usage 2");
-        assertUsage(usage3, meteredComponent, subscription,22, "created usage 3");
+        assertUsage(usage1, meteredComponent, subscription, 10, "created usage");
+        assertUsage(usage2, meteredComponent, subscription, 50, "created usage 2");
+        assertUsage(usage3, meteredComponent, subscription, 22, "created usage 3");
     }
 
     @Test
