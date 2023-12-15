@@ -251,8 +251,7 @@ public class SubscriptionsControllerUpdateTest {
                         new UpdateSubscriptionRequest(new UpdateSubscription.Builder()
                                 .productId(Integer.MAX_VALUE - 1)
                                 .build())))
-                .hasUnprocessableEntityMessage()
-                .hasErrorCode(422)
+                .isUnprocessableEntity()
                 .hasErrors(
                         "Product must be specified and be a valid product provided by the seller.",
                         "Product price point must belong to product."

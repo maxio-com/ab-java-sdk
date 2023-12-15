@@ -93,8 +93,7 @@ public class SubscriptionsControllerCreateTest {
 
         // when then
         assertThatErrorListResponse(() -> SUBSCRIPTIONS_CONTROLLER.createSubscription(request))
-                .hasErrorCode(422)
-                .hasUnprocessableEntityMessage()
+                .isUnprocessableEntity()
                 .hasErrors("A Customer must be specified for the subscription to be valid.");
     }
 

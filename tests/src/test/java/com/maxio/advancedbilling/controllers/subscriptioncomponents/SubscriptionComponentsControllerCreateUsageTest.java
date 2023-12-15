@@ -101,8 +101,7 @@ public class SubscriptionComponentsControllerCreateUsageTest {
                         new CreateUsage.Builder().quantity(2.0).build()
                 ))
         )
-                .hasErrorCode(422)
-                .hasUnprocessableEntityMessage()
+                .isUnprocessableEntity()
                 .hasErrors(
                         "Usages cannot be added to archived components.",
                         "Usages can only be added to metered or prepaid usage components."
