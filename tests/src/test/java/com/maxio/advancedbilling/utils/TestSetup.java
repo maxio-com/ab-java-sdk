@@ -14,6 +14,7 @@ import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.CreateMeteredComponent;
 import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
+import com.maxio.advancedbilling.models.CreateOrUpdateFlatAmountCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdatePercentageCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
@@ -79,7 +80,6 @@ public class TestSetup {
             throws IOException, ApiException {
         String productName = "My Super Product " + randomNumeric(5);
         String handle = productName.toLowerCase().replace(" ", "-");
-
         CreateOrUpdateProduct.Builder builder = new CreateOrUpdateProduct.Builder()
                 .name(productName)
                 .handle(handle)
@@ -224,6 +224,22 @@ public class TestSetup {
                                         .locale("es-MX")
                                         .build()
                         )).getCustomer();
+    }
+
+    public Coupon createAmountCoupon(ProductFamily productFamily, long amountInCents, String stackable) throws IOException, ApiException {
+        return advancedBillingClient.getCouponsController()
+                .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
+                        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdateFlatAmountCoupon(
+                                new CreateOrUpdateFlatAmountCoupon.Builder()
+                                        .name("Amount Discount " + randomNumeric(5))
+                                        .code("AMOUNT_DISCOUNT_" + randomNumeric(5))
+                                        .description("Huuuuge amount discount: " + amountInCents)
+                                        .amountInCents(amountInCents)
+                                        .stackable(stackable)
+                                        .build()
+                        ))
+                        .build())
+                .getCoupon();
     }
 
     public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage) throws IOException, ApiException {

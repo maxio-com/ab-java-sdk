@@ -82,7 +82,11 @@ public class CommonAssertions {
     }
 
     public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable) {
-        assertUnauthorized(throwingCallable, "HTTP Response Not OK", "HTTP Basic: Access denied.");
+        assertUnauthorized(throwingCallable, "HTTP Response Not OK");
+    }
+
+    public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable, String exceptionMessage) {
+        assertUnauthorized(throwingCallable, exceptionMessage, "HTTP Basic: Access denied.");
     }
 
     public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable,
