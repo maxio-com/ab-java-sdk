@@ -49,6 +49,8 @@ public class Component {
     private OptionalNullable<Boolean> useSiteExchangeRate;
     private OptionalNullable<String> accountingCode;
     private Integer eventBasedBillingMetricId;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
 
     /**
      * Default constructor.
@@ -89,6 +91,8 @@ public class Component {
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  accountingCode  String value for accountingCode.
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
     public Component(
             Integer id,
@@ -121,7 +125,9 @@ public class Component {
             ItemCategory itemCategory,
             Boolean useSiteExchangeRate,
             String accountingCode,
-            Integer eventBasedBillingMetricId) {
+            Integer eventBasedBillingMetricId,
+            Integer interval,
+            IntervalUnit intervalUnit) {
         this.id = id;
         this.name = name;
         this.handle = OptionalNullable.of(handle);
@@ -153,6 +159,8 @@ public class Component {
         this.useSiteExchangeRate = OptionalNullable.of(useSiteExchangeRate);
         this.accountingCode = OptionalNullable.of(accountingCode);
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -188,6 +196,8 @@ public class Component {
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  accountingCode  String value for accountingCode.
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
     protected Component(Integer id, String name, OptionalNullable<String> handle,
@@ -202,7 +212,7 @@ public class Component {
             OptionalNullable<String> archivedAt, Boolean hideDateRangeOnInvoice,
             Boolean allowFractionalQuantities, OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
-            Integer eventBasedBillingMetricId) {
+            Integer eventBasedBillingMetricId, Integer interval, IntervalUnit intervalUnit) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -234,6 +244,8 @@ public class Component {
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.accountingCode = accountingCode;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -1140,6 +1152,54 @@ public class Component {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component's default price point would renew every 30 days. This property is only
+     * available for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component's default price point would renew every 30 days. This property is only
+     * available for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Converts this Component into string format.
      * @return String representation of this class
      */
@@ -1160,7 +1220,8 @@ public class Component {
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", itemCategory="
                 + itemCategory + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", accountingCode=" + accountingCode + ", eventBasedBillingMetricId="
-                + eventBasedBillingMetricId + "]";
+                + eventBasedBillingMetricId + ", interval=" + interval + ", intervalUnit="
+                + intervalUnit + "]";
     }
 
     /**
@@ -1187,7 +1248,9 @@ public class Component {
                 .updatedAt(getUpdatedAt())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
-                .eventBasedBillingMetricId(getEventBasedBillingMetricId());
+                .eventBasedBillingMetricId(getEventBasedBillingMetricId())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit());
         builder.handle = internalGetHandle();
         builder.pricingScheme = internalGetPricingScheme();
         builder.unitPrice = internalGetUnitPrice();
@@ -1239,6 +1302,8 @@ public class Component {
         private OptionalNullable<Boolean> useSiteExchangeRate;
         private OptionalNullable<String> accountingCode;
         private Integer eventBasedBillingMetricId;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
 
 
 
@@ -1670,6 +1735,26 @@ public class Component {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Component} object using the set fields.
          * @return {@link Component}
          */
@@ -1680,7 +1765,7 @@ public class Component {
                     pricePointsUrl, defaultPricePointName, taxCode, recurring, upgradeCharge,
                     downgradeCredit, createdAt, updatedAt, archivedAt, hideDateRangeOnInvoice,
                     allowFractionalQuantities, itemCategory, useSiteExchangeRate, accountingCode,
-                    eventBasedBillingMetricId);
+                    eventBasedBillingMetricId, interval, intervalUnit);
         }
     }
 }

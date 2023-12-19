@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class UpdateComponentPricePoint {
     private String name;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
     private List<UpdatePrice> prices;
 
     /**
@@ -27,12 +29,18 @@ public class UpdateComponentPricePoint {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  prices  List of UpdatePrice value for prices.
      */
     public UpdateComponentPricePoint(
             String name,
+            Integer interval,
+            IntervalUnit intervalUnit,
             List<UpdatePrice> prices) {
         this.name = name;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
         this.prices = prices;
     }
 
@@ -53,6 +61,54 @@ public class UpdateComponentPricePoint {
     @JsonSetter("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -80,7 +136,8 @@ public class UpdateComponentPricePoint {
      */
     @Override
     public String toString() {
-        return "UpdateComponentPricePoint [" + "name=" + name + ", prices=" + prices + "]";
+        return "UpdateComponentPricePoint [" + "name=" + name + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + ", prices=" + prices + "]";
     }
 
     /**
@@ -91,6 +148,8 @@ public class UpdateComponentPricePoint {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .name(getName())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit())
                 .prices(getPrices());
         return builder;
     }
@@ -100,6 +159,8 @@ public class UpdateComponentPricePoint {
      */
     public static class Builder {
         private String name;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
         private List<UpdatePrice> prices;
 
 
@@ -111,6 +172,26 @@ public class UpdateComponentPricePoint {
          */
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
             return this;
         }
 
@@ -129,7 +210,7 @@ public class UpdateComponentPricePoint {
          * @return {@link UpdateComponentPricePoint}
          */
         public UpdateComponentPricePoint build() {
-            return new UpdateComponentPricePoint(name, prices);
+            return new UpdateComponentPricePoint(name, interval, intervalUnit, prices);
         }
     }
 }

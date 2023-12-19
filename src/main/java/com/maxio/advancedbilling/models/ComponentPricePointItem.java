@@ -18,6 +18,8 @@ public class ComponentPricePointItem {
     private String name;
     private String handle;
     private PricingScheme pricingScheme;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
     private List<Price> prices;
 
     /**
@@ -31,16 +33,22 @@ public class ComponentPricePointItem {
      * @param  name  String value for name.
      * @param  handle  String value for handle.
      * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  prices  List of Price value for prices.
      */
     public ComponentPricePointItem(
             String name,
             String handle,
             PricingScheme pricingScheme,
+            Integer interval,
+            IntervalUnit intervalUnit,
             List<Price> prices) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
         this.prices = prices;
     }
 
@@ -108,6 +116,54 @@ public class ComponentPricePointItem {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Getter for Prices.
      * @return Returns the List of Price
      */
@@ -133,7 +189,8 @@ public class ComponentPricePointItem {
     @Override
     public String toString() {
         return "ComponentPricePointItem [" + "name=" + name + ", handle=" + handle
-                + ", pricingScheme=" + pricingScheme + ", prices=" + prices + "]";
+                + ", pricingScheme=" + pricingScheme + ", interval=" + interval + ", intervalUnit="
+                + intervalUnit + ", prices=" + prices + "]";
     }
 
     /**
@@ -146,6 +203,8 @@ public class ComponentPricePointItem {
                 .name(getName())
                 .handle(getHandle())
                 .pricingScheme(getPricingScheme())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit())
                 .prices(getPrices());
         return builder;
     }
@@ -157,6 +216,8 @@ public class ComponentPricePointItem {
         private String name;
         private String handle;
         private PricingScheme pricingScheme;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
         private List<Price> prices;
 
 
@@ -192,6 +253,26 @@ public class ComponentPricePointItem {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Setter for prices.
          * @param  prices  List of Price value for prices.
          * @return Builder
@@ -206,7 +287,8 @@ public class ComponentPricePointItem {
          * @return {@link ComponentPricePointItem}
          */
         public ComponentPricePointItem build() {
-            return new ComponentPricePointItem(name, handle, pricingScheme, prices);
+            return new ComponentPricePointItem(name, handle, pricingScheme, interval, intervalUnit,
+                    prices);
         }
     }
 }

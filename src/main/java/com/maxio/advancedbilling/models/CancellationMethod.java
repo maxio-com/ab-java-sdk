@@ -23,7 +23,9 @@ public enum CancellationMethod {
 
     DUNNING,
 
-    BILLING_PORTAL;
+    BILLING_PORTAL,
+
+    UNKNOWN;
 
 
     private static TreeMap<String, CancellationMethod> valueMap = new TreeMap<>();
@@ -34,11 +36,13 @@ public enum CancellationMethod {
         MERCHANT_API.value = "merchant_api";
         DUNNING.value = "dunning";
         BILLING_PORTAL.value = "billing_portal";
+        UNKNOWN.value = "unknown";
 
         valueMap.put("merchant_ui", MERCHANT_UI);
         valueMap.put("merchant_api", MERCHANT_API);
         valueMap.put("dunning", DUNNING);
         valueMap.put("billing_portal", BILLING_PORTAL);
+        valueMap.put("unknown", UNKNOWN);
     }
 
     /**
