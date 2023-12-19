@@ -19,6 +19,17 @@ public class CommonAssertions {
         return new ErrorListResponseAssert(throwingCallable);
     }
 
+    public static SingleErrorResponseAssert assertThatSingleErrorResponse(ThrowingRunnable throwingRunnable) {
+        return new SingleErrorResponseAssert((Callable<Void>) () -> {
+            throwingRunnable.run();
+            return null;
+        });
+    }
+
+    public interface ThrowingRunnable {
+        void run() throws Exception;
+    }
+
     public static void assertNotFound(ThrowableAssert.ThrowingCallable throwingCallable) {
         assertNotFound(throwingCallable, "HTTP Response Not OK");
     }

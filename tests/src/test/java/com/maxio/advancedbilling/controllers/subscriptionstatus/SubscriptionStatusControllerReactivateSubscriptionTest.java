@@ -56,8 +56,7 @@ public class SubscriptionStatusControllerReactivateSubscriptionTest extends Subs
         // when-then
         assertThatErrorListResponse(() -> subscriptionStatusController.reactivateSubscription(subscription.getId(),
                 new ReactivateSubscriptionRequest()))
-                .hasErrorCode(422)
-                .hasUnprocessableEntityMessage()
+                .isUnprocessableEntity()
                 .hasErrors("Cannot reactivate a subscription that is not marked \"Canceled\" or \"Trial Ended\".");
     }
 

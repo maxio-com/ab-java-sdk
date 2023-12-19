@@ -142,8 +142,7 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
 
         // when-then
         assertThatErrorListResponse(() -> subscriptionStatusController.previewRenewal(subscription.getId(), request))
-                .hasErrorCode(422)
-                .hasUnprocessableEntityMessage()
+                .isUnprocessableEntity()
                 .hasErrors("Couldn't find Component by 12");
     }
 

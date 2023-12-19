@@ -41,4 +41,10 @@ public class ApiExceptionAssert<E extends ApiException, A extends ApiExceptionAs
                 .hasMessage("HTTP Response Not OK");
         return (A) this;
     }
+
+    @SuppressWarnings("unchecked")
+    public A isUnprocessableEntity() {
+        hasUnprocessableEntityMessage().hasErrorCode(422);
+        return (A) this;
+    }
 }
