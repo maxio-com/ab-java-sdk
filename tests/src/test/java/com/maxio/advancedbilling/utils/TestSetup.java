@@ -94,19 +94,27 @@ public class TestSetup {
     }
 
     public ProductPricePoint createProductPricePoint(Product product, String name) throws IOException, ApiException {
+        return createProductPricePoint(product, name, b -> {
+        });
+    }
+
+    public ProductPricePoint createProductPricePoint(Product product, String name,
+                                                     Consumer<CreateProductPricePoint.Builder> customizer)
+            throws IOException, ApiException {
         String handle = name.toLowerCase().replace(" ", "-");
+        CreateProductPricePoint.Builder builder = new CreateProductPricePoint.Builder()
+                .name(name)
+                .handle(handle)
+                .priceInCents(new Random().nextInt(1, 100000))
+                .interval(1)
+                .intervalUnit(IntervalUnit.MONTH);
+        customizer.accept(builder);
+
         return advancedBillingClient.getProductPricePointsController()
                 .createProductPricePoint(
                         CreateProductPricePointProductId.fromNumber(product.getId()),
-                        new CreateProductPricePointRequest(
-                                new CreateProductPricePoint.Builder()
-                                        .name(name)
-                                        .handle(handle)
-                                        .priceInCents(new Random().nextInt(1, 100000))
-                                        .interval(1)
-                                        .intervalUnit(IntervalUnit.MONTH)
-                                        .build()
-                        ))
+                        new CreateProductPricePointRequest(builder.build())
+                )
                 .getPricePoint();
     }
 
@@ -134,7 +142,8 @@ public class TestSetup {
     }
 
     public Component createQuantityBasedComponent(int productFamilyId) throws IOException, ApiException {
-        return createQuantityBasedComponent(productFamilyId, b -> {});
+        return createQuantityBasedComponent(productFamilyId, b -> {
+        });
     }
 
     public Component createQuantityBasedComponent(int productFamilyId, Consumer<QuantityBasedComponent.Builder> customizer) throws IOException, ApiException {
@@ -269,27 +278,35 @@ public class TestSetup {
         });
     }
 
-    public Subscription createSubscription(Customer customer, Product product, Consumer<CreateSubscription.Builder> customizer) throws IOException, ApiException {
-        CreateSubscription.Builder builder = new CreateSubscription.Builder()
+    public Subscription createSubscription(Customer customer, Product product,
+                                           Consumer<CreateSubscription.Builder> subscriptionCustomizer) throws IOException, ApiException {
+        return createSubscription(customer, product, subscriptionCustomizer, ppc -> ppc.fullNumber("4111 1111 1111 1111"));
+    }
+
+    public Subscription createSubscription(Customer customer, Product product,
+                                           Consumer<CreateSubscription.Builder> subscriptionCustomizer,
+                                           Consumer<PaymentProfileAttributes.Builder> paymentProfileCustomizer) throws IOException, ApiException {
+        PaymentProfileAttributes.Builder paymentProfileBuilder = new PaymentProfileAttributes.Builder()
+                .billingAddress("My Billing Address")
+                .billingCity("New York")
+                .billingCountry("USA")
+                .billingState("NY")
+                .billingZip("10001")
+                .customerId(customer.getId())
+                .cardType(CardType.VISA)
+                .cvv("123")
+                .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
+                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050));
+        paymentProfileCustomizer.accept(paymentProfileBuilder);
+
+        CreateSubscription.Builder subscriptionBuilder = new CreateSubscription.Builder()
                 .productId(product.getId())
                 .customerId(customer.getId())
-                .creditCardAttributes(new PaymentProfileAttributes.Builder()
-                        .billingAddress("My Billing Address")
-                        .billingCity("New York")
-                        .billingCountry("USA")
-                        .billingState("NY")
-                        .billingZip("10001")
-                        .customerId(customer.getId())
-                        .fullNumber("4111 1111 1111 1111")
-                        .cardType(CardType.VISA)
-                        .cvv("123")
-                        .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
-                        .build()
-                );
-        customizer.accept(builder);
+                .creditCardAttributes(paymentProfileBuilder.build());
+        subscriptionCustomizer.accept(subscriptionBuilder);
+
         return advancedBillingClient.getSubscriptionsController()
-                .createSubscription(new CreateSubscriptionRequest(builder.build()))
+                .createSubscription(new CreateSubscriptionRequest(subscriptionBuilder.build()))
                 .getSubscription();
     }
 }

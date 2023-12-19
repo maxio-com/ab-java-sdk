@@ -26,6 +26,10 @@ public class CommonAssertions {
         });
     }
 
+    public static <V> NestedErrorResponseAssert assertThatNestedErrorResponse(Callable<V> throwingCallable) {
+        return new NestedErrorResponseAssert(throwingCallable);
+    }
+
     public interface ThrowingRunnable {
         void run() throws Exception;
     }
