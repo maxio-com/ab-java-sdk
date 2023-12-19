@@ -33,6 +33,8 @@ public class EBBComponent {
     private Boolean hideDateRangeOnInvoice;
     private String priceInCents;
     private int eventBasedBillingMetricId;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
 
     /**
      * Default constructor.
@@ -57,6 +59,8 @@ public class EBBComponent {
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  priceInCents  String value for priceInCents.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
     public EBBComponent(
             String name,
@@ -73,7 +77,9 @@ public class EBBComponent {
             EBBComponentUnitPrice unitPrice,
             String taxCode,
             Boolean hideDateRangeOnInvoice,
-            String priceInCents) {
+            String priceInCents,
+            Integer interval,
+            IntervalUnit intervalUnit) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -89,6 +95,8 @@ public class EBBComponent {
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
         this.priceInCents = priceInCents;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -108,6 +116,8 @@ public class EBBComponent {
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  priceInCents  String value for priceInCents.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
     protected EBBComponent(String name, String unitName, PricingScheme pricingScheme,
@@ -115,7 +125,7 @@ public class EBBComponent {
             List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             EBBComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
-            String priceInCents) {
+            String priceInCents, Integer interval, IntervalUnit intervalUnit) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -131,6 +141,8 @@ public class EBBComponent {
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
         this.priceInCents = priceInCents;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -513,6 +525,54 @@ public class EBBComponent {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component's default price point would renew every 30 days. This property is only
+     * available for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component's default price point would renew every 30 days. This property is only
+     * available for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Converts this EBBComponent into string format.
      * @return String representation of this class
      */
@@ -524,7 +584,8 @@ public class EBBComponent {
                 + ", prices=" + prices + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit="
                 + downgradeCredit + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
                 + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
-                + ", priceInCents=" + priceInCents + "]";
+                + ", priceInCents=" + priceInCents + ", interval=" + interval + ", intervalUnit="
+                + intervalUnit + "]";
     }
 
     /**
@@ -542,7 +603,9 @@ public class EBBComponent {
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
-                .priceInCents(getPriceInCents());
+                .priceInCents(getPriceInCents())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit());
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
         return builder;
@@ -567,6 +630,8 @@ public class EBBComponent {
         private String taxCode;
         private Boolean hideDateRangeOnInvoice;
         private String priceInCents;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
 
         /**
          * Initialization constructor.
@@ -758,13 +823,34 @@ public class EBBComponent {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link EBBComponent} object using the set fields.
          * @return {@link EBBComponent}
          */
         public EBBComponent build() {
             return new EBBComponent(name, unitName, pricingScheme, eventBasedBillingMetricId,
                     description, handle, taxable, prices, upgradeCharge, downgradeCredit,
-                    pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice, priceInCents);
+                    pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice, priceInCents, interval,
+                    intervalUnit);
         }
     }
 }

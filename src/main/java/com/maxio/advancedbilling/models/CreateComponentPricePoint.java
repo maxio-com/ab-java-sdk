@@ -22,6 +22,8 @@ public class CreateComponentPricePoint {
     private PricingScheme pricingScheme;
     private List<Price> prices;
     private Boolean useSiteExchangeRate;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
 
     /**
      * Default constructor.
@@ -37,18 +39,24 @@ public class CreateComponentPricePoint {
      * @param  prices  List of Price value for prices.
      * @param  handle  String value for handle.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
     public CreateComponentPricePoint(
             String name,
             PricingScheme pricingScheme,
             List<Price> prices,
             String handle,
-            Boolean useSiteExchangeRate) {
+            Boolean useSiteExchangeRate,
+            Integer interval,
+            IntervalUnit intervalUnit) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
         this.useSiteExchangeRate = useSiteExchangeRate;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -62,7 +70,7 @@ public class CreateComponentPricePoint {
             @JsonProperty("name") String name,
             @JsonProperty("pricing_scheme") PricingScheme pricingScheme,
             @JsonProperty("prices") List<Price> prices) {
-        this(name, pricingScheme, prices, null, null);
+        this(name, pricingScheme, prices, null, null, null, null);
     }
 
     /**
@@ -168,6 +176,54 @@ public class CreateComponentPricePoint {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this price point would renew every 30 days. This property is only available for sites
+     * with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this price point would renew every 30 days. This property is only available for sites
+     * with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this price point, either month or day. This
+     * property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this price point, either month or day. This
+     * property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Converts this CreateComponentPricePoint into string format.
      * @return String representation of this class
      */
@@ -175,7 +231,8 @@ public class CreateComponentPricePoint {
     public String toString() {
         return "CreateComponentPricePoint [" + "name=" + name + ", pricingScheme=" + pricingScheme
                 + ", prices=" + prices + ", handle=" + handle + ", useSiteExchangeRate="
-                + useSiteExchangeRate + "]";
+                + useSiteExchangeRate + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + "]";
     }
 
     /**
@@ -186,7 +243,9 @@ public class CreateComponentPricePoint {
     public Builder toBuilder() {
         Builder builder = new Builder(name, pricingScheme, prices)
                 .handle(getHandle())
-                .useSiteExchangeRate(getUseSiteExchangeRate());
+                .useSiteExchangeRate(getUseSiteExchangeRate())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit());
         return builder;
     }
 
@@ -199,6 +258,8 @@ public class CreateComponentPricePoint {
         private List<Price> prices;
         private String handle;
         private Boolean useSiteExchangeRate = true;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
 
         /**
          * Initialization constructor.
@@ -269,12 +330,32 @@ public class CreateComponentPricePoint {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateComponentPricePoint} object using the set fields.
          * @return {@link CreateComponentPricePoint}
          */
         public CreateComponentPricePoint build() {
             return new CreateComponentPricePoint(name, pricingScheme, prices, handle,
-                    useSiteExchangeRate);
+                    useSiteExchangeRate, interval, intervalUnit);
         }
     }
 }
