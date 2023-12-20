@@ -6,8 +6,6 @@ import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Coupon;
-import com.maxio.advancedbilling.models.CreateInvoice;
-import com.maxio.advancedbilling.models.CreateInvoiceAddress;
 import com.maxio.advancedbilling.models.CreateInvoiceCoupon;
 import com.maxio.advancedbilling.models.CreateInvoiceItem;
 import com.maxio.advancedbilling.models.CreateInvoiceRequest;
@@ -80,56 +78,39 @@ public class InvoicesControllerCreateTest {
     @Test
     void shouldCreateInvoice() throws IOException, ApiException {
         // when
-        Invoice invoice = INVOICES_CONTROLLER.createInvoice(
-                        subscription.getId(),
-                        new CreateInvoiceRequest(
-                                new CreateInvoice.Builder()
-                                        .status(CreateInvoiceStatus.OPEN)
-                                        .netTerms(3)
-                                        .memo("Adhoc invoice created")
-                                        .paymentInstructions("Gib me your money")
-                                        .issueDate(LocalDate.now())
-                                        .shippingAddress(new CreateInvoiceAddress.Builder()
-                                                .address("Shipping address")
-                                                .address2("Shipping address 2")
-                                                .city("Shipping city")
-                                                .zip("ABC")
-                                                .state("MP")
-                                                .country("PL")
-                                                .firstName("John")
-                                                .lastName("Doe")
-                                                .phone("555050505")
-                                                .build())
-                                        .lineItems(List.of(
-                                                new CreateInvoiceItem.Builder()
-                                                        .productId(CreateInvoiceItemProductId.fromNumber(product.getId()))
-                                                        .quantity(CreateInvoiceItemQuantity.fromString("1"))
-                                                        .build(),
-                                                new CreateInvoiceItem.Builder()
-                                                        .title("Custom line")
-                                                        .quantity(CreateInvoiceItemQuantity.fromString("12.5"))
-                                                        .unitPrice(CreateInvoiceItemUnitPrice.fromString("1.8"))
-                                                        .build(),
-                                                new CreateInvoiceItem.Builder()
-                                                        .componentId(CreateInvoiceItemComponentId.fromNumber(meteredComponent.getId()))
-                                                        .quantity(CreateInvoiceItemQuantity.fromString("10"))
-                                                        .build()
-                                        ))
-                                        .coupons(List.of(
-                                                new CreateInvoiceCoupon.Builder()
-                                                        .code(coupon.getCode())
-                                                        .productFamilyId(CreateInvoiceCouponProductFamilyId.fromNumber(productFamily.getId()))
-                                                        .build(),
-                                                new CreateInvoiceCoupon.Builder()
-                                                        .code("MY_CUSTOM_CODE")
-                                                        .amount(CreateInvoiceCouponAmount.fromString("8.5"))
-                                                        .description("Super coupon with 8.5 amount.")
-                                                        .build()
-                                        ))
+        Invoice invoice = TEST_SETUP.createInvoice(
+                subscription.getId(),
+                b -> b
+                        .status(CreateInvoiceStatus.OPEN)
+                        .netTerms(3)
+                        .lineItems(List.of(
+                                new CreateInvoiceItem.Builder()
+                                        .productId(CreateInvoiceItemProductId.fromNumber(product.getId()))
+                                        .quantity(CreateInvoiceItemQuantity.fromString("1"))
+                                        .build(),
+                                new CreateInvoiceItem.Builder()
+                                        .title("Custom line")
+                                        .quantity(CreateInvoiceItemQuantity.fromString("12.5"))
+                                        .unitPrice(CreateInvoiceItemUnitPrice.fromString("1.8"))
+                                        .build(),
+                                new CreateInvoiceItem.Builder()
+                                        .componentId(CreateInvoiceItemComponentId.fromNumber(meteredComponent.getId()))
+                                        .quantity(CreateInvoiceItemQuantity.fromString("10"))
                                         .build()
-                        )
-                )
-                .getInvoice();
+                        ))
+                        .coupons(List.of(
+                                new CreateInvoiceCoupon.Builder()
+                                        .code(coupon.getCode())
+                                        .productFamilyId(CreateInvoiceCouponProductFamilyId.fromNumber(productFamily.getId()))
+                                        .build(),
+                                new CreateInvoiceCoupon.Builder()
+                                        .code("MY_CUSTOM_CODE")
+                                        .amount(CreateInvoiceCouponAmount.fromString("8.5"))
+                                        .description("Super coupon with 8.5 amount.")
+                                        .build()
+                        ))
+                        .build()
+        );
 
         // then
         assertThat(invoice).isNotNull();
@@ -147,7 +128,7 @@ public class InvoicesControllerCreateTest {
         assertThat(invoice.getRole()).isEqualTo("adhoc");
         assertThat(invoice.getParentInvoiceId()).isNull();
         assertThat(invoice.getCollectionMethod()).isEqualTo("remittance");
-        assertThat(invoice.getPaymentInstructions()).isEqualTo("Gib me your money");
+        assertThat(invoice.getPaymentInstructions()).isEqualTo("Give me your money");
         assertThat(invoice.getCurrency()).isEqualTo("USD");
         assertThat(invoice.getConsolidationLevel()).isEqualTo(InvoiceConsolidationLevel.NONE);
         assertThat(invoice.getParentInvoiceUid()).isNull();
@@ -339,8 +320,7 @@ public class InvoicesControllerCreateTest {
     void shouldReturn404WhenCreatingInvoiceForNonExistentSubscription() {
         // when - then
         CommonAssertions.assertNotFound(
-                () -> INVOICES_CONTROLLER.createInvoice(123, new CreateInvoiceRequest()),
-                "HTTP Response Not OK"
+                () -> INVOICES_CONTROLLER.createInvoice(123, new CreateInvoiceRequest())
         );
     }
 
