@@ -19,6 +19,13 @@ public class CommonAssertions {
         return new ErrorListResponseAssert(throwingCallable);
     }
 
+    public static ErrorListResponseAssert assertThatErrorListResponse(ThrowingRunnable throwingRunnable) {
+        return new ErrorListResponseAssert((Callable<Void>) () -> {
+            throwingRunnable.run();
+            return null;
+        });
+    }
+
     public static SingleErrorResponseAssert assertThatSingleErrorResponse(ThrowingRunnable throwingRunnable) {
         return new SingleErrorResponseAssert((Callable<Void>) () -> {
             throwingRunnable.run();
