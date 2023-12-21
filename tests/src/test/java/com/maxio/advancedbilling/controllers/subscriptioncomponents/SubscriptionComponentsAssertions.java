@@ -1,7 +1,10 @@
 package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 
+import com.maxio.advancedbilling.models.Allocation;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKind;
+import com.maxio.advancedbilling.models.CreateAllocation;
+import com.maxio.advancedbilling.models.CreditType;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionComponent;
@@ -28,6 +31,36 @@ public class SubscriptionComponentsAssertions {
         } else {
             assertThat(usage.getOverageQuantity()).isNull();
         }
+    }
+
+    static void assertAllocation(CreateAllocation createAllocation, Allocation responseAllocation,
+                                 Component component, Subscription subscription,
+                                 int quantity, String memo) {
+        //assertThat(responseAllocation.gettAllocationId()).isNotNull();
+        assertThat(responseAllocation.getComponentId()).isEqualTo(component.getId());
+        assertThat(responseAllocation.getSubscriptionId()).isEqualTo(subscription.getId());
+
+        // fractional will change here to string
+        assertThat(responseAllocation.getQuantity()).isEqualTo(component.getDefaultPricePointId());
+        assertThat(responseAllocation.getPreviousQuantity()).isEqualTo(component.getDefaultPricePointId());
+
+        assertThat(responseAllocation.getMemo()).isEqualTo(createAllocation.getMemo());
+        assertThat(responseAllocation.getTimestamp()).isNotNull();
+        assertThat(responseAllocation.getProrationUpgradeScheme()).isEqualTo("prorate-delay-capture");
+        assertThat(responseAllocation.getProrationDowngradeScheme()).isEqualTo("no-prorate");
+
+        assertThat(responseAllocation.getPricePointId()).isEqualTo(component.getDefaultPricePointId());
+        assertThat(responseAllocation.getPricePointName()).isEqualTo(component.getDefaultPricePointName());
+        assertThat(responseAllocation.getPricePointHandle()).isNotNull();
+        assertThat(responseAllocation.getPreviousPricePointId()).isEqualTo(component.getDefaultPricePointId());
+
+        assertThat(responseAllocation.getAccrueCharge()).isTrue();
+        assertThat(responseAllocation.getUpgradeCharge()).isEqualTo(CreditType.PRORATED);
+        assertThat(responseAllocation.getDowngradeCredit()).isEqualTo(CreditType.NONE);
+        //assertThat(responseAllocation.getCreatedAt()).isNotNull();
+        // maybe test with true? here or in
+        //assertThat(responseAllocation.getInitiateDunning()).isEqualTo(createAllocation.getInitiateDunning());
+        assertThat(responseAllocation.getPayment()).isNull();
     }
 
     static void assertSubscriptionComponentWithSubscriptionObject(SubscriptionComponent subscriptionComponent,
