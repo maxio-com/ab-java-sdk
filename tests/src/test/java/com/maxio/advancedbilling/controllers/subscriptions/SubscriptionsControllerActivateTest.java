@@ -23,6 +23,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -84,7 +85,8 @@ class SubscriptionsControllerActivateTest {
         Subscription awaitingSignupSubscriptionWithFailedPaymentProfile = TEST_SETUP.createSubscription(
                 customer,
                 paidProduct,
-                subscriptionCustomizer -> subscriptionCustomizer.initialBillingAt("2023-12-19T15:25:00.000+01:00"),
+                subscriptionCustomizer -> subscriptionCustomizer
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString()),
                 paymentProfileCustomizer -> paymentProfileCustomizer.fullNumber("2")
         );
 
@@ -125,7 +127,7 @@ class SubscriptionsControllerActivateTest {
                 customer,
                 paidProduct,
                 subscriptionCustomizer -> subscriptionCustomizer
-                        .initialBillingAt("2023-12-19T15:25:00.000+01:00")
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString())
                         .creditCardAttributes(null)
         );
 
@@ -150,7 +152,8 @@ class SubscriptionsControllerActivateTest {
         Subscription awaitingSignupSubscription = TEST_SETUP.createSubscription(
                 customer,
                 paidProduct,
-                subscriptionCustomizer -> subscriptionCustomizer.initialBillingAt("2023-12-19T15:25:00.000+01:00")
+                subscriptionCustomizer -> subscriptionCustomizer
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString())
         );
 
         // when
@@ -182,7 +185,7 @@ class SubscriptionsControllerActivateTest {
                 customer,
                 freeProduct,
                 subscriptionCustomizer -> subscriptionCustomizer
-                        .initialBillingAt("2023-12-19T15:25:00.000+01:00")
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString())
                         .productPricePointId(trialProductPricePoint.getId())
         );
 
