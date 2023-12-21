@@ -61,6 +61,19 @@ class InvoicesControllerSendTest {
     }
 
     @Test
+    void shouldReturn422WhenSendingInvalidEmailNotExistentInvoice() {
+        // when - then
+        CommonAssertions
+                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER.sendInvoice(paidInvoice.getUid(), new SendInvoiceRequest.Builder()
+                        .recipientEmails(List.of("invalidemail"))
+                        .ccRecipientEmails(List.of("user1@example.com","user1@example.com","user1@example.com",
+                                "user1@example.com","user1@example.com","user1@example.com"))
+                        .build()))
+                .isUnprocessableEntity()
+                .hasErrors("recipient_emails: must be a valid email address", "cc_recipient_emails: You can have 5 recipients at most");
+    }
+
+    @Test
     void shouldReturn422WhenSendingNotExistentInvoice() {
         // when - then
         CommonAssertions

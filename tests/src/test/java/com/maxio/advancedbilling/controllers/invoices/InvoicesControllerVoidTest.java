@@ -11,7 +11,9 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceCredit;
 import com.maxio.advancedbilling.models.InvoiceStatus;
+import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.Product;
+import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.VoidInvoice;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
@@ -36,15 +38,22 @@ class InvoicesControllerVoidTest {
     private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     private static Product product;
+    private static Subscription subscription;
     private static Customer customer;
     private static Invoice openInvoice;
+    private static Invoice paidInvoice;
 
     @BeforeAll
     static void setUp() throws IOException, ApiException {
         product = TEST_SETUP.createProduct(TEST_SETUP.createProductFamily(), b -> b.priceInCents(1250));
         customer = TEST_SETUP.createCustomer();
+        subscription = TEST_SETUP.createSubscription(customer, product);
+        paidInvoice = INVOICES_CONTROLLER
+                .listInvoices(new ListInvoicesInput.Builder().subscriptionId(subscription.getId()).build())
+                .getInvoices()
+                .get(0);
         openInvoice = TEST_SETUP.createInvoice(
-                TEST_SETUP.createSubscription(customer, product).getId(),
+                subscription.getId(),
                 b -> b
                         .status(CreateInvoiceStatus.OPEN)
                         .lineItems(List.of(
@@ -70,7 +79,7 @@ class InvoicesControllerVoidTest {
     }
 
     @Test
-    void shouldVoidValidInvoice() throws IOException, ApiException {
+    void shouldVoidOpenInvoice() throws IOException, ApiException {
         // when
         Invoice voidedInvoice = INVOICES_CONTROLLER.voidInvoice(
                 openInvoice.getUid(),
@@ -92,6 +101,16 @@ class InvoicesControllerVoidTest {
                 () -> assertThat(invoiceCredit.getOriginalAmount()).isEqualTo(voidedInvoice.getCreditAmount()),
                 () -> assertThat(invoiceCredit.getAppliedAmount()).isEqualTo(voidedInvoice.getCreditAmount())
         );
+    }
+
+    @Test
+    void shouldReturn422WhenVoidingPaidInvoice() {
+        // when - then
+        CommonAssertions
+                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER
+                        .voidInvoice(paidInvoice.getUid(), new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice"))))
+                .isUnprocessableEntity()
+                .hasErrors("Invoice status must be 'open', 'canceled', 'processing' or 'pending' and non-consolidated to be voided.");
     }
 
     @Test
