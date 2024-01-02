@@ -9,7 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.UsageQuantity;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Usage type.
@@ -17,7 +21,7 @@ import com.maxio.advancedbilling.models.containers.UsageQuantity;
 public class Usage {
     private Integer id;
     private String memo;
-    private String createdAt;
+    private ZonedDateTime createdAt;
     private Integer pricePointId;
     private UsageQuantity quantity;
     private Integer overageQuantity;
@@ -35,7 +39,7 @@ public class Usage {
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  memo  String value for memo.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  quantity  UsageQuantity value for quantity.
      * @param  overageQuantity  Integer value for overageQuantity.
@@ -46,7 +50,7 @@ public class Usage {
     public Usage(
             Integer id,
             String memo,
-            String createdAt,
+            ZonedDateTime createdAt,
             Integer pricePointId,
             UsageQuantity quantity,
             Integer overageQuantity,
@@ -104,20 +108,22 @@ public class Usage {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -272,7 +278,7 @@ public class Usage {
     public static class Builder {
         private Integer id;
         private String memo;
-        private String createdAt;
+        private ZonedDateTime createdAt;
         private Integer pricePointId;
         private UsageQuantity quantity;
         private Integer overageQuantity;
@@ -304,10 +310,10 @@ public class Usage {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }

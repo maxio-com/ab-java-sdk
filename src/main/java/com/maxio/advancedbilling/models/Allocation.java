@@ -9,20 +9,28 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.AllocationPayment2;
+import com.maxio.advancedbilling.models.containers.AllocationPreviousQuantity;
+import com.maxio.advancedbilling.models.containers.AllocationQuantity;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Allocation type.
  */
 public class Allocation {
+    private Integer allocationId;
     private Integer componentId;
+    private OptionalNullable<String> componentHandle;
     private Integer subscriptionId;
-    private Integer quantity;
-    private Integer previousQuantity;
+    private AllocationQuantity quantity;
+    private AllocationPreviousQuantity previousQuantity;
     private OptionalNullable<String> memo;
-    private String timestamp;
+    private ZonedDateTime timestamp;
+    private ZonedDateTime createdAt;
     private String prorationUpgradeScheme;
     private String prorationDowngradeScheme;
     private Integer pricePointId;
@@ -30,6 +38,7 @@ public class Allocation {
     private String pricePointHandle;
     private Integer previousPricePointId;
     private Boolean accrueCharge;
+    private Boolean initiateDunning;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private OptionalNullable<AllocationPayment2> payment;
@@ -42,12 +51,15 @@ public class Allocation {
 
     /**
      * Initialization constructor.
+     * @param  allocationId  Integer value for allocationId.
      * @param  componentId  Integer value for componentId.
+     * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
-     * @param  quantity  Integer value for quantity.
-     * @param  previousQuantity  Integer value for previousQuantity.
+     * @param  quantity  AllocationQuantity value for quantity.
+     * @param  previousQuantity  AllocationPreviousQuantity value for previousQuantity.
      * @param  memo  String value for memo.
-     * @param  timestamp  String value for timestamp.
+     * @param  timestamp  ZonedDateTime value for timestamp.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
      * @param  pricePointId  Integer value for pricePointId.
@@ -55,17 +67,21 @@ public class Allocation {
      * @param  pricePointHandle  String value for pricePointHandle.
      * @param  previousPricePointId  Integer value for previousPricePointId.
      * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  payment  AllocationPayment2 value for payment.
      */
     public Allocation(
+            Integer allocationId,
             Integer componentId,
+            String componentHandle,
             Integer subscriptionId,
-            Integer quantity,
-            Integer previousQuantity,
+            AllocationQuantity quantity,
+            AllocationPreviousQuantity previousQuantity,
             String memo,
-            String timestamp,
+            ZonedDateTime timestamp,
+            ZonedDateTime createdAt,
             String prorationUpgradeScheme,
             String prorationDowngradeScheme,
             Integer pricePointId,
@@ -73,15 +89,19 @@ public class Allocation {
             String pricePointHandle,
             Integer previousPricePointId,
             Boolean accrueCharge,
+            Boolean initiateDunning,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
             AllocationPayment2 payment) {
+        this.allocationId = allocationId;
         this.componentId = componentId;
+        this.componentHandle = OptionalNullable.of(componentHandle);
         this.subscriptionId = subscriptionId;
         this.quantity = quantity;
         this.previousQuantity = previousQuantity;
         this.memo = OptionalNullable.of(memo);
         this.timestamp = timestamp;
+        this.createdAt = createdAt;
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.pricePointId = pricePointId;
@@ -89,6 +109,7 @@ public class Allocation {
         this.pricePointHandle = pricePointHandle;
         this.previousPricePointId = previousPricePointId;
         this.accrueCharge = accrueCharge;
+        this.initiateDunning = initiateDunning;
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.payment = OptionalNullable.of(payment);
@@ -96,12 +117,15 @@ public class Allocation {
 
     /**
      * Initialization constructor.
+     * @param  allocationId  Integer value for allocationId.
      * @param  componentId  Integer value for componentId.
+     * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
-     * @param  quantity  Integer value for quantity.
-     * @param  previousQuantity  Integer value for previousQuantity.
+     * @param  quantity  AllocationQuantity value for quantity.
+     * @param  previousQuantity  AllocationPreviousQuantity value for previousQuantity.
      * @param  memo  String value for memo.
-     * @param  timestamp  String value for timestamp.
+     * @param  timestamp  ZonedDateTime value for timestamp.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
      * @param  pricePointId  Integer value for pricePointId.
@@ -109,24 +133,31 @@ public class Allocation {
      * @param  pricePointHandle  String value for pricePointHandle.
      * @param  previousPricePointId  Integer value for previousPricePointId.
      * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  payment  AllocationPayment2 value for payment.
      */
 
-    protected Allocation(Integer componentId, Integer subscriptionId, Integer quantity,
-            Integer previousQuantity, OptionalNullable<String> memo, String timestamp,
+    protected Allocation(Integer allocationId, Integer componentId,
+            OptionalNullable<String> componentHandle, Integer subscriptionId,
+            AllocationQuantity quantity, AllocationPreviousQuantity previousQuantity,
+            OptionalNullable<String> memo, ZonedDateTime timestamp, ZonedDateTime createdAt,
             String prorationUpgradeScheme, String prorationDowngradeScheme, Integer pricePointId,
             String pricePointName, String pricePointHandle, Integer previousPricePointId,
-            Boolean accrueCharge, OptionalNullable<CreditType> upgradeCharge,
+            Boolean accrueCharge, Boolean initiateDunning,
+            OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
             OptionalNullable<AllocationPayment2> payment) {
+        this.allocationId = allocationId;
         this.componentId = componentId;
+        this.componentHandle = componentHandle;
         this.subscriptionId = subscriptionId;
         this.quantity = quantity;
         this.previousQuantity = previousQuantity;
         this.memo = memo;
         this.timestamp = timestamp;
+        this.createdAt = createdAt;
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.pricePointId = pricePointId;
@@ -134,9 +165,31 @@ public class Allocation {
         this.pricePointHandle = pricePointHandle;
         this.previousPricePointId = previousPricePointId;
         this.accrueCharge = accrueCharge;
+        this.initiateDunning = initiateDunning;
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
         this.payment = payment;
+    }
+
+    /**
+     * Getter for AllocationId.
+     * The allocation unique id
+     * @return Returns the Integer
+     */
+    @JsonGetter("allocation_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getAllocationId() {
+        return allocationId;
+    }
+
+    /**
+     * Setter for AllocationId.
+     * The allocation unique id
+     * @param allocationId Value for Integer
+     */
+    @JsonSetter("allocation_id")
+    public void setAllocationId(Integer allocationId) {
+        this.allocationId = allocationId;
     }
 
     /**
@@ -160,6 +213,49 @@ public class Allocation {
     @JsonSetter("component_id")
     public void setComponentId(Integer componentId) {
         this.componentId = componentId;
+    }
+
+    /**
+     * Internal Getter for ComponentHandle.
+     * The handle of the component. This references a component that you have created in your
+     * Product setup
+     * @return Returns the Internal String
+     */
+    @JsonGetter("component_handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetComponentHandle() {
+        return this.componentHandle;
+    }
+
+    /**
+     * Getter for ComponentHandle.
+     * The handle of the component. This references a component that you have created in your
+     * Product setup
+     * @return Returns the String
+     */
+    public String getComponentHandle() {
+        return OptionalNullable.getFrom(componentHandle);
+    }
+
+    /**
+     * Setter for ComponentHandle.
+     * The handle of the component. This references a component that you have created in your
+     * Product setup
+     * @param componentHandle Value for String
+     */
+    @JsonSetter("component_handle")
+    public void setComponentHandle(String componentHandle) {
+        this.componentHandle = OptionalNullable.of(componentHandle);
+    }
+
+    /**
+     * UnSetter for ComponentHandle.
+     * The handle of the component. This references a component that you have created in your
+     * Product setup
+     */
+    public void unsetComponentHandle() {
+        componentHandle = null;
     }
 
     /**
@@ -187,43 +283,47 @@ public class Allocation {
 
     /**
      * Getter for Quantity.
-     * The allocated quantity set in to effect by the allocation
-     * @return Returns the Integer
+     * The allocated quantity set in to effect by the allocation. String for components supporting
+     * fractional quantities
+     * @return Returns the AllocationQuantity
      */
     @JsonGetter("quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getQuantity() {
+    public AllocationQuantity getQuantity() {
         return quantity;
     }
 
     /**
      * Setter for Quantity.
-     * The allocated quantity set in to effect by the allocation
-     * @param quantity Value for Integer
+     * The allocated quantity set in to effect by the allocation. String for components supporting
+     * fractional quantities
+     * @param quantity Value for AllocationQuantity
      */
     @JsonSetter("quantity")
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(AllocationQuantity quantity) {
         this.quantity = quantity;
     }
 
     /**
      * Getter for PreviousQuantity.
-     * The allocated quantity that was in effect before this allocation was created
-     * @return Returns the Integer
+     * The allocated quantity that was in effect before this allocation was created. String for
+     * components supporting fractional quantities
+     * @return Returns the AllocationPreviousQuantity
      */
     @JsonGetter("previous_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPreviousQuantity() {
+    public AllocationPreviousQuantity getPreviousQuantity() {
         return previousQuantity;
     }
 
     /**
      * Setter for PreviousQuantity.
-     * The allocated quantity that was in effect before this allocation was created
-     * @param previousQuantity Value for Integer
+     * The allocated quantity that was in effect before this allocation was created. String for
+     * components supporting fractional quantities
+     * @param previousQuantity Value for AllocationPreviousQuantity
      */
     @JsonSetter("previous_quantity")
-    public void setPreviousQuantity(Integer previousQuantity) {
+    public void setPreviousQuantity(AllocationPreviousQuantity previousQuantity) {
         this.previousQuantity = previousQuantity;
     }
 
@@ -270,11 +370,12 @@ public class Allocation {
      * Getter for Timestamp.
      * The time that the allocation was recorded, in format and UTC timezone, i.e.
      * 2012-11-20T22:00:37Z
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("timestamp")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTimestamp() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
@@ -282,11 +383,35 @@ public class Allocation {
      * Setter for Timestamp.
      * The time that the allocation was recorded, in format and UTC timezone, i.e.
      * 2012-11-20T22:00:37Z
-     * @param timestamp Value for String
+     * @param timestamp Value for ZonedDateTime
      */
     @JsonSetter("timestamp")
-    public void setTimestamp(String timestamp) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
+    }
+
+    /**
+     * Getter for CreatedAt.
+     * Timestamp indicating when this allocation was created
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Setter for CreatedAt.
+     * Timestamp indicating when this allocation was created
+     * @param createdAt Value for ZonedDateTime
+     */
+    @JsonSetter("created_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     /**
@@ -435,6 +560,29 @@ public class Allocation {
     }
 
     /**
+     * Getter for InitiateDunning.
+     * If true, if the immediate component payment fails, initiate dunning for the subscription.
+     * Otherwise, leave the charges on the subscription to pay for at renewal.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("initiate_dunning")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getInitiateDunning() {
+        return initiateDunning;
+    }
+
+    /**
+     * Setter for InitiateDunning.
+     * If true, if the immediate component payment fails, initiate dunning for the subscription.
+     * Otherwise, leave the charges on the subscription to pay for at renewal.
+     * @param initiateDunning Value for Boolean
+     */
+    @JsonSetter("initiate_dunning")
+    public void setInitiateDunning(Boolean initiateDunning) {
+        this.initiateDunning = initiateDunning;
+    }
+
+    /**
      * Internal Getter for UpgradeCharge.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
      * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
@@ -561,15 +709,17 @@ public class Allocation {
      */
     @Override
     public String toString() {
-        return "Allocation [" + "componentId=" + componentId + ", subscriptionId=" + subscriptionId
+        return "Allocation [" + "allocationId=" + allocationId + ", componentId=" + componentId
+                + ", componentHandle=" + componentHandle + ", subscriptionId=" + subscriptionId
                 + ", quantity=" + quantity + ", previousQuantity=" + previousQuantity + ", memo="
-                + memo + ", timestamp=" + timestamp + ", prorationUpgradeScheme="
-                + prorationUpgradeScheme + ", prorationDowngradeScheme=" + prorationDowngradeScheme
-                + ", pricePointId=" + pricePointId + ", pricePointName=" + pricePointName
-                + ", pricePointHandle=" + pricePointHandle + ", previousPricePointId="
-                + previousPricePointId + ", accrueCharge=" + accrueCharge + ", upgradeCharge="
-                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", payment=" + payment
-                + "]";
+                + memo + ", timestamp=" + timestamp + ", createdAt=" + createdAt
+                + ", prorationUpgradeScheme=" + prorationUpgradeScheme
+                + ", prorationDowngradeScheme=" + prorationDowngradeScheme + ", pricePointId="
+                + pricePointId + ", pricePointName=" + pricePointName + ", pricePointHandle="
+                + pricePointHandle + ", previousPricePointId=" + previousPricePointId
+                + ", accrueCharge=" + accrueCharge + ", initiateDunning=" + initiateDunning
+                + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit=" + downgradeCredit
+                + ", payment=" + payment + "]";
     }
 
     /**
@@ -579,18 +729,22 @@ public class Allocation {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .allocationId(getAllocationId())
                 .componentId(getComponentId())
                 .subscriptionId(getSubscriptionId())
                 .quantity(getQuantity())
                 .previousQuantity(getPreviousQuantity())
                 .timestamp(getTimestamp())
+                .createdAt(getCreatedAt())
                 .prorationUpgradeScheme(getProrationUpgradeScheme())
                 .prorationDowngradeScheme(getProrationDowngradeScheme())
                 .pricePointId(getPricePointId())
                 .pricePointName(getPricePointName())
                 .pricePointHandle(getPricePointHandle())
                 .previousPricePointId(getPreviousPricePointId())
-                .accrueCharge(getAccrueCharge());
+                .accrueCharge(getAccrueCharge())
+                .initiateDunning(getInitiateDunning());
+        builder.componentHandle = internalGetComponentHandle();
         builder.memo = internalGetMemo();
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
@@ -602,12 +756,15 @@ public class Allocation {
      * Class to build instances of {@link Allocation}.
      */
     public static class Builder {
+        private Integer allocationId;
         private Integer componentId;
+        private OptionalNullable<String> componentHandle;
         private Integer subscriptionId;
-        private Integer quantity;
-        private Integer previousQuantity;
+        private AllocationQuantity quantity;
+        private AllocationPreviousQuantity previousQuantity;
         private OptionalNullable<String> memo;
-        private String timestamp;
+        private ZonedDateTime timestamp;
+        private ZonedDateTime createdAt;
         private String prorationUpgradeScheme;
         private String prorationDowngradeScheme;
         private Integer pricePointId;
@@ -615,11 +772,22 @@ public class Allocation {
         private String pricePointHandle;
         private Integer previousPricePointId;
         private Boolean accrueCharge;
+        private Boolean initiateDunning;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
         private OptionalNullable<AllocationPayment2> payment;
 
 
+
+        /**
+         * Setter for allocationId.
+         * @param  allocationId  Integer value for allocationId.
+         * @return Builder
+         */
+        public Builder allocationId(Integer allocationId) {
+            this.allocationId = allocationId;
+            return this;
+        }
 
         /**
          * Setter for componentId.
@@ -628,6 +796,25 @@ public class Allocation {
          */
         public Builder componentId(Integer componentId) {
             this.componentId = componentId;
+            return this;
+        }
+
+        /**
+         * Setter for componentHandle.
+         * @param  componentHandle  String value for componentHandle.
+         * @return Builder
+         */
+        public Builder componentHandle(String componentHandle) {
+            this.componentHandle = OptionalNullable.of(componentHandle);
+            return this;
+        }
+
+        /**
+         * UnSetter for componentHandle.
+         * @return Builder
+         */
+        public Builder unsetComponentHandle() {
+            componentHandle = null;
             return this;
         }
 
@@ -643,20 +830,20 @@ public class Allocation {
 
         /**
          * Setter for quantity.
-         * @param  quantity  Integer value for quantity.
+         * @param  quantity  AllocationQuantity value for quantity.
          * @return Builder
          */
-        public Builder quantity(Integer quantity) {
+        public Builder quantity(AllocationQuantity quantity) {
             this.quantity = quantity;
             return this;
         }
 
         /**
          * Setter for previousQuantity.
-         * @param  previousQuantity  Integer value for previousQuantity.
+         * @param  previousQuantity  AllocationPreviousQuantity value for previousQuantity.
          * @return Builder
          */
-        public Builder previousQuantity(Integer previousQuantity) {
+        public Builder previousQuantity(AllocationPreviousQuantity previousQuantity) {
             this.previousQuantity = previousQuantity;
             return this;
         }
@@ -682,11 +869,21 @@ public class Allocation {
 
         /**
          * Setter for timestamp.
-         * @param  timestamp  String value for timestamp.
+         * @param  timestamp  ZonedDateTime value for timestamp.
          * @return Builder
          */
-        public Builder timestamp(String timestamp) {
+        public Builder timestamp(ZonedDateTime timestamp) {
             this.timestamp = timestamp;
+            return this;
+        }
+
+        /**
+         * Setter for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(ZonedDateTime createdAt) {
+            this.createdAt = createdAt;
             return this;
         }
 
@@ -761,6 +958,16 @@ public class Allocation {
         }
 
         /**
+         * Setter for initiateDunning.
+         * @param  initiateDunning  Boolean value for initiateDunning.
+         * @return Builder
+         */
+        public Builder initiateDunning(Boolean initiateDunning) {
+            this.initiateDunning = initiateDunning;
+            return this;
+        }
+
+        /**
          * Setter for upgradeCharge.
          * @param  upgradeCharge  CreditType value for upgradeCharge.
          * @return Builder
@@ -822,10 +1029,11 @@ public class Allocation {
          * @return {@link Allocation}
          */
         public Allocation build() {
-            return new Allocation(componentId, subscriptionId, quantity, previousQuantity, memo,
-                    timestamp, prorationUpgradeScheme, prorationDowngradeScheme, pricePointId,
-                    pricePointName, pricePointHandle, previousPricePointId, accrueCharge,
-                    upgradeCharge, downgradeCredit, payment);
+            return new Allocation(allocationId, componentId, componentHandle, subscriptionId,
+                    quantity, previousQuantity, memo, timestamp, createdAt, prorationUpgradeScheme,
+                    prorationDowngradeScheme, pricePointId, pricePointName, pricePointHandle,
+                    previousPricePointId, accrueCharge, initiateDunning, upgradeCharge,
+                    downgradeCredit, payment);
         }
     }
 }

@@ -25,6 +25,7 @@ public class CreateAllocation {
     private Boolean accrueCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private OptionalNullable<CreditType> upgradeCharge;
+    private Boolean initiateDunning;
     private OptionalNullable<CreateAllocationPricePointId> pricePointId;
     private BillingSchedule billingSchedule;
 
@@ -44,6 +45,7 @@ public class CreateAllocation {
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
      * @param  billingSchedule  BillingSchedule value for billingSchedule.
      */
@@ -56,6 +58,7 @@ public class CreateAllocation {
             Boolean accrueCharge,
             CreditType downgradeCredit,
             CreditType upgradeCharge,
+            Boolean initiateDunning,
             CreateAllocationPricePointId pricePointId,
             BillingSchedule billingSchedule) {
         this.quantity = quantity;
@@ -66,6 +69,7 @@ public class CreateAllocation {
         this.accrueCharge = accrueCharge;
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+        this.initiateDunning = initiateDunning;
         this.pricePointId = OptionalNullable.of(pricePointId);
         this.billingSchedule = billingSchedule;
     }
@@ -80,6 +84,7 @@ public class CreateAllocation {
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
      * @param  billingSchedule  BillingSchedule value for billingSchedule.
      */
@@ -87,7 +92,7 @@ public class CreateAllocation {
     protected CreateAllocation(double quantity, Integer componentId, String memo,
             String prorationDowngradeScheme, String prorationUpgradeScheme, Boolean accrueCharge,
             OptionalNullable<CreditType> downgradeCredit,
-            OptionalNullable<CreditType> upgradeCharge,
+            OptionalNullable<CreditType> upgradeCharge, Boolean initiateDunning,
             OptionalNullable<CreateAllocationPricePointId> pricePointId,
             BillingSchedule billingSchedule) {
         this.quantity = quantity;
@@ -98,6 +103,7 @@ public class CreateAllocation {
         this.accrueCharge = accrueCharge;
         this.downgradeCredit = downgradeCredit;
         this.upgradeCharge = upgradeCharge;
+        this.initiateDunning = initiateDunning;
         this.pricePointId = pricePointId;
         this.billingSchedule = billingSchedule;
     }
@@ -328,6 +334,31 @@ public class CreateAllocation {
     }
 
     /**
+     * Getter for InitiateDunning.
+     * If set to true, if the immediate component payment fails, initiate dunning for the
+     * subscription. Otherwise, leave the charges on the subscription to pay for at renewal.
+     * Defaults to false.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("initiate_dunning")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getInitiateDunning() {
+        return initiateDunning;
+    }
+
+    /**
+     * Setter for InitiateDunning.
+     * If set to true, if the immediate component payment fails, initiate dunning for the
+     * subscription. Otherwise, leave the charges on the subscription to pay for at renewal.
+     * Defaults to false.
+     * @param initiateDunning Value for Boolean
+     */
+    @JsonSetter("initiate_dunning")
+    public void setInitiateDunning(Boolean initiateDunning) {
+        this.initiateDunning = initiateDunning;
+    }
+
+    /**
      * Internal Getter for PricePointId.
      * Price point that the allocation should be charged at. Accepts either the price point's id
      * (integer) or handle (string). When not specified, the default price point will be used.
@@ -405,8 +436,8 @@ public class CreateAllocation {
                 + ", memo=" + memo + ", prorationDowngradeScheme=" + prorationDowngradeScheme
                 + ", prorationUpgradeScheme=" + prorationUpgradeScheme + ", accrueCharge="
                 + accrueCharge + ", downgradeCredit=" + downgradeCredit + ", upgradeCharge="
-                + upgradeCharge + ", pricePointId=" + pricePointId + ", billingSchedule="
-                + billingSchedule + "]";
+                + upgradeCharge + ", initiateDunning=" + initiateDunning + ", pricePointId="
+                + pricePointId + ", billingSchedule=" + billingSchedule + "]";
     }
 
     /**
@@ -421,6 +452,7 @@ public class CreateAllocation {
                 .prorationDowngradeScheme(getProrationDowngradeScheme())
                 .prorationUpgradeScheme(getProrationUpgradeScheme())
                 .accrueCharge(getAccrueCharge())
+                .initiateDunning(getInitiateDunning())
                 .billingSchedule(getBillingSchedule());
         builder.downgradeCredit = internalGetDowngradeCredit();
         builder.upgradeCharge = internalGetUpgradeCharge();
@@ -440,6 +472,7 @@ public class CreateAllocation {
         private Boolean accrueCharge;
         private OptionalNullable<CreditType> downgradeCredit;
         private OptionalNullable<CreditType> upgradeCharge;
+        private Boolean initiateDunning;
         private OptionalNullable<CreateAllocationPricePointId> pricePointId;
         private BillingSchedule billingSchedule;
 
@@ -556,6 +589,16 @@ public class CreateAllocation {
         }
 
         /**
+         * Setter for initiateDunning.
+         * @param  initiateDunning  Boolean value for initiateDunning.
+         * @return Builder
+         */
+        public Builder initiateDunning(Boolean initiateDunning) {
+            this.initiateDunning = initiateDunning;
+            return this;
+        }
+
+        /**
          * Setter for pricePointId.
          * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
          * @return Builder
@@ -591,7 +634,7 @@ public class CreateAllocation {
         public CreateAllocation build() {
             return new CreateAllocation(quantity, componentId, memo, prorationDowngradeScheme,
                     prorationUpgradeScheme, accrueCharge, downgradeCredit, upgradeCharge,
-                    pricePointId, billingSchedule);
+                    initiateDunning, pricePointId, billingSchedule);
         }
     }
 }
