@@ -15,7 +15,7 @@
 | `TotalTaxInCents` | `Long` | Optional | - | Long getTotalTaxInCents() | setTotalTaxInCents(Long totalTaxInCents) |
 | `TotalDiscountInCents` | `Long` | Optional | - | Long getTotalDiscountInCents() | setTotalDiscountInCents(Long totalDiscountInCents) |
 | `TotalInCents` | `Long` | Optional | - | Long getTotalInCents() | setTotalInCents(Long totalInCents) |
-| `Direction` | `String` | Optional | - | String getDirection() | setDirection(String direction) |
+| `Direction` | [`AllocationPreviewDirection`](../../doc/models/allocation-preview-direction.md) | Optional | - | AllocationPreviewDirection getDirection() | setDirection(AllocationPreviewDirection direction) |
 | `ProrationScheme` | `String` | Optional | - | String getProrationScheme() | setProrationScheme(String prorationScheme) |
 | `LineItems` | [`List<AllocationPreviewLineItem>`](../../doc/models/allocation-preview-line-item.md) | Optional | - | List<AllocationPreviewLineItem> getLineItems() | setLineItems(List<AllocationPreviewLineItem> lineItems) |
 | `AccrueCharge` | `Boolean` | Optional | - | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |

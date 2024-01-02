@@ -17,7 +17,7 @@
 | `TaxableAmountInCents` | `Long` | Optional | - | Long getTaxableAmountInCents() | setTaxableAmountInCents(Long taxableAmountInCents) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
-| `Direction` | `String` | Optional | - | String getDirection() | setDirection(String direction) |
+| `Direction` | [`AllocationPreviewDirection`](../../doc/models/allocation-preview-direction.md) | Optional | Visible when using Fine-grained Component Control | AllocationPreviewDirection getDirection() | setDirection(AllocationPreviewDirection direction) |
 
 ## Example (as JSON)
 

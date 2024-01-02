@@ -20,7 +20,7 @@ public class AllocationPreviewItem {
     private Integer subscriptionId;
     private Double quantity;
     private Integer previousQuantity;
-    private String memo;
+    private OptionalNullable<String> memo;
     private OptionalNullable<String> timestamp;
     private String prorationUpgradeScheme;
     private String prorationDowngradeScheme;
@@ -29,7 +29,9 @@ public class AllocationPreviewItem {
     private OptionalNullable<CreditType> downgradeCredit;
     private Integer pricePointId;
     private Integer previousPricePointId;
-    private String componentHandle;
+    private String pricePointHandle;
+    private String pricePointName;
+    private OptionalNullable<String> componentHandle;
 
     /**
      * Default constructor.
@@ -52,6 +54,8 @@ public class AllocationPreviewItem {
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  previousPricePointId  Integer value for previousPricePointId.
+     * @param  pricePointHandle  String value for pricePointHandle.
+     * @param  pricePointName  String value for pricePointName.
      * @param  componentHandle  String value for componentHandle.
      */
     public AllocationPreviewItem(
@@ -68,12 +72,14 @@ public class AllocationPreviewItem {
             CreditType downgradeCredit,
             Integer pricePointId,
             Integer previousPricePointId,
+            String pricePointHandle,
+            String pricePointName,
             String componentHandle) {
         this.componentId = componentId;
         this.subscriptionId = subscriptionId;
         this.quantity = quantity;
         this.previousQuantity = previousQuantity;
-        this.memo = memo;
+        this.memo = OptionalNullable.of(memo);
         this.timestamp = OptionalNullable.of(timestamp);
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
@@ -82,7 +88,9 @@ public class AllocationPreviewItem {
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.pricePointId = pricePointId;
         this.previousPricePointId = previousPricePointId;
-        this.componentHandle = componentHandle;
+        this.pricePointHandle = pricePointHandle;
+        this.pricePointName = pricePointName;
+        this.componentHandle = OptionalNullable.of(componentHandle);
     }
 
     /**
@@ -100,15 +108,19 @@ public class AllocationPreviewItem {
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  previousPricePointId  Integer value for previousPricePointId.
+     * @param  pricePointHandle  String value for pricePointHandle.
+     * @param  pricePointName  String value for pricePointName.
      * @param  componentHandle  String value for componentHandle.
      */
 
     protected AllocationPreviewItem(Integer componentId, Integer subscriptionId, Double quantity,
-            Integer previousQuantity, String memo, OptionalNullable<String> timestamp,
-            String prorationUpgradeScheme, String prorationDowngradeScheme, Boolean accrueCharge,
+            Integer previousQuantity, OptionalNullable<String> memo,
+            OptionalNullable<String> timestamp, String prorationUpgradeScheme,
+            String prorationDowngradeScheme, Boolean accrueCharge,
             OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, Integer pricePointId,
-            Integer previousPricePointId, String componentHandle) {
+            Integer previousPricePointId, String pricePointHandle, String pricePointName,
+            OptionalNullable<String> componentHandle) {
         this.componentId = componentId;
         this.subscriptionId = subscriptionId;
         this.quantity = quantity;
@@ -122,6 +134,8 @@ public class AllocationPreviewItem {
         this.downgradeCredit = downgradeCredit;
         this.pricePointId = pricePointId;
         this.previousPricePointId = previousPricePointId;
+        this.pricePointHandle = pricePointHandle;
+        this.pricePointName = pricePointName;
         this.componentHandle = componentHandle;
     }
 
@@ -202,13 +216,22 @@ public class AllocationPreviewItem {
     }
 
     /**
-     * Getter for Memo.
-     * @return Returns the String
+     * Internal Getter for Memo.
+     * @return Returns the Internal String
      */
     @JsonGetter("memo")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMemo() {
+        return this.memo;
+    }
+
+    /**
+     * Getter for Memo.
+     * @return Returns the String
+     */
     public String getMemo() {
-        return memo;
+        return OptionalNullable.getFrom(memo);
     }
 
     /**
@@ -217,7 +240,14 @@ public class AllocationPreviewItem {
      */
     @JsonSetter("memo")
     public void setMemo(String memo) {
-        this.memo = memo;
+        this.memo = OptionalNullable.of(memo);
+    }
+
+    /**
+     * UnSetter for Memo.
+     */
+    public void unsetMemo() {
+        memo = null;
     }
 
     /**
@@ -437,13 +467,60 @@ public class AllocationPreviewItem {
     }
 
     /**
-     * Getter for ComponentHandle.
+     * Getter for PricePointHandle.
      * @return Returns the String
+     */
+    @JsonGetter("price_point_handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getPricePointHandle() {
+        return pricePointHandle;
+    }
+
+    /**
+     * Setter for PricePointHandle.
+     * @param pricePointHandle Value for String
+     */
+    @JsonSetter("price_point_handle")
+    public void setPricePointHandle(String pricePointHandle) {
+        this.pricePointHandle = pricePointHandle;
+    }
+
+    /**
+     * Getter for PricePointName.
+     * @return Returns the String
+     */
+    @JsonGetter("price_point_name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getPricePointName() {
+        return pricePointName;
+    }
+
+    /**
+     * Setter for PricePointName.
+     * @param pricePointName Value for String
+     */
+    @JsonSetter("price_point_name")
+    public void setPricePointName(String pricePointName) {
+        this.pricePointName = pricePointName;
+    }
+
+    /**
+     * Internal Getter for ComponentHandle.
+     * @return Returns the Internal String
      */
     @JsonGetter("component_handle")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetComponentHandle() {
+        return this.componentHandle;
+    }
+
+    /**
+     * Getter for ComponentHandle.
+     * @return Returns the String
+     */
     public String getComponentHandle() {
-        return componentHandle;
+        return OptionalNullable.getFrom(componentHandle);
     }
 
     /**
@@ -452,7 +529,14 @@ public class AllocationPreviewItem {
      */
     @JsonSetter("component_handle")
     public void setComponentHandle(String componentHandle) {
-        this.componentHandle = componentHandle;
+        this.componentHandle = OptionalNullable.of(componentHandle);
+    }
+
+    /**
+     * UnSetter for ComponentHandle.
+     */
+    public void unsetComponentHandle() {
+        componentHandle = null;
     }
 
     /**
@@ -468,7 +552,9 @@ public class AllocationPreviewItem {
                 + ", prorationDowngradeScheme=" + prorationDowngradeScheme + ", accrueCharge="
                 + accrueCharge + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit="
                 + downgradeCredit + ", pricePointId=" + pricePointId + ", previousPricePointId="
-                + previousPricePointId + ", componentHandle=" + componentHandle + "]";
+                + previousPricePointId + ", pricePointHandle=" + pricePointHandle
+                + ", pricePointName=" + pricePointName + ", componentHandle=" + componentHandle
+                + "]";
     }
 
     /**
@@ -482,16 +568,18 @@ public class AllocationPreviewItem {
                 .subscriptionId(getSubscriptionId())
                 .quantity(getQuantity())
                 .previousQuantity(getPreviousQuantity())
-                .memo(getMemo())
                 .prorationUpgradeScheme(getProrationUpgradeScheme())
                 .prorationDowngradeScheme(getProrationDowngradeScheme())
                 .accrueCharge(getAccrueCharge())
                 .pricePointId(getPricePointId())
                 .previousPricePointId(getPreviousPricePointId())
-                .componentHandle(getComponentHandle());
+                .pricePointHandle(getPricePointHandle())
+                .pricePointName(getPricePointName());
+        builder.memo = internalGetMemo();
         builder.timestamp = internalGetTimestamp();
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
+        builder.componentHandle = internalGetComponentHandle();
         return builder;
     }
 
@@ -503,7 +591,7 @@ public class AllocationPreviewItem {
         private Integer subscriptionId;
         private Double quantity;
         private Integer previousQuantity;
-        private String memo;
+        private OptionalNullable<String> memo;
         private OptionalNullable<String> timestamp;
         private String prorationUpgradeScheme;
         private String prorationDowngradeScheme;
@@ -512,7 +600,9 @@ public class AllocationPreviewItem {
         private OptionalNullable<CreditType> downgradeCredit;
         private Integer pricePointId;
         private Integer previousPricePointId;
-        private String componentHandle;
+        private String pricePointHandle;
+        private String pricePointName;
+        private OptionalNullable<String> componentHandle;
 
 
 
@@ -562,7 +652,16 @@ public class AllocationPreviewItem {
          * @return Builder
          */
         public Builder memo(String memo) {
-            this.memo = memo;
+            this.memo = OptionalNullable.of(memo);
+            return this;
+        }
+
+        /**
+         * UnSetter for memo.
+         * @return Builder
+         */
+        public Builder unsetMemo() {
+            memo = null;
             return this;
         }
 
@@ -674,12 +773,41 @@ public class AllocationPreviewItem {
         }
 
         /**
+         * Setter for pricePointHandle.
+         * @param  pricePointHandle  String value for pricePointHandle.
+         * @return Builder
+         */
+        public Builder pricePointHandle(String pricePointHandle) {
+            this.pricePointHandle = pricePointHandle;
+            return this;
+        }
+
+        /**
+         * Setter for pricePointName.
+         * @param  pricePointName  String value for pricePointName.
+         * @return Builder
+         */
+        public Builder pricePointName(String pricePointName) {
+            this.pricePointName = pricePointName;
+            return this;
+        }
+
+        /**
          * Setter for componentHandle.
          * @param  componentHandle  String value for componentHandle.
          * @return Builder
          */
         public Builder componentHandle(String componentHandle) {
-            this.componentHandle = componentHandle;
+            this.componentHandle = OptionalNullable.of(componentHandle);
+            return this;
+        }
+
+        /**
+         * UnSetter for componentHandle.
+         * @return Builder
+         */
+        public Builder unsetComponentHandle() {
+            componentHandle = null;
             return this;
         }
 
@@ -691,7 +819,8 @@ public class AllocationPreviewItem {
             return new AllocationPreviewItem(componentId, subscriptionId, quantity,
                     previousQuantity, memo, timestamp, prorationUpgradeScheme,
                     prorationDowngradeScheme, accrueCharge, upgradeCharge, downgradeCredit,
-                    pricePointId, previousPricePointId, componentHandle);
+                    pricePointId, previousPricePointId, pricePointHandle, pricePointName,
+                    componentHandle);
         }
     }
 }

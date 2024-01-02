@@ -21,7 +21,7 @@ public class AllocationPreview {
     private Long totalTaxInCents;
     private Long totalDiscountInCents;
     private Long totalInCents;
-    private String direction;
+    private AllocationPreviewDirection direction;
     private String prorationScheme;
     private List<AllocationPreviewLineItem> lineItems;
     private Boolean accrueCharge;
@@ -43,7 +43,7 @@ public class AllocationPreview {
      * @param  totalTaxInCents  Long value for totalTaxInCents.
      * @param  totalDiscountInCents  Long value for totalDiscountInCents.
      * @param  totalInCents  Long value for totalInCents.
-     * @param  direction  String value for direction.
+     * @param  direction  AllocationPreviewDirection value for direction.
      * @param  prorationScheme  String value for prorationScheme.
      * @param  lineItems  List of AllocationPreviewLineItem value for lineItems.
      * @param  accrueCharge  Boolean value for accrueCharge.
@@ -58,7 +58,7 @@ public class AllocationPreview {
             Long totalTaxInCents,
             Long totalDiscountInCents,
             Long totalInCents,
-            String direction,
+            AllocationPreviewDirection direction,
             String prorationScheme,
             List<AllocationPreviewLineItem> lineItems,
             Boolean accrueCharge,
@@ -196,20 +196,20 @@ public class AllocationPreview {
 
     /**
      * Getter for Direction.
-     * @return Returns the String
+     * @return Returns the AllocationPreviewDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDirection() {
+    public AllocationPreviewDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
-     * @param direction Value for String
+     * @param direction Value for AllocationPreviewDirection
      */
     @JsonSetter("direction")
-    public void setDirection(String direction) {
+    public void setDirection(AllocationPreviewDirection direction) {
         this.direction = direction;
     }
 
@@ -377,7 +377,7 @@ public class AllocationPreview {
         private Long totalTaxInCents;
         private Long totalDiscountInCents;
         private Long totalInCents;
-        private String direction;
+        private AllocationPreviewDirection direction;
         private String prorationScheme;
         private List<AllocationPreviewLineItem> lineItems;
         private Boolean accrueCharge;
@@ -449,10 +449,10 @@ public class AllocationPreview {
 
         /**
          * Setter for direction.
-         * @param  direction  String value for direction.
+         * @param  direction  AllocationPreviewDirection value for direction.
          * @return Builder
          */
-        public Builder direction(String direction) {
+        public Builder direction(AllocationPreviewDirection direction) {
             this.direction = direction;
             return this;
         }

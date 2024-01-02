@@ -480,8 +480,8 @@ public final class SubscriptionComponentsController extends BaseController {
      * `downgrade_credits` When the allocation uses multiple different types of `upgrade_charge`s or
      * `downgrade_credit`s, the Allocation is viewed as an Allocation which uses "Fine-Grained
      * Component Control". As a result, the response will not include `direction` and `proration`
-     * within the `allocation_preview` at the `line_items` and `allocations` level respectfully. See
-     * example below for Fine-Grained Component Control response.
+     * within the `allocation_preview`, but at the `line_items` and `allocations` level
+     * respectfully. See example below for Fine-Grained Component Control response.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter: Example:
      * @return    Returns the AllocationPreviewResponse response from the API call

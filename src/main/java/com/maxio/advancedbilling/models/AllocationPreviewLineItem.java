@@ -22,7 +22,7 @@ public class AllocationPreviewLineItem {
     private Long taxableAmountInCents;
     private Integer componentId;
     private String componentHandle;
-    private String direction;
+    private AllocationPreviewDirection direction;
 
     /**
      * Default constructor.
@@ -40,7 +40,7 @@ public class AllocationPreviewLineItem {
      * @param  taxableAmountInCents  Long value for taxableAmountInCents.
      * @param  componentId  Integer value for componentId.
      * @param  componentHandle  String value for componentHandle.
-     * @param  direction  String value for direction.
+     * @param  direction  AllocationPreviewDirection value for direction.
      */
     public AllocationPreviewLineItem(
             String transactionType,
@@ -51,7 +51,7 @@ public class AllocationPreviewLineItem {
             Long taxableAmountInCents,
             Integer componentId,
             String componentHandle,
-            String direction) {
+            AllocationPreviewDirection direction) {
         this.transactionType = transactionType;
         this.kind = kind;
         this.amountInCents = amountInCents;
@@ -217,20 +217,22 @@ public class AllocationPreviewLineItem {
 
     /**
      * Getter for Direction.
-     * @return Returns the String
+     * Visible when using Fine-grained Component Control
+     * @return Returns the AllocationPreviewDirection
      */
     @JsonGetter("direction")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDirection() {
+    public AllocationPreviewDirection getDirection() {
         return direction;
     }
 
     /**
      * Setter for Direction.
-     * @param direction Value for String
+     * Visible when using Fine-grained Component Control
+     * @param direction Value for AllocationPreviewDirection
      */
     @JsonSetter("direction")
-    public void setDirection(String direction) {
+    public void setDirection(AllocationPreviewDirection direction) {
         this.direction = direction;
     }
 
@@ -278,7 +280,7 @@ public class AllocationPreviewLineItem {
         private Long taxableAmountInCents;
         private Integer componentId;
         private String componentHandle;
-        private String direction;
+        private AllocationPreviewDirection direction;
 
 
 
@@ -364,10 +366,10 @@ public class AllocationPreviewLineItem {
 
         /**
          * Setter for direction.
-         * @param  direction  String value for direction.
+         * @param  direction  AllocationPreviewDirection value for direction.
          * @return Builder
          */
-        public Builder direction(String direction) {
+        public Builder direction(AllocationPreviewDirection direction) {
             this.direction = direction;
             return this;
         }
