@@ -14,8 +14,8 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.SingleStringErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
-import com.maxio.advancedbilling.models.CouponCurrency;
 import com.maxio.advancedbilling.models.CouponCurrencyRequest;
+import com.maxio.advancedbilling.models.CouponCurrencyResponse;
 import com.maxio.advancedbilling.models.CouponResponse;
 import com.maxio.advancedbilling.models.CouponSubcodes;
 import com.maxio.advancedbilling.models.CouponSubcodesResponse;
@@ -543,11 +543,11 @@ public final class CouponsController extends BaseController {
      * non-primary currencies.
      * @param  couponId  Required parameter: The Chargify id of the coupon
      * @param  body  Optional parameter: Example:
-     * @return    Returns the List of CouponCurrency response from the API call
+     * @return    Returns the CouponCurrencyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<CouponCurrency> updateCouponCurrencyPrices(
+    public CouponCurrencyResponse updateCouponCurrencyPrices(
             final int couponId,
             final CouponCurrencyRequest body) throws ApiException, IOException {
         return prepareUpdateCouponCurrencyPricesRequest(couponId, body).execute();
@@ -556,14 +556,14 @@ public final class CouponsController extends BaseController {
     /**
      * Builds the ApiCall object for updateCouponCurrencyPrices.
      */
-    private ApiCall<List<CouponCurrency>, ApiException> prepareUpdateCouponCurrencyPricesRequest(
+    private ApiCall<CouponCurrencyResponse, ApiException> prepareUpdateCouponCurrencyPricesRequest(
             final int couponId,
             final CouponCurrencyRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<List<CouponCurrency>, ApiException>()
+        return new ApiCall.Builder<CouponCurrencyResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
-                        .path("/coupon/{coupon_id}/currency_prices.json")
+                        .path("/coupons/{coupon_id}/currency_prices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("coupon_id").value(couponId).isRequired(false)
@@ -575,8 +575,7 @@ public final class CouponsController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserializeArray(response,
-                                        CouponCurrency[].class))
+                                response -> ApiHelper.deserialize(response, CouponCurrencyResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

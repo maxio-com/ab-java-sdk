@@ -12,8 +12,12 @@ import com.maxio.advancedbilling.models.CreateComponentPricePoint;
 import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
+import com.maxio.advancedbilling.models.CreateInvoice;
+import com.maxio.advancedbilling.models.CreateInvoiceAddress;
+import com.maxio.advancedbilling.models.CreateInvoiceRequest;
 import com.maxio.advancedbilling.models.CreateMeteredComponent;
 import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
+import com.maxio.advancedbilling.models.CreateOrUpdateFlatAmountCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdatePercentageCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
@@ -27,6 +31,7 @@ import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.MeteredComponent;
 import com.maxio.advancedbilling.models.OveragePricing;
 import com.maxio.advancedbilling.models.PaymentProfileAttributes;
@@ -53,6 +58,7 @@ import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPri
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -71,37 +77,49 @@ public class TestSetup {
     }
 
     public Product createProduct(ProductFamily productFamily) throws IOException, ApiException {
+        return createProduct(productFamily, b -> {
+        });
+    }
+
+    public Product createProduct(ProductFamily productFamily, Consumer<CreateOrUpdateProduct.Builder> customizer)
+            throws IOException, ApiException {
         String productName = "My Super Product " + randomNumeric(5);
         String handle = productName.toLowerCase().replace(" ", "-");
+        CreateOrUpdateProduct.Builder builder = new CreateOrUpdateProduct.Builder()
+                .name(productName)
+                .handle(handle)
+                .intervalUnit(IntervalUnit.MONTH)
+                .interval(1)
+                .requireCreditCard(false);
+        customizer.accept(builder);
+
         return advancedBillingClient.getProductsController()
-                .createProduct(
-                        productFamily.getId(),
-                        new CreateOrUpdateProductRequest(
-                                new CreateOrUpdateProduct.Builder()
-                                        .name(productName)
-                                        .handle(handle)
-                                        .intervalUnit(IntervalUnit.MONTH)
-                                        .interval(1)
-                                        .requireCreditCard(false)
-                                        .build()
-                        ))
+                .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(builder.build()))
                 .getProduct();
     }
 
     public ProductPricePoint createProductPricePoint(Product product, String name) throws IOException, ApiException {
+        return createProductPricePoint(product, name, b -> {
+        });
+    }
+
+    public ProductPricePoint createProductPricePoint(Product product, String name,
+                                                     Consumer<CreateProductPricePoint.Builder> customizer)
+            throws IOException, ApiException {
         String handle = name.toLowerCase().replace(" ", "-");
+        CreateProductPricePoint.Builder builder = new CreateProductPricePoint.Builder()
+                .name(name)
+                .handle(handle)
+                .priceInCents(new Random().nextInt(1, 100000))
+                .interval(1)
+                .intervalUnit(IntervalUnit.MONTH);
+        customizer.accept(builder);
+
         return advancedBillingClient.getProductPricePointsController()
                 .createProductPricePoint(
                         CreateProductPricePointProductId.fromNumber(product.getId()),
-                        new CreateProductPricePointRequest(
-                                new CreateProductPricePoint.Builder()
-                                        .name(name)
-                                        .handle(handle)
-                                        .priceInCents(new Random().nextInt(1, 100000))
-                                        .interval(1)
-                                        .intervalUnit(IntervalUnit.MONTH)
-                                        .build()
-                        ))
+                        new CreateProductPricePointRequest(builder.build())
+                )
                 .getPricePoint();
     }
 
@@ -129,7 +147,8 @@ public class TestSetup {
     }
 
     public Component createQuantityBasedComponent(int productFamilyId) throws IOException, ApiException {
-        return createQuantityBasedComponent(productFamilyId, b -> {});
+        return createQuantityBasedComponent(productFamilyId, b -> {
+        });
     }
 
     public Component createQuantityBasedComponent(int productFamilyId, Consumer<QuantityBasedComponent.Builder> customizer) throws IOException, ApiException {
@@ -212,6 +231,22 @@ public class TestSetup {
                         )).getCustomer();
     }
 
+    public Coupon createAmountCoupon(ProductFamily productFamily, long amountInCents, String stackable) throws IOException, ApiException {
+        return advancedBillingClient.getCouponsController()
+                .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
+                        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdateFlatAmountCoupon(
+                                new CreateOrUpdateFlatAmountCoupon.Builder()
+                                        .name("Amount Discount " + randomNumeric(5))
+                                        .code("AMOUNT_DISCOUNT_" + randomNumeric(5))
+                                        .description("Huuuuge amount discount: " + amountInCents)
+                                        .amountInCents(amountInCents)
+                                        .stackable(stackable)
+                                        .build()
+                        ))
+                        .build())
+                .getCoupon();
+    }
+
     public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage) throws IOException, ApiException {
         return createPercentageCoupon(productFamily, percentage, "true");
     }
@@ -264,26 +299,59 @@ public class TestSetup {
         });
     }
 
-    public Subscription createSubscription(Customer customer, Product product, Consumer<CreateSubscription.Builder> customizer) throws IOException, ApiException {
-        CreateSubscription.Builder builder = new CreateSubscription.Builder()
+    public Subscription createSubscription(Customer customer, Product product,
+                                           Consumer<CreateSubscription.Builder> subscriptionCustomizer) throws IOException, ApiException {
+        return createSubscription(customer, product, subscriptionCustomizer, ppc -> ppc.fullNumber("4111 1111 1111 1111"));
+    }
+
+    public Subscription createSubscription(Customer customer, Product product,
+                                           Consumer<CreateSubscription.Builder> subscriptionCustomizer,
+                                           Consumer<PaymentProfileAttributes.Builder> paymentProfileCustomizer) throws IOException, ApiException {
+        PaymentProfileAttributes.Builder paymentProfileBuilder = new PaymentProfileAttributes.Builder()
+                .billingAddress("My Billing Address")
+                .billingCity("New York")
+                .billingCountry("USA")
+                .billingState("NY")
+                .billingZip("10001")
+                .customerId(customer.getId())
+                .cardType(CardType.VISA)
+                .cvv("123")
+                .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
+                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050));
+        paymentProfileCustomizer.accept(paymentProfileBuilder);
+
+        CreateSubscription.Builder subscriptionBuilder = new CreateSubscription.Builder()
                 .productId(product.getId())
                 .customerId(customer.getId())
-                .creditCardAttributes(new PaymentProfileAttributes.Builder()
-                        .billingAddress("My Billing Address")
-                        .billingCity("New York")
-                        .billingCountry("USA")
-                        .billingState("NY")
-                        .billingZip("10001")
-                        .customerId(customer.getId())
-                        .fullNumber("4111 1111 1111 1111")
-                        .cardType(CardType.VISA)
-                        .cvv("123")
-                        .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
-                        .build());
-        customizer.accept(builder);
+                .creditCardAttributes(paymentProfileBuilder.build());
+        subscriptionCustomizer.accept(subscriptionBuilder);
+
         return advancedBillingClient.getSubscriptionsController()
-                .createSubscription(new CreateSubscriptionRequest(builder.build()))
+                .createSubscription(new CreateSubscriptionRequest(subscriptionBuilder.build()))
                 .getSubscription();
+    }
+
+    public Invoice createInvoice(int subscriptionId, Consumer<CreateInvoice.Builder> customizer) throws IOException, ApiException {
+        CreateInvoice.Builder builder = new CreateInvoice.Builder()
+                .memo("Adhoc invoice created")
+                .paymentInstructions("Give me your money")
+                .issueDate(LocalDate.now())
+                .shippingAddress(new CreateInvoiceAddress.Builder()
+                        .address("Shipping address")
+                        .address2("Shipping address 2")
+                        .city("Shipping city")
+                        .zip("ABC")
+                        .state("MP")
+                        .country("PL")
+                        .firstName("John")
+                        .lastName("Doe")
+                        .phone("555050505")
+                        .build()
+                );
+        customizer.accept(builder);
+
+        return advancedBillingClient.getInvoicesController()
+                .createInvoice(subscriptionId, new CreateInvoiceRequest(builder.build()))
+                .getInvoice();
     }
 }

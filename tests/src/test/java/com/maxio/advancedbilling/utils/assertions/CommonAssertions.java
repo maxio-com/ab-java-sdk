@@ -19,6 +19,28 @@ public class CommonAssertions {
         return new ErrorListResponseAssert(throwingCallable);
     }
 
+    public static ErrorListResponseAssert assertThatErrorListResponse(ThrowingRunnable throwingRunnable) {
+        return new ErrorListResponseAssert((Callable<Void>) () -> {
+            throwingRunnable.run();
+            return null;
+        });
+    }
+
+    public static SingleErrorResponseAssert assertThatSingleErrorResponse(ThrowingRunnable throwingRunnable) {
+        return new SingleErrorResponseAssert((Callable<Void>) () -> {
+            throwingRunnable.run();
+            return null;
+        });
+    }
+
+    public static <V> NestedErrorResponseAssert assertThatNestedErrorResponse(Callable<V> throwingCallable) {
+        return new NestedErrorResponseAssert(throwingCallable);
+    }
+
+    public interface ThrowingRunnable {
+        void run() throws Exception;
+    }
+
     public static void assertNotFound(ThrowableAssert.ThrowingCallable throwingCallable) {
         assertNotFound(throwingCallable, "HTTP Response Not OK");
     }
@@ -67,7 +89,11 @@ public class CommonAssertions {
     }
 
     public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable) {
-        assertUnauthorized(throwingCallable, "HTTP Response Not OK", "HTTP Basic: Access denied.");
+        assertUnauthorized(throwingCallable, "HTTP Response Not OK");
+    }
+
+    public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable, String exceptionMessage) {
+        assertUnauthorized(throwingCallable, exceptionMessage, "HTTP Basic: Access denied.");
     }
 
     public static void assertUnauthorized(ThrowableAssert.ThrowingCallable throwingCallable,

@@ -13,6 +13,7 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.NestedErrorResponseException;
+import com.maxio.advancedbilling.exceptions.SingleErrorResponseErrorException;
 import com.maxio.advancedbilling.exceptions.SubscriptionAddCouponErrorException;
 import com.maxio.advancedbilling.exceptions.SubscriptionRemoveCouponErrorsException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
@@ -713,7 +714,7 @@ public final class SubscriptionsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setReason("Unprocessable Entity (WebDAV)",
-                                (reason, context) -> new ApiException(reason, context)))
+                                (reason, context) -> new SingleErrorResponseErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

@@ -31,6 +31,8 @@ public class ComponentPricePoint {
     private Boolean useSiteExchangeRate;
     private Integer subscriptionId;
     private Boolean taxIncluded;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
 
     /**
      * Default constructor.
@@ -55,6 +57,8 @@ public class ComponentPricePoint {
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
     public ComponentPricePoint(
             Integer id,
@@ -70,7 +74,9 @@ public class ComponentPricePoint {
             List<ComponentPricePointPrice> prices,
             Boolean useSiteExchangeRate,
             Integer subscriptionId,
-            Boolean taxIncluded) {
+            Boolean taxIncluded,
+            Integer interval,
+            IntervalUnit intervalUnit) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -85,6 +91,8 @@ public class ComponentPricePoint {
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.subscriptionId = subscriptionId;
         this.taxIncluded = taxIncluded;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -103,13 +111,16 @@ public class ComponentPricePoint {
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
             PricingScheme pricingScheme, Integer componentId, String handle,
             OptionalNullable<String> archivedAt, String createdAt, String updatedAt,
             List<ComponentPricePointPrice> prices, Boolean useSiteExchangeRate,
-            Integer subscriptionId, Boolean taxIncluded) {
+            Integer subscriptionId, Boolean taxIncluded, Integer interval,
+            IntervalUnit intervalUnit) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -124,6 +135,8 @@ public class ComponentPricePoint {
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.subscriptionId = subscriptionId;
         this.taxIncluded = taxIncluded;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -433,6 +446,54 @@ public class ComponentPricePoint {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Converts this ComponentPricePoint into string format.
      * @return String representation of this class
      */
@@ -443,7 +504,8 @@ public class ComponentPricePoint {
                 + componentId + ", handle=" + handle + ", archivedAt=" + archivedAt + ", createdAt="
                 + createdAt + ", updatedAt=" + updatedAt + ", prices=" + prices
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", subscriptionId="
-                + subscriptionId + ", taxIncluded=" + taxIncluded + "]";
+                + subscriptionId + ", taxIncluded=" + taxIncluded + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + "]";
     }
 
     /**
@@ -465,7 +527,9 @@ public class ComponentPricePoint {
                 .prices(getPrices())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .subscriptionId(getSubscriptionId())
-                .taxIncluded(getTaxIncluded());
+                .taxIncluded(getTaxIncluded())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit());
         builder.archivedAt = internalGetArchivedAt();
         return builder;
     }
@@ -488,6 +552,8 @@ public class ComponentPricePoint {
         private Boolean useSiteExchangeRate = true;
         private Integer subscriptionId;
         private Boolean taxIncluded;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
 
 
 
@@ -641,13 +707,33 @@ public class ComponentPricePoint {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ComponentPricePoint} object using the set fields.
          * @return {@link ComponentPricePoint}
          */
         public ComponentPricePoint build() {
             return new ComponentPricePoint(id, type, mDefault, name, pricingScheme, componentId,
                     handle, archivedAt, createdAt, updatedAt, prices, useSiteExchangeRate,
-                    subscriptionId, taxIncluded);
+                    subscriptionId, taxIncluded, interval, intervalUnit);
         }
     }
 }

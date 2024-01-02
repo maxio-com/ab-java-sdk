@@ -9,16 +9,20 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for OverrideSubscription type.
  */
 public class OverrideSubscription {
-    private String activatedAt;
-    private String canceledAt;
+    private ZonedDateTime activatedAt;
+    private ZonedDateTime canceledAt;
     private String cancellationMessage;
-    private String expiresAt;
-    private String currentPeriodStartsAt;
+    private ZonedDateTime expiresAt;
+    private ZonedDateTime currentPeriodStartsAt;
 
     /**
      * Default constructor.
@@ -28,18 +32,18 @@ public class OverrideSubscription {
 
     /**
      * Initialization constructor.
-     * @param  activatedAt  String value for activatedAt.
-     * @param  canceledAt  String value for canceledAt.
+     * @param  activatedAt  ZonedDateTime value for activatedAt.
+     * @param  canceledAt  ZonedDateTime value for canceledAt.
      * @param  cancellationMessage  String value for cancellationMessage.
-     * @param  expiresAt  String value for expiresAt.
-     * @param  currentPeriodStartsAt  String value for currentPeriodStartsAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
+     * @param  currentPeriodStartsAt  ZonedDateTime value for currentPeriodStartsAt.
      */
     public OverrideSubscription(
-            String activatedAt,
-            String canceledAt,
+            ZonedDateTime activatedAt,
+            ZonedDateTime canceledAt,
             String cancellationMessage,
-            String expiresAt,
-            String currentPeriodStartsAt) {
+            ZonedDateTime expiresAt,
+            ZonedDateTime currentPeriodStartsAt) {
         this.activatedAt = activatedAt;
         this.canceledAt = canceledAt;
         this.cancellationMessage = cancellationMessage;
@@ -50,46 +54,54 @@ public class OverrideSubscription {
     /**
      * Getter for ActivatedAt.
      * Can be used to record an external signup date. Chargify uses this field to record when a
-     * subscription first goes active (either at signup or at trial end)
-     * @return Returns the String
+     * subscription first goes active (either at signup or at trial end). Only ISO8601 format is
+     * supported.
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("activated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getActivatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getActivatedAt() {
         return activatedAt;
     }
 
     /**
      * Setter for ActivatedAt.
      * Can be used to record an external signup date. Chargify uses this field to record when a
-     * subscription first goes active (either at signup or at trial end)
-     * @param activatedAt Value for String
+     * subscription first goes active (either at signup or at trial end). Only ISO8601 format is
+     * supported.
+     * @param activatedAt Value for ZonedDateTime
      */
     @JsonSetter("activated_at")
-    public void setActivatedAt(String activatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setActivatedAt(ZonedDateTime activatedAt) {
         this.activatedAt = activatedAt;
     }
 
     /**
      * Getter for CanceledAt.
      * Can be used to record an external cancellation date. Chargify sets this field automatically
-     * when a subscription is canceled, whether by request or via dunning.
-     * @return Returns the String
+     * when a subscription is canceled, whether by request or via dunning. Only ISO8601 format is
+     * supported.
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("canceled_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCanceledAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCanceledAt() {
         return canceledAt;
     }
 
     /**
      * Setter for CanceledAt.
      * Can be used to record an external cancellation date. Chargify sets this field automatically
-     * when a subscription is canceled, whether by request or via dunning.
-     * @param canceledAt Value for String
+     * when a subscription is canceled, whether by request or via dunning. Only ISO8601 format is
+     * supported.
+     * @param canceledAt Value for ZonedDateTime
      */
     @JsonSetter("canceled_at")
-    public void setCanceledAt(String canceledAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCanceledAt(ZonedDateTime canceledAt) {
         this.canceledAt = canceledAt;
     }
 
@@ -117,23 +129,27 @@ public class OverrideSubscription {
     /**
      * Getter for ExpiresAt.
      * Can be used to record an external expiration date. Chargify sets this field automatically
-     * when a subscription expires (ceases billing) after a prescribed amount of time.
-     * @return Returns the String
+     * when a subscription expires (ceases billing) after a prescribed amount of time. Only ISO8601
+     * format is supported.
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("expires_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getExpiresAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getExpiresAt() {
         return expiresAt;
     }
 
     /**
      * Setter for ExpiresAt.
      * Can be used to record an external expiration date. Chargify sets this field automatically
-     * when a subscription expires (ceases billing) after a prescribed amount of time.
-     * @param expiresAt Value for String
+     * when a subscription expires (ceases billing) after a prescribed amount of time. Only ISO8601
+     * format is supported.
+     * @param expiresAt Value for ZonedDateTime
      */
     @JsonSetter("expires_at")
-    public void setExpiresAt(String expiresAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 
@@ -142,12 +158,13 @@ public class OverrideSubscription {
      * Can only be used when a subscription is unbilled, which happens when a future initial billing
      * date is passed at subscription creation. The value passed must be before the current date and
      * time. Allows you to set when the period started so mid period component allocations have the
-     * correct proration.
-     * @return Returns the String
+     * correct proration. Only ISO8601 format is supported.
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("current_period_starts_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCurrentPeriodStartsAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCurrentPeriodStartsAt() {
         return currentPeriodStartsAt;
     }
 
@@ -156,11 +173,12 @@ public class OverrideSubscription {
      * Can only be used when a subscription is unbilled, which happens when a future initial billing
      * date is passed at subscription creation. The value passed must be before the current date and
      * time. Allows you to set when the period started so mid period component allocations have the
-     * correct proration.
-     * @param currentPeriodStartsAt Value for String
+     * correct proration. Only ISO8601 format is supported.
+     * @param currentPeriodStartsAt Value for ZonedDateTime
      */
     @JsonSetter("current_period_starts_at")
-    public void setCurrentPeriodStartsAt(String currentPeriodStartsAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCurrentPeriodStartsAt(ZonedDateTime currentPeriodStartsAt) {
         this.currentPeriodStartsAt = currentPeriodStartsAt;
     }
 
@@ -194,30 +212,30 @@ public class OverrideSubscription {
      * Class to build instances of {@link OverrideSubscription}.
      */
     public static class Builder {
-        private String activatedAt;
-        private String canceledAt;
+        private ZonedDateTime activatedAt;
+        private ZonedDateTime canceledAt;
         private String cancellationMessage;
-        private String expiresAt;
-        private String currentPeriodStartsAt;
+        private ZonedDateTime expiresAt;
+        private ZonedDateTime currentPeriodStartsAt;
 
 
 
         /**
          * Setter for activatedAt.
-         * @param  activatedAt  String value for activatedAt.
+         * @param  activatedAt  ZonedDateTime value for activatedAt.
          * @return Builder
          */
-        public Builder activatedAt(String activatedAt) {
+        public Builder activatedAt(ZonedDateTime activatedAt) {
             this.activatedAt = activatedAt;
             return this;
         }
 
         /**
          * Setter for canceledAt.
-         * @param  canceledAt  String value for canceledAt.
+         * @param  canceledAt  ZonedDateTime value for canceledAt.
          * @return Builder
          */
-        public Builder canceledAt(String canceledAt) {
+        public Builder canceledAt(ZonedDateTime canceledAt) {
             this.canceledAt = canceledAt;
             return this;
         }
@@ -234,20 +252,20 @@ public class OverrideSubscription {
 
         /**
          * Setter for expiresAt.
-         * @param  expiresAt  String value for expiresAt.
+         * @param  expiresAt  ZonedDateTime value for expiresAt.
          * @return Builder
          */
-        public Builder expiresAt(String expiresAt) {
+        public Builder expiresAt(ZonedDateTime expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
 
         /**
          * Setter for currentPeriodStartsAt.
-         * @param  currentPeriodStartsAt  String value for currentPeriodStartsAt.
+         * @param  currentPeriodStartsAt  ZonedDateTime value for currentPeriodStartsAt.
          * @return Builder
          */
-        public Builder currentPeriodStartsAt(String currentPeriodStartsAt) {
+        public Builder currentPeriodStartsAt(ZonedDateTime currentPeriodStartsAt) {
             this.currentPeriodStartsAt = currentPeriodStartsAt;
             return this;
         }

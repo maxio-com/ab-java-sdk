@@ -20,6 +20,8 @@ public class PricePoint {
     private PricingScheme pricingScheme;
     private List<Price> prices;
     private Boolean useSiteExchangeRate;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
     private OveragePricing overagePricing;
     private Boolean rolloverPrepaidRemainder;
     private Boolean renewPrepaidAllocation;
@@ -40,6 +42,8 @@ public class PricePoint {
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  overagePricing  OveragePricing value for overagePricing.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
@@ -52,6 +56,8 @@ public class PricePoint {
             PricingScheme pricingScheme,
             List<Price> prices,
             Boolean useSiteExchangeRate,
+            Integer interval,
+            IntervalUnit intervalUnit,
             OveragePricing overagePricing,
             Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation,
@@ -62,6 +68,8 @@ public class PricePoint {
         this.pricingScheme = pricingScheme;
         this.prices = prices;
         this.useSiteExchangeRate = useSiteExchangeRate;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
         this.overagePricing = overagePricing;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
@@ -172,6 +180,54 @@ public class PricePoint {
     @JsonSetter("use_site_exchange_rate")
     public void setUseSiteExchangeRate(Boolean useSiteExchangeRate) {
         this.useSiteExchangeRate = useSiteExchangeRate;
+    }
+
+    /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this price point would renew every 30 days. This property is only available for sites
+     * with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this price point would renew every 30 days. This property is only available for sites
+     * with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this price point, either month or day. This
+     * property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this price point, either month or day. This
+     * property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -289,10 +345,11 @@ public class PricePoint {
     public String toString() {
         return "PricePoint [" + "name=" + name + ", handle=" + handle + ", pricingScheme="
                 + pricingScheme + ", prices=" + prices + ", useSiteExchangeRate="
-                + useSiteExchangeRate + ", overagePricing=" + overagePricing
-                + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder
-                + ", renewPrepaidAllocation=" + renewPrepaidAllocation + ", expirationInterval="
-                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit + "]";
+                + useSiteExchangeRate + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + ", overagePricing=" + overagePricing + ", rolloverPrepaidRemainder="
+                + rolloverPrepaidRemainder + ", renewPrepaidAllocation=" + renewPrepaidAllocation
+                + ", expirationInterval=" + expirationInterval + ", expirationIntervalUnit="
+                + expirationIntervalUnit + "]";
     }
 
     /**
@@ -307,6 +364,8 @@ public class PricePoint {
                 .pricingScheme(getPricingScheme())
                 .prices(getPrices())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit())
                 .overagePricing(getOveragePricing())
                 .rolloverPrepaidRemainder(getRolloverPrepaidRemainder())
                 .renewPrepaidAllocation(getRenewPrepaidAllocation())
@@ -324,6 +383,8 @@ public class PricePoint {
         private PricingScheme pricingScheme;
         private List<Price> prices;
         private Boolean useSiteExchangeRate = true;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
         private OveragePricing overagePricing;
         private Boolean rolloverPrepaidRemainder;
         private Boolean renewPrepaidAllocation;
@@ -383,6 +444,26 @@ public class PricePoint {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Setter for overagePricing.
          * @param  overagePricing  OveragePricing value for overagePricing.
          * @return Builder
@@ -438,8 +519,8 @@ public class PricePoint {
          */
         public PricePoint build() {
             return new PricePoint(name, handle, pricingScheme, prices, useSiteExchangeRate,
-                    overagePricing, rolloverPrepaidRemainder, renewPrepaidAllocation,
-                    expirationInterval, expirationIntervalUnit);
+                    interval, intervalUnit, overagePricing, rolloverPrepaidRemainder,
+                    renewPrepaidAllocation, expirationInterval, expirationIntervalUnit);
         }
     }
 }

@@ -34,6 +34,8 @@ public class OnOffComponent {
     private Boolean displayOnHostedPage;
     private Boolean allowFractionalQuantities;
     private List<Integer> publicSignupPageIds;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
 
     /**
      * Default constructor.
@@ -59,6 +61,8 @@ public class OnOffComponent {
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
     public OnOffComponent(
             String name,
@@ -76,7 +80,9 @@ public class OnOffComponent {
             String priceInCents,
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
-            List<Integer> publicSignupPageIds) {
+            List<Integer> publicSignupPageIds,
+            Integer interval,
+            IntervalUnit intervalUnit) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -93,6 +99,8 @@ public class OnOffComponent {
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -113,6 +121,8 @@ public class OnOffComponent {
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
     protected OnOffComponent(String name, String unitName, String description, String handle,
@@ -120,7 +130,7 @@ public class OnOffComponent {
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             OnOffComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
             String priceInCents, Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
-            List<Integer> publicSignupPageIds) {
+            List<Integer> publicSignupPageIds, Integer interval, IntervalUnit intervalUnit) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -137,6 +147,8 @@ public class OnOffComponent {
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -537,6 +549,54 @@ public class OnOffComponent {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component's default price point would renew every 30 days. This property is only
+     * available for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component's default price point would renew every 30 days. This property is only
+     * available for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Converts this OnOffComponent into string format.
      * @return String representation of this class
      */
@@ -549,7 +609,8 @@ public class OnOffComponent {
                 + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", priceInCents="
                 + priceInCents + ", displayOnHostedPage=" + displayOnHostedPage
                 + ", allowFractionalQuantities=" + allowFractionalQuantities
-                + ", publicSignupPageIds=" + publicSignupPageIds + "]";
+                + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + "]";
     }
 
     /**
@@ -571,7 +632,9 @@ public class OnOffComponent {
                 .priceInCents(getPriceInCents())
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
-                .publicSignupPageIds(getPublicSignupPageIds());
+                .publicSignupPageIds(getPublicSignupPageIds())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit());
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
         return builder;
@@ -597,6 +660,8 @@ public class OnOffComponent {
         private Boolean displayOnHostedPage;
         private Boolean allowFractionalQuantities;
         private List<Integer> publicSignupPageIds;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
 
         /**
          * Initialization constructor.
@@ -791,6 +856,26 @@ public class OnOffComponent {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OnOffComponent} object using the set fields.
          * @return {@link OnOffComponent}
          */
@@ -798,7 +883,7 @@ public class OnOffComponent {
             return new OnOffComponent(name, unitName, description, handle, taxable, prices,
                     upgradeCharge, downgradeCredit, pricePoints, unitPrice, taxCode,
                     hideDateRangeOnInvoice, priceInCents, displayOnHostedPage,
-                    allowFractionalQuantities, publicSignupPageIds);
+                    allowFractionalQuantities, publicSignupPageIds, interval, intervalUnit);
         }
     }
 }

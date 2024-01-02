@@ -19,11 +19,12 @@ import java.util.List;
 public class AllocateComponents {
     private String prorationUpgradeScheme;
     private String prorationDowngradeScheme;
-    private List<CreateAllocationRequest> allocations;
+    private List<CreateAllocation> allocations;
     private Boolean accrueCharge;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private PaymentCollectionMethod1 paymentCollectionMethod;
+    private Boolean initiateDunning;
 
     /**
      * Default constructor.
@@ -38,20 +39,22 @@ public class AllocateComponents {
      * Initialization constructor.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
-     * @param  allocations  List of CreateAllocationRequest value for allocations.
+     * @param  allocations  List of CreateAllocation value for allocations.
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for paymentCollectionMethod.
+     * @param  initiateDunning  Boolean value for initiateDunning.
      */
     public AllocateComponents(
             String prorationUpgradeScheme,
             String prorationDowngradeScheme,
-            List<CreateAllocationRequest> allocations,
+            List<CreateAllocation> allocations,
             Boolean accrueCharge,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            PaymentCollectionMethod1 paymentCollectionMethod) {
+            PaymentCollectionMethod1 paymentCollectionMethod,
+            Boolean initiateDunning) {
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.allocations = allocations;
@@ -59,24 +62,26 @@ public class AllocateComponents {
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.paymentCollectionMethod = paymentCollectionMethod;
+        this.initiateDunning = initiateDunning;
     }
 
     /**
      * Initialization constructor.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
-     * @param  allocations  List of CreateAllocationRequest value for allocations.
+     * @param  allocations  List of CreateAllocation value for allocations.
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for paymentCollectionMethod.
+     * @param  initiateDunning  Boolean value for initiateDunning.
      */
 
     protected AllocateComponents(String prorationUpgradeScheme, String prorationDowngradeScheme,
-            List<CreateAllocationRequest> allocations, Boolean accrueCharge,
+            List<CreateAllocation> allocations, Boolean accrueCharge,
             OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
-            PaymentCollectionMethod1 paymentCollectionMethod) {
+            PaymentCollectionMethod1 paymentCollectionMethod, Boolean initiateDunning) {
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.allocations = allocations;
@@ -84,6 +89,7 @@ public class AllocateComponents {
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
         this.paymentCollectionMethod = paymentCollectionMethod;
+        this.initiateDunning = initiateDunning;
     }
 
     /**
@@ -126,20 +132,20 @@ public class AllocateComponents {
 
     /**
      * Getter for Allocations.
-     * @return Returns the List of CreateAllocationRequest
+     * @return Returns the List of CreateAllocation
      */
     @JsonGetter("allocations")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<CreateAllocationRequest> getAllocations() {
+    public List<CreateAllocation> getAllocations() {
         return allocations;
     }
 
     /**
      * Setter for Allocations.
-     * @param allocations Value for List of CreateAllocationRequest
+     * @param allocations Value for List of CreateAllocation
      */
     @JsonSetter("allocations")
-    public void setAllocations(List<CreateAllocationRequest> allocations) {
+    public void setAllocations(List<CreateAllocation> allocations) {
         this.allocations = allocations;
     }
 
@@ -272,6 +278,29 @@ public class AllocateComponents {
     }
 
     /**
+     * Getter for InitiateDunning.
+     * If true, if the immediate component payment fails, initiate dunning for the subscription.
+     * Otherwise, leave the charges on the subscription to pay for at renewal.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("initiate_dunning")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getInitiateDunning() {
+        return initiateDunning;
+    }
+
+    /**
+     * Setter for InitiateDunning.
+     * If true, if the immediate component payment fails, initiate dunning for the subscription.
+     * Otherwise, leave the charges on the subscription to pay for at renewal.
+     * @param initiateDunning Value for Boolean
+     */
+    @JsonSetter("initiate_dunning")
+    public void setInitiateDunning(Boolean initiateDunning) {
+        this.initiateDunning = initiateDunning;
+    }
+
+    /**
      * Converts this AllocateComponents into string format.
      * @return String representation of this class
      */
@@ -281,7 +310,8 @@ public class AllocateComponents {
                 + ", prorationDowngradeScheme=" + prorationDowngradeScheme + ", allocations="
                 + allocations + ", accrueCharge=" + accrueCharge + ", upgradeCharge="
                 + upgradeCharge + ", downgradeCredit=" + downgradeCredit
-                + ", paymentCollectionMethod=" + paymentCollectionMethod + "]";
+                + ", paymentCollectionMethod=" + paymentCollectionMethod + ", initiateDunning="
+                + initiateDunning + "]";
     }
 
     /**
@@ -295,7 +325,8 @@ public class AllocateComponents {
                 .prorationDowngradeScheme(getProrationDowngradeScheme())
                 .allocations(getAllocations())
                 .accrueCharge(getAccrueCharge())
-                .paymentCollectionMethod(getPaymentCollectionMethod());
+                .paymentCollectionMethod(getPaymentCollectionMethod())
+                .initiateDunning(getInitiateDunning());
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
         return builder;
@@ -307,12 +338,13 @@ public class AllocateComponents {
     public static class Builder {
         private String prorationUpgradeScheme = "no-prorate";
         private String prorationDowngradeScheme = "no-prorate";
-        private List<CreateAllocationRequest> allocations;
+        private List<CreateAllocation> allocations;
         private Boolean accrueCharge;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
         private PaymentCollectionMethod1 paymentCollectionMethod =
                 PaymentCollectionMethod1.AUTOMATIC;
+        private Boolean initiateDunning;
 
 
 
@@ -338,10 +370,10 @@ public class AllocateComponents {
 
         /**
          * Setter for allocations.
-         * @param  allocations  List of CreateAllocationRequest value for allocations.
+         * @param  allocations  List of CreateAllocation value for allocations.
          * @return Builder
          */
-        public Builder allocations(List<CreateAllocationRequest> allocations) {
+        public Builder allocations(List<CreateAllocation> allocations) {
             this.allocations = allocations;
             return this;
         }
@@ -406,13 +438,23 @@ public class AllocateComponents {
         }
 
         /**
+         * Setter for initiateDunning.
+         * @param  initiateDunning  Boolean value for initiateDunning.
+         * @return Builder
+         */
+        public Builder initiateDunning(Boolean initiateDunning) {
+            this.initiateDunning = initiateDunning;
+            return this;
+        }
+
+        /**
          * Builds a new {@link AllocateComponents} object using the set fields.
          * @return {@link AllocateComponents}
          */
         public AllocateComponents build() {
             return new AllocateComponents(prorationUpgradeScheme, prorationDowngradeScheme,
                     allocations, accrueCharge, upgradeCharge, downgradeCredit,
-                    paymentCollectionMethod);
+                    paymentCollectionMethod, initiateDunning);
         }
     }
 }
