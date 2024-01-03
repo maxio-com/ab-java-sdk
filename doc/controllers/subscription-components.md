@@ -636,7 +636,7 @@ try {
 |  --- | --- | --- |
 | 401 | Unauthorized | `ApiException` |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Allocate Components
