@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.models.containers.AllocationPreviewItemPreviousQuantity;
+import com.maxio.advancedbilling.models.containers.AllocationPreviewItemQuantity;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
@@ -18,8 +20,8 @@ import io.apimatic.core.types.OptionalNullable;
 public class AllocationPreviewItem {
     private Integer componentId;
     private Integer subscriptionId;
-    private Double quantity;
-    private Integer previousQuantity;
+    private AllocationPreviewItemQuantity quantity;
+    private AllocationPreviewItemPreviousQuantity previousQuantity;
     private OptionalNullable<String> memo;
     private OptionalNullable<String> timestamp;
     private String prorationUpgradeScheme;
@@ -43,8 +45,8 @@ public class AllocationPreviewItem {
      * Initialization constructor.
      * @param  componentId  Integer value for componentId.
      * @param  subscriptionId  Integer value for subscriptionId.
-     * @param  quantity  Double value for quantity.
-     * @param  previousQuantity  Integer value for previousQuantity.
+     * @param  quantity  AllocationPreviewItemQuantity value for quantity.
+     * @param  previousQuantity  AllocationPreviewItemPreviousQuantity value for previousQuantity.
      * @param  memo  String value for memo.
      * @param  timestamp  String value for timestamp.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
@@ -61,8 +63,8 @@ public class AllocationPreviewItem {
     public AllocationPreviewItem(
             Integer componentId,
             Integer subscriptionId,
-            Double quantity,
-            Integer previousQuantity,
+            AllocationPreviewItemQuantity quantity,
+            AllocationPreviewItemPreviousQuantity previousQuantity,
             String memo,
             String timestamp,
             String prorationUpgradeScheme,
@@ -97,8 +99,8 @@ public class AllocationPreviewItem {
      * Initialization constructor.
      * @param  componentId  Integer value for componentId.
      * @param  subscriptionId  Integer value for subscriptionId.
-     * @param  quantity  Double value for quantity.
-     * @param  previousQuantity  Integer value for previousQuantity.
+     * @param  quantity  AllocationPreviewItemQuantity value for quantity.
+     * @param  previousQuantity  AllocationPreviewItemPreviousQuantity value for previousQuantity.
      * @param  memo  String value for memo.
      * @param  timestamp  String value for timestamp.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
@@ -113,8 +115,9 @@ public class AllocationPreviewItem {
      * @param  componentHandle  String value for componentHandle.
      */
 
-    protected AllocationPreviewItem(Integer componentId, Integer subscriptionId, Double quantity,
-            Integer previousQuantity, OptionalNullable<String> memo,
+    protected AllocationPreviewItem(Integer componentId, Integer subscriptionId,
+            AllocationPreviewItemQuantity quantity,
+            AllocationPreviewItemPreviousQuantity previousQuantity, OptionalNullable<String> memo,
             OptionalNullable<String> timestamp, String prorationUpgradeScheme,
             String prorationDowngradeScheme, Boolean accrueCharge,
             OptionalNullable<CreditType> upgradeCharge,
@@ -179,39 +182,39 @@ public class AllocationPreviewItem {
 
     /**
      * Getter for Quantity.
-     * @return Returns the Double
+     * @return Returns the AllocationPreviewItemQuantity
      */
     @JsonGetter("quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getQuantity() {
+    public AllocationPreviewItemQuantity getQuantity() {
         return quantity;
     }
 
     /**
      * Setter for Quantity.
-     * @param quantity Value for Double
+     * @param quantity Value for AllocationPreviewItemQuantity
      */
     @JsonSetter("quantity")
-    public void setQuantity(Double quantity) {
+    public void setQuantity(AllocationPreviewItemQuantity quantity) {
         this.quantity = quantity;
     }
 
     /**
      * Getter for PreviousQuantity.
-     * @return Returns the Integer
+     * @return Returns the AllocationPreviewItemPreviousQuantity
      */
     @JsonGetter("previous_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPreviousQuantity() {
+    public AllocationPreviewItemPreviousQuantity getPreviousQuantity() {
         return previousQuantity;
     }
 
     /**
      * Setter for PreviousQuantity.
-     * @param previousQuantity Value for Integer
+     * @param previousQuantity Value for AllocationPreviewItemPreviousQuantity
      */
     @JsonSetter("previous_quantity")
-    public void setPreviousQuantity(Integer previousQuantity) {
+    public void setPreviousQuantity(AllocationPreviewItemPreviousQuantity previousQuantity) {
         this.previousQuantity = previousQuantity;
     }
 
@@ -589,8 +592,8 @@ public class AllocationPreviewItem {
     public static class Builder {
         private Integer componentId;
         private Integer subscriptionId;
-        private Double quantity;
-        private Integer previousQuantity;
+        private AllocationPreviewItemQuantity quantity;
+        private AllocationPreviewItemPreviousQuantity previousQuantity;
         private OptionalNullable<String> memo;
         private OptionalNullable<String> timestamp;
         private String prorationUpgradeScheme;
@@ -628,20 +631,21 @@ public class AllocationPreviewItem {
 
         /**
          * Setter for quantity.
-         * @param  quantity  Double value for quantity.
+         * @param  quantity  AllocationPreviewItemQuantity value for quantity.
          * @return Builder
          */
-        public Builder quantity(Double quantity) {
+        public Builder quantity(AllocationPreviewItemQuantity quantity) {
             this.quantity = quantity;
             return this;
         }
 
         /**
          * Setter for previousQuantity.
-         * @param  previousQuantity  Integer value for previousQuantity.
+         * @param  previousQuantity  AllocationPreviewItemPreviousQuantity value for
+         *         previousQuantity.
          * @return Builder
          */
-        public Builder previousQuantity(Integer previousQuantity) {
+        public Builder previousQuantity(AllocationPreviewItemPreviousQuantity previousQuantity) {
             this.previousQuantity = previousQuantity;
             return this;
         }
