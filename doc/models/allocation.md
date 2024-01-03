@@ -28,7 +28,7 @@
 | `InitiateDunning` | `Boolean` | Optional | If true, if the immediate component payment fails, initiate dunning for the subscription.<br>Otherwise, leave the charges on the subscription to pay for at renewal. | Boolean getInitiateDunning() | setInitiateDunning(Boolean initiateDunning) |
 | `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
 | `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
-| `Payment` | [`AllocationPayment2`](../../doc/models/containers/allocation-payment-2.md) | Optional | This is a container for one-of cases. | AllocationPayment2 getPayment() | setPayment(AllocationPayment2 payment) |
+| `Payment` | [`AllocationPayment`](../../doc/models/containers/allocation-payment.md) | Optional | This is a container for one-of cases. | AllocationPayment getPayment() | setPayment(AllocationPayment payment) |
 
 ## Example (as JSON)
 
