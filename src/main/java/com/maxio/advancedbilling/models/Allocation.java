@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.AllocationPayment2;
+import com.maxio.advancedbilling.models.containers.AllocationPayment;
 import com.maxio.advancedbilling.models.containers.AllocationPreviousQuantity;
 import com.maxio.advancedbilling.models.containers.AllocationQuantity;
 import io.apimatic.core.types.OptionalNullable;
@@ -41,7 +41,7 @@ public class Allocation {
     private Boolean initiateDunning;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
-    private OptionalNullable<AllocationPayment2> payment;
+    private OptionalNullable<AllocationPayment> payment;
 
     /**
      * Default constructor.
@@ -70,7 +70,7 @@ public class Allocation {
      * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  payment  AllocationPayment2 value for payment.
+     * @param  payment  AllocationPayment value for payment.
      */
     public Allocation(
             Integer allocationId,
@@ -92,7 +92,7 @@ public class Allocation {
             Boolean initiateDunning,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            AllocationPayment2 payment) {
+            AllocationPayment payment) {
         this.allocationId = allocationId;
         this.componentId = componentId;
         this.componentHandle = OptionalNullable.of(componentHandle);
@@ -136,7 +136,7 @@ public class Allocation {
      * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  payment  AllocationPayment2 value for payment.
+     * @param  payment  AllocationPayment value for payment.
      */
 
     protected Allocation(Integer allocationId, Integer componentId,
@@ -148,7 +148,7 @@ public class Allocation {
             Boolean accrueCharge, Boolean initiateDunning,
             OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
-            OptionalNullable<AllocationPayment2> payment) {
+            OptionalNullable<AllocationPayment> payment) {
         this.allocationId = allocationId;
         this.componentId = componentId;
         this.componentHandle = componentHandle;
@@ -670,29 +670,29 @@ public class Allocation {
 
     /**
      * Internal Getter for Payment.
-     * @return Returns the Internal AllocationPayment2
+     * @return Returns the Internal AllocationPayment
      */
     @JsonGetter("payment")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<AllocationPayment2> internalGetPayment() {
+    protected OptionalNullable<AllocationPayment> internalGetPayment() {
         return this.payment;
     }
 
     /**
      * Getter for Payment.
-     * @return Returns the AllocationPayment2
+     * @return Returns the AllocationPayment
      */
-    public AllocationPayment2 getPayment() {
+    public AllocationPayment getPayment() {
         return OptionalNullable.getFrom(payment);
     }
 
     /**
      * Setter for Payment.
-     * @param payment Value for AllocationPayment2
+     * @param payment Value for AllocationPayment
      */
     @JsonSetter("payment")
-    public void setPayment(AllocationPayment2 payment) {
+    public void setPayment(AllocationPayment payment) {
         this.payment = OptionalNullable.of(payment);
     }
 
@@ -775,7 +775,7 @@ public class Allocation {
         private Boolean initiateDunning;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
-        private OptionalNullable<AllocationPayment2> payment;
+        private OptionalNullable<AllocationPayment> payment;
 
 
 
@@ -1007,10 +1007,10 @@ public class Allocation {
 
         /**
          * Setter for payment.
-         * @param  payment  AllocationPayment2 value for payment.
+         * @param  payment  AllocationPayment value for payment.
          * @return Builder
          */
-        public Builder payment(AllocationPayment2 payment) {
+        public Builder payment(AllocationPayment payment) {
             this.payment = OptionalNullable.of(payment);
             return this;
         }
