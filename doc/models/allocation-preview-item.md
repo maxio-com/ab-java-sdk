@@ -11,8 +11,8 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
-| `Quantity` | `Double` | Optional | - | Double getQuantity() | setQuantity(Double quantity) |
-| `PreviousQuantity` | `Integer` | Optional | - | Integer getPreviousQuantity() | setPreviousQuantity(Integer previousQuantity) |
+| `Quantity` | [`AllocationPreviewItemQuantity`](../../doc/models/containers/allocation-preview-item-quantity.md) | Optional | This is a container for one-of cases. | AllocationPreviewItemQuantity getQuantity() | setQuantity(AllocationPreviewItemQuantity quantity) |
+| `PreviousQuantity` | [`AllocationPreviewItemPreviousQuantity`](../../doc/models/containers/allocation-preview-item-previous-quantity.md) | Optional | This is a container for one-of cases. | AllocationPreviewItemPreviousQuantity getPreviousQuantity() | setPreviousQuantity(AllocationPreviewItemPreviousQuantity previousQuantity) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `Timestamp` | `String` | Optional | - | String getTimestamp() | setTimestamp(String timestamp) |
 | `ProrationUpgradeScheme` | `String` | Optional | - | String getProrationUpgradeScheme() | setProrationUpgradeScheme(String prorationUpgradeScheme) |
@@ -32,8 +32,8 @@
 {
   "component_id": 54,
   "subscription_id": 54,
-  "quantity": 173.08,
-  "previous_quantity": 14,
+  "quantity": 78,
+  "previous_quantity": 192,
   "memo": "memo6"
 }
 ```
