@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for AllocationPayment type.
+ * This is a model class for PaymentForAllocation type.
  */
-public class AllocationPayment {
+public class PaymentForAllocation {
     private Integer id;
     private Long amountInCents;
     private Boolean success;
@@ -22,7 +22,7 @@ public class AllocationPayment {
     /**
      * Default constructor.
      */
-    public AllocationPayment() {
+    public PaymentForAllocation() {
     }
 
     /**
@@ -32,7 +32,7 @@ public class AllocationPayment {
      * @param  success  Boolean value for success.
      * @param  memo  String value for memo.
      */
-    public AllocationPayment(
+    public PaymentForAllocation(
             Integer id,
             Long amountInCents,
             Boolean success,
@@ -120,19 +120,19 @@ public class AllocationPayment {
     }
 
     /**
-     * Converts this AllocationPayment into string format.
+     * Converts this PaymentForAllocation into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "AllocationPayment [" + "id=" + id + ", amountInCents=" + amountInCents
+        return "PaymentForAllocation [" + "id=" + id + ", amountInCents=" + amountInCents
                 + ", success=" + success + ", memo=" + memo + "]";
     }
 
     /**
-     * Builds a new {@link AllocationPayment.Builder} object.
+     * Builds a new {@link PaymentForAllocation.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link AllocationPayment.Builder} object
+     * @return a new {@link PaymentForAllocation.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -144,7 +144,7 @@ public class AllocationPayment {
     }
 
     /**
-     * Class to build instances of {@link AllocationPayment}.
+     * Class to build instances of {@link PaymentForAllocation}.
      */
     public static class Builder {
         private Integer id;
@@ -195,11 +195,11 @@ public class AllocationPayment {
         }
 
         /**
-         * Builds a new {@link AllocationPayment} object using the set fields.
-         * @return {@link AllocationPayment}
+         * Builds a new {@link PaymentForAllocation} object using the set fields.
+         * @return {@link PaymentForAllocation}
          */
-        public AllocationPayment build() {
-            return new AllocationPayment(id, amountInCents, success, memo);
+        public PaymentForAllocation build() {
+            return new PaymentForAllocation(id, amountInCents, success, memo);
         }
     }
 }

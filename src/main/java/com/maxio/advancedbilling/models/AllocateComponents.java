@@ -30,8 +30,6 @@ public class AllocateComponents {
      * Default constructor.
      */
     public AllocateComponents() {
-        prorationUpgradeScheme = "no-prorate";
-        prorationDowngradeScheme = "no-prorate";
         paymentCollectionMethod = PaymentCollectionMethod1.AUTOMATIC;
     }
 
@@ -336,8 +334,8 @@ public class AllocateComponents {
      * Class to build instances of {@link AllocateComponents}.
      */
     public static class Builder {
-        private String prorationUpgradeScheme = "no-prorate";
-        private String prorationDowngradeScheme = "no-prorate";
+        private String prorationUpgradeScheme;
+        private String prorationDowngradeScheme;
         private List<CreateAllocation> allocations;
         private Boolean accrueCharge;
         private OptionalNullable<CreditType> upgradeCharge;
