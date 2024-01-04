@@ -16,6 +16,7 @@ import com.maxio.advancedbilling.models.CreateInvoice;
 import com.maxio.advancedbilling.models.CreateInvoiceAddress;
 import com.maxio.advancedbilling.models.CreateInvoiceRequest;
 import com.maxio.advancedbilling.models.CreateMeteredComponent;
+import com.maxio.advancedbilling.models.CreateOnOffComponent;
 import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdateFlatAmountCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdatePercentageCoupon;
@@ -33,6 +34,7 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.MeteredComponent;
+import com.maxio.advancedbilling.models.OnOffComponent;
 import com.maxio.advancedbilling.models.OveragePricing;
 import com.maxio.advancedbilling.models.PaymentProfileAttributes;
 import com.maxio.advancedbilling.models.PrepaidUsageComponent;
@@ -49,6 +51,7 @@ import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
 import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
+import com.maxio.advancedbilling.models.containers.OnOffComponentUnitPrice;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
 import com.maxio.advancedbilling.models.containers.PrepaidUsageComponentUnitPrice;
@@ -165,6 +168,27 @@ public class TestSetup {
         return advancedBillingClient.getComponentsController().createComponent(productFamilyId,
                         ComponentKindPath.QUANTITY_BASED_COMPONENTS,
                         CreateComponentBody.fromCreateQuantityBasedComponent(createQuantityBasedComponent))
+                .getComponent();
+    }
+
+    public Component createOnOffComponent(int productFamilyId) throws IOException, ApiException {
+        return createOnOffComponent(productFamilyId, b -> {});
+    }
+
+    public Component createOnOffComponent(int productFamilyId, Consumer<OnOffComponent.Builder> customizer) throws IOException, ApiException {
+        String componentName = "Test On-Off Component " + randomNumeric(5);
+        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
+        OnOffComponent.Builder onOffComponentBuilder = new OnOffComponent.Builder()
+                .name(componentName)
+                .handle(handle)
+                .unitName("unit")
+                .unitPrice(OnOffComponentUnitPrice.fromPrecision(1.0));
+        customizer.accept(onOffComponentBuilder);
+        CreateOnOffComponent createOnOffComponent = new CreateOnOffComponent(onOffComponentBuilder.build());
+
+        return advancedBillingClient.getComponentsController().createComponent(productFamilyId,
+                        ComponentKindPath.ON_OFF_COMPONENTS,
+                        CreateComponentBody.fromCreateOnOffComponent(createOnOffComponent))
                 .getComponent();
     }
 

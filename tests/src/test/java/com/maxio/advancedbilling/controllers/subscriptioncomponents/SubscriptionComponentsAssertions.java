@@ -5,10 +5,13 @@ import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKind;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreditType;
+import com.maxio.advancedbilling.models.PaymentForAllocation;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionComponent;
 import com.maxio.advancedbilling.models.Usage;
+import com.maxio.advancedbilling.utils.matchers.AllocationPreviousQuantityGetter;
+import com.maxio.advancedbilling.utils.matchers.AllocationQuantityGetter;
 import com.maxio.advancedbilling.utils.matchers.SubscriptionComponentAllocatedQuantityGetter;
 import com.maxio.advancedbilling.utils.matchers.UsageQuantityGetter;
 
@@ -34,33 +37,93 @@ public class SubscriptionComponentsAssertions {
     }
 
     static void assertAllocation(CreateAllocation createAllocation, Allocation responseAllocation,
-                                 Component component, Subscription subscription,
-                                 int quantity, String memo) {
-        //assertThat(responseAllocation.gettAllocationId()).isNotNull();
+                                 Component component, Subscription subscription) {
+        assertAllocation(createAllocation, responseAllocation, component, subscription, "0.0");
+    }
+
+    static void assertAllocation(CreateAllocation createAllocation, Allocation responseAllocation,
+                                 Component component, Subscription subscription, String previousAllocation) {
+        assertGenericAllocationFields(createAllocation, responseAllocation, component, subscription, previousAllocation);
+        assertThat(responseAllocation.getAccrueCharge()).isTrue();
+        assertThat(responseAllocation.getPayment()).isNull();
+        assertThat(responseAllocation.getUpgradeCharge()).isEqualTo(CreditType.PRORATED);
+        assertThat(responseAllocation.getDowngradeCredit()).isEqualTo(CreditType.NONE);
+        assertProrationScheme(responseAllocation.getProrationUpgradeScheme(), CreditType.PRORATED);
+        assertProrationScheme(responseAllocation.getProrationDowngradeScheme(), CreditType.NONE);
+    }
+
+    static void assertPrepaidComponentAllocation(CreateAllocation createAllocation, Allocation responseAllocation,
+                                                 Component component, Subscription subscription) {
+
+        assertGenericAllocationFields(createAllocation, responseAllocation, component, subscription, "0.0");
+        assertThat(responseAllocation.getAccrueCharge()).isFalse();
+        assertThat(responseAllocation.getUpgradeCharge()).isEqualTo(CreditType.FULL);
+        assertThat(responseAllocation.getDowngradeCredit()).isEqualTo(CreditType.NONE);
+        assertProrationScheme(responseAllocation.getProrationUpgradeScheme(), CreditType.FULL);
+        assertProrationScheme(responseAllocation.getProrationDowngradeScheme(), CreditType.NONE);
+
+        assertThat(responseAllocation.getPayment()).isNotNull();
+        PaymentForAllocation allocationPayment = responseAllocation.getPayment().match(v -> v);
+        assertThat(allocationPayment.getId()).isNotNull();
+        assertThat((double) allocationPayment.getAmountInCents())
+                .isEqualTo(
+                        createAllocation.getQuantity() *
+                                Double.parseDouble(component.getUnitPrice()) *
+                                100.0
+                );
+        assertThat(allocationPayment.getSuccess()).isTrue();
+        assertThat(allocationPayment.getMemo()).isEqualTo("Payment for: Prorated component allocation changes.");
+    }
+
+    private static void assertGenericAllocationFields(CreateAllocation createAllocation, Allocation responseAllocation,
+                                                 Component component, Subscription subscription, String previousAllocation) {
+        assertThat(responseAllocation.getAllocationId()).isNotNull();
         assertThat(responseAllocation.getComponentId()).isEqualTo(component.getId());
         assertThat(responseAllocation.getSubscriptionId()).isEqualTo(subscription.getId());
 
-        // fractional will change here to string
-        assertThat(responseAllocation.getQuantity()).isEqualTo(component.getDefaultPricePointId());
-        assertThat(responseAllocation.getPreviousQuantity()).isEqualTo(component.getDefaultPricePointId());
-
         assertThat(responseAllocation.getMemo()).isEqualTo(createAllocation.getMemo());
         assertThat(responseAllocation.getTimestamp()).isNotNull();
-        assertThat(responseAllocation.getProrationUpgradeScheme()).isEqualTo("prorate-delay-capture");
-        assertThat(responseAllocation.getProrationDowngradeScheme()).isEqualTo("no-prorate");
+
 
         assertThat(responseAllocation.getPricePointId()).isEqualTo(component.getDefaultPricePointId());
         assertThat(responseAllocation.getPricePointName()).isEqualTo(component.getDefaultPricePointName());
         assertThat(responseAllocation.getPricePointHandle()).isNotNull();
         assertThat(responseAllocation.getPreviousPricePointId()).isEqualTo(component.getDefaultPricePointId());
 
-        assertThat(responseAllocation.getAccrueCharge()).isTrue();
-        assertThat(responseAllocation.getUpgradeCharge()).isEqualTo(CreditType.PRORATED);
-        assertThat(responseAllocation.getDowngradeCredit()).isEqualTo(CreditType.NONE);
-        //assertThat(responseAllocation.getCreatedAt()).isNotNull();
-        // maybe test with true? here or in
-        //assertThat(responseAllocation.getInitiateDunning()).isEqualTo(createAllocation.getInitiateDunning());
-        assertThat(responseAllocation.getPayment()).isNull();
+        assertThat(responseAllocation.getCreatedAt()).isNotNull();
+        if (createAllocation.getInitiateDunning() == null) {
+            assertThat(responseAllocation.getInitiateDunning()).isFalse();
+        } else {
+            assertThat(responseAllocation.getInitiateDunning()).isEqualTo(createAllocation.getInitiateDunning());
+        }
+
+        if (component.getAllowFractionalQuantities()) {
+            assertThat(responseAllocation.getQuantity()
+                    .match(new AllocationQuantityGetter<String>()))
+                    .isEqualTo(String.valueOf(createAllocation.getQuantity()));
+            assertThat(responseAllocation.getPreviousQuantity()
+                    .match(new AllocationPreviousQuantityGetter<String>())).isEqualTo(previousAllocation);
+
+        } else {
+            assertThat(responseAllocation.getQuantity()
+                    .match(new AllocationQuantityGetter<Integer>()))
+                    .isEqualTo((int)createAllocation.getQuantity());
+            assertThat(responseAllocation.getPreviousQuantity()
+                    .match(new AllocationPreviousQuantityGetter<Integer>()))
+                    .isEqualTo((int)Double.parseDouble(previousAllocation));
+        }
+    }
+
+
+
+    private static void assertProrationScheme(String scheme, CreditType creditType) {
+        String expectedScheme = null;
+        switch (creditType) {
+            case FULL -> expectedScheme = "full-price-attempt-capture";
+            case PRORATED -> expectedScheme = "prorate-delay-capture";
+            case NONE -> expectedScheme = "no-prorate";
+        }
+        assertThat(scheme).isEqualTo(expectedScheme);
     }
 
     static void assertSubscriptionComponentWithSubscriptionObject(SubscriptionComponent subscriptionComponent,

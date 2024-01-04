@@ -3,7 +3,9 @@ package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.SubscriptionComponentsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.AllocateComponents;
 import com.maxio.advancedbilling.models.Allocation;
+import com.maxio.advancedbilling.models.AllocationResponse;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreateAllocationRequest;
@@ -18,14 +20,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static com.maxio.advancedbilling.controllers.subscriptioncomponents.SubscriptionComponentsAssertions.assertAllocation;
-import static com.maxio.advancedbilling.controllers.subscriptioncomponents.SubscriptionComponentsAssertions.assertPrepaidComponentAllocation;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 
-public class SubscriptionComponentsControllerAllocateComponentTest {
+public class SubscriptionComponentsControllerAllocateComponentsTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
@@ -33,7 +38,6 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
 
     private static ProductFamily productFamily;
     private static Component quantityBasedComponent;
-    private static Component prepaidComponent;
     private static Component onOffComponent;
     private static Customer customer;
     private static Subscription subscription;
@@ -44,7 +48,6 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
         Product product = TEST_SETUP.createProduct(productFamily);
         quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId(),
                 b -> b.allowFractionalQuantities(true));
-        prepaidComponent = TEST_SETUP.createPrepaidComponent(productFamily, 1.0);
         onOffComponent = TEST_SETUP.createOnOffComponent(productFamily.getId());
 
         customer = TEST_SETUP.createCustomer();
@@ -57,70 +60,45 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
     }
 
     @Test
-    void shouldAllocateQuantityBasedComponent() throws IOException, ApiException {
+    void shouldAllocateMultipleComponents() throws IOException, ApiException {
         // given
-        CreateAllocation createAllocation = new CreateAllocation.Builder()
-                .quantity(5.4)
-                .memo("Recoding component purchase")
+        CreateAllocation createQuantityAllocation = new CreateAllocation.Builder()
+                .componentId(quantityBasedComponent.getId())
+                .quantity(2.3)
+                .memo("Quantity component allocation")
+                .build();
+        CreateAllocation createOnOffAllocation = new CreateAllocation.Builder()
+                .componentId(onOffComponent.getId())
+                .quantity(1)
+                .memo("On/Off component allocation")
+                .build();
+        AllocateComponents allocateComponents = new AllocateComponents
+                .Builder()
+                .allocations(List.of(createQuantityAllocation, createOnOffAllocation))
                 .build();
 
         // when
-        Allocation allocationResponse = SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .allocateComponent(subscription.getId(), quantityBasedComponent.getId(),
-                        new CreateAllocationRequest(createAllocation)).getAllocation();
+        Map<Integer, Allocation> allocationsMap = SUBSCRIPTION_COMPONENTS_CONTROLLER
+                .allocateComponents(subscription.getId(), allocateComponents)
+                .stream()
+                .map(AllocationResponse::getAllocation)
+                .collect(Collectors.toMap(Allocation::getComponentId, Function.identity()));
 
         // then
-        assertAllocation(createAllocation, allocationResponse, quantityBasedComponent, subscription);
+        assertAllocation(createQuantityAllocation, allocationsMap.get(quantityBasedComponent.getId()),
+                quantityBasedComponent, subscription);
+        assertAllocation(createOnOffAllocation, allocationsMap.get(onOffComponent.getId()),
+                onOffComponent, subscription);
     }
 
     @Test
-    void shouldAllocateOnOffComponent() throws IOException, ApiException {
-        // given
-        CreateAllocation createAllocation1 = new CreateAllocation.Builder()
-                .quantity(1)
-                .memo("Toggling component on.")
-                .build();
-        CreateAllocation createAllocation2 = new CreateAllocation.Builder()
-                .quantity(0)
-                .memo("Toggling component off.")
-                .build();
-
-        // when-then
-        Allocation allocationResponse1 = SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .allocateComponent(subscription.getId(), onOffComponent.getId(),
-                        new CreateAllocationRequest(createAllocation1)).getAllocation();
-        assertAllocation(createAllocation1, allocationResponse1, onOffComponent, subscription);
-
-        Allocation allocationResponse2 = SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .allocateComponent(subscription.getId(), onOffComponent.getId(),
-                        new CreateAllocationRequest(createAllocation2)).getAllocation();
-        assertAllocation(createAllocation2, allocationResponse2, onOffComponent, subscription, "1");
-    }
-
-    @Test
-    void shouldAllocatePrepaidComponent() throws IOException, ApiException {
-        // given
-        CreateAllocation createAllocation = new CreateAllocation.Builder()
-                .quantity(1)
-                .memo("Recoding component purchase")
-                .build();
-
-        // when
-        Allocation allocationResponse = SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .allocateComponent(subscription.getId(), prepaidComponent.getId(),
-                        new CreateAllocationRequest(createAllocation)).getAllocation();
-
-        // then
-        assertPrepaidComponentAllocation(createAllocation, allocationResponse, prepaidComponent, subscription);
-    }
-
-    @Test
-    void shouldNotAllocateComponentToTheSameQuantity() throws IOException, ApiException {
+    void shouldNotAllocateNonExistentComponents() throws IOException, ApiException {
         // given
         Component quantityBasedComponent2 = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
 
         // when
         CreateAllocation createAllocation = new CreateAllocation.Builder()
+                .componentId(123)
                 .quantity(1)
                 .build();
         SUBSCRIPTION_COMPONENTS_CONTROLLER
@@ -129,34 +107,30 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
 
         // then
         assertThatErrorListResponse(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .allocateComponent(subscription.getId(), quantityBasedComponent2.getId(),
-                        new CreateAllocationRequest(createAllocation)).getAllocation()
-        )
+                .allocateComponents(subscription.getId(), new AllocateComponents
+                        .Builder()
+                        .allocations(List.of(createAllocation))
+                        .build()
+                ))
                 .isUnprocessableEntity()
                 .hasErrors(
-                        "One or more allocation changes are required."
+                        "Component: could not be found."
                 );
     }
 
     @Test
-    void shouldNotAllocateComponentWhenSubscriptionDoesNotExist() {
+    void shouldNotAllocateComponentsWhenSubscriptionDoesNotExist() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .allocateComponent(123, quantityBasedComponent.getId(), null)
+                        .allocateComponents(123, null),
+                "Not Found"
         );
     }
 
     @Test
-    void shouldNotAllocateNonExistentComponent() {
-        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .allocateComponent(subscription.getId(), 123, null)
-        );
-    }
-
-    @Test
-    void shouldNotAllocateComponentWhenProvidingInvalidCredentials() {
+    void shouldNotAllocateComponentsWhenProvidingInvalidCredentials() {
         // when-then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
-                .allocateComponent(subscription.getId(), quantityBasedComponent.getId(), null));
+                .allocateComponents(subscription.getId(), null), "Unauthorized");
     }
 
 }
