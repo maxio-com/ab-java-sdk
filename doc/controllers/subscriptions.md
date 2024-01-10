@@ -1365,7 +1365,7 @@ try {
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Bad Request | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseErrorException`](../../doc/models/single-error-response-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
 
 
 # Read Subscription by Reference

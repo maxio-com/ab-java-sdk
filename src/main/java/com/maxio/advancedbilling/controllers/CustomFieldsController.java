@@ -10,16 +10,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CreateMetadataRequest;
 import com.maxio.advancedbilling.models.CreateMetafieldsRequest;
+import com.maxio.advancedbilling.models.ListMetadataForResourceTypeInput;
 import com.maxio.advancedbilling.models.ListMetadataInput;
 import com.maxio.advancedbilling.models.ListMetafieldsInput;
 import com.maxio.advancedbilling.models.ListMetafieldsResponse;
 import com.maxio.advancedbilling.models.Metadata;
 import com.maxio.advancedbilling.models.Metafield;
 import com.maxio.advancedbilling.models.PaginatedMetadata;
-import com.maxio.advancedbilling.models.ReadMetadataInput;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.UpdateMetadataRequest;
 import com.maxio.advancedbilling.models.UpdateMetafieldsRequest;
@@ -97,13 +98,17 @@ public final class CustomFieldsController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         Metafield[].class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -144,7 +149,8 @@ public final class CustomFieldsController extends BaseController {
                         .templateParam(param -> param.key("resource_type").value((input.getResourceType() != null) ? input.getResourceType().value() : null)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -201,7 +207,8 @@ public final class CustomFieldsController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -244,7 +251,8 @@ public final class CustomFieldsController extends BaseController {
                                 .value(name).isRequired(false))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -279,7 +287,6 @@ public final class CustomFieldsController extends BaseController {
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
      * @param  resourceId  Required parameter: The Chargify id of the customer or the subscription
      *         for which the metadata applies
-     * @param  value  Optional parameter: Can be a single item or a list of metadata
      * @param  body  Optional parameter: Example:
      * @return    Returns the List of Metadata response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -288,9 +295,8 @@ public final class CustomFieldsController extends BaseController {
     public List<Metadata> createMetadata(
             final ResourceType resourceType,
             final String resourceId,
-            final String value,
             final CreateMetadataRequest body) throws ApiException, IOException {
-        return prepareCreateMetadataRequest(resourceType, resourceId, value, body).execute();
+        return prepareCreateMetadataRequest(resourceType, resourceId, body).execute();
     }
 
     /**
@@ -299,7 +305,6 @@ public final class CustomFieldsController extends BaseController {
     private ApiCall<List<Metadata>, ApiException> prepareCreateMetadataRequest(
             final ResourceType resourceType,
             final String resourceId,
-            final String value,
             final CreateMetadataRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -308,8 +313,6 @@ public final class CustomFieldsController extends BaseController {
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .queryParam(param -> param.key("value")
-                                .value(value).isRequired(false))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("resource_id").value(resourceId)
@@ -317,13 +320,17 @@ public final class CustomFieldsController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
                                         Metadata[].class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -334,21 +341,21 @@ public final class CustomFieldsController extends BaseController {
      * This request will list all of the metadata belonging to a particular resource (ie.
      * subscription, customer) that is specified. ## Metadata Data This endpoint will also display
      * the current stats of your metadata to use as a tool for pagination.
-     * @param  input  ReadMetadataInput object containing request parameters
+     * @param  input  ListMetadataInput object containing request parameters
      * @return    Returns the PaginatedMetadata response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public PaginatedMetadata readMetadata(
-            final ReadMetadataInput input) throws ApiException, IOException {
-        return prepareReadMetadataRequest(input).execute();
+    public PaginatedMetadata listMetadata(
+            final ListMetadataInput input) throws ApiException, IOException {
+        return prepareListMetadataRequest(input).execute();
     }
 
     /**
-     * Builds the ApiCall object for readMetadata.
+     * Builds the ApiCall object for listMetadata.
      */
-    private ApiCall<PaginatedMetadata, ApiException> prepareReadMetadataRequest(
-            final ReadMetadataInput input) throws IOException {
+    private ApiCall<PaginatedMetadata, ApiException> prepareListMetadataRequest(
+            final ListMetadataInput input) throws IOException {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -363,7 +370,8 @@ public final class CustomFieldsController extends BaseController {
                         .templateParam(param -> param.key("resource_id").value(input.getResourceId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -371,7 +379,7 @@ public final class CustomFieldsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
                 .build();
     }
 
@@ -381,7 +389,6 @@ public final class CustomFieldsController extends BaseController {
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
      * @param  resourceId  Required parameter: The Chargify id of the customer or the subscription
      *         for which the metadata applies
-     * @param  value  Optional parameter: Can be a single item or a list of metadata
      * @param  body  Optional parameter: Example:
      * @return    Returns the List of Metadata response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -390,9 +397,8 @@ public final class CustomFieldsController extends BaseController {
     public List<Metadata> updateMetadata(
             final ResourceType resourceType,
             final String resourceId,
-            final String value,
             final UpdateMetadataRequest body) throws ApiException, IOException {
-        return prepareUpdateMetadataRequest(resourceType, resourceId, value, body).execute();
+        return prepareUpdateMetadataRequest(resourceType, resourceId, body).execute();
     }
 
     /**
@@ -401,7 +407,6 @@ public final class CustomFieldsController extends BaseController {
     private ApiCall<List<Metadata>, ApiException> prepareUpdateMetadataRequest(
             final ResourceType resourceType,
             final String resourceId,
-            final String value,
             final UpdateMetadataRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -410,8 +415,6 @@ public final class CustomFieldsController extends BaseController {
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .queryParam(param -> param.key("value")
-                                .value(value).isRequired(false))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("resource_id").value(resourceId)
@@ -419,7 +422,8 @@ public final class CustomFieldsController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -479,7 +483,8 @@ public final class CustomFieldsController extends BaseController {
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("resource_id").value(resourceId)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -499,21 +504,21 @@ public final class CustomFieldsController extends BaseController {
      * `https://acme.chargify.com/subscriptions/metadata.json?resource_ids[]=1&amp;resource_ids[]=2` ##
      * Read Metadata for a Site This endpoint will list the number of pages of metadata information
      * that are contained within a site.
-     * @param  input  ListMetadataInput object containing request parameters
+     * @param  input  ListMetadataForResourceTypeInput object containing request parameters
      * @return    Returns the PaginatedMetadata response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public PaginatedMetadata listMetadata(
-            final ListMetadataInput input) throws ApiException, IOException {
-        return prepareListMetadataRequest(input).execute();
+    public PaginatedMetadata listMetadataForResourceType(
+            final ListMetadataForResourceTypeInput input) throws ApiException, IOException {
+        return prepareListMetadataForResourceTypeRequest(input).execute();
     }
 
     /**
-     * Builds the ApiCall object for listMetadata.
+     * Builds the ApiCall object for listMetadataForResourceType.
      */
-    private ApiCall<PaginatedMetadata, ApiException> prepareListMetadataRequest(
-            final ListMetadataInput input) throws IOException {
+    private ApiCall<PaginatedMetadata, ApiException> prepareListMetadataForResourceTypeRequest(
+            final ListMetadataForResourceTypeInput input) throws IOException {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -542,7 +547,8 @@ public final class CustomFieldsController extends BaseController {
                         .templateParam(param -> param.key("resource_type").value((input.getResourceType() != null) ? input.getResourceType().value() : null)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -550,7 +556,7 @@ public final class CustomFieldsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

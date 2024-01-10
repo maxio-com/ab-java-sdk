@@ -9,7 +9,7 @@ package com.maxio.advancedbilling.controllers;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.SingleErrorResponseErrorException;
+import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BatchJobResponse;
 import com.maxio.advancedbilling.models.Invoice;
@@ -69,7 +69,8 @@ public final class APIExportsController extends BaseController {
                         .templateParam(param -> param.key("batch_id").value(input.getBatchId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -116,7 +117,8 @@ public final class APIExportsController extends BaseController {
                         .templateParam(param -> param.key("batch_id").value(input.getBatchId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -163,7 +165,8 @@ public final class APIExportsController extends BaseController {
                         .templateParam(param -> param.key("batch_id").value(input.getBatchId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -200,7 +203,8 @@ public final class APIExportsController extends BaseController {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/api_exports/proforma_invoices.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -211,7 +215,7 @@ public final class APIExportsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("409",
                                  ErrorCase.setReason("Conflict",
-                                (reason, context) -> new SingleErrorResponseErrorException(reason, context)))
+                                (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -238,7 +242,8 @@ public final class APIExportsController extends BaseController {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/api_exports/invoices.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -249,7 +254,7 @@ public final class APIExportsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("409",
                                  ErrorCase.setReason("Conflict",
-                                (reason, context) -> new SingleErrorResponseErrorException(reason, context)))
+                                (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -276,7 +281,8 @@ public final class APIExportsController extends BaseController {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/api_exports/subscriptions.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -284,7 +290,7 @@ public final class APIExportsController extends BaseController {
                         .nullify404(false)
                         .localErrorCase("409",
                                  ErrorCase.setReason("Conflict",
-                                (reason, context) -> new SingleErrorResponseErrorException(reason, context)))
+                                (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -316,7 +322,8 @@ public final class APIExportsController extends BaseController {
                         .templateParam(param -> param.key("batch_id").value(batchId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -356,7 +363,8 @@ public final class APIExportsController extends BaseController {
                         .templateParam(param -> param.key("batch_id").value(batchId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -396,7 +404,8 @@ public final class APIExportsController extends BaseController {
                         .templateParam(param -> param.key("batch_id").value(batchId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

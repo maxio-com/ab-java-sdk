@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for AllocationPreviewLineItem type.
  */
 public class AllocationPreviewLineItem {
-    private String transactionType;
-    private String kind;
+    private LineItemTransactionType transactionType;
+    private AllocationPreviewLineItemKind kind;
     private Long amountInCents;
     private String memo;
     private Long discountAmountInCents;
@@ -32,8 +32,8 @@ public class AllocationPreviewLineItem {
 
     /**
      * Initialization constructor.
-     * @param  transactionType  String value for transactionType.
-     * @param  kind  String value for kind.
+     * @param  transactionType  LineItemTransactionType value for transactionType.
+     * @param  kind  AllocationPreviewLineItemKind value for kind.
      * @param  amountInCents  Long value for amountInCents.
      * @param  memo  String value for memo.
      * @param  discountAmountInCents  Long value for discountAmountInCents.
@@ -43,8 +43,8 @@ public class AllocationPreviewLineItem {
      * @param  direction  AllocationPreviewDirection value for direction.
      */
     public AllocationPreviewLineItem(
-            String transactionType,
-            String kind,
+            LineItemTransactionType transactionType,
+            AllocationPreviewLineItemKind kind,
             Long amountInCents,
             String memo,
             Long discountAmountInCents,
@@ -65,39 +65,43 @@ public class AllocationPreviewLineItem {
 
     /**
      * Getter for TransactionType.
-     * @return Returns the String
+     * A handle for the line item transaction type
+     * @return Returns the LineItemTransactionType
      */
     @JsonGetter("transaction_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTransactionType() {
+    public LineItemTransactionType getTransactionType() {
         return transactionType;
     }
 
     /**
      * Setter for TransactionType.
-     * @param transactionType Value for String
+     * A handle for the line item transaction type
+     * @param transactionType Value for LineItemTransactionType
      */
     @JsonSetter("transaction_type")
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(LineItemTransactionType transactionType) {
         this.transactionType = transactionType;
     }
 
     /**
      * Getter for Kind.
-     * @return Returns the String
+     * A handle for the line item kind for allocation preview
+     * @return Returns the AllocationPreviewLineItemKind
      */
     @JsonGetter("kind")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getKind() {
+    public AllocationPreviewLineItemKind getKind() {
         return kind;
     }
 
     /**
      * Setter for Kind.
-     * @param kind Value for String
+     * A handle for the line item kind for allocation preview
+     * @param kind Value for AllocationPreviewLineItemKind
      */
     @JsonSetter("kind")
-    public void setKind(String kind) {
+    public void setKind(AllocationPreviewLineItemKind kind) {
         this.kind = kind;
     }
 
@@ -272,8 +276,8 @@ public class AllocationPreviewLineItem {
      * Class to build instances of {@link AllocationPreviewLineItem}.
      */
     public static class Builder {
-        private String transactionType;
-        private String kind;
+        private LineItemTransactionType transactionType;
+        private AllocationPreviewLineItemKind kind;
         private Long amountInCents;
         private String memo;
         private Long discountAmountInCents;
@@ -286,20 +290,20 @@ public class AllocationPreviewLineItem {
 
         /**
          * Setter for transactionType.
-         * @param  transactionType  String value for transactionType.
+         * @param  transactionType  LineItemTransactionType value for transactionType.
          * @return Builder
          */
-        public Builder transactionType(String transactionType) {
+        public Builder transactionType(LineItemTransactionType transactionType) {
             this.transactionType = transactionType;
             return this;
         }
 
         /**
          * Setter for kind.
-         * @param  kind  String value for kind.
+         * @param  kind  AllocationPreviewLineItemKind value for kind.
          * @return Builder
          */
-        public Builder kind(String kind) {
+        public Builder kind(AllocationPreviewLineItemKind kind) {
             this.kind = kind;
             return this;
         }

@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `TransactionType` | `String` | Optional | - | String getTransactionType() | setTransactionType(String transactionType) |
-| `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
+| `TransactionType` | [`LineItemTransactionType`](../../doc/models/line-item-transaction-type.md) | Optional | A handle for the line item transaction type | LineItemTransactionType getTransactionType() | setTransactionType(LineItemTransactionType transactionType) |
+| `Kind` | [`AllocationPreviewLineItemKind`](../../doc/models/allocation-preview-line-item-kind.md) | Optional | A handle for the line item kind for allocation preview | AllocationPreviewLineItemKind getKind() | setKind(AllocationPreviewLineItemKind kind) |
 | `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `DiscountAmountInCents` | `Long` | Optional | - | Long getDiscountAmountInCents() | setDiscountAmountInCents(Long discountAmountInCents) |
@@ -23,8 +23,8 @@
 
 ```json
 {
-  "transaction_type": "transaction_type4",
-  "kind": "kind0",
+  "transaction_type": "credit",
+  "kind": "quantity_based_component",
   "amount_in_cents": 24,
   "memo": "memo6",
   "discount_amount_in_cents": 172

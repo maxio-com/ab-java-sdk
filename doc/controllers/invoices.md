@@ -3077,7 +3077,7 @@ try {
   ],
   "public_url": "dolo",
   "previous_balance_data": {
-    "capture_date": "aliqua velit quis voluptate",
+    "captured_at": "2024-01-09T11:22:23-05:00",
     "invoices": [
       {
         "number": "veniam dolore labore ipsum cupidatat",

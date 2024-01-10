@@ -23,6 +23,8 @@ public class OfferItem {
     private String componentName;
     private String pricePointName;
     private List<CurrencyPrice> currencyPrices;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
 
     /**
      * Default constructor.
@@ -40,6 +42,8 @@ public class OfferItem {
      * @param  componentName  String value for componentName.
      * @param  pricePointName  String value for pricePointName.
      * @param  currencyPrices  List of CurrencyPrice value for currencyPrices.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
     public OfferItem(
             Integer componentId,
@@ -49,7 +53,9 @@ public class OfferItem {
             String componentUnitPrice,
             String componentName,
             String pricePointName,
-            List<CurrencyPrice> currencyPrices) {
+            List<CurrencyPrice> currencyPrices,
+            Integer interval,
+            IntervalUnit intervalUnit) {
         this.componentId = componentId;
         this.pricePointId = pricePointId;
         this.startingQuantity = startingQuantity;
@@ -58,6 +64,8 @@ public class OfferItem {
         this.componentName = componentName;
         this.pricePointName = pricePointName;
         this.currencyPrices = currencyPrices;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -213,6 +221,54 @@ public class OfferItem {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Converts this OfferItem into string format.
      * @return String representation of this class
      */
@@ -221,7 +277,8 @@ public class OfferItem {
         return "OfferItem [" + "componentId=" + componentId + ", pricePointId=" + pricePointId
                 + ", startingQuantity=" + startingQuantity + ", editable=" + editable
                 + ", componentUnitPrice=" + componentUnitPrice + ", componentName=" + componentName
-                + ", pricePointName=" + pricePointName + ", currencyPrices=" + currencyPrices + "]";
+                + ", pricePointName=" + pricePointName + ", currencyPrices=" + currencyPrices
+                + ", interval=" + interval + ", intervalUnit=" + intervalUnit + "]";
     }
 
     /**
@@ -238,7 +295,9 @@ public class OfferItem {
                 .componentUnitPrice(getComponentUnitPrice())
                 .componentName(getComponentName())
                 .pricePointName(getPricePointName())
-                .currencyPrices(getCurrencyPrices());
+                .currencyPrices(getCurrencyPrices())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit());
         return builder;
     }
 
@@ -254,6 +313,8 @@ public class OfferItem {
         private String componentName;
         private String pricePointName;
         private List<CurrencyPrice> currencyPrices;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
 
 
 
@@ -338,12 +399,33 @@ public class OfferItem {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link OfferItem} object using the set fields.
          * @return {@link OfferItem}
          */
         public OfferItem build() {
             return new OfferItem(componentId, pricePointId, startingQuantity, editable,
-                    componentUnitPrice, componentName, pricePointName, currencyPrices);
+                    componentUnitPrice, componentName, pricePointName, currencyPrices, interval,
+                    intervalUnit);
         }
     }
 }

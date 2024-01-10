@@ -9,13 +9,17 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for InvoicePreviousBalance type.
  */
 public class InvoicePreviousBalance {
-    private String captureDate;
+    private ZonedDateTime capturedAt;
     private List<InvoiceBalanceItem> invoices;
 
     /**
@@ -26,33 +30,35 @@ public class InvoicePreviousBalance {
 
     /**
      * Initialization constructor.
-     * @param  captureDate  String value for captureDate.
+     * @param  capturedAt  ZonedDateTime value for capturedAt.
      * @param  invoices  List of InvoiceBalanceItem value for invoices.
      */
     public InvoicePreviousBalance(
-            String captureDate,
+            ZonedDateTime capturedAt,
             List<InvoiceBalanceItem> invoices) {
-        this.captureDate = captureDate;
+        this.capturedAt = capturedAt;
         this.invoices = invoices;
     }
 
     /**
-     * Getter for CaptureDate.
-     * @return Returns the String
+     * Getter for CapturedAt.
+     * @return Returns the ZonedDateTime
      */
-    @JsonGetter("capture_date")
+    @JsonGetter("captured_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCaptureDate() {
-        return captureDate;
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCapturedAt() {
+        return capturedAt;
     }
 
     /**
-     * Setter for CaptureDate.
-     * @param captureDate Value for String
+     * Setter for CapturedAt.
+     * @param capturedAt Value for ZonedDateTime
      */
-    @JsonSetter("capture_date")
-    public void setCaptureDate(String captureDate) {
-        this.captureDate = captureDate;
+    @JsonSetter("captured_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCapturedAt(ZonedDateTime capturedAt) {
+        this.capturedAt = capturedAt;
     }
 
     /**
@@ -80,7 +86,7 @@ public class InvoicePreviousBalance {
      */
     @Override
     public String toString() {
-        return "InvoicePreviousBalance [" + "captureDate=" + captureDate + ", invoices=" + invoices
+        return "InvoicePreviousBalance [" + "capturedAt=" + capturedAt + ", invoices=" + invoices
                 + "]";
     }
 
@@ -91,7 +97,7 @@ public class InvoicePreviousBalance {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .captureDate(getCaptureDate())
+                .capturedAt(getCapturedAt())
                 .invoices(getInvoices());
         return builder;
     }
@@ -100,18 +106,18 @@ public class InvoicePreviousBalance {
      * Class to build instances of {@link InvoicePreviousBalance}.
      */
     public static class Builder {
-        private String captureDate;
+        private ZonedDateTime capturedAt;
         private List<InvoiceBalanceItem> invoices;
 
 
 
         /**
-         * Setter for captureDate.
-         * @param  captureDate  String value for captureDate.
+         * Setter for capturedAt.
+         * @param  capturedAt  ZonedDateTime value for capturedAt.
          * @return Builder
          */
-        public Builder captureDate(String captureDate) {
-            this.captureDate = captureDate;
+        public Builder capturedAt(ZonedDateTime capturedAt) {
+            this.capturedAt = capturedAt;
             return this;
         }
 
@@ -130,7 +136,7 @@ public class InvoicePreviousBalance {
          * @return {@link InvoicePreviousBalance}
          */
         public InvoicePreviousBalance build() {
-            return new InvoicePreviousBalance(captureDate, invoices);
+            return new InvoicePreviousBalance(capturedAt, invoices);
         }
     }
 }

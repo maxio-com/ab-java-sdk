@@ -29,14 +29,14 @@ public class InvoiceLineItemEventData {
     private String lineReferences;
     private OptionalNullable<Integer> pricingDetailsIndex;
     private List<InvoiceLineItemPricingDetail> pricingDetails;
-    private String taxCode;
+    private OptionalNullable<String> taxCode;
     private String taxAmount;
     private Integer productId;
-    private Integer productPricePointId;
+    private OptionalNullable<Integer> productPricePointId;
     private OptionalNullable<Integer> pricePointId;
     private OptionalNullable<Integer> componentId;
     private OptionalNullable<Integer> billingScheduleItemId;
-    private Boolean customItem;
+    private OptionalNullable<Boolean> customItem;
 
     /**
      * Default constructor.
@@ -100,14 +100,14 @@ public class InvoiceLineItemEventData {
         this.lineReferences = lineReferences;
         this.pricingDetailsIndex = OptionalNullable.of(pricingDetailsIndex);
         this.pricingDetails = pricingDetails;
-        this.taxCode = taxCode;
+        this.taxCode = OptionalNullable.of(taxCode);
         this.taxAmount = taxAmount;
         this.productId = productId;
-        this.productPricePointId = productPricePointId;
+        this.productPricePointId = OptionalNullable.of(productPricePointId);
         this.pricePointId = OptionalNullable.of(pricePointId);
         this.componentId = OptionalNullable.of(componentId);
         this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
-        this.customItem = customItem;
+        this.customItem = OptionalNullable.of(customItem);
     }
 
     /**
@@ -138,10 +138,11 @@ public class InvoiceLineItemEventData {
             Integer quantity, OptionalNullable<Integer> quantityDelta, String unitPrice,
             String periodRangeStart, String periodRangeEnd, String amount, String lineReferences,
             OptionalNullable<Integer> pricingDetailsIndex,
-            List<InvoiceLineItemPricingDetail> pricingDetails, String taxCode, String taxAmount,
-            Integer productId, Integer productPricePointId, OptionalNullable<Integer> pricePointId,
-            OptionalNullable<Integer> componentId, OptionalNullable<Integer> billingScheduleItemId,
-            Boolean customItem) {
+            List<InvoiceLineItemPricingDetail> pricingDetails, OptionalNullable<String> taxCode,
+            String taxAmount, Integer productId, OptionalNullable<Integer> productPricePointId,
+            OptionalNullable<Integer> pricePointId, OptionalNullable<Integer> componentId,
+            OptionalNullable<Integer> billingScheduleItemId,
+            OptionalNullable<Boolean> customItem) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -425,13 +426,22 @@ public class InvoiceLineItemEventData {
     }
 
     /**
-     * Getter for TaxCode.
-     * @return Returns the String
+     * Internal Getter for TaxCode.
+     * @return Returns the Internal String
      */
     @JsonGetter("tax_code")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTaxCode() {
+        return this.taxCode;
+    }
+
+    /**
+     * Getter for TaxCode.
+     * @return Returns the String
+     */
     public String getTaxCode() {
-        return taxCode;
+        return OptionalNullable.getFrom(taxCode);
     }
 
     /**
@@ -440,7 +450,14 @@ public class InvoiceLineItemEventData {
      */
     @JsonSetter("tax_code")
     public void setTaxCode(String taxCode) {
-        this.taxCode = taxCode;
+        this.taxCode = OptionalNullable.of(taxCode);
+    }
+
+    /**
+     * UnSetter for TaxCode.
+     */
+    public void unsetTaxCode() {
+        taxCode = null;
     }
 
     /**
@@ -482,13 +499,22 @@ public class InvoiceLineItemEventData {
     }
 
     /**
-     * Getter for ProductPricePointId.
-     * @return Returns the Integer
+     * Internal Getter for ProductPricePointId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("product_price_point_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetProductPricePointId() {
+        return this.productPricePointId;
+    }
+
+    /**
+     * Getter for ProductPricePointId.
+     * @return Returns the Integer
+     */
     public Integer getProductPricePointId() {
-        return productPricePointId;
+        return OptionalNullable.getFrom(productPricePointId);
     }
 
     /**
@@ -497,7 +523,14 @@ public class InvoiceLineItemEventData {
      */
     @JsonSetter("product_price_point_id")
     public void setProductPricePointId(Integer productPricePointId) {
-        this.productPricePointId = productPricePointId;
+        this.productPricePointId = OptionalNullable.of(productPricePointId);
+    }
+
+    /**
+     * UnSetter for ProductPricePointId.
+     */
+    public void unsetProductPricePointId() {
+        productPricePointId = null;
     }
 
     /**
@@ -606,13 +639,22 @@ public class InvoiceLineItemEventData {
     }
 
     /**
-     * Getter for CustomItem.
-     * @return Returns the Boolean
+     * Internal Getter for CustomItem.
+     * @return Returns the Internal Boolean
      */
     @JsonGetter("custom_item")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetCustomItem() {
+        return this.customItem;
+    }
+
+    /**
+     * Getter for CustomItem.
+     * @return Returns the Boolean
+     */
     public Boolean getCustomItem() {
-        return customItem;
+        return OptionalNullable.getFrom(customItem);
     }
 
     /**
@@ -621,7 +663,14 @@ public class InvoiceLineItemEventData {
      */
     @JsonSetter("custom_item")
     public void setCustomItem(Boolean customItem) {
-        this.customItem = customItem;
+        this.customItem = OptionalNullable.of(customItem);
+    }
+
+    /**
+     * UnSetter for CustomItem.
+     */
+    public void unsetCustomItem() {
+        customItem = null;
     }
 
     /**
@@ -659,16 +708,16 @@ public class InvoiceLineItemEventData {
                 .amount(getAmount())
                 .lineReferences(getLineReferences())
                 .pricingDetails(getPricingDetails())
-                .taxCode(getTaxCode())
                 .taxAmount(getTaxAmount())
-                .productId(getProductId())
-                .productPricePointId(getProductPricePointId())
-                .customItem(getCustomItem());
+                .productId(getProductId());
         builder.quantityDelta = internalGetQuantityDelta();
         builder.pricingDetailsIndex = internalGetPricingDetailsIndex();
+        builder.taxCode = internalGetTaxCode();
+        builder.productPricePointId = internalGetProductPricePointId();
         builder.pricePointId = internalGetPricePointId();
         builder.componentId = internalGetComponentId();
         builder.billingScheduleItemId = internalGetBillingScheduleItemId();
+        builder.customItem = internalGetCustomItem();
         return builder;
     }
 
@@ -688,14 +737,14 @@ public class InvoiceLineItemEventData {
         private String lineReferences;
         private OptionalNullable<Integer> pricingDetailsIndex;
         private List<InvoiceLineItemPricingDetail> pricingDetails;
-        private String taxCode;
+        private OptionalNullable<String> taxCode;
         private String taxAmount;
         private Integer productId;
-        private Integer productPricePointId;
+        private OptionalNullable<Integer> productPricePointId;
         private OptionalNullable<Integer> pricePointId;
         private OptionalNullable<Integer> componentId;
         private OptionalNullable<Integer> billingScheduleItemId;
-        private Boolean customItem;
+        private OptionalNullable<Boolean> customItem;
 
 
 
@@ -843,7 +892,16 @@ public class InvoiceLineItemEventData {
          * @return Builder
          */
         public Builder taxCode(String taxCode) {
-            this.taxCode = taxCode;
+            this.taxCode = OptionalNullable.of(taxCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxCode.
+         * @return Builder
+         */
+        public Builder unsetTaxCode() {
+            taxCode = null;
             return this;
         }
 
@@ -873,7 +931,16 @@ public class InvoiceLineItemEventData {
          * @return Builder
          */
         public Builder productPricePointId(Integer productPricePointId) {
-            this.productPricePointId = productPricePointId;
+            this.productPricePointId = OptionalNullable.of(productPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for productPricePointId.
+         * @return Builder
+         */
+        public Builder unsetProductPricePointId() {
+            productPricePointId = null;
             return this;
         }
 
@@ -940,7 +1007,16 @@ public class InvoiceLineItemEventData {
          * @return Builder
          */
         public Builder customItem(Boolean customItem) {
-            this.customItem = customItem;
+            this.customItem = OptionalNullable.of(customItem);
+            return this;
+        }
+
+        /**
+         * UnSetter for customItem.
+         * @return Builder
+         */
+        public Builder unsetCustomItem() {
+            customItem = null;
             return this;
         }
 

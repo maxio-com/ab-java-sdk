@@ -15,10 +15,10 @@ CustomFieldsController customFieldsController = client.getCustomFieldsController
 * [Update Metafield](../../doc/controllers/custom-fields.md#update-metafield)
 * [Delete Metafield](../../doc/controllers/custom-fields.md#delete-metafield)
 * [Create Metadata](../../doc/controllers/custom-fields.md#create-metadata)
-* [Read Metadata](../../doc/controllers/custom-fields.md#read-metadata)
+* [List Metadata](../../doc/controllers/custom-fields.md#list-metadata)
 * [Update Metadata](../../doc/controllers/custom-fields.md#update-metadata)
 * [Delete Metadata](../../doc/controllers/custom-fields.md#delete-metadata)
-* [List Metadata](../../doc/controllers/custom-fields.md#list-metadata)
+* [List Metadata for Resource Type](../../doc/controllers/custom-fields.md#list-metadata-for-resource-type)
 
 
 # Create Metafields
@@ -129,6 +129,12 @@ try {
   }
 ]
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
 
 
 # List Metafields
@@ -317,7 +323,6 @@ Please pay special attention to the resource you use when creating metadata.
 List<Metadata> createMetadata(
     final ResourceType resourceType,
     final String resourceId,
-    final String value,
     final CreateMetadataRequest body)
 ```
 
@@ -327,7 +332,6 @@ List<Metadata> createMetadata(
 |  --- | --- | --- | --- |
 | `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
 | `resourceId` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
-| `value` | `String` | Query, Optional | Can be a single item or a list of metadata |
 | `body` | [`CreateMetadataRequest`](../../doc/models/create-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -354,7 +358,7 @@ CreateMetadataRequest body = new CreateMetadataRequest.Builder(
 .build();
 
 try {
-    List<Metadata> result = customFieldsController.createMetadata(resourceType, resourceId, null, body);
+    List<Metadata> result = customFieldsController.createMetadata(resourceType, resourceId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -363,8 +367,14 @@ try {
 }
 ```
 
+## Errors
 
-# Read Metadata
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
+
+
+# List Metadata
 
 This request will list all of the metadata belonging to a particular resource (ie. subscription, customer) that is specified.
 
@@ -373,8 +383,8 @@ This request will list all of the metadata belonging to a particular resource (i
 This endpoint will also display the current stats of your metadata to use as a tool for pagination.
 
 ```java
-PaginatedMetadata readMetadata(
-    final ReadMetadataInput input)
+PaginatedMetadata listMetadata(
+    final ListMetadataInput input)
 ```
 
 ## Parameters
@@ -393,7 +403,7 @@ PaginatedMetadata readMetadata(
 ## Example Usage
 
 ```java
-ReadMetadataInput readMetadataInput = new ReadMetadataInput.Builder(
+ListMetadataInput listMetadataInput = new ListMetadataInput.Builder(
     ResourceType.SUBSCRIPTIONS,
     "resource_id4"
 )
@@ -402,7 +412,7 @@ ReadMetadataInput readMetadataInput = new ReadMetadataInput.Builder(
 .build();
 
 try {
-    PaginatedMetadata result = customFieldsController.readMetadata(readMetadataInput);
+    PaginatedMetadata result = customFieldsController.listMetadata(listMetadataInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -420,7 +430,6 @@ This method allows you to update the existing metadata associated with a subscri
 List<Metadata> updateMetadata(
     final ResourceType resourceType,
     final String resourceId,
-    final String value,
     final UpdateMetadataRequest body)
 ```
 
@@ -430,7 +439,6 @@ List<Metadata> updateMetadata(
 |  --- | --- | --- | --- |
 | `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
 | `resourceId` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
-| `value` | `String` | Query, Optional | Can be a single item or a list of metadata |
 | `body` | [`UpdateMetadataRequest`](../../doc/models/update-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -443,7 +451,7 @@ List<Metadata> updateMetadata(
 ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
 String resourceId = "resource_id4";
 try {
-    List<Metadata> result = customFieldsController.updateMetadata(resourceType, resourceId, null, null);
+    List<Metadata> result = customFieldsController.updateMetadata(resourceType, resourceId, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -521,7 +529,7 @@ Liquid error: Value cannot be null. (Parameter 'key')try {
 | 404 | Not Found | `ApiException` |
 
 
-# List Metadata
+# List Metadata for Resource Type
 
 This method will provide you information on usage of metadata across your selected resource (ie. subscriptions, customers)
 
@@ -538,8 +546,8 @@ This endpoint will also display the current stats of your metadata to use as a t
 This endpoint will list the number of pages of metadata information that are contained within a site.
 
 ```java
-PaginatedMetadata listMetadata(
-    final ListMetadataInput input)
+PaginatedMetadata listMetadataForResourceType(
+    final ListMetadataForResourceTypeInput input)
 ```
 
 ## Parameters
@@ -565,7 +573,7 @@ PaginatedMetadata listMetadata(
 ## Example Usage
 
 ```java
-ListMetadataInput listMetadataInput = new ListMetadataInput.Builder(
+ListMetadataForResourceTypeInput listMetadataForResourceTypeInput = new ListMetadataForResourceTypeInput.Builder(
     ResourceType.SUBSCRIPTIONS
 )
 .page(2)
@@ -574,7 +582,7 @@ ListMetadataInput listMetadataInput = new ListMetadataInput.Builder(
 Liquid error: Value cannot be null. (Parameter 'key').build();
 
 try {
-    PaginatedMetadata result = customFieldsController.listMetadata(listMetadataInput);
+    PaginatedMetadata result = customFieldsController.listMetadataForResourceType(listMetadataForResourceTypeInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
