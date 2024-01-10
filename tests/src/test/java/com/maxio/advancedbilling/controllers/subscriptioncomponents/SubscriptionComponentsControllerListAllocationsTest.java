@@ -31,7 +31,6 @@ public class SubscriptionComponentsControllerListAllocationsTest {
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
             TestClient.createClient().getSubscriptionComponentsController();
 
-    private static ProductFamily productFamily;
     private static Component quantityBasedComponent;
     private static CreateAllocation createAllocation1;
     private static CreateAllocation createAllocation2;
@@ -41,7 +40,7 @@ public class SubscriptionComponentsControllerListAllocationsTest {
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
+        ProductFamily productFamily = TEST_SETUP.createProductFamily();
         Product product = TEST_SETUP.createProduct(productFamily);
         customer = TEST_SETUP.createCustomer();
         subscription = TEST_SETUP.createSubscription(customer, product);
@@ -82,12 +81,12 @@ public class SubscriptionComponentsControllerListAllocationsTest {
     void shouldListAllocatedComponents() throws IOException, ApiException {
         // when
         List<AllocationResponse> allocationResponses = SUBSCRIPTION_COMPONENTS_CONTROLLER
-                .listAllocations(subscription.getId(), quantityBasedComponent.getId(), 1);
+                .listAllocations(subscription.getId(), quantityBasedComponent.getId(), null);
 
         // then
-        assertAllocation(createAllocation3, allocationResponses.get(0).getAllocation(), quantityBasedComponent, subscription);
-        assertAllocation(createAllocation2, allocationResponses.get(1).getAllocation(), quantityBasedComponent, subscription);
-        assertAllocation(createAllocation1, allocationResponses.get(2).getAllocation(), quantityBasedComponent, subscription);
+        assertAllocation(createAllocation3, allocationResponses.get(0).getAllocation(), quantityBasedComponent, subscription.getId());
+        assertAllocation(createAllocation2, allocationResponses.get(1).getAllocation(), quantityBasedComponent, subscription.getId());
+        assertAllocation(createAllocation1, allocationResponses.get(2).getAllocation(), quantityBasedComponent, subscription.getId());
     }
 
     @Test

@@ -86,9 +86,9 @@ public class SubscriptionComponentsControllerAllocateComponentsTest {
 
         // then
         assertAllocation(createQuantityAllocation, allocationsMap.get(quantityBasedComponent.getId()),
-                quantityBasedComponent, subscription);
+                quantityBasedComponent, subscription.getId());
         assertAllocation(createOnOffAllocation, allocationsMap.get(onOffComponent.getId()),
-                onOffComponent, subscription);
+                onOffComponent, subscription.getId());
     }
 
     @Test

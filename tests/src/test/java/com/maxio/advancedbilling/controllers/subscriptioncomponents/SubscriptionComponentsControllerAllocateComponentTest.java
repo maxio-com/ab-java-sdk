@@ -70,7 +70,7 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
                         new CreateAllocationRequest(createAllocation)).getAllocation();
 
         // then
-        assertAllocation(createAllocation, allocationResponse, quantityBasedComponent, subscription);
+        assertAllocation(createAllocation, allocationResponse, quantityBasedComponent, subscription.getId());
     }
 
     @Test
@@ -89,12 +89,12 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
         Allocation allocationResponse1 = SUBSCRIPTION_COMPONENTS_CONTROLLER
                 .allocateComponent(subscription.getId(), onOffComponent.getId(),
                         new CreateAllocationRequest(createAllocation1)).getAllocation();
-        assertAllocation(createAllocation1, allocationResponse1, onOffComponent, subscription);
+        assertAllocation(createAllocation1, allocationResponse1, onOffComponent, subscription.getId());
 
         Allocation allocationResponse2 = SUBSCRIPTION_COMPONENTS_CONTROLLER
                 .allocateComponent(subscription.getId(), onOffComponent.getId(),
                         new CreateAllocationRequest(createAllocation2)).getAllocation();
-        assertAllocation(createAllocation2, allocationResponse2, onOffComponent, subscription, "1");
+        assertAllocation(createAllocation2, allocationResponse2, onOffComponent, subscription.getId(), "1");
     }
 
     @Test
@@ -111,7 +111,7 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
                         new CreateAllocationRequest(createAllocation)).getAllocation();
 
         // then
-        assertPrepaidComponentAllocation(createAllocation, allocationResponse, prepaidComponent, subscription);
+        assertPrepaidComponentAllocation(createAllocation, allocationResponse, prepaidComponent, subscription.getId());
     }
 
     @Test

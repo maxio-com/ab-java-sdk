@@ -42,7 +42,6 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
             TestClient.createClient().getSubscriptionComponentsController();
 
-    private static ProductFamily productFamily;
     private static Component quantityBasedComponent;
     private static Component onOffComponent;
     private static Customer customer;
@@ -50,7 +49,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
+        ProductFamily productFamily = TEST_SETUP.createProductFamily();
         Product product = TEST_SETUP.createProduct(productFamily);
         quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId(),
                 b -> b.allowFractionalQuantities(true));
@@ -66,7 +65,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
     }
 
     @Test
-    void previewComponentsAllocations() throws IOException, ApiException {
+    void shouldPreviewComponentsAllocations() throws IOException, ApiException {
         // given
         CreateAllocation createQuantityAllocation = new CreateAllocation.Builder()
                 .componentId(quantityBasedComponent.getId())
@@ -144,6 +143,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
 
     @Test
     void shouldNotPreviewAllocationsWhenSubscriptionDoesNotExist() {
+        // given
         CreateAllocation createQuantityAllocation = new CreateAllocation.Builder()
                 .componentId(quantityBasedComponent.getId())
                 .quantity(2)
@@ -152,12 +152,13 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
                 .allocations(List.of(createQuantityAllocation))
                 .build();
 
+        // when-then
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
                         .previewAllocations(123, previewAllocationsRequest));
     }
 
     @Test
-    void shouldNotAllocateComponentsWhenProvidingInvalidCredentials() {
+    void shouldNotPreviewAllocationsWhenProvidingInvalidCredentials() {
         // when-then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .previewAllocations(subscription.getId(), null));
@@ -176,9 +177,8 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
 
     String getMemo(AllocationPreviewLineItem lineItem, Component component, CreateAllocation createAllocation) {
         if (lineItem.getKind().equals("quantity_based_component")) {
-            return component.getName() + ": 0.0 to "
-                    + createAllocation.getQuantity()
-                    + " " + component.getUnitName() + "s";
+            return "%s: 0.0 to %s %ss"
+                    .formatted(component.getName(), createAllocation.getQuantity(), component.getUnitName());
         } else if (lineItem.getKind().equals("on_off_component")) {
             return component.getName() + ": enabled";
         }

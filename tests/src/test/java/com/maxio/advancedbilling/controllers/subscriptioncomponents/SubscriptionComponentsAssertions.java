@@ -37,13 +37,13 @@ public class SubscriptionComponentsAssertions {
     }
 
     static void assertAllocation(CreateAllocation createAllocation, Allocation responseAllocation,
-                                 Component component, Subscription subscription) {
-        assertAllocation(createAllocation, responseAllocation, component, subscription, "0.0");
+                                 Component component, int subscriptionId) {
+        assertAllocation(createAllocation, responseAllocation, component, subscriptionId, "0.0");
     }
 
     static void assertAllocation(CreateAllocation createAllocation, Allocation responseAllocation,
-                                 Component component, Subscription subscription, String previousAllocation) {
-        assertGenericAllocationFields(createAllocation, responseAllocation, component, subscription, previousAllocation);
+                                 Component component, int subscriptionId, String previousAllocation) {
+        assertGenericAllocationFields(createAllocation, responseAllocation, component, subscriptionId, previousAllocation);
         assertThat(responseAllocation.getAccrueCharge()).isTrue();
         assertThat(responseAllocation.getPayment()).isNull();
         assertThat(responseAllocation.getUpgradeCharge()).isEqualTo(CreditType.PRORATED);
@@ -53,9 +53,9 @@ public class SubscriptionComponentsAssertions {
     }
 
     static void assertPrepaidComponentAllocation(CreateAllocation createAllocation, Allocation responseAllocation,
-                                                 Component component, Subscription subscription) {
+                                                 Component component, int subscriptionId) {
 
-        assertGenericAllocationFields(createAllocation, responseAllocation, component, subscription, "0.0");
+        assertGenericAllocationFields(createAllocation, responseAllocation, component, subscriptionId, "0.0");
         assertThat(responseAllocation.getAccrueCharge()).isFalse();
         assertThat(responseAllocation.getUpgradeCharge()).isEqualTo(CreditType.FULL);
         assertThat(responseAllocation.getDowngradeCredit()).isEqualTo(CreditType.NONE);
@@ -76,10 +76,10 @@ public class SubscriptionComponentsAssertions {
     }
 
     private static void assertGenericAllocationFields(CreateAllocation createAllocation, Allocation responseAllocation,
-                                                 Component component, Subscription subscription, String previousAllocation) {
+                                                      Component component, int subscriptionId, String previousAllocation) {
         assertThat(responseAllocation.getAllocationId()).isNotNull();
         assertThat(responseAllocation.getComponentId()).isEqualTo(component.getId());
-        assertThat(responseAllocation.getSubscriptionId()).isEqualTo(subscription.getId());
+        assertThat(responseAllocation.getSubscriptionId()).isEqualTo(subscriptionId);
 
         assertThat(responseAllocation.getMemo()).isEqualTo(createAllocation.getMemo());
         assertThat(responseAllocation.getTimestamp()).isNotNull();
