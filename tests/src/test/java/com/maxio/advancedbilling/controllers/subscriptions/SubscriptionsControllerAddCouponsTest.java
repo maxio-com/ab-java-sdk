@@ -48,7 +48,7 @@ class SubscriptionsControllerAddCouponsTest {
         customer = TEST_SETUP.createCustomer();
         subscription = TEST_SETUP.createSubscription(customer, product);
         stackableCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.5");
-        nonStackableCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.25", "false");
+        nonStackableCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.25", false);
     }
 
     @AfterAll

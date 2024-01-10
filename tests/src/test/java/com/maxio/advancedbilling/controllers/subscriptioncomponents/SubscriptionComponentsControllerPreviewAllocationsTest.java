@@ -8,11 +8,13 @@ import com.maxio.advancedbilling.models.AllocationPreview;
 import com.maxio.advancedbilling.models.AllocationPreviewDirection;
 import com.maxio.advancedbilling.models.AllocationPreviewItem;
 import com.maxio.advancedbilling.models.AllocationPreviewLineItem;
+import com.maxio.advancedbilling.models.AllocationPreviewLineItemKind;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentAllocationErrorItem;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreditType;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
 import com.maxio.advancedbilling.models.PreviewAllocationsRequest;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
@@ -167,8 +169,8 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
     void assertLineItem(AllocationPreviewLineItem lineItem, Component component, CreateAllocation createAllocation) {
         assertThat(lineItem.getComponentId()).isEqualTo(component.getId());
         assertThat(lineItem.getComponentHandle()).isEqualTo(component.getHandle());
-        assertThat(lineItem.getTransactionType()).isEqualTo("charge");
-        assertThat(lineItem.getKind()).isEqualTo(component.getKind().value());
+        assertThat(lineItem.getTransactionType()).isEqualTo(LineItemTransactionType.CHARGE);
+        assertThat(lineItem.getKind().value()).isEqualTo(component.getKind().value());
         assertThat(lineItem.getMemo()).isEqualTo(getMemo(lineItem, component, createAllocation));
         assertThat(lineItem.getDiscountAmountInCents()).isZero();
         assertThat(lineItem.getAmountInCents()).isGreaterThan(0);
@@ -176,10 +178,9 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
     }
 
     String getMemo(AllocationPreviewLineItem lineItem, Component component, CreateAllocation createAllocation) {
-        if (lineItem.getKind().equals("quantity_based_component")) {
-            return "%s: 0.0 to %s %ss"
-                    .formatted(component.getName(), createAllocation.getQuantity(), component.getUnitName());
-        } else if (lineItem.getKind().equals("on_off_component")) {
+        if (lineItem.getKind() == AllocationPreviewLineItemKind.QUANTITY_BASED_COMPONENT) {
+            return "%s: 0.0 to %s %ss".formatted(component.getName(), createAllocation.getQuantity(), component.getUnitName());
+        } else if (lineItem.getKind() == AllocationPreviewLineItemKind.ON_OFF_COMPONENT) {
             return component.getName() + ": enabled";
         }
         return null;

@@ -66,7 +66,7 @@ public class InvoicesControllerCreateTest {
         customer = TEST_SETUP.createCustomer();
         subscription = TEST_SETUP.createSubscription(customer, product);
         meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
-        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, "true");
+        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
     }
 
     @AfterAll
@@ -312,7 +312,7 @@ public class InvoicesControllerCreateTest {
 
         InvoicePreviousBalance previousBalanceData = invoice.getPreviousBalanceData();
         assertThat(previousBalanceData).isNotNull();
-        assertThat(previousBalanceData.getCaptureDate()).isNull();
+        assertThat(previousBalanceData.getCapturedAt()).isNotNull();
         assertThat(previousBalanceData.getInvoices()).isNotNull().isEmpty();
     }
 

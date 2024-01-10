@@ -255,7 +255,7 @@ public class TestSetup {
                         )).getCustomer();
     }
 
-    public Coupon createAmountCoupon(ProductFamily productFamily, long amountInCents, String stackable) throws IOException, ApiException {
+    public Coupon createAmountCoupon(ProductFamily productFamily, long amountInCents, boolean stackable) throws IOException, ApiException {
         return advancedBillingClient.getCouponsController()
                 .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
                         .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdateFlatAmountCoupon(
@@ -272,10 +272,10 @@ public class TestSetup {
     }
 
     public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage) throws IOException, ApiException {
-        return createPercentageCoupon(productFamily, percentage, "true");
+        return createPercentageCoupon(productFamily, percentage, true);
     }
 
-    public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage, String stackable) throws IOException, ApiException {
+    public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage, boolean stackable) throws IOException, ApiException {
         return advancedBillingClient.getCouponsController()
                 .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
                         .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
