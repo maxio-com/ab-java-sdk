@@ -202,7 +202,8 @@ public final class PaymentProfilesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -248,7 +249,8 @@ public final class PaymentProfilesController extends BaseController {
                         .queryParam(param -> param.key("customer_id")
                                 .value(input.getCustomerId()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -296,7 +298,8 @@ public final class PaymentProfilesController extends BaseController {
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -361,7 +364,8 @@ public final class PaymentProfilesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -397,7 +401,8 @@ public final class PaymentProfilesController extends BaseController {
                         .path("/payment_profiles/{payment_profile_id}.json")
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -444,7 +449,8 @@ public final class PaymentProfilesController extends BaseController {
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -487,7 +493,8 @@ public final class PaymentProfilesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -535,7 +542,8 @@ public final class PaymentProfilesController extends BaseController {
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -578,7 +586,8 @@ public final class PaymentProfilesController extends BaseController {
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -628,7 +637,8 @@ public final class PaymentProfilesController extends BaseController {
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -672,7 +682,8 @@ public final class PaymentProfilesController extends BaseController {
                         .templateParam(param -> param.key("chargify_token").value(chargifyToken)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -720,7 +731,8 @@ public final class PaymentProfilesController extends BaseController {
                         .path("/subscriptions/{subscription_id}/request_payment_profiles_update.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)

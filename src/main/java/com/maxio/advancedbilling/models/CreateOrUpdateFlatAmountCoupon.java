@@ -11,6 +11,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for CreateOrUpdateFlatAmountCoupon type.
@@ -20,11 +24,11 @@ public class CreateOrUpdateFlatAmountCoupon {
     private String code;
     private String description;
     private long amountInCents;
-    private String allowNegativeBalance;
-    private String recurring;
-    private String endDate;
+    private Boolean allowNegativeBalance;
+    private Boolean recurring;
+    private ZonedDateTime endDate;
     private String productFamilyId;
-    private String stackable;
+    private Boolean stackable;
     private CompoundingStrategy compoundingStrategy;
     private Boolean excludeMidPeriodAllocations;
     private Boolean applyOnCancelAtEndOfPeriod;
@@ -41,11 +45,11 @@ public class CreateOrUpdateFlatAmountCoupon {
      * @param  code  String value for code.
      * @param  amountInCents  long value for amountInCents.
      * @param  description  String value for description.
-     * @param  allowNegativeBalance  String value for allowNegativeBalance.
-     * @param  recurring  String value for recurring.
-     * @param  endDate  String value for endDate.
+     * @param  allowNegativeBalance  Boolean value for allowNegativeBalance.
+     * @param  recurring  Boolean value for recurring.
+     * @param  endDate  ZonedDateTime value for endDate.
      * @param  productFamilyId  String value for productFamilyId.
-     * @param  stackable  String value for stackable.
+     * @param  stackable  Boolean value for stackable.
      * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
@@ -55,11 +59,11 @@ public class CreateOrUpdateFlatAmountCoupon {
             String code,
             long amountInCents,
             String description,
-            String allowNegativeBalance,
-            String recurring,
-            String endDate,
+            Boolean allowNegativeBalance,
+            Boolean recurring,
+            ZonedDateTime endDate,
             String productFamilyId,
-            String stackable,
+            Boolean stackable,
             CompoundingStrategy compoundingStrategy,
             Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod) {
@@ -172,58 +176,60 @@ public class CreateOrUpdateFlatAmountCoupon {
 
     /**
      * Getter for AllowNegativeBalance.
-     * @return Returns the String
+     * @return Returns the Boolean
      */
     @JsonGetter("allow_negative_balance")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAllowNegativeBalance() {
+    public Boolean getAllowNegativeBalance() {
         return allowNegativeBalance;
     }
 
     /**
      * Setter for AllowNegativeBalance.
-     * @param allowNegativeBalance Value for String
+     * @param allowNegativeBalance Value for Boolean
      */
     @JsonSetter("allow_negative_balance")
-    public void setAllowNegativeBalance(String allowNegativeBalance) {
+    public void setAllowNegativeBalance(Boolean allowNegativeBalance) {
         this.allowNegativeBalance = allowNegativeBalance;
     }
 
     /**
      * Getter for Recurring.
-     * @return Returns the String
+     * @return Returns the Boolean
      */
     @JsonGetter("recurring")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getRecurring() {
+    public Boolean getRecurring() {
         return recurring;
     }
 
     /**
      * Setter for Recurring.
-     * @param recurring Value for String
+     * @param recurring Value for Boolean
      */
     @JsonSetter("recurring")
-    public void setRecurring(String recurring) {
+    public void setRecurring(Boolean recurring) {
         this.recurring = recurring;
     }
 
     /**
      * Getter for EndDate.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("end_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDate() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getEndDate() {
         return endDate;
     }
 
     /**
      * Setter for EndDate.
-     * @param endDate Value for String
+     * @param endDate Value for ZonedDateTime
      */
     @JsonSetter("end_date")
-    public void setEndDate(String endDate) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -248,20 +254,20 @@ public class CreateOrUpdateFlatAmountCoupon {
 
     /**
      * Getter for Stackable.
-     * @return Returns the String
+     * @return Returns the Boolean
      */
     @JsonGetter("stackable")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStackable() {
+    public Boolean getStackable() {
         return stackable;
     }
 
     /**
      * Setter for Stackable.
-     * @param stackable Value for String
+     * @param stackable Value for Boolean
      */
     @JsonSetter("stackable")
-    public void setStackable(String stackable) {
+    public void setStackable(Boolean stackable) {
         this.stackable = stackable;
     }
 
@@ -364,11 +370,11 @@ public class CreateOrUpdateFlatAmountCoupon {
         private String code;
         private long amountInCents;
         private String description;
-        private String allowNegativeBalance;
-        private String recurring;
-        private String endDate;
+        private Boolean allowNegativeBalance;
+        private Boolean recurring;
+        private ZonedDateTime endDate;
         private String productFamilyId;
-        private String stackable;
+        private Boolean stackable;
         private CompoundingStrategy compoundingStrategy;
         private Boolean excludeMidPeriodAllocations;
         private Boolean applyOnCancelAtEndOfPeriod;
@@ -433,30 +439,30 @@ public class CreateOrUpdateFlatAmountCoupon {
 
         /**
          * Setter for allowNegativeBalance.
-         * @param  allowNegativeBalance  String value for allowNegativeBalance.
+         * @param  allowNegativeBalance  Boolean value for allowNegativeBalance.
          * @return Builder
          */
-        public Builder allowNegativeBalance(String allowNegativeBalance) {
+        public Builder allowNegativeBalance(Boolean allowNegativeBalance) {
             this.allowNegativeBalance = allowNegativeBalance;
             return this;
         }
 
         /**
          * Setter for recurring.
-         * @param  recurring  String value for recurring.
+         * @param  recurring  Boolean value for recurring.
          * @return Builder
          */
-        public Builder recurring(String recurring) {
+        public Builder recurring(Boolean recurring) {
             this.recurring = recurring;
             return this;
         }
 
         /**
          * Setter for endDate.
-         * @param  endDate  String value for endDate.
+         * @param  endDate  ZonedDateTime value for endDate.
          * @return Builder
          */
-        public Builder endDate(String endDate) {
+        public Builder endDate(ZonedDateTime endDate) {
             this.endDate = endDate;
             return this;
         }
@@ -473,10 +479,10 @@ public class CreateOrUpdateFlatAmountCoupon {
 
         /**
          * Setter for stackable.
-         * @param  stackable  String value for stackable.
+         * @param  stackable  Boolean value for stackable.
          * @return Builder
          */
-        public Builder stackable(String stackable) {
+        public Builder stackable(Boolean stackable) {
             this.stackable = stackable;
             return this;
         }

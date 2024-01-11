@@ -1,7 +1,7 @@
 
 # Configuration Interface
 
-This is the base class for all exceptions that represent an error response from the server.
+This is the interface for client class that holds the configuration getters.
 
 ## Methods
 

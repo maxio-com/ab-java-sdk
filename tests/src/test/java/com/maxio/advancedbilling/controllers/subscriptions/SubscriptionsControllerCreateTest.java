@@ -19,7 +19,7 @@ import com.maxio.advancedbilling.models.GroupSettings;
 import com.maxio.advancedbilling.models.GroupTarget;
 import com.maxio.advancedbilling.models.GroupTargetType;
 import com.maxio.advancedbilling.models.IntervalUnit;
-import com.maxio.advancedbilling.models.ListMetadataInput;
+import com.maxio.advancedbilling.models.ListMetadataForResourceTypeInput;
 import com.maxio.advancedbilling.models.NestedSubscriptionGroup;
 import com.maxio.advancedbilling.models.PaginatedMetadata;
 import com.maxio.advancedbilling.models.PaymentCollectionMethod;
@@ -439,11 +439,11 @@ public class SubscriptionsControllerCreateTest {
         assertBasicSubscriptionFields(subscription);
 
         PaginatedMetadata paginatedMetadata = CLIENT.getCustomFieldsController()
-                .listMetadata(new ListMetadataInput.Builder()
-                        .resourceType(ResourceType.SUBSCRIPTIONS)
+                .listMetadataForResourceType(new ListMetadataForResourceTypeInput.Builder(ResourceType.SUBSCRIPTIONS)
                         .resourceIds(List.of(subscription.getId()))
                         .direction(SortingDirection.DESC)
-                        .build());
+                        .build()
+                );
 
         assertThat(paginatedMetadata).isNotNull();
         assertThat(paginatedMetadata.getTotalCount()).isEqualTo(2);

@@ -6,12 +6,14 @@ import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BillingManifest;
 import com.maxio.advancedbilling.models.BillingManifestItem;
+import com.maxio.advancedbilling.models.BillingManifestLineItemKind;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Coupon;
 import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.SubscriptionPreview;
@@ -127,8 +129,8 @@ class SubscriptionsControllerPreviewTest {
                 .isEqualTo(new BillingManifest.Builder()
                         .lineItems(List.of(
                                 new BillingManifestItem.Builder()
-                                        .transactionType("charge")
-                                        .kind("baseline")
+                                        .transactionType(LineItemTransactionType.CHARGE)
+                                        .kind(BillingManifestLineItemKind.BASELINE)
                                         .amountInCents(0L)
                                         .memo("%s (%s - %s)".formatted(
                                                 product.getName(),
@@ -144,8 +146,8 @@ class SubscriptionsControllerPreviewTest {
                                         .productName(product.getName())
                                         .build(),
                                 new BillingManifestItem.Builder()
-                                        .transactionType("charge")
-                                        .kind("component")
+                                        .transactionType(LineItemTransactionType.CHARGE)
+                                        .kind(BillingManifestLineItemKind.COMPONENT)
                                         .amountInCents(5000L)
                                         .memo("%s: 5 units".formatted(meteredComponent.getName()))
                                         .discountAmountInCents(25L)
@@ -157,8 +159,8 @@ class SubscriptionsControllerPreviewTest {
                                         .componentName(meteredComponent.getName())
                                         .build(),
                                 new BillingManifestItem.Builder()
-                                        .transactionType("adjustment")
-                                        .kind("coupon")
+                                        .transactionType(LineItemTransactionType.ADJUSTMENT)
+                                        .kind(BillingManifestLineItemKind.COUPON)
                                         .amountInCents(-25L)
                                         .memo("Coupon: %s - %s".formatted(percentageCoupon.getCode(), percentageCoupon.getDescription()))
                                         .discountAmountInCents(0L)
@@ -183,8 +185,8 @@ class SubscriptionsControllerPreviewTest {
                 .isEqualTo(new BillingManifest.Builder()
                         .lineItems(List.of(
                                 new BillingManifestItem.Builder()
-                                        .transactionType("charge")
-                                        .kind("baseline")
+                                        .transactionType(LineItemTransactionType.CHARGE)
+                                        .kind(BillingManifestLineItemKind.BASELINE)
                                         .amountInCents(0L)
                                         .memo("%s (%s - %s)".formatted(
                                                 product.getName(),

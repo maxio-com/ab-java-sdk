@@ -51,6 +51,8 @@ public class SubscriptionComponent {
     private Boolean allowFractionalQuantities;
     private SubscriptionComponentSubscription subscription;
     private Boolean displayOnHostedPage;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
 
     /**
      * Default constructor.
@@ -90,6 +92,8 @@ public class SubscriptionComponent {
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  subscription  SubscriptionComponentSubscription value for subscription.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
     public SubscriptionComponent(
             Integer id,
@@ -120,7 +124,9 @@ public class SubscriptionComponent {
             String description,
             Boolean allowFractionalQuantities,
             SubscriptionComponentSubscription subscription,
-            Boolean displayOnHostedPage) {
+            Boolean displayOnHostedPage,
+            Integer interval,
+            IntervalUnit intervalUnit) {
         this.id = id;
         this.name = name;
         this.kind = kind;
@@ -150,6 +156,8 @@ public class SubscriptionComponent {
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.subscription = subscription;
         this.displayOnHostedPage = displayOnHostedPage;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -184,6 +192,8 @@ public class SubscriptionComponent {
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  subscription  SubscriptionComponentSubscription value for subscription.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
     protected SubscriptionComponent(Integer id, String name, ComponentKind kind, String unitName,
@@ -199,7 +209,7 @@ public class SubscriptionComponent {
             String productFamilyHandle, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> description,
             Boolean allowFractionalQuantities, SubscriptionComponentSubscription subscription,
-            Boolean displayOnHostedPage) {
+            Boolean displayOnHostedPage, Integer interval, IntervalUnit intervalUnit) {
         this.id = id;
         this.name = name;
         this.kind = kind;
@@ -229,6 +239,8 @@ public class SubscriptionComponent {
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.subscription = subscription;
         this.displayOnHostedPage = displayOnHostedPage;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
     }
 
     /**
@@ -973,6 +985,54 @@ public class SubscriptionComponent {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Converts this SubscriptionComponent into string format.
      * @return String representation of this class
      */
@@ -991,7 +1051,8 @@ public class SubscriptionComponent {
                 + productFamilyHandle + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", description=" + description
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", subscription="
-                + subscription + ", displayOnHostedPage=" + displayOnHostedPage + "]";
+                + subscription + ", displayOnHostedPage=" + displayOnHostedPage + ", interval="
+                + interval + ", intervalUnit=" + intervalUnit + "]";
     }
 
     /**
@@ -1019,7 +1080,9 @@ public class SubscriptionComponent {
                 .updatedAt(getUpdatedAt())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .subscription(getSubscription())
-                .displayOnHostedPage(getDisplayOnHostedPage());
+                .displayOnHostedPage(getDisplayOnHostedPage())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit());
         builder.pricingScheme = internalGetPricingScheme();
         builder.componentHandle = internalGetComponentHandle();
         builder.upgradeCharge = internalGetUpgradeCharge();
@@ -1066,6 +1129,8 @@ public class SubscriptionComponent {
         private Boolean allowFractionalQuantities;
         private SubscriptionComponentSubscription subscription;
         private Boolean displayOnHostedPage;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
 
 
 
@@ -1452,6 +1517,26 @@ public class SubscriptionComponent {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SubscriptionComponent} object using the set fields.
          * @return {@link SubscriptionComponent}
          */
@@ -1461,7 +1546,8 @@ public class SubscriptionComponent {
                     subscriptionId, recurring, upgradeCharge, downgradeCredit, archivedAt,
                     pricePointId, pricePointHandle, pricePointType, pricePointName, productFamilyId,
                     productFamilyHandle, createdAt, updatedAt, useSiteExchangeRate, description,
-                    allowFractionalQuantities, subscription, displayOnHostedPage);
+                    allowFractionalQuantities, subscription, displayOnHostedPage, interval,
+                    intervalUnit);
         }
     }
 }

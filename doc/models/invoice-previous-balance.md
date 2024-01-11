@@ -9,14 +9,14 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `CaptureDate` | `String` | Optional | - | String getCaptureDate() | setCaptureDate(String captureDate) |
+| `CapturedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCapturedAt() | setCapturedAt(ZonedDateTime capturedAt) |
 | `Invoices` | [`List<InvoiceBalanceItem>`](../../doc/models/invoice-balance-item.md) | Optional | - | List<InvoiceBalanceItem> getInvoices() | setInvoices(List<InvoiceBalanceItem> invoices) |
 
 ## Example (as JSON)
 
 ```json
 {
-  "capture_date": "capture_date2",
+  "captured_at": "2016-03-13T12:52:32.123Z",
   "invoices": [
     {
       "uid": "uid6",

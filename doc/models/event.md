@@ -12,7 +12,7 @@
 | `Id` | `int` | Required | - | int getId() | setId(int id) |
 | `Key` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getKey() | setKey(String key) |
 | `Message` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getMessage() | setMessage(String message) |
-| `SubscriptionId` | `int` | Required | - | int getSubscriptionId() | setSubscriptionId(int subscriptionId) |
+| `SubscriptionId` | `Integer` | Required | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `CustomerId` | `int` | Required | - | int getCustomerId() | setCustomerId(int customerId) |
 | `CreatedAt` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getCreatedAt() | setCreatedAt(String createdAt) |
 | `EventSpecificData` | [`EventEventSpecificData`](../../doc/models/containers/event-event-specific-data.md) | Required | This is a container for one-of cases. | EventEventSpecificData getEventSpecificData() | setEventSpecificData(EventEventSpecificData eventSpecificData) |

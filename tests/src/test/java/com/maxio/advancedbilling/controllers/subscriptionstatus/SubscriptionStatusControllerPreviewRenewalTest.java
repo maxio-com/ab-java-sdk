@@ -4,6 +4,8 @@ import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
+import com.maxio.advancedbilling.models.LineItemKind;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
 import com.maxio.advancedbilling.models.RenewalPreview;
 import com.maxio.advancedbilling.models.RenewalPreviewComponent;
 import com.maxio.advancedbilling.models.RenewalPreviewLineItem;
@@ -79,8 +81,8 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("memo", "periodRangeStart", "periodRangeEnd")
                 .containsExactlyInAnyOrder(
                         new RenewalPreviewLineItem.Builder()
-                                .transactionType("charge")
-                                .kind("baseline")
+                                .transactionType(LineItemTransactionType.CHARGE)
+                                .kind(LineItemKind.BASELINE)
                                 .amountInCents(product.getPriceInCents())
                                 .discountAmountInCents(0L)
                                 .taxableAmountInCents(0L)
@@ -89,8 +91,8 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
                                 .productHandle(product.getHandle())
                                 .build(),
                         new RenewalPreviewLineItem.Builder()
-                                .transactionType("charge")
-                                .kind("quantity_based_component")
+                                .transactionType(LineItemTransactionType.CHARGE)
+                                .kind(LineItemKind.QUANTITY_BASED_COMPONENT)
                                 .amountInCents(expectedComponent1Price)
                                 .discountAmountInCents(0L)
                                 .taxableAmountInCents(0L)
@@ -99,8 +101,8 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
                                 .componentHandle(component1.getHandle())
                                 .build(),
                         new RenewalPreviewLineItem.Builder()
-                                .transactionType("charge")
-                                .kind("quantity_based_component")
+                                .transactionType(LineItemTransactionType.CHARGE)
+                                .kind(LineItemKind.QUANTITY_BASED_COMPONENT)
                                 .amountInCents(expectedComponent2Price)
                                 .discountAmountInCents(0L)
                                 .taxableAmountInCents(0L)
@@ -109,8 +111,8 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
                                 .componentHandle(component2.getHandle())
                                 .build(),
                         new RenewalPreviewLineItem.Builder()
-                                .transactionType("charge")
-                                .kind("quantity_based_component")
+                                .transactionType(LineItemTransactionType.CHARGE)
+                                .kind(LineItemKind.QUANTITY_BASED_COMPONENT)
                                 .amountInCents(expectedComponent3Price)
                                 .discountAmountInCents(0L)
                                 .taxableAmountInCents(0L)

@@ -69,7 +69,8 @@ public final class SubscriptionGroupStatusController extends BaseController {
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -108,7 +109,8 @@ public final class SubscriptionGroupStatusController extends BaseController {
                         .path("/subscription_groups/{uid}/delayed_cancel.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -146,7 +148,8 @@ public final class SubscriptionGroupStatusController extends BaseController {
                         .path("/subscription_groups/{uid}/delayed_cancel.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -214,7 +217,8 @@ public final class SubscriptionGroupStatusController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

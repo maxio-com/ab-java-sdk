@@ -9,23 +9,15 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 
 /**
  * This is a model class for ListMetadataInput type.
  */
 public class ListMetadataInput {
     private ResourceType resourceType;
+    private String resourceId;
     private Integer page;
     private Integer perPage;
-    private BasicDateField dateField;
-    private String startDate;
-    private String endDate;
-    private String startDatetime;
-    private String endDatetime;
-    private Boolean withDeleted;
-    private List<Integer> resourceIds;
-    private SortingDirection direction;
 
     /**
      * Default constructor.
@@ -38,40 +30,19 @@ public class ListMetadataInput {
     /**
      * Initialization constructor.
      * @param  resourceType  ResourceType value for resourceType.
+     * @param  resourceId  String value for resourceId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  dateField  BasicDateField value for dateField.
-     * @param  startDate  String value for startDate.
-     * @param  endDate  String value for endDate.
-     * @param  startDatetime  String value for startDatetime.
-     * @param  endDatetime  String value for endDatetime.
-     * @param  withDeleted  Boolean value for withDeleted.
-     * @param  resourceIds  List of Integer value for resourceIds.
-     * @param  direction  SortingDirection value for direction.
      */
     public ListMetadataInput(
             ResourceType resourceType,
+            String resourceId,
             Integer page,
-            Integer perPage,
-            BasicDateField dateField,
-            String startDate,
-            String endDate,
-            String startDatetime,
-            String endDatetime,
-            Boolean withDeleted,
-            List<Integer> resourceIds,
-            SortingDirection direction) {
+            Integer perPage) {
         this.resourceType = resourceType;
+        this.resourceId = resourceId;
         this.page = page;
         this.perPage = perPage;
-        this.dateField = dateField;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startDatetime = startDatetime;
-        this.endDatetime = endDatetime;
-        this.withDeleted = withDeleted;
-        this.resourceIds = resourceIds;
-        this.direction = direction;
     }
 
     /**
@@ -92,6 +63,26 @@ public class ListMetadataInput {
     @JsonSetter("resource_type")
     public void setResourceType(ResourceType resourceType) {
         this.resourceType = resourceType;
+    }
+
+    /**
+     * Getter for ResourceId.
+     * The Chargify id of the customer or the subscription for which the metadata applies
+     * @return Returns the String
+     */
+    @JsonGetter("resource_id")
+    public String getResourceId() {
+        return resourceId;
+    }
+
+    /**
+     * Setter for ResourceId.
+     * The Chargify id of the customer or the subscription for which the metadata applies
+     * @param resourceId Value for String
+     */
+    @JsonSetter("resource_id")
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
     }
 
     /**
@@ -149,204 +140,13 @@ public class ListMetadataInput {
     }
 
     /**
-     * Getter for DateField.
-     * The type of filter you would like to apply to your search.
-     * @return Returns the BasicDateField
-     */
-    @JsonGetter("date_field")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public BasicDateField getDateField() {
-        return dateField;
-    }
-
-    /**
-     * Setter for DateField.
-     * The type of filter you would like to apply to your search.
-     * @param dateField Value for BasicDateField
-     */
-    @JsonSetter("date_field")
-    public void setDateField(BasicDateField dateField) {
-        this.dateField = dateField;
-    }
-
-    /**
-     * Getter for StartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with
-     * a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
-     * specified.
-     * @return Returns the String
-     */
-    @JsonGetter("start_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDate() {
-        return startDate;
-    }
-
-    /**
-     * Setter for StartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with
-     * a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
-     * specified.
-     * @param startDate Value for String
-     */
-    @JsonSetter("start_date")
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    /**
-     * Getter for EndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with a
-     * timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.
-     * @return Returns the String
-     */
-    @JsonGetter("end_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDate() {
-        return endDate;
-    }
-
-    /**
-     * Setter for EndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with a
-     * timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.
-     * @param endDate Value for String
-     */
-    @JsonSetter("end_date")
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    /**
-     * Getter for StartDatetime.
-     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns metadata with a timestamp at or after exact time provided in query. You can specify
-     * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
-     * will be used instead of start_date.
-     * @return Returns the String
-     */
-    @JsonGetter("start_datetime")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDatetime() {
-        return startDatetime;
-    }
-
-    /**
-     * Setter for StartDatetime.
-     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns metadata with a timestamp at or after exact time provided in query. You can specify
-     * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
-     * will be used instead of start_date.
-     * @param startDatetime Value for String
-     */
-    @JsonSetter("start_datetime")
-    public void setStartDatetime(String startDatetime) {
-        this.startDatetime = startDatetime;
-    }
-
-    /**
-     * Getter for EndDatetime.
-     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns metadata with a timestamp at or before exact time provided in query. You can specify
-     * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
-     * will be used instead of end_date.
-     * @return Returns the String
-     */
-    @JsonGetter("end_datetime")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDatetime() {
-        return endDatetime;
-    }
-
-    /**
-     * Setter for EndDatetime.
-     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns metadata with a timestamp at or before exact time provided in query. You can specify
-     * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
-     * will be used instead of end_date.
-     * @param endDatetime Value for String
-     */
-    @JsonSetter("end_datetime")
-    public void setEndDatetime(String endDatetime) {
-        this.endDatetime = endDatetime;
-    }
-
-    /**
-     * Getter for WithDeleted.
-     * Allow to fetch deleted metadata.
-     * @return Returns the Boolean
-     */
-    @JsonGetter("with_deleted")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getWithDeleted() {
-        return withDeleted;
-    }
-
-    /**
-     * Setter for WithDeleted.
-     * Allow to fetch deleted metadata.
-     * @param withDeleted Value for Boolean
-     */
-    @JsonSetter("with_deleted")
-    public void setWithDeleted(Boolean withDeleted) {
-        this.withDeleted = withDeleted;
-    }
-
-    /**
-     * Getter for ResourceIds.
-     * Allow to fetch metadata for multiple records based on provided ids. Use in query:
-     * `resource_ids[]=122&amp;resource_ids[]=123&amp;resource_ids[]=124`.
-     * @return Returns the List of Integer
-     */
-    @JsonGetter("resource_ids[]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<Integer> getResourceIds() {
-        return resourceIds;
-    }
-
-    /**
-     * Setter for ResourceIds.
-     * Allow to fetch metadata for multiple records based on provided ids. Use in query:
-     * `resource_ids[]=122&amp;resource_ids[]=123&amp;resource_ids[]=124`.
-     * @param resourceIds Value for List of Integer
-     */
-    @JsonSetter("resource_ids[]")
-    public void setResourceIds(List<Integer> resourceIds) {
-        this.resourceIds = resourceIds;
-    }
-
-    /**
-     * Getter for Direction.
-     * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the SortingDirection
-     */
-    @JsonGetter("direction")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SortingDirection getDirection() {
-        return direction;
-    }
-
-    /**
-     * Setter for Direction.
-     * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for SortingDirection
-     */
-    @JsonSetter("direction")
-    public void setDirection(SortingDirection direction) {
-        this.direction = direction;
-    }
-
-    /**
      * Converts this ListMetadataInput into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ListMetadataInput [" + "resourceType=" + resourceType + ", page=" + page
-                + ", perPage=" + perPage + ", dateField=" + dateField + ", startDate=" + startDate
-                + ", endDate=" + endDate + ", startDatetime=" + startDatetime + ", endDatetime="
-                + endDatetime + ", withDeleted=" + withDeleted + ", resourceIds=" + resourceIds
-                + ", direction=" + direction + "]";
+        return "ListMetadataInput [" + "resourceType=" + resourceType + ", resourceId=" + resourceId
+                + ", page=" + page + ", perPage=" + perPage + "]";
     }
 
     /**
@@ -355,17 +155,9 @@ public class ListMetadataInput {
      * @return a new {@link ListMetadataInput.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(resourceType)
+        Builder builder = new Builder(resourceType, resourceId)
                 .page(getPage())
-                .perPage(getPerPage())
-                .dateField(getDateField())
-                .startDate(getStartDate())
-                .endDate(getEndDate())
-                .startDatetime(getStartDatetime())
-                .endDatetime(getEndDatetime())
-                .withDeleted(getWithDeleted())
-                .resourceIds(getResourceIds())
-                .direction(getDirection());
+                .perPage(getPerPage());
         return builder;
     }
 
@@ -374,16 +166,9 @@ public class ListMetadataInput {
      */
     public static class Builder {
         private ResourceType resourceType;
+        private String resourceId;
         private Integer page = 1;
         private Integer perPage = 20;
-        private BasicDateField dateField;
-        private String startDate;
-        private String endDate;
-        private String startDatetime;
-        private String endDatetime;
-        private Boolean withDeleted;
-        private List<Integer> resourceIds;
-        private SortingDirection direction;
 
         /**
          * Initialization constructor.
@@ -394,9 +179,11 @@ public class ListMetadataInput {
         /**
          * Initialization constructor.
          * @param  resourceType  ResourceType value for resourceType.
+         * @param  resourceId  String value for resourceId.
          */
-        public Builder(ResourceType resourceType) {
+        public Builder(ResourceType resourceType, String resourceId) {
             this.resourceType = resourceType;
+            this.resourceId = resourceId;
         }
 
         /**
@@ -406,6 +193,16 @@ public class ListMetadataInput {
          */
         public Builder resourceType(ResourceType resourceType) {
             this.resourceType = resourceType;
+            return this;
+        }
+
+        /**
+         * Setter for resourceId.
+         * @param  resourceId  String value for resourceId.
+         * @return Builder
+         */
+        public Builder resourceId(String resourceId) {
+            this.resourceId = resourceId;
             return this;
         }
 
@@ -430,92 +227,11 @@ public class ListMetadataInput {
         }
 
         /**
-         * Setter for dateField.
-         * @param  dateField  BasicDateField value for dateField.
-         * @return Builder
-         */
-        public Builder dateField(BasicDateField dateField) {
-            this.dateField = dateField;
-            return this;
-        }
-
-        /**
-         * Setter for startDate.
-         * @param  startDate  String value for startDate.
-         * @return Builder
-         */
-        public Builder startDate(String startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        /**
-         * Setter for endDate.
-         * @param  endDate  String value for endDate.
-         * @return Builder
-         */
-        public Builder endDate(String endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
-        /**
-         * Setter for startDatetime.
-         * @param  startDatetime  String value for startDatetime.
-         * @return Builder
-         */
-        public Builder startDatetime(String startDatetime) {
-            this.startDatetime = startDatetime;
-            return this;
-        }
-
-        /**
-         * Setter for endDatetime.
-         * @param  endDatetime  String value for endDatetime.
-         * @return Builder
-         */
-        public Builder endDatetime(String endDatetime) {
-            this.endDatetime = endDatetime;
-            return this;
-        }
-
-        /**
-         * Setter for withDeleted.
-         * @param  withDeleted  Boolean value for withDeleted.
-         * @return Builder
-         */
-        public Builder withDeleted(Boolean withDeleted) {
-            this.withDeleted = withDeleted;
-            return this;
-        }
-
-        /**
-         * Setter for resourceIds.
-         * @param  resourceIds  List of Integer value for resourceIds.
-         * @return Builder
-         */
-        public Builder resourceIds(List<Integer> resourceIds) {
-            this.resourceIds = resourceIds;
-            return this;
-        }
-
-        /**
-         * Setter for direction.
-         * @param  direction  SortingDirection value for direction.
-         * @return Builder
-         */
-        public Builder direction(SortingDirection direction) {
-            this.direction = direction;
-            return this;
-        }
-
-        /**
          * Builds a new {@link ListMetadataInput} object using the set fields.
          * @return {@link ListMetadataInput}
          */
         public ListMetadataInput build() {
-            return new ListMetadataInput(resourceType, page, perPage, dateField, startDate, endDate,
-                    startDatetime, endDatetime, withDeleted, resourceIds, direction);
+            return new ListMetadataInput(resourceType, resourceId, page, perPage);
         }
     }
 }

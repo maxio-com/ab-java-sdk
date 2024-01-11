@@ -78,7 +78,8 @@ public final class SalesCommissionsController extends BaseController {
                         .headerParam(param -> param.key("Authorization")
                                 .value(input.getAuthorization()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -134,7 +135,8 @@ public final class SalesCommissionsController extends BaseController {
                         .headerParam(param -> param.key("Authorization")
                                 .value(input.getAuthorization()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -217,7 +219,8 @@ public final class SalesCommissionsController extends BaseController {
                         .headerParam(param -> param.key("Authorization")
                                 .value((authorization != null) ? authorization : "Bearer <<apiKey>>").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

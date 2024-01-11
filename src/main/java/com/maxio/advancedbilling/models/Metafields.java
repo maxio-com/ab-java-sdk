@@ -15,7 +15,6 @@ import java.util.List;
  * This is a model class for Metafields type.
  */
 public class Metafields {
-    private Integer id;
     private String name;
     private MetafieldScope scope;
     private MetafieldInput inputType;
@@ -30,42 +29,20 @@ public class Metafields {
 
     /**
      * Initialization constructor.
-     * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  scope  MetafieldScope value for scope.
      * @param  inputType  MetafieldInput value for inputType.
      * @param  mEnum  List of String value for mEnum.
      */
     public Metafields(
-            Integer id,
             String name,
             MetafieldScope scope,
             MetafieldInput inputType,
             List<String> mEnum) {
-        this.id = id;
         this.name = name;
         this.scope = scope;
         this.inputType = inputType;
         this.mEnum = mEnum;
-    }
-
-    /**
-     * Getter for Id.
-     * @return Returns the Integer
-     */
-    @JsonGetter("id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * Setter for Id.
-     * @param id Value for Integer
-     */
-    @JsonSetter("id")
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     /**
@@ -164,8 +141,8 @@ public class Metafields {
      */
     @Override
     public String toString() {
-        return "Metafields [" + "id=" + id + ", name=" + name + ", scope=" + scope + ", inputType="
-                + inputType + ", mEnum=" + mEnum + "]";
+        return "Metafields [" + "name=" + name + ", scope=" + scope + ", inputType=" + inputType
+                + ", mEnum=" + mEnum + "]";
     }
 
     /**
@@ -175,7 +152,6 @@ public class Metafields {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .id(getId())
                 .name(getName())
                 .scope(getScope())
                 .inputType(getInputType())
@@ -187,23 +163,12 @@ public class Metafields {
      * Class to build instances of {@link Metafields}.
      */
     public static class Builder {
-        private Integer id;
         private String name;
         private MetafieldScope scope;
         private MetafieldInput inputType = MetafieldInput.TEXT;
         private List<String> mEnum;
 
 
-
-        /**
-         * Setter for id.
-         * @param  id  Integer value for id.
-         * @return Builder
-         */
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
 
         /**
          * Setter for name.
@@ -250,7 +215,7 @@ public class Metafields {
          * @return {@link Metafields}
          */
         public Metafields build() {
-            return new Metafields(id, name, scope, inputType, mEnum);
+            return new Metafields(name, scope, inputType, mEnum);
         }
     }
 }

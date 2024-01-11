@@ -1,9 +1,9 @@
 
-# Single Error Response Error Exception
+# Single Error Response Exception
 
 ## Structure
 
-`SingleErrorResponseErrorException`
+`SingleErrorResponseException`
 
 ## Fields
 
@@ -15,7 +15,7 @@
 
 ```json
 {
-  "error": "error8"
+  "error": "error2"
 }
 ```
 

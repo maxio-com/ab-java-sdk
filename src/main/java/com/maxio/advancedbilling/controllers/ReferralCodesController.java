@@ -62,7 +62,8 @@ public final class ReferralCodesController extends BaseController {
                         .queryParam(param -> param.key("code")
                                 .value(code))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

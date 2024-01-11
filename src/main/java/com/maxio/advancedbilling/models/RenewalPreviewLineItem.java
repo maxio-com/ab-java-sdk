@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for RenewalPreviewLineItem type.
  */
 public class RenewalPreviewLineItem {
-    private String transactionType;
-    private String kind;
+    private LineItemTransactionType transactionType;
+    private LineItemKind kind;
     private Long amountInCents;
     private String memo;
     private Long discountAmountInCents;
@@ -37,8 +37,8 @@ public class RenewalPreviewLineItem {
 
     /**
      * Initialization constructor.
-     * @param  transactionType  String value for transactionType.
-     * @param  kind  String value for kind.
+     * @param  transactionType  LineItemTransactionType value for transactionType.
+     * @param  kind  LineItemKind value for kind.
      * @param  amountInCents  Long value for amountInCents.
      * @param  memo  String value for memo.
      * @param  discountAmountInCents  Long value for discountAmountInCents.
@@ -53,8 +53,8 @@ public class RenewalPreviewLineItem {
      * @param  periodRangeEnd  String value for periodRangeEnd.
      */
     public RenewalPreviewLineItem(
-            String transactionType,
-            String kind,
+            LineItemTransactionType transactionType,
+            LineItemKind kind,
             Long amountInCents,
             String memo,
             Long discountAmountInCents,
@@ -85,39 +85,43 @@ public class RenewalPreviewLineItem {
 
     /**
      * Getter for TransactionType.
-     * @return Returns the String
+     * A handle for the line item transaction type
+     * @return Returns the LineItemTransactionType
      */
     @JsonGetter("transaction_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTransactionType() {
+    public LineItemTransactionType getTransactionType() {
         return transactionType;
     }
 
     /**
      * Setter for TransactionType.
-     * @param transactionType Value for String
+     * A handle for the line item transaction type
+     * @param transactionType Value for LineItemTransactionType
      */
     @JsonSetter("transaction_type")
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(LineItemTransactionType transactionType) {
         this.transactionType = transactionType;
     }
 
     /**
      * Getter for Kind.
-     * @return Returns the String
+     * A handle for the line item kind
+     * @return Returns the LineItemKind
      */
     @JsonGetter("kind")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getKind() {
+    public LineItemKind getKind() {
         return kind;
     }
 
     /**
      * Setter for Kind.
-     * @param kind Value for String
+     * A handle for the line item kind
+     * @param kind Value for LineItemKind
      */
     @JsonSetter("kind")
-    public void setKind(String kind) {
+    public void setKind(LineItemKind kind) {
         this.kind = kind;
     }
 
@@ -392,8 +396,8 @@ public class RenewalPreviewLineItem {
      * Class to build instances of {@link RenewalPreviewLineItem}.
      */
     public static class Builder {
-        private String transactionType;
-        private String kind;
+        private LineItemTransactionType transactionType;
+        private LineItemKind kind;
         private Long amountInCents;
         private String memo;
         private Long discountAmountInCents;
@@ -411,20 +415,20 @@ public class RenewalPreviewLineItem {
 
         /**
          * Setter for transactionType.
-         * @param  transactionType  String value for transactionType.
+         * @param  transactionType  LineItemTransactionType value for transactionType.
          * @return Builder
          */
-        public Builder transactionType(String transactionType) {
+        public Builder transactionType(LineItemTransactionType transactionType) {
             this.transactionType = transactionType;
             return this;
         }
 
         /**
          * Setter for kind.
-         * @param  kind  String value for kind.
+         * @param  kind  LineItemKind value for kind.
          * @return Builder
          */
-        public Builder kind(String kind) {
+        public Builder kind(LineItemKind kind) {
             this.kind = kind;
             return this;
         }

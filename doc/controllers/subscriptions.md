@@ -1365,7 +1365,7 @@ try {
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Bad Request | `ApiException` |
-| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseErrorException`](../../doc/models/single-error-response-error-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
 
 
 # Read Subscription by Reference
@@ -1598,7 +1598,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "component",
+          "kind": "quantity_based_component",
           "amount_in_cents": 28000,
           "memo": "Component name: 14 Unit names",
           "discount_amount_in_cents": 0,
@@ -1609,7 +1609,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "component",
+          "kind": "metered_component",
           "amount_in_cents": 2000,
           "memo": "Fractional Metered Components: 20.0 Fractional Metereds",
           "discount_amount_in_cents": 0,
@@ -1620,7 +1620,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "component",
+          "kind": "on_off_component",
           "amount_in_cents": 0,
           "memo": "On/Off Component",
           "discount_amount_in_cents": 0,
@@ -1662,7 +1662,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "component",
+          "kind": "quantity_based_component",
           "amount_in_cents": 28000,
           "memo": "Component name: 14 Unit names",
           "discount_amount_in_cents": 0,
@@ -1673,7 +1673,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "component",
+          "kind": "on_off_component",
           "amount_in_cents": 0,
           "memo": "On/Off Component",
           "discount_amount_in_cents": 0,
