@@ -293,7 +293,8 @@ The following parameters are configurable for the API Client:
 | `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/http-client-configuration.md) | Http Client Configuration instance. |
-| `basicAuthCredentials` | [`BasicAuthCredentials`](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/$a/https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/basic-authentication.md) | The Credentials Setter for Basic Authentication |
+| `basicAuthUserName` | `String` | The username to use with basic authentication |
+| `basicAuthPassword` | `String` | The password to use with basic authentication |
 
 The API client can be initialized as follows:
 
@@ -301,9 +302,7 @@ The API client can be initialized as follows:
 AdvancedBillingClient client = new AdvancedBillingClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .basicAuthCredentials(credentials -> credentials
-            .username("BasicAuthUserName")
-            .password("BasicAuthPassword"))
+    .basicAuthCredentials("BasicAuthUserName", "BasicAuthPassword")
     .environment(Environment.PRODUCTION)
     .subdomain("subdomain")
     .domain("chargify.com")
@@ -323,9 +322,7 @@ The SDK can be configured to use a different environment for making API calls. A
 
 ## Authorization
 
-This API uses the following authentication schemes.
-
-* [`BasicAuth (Basic Authentication)`](https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/doc/$a/https://www.github.com/maxio-com/ab-java-sdk/tree/0.0.4/basic-authentication.md)
+This API uses `Basic Authentication`.
 
 ## List of APIs
 

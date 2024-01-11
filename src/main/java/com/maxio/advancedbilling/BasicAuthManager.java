@@ -14,21 +14,20 @@ import java.util.Collections;
  */
 public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials {
 
-    /**
-     * Private instance of the auth model containing the auth credentials.
-     */
-    private BasicAuthModel authModel;
+    private String basicAuthUserName;
+
+    private String basicAuthPassword;
 
     /**
      * Constructor.
-     * @param authModel The data model instance for auth credentials.
+     * @param username String value for username.
+     * @param password String value for password.
      */
-    public BasicAuthManager(BasicAuthModel authModel) {
+    public BasicAuthManager(String username, String password) {
         super(Collections.singletonMap("Authorization",
-                ApiHelper.getBase64EncodedCredentials(
-                        authModel.getUsername(),
-                        authModel.getPassword())));
-        this.authModel = authModel;
+                ApiHelper.getBase64EncodedCredentials(username, password)));
+        this.basicAuthUserName = username;
+        this.basicAuthPassword = password;
     }
 
     /**
@@ -36,7 +35,7 @@ public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials
      * @return basicAuthUserName
      */
     public String getBasicAuthUserName() {
-        return authModel.getUsername();
+        return basicAuthUserName;
     }
 
     /**
@@ -44,7 +43,7 @@ public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials
      * @return basicAuthPassword
      */
     public String getBasicAuthPassword() {
-        return authModel.getPassword();
+        return basicAuthPassword;
     }
 
     /**
@@ -64,93 +63,8 @@ public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials
      */
     @Override
     public String toString() {
-        return "BasicAuthManager [" + "basicAuthUserName=" + getBasicAuthUserName()
-                + ", basicAuthPassword=" + getBasicAuthPassword() + "]";
+        return "BasicAuthManager [" + "basicAuthUserName=" + basicAuthUserName
+                + ", basicAuthPassword=" + basicAuthPassword + "]";
     }
-    /**
-    * Returns the error message if the auth credentials are not valid.
-    * @return the auth specific error message.
-    */
-    @Override
-    public String getErrorMessage() {
-        String errorMessage = super.getErrorMessage();
-        if (errorMessage == null) {
-            return null;
-        }
 
-        return "BasicAuth - " + errorMessage;
-     }
-
-    /**
-    * A data class for BasicAuth credentials.
-    */
-    public static class BasicAuthModel {
-        private String username;
-        private String password;
-
-        /**
-        * A Constructor for BasicAuthModel.
-        */
-        public BasicAuthModel(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-        /**
-        * Getter for username.
-        * @return username The value of Username.
-        */
-        public String getUsername() {
-            return this.username;
-        }
-
-        /**
-        * Getter for password.
-        * @return password The value of Password.
-        */
-        public String getPassword() {
-            return this.password;
-        }
-
-        /**
-        * A Builder class for BasicAuth credentials.
-        */
-        public static class Builder {
-            private String username = "";
-            private String password = "";
-
-            /**
-            * Setter for username.
-            * @param username The value of Username.
-            * @return Builder The current instance of Builder.
-            */
-            public Builder username(String username) {
-                if (username == null) {
-                    throw new NullPointerException("Username cannot be null.");
-                }
-                this.username = username;
-                return this;
-            }
-
-            /**
-            * Setter for password.
-            * @param password The value of Password.
-            * @return Builder The current instance of Builder.
-            */
-            public Builder password(String password) {
-                if (password == null) {
-                    throw new NullPointerException("Password cannot be null.");
-                }
-                this.password = password;
-                return this;
-            }
-
-            /**
-            * Builds the instance of BasicAuthModel.
-            */
-            public BasicAuthModel build() {
-                return new BasicAuthModel(username, password);
-            }
-        }
-    }
 }

@@ -18,7 +18,7 @@ import io.apimatic.core.types.OptionalNullable;
 public class AllocationSettings {
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
-    private Boolean accrueCharge;
+    private String accrueCharge;
 
     /**
      * Default constructor.
@@ -30,12 +30,12 @@ public class AllocationSettings {
      * Initialization constructor.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  accrueCharge  String value for accrueCharge.
      */
     public AllocationSettings(
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            Boolean accrueCharge) {
+            String accrueCharge) {
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.accrueCharge = accrueCharge;
@@ -45,11 +45,11 @@ public class AllocationSettings {
      * Initialization constructor.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  accrueCharge  Boolean value for accrueCharge.
+     * @param  accrueCharge  String value for accrueCharge.
      */
 
     protected AllocationSettings(OptionalNullable<CreditType> upgradeCharge,
-            OptionalNullable<CreditType> downgradeCredit, Boolean accrueCharge) {
+            OptionalNullable<CreditType> downgradeCredit, String accrueCharge) {
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
         this.accrueCharge = accrueCharge;
@@ -143,20 +143,22 @@ public class AllocationSettings {
 
     /**
      * Getter for AccrueCharge.
-     * @return Returns the Boolean
+     * Either "true" or "false".
+     * @return Returns the String
      */
     @JsonGetter("accrue_charge")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getAccrueCharge() {
+    public String getAccrueCharge() {
         return accrueCharge;
     }
 
     /**
      * Setter for AccrueCharge.
-     * @param accrueCharge Value for Boolean
+     * Either "true" or "false".
+     * @param accrueCharge Value for String
      */
     @JsonSetter("accrue_charge")
-    public void setAccrueCharge(Boolean accrueCharge) {
+    public void setAccrueCharge(String accrueCharge) {
         this.accrueCharge = accrueCharge;
     }
 
@@ -189,7 +191,7 @@ public class AllocationSettings {
     public static class Builder {
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
-        private Boolean accrueCharge;
+        private String accrueCharge;
 
 
 
@@ -233,10 +235,10 @@ public class AllocationSettings {
 
         /**
          * Setter for accrueCharge.
-         * @param  accrueCharge  Boolean value for accrueCharge.
+         * @param  accrueCharge  String value for accrueCharge.
          * @return Builder
          */
-        public Builder accrueCharge(Boolean accrueCharge) {
+        public Builder accrueCharge(String accrueCharge) {
             this.accrueCharge = accrueCharge;
             return this;
         }

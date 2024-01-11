@@ -1598,7 +1598,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "quantity_based_component",
+          "kind": "component",
           "amount_in_cents": 28000,
           "memo": "Component name: 14 Unit names",
           "discount_amount_in_cents": 0,
@@ -1609,7 +1609,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "metered_component",
+          "kind": "component",
           "amount_in_cents": 2000,
           "memo": "Fractional Metered Components: 20.0 Fractional Metereds",
           "discount_amount_in_cents": 0,
@@ -1620,7 +1620,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "on_off_component",
+          "kind": "component",
           "amount_in_cents": 0,
           "memo": "On/Off Component",
           "discount_amount_in_cents": 0,
@@ -1662,7 +1662,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "quantity_based_component",
+          "kind": "component",
           "amount_in_cents": 28000,
           "memo": "Component name: 14 Unit names",
           "discount_amount_in_cents": 0,
@@ -1673,7 +1673,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "on_off_component",
+          "kind": "component",
           "amount_in_cents": 0,
           "memo": "On/Off Component",
           "discount_amount_in_cents": 0,

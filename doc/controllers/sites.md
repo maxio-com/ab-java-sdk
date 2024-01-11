@@ -95,7 +95,12 @@ try {
       "net_terms_on_remittance_signups_enabled": false,
       "custom_net_terms_enabled": false
     },
-    "test": true
+    "test": true,
+    "allocation_settings": {
+      "upgrade_charge": "prorated",
+      "downgrade_credit": "none",
+      "accrue_charge": "true"
+    }
   }
 }
 ```

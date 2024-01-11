@@ -30,6 +30,8 @@ public class AllocationPreviewItem {
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private Integer pricePointId;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
     private Integer previousPricePointId;
     private String pricePointHandle;
     private String pricePointName;
@@ -55,6 +57,8 @@ public class AllocationPreviewItem {
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  previousPricePointId  Integer value for previousPricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
      * @param  pricePointName  String value for pricePointName.
@@ -73,6 +77,8 @@ public class AllocationPreviewItem {
             CreditType upgradeCharge,
             CreditType downgradeCredit,
             Integer pricePointId,
+            Integer interval,
+            IntervalUnit intervalUnit,
             Integer previousPricePointId,
             String pricePointHandle,
             String pricePointName,
@@ -89,6 +95,8 @@ public class AllocationPreviewItem {
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.pricePointId = pricePointId;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
         this.previousPricePointId = previousPricePointId;
         this.pricePointHandle = pricePointHandle;
         this.pricePointName = pricePointName;
@@ -109,6 +117,8 @@ public class AllocationPreviewItem {
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  previousPricePointId  Integer value for previousPricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
      * @param  pricePointName  String value for pricePointName.
@@ -121,9 +131,9 @@ public class AllocationPreviewItem {
             OptionalNullable<String> timestamp, String prorationUpgradeScheme,
             String prorationDowngradeScheme, Boolean accrueCharge,
             OptionalNullable<CreditType> upgradeCharge,
-            OptionalNullable<CreditType> downgradeCredit, Integer pricePointId,
-            Integer previousPricePointId, String pricePointHandle, String pricePointName,
-            OptionalNullable<String> componentHandle) {
+            OptionalNullable<CreditType> downgradeCredit, Integer pricePointId, Integer interval,
+            IntervalUnit intervalUnit, Integer previousPricePointId, String pricePointHandle,
+            String pricePointName, OptionalNullable<String> componentHandle) {
         this.componentId = componentId;
         this.subscriptionId = subscriptionId;
         this.quantity = quantity;
@@ -136,6 +146,8 @@ public class AllocationPreviewItem {
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
         this.pricePointId = pricePointId;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
         this.previousPricePointId = previousPricePointId;
         this.pricePointHandle = pricePointHandle;
         this.pricePointName = pricePointName;
@@ -451,6 +463,54 @@ public class AllocationPreviewItem {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Getter for PreviousPricePointId.
      * @return Returns the Integer
      */
@@ -554,7 +614,8 @@ public class AllocationPreviewItem {
                 + ", prorationUpgradeScheme=" + prorationUpgradeScheme
                 + ", prorationDowngradeScheme=" + prorationDowngradeScheme + ", accrueCharge="
                 + accrueCharge + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit="
-                + downgradeCredit + ", pricePointId=" + pricePointId + ", previousPricePointId="
+                + downgradeCredit + ", pricePointId=" + pricePointId + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + ", previousPricePointId="
                 + previousPricePointId + ", pricePointHandle=" + pricePointHandle
                 + ", pricePointName=" + pricePointName + ", componentHandle=" + componentHandle
                 + "]";
@@ -575,6 +636,8 @@ public class AllocationPreviewItem {
                 .prorationDowngradeScheme(getProrationDowngradeScheme())
                 .accrueCharge(getAccrueCharge())
                 .pricePointId(getPricePointId())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit())
                 .previousPricePointId(getPreviousPricePointId())
                 .pricePointHandle(getPricePointHandle())
                 .pricePointName(getPricePointName());
@@ -602,6 +665,8 @@ public class AllocationPreviewItem {
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
         private Integer pricePointId;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
         private Integer previousPricePointId;
         private String pricePointHandle;
         private String pricePointName;
@@ -767,6 +832,26 @@ public class AllocationPreviewItem {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Setter for previousPricePointId.
          * @param  previousPricePointId  Integer value for previousPricePointId.
          * @return Builder
@@ -823,8 +908,8 @@ public class AllocationPreviewItem {
             return new AllocationPreviewItem(componentId, subscriptionId, quantity,
                     previousQuantity, memo, timestamp, prorationUpgradeScheme,
                     prorationDowngradeScheme, accrueCharge, upgradeCharge, downgradeCredit,
-                    pricePointId, previousPricePointId, pricePointHandle, pricePointName,
-                    componentHandle);
+                    pricePointId, interval, intervalUnit, previousPricePointId, pricePointHandle,
+                    pricePointName, componentHandle);
         }
     }
 }
