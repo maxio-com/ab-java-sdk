@@ -21,6 +21,7 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import com.maxio.advancedbilling.utils.matchers.AllocationPreviewItemPreviousQuantityGetter;
 import com.maxio.advancedbilling.utils.matchers.AllocationPreviewItemQuantityGetter;
 import org.junit.jupiter.api.AfterAll;
@@ -35,7 +36,6 @@ import java.util.stream.Collectors;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubscriptionComponentsControllerPreviewAllocationsTest {
@@ -43,6 +43,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
             TestClient.createClient().getSubscriptionComponentsController();
+    private static final boolean ALLOW_FRACTIONAL_QUANTITIES = false;
 
     private static Component quantityBasedComponent;
     private static Component onOffComponent;
@@ -54,7 +55,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         Product product = TEST_SETUP.createProduct(productFamily);
         quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId(),
-                b -> b.allowFractionalQuantities(true));
+                b -> b.allowFractionalQuantities(ALLOW_FRACTIONAL_QUANTITIES));
         onOffComponent = TEST_SETUP.createOnOffComponent(productFamily.getId());
 
         customer = TEST_SETUP.createCustomer();
@@ -131,14 +132,14 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
                 .allocations(List.of(createQuantityAllocation))
                 .build();
 
-        // when-then
-        assertUnprocessableEntity(
+        // when - then
+        CommonAssertions.assertUnprocessableEntity(
                 ComponentAllocationErrorException.class,
                 () -> SUBSCRIPTION_COMPONENTS_CONTROLLER.previewAllocations(subscription.getId(), previewAllocationsRequest),
-                e ->
-                        assertThat(e.getErrors()).usingRecursiveFieldByFieldElementComparator().containsExactlyInAnyOrder(
-                                new ComponentAllocationErrorItem(123, "Component: could not be found.",
-                                        "allocation", "component_id")
+                e -> assertThat(e.getErrors())
+                        .usingRecursiveFieldByFieldElementComparator()
+                        .containsExactlyInAnyOrder(new ComponentAllocationErrorItem(
+                                123, "Component: could not be found.", "allocation", "component_id")
                         )
         );
     }
@@ -154,14 +155,14 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
                 .allocations(List.of(createQuantityAllocation))
                 .build();
 
-        // when-then
+        // when - then
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
-                        .previewAllocations(123, previewAllocationsRequest));
+                .previewAllocations(123, previewAllocationsRequest));
     }
 
     @Test
     void shouldNotPreviewAllocationsWhenProvidingInvalidCredentials() {
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .previewAllocations(subscription.getId(), null));
     }
@@ -179,7 +180,9 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
 
     String getMemo(AllocationPreviewLineItem lineItem, Component component, CreateAllocation createAllocation) {
         if (lineItem.getKind() == AllocationPreviewLineItemKind.QUANTITY_BASED_COMPONENT) {
-            return "%s: 0.0 to %s %ss".formatted(component.getName(), createAllocation.getQuantity(), component.getUnitName());
+            String quantity = ALLOW_FRACTIONAL_QUANTITIES ?
+                    Double.toString(createAllocation.getQuantity()) : Integer.toString((int) createAllocation.getQuantity());
+            return "%s: 0 to %s %ss".formatted(component.getName(), quantity, component.getUnitName());
         } else if (lineItem.getKind() == AllocationPreviewLineItemKind.ON_OFF_COMPONENT) {
             return component.getName() + ": enabled";
         }
@@ -212,7 +215,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
         } else {
             assertThat(allocationItem.getQuantity()
                     .match(new AllocationPreviewItemQuantityGetter<Integer>()))
-                    .isEqualTo((int)createAllocation.getQuantity());
+                    .isEqualTo((int) createAllocation.getQuantity());
             assertThat(allocationItem.getPreviousQuantity()
                     .match(new AllocationPreviewItemPreviousQuantityGetter<Integer>())).isEqualTo(0);
         }

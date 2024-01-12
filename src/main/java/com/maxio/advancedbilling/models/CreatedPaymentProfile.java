@@ -42,6 +42,7 @@ public class CreatedPaymentProfile {
     private Boolean verified;
     private Integer siteGatewaySettingId;
     private String gatewayHandle;
+    private Boolean disabled;
 
     /**
      * Default constructor.
@@ -77,6 +78,7 @@ public class CreatedPaymentProfile {
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  disabled  Boolean value for disabled.
      */
     public CreatedPaymentProfile(
             Integer id,
@@ -104,7 +106,8 @@ public class CreatedPaymentProfile {
             String bankAccountHolderType,
             Boolean verified,
             Integer siteGatewaySettingId,
-            String gatewayHandle) {
+            String gatewayHandle,
+            Boolean disabled) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -131,6 +134,7 @@ public class CreatedPaymentProfile {
         this.verified = verified;
         this.siteGatewaySettingId = siteGatewaySettingId;
         this.gatewayHandle = gatewayHandle;
+        this.disabled = disabled;
     }
 
     /**
@@ -161,6 +165,7 @@ public class CreatedPaymentProfile {
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  disabled  Boolean value for disabled.
      */
 
     protected CreatedPaymentProfile(Integer id, String firstName, String lastName,
@@ -171,7 +176,7 @@ public class CreatedPaymentProfile {
             OptionalNullable<String> billingAddress2, String paymentType, String bankName,
             String maskedBankRoutingNumber, String maskedBankAccountNumber, String bankAccountType,
             String bankAccountHolderType, Boolean verified, Integer siteGatewaySettingId,
-            String gatewayHandle) {
+            String gatewayHandle, Boolean disabled) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -198,6 +203,7 @@ public class CreatedPaymentProfile {
         this.verified = verified;
         this.siteGatewaySettingId = siteGatewaySettingId;
         this.gatewayHandle = gatewayHandle;
+        this.disabled = disabled;
     }
 
     /**
@@ -747,6 +753,25 @@ public class CreatedPaymentProfile {
     }
 
     /**
+     * Getter for Disabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("disabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    /**
+     * Setter for Disabled.
+     * @param disabled Value for Boolean
+     */
+    @JsonSetter("disabled")
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    /**
      * Converts this CreatedPaymentProfile into string format.
      * @return String representation of this class
      */
@@ -764,7 +789,8 @@ public class CreatedPaymentProfile {
                 + maskedBankRoutingNumber + ", maskedBankAccountNumber=" + maskedBankAccountNumber
                 + ", bankAccountType=" + bankAccountType + ", bankAccountHolderType="
                 + bankAccountHolderType + ", verified=" + verified + ", siteGatewaySettingId="
-                + siteGatewaySettingId + ", gatewayHandle=" + gatewayHandle + "]";
+                + siteGatewaySettingId + ", gatewayHandle=" + gatewayHandle + ", disabled="
+                + disabled + "]";
     }
 
     /**
@@ -796,7 +822,8 @@ public class CreatedPaymentProfile {
                 .bankAccountHolderType(getBankAccountHolderType())
                 .verified(getVerified())
                 .siteGatewaySettingId(getSiteGatewaySettingId())
-                .gatewayHandle(getGatewayHandle());
+                .gatewayHandle(getGatewayHandle())
+                .disabled(getDisabled());
         builder.maskedCardNumber = internalGetMaskedCardNumber();
         builder.customerVaultToken = internalGetCustomerVaultToken();
         builder.billingAddress2 = internalGetBillingAddress2();
@@ -833,6 +860,7 @@ public class CreatedPaymentProfile {
         private Boolean verified;
         private Integer siteGatewaySettingId;
         private String gatewayHandle;
+        private Boolean disabled;
 
 
 
@@ -1124,6 +1152,16 @@ public class CreatedPaymentProfile {
         }
 
         /**
+         * Setter for disabled.
+         * @param  disabled  Boolean value for disabled.
+         * @return Builder
+         */
+        public Builder disabled(Boolean disabled) {
+            this.disabled = disabled;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreatedPaymentProfile} object using the set fields.
          * @return {@link CreatedPaymentProfile}
          */
@@ -1133,7 +1171,7 @@ public class CreatedPaymentProfile {
                     billingAddress, billingCity, billingState, billingZip, billingCountry,
                     customerVaultToken, billingAddress2, paymentType, bankName,
                     maskedBankRoutingNumber, maskedBankAccountNumber, bankAccountType,
-                    bankAccountHolderType, verified, siteGatewaySettingId, gatewayHandle);
+                    bankAccountHolderType, verified, siteGatewaySettingId, gatewayHandle, disabled);
         }
     }
 }

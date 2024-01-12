@@ -35,6 +35,7 @@
 | `Verified` | `Boolean` | Optional | - | Boolean getVerified() | setVerified(Boolean verified) |
 | `SiteGatewaySettingId` | `Integer` | Optional | - | Integer getSiteGatewaySettingId() | setSiteGatewaySettingId(Integer siteGatewaySettingId) |
 | `GatewayHandle` | `String` | Optional | - | String getGatewayHandle() | setGatewayHandle(String gatewayHandle) |
+| `Disabled` | `Boolean` | Optional | - | Boolean getDisabled() | setDisabled(Boolean disabled) |
 
 ## Example (as JSON)
 

@@ -22,7 +22,9 @@ public abstract class BaseController {
             new HashMap<String, ErrorCase<ApiException>>();
     private GlobalConfiguration globalConfig;
     static {
-        GLOBAL_ERROR_CASES.put(ErrorCase.DEFAULT, ErrorCase.setReason("HTTP Response Not OK",
+        GLOBAL_ERROR_CASES.put("404", ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                (reason, context) -> new ApiException(reason, context)));
+        GLOBAL_ERROR_CASES.put(ErrorCase.DEFAULT, ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                 (reason, context) -> new ApiException(reason, context)));
     }
 

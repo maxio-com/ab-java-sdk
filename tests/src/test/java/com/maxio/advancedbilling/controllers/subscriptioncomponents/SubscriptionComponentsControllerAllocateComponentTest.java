@@ -85,7 +85,7 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
                 .memo("Toggling component off.")
                 .build();
 
-        // when-then
+        // when - then
         Allocation allocationResponse1 = SUBSCRIPTION_COMPONENTS_CONTROLLER
                 .allocateComponent(subscription.getId(), onOffComponent.getId(),
                         new CreateAllocationRequest(createAllocation1)).getAllocation();
@@ -154,7 +154,7 @@ public class SubscriptionComponentsControllerAllocateComponentTest {
 
     @Test
     void shouldNotAllocateComponentWhenProvidingInvalidCredentials() {
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .allocateComponent(subscription.getId(), quantityBasedComponent.getId(), null));
     }

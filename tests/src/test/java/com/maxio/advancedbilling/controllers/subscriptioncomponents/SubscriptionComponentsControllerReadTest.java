@@ -59,14 +59,12 @@ public class SubscriptionComponentsControllerReadTest {
 
     @Test
     void shouldNotReadComponentWhenSubscriptionDoesNotExist() {
-        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.readSubscriptionComponent(123,
-                component.getId()), "Not Found");
+        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.readSubscriptionComponent(123, component.getId()));
     }
 
     @Test
     void shouldNotReadNonExistentSubscriptionComponent() {
-        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.readSubscriptionComponent(subscription.getId(),
-                123), "Not Found");
+        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.readSubscriptionComponent(subscription.getId(), 123));
     }
 
     @Test

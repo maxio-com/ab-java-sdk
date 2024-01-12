@@ -171,14 +171,8 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PrepaymentsResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -267,7 +261,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -321,14 +315,14 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PrepaymentResponse.class))
                         .nullify404(false)
-                        .localErrorCase("400",
-                                 ErrorCase.setReason("Bad Request",
-                                (reason, context) -> new RefundPrepaymentBaseErrorsResponseException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("400",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new RefundPrepaymentBaseErrorsResponseException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new RefundPrepaymentAggregatedErrorsResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

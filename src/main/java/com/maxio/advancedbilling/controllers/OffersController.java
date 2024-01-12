@@ -77,7 +77,7 @@ public final class OffersController extends BaseController {
                                 response -> ApiHelper.deserialize(response, OfferResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -158,9 +158,6 @@ public final class OffersController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, OfferResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -194,9 +191,6 @@ public final class OffersController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -231,9 +225,6 @@ public final class OffersController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

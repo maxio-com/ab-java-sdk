@@ -25,7 +25,7 @@ public class ProductsControllerReadProductByHandleTest extends ProductsControlle
 
     @Test
     void shouldNotReadNotOwnedProduct() {
-        // when-then
+        // when - then
         assertNotFound(() -> productsController.readProductByHandle("abc"));
     }
 

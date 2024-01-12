@@ -106,7 +106,7 @@ public final class CustomFieldsController extends BaseController {
                                         Metafield[].class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -253,7 +253,7 @@ public final class CustomFieldsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -481,7 +481,7 @@ public final class CustomFieldsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

@@ -91,7 +91,7 @@ public final class BillingPortalController extends BaseController {
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -138,10 +138,10 @@ public final class BillingPortalController extends BaseController {
                                 response -> ApiHelper.deserialize(response, PortalManagementLink.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .localErrorCase("429",
-                                 ErrorCase.setReason("Too Many Requests",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new TooManyManagementLinkRequestsErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -188,10 +188,10 @@ public final class BillingPortalController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ResentInvitation.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -232,9 +232,6 @@ public final class BillingPortalController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, RevokedInvitation.class))
                         .nullify404(false)
-                        .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
-                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

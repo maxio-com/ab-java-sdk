@@ -262,12 +262,6 @@ try {
 }
 ```
 
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-
 
 # Archive Offer
 
@@ -302,12 +296,6 @@ try {
 }
 ```
 
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-
 
 # Unarchive Offer
 
@@ -341,10 +329,4 @@ try {
     e.printStackTrace();
 }
 ```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
 

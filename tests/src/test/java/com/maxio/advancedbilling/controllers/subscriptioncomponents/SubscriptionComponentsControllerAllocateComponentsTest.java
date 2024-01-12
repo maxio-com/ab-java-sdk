@@ -113,24 +113,21 @@ public class SubscriptionComponentsControllerAllocateComponentsTest {
                         .build()
                 ))
                 .isUnprocessableEntity()
-                .hasErrors(
-                        "Component: could not be found."
-                );
+                .hasErrors("Component: could not be found.");
     }
 
     @Test
     void shouldNotAllocateComponentsWhenSubscriptionDoesNotExist() {
-        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
-                        .allocateComponents(123, null),
-                "Not Found"
-        );
+        assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.allocateComponents(123, null));
     }
 
     @Test
     void shouldNotAllocateComponentsWhenProvidingInvalidCredentials() {
-        // when-then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
-                .allocateComponents(subscription.getId(), null), "Unauthorized");
+        // when - then
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+                .getSubscriptionComponentsController()
+                .allocateComponents(subscription.getId(), null)
+        );
     }
 
 }

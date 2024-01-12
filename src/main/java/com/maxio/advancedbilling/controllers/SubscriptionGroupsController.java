@@ -85,7 +85,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SubscriptionGroupSignupResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new SubscriptionGroupSignupErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -127,7 +127,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SubscriptionGroupResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new SingleStringErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -262,7 +262,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SubscriptionGroupResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new SubscriptionGroupUpdateErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -302,7 +302,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, DeleteSubscriptionGroupResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -344,7 +344,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, FullSubscriptionGroupResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -446,10 +446,10 @@ public final class SubscriptionGroupsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

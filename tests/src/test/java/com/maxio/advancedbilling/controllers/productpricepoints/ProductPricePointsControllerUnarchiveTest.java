@@ -5,12 +5,13 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointPricePointId;
 import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointProductId;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntityNotOk;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,7 +32,7 @@ class ProductPricePointsControllerUnarchiveTest extends ProductPricePointsBaseTe
     @Test
     void shouldReturn422WhenProductNotExists() {
         // when - then
-        assertUnprocessableEntityNotOk(
+        CommonAssertions.assertUnprocessableEntity(
                 ApiException.class,
                 () -> PRODUCT_PRICE_POINTS_CONTROLLER.unarchiveProductPricePoint(12345, productPricePoint.getId())
         );
@@ -40,7 +41,7 @@ class ProductPricePointsControllerUnarchiveTest extends ProductPricePointsBaseTe
     @Test
     void shouldReturn422WhenProductPricePointNotExists() {
         // when - then
-        assertUnprocessableEntityNotOk(
+        CommonAssertions.assertUnprocessableEntity(
                 ApiException.class,
                 () -> PRODUCT_PRICE_POINTS_CONTROLLER.unarchiveProductPricePoint(product.getId(), 12345)
         );
@@ -49,7 +50,7 @@ class ProductPricePointsControllerUnarchiveTest extends ProductPricePointsBaseTe
     @Test
     void shouldReturn422WhenProductPricePointIsNotArchived() {
         // when - then
-        assertUnprocessableEntityNotOk(
+        CommonAssertions.assertUnprocessableEntity(
                 ApiException.class,
                 () -> PRODUCT_PRICE_POINTS_CONTROLLER.unarchiveProductPricePoint(product.getId(), productPricePoint.getId())
         );

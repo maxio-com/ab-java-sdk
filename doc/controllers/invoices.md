@@ -2709,7 +2709,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`NestedErrorResponseException`](../../doc/models/nested-error-response-exception.md) |
 
 
@@ -3153,7 +3152,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
 | 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 

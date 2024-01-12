@@ -15,7 +15,6 @@ import com.maxio.advancedbilling.models.ListSubscriptionNotesInput;
 import com.maxio.advancedbilling.models.SubscriptionNoteResponse;
 import com.maxio.advancedbilling.models.UpdateSubscriptionNoteRequest;
 import io.apimatic.core.ApiCall;
-import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
@@ -249,9 +248,6 @@ public final class SubscriptionNotesController extends BaseController {
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
-                        .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
-                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

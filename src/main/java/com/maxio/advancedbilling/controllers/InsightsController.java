@@ -223,7 +223,7 @@ public final class InsightsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SubscriptionMRRResponse.class))
                         .nullify404(false)
                         .localErrorCase("400",
-                                 ErrorCase.setReason("Bad Request",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new SubscriptionsMrrErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

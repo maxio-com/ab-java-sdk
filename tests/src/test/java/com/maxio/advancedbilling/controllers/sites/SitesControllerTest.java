@@ -36,7 +36,7 @@ class SitesControllerTest {
 
         AllocationSettings allocationSettings = site.getAllocationSettings();
         assertThat(allocationSettings.getUpgradeCharge()).isEqualTo(CreditType.PRORATED);
-        assertThat(allocationSettings.getAccrueCharge()).isTrue();
+        assertThat(allocationSettings.getAccrueCharge()).isEqualTo("true");
         assertThat(allocationSettings.getDowngradeCredit()).isEqualTo(CreditType.NONE);
 
         OrganizationAddress organizationAddress = site.getOrganizationAddress();

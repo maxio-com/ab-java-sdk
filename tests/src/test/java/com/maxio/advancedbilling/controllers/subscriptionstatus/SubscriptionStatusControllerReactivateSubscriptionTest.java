@@ -53,7 +53,7 @@ public class SubscriptionStatusControllerReactivateSubscriptionTest extends Subs
         // given
         Subscription subscription = createSubscription();
 
-        // when-then
+        // when - then
         assertThatErrorListResponse(() -> subscriptionStatusController.reactivateSubscription(subscription.getId(),
                 new ReactivateSubscriptionRequest()))
                 .isUnprocessableEntity()
@@ -70,7 +70,7 @@ public class SubscriptionStatusControllerReactivateSubscriptionTest extends Subs
         // given
         Subscription subscription = createSubscription();
 
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionStatusController()
                 .reactivateSubscription(subscription.getId(),
                         new ReactivateSubscriptionRequest()));

@@ -1,17 +1,15 @@
 package com.maxio.advancedbilling.controllers.products;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Product;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,7 +21,7 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
         Product product = createProduct();
 
         // when
-        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
         productsController.archiveProduct(product.getId());
 
         // then
@@ -44,19 +42,15 @@ public class ProductsControllerArchiveProductTest extends ProductsControllerTest
         productsController.archiveProduct(product.getId());
 
         // then
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> productsController.archiveProduct(product.getId())
-                )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).containsExactlyInAnyOrder("Product cannot be archived.");
-                });
+        CommonAssertions
+                .assertThatErrorListResponse(() -> productsController.archiveProduct(product.getId()))
+                .isUnprocessableEntity()
+                .hasErrors("Product cannot be archived.");
     }
 
     @Test
     void shouldNotArchiveNotOwnedProduct() {
-        // when-then
+        // when - then
         assertNotFound(() -> productsController.archiveProduct(99999999));
     }
 

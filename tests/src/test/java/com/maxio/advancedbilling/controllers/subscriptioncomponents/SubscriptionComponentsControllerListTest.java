@@ -103,7 +103,7 @@ public class SubscriptionComponentsControllerListTest {
 
     @Test
     void shouldNotReadSubscriptionComponentWhenProvidingInvalidCredentials() {
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .listSubscriptionComponents(new ListSubscriptionComponentsInput()
                         .toBuilder()

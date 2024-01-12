@@ -87,17 +87,11 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SegmentResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new EventBasedBillingSegmentErrorsException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -154,17 +148,11 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSegmentsResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new EventBasedBillingListSegmentsErrorsException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -223,17 +211,11 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SegmentResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new EventBasedBillingSegmentErrorsException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -280,17 +262,11 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -347,17 +323,11 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSegmentsResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new EventBasedBillingSegmentException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -414,17 +384,11 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListSegmentsResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new EventBasedBillingSegmentException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

@@ -122,7 +122,7 @@ public class SubscriptionComponentsControllerCreateUsageTest {
 
     @Test
     void shouldNotCreateUsageWhenProvidingInvalidCredentials() {
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .createUsage(subscription.getId(), CreateUsageComponentId.fromNumber(meteredComponent.getId()), null));
     }

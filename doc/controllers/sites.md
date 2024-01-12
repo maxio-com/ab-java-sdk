@@ -141,12 +141,6 @@ try {
 }
 ```
 
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 403 | Forbidden | `ApiException` |
-
 
 # List Chargify Js Public Keys
 

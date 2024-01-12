@@ -99,7 +99,7 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
                 .handle("updatedHandle")
                 .build();
 
-        // when-then
+        // when - then
         assertUnprocessableEntity(
                 ErrorListResponseException.class,
                 () -> COMPONENTS_CONTROLLER.updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
@@ -117,7 +117,7 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
                 .handle(component2.getHandle())
                 .build();
 
-        // when-then
+        // when - then
         assertUnprocessableEntity(
                 ErrorListResponseException.class,
                 () -> COMPONENTS_CONTROLLER.updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest(updateComponent)),
@@ -135,7 +135,7 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
         // given
         Component component = createQuantityBasedComponent();
 
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest()));
     }

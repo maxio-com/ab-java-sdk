@@ -19,4 +19,9 @@ public class ErrorListResponseAssert extends ApiExceptionAssert<ErrorListRespons
         assertThat(actual.getErrors()).as("Expected errors").containsExactlyInAnyOrder(errors);
         return this;
     }
+
+    public ErrorListResponseAssert hasNoErrors() {
+        assertThat(actual.getErrors()).as("Expected no errors").isEmpty();
+        return this;
+    }
 }

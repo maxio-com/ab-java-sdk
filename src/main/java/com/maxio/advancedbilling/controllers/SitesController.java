@@ -15,7 +15,6 @@ import com.maxio.advancedbilling.models.ListChargifyJsPublicKeysInput;
 import com.maxio.advancedbilling.models.ListPublicKeysResponse;
 import com.maxio.advancedbilling.models.SiteResponse;
 import io.apimatic.core.ApiCall;
-import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
@@ -107,9 +106,6 @@ public final class SitesController extends BaseController {
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

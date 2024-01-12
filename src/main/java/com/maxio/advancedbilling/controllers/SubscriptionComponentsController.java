@@ -93,7 +93,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SubscriptionComponentResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -207,7 +207,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, BulkComponentSPricePointAssignment.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ComponentPricePointErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -339,7 +339,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, AllocationResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -401,14 +401,11 @@ public final class SubscriptionComponentsController extends BaseController {
                                 response -> ApiHelper.deserializeArray(response,
                                         AllocationResponse[].class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -460,14 +457,11 @@ public final class SubscriptionComponentsController extends BaseController {
                                 response -> ApiHelper.deserializeArray(response,
                                         AllocationResponse[].class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -522,7 +516,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, AllocationPreviewResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ComponentAllocationErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -585,7 +579,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new SubscriptionComponentAllocationErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -649,7 +643,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new SubscriptionComponentAllocationErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -734,7 +728,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, UsageResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

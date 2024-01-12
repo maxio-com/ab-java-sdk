@@ -6,15 +6,14 @@ import com.maxio.advancedbilling.models.CancellationOptions;
 import com.maxio.advancedbilling.models.CancellationRequest;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionState;
+import com.maxio.advancedbilling.utils.assertions.ApiExceptionAssert;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class SubscriptionStatusControllerCancelSubscriptionTest extends SubscriptionStatusControllerTestBase {
 
@@ -22,7 +21,7 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
     void shouldCancelActiveSubscription() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();
-        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
 
         // when
         Subscription cancelledSubscription = subscriptionStatusController
@@ -45,7 +44,7 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
     void shouldCancelActiveSubscriptionProvidingReasonCodeAndMessage() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();
-        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
         String reasonCode = "CHURN";
         String cancellationMessage = "Customer left.";
         CancellationRequest cancellationRequest = new CancellationRequest(
@@ -74,8 +73,7 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
 
     @Test
     void shouldNotRetryNonExistentSubscription() {
-        assertNotFound(() -> subscriptionStatusController.cancelSubscription(99999999, null),
-                "Not Found");
+        assertNotFound(() -> subscriptionStatusController.cancelSubscription(99999999, null));
     }
 
     @Test
@@ -92,16 +90,10 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
                         .build()
         );
 
-        // when-then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> subscriptionStatusController.cancelSubscription(subscription.getId(), cancellationRequest))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getHttpContext().getResponse().getBody()).isEqualTo("""
-                            {"errors":["reason_code size cannot be greater than 255","cancellation_message size cannot be greater than 65535"]}"""
-                    );
-                });
+        // when - then
+        new ApiExceptionAssert(() -> subscriptionStatusController.cancelSubscription(subscription.getId(), cancellationRequest))
+                .hasErrorCode(422)
+                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[reason_code size cannot be greater than 255,cancellation_message size cannot be greater than 65535]}'.");
     }
 
     @Test
@@ -114,16 +106,9 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
                 .cancelSubscription(subscription.getId(), null);
 
         // then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> subscriptionStatusController.cancelSubscription(subscription.getId(), null)
-                )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getHttpContext().getResponse().getBody()).isEqualTo("""
-                            {"error":"The subscription is already canceled"}"""
-                    );
-                });
+        new ApiExceptionAssert(() -> subscriptionStatusController.cancelSubscription(subscription.getId(), null))
+                .hasErrorCode(422)
+                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{error:The subscription is already canceled}'.");
     }
 
 }

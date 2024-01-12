@@ -10,7 +10,7 @@ public class TestClient {
     public static AdvancedBillingClient createClient() {
         return new AdvancedBillingClient.Builder()
                 .httpClientConfig(configBuilder -> configBuilder.timeout(10))
-                .basicAuthCredentials(builder -> builder.username(getEnvValue(API_KEY_ENV)).password(PASSWORD))
+                .basicAuthCredentials(getEnvValue(API_KEY_ENV), PASSWORD)
                 .environment(Environment.PRODUCTION)
                 .subdomain(getEnvValue(SUBDOMAIN_ENV))
                 .domain(getEnvValue(DOMAIN_ENV))
@@ -20,7 +20,7 @@ public class TestClient {
     public static AdvancedBillingClient createInvalidCredentialsClient() {
         return new AdvancedBillingClient.Builder()
                 .httpClientConfig(configBuilder -> configBuilder.timeout(10))
-                .basicAuthCredentials(builder -> builder.username("123").password("abc"))
+                .basicAuthCredentials("123", "abc")
                 .environment(Environment.PRODUCTION)
                 .subdomain(getEnvValue(SUBDOMAIN_ENV))
                 .domain(getEnvValue(DOMAIN_ENV))

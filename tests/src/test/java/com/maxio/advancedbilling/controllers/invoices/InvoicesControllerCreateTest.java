@@ -327,10 +327,8 @@ public class InvoicesControllerCreateTest {
     @Test
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
-        CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController()
-                        .createInvoice(subscription.getId(), new CreateInvoiceRequest()),
-                "Unauthorized"
+        CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getInvoicesController()
+                .createInvoice(subscription.getId(), new CreateInvoiceRequest())
         );
     }
 

@@ -6,6 +6,7 @@ import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.containers.ListProductPricePointsInputProductId;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntityNotOk;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -43,7 +44,7 @@ class ProductPricePointsControllerPromoteTest extends ProductPricePointsBaseTest
     @Test
     void shouldReturn422WhenProductPricePointNotExists() {
         // when - then
-        assertUnprocessableEntityNotOk(
+        CommonAssertions.assertUnprocessableEntity(
                 ApiException.class,
                 () -> PRODUCT_PRICE_POINTS_CONTROLLER.promoteProductPricePointToDefault(product.getId(), 12345)
         );

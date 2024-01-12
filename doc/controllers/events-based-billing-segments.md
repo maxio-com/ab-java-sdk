@@ -93,8 +93,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-| 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentErrorsException`](../../doc/models/event-based-billing-segment-errors-exception.md) |
 
@@ -154,8 +152,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-| 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingListSegmentsErrorsException`](../../doc/models/event-based-billing-list-segments-errors-exception.md) |
 
@@ -207,8 +203,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-| 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentErrorsException`](../../doc/models/event-based-billing-segment-errors-exception.md) |
 
@@ -258,8 +252,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-| 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | `ApiException` |
 
@@ -310,8 +302,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-| 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentException`](../../doc/models/event-based-billing-segment-exception.md) |
 
@@ -362,8 +352,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 401 | Unauthorized | `ApiException` |
-| 403 | Forbidden | `ApiException` |
 | 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`EventBasedBillingSegmentException`](../../doc/models/event-based-billing-segment-exception.md) |
 

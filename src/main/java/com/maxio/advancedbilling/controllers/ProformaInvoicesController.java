@@ -75,7 +75,7 @@ public final class ProformaInvoicesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -117,11 +117,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
                         .nullify404(false)
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -161,11 +158,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
                         .nullify404(false)
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -209,11 +203,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
                         .nullify404(false)
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -329,14 +320,11 @@ public final class ProformaInvoicesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
                         .nullify404(false)
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -386,14 +374,11 @@ public final class ProformaInvoicesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ProformaInvoicePreview.class))
                         .nullify404(false)
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -444,13 +429,10 @@ public final class ProformaInvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ProformaInvoice.class))
                         .nullify404(false)
                         .localErrorCase("400",
-                                 ErrorCase.setReason("Bad Request",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ProformaBadRequestErrorResponseException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -507,13 +489,10 @@ public final class ProformaInvoicesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, SignupProformaPreviewResponse.class))
                         .nullify404(false)
                         .localErrorCase("400",
-                                 ErrorCase.setReason("Bad Request",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ProformaBadRequestErrorResponseException(reason, context)))
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
