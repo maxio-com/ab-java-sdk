@@ -164,10 +164,6 @@ public final class CustomFieldsController extends BaseController {
      * Use the following method to update metafields for your Site. Metafields can be populated with
      * metadata after the fact.
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
-     * @param  name  Required parameter: Name of the custom field.
-     * @param  currentName  Optional parameter: This only applies when you are updating an existing
-     *         record and you wish to rename the field. Note you must supply name and current_name
-     *         to rename the field
      * @param  body  Optional parameter: Example:
      * @return    Returns the List of Metafield response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -175,10 +171,8 @@ public final class CustomFieldsController extends BaseController {
      */
     public List<Metafield> updateMetafield(
             final ResourceType resourceType,
-            final String name,
-            final String currentName,
             final UpdateMetafieldsRequest body) throws ApiException, IOException {
-        return prepareUpdateMetafieldRequest(resourceType, name, currentName, body).execute();
+        return prepareUpdateMetafieldRequest(resourceType, body).execute();
     }
 
     /**
@@ -186,8 +180,6 @@ public final class CustomFieldsController extends BaseController {
      */
     private ApiCall<List<Metafield>, ApiException> prepareUpdateMetafieldRequest(
             final ResourceType resourceType,
-            final String name,
-            final String currentName,
             final UpdateMetafieldsRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<List<Metafield>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -196,10 +188,6 @@ public final class CustomFieldsController extends BaseController {
                         .path("/{resource_type}/metafields.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .queryParam(param -> param.key("name")
-                                .value(name))
-                        .queryParam(param -> param.key("current_name")
-                                .value(currentName).isRequired(false))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")

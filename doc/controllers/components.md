@@ -938,6 +938,7 @@ CreateComponentPricePointRequest body = new CreateComponentPricePointRequest.Bui
             )
         )
         .handle("wholesale-handle")
+        .useSiteExchangeRate(false)
         .build()
     )
 )
