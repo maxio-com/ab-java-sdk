@@ -8,20 +8,18 @@ import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerError;
-import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
+import com.maxio.advancedbilling.utils.matchers.CustomerErrorResponseErrorsGetter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CustomersControllerCreateTest {
@@ -138,31 +136,25 @@ class CustomersControllerCreateTest {
     @Test
     void shouldNotCreateCustomerWhenRequestIsNull() {
         // when - then
-        assertThatExceptionOfType(CustomerErrorResponseException.class)
-                .isThrownBy(() -> customersController.createCustomer(null))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors().toString()).isEqualTo(
-                            CustomerErrorResponseErrors
-                                    .fromCustomerError(new CustomerError("can't be blank"))
-                                    .toString()
-                    );
-                });
+        assertUnprocessableEntity(
+                CustomerErrorResponseException.class,
+                () -> customersController.createCustomer(null),
+                e -> assertThat(e.getErrors().match(new CustomerErrorResponseErrorsGetter<CustomerError>()))
+                        .usingRecursiveComparison()
+                        .isEqualTo(new CustomerError("can't be blank"))
+        );
     }
 
     @ParameterizedTest
     @MethodSource("argsForShouldNotCreateCustomerWhenAnyOfTheRequiredParameterIsMissing")
-    void shouldNotCreateCustomerWhenAnyOfTheRequiredParameterIsMissing(CreateCustomer createCustomer, List<String> errorMessages) {
+    void shouldNotCreateCustomerWhenAnyOfTheRequiredParameterIsMissing(CreateCustomer createCustomer, String[] errorMessages) {
         // when - then
-        assertThatExceptionOfType(CustomerErrorResponseException.class)
-                .isThrownBy(() -> customersController.createCustomer(new CreateCustomerRequest(createCustomer)))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors().toString())
-                            .isEqualTo(CustomerErrorResponseErrors.fromListOfString(errorMessages).toString());
-                });
+        assertUnprocessableEntity(
+                CustomerErrorResponseException.class,
+                () -> customersController.createCustomer(new CreateCustomerRequest(createCustomer)),
+                e -> assertThat(e.getErrors().match(new CustomerErrorResponseErrorsGetter<List<String>>()))
+                        .containsExactlyInAnyOrder(errorMessages)
+        );
     }
 
     private static Stream<Arguments> argsForShouldNotCreateCustomerWhenAnyOfTheRequiredParameterIsMissing() {
@@ -173,31 +165,31 @@ class CustomersControllerCreateTest {
         return Stream.of(
                 Arguments.of(
                         new CreateCustomer(),
-                        Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.", "Email address: cannot be blank.")
+                        new String[]{"First name: cannot be blank.", "Last name: cannot be blank.", "Email address: cannot be blank."}
                 ),
                 Arguments.of(
                         new CreateCustomer.Builder().firstName(firstName).build(),
-                        Arrays.asList("Last name: cannot be blank.", "Email address: cannot be blank.")
+                        new String[]{"Last name: cannot be blank.", "Email address: cannot be blank."}
                 ),
                 Arguments.of(
                         new CreateCustomer.Builder().lastName(lastName).build(),
-                        Arrays.asList("First name: cannot be blank.", "Email address: cannot be blank.")
+                        new String[]{"First name: cannot be blank.", "Email address: cannot be blank."}
                 ),
                 Arguments.of(
                         new CreateCustomer.Builder().email(email).build(),
-                        Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.")
+                        new String[]{"First name: cannot be blank.", "Last name: cannot be blank."}
                 ),
                 Arguments.of(
                         new CreateCustomer.Builder().firstName(firstName).lastName(lastName).build(),
-                        Collections.singletonList("Email address: cannot be blank.")
+                        new String[]{"Email address: cannot be blank."}
                 ),
                 Arguments.of(
                         new CreateCustomer.Builder().firstName(firstName).email(email).build(),
-                        Collections.singletonList("Last name: cannot be blank.")
+                        new String[]{"Last name: cannot be blank."}
                 ),
                 Arguments.of(
                         new CreateCustomer.Builder().lastName(lastName).email(email).build(),
-                        Collections.singletonList("First name: cannot be blank.")
+                        new String[]{"First name: cannot be blank."}
                 )
         );
     }

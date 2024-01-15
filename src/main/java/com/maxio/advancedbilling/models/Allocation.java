@@ -36,6 +36,8 @@ public class Allocation {
     private Integer pricePointId;
     private String pricePointName;
     private String pricePointHandle;
+    private Integer interval;
+    private IntervalUnit intervalUnit;
     private Integer previousPricePointId;
     private Boolean accrueCharge;
     private Boolean initiateDunning;
@@ -65,6 +67,8 @@ public class Allocation {
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointName  String value for pricePointName.
      * @param  pricePointHandle  String value for pricePointHandle.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  previousPricePointId  Integer value for previousPricePointId.
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  initiateDunning  Boolean value for initiateDunning.
@@ -87,6 +91,8 @@ public class Allocation {
             Integer pricePointId,
             String pricePointName,
             String pricePointHandle,
+            Integer interval,
+            IntervalUnit intervalUnit,
             Integer previousPricePointId,
             Boolean accrueCharge,
             Boolean initiateDunning,
@@ -107,6 +113,8 @@ public class Allocation {
         this.pricePointId = pricePointId;
         this.pricePointName = pricePointName;
         this.pricePointHandle = pricePointHandle;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
         this.previousPricePointId = previousPricePointId;
         this.accrueCharge = accrueCharge;
         this.initiateDunning = initiateDunning;
@@ -131,6 +139,8 @@ public class Allocation {
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointName  String value for pricePointName.
      * @param  pricePointHandle  String value for pricePointHandle.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  previousPricePointId  Integer value for previousPricePointId.
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  initiateDunning  Boolean value for initiateDunning.
@@ -144,9 +154,9 @@ public class Allocation {
             AllocationQuantity quantity, AllocationPreviousQuantity previousQuantity,
             OptionalNullable<String> memo, ZonedDateTime timestamp, ZonedDateTime createdAt,
             String prorationUpgradeScheme, String prorationDowngradeScheme, Integer pricePointId,
-            String pricePointName, String pricePointHandle, Integer previousPricePointId,
-            Boolean accrueCharge, Boolean initiateDunning,
-            OptionalNullable<CreditType> upgradeCharge,
+            String pricePointName, String pricePointHandle, Integer interval,
+            IntervalUnit intervalUnit, Integer previousPricePointId, Boolean accrueCharge,
+            Boolean initiateDunning, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
             OptionalNullable<AllocationPayment> payment) {
         this.allocationId = allocationId;
@@ -163,6 +173,8 @@ public class Allocation {
         this.pricePointId = pricePointId;
         this.pricePointName = pricePointName;
         this.pricePointHandle = pricePointHandle;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
         this.previousPricePointId = previousPricePointId;
         this.accrueCharge = accrueCharge;
         this.initiateDunning = initiateDunning;
@@ -518,6 +530,54 @@ public class Allocation {
     }
 
     /**
+     * Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getInterval() {
+        return interval;
+    }
+
+    /**
+     * Setter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @param interval Value for Integer
+     */
+    @JsonSetter("interval")
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    /**
+     * Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getIntervalUnit() {
+        return intervalUnit;
+    }
+
+    /**
+     * Setter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @param intervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("interval_unit")
+    public void setIntervalUnit(IntervalUnit intervalUnit) {
+        this.intervalUnit = intervalUnit;
+    }
+
+    /**
      * Getter for PreviousPricePointId.
      * @return Returns the Integer
      */
@@ -716,10 +776,11 @@ public class Allocation {
                 + ", prorationUpgradeScheme=" + prorationUpgradeScheme
                 + ", prorationDowngradeScheme=" + prorationDowngradeScheme + ", pricePointId="
                 + pricePointId + ", pricePointName=" + pricePointName + ", pricePointHandle="
-                + pricePointHandle + ", previousPricePointId=" + previousPricePointId
-                + ", accrueCharge=" + accrueCharge + ", initiateDunning=" + initiateDunning
-                + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit=" + downgradeCredit
-                + ", payment=" + payment + "]";
+                + pricePointHandle + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + ", previousPricePointId=" + previousPricePointId + ", accrueCharge="
+                + accrueCharge + ", initiateDunning=" + initiateDunning + ", upgradeCharge="
+                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", payment=" + payment
+                + "]";
     }
 
     /**
@@ -741,6 +802,8 @@ public class Allocation {
                 .pricePointId(getPricePointId())
                 .pricePointName(getPricePointName())
                 .pricePointHandle(getPricePointHandle())
+                .interval(getInterval())
+                .intervalUnit(getIntervalUnit())
                 .previousPricePointId(getPreviousPricePointId())
                 .accrueCharge(getAccrueCharge())
                 .initiateDunning(getInitiateDunning());
@@ -770,6 +833,8 @@ public class Allocation {
         private Integer pricePointId;
         private String pricePointName;
         private String pricePointHandle;
+        private Integer interval;
+        private IntervalUnit intervalUnit;
         private Integer previousPricePointId;
         private Boolean accrueCharge;
         private Boolean initiateDunning;
@@ -938,6 +1003,26 @@ public class Allocation {
         }
 
         /**
+         * Setter for interval.
+         * @param  interval  Integer value for interval.
+         * @return Builder
+         */
+        public Builder interval(Integer interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        /**
+         * Setter for intervalUnit.
+         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @return Builder
+         */
+        public Builder intervalUnit(IntervalUnit intervalUnit) {
+            this.intervalUnit = intervalUnit;
+            return this;
+        }
+
+        /**
          * Setter for previousPricePointId.
          * @param  previousPricePointId  Integer value for previousPricePointId.
          * @return Builder
@@ -1032,8 +1117,8 @@ public class Allocation {
             return new Allocation(allocationId, componentId, componentHandle, subscriptionId,
                     quantity, previousQuantity, memo, timestamp, createdAt, prorationUpgradeScheme,
                     prorationDowngradeScheme, pricePointId, pricePointName, pricePointHandle,
-                    previousPricePointId, accrueCharge, initiateDunning, upgradeCharge,
-                    downgradeCredit, payment);
+                    interval, intervalUnit, previousPricePointId, accrueCharge, initiateDunning,
+                    upgradeCharge, downgradeCredit, payment);
         }
     }
 }

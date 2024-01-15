@@ -38,7 +38,6 @@ class InvoicesControllerVoidTest {
     private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     private static Product product;
-    private static Subscription subscription;
     private static Customer customer;
     private static Invoice openInvoice;
     private static Invoice paidInvoice;
@@ -47,7 +46,7 @@ class InvoicesControllerVoidTest {
     static void setUp() throws IOException, ApiException {
         product = TEST_SETUP.createProduct(TEST_SETUP.createProductFamily(), b -> b.priceInCents(1250));
         customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
+        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
         paidInvoice = INVOICES_CONTROLLER
                 .listInvoices(new ListInvoicesInput.Builder().subscriptionId(subscription.getId()).build())
                 .getInvoices()
@@ -116,9 +115,8 @@ class InvoicesControllerVoidTest {
     @Test
     void shouldReturn404WhenVoidingNotExistentInvoice() {
         // when - then
-        CommonAssertions.assertNotFound(
-                () -> INVOICES_CONTROLLER.voidInvoice("123", new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice"))),
-                "Not Found"
+        CommonAssertions.assertNotFound(() -> INVOICES_CONTROLLER
+                .voidInvoice("123", new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice")))
         );
     }
 

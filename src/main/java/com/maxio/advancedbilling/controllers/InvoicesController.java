@@ -91,8 +91,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -174,8 +173,7 @@ public final class InvoicesController extends BaseController {
                         .queryParam(param -> param.key("sort")
                                 .value((input.getSort() != null) ? input.getSort().value() : "number").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -213,8 +211,7 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -271,8 +268,7 @@ public final class InvoicesController extends BaseController {
                         .queryParam(param -> param.key("event_types")
                                 .value(InvoiceEventType.toValue(input.getEventTypes())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -334,8 +330,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -381,15 +376,14 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, MultiInvoicePaymentResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -439,8 +433,7 @@ public final class InvoicesController extends BaseController {
                         .queryParam(param -> param.key("applications")
                                 .value(input.getApplications()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -477,8 +470,7 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -526,15 +518,14 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PaymentResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -579,18 +570,17 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -633,18 +623,17 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -684,8 +673,7 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("invoice_uid").value(input.getInvoiceUid())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -796,18 +784,14 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, InvoiceResponse.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new NestedErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -856,13 +840,12 @@ public final class InvoicesController extends BaseController {
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -900,18 +883,17 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerChangesPreviewResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -949,18 +931,17 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -1019,21 +1000,17 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .nullify404(false)
-                        .localErrorCase("401",
-                                 ErrorCase.setReason("Unauthorized",
-                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

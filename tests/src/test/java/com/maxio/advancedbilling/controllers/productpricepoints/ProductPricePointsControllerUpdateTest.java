@@ -7,6 +7,7 @@ import com.maxio.advancedbilling.models.UpdateProductPricePoint;
 import com.maxio.advancedbilling.models.UpdateProductPricePointRequest;
 import com.maxio.advancedbilling.models.containers.UpdateProductPricePointPricePointId;
 import com.maxio.advancedbilling.models.containers.UpdateProductPricePointProductId;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntityNotOk;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductPricePointsControllerUpdateTest extends ProductPricePointsBaseTest {
@@ -85,7 +86,7 @@ class ProductPricePointsControllerUpdateTest extends ProductPricePointsBaseTest 
     @MethodSource("argsForShouldReturn422WhenRequestBodyIsMissingOrEmpty")
     void shouldReturn422WhenRequestBodyIsMissingOrEmpty(UpdateProductPricePointRequest request) {
         // when - then
-        assertUnprocessableEntityNotOk(
+        CommonAssertions.assertUnprocessableEntity(
                 ApiException.class,
                 () -> PRODUCT_PRICE_POINTS_CONTROLLER.updateProductPricePoint(
                         UpdateProductPricePointProductId.fromNumber(product.getId()),

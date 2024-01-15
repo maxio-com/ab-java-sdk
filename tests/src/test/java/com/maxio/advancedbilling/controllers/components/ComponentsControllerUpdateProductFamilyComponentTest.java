@@ -100,7 +100,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
                 .handle("updatedHandle")
                 .build();
 
-        // when-then
+        // when - then
         assertUnprocessableEntity(
                 ErrorListResponseException.class,
                 () -> COMPONENTS_CONTROLLER.updateProductFamilyComponent(productFamilyId,
@@ -119,7 +119,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
                 .handle(component2.getHandle())
                 .build();
 
-        // when-then
+        // when - then
         assertUnprocessableEntity(
                 ErrorListResponseException.class,
                 () -> COMPONENTS_CONTROLLER.updateProductFamilyComponent(productFamilyId,
@@ -139,7 +139,7 @@ public class ComponentsControllerUpdateProductFamilyComponentTest extends Compon
         // given
         Component component = createQuantityBasedComponent();
 
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .updateProductFamilyComponent(productFamilyId, String.valueOf(component.getId()),
                         new UpdateComponentRequest()));

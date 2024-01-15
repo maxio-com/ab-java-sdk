@@ -58,11 +58,9 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
         // given
         Component component = createQuantityBasedComponent();
 
-        // when-then
-        new ApiExceptionAssert(() -> COMPONENTS_CONTROLLER
-                .updateDefaultPricePointForComponent(component.getId(), 3))
-                .hasErrorCode(422)
-                .hasHttpNotOkMessage();
+        // when - then
+        new ApiExceptionAssert(() -> COMPONENTS_CONTROLLER.updateDefaultPricePointForComponent(component.getId(), 3))
+                .isUnprocessableEntity();
     }
 
     @Test
@@ -71,7 +69,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
         Component component = createQuantityBasedComponent();
         ComponentPricePoint catalogPricePoint = createCatalogPricePoint(component.getId());
 
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .updateDefaultPricePointForComponent(component.getId(), catalogPricePoint.getId())
         );

@@ -1,11 +1,11 @@
 package com.maxio.advancedbilling.controllers.products;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,14 +13,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ProductsControllerUpdateProductTest extends ProductsControllerTestBase {
@@ -28,7 +24,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
     @Test
     void shouldUpdateProductWithAllParameters() throws IOException, ApiException {
         // when
-        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
         Product product = createProduct();
 
         Product updatedProduct = productsController.updateProduct(product.getId(), new CreateOrUpdateProductRequest(
@@ -39,7 +35,6 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                         .priceInCents(2000)
                         .interval(2)
                         .intervalUnit(IntervalUnit.DAY)
-
                         .accountingCode("acccode")
                         .taxCode("taxcode")
                         .requireCreditCard(true)
@@ -102,11 +97,8 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
         Product product2 = createProduct();
 
         // then
-        String expectedErrorMessage = String.format(
-                "API Handle: must be unique - '%s' has been taken by another Product in this Site.",
-                product1.getHandle());
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> productsController.updateProduct(
+        CommonAssertions
+                .assertThatErrorListResponse(() -> productsController.updateProduct(
                         product2.getId(), new CreateOrUpdateProductRequest(
                                 new CreateOrUpdateProduct.Builder()
                                         .name("Updated Product")
@@ -117,36 +109,24 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                                         .intervalUnit(IntervalUnit.DAY)
                                         .build()
                         ))
-                )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).containsExactlyInAnyOrder(expectedErrorMessage);
 
-                });
+                )
+                .isUnprocessableEntity()
+                .hasErrors("API Handle: must be unique - '%s' has been taken by another Product in this Site.".formatted(product1.getHandle()));
     }
 
     @ParameterizedTest
     @MethodSource("argsForShouldNotUpdateProductWithBlankBasicParameters")
     void shouldNotUpdateProductWithBlankBasicParameters(CreateOrUpdateProduct updateProduct,
-                                                        List<String> errorMessages) throws IOException, ApiException {
-        // when - then
+                                                        String[] errorMessages) throws IOException, ApiException {
+        // given
         Product product = createProduct();
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> productsController.updateProduct(
-                        product.getId(), new CreateOrUpdateProductRequest(updateProduct))
-                )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).hasSameElementsAs(errorMessages);
-                });
-    }
 
-    @Test
-    void shouldNotUpdateNotOwnedProduct() {
-        // when-then
-        assertNotFound(() -> productsController.updateProduct(999999, new CreateOrUpdateProductRequest()));
+        // when - then
+        CommonAssertions
+                .assertThatErrorListResponse(() -> productsController.updateProduct(product.getId(), new CreateOrUpdateProductRequest(updateProduct)))
+                .isUnprocessableEntity()
+                .hasErrors(errorMessages);
     }
 
     private static Stream<Arguments> argsForShouldNotUpdateProductWithBlankBasicParameters() {
@@ -154,17 +134,23 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                 .description("test description").priceInCents(11).interval(1).intervalUnit(IntervalUnit.MONTH).build();
         return Stream.of(
                 Arguments.of(
-                        productTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")
+                        productTemplate.toBuilder().name(null).build(),
+                        new String[]{"Name: cannot be blank."}
                 ),
                 Arguments.of(
-                        productTemplate.toBuilder().intervalUnit(null).build(), List.of("Interval unit: cannot be blank.",
-                                "Interval unit: must be 'month' or 'day'.")
+                        productTemplate.toBuilder().intervalUnit(null).build(),
+                        new String[]{"Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."}
                 ),
                 Arguments.of(
                         productTemplate.toBuilder().handle("VERY INVALID HANDLE").build(),
-                        List.of("API Handle: may only contain lowercase letters, numbers, underscores, and dashes")
+                        new String[]{"API Handle: may only contain lowercase letters, numbers, underscores, and dashes"}
                 )
         );
     }
 
+    @Test
+    void shouldNotUpdateNotOwnedProduct() {
+        // when - then
+        assertNotFound(() -> productsController.updateProduct(999999, new CreateOrUpdateProductRequest()));
+    }
 }

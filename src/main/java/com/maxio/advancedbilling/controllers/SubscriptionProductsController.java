@@ -119,15 +119,14 @@ public final class SubscriptionProductsController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -171,15 +170,14 @@ public final class SubscriptionProductsController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionMigrationPreviewResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

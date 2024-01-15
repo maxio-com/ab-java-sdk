@@ -39,7 +39,7 @@ public class ComponentsControllerFindTest extends ComponentsControllerTestBase {
         // given
         Component component = createQuantityBasedComponent();
 
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .readComponentByHandle(component.getHandle()));
     }

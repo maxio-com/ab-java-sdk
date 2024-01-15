@@ -60,7 +60,7 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
         // given
         Component component = createQuantityBasedComponent();
 
-        // when-then
+        // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
                 .readComponentById(productFamilyId, String.valueOf(component.getId())));
     }

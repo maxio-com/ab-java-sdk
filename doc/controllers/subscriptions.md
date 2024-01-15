@@ -1364,7 +1364,6 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 400 | Bad Request | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
 
 
@@ -1445,12 +1444,6 @@ Liquid error: Value cannot be null. (Parameter 'key')try {
     e.printStackTrace();
 }
 ```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Bad Request | `ApiException` |
 
 
 # Create Prepaid Subscription
@@ -1598,7 +1591,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "quantity_based_component",
+          "kind": "component",
           "amount_in_cents": 28000,
           "memo": "Component name: 14 Unit names",
           "discount_amount_in_cents": 0,
@@ -1609,7 +1602,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "metered_component",
+          "kind": "component",
           "amount_in_cents": 2000,
           "memo": "Fractional Metered Components: 20.0 Fractional Metereds",
           "discount_amount_in_cents": 0,
@@ -1620,7 +1613,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "on_off_component",
+          "kind": "component",
           "amount_in_cents": 0,
           "memo": "On/Off Component",
           "discount_amount_in_cents": 0,
@@ -1662,7 +1655,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "quantity_based_component",
+          "kind": "component",
           "amount_in_cents": 28000,
           "memo": "Component name: 14 Unit names",
           "discount_amount_in_cents": 0,
@@ -1673,7 +1666,7 @@ try {
         },
         {
           "transaction_type": "charge",
-          "kind": "on_off_component",
+          "kind": "component",
           "amount_in_cents": 0,
           "memo": "On/Off Component",
           "discount_amount_in_cents": 0,

@@ -25,7 +25,7 @@ public class ProductsControllerReadProductTest extends ProductsControllerTestBas
 
     @Test
     void shouldNotArchiveNotOwnedProduct() {
-        // when-then
+        // when - then
         assertNotFound(() -> productsController.readProduct(99999999));
     }
 

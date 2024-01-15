@@ -85,15 +85,14 @@ public final class CustomersController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new CustomerErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -148,8 +147,7 @@ public final class CustomersController extends BaseController {
                         .queryParam(param -> param.key("q")
                                 .value(input.getQ()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -187,8 +185,7 @@ public final class CustomersController extends BaseController {
                         .templateParam(param -> param.key("id").value(id).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -232,18 +229,17 @@ public final class CustomersController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CustomerResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
-                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new CustomerErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -274,8 +270,7 @@ public final class CustomersController extends BaseController {
                         .path("/customers/{id}.json")
                         .templateParam(param -> param.key("id").value(id).isRequired(false)
                                 .shouldEncode(true))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -311,8 +306,7 @@ public final class CustomersController extends BaseController {
                         .queryParam(param -> param.key("reference")
                                 .value(reference))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -349,8 +343,7 @@ public final class CustomersController extends BaseController {
                         .templateParam(param -> param.key("customer_id").value(customerId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

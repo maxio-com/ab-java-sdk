@@ -1,15 +1,14 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Subscription;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class SubscriptionStatusControllerRetrySubscriptionTest extends SubscriptionStatusControllerTestBase {
 
@@ -38,19 +37,14 @@ public class SubscriptionStatusControllerRetrySubscriptionTest extends Subscript
                 .cancelSubscription(subscription.getId(), null);
 
         // then
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> subscriptionStatusController.retrySubscription(subscription.getId())
-                )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).isEmpty();
-                });
+        CommonAssertions
+                .assertThatErrorListResponse(() -> subscriptionStatusController.retrySubscription(subscription.getId()))
+                .isUnprocessableEntity()
+                .hasNoErrors();
     }
 
     @Test
     void shouldNotRetryNonExistentSubscription() {
         assertNotFound(() -> subscriptionStatusController.retrySubscription(99999999));
     }
-
 }

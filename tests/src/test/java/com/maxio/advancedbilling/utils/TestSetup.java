@@ -181,7 +181,6 @@ public class TestSetup {
         OnOffComponent.Builder onOffComponentBuilder = new OnOffComponent.Builder()
                 .name(componentName)
                 .handle(handle)
-                .unitName("unit")
                 .unitPrice(OnOffComponentUnitPrice.fromPrecision(1.0));
         customizer.accept(onOffComponentBuilder);
         CreateOnOffComponent createOnOffComponent = new CreateOnOffComponent(onOffComponentBuilder.build());

@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class OnOffComponent {
     private String name;
-    private String unitName;
     private String description;
     private String handle;
     private Boolean taxable;
@@ -46,7 +45,6 @@ public class OnOffComponent {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  unitName  String value for unitName.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
@@ -66,7 +64,6 @@ public class OnOffComponent {
      */
     public OnOffComponent(
             String name,
-            String unitName,
             String description,
             String handle,
             Boolean taxable,
@@ -84,7 +81,6 @@ public class OnOffComponent {
             Integer interval,
             IntervalUnit intervalUnit) {
         this.name = name;
-        this.unitName = unitName;
         this.description = description;
         this.handle = handle;
         this.taxable = taxable;
@@ -106,7 +102,6 @@ public class OnOffComponent {
     /**
      * Initialization constructor.
      * @param  name  String value for name.
-     * @param  unitName  String value for unitName.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
@@ -125,14 +120,13 @@ public class OnOffComponent {
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
-    protected OnOffComponent(String name, String unitName, String description, String handle,
-            Boolean taxable, List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
+    protected OnOffComponent(String name, String description, String handle, Boolean taxable,
+            List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             OnOffComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
             String priceInCents, Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
             List<Integer> publicSignupPageIds, Integer interval, IntervalUnit intervalUnit) {
         this.name = name;
-        this.unitName = unitName;
         this.description = description;
         this.handle = handle;
         this.taxable = taxable;
@@ -171,31 +165,6 @@ public class OnOffComponent {
     @JsonSetter("name")
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Getter for UnitName.
-     * The name of the unit of measurement for the component. It should be singular since it will be
-     * automatically pluralized when necessary. i.e. “message”, which may then be shown as “5
-     * messages” on a subscription’s component line-item
-     * @return Returns the String
-     */
-    @JsonGetter("unit_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUnitName() {
-        return unitName;
-    }
-
-    /**
-     * Setter for UnitName.
-     * The name of the unit of measurement for the component. It should be singular since it will be
-     * automatically pluralized when necessary. i.e. “message”, which may then be shown as “5
-     * messages” on a subscription’s component line-item
-     * @param unitName Value for String
-     */
-    @JsonSetter("unit_name")
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
     }
 
     /**
@@ -602,11 +571,11 @@ public class OnOffComponent {
      */
     @Override
     public String toString() {
-        return "OnOffComponent [" + "name=" + name + ", unitName=" + unitName + ", description="
-                + description + ", handle=" + handle + ", taxable=" + taxable + ", prices=" + prices
-                + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit=" + downgradeCredit
-                + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice + ", taxCode="
-                + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", priceInCents="
+        return "OnOffComponent [" + "name=" + name + ", description=" + description + ", handle="
+                + handle + ", taxable=" + taxable + ", prices=" + prices + ", upgradeCharge="
+                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", pricePoints="
+                + pricePoints + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode
+                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", priceInCents="
                 + priceInCents + ", displayOnHostedPage=" + displayOnHostedPage
                 + ", allowFractionalQuantities=" + allowFractionalQuantities
                 + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
@@ -620,7 +589,6 @@ public class OnOffComponent {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(name)
-                .unitName(getUnitName())
                 .description(getDescription())
                 .handle(getHandle())
                 .taxable(getTaxable())
@@ -645,7 +613,6 @@ public class OnOffComponent {
      */
     public static class Builder {
         private String name;
-        private String unitName;
         private String description;
         private String handle;
         private Boolean taxable;
@@ -684,16 +651,6 @@ public class OnOffComponent {
          */
         public Builder name(String name) {
             this.name = name;
-            return this;
-        }
-
-        /**
-         * Setter for unitName.
-         * @param  unitName  String value for unitName.
-         * @return Builder
-         */
-        public Builder unitName(String unitName) {
-            this.unitName = unitName;
             return this;
         }
 
@@ -880,10 +837,10 @@ public class OnOffComponent {
          * @return {@link OnOffComponent}
          */
         public OnOffComponent build() {
-            return new OnOffComponent(name, unitName, description, handle, taxable, prices,
-                    upgradeCharge, downgradeCredit, pricePoints, unitPrice, taxCode,
-                    hideDateRangeOnInvoice, priceInCents, displayOnHostedPage,
-                    allowFractionalQuantities, publicSignupPageIds, interval, intervalUnit);
+            return new OnOffComponent(name, description, handle, taxable, prices, upgradeCharge,
+                    downgradeCredit, pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice,
+                    priceInCents, displayOnHostedPage, allowFractionalQuantities,
+                    publicSignupPageIds, interval, intervalUnit);
         }
     }
 }

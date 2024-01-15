@@ -15,7 +15,6 @@ import com.maxio.advancedbilling.models.ListChargifyJsPublicKeysInput;
 import com.maxio.advancedbilling.models.ListPublicKeysResponse;
 import com.maxio.advancedbilling.models.SiteResponse;
 import io.apimatic.core.ApiCall;
-import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
@@ -61,8 +60,7 @@ public final class SitesController extends BaseController {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/site.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -104,14 +102,10 @@ public final class SitesController extends BaseController {
                         .path("/sites/clear_data.json")
                         .queryParam(param -> param.key("cleanup_scope")
                                 .value((cleanupScope != null) ? cleanupScope.value() : "all").isRequired(false))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
-                        .localErrorCase("403",
-                                 ErrorCase.setReason("Forbidden",
-                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -145,8 +139,7 @@ public final class SitesController extends BaseController {
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

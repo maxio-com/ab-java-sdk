@@ -278,8 +278,7 @@ class InvoicesControllerIssueTest {
     void shouldReturn404WhenIssuingNotExistentInvoice() {
         // when - then
         CommonAssertions.assertNotFound(
-                () -> INVOICES_CONTROLLER.issueInvoice("123", new IssueInvoiceRequest(FailedPaymentAction.LEAVE_OPEN_INVOICE)),
-                "Not Found"
+                () -> INVOICES_CONTROLLER.issueInvoice("123", new IssueInvoiceRequest(FailedPaymentAction.LEAVE_OPEN_INVOICE))
         );
     }
 
@@ -287,8 +286,7 @@ class InvoicesControllerIssueTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController().issueInvoice("123", null),
-                "Unauthorized"
+                () -> TestClient.createInvalidCredentialsClient().getInvoicesController().issueInvoice("123", null)
         );
     }
 }

@@ -10,8 +10,8 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerError;
 import com.maxio.advancedbilling.models.UpdateCustomer;
 import com.maxio.advancedbilling.models.UpdateCustomerRequest;
-import com.maxio.advancedbilling.models.containers.CustomerErrorResponseErrors;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import com.maxio.advancedbilling.utils.matchers.CustomerErrorResponseErrorsGetter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,13 +20,11 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class CustomersControllerUpdateTest {
 
@@ -126,92 +124,74 @@ class CustomersControllerUpdateTest {
     @Test
     void shouldReturn404WhenNotExists() {
         // when - then
-        CommonAssertions.assertNotFound(
-                () -> customersController.updateCustomer(123, new UpdateCustomerRequest()),
-                "Not Found"
-        );
+        CommonAssertions.assertNotFound(() -> customersController.updateCustomer(123, new UpdateCustomerRequest()));
     }
 
     @Test
     void shouldNotUpdateCustomerWhenRequestIsNull() {
         // when - then
-        assertThatExceptionOfType(CustomerErrorResponseException.class)
-                .isThrownBy(() -> customersController.updateCustomer(customerId, null))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors().toString()).isEqualTo(
-                            CustomerErrorResponseErrors
-                                    .fromCustomerError(new CustomerError("can't be blank"))
-                                    .toString()
-                    );
-                });
+        assertUnprocessableEntity(
+                CustomerErrorResponseException.class,
+                () -> customersController.updateCustomer(customerId, null),
+                e -> assertThat(e.getErrors().match(new CustomerErrorResponseErrorsGetter<CustomerError>()))
+                        .usingRecursiveComparison()
+                        .isEqualTo(new CustomerError("can't be blank"))
+        );
     }
 
     @Test
     void shouldNotUpdateCustomerWhenRequestIsEmpty() {
         // when - then
-        assertThatExceptionOfType(CustomerErrorResponseException.class)
-                .isThrownBy(() -> customersController.updateCustomer(
-                        customerId,
-                        new UpdateCustomerRequest(new UpdateCustomer())
-                ))
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors().toString()).isEqualTo(
-                            CustomerErrorResponseErrors
-                                    .fromCustomerError(new CustomerError("can't be blank"))
-                                    .toString()
-                    );
-                });
+        assertUnprocessableEntity(
+                CustomerErrorResponseException.class,
+                () -> customersController.updateCustomer(customerId, new UpdateCustomerRequest(new UpdateCustomer())),
+                e -> assertThat(e.getErrors().match(new CustomerErrorResponseErrorsGetter<CustomerError>()))
+                        .usingRecursiveComparison()
+                        .isEqualTo(new CustomerError("can't be blank"))
+        );
     }
 
     @ParameterizedTest
     @MethodSource("argsForShouldNotUpdateCustomerWhenBasicParametersAreBlank")
-    void shouldNotUpdateCustomerWhenBasicParametersAreBlank(UpdateCustomer updateCustomer, List<String> errorMessages) {
+    void shouldNotUpdateCustomerWhenBasicParametersAreBlank(UpdateCustomer updateCustomer, String[] errorMessages) {
         // when - then
-        assertThatExceptionOfType(CustomerErrorResponseException.class)
-                .isThrownBy(() -> customersController.updateCustomer(
-                        customerId, new UpdateCustomerRequest(updateCustomer))
-                )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors().toString())
-                            .isEqualTo(CustomerErrorResponseErrors.fromListOfString(errorMessages).toString());
-                });
+        assertUnprocessableEntity(
+                CustomerErrorResponseException.class,
+                () -> customersController.updateCustomer(customerId, new UpdateCustomerRequest(updateCustomer)),
+                e -> assertThat(e.getErrors().match(new CustomerErrorResponseErrorsGetter<List<String>>()))
+                        .containsExactlyInAnyOrder(errorMessages)
+        );
     }
 
     private static Stream<Arguments> argsForShouldNotUpdateCustomerWhenBasicParametersAreBlank() {
         return Stream.of(
                 Arguments.of(
                         new UpdateCustomer.Builder().firstName("").lastName("").email("").build(),
-                        Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.", "Email address: cannot be blank.")
+                        new String[]{"First name: cannot be blank.", "Last name: cannot be blank.", "Email address: cannot be blank."}
                 ),
                 Arguments.of(
                         new UpdateCustomer.Builder().firstName("").build(),
-                        Collections.singletonList("First name: cannot be blank.")
+                        new String[]{"First name: cannot be blank."}
                 ),
                 Arguments.of(
                         new UpdateCustomer.Builder().lastName("").build(),
-                        Collections.singletonList("Last name: cannot be blank.")
+                        new String[]{"Last name: cannot be blank."}
                 ),
                 Arguments.of(
                         new UpdateCustomer.Builder().email("").build(),
-                        Collections.singletonList("Email address: cannot be blank.")
+                        new String[]{"Email address: cannot be blank."}
                 ),
                 Arguments.of(
                         new UpdateCustomer.Builder().firstName("").lastName("").build(),
-                        Arrays.asList("First name: cannot be blank.", "Last name: cannot be blank.")
+                        new String[]{"First name: cannot be blank.", "Last name: cannot be blank."}
                 ),
                 Arguments.of(
                         new UpdateCustomer.Builder().firstName("").email("").build(),
-                        Arrays.asList("First name: cannot be blank.", "Email address: cannot be blank.")
+                        new String[]{"First name: cannot be blank.", "Email address: cannot be blank."}
                 ),
                 Arguments.of(
                         new UpdateCustomer.Builder().lastName("").email("").build(),
-                        Arrays.asList("Last name: cannot be blank.", "Email address: cannot be blank.")
+                        new String[]{"Last name: cannot be blank.", "Email address: cannot be blank."}
                 )
         );
     }

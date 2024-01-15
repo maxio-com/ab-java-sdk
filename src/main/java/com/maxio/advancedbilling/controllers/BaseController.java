@@ -17,11 +17,14 @@ import java.util.Map;
  * Base class for all Controllers.
  */
 public abstract class BaseController {
+    protected final static String AUTHENTICATION_KEY = "global";
     protected static final Map<String, ErrorCase<ApiException>> GLOBAL_ERROR_CASES =
             new HashMap<String, ErrorCase<ApiException>>();
     private GlobalConfiguration globalConfig;
     static {
-        GLOBAL_ERROR_CASES.put(ErrorCase.DEFAULT, ErrorCase.setReason("HTTP Response Not OK",
+        GLOBAL_ERROR_CASES.put("404", ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                (reason, context) -> new ApiException(reason, context)));
+        GLOBAL_ERROR_CASES.put(ErrorCase.DEFAULT, ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                 (reason, context) -> new ApiException(reason, context)));
     }
 

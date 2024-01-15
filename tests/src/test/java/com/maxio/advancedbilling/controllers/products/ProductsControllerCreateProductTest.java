@@ -1,11 +1,12 @@
 package com.maxio.advancedbilling.controllers.products;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
+import com.maxio.advancedbilling.utils.assertions.ApiExceptionAssert;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,13 +15,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ProductsControllerCreateProductTest extends ProductsControllerTestBase {
@@ -28,7 +25,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     @Test
     void shouldCreateProductWhenOnlyRequiredParametersAreProvided() throws IOException, ApiException {
         // when
-        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
                 .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
@@ -100,25 +97,24 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
     @Test
     void shouldCreateProductWhenAllParametersAreProvided() throws IOException, ApiException {
         // when
-        ZonedDateTime timestamp = ZonedDateTime.now().minus(5, ChronoUnit.SECONDS);
+        ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
-                    .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
-                            new CreateOrUpdateProduct.Builder()
-                                    .name("Sample product full")
-                                    .handle(handle)
-                                    .description("A sample product for testing")
-                                    .priceInCents(1000)
-                                    .interval(1)
-                                    .intervalUnit(IntervalUnit.MONTH)
-                                    .requireCreditCard(true)
-
-                                    .accountingCode("code")
-                                    .autoCreateSignupPage(true)
-                                    .taxCode("taxcode")
-                                    .build()
-                    ))
-                    .getProduct();
+                .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
+                        new CreateOrUpdateProduct.Builder()
+                                .name("Sample product full")
+                                .handle(handle)
+                                .description("A sample product for testing")
+                                .priceInCents(1000)
+                                .interval(1)
+                                .intervalUnit(IntervalUnit.MONTH)
+                                .requireCreditCard(true)
+                                .accountingCode("code")
+                                .autoCreateSignupPage(true)
+                                .taxCode("taxcode")
+                                .build()
+                ))
+                .getProduct();
         // then
         assertAll(
                 () -> assertThat(product.getName()).isEqualTo("Sample product full"),
@@ -173,7 +169,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 () -> assertThat(product.getPublicSignupPages().get(0).getReturnUrl()).isNull(),
                 () -> assertThat(product.getPublicSignupPages().get(0).getReturnParams()).isNull(),
                 () -> assertThat(product.getPublicSignupPages().get(0).getUrl()).isNotEmpty()
-                );
+        );
     }
 
     @Test
@@ -187,44 +183,66 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 .interval(1)
                 .intervalUnit(IntervalUnit.MONTH)
                 .build();
-        Product product = productsController
-                    .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
-                            createOrUpdateProduct
-                    ))
-                    .getProduct();
+        productsController.createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(createOrUpdateProduct));
+
         // then
-        String expectedErrorMessage = String.format(
-                "API Handle: must be unique - '%s' has been taken by another Product in this Site.",
-                handle);
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> productsController.createProduct(
-                        productFamily.getId(), new CreateOrUpdateProductRequest(createOrUpdateProduct))
+        CommonAssertions
+                .assertThatErrorListResponse(() -> productsController
+                        .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(createOrUpdateProduct))
                 )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).containsExactlyInAnyOrder(expectedErrorMessage);
-                });
+                .isUnprocessableEntity()
+                .hasErrors("API Handle: must be unique - '%s' has been taken by another Product in this Site.".formatted(handle));
     }
 
     @ParameterizedTest
     @MethodSource("argsForShouldNotCreateProductWhenBasicParametersAreBlank")
-    void shouldNotCreateProductWhenBasicParametersAreBlank(CreateOrUpdateProduct createProduct, List<String> errorMessages) {
+    void shouldNotCreateProductWhenBasicParametersAreBlank(CreateOrUpdateProduct createProduct, String[] errorMessages) {
         // when - then
-        assertThatExceptionOfType(ErrorListResponseException.class)
-                .isThrownBy(() -> productsController.createProduct(
+        CommonAssertions
+                .assertThatErrorListResponse(() -> productsController.createProduct(
                         productFamily.getId(), new CreateOrUpdateProductRequest(createProduct))
                 )
-                .withMessage("Unprocessable Entity (WebDAV)")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(422);
-                    assertThat(e.getErrors()).hasSameElementsAs(errorMessages);
-                });
+                .isUnprocessableEntity()
+                .hasErrors(errorMessages);
+    }
+
+    private static Stream<Arguments> argsForShouldNotCreateProductWhenBasicParametersAreBlank() {
+        CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder()
+                .name("test-name")
+                .handle("product-handle-test")
+                .description("test description")
+                .priceInCents(11)
+                .interval(1)
+                .intervalUnit(IntervalUnit.MONTH)
+                .build();
+        return Stream.of(
+                Arguments.of(
+                        productTemplate.toBuilder().name(null).build(),
+                        new String[]{"Name: cannot be blank."}
+                ),
+                Arguments.of(
+                        productTemplate.toBuilder().intervalUnit(null).build(),
+                        new String[]{"Interval unit: cannot be blank.", "Interval unit: must be 'month' or 'day'."}
+                ),
+                Arguments.of(
+                        productTemplate.toBuilder().handle("VERY INVALID HANDLE").build(),
+                        new String[]{"API Handle: may only contain lowercase letters, numbers, underscores, and dashes"}
+                ),
+                Arguments.of(
+                        new CreateOrUpdateProduct(),
+                        new String[]{
+                                "Name: cannot be blank.",
+                                "Recurring Interval: must be greater than or equal to 1.",
+                                "Interval unit: cannot be blank.",
+                                "Interval unit: must be 'month' or 'day'."
+                        }
+                )
+        );
     }
 
     @Test
     void shouldNotCreateProductForNotOwnedProductFamily() {
-        // when
+        // given
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         CreateOrUpdateProduct createOrUpdateProduct = new CreateOrUpdateProduct.Builder()
                 .name("Sample product full")
@@ -234,43 +252,10 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 .intervalUnit(IntervalUnit.MONTH)
                 .build();
 
-        // then
-        assertThatExceptionOfType(ApiException.class)
-                .isThrownBy(() -> productsController
-                        .createProduct(999999, new CreateOrUpdateProductRequest(
-                                createOrUpdateProduct
-                        ))
-                )
-                .withMessage("HTTP Response Not OK")
-                .satisfies(e -> {
-                    assertThat(e.getResponseCode()).isEqualTo(403);
-                    assertThat(e.getHttpContext().getResponse().getBody()).isEqualTo("A valid product family id is required");
-                });
+        // when - then
+        new ApiExceptionAssert<>(() -> productsController
+                .createProduct(999999, new CreateOrUpdateProductRequest(createOrUpdateProduct)))
+                .hasErrorCode(403)
+                .hasMessageStartingWithHttpNotOk();
     }
-
-    private static Stream<Arguments> argsForShouldNotCreateProductWhenBasicParametersAreBlank() {
-        CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder().name("test-name").handle("product-handle-test")
-                .description("test description").priceInCents(11).interval(1).intervalUnit(IntervalUnit.MONTH).build();
-        return Stream.of(
-                Arguments.of(
-                        productTemplate.toBuilder().name(null).build(), Collections.singletonList("Name: cannot be blank.")
-                ),
-                Arguments.of(
-                        productTemplate.toBuilder().intervalUnit(null).build(), List.of("Interval unit: cannot be blank.",
-                                "Interval unit: must be 'month' or 'day'.")
-                ),
-                Arguments.of(
-                        productTemplate.toBuilder().handle("VERY INVALID HANDLE").build(),
-                        List.of("API Handle: may only contain lowercase letters, numbers, underscores, and dashes")
-                ),
-                Arguments.of(
-                        new CreateOrUpdateProduct(),
-                        List.of("Name: cannot be blank.",
-                                "Recurring Interval: must be greater than or equal to 1.",
-                                "Interval unit: cannot be blank.",
-                                "Interval unit: must be 'month' or 'day'.")
-                )
-        );
-    }
-
 }

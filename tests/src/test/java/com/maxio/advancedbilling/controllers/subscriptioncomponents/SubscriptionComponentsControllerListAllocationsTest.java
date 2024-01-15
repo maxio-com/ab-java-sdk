@@ -91,7 +91,7 @@ public class SubscriptionComponentsControllerListAllocationsTest {
 
     @Test
     void shouldNotListAllocationsProvidingInvalidPage() {
-        // when-then
+        // when - then
         assertThatErrorListResponse(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
                 .listAllocations(subscription.getId(), quantityBasedComponent.getId(), 0))
                 .isUnprocessableEntity()
@@ -101,24 +101,23 @@ public class SubscriptionComponentsControllerListAllocationsTest {
     @Test
     void shouldNotListAllocationsForNonExistentComponent() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
-                        .listAllocations(subscription.getId(), 123, 1),
-                "Not Found"
+                .listAllocations(subscription.getId(), 123, 1)
         );
     }
 
     @Test
     void shouldNotListAllocationsForNonExistentSubscription() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER
-                        .listAllocations(123, quantityBasedComponent.getId(), 1),
-                "Not Found"
+                .listAllocations(123, quantityBasedComponent.getId(), 1)
         );
     }
 
     @Test
     void shouldNotListAllocationsWhenProvidingInvalidCredentials() {
-        // when-then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
-                .listAllocations(subscription.getId(), quantityBasedComponent.getId(), 1), "Unauthorized");
+        // when - then
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+                .getSubscriptionComponentsController()
+                .listAllocations(subscription.getId(), quantityBasedComponent.getId(), 1));
     }
 
 }

@@ -20,7 +20,7 @@ public class ComponentsControllerArchiveTest extends ComponentsControllerTestBas
 
         // when
         Component archivedComponent = COMPONENTS_CONTROLLER
-                        .archiveComponent(productFamilyId, String.valueOf(component.getId()));
+                .archiveComponent(productFamilyId, String.valueOf(component.getId()));
 
         // then
         assertThat(archivedComponent.getId()).isEqualTo(component.getId());
@@ -34,26 +34,22 @@ public class ComponentsControllerArchiveTest extends ComponentsControllerTestBas
         Component component = createQuantityBasedComponent();
 
         // when
-        COMPONENTS_CONTROLLER
-                .archiveComponent(productFamilyId, String.valueOf(component.getId()));
+        COMPONENTS_CONTROLLER.archiveComponent(productFamilyId, String.valueOf(component.getId()));
 
         // then
         assertUnprocessableEntity(
                 ErrorListResponseException.class,
-                () -> COMPONENTS_CONTROLLER
-                        .archiveComponent(productFamilyId, String.valueOf(component.getId())),
-                e -> assertThat(e.getErrors())
-                        .containsExactlyInAnyOrder("Component cannot be archived. " +
-                                "Please make sure it hasn't already been archived.")
+                () -> COMPONENTS_CONTROLLER.archiveComponent(productFamilyId, String.valueOf(component.getId())),
+                e -> assertThat(e.getErrors()).containsExactlyInAnyOrder(
+                        "Component cannot be archived. Please make sure it hasn't already been archived."
+                )
 
         );
     }
 
     @Test
     void shouldNotArchiveNonExistentComponents() {
-        // when-then
+        // when - then
         assertNotFound(() -> COMPONENTS_CONTROLLER.archiveComponent(productFamilyId, "999999"));
     }
-
-
 }
