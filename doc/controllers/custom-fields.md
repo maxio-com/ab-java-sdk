@@ -216,8 +216,6 @@ Use the following method to update metafields for your Site. Metafields can be p
 ```java
 List<Metafield> updateMetafield(
     final ResourceType resourceType,
-    final String name,
-    final String currentName,
     final UpdateMetafieldsRequest body)
 ```
 
@@ -226,8 +224,6 @@ List<Metafield> updateMetafield(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `name` | `String` | Query, Required | Name of the custom field. |
-| `currentName` | `String` | Query, Optional | This only applies when you are updating an existing record and you wish to rename the field. Note you must supply name and current_name to rename the field |
 | `body` | [`UpdateMetafieldsRequest`](../../doc/models/update-metafields-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -238,9 +234,8 @@ List<Metafield> updateMetafield(
 
 ```java
 ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
-String name = "name0";
 try {
-    List<Metafield> result = customFieldsController.updateMetafield(resourceType, name, null, null);
+    List<Metafield> result = customFieldsController.updateMetafield(resourceType, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

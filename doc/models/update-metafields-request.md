@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Metafields` | [`UpdateMetafieldsRequestMetafields`](../../doc/models/containers/update-metafields-request-metafields.md) | Optional | This is a container for any-of cases. | UpdateMetafieldsRequestMetafields getMetafields() | setMetafields(UpdateMetafieldsRequestMetafields metafields) |
+| `Metafields` | [`UpdateMetafieldsRequestMetafields`](../../doc/models/containers/update-metafields-request-metafields.md) | Optional | This is a container for one-of cases. | UpdateMetafieldsRequestMetafields getMetafields() | setMetafields(UpdateMetafieldsRequestMetafields metafields) |
 
 ## Example (as JSON)
 

@@ -14,7 +14,7 @@
 | `UsesAllowed` | `Integer` | Optional | - | Integer getUsesAllowed() | setUsesAllowed(Integer usesAllowed) |
 | `ExpiresAt` | `String` | Optional | - | String getExpiresAt() | setExpiresAt(String expiresAt) |
 | `Recurring` | `Boolean` | Optional | - | Boolean getRecurring() | setRecurring(Boolean recurring) |
-| `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
+| `AmountInCents` | `Long` | Optional | **Constraints**: `>= 0` | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `Percentage` | `String` | Optional | - | String getPercentage() | setPercentage(String percentage) |
 
 ## Example (as JSON)

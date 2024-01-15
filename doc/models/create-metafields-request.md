@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Metafields` | [`CreateMetafieldsRequestMetafields`](../../doc/models/containers/create-metafields-request-metafields.md) | Required | This is a container for any-of cases. | CreateMetafieldsRequestMetafields getMetafields() | setMetafields(CreateMetafieldsRequestMetafields metafields) |
+| `Metafields` | [`CreateMetafieldsRequestMetafields`](../../doc/models/containers/create-metafields-request-metafields.md) | Required | This is a container for one-of cases. | CreateMetafieldsRequestMetafields getMetafields() | setMetafields(CreateMetafieldsRequestMetafields metafields) |
 
 ## Example (as JSON)
 
