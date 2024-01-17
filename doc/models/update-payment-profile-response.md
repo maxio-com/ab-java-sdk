@@ -19,7 +19,7 @@
     "id": 44,
     "first_name": "first_name4",
     "last_name": "last_name2",
-    "card_type": "card_type0",
+    "card_type": "bogus",
     "expiration_month": 38
   }
 }

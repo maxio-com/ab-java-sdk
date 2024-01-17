@@ -19,7 +19,7 @@ public class UpdatedPaymentProfile {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String cardType;
+    private CardType cardType;
     private Integer expirationMonth;
     private Integer expirationYear;
     private Integer customerId;
@@ -48,7 +48,7 @@ public class UpdatedPaymentProfile {
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
-     * @param  cardType  String value for cardType.
+     * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  Integer value for expirationMonth.
      * @param  expirationYear  Integer value for expirationYear.
      * @param  customerId  Integer value for customerId.
@@ -70,7 +70,7 @@ public class UpdatedPaymentProfile {
             Integer id,
             String firstName,
             String lastName,
-            String cardType,
+            CardType cardType,
             Integer expirationMonth,
             Integer expirationYear,
             Integer customerId,
@@ -114,7 +114,7 @@ public class UpdatedPaymentProfile {
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
-     * @param  cardType  String value for cardType.
+     * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  Integer value for expirationMonth.
      * @param  expirationYear  Integer value for expirationYear.
      * @param  customerId  Integer value for customerId.
@@ -133,8 +133,8 @@ public class UpdatedPaymentProfile {
      * @param  customerVaultToken  String value for customerVaultToken.
      */
 
-    protected UpdatedPaymentProfile(Integer id, String firstName, String lastName, String cardType,
-            Integer expirationMonth, Integer expirationYear, Integer customerId,
+    protected UpdatedPaymentProfile(Integer id, String firstName, String lastName,
+            CardType cardType, Integer expirationMonth, Integer expirationYear, Integer customerId,
             CurrentVault currentVault, String vaultToken, String billingAddress,
             String billingAddress2, String billingCity, String billingState, String billingZip,
             String billingCountry, String paymentType, Integer siteGatewaySettingId,
@@ -221,20 +221,22 @@ public class UpdatedPaymentProfile {
 
     /**
      * Getter for CardType.
-     * @return Returns the String
+     * The type of card used.
+     * @return Returns the CardType
      */
     @JsonGetter("card_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
     /**
      * Setter for CardType.
-     * @param cardType Value for String
+     * The type of card used.
+     * @param cardType Value for CardType
      */
     @JsonSetter("card_type")
-    public void setCardType(String cardType) {
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
@@ -633,7 +635,7 @@ public class UpdatedPaymentProfile {
         private Integer id;
         private String firstName;
         private String lastName;
-        private String cardType;
+        private CardType cardType;
         private Integer expirationMonth;
         private Integer expirationYear;
         private Integer customerId;
@@ -685,10 +687,10 @@ public class UpdatedPaymentProfile {
 
         /**
          * Setter for cardType.
-         * @param  cardType  String value for cardType.
+         * @param  cardType  CardType value for cardType.
          * @return Builder
          */
-        public Builder cardType(String cardType) {
+        public Builder cardType(CardType cardType) {
             this.cardType = cardType;
             return this;
         }

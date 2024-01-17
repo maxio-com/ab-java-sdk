@@ -25,7 +25,7 @@
 | `BillingZip` | `String` | Optional | - | String getBillingZip() | setBillingZip(String billingZip) |
 | `BillingCountry` | `String` | Optional | - | String getBillingCountry() | setBillingCountry(String billingCountry) |
 | `LastFour` | `String` | Optional | - | String getLastFour() | setLastFour(String lastFour) |
-| `CardType` | `String` | Optional | - | String getCardType() | setCardType(String cardType) |
+| `CardType` | [`CardType`](../../doc/models/card-type.md) | Optional | The type of card used. | CardType getCardType() | setCardType(CardType cardType) |
 | `CustomerVaultToken` | `String` | Optional | - | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
 | `Cvv` | `String` | Optional | - | String getCvv() | setCvv(String cvv) |
 | `PaymentType` | `String` | Optional | - | String getPaymentType() | setPaymentType(String paymentType) |
@@ -36,7 +36,6 @@
 {
   "full_number": 4111111111111111,
   "chargify_token": "tok_592nf92ng0sjd4300p",
-  "card_type": "visa",
   "expiration_month": "String1",
   "expiration_year": "String5",
   "vault_token": "vault_token6"
