@@ -11,8 +11,8 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
-import com.maxio.advancedbilling.exceptions.ErrorMapResponseException;
 import com.maxio.advancedbilling.exceptions.ProductPricePointErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BulkCreateProductPricePointsRequest;
@@ -481,7 +481,7 @@ public final class ProductPricePointsController extends BaseController {
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new ErrorMapResponseException(reason, context)))
+                                (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -532,7 +532,7 @@ public final class ProductPricePointsController extends BaseController {
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new ErrorMapResponseException(reason, context)))
+                                (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

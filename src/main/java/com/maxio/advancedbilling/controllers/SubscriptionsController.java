@@ -11,8 +11,8 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
-import com.maxio.advancedbilling.exceptions.NestedErrorResponseException;
 import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.exceptions.SubscriptionAddCouponErrorException;
 import com.maxio.advancedbilling.exceptions.SubscriptionRemoveCouponErrorsException;
@@ -1081,7 +1081,7 @@ public final class SubscriptionsController extends BaseController {
                         .nullify404(false)
                         .localErrorCase("400",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new NestedErrorResponseException(reason, context)))
+                                (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

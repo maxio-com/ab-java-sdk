@@ -20,6 +20,7 @@ public class PricePoint {
     private PricingScheme pricingScheme;
     private List<Price> prices;
     private Boolean useSiteExchangeRate;
+    private Boolean taxIncluded;
     private Integer interval;
     private IntervalUnit intervalUnit;
     private OveragePricing overagePricing;
@@ -42,6 +43,7 @@ public class PricePoint {
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  overagePricing  OveragePricing value for overagePricing.
@@ -56,6 +58,7 @@ public class PricePoint {
             PricingScheme pricingScheme,
             List<Price> prices,
             Boolean useSiteExchangeRate,
+            Boolean taxIncluded,
             Integer interval,
             IntervalUnit intervalUnit,
             OveragePricing overagePricing,
@@ -68,6 +71,7 @@ public class PricePoint {
         this.pricingScheme = pricingScheme;
         this.prices = prices;
         this.useSiteExchangeRate = useSiteExchangeRate;
+        this.taxIncluded = taxIncluded;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.overagePricing = overagePricing;
@@ -180,6 +184,27 @@ public class PricePoint {
     @JsonSetter("use_site_exchange_rate")
     public void setUseSiteExchangeRate(Boolean useSiteExchangeRate) {
         this.useSiteExchangeRate = useSiteExchangeRate;
+    }
+
+    /**
+     * Getter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
     }
 
     /**
@@ -345,11 +370,11 @@ public class PricePoint {
     public String toString() {
         return "PricePoint [" + "name=" + name + ", handle=" + handle + ", pricingScheme="
                 + pricingScheme + ", prices=" + prices + ", useSiteExchangeRate="
-                + useSiteExchangeRate + ", interval=" + interval + ", intervalUnit=" + intervalUnit
-                + ", overagePricing=" + overagePricing + ", rolloverPrepaidRemainder="
-                + rolloverPrepaidRemainder + ", renewPrepaidAllocation=" + renewPrepaidAllocation
-                + ", expirationInterval=" + expirationInterval + ", expirationIntervalUnit="
-                + expirationIntervalUnit + "]";
+                + useSiteExchangeRate + ", taxIncluded=" + taxIncluded + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + ", overagePricing=" + overagePricing
+                + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder
+                + ", renewPrepaidAllocation=" + renewPrepaidAllocation + ", expirationInterval="
+                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit + "]";
     }
 
     /**
@@ -364,6 +389,7 @@ public class PricePoint {
                 .pricingScheme(getPricingScheme())
                 .prices(getPrices())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
+                .taxIncluded(getTaxIncluded())
                 .interval(getInterval())
                 .intervalUnit(getIntervalUnit())
                 .overagePricing(getOveragePricing())
@@ -383,6 +409,7 @@ public class PricePoint {
         private PricingScheme pricingScheme;
         private List<Price> prices;
         private Boolean useSiteExchangeRate = true;
+        private Boolean taxIncluded;
         private Integer interval;
         private IntervalUnit intervalUnit;
         private OveragePricing overagePricing;
@@ -440,6 +467,16 @@ public class PricePoint {
          */
         public Builder useSiteExchangeRate(Boolean useSiteExchangeRate) {
             this.useSiteExchangeRate = useSiteExchangeRate;
+            return this;
+        }
+
+        /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
             return this;
         }
 
@@ -519,7 +556,7 @@ public class PricePoint {
          */
         public PricePoint build() {
             return new PricePoint(name, handle, pricingScheme, prices, useSiteExchangeRate,
-                    interval, intervalUnit, overagePricing, rolloverPrepaidRemainder,
+                    taxIncluded, interval, intervalUnit, overagePricing, rolloverPrepaidRemainder,
                     renewPrepaidAllocation, expirationInterval, expirationIntervalUnit);
         }
     }

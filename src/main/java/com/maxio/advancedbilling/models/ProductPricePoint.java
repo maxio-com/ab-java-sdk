@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * This is a model class for ProductPricePoint type.
@@ -42,6 +43,7 @@ public class ProductPricePoint {
     private PricePointType type;
     private Boolean taxIncluded;
     private OptionalNullable<Integer> subscriptionId;
+    private List<CurrencyPrice> currencyPrices;
 
     /**
      * Default constructor.
@@ -74,6 +76,7 @@ public class ProductPricePoint {
      * @param  type  PricePointType value for type.
      * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  currencyPrices  List of CurrencyPrice value for currencyPrices.
      */
     public ProductPricePoint(
             Integer id,
@@ -98,7 +101,8 @@ public class ProductPricePoint {
             Boolean useSiteExchangeRate,
             PricePointType type,
             Boolean taxIncluded,
-            Integer subscriptionId) {
+            Integer subscriptionId,
+            List<CurrencyPrice> currencyPrices) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -122,6 +126,7 @@ public class ProductPricePoint {
         this.type = type;
         this.taxIncluded = taxIncluded;
         this.subscriptionId = OptionalNullable.of(subscriptionId);
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -149,6 +154,7 @@ public class ProductPricePoint {
      * @param  type  PricePointType value for type.
      * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  currencyPrices  List of CurrencyPrice value for currencyPrices.
      */
 
     protected ProductPricePoint(Integer id, String name, String handle, Long priceInCents,
@@ -158,7 +164,8 @@ public class ProductPricePoint {
             Integer expirationInterval, IntervalUnit expirationIntervalUnit, Integer productId,
             OptionalNullable<ZonedDateTime> archivedAt, ZonedDateTime createdAt,
             ZonedDateTime updatedAt, Boolean useSiteExchangeRate, PricePointType type,
-            Boolean taxIncluded, OptionalNullable<Integer> subscriptionId) {
+            Boolean taxIncluded, OptionalNullable<Integer> subscriptionId,
+            List<CurrencyPrice> currencyPrices) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -182,6 +189,7 @@ public class ProductPricePoint {
         this.type = type;
         this.taxIncluded = taxIncluded;
         this.subscriptionId = subscriptionId;
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -717,6 +725,33 @@ public class ProductPricePoint {
     }
 
     /**
+     * Getter for CurrencyPrices.
+     * An array of currency pricing data is available when multiple currencies are defined for the
+     * site. It varies based on the use_site_exchange_rate setting for the price point. This
+     * parameter is present only in the response of read endpoints, after including the appropriate
+     * query parameter.
+     * @return Returns the List of CurrencyPrice
+     */
+    @JsonGetter("currency_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<CurrencyPrice> getCurrencyPrices() {
+        return currencyPrices;
+    }
+
+    /**
+     * Setter for CurrencyPrices.
+     * An array of currency pricing data is available when multiple currencies are defined for the
+     * site. It varies based on the use_site_exchange_rate setting for the price point. This
+     * parameter is present only in the response of read endpoints, after including the appropriate
+     * query parameter.
+     * @param currencyPrices Value for List of CurrencyPrice
+     */
+    @JsonSetter("currency_prices")
+    public void setCurrencyPrices(List<CurrencyPrice> currencyPrices) {
+        this.currencyPrices = currencyPrices;
+    }
+
+    /**
      * Converts this ProductPricePoint into string format.
      * @return String representation of this class
      */
@@ -732,7 +767,7 @@ public class ProductPricePoint {
                 + expirationIntervalUnit + ", productId=" + productId + ", archivedAt=" + archivedAt
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", useSiteExchangeRate="
                 + useSiteExchangeRate + ", type=" + type + ", taxIncluded=" + taxIncluded
-                + ", subscriptionId=" + subscriptionId + "]";
+                + ", subscriptionId=" + subscriptionId + ", currencyPrices=" + currencyPrices + "]";
     }
 
     /**
@@ -762,7 +797,8 @@ public class ProductPricePoint {
                 .updatedAt(getUpdatedAt())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .type(getType())
-                .taxIncluded(getTaxIncluded());
+                .taxIncluded(getTaxIncluded())
+                .currencyPrices(getCurrencyPrices());
         builder.archivedAt = internalGetArchivedAt();
         builder.subscriptionId = internalGetSubscriptionId();
         return builder;
@@ -795,6 +831,7 @@ public class ProductPricePoint {
         private PricePointType type;
         private Boolean taxIncluded;
         private OptionalNullable<Integer> subscriptionId;
+        private List<CurrencyPrice> currencyPrices;
 
 
 
@@ -1047,6 +1084,16 @@ public class ProductPricePoint {
         }
 
         /**
+         * Setter for currencyPrices.
+         * @param  currencyPrices  List of CurrencyPrice value for currencyPrices.
+         * @return Builder
+         */
+        public Builder currencyPrices(List<CurrencyPrice> currencyPrices) {
+            this.currencyPrices = currencyPrices;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ProductPricePoint} object using the set fields.
          * @return {@link ProductPricePoint}
          */
@@ -1055,7 +1102,8 @@ public class ProductPricePoint {
                     trialPriceInCents, trialInterval, trialIntervalUnit, trialType,
                     introductoryOffer, initialChargeInCents, initialChargeAfterTrial,
                     expirationInterval, expirationIntervalUnit, productId, archivedAt, createdAt,
-                    updatedAt, useSiteExchangeRate, type, taxIncluded, subscriptionId);
+                    updatedAt, useSiteExchangeRate, type, taxIncluded, subscriptionId,
+                    currencyPrices);
         }
     }
 }

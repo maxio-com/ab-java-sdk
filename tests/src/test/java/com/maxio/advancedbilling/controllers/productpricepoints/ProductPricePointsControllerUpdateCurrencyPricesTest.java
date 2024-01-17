@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.productpricepoints;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorMapResponseException;
+import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.models.CreateProductCurrencyPrice;
 import com.maxio.advancedbilling.models.CreateProductCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.CurrencyPrice;
@@ -75,7 +75,7 @@ class ProductPricePointsControllerUpdateCurrencyPricesTest extends ProductPriceP
                                                                                Map<String, String> expectedErrors) {
         // when - then
         CommonAssertions.assertUnprocessableEntity(
-                ErrorMapResponseException.class,
+                ErrorArrayMapResponseException.class,
                 () -> PRODUCT_PRICE_POINTS_CONTROLLER.updateProductCurrencyPrices(productPricePointId, request),
                 e -> assertThat(e.getErrors()).containsExactlyEntriesOf(expectedErrors)
         );

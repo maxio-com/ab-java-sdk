@@ -16,6 +16,10 @@ import java.util.List;
  */
 public class UpdateComponentPricePoint {
     private String name;
+    private String handle;
+    private PricingScheme pricingScheme;
+    private Boolean useSiteExchangeRate;
+    private Boolean taxIncluded;
     private Integer interval;
     private IntervalUnit intervalUnit;
     private List<UpdatePrice> prices;
@@ -24,21 +28,34 @@ public class UpdateComponentPricePoint {
      * Default constructor.
      */
     public UpdateComponentPricePoint() {
+        useSiteExchangeRate = true;
     }
 
     /**
      * Initialization constructor.
      * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  prices  List of UpdatePrice value for prices.
      */
     public UpdateComponentPricePoint(
             String name,
+            String handle,
+            PricingScheme pricingScheme,
+            Boolean useSiteExchangeRate,
+            Boolean taxIncluded,
             Integer interval,
             IntervalUnit intervalUnit,
             List<UpdatePrice> prices) {
         this.name = name;
+        this.handle = handle;
+        this.pricingScheme = pricingScheme;
+        this.useSiteExchangeRate = useSiteExchangeRate;
+        this.taxIncluded = taxIncluded;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.prices = prices;
@@ -61,6 +78,94 @@ public class UpdateComponentPricePoint {
     @JsonSetter("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Getter for Handle.
+     * @return Returns the String
+     */
+    @JsonGetter("handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getHandle() {
+        return handle;
+    }
+
+    /**
+     * Setter for Handle.
+     * @param handle Value for String
+     */
+    @JsonSetter("handle")
+    public void setHandle(String handle) {
+        this.handle = handle;
+    }
+
+    /**
+     * Getter for PricingScheme.
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @return Returns the PricingScheme
+     */
+    @JsonGetter("pricing_scheme")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PricingScheme getPricingScheme() {
+        return pricingScheme;
+    }
+
+    /**
+     * Setter for PricingScheme.
+     * The identifier for the pricing scheme. See [Product
+     * Components](https://help.chargify.com/products/product-components.html) for an overview of
+     * pricing schemes.
+     * @param pricingScheme Value for PricingScheme
+     */
+    @JsonSetter("pricing_scheme")
+    public void setPricingScheme(PricingScheme pricingScheme) {
+        this.pricingScheme = pricingScheme;
+    }
+
+    /**
+     * Getter for UseSiteExchangeRate.
+     * Whether to use the site level exchange rate or define your own prices for each currency if
+     * you have multiple currencies defined on the site.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("use_site_exchange_rate")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getUseSiteExchangeRate() {
+        return useSiteExchangeRate;
+    }
+
+    /**
+     * Setter for UseSiteExchangeRate.
+     * Whether to use the site level exchange rate or define your own prices for each currency if
+     * you have multiple currencies defined on the site.
+     * @param useSiteExchangeRate Value for Boolean
+     */
+    @JsonSetter("use_site_exchange_rate")
+    public void setUseSiteExchangeRate(Boolean useSiteExchangeRate) {
+        this.useSiteExchangeRate = useSiteExchangeRate;
+    }
+
+    /**
+     * Getter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
     }
 
     /**
@@ -136,7 +241,9 @@ public class UpdateComponentPricePoint {
      */
     @Override
     public String toString() {
-        return "UpdateComponentPricePoint [" + "name=" + name + ", interval=" + interval
+        return "UpdateComponentPricePoint [" + "name=" + name + ", handle=" + handle
+                + ", pricingScheme=" + pricingScheme + ", useSiteExchangeRate="
+                + useSiteExchangeRate + ", taxIncluded=" + taxIncluded + ", interval=" + interval
                 + ", intervalUnit=" + intervalUnit + ", prices=" + prices + "]";
     }
 
@@ -148,6 +255,10 @@ public class UpdateComponentPricePoint {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .name(getName())
+                .handle(getHandle())
+                .pricingScheme(getPricingScheme())
+                .useSiteExchangeRate(getUseSiteExchangeRate())
+                .taxIncluded(getTaxIncluded())
                 .interval(getInterval())
                 .intervalUnit(getIntervalUnit())
                 .prices(getPrices());
@@ -159,6 +270,10 @@ public class UpdateComponentPricePoint {
      */
     public static class Builder {
         private String name;
+        private String handle;
+        private PricingScheme pricingScheme;
+        private Boolean useSiteExchangeRate = true;
+        private Boolean taxIncluded;
         private Integer interval;
         private IntervalUnit intervalUnit;
         private List<UpdatePrice> prices;
@@ -172,6 +287,46 @@ public class UpdateComponentPricePoint {
          */
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        /**
+         * Setter for handle.
+         * @param  handle  String value for handle.
+         * @return Builder
+         */
+        public Builder handle(String handle) {
+            this.handle = handle;
+            return this;
+        }
+
+        /**
+         * Setter for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
+         * @return Builder
+         */
+        public Builder pricingScheme(PricingScheme pricingScheme) {
+            this.pricingScheme = pricingScheme;
+            return this;
+        }
+
+        /**
+         * Setter for useSiteExchangeRate.
+         * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+         * @return Builder
+         */
+        public Builder useSiteExchangeRate(Boolean useSiteExchangeRate) {
+            this.useSiteExchangeRate = useSiteExchangeRate;
+            return this;
+        }
+
+        /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
             return this;
         }
 
@@ -210,7 +365,8 @@ public class UpdateComponentPricePoint {
          * @return {@link UpdateComponentPricePoint}
          */
         public UpdateComponentPricePoint build() {
-            return new UpdateComponentPricePoint(name, interval, intervalUnit, prices);
+            return new UpdateComponentPricePoint(name, handle, pricingScheme, useSiteExchangeRate,
+                    taxIncluded, interval, intervalUnit, prices);
         }
     }
 }
