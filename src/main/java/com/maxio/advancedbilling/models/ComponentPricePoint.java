@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.models.containers.ComponentPricePointIntervalUnit;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
@@ -31,8 +32,9 @@ public class ComponentPricePoint {
     private Boolean useSiteExchangeRate;
     private Integer subscriptionId;
     private Boolean taxIncluded;
-    private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<Integer> interval;
+    private OptionalNullable<ComponentPricePointIntervalUnit> intervalUnit;
+    private List<ComponentCurrencyPrice> currencyPrices;
 
     /**
      * Default constructor.
@@ -58,7 +60,8 @@ public class ComponentPricePoint {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  interval  Integer value for interval.
-     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  intervalUnit  ComponentPricePointIntervalUnit value for intervalUnit.
+     * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
      */
     public ComponentPricePoint(
             Integer id,
@@ -76,7 +79,8 @@ public class ComponentPricePoint {
             Integer subscriptionId,
             Boolean taxIncluded,
             Integer interval,
-            IntervalUnit intervalUnit) {
+            ComponentPricePointIntervalUnit intervalUnit,
+            List<ComponentCurrencyPrice> currencyPrices) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -91,8 +95,9 @@ public class ComponentPricePoint {
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.subscriptionId = subscriptionId;
         this.taxIncluded = taxIncluded;
-        this.interval = interval;
-        this.intervalUnit = intervalUnit;
+        this.interval = OptionalNullable.of(interval);
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -112,15 +117,17 @@ public class ComponentPricePoint {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  interval  Integer value for interval.
-     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  intervalUnit  ComponentPricePointIntervalUnit value for intervalUnit.
+     * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
      */
 
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
             PricingScheme pricingScheme, Integer componentId, String handle,
             OptionalNullable<String> archivedAt, String createdAt, String updatedAt,
             List<ComponentPricePointPrice> prices, Boolean useSiteExchangeRate,
-            Integer subscriptionId, Boolean taxIncluded, Integer interval,
-            IntervalUnit intervalUnit) {
+            Integer subscriptionId, Boolean taxIncluded, OptionalNullable<Integer> interval,
+            OptionalNullable<ComponentPricePointIntervalUnit> intervalUnit,
+            List<ComponentCurrencyPrice> currencyPrices) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -137,6 +144,7 @@ public class ComponentPricePoint {
         this.taxIncluded = taxIncluded;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -446,16 +454,28 @@ public class ComponentPricePoint {
     }
 
     /**
+     * Internal Getter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetInterval() {
+        return this.interval;
+    }
+
+    /**
      * Getter for Interval.
      * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @return Returns the Integer
      */
-    @JsonGetter("interval")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getInterval() {
-        return interval;
+        return OptionalNullable.getFrom(interval);
     }
 
     /**
@@ -467,30 +487,87 @@ public class ComponentPricePoint {
      */
     @JsonSetter("interval")
     public void setInterval(Integer interval) {
-        this.interval = interval;
+        this.interval = OptionalNullable.of(interval);
+    }
+
+    /**
+     * UnSetter for Interval.
+     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component price point would renew every 30 days. This property is only available
+     * for sites with Multifrequency enabled.
+     */
+    public void unsetInterval() {
+        interval = null;
+    }
+
+    /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal ComponentPricePointIntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ComponentPricePointIntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
     }
 
     /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component price point, either month or day.
      * This property is only available for sites with Multifrequency enabled.
-     * @return Returns the IntervalUnit
+     * @return Returns the ComponentPricePointIntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+    public ComponentPricePointIntervalUnit getIntervalUnit() {
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
      * Setter for IntervalUnit.
      * A string representing the interval unit for this component price point, either month or day.
      * This property is only available for sites with Multifrequency enabled.
-     * @param intervalUnit Value for IntervalUnit
+     * @param intervalUnit Value for ComponentPricePointIntervalUnit
      */
     @JsonSetter("interval_unit")
-    public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+    public void setIntervalUnit(ComponentPricePointIntervalUnit intervalUnit) {
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
+    }
+
+    /**
+     * Getter for CurrencyPrices.
+     * An array of currency pricing data is available when multiple currencies are defined for the
+     * site. It varies based on the use_site_exchange_rate setting for the price point. This
+     * parameter is present only in the response of read endpoints, after including the appropriate
+     * query parameter.
+     * @return Returns the List of ComponentCurrencyPrice
+     */
+    @JsonGetter("currency_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<ComponentCurrencyPrice> getCurrencyPrices() {
+        return currencyPrices;
+    }
+
+    /**
+     * Setter for CurrencyPrices.
+     * An array of currency pricing data is available when multiple currencies are defined for the
+     * site. It varies based on the use_site_exchange_rate setting for the price point. This
+     * parameter is present only in the response of read endpoints, after including the appropriate
+     * query parameter.
+     * @param currencyPrices Value for List of ComponentCurrencyPrice
+     */
+    @JsonSetter("currency_prices")
+    public void setCurrencyPrices(List<ComponentCurrencyPrice> currencyPrices) {
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -505,7 +582,7 @@ public class ComponentPricePoint {
                 + createdAt + ", updatedAt=" + updatedAt + ", prices=" + prices
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", subscriptionId="
                 + subscriptionId + ", taxIncluded=" + taxIncluded + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + "]";
+                + ", intervalUnit=" + intervalUnit + ", currencyPrices=" + currencyPrices + "]";
     }
 
     /**
@@ -528,9 +605,10 @@ public class ComponentPricePoint {
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .subscriptionId(getSubscriptionId())
                 .taxIncluded(getTaxIncluded())
-                .interval(getInterval())
-                .intervalUnit(getIntervalUnit());
+                .currencyPrices(getCurrencyPrices());
         builder.archivedAt = internalGetArchivedAt();
+        builder.interval = internalGetInterval();
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -552,8 +630,9 @@ public class ComponentPricePoint {
         private Boolean useSiteExchangeRate = true;
         private Integer subscriptionId;
         private Boolean taxIncluded;
-        private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<Integer> interval;
+        private OptionalNullable<ComponentPricePointIntervalUnit> intervalUnit;
+        private List<ComponentCurrencyPrice> currencyPrices;
 
 
 
@@ -712,17 +791,45 @@ public class ComponentPricePoint {
          * @return Builder
          */
         public Builder interval(Integer interval) {
-            this.interval = interval;
+            this.interval = OptionalNullable.of(interval);
+            return this;
+        }
+
+        /**
+         * UnSetter for interval.
+         * @return Builder
+         */
+        public Builder unsetInterval() {
+            interval = null;
             return this;
         }
 
         /**
          * Setter for intervalUnit.
-         * @param  intervalUnit  IntervalUnit value for intervalUnit.
+         * @param  intervalUnit  ComponentPricePointIntervalUnit value for intervalUnit.
          * @return Builder
          */
-        public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+        public Builder intervalUnit(ComponentPricePointIntervalUnit intervalUnit) {
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
+            return this;
+        }
+
+        /**
+         * Setter for currencyPrices.
+         * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
+         * @return Builder
+         */
+        public Builder currencyPrices(List<ComponentCurrencyPrice> currencyPrices) {
+            this.currencyPrices = currencyPrices;
             return this;
         }
 
@@ -733,7 +840,7 @@ public class ComponentPricePoint {
         public ComponentPricePoint build() {
             return new ComponentPricePoint(id, type, mDefault, name, pricingScheme, componentId,
                     handle, archivedAt, createdAt, updatedAt, prices, useSiteExchangeRate,
-                    subscriptionId, taxIncluded, interval, intervalUnit);
+                    subscriptionId, taxIncluded, interval, intervalUnit, currencyPrices);
         }
     }
 }

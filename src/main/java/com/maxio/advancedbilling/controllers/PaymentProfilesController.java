@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
+import com.maxio.advancedbilling.exceptions.ErrorStringMapResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BankAccountResponse;
 import com.maxio.advancedbilling.models.BankAccountVerificationRequest;
@@ -18,7 +19,6 @@ import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreatePaymentProfileResponse;
 import com.maxio.advancedbilling.models.GetOneTimeTokenRequest;
 import com.maxio.advancedbilling.models.ListPaymentProfilesInput;
-import com.maxio.advancedbilling.models.ListPaymentProfilesResponse;
 import com.maxio.advancedbilling.models.PaymentProfileResponse;
 import com.maxio.advancedbilling.models.ReadPaymentProfileResponse;
 import com.maxio.advancedbilling.models.UpdatePaymentProfileRequest;
@@ -225,11 +225,11 @@ public final class PaymentProfilesController extends BaseController {
      * within a site. If no payment profiles are found, this endpoint will return an empty array,
      * not a 404.
      * @param  input  ListPaymentProfilesInput object containing request parameters
-     * @return    Returns the List of ListPaymentProfilesResponse response from the API call
+     * @return    Returns the List of ReadPaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<ListPaymentProfilesResponse> listPaymentProfiles(
+    public List<ReadPaymentProfileResponse> listPaymentProfiles(
             final ListPaymentProfilesInput input) throws ApiException, IOException {
         return prepareListPaymentProfilesRequest(input).execute();
     }
@@ -237,9 +237,9 @@ public final class PaymentProfilesController extends BaseController {
     /**
      * Builds the ApiCall object for listPaymentProfiles.
      */
-    private ApiCall<List<ListPaymentProfilesResponse>, ApiException> prepareListPaymentProfilesRequest(
+    private ApiCall<List<ReadPaymentProfileResponse>, ApiException> prepareListPaymentProfilesRequest(
             final ListPaymentProfilesInput input) throws IOException {
-        return new ApiCall.Builder<List<ListPaymentProfilesResponse>, ApiException>()
+        return new ApiCall.Builder<List<ReadPaymentProfileResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -256,7 +256,7 @@ public final class PaymentProfilesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
-                                        ListPaymentProfilesResponse[].class))
+                                        ReadPaymentProfileResponse[].class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -282,7 +282,7 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ReadPaymentProfileResponse readPaymentProfile(
-            final String paymentProfileId) throws ApiException, IOException {
+            final int paymentProfileId) throws ApiException, IOException {
         return prepareReadPaymentProfileRequest(paymentProfileId).execute();
     }
 
@@ -290,13 +290,13 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for readPaymentProfile.
      */
     private ApiCall<ReadPaymentProfileResponse, ApiException> prepareReadPaymentProfileRequest(
-            final String paymentProfileId) throws IOException {
+            final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<ReadPaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/payment_profiles/{payment_profile_id}.json")
-                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
+                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -305,6 +305,9 @@ public final class PaymentProfilesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ReadPaymentProfileResponse.class))
                         .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -341,7 +344,7 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public UpdatePaymentProfileResponse updatePaymentProfile(
-            final String paymentProfileId,
+            final int paymentProfileId,
             final UpdatePaymentProfileRequest body) throws ApiException, IOException {
         return prepareUpdatePaymentProfileRequest(paymentProfileId, body).execute();
     }
@@ -350,7 +353,7 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for updatePaymentProfile.
      */
     private ApiCall<UpdatePaymentProfileResponse, ApiException> prepareUpdatePaymentProfileRequest(
-            final String paymentProfileId,
+            final int paymentProfileId,
             final UpdatePaymentProfileRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<UpdatePaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -359,7 +362,7 @@ public final class PaymentProfilesController extends BaseController {
                         .path("/payment_profiles/{payment_profile_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
+                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -370,6 +373,12 @@ public final class PaymentProfilesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, UpdatePaymentProfileResponse.class))
                         .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorStringMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -384,7 +393,7 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void deleteUnusedPaymentProfile(
-            final String paymentProfileId) throws ApiException, IOException {
+            final int paymentProfileId) throws ApiException, IOException {
         prepareDeleteUnusedPaymentProfileRequest(paymentProfileId).execute();
     }
 
@@ -392,13 +401,13 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for deleteUnusedPaymentProfile.
      */
     private ApiCall<Void, ApiException> prepareDeleteUnusedPaymentProfileRequest(
-            final String paymentProfileId) throws IOException {
+            final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/payment_profiles/{payment_profile_id}.json")
-                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
+                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))
@@ -428,7 +437,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     public void deleteSubscriptionsPaymentProfile(
             final int subscriptionId,
-            final String paymentProfileId) throws ApiException, IOException {
+            final int paymentProfileId) throws ApiException, IOException {
         prepareDeleteSubscriptionsPaymentProfileRequest(subscriptionId, paymentProfileId).execute();
     }
 
@@ -437,7 +446,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteSubscriptionsPaymentProfileRequest(
             final int subscriptionId,
-            final String paymentProfileId) throws IOException {
+            final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -445,7 +454,7 @@ public final class PaymentProfilesController extends BaseController {
                         .path("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
+                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))
@@ -519,7 +528,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     public void deleteSubscriptionGroupPaymentProfile(
             final String uid,
-            final String paymentProfileId) throws ApiException, IOException {
+            final int paymentProfileId) throws ApiException, IOException {
         prepareDeleteSubscriptionGroupPaymentProfileRequest(uid, paymentProfileId).execute();
     }
 
@@ -528,7 +537,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteSubscriptionGroupPaymentProfileRequest(
             final String uid,
-            final String paymentProfileId) throws IOException {
+            final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -536,7 +545,7 @@ public final class PaymentProfilesController extends BaseController {
                         .path("/subscription_groups/{uid}/payment_profiles/{payment_profile_id}.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
+                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))
@@ -610,7 +619,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     public PaymentProfileResponse updateSubscriptionGroupDefaultPaymentProfile(
             final String uid,
-            final String paymentProfileId) throws ApiException, IOException {
+            final int paymentProfileId) throws ApiException, IOException {
         return prepareUpdateSubscriptionGroupDefaultPaymentProfileRequest(uid,
                 paymentProfileId).execute();
     }
@@ -620,7 +629,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<PaymentProfileResponse, ApiException> prepareUpdateSubscriptionGroupDefaultPaymentProfileRequest(
             final String uid,
-            final String paymentProfileId) throws IOException {
+            final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -628,7 +637,7 @@ public final class PaymentProfilesController extends BaseController {
                         .path("/subscription_groups/{uid}/payment_profiles/{payment_profile_id}/change_payment_profile.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId)
+                        .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)

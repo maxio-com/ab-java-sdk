@@ -22,6 +22,7 @@ public class CreateComponentPricePoint {
     private PricingScheme pricingScheme;
     private List<Price> prices;
     private Boolean useSiteExchangeRate;
+    private Boolean taxIncluded;
     private Integer interval;
     private IntervalUnit intervalUnit;
 
@@ -39,6 +40,7 @@ public class CreateComponentPricePoint {
      * @param  prices  List of Price value for prices.
      * @param  handle  String value for handle.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
@@ -48,6 +50,7 @@ public class CreateComponentPricePoint {
             List<Price> prices,
             String handle,
             Boolean useSiteExchangeRate,
+            Boolean taxIncluded,
             Integer interval,
             IntervalUnit intervalUnit) {
         this.name = name;
@@ -55,6 +58,7 @@ public class CreateComponentPricePoint {
         this.pricingScheme = pricingScheme;
         this.prices = prices;
         this.useSiteExchangeRate = useSiteExchangeRate;
+        this.taxIncluded = taxIncluded;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
     }
@@ -70,7 +74,7 @@ public class CreateComponentPricePoint {
             @JsonProperty("name") String name,
             @JsonProperty("pricing_scheme") PricingScheme pricingScheme,
             @JsonProperty("prices") List<Price> prices) {
-        this(name, pricingScheme, prices, null, null, null, null);
+        this(name, pricingScheme, prices, null, null, null, null, null);
     }
 
     /**
@@ -176,6 +180,27 @@ public class CreateComponentPricePoint {
     }
 
     /**
+     * Getter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
+    }
+
+    /**
      * Getter for Interval.
      * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
      * mean this price point would renew every 30 days. This property is only available for sites
@@ -231,8 +256,8 @@ public class CreateComponentPricePoint {
     public String toString() {
         return "CreateComponentPricePoint [" + "name=" + name + ", pricingScheme=" + pricingScheme
                 + ", prices=" + prices + ", handle=" + handle + ", useSiteExchangeRate="
-                + useSiteExchangeRate + ", interval=" + interval + ", intervalUnit=" + intervalUnit
-                + "]";
+                + useSiteExchangeRate + ", taxIncluded=" + taxIncluded + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + "]";
     }
 
     /**
@@ -244,6 +269,7 @@ public class CreateComponentPricePoint {
         Builder builder = new Builder(name, pricingScheme, prices)
                 .handle(getHandle())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
+                .taxIncluded(getTaxIncluded())
                 .interval(getInterval())
                 .intervalUnit(getIntervalUnit());
         return builder;
@@ -258,6 +284,7 @@ public class CreateComponentPricePoint {
         private List<Price> prices;
         private String handle;
         private Boolean useSiteExchangeRate = true;
+        private Boolean taxIncluded;
         private Integer interval;
         private IntervalUnit intervalUnit;
 
@@ -330,6 +357,16 @@ public class CreateComponentPricePoint {
         }
 
         /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
+            return this;
+        }
+
+        /**
          * Setter for interval.
          * @param  interval  Integer value for interval.
          * @return Builder
@@ -355,7 +392,7 @@ public class CreateComponentPricePoint {
          */
         public CreateComponentPricePoint build() {
             return new CreateComponentPricePoint(name, pricingScheme, prices, handle,
-                    useSiteExchangeRate, interval, intervalUnit);
+                    useSiteExchangeRate, taxIncluded, interval, intervalUnit);
         }
     }
 }

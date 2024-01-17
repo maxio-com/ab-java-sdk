@@ -22,22 +22,22 @@ public class CreditCardPaymentProfile {
     private String firstName;
     private String lastName;
     private String maskedCardNumber;
-    private CardType1 cardType;
+    private CardType cardType;
     private Integer expirationMonth;
     private Integer expirationYear;
     private Integer customerId;
     private CurrentVault currentVault;
     private String vaultToken;
-    private String billingAddress;
-    private String billingCity;
-    private String billingState;
-    private String billingZip;
-    private String billingCountry;
+    private OptionalNullable<String> billingAddress;
+    private OptionalNullable<String> billingCity;
+    private OptionalNullable<String> billingState;
+    private OptionalNullable<String> billingZip;
+    private OptionalNullable<String> billingCountry;
     private OptionalNullable<String> customerVaultToken;
-    private String billingAddress2;
+    private OptionalNullable<String> billingAddress2;
     private String paymentType;
     private Boolean disabled;
-    private Integer siteGatewaySettingId;
+    private OptionalNullable<Integer> siteGatewaySettingId;
     private OptionalNullable<String> gatewayHandle;
 
     /**
@@ -52,7 +52,7 @@ public class CreditCardPaymentProfile {
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
-     * @param  cardType  CardType1 value for cardType.
+     * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  Integer value for expirationMonth.
      * @param  expirationYear  Integer value for expirationYear.
      * @param  customerId  Integer value for customerId.
@@ -75,7 +75,7 @@ public class CreditCardPaymentProfile {
             Integer id,
             String firstName,
             String lastName,
-            CardType1 cardType,
+            CardType cardType,
             Integer expirationMonth,
             Integer expirationYear,
             Integer customerId,
@@ -102,16 +102,16 @@ public class CreditCardPaymentProfile {
         this.customerId = customerId;
         this.currentVault = currentVault;
         this.vaultToken = vaultToken;
-        this.billingAddress = billingAddress;
-        this.billingCity = billingCity;
-        this.billingState = billingState;
-        this.billingZip = billingZip;
-        this.billingCountry = billingCountry;
+        this.billingAddress = OptionalNullable.of(billingAddress);
+        this.billingCity = OptionalNullable.of(billingCity);
+        this.billingState = OptionalNullable.of(billingState);
+        this.billingZip = OptionalNullable.of(billingZip);
+        this.billingCountry = OptionalNullable.of(billingCountry);
         this.customerVaultToken = OptionalNullable.of(customerVaultToken);
-        this.billingAddress2 = billingAddress2;
+        this.billingAddress2 = OptionalNullable.of(billingAddress2);
         this.paymentType = paymentType;
         this.disabled = disabled;
-        this.siteGatewaySettingId = siteGatewaySettingId;
+        this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
     }
 
@@ -121,7 +121,7 @@ public class CreditCardPaymentProfile {
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
-     * @param  cardType  CardType1 value for cardType.
+     * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  Integer value for expirationMonth.
      * @param  expirationYear  Integer value for expirationYear.
      * @param  customerId  Integer value for customerId.
@@ -141,11 +141,13 @@ public class CreditCardPaymentProfile {
      */
 
     protected CreditCardPaymentProfile(String maskedCardNumber, Integer id, String firstName,
-            String lastName, CardType1 cardType, Integer expirationMonth, Integer expirationYear,
-            Integer customerId, CurrentVault currentVault, String vaultToken, String billingAddress,
-            String billingCity, String billingState, String billingZip, String billingCountry,
-            OptionalNullable<String> customerVaultToken, String billingAddress2, String paymentType,
-            Boolean disabled, Integer siteGatewaySettingId,
+            String lastName, CardType cardType, Integer expirationMonth, Integer expirationYear,
+            Integer customerId, CurrentVault currentVault, String vaultToken,
+            OptionalNullable<String> billingAddress, OptionalNullable<String> billingCity,
+            OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
+            OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
+            OptionalNullable<String> billingAddress2, String paymentType, Boolean disabled,
+            OptionalNullable<Integer> siteGatewaySettingId,
             OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
@@ -177,10 +179,19 @@ public class CreditCardPaymentProfile {
     @JsonCreator
     protected CreditCardPaymentProfile(
             @JsonProperty("masked_card_number") String maskedCardNumber) {
-        this(maskedCardNumber, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, OptionalNullable.of(null), null, null, null, null,
+        this(maskedCardNumber, null, null, null, null, null, null, null, null, null,
+                OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
+                OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
+                OptionalNullable.of(null), null, null, OptionalNullable.of(null),
                 OptionalNullable.of(null));
+        unsetBillingAddress();
+        unsetBillingCity();
+        unsetBillingState();
+        unsetBillingZip();
+        unsetBillingCountry();
         unsetCustomerVaultToken();
+        unsetBillingAddress2();
+        unsetSiteGatewaySettingId();
         unsetGatewayHandle();
     }
 
@@ -261,20 +272,22 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for CardType.
-     * @return Returns the CardType1
+     * The type of card used.
+     * @return Returns the CardType
      */
     @JsonGetter("card_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CardType1 getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
     /**
      * Setter for CardType.
-     * @param cardType Value for CardType1
+     * The type of card used.
+     * @param cardType Value for CardType
      */
     @JsonSetter("card_type")
-    public void setCardType(CardType1 cardType) {
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
@@ -378,13 +391,22 @@ public class CreditCardPaymentProfile {
     }
 
     /**
-     * Getter for BillingAddress.
-     * @return Returns the String
+     * Internal Getter for BillingAddress.
+     * @return Returns the Internal String
      */
     @JsonGetter("billing_address")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingAddress() {
+        return this.billingAddress;
+    }
+
+    /**
+     * Getter for BillingAddress.
+     * @return Returns the String
+     */
     public String getBillingAddress() {
-        return billingAddress;
+        return OptionalNullable.getFrom(billingAddress);
     }
 
     /**
@@ -393,17 +415,33 @@ public class CreditCardPaymentProfile {
      */
     @JsonSetter("billing_address")
     public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
+        this.billingAddress = OptionalNullable.of(billingAddress);
+    }
+
+    /**
+     * UnSetter for BillingAddress.
+     */
+    public void unsetBillingAddress() {
+        billingAddress = null;
+    }
+
+    /**
+     * Internal Getter for BillingCity.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_city")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingCity() {
+        return this.billingCity;
     }
 
     /**
      * Getter for BillingCity.
      * @return Returns the String
      */
-    @JsonGetter("billing_city")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingCity() {
-        return billingCity;
+        return OptionalNullable.getFrom(billingCity);
     }
 
     /**
@@ -412,17 +450,33 @@ public class CreditCardPaymentProfile {
      */
     @JsonSetter("billing_city")
     public void setBillingCity(String billingCity) {
-        this.billingCity = billingCity;
+        this.billingCity = OptionalNullable.of(billingCity);
+    }
+
+    /**
+     * UnSetter for BillingCity.
+     */
+    public void unsetBillingCity() {
+        billingCity = null;
+    }
+
+    /**
+     * Internal Getter for BillingState.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingState() {
+        return this.billingState;
     }
 
     /**
      * Getter for BillingState.
      * @return Returns the String
      */
-    @JsonGetter("billing_state")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingState() {
-        return billingState;
+        return OptionalNullable.getFrom(billingState);
     }
 
     /**
@@ -431,17 +485,33 @@ public class CreditCardPaymentProfile {
      */
     @JsonSetter("billing_state")
     public void setBillingState(String billingState) {
-        this.billingState = billingState;
+        this.billingState = OptionalNullable.of(billingState);
+    }
+
+    /**
+     * UnSetter for BillingState.
+     */
+    public void unsetBillingState() {
+        billingState = null;
+    }
+
+    /**
+     * Internal Getter for BillingZip.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_zip")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingZip() {
+        return this.billingZip;
     }
 
     /**
      * Getter for BillingZip.
      * @return Returns the String
      */
-    @JsonGetter("billing_zip")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingZip() {
-        return billingZip;
+        return OptionalNullable.getFrom(billingZip);
     }
 
     /**
@@ -450,17 +520,33 @@ public class CreditCardPaymentProfile {
      */
     @JsonSetter("billing_zip")
     public void setBillingZip(String billingZip) {
-        this.billingZip = billingZip;
+        this.billingZip = OptionalNullable.of(billingZip);
+    }
+
+    /**
+     * UnSetter for BillingZip.
+     */
+    public void unsetBillingZip() {
+        billingZip = null;
+    }
+
+    /**
+     * Internal Getter for BillingCountry.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingCountry() {
+        return this.billingCountry;
     }
 
     /**
      * Getter for BillingCountry.
      * @return Returns the String
      */
-    @JsonGetter("billing_country")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingCountry() {
-        return billingCountry;
+        return OptionalNullable.getFrom(billingCountry);
     }
 
     /**
@@ -469,7 +555,14 @@ public class CreditCardPaymentProfile {
      */
     @JsonSetter("billing_country")
     public void setBillingCountry(String billingCountry) {
-        this.billingCountry = billingCountry;
+        this.billingCountry = OptionalNullable.of(billingCountry);
+    }
+
+    /**
+     * UnSetter for BillingCountry.
+     */
+    public void unsetBillingCountry() {
+        billingCountry = null;
     }
 
     /**
@@ -508,13 +601,22 @@ public class CreditCardPaymentProfile {
     }
 
     /**
-     * Getter for BillingAddress2.
-     * @return Returns the String
+     * Internal Getter for BillingAddress2.
+     * @return Returns the Internal String
      */
     @JsonGetter("billing_address_2")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingAddress2() {
+        return this.billingAddress2;
+    }
+
+    /**
+     * Getter for BillingAddress2.
+     * @return Returns the String
+     */
     public String getBillingAddress2() {
-        return billingAddress2;
+        return OptionalNullable.getFrom(billingAddress2);
     }
 
     /**
@@ -523,7 +625,14 @@ public class CreditCardPaymentProfile {
      */
     @JsonSetter("billing_address_2")
     public void setBillingAddress2(String billingAddress2) {
-        this.billingAddress2 = billingAddress2;
+        this.billingAddress2 = OptionalNullable.of(billingAddress2);
+    }
+
+    /**
+     * UnSetter for BillingAddress2.
+     */
+    public void unsetBillingAddress2() {
+        billingAddress2 = null;
     }
 
     /**
@@ -565,13 +674,22 @@ public class CreditCardPaymentProfile {
     }
 
     /**
-     * Getter for SiteGatewaySettingId.
-     * @return Returns the Integer
+     * Internal Getter for SiteGatewaySettingId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("site_gateway_setting_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetSiteGatewaySettingId() {
+        return this.siteGatewaySettingId;
+    }
+
+    /**
+     * Getter for SiteGatewaySettingId.
+     * @return Returns the Integer
+     */
     public Integer getSiteGatewaySettingId() {
-        return siteGatewaySettingId;
+        return OptionalNullable.getFrom(siteGatewaySettingId);
     }
 
     /**
@@ -580,7 +698,14 @@ public class CreditCardPaymentProfile {
      */
     @JsonSetter("site_gateway_setting_id")
     public void setSiteGatewaySettingId(Integer siteGatewaySettingId) {
-        this.siteGatewaySettingId = siteGatewaySettingId;
+        this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
+    }
+
+    /**
+     * UnSetter for SiteGatewaySettingId.
+     */
+    public void unsetSiteGatewaySettingId() {
+        siteGatewaySettingId = null;
     }
 
     /**
@@ -652,16 +777,16 @@ public class CreditCardPaymentProfile {
                 .customerId(getCustomerId())
                 .currentVault(getCurrentVault())
                 .vaultToken(getVaultToken())
-                .billingAddress(getBillingAddress())
-                .billingCity(getBillingCity())
-                .billingState(getBillingState())
-                .billingZip(getBillingZip())
-                .billingCountry(getBillingCountry())
-                .billingAddress2(getBillingAddress2())
                 .paymentType(getPaymentType())
-                .disabled(getDisabled())
-                .siteGatewaySettingId(getSiteGatewaySettingId());
+                .disabled(getDisabled());
+        builder.billingAddress = internalGetBillingAddress();
+        builder.billingCity = internalGetBillingCity();
+        builder.billingState = internalGetBillingState();
+        builder.billingZip = internalGetBillingZip();
+        builder.billingCountry = internalGetBillingCountry();
         builder.customerVaultToken = internalGetCustomerVaultToken();
+        builder.billingAddress2 = internalGetBillingAddress2();
+        builder.siteGatewaySettingId = internalGetSiteGatewaySettingId();
         builder.gatewayHandle = internalGetGatewayHandle();
         return builder;
     }
@@ -674,22 +799,22 @@ public class CreditCardPaymentProfile {
         private Integer id;
         private String firstName;
         private String lastName;
-        private CardType1 cardType;
+        private CardType cardType;
         private Integer expirationMonth;
         private Integer expirationYear;
         private Integer customerId;
         private CurrentVault currentVault;
         private String vaultToken;
-        private String billingAddress;
-        private String billingCity;
-        private String billingState;
-        private String billingZip;
-        private String billingCountry;
+        private OptionalNullable<String> billingAddress;
+        private OptionalNullable<String> billingCity;
+        private OptionalNullable<String> billingState;
+        private OptionalNullable<String> billingZip;
+        private OptionalNullable<String> billingCountry;
         private OptionalNullable<String> customerVaultToken;
-        private String billingAddress2;
+        private OptionalNullable<String> billingAddress2;
         private String paymentType;
         private Boolean disabled;
-        private Integer siteGatewaySettingId;
+        private OptionalNullable<Integer> siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
 
         /**
@@ -748,10 +873,10 @@ public class CreditCardPaymentProfile {
 
         /**
          * Setter for cardType.
-         * @param  cardType  CardType1 value for cardType.
+         * @param  cardType  CardType value for cardType.
          * @return Builder
          */
-        public Builder cardType(CardType1 cardType) {
+        public Builder cardType(CardType cardType) {
             this.cardType = cardType;
             return this;
         }
@@ -812,7 +937,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder billingAddress(String billingAddress) {
-            this.billingAddress = billingAddress;
+            this.billingAddress = OptionalNullable.of(billingAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingAddress.
+         * @return Builder
+         */
+        public Builder unsetBillingAddress() {
+            billingAddress = null;
             return this;
         }
 
@@ -822,7 +956,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder billingCity(String billingCity) {
-            this.billingCity = billingCity;
+            this.billingCity = OptionalNullable.of(billingCity);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingCity.
+         * @return Builder
+         */
+        public Builder unsetBillingCity() {
+            billingCity = null;
             return this;
         }
 
@@ -832,7 +975,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder billingState(String billingState) {
-            this.billingState = billingState;
+            this.billingState = OptionalNullable.of(billingState);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingState.
+         * @return Builder
+         */
+        public Builder unsetBillingState() {
+            billingState = null;
             return this;
         }
 
@@ -842,7 +994,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder billingZip(String billingZip) {
-            this.billingZip = billingZip;
+            this.billingZip = OptionalNullable.of(billingZip);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingZip.
+         * @return Builder
+         */
+        public Builder unsetBillingZip() {
+            billingZip = null;
             return this;
         }
 
@@ -852,7 +1013,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder billingCountry(String billingCountry) {
-            this.billingCountry = billingCountry;
+            this.billingCountry = OptionalNullable.of(billingCountry);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingCountry.
+         * @return Builder
+         */
+        public Builder unsetBillingCountry() {
+            billingCountry = null;
             return this;
         }
 
@@ -881,7 +1051,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder billingAddress2(String billingAddress2) {
-            this.billingAddress2 = billingAddress2;
+            this.billingAddress2 = OptionalNullable.of(billingAddress2);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingAddress2.
+         * @return Builder
+         */
+        public Builder unsetBillingAddress2() {
+            billingAddress2 = null;
             return this;
         }
 
@@ -911,7 +1090,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder siteGatewaySettingId(Integer siteGatewaySettingId) {
-            this.siteGatewaySettingId = siteGatewaySettingId;
+            this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
+            return this;
+        }
+
+        /**
+         * UnSetter for siteGatewaySettingId.
+         * @return Builder
+         */
+        public Builder unsetSiteGatewaySettingId() {
+            siteGatewaySettingId = null;
             return this;
         }
 

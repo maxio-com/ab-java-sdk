@@ -353,7 +353,7 @@ try {
 This method will return all of the active `payment_profiles` for a Site, or for one Customer within a site.  If no payment profiles are found, this endpoint will return an empty array, not a 404.
 
 ```java
-List<ListPaymentProfilesResponse> listPaymentProfiles(
+List<ReadPaymentProfileResponse> listPaymentProfiles(
     final ListPaymentProfilesInput input)
 ```
 
@@ -367,7 +367,7 @@ List<ListPaymentProfilesResponse> listPaymentProfiles(
 
 ## Response Type
 
-[`List<ListPaymentProfilesResponse>`](../../doc/models/list-payment-profiles-response.md)
+[`List<ReadPaymentProfileResponse>`](../../doc/models/read-payment-profile-response.md)
 
 ## Example Usage
 
@@ -378,7 +378,7 @@ ListPaymentProfilesInput listPaymentProfilesInput = new ListPaymentProfilesInput
     .build();
 
 try {
-    List<ListPaymentProfilesResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
+    List<ReadPaymentProfileResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -412,6 +412,7 @@ try {
       "bank_account_type": "checking",
       "bank_account_holder_type": "personal",
       "payment_type": "bank_account",
+      "verified": true,
       "site_gateway_setting_id": 1,
       "gateway_handle": "handle"
     }
@@ -437,6 +438,7 @@ try {
       "bank_account_type": "checking",
       "bank_account_holder_type": "personal",
       "payment_type": "bank_account",
+      "verified": true,
       "site_gateway_setting_id": 1,
       "gateway_handle": "handle"
     }
@@ -485,14 +487,14 @@ Example response for Bank Account:
 
 ```java
 ReadPaymentProfileResponse readPaymentProfile(
-    final String paymentProfileId)
+    final int paymentProfileId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `paymentProfileId` | `String` | Template, Required | The Chargify id of the payment profile |
+| `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -501,7 +503,7 @@ ReadPaymentProfileResponse readPaymentProfile(
 ## Example Usage
 
 ```java
-String paymentProfileId = "payment_profile_id2";
+int paymentProfileId = 198;
 
 try {
     ReadPaymentProfileResponse result = paymentProfilesController.readPaymentProfile(paymentProfileId);
@@ -541,6 +543,12 @@ try {
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
 
 
 # Update Payment Profile
@@ -582,7 +590,7 @@ The result will be that you have updated the billing information for the card, y
 
 ```java
 UpdatePaymentProfileResponse updatePaymentProfile(
-    final String paymentProfileId,
+    final int paymentProfileId,
     final UpdatePaymentProfileRequest body)
 ```
 
@@ -590,7 +598,7 @@ UpdatePaymentProfileResponse updatePaymentProfile(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `paymentProfileId` | `String` | Template, Required | The Chargify id of the payment profile |
+| `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 | `body` | [`UpdatePaymentProfileRequest`](../../doc/models/update-payment-profile-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -600,7 +608,7 @@ UpdatePaymentProfileResponse updatePaymentProfile(
 ## Example Usage
 
 ```java
-String paymentProfileId = "payment_profile_id2";
+int paymentProfileId = 198;
 UpdatePaymentProfileRequest body = new UpdatePaymentProfileRequest.Builder(
     new UpdatePaymentProfile.Builder()
         .firstName("Graham")
@@ -659,6 +667,13 @@ try {
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorStringMapResponseException`](../../doc/models/error-string-map-response-exception.md) |
+
 
 # Delete Unused Payment Profile
 
@@ -668,14 +683,14 @@ If the payment profile is in use by one or more subscriptions or groups, a 422 a
 
 ```java
 Void deleteUnusedPaymentProfile(
-    final String paymentProfileId)
+    final int paymentProfileId)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `paymentProfileId` | `String` | Template, Required | The Chargify id of the payment profile |
+| `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -684,7 +699,7 @@ Void deleteUnusedPaymentProfile(
 ## Example Usage
 
 ```java
-String paymentProfileId = "payment_profile_id2";
+int paymentProfileId = 198;
 
 try {
     paymentProfilesController.deleteUnusedPaymentProfile(paymentProfileId);
@@ -713,7 +728,7 @@ This will delete a payment profile belonging to the customer on the subscription
 ```java
 Void deleteSubscriptionsPaymentProfile(
     final int subscriptionId,
-    final String paymentProfileId)
+    final int paymentProfileId)
 ```
 
 ## Parameters
@@ -721,7 +736,7 @@ Void deleteSubscriptionsPaymentProfile(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `paymentProfileId` | `String` | Template, Required | The Chargify id of the payment profile |
+| `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -731,7 +746,7 @@ Void deleteSubscriptionsPaymentProfile(
 
 ```java
 int subscriptionId = 222;
-String paymentProfileId = "payment_profile_id2";
+int paymentProfileId = 198;
 
 try {
     paymentProfilesController.deleteSubscriptionsPaymentProfile(subscriptionId, paymentProfileId);
@@ -831,7 +846,7 @@ This will delete a Payment Profile belonging to a Subscription Group.
 ```java
 Void deleteSubscriptionGroupPaymentProfile(
     final String uid,
-    final String paymentProfileId)
+    final int paymentProfileId)
 ```
 
 ## Parameters
@@ -839,7 +854,7 @@ Void deleteSubscriptionGroupPaymentProfile(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
-| `paymentProfileId` | `String` | Template, Required | The Chargify id of the payment profile |
+| `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -849,7 +864,7 @@ Void deleteSubscriptionGroupPaymentProfile(
 
 ```java
 String uid = "uid0";
-String paymentProfileId = "payment_profile_id2";
+int paymentProfileId = 198;
 
 try {
     paymentProfilesController.deleteSubscriptionGroupPaymentProfile(uid, paymentProfileId);
@@ -947,7 +962,7 @@ The new payment profile must belong to the subscription group's customer, otherw
 ```java
 PaymentProfileResponse updateSubscriptionGroupDefaultPaymentProfile(
     final String uid,
-    final String paymentProfileId)
+    final int paymentProfileId)
 ```
 
 ## Parameters
@@ -955,7 +970,7 @@ PaymentProfileResponse updateSubscriptionGroupDefaultPaymentProfile(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
-| `paymentProfileId` | `String` | Template, Required | The Chargify id of the payment profile |
+| `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
 
@@ -965,7 +980,7 @@ PaymentProfileResponse updateSubscriptionGroupDefaultPaymentProfile(
 
 ```java
 String uid = "uid0";
-String paymentProfileId = "payment_profile_id2";
+int paymentProfileId = 198;
 
 try {
     PaymentProfileResponse result = paymentProfilesController.updateSubscriptionGroupDefaultPaymentProfile(uid, paymentProfileId);

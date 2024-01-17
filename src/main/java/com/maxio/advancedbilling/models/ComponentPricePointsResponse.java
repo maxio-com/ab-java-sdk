@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class ComponentPricePointsResponse {
     private List<ComponentPricePoint> pricePoints;
+    private ListPublicKeysMeta meta;
 
     /**
      * Default constructor.
@@ -26,10 +27,13 @@ public class ComponentPricePointsResponse {
     /**
      * Initialization constructor.
      * @param  pricePoints  List of ComponentPricePoint value for pricePoints.
+     * @param  meta  ListPublicKeysMeta value for meta.
      */
     public ComponentPricePointsResponse(
-            List<ComponentPricePoint> pricePoints) {
+            List<ComponentPricePoint> pricePoints,
+            ListPublicKeysMeta meta) {
         this.pricePoints = pricePoints;
+        this.meta = meta;
     }
 
     /**
@@ -52,12 +56,32 @@ public class ComponentPricePointsResponse {
     }
 
     /**
+     * Getter for Meta.
+     * @return Returns the ListPublicKeysMeta
+     */
+    @JsonGetter("meta")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ListPublicKeysMeta getMeta() {
+        return meta;
+    }
+
+    /**
+     * Setter for Meta.
+     * @param meta Value for ListPublicKeysMeta
+     */
+    @JsonSetter("meta")
+    public void setMeta(ListPublicKeysMeta meta) {
+        this.meta = meta;
+    }
+
+    /**
      * Converts this ComponentPricePointsResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ComponentPricePointsResponse [" + "pricePoints=" + pricePoints + "]";
+        return "ComponentPricePointsResponse [" + "pricePoints=" + pricePoints + ", meta=" + meta
+                + "]";
     }
 
     /**
@@ -67,7 +91,8 @@ public class ComponentPricePointsResponse {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .pricePoints(getPricePoints());
+                .pricePoints(getPricePoints())
+                .meta(getMeta());
         return builder;
     }
 
@@ -76,6 +101,7 @@ public class ComponentPricePointsResponse {
      */
     public static class Builder {
         private List<ComponentPricePoint> pricePoints;
+        private ListPublicKeysMeta meta;
 
 
 
@@ -90,11 +116,21 @@ public class ComponentPricePointsResponse {
         }
 
         /**
+         * Setter for meta.
+         * @param  meta  ListPublicKeysMeta value for meta.
+         * @return Builder
+         */
+        public Builder meta(ListPublicKeysMeta meta) {
+            this.meta = meta;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ComponentPricePointsResponse} object using the set fields.
          * @return {@link ComponentPricePointsResponse}
          */
         public ComponentPricePointsResponse build() {
-            return new ComponentPricePointsResponse(pricePoints);
+            return new ComponentPricePointsResponse(pricePoints, meta);
         }
     }
 }

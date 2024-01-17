@@ -68,7 +68,7 @@ class SubscriptionsControllerActivateTest {
 
         // when - then
         CommonAssertions
-                .assertThatNestedErrorResponse(() -> SUBSCRIPTIONS_CONTROLLER
+                .assertThatErrorArrayMapResponse(() -> SUBSCRIPTIONS_CONTROLLER
                         .activateSubscription(activeSubscription.getId(), new ActivateSubscriptionRequest())
                 )
                 .isBadRequest()
@@ -92,7 +92,7 @@ class SubscriptionsControllerActivateTest {
 
         // when - then
         CommonAssertions
-                .assertThatNestedErrorResponse(() -> SUBSCRIPTIONS_CONTROLLER.activateSubscription(
+                .assertThatErrorArrayMapResponse(() -> SUBSCRIPTIONS_CONTROLLER.activateSubscription(
                         awaitingSignupSubscriptionWithFailedPaymentProfile.getId(),
                         new ActivateSubscriptionRequest.Builder().revertOnFailure(revertOnFailure).build())
                 )
@@ -133,7 +133,7 @@ class SubscriptionsControllerActivateTest {
 
         // when - then
         CommonAssertions
-                .assertThatNestedErrorResponse(() -> SUBSCRIPTIONS_CONTROLLER.activateSubscription(
+                .assertThatErrorArrayMapResponse(() -> SUBSCRIPTIONS_CONTROLLER.activateSubscription(
                         awaitingSignupSubscriptionWithoutPaymentProfile.getId(),
                         new ActivateSubscriptionRequest.Builder().revertOnFailure(false).build())
                 )

@@ -1,9 +1,9 @@
 
-# Nested Error Response Exception
+# Error Array Map Response Exception
 
 ## Structure
 
-`NestedErrorResponseException`
+`ErrorArrayMapResponseException`
 
 ## Fields
 
@@ -17,10 +17,6 @@
 {
   "errors": {
     "key0": {
-      "key1": "val1",
-      "key2": "val2"
-    },
-    "key1": {
       "key1": "val1",
       "key2": "val2"
     }

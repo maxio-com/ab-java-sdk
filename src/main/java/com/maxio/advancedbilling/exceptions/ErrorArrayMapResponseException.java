@@ -12,10 +12,10 @@ import io.apimatic.coreinterfaces.http.Context;
 import java.util.Map;
 
 /**
- * This is a model class for ErrorMapResponseException type.
+ * This is a model class for ErrorArrayMapResponseException type.
  */
-public class ErrorMapResponseException extends ApiException {
-    private static final long serialVersionUID = 128429272859476358L;
+public class ErrorArrayMapResponseException extends ApiException {
+    private static final long serialVersionUID = 126284121771497807L;
     private Map<String, Object> errors;
 
     /**
@@ -23,7 +23,7 @@ public class ErrorMapResponseException extends ApiException {
      * @param   reason  The reason for throwing exception
      * @param   context The context of the API exception
      */
-    public ErrorMapResponseException(String reason, Context context) {
+    public ErrorArrayMapResponseException(String reason, Context context) {
         super(reason, context);
     }
 
