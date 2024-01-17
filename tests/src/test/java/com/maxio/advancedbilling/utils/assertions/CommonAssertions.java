@@ -36,6 +36,10 @@ public class CommonAssertions {
         return new ErrorArrayMapResponseAssert(throwingCallable);
     }
 
+    public static <V> ErrorStringMapResponseAssert assertThatErrorStringMapResponse(Callable<V> throwingCallable) {
+        return new ErrorStringMapResponseAssert(throwingCallable);
+    }
+
     public interface ThrowingRunnable {
         void run() throws Exception;
     }
