@@ -18,7 +18,6 @@ import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreatePaymentProfileResponse;
 import com.maxio.advancedbilling.models.GetOneTimeTokenRequest;
 import com.maxio.advancedbilling.models.ListPaymentProfilesInput;
-import com.maxio.advancedbilling.models.ListPaymentProfilesResponse;
 import com.maxio.advancedbilling.models.PaymentProfileResponse;
 import com.maxio.advancedbilling.models.ReadPaymentProfileResponse;
 import com.maxio.advancedbilling.models.UpdatePaymentProfileRequest;
@@ -225,11 +224,11 @@ public final class PaymentProfilesController extends BaseController {
      * within a site. If no payment profiles are found, this endpoint will return an empty array,
      * not a 404.
      * @param  input  ListPaymentProfilesInput object containing request parameters
-     * @return    Returns the List of ListPaymentProfilesResponse response from the API call
+     * @return    Returns the List of ReadPaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<ListPaymentProfilesResponse> listPaymentProfiles(
+    public List<ReadPaymentProfileResponse> listPaymentProfiles(
             final ListPaymentProfilesInput input) throws ApiException, IOException {
         return prepareListPaymentProfilesRequest(input).execute();
     }
@@ -237,9 +236,9 @@ public final class PaymentProfilesController extends BaseController {
     /**
      * Builds the ApiCall object for listPaymentProfiles.
      */
-    private ApiCall<List<ListPaymentProfilesResponse>, ApiException> prepareListPaymentProfilesRequest(
+    private ApiCall<List<ReadPaymentProfileResponse>, ApiException> prepareListPaymentProfilesRequest(
             final ListPaymentProfilesInput input) throws IOException {
-        return new ApiCall.Builder<List<ListPaymentProfilesResponse>, ApiException>()
+        return new ApiCall.Builder<List<ReadPaymentProfileResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -256,7 +255,7 @@ public final class PaymentProfilesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
-                                        ListPaymentProfilesResponse[].class))
+                                        ReadPaymentProfileResponse[].class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

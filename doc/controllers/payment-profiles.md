@@ -353,7 +353,7 @@ try {
 This method will return all of the active `payment_profiles` for a Site, or for one Customer within a site.  If no payment profiles are found, this endpoint will return an empty array, not a 404.
 
 ```java
-List<ListPaymentProfilesResponse> listPaymentProfiles(
+List<ReadPaymentProfileResponse> listPaymentProfiles(
     final ListPaymentProfilesInput input)
 ```
 
@@ -367,7 +367,7 @@ List<ListPaymentProfilesResponse> listPaymentProfiles(
 
 ## Response Type
 
-[`List<ListPaymentProfilesResponse>`](../../doc/models/list-payment-profiles-response.md)
+[`List<ReadPaymentProfileResponse>`](../../doc/models/read-payment-profile-response.md)
 
 ## Example Usage
 
@@ -378,7 +378,7 @@ ListPaymentProfilesInput listPaymentProfilesInput = new ListPaymentProfilesInput
     .build();
 
 try {
-    List<ListPaymentProfilesResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
+    List<ReadPaymentProfileResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -412,6 +412,7 @@ try {
       "bank_account_type": "checking",
       "bank_account_holder_type": "personal",
       "payment_type": "bank_account",
+      "verified": true,
       "site_gateway_setting_id": 1,
       "gateway_handle": "handle"
     }
@@ -437,6 +438,7 @@ try {
       "bank_account_type": "checking",
       "bank_account_holder_type": "personal",
       "payment_type": "bank_account",
+      "verified": true,
       "site_gateway_setting_id": 1,
       "gateway_handle": "handle"
     }

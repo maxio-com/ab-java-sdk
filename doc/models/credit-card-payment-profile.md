@@ -13,7 +13,7 @@
 | `FirstName` | `String` | Optional | - | String getFirstName() | setFirstName(String firstName) |
 | `LastName` | `String` | Optional | - | String getLastName() | setLastName(String lastName) |
 | `MaskedCardNumber` | `String` | Required | - | String getMaskedCardNumber() | setMaskedCardNumber(String maskedCardNumber) |
-| `CardType` | [`CardType1`](../../doc/models/card-type-1.md) | Optional | - | CardType1 getCardType() | setCardType(CardType1 cardType) |
+| `CardType` | [`CardType`](../../doc/models/card-type.md) | Optional | The type of card used. | CardType getCardType() | setCardType(CardType cardType) |
 | `ExpirationMonth` | `Integer` | Optional | - | Integer getExpirationMonth() | setExpirationMonth(Integer expirationMonth) |
 | `ExpirationYear` | `Integer` | Optional | - | Integer getExpirationYear() | setExpirationYear(Integer expirationYear) |
 | `CustomerId` | `Integer` | Optional | - | Integer getCustomerId() | setCustomerId(Integer customerId) |
@@ -39,7 +39,7 @@
   "first_name": "first_name0",
   "last_name": "last_name8",
   "masked_card_number": "masked_card_number8",
-  "card_type": "synchrony",
+  "card_type": "bogus",
   "expiration_month": 170
 }
 ```
