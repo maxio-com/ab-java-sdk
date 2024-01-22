@@ -19,8 +19,8 @@ public class SubscriptionGroupBankAccount {
     private String bankRoutingNumber;
     private String bankIban;
     private String bankBranchCode;
-    private BankAccountType bankAccountType;
-    private HolderType bankAccountHolderType;
+    private BankAccountType1 bankAccountType;
+    private HolderType1 bankAccountHolderType;
     private String paymentType;
     private String billingAddress;
     private String billingCity;
@@ -35,7 +35,7 @@ public class SubscriptionGroupBankAccount {
      * Default constructor.
      */
     public SubscriptionGroupBankAccount() {
-        bankAccountType = BankAccountType.CHECKING;
+        bankAccountType = BankAccountType1.CHECKING;
     }
 
     /**
@@ -45,8 +45,8 @@ public class SubscriptionGroupBankAccount {
      * @param  bankRoutingNumber  String value for bankRoutingNumber.
      * @param  bankIban  String value for bankIban.
      * @param  bankBranchCode  String value for bankBranchCode.
-     * @param  bankAccountType  BankAccountType value for bankAccountType.
-     * @param  bankAccountHolderType  HolderType value for bankAccountHolderType.
+     * @param  bankAccountType  BankAccountType1 value for bankAccountType.
+     * @param  bankAccountHolderType  HolderType1 value for bankAccountHolderType.
      * @param  paymentType  String value for paymentType.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
@@ -63,8 +63,8 @@ public class SubscriptionGroupBankAccount {
             String bankRoutingNumber,
             String bankIban,
             String bankBranchCode,
-            BankAccountType bankAccountType,
-            HolderType bankAccountHolderType,
+            BankAccountType1 bankAccountType,
+            HolderType1 bankAccountHolderType,
             String paymentType,
             String billingAddress,
             String billingCity,
@@ -211,39 +211,39 @@ public class SubscriptionGroupBankAccount {
 
     /**
      * Getter for BankAccountType.
-     * @return Returns the BankAccountType
+     * @return Returns the BankAccountType1
      */
     @JsonGetter("bank_account_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public BankAccountType getBankAccountType() {
+    public BankAccountType1 getBankAccountType() {
         return bankAccountType;
     }
 
     /**
      * Setter for BankAccountType.
-     * @param bankAccountType Value for BankAccountType
+     * @param bankAccountType Value for BankAccountType1
      */
     @JsonSetter("bank_account_type")
-    public void setBankAccountType(BankAccountType bankAccountType) {
+    public void setBankAccountType(BankAccountType1 bankAccountType) {
         this.bankAccountType = bankAccountType;
     }
 
     /**
      * Getter for BankAccountHolderType.
-     * @return Returns the HolderType
+     * @return Returns the HolderType1
      */
     @JsonGetter("bank_account_holder_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public HolderType getBankAccountHolderType() {
+    public HolderType1 getBankAccountHolderType() {
         return bankAccountHolderType;
     }
 
     /**
      * Setter for BankAccountHolderType.
-     * @param bankAccountHolderType Value for HolderType
+     * @param bankAccountHolderType Value for HolderType1
      */
     @JsonSetter("bank_account_holder_type")
-    public void setBankAccountHolderType(HolderType bankAccountHolderType) {
+    public void setBankAccountHolderType(HolderType1 bankAccountHolderType) {
         this.bankAccountHolderType = bankAccountHolderType;
     }
 
@@ -472,8 +472,8 @@ public class SubscriptionGroupBankAccount {
         private String bankRoutingNumber;
         private String bankIban;
         private String bankBranchCode;
-        private BankAccountType bankAccountType = BankAccountType.CHECKING;
-        private HolderType bankAccountHolderType;
+        private BankAccountType1 bankAccountType = BankAccountType1.CHECKING;
+        private HolderType1 bankAccountHolderType;
         private String paymentType;
         private String billingAddress;
         private String billingCity;
@@ -538,20 +538,20 @@ public class SubscriptionGroupBankAccount {
 
         /**
          * Setter for bankAccountType.
-         * @param  bankAccountType  BankAccountType value for bankAccountType.
+         * @param  bankAccountType  BankAccountType1 value for bankAccountType.
          * @return Builder
          */
-        public Builder bankAccountType(BankAccountType bankAccountType) {
+        public Builder bankAccountType(BankAccountType1 bankAccountType) {
             this.bankAccountType = bankAccountType;
             return this;
         }
 
         /**
          * Setter for bankAccountHolderType.
-         * @param  bankAccountHolderType  HolderType value for bankAccountHolderType.
+         * @param  bankAccountHolderType  HolderType1 value for bankAccountHolderType.
          * @return Builder
          */
-        public Builder bankAccountHolderType(HolderType bankAccountHolderType) {
+        public Builder bankAccountHolderType(HolderType1 bankAccountHolderType) {
             this.bankAccountHolderType = bankAccountHolderType;
             return this;
         }

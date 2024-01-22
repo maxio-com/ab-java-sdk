@@ -272,7 +272,7 @@ You may wish to redirect customers to different pages depending on whether their
 8. Optionally, you can use the applied "msg" param in the `redirect_url` to determine whether it was successful or not
 
 ```java
-CreatePaymentProfileResponse createPaymentProfile(
+PaymentProfileResponse createPaymentProfile(
     final CreatePaymentProfileRequest body)
 ```
 
@@ -284,7 +284,7 @@ CreatePaymentProfileResponse createPaymentProfile(
 
 ## Response Type
 
-[`CreatePaymentProfileResponse`](../../doc/models/create-payment-profile-response.md)
+[`PaymentProfileResponse`](../../doc/models/payment-profile-response.md)
 
 ## Example Usage
 
@@ -303,7 +303,7 @@ CreatePaymentProfileRequest body = new CreatePaymentProfileRequest.Builder(
 .build();
 
 try {
-    CreatePaymentProfileResponse result = paymentProfilesController.createPaymentProfile(body);
+    PaymentProfileResponse result = paymentProfilesController.createPaymentProfile(body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -320,6 +320,7 @@ try {
     "first_name": "Jessica",
     "last_name": "Test",
     "card_type": "visa",
+    "masked_card_number": "XXXX-XXXX-XXXX-1111",
     "expiration_month": 10,
     "expiration_year": 2018,
     "customer_id": 19195410,
@@ -353,7 +354,7 @@ try {
 This method will return all of the active `payment_profiles` for a Site, or for one Customer within a site.  If no payment profiles are found, this endpoint will return an empty array, not a 404.
 
 ```java
-List<ReadPaymentProfileResponse> listPaymentProfiles(
+List<PaymentProfileResponse> listPaymentProfiles(
     final ListPaymentProfilesInput input)
 ```
 
@@ -367,7 +368,7 @@ List<ReadPaymentProfileResponse> listPaymentProfiles(
 
 ## Response Type
 
-[`List<ReadPaymentProfileResponse>`](../../doc/models/read-payment-profile-response.md)
+[`List<PaymentProfileResponse>`](../../doc/models/payment-profile-response.md)
 
 ## Example Usage
 
@@ -378,7 +379,7 @@ ListPaymentProfilesInput listPaymentProfilesInput = new ListPaymentProfilesInput
     .build();
 
 try {
-    List<ReadPaymentProfileResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
+    List<PaymentProfileResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -486,7 +487,7 @@ Example response for Bank Account:
 ```
 
 ```java
-ReadPaymentProfileResponse readPaymentProfile(
+PaymentProfileResponse readPaymentProfile(
     final int paymentProfileId)
 ```
 
@@ -498,7 +499,7 @@ ReadPaymentProfileResponse readPaymentProfile(
 
 ## Response Type
 
-[`ReadPaymentProfileResponse`](../../doc/models/read-payment-profile-response.md)
+[`PaymentProfileResponse`](../../doc/models/payment-profile-response.md)
 
 ## Example Usage
 
@@ -506,7 +507,7 @@ ReadPaymentProfileResponse readPaymentProfile(
 int paymentProfileId = 198;
 
 try {
-    ReadPaymentProfileResponse result = paymentProfilesController.readPaymentProfile(paymentProfileId);
+    PaymentProfileResponse result = paymentProfilesController.readPaymentProfile(paymentProfileId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -589,7 +590,7 @@ The result will be that you have updated the billing information for the card, y
 - If you are using Authorize.net or Stripe, you may elect to manually trigger a retry for a past due subscription after a partial update.
 
 ```java
-UpdatePaymentProfileResponse updatePaymentProfile(
+PaymentProfileResponse updatePaymentProfile(
     final int paymentProfileId,
     final UpdatePaymentProfileRequest body)
 ```
@@ -603,7 +604,7 @@ UpdatePaymentProfileResponse updatePaymentProfile(
 
 ## Response Type
 
-[`UpdatePaymentProfileResponse`](../../doc/models/update-payment-profile-response.md)
+[`PaymentProfileResponse`](../../doc/models/payment-profile-response.md)
 
 ## Example Usage
 
@@ -629,7 +630,7 @@ UpdatePaymentProfileRequest body = new UpdatePaymentProfileRequest.Builder(
 .build();
 
 try {
-    UpdatePaymentProfileResponse result = paymentProfilesController.updatePaymentProfile(paymentProfileId, body);
+    PaymentProfileResponse result = paymentProfilesController.updatePaymentProfile(paymentProfileId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -714,6 +715,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
@@ -948,6 +950,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 

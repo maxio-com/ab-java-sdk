@@ -16,13 +16,10 @@ import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.BankAccountResponse;
 import com.maxio.advancedbilling.models.BankAccountVerificationRequest;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
-import com.maxio.advancedbilling.models.CreatePaymentProfileResponse;
 import com.maxio.advancedbilling.models.GetOneTimeTokenRequest;
 import com.maxio.advancedbilling.models.ListPaymentProfilesInput;
 import com.maxio.advancedbilling.models.PaymentProfileResponse;
-import com.maxio.advancedbilling.models.ReadPaymentProfileResponse;
 import com.maxio.advancedbilling.models.UpdatePaymentProfileRequest;
-import com.maxio.advancedbilling.models.UpdatePaymentProfileResponse;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -178,11 +175,11 @@ public final class PaymentProfilesController extends BaseController {
      *         a customer, bank account and mandate will be created in your current vault. If the
      *         customer, bank account, and mandate already exist in your vault, follow the Import
      *         example to link the payment profile into Chargify.
-     * @return    Returns the CreatePaymentProfileResponse response from the API call
+     * @return    Returns the PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public CreatePaymentProfileResponse createPaymentProfile(
+    public PaymentProfileResponse createPaymentProfile(
             final CreatePaymentProfileRequest body) throws ApiException, IOException {
         return prepareCreatePaymentProfileRequest(body).execute();
     }
@@ -190,9 +187,9 @@ public final class PaymentProfilesController extends BaseController {
     /**
      * Builds the ApiCall object for createPaymentProfile.
      */
-    private ApiCall<CreatePaymentProfileResponse, ApiException> prepareCreatePaymentProfileRequest(
+    private ApiCall<PaymentProfileResponse, ApiException> prepareCreatePaymentProfileRequest(
             final CreatePaymentProfileRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<CreatePaymentProfileResponse, ApiException>()
+        return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -206,7 +203,7 @@ public final class PaymentProfilesController extends BaseController {
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, CreatePaymentProfileResponse.class))
+                                response -> ApiHelper.deserialize(response, PaymentProfileResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",
@@ -225,11 +222,11 @@ public final class PaymentProfilesController extends BaseController {
      * within a site. If no payment profiles are found, this endpoint will return an empty array,
      * not a 404.
      * @param  input  ListPaymentProfilesInput object containing request parameters
-     * @return    Returns the List of ReadPaymentProfileResponse response from the API call
+     * @return    Returns the List of PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<ReadPaymentProfileResponse> listPaymentProfiles(
+    public List<PaymentProfileResponse> listPaymentProfiles(
             final ListPaymentProfilesInput input) throws ApiException, IOException {
         return prepareListPaymentProfilesRequest(input).execute();
     }
@@ -237,9 +234,9 @@ public final class PaymentProfilesController extends BaseController {
     /**
      * Builds the ApiCall object for listPaymentProfiles.
      */
-    private ApiCall<List<ReadPaymentProfileResponse>, ApiException> prepareListPaymentProfilesRequest(
+    private ApiCall<List<PaymentProfileResponse>, ApiException> prepareListPaymentProfilesRequest(
             final ListPaymentProfilesInput input) throws IOException {
-        return new ApiCall.Builder<List<ReadPaymentProfileResponse>, ApiException>()
+        return new ApiCall.Builder<List<PaymentProfileResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -256,7 +253,7 @@ public final class PaymentProfilesController extends BaseController {
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserializeArray(response,
-                                        ReadPaymentProfileResponse[].class))
+                                        PaymentProfileResponse[].class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -277,11 +274,11 @@ public final class PaymentProfilesController extends BaseController {
      * "bank_account_holder_type": "personal", "payment_type": "bank_account",
      * "site_gateway_setting_id": 1, "gateway_handle": null } } ```.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
-     * @return    Returns the ReadPaymentProfileResponse response from the API call
+     * @return    Returns the PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ReadPaymentProfileResponse readPaymentProfile(
+    public PaymentProfileResponse readPaymentProfile(
             final int paymentProfileId) throws ApiException, IOException {
         return prepareReadPaymentProfileRequest(paymentProfileId).execute();
     }
@@ -289,9 +286,9 @@ public final class PaymentProfilesController extends BaseController {
     /**
      * Builds the ApiCall object for readPaymentProfile.
      */
-    private ApiCall<ReadPaymentProfileResponse, ApiException> prepareReadPaymentProfileRequest(
+    private ApiCall<PaymentProfileResponse, ApiException> prepareReadPaymentProfileRequest(
             final int paymentProfileId) throws IOException {
-        return new ApiCall.Builder<ReadPaymentProfileResponse, ApiException>()
+        return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -303,7 +300,7 @@ public final class PaymentProfilesController extends BaseController {
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ReadPaymentProfileResponse.class))
+                                response -> ApiHelper.deserialize(response, PaymentProfileResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
                                  ErrorCase.setReason("Not Found",
@@ -339,11 +336,11 @@ public final class PaymentProfilesController extends BaseController {
      * update.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
      * @param  body  Optional parameter: Example:
-     * @return    Returns the UpdatePaymentProfileResponse response from the API call
+     * @return    Returns the PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public UpdatePaymentProfileResponse updatePaymentProfile(
+    public PaymentProfileResponse updatePaymentProfile(
             final int paymentProfileId,
             final UpdatePaymentProfileRequest body) throws ApiException, IOException {
         return prepareUpdatePaymentProfileRequest(paymentProfileId, body).execute();
@@ -352,10 +349,10 @@ public final class PaymentProfilesController extends BaseController {
     /**
      * Builds the ApiCall object for updatePaymentProfile.
      */
-    private ApiCall<UpdatePaymentProfileResponse, ApiException> prepareUpdatePaymentProfileRequest(
+    private ApiCall<PaymentProfileResponse, ApiException> prepareUpdatePaymentProfileRequest(
             final int paymentProfileId,
             final UpdatePaymentProfileRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<UpdatePaymentProfileResponse, ApiException>()
+        return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -371,7 +368,7 @@ public final class PaymentProfilesController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, UpdatePaymentProfileResponse.class))
+                                response -> ApiHelper.deserialize(response, PaymentProfileResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
                                  ErrorCase.setReason("Not Found",
@@ -413,6 +410,9 @@ public final class PaymentProfilesController extends BaseController {
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
@@ -596,6 +596,9 @@ public final class PaymentProfilesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PaymentProfileResponse.class))
                         .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setReason("Not Found",
+                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))

@@ -1,11 +1,9 @@
 
-# Bank Account Type
-
-Defaults to checking
+# Bank Account Type 1
 
 ## Enumeration
 
-`BankAccountType`
+`BankAccountType1`
 
 ## Fields
 

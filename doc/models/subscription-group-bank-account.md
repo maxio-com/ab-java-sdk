@@ -14,8 +14,8 @@
 | `BankRoutingNumber` | `String` | Optional | (Required when creating a subscription with ACH. Optional when creating a subscription with GoCardless). The routing number of the bank. It becomes bank_code while passing via GoCardless API | String getBankRoutingNumber() | setBankRoutingNumber(String bankRoutingNumber) |
 | `BankIban` | `String` | Optional | (Optional when creating a subscription with GoCardless). International Bank Account Number. Alternatively, local bank details can be provided | String getBankIban() | setBankIban(String bankIban) |
 | `BankBranchCode` | `String` | Optional | (Optional when creating a subscription with GoCardless) Branch code. Alternatively, an IBAN can be provided | String getBankBranchCode() | setBankBranchCode(String bankBranchCode) |
-| `BankAccountType` | [`BankAccountType`](../../doc/models/bank-account-type.md) | Optional | **Default**: `BankAccountType.CHECKING` | BankAccountType getBankAccountType() | setBankAccountType(BankAccountType bankAccountType) |
-| `BankAccountHolderType` | [`HolderType`](../../doc/models/holder-type.md) | Optional | - | HolderType getBankAccountHolderType() | setBankAccountHolderType(HolderType bankAccountHolderType) |
+| `BankAccountType` | [`BankAccountType1`](../../doc/models/bank-account-type-1.md) | Optional | **Default**: `BankAccountType1.CHECKING` | BankAccountType1 getBankAccountType() | setBankAccountType(BankAccountType1 bankAccountType) |
+| `BankAccountHolderType` | [`HolderType1`](../../doc/models/holder-type-1.md) | Optional | - | HolderType1 getBankAccountHolderType() | setBankAccountHolderType(HolderType1 bankAccountHolderType) |
 | `PaymentType` | `String` | Optional | - | String getPaymentType() | setPaymentType(String paymentType) |
 | `BillingAddress` | `String` | Optional | - | String getBillingAddress() | setBillingAddress(String billingAddress) |
 | `BillingCity` | `String` | Optional | - | String getBillingCity() | setBillingCity(String billingCity) |

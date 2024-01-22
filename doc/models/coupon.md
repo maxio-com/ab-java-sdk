@@ -19,7 +19,7 @@
 | `ProductFamilyName` | `String` | Optional | - | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
 | `StartDate` | `String` | Optional | - | String getStartDate() | setStartDate(String startDate) |
 | `EndDate` | `String` | Optional | - | String getEndDate() | setEndDate(String endDate) |
-| `Percentage` | `Double` | Optional | - | Double getPercentage() | setPercentage(Double percentage) |
+| `Percentage` | `String` | Optional | - | String getPercentage() | setPercentage(String percentage) |
 | `Recurring` | `Boolean` | Optional | - | Boolean getRecurring() | setRecurring(Boolean recurring) |
 | `RecurringScheme` | [`RecurringScheme`](../../doc/models/recurring-scheme.md) | Optional | - | RecurringScheme getRecurringScheme() | setRecurringScheme(RecurringScheme recurringScheme) |
 | `DurationPeriodCount` | `Integer` | Optional | - | Integer getDurationPeriodCount() | setDurationPeriodCount(Integer durationPeriodCount) |

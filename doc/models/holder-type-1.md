@@ -1,11 +1,9 @@
 
-# Holder Type
-
-Defaults to personal
+# Holder Type 1
 
 ## Enumeration
 
-`HolderType`
+`HolderType1`
 
 ## Fields
 

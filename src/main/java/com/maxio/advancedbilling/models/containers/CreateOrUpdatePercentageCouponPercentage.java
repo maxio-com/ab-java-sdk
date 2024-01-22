@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
-import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorStringCase;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -37,15 +36,6 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
     }
 
     /**
-     * This is String case.
-     * @param string String value for string.
-     * @return The StringCase object.
-     */
-    public static CreateOrUpdatePercentageCouponPercentage fromString(String string) {
-        return string == null ? null : new StringCase(string);
-    }
-
-    /**
      * Method to match from the provided one-of cases.
      * @param <R> The type to return after applying callback.
      * @param cases The one-of type cases callback.
@@ -59,8 +49,6 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
      */
     public interface Cases<R> {
         R precision(double precision);
-
-        R string(String string);
     }
 
     /**
@@ -98,41 +86,6 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
     }
 
     /**
-     * This is a implementation class for StringCase.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorStringCase
-    @TypeCombinatorCase(type = "String")
-    private static class StringCase extends CreateOrUpdatePercentageCouponPercentage {
-
-        @JsonValue
-        private String string;
-
-        StringCase(String string) {
-            this.string = string;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.string(this.string);
-        }
-
-        @JsonCreator
-        private StringCase(JsonNode jsonNode) throws IOException {
-            if (jsonNode.isTextual()) {
-                this.string = ApiHelper.deserialize(jsonNode, String.class);
-            } else {
-                throw new IllegalArgumentException();
-            }
-        }
-
-        @Override
-        public String toString() {
-            return string.toString();
-        }
-    }
-
-    /**
      * This is a custom deserializer class for CreateOrUpdatePercentageCouponPercentage.
      */
     protected static class CreateOrUpdatePercentageCouponPercentageDeserializer
@@ -143,8 +96,7 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(PrecisionCase.class,
-                    StringCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(PrecisionCase.class), true);
         }
     }
 
