@@ -18,11 +18,11 @@ public class BankAccountAttributes {
     private String bankName;
     private String bankRoutingNumber;
     private String bankAccountNumber;
-    private String bankAccountType;
+    private BankAccountType bankAccountType;
     private String bankBranchCode;
     private String bankIban;
-    private String bankAccountHolderType;
-    private String paymentType;
+    private BankAccountHolderType bankAccountHolderType;
+    private PaymentType paymentType;
     private BankAccountVault currentVault;
     private String vaultToken;
     private String customerVaultToken;
@@ -31,6 +31,8 @@ public class BankAccountAttributes {
      * Default constructor.
      */
     public BankAccountAttributes() {
+        bankAccountType = BankAccountType.CHECKING;
+        paymentType = PaymentType.CREDIT_CARD;
     }
 
     /**
@@ -39,11 +41,11 @@ public class BankAccountAttributes {
      * @param  bankName  String value for bankName.
      * @param  bankRoutingNumber  String value for bankRoutingNumber.
      * @param  bankAccountNumber  String value for bankAccountNumber.
-     * @param  bankAccountType  String value for bankAccountType.
+     * @param  bankAccountType  BankAccountType value for bankAccountType.
      * @param  bankBranchCode  String value for bankBranchCode.
      * @param  bankIban  String value for bankIban.
-     * @param  bankAccountHolderType  String value for bankAccountHolderType.
-     * @param  paymentType  String value for paymentType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  currentVault  BankAccountVault value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  customerVaultToken  String value for customerVaultToken.
@@ -53,11 +55,11 @@ public class BankAccountAttributes {
             String bankName,
             String bankRoutingNumber,
             String bankAccountNumber,
-            String bankAccountType,
+            BankAccountType bankAccountType,
             String bankBranchCode,
             String bankIban,
-            String bankAccountHolderType,
-            String paymentType,
+            BankAccountHolderType bankAccountHolderType,
+            PaymentType paymentType,
             BankAccountVault currentVault,
             String vaultToken,
             String customerVaultToken) {
@@ -167,20 +169,22 @@ public class BankAccountAttributes {
 
     /**
      * Getter for BankAccountType.
-     * @return Returns the String
+     * Defaults to checking
+     * @return Returns the BankAccountType
      */
     @JsonGetter("bank_account_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getBankAccountType() {
+    public BankAccountType getBankAccountType() {
         return bankAccountType;
     }
 
     /**
      * Setter for BankAccountType.
-     * @param bankAccountType Value for String
+     * Defaults to checking
+     * @param bankAccountType Value for BankAccountType
      */
     @JsonSetter("bank_account_type")
-    public void setBankAccountType(String bankAccountType) {
+    public void setBankAccountType(BankAccountType bankAccountType) {
         this.bankAccountType = bankAccountType;
     }
 
@@ -232,39 +236,41 @@ public class BankAccountAttributes {
 
     /**
      * Getter for BankAccountHolderType.
-     * @return Returns the String
+     * Defaults to personal
+     * @return Returns the BankAccountHolderType
      */
     @JsonGetter("bank_account_holder_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getBankAccountHolderType() {
+    public BankAccountHolderType getBankAccountHolderType() {
         return bankAccountHolderType;
     }
 
     /**
      * Setter for BankAccountHolderType.
-     * @param bankAccountHolderType Value for String
+     * Defaults to personal
+     * @param bankAccountHolderType Value for BankAccountHolderType
      */
     @JsonSetter("bank_account_holder_type")
-    public void setBankAccountHolderType(String bankAccountHolderType) {
+    public void setBankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
         this.bankAccountHolderType = bankAccountHolderType;
     }
 
     /**
      * Getter for PaymentType.
-     * @return Returns the String
+     * @return Returns the PaymentType
      */
     @JsonGetter("payment_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPaymentType() {
+    public PaymentType getPaymentType() {
         return paymentType;
     }
 
     /**
      * Setter for PaymentType.
-     * @param paymentType Value for String
+     * @param paymentType Value for PaymentType
      */
     @JsonSetter("payment_type")
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
 
@@ -376,11 +382,11 @@ public class BankAccountAttributes {
         private String bankName;
         private String bankRoutingNumber;
         private String bankAccountNumber;
-        private String bankAccountType;
+        private BankAccountType bankAccountType = BankAccountType.CHECKING;
         private String bankBranchCode;
         private String bankIban;
-        private String bankAccountHolderType;
-        private String paymentType;
+        private BankAccountHolderType bankAccountHolderType;
+        private PaymentType paymentType = PaymentType.CREDIT_CARD;
         private BankAccountVault currentVault;
         private String vaultToken;
         private String customerVaultToken;
@@ -429,10 +435,10 @@ public class BankAccountAttributes {
 
         /**
          * Setter for bankAccountType.
-         * @param  bankAccountType  String value for bankAccountType.
+         * @param  bankAccountType  BankAccountType value for bankAccountType.
          * @return Builder
          */
-        public Builder bankAccountType(String bankAccountType) {
+        public Builder bankAccountType(BankAccountType bankAccountType) {
             this.bankAccountType = bankAccountType;
             return this;
         }
@@ -459,20 +465,20 @@ public class BankAccountAttributes {
 
         /**
          * Setter for bankAccountHolderType.
-         * @param  bankAccountHolderType  String value for bankAccountHolderType.
+         * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
          * @return Builder
          */
-        public Builder bankAccountHolderType(String bankAccountHolderType) {
+        public Builder bankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
             this.bankAccountHolderType = bankAccountHolderType;
             return this;
         }
 
         /**
          * Setter for paymentType.
-         * @param  paymentType  String value for paymentType.
+         * @param  paymentType  PaymentType value for paymentType.
          * @return Builder
          */
-        public Builder paymentType(String paymentType) {
+        public Builder paymentType(PaymentType paymentType) {
             this.paymentType = paymentType;
             return this;
         }

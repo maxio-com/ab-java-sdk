@@ -7,17 +7,18 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CreatePaymentProfile;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
-import com.maxio.advancedbilling.models.CreatedPaymentProfile;
+import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
 import com.maxio.advancedbilling.models.CurrentVault;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.UpdatePaymentProfile;
 import com.maxio.advancedbilling.models.UpdatePaymentProfileRequest;
-import com.maxio.advancedbilling.models.UpdatedPaymentProfile;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationYear;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import com.maxio.advancedbilling.utils.matchers.PaymentProfileResponsePaymentProfileGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class PaymentProfilesControllerUpdateTest {
     private static final PaymentProfilesController PAYMENT_PROFILES_CONTROLLER = CLIENT.getPaymentProfilesController();
 
     private static Customer customer;
-    private static CreatedPaymentProfile createdPaymentProfile;
+    private static CreditCardPaymentProfile createdPaymentProfile;
 
     @BeforeAll
     static void setUp() throws IOException, ApiException {
@@ -50,7 +51,8 @@ class PaymentProfilesControllerUpdateTest {
                         .fullNumber("4111111111111111")
                         .build())
                 )
-                .getPaymentProfile();
+                .getPaymentProfile()
+                .match(new PaymentProfileResponsePaymentProfileGetter<>());
     }
 
     @AfterAll
@@ -61,7 +63,7 @@ class PaymentProfilesControllerUpdateTest {
     @Test
     void shouldUpdatePaymentProfile() throws IOException, ApiException {
         // when
-        UpdatedPaymentProfile updatedPaymentProfile = PAYMENT_PROFILES_CONTROLLER
+        CreditCardPaymentProfile updatedPaymentProfile = PAYMENT_PROFILES_CONTROLLER
                 .updatePaymentProfile(
                         createdPaymentProfile.getId(),
                         new UpdatePaymentProfileRequest(new UpdatePaymentProfile.Builder()
@@ -73,7 +75,8 @@ class PaymentProfilesControllerUpdateTest {
                                 .build()
                         )
                 )
-                .getPaymentProfile();
+                .getPaymentProfile()
+                .match(new PaymentProfileResponsePaymentProfileGetter<>());
 
         // then
         assertThat(updatedPaymentProfile.getId()).isEqualTo(createdPaymentProfile.getId());
@@ -90,7 +93,7 @@ class PaymentProfilesControllerUpdateTest {
         assertThat(updatedPaymentProfile.getBillingState()).isEqualTo("CO");
         assertThat(updatedPaymentProfile.getBillingZip()).isEqualTo("80302");
         assertThat(updatedPaymentProfile.getBillingCountry()).isEqualTo("US");
-        assertThat(updatedPaymentProfile.getPaymentType()).isEqualTo("credit_card");
+        assertThat(updatedPaymentProfile.getPaymentType()).isEqualTo(PaymentType.CREDIT_CARD);
         assertThat(updatedPaymentProfile.getGatewayHandle()).isNull();
         assertThat(updatedPaymentProfile.getMaskedCardNumber()).isEqualTo("XXXX-XXXX-XXXX-1111");
         assertThat(updatedPaymentProfile.getCustomerVaultToken()).isNull();

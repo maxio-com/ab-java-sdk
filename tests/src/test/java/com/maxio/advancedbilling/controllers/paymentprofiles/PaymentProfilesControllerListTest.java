@@ -4,7 +4,9 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.PaymentProfilesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.BankAccountHolderType;
 import com.maxio.advancedbilling.models.BankAccountPaymentProfile;
+import com.maxio.advancedbilling.models.BankAccountType;
 import com.maxio.advancedbilling.models.BankAccountVault;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CreatePaymentProfile;
@@ -19,7 +21,7 @@ import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpiratio
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
-import com.maxio.advancedbilling.utils.matchers.ReadPaymentProfileResponsePaymentProfileGetter;
+import com.maxio.advancedbilling.utils.matchers.PaymentProfileResponsePaymentProfileGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -64,8 +66,8 @@ class PaymentProfilesControllerListTest {
                                 .bankName("Best Bank")
                                 .bankRoutingNumber("021000089")
                                 .bankAccountNumber("111111111111")
-                                .bankAccountType("checking")
-                                .bankAccountHolderType("business")
+                                .bankAccountType(BankAccountType.CHECKING)
+                                .bankAccountHolderType(BankAccountHolderType.BUSINESS)
                                 .paymentType(PaymentType.BANK_ACCOUNT)
                                 .build()
                 )
@@ -89,7 +91,7 @@ class PaymentProfilesControllerListTest {
                 .hasSize(2)
                 .map(readPaymentProfileResponse -> readPaymentProfileResponse
                         .getPaymentProfile()
-                        .match(new ReadPaymentProfileResponsePaymentProfileGetter<CreditCardPaymentProfile>())
+                        .match(new PaymentProfileResponsePaymentProfileGetter<CreditCardPaymentProfile>())
                 )
                 .allSatisfy(creditCardPaymentProfile -> {
                     assertThat(creditCardPaymentProfile.getId()).isNotNull();
@@ -110,7 +112,7 @@ class PaymentProfilesControllerListTest {
                     assertThat(creditCardPaymentProfile.getCustomerVaultToken()).isNull();
                     assertThat(creditCardPaymentProfile.getBillingAddress2()).isNull();
                     assertThat(creditCardPaymentProfile.getSiteGatewaySettingId()).isNull();
-                    assertThat(creditCardPaymentProfile.getPaymentType()).isEqualTo("credit_card");
+                    assertThat(creditCardPaymentProfile.getPaymentType()).isEqualTo(PaymentType.CREDIT_CARD);
                     assertThat(creditCardPaymentProfile.getDisabled()).isFalse();
                     assertThat(creditCardPaymentProfile.getGatewayHandle()).isNull();
                 });
@@ -126,7 +128,7 @@ class PaymentProfilesControllerListTest {
                 .hasSize(1)
                 .map(readPaymentProfileResponse -> readPaymentProfileResponse
                         .getPaymentProfile()
-                        .match(new ReadPaymentProfileResponsePaymentProfileGetter<BankAccountPaymentProfile>())
+                        .match(new PaymentProfileResponsePaymentProfileGetter<BankAccountPaymentProfile>())
                 )
                 .singleElement()
                 .satisfies(bankAccountPaymentProfile -> {
@@ -140,9 +142,9 @@ class PaymentProfilesControllerListTest {
                     assertThat(bankAccountPaymentProfile.getVaultToken()).isEqualTo("111111111111");
                     assertThat(bankAccountPaymentProfile.getCustomerVaultToken()).isNull();
                     assertThat(bankAccountPaymentProfile.getBankName()).isEqualTo("Best Bank");
-                    assertThat(bankAccountPaymentProfile.getBankAccountType()).isEqualTo("checking");
-                    assertThat(bankAccountPaymentProfile.getBankAccountHolderType()).isEqualTo("business");
-                    assertThat(bankAccountPaymentProfile.getPaymentType()).isEqualTo("bank_account");
+                    assertThat(bankAccountPaymentProfile.getBankAccountType()).isEqualTo(BankAccountType.CHECKING);
+                    assertThat(bankAccountPaymentProfile.getBankAccountHolderType()).isEqualTo(BankAccountHolderType.BUSINESS);
+                    assertThat(bankAccountPaymentProfile.getPaymentType()).isEqualTo(PaymentType.BANK_ACCOUNT);
                     assertThat(bankAccountPaymentProfile.getVerified()).isFalse();
                     assertThat(bankAccountPaymentProfile.getGatewayHandle()).isNull();
                 });

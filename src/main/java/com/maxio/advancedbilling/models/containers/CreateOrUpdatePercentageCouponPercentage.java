@@ -28,21 +28,21 @@ import java.util.Arrays;
 public abstract class CreateOrUpdatePercentageCouponPercentage {
     
     /**
-     * This is Precision case.
-     * @param precision double value for precision.
-     * @return The PrecisionCase object.
-     */
-    public static CreateOrUpdatePercentageCouponPercentage fromPrecision(double precision) {
-        return new PrecisionCase(precision);
-    }
-
-    /**
      * This is String case.
      * @param string String value for string.
      * @return The StringCase object.
      */
     public static CreateOrUpdatePercentageCouponPercentage fromString(String string) {
         return string == null ? null : new StringCase(string);
+    }
+
+    /**
+     * This is Precision case.
+     * @param precision double value for precision.
+     * @return The PrecisionCase object.
+     */
+    public static CreateOrUpdatePercentageCouponPercentage fromPrecision(double precision) {
+        return new PrecisionCase(precision);
     }
 
     /**
@@ -58,43 +58,9 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R precision(double precision);
-
         R string(String string);
-    }
 
-    /**
-     * This is a implementation class for PrecisionCase.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "double")
-    private static class PrecisionCase extends CreateOrUpdatePercentageCouponPercentage {
-
-        @JsonValue
-        private double precision;
-
-        PrecisionCase(double precision) {
-            this.precision = precision;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.precision(this.precision);
-        }
-
-        @JsonCreator
-        private PrecisionCase(JsonNode jsonNode) throws IOException {
-            if (jsonNode.isDouble()) {
-                this.precision = ApiHelper.deserialize(jsonNode, Double.class);
-            } else {
-                throw new IllegalArgumentException();
-            }
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(precision);
-        }
+        R precision(double precision);
     }
 
     /**
@@ -133,6 +99,40 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
     }
 
     /**
+     * This is a implementation class for PrecisionCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "double")
+    private static class PrecisionCase extends CreateOrUpdatePercentageCouponPercentage {
+
+        @JsonValue
+        private double precision;
+
+        PrecisionCase(double precision) {
+            this.precision = precision;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.precision(this.precision);
+        }
+
+        @JsonCreator
+        private PrecisionCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isDouble()) {
+                this.precision = ApiHelper.deserialize(jsonNode, Double.class);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(precision);
+        }
+    }
+
+    /**
      * This is a custom deserializer class for CreateOrUpdatePercentageCouponPercentage.
      */
     protected static class CreateOrUpdatePercentageCouponPercentageDeserializer
@@ -143,8 +143,8 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(PrecisionCase.class,
-                    StringCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(StringCase.class,
+                    PrecisionCase.class), true);
         }
     }
 

@@ -92,7 +92,7 @@ class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseT
                                 new CreateProductPricePoint()
                         ))
                 ),
-                e -> assertThat(e.getHttpContext().getResponse().getBody()).isEqualTo("{\"price_points[0].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[0].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"],\"price_points[0].name\":[\"Name: cannot be blank.\"],\"price_points[1].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[1].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"],\"price_points[1].name\":[\"Name: cannot be blank.\"]}")
+                e -> assertThat(e.getHttpContext().getResponse().getBody()).isEqualTo("{\"price_points[0].name\":[\"Name: cannot be blank.\"],\"price_points[0].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[0].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"],\"price_points[1].name\":[\"Name: cannot be blank.\"],\"price_points[1].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[1].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"]}")
         );
     }
 }
