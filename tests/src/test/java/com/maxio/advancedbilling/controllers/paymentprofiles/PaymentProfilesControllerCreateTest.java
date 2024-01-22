@@ -10,6 +10,7 @@ import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
 import com.maxio.advancedbilling.models.CurrentVault;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationYear;
 import com.maxio.advancedbilling.utils.TestSetup;
@@ -70,7 +71,7 @@ class PaymentProfilesControllerCreateTest {
                 () -> assertThat(paymentProfile.getVaultToken()).isNotNull(),
                 () -> assertThat(paymentProfile.getCustomerVaultToken()).isNull(),
                 () -> assertThat(paymentProfile.getBillingAddress2()).isNull(),
-                () -> assertThat(paymentProfile.getPaymentType()).isEqualTo("credit_card"),
+                () -> assertThat(paymentProfile.getPaymentType()).isEqualTo(PaymentType.CREDIT_CARD),
                 () -> assertThat(paymentProfile.getDisabled()).isFalse()
         );
     }

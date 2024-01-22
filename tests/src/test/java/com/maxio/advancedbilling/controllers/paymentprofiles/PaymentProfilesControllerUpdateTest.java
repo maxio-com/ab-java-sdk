@@ -10,6 +10,7 @@ import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
 import com.maxio.advancedbilling.models.CurrentVault;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.UpdatePaymentProfile;
 import com.maxio.advancedbilling.models.UpdatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
@@ -92,7 +93,7 @@ class PaymentProfilesControllerUpdateTest {
         assertThat(updatedPaymentProfile.getBillingState()).isEqualTo("CO");
         assertThat(updatedPaymentProfile.getBillingZip()).isEqualTo("80302");
         assertThat(updatedPaymentProfile.getBillingCountry()).isEqualTo("US");
-        assertThat(updatedPaymentProfile.getPaymentType()).isEqualTo("credit_card");
+        assertThat(updatedPaymentProfile.getPaymentType()).isEqualTo(PaymentType.CREDIT_CARD);
         assertThat(updatedPaymentProfile.getGatewayHandle()).isNull();
         assertThat(updatedPaymentProfile.getMaskedCardNumber()).isEqualTo("XXXX-XXXX-XXXX-1111");
         assertThat(updatedPaymentProfile.getCustomerVaultToken()).isNull();

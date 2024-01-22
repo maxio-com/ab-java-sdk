@@ -235,7 +235,7 @@ public class SubscriptionsControllerCreateTest {
     @Test
     void shouldCreateSubscriptionWithCoupon() throws IOException, ApiException {
         // given
-        Coupon coupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, 0.5);
+        Coupon coupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, "0.5");
 
         // when
         Subscription subscription = SUBSCRIPTIONS_CONTROLLER

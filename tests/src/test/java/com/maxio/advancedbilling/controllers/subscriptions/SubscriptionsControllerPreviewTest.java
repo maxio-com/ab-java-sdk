@@ -97,7 +97,7 @@ class SubscriptionsControllerPreviewTest {
     void shouldReturnPreview() throws IOException, ApiException {
         // given
         Product product = TEST_SETUP.createProduct(productFamily);
-        Coupon percentageCoupon = TEST_SETUP.createPercentageCoupon(productFamily, 0.5);
+        Coupon percentageCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.5");
         Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 10);
         ZonedDateTime now = ZonedDateTime.now();
 

@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
+import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorStringCase;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -26,6 +27,15 @@ import java.util.Arrays;
 @JsonDeserialize(using = CreateOrUpdatePercentageCouponPercentage.CreateOrUpdatePercentageCouponPercentageDeserializer.class)
 public abstract class CreateOrUpdatePercentageCouponPercentage {
     
+    /**
+     * This is String case.
+     * @param string String value for string.
+     * @return The StringCase object.
+     */
+    public static CreateOrUpdatePercentageCouponPercentage fromString(String string) {
+        return string == null ? null : new StringCase(string);
+    }
+
     /**
      * This is Precision case.
      * @param precision double value for precision.
@@ -48,7 +58,44 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
+        R string(String string);
+
         R precision(double precision);
+    }
+
+    /**
+     * This is a implementation class for StringCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorStringCase
+    @TypeCombinatorCase(type = "String")
+    private static class StringCase extends CreateOrUpdatePercentageCouponPercentage {
+
+        @JsonValue
+        private String string;
+
+        StringCase(String string) {
+            this.string = string;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.string(this.string);
+        }
+
+        @JsonCreator
+        private StringCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isTextual()) {
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        @Override
+        public String toString() {
+            return string.toString();
+        }
     }
 
     /**
@@ -96,7 +143,8 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(PrecisionCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(StringCase.class,
+                    PrecisionCase.class), true);
         }
     }
 

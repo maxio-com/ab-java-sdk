@@ -9,5 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
+| `String` | CreateOrUpdatePercentageCouponPercentage.fromString(String string) |
 | `double` | CreateOrUpdatePercentageCouponPercentage.fromPrecision(double precision) |
 

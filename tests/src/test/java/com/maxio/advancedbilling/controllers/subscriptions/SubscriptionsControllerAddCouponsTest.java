@@ -47,8 +47,8 @@ class SubscriptionsControllerAddCouponsTest {
         product = TEST_SETUP.createProduct(productFamily);
         customer = TEST_SETUP.createCustomer();
         subscription = TEST_SETUP.createSubscription(customer, product);
-        stackableCoupon = TEST_SETUP.createPercentageCoupon(productFamily, 0.5);
-        nonStackableCoupon = TEST_SETUP.createPercentageCoupon(productFamily, 0.25, false);
+        stackableCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.5");
+        nonStackableCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.25", false);
     }
 
     @AfterAll
@@ -157,7 +157,7 @@ class SubscriptionsControllerAddCouponsTest {
     void shouldAddCouponsToSubscription() throws IOException, ApiException {
         // given
         Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Coupon percentageCoupon = TEST_SETUP.createPercentageCoupon(productFamily, 0.1);
+        Coupon percentageCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.1");
 
         // when
         subscription = SUBSCRIPTIONS_CONTROLLER

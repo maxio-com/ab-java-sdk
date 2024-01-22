@@ -36,7 +36,7 @@ class SubscriptionsControllerRemoveCouponTest {
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily);
         customer = TEST_SETUP.createCustomer();
-        percentageCoupon = TEST_SETUP.createPercentageCoupon(productFamily, 0.5);
+        percentageCoupon = TEST_SETUP.createPercentageCoupon(productFamily, "0.5");
     }
 
     @AfterAll

@@ -71,8 +71,8 @@ public class SubscriptionsControllerListTest {
         CUSTOMER2 = TEST_SETUP.createCustomer();
         CUSTOM_PRICE_POINT1 = TEST_SETUP.createProductPricePoint(PRODUCT1, "customPricePoint1");
         CUSTOM_PRICE_POINT2 = TEST_SETUP.createProductPricePoint(PRODUCT1, "customPricePoint2");
-        COUPON1 = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, 0.5);
-        COUPON2 = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, 0.1);
+        COUPON1 = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, "0.5");
+        COUPON2 = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, "0.1");
 
         // 0
         ALL_SUBSCRIPTIONS.add(TEST_SETUP.createSubscription(CUSTOMER1, PRODUCT1, b -> b
@@ -277,7 +277,7 @@ public class SubscriptionsControllerListTest {
     @Test
     void shouldFilterByCoupon() throws IOException, ApiException {
         // given
-        Coupon notAttachedCoupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, 0.1);
+        Coupon notAttachedCoupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, "0.1");
 
         // when
         List<SubscriptionResponse> subscriptionsWithCoupon1 = SUBSCRIPTIONS_CONTROLLER
