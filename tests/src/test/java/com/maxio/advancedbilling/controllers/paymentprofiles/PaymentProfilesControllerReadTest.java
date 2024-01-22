@@ -4,12 +4,13 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.PaymentProfilesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.BankAccountHolderType;
 import com.maxio.advancedbilling.models.BankAccountPaymentProfile;
+import com.maxio.advancedbilling.models.BankAccountType;
 import com.maxio.advancedbilling.models.BankAccountVault;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CreatePaymentProfile;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
-import com.maxio.advancedbilling.models.CreatedPaymentProfile;
 import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
 import com.maxio.advancedbilling.models.CurrentVault;
 import com.maxio.advancedbilling.models.Customer;
@@ -19,7 +20,7 @@ import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpiratio
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
-import com.maxio.advancedbilling.utils.matchers.ReadPaymentProfileResponsePaymentProfileGetter;
+import com.maxio.advancedbilling.utils.matchers.PaymentProfileResponsePaymentProfileGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -34,8 +35,8 @@ class PaymentProfilesControllerReadTest {
     private static final PaymentProfilesController PAYMENT_PROFILES_CONTROLLER = CLIENT.getPaymentProfilesController();
 
     private static Customer customer;
-    private static CreatedPaymentProfile creditCardPaymentProfile;
-    private static CreatedPaymentProfile bankAccountPaymentProfile;
+    private static CreditCardPaymentProfile creditCardPaymentProfile;
+    private static BankAccountPaymentProfile bankAccountPaymentProfile;
 
     @BeforeAll
     static void setUp() throws IOException, ApiException {
@@ -48,7 +49,8 @@ class PaymentProfilesControllerReadTest {
                         .fullNumber("4111111111111111")
                         .build())
                 )
-                .getPaymentProfile();
+                .getPaymentProfile()
+                .match(new PaymentProfileResponsePaymentProfileGetter<>());
         bankAccountPaymentProfile = PAYMENT_PROFILES_CONTROLLER
                 .createPaymentProfile(new CreatePaymentProfileRequest(
                                 new CreatePaymentProfile.Builder()
@@ -56,13 +58,14 @@ class PaymentProfilesControllerReadTest {
                                         .bankName("Best Bank")
                                         .bankRoutingNumber("021000089")
                                         .bankAccountNumber("111111111111")
-                                        .bankAccountType("checking")
-                                        .bankAccountHolderType("business")
+                                        .bankAccountType(BankAccountType.CHECKING)
+                                        .bankAccountHolderType(BankAccountHolderType.BUSINESS)
                                         .paymentType(PaymentType.BANK_ACCOUNT)
                                         .build()
                         )
                 )
-                .getPaymentProfile();
+                .getPaymentProfile()
+                .match(new PaymentProfileResponsePaymentProfileGetter<>());
     }
 
     @AfterAll
@@ -76,7 +79,7 @@ class PaymentProfilesControllerReadTest {
         assertThat(PAYMENT_PROFILES_CONTROLLER
                 .readPaymentProfile(creditCardPaymentProfile.getId())
                 .getPaymentProfile()
-                .match(new ReadPaymentProfileResponsePaymentProfileGetter<CreditCardPaymentProfile>())
+                .match(new PaymentProfileResponsePaymentProfileGetter<CreditCardPaymentProfile>())
         )
                 .usingRecursiveComparison()
                 .isEqualTo(new CreditCardPaymentProfile.Builder()
@@ -97,7 +100,7 @@ class PaymentProfilesControllerReadTest {
                         .billingCountry(null)
                         .customerVaultToken(null)
                         .billingAddress2(null)
-                        .paymentType("credit_card")
+                        .paymentType(PaymentType.CREDIT_CARD)
                         .disabled(false)
                         .siteGatewaySettingId(null)
                         .gatewayHandle(null)
@@ -111,7 +114,7 @@ class PaymentProfilesControllerReadTest {
         assertThat(PAYMENT_PROFILES_CONTROLLER
                 .readPaymentProfile(bankAccountPaymentProfile.getId())
                 .getPaymentProfile()
-                .match(new ReadPaymentProfileResponsePaymentProfileGetter<BankAccountPaymentProfile>())
+                .match(new PaymentProfileResponsePaymentProfileGetter<BankAccountPaymentProfile>())
         )
                 .usingRecursiveComparison()
                 .isEqualTo(new BankAccountPaymentProfile.Builder()
@@ -125,9 +128,9 @@ class PaymentProfilesControllerReadTest {
                         .vaultToken("111111111111")
                         .customerVaultToken(null)
                         .bankName("Best Bank")
-                        .bankAccountType("checking")
-                        .bankAccountHolderType("business")
-                        .paymentType("bank_account")
+                        .bankAccountType(BankAccountType.CHECKING)
+                        .bankAccountHolderType(BankAccountHolderType.BUSINESS)
+                        .paymentType(PaymentType.BANK_ACCOUNT)
                         .verified(false)
                         .gatewayHandle(null)
                         .build()

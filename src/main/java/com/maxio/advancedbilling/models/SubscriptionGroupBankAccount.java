@@ -19,9 +19,9 @@ public class SubscriptionGroupBankAccount {
     private String bankRoutingNumber;
     private String bankIban;
     private String bankBranchCode;
-    private BankAccountType1 bankAccountType;
-    private HolderType1 bankAccountHolderType;
-    private String paymentType;
+    private BankAccountType bankAccountType;
+    private BankAccountHolderType bankAccountHolderType;
+    private PaymentType paymentType;
     private String billingAddress;
     private String billingCity;
     private String billingState;
@@ -35,7 +35,8 @@ public class SubscriptionGroupBankAccount {
      * Default constructor.
      */
     public SubscriptionGroupBankAccount() {
-        bankAccountType = BankAccountType1.CHECKING;
+        bankAccountType = BankAccountType.CHECKING;
+        paymentType = PaymentType.CREDIT_CARD;
     }
 
     /**
@@ -45,9 +46,9 @@ public class SubscriptionGroupBankAccount {
      * @param  bankRoutingNumber  String value for bankRoutingNumber.
      * @param  bankIban  String value for bankIban.
      * @param  bankBranchCode  String value for bankBranchCode.
-     * @param  bankAccountType  BankAccountType1 value for bankAccountType.
-     * @param  bankAccountHolderType  HolderType1 value for bankAccountHolderType.
-     * @param  paymentType  String value for paymentType.
+     * @param  bankAccountType  BankAccountType value for bankAccountType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
      * @param  billingState  String value for billingState.
@@ -63,9 +64,9 @@ public class SubscriptionGroupBankAccount {
             String bankRoutingNumber,
             String bankIban,
             String bankBranchCode,
-            BankAccountType1 bankAccountType,
-            HolderType1 bankAccountHolderType,
-            String paymentType,
+            BankAccountType bankAccountType,
+            BankAccountHolderType bankAccountHolderType,
+            PaymentType paymentType,
             String billingAddress,
             String billingCity,
             String billingState,
@@ -211,58 +212,62 @@ public class SubscriptionGroupBankAccount {
 
     /**
      * Getter for BankAccountType.
-     * @return Returns the BankAccountType1
+     * Defaults to checking
+     * @return Returns the BankAccountType
      */
     @JsonGetter("bank_account_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public BankAccountType1 getBankAccountType() {
+    public BankAccountType getBankAccountType() {
         return bankAccountType;
     }
 
     /**
      * Setter for BankAccountType.
-     * @param bankAccountType Value for BankAccountType1
+     * Defaults to checking
+     * @param bankAccountType Value for BankAccountType
      */
     @JsonSetter("bank_account_type")
-    public void setBankAccountType(BankAccountType1 bankAccountType) {
+    public void setBankAccountType(BankAccountType bankAccountType) {
         this.bankAccountType = bankAccountType;
     }
 
     /**
      * Getter for BankAccountHolderType.
-     * @return Returns the HolderType1
+     * Defaults to personal
+     * @return Returns the BankAccountHolderType
      */
     @JsonGetter("bank_account_holder_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public HolderType1 getBankAccountHolderType() {
+    public BankAccountHolderType getBankAccountHolderType() {
         return bankAccountHolderType;
     }
 
     /**
      * Setter for BankAccountHolderType.
-     * @param bankAccountHolderType Value for HolderType1
+     * Defaults to personal
+     * @param bankAccountHolderType Value for BankAccountHolderType
      */
     @JsonSetter("bank_account_holder_type")
-    public void setBankAccountHolderType(HolderType1 bankAccountHolderType) {
+    public void setBankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
         this.bankAccountHolderType = bankAccountHolderType;
     }
 
     /**
      * Getter for PaymentType.
-     * @return Returns the String
+     * @return Returns the PaymentType
      */
     @JsonGetter("payment_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPaymentType() {
+    public PaymentType getPaymentType() {
         return paymentType;
     }
 
     /**
      * Setter for PaymentType.
-     * @param paymentType Value for String
+     * @param paymentType Value for PaymentType
      */
     @JsonSetter("payment_type")
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
 
@@ -472,9 +477,9 @@ public class SubscriptionGroupBankAccount {
         private String bankRoutingNumber;
         private String bankIban;
         private String bankBranchCode;
-        private BankAccountType1 bankAccountType = BankAccountType1.CHECKING;
-        private HolderType1 bankAccountHolderType;
-        private String paymentType;
+        private BankAccountType bankAccountType = BankAccountType.CHECKING;
+        private BankAccountHolderType bankAccountHolderType;
+        private PaymentType paymentType = PaymentType.CREDIT_CARD;
         private String billingAddress;
         private String billingCity;
         private String billingState;
@@ -538,30 +543,30 @@ public class SubscriptionGroupBankAccount {
 
         /**
          * Setter for bankAccountType.
-         * @param  bankAccountType  BankAccountType1 value for bankAccountType.
+         * @param  bankAccountType  BankAccountType value for bankAccountType.
          * @return Builder
          */
-        public Builder bankAccountType(BankAccountType1 bankAccountType) {
+        public Builder bankAccountType(BankAccountType bankAccountType) {
             this.bankAccountType = bankAccountType;
             return this;
         }
 
         /**
          * Setter for bankAccountHolderType.
-         * @param  bankAccountHolderType  HolderType1 value for bankAccountHolderType.
+         * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
          * @return Builder
          */
-        public Builder bankAccountHolderType(HolderType1 bankAccountHolderType) {
+        public Builder bankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
             this.bankAccountHolderType = bankAccountHolderType;
             return this;
         }
 
         /**
          * Setter for paymentType.
-         * @param  paymentType  String value for paymentType.
+         * @param  paymentType  PaymentType value for paymentType.
          * @return Builder
          */
-        public Builder paymentType(String paymentType) {
+        public Builder paymentType(PaymentType paymentType) {
             this.paymentType = paymentType;
             return this;
         }

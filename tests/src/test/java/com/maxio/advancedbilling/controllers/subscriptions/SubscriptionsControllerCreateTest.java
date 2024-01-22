@@ -6,6 +6,9 @@ import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BankAccountAttributes;
+import com.maxio.advancedbilling.models.BankAccountHolderType;
+import com.maxio.advancedbilling.models.BankAccountPaymentProfile;
+import com.maxio.advancedbilling.models.BankAccountType;
 import com.maxio.advancedbilling.models.BankAccountVault;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.Component;
@@ -13,6 +16,7 @@ import com.maxio.advancedbilling.models.Coupon;
 import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
+import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
 import com.maxio.advancedbilling.models.CurrentVault;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.GroupSettings;
@@ -23,7 +27,6 @@ import com.maxio.advancedbilling.models.ListMetadataForResourceTypeInput;
 import com.maxio.advancedbilling.models.NestedSubscriptionGroup;
 import com.maxio.advancedbilling.models.PaginatedMetadata;
 import com.maxio.advancedbilling.models.PaymentCollectionMethod;
-import com.maxio.advancedbilling.models.PaymentProfile;
 import com.maxio.advancedbilling.models.PaymentProfileAttributes;
 import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.PrepaidConfiguration;
@@ -33,7 +36,6 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.SortingDirection;
 import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.models.SubscriptionBankAccount;
 import com.maxio.advancedbilling.models.SubscriptionComponent;
 import com.maxio.advancedbilling.models.SubscriptionCustomPrice;
 import com.maxio.advancedbilling.models.SubscriptionInclude;
@@ -146,7 +148,7 @@ public class SubscriptionsControllerCreateTest {
         assertBasicSubscriptionFields(subscription);
         assertBalancesWithDefaultPricePoint(subscription);
 
-        PaymentProfile creditCard = subscription.getCreditCard();
+        CreditCardPaymentProfile creditCard = subscription.getCreditCard();
         assertThat(creditCard).isNotNull();
         assertThat(creditCard.getId()).isNotNull().isGreaterThan(1);
         assertThat(creditCard.getFirstName()).isEqualTo(CUSTOMER.getFirstName());
@@ -189,9 +191,9 @@ public class SubscriptionsControllerCreateTest {
                                         .bankAccountNumber("000000000000")
                                         .bankRoutingNumber("0003")
                                         .bankBranchCode("00006")
-                                        .paymentType("bank_account")
-                                        .bankAccountHolderType("business")
-                                        .bankAccountType("checking")
+                                        .paymentType(PaymentType.BANK_ACCOUNT)
+                                        .bankAccountHolderType(BankAccountHolderType.BUSINESS)
+                                        .bankAccountType(BankAccountType.CHECKING)
                                         .build())
                                 .build()
                 )).getSubscription();
@@ -204,11 +206,11 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscription.getCustomer().getVerified()).isTrue();
         assertThat(subscription.getCreditCard()).isNull();
 
-        SubscriptionBankAccount bankAccount = subscription.getBankAccount();
+        BankAccountPaymentProfile bankAccount = subscription.getBankAccount();
         assertThat(bankAccount).isNotNull();
         assertThat(bankAccount.getId()).isNotNull().isGreaterThan(1);
-        assertThat(bankAccount.getBankAccountHolderType()).isEqualTo("business");
-        assertThat(bankAccount.getBankAccountType()).isEqualTo("checking");
+        assertThat(bankAccount.getBankAccountHolderType()).isEqualTo(BankAccountHolderType.BUSINESS);
+        assertThat(bankAccount.getBankAccountType()).isEqualTo(BankAccountType.CHECKING);
         assertThat(bankAccount.getBankName()).isEqualTo("Royal Bank of France");
         assertThat(bankAccount.getBillingAddress()).isNull();
         assertThat(bankAccount.getBillingAddress2()).isNull();
@@ -224,7 +226,6 @@ public class SubscriptionsControllerCreateTest {
         assertThat(bankAccount.getMaskedBankAccountNumber()).isEqualTo("XXXX0000");
         assertThat(bankAccount.getMaskedBankRoutingNumber()).isEqualTo("XXXX0003");
         assertThat(bankAccount.getVaultToken()).isEqualTo("000000000000");
-        assertThat(bankAccount.getChargifyToken()).isNull();
         assertThat(bankAccount.getSiteGatewaySettingId()).isNull();
         assertThat(bankAccount.getGatewayHandle()).isNull();
 
@@ -234,7 +235,7 @@ public class SubscriptionsControllerCreateTest {
     @Test
     void shouldCreateSubscriptionWithCoupon() throws IOException, ApiException {
         // given
-        Coupon coupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, "0.5");
+        Coupon coupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, 0.5);
 
         // when
         Subscription subscription = SUBSCRIPTIONS_CONTROLLER

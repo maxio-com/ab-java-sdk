@@ -7,7 +7,7 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CreatePaymentProfile;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
-import com.maxio.advancedbilling.models.CreatedPaymentProfile;
+import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
 import com.maxio.advancedbilling.models.CurrentVault;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
@@ -15,6 +15,7 @@ import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpiratio
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import com.maxio.advancedbilling.utils.matchers.PaymentProfileResponsePaymentProfileGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ class PaymentProfilesControllerCreateTest {
     @Test
     void shouldCreatePaymentProfileForCustomer() throws IOException, ApiException {
         // when
-        CreatedPaymentProfile paymentProfile = PAYMENT_PROFILES_CONTROLLER
+        CreditCardPaymentProfile paymentProfile = PAYMENT_PROFILES_CONTROLLER
                 .createPaymentProfile(new CreatePaymentProfileRequest(new CreatePaymentProfile.Builder()
                         .customerId(customer.getId())
                         .expirationMonth(CreatePaymentProfileExpirationMonth.fromNumber(12))
@@ -52,7 +53,8 @@ class PaymentProfilesControllerCreateTest {
                         .fullNumber("4111111111111111")
                         .build())
                 )
-                .getPaymentProfile();
+                .getPaymentProfile()
+                .match(new PaymentProfileResponsePaymentProfileGetter<>());
 
         // then
         assertAll(

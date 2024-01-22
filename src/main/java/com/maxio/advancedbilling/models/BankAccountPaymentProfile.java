@@ -35,7 +35,7 @@ public class BankAccountPaymentProfile {
     private String maskedBankRoutingNumber;
     private String maskedBankAccountNumber;
     private BankAccountType bankAccountType;
-    private HolderType bankAccountHolderType;
+    private BankAccountHolderType bankAccountHolderType;
     private PaymentType paymentType;
     private Boolean verified;
     private Integer siteGatewaySettingId;
@@ -69,7 +69,7 @@ public class BankAccountPaymentProfile {
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
      * @param  bankAccountType  BankAccountType value for bankAccountType.
-     * @param  bankAccountHolderType  HolderType value for bankAccountHolderType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
      * @param  paymentType  PaymentType value for paymentType.
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
@@ -93,7 +93,7 @@ public class BankAccountPaymentProfile {
             String billingAddress2,
             String bankName,
             BankAccountType bankAccountType,
-            HolderType bankAccountHolderType,
+            BankAccountHolderType bankAccountHolderType,
             PaymentType paymentType,
             Boolean verified,
             Integer siteGatewaySettingId,
@@ -141,7 +141,7 @@ public class BankAccountPaymentProfile {
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
      * @param  bankAccountType  BankAccountType value for bankAccountType.
-     * @param  bankAccountHolderType  HolderType value for bankAccountHolderType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
      * @param  paymentType  PaymentType value for paymentType.
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
@@ -155,7 +155,7 @@ public class BankAccountPaymentProfile {
             OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
             OptionalNullable<String> billingAddress2, String bankName,
-            BankAccountType bankAccountType, HolderType bankAccountHolderType,
+            BankAccountType bankAccountType, BankAccountHolderType bankAccountHolderType,
             PaymentType paymentType, Boolean verified, Integer siteGatewaySettingId,
             OptionalNullable<String> gatewayHandle) {
         this.id = id;
@@ -702,21 +702,21 @@ public class BankAccountPaymentProfile {
     /**
      * Getter for BankAccountHolderType.
      * Defaults to personal
-     * @return Returns the HolderType
+     * @return Returns the BankAccountHolderType
      */
     @JsonGetter("bank_account_holder_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public HolderType getBankAccountHolderType() {
+    public BankAccountHolderType getBankAccountHolderType() {
         return bankAccountHolderType;
     }
 
     /**
      * Setter for BankAccountHolderType.
      * Defaults to personal
-     * @param bankAccountHolderType Value for HolderType
+     * @param bankAccountHolderType Value for BankAccountHolderType
      */
     @JsonSetter("bank_account_holder_type")
-    public void setBankAccountHolderType(HolderType bankAccountHolderType) {
+    public void setBankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
         this.bankAccountHolderType = bankAccountHolderType;
     }
 
@@ -887,7 +887,7 @@ public class BankAccountPaymentProfile {
         private OptionalNullable<String> billingAddress2;
         private String bankName;
         private BankAccountType bankAccountType = BankAccountType.CHECKING;
-        private HolderType bankAccountHolderType;
+        private BankAccountHolderType bankAccountHolderType;
         private PaymentType paymentType = PaymentType.CREDIT_CARD;
         private Boolean verified = false;
         private Integer siteGatewaySettingId;
@@ -1144,10 +1144,10 @@ public class BankAccountPaymentProfile {
 
         /**
          * Setter for bankAccountHolderType.
-         * @param  bankAccountHolderType  HolderType value for bankAccountHolderType.
+         * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
          * @return Builder
          */
-        public Builder bankAccountHolderType(HolderType bankAccountHolderType) {
+        public Builder bankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
             this.bankAccountHolderType = bankAccountHolderType;
             return this;
         }

@@ -18,7 +18,7 @@ import com.maxio.advancedbilling.models.CreateProductFamily;
 import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
-import com.maxio.advancedbilling.models.CreatedPaymentProfile;
+import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.Product;
@@ -28,6 +28,7 @@ import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationYear;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import com.maxio.advancedbilling.utils.matchers.PaymentProfileResponsePaymentProfileGetter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -89,7 +90,7 @@ class CustomersControllerListSubscriptionsTest {
                 .getCustomer()
                 .getId();
 
-        CreatedPaymentProfile paymentProfile = paymentProfilesController
+        CreditCardPaymentProfile paymentProfile = paymentProfilesController
                 .createPaymentProfile(new CreatePaymentProfileRequest(new CreatePaymentProfile.Builder()
                         .customerId(customerId)
                         .paymentType(PaymentType.CREDIT_CARD)
@@ -98,7 +99,8 @@ class CustomersControllerListSubscriptionsTest {
                         .fullNumber("5424000000000015")
                         .build())
                 )
-                .getPaymentProfile();
+                .getPaymentProfile()
+                .match(new PaymentProfileResponsePaymentProfileGetter<>());
 
         ProductFamily productFamily = productFamiliesController
                 .createProductFamily(new CreateProductFamilyRequest(new CreateProductFamily.Builder()

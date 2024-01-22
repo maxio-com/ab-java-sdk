@@ -70,7 +70,7 @@ public class SubscriptionsControllerReadTest {
     @Test
     void shouldReadSubscriptionAndIncludeAdditionalFields() throws IOException, ApiException {
         // given
-        Coupon coupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, "0.5");
+        Coupon coupon = TEST_SETUP.createPercentageCoupon(PRODUCT_FAMILY, 0.5);
         Subscription subscription = TEST_SETUP.createSubscription(CUSTOMER, PRODUCT, b -> b.couponCode(coupon.getCode()));
 
         // when

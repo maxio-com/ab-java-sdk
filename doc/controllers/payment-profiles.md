@@ -296,8 +296,8 @@ CreatePaymentProfileRequest body = new CreatePaymentProfileRequest.Builder(
         .bankName("Best Bank")
         .bankRoutingNumber("021000089")
         .bankAccountNumber("111111111111")
-        .bankAccountType("checking")
-        .bankAccountHolderType("business")
+        .bankAccountType(BankAccountType.CHECKING)
+        .bankAccountHolderType(BankAccountHolderType.BUSINESS)
         .build()
 )
 .build();
