@@ -1242,16 +1242,24 @@ UpdateComponentPricePointRequest body = new UpdateComponentPricePointRequest.Bui
         .prices(Arrays.asList(
             new UpdatePrice.Builder()
                 .id(1)
-                .endingQuantity(100)
-                .unitPrice(5)
+                .endingQuantity(UpdatePriceEndingQuantity.fromNumber(
+                    100
+                ))
+                .unitPrice(UpdatePriceUnitPrice.fromPrecision(
+                    5D
+                ))
                 .build(),
             new UpdatePrice.Builder()
                 .id(2)
-                .destroy("true")
+                .destroy(true)
                 .build(),
             new UpdatePrice.Builder()
-                .unitPrice(4)
-                .startingQuantity(101)
+                .unitPrice(UpdatePriceUnitPrice.fromPrecision(
+                    4D
+                ))
+                .startingQuantity(UpdatePriceStartingQuantity.fromNumber(
+                    101
+                ))
                 .build()
         ))
         .build())
