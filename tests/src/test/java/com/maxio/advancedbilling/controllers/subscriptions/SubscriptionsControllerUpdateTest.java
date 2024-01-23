@@ -6,8 +6,8 @@ import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentCustomPrice;
+import com.maxio.advancedbilling.models.ComponentPrice;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
-import com.maxio.advancedbilling.models.ComponentPricePointPrice;
 import com.maxio.advancedbilling.models.ComponentPricePointsResponse;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
 import com.maxio.advancedbilling.models.Customer;
@@ -169,14 +169,14 @@ public class SubscriptionsControllerUpdateTest {
                 .hasSize(2)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id", "formattedUnitPrice")
                 .containsExactlyInAnyOrder(
-                        new ComponentPricePointPrice.Builder()
+                        new ComponentPrice.Builder()
                                 .componentId(component1.getId())
                                 .startingQuantity(1)
                                 .endingQuantity(20)
                                 .unitPrice("10.0")
                                 .pricePointId(pricePoint.getId())
                                 .build(),
-                        new ComponentPricePointPrice.Builder()
+                        new ComponentPrice.Builder()
                                 .componentId(component1.getId())
                                 .startingQuantity(21)
                                 .unitPrice("8.0")
