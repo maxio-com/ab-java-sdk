@@ -14,15 +14,15 @@ import java.util.TreeMap;
 
 
 /**
- * HolderType to be used.
+ * BankAccountHolderType to be used.
  */
-public enum HolderType {
+public enum BankAccountHolderType {
     PERSONAL,
 
     BUSINESS;
 
 
-    private static TreeMap<String, HolderType> valueMap = new TreeMap<>();
+    private static TreeMap<String, BankAccountHolderType> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -40,8 +40,8 @@ public enum HolderType {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static HolderType constructFromString(String toConvert) throws IOException {
-        HolderType enumValue = fromString(toConvert);
+    public static BankAccountHolderType constructFromString(String toConvert) throws IOException {
+        BankAccountHolderType enumValue = fromString(toConvert);
         if (enumValue == null)
         {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
@@ -54,7 +54,7 @@ public enum HolderType {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static HolderType fromString(String toConvert) {
+    public static BankAccountHolderType fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -76,16 +76,16 @@ public enum HolderType {
     }
 
     /**
-     * Convert list of HolderType values to list of string values.
-     * @param toConvert The list of HolderType values to convert.
+     * Convert list of BankAccountHolderType values to list of string values.
+     * @param toConvert The list of BankAccountHolderType values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<HolderType> toConvert) {
+    public static List<String> toValue(List<BankAccountHolderType> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (HolderType enumValue : toConvert) {
+        for (BankAccountHolderType enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

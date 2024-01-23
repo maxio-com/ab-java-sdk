@@ -47,8 +47,8 @@ public class CreatePaymentProfile {
     private String bankRoutingNumber;
     private String bankAccountNumber;
     private String bankBranchCode;
-    private String bankAccountType;
-    private String bankAccountHolderType;
+    private BankAccountType bankAccountType;
+    private BankAccountHolderType bankAccountHolderType;
     private String lastFour;
 
     /**
@@ -56,6 +56,7 @@ public class CreatePaymentProfile {
      */
     public CreatePaymentProfile() {
         paymentType = PaymentType.CREDIT_CARD;
+        bankAccountType = BankAccountType.CHECKING;
     }
 
     /**
@@ -89,8 +90,8 @@ public class CreatePaymentProfile {
      * @param  bankRoutingNumber  String value for bankRoutingNumber.
      * @param  bankAccountNumber  String value for bankAccountNumber.
      * @param  bankBranchCode  String value for bankBranchCode.
-     * @param  bankAccountType  String value for bankAccountType.
-     * @param  bankAccountHolderType  String value for bankAccountHolderType.
+     * @param  bankAccountType  BankAccountType value for bankAccountType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
      * @param  lastFour  String value for lastFour.
      */
     public CreatePaymentProfile(
@@ -123,8 +124,8 @@ public class CreatePaymentProfile {
             String bankRoutingNumber,
             String bankAccountNumber,
             String bankBranchCode,
-            String bankAccountType,
-            String bankAccountHolderType,
+            BankAccountType bankAccountType,
+            BankAccountHolderType bankAccountHolderType,
             String lastFour) {
         this.chargifyToken = chargifyToken;
         this.id = id;
@@ -191,8 +192,8 @@ public class CreatePaymentProfile {
      * @param  bankRoutingNumber  String value for bankRoutingNumber.
      * @param  bankAccountNumber  String value for bankAccountNumber.
      * @param  bankBranchCode  String value for bankBranchCode.
-     * @param  bankAccountType  String value for bankAccountType.
-     * @param  bankAccountHolderType  String value for bankAccountHolderType.
+     * @param  bankAccountType  BankAccountType value for bankAccountType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
      * @param  lastFour  String value for lastFour.
      */
 
@@ -205,8 +206,8 @@ public class CreatePaymentProfile {
             String customerVaultToken, Integer customerId, String paypalEmail,
             String paymentMethodNonce, String gatewayHandle, String cvv, String bankName,
             String bankIban, String bankRoutingNumber, String bankAccountNumber,
-            String bankBranchCode, String bankAccountType, String bankAccountHolderType,
-            String lastFour) {
+            String bankBranchCode, BankAccountType bankAccountType,
+            BankAccountHolderType bankAccountHolderType, String lastFour) {
         this.chargifyToken = chargifyToken;
         this.id = id;
         this.paymentType = paymentType;
@@ -924,39 +925,43 @@ public class CreatePaymentProfile {
 
     /**
      * Getter for BankAccountType.
-     * @return Returns the String
+     * Defaults to checking
+     * @return Returns the BankAccountType
      */
     @JsonGetter("bank_account_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getBankAccountType() {
+    public BankAccountType getBankAccountType() {
         return bankAccountType;
     }
 
     /**
      * Setter for BankAccountType.
-     * @param bankAccountType Value for String
+     * Defaults to checking
+     * @param bankAccountType Value for BankAccountType
      */
     @JsonSetter("bank_account_type")
-    public void setBankAccountType(String bankAccountType) {
+    public void setBankAccountType(BankAccountType bankAccountType) {
         this.bankAccountType = bankAccountType;
     }
 
     /**
      * Getter for BankAccountHolderType.
-     * @return Returns the String
+     * Defaults to personal
+     * @return Returns the BankAccountHolderType
      */
     @JsonGetter("bank_account_holder_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getBankAccountHolderType() {
+    public BankAccountHolderType getBankAccountHolderType() {
         return bankAccountHolderType;
     }
 
     /**
      * Setter for BankAccountHolderType.
-     * @param bankAccountHolderType Value for String
+     * Defaults to personal
+     * @param bankAccountHolderType Value for BankAccountHolderType
      */
     @JsonSetter("bank_account_holder_type")
-    public void setBankAccountHolderType(String bankAccountHolderType) {
+    public void setBankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
         this.bankAccountHolderType = bankAccountHolderType;
     }
 
@@ -1082,8 +1087,8 @@ public class CreatePaymentProfile {
         private String bankRoutingNumber;
         private String bankAccountNumber;
         private String bankBranchCode;
-        private String bankAccountType;
-        private String bankAccountHolderType;
+        private BankAccountType bankAccountType = BankAccountType.CHECKING;
+        private BankAccountHolderType bankAccountHolderType;
         private String lastFour;
 
 
@@ -1389,20 +1394,20 @@ public class CreatePaymentProfile {
 
         /**
          * Setter for bankAccountType.
-         * @param  bankAccountType  String value for bankAccountType.
+         * @param  bankAccountType  BankAccountType value for bankAccountType.
          * @return Builder
          */
-        public Builder bankAccountType(String bankAccountType) {
+        public Builder bankAccountType(BankAccountType bankAccountType) {
             this.bankAccountType = bankAccountType;
             return this;
         }
 
         /**
          * Setter for bankAccountHolderType.
-         * @param  bankAccountHolderType  String value for bankAccountHolderType.
+         * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
          * @return Builder
          */
-        public Builder bankAccountHolderType(String bankAccountHolderType) {
+        public Builder bankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
             this.bankAccountHolderType = bankAccountHolderType;
             return this;
         }

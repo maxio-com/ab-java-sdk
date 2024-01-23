@@ -8,12 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.PaymentProfileResponsePaymentProfile;
 
 /**
  * This is a model class for PaymentProfileResponse type.
  */
 public class PaymentProfileResponse {
-    private PaymentProfile paymentProfile;
+    private PaymentProfileResponsePaymentProfile paymentProfile;
 
     /**
      * Default constructor.
@@ -23,28 +24,28 @@ public class PaymentProfileResponse {
 
     /**
      * Initialization constructor.
-     * @param  paymentProfile  PaymentProfile value for paymentProfile.
+     * @param  paymentProfile  PaymentProfileResponsePaymentProfile value for paymentProfile.
      */
     public PaymentProfileResponse(
-            PaymentProfile paymentProfile) {
+            PaymentProfileResponsePaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
     /**
      * Getter for PaymentProfile.
-     * @return Returns the PaymentProfile
+     * @return Returns the PaymentProfileResponsePaymentProfile
      */
     @JsonGetter("payment_profile")
-    public PaymentProfile getPaymentProfile() {
+    public PaymentProfileResponsePaymentProfile getPaymentProfile() {
         return paymentProfile;
     }
 
     /**
      * Setter for PaymentProfile.
-     * @param paymentProfile Value for PaymentProfile
+     * @param paymentProfile Value for PaymentProfileResponsePaymentProfile
      */
     @JsonSetter("payment_profile")
-    public void setPaymentProfile(PaymentProfile paymentProfile) {
+    public void setPaymentProfile(PaymentProfileResponsePaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
@@ -71,7 +72,7 @@ public class PaymentProfileResponse {
      * Class to build instances of {@link PaymentProfileResponse}.
      */
     public static class Builder {
-        private PaymentProfile paymentProfile;
+        private PaymentProfileResponsePaymentProfile paymentProfile;
 
         /**
          * Initialization constructor.
@@ -81,18 +82,18 @@ public class PaymentProfileResponse {
 
         /**
          * Initialization constructor.
-         * @param  paymentProfile  PaymentProfile value for paymentProfile.
+         * @param  paymentProfile  PaymentProfileResponsePaymentProfile value for paymentProfile.
          */
-        public Builder(PaymentProfile paymentProfile) {
+        public Builder(PaymentProfileResponsePaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
         }
 
         /**
          * Setter for paymentProfile.
-         * @param  paymentProfile  PaymentProfile value for paymentProfile.
+         * @param  paymentProfile  PaymentProfileResponsePaymentProfile value for paymentProfile.
          * @return Builder
          */
-        public Builder paymentProfile(PaymentProfile paymentProfile) {
+        public Builder paymentProfile(PaymentProfileResponsePaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
             return this;
         }

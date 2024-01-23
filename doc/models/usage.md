@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
+| `Id` | `Long` | Optional | **Constraints**: `>= 0` | Long getId() | setId(Long id) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |

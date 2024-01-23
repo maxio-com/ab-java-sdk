@@ -49,9 +49,9 @@ public class Subscription {
     private PaymentCollectionMethod paymentCollectionMethod;
     private Customer customer;
     private Product product;
-    private PaymentProfile creditCard;
+    private CreditCardPaymentProfile creditCard;
     private OptionalNullable<SubscriptionGroup2> group;
-    private SubscriptionBankAccount bankAccount;
+    private BankAccountPaymentProfile bankAccount;
     private OptionalNullable<String> paymentType;
     private OptionalNullable<String> referralCode;
     private OptionalNullable<Integer> nextProductId;
@@ -122,9 +122,9 @@ public class Subscription {
      * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
-     * @param  creditCard  PaymentProfile value for creditCard.
+     * @param  creditCard  CreditCardPaymentProfile value for creditCard.
      * @param  group  SubscriptionGroup2 value for group.
-     * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
+     * @param  bankAccount  BankAccountPaymentProfile value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
      * @param  nextProductId  Integer value for nextProductId.
@@ -187,9 +187,9 @@ public class Subscription {
             PaymentCollectionMethod paymentCollectionMethod,
             Customer customer,
             Product product,
-            PaymentProfile creditCard,
+            CreditCardPaymentProfile creditCard,
             SubscriptionGroup2 group,
-            SubscriptionBankAccount bankAccount,
+            BankAccountPaymentProfile bankAccount,
             String paymentType,
             String referralCode,
             Integer nextProductId,
@@ -316,9 +316,9 @@ public class Subscription {
      * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
-     * @param  creditCard  PaymentProfile value for creditCard.
+     * @param  creditCard  CreditCardPaymentProfile value for creditCard.
      * @param  group  SubscriptionGroup2 value for group.
-     * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
+     * @param  bankAccount  BankAccountPaymentProfile value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
      * @param  nextProductId  Integer value for nextProductId.
@@ -366,8 +366,8 @@ public class Subscription {
             SubscriptionState previousState, Integer signupPaymentId, String signupRevenue,
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
             OptionalNullable<String> snapDay, PaymentCollectionMethod paymentCollectionMethod,
-            Customer customer, Product product, PaymentProfile creditCard,
-            OptionalNullable<SubscriptionGroup2> group, SubscriptionBankAccount bankAccount,
+            Customer customer, Product product, CreditCardPaymentProfile creditCard,
+            OptionalNullable<SubscriptionGroup2> group, BankAccountPaymentProfile bankAccount,
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
             OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
             OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
@@ -1359,20 +1359,20 @@ public class Subscription {
 
     /**
      * Getter for CreditCard.
-     * @return Returns the PaymentProfile
+     * @return Returns the CreditCardPaymentProfile
      */
     @JsonGetter("credit_card")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PaymentProfile getCreditCard() {
+    public CreditCardPaymentProfile getCreditCard() {
         return creditCard;
     }
 
     /**
      * Setter for CreditCard.
-     * @param creditCard Value for PaymentProfile
+     * @param creditCard Value for CreditCardPaymentProfile
      */
     @JsonSetter("credit_card")
-    public void setCreditCard(PaymentProfile creditCard) {
+    public void setCreditCard(CreditCardPaymentProfile creditCard) {
         this.creditCard = creditCard;
     }
 
@@ -1413,20 +1413,20 @@ public class Subscription {
 
     /**
      * Getter for BankAccount.
-     * @return Returns the SubscriptionBankAccount
+     * @return Returns the BankAccountPaymentProfile
      */
     @JsonGetter("bank_account")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionBankAccount getBankAccount() {
+    public BankAccountPaymentProfile getBankAccount() {
         return bankAccount;
     }
 
     /**
      * Setter for BankAccount.
-     * @param bankAccount Value for SubscriptionBankAccount
+     * @param bankAccount Value for BankAccountPaymentProfile
      */
     @JsonSetter("bank_account")
-    public void setBankAccount(SubscriptionBankAccount bankAccount) {
+    public void setBankAccount(BankAccountPaymentProfile bankAccount) {
         this.bankAccount = bankAccount;
     }
 
@@ -2600,9 +2600,9 @@ public class Subscription {
         private PaymentCollectionMethod paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
         private Customer customer;
         private Product product;
-        private PaymentProfile creditCard;
+        private CreditCardPaymentProfile creditCard;
         private OptionalNullable<SubscriptionGroup2> group;
-        private SubscriptionBankAccount bankAccount;
+        private BankAccountPaymentProfile bankAccount;
         private OptionalNullable<String> paymentType;
         private OptionalNullable<String> referralCode;
         private OptionalNullable<Integer> nextProductId;
@@ -3010,10 +3010,10 @@ public class Subscription {
 
         /**
          * Setter for creditCard.
-         * @param  creditCard  PaymentProfile value for creditCard.
+         * @param  creditCard  CreditCardPaymentProfile value for creditCard.
          * @return Builder
          */
-        public Builder creditCard(PaymentProfile creditCard) {
+        public Builder creditCard(CreditCardPaymentProfile creditCard) {
             this.creditCard = creditCard;
             return this;
         }
@@ -3039,10 +3039,10 @@ public class Subscription {
 
         /**
          * Setter for bankAccount.
-         * @param  bankAccount  SubscriptionBankAccount value for bankAccount.
+         * @param  bankAccount  BankAccountPaymentProfile value for bankAccount.
          * @return Builder
          */
-        public Builder bankAccount(SubscriptionBankAccount bankAccount) {
+        public Builder bankAccount(BankAccountPaymentProfile bankAccount) {
             this.bankAccount = bankAccount;
             return this;
         }

@@ -27,7 +27,7 @@ public class CreditCardPaymentProfile {
     private Integer expirationYear;
     private Integer customerId;
     private CurrentVault currentVault;
-    private String vaultToken;
+    private OptionalNullable<String> vaultToken;
     private OptionalNullable<String> billingAddress;
     private OptionalNullable<String> billingCity;
     private OptionalNullable<String> billingState;
@@ -35,8 +35,9 @@ public class CreditCardPaymentProfile {
     private OptionalNullable<String> billingCountry;
     private OptionalNullable<String> customerVaultToken;
     private OptionalNullable<String> billingAddress2;
-    private String paymentType;
+    private PaymentType paymentType;
     private Boolean disabled;
+    private String chargifyToken;
     private OptionalNullable<Integer> siteGatewaySettingId;
     private OptionalNullable<String> gatewayHandle;
 
@@ -44,6 +45,7 @@ public class CreditCardPaymentProfile {
      * Default constructor.
      */
     public CreditCardPaymentProfile() {
+        paymentType = PaymentType.CREDIT_CARD;
     }
 
     /**
@@ -65,8 +67,9 @@ public class CreditCardPaymentProfile {
      * @param  billingCountry  String value for billingCountry.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
-     * @param  paymentType  String value for paymentType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  disabled  Boolean value for disabled.
+     * @param  chargifyToken  String value for chargifyToken.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      */
@@ -88,8 +91,9 @@ public class CreditCardPaymentProfile {
             String billingCountry,
             String customerVaultToken,
             String billingAddress2,
-            String paymentType,
+            PaymentType paymentType,
             Boolean disabled,
+            String chargifyToken,
             Integer siteGatewaySettingId,
             String gatewayHandle) {
         this.id = id;
@@ -101,7 +105,7 @@ public class CreditCardPaymentProfile {
         this.expirationYear = expirationYear;
         this.customerId = customerId;
         this.currentVault = currentVault;
-        this.vaultToken = vaultToken;
+        this.vaultToken = OptionalNullable.of(vaultToken);
         this.billingAddress = OptionalNullable.of(billingAddress);
         this.billingCity = OptionalNullable.of(billingCity);
         this.billingState = OptionalNullable.of(billingState);
@@ -111,6 +115,7 @@ public class CreditCardPaymentProfile {
         this.billingAddress2 = OptionalNullable.of(billingAddress2);
         this.paymentType = paymentType;
         this.disabled = disabled;
+        this.chargifyToken = chargifyToken;
         this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
     }
@@ -134,20 +139,21 @@ public class CreditCardPaymentProfile {
      * @param  billingCountry  String value for billingCountry.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
-     * @param  paymentType  String value for paymentType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  disabled  Boolean value for disabled.
+     * @param  chargifyToken  String value for chargifyToken.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      */
 
     protected CreditCardPaymentProfile(String maskedCardNumber, Integer id, String firstName,
             String lastName, CardType cardType, Integer expirationMonth, Integer expirationYear,
-            Integer customerId, CurrentVault currentVault, String vaultToken,
+            Integer customerId, CurrentVault currentVault, OptionalNullable<String> vaultToken,
             OptionalNullable<String> billingAddress, OptionalNullable<String> billingCity,
             OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
-            OptionalNullable<String> billingAddress2, String paymentType, Boolean disabled,
-            OptionalNullable<Integer> siteGatewaySettingId,
+            OptionalNullable<String> billingAddress2, PaymentType paymentType, Boolean disabled,
+            String chargifyToken, OptionalNullable<Integer> siteGatewaySettingId,
             OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
@@ -168,6 +174,7 @@ public class CreditCardPaymentProfile {
         this.billingAddress2 = billingAddress2;
         this.paymentType = paymentType;
         this.disabled = disabled;
+        this.chargifyToken = chargifyToken;
         this.siteGatewaySettingId = siteGatewaySettingId;
         this.gatewayHandle = gatewayHandle;
     }
@@ -179,11 +186,12 @@ public class CreditCardPaymentProfile {
     @JsonCreator
     protected CreditCardPaymentProfile(
             @JsonProperty("masked_card_number") String maskedCardNumber) {
-        this(maskedCardNumber, null, null, null, null, null, null, null, null, null,
+        this(maskedCardNumber, null, null, null, null, null, null, null, null,
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
-                OptionalNullable.of(null), null, null, OptionalNullable.of(null),
-                OptionalNullable.of(null));
+                OptionalNullable.of(null), OptionalNullable.of(null), null, null, null,
+                OptionalNullable.of(null), OptionalNullable.of(null));
+        unsetVaultToken();
         unsetBillingAddress();
         unsetBillingCity();
         unsetBillingState();
@@ -197,6 +205,9 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for Id.
+     * The Chargify-assigned ID of the stored card. This value can be used as an input to
+     * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
+     * for the same customer.
      * @return Returns the Integer
      */
     @JsonGetter("id")
@@ -207,6 +218,9 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for Id.
+     * The Chargify-assigned ID of the stored card. This value can be used as an input to
+     * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
+     * for the same customer.
      * @param id Value for Integer
      */
     @JsonSetter("id")
@@ -216,6 +230,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for FirstName.
+     * The first name of the card holder.
      * @return Returns the String
      */
     @JsonGetter("first_name")
@@ -226,6 +241,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for FirstName.
+     * The first name of the card holder.
      * @param firstName Value for String
      */
     @JsonSetter("first_name")
@@ -235,6 +251,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for LastName.
+     * The last name of the card holder.
      * @return Returns the String
      */
     @JsonGetter("last_name")
@@ -245,6 +262,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for LastName.
+     * The last name of the card holder.
      * @param lastName Value for String
      */
     @JsonSetter("last_name")
@@ -254,6 +272,8 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for MaskedCardNumber.
+     * A string representation of the credit card number with all but the last 4 digits masked with
+     * X’s (i.e. ‘XXXX-XXXX-XXXX-1234’).
      * @return Returns the String
      */
     @JsonGetter("masked_card_number")
@@ -263,6 +283,8 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for MaskedCardNumber.
+     * A string representation of the credit card number with all but the last 4 digits masked with
+     * X’s (i.e. ‘XXXX-XXXX-XXXX-1234’).
      * @param maskedCardNumber Value for String
      */
     @JsonSetter("masked_card_number")
@@ -293,6 +315,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for ExpirationMonth.
+     * An integer representing the expiration month of the card(1 – 12).
      * @return Returns the Integer
      */
     @JsonGetter("expiration_month")
@@ -303,6 +326,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for ExpirationMonth.
+     * An integer representing the expiration month of the card(1 – 12).
      * @param expirationMonth Value for Integer
      */
     @JsonSetter("expiration_month")
@@ -312,6 +336,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for ExpirationYear.
+     * An integer representing the 4-digit expiration year of the card(i.e. ‘2012’).
      * @return Returns the Integer
      */
     @JsonGetter("expiration_year")
@@ -322,6 +347,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for ExpirationYear.
+     * An integer representing the 4-digit expiration year of the card(i.e. ‘2012’).
      * @param expirationYear Value for Integer
      */
     @JsonSetter("expiration_year")
@@ -331,6 +357,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for CustomerId.
+     * The Chargify-assigned id for the customer record to which the card belongs.
      * @return Returns the Integer
      */
     @JsonGetter("customer_id")
@@ -341,6 +368,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for CustomerId.
+     * The Chargify-assigned id for the customer record to which the card belongs.
      * @param customerId Value for Integer
      */
     @JsonSetter("customer_id")
@@ -372,26 +400,47 @@ public class CreditCardPaymentProfile {
     }
 
     /**
-     * Getter for VaultToken.
-     * @return Returns the String
+     * Internal Getter for VaultToken.
+     * The “token” provided by your vault storage for an already stored payment profile.
+     * @return Returns the Internal String
      */
     @JsonGetter("vault_token")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetVaultToken() {
+        return this.vaultToken;
+    }
+
+    /**
+     * Getter for VaultToken.
+     * The “token” provided by your vault storage for an already stored payment profile.
+     * @return Returns the String
+     */
     public String getVaultToken() {
-        return vaultToken;
+        return OptionalNullable.getFrom(vaultToken);
     }
 
     /**
      * Setter for VaultToken.
+     * The “token” provided by your vault storage for an already stored payment profile.
      * @param vaultToken Value for String
      */
     @JsonSetter("vault_token")
     public void setVaultToken(String vaultToken) {
-        this.vaultToken = vaultToken;
+        this.vaultToken = OptionalNullable.of(vaultToken);
+    }
+
+    /**
+     * UnSetter for VaultToken.
+     * The “token” provided by your vault storage for an already stored payment profile.
+     */
+    public void unsetVaultToken() {
+        vaultToken = null;
     }
 
     /**
      * Internal Getter for BillingAddress.
+     * The current billing street address for the card.
      * @return Returns the Internal String
      */
     @JsonGetter("billing_address")
@@ -403,6 +452,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for BillingAddress.
+     * The current billing street address for the card.
      * @return Returns the String
      */
     public String getBillingAddress() {
@@ -411,6 +461,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for BillingAddress.
+     * The current billing street address for the card.
      * @param billingAddress Value for String
      */
     @JsonSetter("billing_address")
@@ -420,6 +471,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for BillingAddress.
+     * The current billing street address for the card.
      */
     public void unsetBillingAddress() {
         billingAddress = null;
@@ -427,6 +479,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Internal Getter for BillingCity.
+     * The current billing address city for the card.
      * @return Returns the Internal String
      */
     @JsonGetter("billing_city")
@@ -438,6 +491,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for BillingCity.
+     * The current billing address city for the card.
      * @return Returns the String
      */
     public String getBillingCity() {
@@ -446,6 +500,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for BillingCity.
+     * The current billing address city for the card.
      * @param billingCity Value for String
      */
     @JsonSetter("billing_city")
@@ -455,6 +510,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for BillingCity.
+     * The current billing address city for the card.
      */
     public void unsetBillingCity() {
         billingCity = null;
@@ -462,6 +518,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Internal Getter for BillingState.
+     * The current billing address state for the card.
      * @return Returns the Internal String
      */
     @JsonGetter("billing_state")
@@ -473,6 +530,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for BillingState.
+     * The current billing address state for the card.
      * @return Returns the String
      */
     public String getBillingState() {
@@ -481,6 +539,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for BillingState.
+     * The current billing address state for the card.
      * @param billingState Value for String
      */
     @JsonSetter("billing_state")
@@ -490,6 +549,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for BillingState.
+     * The current billing address state for the card.
      */
     public void unsetBillingState() {
         billingState = null;
@@ -497,6 +557,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Internal Getter for BillingZip.
+     * The current billing address zip code for the card.
      * @return Returns the Internal String
      */
     @JsonGetter("billing_zip")
@@ -508,6 +569,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for BillingZip.
+     * The current billing address zip code for the card.
      * @return Returns the String
      */
     public String getBillingZip() {
@@ -516,6 +578,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for BillingZip.
+     * The current billing address zip code for the card.
      * @param billingZip Value for String
      */
     @JsonSetter("billing_zip")
@@ -525,6 +588,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for BillingZip.
+     * The current billing address zip code for the card.
      */
     public void unsetBillingZip() {
         billingZip = null;
@@ -532,6 +596,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Internal Getter for BillingCountry.
+     * The current billing address country for the card.
      * @return Returns the Internal String
      */
     @JsonGetter("billing_country")
@@ -543,6 +608,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for BillingCountry.
+     * The current billing address country for the card.
      * @return Returns the String
      */
     public String getBillingCountry() {
@@ -551,6 +617,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for BillingCountry.
+     * The current billing address country for the card.
      * @param billingCountry Value for String
      */
     @JsonSetter("billing_country")
@@ -560,6 +627,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for BillingCountry.
+     * The current billing address country for the card.
      */
     public void unsetBillingCountry() {
         billingCountry = null;
@@ -567,6 +635,8 @@ public class CreditCardPaymentProfile {
 
     /**
      * Internal Getter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      * @return Returns the Internal String
      */
     @JsonGetter("customer_vault_token")
@@ -578,6 +648,8 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      * @return Returns the String
      */
     public String getCustomerVaultToken() {
@@ -586,6 +658,8 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      * @param customerVaultToken Value for String
      */
     @JsonSetter("customer_vault_token")
@@ -595,6 +669,8 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      */
     public void unsetCustomerVaultToken() {
         customerVaultToken = null;
@@ -602,6 +678,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Internal Getter for BillingAddress2.
+     * The current billing street address, second line, for the card.
      * @return Returns the Internal String
      */
     @JsonGetter("billing_address_2")
@@ -613,6 +690,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for BillingAddress2.
+     * The current billing street address, second line, for the card.
      * @return Returns the String
      */
     public String getBillingAddress2() {
@@ -621,6 +699,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for BillingAddress2.
+     * The current billing street address, second line, for the card.
      * @param billingAddress2 Value for String
      */
     @JsonSetter("billing_address_2")
@@ -630,6 +709,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for BillingAddress2.
+     * The current billing street address, second line, for the card.
      */
     public void unsetBillingAddress2() {
         billingAddress2 = null;
@@ -637,20 +717,20 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for PaymentType.
-     * @return Returns the String
+     * @return Returns the PaymentType
      */
     @JsonGetter("payment_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPaymentType() {
+    public PaymentType getPaymentType() {
         return paymentType;
     }
 
     /**
      * Setter for PaymentType.
-     * @param paymentType Value for String
+     * @param paymentType Value for PaymentType
      */
     @JsonSetter("payment_type")
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
 
@@ -671,6 +751,31 @@ public class CreditCardPaymentProfile {
     @JsonSetter("disabled")
     public void setDisabled(Boolean disabled) {
         this.disabled = disabled;
+    }
+
+    /**
+     * Getter for ChargifyToken.
+     * Token received after sending billing information using chargify.js. This token will only be
+     * received if passed as a sole attribute of credit_card_attributes (i.e.
+     * tok_9g6hw85pnpt6knmskpwp4ttt)
+     * @return Returns the String
+     */
+    @JsonGetter("chargify_token")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getChargifyToken() {
+        return chargifyToken;
+    }
+
+    /**
+     * Setter for ChargifyToken.
+     * Token received after sending billing information using chargify.js. This token will only be
+     * received if passed as a sole attribute of credit_card_attributes (i.e.
+     * tok_9g6hw85pnpt6knmskpwp4ttt)
+     * @param chargifyToken Value for String
+     */
+    @JsonSetter("chargify_token")
+    public void setChargifyToken(String chargifyToken) {
+        this.chargifyToken = chargifyToken;
     }
 
     /**
@@ -710,6 +815,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Internal Getter for GatewayHandle.
+     * An identifier of connected gateway.
      * @return Returns the Internal String
      */
     @JsonGetter("gateway_handle")
@@ -721,6 +827,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Getter for GatewayHandle.
+     * An identifier of connected gateway.
      * @return Returns the String
      */
     public String getGatewayHandle() {
@@ -729,6 +836,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * Setter for GatewayHandle.
+     * An identifier of connected gateway.
      * @param gatewayHandle Value for String
      */
     @JsonSetter("gateway_handle")
@@ -738,6 +846,7 @@ public class CreditCardPaymentProfile {
 
     /**
      * UnSetter for GatewayHandle.
+     * An identifier of connected gateway.
      */
     public void unsetGatewayHandle() {
         gatewayHandle = null;
@@ -757,8 +866,9 @@ public class CreditCardPaymentProfile {
                 + ", billingState=" + billingState + ", billingZip=" + billingZip
                 + ", billingCountry=" + billingCountry + ", customerVaultToken="
                 + customerVaultToken + ", billingAddress2=" + billingAddress2 + ", paymentType="
-                + paymentType + ", disabled=" + disabled + ", siteGatewaySettingId="
-                + siteGatewaySettingId + ", gatewayHandle=" + gatewayHandle + "]";
+                + paymentType + ", disabled=" + disabled + ", chargifyToken=" + chargifyToken
+                + ", siteGatewaySettingId=" + siteGatewaySettingId + ", gatewayHandle="
+                + gatewayHandle + "]";
     }
 
     /**
@@ -776,9 +886,10 @@ public class CreditCardPaymentProfile {
                 .expirationYear(getExpirationYear())
                 .customerId(getCustomerId())
                 .currentVault(getCurrentVault())
-                .vaultToken(getVaultToken())
                 .paymentType(getPaymentType())
-                .disabled(getDisabled());
+                .disabled(getDisabled())
+                .chargifyToken(getChargifyToken());
+        builder.vaultToken = internalGetVaultToken();
         builder.billingAddress = internalGetBillingAddress();
         builder.billingCity = internalGetBillingCity();
         builder.billingState = internalGetBillingState();
@@ -804,7 +915,7 @@ public class CreditCardPaymentProfile {
         private Integer expirationYear;
         private Integer customerId;
         private CurrentVault currentVault;
-        private String vaultToken;
+        private OptionalNullable<String> vaultToken;
         private OptionalNullable<String> billingAddress;
         private OptionalNullable<String> billingCity;
         private OptionalNullable<String> billingState;
@@ -812,8 +923,9 @@ public class CreditCardPaymentProfile {
         private OptionalNullable<String> billingCountry;
         private OptionalNullable<String> customerVaultToken;
         private OptionalNullable<String> billingAddress2;
-        private String paymentType;
+        private PaymentType paymentType = PaymentType.CREDIT_CARD;
         private Boolean disabled;
+        private String chargifyToken;
         private OptionalNullable<Integer> siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
 
@@ -927,7 +1039,16 @@ public class CreditCardPaymentProfile {
          * @return Builder
          */
         public Builder vaultToken(String vaultToken) {
-            this.vaultToken = vaultToken;
+            this.vaultToken = OptionalNullable.of(vaultToken);
+            return this;
+        }
+
+        /**
+         * UnSetter for vaultToken.
+         * @return Builder
+         */
+        public Builder unsetVaultToken() {
+            vaultToken = null;
             return this;
         }
 
@@ -1066,10 +1187,10 @@ public class CreditCardPaymentProfile {
 
         /**
          * Setter for paymentType.
-         * @param  paymentType  String value for paymentType.
+         * @param  paymentType  PaymentType value for paymentType.
          * @return Builder
          */
-        public Builder paymentType(String paymentType) {
+        public Builder paymentType(PaymentType paymentType) {
             this.paymentType = paymentType;
             return this;
         }
@@ -1081,6 +1202,16 @@ public class CreditCardPaymentProfile {
          */
         public Builder disabled(Boolean disabled) {
             this.disabled = disabled;
+            return this;
+        }
+
+        /**
+         * Setter for chargifyToken.
+         * @param  chargifyToken  String value for chargifyToken.
+         * @return Builder
+         */
+        public Builder chargifyToken(String chargifyToken) {
+            this.chargifyToken = chargifyToken;
             return this;
         }
 
@@ -1130,7 +1261,7 @@ public class CreditCardPaymentProfile {
             return new CreditCardPaymentProfile(maskedCardNumber, id, firstName, lastName, cardType,
                     expirationMonth, expirationYear, customerId, currentVault, vaultToken,
                     billingAddress, billingCity, billingState, billingZip, billingCountry,
-                    customerVaultToken, billingAddress2, paymentType, disabled,
+                    customerVaultToken, billingAddress2, paymentType, disabled, chargifyToken,
                     siteGatewaySettingId, gatewayHandle);
         }
     }

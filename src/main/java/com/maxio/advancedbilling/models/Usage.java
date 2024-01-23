@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
  * This is a model class for Usage type.
  */
 public class Usage {
-    private Integer id;
+    private Long id;
     private String memo;
     private ZonedDateTime createdAt;
     private Integer pricePointId;
@@ -37,7 +37,7 @@ public class Usage {
 
     /**
      * Initialization constructor.
-     * @param  id  Integer value for id.
+     * @param  id  Long value for id.
      * @param  memo  String value for memo.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  pricePointId  Integer value for pricePointId.
@@ -48,7 +48,7 @@ public class Usage {
      * @param  subscriptionId  Integer value for subscriptionId.
      */
     public Usage(
-            Integer id,
+            Long id,
             String memo,
             ZonedDateTime createdAt,
             Integer pricePointId,
@@ -70,20 +70,20 @@ public class Usage {
 
     /**
      * Getter for Id.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Integer
+     * @param id Value for Long
      */
     @JsonSetter("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -276,7 +276,7 @@ public class Usage {
      * Class to build instances of {@link Usage}.
      */
     public static class Builder {
-        private Integer id;
+        private Long id;
         private String memo;
         private ZonedDateTime createdAt;
         private Integer pricePointId;
@@ -290,10 +290,10 @@ public class Usage {
 
         /**
          * Setter for id.
-         * @param  id  Integer value for id.
+         * @param  id  Long value for id.
          * @return Builder
          */
-        public Builder id(Integer id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }

@@ -24,19 +24,19 @@ public class BankAccountPaymentProfile {
     private Integer customerId;
     private BankAccountVault currentVault;
     private String vaultToken;
-    private String billingAddress;
-    private String billingCity;
-    private String billingState;
-    private String billingZip;
-    private String billingCountry;
+    private OptionalNullable<String> billingAddress;
+    private OptionalNullable<String> billingCity;
+    private OptionalNullable<String> billingState;
+    private OptionalNullable<String> billingZip;
+    private OptionalNullable<String> billingCountry;
     private OptionalNullable<String> customerVaultToken;
-    private String billingAddress2;
+    private OptionalNullable<String> billingAddress2;
     private String bankName;
     private String maskedBankRoutingNumber;
     private String maskedBankAccountNumber;
-    private String bankAccountType;
-    private String bankAccountHolderType;
-    private String paymentType;
+    private BankAccountType bankAccountType;
+    private BankAccountHolderType bankAccountHolderType;
+    private PaymentType paymentType;
     private Boolean verified;
     private Integer siteGatewaySettingId;
     private OptionalNullable<String> gatewayHandle;
@@ -45,6 +45,8 @@ public class BankAccountPaymentProfile {
      * Default constructor.
      */
     public BankAccountPaymentProfile() {
+        bankAccountType = BankAccountType.CHECKING;
+        paymentType = PaymentType.CREDIT_CARD;
         verified = false;
     }
 
@@ -66,9 +68,9 @@ public class BankAccountPaymentProfile {
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
-     * @param  bankAccountType  String value for bankAccountType.
-     * @param  bankAccountHolderType  String value for bankAccountHolderType.
-     * @param  paymentType  String value for paymentType.
+     * @param  bankAccountType  BankAccountType value for bankAccountType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
@@ -90,9 +92,9 @@ public class BankAccountPaymentProfile {
             String customerVaultToken,
             String billingAddress2,
             String bankName,
-            String bankAccountType,
-            String bankAccountHolderType,
-            String paymentType,
+            BankAccountType bankAccountType,
+            BankAccountHolderType bankAccountHolderType,
+            PaymentType paymentType,
             Boolean verified,
             Integer siteGatewaySettingId,
             String gatewayHandle) {
@@ -102,13 +104,13 @@ public class BankAccountPaymentProfile {
         this.customerId = customerId;
         this.currentVault = currentVault;
         this.vaultToken = vaultToken;
-        this.billingAddress = billingAddress;
-        this.billingCity = billingCity;
-        this.billingState = billingState;
-        this.billingZip = billingZip;
-        this.billingCountry = billingCountry;
+        this.billingAddress = OptionalNullable.of(billingAddress);
+        this.billingCity = OptionalNullable.of(billingCity);
+        this.billingState = OptionalNullable.of(billingState);
+        this.billingZip = OptionalNullable.of(billingZip);
+        this.billingCountry = OptionalNullable.of(billingCountry);
         this.customerVaultToken = OptionalNullable.of(customerVaultToken);
-        this.billingAddress2 = billingAddress2;
+        this.billingAddress2 = OptionalNullable.of(billingAddress2);
         this.bankName = bankName;
         this.maskedBankRoutingNumber = maskedBankRoutingNumber;
         this.maskedBankAccountNumber = maskedBankAccountNumber;
@@ -138,9 +140,9 @@ public class BankAccountPaymentProfile {
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
-     * @param  bankAccountType  String value for bankAccountType.
-     * @param  bankAccountHolderType  String value for bankAccountHolderType.
-     * @param  paymentType  String value for paymentType.
+     * @param  bankAccountType  BankAccountType value for bankAccountType.
+     * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
@@ -149,11 +151,13 @@ public class BankAccountPaymentProfile {
     protected BankAccountPaymentProfile(String maskedBankRoutingNumber,
             String maskedBankAccountNumber, Integer id, String firstName, String lastName,
             Integer customerId, BankAccountVault currentVault, String vaultToken,
-            String billingAddress, String billingCity, String billingState, String billingZip,
-            String billingCountry, OptionalNullable<String> customerVaultToken,
-            String billingAddress2, String bankName, String bankAccountType,
-            String bankAccountHolderType, String paymentType, Boolean verified,
-            Integer siteGatewaySettingId, OptionalNullable<String> gatewayHandle) {
+            OptionalNullable<String> billingAddress, OptionalNullable<String> billingCity,
+            OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
+            OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
+            OptionalNullable<String> billingAddress2, String bankName,
+            BankAccountType bankAccountType, BankAccountHolderType bankAccountHolderType,
+            PaymentType paymentType, Boolean verified, Integer siteGatewaySettingId,
+            OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -188,14 +192,25 @@ public class BankAccountPaymentProfile {
             @JsonProperty("masked_bank_routing_number") String maskedBankRoutingNumber,
             @JsonProperty("masked_bank_account_number") String maskedBankAccountNumber) {
         this(maskedBankRoutingNumber, maskedBankAccountNumber, null, null, null, null, null, null,
-                null, null, null, null, null, OptionalNullable.of(null), null, null, null, null,
-                null, null, null, OptionalNullable.of(null));
+                OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
+                OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
+                OptionalNullable.of(null), null, null, null, null, null, null,
+                OptionalNullable.of(null));
+        unsetBillingAddress();
+        unsetBillingCity();
+        unsetBillingState();
+        unsetBillingZip();
+        unsetBillingCountry();
         unsetCustomerVaultToken();
+        unsetBillingAddress2();
         unsetGatewayHandle();
     }
 
     /**
      * Getter for Id.
+     * The Chargify-assigned ID of the stored bank account. This value can be used as an input to
+     * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
+     * for the same customer
      * @return Returns the Integer
      */
     @JsonGetter("id")
@@ -206,6 +221,9 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for Id.
+     * The Chargify-assigned ID of the stored bank account. This value can be used as an input to
+     * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
+     * for the same customer
      * @param id Value for Integer
      */
     @JsonSetter("id")
@@ -215,6 +233,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for FirstName.
+     * The first name of the bank account holder
      * @return Returns the String
      */
     @JsonGetter("first_name")
@@ -225,6 +244,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for FirstName.
+     * The first name of the bank account holder
      * @param firstName Value for String
      */
     @JsonSetter("first_name")
@@ -234,6 +254,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for LastName.
+     * The last name of the bank account holder
      * @return Returns the String
      */
     @JsonGetter("last_name")
@@ -244,6 +265,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for LastName.
+     * The last name of the bank account holder
      * @param lastName Value for String
      */
     @JsonSetter("last_name")
@@ -253,6 +275,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for CustomerId.
+     * The Chargify-assigned id for the customer record to which the bank account belongs
      * @return Returns the Integer
      */
     @JsonGetter("customer_id")
@@ -263,6 +286,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for CustomerId.
+     * The Chargify-assigned id for the customer record to which the bank account belongs
      * @param customerId Value for Integer
      */
     @JsonSetter("customer_id")
@@ -293,6 +317,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for VaultToken.
+     * The “token” provided by your vault storage for an already stored payment profile
      * @return Returns the String
      */
     @JsonGetter("vault_token")
@@ -303,6 +328,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for VaultToken.
+     * The “token” provided by your vault storage for an already stored payment profile
      * @param vaultToken Value for String
      */
     @JsonSetter("vault_token")
@@ -311,102 +337,204 @@ public class BankAccountPaymentProfile {
     }
 
     /**
-     * Getter for BillingAddress.
-     * @return Returns the String
+     * Internal Getter for BillingAddress.
+     * The current billing street address for the bank account
+     * @return Returns the Internal String
      */
     @JsonGetter("billing_address")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingAddress() {
+        return this.billingAddress;
+    }
+
+    /**
+     * Getter for BillingAddress.
+     * The current billing street address for the bank account
+     * @return Returns the String
+     */
     public String getBillingAddress() {
-        return billingAddress;
+        return OptionalNullable.getFrom(billingAddress);
     }
 
     /**
      * Setter for BillingAddress.
+     * The current billing street address for the bank account
      * @param billingAddress Value for String
      */
     @JsonSetter("billing_address")
     public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
+        this.billingAddress = OptionalNullable.of(billingAddress);
+    }
+
+    /**
+     * UnSetter for BillingAddress.
+     * The current billing street address for the bank account
+     */
+    public void unsetBillingAddress() {
+        billingAddress = null;
+    }
+
+    /**
+     * Internal Getter for BillingCity.
+     * The current billing address city for the bank account
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_city")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingCity() {
+        return this.billingCity;
     }
 
     /**
      * Getter for BillingCity.
+     * The current billing address city for the bank account
      * @return Returns the String
      */
-    @JsonGetter("billing_city")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingCity() {
-        return billingCity;
+        return OptionalNullable.getFrom(billingCity);
     }
 
     /**
      * Setter for BillingCity.
+     * The current billing address city for the bank account
      * @param billingCity Value for String
      */
     @JsonSetter("billing_city")
     public void setBillingCity(String billingCity) {
-        this.billingCity = billingCity;
+        this.billingCity = OptionalNullable.of(billingCity);
+    }
+
+    /**
+     * UnSetter for BillingCity.
+     * The current billing address city for the bank account
+     */
+    public void unsetBillingCity() {
+        billingCity = null;
+    }
+
+    /**
+     * Internal Getter for BillingState.
+     * The current billing address state for the bank account
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_state")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingState() {
+        return this.billingState;
     }
 
     /**
      * Getter for BillingState.
+     * The current billing address state for the bank account
      * @return Returns the String
      */
-    @JsonGetter("billing_state")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingState() {
-        return billingState;
+        return OptionalNullable.getFrom(billingState);
     }
 
     /**
      * Setter for BillingState.
+     * The current billing address state for the bank account
      * @param billingState Value for String
      */
     @JsonSetter("billing_state")
     public void setBillingState(String billingState) {
-        this.billingState = billingState;
+        this.billingState = OptionalNullable.of(billingState);
+    }
+
+    /**
+     * UnSetter for BillingState.
+     * The current billing address state for the bank account
+     */
+    public void unsetBillingState() {
+        billingState = null;
+    }
+
+    /**
+     * Internal Getter for BillingZip.
+     * The current billing address zip code for the bank account
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_zip")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingZip() {
+        return this.billingZip;
     }
 
     /**
      * Getter for BillingZip.
+     * The current billing address zip code for the bank account
      * @return Returns the String
      */
-    @JsonGetter("billing_zip")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingZip() {
-        return billingZip;
+        return OptionalNullable.getFrom(billingZip);
     }
 
     /**
      * Setter for BillingZip.
+     * The current billing address zip code for the bank account
      * @param billingZip Value for String
      */
     @JsonSetter("billing_zip")
     public void setBillingZip(String billingZip) {
-        this.billingZip = billingZip;
+        this.billingZip = OptionalNullable.of(billingZip);
+    }
+
+    /**
+     * UnSetter for BillingZip.
+     * The current billing address zip code for the bank account
+     */
+    public void unsetBillingZip() {
+        billingZip = null;
+    }
+
+    /**
+     * Internal Getter for BillingCountry.
+     * The current billing address country for the bank account
+     * @return Returns the Internal String
+     */
+    @JsonGetter("billing_country")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingCountry() {
+        return this.billingCountry;
     }
 
     /**
      * Getter for BillingCountry.
+     * The current billing address country for the bank account
      * @return Returns the String
      */
-    @JsonGetter("billing_country")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getBillingCountry() {
-        return billingCountry;
+        return OptionalNullable.getFrom(billingCountry);
     }
 
     /**
      * Setter for BillingCountry.
+     * The current billing address country for the bank account
      * @param billingCountry Value for String
      */
     @JsonSetter("billing_country")
     public void setBillingCountry(String billingCountry) {
-        this.billingCountry = billingCountry;
+        this.billingCountry = OptionalNullable.of(billingCountry);
+    }
+
+    /**
+     * UnSetter for BillingCountry.
+     * The current billing address country for the bank account
+     */
+    public void unsetBillingCountry() {
+        billingCountry = null;
     }
 
     /**
      * Internal Getter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      * @return Returns the Internal String
      */
     @JsonGetter("customer_vault_token")
@@ -418,6 +546,8 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      * @return Returns the String
      */
     public String getCustomerVaultToken() {
@@ -426,6 +556,8 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      * @param customerVaultToken Value for String
      */
     @JsonSetter("customer_vault_token")
@@ -435,32 +567,55 @@ public class BankAccountPaymentProfile {
 
     /**
      * UnSetter for CustomerVaultToken.
+     * (only for Authorize.Net CIM storage): the customerProfileId for the owner of the
+     * customerPaymentProfileId provided as the vault_token.
      */
     public void unsetCustomerVaultToken() {
         customerVaultToken = null;
     }
 
     /**
-     * Getter for BillingAddress2.
-     * @return Returns the String
+     * Internal Getter for BillingAddress2.
+     * The current billing street address, second line, for the bank account
+     * @return Returns the Internal String
      */
     @JsonGetter("billing_address_2")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetBillingAddress2() {
+        return this.billingAddress2;
+    }
+
+    /**
+     * Getter for BillingAddress2.
+     * The current billing street address, second line, for the bank account
+     * @return Returns the String
+     */
     public String getBillingAddress2() {
-        return billingAddress2;
+        return OptionalNullable.getFrom(billingAddress2);
     }
 
     /**
      * Setter for BillingAddress2.
+     * The current billing street address, second line, for the bank account
      * @param billingAddress2 Value for String
      */
     @JsonSetter("billing_address_2")
     public void setBillingAddress2(String billingAddress2) {
-        this.billingAddress2 = billingAddress2;
+        this.billingAddress2 = OptionalNullable.of(billingAddress2);
+    }
+
+    /**
+     * UnSetter for BillingAddress2.
+     * The current billing street address, second line, for the bank account
+     */
+    public void unsetBillingAddress2() {
+        billingAddress2 = null;
     }
 
     /**
      * Getter for BankName.
+     * The bank where the account resides
      * @return Returns the String
      */
     @JsonGetter("bank_name")
@@ -471,6 +626,7 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for BankName.
+     * The bank where the account resides
      * @param bankName Value for String
      */
     @JsonSetter("bank_name")
@@ -480,6 +636,8 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for MaskedBankRoutingNumber.
+     * A string representation of the stored bank routing number with all but the last 4 digits
+     * marked with X’s (i.e. ‘XXXXXXX1111’). payment_type will be bank_account
      * @return Returns the String
      */
     @JsonGetter("masked_bank_routing_number")
@@ -489,6 +647,8 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for MaskedBankRoutingNumber.
+     * A string representation of the stored bank routing number with all but the last 4 digits
+     * marked with X’s (i.e. ‘XXXXXXX1111’). payment_type will be bank_account
      * @param maskedBankRoutingNumber Value for String
      */
     @JsonSetter("masked_bank_routing_number")
@@ -498,6 +658,8 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for MaskedBankAccountNumber.
+     * A string representation of the stored bank account number with all but the last 4 digits
+     * marked with X’s (i.e. ‘XXXXXXX1111’)
      * @return Returns the String
      */
     @JsonGetter("masked_bank_account_number")
@@ -507,6 +669,8 @@ public class BankAccountPaymentProfile {
 
     /**
      * Setter for MaskedBankAccountNumber.
+     * A string representation of the stored bank account number with all but the last 4 digits
+     * marked with X’s (i.e. ‘XXXXXXX1111’)
      * @param maskedBankAccountNumber Value for String
      */
     @JsonSetter("masked_bank_account_number")
@@ -516,58 +680,62 @@ public class BankAccountPaymentProfile {
 
     /**
      * Getter for BankAccountType.
-     * @return Returns the String
+     * Defaults to checking
+     * @return Returns the BankAccountType
      */
     @JsonGetter("bank_account_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getBankAccountType() {
+    public BankAccountType getBankAccountType() {
         return bankAccountType;
     }
 
     /**
      * Setter for BankAccountType.
-     * @param bankAccountType Value for String
+     * Defaults to checking
+     * @param bankAccountType Value for BankAccountType
      */
     @JsonSetter("bank_account_type")
-    public void setBankAccountType(String bankAccountType) {
+    public void setBankAccountType(BankAccountType bankAccountType) {
         this.bankAccountType = bankAccountType;
     }
 
     /**
      * Getter for BankAccountHolderType.
-     * @return Returns the String
+     * Defaults to personal
+     * @return Returns the BankAccountHolderType
      */
     @JsonGetter("bank_account_holder_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getBankAccountHolderType() {
+    public BankAccountHolderType getBankAccountHolderType() {
         return bankAccountHolderType;
     }
 
     /**
      * Setter for BankAccountHolderType.
-     * @param bankAccountHolderType Value for String
+     * Defaults to personal
+     * @param bankAccountHolderType Value for BankAccountHolderType
      */
     @JsonSetter("bank_account_holder_type")
-    public void setBankAccountHolderType(String bankAccountHolderType) {
+    public void setBankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
         this.bankAccountHolderType = bankAccountHolderType;
     }
 
     /**
      * Getter for PaymentType.
-     * @return Returns the String
+     * @return Returns the PaymentType
      */
     @JsonGetter("payment_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPaymentType() {
+    public PaymentType getPaymentType() {
         return paymentType;
     }
 
     /**
      * Setter for PaymentType.
-     * @param paymentType Value for String
+     * @param paymentType Value for PaymentType
      */
     @JsonSetter("payment_type")
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
 
@@ -681,19 +849,19 @@ public class BankAccountPaymentProfile {
                 .customerId(getCustomerId())
                 .currentVault(getCurrentVault())
                 .vaultToken(getVaultToken())
-                .billingAddress(getBillingAddress())
-                .billingCity(getBillingCity())
-                .billingState(getBillingState())
-                .billingZip(getBillingZip())
-                .billingCountry(getBillingCountry())
-                .billingAddress2(getBillingAddress2())
                 .bankName(getBankName())
                 .bankAccountType(getBankAccountType())
                 .bankAccountHolderType(getBankAccountHolderType())
                 .paymentType(getPaymentType())
                 .verified(getVerified())
                 .siteGatewaySettingId(getSiteGatewaySettingId());
+        builder.billingAddress = internalGetBillingAddress();
+        builder.billingCity = internalGetBillingCity();
+        builder.billingState = internalGetBillingState();
+        builder.billingZip = internalGetBillingZip();
+        builder.billingCountry = internalGetBillingCountry();
         builder.customerVaultToken = internalGetCustomerVaultToken();
+        builder.billingAddress2 = internalGetBillingAddress2();
         builder.gatewayHandle = internalGetGatewayHandle();
         return builder;
     }
@@ -710,17 +878,17 @@ public class BankAccountPaymentProfile {
         private Integer customerId;
         private BankAccountVault currentVault;
         private String vaultToken;
-        private String billingAddress;
-        private String billingCity;
-        private String billingState;
-        private String billingZip;
-        private String billingCountry;
+        private OptionalNullable<String> billingAddress;
+        private OptionalNullable<String> billingCity;
+        private OptionalNullable<String> billingState;
+        private OptionalNullable<String> billingZip;
+        private OptionalNullable<String> billingCountry;
         private OptionalNullable<String> customerVaultToken;
-        private String billingAddress2;
+        private OptionalNullable<String> billingAddress2;
         private String bankName;
-        private String bankAccountType;
-        private String bankAccountHolderType;
-        private String paymentType;
+        private BankAccountType bankAccountType = BankAccountType.CHECKING;
+        private BankAccountHolderType bankAccountHolderType;
+        private PaymentType paymentType = PaymentType.CREDIT_CARD;
         private Boolean verified = false;
         private Integer siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
@@ -827,7 +995,16 @@ public class BankAccountPaymentProfile {
          * @return Builder
          */
         public Builder billingAddress(String billingAddress) {
-            this.billingAddress = billingAddress;
+            this.billingAddress = OptionalNullable.of(billingAddress);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingAddress.
+         * @return Builder
+         */
+        public Builder unsetBillingAddress() {
+            billingAddress = null;
             return this;
         }
 
@@ -837,7 +1014,16 @@ public class BankAccountPaymentProfile {
          * @return Builder
          */
         public Builder billingCity(String billingCity) {
-            this.billingCity = billingCity;
+            this.billingCity = OptionalNullable.of(billingCity);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingCity.
+         * @return Builder
+         */
+        public Builder unsetBillingCity() {
+            billingCity = null;
             return this;
         }
 
@@ -847,7 +1033,16 @@ public class BankAccountPaymentProfile {
          * @return Builder
          */
         public Builder billingState(String billingState) {
-            this.billingState = billingState;
+            this.billingState = OptionalNullable.of(billingState);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingState.
+         * @return Builder
+         */
+        public Builder unsetBillingState() {
+            billingState = null;
             return this;
         }
 
@@ -857,7 +1052,16 @@ public class BankAccountPaymentProfile {
          * @return Builder
          */
         public Builder billingZip(String billingZip) {
-            this.billingZip = billingZip;
+            this.billingZip = OptionalNullable.of(billingZip);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingZip.
+         * @return Builder
+         */
+        public Builder unsetBillingZip() {
+            billingZip = null;
             return this;
         }
 
@@ -867,7 +1071,16 @@ public class BankAccountPaymentProfile {
          * @return Builder
          */
         public Builder billingCountry(String billingCountry) {
-            this.billingCountry = billingCountry;
+            this.billingCountry = OptionalNullable.of(billingCountry);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingCountry.
+         * @return Builder
+         */
+        public Builder unsetBillingCountry() {
+            billingCountry = null;
             return this;
         }
 
@@ -896,7 +1109,16 @@ public class BankAccountPaymentProfile {
          * @return Builder
          */
         public Builder billingAddress2(String billingAddress2) {
-            this.billingAddress2 = billingAddress2;
+            this.billingAddress2 = OptionalNullable.of(billingAddress2);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingAddress2.
+         * @return Builder
+         */
+        public Builder unsetBillingAddress2() {
+            billingAddress2 = null;
             return this;
         }
 
@@ -912,30 +1134,30 @@ public class BankAccountPaymentProfile {
 
         /**
          * Setter for bankAccountType.
-         * @param  bankAccountType  String value for bankAccountType.
+         * @param  bankAccountType  BankAccountType value for bankAccountType.
          * @return Builder
          */
-        public Builder bankAccountType(String bankAccountType) {
+        public Builder bankAccountType(BankAccountType bankAccountType) {
             this.bankAccountType = bankAccountType;
             return this;
         }
 
         /**
          * Setter for bankAccountHolderType.
-         * @param  bankAccountHolderType  String value for bankAccountHolderType.
+         * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
          * @return Builder
          */
-        public Builder bankAccountHolderType(String bankAccountHolderType) {
+        public Builder bankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
             this.bankAccountHolderType = bankAccountHolderType;
             return this;
         }
 
         /**
          * Setter for paymentType.
-         * @param  paymentType  String value for paymentType.
+         * @param  paymentType  PaymentType value for paymentType.
          * @return Builder
          */
-        public Builder paymentType(String paymentType) {
+        public Builder paymentType(PaymentType paymentType) {
             this.paymentType = paymentType;
             return this;
         }

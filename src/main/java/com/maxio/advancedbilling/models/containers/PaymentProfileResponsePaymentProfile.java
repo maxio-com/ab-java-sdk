@@ -25,15 +25,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ReadPaymentProfileResponsePaymentProfile.ReadPaymentProfileResponsePaymentProfileDeserializer.class)
-public abstract class ReadPaymentProfileResponsePaymentProfile {
+@JsonDeserialize(using = PaymentProfileResponsePaymentProfile.PaymentProfileResponsePaymentProfileDeserializer.class)
+public abstract class PaymentProfileResponsePaymentProfile {
     
     /**
      * This is Bank Account Payment Profile case.
      * @param bankAccountPaymentProfile BankAccountPaymentProfile value for bankAccountPaymentProfile.
      * @return The BankAccountPaymentProfileCase object.
      */
-    public static ReadPaymentProfileResponsePaymentProfile fromBankAccountPaymentProfile(
+    public static PaymentProfileResponsePaymentProfile fromBankAccountPaymentProfile(
             BankAccountPaymentProfile bankAccountPaymentProfile) {
         return bankAccountPaymentProfile == null ? null : new BankAccountPaymentProfileCase(bankAccountPaymentProfile);
     }
@@ -43,7 +43,7 @@ public abstract class ReadPaymentProfileResponsePaymentProfile {
      * @param creditCardPaymentProfile CreditCardPaymentProfile value for creditCardPaymentProfile.
      * @return The CreditCardPaymentProfileCase object.
      */
-    public static ReadPaymentProfileResponsePaymentProfile fromCreditCardPaymentProfile(
+    public static PaymentProfileResponsePaymentProfile fromCreditCardPaymentProfile(
             CreditCardPaymentProfile creditCardPaymentProfile) {
         return creditCardPaymentProfile == null ? null : new CreditCardPaymentProfileCase(creditCardPaymentProfile);
     }
@@ -71,7 +71,7 @@ public abstract class ReadPaymentProfileResponsePaymentProfile {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "BankAccountPaymentProfile")
-    private static class BankAccountPaymentProfileCase extends ReadPaymentProfileResponsePaymentProfile {
+    private static class BankAccountPaymentProfileCase extends PaymentProfileResponsePaymentProfile {
 
         @JsonValue
         private BankAccountPaymentProfile bankAccountPaymentProfile;
@@ -102,7 +102,7 @@ public abstract class ReadPaymentProfileResponsePaymentProfile {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "CreditCardPaymentProfile")
-    private static class CreditCardPaymentProfileCase extends ReadPaymentProfileResponsePaymentProfile {
+    private static class CreditCardPaymentProfileCase extends PaymentProfileResponsePaymentProfile {
 
         @JsonValue
         private CreditCardPaymentProfile creditCardPaymentProfile;
@@ -129,13 +129,13 @@ public abstract class ReadPaymentProfileResponsePaymentProfile {
     }
 
     /**
-     * This is a custom deserializer class for ReadPaymentProfileResponsePaymentProfile.
+     * This is a custom deserializer class for PaymentProfileResponsePaymentProfile.
      */
-    protected static class ReadPaymentProfileResponsePaymentProfileDeserializer
-            extends JsonDeserializer<ReadPaymentProfileResponsePaymentProfile> {
+    protected static class PaymentProfileResponsePaymentProfileDeserializer
+            extends JsonDeserializer<PaymentProfileResponsePaymentProfile> {
 
         @Override
-        public ReadPaymentProfileResponsePaymentProfile deserialize(JsonParser jp, DeserializationContext ctxt)
+        public PaymentProfileResponsePaymentProfile deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

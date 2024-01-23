@@ -20,7 +20,7 @@ public class GetOneTimeTokenPaymentProfile {
     private String firstName;
     private String lastName;
     private String maskedCardNumber;
-    private String cardType;
+    private CardType cardType;
     private double expirationMonth;
     private double expirationYear;
     private OptionalNullable<String> customerId;
@@ -49,7 +49,7 @@ public class GetOneTimeTokenPaymentProfile {
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
      * @param  maskedCardNumber  String value for maskedCardNumber.
-     * @param  cardType  String value for cardType.
+     * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  double value for expirationMonth.
      * @param  expirationYear  double value for expirationYear.
      * @param  currentVault  CurrentVault value for currentVault.
@@ -72,7 +72,7 @@ public class GetOneTimeTokenPaymentProfile {
             String firstName,
             String lastName,
             String maskedCardNumber,
-            String cardType,
+            CardType cardType,
             double expirationMonth,
             double expirationYear,
             CurrentVault currentVault,
@@ -118,7 +118,7 @@ public class GetOneTimeTokenPaymentProfile {
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
      * @param  maskedCardNumber  String value for maskedCardNumber.
-     * @param  cardType  String value for cardType.
+     * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  double value for expirationMonth.
      * @param  expirationYear  double value for expirationYear.
      * @param  currentVault  CurrentVault value for currentVault.
@@ -139,12 +139,13 @@ public class GetOneTimeTokenPaymentProfile {
      */
 
     protected GetOneTimeTokenPaymentProfile(String firstName, String lastName,
-            String maskedCardNumber, String cardType, double expirationMonth, double expirationYear,
-            CurrentVault currentVault, String vaultToken, String billingAddress, String billingCity,
-            String billingCountry, String billingState, String billingZip, String paymentType,
-            boolean disabled, int siteGatewaySettingId, OptionalNullable<String> id,
-            OptionalNullable<String> customerId, String billingAddress2,
-            OptionalNullable<String> customerVaultToken, OptionalNullable<String> gatewayHandle) {
+            String maskedCardNumber, CardType cardType, double expirationMonth,
+            double expirationYear, CurrentVault currentVault, String vaultToken,
+            String billingAddress, String billingCity, String billingCountry, String billingState,
+            String billingZip, String paymentType, boolean disabled, int siteGatewaySettingId,
+            OptionalNullable<String> id, OptionalNullable<String> customerId,
+            String billingAddress2, OptionalNullable<String> customerVaultToken,
+            OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -259,19 +260,21 @@ public class GetOneTimeTokenPaymentProfile {
 
     /**
      * Getter for CardType.
-     * @return Returns the String
+     * The type of card used.
+     * @return Returns the CardType
      */
     @JsonGetter("card_type")
-    public String getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
     /**
      * Setter for CardType.
-     * @param cardType Value for String
+     * The type of card used.
+     * @param cardType Value for CardType
      */
     @JsonSetter("card_type")
-    public void setCardType(String cardType) {
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
@@ -663,7 +666,7 @@ public class GetOneTimeTokenPaymentProfile {
         private String firstName;
         private String lastName;
         private String maskedCardNumber;
-        private String cardType;
+        private CardType cardType;
         private double expirationMonth;
         private double expirationYear;
         private CurrentVault currentVault;
@@ -693,7 +696,7 @@ public class GetOneTimeTokenPaymentProfile {
          * @param  firstName  String value for firstName.
          * @param  lastName  String value for lastName.
          * @param  maskedCardNumber  String value for maskedCardNumber.
-         * @param  cardType  String value for cardType.
+         * @param  cardType  CardType value for cardType.
          * @param  expirationMonth  double value for expirationMonth.
          * @param  expirationYear  double value for expirationYear.
          * @param  currentVault  CurrentVault value for currentVault.
@@ -707,11 +710,11 @@ public class GetOneTimeTokenPaymentProfile {
          * @param  disabled  boolean value for disabled.
          * @param  siteGatewaySettingId  int value for siteGatewaySettingId.
          */
-        public Builder(String firstName, String lastName, String maskedCardNumber, String cardType,
-                double expirationMonth, double expirationYear, CurrentVault currentVault,
-                String vaultToken, String billingAddress, String billingCity, String billingCountry,
-                String billingState, String billingZip, String paymentType, boolean disabled,
-                int siteGatewaySettingId) {
+        public Builder(String firstName, String lastName, String maskedCardNumber,
+                CardType cardType, double expirationMonth, double expirationYear,
+                CurrentVault currentVault, String vaultToken, String billingAddress,
+                String billingCity, String billingCountry, String billingState, String billingZip,
+                String paymentType, boolean disabled, int siteGatewaySettingId) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.maskedCardNumber = maskedCardNumber;
@@ -762,10 +765,10 @@ public class GetOneTimeTokenPaymentProfile {
 
         /**
          * Setter for cardType.
-         * @param  cardType  String value for cardType.
+         * @param  cardType  CardType value for cardType.
          * @return Builder
          */
-        public Builder cardType(String cardType) {
+        public Builder cardType(CardType cardType) {
             this.cardType = cardType;
             return this;
         }

@@ -13,7 +13,7 @@
 | `FirstName` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getFirstName() | setFirstName(String firstName) |
 | `LastName` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getLastName() | setLastName(String lastName) |
 | `MaskedCardNumber` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getMaskedCardNumber() | setMaskedCardNumber(String maskedCardNumber) |
-| `CardType` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getCardType() | setCardType(String cardType) |
+| `CardType` | [`CardType`](../../doc/models/card-type.md) | Required | The type of card used. | CardType getCardType() | setCardType(CardType cardType) |
 | `ExpirationMonth` | `double` | Required | - | double getExpirationMonth() | setExpirationMonth(double expirationMonth) |
 | `ExpirationYear` | `double` | Required | - | double getExpirationYear() | setExpirationYear(double expirationYear) |
 | `CustomerId` | `String` | Optional | - | String getCustomerId() | setCustomerId(String customerId) |
@@ -39,7 +39,7 @@
   "first_name": "first_name2",
   "last_name": "last_name0",
   "masked_card_number": "masked_card_number0",
-  "card_type": "card_type8",
+  "card_type": "routex",
   "expiration_month": 187.78,
   "expiration_year": 164.44,
   "customer_id": "customer_id0",

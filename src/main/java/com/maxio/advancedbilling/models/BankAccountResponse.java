@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for BankAccountResponse type.
  */
 public class BankAccountResponse {
-    private BankAccount paymentProfile;
+    private BankAccountPaymentProfile paymentProfile;
 
     /**
      * Default constructor.
@@ -23,28 +23,28 @@ public class BankAccountResponse {
 
     /**
      * Initialization constructor.
-     * @param  paymentProfile  BankAccount value for paymentProfile.
+     * @param  paymentProfile  BankAccountPaymentProfile value for paymentProfile.
      */
     public BankAccountResponse(
-            BankAccount paymentProfile) {
+            BankAccountPaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
     /**
      * Getter for PaymentProfile.
-     * @return Returns the BankAccount
+     * @return Returns the BankAccountPaymentProfile
      */
     @JsonGetter("payment_profile")
-    public BankAccount getPaymentProfile() {
+    public BankAccountPaymentProfile getPaymentProfile() {
         return paymentProfile;
     }
 
     /**
      * Setter for PaymentProfile.
-     * @param paymentProfile Value for BankAccount
+     * @param paymentProfile Value for BankAccountPaymentProfile
      */
     @JsonSetter("payment_profile")
-    public void setPaymentProfile(BankAccount paymentProfile) {
+    public void setPaymentProfile(BankAccountPaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
@@ -71,7 +71,7 @@ public class BankAccountResponse {
      * Class to build instances of {@link BankAccountResponse}.
      */
     public static class Builder {
-        private BankAccount paymentProfile;
+        private BankAccountPaymentProfile paymentProfile;
 
         /**
          * Initialization constructor.
@@ -81,18 +81,18 @@ public class BankAccountResponse {
 
         /**
          * Initialization constructor.
-         * @param  paymentProfile  BankAccount value for paymentProfile.
+         * @param  paymentProfile  BankAccountPaymentProfile value for paymentProfile.
          */
-        public Builder(BankAccount paymentProfile) {
+        public Builder(BankAccountPaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
         }
 
         /**
          * Setter for paymentProfile.
-         * @param  paymentProfile  BankAccount value for paymentProfile.
+         * @param  paymentProfile  BankAccountPaymentProfile value for paymentProfile.
          * @return Builder
          */
-        public Builder paymentProfile(BankAccount paymentProfile) {
+        public Builder paymentProfile(BankAccountPaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
             return this;
         }

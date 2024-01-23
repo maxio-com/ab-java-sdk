@@ -33,7 +33,7 @@ public class SubscriptionGroupCreditCard {
     private String billingZip;
     private String billingCountry;
     private String lastFour;
-    private String cardType;
+    private CardType cardType;
     private String customerVaultToken;
     private String cvv;
     private String paymentType;
@@ -63,7 +63,7 @@ public class SubscriptionGroupCreditCard {
      * @param  billingZip  String value for billingZip.
      * @param  billingCountry  String value for billingCountry.
      * @param  lastFour  String value for lastFour.
-     * @param  cardType  String value for cardType.
+     * @param  cardType  CardType value for cardType.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  cvv  String value for cvv.
      * @param  paymentType  String value for paymentType.
@@ -85,7 +85,7 @@ public class SubscriptionGroupCreditCard {
             String billingZip,
             String billingCountry,
             String lastFour,
-            String cardType,
+            CardType cardType,
             String customerVaultToken,
             String cvv,
             String paymentType) {
@@ -421,20 +421,22 @@ public class SubscriptionGroupCreditCard {
 
     /**
      * Getter for CardType.
-     * @return Returns the String
+     * The type of card used.
+     * @return Returns the CardType
      */
     @JsonGetter("card_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
     /**
      * Setter for CardType.
-     * @param cardType Value for String
+     * The type of card used.
+     * @param cardType Value for CardType
      */
     @JsonSetter("card_type")
-    public void setCardType(String cardType) {
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
@@ -562,7 +564,7 @@ public class SubscriptionGroupCreditCard {
         private String billingZip;
         private String billingCountry;
         private String lastFour;
-        private String cardType;
+        private CardType cardType;
         private String customerVaultToken;
         private String cvv;
         private String paymentType;
@@ -734,10 +736,10 @@ public class SubscriptionGroupCreditCard {
 
         /**
          * Setter for cardType.
-         * @param  cardType  String value for cardType.
+         * @param  cardType  CardType value for cardType.
          * @return Builder
          */
-        public Builder cardType(String cardType) {
+        public Builder cardType(CardType cardType) {
             this.cardType = cardType;
             return this;
         }

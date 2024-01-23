@@ -24,25 +24,25 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = CreateOrUpdatePercentageCouponPercentage.CreateOrUpdatePercentageCouponPercentageDeserializer.class)
-public abstract class CreateOrUpdatePercentageCouponPercentage {
+@JsonDeserialize(using = UpdatePriceUnitPrice.UpdatePriceUnitPriceDeserializer.class)
+public abstract class UpdatePriceUnitPrice {
     
-    /**
-     * This is String case.
-     * @param string String value for string.
-     * @return The StringCase object.
-     */
-    public static CreateOrUpdatePercentageCouponPercentage fromString(String string) {
-        return string == null ? null : new StringCase(string);
-    }
-
     /**
      * This is Precision case.
      * @param precision double value for precision.
      * @return The PrecisionCase object.
      */
-    public static CreateOrUpdatePercentageCouponPercentage fromPrecision(double precision) {
+    public static UpdatePriceUnitPrice fromPrecision(double precision) {
         return new PrecisionCase(precision);
+    }
+
+    /**
+     * This is String case.
+     * @param string String value for string.
+     * @return The StringCase object.
+     */
+    public static UpdatePriceUnitPrice fromString(String string) {
+        return string == null ? null : new StringCase(string);
     }
 
     /**
@@ -58,44 +58,9 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R string(String string);
-
         R precision(double precision);
-    }
 
-    /**
-     * This is a implementation class for StringCase.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorStringCase
-    @TypeCombinatorCase(type = "String")
-    private static class StringCase extends CreateOrUpdatePercentageCouponPercentage {
-
-        @JsonValue
-        private String string;
-
-        StringCase(String string) {
-            this.string = string;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.string(this.string);
-        }
-
-        @JsonCreator
-        private StringCase(JsonNode jsonNode) throws IOException {
-            if (jsonNode.isTextual()) {
-                this.string = ApiHelper.deserialize(jsonNode, String.class);
-            } else {
-                throw new IllegalArgumentException();
-            }
-        }
-
-        @Override
-        public String toString() {
-            return string.toString();
-        }
+        R string(String string);
     }
 
     /**
@@ -103,7 +68,7 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "double")
-    private static class PrecisionCase extends CreateOrUpdatePercentageCouponPercentage {
+    private static class PrecisionCase extends UpdatePriceUnitPrice {
 
         @JsonValue
         private double precision;
@@ -133,18 +98,53 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
     }
 
     /**
-     * This is a custom deserializer class for CreateOrUpdatePercentageCouponPercentage.
+     * This is a implementation class for StringCase.
      */
-    protected static class CreateOrUpdatePercentageCouponPercentageDeserializer
-            extends JsonDeserializer<CreateOrUpdatePercentageCouponPercentage> {
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorStringCase
+    @TypeCombinatorCase(type = "String")
+    private static class StringCase extends UpdatePriceUnitPrice {
+
+        @JsonValue
+        private String string;
+
+        StringCase(String string) {
+            this.string = string;
+        }
 
         @Override
-        public CreateOrUpdatePercentageCouponPercentage deserialize(JsonParser jp, DeserializationContext ctxt)
+        public <R> R match(Cases<R> cases) {
+            return cases.string(this.string);
+        }
+
+        @JsonCreator
+        private StringCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isTextual()) {
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        @Override
+        public String toString() {
+            return string.toString();
+        }
+    }
+
+    /**
+     * This is a custom deserializer class for UpdatePriceUnitPrice.
+     */
+    protected static class UpdatePriceUnitPriceDeserializer
+            extends JsonDeserializer<UpdatePriceUnitPrice> {
+
+        @Override
+        public UpdatePriceUnitPrice deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(StringCase.class,
-                    PrecisionCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(PrecisionCase.class,
+                    StringCase.class), true);
         }
     }
 

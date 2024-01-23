@@ -28,7 +28,6 @@ public class UpdateComponentPricePoint {
      * Default constructor.
      */
     public UpdateComponentPricePoint() {
-        useSiteExchangeRate = true;
     }
 
     /**
@@ -272,7 +271,7 @@ public class UpdateComponentPricePoint {
         private String name;
         private String handle;
         private PricingScheme pricingScheme;
-        private Boolean useSiteExchangeRate = true;
+        private Boolean useSiteExchangeRate;
         private Boolean taxIncluded;
         private Integer interval;
         private IntervalUnit intervalUnit;

@@ -9,16 +9,19 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.UpdatePriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.UpdatePriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.UpdatePriceUnitPrice;
 
 /**
  * This is a model class for UpdatePrice type.
  */
 public class UpdatePrice {
     private Integer id;
-    private Integer endingQuantity;
-    private Integer unitPrice;
-    private String destroy;
-    private Integer startingQuantity;
+    private UpdatePriceEndingQuantity endingQuantity;
+    private UpdatePriceUnitPrice unitPrice;
+    private Boolean destroy;
+    private UpdatePriceStartingQuantity startingQuantity;
 
     /**
      * Default constructor.
@@ -29,17 +32,17 @@ public class UpdatePrice {
     /**
      * Initialization constructor.
      * @param  id  Integer value for id.
-     * @param  endingQuantity  Integer value for endingQuantity.
-     * @param  unitPrice  Integer value for unitPrice.
-     * @param  destroy  String value for destroy.
-     * @param  startingQuantity  Integer value for startingQuantity.
+     * @param  endingQuantity  UpdatePriceEndingQuantity value for endingQuantity.
+     * @param  unitPrice  UpdatePriceUnitPrice value for unitPrice.
+     * @param  destroy  Boolean value for destroy.
+     * @param  startingQuantity  UpdatePriceStartingQuantity value for startingQuantity.
      */
     public UpdatePrice(
             Integer id,
-            Integer endingQuantity,
-            Integer unitPrice,
-            String destroy,
-            Integer startingQuantity) {
+            UpdatePriceEndingQuantity endingQuantity,
+            UpdatePriceUnitPrice unitPrice,
+            Boolean destroy,
+            UpdatePriceStartingQuantity startingQuantity) {
         this.id = id;
         this.endingQuantity = endingQuantity;
         this.unitPrice = unitPrice;
@@ -68,77 +71,79 @@ public class UpdatePrice {
 
     /**
      * Getter for EndingQuantity.
-     * @return Returns the Integer
+     * @return Returns the UpdatePriceEndingQuantity
      */
     @JsonGetter("ending_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getEndingQuantity() {
+    public UpdatePriceEndingQuantity getEndingQuantity() {
         return endingQuantity;
     }
 
     /**
      * Setter for EndingQuantity.
-     * @param endingQuantity Value for Integer
+     * @param endingQuantity Value for UpdatePriceEndingQuantity
      */
     @JsonSetter("ending_quantity")
-    public void setEndingQuantity(Integer endingQuantity) {
+    public void setEndingQuantity(UpdatePriceEndingQuantity endingQuantity) {
         this.endingQuantity = endingQuantity;
     }
 
     /**
      * Getter for UnitPrice.
-     * @return Returns the Integer
+     * The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * @return Returns the UpdatePriceUnitPrice
      */
     @JsonGetter("unit_price")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getUnitPrice() {
+    public UpdatePriceUnitPrice getUnitPrice() {
         return unitPrice;
     }
 
     /**
      * Setter for UnitPrice.
-     * @param unitPrice Value for Integer
+     * The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * @param unitPrice Value for UpdatePriceUnitPrice
      */
     @JsonSetter("unit_price")
-    public void setUnitPrice(Integer unitPrice) {
+    public void setUnitPrice(UpdatePriceUnitPrice unitPrice) {
         this.unitPrice = unitPrice;
     }
 
     /**
      * Getter for Destroy.
-     * @return Returns the String
+     * @return Returns the Boolean
      */
     @JsonGetter("_destroy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDestroy() {
+    public Boolean getDestroy() {
         return destroy;
     }
 
     /**
      * Setter for Destroy.
-     * @param destroy Value for String
+     * @param destroy Value for Boolean
      */
     @JsonSetter("_destroy")
-    public void setDestroy(String destroy) {
+    public void setDestroy(Boolean destroy) {
         this.destroy = destroy;
     }
 
     /**
      * Getter for StartingQuantity.
-     * @return Returns the Integer
+     * @return Returns the UpdatePriceStartingQuantity
      */
     @JsonGetter("starting_quantity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getStartingQuantity() {
+    public UpdatePriceStartingQuantity getStartingQuantity() {
         return startingQuantity;
     }
 
     /**
      * Setter for StartingQuantity.
-     * @param startingQuantity Value for Integer
+     * @param startingQuantity Value for UpdatePriceStartingQuantity
      */
     @JsonSetter("starting_quantity")
-    public void setStartingQuantity(Integer startingQuantity) {
+    public void setStartingQuantity(UpdatePriceStartingQuantity startingQuantity) {
         this.startingQuantity = startingQuantity;
     }
 
@@ -173,10 +178,10 @@ public class UpdatePrice {
      */
     public static class Builder {
         private Integer id;
-        private Integer endingQuantity;
-        private Integer unitPrice;
-        private String destroy;
-        private Integer startingQuantity;
+        private UpdatePriceEndingQuantity endingQuantity;
+        private UpdatePriceUnitPrice unitPrice;
+        private Boolean destroy;
+        private UpdatePriceStartingQuantity startingQuantity;
 
 
 
@@ -192,40 +197,40 @@ public class UpdatePrice {
 
         /**
          * Setter for endingQuantity.
-         * @param  endingQuantity  Integer value for endingQuantity.
+         * @param  endingQuantity  UpdatePriceEndingQuantity value for endingQuantity.
          * @return Builder
          */
-        public Builder endingQuantity(Integer endingQuantity) {
+        public Builder endingQuantity(UpdatePriceEndingQuantity endingQuantity) {
             this.endingQuantity = endingQuantity;
             return this;
         }
 
         /**
          * Setter for unitPrice.
-         * @param  unitPrice  Integer value for unitPrice.
+         * @param  unitPrice  UpdatePriceUnitPrice value for unitPrice.
          * @return Builder
          */
-        public Builder unitPrice(Integer unitPrice) {
+        public Builder unitPrice(UpdatePriceUnitPrice unitPrice) {
             this.unitPrice = unitPrice;
             return this;
         }
 
         /**
          * Setter for destroy.
-         * @param  destroy  String value for destroy.
+         * @param  destroy  Boolean value for destroy.
          * @return Builder
          */
-        public Builder destroy(String destroy) {
+        public Builder destroy(Boolean destroy) {
             this.destroy = destroy;
             return this;
         }
 
         /**
          * Setter for startingQuantity.
-         * @param  startingQuantity  Integer value for startingQuantity.
+         * @param  startingQuantity  UpdatePriceStartingQuantity value for startingQuantity.
          * @return Builder
          */
-        public Builder startingQuantity(Integer startingQuantity) {
+        public Builder startingQuantity(UpdatePriceStartingQuantity startingQuantity) {
             this.startingQuantity = startingQuantity;
             return this;
         }

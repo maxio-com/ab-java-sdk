@@ -28,7 +28,7 @@ public class Coupon {
     private OptionalNullable<String> productFamilyName;
     private String startDate;
     private OptionalNullable<String> endDate;
-    private OptionalNullable<Double> percentage;
+    private OptionalNullable<String> percentage;
     private Boolean recurring;
     private RecurringScheme recurringScheme;
     private OptionalNullable<Integer> durationPeriodCount;
@@ -66,7 +66,7 @@ public class Coupon {
      * @param  productFamilyName  String value for productFamilyName.
      * @param  startDate  String value for startDate.
      * @param  endDate  String value for endDate.
-     * @param  percentage  Double value for percentage.
+     * @param  percentage  String value for percentage.
      * @param  recurring  Boolean value for recurring.
      * @param  recurringScheme  RecurringScheme value for recurringScheme.
      * @param  durationPeriodCount  Integer value for durationPeriodCount.
@@ -97,7 +97,7 @@ public class Coupon {
             String productFamilyName,
             String startDate,
             String endDate,
-            Double percentage,
+            String percentage,
             Boolean recurring,
             RecurringScheme recurringScheme,
             Integer durationPeriodCount,
@@ -159,7 +159,7 @@ public class Coupon {
      * @param  productFamilyName  String value for productFamilyName.
      * @param  startDate  String value for startDate.
      * @param  endDate  String value for endDate.
-     * @param  percentage  Double value for percentage.
+     * @param  percentage  String value for percentage.
      * @param  recurring  Boolean value for recurring.
      * @param  recurringScheme  RecurringScheme value for recurringScheme.
      * @param  durationPeriodCount  Integer value for durationPeriodCount.
@@ -183,7 +183,7 @@ public class Coupon {
     protected Coupon(Integer id, String name, String code, String description,
             OptionalNullable<Double> amount, OptionalNullable<Integer> amountInCents,
             Integer productFamilyId, OptionalNullable<String> productFamilyName, String startDate,
-            OptionalNullable<String> endDate, OptionalNullable<Double> percentage,
+            OptionalNullable<String> endDate, OptionalNullable<String> percentage,
             Boolean recurring, RecurringScheme recurringScheme,
             OptionalNullable<Integer> durationPeriodCount,
             OptionalNullable<Integer> durationInterval,
@@ -481,29 +481,29 @@ public class Coupon {
 
     /**
      * Internal Getter for Percentage.
-     * @return Returns the Internal Double
+     * @return Returns the Internal String
      */
     @JsonGetter("percentage")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Double> internalGetPercentage() {
+    protected OptionalNullable<String> internalGetPercentage() {
         return this.percentage;
     }
 
     /**
      * Getter for Percentage.
-     * @return Returns the Double
+     * @return Returns the String
      */
-    public Double getPercentage() {
+    public String getPercentage() {
         return OptionalNullable.getFrom(percentage);
     }
 
     /**
      * Setter for Percentage.
-     * @param percentage Value for Double
+     * @param percentage Value for String
      */
     @JsonSetter("percentage")
-    public void setPercentage(Double percentage) {
+    public void setPercentage(String percentage) {
         this.percentage = OptionalNullable.of(percentage);
     }
 
@@ -1028,7 +1028,7 @@ public class Coupon {
         private OptionalNullable<String> productFamilyName;
         private String startDate;
         private OptionalNullable<String> endDate;
-        private OptionalNullable<Double> percentage;
+        private OptionalNullable<String> percentage;
         private Boolean recurring;
         private RecurringScheme recurringScheme;
         private OptionalNullable<Integer> durationPeriodCount;
@@ -1188,10 +1188,10 @@ public class Coupon {
 
         /**
          * Setter for percentage.
-         * @param  percentage  Double value for percentage.
+         * @param  percentage  String value for percentage.
          * @return Builder
          */
-        public Builder percentage(Double percentage) {
+        public Builder percentage(String percentage) {
             this.percentage = OptionalNullable.of(percentage);
             return this;
         }
