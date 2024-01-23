@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `TransactionTime` | `String` | Optional | - | String getTransactionTime() | setTransactionTime(String transactionTime) |
+| `TransactionTime` | `ZonedDateTime` | Optional | - | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `OriginalAmount` | `String` | Optional | - | String getOriginalAmount() | setOriginalAmount(String originalAmount) |
 | `AppliedAmount` | `String` | Optional | - | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
@@ -24,7 +24,7 @@
 
 ```json
 {
-  "transaction_time": "transaction_time4",
+  "transaction_time": "2016-03-13T12:52:32.123Z",
   "memo": "memo6",
   "original_amount": "original_amount6",
   "applied_amount": "applied_amount6",
