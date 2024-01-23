@@ -9,9 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.ComponentPricePointIntervalUnit;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -25,9 +28,9 @@ public class ComponentPricePoint {
     private PricingScheme pricingScheme;
     private Integer componentId;
     private String handle;
-    private OptionalNullable<String> archivedAt;
-    private String createdAt;
-    private String updatedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private List<ComponentPricePointPrice> prices;
     private Boolean useSiteExchangeRate;
     private Integer subscriptionId;
@@ -52,9 +55,9 @@ public class ComponentPricePoint {
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  handle  String value for handle.
-     * @param  archivedAt  String value for archivedAt.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  prices  List of ComponentPricePointPrice value for prices.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  subscriptionId  Integer value for subscriptionId.
@@ -71,9 +74,9 @@ public class ComponentPricePoint {
             PricingScheme pricingScheme,
             Integer componentId,
             String handle,
-            String archivedAt,
-            String createdAt,
-            String updatedAt,
+            ZonedDateTime archivedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             List<ComponentPricePointPrice> prices,
             Boolean useSiteExchangeRate,
             Integer subscriptionId,
@@ -109,9 +112,9 @@ public class ComponentPricePoint {
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  handle  String value for handle.
-     * @param  archivedAt  String value for archivedAt.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  prices  List of ComponentPricePointPrice value for prices.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  subscriptionId  Integer value for subscriptionId.
@@ -123,9 +126,10 @@ public class ComponentPricePoint {
 
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
             PricingScheme pricingScheme, Integer componentId, String handle,
-            OptionalNullable<String> archivedAt, String createdAt, String updatedAt,
-            List<ComponentPricePointPrice> prices, Boolean useSiteExchangeRate,
-            Integer subscriptionId, Boolean taxIncluded, OptionalNullable<Integer> interval,
+            OptionalNullable<ZonedDateTime> archivedAt, ZonedDateTime createdAt,
+            ZonedDateTime updatedAt, List<ComponentPricePointPrice> prices,
+            Boolean useSiteExchangeRate, Integer subscriptionId, Boolean taxIncluded,
+            OptionalNullable<Integer> interval,
             OptionalNullable<ComponentPricePointIntervalUnit> intervalUnit,
             List<ComponentCurrencyPrice> currencyPrices) {
         this.id = id;
@@ -298,29 +302,30 @@ public class ComponentPricePoint {
 
     /**
      * Internal Getter for ArchivedAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetArchivedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
         return this.archivedAt;
     }
 
     /**
      * Getter for ArchivedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getArchivedAt() {
+    public ZonedDateTime getArchivedAt() {
         return OptionalNullable.getFrom(archivedAt);
     }
 
     /**
      * Setter for ArchivedAt.
-     * @param archivedAt Value for String
+     * @param archivedAt Value for ZonedDateTime
      */
     @JsonSetter("archived_at")
-    public void setArchivedAt(String archivedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setArchivedAt(ZonedDateTime archivedAt) {
         this.archivedAt = OptionalNullable.of(archivedAt);
     }
 
@@ -333,39 +338,43 @@ public class ComponentPricePoint {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -623,9 +632,9 @@ public class ComponentPricePoint {
         private PricingScheme pricingScheme;
         private Integer componentId;
         private String handle;
-        private OptionalNullable<String> archivedAt;
-        private String createdAt;
-        private String updatedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private List<ComponentPricePointPrice> prices;
         private Boolean useSiteExchangeRate = true;
         private Integer subscriptionId;
@@ -708,10 +717,10 @@ public class ComponentPricePoint {
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  String value for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(String archivedAt) {
+        public Builder archivedAt(ZonedDateTime archivedAt) {
             this.archivedAt = OptionalNullable.of(archivedAt);
             return this;
         }
@@ -727,20 +736,20 @@ public class ComponentPricePoint {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
