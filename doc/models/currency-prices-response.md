@@ -1,9 +1,9 @@
 
-# Product Price Point Currency Price
+# Currency Prices Response
 
 ## Structure
 
-`ProductPricePointCurrencyPrice`
+`CurrencyPricesResponse`
 
 ## Fields
 

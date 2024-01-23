@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class CreateCurrencyPrice {
     private String currency;
-    private Integer price;
+    private Double price;
     private Integer priceId;
 
     /**
@@ -27,12 +27,12 @@ public class CreateCurrencyPrice {
     /**
      * Initialization constructor.
      * @param  currency  String value for currency.
-     * @param  price  Integer value for price.
+     * @param  price  Double value for price.
      * @param  priceId  Integer value for priceId.
      */
     public CreateCurrencyPrice(
             String currency,
-            Integer price,
+            Double price,
             Integer priceId) {
         this.currency = currency;
         this.price = price;
@@ -63,21 +63,21 @@ public class CreateCurrencyPrice {
     /**
      * Getter for Price.
      * Price for the price level in this currency
-     * @return Returns the Integer
+     * @return Returns the Double
      */
     @JsonGetter("price")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     /**
      * Setter for Price.
      * Price for the price level in this currency
-     * @param price Value for Integer
+     * @param price Value for Double
      */
     @JsonSetter("price")
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -130,7 +130,7 @@ public class CreateCurrencyPrice {
      */
     public static class Builder {
         private String currency;
-        private Integer price;
+        private Double price;
         private Integer priceId;
 
 
@@ -147,10 +147,10 @@ public class CreateCurrencyPrice {
 
         /**
          * Setter for price.
-         * @param  price  Integer value for price.
+         * @param  price  Double value for price.
          * @return Builder
          */
-        public Builder price(Integer price) {
+        public Builder price(Double price) {
             this.price = price;
             return this;
         }

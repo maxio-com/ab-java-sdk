@@ -1441,7 +1441,7 @@ When creating currency prices, they need to mirror the structure of your primary
 Note: Currency Prices are not able to be created for custom price points.
 
 ```java
-List<CurrencyPrice> createCurrencyPrices(
+CurrencyPricesResponse createCurrencyPrices(
     final int pricePointId,
     final CreateCurrencyPricesRequest body)
 ```
@@ -1455,7 +1455,7 @@ List<CurrencyPrice> createCurrencyPrices(
 
 ## Response Type
 
-[`List<CurrencyPrice>`](../../doc/models/currency-price.md)
+[`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
 
 ## Example Usage
 
@@ -1465,12 +1465,12 @@ CreateCurrencyPricesRequest body = new CreateCurrencyPricesRequest.Builder(
     Arrays.asList(
         new CreateCurrencyPrice.Builder()
             .currency("EUR")
-            .price(50)
+            .price(50D)
             .priceId(20)
             .build(),
         new CreateCurrencyPrice.Builder()
             .currency("EUR")
-            .price(40)
+            .price(40D)
             .priceId(21)
             .build()
     )
@@ -1478,12 +1478,29 @@ CreateCurrencyPricesRequest body = new CreateCurrencyPricesRequest.Builder(
 .build();
 
 try {
-    List<CurrencyPrice> result = componentsController.createCurrencyPrices(pricePointId, body);
+    CurrencyPricesResponse result = componentsController.createCurrencyPrices(pricePointId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {
     e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "currency_prices": [
+    {
+      "id": 100,
+      "currency": "EUR",
+      "price": 123,
+      "formatted_price": "€123,00",
+      "product_price_point_id": 32669,
+      "role": "baseline"
+    }
+  ]
 }
 ```
 
