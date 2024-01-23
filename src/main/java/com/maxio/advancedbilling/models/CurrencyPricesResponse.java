@@ -11,22 +11,22 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.List;
 
 /**
- * This is a model class for ProductPricePointCurrencyPrice type.
+ * This is a model class for CurrencyPricesResponse type.
  */
-public class ProductPricePointCurrencyPrice {
+public class CurrencyPricesResponse {
     private List<CurrencyPrice> currencyPrices;
 
     /**
      * Default constructor.
      */
-    public ProductPricePointCurrencyPrice() {
+    public CurrencyPricesResponse() {
     }
 
     /**
      * Initialization constructor.
      * @param  currencyPrices  List of CurrencyPrice value for currencyPrices.
      */
-    public ProductPricePointCurrencyPrice(
+    public CurrencyPricesResponse(
             List<CurrencyPrice> currencyPrices) {
         this.currencyPrices = currencyPrices;
     }
@@ -50,18 +50,18 @@ public class ProductPricePointCurrencyPrice {
     }
 
     /**
-     * Converts this ProductPricePointCurrencyPrice into string format.
+     * Converts this CurrencyPricesResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ProductPricePointCurrencyPrice [" + "currencyPrices=" + currencyPrices + "]";
+        return "CurrencyPricesResponse [" + "currencyPrices=" + currencyPrices + "]";
     }
 
     /**
-     * Builds a new {@link ProductPricePointCurrencyPrice.Builder} object.
+     * Builds a new {@link CurrencyPricesResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ProductPricePointCurrencyPrice.Builder} object
+     * @return a new {@link CurrencyPricesResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(currencyPrices);
@@ -69,7 +69,7 @@ public class ProductPricePointCurrencyPrice {
     }
 
     /**
-     * Class to build instances of {@link ProductPricePointCurrencyPrice}.
+     * Class to build instances of {@link CurrencyPricesResponse}.
      */
     public static class Builder {
         private List<CurrencyPrice> currencyPrices;
@@ -99,11 +99,11 @@ public class ProductPricePointCurrencyPrice {
         }
 
         /**
-         * Builds a new {@link ProductPricePointCurrencyPrice} object using the set fields.
-         * @return {@link ProductPricePointCurrencyPrice}
+         * Builds a new {@link CurrencyPricesResponse} object using the set fields.
+         * @return {@link CurrencyPricesResponse}
          */
-        public ProductPricePointCurrencyPrice build() {
-            return new ProductPricePointCurrencyPrice(currencyPrices);
+        public CurrencyPricesResponse build() {
+            return new CurrencyPricesResponse(currencyPrices);
         }
     }
 }

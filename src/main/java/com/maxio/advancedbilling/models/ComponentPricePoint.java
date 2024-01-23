@@ -31,7 +31,7 @@ public class ComponentPricePoint {
     private OptionalNullable<ZonedDateTime> archivedAt;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
-    private List<ComponentPricePointPrice> prices;
+    private List<ComponentPrice> prices;
     private Boolean useSiteExchangeRate;
     private Integer subscriptionId;
     private Boolean taxIncluded;
@@ -58,7 +58,7 @@ public class ComponentPricePoint {
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
-     * @param  prices  List of ComponentPricePointPrice value for prices.
+     * @param  prices  List of ComponentPrice value for prices.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  taxIncluded  Boolean value for taxIncluded.
@@ -77,7 +77,7 @@ public class ComponentPricePoint {
             ZonedDateTime archivedAt,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
-            List<ComponentPricePointPrice> prices,
+            List<ComponentPrice> prices,
             Boolean useSiteExchangeRate,
             Integer subscriptionId,
             Boolean taxIncluded,
@@ -115,7 +115,7 @@ public class ComponentPricePoint {
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
-     * @param  prices  List of ComponentPricePointPrice value for prices.
+     * @param  prices  List of ComponentPrice value for prices.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  taxIncluded  Boolean value for taxIncluded.
@@ -127,9 +127,8 @@ public class ComponentPricePoint {
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
             PricingScheme pricingScheme, Integer componentId, String handle,
             OptionalNullable<ZonedDateTime> archivedAt, ZonedDateTime createdAt,
-            ZonedDateTime updatedAt, List<ComponentPricePointPrice> prices,
-            Boolean useSiteExchangeRate, Integer subscriptionId, Boolean taxIncluded,
-            OptionalNullable<Integer> interval,
+            ZonedDateTime updatedAt, List<ComponentPrice> prices, Boolean useSiteExchangeRate,
+            Integer subscriptionId, Boolean taxIncluded, OptionalNullable<Integer> interval,
             OptionalNullable<ComponentPricePointIntervalUnit> intervalUnit,
             List<ComponentCurrencyPrice> currencyPrices) {
         this.id = id;
@@ -380,20 +379,20 @@ public class ComponentPricePoint {
 
     /**
      * Getter for Prices.
-     * @return Returns the List of ComponentPricePointPrice
+     * @return Returns the List of ComponentPrice
      */
     @JsonGetter("prices")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ComponentPricePointPrice> getPrices() {
+    public List<ComponentPrice> getPrices() {
         return prices;
     }
 
     /**
      * Setter for Prices.
-     * @param prices Value for List of ComponentPricePointPrice
+     * @param prices Value for List of ComponentPrice
      */
     @JsonSetter("prices")
-    public void setPrices(List<ComponentPricePointPrice> prices) {
+    public void setPrices(List<ComponentPrice> prices) {
         this.prices = prices;
     }
 
@@ -635,7 +634,7 @@ public class ComponentPricePoint {
         private OptionalNullable<ZonedDateTime> archivedAt;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
-        private List<ComponentPricePointPrice> prices;
+        private List<ComponentPrice> prices;
         private Boolean useSiteExchangeRate = true;
         private Integer subscriptionId;
         private Boolean taxIncluded;
@@ -756,10 +755,10 @@ public class ComponentPricePoint {
 
         /**
          * Setter for prices.
-         * @param  prices  List of ComponentPricePointPrice value for prices.
+         * @param  prices  List of ComponentPrice value for prices.
          * @return Builder
          */
-        public Builder prices(List<ComponentPricePointPrice> prices) {
+        public Builder prices(List<ComponentPrice> prices) {
             this.prices = prices;
             return this;
         }

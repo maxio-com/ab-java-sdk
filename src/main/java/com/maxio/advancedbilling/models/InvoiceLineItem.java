@@ -9,9 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceLineItemComponentCostData2;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.LocalDate;
 
 /**
  * This is a model class for InvoiceLineItem type.
@@ -27,8 +30,8 @@ public class InvoiceLineItem {
     private String taxAmount;
     private String totalAmount;
     private Boolean tieredUnitPrice;
-    private String periodRangeStart;
-    private String periodRangeEnd;
+    private LocalDate periodRangeStart;
+    private LocalDate periodRangeEnd;
     private Integer transactionId;
     private OptionalNullable<Integer> productId;
     private OptionalNullable<Integer> productVersion;
@@ -57,8 +60,8 @@ public class InvoiceLineItem {
      * @param  taxAmount  String value for taxAmount.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
-     * @param  periodRangeStart  String value for periodRangeStart.
-     * @param  periodRangeEnd  String value for periodRangeEnd.
+     * @param  periodRangeStart  LocalDate value for periodRangeStart.
+     * @param  periodRangeEnd  LocalDate value for periodRangeEnd.
      * @param  transactionId  Integer value for transactionId.
      * @param  productId  Integer value for productId.
      * @param  productVersion  Integer value for productVersion.
@@ -80,8 +83,8 @@ public class InvoiceLineItem {
             String taxAmount,
             String totalAmount,
             Boolean tieredUnitPrice,
-            String periodRangeStart,
-            String periodRangeEnd,
+            LocalDate periodRangeStart,
+            LocalDate periodRangeEnd,
             Integer transactionId,
             Integer productId,
             Integer productVersion,
@@ -126,8 +129,8 @@ public class InvoiceLineItem {
      * @param  taxAmount  String value for taxAmount.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
-     * @param  periodRangeStart  String value for periodRangeStart.
-     * @param  periodRangeEnd  String value for periodRangeEnd.
+     * @param  periodRangeStart  LocalDate value for periodRangeStart.
+     * @param  periodRangeEnd  LocalDate value for periodRangeEnd.
      * @param  transactionId  Integer value for transactionId.
      * @param  productId  Integer value for productId.
      * @param  productVersion  Integer value for productVersion.
@@ -141,8 +144,8 @@ public class InvoiceLineItem {
 
     protected InvoiceLineItem(String uid, String title, String description, String quantity,
             String unitPrice, String subtotalAmount, String discountAmount, String taxAmount,
-            String totalAmount, Boolean tieredUnitPrice, String periodRangeStart,
-            String periodRangeEnd, Integer transactionId, OptionalNullable<Integer> productId,
+            String totalAmount, Boolean tieredUnitPrice, LocalDate periodRangeStart,
+            LocalDate periodRangeEnd, Integer transactionId, OptionalNullable<Integer> productId,
             OptionalNullable<Integer> productVersion, OptionalNullable<Integer> componentId,
             OptionalNullable<Integer> pricePointId, Boolean hide,
             OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData,
@@ -429,11 +432,12 @@ public class InvoiceLineItem {
      * the future. * For periodic charges paid in arrears (e.g. metered charges), this date will be
      * the date of the previous billing, and the end date will be the current billing date. * For
      * non-periodic charges, this date and the end date will match.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("period_range_start")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPeriodRangeStart() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getPeriodRangeStart() {
         return periodRangeStart;
     }
 
@@ -444,10 +448,11 @@ public class InvoiceLineItem {
      * the future. * For periodic charges paid in arrears (e.g. metered charges), this date will be
      * the date of the previous billing, and the end date will be the current billing date. * For
      * non-periodic charges, this date and the end date will match.
-     * @param periodRangeStart Value for String
+     * @param periodRangeStart Value for LocalDate
      */
     @JsonSetter("period_range_start")
-    public void setPeriodRangeStart(String periodRangeStart) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPeriodRangeStart(LocalDate periodRangeStart) {
         this.periodRangeStart = periodRangeStart;
     }
 
@@ -457,11 +462,12 @@ public class InvoiceLineItem {
      * charges paid in advance, this date will match the next (future) billing date. * For periodic
      * charges paid in arrears (e.g. metered charges), this date will be the date of the current
      * billing date. * For non-periodic charges, this date and the start date will match.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("period_range_end")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPeriodRangeEnd() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getPeriodRangeEnd() {
         return periodRangeEnd;
     }
 
@@ -471,10 +477,11 @@ public class InvoiceLineItem {
      * charges paid in advance, this date will match the next (future) billing date. * For periodic
      * charges paid in arrears (e.g. metered charges), this date will be the date of the current
      * billing date. * For non-periodic charges, this date and the start date will match.
-     * @param periodRangeEnd Value for String
+     * @param periodRangeEnd Value for LocalDate
      */
     @JsonSetter("period_range_end")
-    public void setPeriodRangeEnd(String periodRangeEnd) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPeriodRangeEnd(LocalDate periodRangeEnd) {
         this.periodRangeEnd = periodRangeEnd;
     }
 
@@ -832,8 +839,8 @@ public class InvoiceLineItem {
         private String taxAmount;
         private String totalAmount;
         private Boolean tieredUnitPrice;
-        private String periodRangeStart;
-        private String periodRangeEnd;
+        private LocalDate periodRangeStart;
+        private LocalDate periodRangeEnd;
         private Integer transactionId;
         private OptionalNullable<Integer> productId;
         private OptionalNullable<Integer> productVersion;
@@ -948,20 +955,20 @@ public class InvoiceLineItem {
 
         /**
          * Setter for periodRangeStart.
-         * @param  periodRangeStart  String value for periodRangeStart.
+         * @param  periodRangeStart  LocalDate value for periodRangeStart.
          * @return Builder
          */
-        public Builder periodRangeStart(String periodRangeStart) {
+        public Builder periodRangeStart(LocalDate periodRangeStart) {
             this.periodRangeStart = periodRangeStart;
             return this;
         }
 
         /**
          * Setter for periodRangeEnd.
-         * @param  periodRangeEnd  String value for periodRangeEnd.
+         * @param  periodRangeEnd  LocalDate value for periodRangeEnd.
          * @return Builder
          */
-        public Builder periodRangeEnd(String periodRangeEnd) {
+        public Builder periodRangeEnd(LocalDate periodRangeEnd) {
             this.periodRangeEnd = periodRangeEnd;
             return this;
         }

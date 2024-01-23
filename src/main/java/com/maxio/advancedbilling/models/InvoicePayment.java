@@ -9,14 +9,17 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for InvoicePayment type.
  */
 public class InvoicePayment {
-    private String transactionTime;
+    private ZonedDateTime transactionTime;
     private String memo;
     private String originalAmount;
     private String appliedAmount;
@@ -35,7 +38,7 @@ public class InvoicePayment {
 
     /**
      * Initialization constructor.
-     * @param  transactionTime  String value for transactionTime.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
      * @param  memo  String value for memo.
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
@@ -47,7 +50,7 @@ public class InvoicePayment {
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
      */
     public InvoicePayment(
-            String transactionTime,
+            ZonedDateTime transactionTime,
             String memo,
             String originalAmount,
             String appliedAmount,
@@ -71,7 +74,7 @@ public class InvoicePayment {
 
     /**
      * Initialization constructor.
-     * @param  transactionTime  String value for transactionTime.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
      * @param  memo  String value for memo.
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
@@ -83,7 +86,7 @@ public class InvoicePayment {
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
      */
 
-    protected InvoicePayment(String transactionTime, String memo, String originalAmount,
+    protected InvoicePayment(ZonedDateTime transactionTime, String memo, String originalAmount,
             String appliedAmount, InvoicePaymentMethod paymentMethod, Integer transactionId,
             Boolean prepayment, OptionalNullable<String> gatewayHandle, String gatewayUsed,
             OptionalNullable<String> gatewayTransactionId) {
@@ -101,20 +104,22 @@ public class InvoicePayment {
 
     /**
      * Getter for TransactionTime.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTransactionTime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getTransactionTime() {
         return transactionTime;
     }
 
     /**
      * Setter for TransactionTime.
-     * @param transactionTime Value for String
+     * @param transactionTime Value for ZonedDateTime
      */
     @JsonSetter("transaction_time")
-    public void setTransactionTime(String transactionTime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTransactionTime(ZonedDateTime transactionTime) {
         this.transactionTime = transactionTime;
     }
 
@@ -363,7 +368,7 @@ public class InvoicePayment {
      * Class to build instances of {@link InvoicePayment}.
      */
     public static class Builder {
-        private String transactionTime;
+        private ZonedDateTime transactionTime;
         private String memo;
         private String originalAmount;
         private String appliedAmount;
@@ -378,10 +383,10 @@ public class InvoicePayment {
 
         /**
          * Setter for transactionTime.
-         * @param  transactionTime  String value for transactionTime.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
          * @return Builder
          */
-        public Builder transactionTime(String transactionTime) {
+        public Builder transactionTime(ZonedDateTime transactionTime) {
             this.transactionTime = transactionTime;
             return this;
         }

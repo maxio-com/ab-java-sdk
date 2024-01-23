@@ -19,11 +19,11 @@ import com.maxio.advancedbilling.models.BulkCreateProductPricePointsRequest;
 import com.maxio.advancedbilling.models.BulkCreateProductPricePointsResponse;
 import com.maxio.advancedbilling.models.CreateProductCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
+import com.maxio.advancedbilling.models.CurrencyPricesResponse;
 import com.maxio.advancedbilling.models.ListAllProductPricePointsInput;
 import com.maxio.advancedbilling.models.ListProductPricePointsInput;
 import com.maxio.advancedbilling.models.ListProductPricePointsResponse;
 import com.maxio.advancedbilling.models.PricePointType;
-import com.maxio.advancedbilling.models.ProductPricePointCurrencyPrice;
 import com.maxio.advancedbilling.models.ProductPricePointResponse;
 import com.maxio.advancedbilling.models.ProductResponse;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
@@ -445,11 +445,11 @@ public final class ProductPricePointsController extends BaseController {
      * able to be created for custom product price points.
      * @param  productPricePointId  Required parameter: The Chargify id of the product price point
      * @param  body  Optional parameter: Example:
-     * @return    Returns the ProductPricePointCurrencyPrice response from the API call
+     * @return    Returns the CurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ProductPricePointCurrencyPrice createProductCurrencyPrices(
+    public CurrencyPricesResponse createProductCurrencyPrices(
             final int productPricePointId,
             final CreateProductCurrencyPricesRequest body) throws ApiException, IOException {
         return prepareCreateProductCurrencyPricesRequest(productPricePointId, body).execute();
@@ -458,10 +458,10 @@ public final class ProductPricePointsController extends BaseController {
     /**
      * Builds the ApiCall object for createProductCurrencyPrices.
      */
-    private ApiCall<ProductPricePointCurrencyPrice, ApiException> prepareCreateProductCurrencyPricesRequest(
+    private ApiCall<CurrencyPricesResponse, ApiException> prepareCreateProductCurrencyPricesRequest(
             final int productPricePointId,
             final CreateProductCurrencyPricesRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<ProductPricePointCurrencyPrice, ApiException>()
+        return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -477,7 +477,7 @@ public final class ProductPricePointsController extends BaseController {
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ProductPricePointCurrencyPrice.class))
+                                response -> ApiHelper.deserialize(response, CurrencyPricesResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
@@ -496,11 +496,11 @@ public final class ProductPricePointsController extends BaseController {
      * able to be updated for custom product price points.
      * @param  productPricePointId  Required parameter: The Chargify id of the product price point
      * @param  body  Optional parameter: Example:
-     * @return    Returns the ProductPricePointCurrencyPrice response from the API call
+     * @return    Returns the CurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ProductPricePointCurrencyPrice updateProductCurrencyPrices(
+    public CurrencyPricesResponse updateProductCurrencyPrices(
             final int productPricePointId,
             final UpdateCurrencyPricesRequest body) throws ApiException, IOException {
         return prepareUpdateProductCurrencyPricesRequest(productPricePointId, body).execute();
@@ -509,10 +509,10 @@ public final class ProductPricePointsController extends BaseController {
     /**
      * Builds the ApiCall object for updateProductCurrencyPrices.
      */
-    private ApiCall<ProductPricePointCurrencyPrice, ApiException> prepareUpdateProductCurrencyPricesRequest(
+    private ApiCall<CurrencyPricesResponse, ApiException> prepareUpdateProductCurrencyPricesRequest(
             final int productPricePointId,
             final UpdateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<ProductPricePointCurrencyPrice, ApiException>()
+        return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -528,7 +528,7 @@ public final class ProductPricePointsController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ProductPricePointCurrencyPrice.class))
+                                response -> ApiHelper.deserialize(response, CurrencyPricesResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
