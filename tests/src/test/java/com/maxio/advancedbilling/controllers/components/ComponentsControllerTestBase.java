@@ -23,7 +23,7 @@ public class ComponentsControllerTestBase {
         productFamilyId = productFamily.getId();
     }
 
-    protected Component createQuantityBasedComponent() throws IOException, ApiException {
+    protected static Component createQuantityBasedComponent() throws IOException, ApiException {
         return TEST_SETUP.createQuantityBasedComponent(productFamilyId);
     }
 
