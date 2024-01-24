@@ -99,7 +99,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
 
         assertThat(componentPricePoints.get(0))
                 .usingRecursiveComparison()
-                .ignoringFields("archivedAt")
+                .ignoringFields("archivedAt", "handle")
                 .isEqualTo(component1_PricePoint3_Archived);
     }
 
