@@ -53,7 +53,7 @@ import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static com.maxio.advancedbilling.utils.TestFixtures.SITE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class InvoicesControllerListInvoiceTest {
+public class InvoicesControllerListInvoicesTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final AdvancedBillingClient CLIENT = TestClient.createClient();
     private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
