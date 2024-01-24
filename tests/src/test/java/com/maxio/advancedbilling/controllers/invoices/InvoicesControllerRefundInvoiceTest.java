@@ -42,7 +42,6 @@ import com.maxio.advancedbilling.utils.TestTeardown;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -54,7 +53,6 @@ import java.util.function.Consumer;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled
 public class InvoicesControllerRefundInvoiceTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final AdvancedBillingClient CLIENT = TestClient.createClient();
@@ -142,7 +140,7 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldRefundConsolidatedInvoice() throws IOException, ApiException {
         // given
-        SubscriptionGroupSignupResponse groupSignup = signupWithSubscriptionGroup();
+        groupSignup = signupWithSubscriptionGroup();
 
         Invoice paidInvoice = getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
@@ -187,7 +185,7 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldRefundSpecificSegmentOfConsolidatedInvoice() throws IOException, ApiException {
         // given
-        SubscriptionGroupSignupResponse groupSignup = signupWithSubscriptionGroup();
+        groupSignup = signupWithSubscriptionGroup();
 
         Invoice paidInvoice = getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
