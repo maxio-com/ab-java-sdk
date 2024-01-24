@@ -23,6 +23,7 @@ import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.CreateComponentPricePointsRequest;
 import com.maxio.advancedbilling.models.CreateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.CurrencyPrice;
+import com.maxio.advancedbilling.models.CurrencyPricesResponse;
 import com.maxio.advancedbilling.models.ListAllComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentsForProductFamilyInput;
@@ -816,11 +817,11 @@ public final class ComponentsController extends BaseController {
      * are not able to be created for custom price points.
      * @param  pricePointId  Required parameter: The Chargify id of the price point
      * @param  body  Optional parameter: Example:
-     * @return    Returns the List of CurrencyPrice response from the API call
+     * @return    Returns the CurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<CurrencyPrice> createCurrencyPrices(
+    public CurrencyPricesResponse createCurrencyPrices(
             final int pricePointId,
             final CreateCurrencyPricesRequest body) throws ApiException, IOException {
         return prepareCreateCurrencyPricesRequest(pricePointId, body).execute();
@@ -829,10 +830,10 @@ public final class ComponentsController extends BaseController {
     /**
      * Builds the ApiCall object for createCurrencyPrices.
      */
-    private ApiCall<List<CurrencyPrice>, ApiException> prepareCreateCurrencyPricesRequest(
+    private ApiCall<CurrencyPricesResponse, ApiException> prepareCreateCurrencyPricesRequest(
             final int pricePointId,
             final CreateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<List<CurrencyPrice>, ApiException>()
+        return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -848,8 +849,7 @@ public final class ComponentsController extends BaseController {
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserializeArray(response,
-                                        CurrencyPrice[].class))
+                                response -> ApiHelper.deserialize(response, CurrencyPricesResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

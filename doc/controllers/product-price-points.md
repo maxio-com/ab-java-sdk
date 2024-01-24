@@ -692,7 +692,7 @@ When creating currency prices, they need to mirror the structure of your primary
 Note: Currency Prices are not able to be created for custom product price points.
 
 ```java
-ProductPricePointCurrencyPrice createProductCurrencyPrices(
+CurrencyPricesResponse createProductCurrencyPrices(
     final int productPricePointId,
     final CreateProductCurrencyPricesRequest body)
 ```
@@ -706,7 +706,7 @@ ProductPricePointCurrencyPrice createProductCurrencyPrices(
 
 ## Response Type
 
-[`ProductPricePointCurrencyPrice`](../../doc/models/product-price-point-currency-price.md)
+[`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
 
 ## Example Usage
 
@@ -737,7 +737,7 @@ CreateProductCurrencyPricesRequest body = new CreateProductCurrencyPricesRequest
 .build();
 
 try {
-    ProductPricePointCurrencyPrice result = productPricePointsController.createProductCurrencyPrices(productPricePointId, body);
+    CurrencyPricesResponse result = productPricePointsController.createProductCurrencyPrices(productPricePointId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -752,9 +752,9 @@ try {
 {
   "currency_prices": [
     {
-      "id": 123,
+      "id": 100,
       "currency": "EUR",
-      "price": 100,
+      "price": 123,
       "formatted_price": "€123,00",
       "product_price_point_id": 32669,
       "role": "baseline"
@@ -779,7 +779,7 @@ When updating the pricing, it needs to mirror the structure of your primary pric
 Note: Currency Prices are not able to be updated for custom product price points.
 
 ```java
-ProductPricePointCurrencyPrice updateProductCurrencyPrices(
+CurrencyPricesResponse updateProductCurrencyPrices(
     final int productPricePointId,
     final UpdateCurrencyPricesRequest body)
 ```
@@ -793,7 +793,7 @@ ProductPricePointCurrencyPrice updateProductCurrencyPrices(
 
 ## Response Type
 
-[`ProductPricePointCurrencyPrice`](../../doc/models/product-price-point-currency-price.md)
+[`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
 
 ## Example Usage
 
@@ -816,7 +816,7 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
 .build();
 
 try {
-    ProductPricePointCurrencyPrice result = productPricePointsController.updateProductCurrencyPrices(productPricePointId, body);
+    CurrencyPricesResponse result = productPricePointsController.updateProductCurrencyPrices(productPricePointId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
