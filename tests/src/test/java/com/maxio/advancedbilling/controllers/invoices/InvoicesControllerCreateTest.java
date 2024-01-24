@@ -44,6 +44,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -139,19 +140,9 @@ public class InvoicesControllerCreateTest {
         assertThat(invoice.getProductFamilyName()).isEqualTo(productFamily.getName());
 
         InvoiceSeller invoiceSeller = invoice.getSeller();
-        InvoiceAddress sellerAddress = invoiceSeller.getAddress();
-        assertAll(
-                () -> assertThat(invoiceSeller).isNotNull(),
-                () -> assertThat(invoiceSeller.getName()).isEqualTo("Developer Experience"),
-                () -> assertThat(sellerAddress).isNotNull(),
-                () -> assertThat(sellerAddress.getStreet()).isEqualTo("Asdf Street"),
-                () -> assertThat(sellerAddress.getLine2()).isEqualTo("123/444"),
-                () -> assertThat(sellerAddress.getCity()).isEqualTo("San Antonio"),
-                () -> assertThat(sellerAddress.getState()).isEqualTo("TX"),
-                () -> assertThat(sellerAddress.getZip()).isEqualTo("78015"),
-                () -> assertThat(sellerAddress.getCountry()).isEqualTo("US"),
-                () -> assertThat(invoiceSeller.getPhone()).isEqualTo("555 111 222")
-        );
+        assertThat(invoiceSeller)
+                .usingRecursiveComparison()
+                .isEqualTo(INVOICE_SELLER);
 
         InvoiceCustomer invoiceCustomer = invoice.getCustomer();
         assertAll(
