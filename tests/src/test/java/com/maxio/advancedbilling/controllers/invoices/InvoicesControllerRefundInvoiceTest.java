@@ -59,6 +59,7 @@ public class InvoicesControllerRefundInvoiceTest {
     private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     private static Product product;
+    private static Product primaryProduct;
     private static Component meteredComponent;
     private static Customer customer;
     private static Subscription subscription;
@@ -69,6 +70,7 @@ public class InvoicesControllerRefundInvoiceTest {
     static void setUp() throws IOException, ApiException {
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
+        primaryProduct = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
         customer = TEST_SETUP.createCustomer();
         meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
         coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
@@ -88,9 +90,15 @@ public class InvoicesControllerRefundInvoiceTest {
         if (groupSignup != null) {
             SubscriptionGroupsController subscriptionGroupsController = CLIENT.getSubscriptionGroupsController();
             List<SubscriptionGroupItem> subscriptions = groupSignup.getSubscriptions();
+            SubscriptionGroupItem primarySubscription = null;
             for (SubscriptionGroupItem subscription : subscriptions) {
+                if(subscription.getProductId().equals(primaryProduct.getId())) {
+                    primarySubscription = subscription;
+                    continue;
+                }
                 subscriptionGroupsController.removeSubscriptionFromGroup(subscription.getId());
             }
+            subscriptionGroupsController.removeSubscriptionFromGroup(primarySubscription.getId());
             new TestTeardown().deleteCustomer(new Customer.Builder().id(groupSignup.getCustomerId()).build());
         }
         groupSignup = null;
@@ -357,7 +365,7 @@ public class InvoicesControllerRefundInvoiceTest {
                                         .email("payerdoe@chargify.com")
                                         .build())
                                 .subscriptions(List.of(new SubscriptionGroupSignupItem.Builder()
-                                                .productId(product.getId())
+                                                .productId(primaryProduct.getId())
                                                 .components(List.of(new SubscriptionGroupSignupComponent.Builder()
                                                         .componentId(SubscriptionGroupSignupComponentComponentId.fromNumber(meteredComponent.getId()))
                                                         .unitBalance(SubscriptionGroupSignupComponentUnitBalance.fromNumber(10))
