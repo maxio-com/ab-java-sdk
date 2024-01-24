@@ -45,6 +45,7 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
 import com.maxio.advancedbilling.models.Subscription;
+import com.maxio.advancedbilling.models.UpdateComponent;
 import com.maxio.advancedbilling.models.containers.CreateComponentBody;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
@@ -55,6 +56,7 @@ import com.maxio.advancedbilling.models.containers.OnOffComponentUnitPrice;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
 import com.maxio.advancedbilling.models.containers.PrepaidUsageComponentUnitPrice;
+import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
@@ -224,6 +226,38 @@ public class TestSetup {
                                 )
                         )
                 ).getComponent();
+    }
+
+    public ComponentPricePoint createComponentPricePoint(int componentId) throws IOException, ApiException {
+        return createComponentPricePoint(componentId, b -> {});
+    }
+
+    public ComponentPricePoint createComponentPricePoint(int componentId, Consumer<CreateComponentPricePoint.Builder> customizer)
+            throws IOException, ApiException {
+        CreateComponentPricePoint.Builder builder = new CreateComponentPricePoint.Builder()
+                .name("test-price-point-initial-" + randomNumeric(5))
+                .handle("test-handle-initial-" + randomNumeric(5))
+                .pricingScheme(PricingScheme.VOLUME)
+                .useSiteExchangeRate(false)
+                .taxIncluded(false)
+                .prices(List.of(
+                                new Price.Builder()
+                                        .startingQuantity(PriceStartingQuantity.fromNumber(0))
+                                        .endingQuantity(PriceEndingQuantity.fromNumber(5))
+                                        .unitPrice(PriceUnitPrice.fromPrecision(2.0))
+                                        .build(),
+                                new Price.Builder()
+                                        .startingQuantity(PriceStartingQuantity.fromNumber(6))
+                                        .unitPrice(PriceUnitPrice.fromPrecision(5.0))
+                                        .build()
+                        )
+                );
+        customizer.accept(builder);
+
+        return advancedBillingClient.getComponentsController()
+                .createComponentPricePoint(componentId, new CreateComponentPricePointRequest(
+                        CreateComponentPricePointRequestPricePoint.fromCreateComponentPricePoint(builder.build()))
+                ).getPricePoint();
     }
 
     public Customer createCustomer() throws IOException, ApiException {
