@@ -15,6 +15,7 @@ import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.Component;
+import com.maxio.advancedbilling.models.ComponentCurrencyPricesResponse;
 import com.maxio.advancedbilling.models.ComponentKindPath;
 import com.maxio.advancedbilling.models.ComponentPricePointResponse;
 import com.maxio.advancedbilling.models.ComponentPricePointsResponse;
@@ -22,8 +23,6 @@ import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.CreateComponentPricePointsRequest;
 import com.maxio.advancedbilling.models.CreateCurrencyPricesRequest;
-import com.maxio.advancedbilling.models.CurrencyPrice;
-import com.maxio.advancedbilling.models.CurrencyPricesResponse;
 import com.maxio.advancedbilling.models.ListAllComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentsForProductFamilyInput;
@@ -817,11 +816,11 @@ public final class ComponentsController extends BaseController {
      * are not able to be created for custom price points.
      * @param  pricePointId  Required parameter: The Chargify id of the price point
      * @param  body  Optional parameter: Example:
-     * @return    Returns the CurrencyPricesResponse response from the API call
+     * @return    Returns the ComponentCurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public CurrencyPricesResponse createCurrencyPrices(
+    public ComponentCurrencyPricesResponse createCurrencyPrices(
             final int pricePointId,
             final CreateCurrencyPricesRequest body) throws ApiException, IOException {
         return prepareCreateCurrencyPricesRequest(pricePointId, body).execute();
@@ -830,10 +829,10 @@ public final class ComponentsController extends BaseController {
     /**
      * Builds the ApiCall object for createCurrencyPrices.
      */
-    private ApiCall<CurrencyPricesResponse, ApiException> prepareCreateCurrencyPricesRequest(
+    private ApiCall<ComponentCurrencyPricesResponse, ApiException> prepareCreateCurrencyPricesRequest(
             final int pricePointId,
             final CreateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
+        return new ApiCall.Builder<ComponentCurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -849,8 +848,11 @@ public final class ComponentsController extends BaseController {
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, CurrencyPricesResponse.class))
+                                response -> ApiHelper.deserialize(response, ComponentCurrencyPricesResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -863,11 +865,11 @@ public final class ComponentsController extends BaseController {
      * custom price points.
      * @param  pricePointId  Required parameter: The Chargify id of the price point
      * @param  body  Optional parameter: Example:
-     * @return    Returns the List of CurrencyPrice response from the API call
+     * @return    Returns the ComponentCurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<CurrencyPrice> updateCurrencyPrices(
+    public ComponentCurrencyPricesResponse updateCurrencyPrices(
             final int pricePointId,
             final UpdateCurrencyPricesRequest body) throws ApiException, IOException {
         return prepareUpdateCurrencyPricesRequest(pricePointId, body).execute();
@@ -876,10 +878,10 @@ public final class ComponentsController extends BaseController {
     /**
      * Builds the ApiCall object for updateCurrencyPrices.
      */
-    private ApiCall<List<CurrencyPrice>, ApiException> prepareUpdateCurrencyPricesRequest(
+    private ApiCall<ComponentCurrencyPricesResponse, ApiException> prepareUpdateCurrencyPricesRequest(
             final int pricePointId,
             final UpdateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<List<CurrencyPrice>, ApiException>()
+        return new ApiCall.Builder<ComponentCurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -895,9 +897,11 @@ public final class ComponentsController extends BaseController {
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserializeArray(response,
-                                        CurrencyPrice[].class))
+                                response -> ApiHelper.deserialize(response, ComponentCurrencyPricesResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
