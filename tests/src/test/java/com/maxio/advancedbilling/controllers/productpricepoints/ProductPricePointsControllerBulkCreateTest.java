@@ -6,11 +6,12 @@ import com.maxio.advancedbilling.models.CreateProductPricePoint;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.util.List;
@@ -81,7 +82,6 @@ class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseT
         );
     }
 
-    @Disabled("Ignored until model is fixed on ApiMatic side")
     @Test
     void shouldReturn422WhenRequestContainsListWithoutRequiredFields() {
         // when - then
@@ -94,7 +94,11 @@ class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseT
                                 new CreateProductPricePoint()
                         ))
                 ),
-                e -> assertThat(e.getHttpContext().getResponse().getBody()).isEqualTo("{\"price_points[0].name\":[\"Name: cannot be blank.\"],\"price_points[0].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[0].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"],\"price_points[1].name\":[\"Name: cannot be blank.\"],\"price_points[1].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[1].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"]}")
+                e -> JSONAssert.assertEquals(
+                        "{\"price_points[0].name\":[\"Name: cannot be blank.\"],\"price_points[0].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[0].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"],\"price_points[1].name\":[\"Name: cannot be blank.\"],\"price_points[1].interval\":[\"Recurring Interval: must be greater than or equal to 1.\"],\"price_points[1].interval_unit\":[\"Interval unit: cannot be blank.\",\"Interval unit: must be 'month' or 'day'.\"]}",
+                        e.getHttpContext().getResponse().getBody(),
+                        JSONCompareMode.STRICT
+                )
         );
     }
 }
