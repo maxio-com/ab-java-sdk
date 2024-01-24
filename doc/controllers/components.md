@@ -1441,7 +1441,7 @@ When creating currency prices, they need to mirror the structure of your primary
 Note: Currency Prices are not able to be created for custom price points.
 
 ```java
-CurrencyPricesResponse createCurrencyPrices(
+ComponentCurrencyPricesResponse createCurrencyPrices(
     final int pricePointId,
     final CreateCurrencyPricesRequest body)
 ```
@@ -1455,7 +1455,7 @@ CurrencyPricesResponse createCurrencyPrices(
 
 ## Response Type
 
-[`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
+[`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
 ## Example Usage
 
@@ -1478,7 +1478,7 @@ CreateCurrencyPricesRequest body = new CreateCurrencyPricesRequest.Builder(
 .build();
 
 try {
-    CurrencyPricesResponse result = componentsController.createCurrencyPrices(pricePointId, body);
+    ComponentCurrencyPricesResponse result = componentsController.createCurrencyPrices(pricePointId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1495,14 +1495,20 @@ try {
     {
       "id": 100,
       "currency": "EUR",
-      "price": 123,
+      "price": "123",
       "formatted_price": "€123,00",
-      "product_price_point_id": 32669,
-      "role": "baseline"
+      "price_id": 32669,
+      "price_point_id": 25554
     }
   ]
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
 
 
 # Update Currency Prices
@@ -1512,7 +1518,7 @@ This endpoint allows you to update currency prices for a given currency that has
 Note: Currency Prices are not able to be updated for custom price points.
 
 ```java
-List<CurrencyPrice> updateCurrencyPrices(
+ComponentCurrencyPricesResponse updateCurrencyPrices(
     final int pricePointId,
     final UpdateCurrencyPricesRequest body)
 ```
@@ -1526,7 +1532,7 @@ List<CurrencyPrice> updateCurrencyPrices(
 
 ## Response Type
 
-[`List<CurrencyPrice>`](../../doc/models/currency-price.md)
+[`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
 ## Example Usage
 
@@ -1549,7 +1555,7 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
 .build();
 
 try {
-    List<CurrencyPrice> result = componentsController.updateCurrencyPrices(pricePointId, body);
+    ComponentCurrencyPricesResponse result = componentsController.updateCurrencyPrices(pricePointId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1557,6 +1563,29 @@ try {
     e.printStackTrace();
 }
 ```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "currency_prices": [
+    {
+      "id": 100,
+      "currency": "EUR",
+      "price": "123",
+      "formatted_price": "€123,00",
+      "price_id": 32669,
+      "price_point_id": 25554
+    }
+  ]
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorArrayMapResponseException`](../../doc/models/error-array-map-response-exception.md) |
 
 
 # List All Component Price Points
