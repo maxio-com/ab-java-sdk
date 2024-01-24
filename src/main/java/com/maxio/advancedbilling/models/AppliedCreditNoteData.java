@@ -11,16 +11,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for AppliedCreditNote type.
+ * This is a model class for AppliedCreditNoteData type.
  */
-public class AppliedCreditNote {
+public class AppliedCreditNoteData {
     private String uid;
     private String number;
 
     /**
      * Default constructor.
      */
-    public AppliedCreditNote() {
+    public AppliedCreditNoteData() {
     }
 
     /**
@@ -28,7 +28,7 @@ public class AppliedCreditNote {
      * @param  uid  String value for uid.
      * @param  number  String value for number.
      */
-    public AppliedCreditNote(
+    public AppliedCreditNoteData(
             String uid,
             String number) {
         this.uid = uid;
@@ -78,18 +78,18 @@ public class AppliedCreditNote {
     }
 
     /**
-     * Converts this AppliedCreditNote into string format.
+     * Converts this AppliedCreditNoteData into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "AppliedCreditNote [" + "uid=" + uid + ", number=" + number + "]";
+        return "AppliedCreditNoteData [" + "uid=" + uid + ", number=" + number + "]";
     }
 
     /**
-     * Builds a new {@link AppliedCreditNote.Builder} object.
+     * Builds a new {@link AppliedCreditNoteData.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link AppliedCreditNote.Builder} object
+     * @return a new {@link AppliedCreditNoteData.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -99,7 +99,7 @@ public class AppliedCreditNote {
     }
 
     /**
-     * Class to build instances of {@link AppliedCreditNote}.
+     * Class to build instances of {@link AppliedCreditNoteData}.
      */
     public static class Builder {
         private String uid;
@@ -128,11 +128,11 @@ public class AppliedCreditNote {
         }
 
         /**
-         * Builds a new {@link AppliedCreditNote} object using the set fields.
-         * @return {@link AppliedCreditNote}
+         * Builds a new {@link AppliedCreditNoteData} object using the set fields.
+         * @return {@link AppliedCreditNoteData}
          */
-        public AppliedCreditNote build() {
-            return new AppliedCreditNote(uid, number);
+        public AppliedCreditNoteData build() {
+            return new AppliedCreditNoteData(uid, number);
         }
     }
 }

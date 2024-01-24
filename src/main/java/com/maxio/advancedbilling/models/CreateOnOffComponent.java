@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -27,9 +25,8 @@ public class CreateOnOffComponent {
      * Initialization constructor.
      * @param  onOffComponent  OnOffComponent value for onOffComponent.
      */
-    @JsonCreator
     public CreateOnOffComponent(
-            @JsonProperty("on_off_component") OnOffComponent onOffComponent) {
+            OnOffComponent onOffComponent) {
         this.onOffComponent = onOffComponent;
     }
 

@@ -24,7 +24,7 @@ import com.maxio.advancedbilling.models.IssueInvoiceEventData;
 import com.maxio.advancedbilling.models.RefundInvoiceEventData;
 import com.maxio.advancedbilling.models.RemovePaymentEventData;
 import com.maxio.advancedbilling.models.VoidInvoiceEventData;
-import com.maxio.advancedbilling.models.VoidInvoiceEventData1;
+import com.maxio.advancedbilling.models.VoidRemainderEventData;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
 import java.util.Arrays;
@@ -116,13 +116,13 @@ public abstract class InvoiceEventEventData {
     }
 
     /**
-     * This is Void Invoice Event Data1 case.
-     * @param voidInvoiceEventData1 VoidInvoiceEventData1 value for voidInvoiceEventData1.
-     * @return The VoidInvoiceEventData1Case object.
+     * This is Void Remainder Event Data case.
+     * @param voidRemainderEventData VoidRemainderEventData value for voidRemainderEventData.
+     * @return The VoidRemainderEventDataCase object.
      */
-    public static InvoiceEventEventData fromVoidInvoiceEventData1(
-            VoidInvoiceEventData1 voidInvoiceEventData1) {
-        return voidInvoiceEventData1 == null ? null : new VoidInvoiceEventData1Case(voidInvoiceEventData1);
+    public static InvoiceEventEventData fromVoidRemainderEventData(
+            VoidRemainderEventData voidRemainderEventData) {
+        return voidRemainderEventData == null ? null : new VoidRemainderEventDataCase(voidRemainderEventData);
     }
 
     /**
@@ -154,7 +154,7 @@ public abstract class InvoiceEventEventData {
 
         R voidInvoiceEventData(VoidInvoiceEventData voidInvoiceEventData);
 
-        R voidInvoiceEventData1(VoidInvoiceEventData1 voidInvoiceEventData1);
+        R voidRemainderEventData(VoidRemainderEventData voidRemainderEventData);
     }
 
     /**
@@ -406,33 +406,33 @@ public abstract class InvoiceEventEventData {
     }
 
     /**
-     * This is a implementation class for VoidInvoiceEventData1Case.
+     * This is a implementation class for VoidRemainderEventDataCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "VoidInvoiceEventData1")
-    private static class VoidInvoiceEventData1Case extends InvoiceEventEventData {
+    @TypeCombinatorCase(type = "VoidRemainderEventData")
+    private static class VoidRemainderEventDataCase extends InvoiceEventEventData {
 
         @JsonValue
-        private VoidInvoiceEventData1 voidInvoiceEventData1;
+        private VoidRemainderEventData voidRemainderEventData;
 
-        VoidInvoiceEventData1Case(VoidInvoiceEventData1 voidInvoiceEventData1) {
-            this.voidInvoiceEventData1 = voidInvoiceEventData1;
+        VoidRemainderEventDataCase(VoidRemainderEventData voidRemainderEventData) {
+            this.voidRemainderEventData = voidRemainderEventData;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.voidInvoiceEventData1(this.voidInvoiceEventData1);
+            return cases.voidRemainderEventData(this.voidRemainderEventData);
         }
 
         @JsonCreator
-        private VoidInvoiceEventData1Case(JsonNode jsonNode) throws IOException {
-            this.voidInvoiceEventData1 = ApiHelper.deserialize(jsonNode,
-                VoidInvoiceEventData1.class);
+        private VoidRemainderEventDataCase(JsonNode jsonNode) throws IOException {
+            this.voidRemainderEventData = ApiHelper.deserialize(jsonNode,
+                VoidRemainderEventData.class);
         }
 
         @Override
         public String toString() {
-            return voidInvoiceEventData1.toString();
+            return voidRemainderEventData.toString();
         }
     }
 
@@ -452,7 +452,7 @@ public abstract class InvoiceEventEventData {
                     ChangeInvoiceCollectionMethodEventDataCase.class,
                     IssueInvoiceEventDataCase.class, RefundInvoiceEventDataCase.class,
                     RemovePaymentEventDataCase.class, VoidInvoiceEventDataCase.class,
-                    VoidInvoiceEventData1Case.class), false);
+                    VoidRemainderEventDataCase.class), false);
         }
     }
 

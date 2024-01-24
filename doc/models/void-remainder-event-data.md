@@ -1,11 +1,11 @@
 
-# Void Invoice Event Data 1
+# Void Remainder Event Data
 
-Example schema for an `void_invoice` event
+Example schema for an `void_remainder` event
 
 ## Structure
 
-`VoidInvoiceEventData1`
+`VoidRemainderEventData`
 
 ## Fields
 
@@ -27,7 +27,7 @@ Example schema for an `void_invoice` event
     "subscription_id": 0,
     "number": "number0"
   },
-  "memo": "memo8",
+  "memo": "memo6",
   "applied_amount": "applied_amount4",
   "transaction_time": "2016-03-13T12:52:32.123Z"
 }

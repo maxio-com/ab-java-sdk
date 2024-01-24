@@ -23,6 +23,7 @@
 | `Taxable` | `Boolean` | Optional | Boolean flag describing whether a component is taxable or not. | Boolean getTaxable() | setTaxable(Boolean taxable) |
 | `Description` | `String` | Optional | The description of the component. | String getDescription() | setDescription(String description) |
 | `DefaultPricePointId` | `Integer` | Optional | - | Integer getDefaultPricePointId() | setDefaultPricePointId(Integer defaultPricePointId) |
+| `OveragePrices` | [`List<ComponentPrice>`](../../doc/models/component-price.md) | Optional | An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array will be empty. | List<ComponentPrice> getOveragePrices() | setOveragePrices(List<ComponentPrice> overagePrices) |
 | `Prices` | [`List<ComponentPrice>`](../../doc/models/component-price.md) | Optional | An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array will be empty. | List<ComponentPrice> getPrices() | setPrices(List<ComponentPrice> prices) |
 | `PricePointCount` | `Integer` | Optional | Count for the number of price points associated with the component | Integer getPricePointCount() | setPricePointCount(Integer pricePointCount) |
 | `PricePointsUrl` | `String` | Optional | URL that points to the location to read the existing price points via GET request | String getPricePointsUrl() | setPricePointsUrl(String pricePointsUrl) |
@@ -31,8 +32,8 @@
 | `Recurring` | `Boolean` | Optional | - | Boolean getRecurring() | setRecurring(Boolean recurring) |
 | `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
 | `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
-| `CreatedAt` | `String` | Optional | Timestamp indicating when this component was created | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `UpdatedAt` | `String` | Optional | Timestamp indicating when this component was updated | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this component was created | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this component was updated | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `ArchivedAt` | `String` | Optional | Timestamp indicating when this component was archived | String getArchivedAt() | setArchivedAt(String archivedAt) |
 | `HideDateRangeOnInvoice` | `Boolean` | Optional | (Only available on Relationship Invoicing sites) Boolean flag describing if the service date range should show for the component on generated invoices. | Boolean getHideDateRangeOnInvoice() | setHideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) |
 | `AllowFractionalQuantities` | `Boolean` | Optional | - | Boolean getAllowFractionalQuantities() | setAllowFractionalQuantities(Boolean allowFractionalQuantities) |
