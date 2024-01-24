@@ -5,18 +5,13 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
-import com.maxio.advancedbilling.models.CreateComponentPricePoint;
-import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
-import com.maxio.advancedbilling.models.Price;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.UpdateComponentPricePoint;
 import com.maxio.advancedbilling.models.UpdateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.UpdatePrice;
-import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
-import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
-import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
-import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
+import com.maxio.advancedbilling.models.containers.UpdatePriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.UpdatePriceUnitPrice;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,11 +19,11 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
@@ -37,39 +32,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ComponentsControllerUpdatePricePointTest extends ComponentsControllerTestBase {
 
     private static Component component;
+    private static Component component2;
 
     @BeforeAll
     static void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
+        component2 = createQuantityBasedComponent();
     }
 
     @Test
     void shouldUpdateComponentPricePoint() throws IOException, ApiException {
         // given
-        CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
-                .name("test-price-point-initial-" + randomNumeric(5))
-                .name("test-handle-initial-" + randomNumeric(5))
-                .pricingScheme(PricingScheme.VOLUME)
-                .useSiteExchangeRate(false)
-                .taxIncluded(false)
-                .prices(List.of(
-                            new Price.Builder()
-                                    .startingQuantity(PriceStartingQuantity.fromNumber(0))
-                                    .endingQuantity(PriceEndingQuantity.fromNumber(5))
-                                    .unitPrice(PriceUnitPrice.fromPrecision(2.0))
-                                    .build(),
-                            new Price.Builder()
-                                    .startingQuantity(PriceStartingQuantity.fromNumber(6))
-                                    .unitPrice(PriceUnitPrice.fromPrecision(5.0))
-                                    .build()
-                        )
-                )
-                .build();
-
-        ComponentPricePoint componentPricePoint = COMPONENTS_CONTROLLER
-                .createComponentPricePoint(component.getId(), new CreateComponentPricePointRequest(
-                        CreateComponentPricePointRequestPricePoint.fromCreateComponentPricePoint(createComponentPricePoint))
-                ).getPricePoint();
+        ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
+        ComponentPricePoint componentPricePoint = TEST_SETUP.createComponentPricePoint(component.getId());
 
         UpdateComponentPricePoint updateComponentPricePoint = new UpdateComponentPricePoint.Builder()
                 .name("test-price-point-" + randomNumeric(5))
@@ -79,16 +54,16 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
                 .taxIncluded(true)
                 .prices(List.of(
                                 new UpdatePrice.Builder()
-                                        .startingQuantity(6)
-                                        .unitPrice(3)
+                                        .startingQuantity(UpdatePriceStartingQuantity.fromNumber(6))
+                                        .unitPrice(UpdatePriceUnitPrice.fromPrecision(3))
                                         .build(),
                                 new UpdatePrice.Builder()
                                         .id(componentPricePoint.getPrices().get(1).getId())
-                                        .destroy("true")
+                                        .destroy(true)
                                         .build(),
                                 new UpdatePrice.Builder()
                                         .id(componentPricePoint.getPrices().get(0).getId())
-                                        .unitPrice(2)
+                                        .unitPrice(UpdatePriceUnitPrice.fromString("2"))
                                         .build()
                         )
                 )
@@ -111,8 +86,8 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
         assertThat(updatedPricePoint.getPricingScheme()).isEqualTo(updateComponentPricePoint.getPricingScheme());
 
         assertThat(updatedPricePoint.getArchivedAt()).isNull();
-        assertThat(updatedPricePoint.getCreatedAt()).isNotNull();
-        assertThat(updatedPricePoint.getUpdatedAt()).isNotNull();
+        assertThat(updatedPricePoint.getCreatedAt()).isAfter(timestamp);
+        assertThat(updatedPricePoint.getUpdatedAt()).isAfter(timestamp);
 
         assertThat(updatedPricePoint.getUseSiteExchangeRate()).isTrue();
         assertThat(updatedPricePoint.getTaxIncluded()).isTrue();
@@ -139,8 +114,8 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
         // when - then
         assertUnprocessableEntity(
                 ErrorArrayMapResponseException.class,
-                () -> COMPONENTS_CONTROLLER.updateComponentPricePoint(component.getId(), component.getDefaultPricePointId(), request),
-                e -> assertThat(e.getErrors()).containsExactlyEntriesOf(expectedErrors)
+                () -> COMPONENTS_CONTROLLER.updateComponentPricePoint(component2.getId(), component2.getDefaultPricePointId(), request),
+                e -> assertThat(e.getErrors()).containsExactlyInAnyOrderEntriesOf(expectedErrors)
         );
     }
 
@@ -148,9 +123,12 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
         return Stream.of(
                 Arguments.of(
                         new UpdateComponentPricePointRequest(
-                                new UpdateComponentPricePoint.Builder().prices(List.of()).build()
+                                new UpdateComponentPricePoint.Builder().pricingScheme(PricingScheme.STAIRSTEP)
+                                        .prices(List.of(new UpdatePrice())).build()
                         ),
-                        Map.of("prices", "At least 1 price bracket must be defined")
+                        Map.of("prices", List.of("There cannot be more than one price bracket without an ending quantity (i.e. 'infinity')"),
+                                "prices.starting_quantity", List.of("Starting quantity: is not a number."),
+                                "prices.unit_price", List.of("Unit price: cannot be blank."))
                 ),
                 Arguments.of(
                         new UpdateComponentPricePointRequest(
@@ -158,32 +136,23 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
                                         new UpdatePrice.Builder().id(123).build()
                                 )).build()
                         ),
-                        Map.of("base", "all prices must belong to the price point")
-                ),
-                Arguments.of(
-                        new UpdateComponentPricePointRequest(
-                                new UpdateComponentPricePoint.Builder().prices(List.of(
-                                        new UpdatePrice.Builder()
-                                                .id(component.getDefaultPricePointId())
-                                                .startingQuantity(10)
-                                                .endingQuantity(1)
-                                                .build()
-                                )).build()
-                        ),
-                        Map.of("prices.ending_quantity", "Ending quantity: must be greater than the low end bracket quantity, if given")
+                        Map.of("base", List.of("all prices must belong to the price point"))
                 )
         );
     }
 
     @Test
-    void shouldNotUpdatePricePointWhenComponentDoesNotExists() {
-        assertNotFound(() -> COMPONENTS_CONTROLLER.updateComponentPricePoint(123,
-                component.getDefaultPricePointId(), null));
-    }
-
-    @Test
-    void shouldNotUpdateNonExistentComponentPricePoint() {
-        assertNotFound(() -> COMPONENTS_CONTROLLER.updateComponentPricePoint(component.getId(), 123, null));
+    void shouldNotUpdatePricePointWhenComponentAndPricePointDontExist() {
+        assertUnprocessableEntity(
+                ErrorArrayMapResponseException.class,
+                () -> COMPONENTS_CONTROLLER.updateComponentPricePoint(123, 123,
+                        new UpdateComponentPricePointRequest(new UpdateComponentPricePoint.Builder().name("abc").build())),
+                e -> assertThat(e.getErrors()).containsExactlyEntriesOf(
+                        Map.of("base", List.of(
+                                "component must be a valid component",
+                                "price_point must be a valid price_point")
+                )
+        ));
     }
 
     @Test
