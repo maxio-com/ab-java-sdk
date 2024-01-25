@@ -23,7 +23,7 @@ public class CreditNote1 {
     private Integer sequenceNumber;
     private String issueDate;
     private String appliedDate;
-    private String status;
+    private CreditNoteStatus status;
     private String currency;
     private String memo;
     private Seller seller;
@@ -59,7 +59,7 @@ public class CreditNote1 {
      * @param  sequenceNumber  Integer value for sequenceNumber.
      * @param  issueDate  String value for issueDate.
      * @param  appliedDate  String value for appliedDate.
-     * @param  status  String value for status.
+     * @param  status  CreditNoteStatus value for status.
      * @param  currency  String value for currency.
      * @param  memo  String value for memo.
      * @param  seller  Seller value for seller.
@@ -88,7 +88,7 @@ public class CreditNote1 {
             Integer sequenceNumber,
             String issueDate,
             String appliedDate,
-            String status,
+            CreditNoteStatus status,
             String currency,
             String memo,
             Seller seller,
@@ -324,22 +324,22 @@ public class CreditNote1 {
 
     /**
      * Getter for Status.
-     * Current status of the credit note. Valid values: * open * applied
-     * @return Returns the String
+     * Current status of the credit note.
+     * @return Returns the CreditNoteStatus
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStatus() {
+    public CreditNoteStatus getStatus() {
         return status;
     }
 
     /**
      * Setter for Status.
-     * Current status of the credit note. Valid values: * open * applied
-     * @param status Value for String
+     * Current status of the credit note.
+     * @param status Value for CreditNoteStatus
      */
     @JsonSetter("status")
-    public void setStatus(String status) {
+    public void setStatus(CreditNoteStatus status) {
         this.status = status;
     }
 
@@ -795,7 +795,7 @@ public class CreditNote1 {
         private Integer sequenceNumber;
         private String issueDate;
         private String appliedDate;
-        private String status;
+        private CreditNoteStatus status;
         private String currency;
         private String memo;
         private Seller seller;
@@ -899,10 +899,10 @@ public class CreditNote1 {
 
         /**
          * Setter for status.
-         * @param  status  String value for status.
+         * @param  status  CreditNoteStatus value for status.
          * @return Builder
          */
-        public Builder status(String status) {
+        public Builder status(CreditNoteStatus status) {
             this.status = status;
             return this;
         }

@@ -46,7 +46,7 @@ public class Subscription {
     private OptionalNullable<ZonedDateTime> delayedCancelAt;
     private OptionalNullable<String> couponCode;
     private OptionalNullable<String> snapDay;
-    private PaymentCollectionMethod paymentCollectionMethod;
+    private CollectionMethod paymentCollectionMethod;
     private Customer customer;
     private Product product;
     private CreditCardPaymentProfile creditCard;
@@ -88,7 +88,7 @@ public class Subscription {
      * Default constructor.
      */
     public Subscription() {
-        paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
         dunningCommunicationDelayEnabled = false;
     }
 
@@ -119,7 +119,7 @@ public class Subscription {
      * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
      * @param  couponCode  String value for couponCode.
      * @param  snapDay  String value for snapDay.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  CreditCardPaymentProfile value for creditCard.
@@ -184,7 +184,7 @@ public class Subscription {
             ZonedDateTime delayedCancelAt,
             String couponCode,
             String snapDay,
-            PaymentCollectionMethod paymentCollectionMethod,
+            CollectionMethod paymentCollectionMethod,
             Customer customer,
             Product product,
             CreditCardPaymentProfile creditCard,
@@ -313,7 +313,7 @@ public class Subscription {
      * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
      * @param  couponCode  String value for couponCode.
      * @param  snapDay  String value for snapDay.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  CreditCardPaymentProfile value for creditCard.
@@ -365,7 +365,7 @@ public class Subscription {
             OptionalNullable<ZonedDateTime> canceledAt, ZonedDateTime currentPeriodStartedAt,
             SubscriptionState previousState, Integer signupPaymentId, String signupRevenue,
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
-            OptionalNullable<String> snapDay, PaymentCollectionMethod paymentCollectionMethod,
+            OptionalNullable<String> snapDay, CollectionMethod paymentCollectionMethod,
             Customer customer, Product product, CreditCardPaymentProfile creditCard,
             OptionalNullable<SubscriptionGroup2> group, BankAccountPaymentProfile bankAccount,
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
@@ -1299,11 +1299,11 @@ public class Subscription {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @return Returns the PaymentCollectionMethod
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PaymentCollectionMethod getPaymentCollectionMethod() {
+    public CollectionMethod getPaymentCollectionMethod() {
         return paymentCollectionMethod;
     }
 
@@ -1312,10 +1312,10 @@ public class Subscription {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @param paymentCollectionMethod Value for PaymentCollectionMethod
+     * @param paymentCollectionMethod Value for CollectionMethod
      */
     @JsonSetter("payment_collection_method")
-    public void setPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+    public void setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
         this.paymentCollectionMethod = paymentCollectionMethod;
     }
 
@@ -2597,7 +2597,7 @@ public class Subscription {
         private OptionalNullable<ZonedDateTime> delayedCancelAt;
         private OptionalNullable<String> couponCode;
         private OptionalNullable<String> snapDay;
-        private PaymentCollectionMethod paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
         private Customer customer;
         private Product product;
         private CreditCardPaymentProfile creditCard;
@@ -2979,11 +2979,10 @@ public class Subscription {
 
         /**
          * Setter for paymentCollectionMethod.
-         * @param  paymentCollectionMethod  PaymentCollectionMethod value for
-         *         paymentCollectionMethod.
+         * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
          * @return Builder
          */
-        public Builder paymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+        public Builder paymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
             this.paymentCollectionMethod = paymentCollectionMethod;
             return this;
         }

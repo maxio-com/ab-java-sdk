@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.models.BankAccountPaymentProfile;
 import com.maxio.advancedbilling.models.BankAccountType;
 import com.maxio.advancedbilling.models.BankAccountVault;
 import com.maxio.advancedbilling.models.CardType;
+import com.maxio.advancedbilling.models.CollectionMethod;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Coupon;
 import com.maxio.advancedbilling.models.CreateSubscription;
@@ -26,7 +27,6 @@ import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListMetadataForResourceTypeInput;
 import com.maxio.advancedbilling.models.NestedSubscriptionGroup;
 import com.maxio.advancedbilling.models.PaginatedMetadata;
-import com.maxio.advancedbilling.models.PaymentCollectionMethod;
 import com.maxio.advancedbilling.models.PaymentProfileAttributes;
 import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.PrepaidConfiguration;
@@ -558,7 +558,7 @@ public class SubscriptionsControllerCreateTest {
                                                 .unitBalance(component1UnitBalance)
                                                 .build()
                                 ))
-                                .paymentCollectionMethod(PaymentCollectionMethod.PREPAID)
+                                .paymentCollectionMethod(CollectionMethod.PREPAID)
                                 .prepaidConfiguration(
                                         new UpsertPrepaidConfiguration.Builder()
                                                 .initialFundingAmountInCents(100_00L)
@@ -730,7 +730,7 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscription.getCancelAtEndOfPeriod()).isFalse();
         assertThat(subscription.getProductPricePointId()).isEqualTo(PRODUCT.getProductPricePointId());
         assertThat(subscription.getProductPricePointType()).isEqualTo(PricePointType.ENUM_DEFAULT);
-        assertThat(subscription.getPaymentCollectionMethod()).isEqualTo(PaymentCollectionMethod.AUTOMATIC);
+        assertThat(subscription.getPaymentCollectionMethod()).isEqualTo(CollectionMethod.AUTOMATIC);
         assertThat(subscription.getNetTerms()).isNull();
         assertThat(subscription.getPrepaymentBalanceInCents()).isEqualTo(0);
 

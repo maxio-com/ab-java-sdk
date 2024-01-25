@@ -2922,7 +2922,7 @@ try {
   "due_date": "2017-01-30",
   "paid_date": "2017-01-28",
   "status": "open",
-  "collection_method": "Excepteur",
+  "collection_method": "automatic",
   "payment_instructions": "enim officia",
   "currency": "dolore",
   "consolidation_level": "none",
