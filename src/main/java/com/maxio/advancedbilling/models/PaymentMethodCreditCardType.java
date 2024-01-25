@@ -6,8 +6,10 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.OptionalNullable;
@@ -32,17 +34,17 @@ public class PaymentMethodCreditCardType {
     /**
      * Initialization constructor.
      * @param  cardBrand  String value for cardBrand.
-     * @param  cardExpiration  String value for cardExpiration.
-     * @param  lastFour  String value for lastFour.
      * @param  maskedCardNumber  String value for maskedCardNumber.
      * @param  type  String value for type.
+     * @param  cardExpiration  String value for cardExpiration.
+     * @param  lastFour  String value for lastFour.
      */
     public PaymentMethodCreditCardType(
             String cardBrand,
-            String cardExpiration,
-            String lastFour,
             String maskedCardNumber,
-            String type) {
+            String type,
+            String cardExpiration,
+            String lastFour) {
         this.cardBrand = cardBrand;
         this.cardExpiration = cardExpiration;
         this.lastFour = OptionalNullable.of(lastFour);
@@ -53,14 +55,14 @@ public class PaymentMethodCreditCardType {
     /**
      * Initialization constructor.
      * @param  cardBrand  String value for cardBrand.
-     * @param  cardExpiration  String value for cardExpiration.
-     * @param  lastFour  String value for lastFour.
      * @param  maskedCardNumber  String value for maskedCardNumber.
      * @param  type  String value for type.
+     * @param  cardExpiration  String value for cardExpiration.
+     * @param  lastFour  String value for lastFour.
      */
 
-    protected PaymentMethodCreditCardType(String cardBrand, String cardExpiration,
-            OptionalNullable<String> lastFour, String maskedCardNumber, String type) {
+    protected PaymentMethodCreditCardType(String cardBrand, String maskedCardNumber, String type,
+            String cardExpiration, OptionalNullable<String> lastFour) {
         this.cardBrand = cardBrand;
         this.cardExpiration = cardExpiration;
         this.lastFour = lastFour;
@@ -69,11 +71,25 @@ public class PaymentMethodCreditCardType {
     }
 
     /**
+     * Initialization constructor.
+     * @param  cardBrand  String value for cardBrand.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  type  String value for type.
+     */
+    @JsonCreator
+    protected PaymentMethodCreditCardType(
+            @JsonProperty("card_brand") String cardBrand,
+            @JsonProperty("masked_card_number") String maskedCardNumber,
+            @JsonProperty("type") String type) {
+        this(cardBrand, maskedCardNumber, type, null, OptionalNullable.of(null));
+        unsetLastFour();
+    }
+
+    /**
      * Getter for CardBrand.
      * @return Returns the String
      */
     @JsonGetter("card_brand")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardBrand() {
         return cardBrand;
     }
@@ -146,7 +162,6 @@ public class PaymentMethodCreditCardType {
      * @return Returns the String
      */
     @JsonGetter("masked_card_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedCardNumber() {
         return maskedCardNumber;
     }
@@ -165,7 +180,6 @@ public class PaymentMethodCreditCardType {
      * @return Returns the String
      */
     @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -185,9 +199,9 @@ public class PaymentMethodCreditCardType {
      */
     @Override
     public String toString() {
-        return "PaymentMethodCreditCardType [" + "cardBrand=" + cardBrand + ", cardExpiration="
-                + cardExpiration + ", lastFour=" + lastFour + ", maskedCardNumber="
-                + maskedCardNumber + ", type=" + type + "]";
+        return "PaymentMethodCreditCardType [" + "cardBrand=" + cardBrand + ", maskedCardNumber="
+                + maskedCardNumber + ", type=" + type + ", cardExpiration=" + cardExpiration
+                + ", lastFour=" + lastFour + "]";
     }
 
     /**
@@ -196,11 +210,8 @@ public class PaymentMethodCreditCardType {
      * @return a new {@link PaymentMethodCreditCardType.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .cardBrand(getCardBrand())
-                .cardExpiration(getCardExpiration())
-                .maskedCardNumber(getMaskedCardNumber())
-                .type(getType());
+        Builder builder = new Builder(cardBrand, maskedCardNumber, type)
+                .cardExpiration(getCardExpiration());
         builder.lastFour = internalGetLastFour();
         return builder;
     }
@@ -210,12 +221,28 @@ public class PaymentMethodCreditCardType {
      */
     public static class Builder {
         private String cardBrand;
-        private String cardExpiration;
-        private OptionalNullable<String> lastFour;
         private String maskedCardNumber;
         private String type = "credit_card";
+        private String cardExpiration;
+        private OptionalNullable<String> lastFour;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  cardBrand  String value for cardBrand.
+         * @param  maskedCardNumber  String value for maskedCardNumber.
+         * @param  type  String value for type.
+         */
+        public Builder(String cardBrand, String maskedCardNumber, String type) {
+            this.cardBrand = cardBrand;
+            this.maskedCardNumber = maskedCardNumber;
+            this.type = type;
+        }
 
         /**
          * Setter for cardBrand.
@@ -224,6 +251,26 @@ public class PaymentMethodCreditCardType {
          */
         public Builder cardBrand(String cardBrand) {
             this.cardBrand = cardBrand;
+            return this;
+        }
+
+        /**
+         * Setter for maskedCardNumber.
+         * @param  maskedCardNumber  String value for maskedCardNumber.
+         * @return Builder
+         */
+        public Builder maskedCardNumber(String maskedCardNumber) {
+            this.maskedCardNumber = maskedCardNumber;
+            return this;
+        }
+
+        /**
+         * Setter for type.
+         * @param  type  String value for type.
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
             return this;
         }
 
@@ -257,32 +304,12 @@ public class PaymentMethodCreditCardType {
         }
 
         /**
-         * Setter for maskedCardNumber.
-         * @param  maskedCardNumber  String value for maskedCardNumber.
-         * @return Builder
-         */
-        public Builder maskedCardNumber(String maskedCardNumber) {
-            this.maskedCardNumber = maskedCardNumber;
-            return this;
-        }
-
-        /**
-         * Setter for type.
-         * @param  type  String value for type.
-         * @return Builder
-         */
-        public Builder type(String type) {
-            this.type = type;
-            return this;
-        }
-
-        /**
          * Builds a new {@link PaymentMethodCreditCardType} object using the set fields.
          * @return {@link PaymentMethodCreditCardType}
          */
         public PaymentMethodCreditCardType build() {
-            return new PaymentMethodCreditCardType(cardBrand, cardExpiration, lastFour,
-                    maskedCardNumber, type);
+            return new PaymentMethodCreditCardType(cardBrand, maskedCardNumber, type,
+                    cardExpiration, lastFour);
         }
     }
 }

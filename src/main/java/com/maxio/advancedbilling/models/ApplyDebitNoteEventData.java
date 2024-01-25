@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -32,11 +33,12 @@ public class ApplyDebitNoteEventData {
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
      */
+    @JsonCreator
     public ApplyDebitNoteEventData(
-            String debitNoteNumber,
-            String debitNoteUid,
-            String originalAmount,
-            String appliedAmount) {
+            @JsonProperty("debit_note_number") String debitNoteNumber,
+            @JsonProperty("debit_note_uid") String debitNoteUid,
+            @JsonProperty("original_amount") String originalAmount,
+            @JsonProperty("applied_amount") String appliedAmount) {
         this.debitNoteNumber = debitNoteNumber;
         this.debitNoteUid = debitNoteUid;
         this.originalAmount = originalAmount;
@@ -49,7 +51,6 @@ public class ApplyDebitNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("debit_note_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDebitNoteNumber() {
         return debitNoteNumber;
     }
@@ -71,7 +72,6 @@ public class ApplyDebitNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("debit_note_uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDebitNoteUid() {
         return debitNoteUid;
     }
@@ -93,7 +93,6 @@ public class ApplyDebitNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("original_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOriginalAmount() {
         return originalAmount;
     }
@@ -114,7 +113,6 @@ public class ApplyDebitNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("applied_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppliedAmount() {
         return appliedAmount;
     }
@@ -146,11 +144,7 @@ public class ApplyDebitNoteEventData {
      * @return a new {@link ApplyDebitNoteEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .debitNoteNumber(getDebitNoteNumber())
-                .debitNoteUid(getDebitNoteUid())
-                .originalAmount(getOriginalAmount())
-                .appliedAmount(getAppliedAmount());
+        Builder builder = new Builder(debitNoteNumber, debitNoteUid, originalAmount, appliedAmount);
         return builder;
     }
 
@@ -163,7 +157,26 @@ public class ApplyDebitNoteEventData {
         private String originalAmount;
         private String appliedAmount;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  debitNoteNumber  String value for debitNoteNumber.
+         * @param  debitNoteUid  String value for debitNoteUid.
+         * @param  originalAmount  String value for originalAmount.
+         * @param  appliedAmount  String value for appliedAmount.
+         */
+        public Builder(String debitNoteNumber, String debitNoteUid, String originalAmount,
+                String appliedAmount) {
+            this.debitNoteNumber = debitNoteNumber;
+            this.debitNoteUid = debitNoteUid;
+            this.originalAmount = originalAmount;
+            this.appliedAmount = appliedAmount;
+        }
 
         /**
          * Setter for debitNoteNumber.

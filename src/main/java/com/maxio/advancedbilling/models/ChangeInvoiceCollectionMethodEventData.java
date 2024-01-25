@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -28,9 +29,10 @@ public class ChangeInvoiceCollectionMethodEventData {
      * @param  fromCollectionMethod  String value for fromCollectionMethod.
      * @param  toCollectionMethod  String value for toCollectionMethod.
      */
+    @JsonCreator
     public ChangeInvoiceCollectionMethodEventData(
-            String fromCollectionMethod,
-            String toCollectionMethod) {
+            @JsonProperty("from_collection_method") String fromCollectionMethod,
+            @JsonProperty("to_collection_method") String toCollectionMethod) {
         this.fromCollectionMethod = fromCollectionMethod;
         this.toCollectionMethod = toCollectionMethod;
     }
@@ -41,7 +43,6 @@ public class ChangeInvoiceCollectionMethodEventData {
      * @return Returns the String
      */
     @JsonGetter("from_collection_method")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFromCollectionMethod() {
         return fromCollectionMethod;
     }
@@ -62,7 +63,6 @@ public class ChangeInvoiceCollectionMethodEventData {
      * @return Returns the String
      */
     @JsonGetter("to_collection_method")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getToCollectionMethod() {
         return toCollectionMethod;
     }
@@ -93,9 +93,7 @@ public class ChangeInvoiceCollectionMethodEventData {
      * @return a new {@link ChangeInvoiceCollectionMethodEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .fromCollectionMethod(getFromCollectionMethod())
-                .toCollectionMethod(getToCollectionMethod());
+        Builder builder = new Builder(fromCollectionMethod, toCollectionMethod);
         return builder;
     }
 
@@ -106,7 +104,21 @@ public class ChangeInvoiceCollectionMethodEventData {
         private String fromCollectionMethod;
         private String toCollectionMethod;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  fromCollectionMethod  String value for fromCollectionMethod.
+         * @param  toCollectionMethod  String value for toCollectionMethod.
+         */
+        public Builder(String fromCollectionMethod, String toCollectionMethod) {
+            this.fromCollectionMethod = fromCollectionMethod;
+            this.toCollectionMethod = toCollectionMethod;
+        }
 
         /**
          * Setter for fromCollectionMethod.

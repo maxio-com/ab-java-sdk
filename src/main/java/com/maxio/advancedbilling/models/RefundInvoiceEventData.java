@@ -6,8 +6,10 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -18,14 +20,14 @@ import java.time.ZonedDateTime;
  * This is a model class for RefundInvoiceEventData type.
  */
 public class RefundInvoiceEventData {
-    private Boolean applyCredit;
+    private boolean applyCredit;
     private InvoiceConsolidationLevel consolidationLevel;
     private CreditNote creditNoteAttributes;
     private String memo;
     private String originalAmount;
-    private Integer paymentId;
+    private int paymentId;
     private String refundAmount;
-    private Integer refundId;
+    private int refundId;
     private ZonedDateTime transactionTime;
 
     /**
@@ -36,26 +38,26 @@ public class RefundInvoiceEventData {
 
     /**
      * Initialization constructor.
-     * @param  applyCredit  Boolean value for applyCredit.
-     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
+     * @param  applyCredit  boolean value for applyCredit.
      * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+     * @param  paymentId  int value for paymentId.
+     * @param  refundAmount  String value for refundAmount.
+     * @param  refundId  int value for refundId.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
      * @param  memo  String value for memo.
      * @param  originalAmount  String value for originalAmount.
-     * @param  paymentId  Integer value for paymentId.
-     * @param  refundAmount  String value for refundAmount.
-     * @param  refundId  Integer value for refundId.
-     * @param  transactionTime  ZonedDateTime value for transactionTime.
      */
     public RefundInvoiceEventData(
-            Boolean applyCredit,
-            InvoiceConsolidationLevel consolidationLevel,
+            boolean applyCredit,
             CreditNote creditNoteAttributes,
-            String memo,
-            String originalAmount,
-            Integer paymentId,
+            int paymentId,
             String refundAmount,
-            Integer refundId,
-            ZonedDateTime transactionTime) {
+            int refundId,
+            ZonedDateTime transactionTime,
+            InvoiceConsolidationLevel consolidationLevel,
+            String memo,
+            String originalAmount) {
         this.applyCredit = applyCredit;
         this.consolidationLevel = consolidationLevel;
         this.creditNoteAttributes = creditNoteAttributes;
@@ -68,23 +70,43 @@ public class RefundInvoiceEventData {
     }
 
     /**
+     * Initialization constructor.
+     * @param  applyCredit  boolean value for applyCredit.
+     * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+     * @param  paymentId  int value for paymentId.
+     * @param  refundAmount  String value for refundAmount.
+     * @param  refundId  int value for refundId.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     */
+    @JsonCreator
+    protected RefundInvoiceEventData(
+            @JsonProperty("apply_credit") boolean applyCredit,
+            @JsonProperty("credit_note_attributes") CreditNote creditNoteAttributes,
+            @JsonProperty("payment_id") int paymentId,
+            @JsonProperty("refund_amount") String refundAmount,
+            @JsonProperty("refund_id") int refundId,
+            @JsonProperty("transaction_time") ZonedDateTime transactionTime) {
+        this(applyCredit, creditNoteAttributes, paymentId, refundAmount, refundId, transactionTime,
+                null, null, null);
+    }
+
+    /**
      * Getter for ApplyCredit.
      * If true, credit was created and applied it to the invoice.
-     * @return Returns the Boolean
+     * @return Returns the boolean
      */
     @JsonGetter("apply_credit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getApplyCredit() {
+    public boolean getApplyCredit() {
         return applyCredit;
     }
 
     /**
      * Setter for ApplyCredit.
      * If true, credit was created and applied it to the invoice.
-     * @param applyCredit Value for Boolean
+     * @param applyCredit Value for boolean
      */
     @JsonSetter("apply_credit")
-    public void setApplyCredit(Boolean applyCredit) {
+    public void setApplyCredit(boolean applyCredit) {
         this.applyCredit = applyCredit;
     }
 
@@ -126,7 +148,6 @@ public class RefundInvoiceEventData {
      * @return Returns the CreditNote
      */
     @JsonGetter("credit_note_attributes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CreditNote getCreditNoteAttributes() {
         return creditNoteAttributes;
     }
@@ -185,21 +206,20 @@ public class RefundInvoiceEventData {
     /**
      * Getter for PaymentId.
      * The ID of the payment transaction to be refunded.
-     * @return Returns the Integer
+     * @return Returns the int
      */
     @JsonGetter("payment_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPaymentId() {
+    public int getPaymentId() {
         return paymentId;
     }
 
     /**
      * Setter for PaymentId.
      * The ID of the payment transaction to be refunded.
-     * @param paymentId Value for Integer
+     * @param paymentId Value for int
      */
     @JsonSetter("payment_id")
-    public void setPaymentId(Integer paymentId) {
+    public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;
     }
 
@@ -209,7 +229,6 @@ public class RefundInvoiceEventData {
      * @return Returns the String
      */
     @JsonGetter("refund_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getRefundAmount() {
         return refundAmount;
     }
@@ -227,21 +246,20 @@ public class RefundInvoiceEventData {
     /**
      * Getter for RefundId.
      * The ID of the refund transaction.
-     * @return Returns the Integer
+     * @return Returns the int
      */
     @JsonGetter("refund_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getRefundId() {
+    public int getRefundId() {
         return refundId;
     }
 
     /**
      * Setter for RefundId.
      * The ID of the refund transaction.
-     * @param refundId Value for Integer
+     * @param refundId Value for int
      */
     @JsonSetter("refund_id")
-    public void setRefundId(Integer refundId) {
+    public void setRefundId(int refundId) {
         this.refundId = refundId;
     }
 
@@ -251,7 +269,6 @@ public class RefundInvoiceEventData {
      * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getTransactionTime() {
         return transactionTime;
@@ -274,11 +291,11 @@ public class RefundInvoiceEventData {
      */
     @Override
     public String toString() {
-        return "RefundInvoiceEventData [" + "applyCredit=" + applyCredit + ", consolidationLevel="
-                + consolidationLevel + ", creditNoteAttributes=" + creditNoteAttributes + ", memo="
-                + memo + ", originalAmount=" + originalAmount + ", paymentId=" + paymentId
-                + ", refundAmount=" + refundAmount + ", refundId=" + refundId + ", transactionTime="
-                + transactionTime + "]";
+        return "RefundInvoiceEventData [" + "applyCredit=" + applyCredit + ", creditNoteAttributes="
+                + creditNoteAttributes + ", paymentId=" + paymentId + ", refundAmount="
+                + refundAmount + ", refundId=" + refundId + ", transactionTime=" + transactionTime
+                + ", consolidationLevel=" + consolidationLevel + ", memo=" + memo
+                + ", originalAmount=" + originalAmount + "]";
     }
 
     /**
@@ -287,16 +304,11 @@ public class RefundInvoiceEventData {
      * @return a new {@link RefundInvoiceEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .applyCredit(getApplyCredit())
+        Builder builder = new Builder(applyCredit, creditNoteAttributes, paymentId, refundAmount,
+                refundId, transactionTime)
                 .consolidationLevel(getConsolidationLevel())
-                .creditNoteAttributes(getCreditNoteAttributes())
                 .memo(getMemo())
-                .originalAmount(getOriginalAmount())
-                .paymentId(getPaymentId())
-                .refundAmount(getRefundAmount())
-                .refundId(getRefundId())
-                .transactionTime(getTransactionTime());
+                .originalAmount(getOriginalAmount());
         return builder;
     }
 
@@ -304,35 +316,48 @@ public class RefundInvoiceEventData {
      * Class to build instances of {@link RefundInvoiceEventData}.
      */
     public static class Builder {
-        private Boolean applyCredit;
-        private InvoiceConsolidationLevel consolidationLevel;
+        private boolean applyCredit;
         private CreditNote creditNoteAttributes;
+        private int paymentId;
+        private String refundAmount;
+        private int refundId;
+        private ZonedDateTime transactionTime;
+        private InvoiceConsolidationLevel consolidationLevel;
         private String memo;
         private String originalAmount;
-        private Integer paymentId;
-        private String refundAmount;
-        private Integer refundId;
-        private ZonedDateTime transactionTime;
-
-
 
         /**
-         * Setter for applyCredit.
-         * @param  applyCredit  Boolean value for applyCredit.
-         * @return Builder
+         * Initialization constructor.
          */
-        public Builder applyCredit(Boolean applyCredit) {
-            this.applyCredit = applyCredit;
-            return this;
+        public Builder() {
         }
 
         /**
-         * Setter for consolidationLevel.
-         * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
+         * Initialization constructor.
+         * @param  applyCredit  boolean value for applyCredit.
+         * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+         * @param  paymentId  int value for paymentId.
+         * @param  refundAmount  String value for refundAmount.
+         * @param  refundId  int value for refundId.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
+         */
+        public Builder(boolean applyCredit, CreditNote creditNoteAttributes, int paymentId,
+                String refundAmount, int refundId, ZonedDateTime transactionTime) {
+            this.applyCredit = applyCredit;
+            this.creditNoteAttributes = creditNoteAttributes;
+            this.paymentId = paymentId;
+            this.refundAmount = refundAmount;
+            this.refundId = refundId;
+            this.transactionTime = transactionTime;
+        }
+
+        /**
+         * Setter for applyCredit.
+         * @param  applyCredit  boolean value for applyCredit.
          * @return Builder
          */
-        public Builder consolidationLevel(InvoiceConsolidationLevel consolidationLevel) {
-            this.consolidationLevel = consolidationLevel;
+        public Builder applyCredit(boolean applyCredit) {
+            this.applyCredit = applyCredit;
             return this;
         }
 
@@ -343,6 +368,56 @@ public class RefundInvoiceEventData {
          */
         public Builder creditNoteAttributes(CreditNote creditNoteAttributes) {
             this.creditNoteAttributes = creditNoteAttributes;
+            return this;
+        }
+
+        /**
+         * Setter for paymentId.
+         * @param  paymentId  int value for paymentId.
+         * @return Builder
+         */
+        public Builder paymentId(int paymentId) {
+            this.paymentId = paymentId;
+            return this;
+        }
+
+        /**
+         * Setter for refundAmount.
+         * @param  refundAmount  String value for refundAmount.
+         * @return Builder
+         */
+        public Builder refundAmount(String refundAmount) {
+            this.refundAmount = refundAmount;
+            return this;
+        }
+
+        /**
+         * Setter for refundId.
+         * @param  refundId  int value for refundId.
+         * @return Builder
+         */
+        public Builder refundId(int refundId) {
+            this.refundId = refundId;
+            return this;
+        }
+
+        /**
+         * Setter for transactionTime.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
+         * @return Builder
+         */
+        public Builder transactionTime(ZonedDateTime transactionTime) {
+            this.transactionTime = transactionTime;
+            return this;
+        }
+
+        /**
+         * Setter for consolidationLevel.
+         * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
+         * @return Builder
+         */
+        public Builder consolidationLevel(InvoiceConsolidationLevel consolidationLevel) {
+            this.consolidationLevel = consolidationLevel;
             return this;
         }
 
@@ -367,52 +442,13 @@ public class RefundInvoiceEventData {
         }
 
         /**
-         * Setter for paymentId.
-         * @param  paymentId  Integer value for paymentId.
-         * @return Builder
-         */
-        public Builder paymentId(Integer paymentId) {
-            this.paymentId = paymentId;
-            return this;
-        }
-
-        /**
-         * Setter for refundAmount.
-         * @param  refundAmount  String value for refundAmount.
-         * @return Builder
-         */
-        public Builder refundAmount(String refundAmount) {
-            this.refundAmount = refundAmount;
-            return this;
-        }
-
-        /**
-         * Setter for refundId.
-         * @param  refundId  Integer value for refundId.
-         * @return Builder
-         */
-        public Builder refundId(Integer refundId) {
-            this.refundId = refundId;
-            return this;
-        }
-
-        /**
-         * Setter for transactionTime.
-         * @param  transactionTime  ZonedDateTime value for transactionTime.
-         * @return Builder
-         */
-        public Builder transactionTime(ZonedDateTime transactionTime) {
-            this.transactionTime = transactionTime;
-            return this;
-        }
-
-        /**
          * Builds a new {@link RefundInvoiceEventData} object using the set fields.
          * @return {@link RefundInvoiceEventData}
          */
         public RefundInvoiceEventData build() {
-            return new RefundInvoiceEventData(applyCredit, consolidationLevel, creditNoteAttributes,
-                    memo, originalAmount, paymentId, refundAmount, refundId, transactionTime);
+            return new RefundInvoiceEventData(applyCredit, creditNoteAttributes, paymentId,
+                    refundAmount, refundId, transactionTime, consolidationLevel, memo,
+                    originalAmount);
         }
     }
 }

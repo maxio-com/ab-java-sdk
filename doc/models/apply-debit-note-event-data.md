@@ -11,10 +11,10 @@ Example schema for an `apply_debit_note` event
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `DebitNoteNumber` | `String` | Optional | A unique, identifying string that appears on the debit note and in places it is referenced. | String getDebitNoteNumber() | setDebitNoteNumber(String debitNoteNumber) |
-| `DebitNoteUid` | `String` | Optional | Unique identifier for the debit note. It is generated automatically by Chargify and has the prefix "db_" followed by alphanumeric characters. | String getDebitNoteUid() | setDebitNoteUid(String debitNoteUid) |
-| `OriginalAmount` | `String` | Optional | The full, original amount of the debit note. | String getOriginalAmount() | setOriginalAmount(String originalAmount) |
-| `AppliedAmount` | `String` | Optional | The amount of the debit note applied to invoice. | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
+| `DebitNoteNumber` | `String` | Required | A unique, identifying string that appears on the debit note and in places it is referenced. | String getDebitNoteNumber() | setDebitNoteNumber(String debitNoteNumber) |
+| `DebitNoteUid` | `String` | Required | Unique identifier for the debit note. It is generated automatically by Chargify and has the prefix "db_" followed by alphanumeric characters. | String getDebitNoteUid() | setDebitNoteUid(String debitNoteUid) |
+| `OriginalAmount` | `String` | Required | The full, original amount of the debit note. | String getOriginalAmount() | setOriginalAmount(String originalAmount) |
+| `AppliedAmount` | `String` | Required | The amount of the debit note applied to invoice. | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
 
 ## Example (as JSON)
 

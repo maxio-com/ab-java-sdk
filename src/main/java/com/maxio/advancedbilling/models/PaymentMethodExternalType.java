@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -33,11 +34,12 @@ public class PaymentMethodExternalType {
      * @param  memo  String value for memo.
      * @param  type  String value for type.
      */
+    @JsonCreator
     public PaymentMethodExternalType(
-            String details,
-            String kind,
-            String memo,
-            String type) {
+            @JsonProperty("details") String details,
+            @JsonProperty("kind") String kind,
+            @JsonProperty("memo") String memo,
+            @JsonProperty("type") String type) {
         this.details = details;
         this.kind = kind;
         this.memo = memo;
@@ -49,7 +51,6 @@ public class PaymentMethodExternalType {
      * @return Returns the String
      */
     @JsonGetter("details")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDetails() {
         return details;
     }
@@ -68,7 +69,6 @@ public class PaymentMethodExternalType {
      * @return Returns the String
      */
     @JsonGetter("kind")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getKind() {
         return kind;
     }
@@ -87,7 +87,6 @@ public class PaymentMethodExternalType {
      * @return Returns the String
      */
     @JsonGetter("memo")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMemo() {
         return memo;
     }
@@ -106,7 +105,6 @@ public class PaymentMethodExternalType {
      * @return Returns the String
      */
     @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -136,11 +134,7 @@ public class PaymentMethodExternalType {
      * @return a new {@link PaymentMethodExternalType.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .details(getDetails())
-                .kind(getKind())
-                .memo(getMemo())
-                .type(getType());
+        Builder builder = new Builder(details, kind, memo, type);
         return builder;
     }
 
@@ -153,7 +147,25 @@ public class PaymentMethodExternalType {
         private String memo;
         private String type = "external";
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  details  String value for details.
+         * @param  kind  String value for kind.
+         * @param  memo  String value for memo.
+         * @param  type  String value for type.
+         */
+        public Builder(String details, String kind, String memo, String type) {
+            this.details = details;
+            this.kind = kind;
+            this.memo = memo;
+            this.type = type;
+        }
 
         /**
          * Setter for details.

@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * This is a container class for one-of types.
+ * This is a container class for any-of types.
  */
 @JsonDeserialize(using = RemovePaymentEventDataPaymentMethod.RemovePaymentEventDataPaymentMethodDeserializer.class)
 public abstract class RemovePaymentEventDataPaymentMethod {
@@ -82,15 +82,15 @@ public abstract class RemovePaymentEventDataPaymentMethod {
     }
 
     /**
-     * Method to match from the provided one-of cases.
+     * Method to match from the provided any-of cases.
      * @param <R> The type to return after applying callback.
-     * @param cases The one-of type cases callback.
-     * @return The one-of matched case.
+     * @param cases The any-of type cases callback.
+     * @return The any-of matched case.
      */
     public abstract <R> R match(Cases<R> cases);
 
     /**
-     * This is interface for one-of cases.
+     * This is interface for any-of cases.
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
@@ -273,7 +273,7 @@ public abstract class RemovePaymentEventDataPaymentMethod {
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(PaymentMethodApplePayTypeCase.class,
                     PaymentMethodBankAccountTypeCase.class, PaymentMethodCreditCardTypeCase.class,
-                    PaymentMethodExternalTypeCase.class, PaymentMethodPaypalTypeCase.class), true);
+                    PaymentMethodExternalTypeCase.class, PaymentMethodPaypalTypeCase.class), false);
         }
     }
 
