@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -31,10 +32,11 @@ public class PaymentMethodBankAccountType {
      * @param  maskedRoutingNumber  String value for maskedRoutingNumber.
      * @param  type  String value for type.
      */
+    @JsonCreator
     public PaymentMethodBankAccountType(
-            String maskedAccountNumber,
-            String maskedRoutingNumber,
-            String type) {
+            @JsonProperty("masked_account_number") String maskedAccountNumber,
+            @JsonProperty("masked_routing_number") String maskedRoutingNumber,
+            @JsonProperty("type") String type) {
         this.maskedAccountNumber = maskedAccountNumber;
         this.maskedRoutingNumber = maskedRoutingNumber;
         this.type = type;
@@ -45,7 +47,6 @@ public class PaymentMethodBankAccountType {
      * @return Returns the String
      */
     @JsonGetter("masked_account_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedAccountNumber() {
         return maskedAccountNumber;
     }
@@ -64,7 +65,6 @@ public class PaymentMethodBankAccountType {
      * @return Returns the String
      */
     @JsonGetter("masked_routing_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedRoutingNumber() {
         return maskedRoutingNumber;
     }
@@ -83,7 +83,6 @@ public class PaymentMethodBankAccountType {
      * @return Returns the String
      */
     @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -113,10 +112,7 @@ public class PaymentMethodBankAccountType {
      * @return a new {@link PaymentMethodBankAccountType.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .maskedAccountNumber(getMaskedAccountNumber())
-                .maskedRoutingNumber(getMaskedRoutingNumber())
-                .type(getType());
+        Builder builder = new Builder(maskedAccountNumber, maskedRoutingNumber, type);
         return builder;
     }
 
@@ -128,7 +124,23 @@ public class PaymentMethodBankAccountType {
         private String maskedRoutingNumber;
         private String type = "bank_account";
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  maskedAccountNumber  String value for maskedAccountNumber.
+         * @param  maskedRoutingNumber  String value for maskedRoutingNumber.
+         * @param  type  String value for type.
+         */
+        public Builder(String maskedAccountNumber, String maskedRoutingNumber, String type) {
+            this.maskedAccountNumber = maskedAccountNumber;
+            this.maskedRoutingNumber = maskedRoutingNumber;
+            this.type = type;
+        }
 
         /**
          * Setter for maskedAccountNumber.

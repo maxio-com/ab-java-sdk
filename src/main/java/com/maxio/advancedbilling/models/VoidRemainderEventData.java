@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -36,11 +37,12 @@ public class VoidRemainderEventData {
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
      */
+    @JsonCreator
     public VoidRemainderEventData(
-            CreditNote creditNoteAttributes,
-            String memo,
-            String appliedAmount,
-            ZonedDateTime transactionTime) {
+            @JsonProperty("credit_note_attributes") CreditNote creditNoteAttributes,
+            @JsonProperty("memo") String memo,
+            @JsonProperty("applied_amount") String appliedAmount,
+            @JsonProperty("transaction_time") ZonedDateTime transactionTime) {
         this.creditNoteAttributes = creditNoteAttributes;
         this.memo = memo;
         this.appliedAmount = appliedAmount;
@@ -52,7 +54,6 @@ public class VoidRemainderEventData {
      * @return Returns the CreditNote
      */
     @JsonGetter("credit_note_attributes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CreditNote getCreditNoteAttributes() {
         return creditNoteAttributes;
     }
@@ -72,7 +73,6 @@ public class VoidRemainderEventData {
      * @return Returns the String
      */
     @JsonGetter("memo")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMemo() {
         return memo;
     }
@@ -93,7 +93,6 @@ public class VoidRemainderEventData {
      * @return Returns the String
      */
     @JsonGetter("applied_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppliedAmount() {
         return appliedAmount;
     }
@@ -114,7 +113,6 @@ public class VoidRemainderEventData {
      * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getTransactionTime() {
         return transactionTime;
@@ -148,11 +146,7 @@ public class VoidRemainderEventData {
      * @return a new {@link VoidRemainderEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .creditNoteAttributes(getCreditNoteAttributes())
-                .memo(getMemo())
-                .appliedAmount(getAppliedAmount())
-                .transactionTime(getTransactionTime());
+        Builder builder = new Builder(creditNoteAttributes, memo, appliedAmount, transactionTime);
         return builder;
     }
 
@@ -165,7 +159,26 @@ public class VoidRemainderEventData {
         private String appliedAmount;
         private ZonedDateTime transactionTime;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+         * @param  memo  String value for memo.
+         * @param  appliedAmount  String value for appliedAmount.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
+         */
+        public Builder(CreditNote creditNoteAttributes, String memo, String appliedAmount,
+                ZonedDateTime transactionTime) {
+            this.creditNoteAttributes = creditNoteAttributes;
+            this.memo = memo;
+            this.appliedAmount = appliedAmount;
+            this.transactionTime = transactionTime;
+        }
 
         /**
          * Setter for creditNoteAttributes.

@@ -11,10 +11,10 @@ Example schema for an `void_remainder` event
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `CreditNoteAttributes` | [`CreditNote`](../../doc/models/credit-note.md) | Optional | - | CreditNote getCreditNoteAttributes() | setCreditNoteAttributes(CreditNote creditNoteAttributes) |
-| `Memo` | `String` | Optional | The memo provided during invoice remainder voiding. | String getMemo() | setMemo(String memo) |
-| `AppliedAmount` | `String` | Optional | The amount of the void. | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
-| `TransactionTime` | `ZonedDateTime` | Optional | The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z" | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
+| `CreditNoteAttributes` | [`CreditNote`](../../doc/models/credit-note.md) | Required | - | CreditNote getCreditNoteAttributes() | setCreditNoteAttributes(CreditNote creditNoteAttributes) |
+| `Memo` | `String` | Required | The memo provided during invoice remainder voiding. | String getMemo() | setMemo(String memo) |
+| `AppliedAmount` | `String` | Required | The amount of the void. | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
+| `TransactionTime` | `ZonedDateTime` | Required | The time the refund was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z" | ZonedDateTime getTransactionTime() | setTransactionTime(ZonedDateTime transactionTime) |
 
 ## Example (as JSON)
 

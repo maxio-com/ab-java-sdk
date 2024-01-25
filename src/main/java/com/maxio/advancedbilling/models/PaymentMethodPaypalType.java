@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -29,9 +30,10 @@ public class PaymentMethodPaypalType {
      * @param  email  String value for email.
      * @param  type  String value for type.
      */
+    @JsonCreator
     public PaymentMethodPaypalType(
-            String email,
-            String type) {
+            @JsonProperty("email") String email,
+            @JsonProperty("type") String type) {
         this.email = email;
         this.type = type;
     }
@@ -41,7 +43,6 @@ public class PaymentMethodPaypalType {
      * @return Returns the String
      */
     @JsonGetter("email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmail() {
         return email;
     }
@@ -60,7 +61,6 @@ public class PaymentMethodPaypalType {
      * @return Returns the String
      */
     @JsonGetter("type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getType() {
         return type;
     }
@@ -89,9 +89,7 @@ public class PaymentMethodPaypalType {
      * @return a new {@link PaymentMethodPaypalType.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .email(getEmail())
-                .type(getType());
+        Builder builder = new Builder(email, type);
         return builder;
     }
 
@@ -102,7 +100,21 @@ public class PaymentMethodPaypalType {
         private String email;
         private String type = "paypal_account";
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  email  String value for email.
+         * @param  type  String value for type.
+         */
+        public Builder(String email, String type) {
+            this.email = email;
+            this.type = type;
+        }
 
         /**
          * Setter for email.
