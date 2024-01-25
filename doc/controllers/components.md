@@ -10,7 +10,11 @@ ComponentsController componentsController = client.getComponentsController();
 
 ## Methods
 
-* [Create Component](../../doc/controllers/components.md#create-component)
+* [Create Metered Component](../../doc/controllers/components.md#create-metered-component)
+* [Create Quantity Based Component](../../doc/controllers/components.md#create-quantity-based-component)
+* [Create on Off Component](../../doc/controllers/components.md#create-on-off-component)
+* [Create Prepaid Usage Component](../../doc/controllers/components.md#create-prepaid-usage-component)
+* [Create Event Based Component](../../doc/controllers/components.md#create-event-based-component)
 * [Read Component by Handle](../../doc/controllers/components.md#read-component-by-handle)
 * [Read Component by Id](../../doc/controllers/components.md#read-component-by-id)
 * [Update Product Family Component](../../doc/controllers/components.md#update-product-family-component)
@@ -30,30 +34,20 @@ ComponentsController componentsController = client.getComponentsController();
 * [List All Component Price Points](../../doc/controllers/components.md#list-all-component-price-points)
 
 
-# Create Component
+# Create Metered Component
 
-This request will create a component definition under the specified product family. These component definitions determine what components are named, how they are measured, and how much they cost.
+This request will create a component definition of kind **metered_component** under the specified product family. Metered component can then be added and “allocated” for a subscription.
 
-Components can then be added and “allocated” for each subscription to a product in the product family. These component line-items affect how much a subscription will be charged, depending on the current allocations (i.e. 4 IP Addresses, or SSL “enabled”)
+Metered components are used to bill for any type of unit that resets to 0 at the end of the billing period (think daily Google Adwords clicks or monthly cell phone minutes). This is most commonly associated with usage-based billing and many other pricing schemes.
 
-This documentation covers both component definitions and component line-items. Please understand the difference.
-
-Please note that you may not edit components via API. To do so, please log into the application.
-
-### Component Documentation
+Note that this is different from recurring quantity-based components, which DO NOT reset to zero at the start of every billing period. If you want to bill for a quantity of something that does not change unless you change it, then you want quantity components, instead.
 
 For more information on components, please see our documentation [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
 
-For information on how to record component usage against a subscription, please see the following resources:
-
-+ [Proration and Component Allocations](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677#applying-proration-and-recording-components)
-+ [Recording component usage against a subscription](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404606587917#recording-component-usage)
-
 ```java
-ComponentResponse createComponent(
+ComponentResponse createMeteredComponent(
     final int productFamilyId,
-    final ComponentKindPath componentKind,
-    final CreateComponentBody body)
+    final CreateMeteredComponent body)
 ```
 
 ## Parameters
@@ -61,8 +55,7 @@ ComponentResponse createComponent(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
-| `componentKind` | [`ComponentKindPath`](../../doc/models/component-kind-path.md) | Template, Required | The component kind |
-| `body` | [`CreateComponentBody`](../../doc/models/containers/create-component-body.md) | Body, Optional | This is a container for one-of cases. |
+| `body` | [`CreateMeteredComponent`](../../doc/models/create-metered-component.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -72,33 +65,30 @@ ComponentResponse createComponent(
 
 ```java
 int productFamilyId = 140;
-ComponentKindPath componentKind = ComponentKindPath.ON_OFF_COMPONENTS;
-CreateComponentBody body = CreateComponentBody.fromCreateMeteredComponent(
-    new CreateMeteredComponent.Builder(
-        new MeteredComponent.Builder(
-            "Text messages",
-            "text message",
-            PricingScheme.STAIRSTEP
-        )
-        .taxable(false)
-        .prices(Arrays.asList(
-                new Price.Builder(
-                    PriceStartingQuantity.fromNumber(
-                        1
-                    ),
-                    PriceUnitPrice.fromPrecision(
-                        1D
-                    )
-                )
-                .build()
-            ))
-        .build()
+CreateMeteredComponent body = new CreateMeteredComponent.Builder(
+    new MeteredComponent.Builder(
+        "Text messages",
+        "text message",
+        PricingScheme.PER_UNIT
     )
+    .taxable(false)
+    .prices(Arrays.asList(
+            new Price.Builder(
+                PriceStartingQuantity.fromNumber(
+                    1
+                ),
+                PriceUnitPrice.fromPrecision(
+                    1D
+                )
+            )
+            .build()
+        ))
     .build()
-);
+)
+.build();
 
 try {
-    ComponentResponse result = componentsController.createComponent(productFamilyId, componentKind, body);
+    ComponentResponse result = componentsController.createMeteredComponent(productFamilyId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -114,28 +104,45 @@ try {
   "component": {
     "id": 292609,
     "name": "Text messages",
-    "pricing_scheme": "stairstep",
-    "unit_name": "text message",
-    "unit_price": null,
+    "handle": "text-messages",
+    "pricing_scheme": "per_unit",
+    "unit_name": "unit",
+    "unit_price": "10.0",
     "product_family_id": 528484,
+    "product_family_name": "Cloud Compute Servers",
     "price_per_unit_in_cents": null,
     "kind": "metered_component",
     "archived": false,
     "taxable": false,
     "description": null,
-    "created_at": "2019-08-02T05:54:53-04:00",
+    "default_price_point_id": 2944263,
     "prices": [
       {
-        "id": 47,
-        "component_id": 292609,
+        "id": 55423,
+        "component_id": 30002,
         "starting_quantity": 1,
         "ending_quantity": null,
-        "unit_price": "1.0",
-        "price_point_id": 173,
-        "formatted_unit_price": "$1.00"
+        "unit_price": "10.0",
+        "price_point_id": 2944263,
+        "formatted_unit_price": "$10.00",
+        "segment_id": null
       }
     ],
-    "default_price_point_name": "Original"
+    "price_point_count": 1,
+    "price_points_url": "https://demo-3238403362.chargify.com/components/30002/price_points",
+    "default_price_point_name": "Original",
+    "tax_code": null,
+    "recurring": false,
+    "upgrade_charge": null,
+    "downgrade_credit": null,
+    "created_at": "2024-01-23T06:08:05-05:00",
+    "updated_at": "2024-01-23T06:08:05-05:00",
+    "archived_at": null,
+    "hide_date_range_on_invoice": false,
+    "allow_fractional_quantities": false,
+    "use_site_exchange_rate": true,
+    "item_category": null,
+    "accounting_code": null
   }
 }
 ```
@@ -144,6 +151,511 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
+
+# Create Quantity Based Component
+
+This request will create a component definition of kind **quantity_based_component** under the specified product family. Quantity Based component can then be added and “allocated” for a subscription.
+
+When defining Quantity Based component, You can choose one of 2 types:
+
+#### Recurring
+
+Recurring quantity-based components are used to bill for the number of some unit (think monthly software user licenses or the number of pairs of socks in a box-a-month club). This is most commonly associated with billing for user licenses, number of users, number of employees, etc.
+
+#### One-time
+
+One-time quantity-based components are used to create ad hoc usage charges that do not recur. For example, at the time of signup, you might want to charge your customer a one-time fee for onboarding or other services.
+
+The allocated quantity for one-time quantity-based components immediately gets reset back to zero after the allocation is made.
+
+For more information on components, please see our documentation [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+
+```java
+ComponentResponse createQuantityBasedComponent(
+    final int productFamilyId,
+    final CreateQuantityBasedComponent body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `body` | [`CreateQuantityBasedComponent`](../../doc/models/create-quantity-based-component.md) | Body, Optional | - |
+
+## Response Type
+
+[`ComponentResponse`](../../doc/models/component-response.md)
+
+## Example Usage
+
+```java
+int productFamilyId = 140;
+CreateQuantityBasedComponent body = new CreateQuantityBasedComponent.Builder(
+    new QuantityBasedComponent.Builder(
+        "Quantity Based Component",
+        "Component",
+        PricingScheme.PER_UNIT
+    )
+    .description("Example of JSON per-unit component example")
+    .taxable(true)
+    .unitPrice(QuantityBasedComponentUnitPrice.fromString(
+            "10"
+        ))
+    .displayOnHostedPage(true)
+    .allowFractionalQuantities(true)
+    .publicSignupPageIds(Arrays.asList(
+            323397
+        ))
+    .build()
+)
+.build();
+
+try {
+    ComponentResponse result = componentsController.createQuantityBasedComponent(productFamilyId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 292609,
+    "name": "Text messages",
+    "handle": "text-messages",
+    "pricing_scheme": "per_unit",
+    "unit_name": "unit",
+    "unit_price": "10.0",
+    "product_family_id": 528484,
+    "product_family_name": "Cloud Compute Servers",
+    "price_per_unit_in_cents": null,
+    "kind": "quantity_based_component",
+    "archived": false,
+    "taxable": false,
+    "description": null,
+    "default_price_point_id": 2944263,
+    "prices": [
+      {
+        "id": 55423,
+        "component_id": 30002,
+        "starting_quantity": 1,
+        "ending_quantity": null,
+        "unit_price": "10.0",
+        "price_point_id": 2944263,
+        "formatted_unit_price": "$10.00",
+        "segment_id": null
+      }
+    ],
+    "price_point_count": 1,
+    "price_points_url": "https://demo-3238403362.chargify.com/components/30002/price_points",
+    "default_price_point_name": "Original",
+    "tax_code": null,
+    "recurring": false,
+    "upgrade_charge": null,
+    "downgrade_credit": null,
+    "created_at": "2024-01-23T06:08:05-05:00",
+    "updated_at": "2024-01-23T06:08:05-05:00",
+    "archived_at": null,
+    "hide_date_range_on_invoice": false,
+    "allow_fractional_quantities": false,
+    "use_site_exchange_rate": true,
+    "item_category": null,
+    "accounting_code": null
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
+
+# Create on Off Component
+
+This request will create a component definition of kind **on_off_component** under the specified product family. On/Off component can then be added and “allocated” for a subscription.
+
+On/off components are used for any flat fee, recurring add on (think $99/month for tech support or a flat add on shipping fee).
+
+For more information on components, please see our documentation [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+
+```java
+ComponentResponse createOnOffComponent(
+    final int productFamilyId,
+    final CreateOnOffComponent body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `body` | [`CreateOnOffComponent`](../../doc/models/create-on-off-component.md) | Body, Optional | - |
+
+## Response Type
+
+[`ComponentResponse`](../../doc/models/component-response.md)
+
+## Example Usage
+
+```java
+int productFamilyId = 140;
+CreateOnOffComponent body = new CreateOnOffComponent.Builder(
+    new OnOffComponent.Builder(
+        "Annual Support Services"
+    )
+    .description("Prepay for support services")
+    .taxable(true)
+    .prices(Arrays.asList(
+            new Price.Builder(
+                PriceStartingQuantity.fromString(
+                    "0"
+                ),
+                PriceUnitPrice.fromString(
+                    "100.00"
+                )
+            )
+            .build()
+        ))
+    .displayOnHostedPage(true)
+    .publicSignupPageIds(Arrays.asList(
+            320495
+        ))
+    .build()
+)
+.build();
+
+try {
+    ComponentResponse result = componentsController.createOnOffComponent(productFamilyId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 292609,
+    "name": "Test On-Off Component 46124",
+    "handle": "test-on-off-component-4612422802",
+    "pricing_scheme": null,
+    "unit_name": "on/off",
+    "unit_price": "10.0",
+    "product_family_id": 528484,
+    "product_family_name": "Cloud Compute Servers",
+    "price_per_unit_in_cents": null,
+    "kind": "on_off_component",
+    "archived": false,
+    "taxable": false,
+    "description": null,
+    "default_price_point_id": 2944263,
+    "price_point_count": 1,
+    "price_points_url": "https://demo-3238403362.chargify.com/components/30002/price_points",
+    "default_price_point_name": "Original",
+    "tax_code": null,
+    "recurring": true,
+    "upgrade_charge": null,
+    "downgrade_credit": null,
+    "created_at": "2024-01-23T06:08:05-05:00",
+    "updated_at": "2024-01-23T06:08:05-05:00",
+    "archived_at": null,
+    "hide_date_range_on_invoice": false,
+    "allow_fractional_quantities": false,
+    "use_site_exchange_rate": true,
+    "item_category": null,
+    "accounting_code": null
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
+
+# Create Prepaid Usage Component
+
+This request will create a component definition of kind **prepaid_usage_component** under the specified product family. Prepaid component can then be added and “allocated” for a subscription.
+
+Prepaid components allow customers to pre-purchase units that can be used up over time on their subscription. In a sense, they are the mirror image of metered components; while metered components charge at the end of the period for the amount of units used, prepaid components are charged for at the time of purchase, and we subsequently keep track of the usage against the amount purchased.
+
+For more information on components, please see our documentation [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+
+```java
+ComponentResponse createPrepaidUsageComponent(
+    final int productFamilyId,
+    final CreatePrepaidComponent body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `body` | [`CreatePrepaidComponent`](../../doc/models/create-prepaid-component.md) | Body, Optional | - |
+
+## Response Type
+
+[`ComponentResponse`](../../doc/models/component-response.md)
+
+## Example Usage
+
+```java
+int productFamilyId = 140;
+CreatePrepaidComponent body = new CreatePrepaidComponent.Builder(
+    new PrepaidUsageComponent.Builder(
+        "Minutes"
+    )
+    .unitName("minutes")
+    .pricingScheme(PricingScheme.PER_UNIT)
+    .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(
+            2D
+        ))
+    .overagePricing(new OveragePricing.Builder(
+            PricingScheme.STAIRSTEP
+        )
+        .prices(Arrays.asList(
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        1
+                    ),
+                    PriceUnitPrice.fromPrecision(
+                        3D
+                    )
+                )
+                .endingQuantity(PriceEndingQuantity.fromNumber(
+                        100
+                    ))
+                .build(),
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        101
+                    ),
+                    PriceUnitPrice.fromPrecision(
+                        5D
+                    )
+                )
+                .build()
+            ))
+        .build())
+    .rolloverPrepaidRemainder(true)
+    .renewPrepaidAllocation(true)
+    .expirationInterval(15D)
+    .expirationIntervalUnit(IntervalUnit.DAY)
+    .build()
+)
+.build();
+
+try {
+    ComponentResponse result = componentsController.createPrepaidUsageComponent(productFamilyId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 292609,
+    "name": "Test Prepaid Component 98505",
+    "handle": "test-prepaid-component-9850584842",
+    "pricing_scheme": "per_unit",
+    "unit_name": "unit",
+    "unit_price": "10.0",
+    "product_family_id": 528484,
+    "product_family_name": "Test Product Family 27791",
+    "price_per_unit_in_cents": null,
+    "kind": "prepaid_usage_component",
+    "archived": false,
+    "taxable": false,
+    "description": "Description for: Test Prepaid Component 98505",
+    "default_price_point_id": 2944263,
+    "overage_prices": [
+      {
+        "id": 55964,
+        "component_id": 30427,
+        "starting_quantity": 1,
+        "ending_quantity": null,
+        "unit_price": "1.0",
+        "price_point_id": 2944756,
+        "formatted_unit_price": "$1.00",
+        "segment_id": null
+      }
+    ],
+    "prices": [
+      {
+        "id": 55963,
+        "component_id": 30427,
+        "starting_quantity": 1,
+        "ending_quantity": null,
+        "unit_price": "1.0",
+        "price_point_id": 2944756,
+        "formatted_unit_price": "$1.00",
+        "segment_id": null
+      }
+    ],
+    "price_point_count": 1,
+    "price_points_url": "https://demo-3238403362.chargify.com/components/30002/price_points",
+    "default_price_point_name": "Original",
+    "tax_code": null,
+    "recurring": true,
+    "upgrade_charge": null,
+    "downgrade_credit": null,
+    "created_at": "2024-01-23T06:08:05-05:00",
+    "updated_at": "2024-01-23T06:08:05-05:00",
+    "archived_at": null,
+    "hide_date_range_on_invoice": false,
+    "allow_fractional_quantities": false,
+    "use_site_exchange_rate": true,
+    "item_category": null,
+    "accounting_code": null
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
+
+# Create Event Based Component
+
+This request will create a component definition of kind **event_based_component** under the specified product family. Event-based component can then be added and “allocated” for a subscription.
+
+Event-based components are similar to other component types, in that you define the component parameters (such as name and taxability) and the pricing. A key difference for the event-based component is that it must be attached to a metric. This is because the metric provides the component with the actual quantity used in computing what and how much will be billed each period for each subscription.
+
+So, instead of reporting usage directly for each component (as you would with metered components), the usage is derived from analysis of your events.
+
+For more information on components, please see our documentation [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+
+```java
+ComponentResponse createEventBasedComponent(
+    final int productFamilyId,
+    final CreateEBBComponent body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `body` | [`CreateEBBComponent`](../../doc/models/create-ebb-component.md) | Body, Optional | - |
+
+## Response Type
+
+[`ComponentResponse`](../../doc/models/component-response.md)
+
+## Example Usage
+
+```java
+int productFamilyId = 140;
+CreateEBBComponent body = new CreateEBBComponent.Builder(
+    new EBBComponent.Builder(
+        "Component Name",
+        "string",
+        PricingScheme.PER_UNIT,
+        123
+    )
+    .description("string")
+    .handle("some_handle")
+    .taxable(true)
+    .prices(Arrays.asList(
+            new Price.Builder(
+                PriceStartingQuantity.fromNumber(
+                    1
+                ),
+                PriceUnitPrice.fromString(
+                    "0.49"
+                )
+            )
+            .build()
+        ))
+    .build()
+)
+.build();
+
+try {
+    ComponentResponse result = componentsController.createEventBasedComponent(productFamilyId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    e.printStackTrace();
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "component": {
+    "id": 1489581,
+    "name": "stripeCharges",
+    "handle": null,
+    "pricing_scheme": null,
+    "unit_name": "charge",
+    "unit_price": null,
+    "product_family_id": 1517093,
+    "product_family_name": "Billing Plans",
+    "price_per_unit_in_cents": null,
+    "kind": "event_based_component",
+    "archived": false,
+    "taxable": false,
+    "description": null,
+    "default_price_point_id": null,
+    "prices": [],
+    "price_point_count": 0,
+    "price_points_url": "https://staging.chargify.com/components/1489581/price_points",
+    "default_price_point_name": "Original",
+    "tax_code": null,
+    "recurring": false,
+    "upgrade_charge": null,
+    "downgrade_credit": null,
+    "created_at": "2021-10-12T07:33:24-05:00",
+    "updated_at": "2021-10-12T07:33:24-05:00",
+    "archived_at": null,
+    "hide_date_range_on_invoice": false,
+    "allow_fractional_quantities": false,
+    "use_site_exchange_rate": null,
+    "item_category": null,
+    "accounting_code": null,
+    "event_based_billing_metric_id": 1163
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
@@ -422,7 +934,7 @@ try {
   "price_points_url": "dolor mollit consequat",
   "tax_code": "ea nisi",
   "recurring": false,
-  "created_at": "dolor qui deserunt tempor",
+  "created_at": "2016-11-08T16:22:26-05:00",
   "default_price_point_name": "cupidatat Lorem non aliqua",
   "product_family_name": "do elit",
   "hide_date_range_on_invoice": false

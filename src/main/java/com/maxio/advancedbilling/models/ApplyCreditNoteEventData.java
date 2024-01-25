@@ -28,7 +28,7 @@ public class ApplyCreditNoteEventData {
     private String memo;
     private String role;
     private Boolean consolidatedInvoice;
-    private List<AppliedCreditNote> appliedCreditNotes;
+    private List<AppliedCreditNoteData> appliedCreditNotes;
 
     /**
      * Default constructor.
@@ -47,7 +47,7 @@ public class ApplyCreditNoteEventData {
      * @param  memo  String value for memo.
      * @param  role  String value for role.
      * @param  consolidatedInvoice  Boolean value for consolidatedInvoice.
-     * @param  appliedCreditNotes  List of AppliedCreditNote value for appliedCreditNotes.
+     * @param  appliedCreditNotes  List of AppliedCreditNoteData value for appliedCreditNotes.
      */
     public ApplyCreditNoteEventData(
             String uid,
@@ -59,7 +59,7 @@ public class ApplyCreditNoteEventData {
             String memo,
             String role,
             Boolean consolidatedInvoice,
-            List<AppliedCreditNote> appliedCreditNotes) {
+            List<AppliedCreditNoteData> appliedCreditNotes) {
         this.uid = uid;
         this.creditNoteNumber = creditNoteNumber;
         this.creditNoteUid = creditNoteUid;
@@ -270,21 +270,21 @@ public class ApplyCreditNoteEventData {
     /**
      * Getter for AppliedCreditNotes.
      * List of credit notes applied to children invoices (if consolidated invoice)
-     * @return Returns the List of AppliedCreditNote
+     * @return Returns the List of AppliedCreditNoteData
      */
     @JsonGetter("applied_credit_notes")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<AppliedCreditNote> getAppliedCreditNotes() {
+    public List<AppliedCreditNoteData> getAppliedCreditNotes() {
         return appliedCreditNotes;
     }
 
     /**
      * Setter for AppliedCreditNotes.
      * List of credit notes applied to children invoices (if consolidated invoice)
-     * @param appliedCreditNotes Value for List of AppliedCreditNote
+     * @param appliedCreditNotes Value for List of AppliedCreditNoteData
      */
     @JsonSetter("applied_credit_notes")
-    public void setAppliedCreditNotes(List<AppliedCreditNote> appliedCreditNotes) {
+    public void setAppliedCreditNotes(List<AppliedCreditNoteData> appliedCreditNotes) {
         this.appliedCreditNotes = appliedCreditNotes;
     }
 
@@ -334,7 +334,7 @@ public class ApplyCreditNoteEventData {
         private String memo;
         private String role;
         private Boolean consolidatedInvoice;
-        private List<AppliedCreditNote> appliedCreditNotes;
+        private List<AppliedCreditNoteData> appliedCreditNotes;
 
 
 
@@ -430,10 +430,10 @@ public class ApplyCreditNoteEventData {
 
         /**
          * Setter for appliedCreditNotes.
-         * @param  appliedCreditNotes  List of AppliedCreditNote value for appliedCreditNotes.
+         * @param  appliedCreditNotes  List of AppliedCreditNoteData value for appliedCreditNotes.
          * @return Builder
          */
-        public Builder appliedCreditNotes(List<AppliedCreditNote> appliedCreditNotes) {
+        public Builder appliedCreditNotes(List<AppliedCreditNoteData> appliedCreditNotes) {
             this.appliedCreditNotes = appliedCreditNotes;
             return this;
         }

@@ -186,7 +186,6 @@ public class PrepaidUsageComponent {
      * @return Returns the String
      */
     @JsonGetter("name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
@@ -735,8 +734,7 @@ public class PrepaidUsageComponent {
      * @return a new {@link PrepaidUsageComponent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .name(getName())
+        Builder builder = new Builder(name)
                 .unitName(getUnitName())
                 .description(getDescription())
                 .handle(getHandle())
@@ -788,7 +786,19 @@ public class PrepaidUsageComponent {
         private Boolean allowFractionalQuantities;
         private List<Integer> publicSignupPageIds;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  name  String value for name.
+         */
+        public Builder(String name) {
+            this.name = name;
+        }
 
         /**
          * Setter for name.

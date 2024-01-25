@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -27,9 +25,8 @@ public class CreateQuantityBasedComponent {
      * Initialization constructor.
      * @param  quantityBasedComponent  QuantityBasedComponent value for quantityBasedComponent.
      */
-    @JsonCreator
     public CreateQuantityBasedComponent(
-            @JsonProperty("quantity_based_component") QuantityBasedComponent quantityBasedComponent) {
+            QuantityBasedComponent quantityBasedComponent) {
         this.quantityBasedComponent = quantityBasedComponent;
     }
 

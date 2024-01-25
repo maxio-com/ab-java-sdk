@@ -5,7 +5,6 @@ import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.Component;
-import com.maxio.advancedbilling.models.ComponentKindPath;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.Coupon;
 import com.maxio.advancedbilling.models.CreateComponentPricePoint;
@@ -45,8 +44,6 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
 import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.models.UpdateComponent;
-import com.maxio.advancedbilling.models.containers.CreateComponentBody;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
@@ -132,21 +129,17 @@ public class TestSetup {
         String componentName = "Test Metered Component " + randomNumeric(5);
         String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
         return advancedBillingClient.getComponentsController()
-                .createComponent(
+                .createMeteredComponent(
                         productFamily.getId(),
-                        ComponentKindPath.METERED_COMPONENTS,
-                        CreateComponentBody.fromCreateMeteredComponent(
-                                new CreateMeteredComponent(
-                                        new MeteredComponent.Builder()
-                                                .name(componentName)
-                                                .handle(handle)
-                                                .unitName("unit")
-                                                .unitPrice(MeteredComponentUnitPrice.fromPrecision(unitPrice))
-                                                .description("Description for: " + componentName)
-                                                .allowFractionalQuantities(false)
-                                                .pricingScheme(PricingScheme.PER_UNIT)
-                                                .build()
-                                )
+                        new CreateMeteredComponent(new MeteredComponent.Builder()
+                                .name(componentName)
+                                .handle(handle)
+                                .unitName("unit")
+                                .unitPrice(MeteredComponentUnitPrice.fromPrecision(unitPrice))
+                                .description("Description for: " + componentName)
+                                .allowFractionalQuantities(false)
+                                .pricingScheme(PricingScheme.PER_UNIT)
+                                .build()
                         )
                 ).getComponent();
     }
@@ -165,16 +158,18 @@ public class TestSetup {
                 .pricingScheme(PricingScheme.PER_UNIT)
                 .unitPrice(QuantityBasedComponentUnitPrice.fromPrecision(1.0));
         customizer.accept(quantityBasedComponentBuilder);
-        CreateQuantityBasedComponent createQuantityBasedComponent = new CreateQuantityBasedComponent(quantityBasedComponentBuilder.build());
 
-        return advancedBillingClient.getComponentsController().createComponent(productFamilyId,
-                        ComponentKindPath.QUANTITY_BASED_COMPONENTS,
-                        CreateComponentBody.fromCreateQuantityBasedComponent(createQuantityBasedComponent))
+        return advancedBillingClient.getComponentsController()
+                .createQuantityBasedComponent(
+                        productFamilyId,
+                        new CreateQuantityBasedComponent(quantityBasedComponentBuilder.build())
+                )
                 .getComponent();
     }
 
     public Component createOnOffComponent(int productFamilyId) throws IOException, ApiException {
-        return createOnOffComponent(productFamilyId, b -> {});
+        return createOnOffComponent(productFamilyId, b -> {
+        });
     }
 
     public Component createOnOffComponent(int productFamilyId, Consumer<OnOffComponent.Builder> customizer) throws IOException, ApiException {
@@ -185,11 +180,12 @@ public class TestSetup {
                 .handle(handle)
                 .unitPrice(OnOffComponentUnitPrice.fromPrecision(1.0));
         customizer.accept(onOffComponentBuilder);
-        CreateOnOffComponent createOnOffComponent = new CreateOnOffComponent(onOffComponentBuilder.build());
 
-        return advancedBillingClient.getComponentsController().createComponent(productFamilyId,
-                        ComponentKindPath.ON_OFF_COMPONENTS,
-                        CreateComponentBody.fromCreateOnOffComponent(createOnOffComponent))
+        return advancedBillingClient.getComponentsController()
+                .createOnOffComponent(
+                        productFamilyId,
+                        new CreateOnOffComponent(onOffComponentBuilder.build())
+                )
                 .getComponent();
     }
 
@@ -197,35 +193,32 @@ public class TestSetup {
         String componentName = "Test Prepaid Component " + randomNumeric(5);
         String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
         return advancedBillingClient.getComponentsController()
-                .createComponent(
+                .createPrepaidUsageComponent(
                         productFamily.getId(),
-                        ComponentKindPath.PREPAID_USAGE_COMPONENTS,
-                        CreateComponentBody.fromCreatePrepaidComponent(
-                                new CreatePrepaidComponent(
-                                        new PrepaidUsageComponent.Builder()
-                                                .name(componentName)
-                                                .handle(handle)
-                                                .unitName("unit")
-                                                .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(unitPrice))
-                                                .description("Description for: " + componentName)
-                                                .allowFractionalQuantities(false)
+                        new CreatePrepaidComponent(new PrepaidUsageComponent.Builder()
+                                .name(componentName)
+                                .handle(handle)
+                                .unitName("unit")
+                                .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(unitPrice))
+                                .description("Description for: " + componentName)
+                                .allowFractionalQuantities(false)
+                                .pricingScheme(PricingScheme.PER_UNIT)
+                                .overagePricing(
+                                        new OveragePricing.Builder()
                                                 .pricingScheme(PricingScheme.PER_UNIT)
-                                                .overagePricing(
-                                                        new OveragePricing.Builder()
-                                                                .pricingScheme(PricingScheme.PER_UNIT)
-                                                                .prices(List.of(
-                                                                                new Price.Builder()
-                                                                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
-                                                                                        .unitPrice(PriceUnitPrice.fromPrecision(1.0))
-                                                                                        .build()
-                                                                        )
-                                                                )
-                                                                .build()
+                                                .prices(List.of(
+                                                                new Price.Builder()
+                                                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
+                                                                        .unitPrice(PriceUnitPrice.fromPrecision(1.0))
+                                                                        .build()
+                                                        )
                                                 )
                                                 .build()
                                 )
+                                .build()
                         )
-                ).getComponent();
+                )
+                .getComponent();
     }
 
     public ComponentPricePoint createComponentPricePoint(int componentId) throws IOException, ApiException {

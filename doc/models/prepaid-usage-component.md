@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Name` | `String` | Optional | A name for this component that is suitable for showing customers and displaying on billing statements, ie. "Minutes". | String getName() | setName(String name) |
+| `Name` | `String` | Required | A name for this component that is suitable for showing customers and displaying on billing statements, ie. "Minutes". | String getName() | setName(String name) |
 | `UnitName` | `String` | Optional | The name of the unit of measurement for the component. It should be singular since it will be automatically pluralized when necessary. i.e. “message”, which may then be shown as “5 messages” on a subscription’s component line-item | String getUnitName() | setUnitName(String unitName) |
 | `Description` | `String` | Optional | A description for the component that will be displayed to the user on the hosted signup page. | String getDescription() | setDescription(String description) |
 | `Handle` | `String` | Optional | A unique identifier for your use that can be used to retrieve this component is subsequent requests.  Must start with a letter or number and may only contain lowercase letters, numbers, or the characters '.', ':', '-', or '_'.<br>**Constraints**: *Pattern*: `^[a-z0-9][a-z0-9\-_:.]*$` | String getHandle() | setHandle(String handle) |
@@ -40,7 +40,8 @@
   "unit_name": "unit_name4",
   "description": "description8",
   "handle": "handle8",
-  "taxable": false
+  "taxable": false,
+  "pricing_scheme": "stairstep"
 }
 ```
 

@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -27,9 +25,8 @@ public class CreateEBBComponent {
      * Initialization constructor.
      * @param  eventBasedComponent  EBBComponent value for eventBasedComponent.
      */
-    @JsonCreator
     public CreateEBBComponent(
-            @JsonProperty("event_based_component") EBBComponent eventBasedComponent) {
+            EBBComponent eventBasedComponent) {
         this.eventBasedComponent = eventBasedComponent;
     }
 
