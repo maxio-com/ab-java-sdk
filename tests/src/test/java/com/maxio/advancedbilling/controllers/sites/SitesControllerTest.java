@@ -12,6 +12,7 @@ import com.maxio.advancedbilling.models.TaxConfigurationKind;
 import com.maxio.advancedbilling.models.TaxDestinationAddress;
 import org.junit.jupiter.api.Test;
 
+import static com.maxio.advancedbilling.utils.TestFixtures.SITE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SitesControllerTest {
@@ -23,7 +24,7 @@ class SitesControllerTest {
         Site site = sitesController.readSite().getSite();
 
         // then
-        assertThat(site.getId()).isEqualTo(4512);
+        assertThat(site.getId()).isEqualTo(SITE_ID);
         assertThat(site.getName()).isEqualTo("Java SDK Env");
         assertThat(site.getSubdomain()).isEqualTo("java-sdk");
         assertThat(site.getCurrency()).isEqualTo("USD");
