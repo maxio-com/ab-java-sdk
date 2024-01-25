@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -27,9 +25,8 @@ public class CreatePrepaidComponent {
      * Initialization constructor.
      * @param  prepaidUsageComponent  PrepaidUsageComponent value for prepaidUsageComponent.
      */
-    @JsonCreator
     public CreatePrepaidComponent(
-            @JsonProperty("prepaid_usage_component") PrepaidUsageComponent prepaidUsageComponent) {
+            PrepaidUsageComponent prepaidUsageComponent) {
         this.prepaidUsageComponent = prepaidUsageComponent;
     }
 

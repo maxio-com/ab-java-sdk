@@ -20,7 +20,7 @@ Example schema for an `apply_credit_note` event
 | `Memo` | `String` | Optional | The credit note memo. | String getMemo() | setMemo(String memo) |
 | `Role` | `String` | Optional | The role of the credit note (e.g. 'general') | String getRole() | setRole(String role) |
 | `ConsolidatedInvoice` | `Boolean` | Optional | Shows whether it was applied to consolidated invoice or not | Boolean getConsolidatedInvoice() | setConsolidatedInvoice(Boolean consolidatedInvoice) |
-| `AppliedCreditNotes` | [`List<AppliedCreditNote>`](../../doc/models/applied-credit-note.md) | Optional | List of credit notes applied to children invoices (if consolidated invoice) | List<AppliedCreditNote> getAppliedCreditNotes() | setAppliedCreditNotes(List<AppliedCreditNote> appliedCreditNotes) |
+| `AppliedCreditNotes` | [`List<AppliedCreditNoteData>`](../../doc/models/applied-credit-note-data.md) | Optional | List of credit notes applied to children invoices (if consolidated invoice) | List<AppliedCreditNoteData> getAppliedCreditNotes() | setAppliedCreditNotes(List<AppliedCreditNoteData> appliedCreditNotes) |
 
 ## Example (as JSON)
 

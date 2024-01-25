@@ -1,9 +1,9 @@
 
-# Applied Credit Note
+# Applied Credit Note Data
 
 ## Structure
 
-`AppliedCreditNote`
+`AppliedCreditNoteData`
 
 ## Fields
 

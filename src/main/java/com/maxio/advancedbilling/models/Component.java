@@ -9,9 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.ComponentPricingScheme;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -31,7 +34,8 @@ public class Component {
     private Boolean archived;
     private Boolean taxable;
     private OptionalNullable<String> description;
-    private Integer defaultPricePointId;
+    private OptionalNullable<Integer> defaultPricePointId;
+    private OptionalNullable<List<ComponentPrice>> overagePrices;
     private OptionalNullable<List<ComponentPrice>> prices;
     private Integer pricePointCount;
     private String pricePointsUrl;
@@ -40,8 +44,8 @@ public class Component {
     private Boolean recurring;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
-    private String createdAt;
-    private String updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private OptionalNullable<String> archivedAt;
     private Boolean hideDateRangeOnInvoice;
     private Boolean allowFractionalQuantities;
@@ -74,6 +78,7 @@ public class Component {
      * @param  taxable  Boolean value for taxable.
      * @param  description  String value for description.
      * @param  defaultPricePointId  Integer value for defaultPricePointId.
+     * @param  overagePrices  List of ComponentPrice value for overagePrices.
      * @param  prices  List of ComponentPrice value for prices.
      * @param  pricePointCount  Integer value for pricePointCount.
      * @param  pricePointsUrl  String value for pricePointsUrl.
@@ -82,8 +87,8 @@ public class Component {
      * @param  recurring  Boolean value for recurring.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  archivedAt  String value for archivedAt.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
@@ -109,6 +114,7 @@ public class Component {
             Boolean taxable,
             String description,
             Integer defaultPricePointId,
+            List<ComponentPrice> overagePrices,
             List<ComponentPrice> prices,
             Integer pricePointCount,
             String pricePointsUrl,
@@ -117,8 +123,8 @@ public class Component {
             Boolean recurring,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            String createdAt,
-            String updatedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             String archivedAt,
             Boolean hideDateRangeOnInvoice,
             Boolean allowFractionalQuantities,
@@ -141,7 +147,8 @@ public class Component {
         this.archived = archived;
         this.taxable = taxable;
         this.description = OptionalNullable.of(description);
-        this.defaultPricePointId = defaultPricePointId;
+        this.defaultPricePointId = OptionalNullable.of(defaultPricePointId);
+        this.overagePrices = OptionalNullable.of(overagePrices);
         this.prices = OptionalNullable.of(prices);
         this.pricePointCount = pricePointCount;
         this.pricePointsUrl = pricePointsUrl;
@@ -179,6 +186,7 @@ public class Component {
      * @param  taxable  Boolean value for taxable.
      * @param  description  String value for description.
      * @param  defaultPricePointId  Integer value for defaultPricePointId.
+     * @param  overagePrices  List of ComponentPrice value for overagePrices.
      * @param  prices  List of ComponentPrice value for prices.
      * @param  pricePointCount  Integer value for pricePointCount.
      * @param  pricePointsUrl  String value for pricePointsUrl.
@@ -187,8 +195,8 @@ public class Component {
      * @param  recurring  Boolean value for recurring.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  archivedAt  String value for archivedAt.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
@@ -204,13 +212,16 @@ public class Component {
             OptionalNullable<ComponentPricingScheme> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
             OptionalNullable<Long> pricePerUnitInCents, ComponentKind kind, Boolean archived,
-            Boolean taxable, OptionalNullable<String> description, Integer defaultPricePointId,
+            Boolean taxable, OptionalNullable<String> description,
+            OptionalNullable<Integer> defaultPricePointId,
+            OptionalNullable<List<ComponentPrice>> overagePrices,
             OptionalNullable<List<ComponentPrice>> prices, Integer pricePointCount,
             String pricePointsUrl, String defaultPricePointName, OptionalNullable<String> taxCode,
             Boolean recurring, OptionalNullable<CreditType> upgradeCharge,
-            OptionalNullable<CreditType> downgradeCredit, String createdAt, String updatedAt,
-            OptionalNullable<String> archivedAt, Boolean hideDateRangeOnInvoice,
-            Boolean allowFractionalQuantities, OptionalNullable<ItemCategory> itemCategory,
+            OptionalNullable<CreditType> downgradeCredit, ZonedDateTime createdAt,
+            ZonedDateTime updatedAt, OptionalNullable<String> archivedAt,
+            Boolean hideDateRangeOnInvoice, Boolean allowFractionalQuantities,
+            OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
             Integer eventBasedBillingMetricId, Integer interval, IntervalUnit intervalUnit) {
         this.id = id;
@@ -227,6 +238,7 @@ public class Component {
         this.taxable = taxable;
         this.description = description;
         this.defaultPricePointId = defaultPricePointId;
+        this.overagePrices = overagePrices;
         this.prices = prices;
         this.pricePointCount = pricePointCount;
         this.pricePointsUrl = pricePointsUrl;
@@ -614,13 +626,22 @@ public class Component {
     }
 
     /**
-     * Getter for DefaultPricePointId.
-     * @return Returns the Integer
+     * Internal Getter for DefaultPricePointId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("default_price_point_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetDefaultPricePointId() {
+        return this.defaultPricePointId;
+    }
+
+    /**
+     * Getter for DefaultPricePointId.
+     * @return Returns the Integer
+     */
     public Integer getDefaultPricePointId() {
-        return defaultPricePointId;
+        return OptionalNullable.getFrom(defaultPricePointId);
     }
 
     /**
@@ -629,7 +650,57 @@ public class Component {
      */
     @JsonSetter("default_price_point_id")
     public void setDefaultPricePointId(Integer defaultPricePointId) {
-        this.defaultPricePointId = defaultPricePointId;
+        this.defaultPricePointId = OptionalNullable.of(defaultPricePointId);
+    }
+
+    /**
+     * UnSetter for DefaultPricePointId.
+     */
+    public void unsetDefaultPricePointId() {
+        defaultPricePointId = null;
+    }
+
+    /**
+     * Internal Getter for OveragePrices.
+     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
+     * will be empty.
+     * @return Returns the Internal List of ComponentPrice
+     */
+    @JsonGetter("overage_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<List<ComponentPrice>> internalGetOveragePrices() {
+        return this.overagePrices;
+    }
+
+    /**
+     * Getter for OveragePrices.
+     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
+     * will be empty.
+     * @return Returns the List of ComponentPrice
+     */
+    public List<ComponentPrice> getOveragePrices() {
+        return OptionalNullable.getFrom(overagePrices);
+    }
+
+    /**
+     * Setter for OveragePrices.
+     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
+     * will be empty.
+     * @param overagePrices Value for List of ComponentPrice
+     */
+    @JsonSetter("overage_prices")
+    public void setOveragePrices(List<ComponentPrice> overagePrices) {
+        this.overagePrices = OptionalNullable.of(overagePrices);
+    }
+
+    /**
+     * UnSetter for OveragePrices.
+     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
+     * will be empty.
+     */
+    public void unsetOveragePrices() {
+        overagePrices = null;
     }
 
     /**
@@ -891,42 +962,46 @@ public class Component {
     /**
      * Getter for CreatedAt.
      * Timestamp indicating when this component was created
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
      * Timestamp indicating when this component was created
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
      * Timestamp indicating when this component was updated
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
      * Timestamp indicating when this component was updated
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -1210,13 +1285,13 @@ public class Component {
                 + unitPrice + ", productFamilyId=" + productFamilyId + ", productFamilyName="
                 + productFamilyName + ", pricePerUnitInCents=" + pricePerUnitInCents + ", kind="
                 + kind + ", archived=" + archived + ", taxable=" + taxable + ", description="
-                + description + ", defaultPricePointId=" + defaultPricePointId + ", prices="
-                + prices + ", pricePointCount=" + pricePointCount + ", pricePointsUrl="
-                + pricePointsUrl + ", defaultPricePointName=" + defaultPricePointName + ", taxCode="
-                + taxCode + ", recurring=" + recurring + ", upgradeCharge=" + upgradeCharge
-                + ", downgradeCredit=" + downgradeCredit + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt + ", archivedAt=" + archivedAt
-                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
+                + description + ", defaultPricePointId=" + defaultPricePointId + ", overagePrices="
+                + overagePrices + ", prices=" + prices + ", pricePointCount=" + pricePointCount
+                + ", pricePointsUrl=" + pricePointsUrl + ", defaultPricePointName="
+                + defaultPricePointName + ", taxCode=" + taxCode + ", recurring=" + recurring
+                + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit=" + downgradeCredit
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", archivedAt="
+                + archivedAt + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", itemCategory="
                 + itemCategory + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", accountingCode=" + accountingCode + ", eventBasedBillingMetricId="
@@ -1239,7 +1314,6 @@ public class Component {
                 .kind(getKind())
                 .archived(getArchived())
                 .taxable(getTaxable())
-                .defaultPricePointId(getDefaultPricePointId())
                 .pricePointCount(getPricePointCount())
                 .pricePointsUrl(getPricePointsUrl())
                 .defaultPricePointName(getDefaultPricePointName())
@@ -1256,6 +1330,8 @@ public class Component {
         builder.unitPrice = internalGetUnitPrice();
         builder.pricePerUnitInCents = internalGetPricePerUnitInCents();
         builder.description = internalGetDescription();
+        builder.defaultPricePointId = internalGetDefaultPricePointId();
+        builder.overagePrices = internalGetOveragePrices();
         builder.prices = internalGetPrices();
         builder.taxCode = internalGetTaxCode();
         builder.upgradeCharge = internalGetUpgradeCharge();
@@ -1284,7 +1360,8 @@ public class Component {
         private Boolean archived;
         private Boolean taxable;
         private OptionalNullable<String> description;
-        private Integer defaultPricePointId;
+        private OptionalNullable<Integer> defaultPricePointId;
+        private OptionalNullable<List<ComponentPrice>> overagePrices;
         private OptionalNullable<List<ComponentPrice>> prices;
         private Integer pricePointCount;
         private String pricePointsUrl;
@@ -1293,8 +1370,8 @@ public class Component {
         private Boolean recurring;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
-        private String createdAt;
-        private String updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private OptionalNullable<String> archivedAt;
         private Boolean hideDateRangeOnInvoice;
         private Boolean allowFractionalQuantities;
@@ -1488,7 +1565,35 @@ public class Component {
          * @return Builder
          */
         public Builder defaultPricePointId(Integer defaultPricePointId) {
-            this.defaultPricePointId = defaultPricePointId;
+            this.defaultPricePointId = OptionalNullable.of(defaultPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for defaultPricePointId.
+         * @return Builder
+         */
+        public Builder unsetDefaultPricePointId() {
+            defaultPricePointId = null;
+            return this;
+        }
+
+        /**
+         * Setter for overagePrices.
+         * @param  overagePrices  List of ComponentPrice value for overagePrices.
+         * @return Builder
+         */
+        public Builder overagePrices(List<ComponentPrice> overagePrices) {
+            this.overagePrices = OptionalNullable.of(overagePrices);
+            return this;
+        }
+
+        /**
+         * UnSetter for overagePrices.
+         * @return Builder
+         */
+        public Builder unsetOveragePrices() {
+            overagePrices = null;
             return this;
         }
 
@@ -1610,20 +1715,20 @@ public class Component {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
@@ -1761,11 +1866,12 @@ public class Component {
         public Component build() {
             return new Component(id, name, handle, pricingScheme, unitName, unitPrice,
                     productFamilyId, productFamilyName, pricePerUnitInCents, kind, archived,
-                    taxable, description, defaultPricePointId, prices, pricePointCount,
-                    pricePointsUrl, defaultPricePointName, taxCode, recurring, upgradeCharge,
-                    downgradeCredit, createdAt, updatedAt, archivedAt, hideDateRangeOnInvoice,
-                    allowFractionalQuantities, itemCategory, useSiteExchangeRate, accountingCode,
-                    eventBasedBillingMetricId, interval, intervalUnit);
+                    taxable, description, defaultPricePointId, overagePrices, prices,
+                    pricePointCount, pricePointsUrl, defaultPricePointName, taxCode, recurring,
+                    upgradeCharge, downgradeCredit, createdAt, updatedAt, archivedAt,
+                    hideDateRangeOnInvoice, allowFractionalQuantities, itemCategory,
+                    useSiteExchangeRate, accountingCode, eventBasedBillingMetricId, interval,
+                    intervalUnit);
         }
     }
 }

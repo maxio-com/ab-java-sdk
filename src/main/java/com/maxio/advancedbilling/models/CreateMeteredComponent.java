@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -27,9 +25,8 @@ public class CreateMeteredComponent {
      * Initialization constructor.
      * @param  meteredComponent  MeteredComponent value for meteredComponent.
      */
-    @JsonCreator
     public CreateMeteredComponent(
-            @JsonProperty("metered_component") MeteredComponent meteredComponent) {
+            MeteredComponent meteredComponent) {
         this.meteredComponent = meteredComponent;
     }
 

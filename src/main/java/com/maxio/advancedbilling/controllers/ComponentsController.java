@@ -16,13 +16,17 @@ import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentCurrencyPricesResponse;
-import com.maxio.advancedbilling.models.ComponentKindPath;
 import com.maxio.advancedbilling.models.ComponentPricePointResponse;
 import com.maxio.advancedbilling.models.ComponentPricePointsResponse;
 import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.CreateComponentPricePointsRequest;
 import com.maxio.advancedbilling.models.CreateCurrencyPricesRequest;
+import com.maxio.advancedbilling.models.CreateEBBComponent;
+import com.maxio.advancedbilling.models.CreateMeteredComponent;
+import com.maxio.advancedbilling.models.CreateOnOffComponent;
+import com.maxio.advancedbilling.models.CreatePrepaidComponent;
+import com.maxio.advancedbilling.models.CreateQuantityBasedComponent;
 import com.maxio.advancedbilling.models.ListAllComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentsForProductFamilyInput;
@@ -32,7 +36,6 @@ import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.UpdateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.UpdateComponentRequest;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
-import com.maxio.advancedbilling.models.containers.CreateComponentBody;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -54,53 +57,43 @@ public final class ComponentsController extends BaseController {
     }
 
     /**
-     * This request will create a component definition under the specified product family. These
-     * component definitions determine what components are named, how they are measured, and how
-     * much they cost. Components can then be added and “allocated” for each subscription to a
-     * product in the product family. These component line-items affect how much a subscription will
-     * be charged, depending on the current allocations (i.e. 4 IP Addresses, or SSL “enabled”) This
-     * documentation covers both component definitions and component line-items. Please understand
-     * the difference. Please note that you may not edit components via API. To do so, please log
-     * into the application. ### Component Documentation For more information on components, please
-     * see our documentation
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677). For information
-     * on how to record component usage against a subscription, please see the following resources:
-     * + [Proration and Component
-     * Allocations](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677#applying-proration-and-recording-components)
-     * + [Recording component usage against a
-     * subscription](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404606587917#recording-component-usage).
+     * This request will create a component definition of kind **metered_component** under the
+     * specified product family. Metered component can then be added and “allocated” for a
+     * subscription. Metered components are used to bill for any type of unit that resets to 0 at
+     * the end of the billing period (think daily Google Adwords clicks or monthly cell phone
+     * minutes). This is most commonly associated with usage-based billing and many other pricing
+     * schemes. Note that this is different from recurring quantity-based components, which DO NOT
+     * reset to zero at the start of every billing period. If you want to bill for a quantity of
+     * something that does not change unless you change it, then you want quantity components,
+     * instead. For more information on components, please see our documentation
+     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
      * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
      *         the component belongs
-     * @param  componentKind  Required parameter: The component kind
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentResponse createComponent(
+    public ComponentResponse createMeteredComponent(
             final int productFamilyId,
-            final ComponentKindPath componentKind,
-            final CreateComponentBody body) throws ApiException, IOException {
-        return prepareCreateComponentRequest(productFamilyId, componentKind, body).execute();
+            final CreateMeteredComponent body) throws ApiException, IOException {
+        return prepareCreateMeteredComponentRequest(productFamilyId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for createComponent.
+     * Builds the ApiCall object for createMeteredComponent.
      */
-    private ApiCall<ComponentResponse, ApiException> prepareCreateComponentRequest(
+    private ApiCall<ComponentResponse, ApiException> prepareCreateMeteredComponentRequest(
             final int productFamilyId,
-            final ComponentKindPath componentKind,
-            final CreateComponentBody body) throws JsonProcessingException, IOException {
+            final CreateMeteredComponent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
-                        .path("/product_families/{product_family_id}/{component_kind}.json")
+                        .path("/product_families/{product_family_id}/metered_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
-                        .bodySerializer(() ->  ApiHelper.serializeTypeCombinator(body))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
-                                .shouldEncode(true))
-                        .templateParam(param -> param.key("component_kind").value((componentKind != null) ? componentKind.value() : null)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -111,6 +104,245 @@ public final class ComponentsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ComponentResponse.class))
                         .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .endpointConfiguration(param -> param
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                .build();
+    }
+
+    /**
+     * This request will create a component definition of kind **quantity_based_component** under
+     * the specified product family. Quantity Based component can then be added and “allocated” for
+     * a subscription. When defining Quantity Based component, You can choose one of 2 types: ####
+     * Recurring Recurring quantity-based components are used to bill for the number of some unit
+     * (think monthly software user licenses or the number of pairs of socks in a box-a-month club).
+     * This is most commonly associated with billing for user licenses, number of users, number of
+     * employees, etc. #### One-time One-time quantity-based components are used to create ad hoc
+     * usage charges that do not recur. For example, at the time of signup, you might want to charge
+     * your customer a one-time fee for onboarding or other services. The allocated quantity for
+     * one-time quantity-based components immediately gets reset back to zero after the allocation
+     * is made. For more information on components, please see our documentation
+     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
+     *         the component belongs
+     * @param  body  Optional parameter: Example:
+     * @return    Returns the ComponentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ComponentResponse createQuantityBasedComponent(
+            final int productFamilyId,
+            final CreateQuantityBasedComponent body) throws ApiException, IOException {
+        return prepareCreateQuantityBasedComponentRequest(productFamilyId, body).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for createQuantityBasedComponent.
+     */
+    private ApiCall<ComponentResponse, ApiException> prepareCreateQuantityBasedComponentRequest(
+            final int productFamilyId,
+            final CreateQuantityBasedComponent body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<ComponentResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/product_families/{product_family_id}/quantity_based_components.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ComponentResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .endpointConfiguration(param -> param
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                .build();
+    }
+
+    /**
+     * This request will create a component definition of kind **on_off_component** under the
+     * specified product family. On/Off component can then be added and “allocated” for a
+     * subscription. On/off components are used for any flat fee, recurring add on (think $99/month
+     * for tech support or a flat add on shipping fee). For more information on components, please
+     * see our documentation
+     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
+     *         the component belongs
+     * @param  body  Optional parameter: Example:
+     * @return    Returns the ComponentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ComponentResponse createOnOffComponent(
+            final int productFamilyId,
+            final CreateOnOffComponent body) throws ApiException, IOException {
+        return prepareCreateOnOffComponentRequest(productFamilyId, body).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for createOnOffComponent.
+     */
+    private ApiCall<ComponentResponse, ApiException> prepareCreateOnOffComponentRequest(
+            final int productFamilyId,
+            final CreateOnOffComponent body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<ComponentResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/product_families/{product_family_id}/on_off_components.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ComponentResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .endpointConfiguration(param -> param
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                .build();
+    }
+
+    /**
+     * This request will create a component definition of kind **prepaid_usage_component** under the
+     * specified product family. Prepaid component can then be added and “allocated” for a
+     * subscription. Prepaid components allow customers to pre-purchase units that can be used up
+     * over time on their subscription. In a sense, they are the mirror image of metered components;
+     * while metered components charge at the end of the period for the amount of units used,
+     * prepaid components are charged for at the time of purchase, and we subsequently keep track of
+     * the usage against the amount purchased. For more information on components, please see our
+     * documentation [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
+     *         the component belongs
+     * @param  body  Optional parameter: Example:
+     * @return    Returns the ComponentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ComponentResponse createPrepaidUsageComponent(
+            final int productFamilyId,
+            final CreatePrepaidComponent body) throws ApiException, IOException {
+        return prepareCreatePrepaidUsageComponentRequest(productFamilyId, body).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for createPrepaidUsageComponent.
+     */
+    private ApiCall<ComponentResponse, ApiException> prepareCreatePrepaidUsageComponentRequest(
+            final int productFamilyId,
+            final CreatePrepaidComponent body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<ComponentResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/product_families/{product_family_id}/prepaid_usage_components.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ComponentResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .endpointConfiguration(param -> param
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                .build();
+    }
+
+    /**
+     * This request will create a component definition of kind **event_based_component** under the
+     * specified product family. Event-based component can then be added and “allocated” for a
+     * subscription. Event-based components are similar to other component types, in that you define
+     * the component parameters (such as name and taxability) and the pricing. A key difference for
+     * the event-based component is that it must be attached to a metric. This is because the metric
+     * provides the component with the actual quantity used in computing what and how much will be
+     * billed each period for each subscription. So, instead of reporting usage directly for each
+     * component (as you would with metered components), the usage is derived from analysis of your
+     * events. For more information on components, please see our documentation
+     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
+     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
+     *         the component belongs
+     * @param  body  Optional parameter: Example:
+     * @return    Returns the ComponentResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ComponentResponse createEventBasedComponent(
+            final int productFamilyId,
+            final CreateEBBComponent body) throws ApiException, IOException {
+        return prepareCreateEventBasedComponentRequest(productFamilyId, body).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for createEventBasedComponent.
+     */
+    private ApiCall<ComponentResponse, ApiException> prepareCreateEventBasedComponentRequest(
+            final int productFamilyId,
+            final CreateEBBComponent body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<ComponentResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.ENUM_DEFAULT.value())
+                        .path("/product_families/{product_family_id}/event_based_components.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ComponentResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))

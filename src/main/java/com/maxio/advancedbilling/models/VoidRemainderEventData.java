@@ -15,9 +15,9 @@ import com.maxio.advancedbilling.DateTimeHelper;
 import java.time.ZonedDateTime;
 
 /**
- * This is a model class for VoidInvoiceEventData1 type.
+ * This is a model class for VoidRemainderEventData type.
  */
-public class VoidInvoiceEventData1 {
+public class VoidRemainderEventData {
     private CreditNote creditNoteAttributes;
     private String memo;
     private String appliedAmount;
@@ -26,7 +26,7 @@ public class VoidInvoiceEventData1 {
     /**
      * Default constructor.
      */
-    public VoidInvoiceEventData1() {
+    public VoidRemainderEventData() {
     }
 
     /**
@@ -36,7 +36,7 @@ public class VoidInvoiceEventData1 {
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
      */
-    public VoidInvoiceEventData1(
+    public VoidRemainderEventData(
             CreditNote creditNoteAttributes,
             String memo,
             String appliedAmount,
@@ -132,20 +132,20 @@ public class VoidInvoiceEventData1 {
     }
 
     /**
-     * Converts this VoidInvoiceEventData1 into string format.
+     * Converts this VoidRemainderEventData into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "VoidInvoiceEventData1 [" + "creditNoteAttributes=" + creditNoteAttributes
+        return "VoidRemainderEventData [" + "creditNoteAttributes=" + creditNoteAttributes
                 + ", memo=" + memo + ", appliedAmount=" + appliedAmount + ", transactionTime="
                 + transactionTime + "]";
     }
 
     /**
-     * Builds a new {@link VoidInvoiceEventData1.Builder} object.
+     * Builds a new {@link VoidRemainderEventData.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link VoidInvoiceEventData1.Builder} object
+     * @return a new {@link VoidRemainderEventData.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -157,7 +157,7 @@ public class VoidInvoiceEventData1 {
     }
 
     /**
-     * Class to build instances of {@link VoidInvoiceEventData1}.
+     * Class to build instances of {@link VoidRemainderEventData}.
      */
     public static class Builder {
         private CreditNote creditNoteAttributes;
@@ -208,11 +208,11 @@ public class VoidInvoiceEventData1 {
         }
 
         /**
-         * Builds a new {@link VoidInvoiceEventData1} object using the set fields.
-         * @return {@link VoidInvoiceEventData1}
+         * Builds a new {@link VoidRemainderEventData} object using the set fields.
+         * @return {@link VoidRemainderEventData}
          */
-        public VoidInvoiceEventData1 build() {
-            return new VoidInvoiceEventData1(creditNoteAttributes, memo, appliedAmount,
+        public VoidRemainderEventData build() {
+            return new VoidRemainderEventData(creditNoteAttributes, memo, appliedAmount,
                     transactionTime);
         }
     }
