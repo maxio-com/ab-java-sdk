@@ -18,7 +18,7 @@ public class SubscriptionGroupSignup {
     private Integer paymentProfileId;
     private Integer payerId;
     private String payerReference;
-    private PaymentCollectionMethod paymentCollectionMethod;
+    private CollectionMethod paymentCollectionMethod;
     private PayerAttributes payerAttributes;
     private SubscriptionGroupCreditCard creditCardAttributes;
     private SubscriptionGroupBankAccount bankAccountAttributes;
@@ -28,7 +28,7 @@ public class SubscriptionGroupSignup {
      * Default constructor.
      */
     public SubscriptionGroupSignup() {
-        paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -37,7 +37,7 @@ public class SubscriptionGroupSignup {
      * @param  paymentProfileId  Integer value for paymentProfileId.
      * @param  payerId  Integer value for payerId.
      * @param  payerReference  String value for payerReference.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  payerAttributes  PayerAttributes value for payerAttributes.
      * @param  creditCardAttributes  SubscriptionGroupCreditCard value for creditCardAttributes.
      * @param  bankAccountAttributes  SubscriptionGroupBankAccount value for bankAccountAttributes.
@@ -47,7 +47,7 @@ public class SubscriptionGroupSignup {
             Integer paymentProfileId,
             Integer payerId,
             String payerReference,
-            PaymentCollectionMethod paymentCollectionMethod,
+            CollectionMethod paymentCollectionMethod,
             PayerAttributes payerAttributes,
             SubscriptionGroupCreditCard creditCardAttributes,
             SubscriptionGroupBankAccount bankAccountAttributes) {
@@ -123,11 +123,11 @@ public class SubscriptionGroupSignup {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @return Returns the PaymentCollectionMethod
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PaymentCollectionMethod getPaymentCollectionMethod() {
+    public CollectionMethod getPaymentCollectionMethod() {
         return paymentCollectionMethod;
     }
 
@@ -136,10 +136,10 @@ public class SubscriptionGroupSignup {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @param paymentCollectionMethod Value for PaymentCollectionMethod
+     * @param paymentCollectionMethod Value for CollectionMethod
      */
     @JsonSetter("payment_collection_method")
-    public void setPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+    public void setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
         this.paymentCollectionMethod = paymentCollectionMethod;
     }
 
@@ -257,7 +257,7 @@ public class SubscriptionGroupSignup {
         private Integer paymentProfileId;
         private Integer payerId;
         private String payerReference;
-        private PaymentCollectionMethod paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
         private PayerAttributes payerAttributes;
         private SubscriptionGroupCreditCard creditCardAttributes;
         private SubscriptionGroupBankAccount bankAccountAttributes;
@@ -318,11 +318,10 @@ public class SubscriptionGroupSignup {
 
         /**
          * Setter for paymentCollectionMethod.
-         * @param  paymentCollectionMethod  PaymentCollectionMethod value for
-         *         paymentCollectionMethod.
+         * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
          * @return Builder
          */
-        public Builder paymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+        public Builder paymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
             this.paymentCollectionMethod = paymentCollectionMethod;
             return this;
         }

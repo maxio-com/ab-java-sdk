@@ -14,9 +14,9 @@ import java.util.TreeMap;
 
 
 /**
- * PaymentCollectionMethod to be used.
+ * CollectionMethod1 to be used.
  */
-public enum PaymentCollectionMethod {
+public enum CollectionMethod1 {
     AUTOMATIC,
 
     REMITTANCE,
@@ -26,7 +26,7 @@ public enum PaymentCollectionMethod {
     INVOICE;
 
 
-    private static TreeMap<String, PaymentCollectionMethod> valueMap = new TreeMap<>();
+    private static TreeMap<String, CollectionMethod1> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -48,8 +48,8 @@ public enum PaymentCollectionMethod {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static PaymentCollectionMethod constructFromString(String toConvert) throws IOException {
-        PaymentCollectionMethod enumValue = fromString(toConvert);
+    public static CollectionMethod1 constructFromString(String toConvert) throws IOException {
+        CollectionMethod1 enumValue = fromString(toConvert);
         if (enumValue == null)
         {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
@@ -62,7 +62,7 @@ public enum PaymentCollectionMethod {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static PaymentCollectionMethod fromString(String toConvert) {
+    public static CollectionMethod1 fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -84,16 +84,16 @@ public enum PaymentCollectionMethod {
     }
 
     /**
-     * Convert list of PaymentCollectionMethod values to list of string values.
-     * @param toConvert The list of PaymentCollectionMethod values to convert.
+     * Convert list of CollectionMethod1 values to list of string values.
+     * @param toConvert The list of CollectionMethod1 values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<PaymentCollectionMethod> toConvert) {
+    public static List<String> toValue(List<CollectionMethod1> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (PaymentCollectionMethod enumValue : toConvert) {
+        for (CollectionMethod1 enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

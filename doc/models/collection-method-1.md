@@ -1,11 +1,11 @@
 
-# Payment Collection Method 1
+# Collection Method 1
 
 (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription
 
 ## Enumeration
 
-`PaymentCollectionMethod1`
+`CollectionMethod1`
 
 ## Fields
 

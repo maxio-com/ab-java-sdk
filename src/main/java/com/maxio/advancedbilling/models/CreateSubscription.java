@@ -29,7 +29,7 @@ public class CreateSubscription {
     private SubscriptionCustomPrice customPrice;
     private String couponCode;
     private List<String> couponCodes;
-    private PaymentCollectionMethod paymentCollectionMethod;
+    private CollectionMethod paymentCollectionMethod;
     private String receivesInvoiceEmails;
     private String netTerms;
     private Integer customerId;
@@ -76,7 +76,7 @@ public class CreateSubscription {
      * Default constructor.
      */
     public CreateSubscription() {
-        paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
         dunningCommunicationDelayEnabled = OptionalNullable.of(false);
         skipBillingManifestTaxes = false;
     }
@@ -90,7 +90,7 @@ public class CreateSubscription {
      * @param  customPrice  SubscriptionCustomPrice value for customPrice.
      * @param  couponCode  String value for couponCode.
      * @param  couponCodes  List of String value for couponCodes.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  String value for receivesInvoiceEmails.
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
@@ -144,7 +144,7 @@ public class CreateSubscription {
             SubscriptionCustomPrice customPrice,
             String couponCode,
             List<String> couponCodes,
-            PaymentCollectionMethod paymentCollectionMethod,
+            CollectionMethod paymentCollectionMethod,
             String receivesInvoiceEmails,
             String netTerms,
             Integer customerId,
@@ -248,7 +248,7 @@ public class CreateSubscription {
      * @param  customPrice  SubscriptionCustomPrice value for customPrice.
      * @param  couponCode  String value for couponCode.
      * @param  couponCodes  List of String value for couponCodes.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  String value for receivesInvoiceEmails.
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
@@ -298,10 +298,10 @@ public class CreateSubscription {
     protected CreateSubscription(String productHandle, Integer productId,
             String productPricePointHandle, Integer productPricePointId,
             SubscriptionCustomPrice customPrice, String couponCode, List<String> couponCodes,
-            PaymentCollectionMethod paymentCollectionMethod, String receivesInvoiceEmails,
-            String netTerms, Integer customerId, ZonedDateTime nextBillingAt,
-            String initialBillingAt, Integer storedCredentialTransactionId, Integer salesRepId,
-            Integer paymentProfileId, String reference, CustomerAttributes customerAttributes,
+            CollectionMethod paymentCollectionMethod, String receivesInvoiceEmails, String netTerms,
+            Integer customerId, ZonedDateTime nextBillingAt, String initialBillingAt,
+            Integer storedCredentialTransactionId, Integer salesRepId, Integer paymentProfileId,
+            String reference, CustomerAttributes customerAttributes,
             PaymentProfileAttributes paymentProfileAttributes,
             PaymentProfileAttributes creditCardAttributes,
             BankAccountAttributes bankAccountAttributes,
@@ -528,11 +528,11 @@ public class CreateSubscription {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @return Returns the PaymentCollectionMethod
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PaymentCollectionMethod getPaymentCollectionMethod() {
+    public CollectionMethod getPaymentCollectionMethod() {
         return paymentCollectionMethod;
     }
 
@@ -541,10 +541,10 @@ public class CreateSubscription {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @param paymentCollectionMethod Value for PaymentCollectionMethod
+     * @param paymentCollectionMethod Value for CollectionMethod
      */
     @JsonSetter("payment_collection_method")
-    public void setPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+    public void setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
         this.paymentCollectionMethod = paymentCollectionMethod;
     }
 
@@ -1668,7 +1668,7 @@ public class CreateSubscription {
         private SubscriptionCustomPrice customPrice;
         private String couponCode;
         private List<String> couponCodes;
-        private PaymentCollectionMethod paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
         private String receivesInvoiceEmails;
         private String netTerms;
         private Integer customerId;
@@ -1786,11 +1786,10 @@ public class CreateSubscription {
 
         /**
          * Setter for paymentCollectionMethod.
-         * @param  paymentCollectionMethod  PaymentCollectionMethod value for
-         *         paymentCollectionMethod.
+         * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
          * @return Builder
          */
-        public Builder paymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+        public Builder paymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
             this.paymentCollectionMethod = paymentCollectionMethod;
             return this;
         }

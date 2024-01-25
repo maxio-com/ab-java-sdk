@@ -19,7 +19,7 @@
 | `State` | `String` | Optional | - | String getState() | setState(String state) |
 | `CancelAtEndOfPeriod` | `Boolean` | Optional | - | Boolean getCancelAtEndOfPeriod() | setCancelAtEndOfPeriod(Boolean cancelAtEndOfPeriod) |
 | `Subscriptions` | [`List<SubscriptionGroupItem>`](../../doc/models/subscription-group-item.md) | Optional | - | List<SubscriptionGroupItem> getSubscriptions() | setSubscriptions(List<SubscriptionGroupItem> subscriptions) |
-| `PaymentCollectionMethod` | [`PaymentCollectionMethod`](../../doc/models/payment-collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`.<br>**Default**: `PaymentCollectionMethod.AUTOMATIC` | PaymentCollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) |
+| `PaymentCollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`.<br>**Default**: `CollectionMethod.AUTOMATIC` | CollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) |
 
 ## Example (as JSON)
 

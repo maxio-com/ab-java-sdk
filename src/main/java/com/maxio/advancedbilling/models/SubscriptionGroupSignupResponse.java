@@ -25,13 +25,13 @@ public class SubscriptionGroupSignupResponse {
     private String state;
     private Boolean cancelAtEndOfPeriod;
     private List<SubscriptionGroupItem> subscriptions;
-    private PaymentCollectionMethod paymentCollectionMethod;
+    private CollectionMethod paymentCollectionMethod;
 
     /**
      * Default constructor.
      */
     public SubscriptionGroupSignupResponse() {
-        paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -46,7 +46,7 @@ public class SubscriptionGroupSignupResponse {
      * @param  state  String value for state.
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
      * @param  subscriptions  List of SubscriptionGroupItem value for subscriptions.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      */
     public SubscriptionGroupSignupResponse(
             String uid,
@@ -59,7 +59,7 @@ public class SubscriptionGroupSignupResponse {
             String state,
             Boolean cancelAtEndOfPeriod,
             List<SubscriptionGroupItem> subscriptions,
-            PaymentCollectionMethod paymentCollectionMethod) {
+            CollectionMethod paymentCollectionMethod) {
         this.uid = uid;
         this.scheme = scheme;
         this.customerId = customerId;
@@ -268,11 +268,11 @@ public class SubscriptionGroupSignupResponse {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @return Returns the PaymentCollectionMethod
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PaymentCollectionMethod getPaymentCollectionMethod() {
+    public CollectionMethod getPaymentCollectionMethod() {
         return paymentCollectionMethod;
     }
 
@@ -281,10 +281,10 @@ public class SubscriptionGroupSignupResponse {
      * The type of payment collection to be used in the subscription. For legacy Statements
      * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
      * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
-     * @param paymentCollectionMethod Value for PaymentCollectionMethod
+     * @param paymentCollectionMethod Value for CollectionMethod
      */
     @JsonSetter("payment_collection_method")
-    public void setPaymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+    public void setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
         this.paymentCollectionMethod = paymentCollectionMethod;
     }
 
@@ -337,7 +337,7 @@ public class SubscriptionGroupSignupResponse {
         private String state;
         private Boolean cancelAtEndOfPeriod;
         private List<SubscriptionGroupItem> subscriptions;
-        private PaymentCollectionMethod paymentCollectionMethod = PaymentCollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
 
 
 
@@ -443,11 +443,10 @@ public class SubscriptionGroupSignupResponse {
 
         /**
          * Setter for paymentCollectionMethod.
-         * @param  paymentCollectionMethod  PaymentCollectionMethod value for
-         *         paymentCollectionMethod.
+         * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
          * @return Builder
          */
-        public Builder paymentCollectionMethod(PaymentCollectionMethod paymentCollectionMethod) {
+        public Builder paymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
             this.paymentCollectionMethod = paymentCollectionMethod;
             return this;
         }

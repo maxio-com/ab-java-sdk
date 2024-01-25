@@ -35,9 +35,9 @@ public class Invoice {
     private LocalDate dueDate;
     private OptionalNullable<LocalDate> paidDate;
     private InvoiceStatus status;
-    private String role;
+    private InvoiceRole role;
     private OptionalNullable<Integer> parentInvoiceId;
-    private String collectionMethod;
+    private CollectionMethod collectionMethod;
     private String paymentInstructions;
     private String currency;
     private InvoiceConsolidationLevel consolidationLevel;
@@ -78,6 +78,7 @@ public class Invoice {
      * Default constructor.
      */
     public Invoice() {
+        collectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -96,9 +97,9 @@ public class Invoice {
      * @param  dueDate  LocalDate value for dueDate.
      * @param  paidDate  LocalDate value for paidDate.
      * @param  status  InvoiceStatus value for status.
-     * @param  role  String value for role.
+     * @param  role  InvoiceRole value for role.
      * @param  parentInvoiceId  Integer value for parentInvoiceId.
-     * @param  collectionMethod  String value for collectionMethod.
+     * @param  collectionMethod  CollectionMethod value for collectionMethod.
      * @param  paymentInstructions  String value for paymentInstructions.
      * @param  currency  String value for currency.
      * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
@@ -150,9 +151,9 @@ public class Invoice {
             LocalDate dueDate,
             LocalDate paidDate,
             InvoiceStatus status,
-            String role,
+            InvoiceRole role,
             Integer parentInvoiceId,
-            String collectionMethod,
+            CollectionMethod collectionMethod,
             String paymentInstructions,
             String currency,
             InvoiceConsolidationLevel consolidationLevel,
@@ -258,9 +259,9 @@ public class Invoice {
      * @param  dueDate  LocalDate value for dueDate.
      * @param  paidDate  LocalDate value for paidDate.
      * @param  status  InvoiceStatus value for status.
-     * @param  role  String value for role.
+     * @param  role  InvoiceRole value for role.
      * @param  parentInvoiceId  Integer value for parentInvoiceId.
-     * @param  collectionMethod  String value for collectionMethod.
+     * @param  collectionMethod  CollectionMethod value for collectionMethod.
      * @param  paymentInstructions  String value for paymentInstructions.
      * @param  currency  String value for currency.
      * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
@@ -302,8 +303,8 @@ public class Invoice {
             Integer subscriptionId, String number, Integer sequenceNumber,
             ZonedDateTime transactionTime, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             LocalDate issueDate, LocalDate dueDate, OptionalNullable<LocalDate> paidDate,
-            InvoiceStatus status, String role, OptionalNullable<Integer> parentInvoiceId,
-            String collectionMethod, String paymentInstructions, String currency,
+            InvoiceStatus status, InvoiceRole role, OptionalNullable<Integer> parentInvoiceId,
+            CollectionMethod collectionMethod, String paymentInstructions, String currency,
             InvoiceConsolidationLevel consolidationLevel, OptionalNullable<String> parentInvoiceUid,
             OptionalNullable<Integer> subscriptionGroupId,
             OptionalNullable<Integer> parentInvoiceNumber,
@@ -707,20 +708,20 @@ public class Invoice {
 
     /**
      * Getter for Role.
-     * @return Returns the String
+     * @return Returns the InvoiceRole
      */
     @JsonGetter("role")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getRole() {
+    public InvoiceRole getRole() {
         return role;
     }
 
     /**
      * Setter for Role.
-     * @param role Value for String
+     * @param role Value for InvoiceRole
      */
     @JsonSetter("role")
-    public void setRole(String role) {
+    public void setRole(InvoiceRole role) {
         this.role = role;
     }
 
@@ -761,26 +762,26 @@ public class Invoice {
 
     /**
      * Getter for CollectionMethod.
-     * The collection method of the invoice, which is either "automatic" (tried and retried on an
-     * existing payment method by Chargify) or "remittance" (payment must be remitted by the
-     * customer or keyed in by the merchant).
-     * @return Returns the String
+     * The type of payment collection to be used in the subscription. For legacy Statements
+     * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
+     * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCollectionMethod() {
+    public CollectionMethod getCollectionMethod() {
         return collectionMethod;
     }
 
     /**
      * Setter for CollectionMethod.
-     * The collection method of the invoice, which is either "automatic" (tried and retried on an
-     * existing payment method by Chargify) or "remittance" (payment must be remitted by the
-     * customer or keyed in by the merchant).
-     * @param collectionMethod Value for String
+     * The type of payment collection to be used in the subscription. For legacy Statements
+     * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
+     * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
+     * @param collectionMethod Value for CollectionMethod
      */
     @JsonSetter("collection_method")
-    public void setCollectionMethod(String collectionMethod) {
+    public void setCollectionMethod(CollectionMethod collectionMethod) {
         this.collectionMethod = collectionMethod;
     }
 
@@ -1712,9 +1713,9 @@ public class Invoice {
         private LocalDate dueDate;
         private OptionalNullable<LocalDate> paidDate;
         private InvoiceStatus status;
-        private String role;
+        private InvoiceRole role;
         private OptionalNullable<Integer> parentInvoiceId;
-        private String collectionMethod;
+        private CollectionMethod collectionMethod = CollectionMethod.AUTOMATIC;
         private String paymentInstructions;
         private String currency;
         private InvoiceConsolidationLevel consolidationLevel;
@@ -1904,10 +1905,10 @@ public class Invoice {
 
         /**
          * Setter for role.
-         * @param  role  String value for role.
+         * @param  role  InvoiceRole value for role.
          * @return Builder
          */
-        public Builder role(String role) {
+        public Builder role(InvoiceRole role) {
             this.role = role;
             return this;
         }
@@ -1933,10 +1934,10 @@ public class Invoice {
 
         /**
          * Setter for collectionMethod.
-         * @param  collectionMethod  String value for collectionMethod.
+         * @param  collectionMethod  CollectionMethod value for collectionMethod.
          * @return Builder
          */
-        public Builder collectionMethod(String collectionMethod) {
+        public Builder collectionMethod(CollectionMethod collectionMethod) {
             this.collectionMethod = collectionMethod;
             return this;
         }
