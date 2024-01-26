@@ -14,31 +14,23 @@ import java.util.TreeMap;
 
 
 /**
- * PaymentCollectionMethod to be used.
+ * CreditNoteStatus to be used.
  */
-public enum PaymentCollectionMethod {
-    AUTOMATIC,
+public enum CreditNoteStatus {
+    OPEN,
 
-    REMITTANCE,
-
-    PREPAID,
-
-    INVOICE;
+    APPLIED;
 
 
-    private static TreeMap<String, PaymentCollectionMethod> valueMap = new TreeMap<>();
+    private static TreeMap<String, CreditNoteStatus> valueMap = new TreeMap<>();
     private String value;
 
     static {
-        AUTOMATIC.value = "automatic";
-        REMITTANCE.value = "remittance";
-        PREPAID.value = "prepaid";
-        INVOICE.value = "invoice";
+        OPEN.value = "open";
+        APPLIED.value = "applied";
 
-        valueMap.put("automatic", AUTOMATIC);
-        valueMap.put("remittance", REMITTANCE);
-        valueMap.put("prepaid", PREPAID);
-        valueMap.put("invoice", INVOICE);
+        valueMap.put("open", OPEN);
+        valueMap.put("applied", APPLIED);
     }
 
     /**
@@ -48,8 +40,8 @@ public enum PaymentCollectionMethod {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static PaymentCollectionMethod constructFromString(String toConvert) throws IOException {
-        PaymentCollectionMethod enumValue = fromString(toConvert);
+    public static CreditNoteStatus constructFromString(String toConvert) throws IOException {
+        CreditNoteStatus enumValue = fromString(toConvert);
         if (enumValue == null)
         {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
@@ -62,7 +54,7 @@ public enum PaymentCollectionMethod {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static PaymentCollectionMethod fromString(String toConvert) {
+    public static CreditNoteStatus fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -84,16 +76,16 @@ public enum PaymentCollectionMethod {
     }
 
     /**
-     * Convert list of PaymentCollectionMethod values to list of string values.
-     * @param toConvert The list of PaymentCollectionMethod values to convert.
+     * Convert list of CreditNoteStatus values to list of string values.
+     * @param toConvert The list of CreditNoteStatus values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<PaymentCollectionMethod> toConvert) {
+    public static List<String> toValue(List<CreditNoteStatus> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (PaymentCollectionMethod enumValue : toConvert) {
+        for (CreditNoteStatus enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -34,12 +35,13 @@ public class IssueInvoiceEventData {
      * @param  dueAmount  String value for dueAmount.
      * @param  totalAmount  String value for totalAmount.
      */
+    @JsonCreator
     public IssueInvoiceEventData(
-            InvoiceConsolidationLevel consolidationLevel,
-            InvoiceStatus fromStatus,
-            InvoiceStatus toStatus,
-            String dueAmount,
-            String totalAmount) {
+            @JsonProperty("consolidation_level") InvoiceConsolidationLevel consolidationLevel,
+            @JsonProperty("from_status") InvoiceStatus fromStatus,
+            @JsonProperty("to_status") InvoiceStatus toStatus,
+            @JsonProperty("due_amount") String dueAmount,
+            @JsonProperty("total_amount") String totalAmount) {
         this.consolidationLevel = consolidationLevel;
         this.fromStatus = fromStatus;
         this.toStatus = toStatus;
@@ -59,7 +61,6 @@ public class IssueInvoiceEventData {
      * @return Returns the InvoiceConsolidationLevel
      */
     @JsonGetter("consolidation_level")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceConsolidationLevel getConsolidationLevel() {
         return consolidationLevel;
     }
@@ -88,7 +89,6 @@ public class IssueInvoiceEventData {
      * @return Returns the InvoiceStatus
      */
     @JsonGetter("from_status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceStatus getFromStatus() {
         return fromStatus;
     }
@@ -113,7 +113,6 @@ public class IssueInvoiceEventData {
      * @return Returns the InvoiceStatus
      */
     @JsonGetter("to_status")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceStatus getToStatus() {
         return toStatus;
     }
@@ -136,7 +135,6 @@ public class IssueInvoiceEventData {
      * @return Returns the String
      */
     @JsonGetter("due_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDueAmount() {
         return dueAmount;
     }
@@ -157,7 +155,6 @@ public class IssueInvoiceEventData {
      * @return Returns the String
      */
     @JsonGetter("total_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getTotalAmount() {
         return totalAmount;
     }
@@ -189,12 +186,8 @@ public class IssueInvoiceEventData {
      * @return a new {@link IssueInvoiceEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .consolidationLevel(getConsolidationLevel())
-                .fromStatus(getFromStatus())
-                .toStatus(getToStatus())
-                .dueAmount(getDueAmount())
-                .totalAmount(getTotalAmount());
+        Builder builder = new Builder(consolidationLevel, fromStatus, toStatus, dueAmount,
+                totalAmount);
         return builder;
     }
 
@@ -208,7 +201,28 @@ public class IssueInvoiceEventData {
         private String dueAmount;
         private String totalAmount;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
+         * @param  fromStatus  InvoiceStatus value for fromStatus.
+         * @param  toStatus  InvoiceStatus value for toStatus.
+         * @param  dueAmount  String value for dueAmount.
+         * @param  totalAmount  String value for totalAmount.
+         */
+        public Builder(InvoiceConsolidationLevel consolidationLevel, InvoiceStatus fromStatus,
+                InvoiceStatus toStatus, String dueAmount, String totalAmount) {
+            this.consolidationLevel = consolidationLevel;
+            this.fromStatus = fromStatus;
+            this.toStatus = toStatus;
+            this.dueAmount = dueAmount;
+            this.totalAmount = totalAmount;
+        }
 
         /**
          * Setter for consolidationLevel.

@@ -6,8 +6,10 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -73,13 +75,31 @@ public class ApplyCreditNoteEventData {
     }
 
     /**
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  creditNoteNumber  String value for creditNoteNumber.
+     * @param  creditNoteUid  String value for creditNoteUid.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     */
+    @JsonCreator
+    protected ApplyCreditNoteEventData(
+            @JsonProperty("uid") String uid,
+            @JsonProperty("credit_note_number") String creditNoteNumber,
+            @JsonProperty("credit_note_uid") String creditNoteUid,
+            @JsonProperty("original_amount") String originalAmount,
+            @JsonProperty("applied_amount") String appliedAmount) {
+        this(uid, creditNoteNumber, creditNoteUid, originalAmount, appliedAmount, null, null, null,
+                null, null);
+    }
+
+    /**
      * Getter for Uid.
      * Unique identifier for the credit note application. It is generated automatically by Chargify
      * and has the prefix "cdt_" followed by alphanumeric characters.
      * @return Returns the String
      */
     @JsonGetter("uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUid() {
         return uid;
     }
@@ -101,7 +121,6 @@ public class ApplyCreditNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("credit_note_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreditNoteNumber() {
         return creditNoteNumber;
     }
@@ -123,7 +142,6 @@ public class ApplyCreditNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("credit_note_uid")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCreditNoteUid() {
         return creditNoteUid;
     }
@@ -145,7 +163,6 @@ public class ApplyCreditNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("original_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOriginalAmount() {
         return originalAmount;
     }
@@ -166,7 +183,6 @@ public class ApplyCreditNoteEventData {
      * @return Returns the String
      */
     @JsonGetter("applied_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppliedAmount() {
         return appliedAmount;
     }
@@ -307,12 +323,8 @@ public class ApplyCreditNoteEventData {
      * @return a new {@link ApplyCreditNoteEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .uid(getUid())
-                .creditNoteNumber(getCreditNoteNumber())
-                .creditNoteUid(getCreditNoteUid())
-                .originalAmount(getOriginalAmount())
-                .appliedAmount(getAppliedAmount())
+        Builder builder = new Builder(uid, creditNoteNumber, creditNoteUid, originalAmount,
+                appliedAmount)
                 .transactionTime(getTransactionTime())
                 .memo(getMemo())
                 .role(getRole())
@@ -336,7 +348,28 @@ public class ApplyCreditNoteEventData {
         private Boolean consolidatedInvoice;
         private List<AppliedCreditNoteData> appliedCreditNotes;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  uid  String value for uid.
+         * @param  creditNoteNumber  String value for creditNoteNumber.
+         * @param  creditNoteUid  String value for creditNoteUid.
+         * @param  originalAmount  String value for originalAmount.
+         * @param  appliedAmount  String value for appliedAmount.
+         */
+        public Builder(String uid, String creditNoteNumber, String creditNoteUid,
+                String originalAmount, String appliedAmount) {
+            this.uid = uid;
+            this.creditNoteNumber = creditNoteNumber;
+            this.creditNoteUid = creditNoteUid;
+            this.originalAmount = originalAmount;
+            this.appliedAmount = appliedAmount;
+        }
 
         /**
          * Setter for uid.

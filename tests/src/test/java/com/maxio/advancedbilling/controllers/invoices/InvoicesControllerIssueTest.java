@@ -4,6 +4,7 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.CollectionMethod;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreateAllocationRequest;
@@ -19,6 +20,7 @@ import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
 import com.maxio.advancedbilling.models.InvoiceCustomer;
 import com.maxio.advancedbilling.models.InvoiceLineItem;
 import com.maxio.advancedbilling.models.InvoicePreviousBalance;
+import com.maxio.advancedbilling.models.InvoiceRole;
 import com.maxio.advancedbilling.models.InvoiceSeller;
 import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.IssueInvoiceRequest;
@@ -140,7 +142,7 @@ class InvoicesControllerIssueTest {
         assertThat(issuedInvoice.getDueDate()).isNotNull();
         assertThat(issuedInvoice.getPaidDate()).isNull();
         assertThat(issuedInvoice.getStatus()).isEqualTo(InvoiceStatus.OPEN);
-        assertThat(issuedInvoice.getCollectionMethod()).isEqualTo("automatic");
+        assertThat(issuedInvoice.getCollectionMethod()).isEqualTo(CollectionMethod.AUTOMATIC);
         assertThat(issuedInvoice.getPaymentInstructions()).isEqualTo("Please make checks payable to \"Acme, Inc.\"");
         assertThat(issuedInvoice.getCurrency()).isEqualTo("USD");
         assertThat(issuedInvoice.getConsolidationLevel()).isEqualTo(InvoiceConsolidationLevel.NONE);
@@ -149,7 +151,7 @@ class InvoicesControllerIssueTest {
         assertThat(issuedInvoice.getGroupPrimarySubscriptionId()).isNull();
         assertThat(issuedInvoice.getProductName()).isEqualTo(product.getName());
         assertThat(issuedInvoice.getProductFamilyName()).isEqualTo(product.getProductFamily().getName());
-        assertThat(issuedInvoice.getRole()).isEqualTo("renewal");
+        assertThat(issuedInvoice.getRole()).isEqualTo(InvoiceRole.RENEWAL);
 
         InvoiceSeller invoiceSeller = issuedInvoice.getSeller();
         assertThat(invoiceSeller)

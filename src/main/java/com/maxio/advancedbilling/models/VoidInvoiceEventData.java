@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -22,7 +23,7 @@ public class VoidInvoiceEventData {
     private String memo;
     private String appliedAmount;
     private ZonedDateTime transactionTime;
-    private Boolean isAdvanceInvoice;
+    private boolean isAdvanceInvoice;
 
     /**
      * Default constructor.
@@ -36,14 +37,15 @@ public class VoidInvoiceEventData {
      * @param  memo  String value for memo.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
-     * @param  isAdvanceInvoice  Boolean value for isAdvanceInvoice.
+     * @param  isAdvanceInvoice  boolean value for isAdvanceInvoice.
      */
+    @JsonCreator
     public VoidInvoiceEventData(
-            CreditNote creditNoteAttributes,
-            String memo,
-            String appliedAmount,
-            ZonedDateTime transactionTime,
-            Boolean isAdvanceInvoice) {
+            @JsonProperty("credit_note_attributes") CreditNote creditNoteAttributes,
+            @JsonProperty("memo") String memo,
+            @JsonProperty("applied_amount") String appliedAmount,
+            @JsonProperty("transaction_time") ZonedDateTime transactionTime,
+            @JsonProperty("is_advance_invoice") boolean isAdvanceInvoice) {
         this.creditNoteAttributes = creditNoteAttributes;
         this.memo = memo;
         this.appliedAmount = appliedAmount;
@@ -56,7 +58,6 @@ public class VoidInvoiceEventData {
      * @return Returns the CreditNote
      */
     @JsonGetter("credit_note_attributes")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CreditNote getCreditNoteAttributes() {
         return creditNoteAttributes;
     }
@@ -76,7 +77,6 @@ public class VoidInvoiceEventData {
      * @return Returns the String
      */
     @JsonGetter("memo")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMemo() {
         return memo;
     }
@@ -97,7 +97,6 @@ public class VoidInvoiceEventData {
      * @return Returns the String
      */
     @JsonGetter("applied_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppliedAmount() {
         return appliedAmount;
     }
@@ -118,7 +117,6 @@ public class VoidInvoiceEventData {
      * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getTransactionTime() {
         return transactionTime;
@@ -138,21 +136,20 @@ public class VoidInvoiceEventData {
     /**
      * Getter for IsAdvanceInvoice.
      * If true, the invoice is an advance invoice.
-     * @return Returns the Boolean
+     * @return Returns the boolean
      */
     @JsonGetter("is_advance_invoice")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getIsAdvanceInvoice() {
+    public boolean getIsAdvanceInvoice() {
         return isAdvanceInvoice;
     }
 
     /**
      * Setter for IsAdvanceInvoice.
      * If true, the invoice is an advance invoice.
-     * @param isAdvanceInvoice Value for Boolean
+     * @param isAdvanceInvoice Value for boolean
      */
     @JsonSetter("is_advance_invoice")
-    public void setIsAdvanceInvoice(Boolean isAdvanceInvoice) {
+    public void setIsAdvanceInvoice(boolean isAdvanceInvoice) {
         this.isAdvanceInvoice = isAdvanceInvoice;
     }
 
@@ -173,12 +170,8 @@ public class VoidInvoiceEventData {
      * @return a new {@link VoidInvoiceEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .creditNoteAttributes(getCreditNoteAttributes())
-                .memo(getMemo())
-                .appliedAmount(getAppliedAmount())
-                .transactionTime(getTransactionTime())
-                .isAdvanceInvoice(getIsAdvanceInvoice());
+        Builder builder = new Builder(creditNoteAttributes, memo, appliedAmount, transactionTime,
+                isAdvanceInvoice);
         return builder;
     }
 
@@ -190,9 +183,30 @@ public class VoidInvoiceEventData {
         private String memo;
         private String appliedAmount;
         private ZonedDateTime transactionTime;
-        private Boolean isAdvanceInvoice;
+        private boolean isAdvanceInvoice;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+         * @param  memo  String value for memo.
+         * @param  appliedAmount  String value for appliedAmount.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
+         * @param  isAdvanceInvoice  boolean value for isAdvanceInvoice.
+         */
+        public Builder(CreditNote creditNoteAttributes, String memo, String appliedAmount,
+                ZonedDateTime transactionTime, boolean isAdvanceInvoice) {
+            this.creditNoteAttributes = creditNoteAttributes;
+            this.memo = memo;
+            this.appliedAmount = appliedAmount;
+            this.transactionTime = transactionTime;
+            this.isAdvanceInvoice = isAdvanceInvoice;
+        }
 
         /**
          * Setter for creditNoteAttributes.
@@ -236,10 +250,10 @@ public class VoidInvoiceEventData {
 
         /**
          * Setter for isAdvanceInvoice.
-         * @param  isAdvanceInvoice  Boolean value for isAdvanceInvoice.
+         * @param  isAdvanceInvoice  boolean value for isAdvanceInvoice.
          * @return Builder
          */
-        public Builder isAdvanceInvoice(Boolean isAdvanceInvoice) {
+        public Builder isAdvanceInvoice(boolean isAdvanceInvoice) {
             this.isAdvanceInvoice = isAdvanceInvoice;
             return this;
         }

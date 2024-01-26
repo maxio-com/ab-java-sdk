@@ -23,14 +23,13 @@ public class AllocateComponents {
     private Boolean accrueCharge;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
-    private PaymentCollectionMethod1 paymentCollectionMethod;
+    private CollectionMethod paymentCollectionMethod;
     private Boolean initiateDunning;
 
     /**
      * Default constructor.
      */
     public AllocateComponents() {
-        paymentCollectionMethod = PaymentCollectionMethod1.AUTOMATIC;
     }
 
     /**
@@ -41,7 +40,7 @@ public class AllocateComponents {
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  initiateDunning  Boolean value for initiateDunning.
      */
     public AllocateComponents(
@@ -51,7 +50,7 @@ public class AllocateComponents {
             Boolean accrueCharge,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            PaymentCollectionMethod1 paymentCollectionMethod,
+            CollectionMethod paymentCollectionMethod,
             Boolean initiateDunning) {
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
@@ -71,15 +70,15 @@ public class AllocateComponents {
      * @param  accrueCharge  Boolean value for accrueCharge.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  initiateDunning  Boolean value for initiateDunning.
      */
 
     protected AllocateComponents(String prorationUpgradeScheme, String prorationDowngradeScheme,
             List<CreateAllocation> allocations, Boolean accrueCharge,
             OptionalNullable<CreditType> upgradeCharge,
-            OptionalNullable<CreditType> downgradeCredit,
-            PaymentCollectionMethod1 paymentCollectionMethod, Boolean initiateDunning) {
+            OptionalNullable<CreditType> downgradeCredit, CollectionMethod paymentCollectionMethod,
+            Boolean initiateDunning) {
         this.prorationUpgradeScheme = prorationUpgradeScheme;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.allocations = allocations;
@@ -256,11 +255,11 @@ public class AllocateComponents {
      * Getter for PaymentCollectionMethod.
      * (Optional) If not passed, the allocation(s) will use the payment collection method on the
      * subscription
-     * @return Returns the PaymentCollectionMethod1
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PaymentCollectionMethod1 getPaymentCollectionMethod() {
+    public CollectionMethod getPaymentCollectionMethod() {
         return paymentCollectionMethod;
     }
 
@@ -268,10 +267,10 @@ public class AllocateComponents {
      * Setter for PaymentCollectionMethod.
      * (Optional) If not passed, the allocation(s) will use the payment collection method on the
      * subscription
-     * @param paymentCollectionMethod Value for PaymentCollectionMethod1
+     * @param paymentCollectionMethod Value for CollectionMethod
      */
     @JsonSetter("payment_collection_method")
-    public void setPaymentCollectionMethod(PaymentCollectionMethod1 paymentCollectionMethod) {
+    public void setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
         this.paymentCollectionMethod = paymentCollectionMethod;
     }
 
@@ -340,8 +339,7 @@ public class AllocateComponents {
         private Boolean accrueCharge;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
-        private PaymentCollectionMethod1 paymentCollectionMethod =
-                PaymentCollectionMethod1.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod;
         private Boolean initiateDunning;
 
 
@@ -426,11 +424,10 @@ public class AllocateComponents {
 
         /**
          * Setter for paymentCollectionMethod.
-         * @param  paymentCollectionMethod  PaymentCollectionMethod1 value for
-         *         paymentCollectionMethod.
+         * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
          * @return Builder
          */
-        public Builder paymentCollectionMethod(PaymentCollectionMethod1 paymentCollectionMethod) {
+        public Builder paymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
             this.paymentCollectionMethod = paymentCollectionMethod;
             return this;
         }

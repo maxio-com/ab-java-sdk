@@ -21,7 +21,7 @@ public class Metafield {
     private String name;
     private MetafieldScope scope;
     private Integer dataCount;
-    private String inputType;
+    private MetafieldInput inputType;
     private OptionalNullable<MetafieldEnum> mEnum;
 
     /**
@@ -36,7 +36,7 @@ public class Metafield {
      * @param  name  String value for name.
      * @param  scope  MetafieldScope value for scope.
      * @param  dataCount  Integer value for dataCount.
-     * @param  inputType  String value for inputType.
+     * @param  inputType  MetafieldInput value for inputType.
      * @param  mEnum  MetafieldEnum value for mEnum.
      */
     public Metafield(
@@ -44,7 +44,7 @@ public class Metafield {
             String name,
             MetafieldScope scope,
             Integer dataCount,
-            String inputType,
+            MetafieldInput inputType,
             MetafieldEnum mEnum) {
         this.id = id;
         this.name = name;
@@ -60,12 +60,12 @@ public class Metafield {
      * @param  name  String value for name.
      * @param  scope  MetafieldScope value for scope.
      * @param  dataCount  Integer value for dataCount.
-     * @param  inputType  String value for inputType.
+     * @param  inputType  MetafieldInput value for inputType.
      * @param  mEnum  MetafieldEnum value for mEnum.
      */
 
     protected Metafield(Integer id, String name, MetafieldScope scope, Integer dataCount,
-            String inputType, OptionalNullable<MetafieldEnum> mEnum) {
+            MetafieldInput inputType, OptionalNullable<MetafieldEnum> mEnum) {
         this.id = id;
         this.name = name;
         this.scope = scope;
@@ -158,20 +158,28 @@ public class Metafield {
 
     /**
      * Getter for InputType.
-     * @return Returns the String
+     * Indicates how data should be added to the metafield. For example, a text type is just a
+     * string, so a given metafield of this type can have any value attached. On the other hand,
+     * dropdown and radio have a set of allowed values that can be input, and appear differently on
+     * a Public Signup Page. Defaults to 'text'
+     * @return Returns the MetafieldInput
      */
     @JsonGetter("input_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getInputType() {
+    public MetafieldInput getInputType() {
         return inputType;
     }
 
     /**
      * Setter for InputType.
-     * @param inputType Value for String
+     * Indicates how data should be added to the metafield. For example, a text type is just a
+     * string, so a given metafield of this type can have any value attached. On the other hand,
+     * dropdown and radio have a set of allowed values that can be input, and appear differently on
+     * a Public Signup Page. Defaults to 'text'
+     * @param inputType Value for MetafieldInput
      */
     @JsonSetter("input_type")
-    public void setInputType(String inputType) {
+    public void setInputType(MetafieldInput inputType) {
         this.inputType = inputType;
     }
 
@@ -244,7 +252,7 @@ public class Metafield {
         private String name;
         private MetafieldScope scope;
         private Integer dataCount;
-        private String inputType;
+        private MetafieldInput inputType;
         private OptionalNullable<MetafieldEnum> mEnum;
 
 
@@ -291,10 +299,10 @@ public class Metafield {
 
         /**
          * Setter for inputType.
-         * @param  inputType  String value for inputType.
+         * @param  inputType  MetafieldInput value for inputType.
          * @return Builder
          */
-        public Builder inputType(String inputType) {
+        public Builder inputType(MetafieldInput inputType) {
             this.inputType = inputType;
             return this;
         }

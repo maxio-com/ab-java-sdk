@@ -200,6 +200,9 @@ public final class CustomFieldsController extends BaseController {
                                 response -> ApiHelper.deserializeArray(response,
                                         Metafield[].class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setReason("Unprocessable Entity (WebDAV)",
+                                (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -278,7 +281,7 @@ public final class CustomFieldsController extends BaseController {
      */
     public List<Metadata> createMetadata(
             final ResourceType resourceType,
-            final String resourceId,
+            final int resourceId,
             final CreateMetadataRequest body) throws ApiException, IOException {
         return prepareCreateMetadataRequest(resourceType, resourceId, body).execute();
     }
@@ -288,7 +291,7 @@ public final class CustomFieldsController extends BaseController {
      */
     private ApiCall<List<Metadata>, ApiException> prepareCreateMetadataRequest(
             final ResourceType resourceType,
-            final String resourceId,
+            final int resourceId,
             final CreateMetadataRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -299,7 +302,7 @@ public final class CustomFieldsController extends BaseController {
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("resource_id").value(resourceId)
+                        .templateParam(param -> param.key("resource_id").value(resourceId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -350,7 +353,7 @@ public final class CustomFieldsController extends BaseController {
                                 .value(input.getPerPage()).isRequired(false))
                         .templateParam(param -> param.key("resource_type").value((input.getResourceType() != null) ? input.getResourceType().value() : null)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("resource_id").value(input.getResourceId())
+                        .templateParam(param -> param.key("resource_id").value(input.getResourceId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
@@ -378,7 +381,7 @@ public final class CustomFieldsController extends BaseController {
      */
     public List<Metadata> updateMetadata(
             final ResourceType resourceType,
-            final String resourceId,
+            final int resourceId,
             final UpdateMetadataRequest body) throws ApiException, IOException {
         return prepareUpdateMetadataRequest(resourceType, resourceId, body).execute();
     }
@@ -388,7 +391,7 @@ public final class CustomFieldsController extends BaseController {
      */
     private ApiCall<List<Metadata>, ApiException> prepareUpdateMetadataRequest(
             final ResourceType resourceType,
-            final String resourceId,
+            final int resourceId,
             final UpdateMetadataRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -399,7 +402,7 @@ public final class CustomFieldsController extends BaseController {
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("resource_id").value(resourceId)
+                        .templateParam(param -> param.key("resource_id").value(resourceId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -437,7 +440,7 @@ public final class CustomFieldsController extends BaseController {
      */
     public void deleteMetadata(
             final ResourceType resourceType,
-            final String resourceId,
+            final int resourceId,
             final String name,
             final List<String> names) throws ApiException, IOException {
         prepareDeleteMetadataRequest(resourceType, resourceId, name, names).execute();
@@ -448,7 +451,7 @@ public final class CustomFieldsController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteMetadataRequest(
             final ResourceType resourceType,
-            final String resourceId,
+            final int resourceId,
             final String name,
             final List<String> names) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
@@ -462,7 +465,7 @@ public final class CustomFieldsController extends BaseController {
                                 .value(names).isRequired(false))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("resource_id").value(resourceId)
+                        .templateParam(param -> param.key("resource_id").value(resourceId).isRequired(false)
                                 .shouldEncode(true))
                         .authenticationKey(BaseController.AUTHENTICATION_KEY)
                         .httpMethod(HttpMethod.DELETE))

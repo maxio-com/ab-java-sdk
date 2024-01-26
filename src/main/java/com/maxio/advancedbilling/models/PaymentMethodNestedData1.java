@@ -15,16 +15,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
- * This is a model class for PaymentMethodNestedData type.
+ * This is a model class for PaymentMethodNestedData1 type.
  */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "type",
-        defaultImpl = PaymentMethodNestedData.class,
+        defaultImpl = PaymentMethodNestedData1.class,
         visible = true)
 @JsonInclude(Include.ALWAYS)
-public class PaymentMethodNestedData {
+public class PaymentMethodNestedData1 {
     private String type;
     private String maskedAccountNumber;
     private String maskedRoutingNumber;
@@ -40,36 +40,36 @@ public class PaymentMethodNestedData {
     /**
      * Default constructor.
      */
-    public PaymentMethodNestedData() {
-        setType("Payment Method Nested Data");
+    public PaymentMethodNestedData1() {
+        setType("Payment Method Nested Data1");
     }
 
     /**
      * Initialization constructor.
-     * @param  type  String value for type.
      * @param  maskedAccountNumber  String value for maskedAccountNumber.
      * @param  maskedRoutingNumber  String value for maskedRoutingNumber.
      * @param  cardBrand  String value for cardBrand.
-     * @param  cardExpiration  String value for cardExpiration.
-     * @param  lastFour  String value for lastFour.
      * @param  maskedCardNumber  String value for maskedCardNumber.
      * @param  details  String value for details.
      * @param  kind  String value for kind.
      * @param  memo  String value for memo.
      * @param  email  String value for email.
+     * @param  type  String value for type.
+     * @param  cardExpiration  String value for cardExpiration.
+     * @param  lastFour  String value for lastFour.
      */
-    public PaymentMethodNestedData(
-            String type,
+    public PaymentMethodNestedData1(
             String maskedAccountNumber,
             String maskedRoutingNumber,
             String cardBrand,
-            String cardExpiration,
-            String lastFour,
             String maskedCardNumber,
             String details,
             String kind,
             String memo,
-            String email) {
+            String email,
+            String type,
+            String cardExpiration,
+            String lastFour) {
         this.type = type;
         this.maskedAccountNumber = maskedAccountNumber;
         this.maskedRoutingNumber = maskedRoutingNumber;
@@ -85,23 +85,22 @@ public class PaymentMethodNestedData {
 
     /**
      * Initialization constructor.
-     * @param  type  String value for type.
      * @param  maskedAccountNumber  String value for maskedAccountNumber.
      * @param  maskedRoutingNumber  String value for maskedRoutingNumber.
      * @param  cardBrand  String value for cardBrand.
-     * @param  cardExpiration  String value for cardExpiration.
-     * @param  lastFour  String value for lastFour.
      * @param  maskedCardNumber  String value for maskedCardNumber.
      * @param  details  String value for details.
      * @param  kind  String value for kind.
      * @param  memo  String value for memo.
      * @param  email  String value for email.
+     * @param  type  String value for type.
+     * @param  cardExpiration  String value for cardExpiration.
+     * @param  lastFour  String value for lastFour.
      */
 
-    protected PaymentMethodNestedData(String type, String maskedAccountNumber,
-            String maskedRoutingNumber, String cardBrand, String cardExpiration,
-            OptionalNullable<String> lastFour, String maskedCardNumber, String details, String kind,
-            String memo, String email) {
+    protected PaymentMethodNestedData1(String maskedAccountNumber, String maskedRoutingNumber,
+            String cardBrand, String maskedCardNumber, String details, String kind, String memo,
+            String email, String type, String cardExpiration, OptionalNullable<String> lastFour) {
         this.type = type;
         this.maskedAccountNumber = maskedAccountNumber;
         this.maskedRoutingNumber = maskedRoutingNumber;
@@ -139,7 +138,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("masked_account_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedAccountNumber() {
         return maskedAccountNumber;
     }
@@ -158,7 +156,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("masked_routing_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedRoutingNumber() {
         return maskedRoutingNumber;
     }
@@ -177,7 +174,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("card_brand")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCardBrand() {
         return cardBrand;
     }
@@ -250,7 +246,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("masked_card_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedCardNumber() {
         return maskedCardNumber;
     }
@@ -269,7 +264,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("details")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getDetails() {
         return details;
     }
@@ -288,7 +282,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("kind")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getKind() {
         return kind;
     }
@@ -307,7 +300,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("memo")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMemo() {
         return memo;
     }
@@ -326,7 +318,6 @@ public class PaymentMethodNestedData {
      * @return Returns the String
      */
     @JsonGetter("email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmail() {
         return email;
     }
@@ -341,65 +332,75 @@ public class PaymentMethodNestedData {
     }
 
     /**
-     * Converts this PaymentMethodNestedData into string format.
+     * Converts this PaymentMethodNestedData1 into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentMethodNestedData [" + "type=" + type + ", maskedAccountNumber="
-                + maskedAccountNumber + ", maskedRoutingNumber=" + maskedRoutingNumber
-                + ", cardBrand=" + cardBrand + ", cardExpiration=" + cardExpiration + ", lastFour="
-                + lastFour + ", maskedCardNumber=" + maskedCardNumber + ", details=" + details
-                + ", kind=" + kind + ", memo=" + memo + ", email=" + email + "]";
+        return "PaymentMethodNestedData1 [" + "maskedAccountNumber=" + maskedAccountNumber
+                + ", maskedRoutingNumber=" + maskedRoutingNumber + ", cardBrand=" + cardBrand
+                + ", maskedCardNumber=" + maskedCardNumber + ", details=" + details + ", kind="
+                + kind + ", memo=" + memo + ", email=" + email + ", type=" + type
+                + ", cardExpiration=" + cardExpiration + ", lastFour=" + lastFour + "]";
     }
 
     /**
-     * Builds a new {@link PaymentMethodNestedData.Builder} object.
+     * Builds a new {@link PaymentMethodNestedData1.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentMethodNestedData.Builder} object
+     * @return a new {@link PaymentMethodNestedData1.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
+        Builder builder = new Builder(maskedAccountNumber, maskedRoutingNumber, cardBrand,
+                maskedCardNumber, details, kind, memo, email)
                 .type(getType())
-                .maskedAccountNumber(getMaskedAccountNumber())
-                .maskedRoutingNumber(getMaskedRoutingNumber())
-                .cardBrand(getCardBrand())
-                .cardExpiration(getCardExpiration())
-                .maskedCardNumber(getMaskedCardNumber())
-                .details(getDetails())
-                .kind(getKind())
-                .memo(getMemo())
-                .email(getEmail());
+                .cardExpiration(getCardExpiration());
         builder.lastFour = internalGetLastFour();
         return builder;
     }
 
     /**
-     * Class to build instances of {@link PaymentMethodNestedData}.
+     * Class to build instances of {@link PaymentMethodNestedData1}.
      */
     public static class Builder {
-        private String type = "Payment Method Nested Data";
         private String maskedAccountNumber;
         private String maskedRoutingNumber;
         private String cardBrand;
-        private String cardExpiration;
-        private OptionalNullable<String> lastFour;
         private String maskedCardNumber;
         private String details;
         private String kind;
         private String memo;
         private String email;
-
-
+        private String type = "Payment Method Nested Data1";
+        private String cardExpiration;
+        private OptionalNullable<String> lastFour;
 
         /**
-         * Setter for type.
-         * @param  type  String value for type.
-         * @return Builder
+         * Initialization constructor.
          */
-        public Builder type(String type) {
-            this.type = type;
-            return this;
+        public Builder() {
+        }
+
+        /**
+         * Initialization constructor.
+         * @param  maskedAccountNumber  String value for maskedAccountNumber.
+         * @param  maskedRoutingNumber  String value for maskedRoutingNumber.
+         * @param  cardBrand  String value for cardBrand.
+         * @param  maskedCardNumber  String value for maskedCardNumber.
+         * @param  details  String value for details.
+         * @param  kind  String value for kind.
+         * @param  memo  String value for memo.
+         * @param  email  String value for email.
+         */
+        public Builder(String maskedAccountNumber, String maskedRoutingNumber, String cardBrand,
+                String maskedCardNumber, String details, String kind, String memo, String email) {
+            this.maskedAccountNumber = maskedAccountNumber;
+            this.maskedRoutingNumber = maskedRoutingNumber;
+            this.cardBrand = cardBrand;
+            this.maskedCardNumber = maskedCardNumber;
+            this.details = details;
+            this.kind = kind;
+            this.memo = memo;
+            this.email = email;
         }
 
         /**
@@ -429,35 +430,6 @@ public class PaymentMethodNestedData {
          */
         public Builder cardBrand(String cardBrand) {
             this.cardBrand = cardBrand;
-            return this;
-        }
-
-        /**
-         * Setter for cardExpiration.
-         * @param  cardExpiration  String value for cardExpiration.
-         * @return Builder
-         */
-        public Builder cardExpiration(String cardExpiration) {
-            this.cardExpiration = cardExpiration;
-            return this;
-        }
-
-        /**
-         * Setter for lastFour.
-         * @param  lastFour  String value for lastFour.
-         * @return Builder
-         */
-        public Builder lastFour(String lastFour) {
-            this.lastFour = OptionalNullable.of(lastFour);
-            return this;
-        }
-
-        /**
-         * UnSetter for lastFour.
-         * @return Builder
-         */
-        public Builder unsetLastFour() {
-            lastFour = null;
             return this;
         }
 
@@ -512,13 +484,51 @@ public class PaymentMethodNestedData {
         }
 
         /**
-         * Builds a new {@link PaymentMethodNestedData} object using the set fields.
-         * @return {@link PaymentMethodNestedData}
+         * Setter for type.
+         * @param  type  String value for type.
+         * @return Builder
          */
-        public PaymentMethodNestedData build() {
-            return new PaymentMethodNestedData(type, maskedAccountNumber, maskedRoutingNumber,
-                    cardBrand, cardExpiration, lastFour, maskedCardNumber, details, kind, memo,
-                    email);
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        /**
+         * Setter for cardExpiration.
+         * @param  cardExpiration  String value for cardExpiration.
+         * @return Builder
+         */
+        public Builder cardExpiration(String cardExpiration) {
+            this.cardExpiration = cardExpiration;
+            return this;
+        }
+
+        /**
+         * Setter for lastFour.
+         * @param  lastFour  String value for lastFour.
+         * @return Builder
+         */
+        public Builder lastFour(String lastFour) {
+            this.lastFour = OptionalNullable.of(lastFour);
+            return this;
+        }
+
+        /**
+         * UnSetter for lastFour.
+         * @return Builder
+         */
+        public Builder unsetLastFour() {
+            lastFour = null;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link PaymentMethodNestedData1} object using the set fields.
+         * @return {@link PaymentMethodNestedData1}
+         */
+        public PaymentMethodNestedData1 build() {
+            return new PaymentMethodNestedData1(maskedAccountNumber, maskedRoutingNumber, cardBrand,
+                    maskedCardNumber, details, kind, memo, email, type, cardExpiration, lastFour);
         }
     }
 }

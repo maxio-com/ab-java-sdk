@@ -11,8 +11,8 @@ Example schema for an `change_invoice_collection_method` event
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `FromCollectionMethod` | `String` | Optional | The previous collection method of the invoice. | String getFromCollectionMethod() | setFromCollectionMethod(String fromCollectionMethod) |
-| `ToCollectionMethod` | `String` | Optional | The new collection method of the invoice. | String getToCollectionMethod() | setToCollectionMethod(String toCollectionMethod) |
+| `FromCollectionMethod` | `String` | Required | The previous collection method of the invoice. | String getFromCollectionMethod() | setFromCollectionMethod(String fromCollectionMethod) |
+| `ToCollectionMethod` | `String` | Required | The new collection method of the invoice. | String getToCollectionMethod() | setToCollectionMethod(String toCollectionMethod) |
 
 ## Example (as JSON)
 

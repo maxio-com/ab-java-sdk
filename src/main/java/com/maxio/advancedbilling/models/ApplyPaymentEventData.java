@@ -6,8 +6,10 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -57,12 +59,29 @@ public class ApplyPaymentEventData {
     }
 
     /**
+     * Initialization constructor.
+     * @param  memo  String value for memo.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     * @param  paymentMethod  ApplyPaymentEventDataPaymentMethod value for paymentMethod.
+     */
+    @JsonCreator
+    protected ApplyPaymentEventData(
+            @JsonProperty("memo") String memo,
+            @JsonProperty("original_amount") String originalAmount,
+            @JsonProperty("applied_amount") String appliedAmount,
+            @JsonProperty("transaction_time") ZonedDateTime transactionTime,
+            @JsonProperty("payment_method") ApplyPaymentEventDataPaymentMethod paymentMethod) {
+        this(memo, originalAmount, appliedAmount, transactionTime, paymentMethod, null);
+    }
+
+    /**
      * Getter for Memo.
      * The payment memo
      * @return Returns the String
      */
     @JsonGetter("memo")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMemo() {
         return memo;
     }
@@ -86,7 +105,6 @@ public class ApplyPaymentEventData {
      * @return Returns the String
      */
     @JsonGetter("original_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getOriginalAmount() {
         return originalAmount;
     }
@@ -113,7 +131,6 @@ public class ApplyPaymentEventData {
      * @return Returns the String
      */
     @JsonGetter("applied_amount")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAppliedAmount() {
         return appliedAmount;
     }
@@ -137,7 +154,6 @@ public class ApplyPaymentEventData {
      * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getTransactionTime() {
         return transactionTime;
@@ -160,7 +176,6 @@ public class ApplyPaymentEventData {
      * @return Returns the ApplyPaymentEventDataPaymentMethod
      */
     @JsonGetter("payment_method")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public ApplyPaymentEventDataPaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
@@ -213,12 +228,8 @@ public class ApplyPaymentEventData {
      * @return a new {@link ApplyPaymentEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .memo(getMemo())
-                .originalAmount(getOriginalAmount())
-                .appliedAmount(getAppliedAmount())
-                .transactionTime(getTransactionTime())
-                .paymentMethod(getPaymentMethod())
+        Builder builder = new Builder(memo, originalAmount, appliedAmount, transactionTime,
+                paymentMethod)
                 .transactionId(getTransactionId());
         return builder;
     }
@@ -234,7 +245,28 @@ public class ApplyPaymentEventData {
         private ApplyPaymentEventDataPaymentMethod paymentMethod;
         private Integer transactionId;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  memo  String value for memo.
+         * @param  originalAmount  String value for originalAmount.
+         * @param  appliedAmount  String value for appliedAmount.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
+         * @param  paymentMethod  ApplyPaymentEventDataPaymentMethod value for paymentMethod.
+         */
+        public Builder(String memo, String originalAmount, String appliedAmount,
+                ZonedDateTime transactionTime, ApplyPaymentEventDataPaymentMethod paymentMethod) {
+            this.memo = memo;
+            this.originalAmount = originalAmount;
+            this.appliedAmount = appliedAmount;
+            this.transactionTime = transactionTime;
+            this.paymentMethod = paymentMethod;
+        }
 
         /**
          * Setter for memo.

@@ -25,7 +25,6 @@ public class UpdateMetafield {
      * Default constructor.
      */
     public UpdateMetafield() {
-        inputType = MetafieldInput.TEXT;
     }
 
     /**
@@ -115,7 +114,7 @@ public class UpdateMetafield {
      * Indicates how data should be added to the metafield. For example, a text type is just a
      * string, so a given metafield of this type can have any value attached. On the other hand,
      * dropdown and radio have a set of allowed values that can be input, and appear differently on
-     * a Public Signup Page.
+     * a Public Signup Page. Defaults to 'text'
      * @return Returns the MetafieldInput
      */
     @JsonGetter("input_type")
@@ -129,7 +128,7 @@ public class UpdateMetafield {
      * Indicates how data should be added to the metafield. For example, a text type is just a
      * string, so a given metafield of this type can have any value attached. On the other hand,
      * dropdown and radio have a set of allowed values that can be input, and appear differently on
-     * a Public Signup Page.
+     * a Public Signup Page. Defaults to 'text'
      * @param inputType Value for MetafieldInput
      */
     @JsonSetter("input_type")
@@ -190,7 +189,7 @@ public class UpdateMetafield {
         private String currentName;
         private String name;
         private MetafieldScope scope;
-        private MetafieldInput inputType = MetafieldInput.TEXT;
+        private MetafieldInput inputType;
         private List<String> mEnum;
 
 
