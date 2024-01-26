@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class ListMetadataInput {
     private ResourceType resourceType;
-    private String resourceId;
+    private int resourceId;
     private Integer page;
     private Integer perPage;
 
@@ -30,13 +30,13 @@ public class ListMetadataInput {
     /**
      * Initialization constructor.
      * @param  resourceType  ResourceType value for resourceType.
-     * @param  resourceId  String value for resourceId.
+     * @param  resourceId  int value for resourceId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      */
     public ListMetadataInput(
             ResourceType resourceType,
-            String resourceId,
+            int resourceId,
             Integer page,
             Integer perPage) {
         this.resourceType = resourceType;
@@ -68,20 +68,20 @@ public class ListMetadataInput {
     /**
      * Getter for ResourceId.
      * The Chargify id of the customer or the subscription for which the metadata applies
-     * @return Returns the String
+     * @return Returns the int
      */
     @JsonGetter("resource_id")
-    public String getResourceId() {
+    public int getResourceId() {
         return resourceId;
     }
 
     /**
      * Setter for ResourceId.
      * The Chargify id of the customer or the subscription for which the metadata applies
-     * @param resourceId Value for String
+     * @param resourceId Value for int
      */
     @JsonSetter("resource_id")
-    public void setResourceId(String resourceId) {
+    public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
     }
 
@@ -166,7 +166,7 @@ public class ListMetadataInput {
      */
     public static class Builder {
         private ResourceType resourceType;
-        private String resourceId;
+        private int resourceId;
         private Integer page = 1;
         private Integer perPage = 20;
 
@@ -179,9 +179,9 @@ public class ListMetadataInput {
         /**
          * Initialization constructor.
          * @param  resourceType  ResourceType value for resourceType.
-         * @param  resourceId  String value for resourceId.
+         * @param  resourceId  int value for resourceId.
          */
-        public Builder(ResourceType resourceType, String resourceId) {
+        public Builder(ResourceType resourceType, int resourceId) {
             this.resourceType = resourceType;
             this.resourceId = resourceId;
         }
@@ -198,10 +198,10 @@ public class ListMetadataInput {
 
         /**
          * Setter for resourceId.
-         * @param  resourceId  String value for resourceId.
+         * @param  resourceId  int value for resourceId.
          * @return Builder
          */
-        public Builder resourceId(String resourceId) {
+        public Builder resourceId(int resourceId) {
             this.resourceId = resourceId;
             return this;
         }
