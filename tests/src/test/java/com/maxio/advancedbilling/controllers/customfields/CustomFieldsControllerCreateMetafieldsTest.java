@@ -73,7 +73,7 @@ public class CustomFieldsControllerCreateMetafieldsTest {
         assertThat(metafield.getId()).isNotNull();
         assertThat(metafield.getName()).isEqualTo(metafieldName);
         assertThat(metafield.getDataCount()).isEqualTo(0);
-        assertThat(metafield.getInputType()).isEqualTo("text");
+        assertThat(metafield.getInputType()).isEqualTo(MetafieldInput.TEXT);
         assertThat(metafield.getEnum()).isNull();
         assertThat(metafield.getScope()).usingRecursiveComparison()
                 .ignoringFields("hosted").isEqualTo(scope);
@@ -116,7 +116,7 @@ public class CustomFieldsControllerCreateMetafieldsTest {
         assertThat(radioMetafield.getId()).isNotNull();
         assertThat(radioMetafield.getName()).isEqualTo(radioMetafieldName);
         assertThat(radioMetafield.getDataCount()).isEqualTo(0);
-        assertThat(radioMetafield.getInputType()).isEqualTo("radio");
+        assertThat(radioMetafield.getInputType()).isEqualTo(MetafieldInput.RADIO);
         assertThat(radioMetafield.getEnum()
                 .match(new MetafieldEnumGetter<List<String>>()))
                 .isEqualTo(radioEnum);
@@ -126,7 +126,7 @@ public class CustomFieldsControllerCreateMetafieldsTest {
         assertThat(dropdownMetafield.getId()).isNotNull();
         assertThat(dropdownMetafield.getName()).isEqualTo(dropdownMetafieldName);
         assertThat(dropdownMetafield.getDataCount()).isEqualTo(0);
-        assertThat(dropdownMetafield.getInputType()).isEqualTo("dropdown");
+        assertThat(dropdownMetafield.getInputType()).isEqualTo(MetafieldInput.DROPDOWN);
         assertThat(dropdownMetafield.getEnum()
                 .match(new MetafieldEnumGetter<List<String>>()))
                 .isEqualTo(dropdownEnum);

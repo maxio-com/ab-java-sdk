@@ -61,7 +61,7 @@ public class CustomFieldsControllerDeleteMetafieldTest {
     void shouldDeleteCustomerMetafieldAndAssociatedMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
         String metafieldName = "customer-metafield-" + randomNumeric(5);
-        String resourceId = getIdForResourceType(resourceType);
+        int resourceId = getIdForResourceType(resourceType);
         CUSTOM_FIELDS_CONTROLLER
                 .createMetafields(resourceType, new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromCreateMetafield(
@@ -97,16 +97,16 @@ public class CustomFieldsControllerDeleteMetafieldTest {
         assertThat(metadataList).isEmpty();
     }
 
-    private String getIdForResourceType(ResourceType resourceType) {
+    private int getIdForResourceType(ResourceType resourceType) {
         switch (resourceType) {
             case SUBSCRIPTIONS -> {
-                return String.valueOf(subscription.getId());
+                return subscription.getId();
             }
             case CUSTOMERS -> {
-                return String.valueOf(customer.getId());
+                return customer.getId();
             }
         }
-        return null;
+        throw new IllegalStateException();
     }
 
     @Test

@@ -63,7 +63,6 @@ public class CustomFieldsControllerUpdateMetafieldTest {
                         UpdateMetafieldsRequestMetafields.fromUpdateMetafield(
                                 new UpdateMetafield.Builder()
                                         .name(metafieldName)
-                                        .inputType(MetafieldInput.DROPDOWN)
                                         .mEnum(updatedEnum)
                                         .scope(updatedScope)
                                         .build()
@@ -125,12 +124,10 @@ public class CustomFieldsControllerUpdateMetafieldTest {
                                         new UpdateMetafield.Builder()
                                                 .currentName(metafieldName1)
                                                 .name(updatedName1)
-                                                .inputType(MetafieldInput.RADIO)
                                                 .build(),
                                         new UpdateMetafield.Builder()
                                                 .currentName(metafieldName2)
                                                 .name(updatedName2)
-                                                .inputType(MetafieldInput.DROPDOWN)
                                                 .build()
                                 )
                         ));
@@ -183,7 +180,7 @@ public class CustomFieldsControllerUpdateMetafieldTest {
         Metafield updatedMetafield = updateMetafieldsResponse.get(0);
         assertThat(updatedMetafield).usingRecursiveComparison().ignoringFields("inputType")
                 .isEqualTo(createdMetafield);
-        assertThat(updatedMetafield.getInputType()).isEqualTo("text");
+        assertThat(updatedMetafield.getInputType()).isEqualTo(MetafieldInput.TEXT);
     }
 
     @ParameterizedTest
@@ -220,7 +217,7 @@ public class CustomFieldsControllerUpdateMetafieldTest {
         Metafield updatedMetafield = updateMetafieldsResponse.get(0);
         assertThat(updatedMetafield).usingRecursiveComparison().ignoringFields("inputType", "mEnum")
                 .isEqualTo(createdMetafield);
-        assertThat(updatedMetafield.getInputType()).isEqualTo("dropdown");
+        assertThat(updatedMetafield.getInputType()).isEqualTo(MetafieldInput.DROPDOWN);
         assertThat(updatedMetafield.getEnum()
                 .match(new MetafieldEnumGetter<List<String>>()))
                 .isEqualTo(mEnum);
