@@ -201,7 +201,7 @@ try {
         "public_edit": "0"
       },
       "data_count": 0,
-      "input_type": "string",
+      "input_type": "text",
       "enum": null
     }
   ]
@@ -243,6 +243,12 @@ try {
     e.printStackTrace();
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`SingleErrorResponseException`](../../doc/models/single-error-response-exception.md) |
 
 
 # Delete Metafield
@@ -317,7 +323,7 @@ Please pay special attention to the resource you use when creating metadata.
 ```java
 List<Metadata> createMetadata(
     final ResourceType resourceType,
-    final String resourceId,
+    final int resourceId,
     final CreateMetadataRequest body)
 ```
 
@@ -326,7 +332,7 @@ List<Metadata> createMetadata(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resourceId` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `resourceId` | `int` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
 | `body` | [`CreateMetadataRequest`](../../doc/models/create-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -337,7 +343,7 @@ List<Metadata> createMetadata(
 
 ```java
 ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
-String resourceId = "resource_id4";
+int resourceId = 60;
 CreateMetadataRequest body = new CreateMetadataRequest.Builder(
     Arrays.asList(
         new CreateMetadata.Builder()
@@ -387,7 +393,7 @@ PaginatedMetadata listMetadata(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resourceId` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `resourceId` | `int` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
 
@@ -400,7 +406,7 @@ PaginatedMetadata listMetadata(
 ```java
 ListMetadataInput listMetadataInput = new ListMetadataInput.Builder(
     ResourceType.SUBSCRIPTIONS,
-    "resource_id4"
+    60
 )
 .page(2)
 .perPage(50)
@@ -424,7 +430,7 @@ This method allows you to update the existing metadata associated with a subscri
 ```java
 List<Metadata> updateMetadata(
     final ResourceType resourceType,
-    final String resourceId,
+    final int resourceId,
     final UpdateMetadataRequest body)
 ```
 
@@ -433,7 +439,7 @@ List<Metadata> updateMetadata(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resourceId` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `resourceId` | `int` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
 | `body` | [`UpdateMetadataRequest`](../../doc/models/update-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -444,7 +450,7 @@ List<Metadata> updateMetadata(
 
 ```java
 ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
-String resourceId = "resource_id4";
+int resourceId = 60;
 try {
     List<Metadata> result = customFieldsController.updateMetadata(resourceType, resourceId, null);
     System.out.println(result);
@@ -485,7 +491,7 @@ When a failed response is encountered, you will receive a `404` response and the
 ```java
 Void deleteMetadata(
     final ResourceType resourceType,
-    final String resourceId,
+    final int resourceId,
     final String name,
     final List<String> names)
 ```
@@ -495,7 +501,7 @@ Void deleteMetadata(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | the resource type to which the metafields belong |
-| `resourceId` | `String` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
+| `resourceId` | `int` | Template, Required | The Chargify id of the customer or the subscription for which the metadata applies |
 | `name` | `String` | Query, Optional | Name of field to be removed. |
 | `names` | `List<String>` | Query, Optional | Names of fields to be removed. Use in query: `names[]=field1&names[]=my-field&names[]=another-field`. |
 
@@ -507,7 +513,7 @@ Void deleteMetadata(
 
 ```java
 ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
-String resourceId = "resource_id4";
+int resourceId = 60;
 Liquid error: Value cannot be null. (Parameter 'key')try {
     customFieldsController.deleteMetadata(resourceType, resourceId, null, Liquid error: Value cannot be null. (Parameter 'key'));
 } catch (ApiException e) {
