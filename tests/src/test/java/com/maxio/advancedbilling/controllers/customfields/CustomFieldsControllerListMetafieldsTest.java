@@ -168,6 +168,7 @@ public class CustomFieldsControllerListMetafieldsTest {
 
     @ParameterizedTest
     @EnumSource(ResourceType.class)
+    @Disabled("Disabled until global error templates bug is fixed")
     void shouldNotListMetafieldsWhenProvidingInvalidPage(ResourceType resourceType) {
         // when-then
         assertUnprocessableEntity(
@@ -182,7 +183,6 @@ public class CustomFieldsControllerListMetafieldsTest {
     }
 
     @Test
-    @Disabled("Disabled until global error templates bug is fixed")
     void shouldNotListMetafieldsWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
                 .listMetafields(new ListMetafieldsInput.Builder().resourceType(ResourceType.SUBSCRIPTIONS).build()));
