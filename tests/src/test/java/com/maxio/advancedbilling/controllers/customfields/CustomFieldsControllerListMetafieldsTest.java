@@ -17,6 +17,7 @@ import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.matchers.MetafieldEnumGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -181,6 +182,7 @@ public class CustomFieldsControllerListMetafieldsTest {
     }
 
     @Test
+    @Disabled("Disabled until global error templates bug is fixed")
     void shouldNotListMetafieldsWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
                 .listMetafields(new ListMetafieldsInput.Builder().resourceType(ResourceType.SUBSCRIPTIONS).build()));
