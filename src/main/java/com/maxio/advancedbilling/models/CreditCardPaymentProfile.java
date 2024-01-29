@@ -45,7 +45,6 @@ public class CreditCardPaymentProfile {
      * Default constructor.
      */
     public CreditCardPaymentProfile() {
-        paymentType = PaymentType.CREDIT_CARD;
     }
 
     /**
@@ -923,7 +922,7 @@ public class CreditCardPaymentProfile {
         private OptionalNullable<String> billingCountry;
         private OptionalNullable<String> customerVaultToken;
         private OptionalNullable<String> billingAddress2;
-        private PaymentType paymentType = PaymentType.CREDIT_CARD;
+        private PaymentType paymentType;
         private Boolean disabled;
         private String chargifyToken;
         private OptionalNullable<Integer> siteGatewaySettingId;
