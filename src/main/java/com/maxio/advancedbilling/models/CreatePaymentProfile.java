@@ -55,7 +55,6 @@ public class CreatePaymentProfile {
      * Default constructor.
      */
     public CreatePaymentProfile() {
-        paymentType = PaymentType.CREDIT_CARD;
         bankAccountType = BankAccountType.CHECKING;
     }
 
@@ -1060,7 +1059,7 @@ public class CreatePaymentProfile {
     public static class Builder {
         private String chargifyToken;
         private Integer id;
-        private PaymentType paymentType = PaymentType.CREDIT_CARD;
+        private PaymentType paymentType;
         private String firstName;
         private String lastName;
         private String maskedCardNumber;

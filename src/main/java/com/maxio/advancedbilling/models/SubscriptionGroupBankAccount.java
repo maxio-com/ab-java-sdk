@@ -36,7 +36,6 @@ public class SubscriptionGroupBankAccount {
      */
     public SubscriptionGroupBankAccount() {
         bankAccountType = BankAccountType.CHECKING;
-        paymentType = PaymentType.CREDIT_CARD;
     }
 
     /**
@@ -479,7 +478,7 @@ public class SubscriptionGroupBankAccount {
         private String bankBranchCode;
         private BankAccountType bankAccountType = BankAccountType.CHECKING;
         private BankAccountHolderType bankAccountHolderType;
-        private PaymentType paymentType = PaymentType.CREDIT_CARD;
+        private PaymentType paymentType;
         private String billingAddress;
         private String billingCity;
         private String billingState;
