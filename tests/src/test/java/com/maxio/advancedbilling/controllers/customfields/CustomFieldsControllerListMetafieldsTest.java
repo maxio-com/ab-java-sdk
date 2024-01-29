@@ -1,5 +1,6 @@
 package com.maxio.advancedbilling.controllers.customfields;
 
+import com.maxio.advancedbilling.PlanExecutionFinishedListener;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -20,6 +21,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -33,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerListMetafieldsTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomFieldsControllerListMetafieldsTest.class);
     protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
 
@@ -176,7 +180,13 @@ public class CustomFieldsControllerListMetafieldsTest {
                         .resourceType(resourceType)
                         .page(-3)
                         .build()),
-                e -> assertThat(e.getMessage()).startsWith("HTTP Response Not OK. Status code: 422. Response:")
+                e -> {
+                    LOGGER.info("ERROR IN META LIST, status code: {}, MESSAGE: {}, BODY: {}",
+                            e.getResponseCode(),
+                            e.getMessage(),
+                            e.getHttpContext().getResponse().getBody());
+                    assertThat(e.getMessage()).startsWith("HTTP Response Not OK. Status code: 422. Response:");
+                }
         );
     }
 
