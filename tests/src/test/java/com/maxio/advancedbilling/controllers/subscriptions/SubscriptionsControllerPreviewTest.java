@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SubscriptionsControllerPreviewTest {
@@ -191,12 +192,12 @@ class SubscriptionsControllerPreviewTest {
                                         .memo("%s (%s - %s)".formatted(
                                                 product.getName(),
                                                 formatZonedDateTime(now.plusMonths(1)),
-                                                formatZonedDateTime(now.plusMonths(2)))
+                                                formatZonedDateTime(now.plusMonths(1).plusMonths(1)))
                                         )
                                         .discountAmountInCents(0L)
                                         .taxableAmountInCents(0L)
                                         .periodRangeStart(formatZonedDateTime(now.plusMonths(1)))
-                                        .periodRangeEnd(formatZonedDateTime(now.plusMonths(2)))
+                                        .periodRangeEnd(formatZonedDateTime(now.plusMonths(1).plusMonths(1)))
                                         .productId(product.getId())
                                         .productHandle(product.getHandle())
                                         .productName(product.getName())
@@ -218,4 +219,5 @@ class SubscriptionsControllerPreviewTest {
                 .toLocalDate()
                 .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
+
 }
