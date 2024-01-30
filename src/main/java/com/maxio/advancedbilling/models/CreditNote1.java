@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -21,8 +25,8 @@ public class CreditNote1 {
     private Integer subscriptionId;
     private String number;
     private Integer sequenceNumber;
-    private String issueDate;
-    private String appliedDate;
+    private LocalDate issueDate;
+    private LocalDate appliedDate;
     private CreditNoteStatus status;
     private String currency;
     private String memo;
@@ -57,8 +61,8 @@ public class CreditNote1 {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  number  String value for number.
      * @param  sequenceNumber  Integer value for sequenceNumber.
-     * @param  issueDate  String value for issueDate.
-     * @param  appliedDate  String value for appliedDate.
+     * @param  issueDate  LocalDate value for issueDate.
+     * @param  appliedDate  LocalDate value for appliedDate.
      * @param  status  CreditNoteStatus value for status.
      * @param  currency  String value for currency.
      * @param  memo  String value for memo.
@@ -86,8 +90,8 @@ public class CreditNote1 {
             Integer subscriptionId,
             String number,
             Integer sequenceNumber,
-            String issueDate,
-            String appliedDate,
+            LocalDate issueDate,
+            LocalDate appliedDate,
             CreditNoteStatus status,
             String currency,
             String memo,
@@ -275,11 +279,12 @@ public class CreditNote1 {
      * Date the credit note was issued to the customer. This is the date that the credit was made
      * available for application, and may come before it is fully applied. The format is
      * `"YYYY-MM-DD"`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("issue_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getIssueDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
@@ -288,10 +293,11 @@ public class CreditNote1 {
      * Date the credit note was issued to the customer. This is the date that the credit was made
      * available for application, and may come before it is fully applied. The format is
      * `"YYYY-MM-DD"`.
-     * @param issueDate Value for String
+     * @param issueDate Value for LocalDate
      */
     @JsonSetter("issue_date")
-    public void setIssueDate(String issueDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
@@ -301,11 +307,12 @@ public class CreditNote1 {
      * This field is the date the credit note became fully applied to invoices. If the credit note
      * has been partially applied, this field will not have a value until it has been fully applied.
      * The format is `"YYYY-MM-DD"`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("applied_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAppliedDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getAppliedDate() {
         return appliedDate;
     }
 
@@ -315,10 +322,11 @@ public class CreditNote1 {
      * This field is the date the credit note became fully applied to invoices. If the credit note
      * has been partially applied, this field will not have a value until it has been fully applied.
      * The format is `"YYYY-MM-DD"`.
-     * @param appliedDate Value for String
+     * @param appliedDate Value for LocalDate
      */
     @JsonSetter("applied_date")
-    public void setAppliedDate(String appliedDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setAppliedDate(LocalDate appliedDate) {
         this.appliedDate = appliedDate;
     }
 
@@ -793,8 +801,8 @@ public class CreditNote1 {
         private Integer subscriptionId;
         private String number;
         private Integer sequenceNumber;
-        private String issueDate;
-        private String appliedDate;
+        private LocalDate issueDate;
+        private LocalDate appliedDate;
         private CreditNoteStatus status;
         private String currency;
         private String memo;
@@ -879,20 +887,20 @@ public class CreditNote1 {
 
         /**
          * Setter for issueDate.
-         * @param  issueDate  String value for issueDate.
+         * @param  issueDate  LocalDate value for issueDate.
          * @return Builder
          */
-        public Builder issueDate(String issueDate) {
+        public Builder issueDate(LocalDate issueDate) {
             this.issueDate = issueDate;
             return this;
         }
 
         /**
          * Setter for appliedDate.
-         * @param  appliedDate  String value for appliedDate.
+         * @param  appliedDate  LocalDate value for appliedDate.
          * @return Builder
          */
-        public Builder appliedDate(String appliedDate) {
+        public Builder appliedDate(LocalDate appliedDate) {
             this.appliedDate = appliedDate;
             return this;
         }

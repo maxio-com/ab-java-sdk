@@ -15,34 +15,33 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
- * This is a model class for PaymentMethodCreditCardType type.
+ * This is a model class for PaymentMethodCreditCard type.
  */
-public class PaymentMethodCreditCardType {
+public class PaymentMethodCreditCard {
     private String cardBrand;
     private String cardExpiration;
     private OptionalNullable<String> lastFour;
     private String maskedCardNumber;
-    private String type;
+    private InvoiceEventPaymentMethod type;
 
     /**
      * Default constructor.
      */
-    public PaymentMethodCreditCardType() {
-        type = "credit_card";
+    public PaymentMethodCreditCard() {
     }
 
     /**
      * Initialization constructor.
      * @param  cardBrand  String value for cardBrand.
      * @param  maskedCardNumber  String value for maskedCardNumber.
-     * @param  type  String value for type.
+     * @param  type  InvoiceEventPaymentMethod value for type.
      * @param  cardExpiration  String value for cardExpiration.
      * @param  lastFour  String value for lastFour.
      */
-    public PaymentMethodCreditCardType(
+    public PaymentMethodCreditCard(
             String cardBrand,
             String maskedCardNumber,
-            String type,
+            InvoiceEventPaymentMethod type,
             String cardExpiration,
             String lastFour) {
         this.cardBrand = cardBrand;
@@ -56,13 +55,14 @@ public class PaymentMethodCreditCardType {
      * Initialization constructor.
      * @param  cardBrand  String value for cardBrand.
      * @param  maskedCardNumber  String value for maskedCardNumber.
-     * @param  type  String value for type.
+     * @param  type  InvoiceEventPaymentMethod value for type.
      * @param  cardExpiration  String value for cardExpiration.
      * @param  lastFour  String value for lastFour.
      */
 
-    protected PaymentMethodCreditCardType(String cardBrand, String maskedCardNumber, String type,
-            String cardExpiration, OptionalNullable<String> lastFour) {
+    protected PaymentMethodCreditCard(String cardBrand, String maskedCardNumber,
+            InvoiceEventPaymentMethod type, String cardExpiration,
+            OptionalNullable<String> lastFour) {
         this.cardBrand = cardBrand;
         this.cardExpiration = cardExpiration;
         this.lastFour = lastFour;
@@ -74,13 +74,13 @@ public class PaymentMethodCreditCardType {
      * Initialization constructor.
      * @param  cardBrand  String value for cardBrand.
      * @param  maskedCardNumber  String value for maskedCardNumber.
-     * @param  type  String value for type.
+     * @param  type  InvoiceEventPaymentMethod value for type.
      */
     @JsonCreator
-    protected PaymentMethodCreditCardType(
+    protected PaymentMethodCreditCard(
             @JsonProperty("card_brand") String cardBrand,
             @JsonProperty("masked_card_number") String maskedCardNumber,
-            @JsonProperty("type") String type) {
+            @JsonProperty("type") InvoiceEventPaymentMethod type) {
         this(cardBrand, maskedCardNumber, type, null, OptionalNullable.of(null));
         unsetLastFour();
     }
@@ -177,37 +177,37 @@ public class PaymentMethodCreditCardType {
 
     /**
      * Getter for Type.
-     * @return Returns the String
+     * @return Returns the InvoiceEventPaymentMethod
      */
     @JsonGetter("type")
-    public String getType() {
+    public InvoiceEventPaymentMethod getType() {
         return type;
     }
 
     /**
      * Setter for Type.
-     * @param type Value for String
+     * @param type Value for InvoiceEventPaymentMethod
      */
     @JsonSetter("type")
-    public void setType(String type) {
+    public void setType(InvoiceEventPaymentMethod type) {
         this.type = type;
     }
 
     /**
-     * Converts this PaymentMethodCreditCardType into string format.
+     * Converts this PaymentMethodCreditCard into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentMethodCreditCardType [" + "cardBrand=" + cardBrand + ", maskedCardNumber="
+        return "PaymentMethodCreditCard [" + "cardBrand=" + cardBrand + ", maskedCardNumber="
                 + maskedCardNumber + ", type=" + type + ", cardExpiration=" + cardExpiration
                 + ", lastFour=" + lastFour + "]";
     }
 
     /**
-     * Builds a new {@link PaymentMethodCreditCardType.Builder} object.
+     * Builds a new {@link PaymentMethodCreditCard.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentMethodCreditCardType.Builder} object
+     * @return a new {@link PaymentMethodCreditCard.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(cardBrand, maskedCardNumber, type)
@@ -217,12 +217,12 @@ public class PaymentMethodCreditCardType {
     }
 
     /**
-     * Class to build instances of {@link PaymentMethodCreditCardType}.
+     * Class to build instances of {@link PaymentMethodCreditCard}.
      */
     public static class Builder {
         private String cardBrand;
         private String maskedCardNumber;
-        private String type = "credit_card";
+        private InvoiceEventPaymentMethod type;
         private String cardExpiration;
         private OptionalNullable<String> lastFour;
 
@@ -236,9 +236,9 @@ public class PaymentMethodCreditCardType {
          * Initialization constructor.
          * @param  cardBrand  String value for cardBrand.
          * @param  maskedCardNumber  String value for maskedCardNumber.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          */
-        public Builder(String cardBrand, String maskedCardNumber, String type) {
+        public Builder(String cardBrand, String maskedCardNumber, InvoiceEventPaymentMethod type) {
             this.cardBrand = cardBrand;
             this.maskedCardNumber = maskedCardNumber;
             this.type = type;
@@ -266,10 +266,10 @@ public class PaymentMethodCreditCardType {
 
         /**
          * Setter for type.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          * @return Builder
          */
-        public Builder type(String type) {
+        public Builder type(InvoiceEventPaymentMethod type) {
             this.type = type;
             return this;
         }
@@ -304,12 +304,12 @@ public class PaymentMethodCreditCardType {
         }
 
         /**
-         * Builds a new {@link PaymentMethodCreditCardType} object using the set fields.
-         * @return {@link PaymentMethodCreditCardType}
+         * Builds a new {@link PaymentMethodCreditCard} object using the set fields.
+         * @return {@link PaymentMethodCreditCard}
          */
-        public PaymentMethodCreditCardType build() {
-            return new PaymentMethodCreditCardType(cardBrand, maskedCardNumber, type,
-                    cardExpiration, lastFour);
+        public PaymentMethodCreditCard build() {
+            return new PaymentMethodCreditCard(cardBrand, maskedCardNumber, type, cardExpiration,
+                    lastFour);
         }
     }
 }

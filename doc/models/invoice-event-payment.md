@@ -1,11 +1,11 @@
 
-# Payment Method Nested Data
+# Invoice Event Payment
 
 A nested data structure detailing the method of payment
 
 ## Structure
 
-`PaymentMethodNestedData`
+`InvoiceEventPayment`
 
 ## Fields
 
@@ -27,7 +27,7 @@ A nested data structure detailing the method of payment
 
 ```json
 {
-  "type": "Payment Method Nested Data",
+  "type": "Invoice Event Payment",
   "masked_account_number": "masked_account_number8",
   "masked_routing_number": "masked_routing_number8",
   "card_brand": "card_brand4",
