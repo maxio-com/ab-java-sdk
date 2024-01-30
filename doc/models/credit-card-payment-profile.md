@@ -26,7 +26,7 @@
 | `BillingCountry` | `String` | Optional | The current billing address country for the card. | String getBillingCountry() | setBillingCountry(String billingCountry) |
 | `CustomerVaultToken` | `String` | Optional | (only for Authorize.Net CIM storage): the customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token. | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
 | `BillingAddress2` | `String` | Optional | The current billing street address, second line, for the card. | String getBillingAddress2() | setBillingAddress2(String billingAddress2) |
-| `PaymentType` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | **Default**: `PaymentType.CREDIT_CARD` | PaymentType getPaymentType() | setPaymentType(PaymentType paymentType) |
+| `PaymentType` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | - | PaymentType getPaymentType() | setPaymentType(PaymentType paymentType) |
 | `Disabled` | `Boolean` | Optional | - | Boolean getDisabled() | setDisabled(Boolean disabled) |
 | `ChargifyToken` | `String` | Optional | Token received after sending billing information using chargify.js. This token will only be received if passed as a sole attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt) | String getChargifyToken() | setChargifyToken(String chargifyToken) |
 | `SiteGatewaySettingId` | `Integer` | Optional | - | Integer getSiteGatewaySettingId() | setSiteGatewaySettingId(Integer siteGatewaySettingId) |

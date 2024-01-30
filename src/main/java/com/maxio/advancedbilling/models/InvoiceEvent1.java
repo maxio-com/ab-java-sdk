@@ -48,6 +48,7 @@ public class InvoiceEvent1 {
     private Integer refundId;
     private Boolean prepayment;
     private Boolean isAdvanceInvoice;
+    private String reason;
 
     /**
      * Default constructor.
@@ -85,6 +86,7 @@ public class InvoiceEvent1 {
      * @param  refundId  Integer value for refundId.
      * @param  prepayment  Boolean value for prepayment.
      * @param  isAdvanceInvoice  Boolean value for isAdvanceInvoice.
+     * @param  reason  String value for reason.
      */
     public InvoiceEvent1(
             String uid,
@@ -114,7 +116,8 @@ public class InvoiceEvent1 {
             String refundAmount,
             Integer refundId,
             Boolean prepayment,
-            Boolean isAdvanceInvoice) {
+            Boolean isAdvanceInvoice,
+            String reason) {
         this.uid = uid;
         this.creditNoteNumber = creditNoteNumber;
         this.creditNoteUid = creditNoteUid;
@@ -143,6 +146,7 @@ public class InvoiceEvent1 {
         this.refundId = refundId;
         this.prepayment = prepayment;
         this.isAdvanceInvoice = isAdvanceInvoice;
+        this.reason = reason;
     }
 
     /**
@@ -760,6 +764,27 @@ public class InvoiceEvent1 {
     }
 
     /**
+     * Getter for Reason.
+     * The reason for the void.
+     * @return Returns the String
+     */
+    @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * Setter for Reason.
+     * The reason for the void.
+     * @param reason Value for String
+     */
+    @JsonSetter("reason")
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    /**
      * Converts this InvoiceEvent1 into string format.
      * @return String representation of this class
      */
@@ -778,7 +803,8 @@ public class InvoiceEvent1 {
                 + dueAmount + ", totalAmount=" + totalAmount + ", applyCredit=" + applyCredit
                 + ", creditNoteAttributes=" + creditNoteAttributes + ", paymentId=" + paymentId
                 + ", refundAmount=" + refundAmount + ", refundId=" + refundId + ", prepayment="
-                + prepayment + ", isAdvanceInvoice=" + isAdvanceInvoice + "]";
+                + prepayment + ", isAdvanceInvoice=" + isAdvanceInvoice + ", reason=" + reason
+                + "]";
     }
 
     /**
@@ -815,7 +841,8 @@ public class InvoiceEvent1 {
                 .refundAmount(getRefundAmount())
                 .refundId(getRefundId())
                 .prepayment(getPrepayment())
-                .isAdvanceInvoice(getIsAdvanceInvoice());
+                .isAdvanceInvoice(getIsAdvanceInvoice())
+                .reason(getReason());
         return builder;
     }
 
@@ -851,6 +878,7 @@ public class InvoiceEvent1 {
         private Integer refundId;
         private Boolean prepayment;
         private Boolean isAdvanceInvoice;
+        private String reason;
 
 
 
@@ -1135,6 +1163,16 @@ public class InvoiceEvent1 {
         }
 
         /**
+         * Setter for reason.
+         * @param  reason  String value for reason.
+         * @return Builder
+         */
+        public Builder reason(String reason) {
+            this.reason = reason;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceEvent1} object using the set fields.
          * @return {@link InvoiceEvent1}
          */
@@ -1144,7 +1182,7 @@ public class InvoiceEvent1 {
                     appliedCreditNotes, debitNoteNumber, debitNoteUid, paymentMethod, transactionId,
                     fromCollectionMethod, toCollectionMethod, consolidationLevel, fromStatus,
                     toStatus, dueAmount, totalAmount, applyCredit, creditNoteAttributes, paymentId,
-                    refundAmount, refundId, prepayment, isAdvanceInvoice);
+                    refundAmount, refundId, prepayment, isAdvanceInvoice, reason);
         }
     }
 }

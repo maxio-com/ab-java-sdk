@@ -13,17 +13,19 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.containers.VoidInvoiceEventDataCreditNoteAttributes;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for VoidInvoiceEventData type.
  */
 public class VoidInvoiceEventData {
-    private CreditNote creditNoteAttributes;
+    private VoidInvoiceEventDataCreditNoteAttributes creditNoteAttributes;
     private String memo;
     private String appliedAmount;
     private ZonedDateTime transactionTime;
     private boolean isAdvanceInvoice;
+    private String reason;
 
     /**
      * Default constructor.
@@ -33,41 +35,45 @@ public class VoidInvoiceEventData {
 
     /**
      * Initialization constructor.
-     * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+     * @param  creditNoteAttributes  VoidInvoiceEventDataCreditNoteAttributes value for
+     *         creditNoteAttributes.
      * @param  memo  String value for memo.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
      * @param  isAdvanceInvoice  boolean value for isAdvanceInvoice.
+     * @param  reason  String value for reason.
      */
     @JsonCreator
     public VoidInvoiceEventData(
-            @JsonProperty("credit_note_attributes") CreditNote creditNoteAttributes,
+            @JsonProperty("credit_note_attributes") VoidInvoiceEventDataCreditNoteAttributes creditNoteAttributes,
             @JsonProperty("memo") String memo,
             @JsonProperty("applied_amount") String appliedAmount,
             @JsonProperty("transaction_time") ZonedDateTime transactionTime,
-            @JsonProperty("is_advance_invoice") boolean isAdvanceInvoice) {
+            @JsonProperty("is_advance_invoice") boolean isAdvanceInvoice,
+            @JsonProperty("reason") String reason) {
         this.creditNoteAttributes = creditNoteAttributes;
         this.memo = memo;
         this.appliedAmount = appliedAmount;
         this.transactionTime = transactionTime;
         this.isAdvanceInvoice = isAdvanceInvoice;
+        this.reason = reason;
     }
 
     /**
      * Getter for CreditNoteAttributes.
-     * @return Returns the CreditNote
+     * @return Returns the VoidInvoiceEventDataCreditNoteAttributes
      */
     @JsonGetter("credit_note_attributes")
-    public CreditNote getCreditNoteAttributes() {
+    public VoidInvoiceEventDataCreditNoteAttributes getCreditNoteAttributes() {
         return creditNoteAttributes;
     }
 
     /**
      * Setter for CreditNoteAttributes.
-     * @param creditNoteAttributes Value for CreditNote
+     * @param creditNoteAttributes Value for VoidInvoiceEventDataCreditNoteAttributes
      */
     @JsonSetter("credit_note_attributes")
-    public void setCreditNoteAttributes(CreditNote creditNoteAttributes) {
+    public void setCreditNoteAttributes(VoidInvoiceEventDataCreditNoteAttributes creditNoteAttributes) {
         this.creditNoteAttributes = creditNoteAttributes;
     }
 
@@ -154,6 +160,26 @@ public class VoidInvoiceEventData {
     }
 
     /**
+     * Getter for Reason.
+     * The reason for the void.
+     * @return Returns the String
+     */
+    @JsonGetter("reason")
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * Setter for Reason.
+     * The reason for the void.
+     * @param reason Value for String
+     */
+    @JsonSetter("reason")
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    /**
      * Converts this VoidInvoiceEventData into string format.
      * @return String representation of this class
      */
@@ -161,7 +187,7 @@ public class VoidInvoiceEventData {
     public String toString() {
         return "VoidInvoiceEventData [" + "creditNoteAttributes=" + creditNoteAttributes + ", memo="
                 + memo + ", appliedAmount=" + appliedAmount + ", transactionTime=" + transactionTime
-                + ", isAdvanceInvoice=" + isAdvanceInvoice + "]";
+                + ", isAdvanceInvoice=" + isAdvanceInvoice + ", reason=" + reason + "]";
     }
 
     /**
@@ -171,7 +197,7 @@ public class VoidInvoiceEventData {
      */
     public Builder toBuilder() {
         Builder builder = new Builder(creditNoteAttributes, memo, appliedAmount, transactionTime,
-                isAdvanceInvoice);
+                isAdvanceInvoice, reason);
         return builder;
     }
 
@@ -179,11 +205,12 @@ public class VoidInvoiceEventData {
      * Class to build instances of {@link VoidInvoiceEventData}.
      */
     public static class Builder {
-        private CreditNote creditNoteAttributes;
+        private VoidInvoiceEventDataCreditNoteAttributes creditNoteAttributes;
         private String memo;
         private String appliedAmount;
         private ZonedDateTime transactionTime;
         private boolean isAdvanceInvoice;
+        private String reason;
 
         /**
          * Initialization constructor.
@@ -193,27 +220,33 @@ public class VoidInvoiceEventData {
 
         /**
          * Initialization constructor.
-         * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+         * @param  creditNoteAttributes  VoidInvoiceEventDataCreditNoteAttributes value for
+         *         creditNoteAttributes.
          * @param  memo  String value for memo.
          * @param  appliedAmount  String value for appliedAmount.
          * @param  transactionTime  ZonedDateTime value for transactionTime.
          * @param  isAdvanceInvoice  boolean value for isAdvanceInvoice.
+         * @param  reason  String value for reason.
          */
-        public Builder(CreditNote creditNoteAttributes, String memo, String appliedAmount,
-                ZonedDateTime transactionTime, boolean isAdvanceInvoice) {
+        public Builder(VoidInvoiceEventDataCreditNoteAttributes creditNoteAttributes, String memo,
+                String appliedAmount, ZonedDateTime transactionTime, boolean isAdvanceInvoice,
+                String reason) {
             this.creditNoteAttributes = creditNoteAttributes;
             this.memo = memo;
             this.appliedAmount = appliedAmount;
             this.transactionTime = transactionTime;
             this.isAdvanceInvoice = isAdvanceInvoice;
+            this.reason = reason;
         }
 
         /**
          * Setter for creditNoteAttributes.
-         * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
+         * @param  creditNoteAttributes  VoidInvoiceEventDataCreditNoteAttributes value for
+         *         creditNoteAttributes.
          * @return Builder
          */
-        public Builder creditNoteAttributes(CreditNote creditNoteAttributes) {
+        public Builder creditNoteAttributes(
+                VoidInvoiceEventDataCreditNoteAttributes creditNoteAttributes) {
             this.creditNoteAttributes = creditNoteAttributes;
             return this;
         }
@@ -259,12 +292,22 @@ public class VoidInvoiceEventData {
         }
 
         /**
+         * Setter for reason.
+         * @param  reason  String value for reason.
+         * @return Builder
+         */
+        public Builder reason(String reason) {
+            this.reason = reason;
+            return this;
+        }
+
+        /**
          * Builds a new {@link VoidInvoiceEventData} object using the set fields.
          * @return {@link VoidInvoiceEventData}
          */
         public VoidInvoiceEventData build() {
             return new VoidInvoiceEventData(creditNoteAttributes, memo, appliedAmount,
-                    transactionTime, isAdvanceInvoice);
+                    transactionTime, isAdvanceInvoice, reason);
         }
     }
 }
