@@ -39,7 +39,7 @@ public class CustomFieldsControllerDeleteMetafieldTest {
     private static Customer customer;
     private static Subscription subscription;
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
 
     @BeforeAll
@@ -53,7 +53,6 @@ public class CustomFieldsControllerDeleteMetafieldTest {
     @AfterAll
     static void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
-
     }
 
     @ParameterizedTest
@@ -98,15 +97,12 @@ public class CustomFieldsControllerDeleteMetafieldTest {
     }
 
     private int getIdForResourceType(ResourceType resourceType) {
-        switch (resourceType) {
-            case SUBSCRIPTIONS -> {
-                return subscription.getId();
-            }
-            case CUSTOMERS -> {
-                return customer.getId();
-            }
-        }
-        throw new IllegalStateException();
+        return switch (resourceType) {
+            case SUBSCRIPTIONS ->
+                subscription.getId();
+            case CUSTOMERS ->
+                customer.getId();
+        };
     }
 
     @Test
