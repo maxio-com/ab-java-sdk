@@ -6,7 +6,10 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListComponentsInput;
+import com.maxio.advancedbilling.models.ListMetafieldsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionsInput;
+import com.maxio.advancedbilling.models.Metafield;
+import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,6 +76,27 @@ public class TestTeardown {
                         .page(1)
                         .perPage(200)
                         .build());
+    }
+
+    public void deleteMetafields() throws IOException, ApiException {
+        for (ResourceType resourceType: ResourceType.values()) {
+            List<Metafield> metafields = listMetafields(resourceType);
+            while (!metafields.isEmpty()) {
+                for (Metafield metafield: metafields) {
+                    advancedBillingClient.getCustomFieldsController()
+                            .deleteMetafield(resourceType, metafield.getName());
+                    metafields = listMetafields(resourceType);
+                }
+            }
+        }
+    }
+
+    private List<Metafield> listMetafields(ResourceType resourceType) throws IOException, ApiException {
+        return advancedBillingClient.getCustomFieldsController().listMetafields(new ListMetafieldsInput.Builder()
+                        .perPage(200)
+                        .resourceType(resourceType)
+                        .build())
+                .getMetafields();
     }
 
 }

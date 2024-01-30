@@ -191,12 +191,12 @@ class SubscriptionsControllerPreviewTest {
                                         .memo("%s (%s - %s)".formatted(
                                                 product.getName(),
                                                 formatZonedDateTime(now.plusMonths(1)),
-                                                formatZonedDateTime(now.plusMonths(2)))
+                                                formatZonedDateTime(now.plusMonths(1).plusMonths(1)))
                                         )
                                         .discountAmountInCents(0L)
                                         .taxableAmountInCents(0L)
                                         .periodRangeStart(formatZonedDateTime(now.plusMonths(1)))
-                                        .periodRangeEnd(formatZonedDateTime(now.plusMonths(2)))
+                                        .periodRangeEnd(formatZonedDateTime(now.plusMonths(1).plusMonths(1)))
                                         .productId(product.getId())
                                         .productHandle(product.getHandle())
                                         .productName(product.getName())
@@ -218,4 +218,5 @@ class SubscriptionsControllerPreviewTest {
                 .toLocalDate()
                 .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
+
 }
