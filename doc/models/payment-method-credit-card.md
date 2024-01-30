@@ -1,9 +1,9 @@
 
-# Payment Method Credit Card Type
+# Payment Method Credit Card
 
 ## Structure
 
-`PaymentMethodCreditCardType`
+`PaymentMethodCreditCard`
 
 ## Fields
 
@@ -13,17 +13,17 @@
 | `CardExpiration` | `String` | Optional | - | String getCardExpiration() | setCardExpiration(String cardExpiration) |
 | `LastFour` | `String` | Optional | - | String getLastFour() | setLastFour(String lastFour) |
 | `MaskedCardNumber` | `String` | Required | - | String getMaskedCardNumber() | setMaskedCardNumber(String maskedCardNumber) |
-| `Type` | `String` | Required | **Default**: `"credit_card"` | String getType() | setType(String type) |
+| `Type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - | InvoiceEventPaymentMethod getType() | setType(InvoiceEventPaymentMethod type) |
 
 ## Example (as JSON)
 
 ```json
 {
-  "card_brand": "card_brand0",
-  "masked_card_number": "masked_card_number4",
-  "type": "credit_card",
-  "card_expiration": "card_expiration8",
-  "last_four": "last_four0"
+  "card_brand": "card_brand4",
+  "card_expiration": "card_expiration2",
+  "last_four": "last_four4",
+  "masked_card_number": "masked_card_number0",
+  "type": "external"
 }
 ```
 

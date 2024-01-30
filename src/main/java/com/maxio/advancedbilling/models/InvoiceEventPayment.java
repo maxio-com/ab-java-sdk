@@ -15,16 +15,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
- * This is a model class for PaymentMethodNestedData type.
+ * This is a model class for InvoiceEventPayment type.
  */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "type",
-        defaultImpl = PaymentMethodNestedData.class,
+        defaultImpl = InvoiceEventPayment.class,
         visible = true)
 @JsonInclude(Include.ALWAYS)
-public class PaymentMethodNestedData {
+public class InvoiceEventPayment {
     private String type;
     private String maskedAccountNumber;
     private String maskedRoutingNumber;
@@ -32,16 +32,16 @@ public class PaymentMethodNestedData {
     private String cardExpiration;
     private OptionalNullable<String> lastFour;
     private String maskedCardNumber;
-    private String details;
+    private OptionalNullable<String> details;
     private String kind;
-    private String memo;
+    private OptionalNullable<String> memo;
     private String email;
 
     /**
      * Default constructor.
      */
-    public PaymentMethodNestedData() {
-        setType("Payment Method Nested Data");
+    public InvoiceEventPayment() {
+        setType("Invoice Event Payment");
     }
 
     /**
@@ -58,7 +58,7 @@ public class PaymentMethodNestedData {
      * @param  memo  String value for memo.
      * @param  email  String value for email.
      */
-    public PaymentMethodNestedData(
+    public InvoiceEventPayment(
             String type,
             String maskedAccountNumber,
             String maskedRoutingNumber,
@@ -77,9 +77,9 @@ public class PaymentMethodNestedData {
         this.cardExpiration = cardExpiration;
         this.lastFour = OptionalNullable.of(lastFour);
         this.maskedCardNumber = maskedCardNumber;
-        this.details = details;
+        this.details = OptionalNullable.of(details);
         this.kind = kind;
-        this.memo = memo;
+        this.memo = OptionalNullable.of(memo);
         this.email = email;
     }
 
@@ -98,10 +98,11 @@ public class PaymentMethodNestedData {
      * @param  email  String value for email.
      */
 
-    protected PaymentMethodNestedData(String type, String maskedAccountNumber,
+    protected InvoiceEventPayment(String type, String maskedAccountNumber,
             String maskedRoutingNumber, String cardBrand, String cardExpiration,
-            OptionalNullable<String> lastFour, String maskedCardNumber, String details, String kind,
-            String memo, String email) {
+            OptionalNullable<String> lastFour, String maskedCardNumber,
+            OptionalNullable<String> details, String kind, OptionalNullable<String> memo,
+            String email) {
         this.type = type;
         this.maskedAccountNumber = maskedAccountNumber;
         this.maskedRoutingNumber = maskedRoutingNumber;
@@ -265,13 +266,22 @@ public class PaymentMethodNestedData {
     }
 
     /**
-     * Getter for Details.
-     * @return Returns the String
+     * Internal Getter for Details.
+     * @return Returns the Internal String
      */
     @JsonGetter("details")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetDetails() {
+        return this.details;
+    }
+
+    /**
+     * Getter for Details.
+     * @return Returns the String
+     */
     public String getDetails() {
-        return details;
+        return OptionalNullable.getFrom(details);
     }
 
     /**
@@ -280,7 +290,14 @@ public class PaymentMethodNestedData {
      */
     @JsonSetter("details")
     public void setDetails(String details) {
-        this.details = details;
+        this.details = OptionalNullable.of(details);
+    }
+
+    /**
+     * UnSetter for Details.
+     */
+    public void unsetDetails() {
+        details = null;
     }
 
     /**
@@ -303,13 +320,22 @@ public class PaymentMethodNestedData {
     }
 
     /**
-     * Getter for Memo.
-     * @return Returns the String
+     * Internal Getter for Memo.
+     * @return Returns the Internal String
      */
     @JsonGetter("memo")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMemo() {
+        return this.memo;
+    }
+
+    /**
+     * Getter for Memo.
+     * @return Returns the String
+     */
     public String getMemo() {
-        return memo;
+        return OptionalNullable.getFrom(memo);
     }
 
     /**
@@ -318,7 +344,14 @@ public class PaymentMethodNestedData {
      */
     @JsonSetter("memo")
     public void setMemo(String memo) {
-        this.memo = memo;
+        this.memo = OptionalNullable.of(memo);
+    }
+
+    /**
+     * UnSetter for Memo.
+     */
+    public void unsetMemo() {
+        memo = null;
     }
 
     /**
@@ -341,12 +374,12 @@ public class PaymentMethodNestedData {
     }
 
     /**
-     * Converts this PaymentMethodNestedData into string format.
+     * Converts this InvoiceEventPayment into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentMethodNestedData [" + "type=" + type + ", maskedAccountNumber="
+        return "InvoiceEventPayment [" + "type=" + type + ", maskedAccountNumber="
                 + maskedAccountNumber + ", maskedRoutingNumber=" + maskedRoutingNumber
                 + ", cardBrand=" + cardBrand + ", cardExpiration=" + cardExpiration + ", lastFour="
                 + lastFour + ", maskedCardNumber=" + maskedCardNumber + ", details=" + details
@@ -354,9 +387,9 @@ public class PaymentMethodNestedData {
     }
 
     /**
-     * Builds a new {@link PaymentMethodNestedData.Builder} object.
+     * Builds a new {@link InvoiceEventPayment.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentMethodNestedData.Builder} object
+     * @return a new {@link InvoiceEventPayment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -366,28 +399,28 @@ public class PaymentMethodNestedData {
                 .cardBrand(getCardBrand())
                 .cardExpiration(getCardExpiration())
                 .maskedCardNumber(getMaskedCardNumber())
-                .details(getDetails())
                 .kind(getKind())
-                .memo(getMemo())
                 .email(getEmail());
         builder.lastFour = internalGetLastFour();
+        builder.details = internalGetDetails();
+        builder.memo = internalGetMemo();
         return builder;
     }
 
     /**
-     * Class to build instances of {@link PaymentMethodNestedData}.
+     * Class to build instances of {@link InvoiceEventPayment}.
      */
     public static class Builder {
-        private String type = "Payment Method Nested Data";
+        private String type = "Invoice Event Payment";
         private String maskedAccountNumber;
         private String maskedRoutingNumber;
         private String cardBrand;
         private String cardExpiration;
         private OptionalNullable<String> lastFour;
         private String maskedCardNumber;
-        private String details;
+        private OptionalNullable<String> details;
         private String kind;
-        private String memo;
+        private OptionalNullable<String> memo;
         private String email;
 
 
@@ -477,7 +510,16 @@ public class PaymentMethodNestedData {
          * @return Builder
          */
         public Builder details(String details) {
-            this.details = details;
+            this.details = OptionalNullable.of(details);
+            return this;
+        }
+
+        /**
+         * UnSetter for details.
+         * @return Builder
+         */
+        public Builder unsetDetails() {
+            details = null;
             return this;
         }
 
@@ -497,7 +539,16 @@ public class PaymentMethodNestedData {
          * @return Builder
          */
         public Builder memo(String memo) {
-            this.memo = memo;
+            this.memo = OptionalNullable.of(memo);
+            return this;
+        }
+
+        /**
+         * UnSetter for memo.
+         * @return Builder
+         */
+        public Builder unsetMemo() {
+            memo = null;
             return this;
         }
 
@@ -512,11 +563,11 @@ public class PaymentMethodNestedData {
         }
 
         /**
-         * Builds a new {@link PaymentMethodNestedData} object using the set fields.
-         * @return {@link PaymentMethodNestedData}
+         * Builds a new {@link InvoiceEventPayment} object using the set fields.
+         * @return {@link InvoiceEventPayment}
          */
-        public PaymentMethodNestedData build() {
-            return new PaymentMethodNestedData(type, maskedAccountNumber, maskedRoutingNumber,
+        public InvoiceEventPayment build() {
+            return new InvoiceEventPayment(type, maskedAccountNumber, maskedRoutingNumber,
                     cardBrand, cardExpiration, lastFour, maskedCardNumber, details, kind, memo,
                     email);
         }

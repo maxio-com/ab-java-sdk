@@ -12,19 +12,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for PaymentMethodExternalType type.
+ * This is a model class for PaymentMethodExternal type.
  */
-public class PaymentMethodExternalType {
+public class PaymentMethodExternal {
     private String details;
     private String kind;
     private String memo;
-    private String type;
+    private InvoiceEventPaymentMethod type;
 
     /**
      * Default constructor.
      */
-    public PaymentMethodExternalType() {
-        type = "external";
+    public PaymentMethodExternal() {
     }
 
     /**
@@ -32,14 +31,14 @@ public class PaymentMethodExternalType {
      * @param  details  String value for details.
      * @param  kind  String value for kind.
      * @param  memo  String value for memo.
-     * @param  type  String value for type.
+     * @param  type  InvoiceEventPaymentMethod value for type.
      */
     @JsonCreator
-    public PaymentMethodExternalType(
+    public PaymentMethodExternal(
             @JsonProperty("details") String details,
             @JsonProperty("kind") String kind,
             @JsonProperty("memo") String memo,
-            @JsonProperty("type") String type) {
+            @JsonProperty("type") InvoiceEventPaymentMethod type) {
         this.details = details;
         this.kind = kind;
         this.memo = memo;
@@ -102,36 +101,36 @@ public class PaymentMethodExternalType {
 
     /**
      * Getter for Type.
-     * @return Returns the String
+     * @return Returns the InvoiceEventPaymentMethod
      */
     @JsonGetter("type")
-    public String getType() {
+    public InvoiceEventPaymentMethod getType() {
         return type;
     }
 
     /**
      * Setter for Type.
-     * @param type Value for String
+     * @param type Value for InvoiceEventPaymentMethod
      */
     @JsonSetter("type")
-    public void setType(String type) {
+    public void setType(InvoiceEventPaymentMethod type) {
         this.type = type;
     }
 
     /**
-     * Converts this PaymentMethodExternalType into string format.
+     * Converts this PaymentMethodExternal into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentMethodExternalType [" + "details=" + details + ", kind=" + kind + ", memo="
+        return "PaymentMethodExternal [" + "details=" + details + ", kind=" + kind + ", memo="
                 + memo + ", type=" + type + "]";
     }
 
     /**
-     * Builds a new {@link PaymentMethodExternalType.Builder} object.
+     * Builds a new {@link PaymentMethodExternal.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentMethodExternalType.Builder} object
+     * @return a new {@link PaymentMethodExternal.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(details, kind, memo, type);
@@ -139,13 +138,13 @@ public class PaymentMethodExternalType {
     }
 
     /**
-     * Class to build instances of {@link PaymentMethodExternalType}.
+     * Class to build instances of {@link PaymentMethodExternal}.
      */
     public static class Builder {
         private String details;
         private String kind;
         private String memo;
-        private String type = "external";
+        private InvoiceEventPaymentMethod type;
 
         /**
          * Initialization constructor.
@@ -158,9 +157,9 @@ public class PaymentMethodExternalType {
          * @param  details  String value for details.
          * @param  kind  String value for kind.
          * @param  memo  String value for memo.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          */
-        public Builder(String details, String kind, String memo, String type) {
+        public Builder(String details, String kind, String memo, InvoiceEventPaymentMethod type) {
             this.details = details;
             this.kind = kind;
             this.memo = memo;
@@ -199,20 +198,20 @@ public class PaymentMethodExternalType {
 
         /**
          * Setter for type.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          * @return Builder
          */
-        public Builder type(String type) {
+        public Builder type(InvoiceEventPaymentMethod type) {
             this.type = type;
             return this;
         }
 
         /**
-         * Builds a new {@link PaymentMethodExternalType} object using the set fields.
-         * @return {@link PaymentMethodExternalType}
+         * Builds a new {@link PaymentMethodExternal} object using the set fields.
+         * @return {@link PaymentMethodExternal}
          */
-        public PaymentMethodExternalType build() {
-            return new PaymentMethodExternalType(details, kind, memo, type);
+        public PaymentMethodExternal build() {
+            return new PaymentMethodExternal(details, kind, memo, type);
         }
     }
 }

@@ -1,9 +1,9 @@
 
-# Payment Method External Type
+# Payment Method External
 
 ## Structure
 
-`PaymentMethodExternalType`
+`PaymentMethodExternal`
 
 ## Fields
 
@@ -12,16 +12,16 @@
 | `Details` | `String` | Required | - | String getDetails() | setDetails(String details) |
 | `Kind` | `String` | Required | - | String getKind() | setKind(String kind) |
 | `Memo` | `String` | Required | - | String getMemo() | setMemo(String memo) |
-| `Type` | `String` | Required | **Default**: `"external"` | String getType() | setType(String type) |
+| `Type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - | InvoiceEventPaymentMethod getType() | setType(InvoiceEventPaymentMethod type) |
 
 ## Example (as JSON)
 
 ```json
 {
-  "details": "details0",
-  "kind": "kind8",
-  "memo": "memo4",
-  "type": "external"
+  "details": "details4",
+  "kind": "kind2",
+  "memo": "memo8",
+  "type": "bank_account"
 }
 ```
 
