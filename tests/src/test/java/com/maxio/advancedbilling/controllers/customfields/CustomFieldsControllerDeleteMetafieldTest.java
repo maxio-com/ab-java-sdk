@@ -35,7 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerDeleteMetafieldTest {
 
-    private static final TestSetup TEST_SETUP = new TestSetup();
     private static Customer customer;
     private static Subscription subscription;
 
@@ -44,6 +43,7 @@ public class CustomFieldsControllerDeleteMetafieldTest {
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
+        TestSetup TEST_SETUP = new TestSetup();
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         Product product = TEST_SETUP.createProduct(productFamily);
         customer = TEST_SETUP.createCustomer();
