@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  */
 public class CustomerChange {
     private CustomerPayerChange payer;
-    private CustomerShippingAddressChange shippingAddress;
-    private CustomerBillingAddressChange billingAddress;
+    private AddressChange shippingAddress;
+    private AddressChange billingAddress;
     private CustomerCustomFieldsChange customFields;
 
     /**
@@ -28,14 +28,14 @@ public class CustomerChange {
     /**
      * Initialization constructor.
      * @param  payer  CustomerPayerChange value for payer.
-     * @param  shippingAddress  CustomerShippingAddressChange value for shippingAddress.
-     * @param  billingAddress  CustomerBillingAddressChange value for billingAddress.
+     * @param  shippingAddress  AddressChange value for shippingAddress.
+     * @param  billingAddress  AddressChange value for billingAddress.
      * @param  customFields  CustomerCustomFieldsChange value for customFields.
      */
     public CustomerChange(
             CustomerPayerChange payer,
-            CustomerShippingAddressChange shippingAddress,
-            CustomerBillingAddressChange billingAddress,
+            AddressChange shippingAddress,
+            AddressChange billingAddress,
             CustomerCustomFieldsChange customFields) {
         this.payer = payer;
         this.shippingAddress = shippingAddress;
@@ -64,39 +64,39 @@ public class CustomerChange {
 
     /**
      * Getter for ShippingAddress.
-     * @return Returns the CustomerShippingAddressChange
+     * @return Returns the AddressChange
      */
     @JsonGetter("shipping_address")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomerShippingAddressChange getShippingAddress() {
+    public AddressChange getShippingAddress() {
         return shippingAddress;
     }
 
     /**
      * Setter for ShippingAddress.
-     * @param shippingAddress Value for CustomerShippingAddressChange
+     * @param shippingAddress Value for AddressChange
      */
     @JsonSetter("shipping_address")
-    public void setShippingAddress(CustomerShippingAddressChange shippingAddress) {
+    public void setShippingAddress(AddressChange shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
     /**
      * Getter for BillingAddress.
-     * @return Returns the CustomerBillingAddressChange
+     * @return Returns the AddressChange
      */
     @JsonGetter("billing_address")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CustomerBillingAddressChange getBillingAddress() {
+    public AddressChange getBillingAddress() {
         return billingAddress;
     }
 
     /**
      * Setter for BillingAddress.
-     * @param billingAddress Value for CustomerBillingAddressChange
+     * @param billingAddress Value for AddressChange
      */
     @JsonSetter("billing_address")
-    public void setBillingAddress(CustomerBillingAddressChange billingAddress) {
+    public void setBillingAddress(AddressChange billingAddress) {
         this.billingAddress = billingAddress;
     }
 
@@ -148,8 +148,8 @@ public class CustomerChange {
      */
     public static class Builder {
         private CustomerPayerChange payer;
-        private CustomerShippingAddressChange shippingAddress;
-        private CustomerBillingAddressChange billingAddress;
+        private AddressChange shippingAddress;
+        private AddressChange billingAddress;
         private CustomerCustomFieldsChange customFields;
 
 
@@ -166,20 +166,20 @@ public class CustomerChange {
 
         /**
          * Setter for shippingAddress.
-         * @param  shippingAddress  CustomerShippingAddressChange value for shippingAddress.
+         * @param  shippingAddress  AddressChange value for shippingAddress.
          * @return Builder
          */
-        public Builder shippingAddress(CustomerShippingAddressChange shippingAddress) {
+        public Builder shippingAddress(AddressChange shippingAddress) {
             this.shippingAddress = shippingAddress;
             return this;
         }
 
         /**
          * Setter for billingAddress.
-         * @param  billingAddress  CustomerBillingAddressChange value for billingAddress.
+         * @param  billingAddress  AddressChange value for billingAddress.
          * @return Builder
          */
-        public Builder billingAddress(CustomerBillingAddressChange billingAddress) {
+        public Builder billingAddress(AddressChange billingAddress) {
             this.billingAddress = billingAddress;
             return this;
         }

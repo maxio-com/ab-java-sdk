@@ -16,12 +16,12 @@ import io.apimatic.core.types.OptionalNullable;
  * This is a model class for Metadata type.
  */
 public class Metadata {
-    private Integer id;
-    private String value;
-    private Integer resourceId;
+    private OptionalNullable<Integer> id;
+    private OptionalNullable<String> value;
+    private OptionalNullable<Integer> resourceId;
     private String name;
     private OptionalNullable<String> deletedAt;
-    private Integer metafieldId;
+    private OptionalNullable<Integer> metafieldId;
 
     /**
      * Default constructor.
@@ -45,12 +45,12 @@ public class Metadata {
             String name,
             String deletedAt,
             Integer metafieldId) {
-        this.id = id;
-        this.value = value;
-        this.resourceId = resourceId;
+        this.id = OptionalNullable.of(id);
+        this.value = OptionalNullable.of(value);
+        this.resourceId = OptionalNullable.of(resourceId);
         this.name = name;
         this.deletedAt = OptionalNullable.of(deletedAt);
-        this.metafieldId = metafieldId;
+        this.metafieldId = OptionalNullable.of(metafieldId);
     }
 
     /**
@@ -63,8 +63,9 @@ public class Metadata {
      * @param  metafieldId  Integer value for metafieldId.
      */
 
-    protected Metadata(Integer id, String value, Integer resourceId, String name,
-            OptionalNullable<String> deletedAt, Integer metafieldId) {
+    protected Metadata(OptionalNullable<Integer> id, OptionalNullable<String> value,
+            OptionalNullable<Integer> resourceId, String name, OptionalNullable<String> deletedAt,
+            OptionalNullable<Integer> metafieldId) {
         this.id = id;
         this.value = value;
         this.resourceId = resourceId;
@@ -74,13 +75,22 @@ public class Metadata {
     }
 
     /**
-     * Getter for Id.
-     * @return Returns the Integer
+     * Internal Getter for Id.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for Id.
+     * @return Returns the Integer
+     */
     public Integer getId() {
-        return id;
+        return OptionalNullable.getFrom(id);
     }
 
     /**
@@ -89,17 +99,33 @@ public class Metadata {
      */
     @JsonSetter("id")
     public void setId(Integer id) {
-        this.id = id;
+        this.id = OptionalNullable.of(id);
+    }
+
+    /**
+     * UnSetter for Id.
+     */
+    public void unsetId() {
+        id = null;
+    }
+
+    /**
+     * Internal Getter for Value.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("value")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetValue() {
+        return this.value;
     }
 
     /**
      * Getter for Value.
      * @return Returns the String
      */
-    @JsonGetter("value")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getValue() {
-        return value;
+        return OptionalNullable.getFrom(value);
     }
 
     /**
@@ -108,17 +134,33 @@ public class Metadata {
      */
     @JsonSetter("value")
     public void setValue(String value) {
-        this.value = value;
+        this.value = OptionalNullable.of(value);
+    }
+
+    /**
+     * UnSetter for Value.
+     */
+    public void unsetValue() {
+        value = null;
+    }
+
+    /**
+     * Internal Getter for ResourceId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("resource_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetResourceId() {
+        return this.resourceId;
     }
 
     /**
      * Getter for ResourceId.
      * @return Returns the Integer
      */
-    @JsonGetter("resource_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getResourceId() {
-        return resourceId;
+        return OptionalNullable.getFrom(resourceId);
     }
 
     /**
@@ -127,7 +169,14 @@ public class Metadata {
      */
     @JsonSetter("resource_id")
     public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
+        this.resourceId = OptionalNullable.of(resourceId);
+    }
+
+    /**
+     * UnSetter for ResourceId.
+     */
+    public void unsetResourceId() {
+        resourceId = null;
     }
 
     /**
@@ -185,13 +234,22 @@ public class Metadata {
     }
 
     /**
-     * Getter for MetafieldId.
-     * @return Returns the Integer
+     * Internal Getter for MetafieldId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("metafield_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetMetafieldId() {
+        return this.metafieldId;
+    }
+
+    /**
+     * Getter for MetafieldId.
+     * @return Returns the Integer
+     */
     public Integer getMetafieldId() {
-        return metafieldId;
+        return OptionalNullable.getFrom(metafieldId);
     }
 
     /**
@@ -200,7 +258,14 @@ public class Metadata {
      */
     @JsonSetter("metafield_id")
     public void setMetafieldId(Integer metafieldId) {
-        this.metafieldId = metafieldId;
+        this.metafieldId = OptionalNullable.of(metafieldId);
+    }
+
+    /**
+     * UnSetter for MetafieldId.
+     */
+    public void unsetMetafieldId() {
+        metafieldId = null;
     }
 
     /**
@@ -221,12 +286,12 @@ public class Metadata {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .id(getId())
-                .value(getValue())
-                .resourceId(getResourceId())
-                .name(getName())
-                .metafieldId(getMetafieldId());
+                .name(getName());
+        builder.id = internalGetId();
+        builder.value = internalGetValue();
+        builder.resourceId = internalGetResourceId();
         builder.deletedAt = internalGetDeletedAt();
+        builder.metafieldId = internalGetMetafieldId();
         return builder;
     }
 
@@ -234,12 +299,12 @@ public class Metadata {
      * Class to build instances of {@link Metadata}.
      */
     public static class Builder {
-        private Integer id;
-        private String value;
-        private Integer resourceId;
+        private OptionalNullable<Integer> id;
+        private OptionalNullable<String> value;
+        private OptionalNullable<Integer> resourceId;
         private String name;
         private OptionalNullable<String> deletedAt;
-        private Integer metafieldId;
+        private OptionalNullable<Integer> metafieldId;
 
 
 
@@ -249,7 +314,16 @@ public class Metadata {
          * @return Builder
          */
         public Builder id(Integer id) {
-            this.id = id;
+            this.id = OptionalNullable.of(id);
+            return this;
+        }
+
+        /**
+         * UnSetter for id.
+         * @return Builder
+         */
+        public Builder unsetId() {
+            id = null;
             return this;
         }
 
@@ -259,7 +333,16 @@ public class Metadata {
          * @return Builder
          */
         public Builder value(String value) {
-            this.value = value;
+            this.value = OptionalNullable.of(value);
+            return this;
+        }
+
+        /**
+         * UnSetter for value.
+         * @return Builder
+         */
+        public Builder unsetValue() {
+            value = null;
             return this;
         }
 
@@ -269,7 +352,16 @@ public class Metadata {
          * @return Builder
          */
         public Builder resourceId(Integer resourceId) {
-            this.resourceId = resourceId;
+            this.resourceId = OptionalNullable.of(resourceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for resourceId.
+         * @return Builder
+         */
+        public Builder unsetResourceId() {
+            resourceId = null;
             return this;
         }
 
@@ -308,7 +400,16 @@ public class Metadata {
          * @return Builder
          */
         public Builder metafieldId(Integer metafieldId) {
-            this.metafieldId = metafieldId;
+            this.metafieldId = OptionalNullable.of(metafieldId);
+            return this;
+        }
+
+        /**
+         * UnSetter for metafieldId.
+         * @return Builder
+         */
+        public Builder unsetMetafieldId() {
+            metafieldId = null;
             return this;
         }
 
