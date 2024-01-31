@@ -605,7 +605,7 @@ public class SubscriptionsControllerCreateTest {
                 .isAfter(ZonedDateTime.now().minusMinutes(5));
         assertThat(subscription.getCurrentPeriodEndsAt())
                 .as("getCurrentPeriodEndsAt")
-                .isAfter(ZonedDateTime.now().plusDays(30).minusMinutes(5));
+                .isAfter(ZonedDateTime.now().plusMonths(1).minusMinutes(5));
         assertThat(subscription.getTrialStartedAt())
                 .as("getTrialStartedAt")
                 .isNull();
