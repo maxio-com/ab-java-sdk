@@ -254,8 +254,8 @@ public class TestSetup {
     }
 
     public Customer createCustomer() throws IOException, ApiException {
-        String firstName = "John" + randomNumeric(2);
-        String lastName = "Doe" + randomNumeric(2);
+        String firstName = "John" + randomNumeric(5);
+        String lastName = "Doe" + randomNumeric(5);
         String reference = firstName + "_" + lastName;
         reference = reference.toLowerCase();
 

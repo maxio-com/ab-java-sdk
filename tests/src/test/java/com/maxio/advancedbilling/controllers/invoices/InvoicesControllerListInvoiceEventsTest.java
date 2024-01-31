@@ -101,7 +101,7 @@ public class InvoicesControllerListInvoiceEventsTest {
                         .build()
         );
 
-        expectedInvoice = INVOICES_CONTROLLER.recordPaymentForInvoice(InvoicesControllerListInvoiceEventsTest.expectedInvoice.getUid(), new CreateInvoicePaymentRequest.Builder()
+        expectedInvoice = INVOICES_CONTROLLER.recordPaymentForInvoice(expectedInvoice.getUid(), new CreateInvoicePaymentRequest.Builder()
                 .type(InvoicePaymentType.EXTERNAL)
                 .payment(new CreateInvoicePayment.Builder()
                         .method(InvoicePaymentMethodType.MONEY_ORDER)
@@ -111,7 +111,7 @@ public class InvoicesControllerListInvoiceEventsTest {
 
         InvoicePayment payment = expectedInvoice.getPayments().get(0);
 
-        expectedInvoice = INVOICES_CONTROLLER.refundInvoice(InvoicesControllerListInvoiceEventsTest.expectedInvoice.getUid(), new RefundInvoiceRequest(
+        expectedInvoice = INVOICES_CONTROLLER.refundInvoice(expectedInvoice.getUid(), new RefundInvoiceRequest(
                 RefundInvoiceRequestRefund.fromRefundInvoice(new RefundInvoice.Builder()
                         .applyCredit(true)
                         .paymentId(payment.getTransactionId())
