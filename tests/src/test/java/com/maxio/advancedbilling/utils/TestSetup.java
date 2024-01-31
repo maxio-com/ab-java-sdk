@@ -35,6 +35,7 @@ import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.MeteredComponent;
 import com.maxio.advancedbilling.models.OnOffComponent;
 import com.maxio.advancedbilling.models.OveragePricing;
+import com.maxio.advancedbilling.models.PayerAttributes;
 import com.maxio.advancedbilling.models.PaymentProfileAttributes;
 import com.maxio.advancedbilling.models.PrepaidUsageComponent;
 import com.maxio.advancedbilling.models.Price;
@@ -44,6 +45,12 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.QuantityBasedComponent;
 import com.maxio.advancedbilling.models.Subscription;
+import com.maxio.advancedbilling.models.SubscriptionGroupCreditCard;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignup;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupComponent;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupItem;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupRequest;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
@@ -57,6 +64,11 @@ import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardExpirationMonth;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardExpirationYear;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardFullNumber;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentComponentId;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentUnitBalance;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.IOException;
@@ -222,7 +234,8 @@ public class TestSetup {
     }
 
     public ComponentPricePoint createComponentPricePoint(int componentId) throws IOException, ApiException {
-        return createComponentPricePoint(componentId, b -> {});
+        return createComponentPricePoint(componentId, b -> {
+        });
     }
 
     public ComponentPricePoint createComponentPricePoint(int componentId, Consumer<CreateComponentPricePoint.Builder> customizer)
@@ -403,5 +416,43 @@ public class TestSetup {
         return advancedBillingClient.getInvoicesController()
                 .createInvoice(subscriptionId, new CreateInvoiceRequest(builder.build()))
                 .getInvoice();
+    }
+
+    public SubscriptionGroupSignupResponse signupWithSubscriptionGroup(Product product, Component component) throws ApiException, IOException {
+        return advancedBillingClient.getSubscriptionGroupsController()
+                .signupWithSubscriptionGroup(new SubscriptionGroupSignupRequest(
+                        new SubscriptionGroupSignup.Builder()
+                                .creditCardAttributes(new SubscriptionGroupCreditCard.Builder()
+                                        .fullNumber(SubscriptionGroupCreditCardFullNumber.fromString("4111 1111 1111 1111"))
+                                        .expirationMonth(SubscriptionGroupCreditCardExpirationMonth.fromNumber(11))
+                                        .expirationYear(SubscriptionGroupCreditCardExpirationYear.fromNumber(LocalDate.now().getYear() + 1))
+                                        .build())
+                                .payerAttributes(new PayerAttributes.Builder()
+                                        .firstName("Payer")
+                                        .lastName("Doe")
+                                        .city("NY")
+                                        .address("Broadway")
+                                        .email("payerdoe@chargify.com")
+                                        .build())
+                                .subscriptions(List.of(new SubscriptionGroupSignupItem.Builder()
+                                                .productId(product.getId())
+                                                .components(List.of(new SubscriptionGroupSignupComponent.Builder()
+                                                        .componentId(SubscriptionGroupSignupComponentComponentId.fromNumber(component.getId()))
+                                                        .unitBalance(SubscriptionGroupSignupComponentUnitBalance.fromNumber(10))
+                                                        .build())
+                                                )
+                                                .primary(true)
+                                                .build(),
+                                        new SubscriptionGroupSignupItem.Builder()
+                                                .productId(product.getId())
+                                                .components(List.of(new SubscriptionGroupSignupComponent.Builder()
+                                                        .componentId(SubscriptionGroupSignupComponentComponentId.fromNumber(component.getId()))
+                                                        .unitBalance(SubscriptionGroupSignupComponentUnitBalance.fromNumber(20))
+                                                        .build())
+                                                )
+                                                .build()
+                                ))
+                                .build()
+                ));
     }
 }

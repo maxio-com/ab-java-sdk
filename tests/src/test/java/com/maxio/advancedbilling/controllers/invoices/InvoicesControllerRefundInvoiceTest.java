@@ -15,28 +15,17 @@ import com.maxio.advancedbilling.models.InvoicePayment;
 import com.maxio.advancedbilling.models.InvoiceRefund;
 import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.ListInvoicesInput;
-import com.maxio.advancedbilling.models.PayerAttributes;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.RefundConsolidatedInvoice;
 import com.maxio.advancedbilling.models.RefundInvoice;
 import com.maxio.advancedbilling.models.RefundInvoiceRequest;
 import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.models.SubscriptionGroupCreditCard;
 import com.maxio.advancedbilling.models.SubscriptionGroupItem;
-import com.maxio.advancedbilling.models.SubscriptionGroupSignup;
-import com.maxio.advancedbilling.models.SubscriptionGroupSignupComponent;
-import com.maxio.advancedbilling.models.SubscriptionGroupSignupItem;
-import com.maxio.advancedbilling.models.SubscriptionGroupSignupRequest;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
 import com.maxio.advancedbilling.models.containers.RefundConsolidatedInvoiceSegmentUids;
 import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardExpirationMonth;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardExpirationYear;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardFullNumber;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentComponentId;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentUnitBalance;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import org.junit.jupiter.api.AfterAll;
@@ -46,7 +35,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -84,24 +72,11 @@ public class InvoicesControllerRefundInvoiceTest {
     }
 
     @AfterEach
-    @SuppressWarnings("DataFlowIssue")
     void cleanupSubscriptionGroup() throws IOException, ApiException {
         if (groupSignup != null) {
-            SubscriptionGroupsController subscriptionGroupsController = CLIENT.getSubscriptionGroupsController();
-            List<SubscriptionGroupItem> subscriptions = groupSignup.getSubscriptions();
-            SubscriptionGroupItem primarySubscription = null;
-
-            for (SubscriptionGroupItem subscription : subscriptions) {
-                if (groupSignup.getPrimarySubscriptionId().equals(subscription.getId())) {
-                    primarySubscription = subscription;
-                    continue;
-                }
-                subscriptionGroupsController.removeSubscriptionFromGroup(subscription.getId());
-            }
-            subscriptionGroupsController.removeSubscriptionFromGroup(primarySubscription.getId());
-            new TestTeardown().deleteCustomer(new Customer.Builder().id(groupSignup.getCustomerId()).build());
+            new TestTeardown().deleteSubscriptionGroup(groupSignup);
+            groupSignup = null;
         }
-        groupSignup = null;
     }
 
     @AfterAll
@@ -148,7 +123,7 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldRefundConsolidatedInvoice() throws IOException, ApiException {
         // given
-        groupSignup = signupWithSubscriptionGroup();
+        groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
 
         Invoice paidInvoice = getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
@@ -193,7 +168,7 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldRefundSpecificSegmentOfConsolidatedInvoice() throws IOException, ApiException {
         // given
-        groupSignup = signupWithSubscriptionGroup();
+        groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
 
         Invoice paidInvoice = getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
@@ -348,41 +323,4 @@ public class InvoicesControllerRefundInvoiceTest {
         assertThat(credit2.getMemo()).isEqualTo(Special_refund_memo);
     }
 
-    private SubscriptionGroupSignupResponse signupWithSubscriptionGroup() throws ApiException, IOException {
-        return CLIENT.getSubscriptionGroupsController()
-                .signupWithSubscriptionGroup(new SubscriptionGroupSignupRequest(
-                        new SubscriptionGroupSignup.Builder()
-                                .creditCardAttributes(new SubscriptionGroupCreditCard.Builder()
-                                        .fullNumber(SubscriptionGroupCreditCardFullNumber.fromString("4111 1111 1111 1111"))
-                                        .expirationMonth(SubscriptionGroupCreditCardExpirationMonth.fromNumber(11))
-                                        .expirationYear(SubscriptionGroupCreditCardExpirationYear.fromNumber(LocalDate.now().getYear() + 1))
-                                        .build())
-                                .payerAttributes(new PayerAttributes.Builder()
-                                        .firstName("Payer")
-                                        .lastName("Doe")
-                                        .city("NY")
-                                        .address("Broadway")
-                                        .email("payerdoe@chargify.com")
-                                        .build())
-                                .subscriptions(List.of(new SubscriptionGroupSignupItem.Builder()
-                                                .productId(product.getId())
-                                                .components(List.of(new SubscriptionGroupSignupComponent.Builder()
-                                                        .componentId(SubscriptionGroupSignupComponentComponentId.fromNumber(meteredComponent.getId()))
-                                                        .unitBalance(SubscriptionGroupSignupComponentUnitBalance.fromNumber(10))
-                                                        .build())
-                                                )
-                                                .primary(true)
-                                                .build(),
-                                        new SubscriptionGroupSignupItem.Builder()
-                                                .productId(product.getId())
-                                                .components(List.of(new SubscriptionGroupSignupComponent.Builder()
-                                                        .componentId(SubscriptionGroupSignupComponentComponentId.fromNumber(meteredComponent.getId()))
-                                                        .unitBalance(SubscriptionGroupSignupComponentUnitBalance.fromNumber(20))
-                                                        .build())
-                                                )
-                                                .build()
-                                ))
-                                .build()
-                ));
-    }
 }
