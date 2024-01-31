@@ -12,31 +12,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for PaymentMethodBankAccountType type.
+ * This is a model class for PaymentMethodBankAccount type.
  */
-public class PaymentMethodBankAccountType {
+public class PaymentMethodBankAccount {
     private String maskedAccountNumber;
     private String maskedRoutingNumber;
-    private String type;
+    private InvoiceEventPaymentMethod type;
 
     /**
      * Default constructor.
      */
-    public PaymentMethodBankAccountType() {
-        type = "bank_account";
+    public PaymentMethodBankAccount() {
     }
 
     /**
      * Initialization constructor.
      * @param  maskedAccountNumber  String value for maskedAccountNumber.
      * @param  maskedRoutingNumber  String value for maskedRoutingNumber.
-     * @param  type  String value for type.
+     * @param  type  InvoiceEventPaymentMethod value for type.
      */
     @JsonCreator
-    public PaymentMethodBankAccountType(
+    public PaymentMethodBankAccount(
             @JsonProperty("masked_account_number") String maskedAccountNumber,
             @JsonProperty("masked_routing_number") String maskedRoutingNumber,
-            @JsonProperty("type") String type) {
+            @JsonProperty("type") InvoiceEventPaymentMethod type) {
         this.maskedAccountNumber = maskedAccountNumber;
         this.maskedRoutingNumber = maskedRoutingNumber;
         this.type = type;
@@ -80,36 +79,36 @@ public class PaymentMethodBankAccountType {
 
     /**
      * Getter for Type.
-     * @return Returns the String
+     * @return Returns the InvoiceEventPaymentMethod
      */
     @JsonGetter("type")
-    public String getType() {
+    public InvoiceEventPaymentMethod getType() {
         return type;
     }
 
     /**
      * Setter for Type.
-     * @param type Value for String
+     * @param type Value for InvoiceEventPaymentMethod
      */
     @JsonSetter("type")
-    public void setType(String type) {
+    public void setType(InvoiceEventPaymentMethod type) {
         this.type = type;
     }
 
     /**
-     * Converts this PaymentMethodBankAccountType into string format.
+     * Converts this PaymentMethodBankAccount into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentMethodBankAccountType [" + "maskedAccountNumber=" + maskedAccountNumber
+        return "PaymentMethodBankAccount [" + "maskedAccountNumber=" + maskedAccountNumber
                 + ", maskedRoutingNumber=" + maskedRoutingNumber + ", type=" + type + "]";
     }
 
     /**
-     * Builds a new {@link PaymentMethodBankAccountType.Builder} object.
+     * Builds a new {@link PaymentMethodBankAccount.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentMethodBankAccountType.Builder} object
+     * @return a new {@link PaymentMethodBankAccount.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(maskedAccountNumber, maskedRoutingNumber, type);
@@ -117,12 +116,12 @@ public class PaymentMethodBankAccountType {
     }
 
     /**
-     * Class to build instances of {@link PaymentMethodBankAccountType}.
+     * Class to build instances of {@link PaymentMethodBankAccount}.
      */
     public static class Builder {
         private String maskedAccountNumber;
         private String maskedRoutingNumber;
-        private String type = "bank_account";
+        private InvoiceEventPaymentMethod type;
 
         /**
          * Initialization constructor.
@@ -134,9 +133,10 @@ public class PaymentMethodBankAccountType {
          * Initialization constructor.
          * @param  maskedAccountNumber  String value for maskedAccountNumber.
          * @param  maskedRoutingNumber  String value for maskedRoutingNumber.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          */
-        public Builder(String maskedAccountNumber, String maskedRoutingNumber, String type) {
+        public Builder(String maskedAccountNumber, String maskedRoutingNumber,
+                InvoiceEventPaymentMethod type) {
             this.maskedAccountNumber = maskedAccountNumber;
             this.maskedRoutingNumber = maskedRoutingNumber;
             this.type = type;
@@ -164,20 +164,20 @@ public class PaymentMethodBankAccountType {
 
         /**
          * Setter for type.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          * @return Builder
          */
-        public Builder type(String type) {
+        public Builder type(InvoiceEventPaymentMethod type) {
             this.type = type;
             return this;
         }
 
         /**
-         * Builds a new {@link PaymentMethodBankAccountType} object using the set fields.
-         * @return {@link PaymentMethodBankAccountType}
+         * Builds a new {@link PaymentMethodBankAccount} object using the set fields.
+         * @return {@link PaymentMethodBankAccount}
          */
-        public PaymentMethodBankAccountType build() {
-            return new PaymentMethodBankAccountType(maskedAccountNumber, maskedRoutingNumber, type);
+        public PaymentMethodBankAccount build() {
+            return new PaymentMethodBankAccount(maskedAccountNumber, maskedRoutingNumber, type);
         }
     }
 }

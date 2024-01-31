@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerCreateMetafieldsTest {
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
 
     @AfterAll

@@ -12,28 +12,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for PaymentMethodPaypalType type.
+ * This is a model class for PaymentMethodPaypal type.
  */
-public class PaymentMethodPaypalType {
+public class PaymentMethodPaypal {
     private String email;
-    private String type;
+    private InvoiceEventPaymentMethod type;
 
     /**
      * Default constructor.
      */
-    public PaymentMethodPaypalType() {
-        type = "paypal_account";
+    public PaymentMethodPaypal() {
     }
 
     /**
      * Initialization constructor.
      * @param  email  String value for email.
-     * @param  type  String value for type.
+     * @param  type  InvoiceEventPaymentMethod value for type.
      */
     @JsonCreator
-    public PaymentMethodPaypalType(
+    public PaymentMethodPaypal(
             @JsonProperty("email") String email,
-            @JsonProperty("type") String type) {
+            @JsonProperty("type") InvoiceEventPaymentMethod type) {
         this.email = email;
         this.type = type;
     }
@@ -58,35 +57,35 @@ public class PaymentMethodPaypalType {
 
     /**
      * Getter for Type.
-     * @return Returns the String
+     * @return Returns the InvoiceEventPaymentMethod
      */
     @JsonGetter("type")
-    public String getType() {
+    public InvoiceEventPaymentMethod getType() {
         return type;
     }
 
     /**
      * Setter for Type.
-     * @param type Value for String
+     * @param type Value for InvoiceEventPaymentMethod
      */
     @JsonSetter("type")
-    public void setType(String type) {
+    public void setType(InvoiceEventPaymentMethod type) {
         this.type = type;
     }
 
     /**
-     * Converts this PaymentMethodPaypalType into string format.
+     * Converts this PaymentMethodPaypal into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentMethodPaypalType [" + "email=" + email + ", type=" + type + "]";
+        return "PaymentMethodPaypal [" + "email=" + email + ", type=" + type + "]";
     }
 
     /**
-     * Builds a new {@link PaymentMethodPaypalType.Builder} object.
+     * Builds a new {@link PaymentMethodPaypal.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentMethodPaypalType.Builder} object
+     * @return a new {@link PaymentMethodPaypal.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(email, type);
@@ -94,11 +93,11 @@ public class PaymentMethodPaypalType {
     }
 
     /**
-     * Class to build instances of {@link PaymentMethodPaypalType}.
+     * Class to build instances of {@link PaymentMethodPaypal}.
      */
     public static class Builder {
         private String email;
-        private String type = "paypal_account";
+        private InvoiceEventPaymentMethod type;
 
         /**
          * Initialization constructor.
@@ -109,9 +108,9 @@ public class PaymentMethodPaypalType {
         /**
          * Initialization constructor.
          * @param  email  String value for email.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          */
-        public Builder(String email, String type) {
+        public Builder(String email, InvoiceEventPaymentMethod type) {
             this.email = email;
             this.type = type;
         }
@@ -128,20 +127,20 @@ public class PaymentMethodPaypalType {
 
         /**
          * Setter for type.
-         * @param  type  String value for type.
+         * @param  type  InvoiceEventPaymentMethod value for type.
          * @return Builder
          */
-        public Builder type(String type) {
+        public Builder type(InvoiceEventPaymentMethod type) {
             this.type = type;
             return this;
         }
 
         /**
-         * Builds a new {@link PaymentMethodPaypalType} object using the set fields.
-         * @return {@link PaymentMethodPaypalType}
+         * Builds a new {@link PaymentMethodPaypal} object using the set fields.
+         * @return {@link PaymentMethodPaypal}
          */
-        public PaymentMethodPaypalType build() {
-            return new PaymentMethodPaypalType(email, type);
+        public PaymentMethodPaypal build() {
+            return new PaymentMethodPaypal(email, type);
         }
     }
 }

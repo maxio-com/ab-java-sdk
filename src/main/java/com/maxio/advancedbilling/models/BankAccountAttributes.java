@@ -32,7 +32,6 @@ public class BankAccountAttributes {
      */
     public BankAccountAttributes() {
         bankAccountType = BankAccountType.CHECKING;
-        paymentType = PaymentType.CREDIT_CARD;
     }
 
     /**
@@ -386,7 +385,7 @@ public class BankAccountAttributes {
         private String bankBranchCode;
         private String bankIban;
         private BankAccountHolderType bankAccountHolderType;
-        private PaymentType paymentType = PaymentType.CREDIT_CARD;
+        private PaymentType paymentType;
         private BankAccountVault currentVault;
         private String vaultToken;
         private String customerVaultToken;

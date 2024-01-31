@@ -15,16 +15,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
- * This is a model class for PaymentMethodNestedData1 type.
+ * This is a model class for InvoiceEventPayment1 type.
  */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "type",
-        defaultImpl = PaymentMethodNestedData1.class,
+        defaultImpl = InvoiceEventPayment1.class,
         visible = true)
 @JsonInclude(Include.ALWAYS)
-public class PaymentMethodNestedData1 {
+public class InvoiceEventPayment1 {
     private String type;
     private String maskedAccountNumber;
     private String maskedRoutingNumber;
@@ -40,8 +40,8 @@ public class PaymentMethodNestedData1 {
     /**
      * Default constructor.
      */
-    public PaymentMethodNestedData1() {
-        setType("Payment Method Nested Data1");
+    public InvoiceEventPayment1() {
+        setType("Invoice Event Payment1");
     }
 
     /**
@@ -58,7 +58,7 @@ public class PaymentMethodNestedData1 {
      * @param  cardExpiration  String value for cardExpiration.
      * @param  lastFour  String value for lastFour.
      */
-    public PaymentMethodNestedData1(
+    public InvoiceEventPayment1(
             String maskedAccountNumber,
             String maskedRoutingNumber,
             String cardBrand,
@@ -98,7 +98,7 @@ public class PaymentMethodNestedData1 {
      * @param  lastFour  String value for lastFour.
      */
 
-    protected PaymentMethodNestedData1(String maskedAccountNumber, String maskedRoutingNumber,
+    protected InvoiceEventPayment1(String maskedAccountNumber, String maskedRoutingNumber,
             String cardBrand, String maskedCardNumber, String details, String kind, String memo,
             String email, String type, String cardExpiration, OptionalNullable<String> lastFour) {
         this.type = type;
@@ -332,12 +332,12 @@ public class PaymentMethodNestedData1 {
     }
 
     /**
-     * Converts this PaymentMethodNestedData1 into string format.
+     * Converts this InvoiceEventPayment1 into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentMethodNestedData1 [" + "maskedAccountNumber=" + maskedAccountNumber
+        return "InvoiceEventPayment1 [" + "maskedAccountNumber=" + maskedAccountNumber
                 + ", maskedRoutingNumber=" + maskedRoutingNumber + ", cardBrand=" + cardBrand
                 + ", maskedCardNumber=" + maskedCardNumber + ", details=" + details + ", kind="
                 + kind + ", memo=" + memo + ", email=" + email + ", type=" + type
@@ -345,9 +345,9 @@ public class PaymentMethodNestedData1 {
     }
 
     /**
-     * Builds a new {@link PaymentMethodNestedData1.Builder} object.
+     * Builds a new {@link InvoiceEventPayment1.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentMethodNestedData1.Builder} object
+     * @return a new {@link InvoiceEventPayment1.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(maskedAccountNumber, maskedRoutingNumber, cardBrand,
@@ -359,7 +359,7 @@ public class PaymentMethodNestedData1 {
     }
 
     /**
-     * Class to build instances of {@link PaymentMethodNestedData1}.
+     * Class to build instances of {@link InvoiceEventPayment1}.
      */
     public static class Builder {
         private String maskedAccountNumber;
@@ -370,7 +370,7 @@ public class PaymentMethodNestedData1 {
         private String kind;
         private String memo;
         private String email;
-        private String type = "Payment Method Nested Data1";
+        private String type = "Invoice Event Payment1";
         private String cardExpiration;
         private OptionalNullable<String> lastFour;
 
@@ -523,11 +523,11 @@ public class PaymentMethodNestedData1 {
         }
 
         /**
-         * Builds a new {@link PaymentMethodNestedData1} object using the set fields.
-         * @return {@link PaymentMethodNestedData1}
+         * Builds a new {@link InvoiceEventPayment1} object using the set fields.
+         * @return {@link InvoiceEventPayment1}
          */
-        public PaymentMethodNestedData1 build() {
-            return new PaymentMethodNestedData1(maskedAccountNumber, maskedRoutingNumber, cardBrand,
+        public InvoiceEventPayment1 build() {
+            return new InvoiceEventPayment1(maskedAccountNumber, maskedRoutingNumber, cardBrand,
                     maskedCardNumber, details, kind, memo, email, type, cardExpiration, lastFour);
         }
     }

@@ -46,7 +46,6 @@ public class BankAccountPaymentProfile {
      */
     public BankAccountPaymentProfile() {
         bankAccountType = BankAccountType.CHECKING;
-        paymentType = PaymentType.CREDIT_CARD;
         verified = false;
     }
 
@@ -888,7 +887,7 @@ public class BankAccountPaymentProfile {
         private String bankName;
         private BankAccountType bankAccountType = BankAccountType.CHECKING;
         private BankAccountHolderType bankAccountHolderType;
-        private PaymentType paymentType = PaymentType.CREDIT_CARD;
+        private PaymentType paymentType;
         private Boolean verified = false;
         private Integer siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;

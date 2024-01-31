@@ -1,9 +1,9 @@
 
-# Payment Method Bank Account Type
+# Payment Method Bank Account
 
 ## Structure
 
-`PaymentMethodBankAccountType`
+`PaymentMethodBankAccount`
 
 ## Fields
 
@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `MaskedAccountNumber` | `String` | Required | - | String getMaskedAccountNumber() | setMaskedAccountNumber(String maskedAccountNumber) |
 | `MaskedRoutingNumber` | `String` | Required | - | String getMaskedRoutingNumber() | setMaskedRoutingNumber(String maskedRoutingNumber) |
-| `Type` | `String` | Required | **Default**: `"bank_account"` | String getType() | setType(String type) |
+| `Type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - | InvoiceEventPaymentMethod getType() | setType(InvoiceEventPaymentMethod type) |
 
 ## Example (as JSON)
 
@@ -19,7 +19,7 @@
 {
   "masked_account_number": "masked_account_number2",
   "masked_routing_number": "masked_routing_number2",
-  "type": "bank_account"
+  "type": "paypal_account"
 }
 ```
 

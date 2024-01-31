@@ -3,7 +3,6 @@ package com.maxio.advancedbilling.controllers.customfields;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.models.CreateMetafield;
 import com.maxio.advancedbilling.models.CreateMetafieldsRequest;
 import com.maxio.advancedbilling.models.Metafield;
@@ -15,6 +14,7 @@ import com.maxio.advancedbilling.models.UpdateMetafieldsRequest;
 import com.maxio.advancedbilling.models.containers.CreateMetafieldsRequestMetafields;
 import com.maxio.advancedbilling.models.containers.UpdateMetafieldsRequestMetafields;
 import com.maxio.advancedbilling.utils.TestTeardown;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import com.maxio.advancedbilling.utils.matchers.MetafieldEnumGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -26,13 +26,12 @@ import java.util.List;
 
 import static com.maxio.advancedbilling.controllers.customfields.CustomFieldsTestsUtils.randomScope;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerUpdateMetafieldTest {
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
 
     @AfterAll
@@ -71,7 +70,6 @@ public class CustomFieldsControllerUpdateMetafieldTest {
         Metafield createdMetafield = CUSTOM_FIELDS_CONTROLLER.createMetafields(resourceType, createMetafieldsRequest)
                 .get(0);
         List<Metafield> updateMetafieldsResponse = CUSTOM_FIELDS_CONTROLLER.updateMetafield(resourceType, updateMetafieldsRequest);
-
 
         // then
         assertThat(updateMetafieldsResponse.size()).isEqualTo(1);
@@ -240,17 +238,17 @@ public class CustomFieldsControllerUpdateMetafieldTest {
                 )));
 
         // when - then
-        assertUnprocessableEntity(
-                SingleErrorResponseException.class,
+        CommonAssertions.assertThatSingleErrorResponse(
                 () -> CUSTOM_FIELDS_CONTROLLER.updateMetafield(ResourceType.SUBSCRIPTIONS, new UpdateMetafieldsRequest(
                         UpdateMetafieldsRequestMetafields.fromUpdateMetafield(
                                 new UpdateMetafield.Builder()
                                         .currentName("abc1")
                                         .name("abc2")
                                         .build()
-                        ))),
-                e -> assertThat(e.getError()).isEqualTo("Metafield name must be unique for the Attachment Type")
-        );
+                        )))
+                )
+                .isUnprocessableEntity()
+                .hasErrorMessage("Metafield name must be unique for the Attachment Type");
     }
 
     @Test

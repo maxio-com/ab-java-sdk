@@ -32,7 +32,7 @@ public class CustomFieldsTestsUtils {
     }
 
     private static IncludeOption randomIncludeOption() {
-        return IncludeOption.values()[random.nextInt(2)];
+        return IncludeOption.values()[random.nextInt(IncludeOption.values().length)];
     }
 
 }

@@ -1,11 +1,11 @@
 
-# Invoice Event 1
+# Invoice Event Data
 
 The event data is the data that, when combined with the command, results in the output invoice found in the invoice field.
 
 ## Structure
 
-`InvoiceEvent1`
+`InvoiceEventData`
 
 ## Fields
 
@@ -23,8 +23,12 @@ The event data is the data that, when combined with the command, results in the 
 | `AppliedCreditNotes` | [`List<AppliedCreditNoteData>`](../../doc/models/applied-credit-note-data.md) | Optional | List of credit notes applied to children invoices (if consolidated invoice) | List<AppliedCreditNoteData> getAppliedCreditNotes() | setAppliedCreditNotes(List<AppliedCreditNoteData> appliedCreditNotes) |
 | `DebitNoteNumber` | `String` | Optional | A unique, identifying string that appears on the debit note and in places it is referenced. | String getDebitNoteNumber() | setDebitNoteNumber(String debitNoteNumber) |
 | `DebitNoteUid` | `String` | Optional | Unique identifier for the debit note. It is generated automatically by Chargify and has the prefix "db_" followed by alphanumeric characters. | String getDebitNoteUid() | setDebitNoteUid(String debitNoteUid) |
-| `PaymentMethod` | [`InvoiceEvent1PaymentMethod`](../../doc/models/containers/invoice-event-1-payment-method.md) | Optional | This is a container for any-of cases. | InvoiceEvent1PaymentMethod getPaymentMethod() | setPaymentMethod(InvoiceEvent1PaymentMethod paymentMethod) |
+| `PaymentMethod` | [`InvoiceEventDataPaymentMethod`](../../doc/models/containers/invoice-event-data-payment-method.md) | Optional | This is a container for any-of cases. | InvoiceEventDataPaymentMethod getPaymentMethod() | setPaymentMethod(InvoiceEventDataPaymentMethod paymentMethod) |
 | `TransactionId` | `Integer` | Optional | The Chargify id of the original payment | Integer getTransactionId() | setTransactionId(Integer transactionId) |
+| `ParentInvoiceNumber` | `Integer` | Optional | - | Integer getParentInvoiceNumber() | setParentInvoiceNumber(Integer parentInvoiceNumber) |
+| `RemainingPrepaymentAmount` | `String` | Optional | - | String getRemainingPrepaymentAmount() | setRemainingPrepaymentAmount(String remainingPrepaymentAmount) |
+| `Prepayment` | `Boolean` | Optional | The flag that shows whether the original payment was a prepayment or not | Boolean getPrepayment() | setPrepayment(Boolean prepayment) |
+| `External` | `Boolean` | Optional | - | Boolean getExternal() | setExternal(Boolean external) |
 | `FromCollectionMethod` | `String` | Optional | The previous collection method of the invoice. | String getFromCollectionMethod() | setFromCollectionMethod(String fromCollectionMethod) |
 | `ToCollectionMethod` | `String` | Optional | The new collection method of the invoice. | String getToCollectionMethod() | setToCollectionMethod(String toCollectionMethod) |
 | `ConsolidationLevel` | [`InvoiceConsolidationLevel`](../../doc/models/invoice-consolidation-level.md) | Optional | Consolidation level of the invoice, which is applicable to invoice consolidation.  It will hold one of the following values:<br><br>* "none": A normal invoice with no consolidation.<br>* "child": An invoice segment which has been combined into a consolidated invoice.<br>* "parent": A consolidated invoice, whose contents are composed of invoice segments.<br><br>"Parent" invoices do not have lines of their own, but they have subtotals and totals which aggregate the member invoice segments.<br><br>See also the [invoice consolidation documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835). | InvoiceConsolidationLevel getConsolidationLevel() | setConsolidationLevel(InvoiceConsolidationLevel consolidationLevel) |
@@ -37,16 +41,16 @@ The event data is the data that, when combined with the command, results in the 
 | `PaymentId` | `Integer` | Optional | The ID of the payment transaction to be refunded. | Integer getPaymentId() | setPaymentId(Integer paymentId) |
 | `RefundAmount` | `String` | Optional | The amount of the refund. | String getRefundAmount() | setRefundAmount(String refundAmount) |
 | `RefundId` | `Integer` | Optional | The ID of the refund transaction. | Integer getRefundId() | setRefundId(Integer refundId) |
-| `Prepayment` | `Boolean` | Optional | The flag that shows whether the original payment was a prepayment or not | Boolean getPrepayment() | setPrepayment(Boolean prepayment) |
 | `IsAdvanceInvoice` | `Boolean` | Optional | If true, the invoice is an advance invoice. | Boolean getIsAdvanceInvoice() | setIsAdvanceInvoice(Boolean isAdvanceInvoice) |
+| `Reason` | `String` | Optional | The reason for the void. | String getReason() | setReason(String reason) |
 
 ## Example (as JSON)
 
 ```json
 {
   "uid": "uid0",
-  "credit_note_number": "credit_note_number4",
-  "credit_note_uid": "credit_note_uid4",
+  "credit_note_number": "credit_note_number6",
+  "credit_note_uid": "credit_note_uid6",
   "original_amount": "original_amount4",
   "applied_amount": "applied_amount8"
 }

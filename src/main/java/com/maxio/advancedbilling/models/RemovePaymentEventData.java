@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.RemovePaymentEventDataPaymentMethod;
+import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
 import java.time.ZonedDateTime;
 
 /**
@@ -26,7 +26,7 @@ public class RemovePaymentEventData {
     private String originalAmount;
     private String appliedAmount;
     private ZonedDateTime transactionTime;
-    private RemovePaymentEventDataPaymentMethod paymentMethod;
+    private InvoiceEventPayment paymentMethod;
     private boolean prepayment;
 
     /**
@@ -41,7 +41,7 @@ public class RemovePaymentEventData {
      * @param  memo  String value for memo.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
-     * @param  paymentMethod  RemovePaymentEventDataPaymentMethod value for paymentMethod.
+     * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
      * @param  prepayment  boolean value for prepayment.
      * @param  originalAmount  String value for originalAmount.
      */
@@ -50,7 +50,7 @@ public class RemovePaymentEventData {
             String memo,
             String appliedAmount,
             ZonedDateTime transactionTime,
-            RemovePaymentEventDataPaymentMethod paymentMethod,
+            InvoiceEventPayment paymentMethod,
             boolean prepayment,
             String originalAmount) {
         this.transactionId = transactionId;
@@ -68,7 +68,7 @@ public class RemovePaymentEventData {
      * @param  memo  String value for memo.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
-     * @param  paymentMethod  RemovePaymentEventDataPaymentMethod value for paymentMethod.
+     * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
      * @param  prepayment  boolean value for prepayment.
      */
     @JsonCreator
@@ -77,7 +77,7 @@ public class RemovePaymentEventData {
             @JsonProperty("memo") String memo,
             @JsonProperty("applied_amount") String appliedAmount,
             @JsonProperty("transaction_time") ZonedDateTime transactionTime,
-            @JsonProperty("payment_method") RemovePaymentEventDataPaymentMethod paymentMethod,
+            @JsonProperty("payment_method") InvoiceEventPayment paymentMethod,
             @JsonProperty("prepayment") boolean prepayment) {
         this(transactionId, memo, appliedAmount, transactionTime, paymentMethod, prepayment,
                 null);
@@ -189,20 +189,20 @@ public class RemovePaymentEventData {
     /**
      * Getter for PaymentMethod.
      * A nested data structure detailing the method of payment
-     * @return Returns the RemovePaymentEventDataPaymentMethod
+     * @return Returns the InvoiceEventPayment
      */
     @JsonGetter("payment_method")
-    public RemovePaymentEventDataPaymentMethod getPaymentMethod() {
+    public InvoiceEventPayment getPaymentMethod() {
         return paymentMethod;
     }
 
     /**
      * Setter for PaymentMethod.
      * A nested data structure detailing the method of payment
-     * @param paymentMethod Value for RemovePaymentEventDataPaymentMethod
+     * @param paymentMethod Value for InvoiceEventPayment
      */
     @JsonSetter("payment_method")
-    public void setPaymentMethod(RemovePaymentEventDataPaymentMethod paymentMethod) {
+    public void setPaymentMethod(InvoiceEventPayment paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -258,7 +258,7 @@ public class RemovePaymentEventData {
         private String memo;
         private String appliedAmount;
         private ZonedDateTime transactionTime;
-        private RemovePaymentEventDataPaymentMethod paymentMethod;
+        private InvoiceEventPayment paymentMethod;
         private boolean prepayment;
         private String originalAmount;
 
@@ -274,11 +274,11 @@ public class RemovePaymentEventData {
          * @param  memo  String value for memo.
          * @param  appliedAmount  String value for appliedAmount.
          * @param  transactionTime  ZonedDateTime value for transactionTime.
-         * @param  paymentMethod  RemovePaymentEventDataPaymentMethod value for paymentMethod.
+         * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
          * @param  prepayment  boolean value for prepayment.
          */
         public Builder(int transactionId, String memo, String appliedAmount,
-                ZonedDateTime transactionTime, RemovePaymentEventDataPaymentMethod paymentMethod,
+                ZonedDateTime transactionTime, InvoiceEventPayment paymentMethod,
                 boolean prepayment) {
             this.transactionId = transactionId;
             this.memo = memo;
@@ -330,10 +330,10 @@ public class RemovePaymentEventData {
 
         /**
          * Setter for paymentMethod.
-         * @param  paymentMethod  RemovePaymentEventDataPaymentMethod value for paymentMethod.
+         * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
          * @return Builder
          */
-        public Builder paymentMethod(RemovePaymentEventDataPaymentMethod paymentMethod) {
+        public Builder paymentMethod(InvoiceEventPayment paymentMethod) {
             this.paymentMethod = paymentMethod;
             return this;
         }

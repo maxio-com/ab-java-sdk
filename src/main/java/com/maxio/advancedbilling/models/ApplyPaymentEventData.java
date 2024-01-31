@@ -14,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.ApplyPaymentEventDataPaymentMethod;
+import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
+import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
@@ -25,8 +26,12 @@ public class ApplyPaymentEventData {
     private String originalAmount;
     private String appliedAmount;
     private ZonedDateTime transactionTime;
-    private ApplyPaymentEventDataPaymentMethod paymentMethod;
+    private InvoiceEventPayment paymentMethod;
     private Integer transactionId;
+    private OptionalNullable<Integer> parentInvoiceNumber;
+    private OptionalNullable<String> remainingPrepaymentAmount;
+    private Boolean prepayment;
+    private Boolean external;
 
     /**
      * Default constructor.
@@ -40,22 +45,34 @@ public class ApplyPaymentEventData {
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
-     * @param  paymentMethod  ApplyPaymentEventDataPaymentMethod value for paymentMethod.
+     * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
      * @param  transactionId  Integer value for transactionId.
+     * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
+     * @param  remainingPrepaymentAmount  String value for remainingPrepaymentAmount.
+     * @param  prepayment  Boolean value for prepayment.
+     * @param  external  Boolean value for external.
      */
     public ApplyPaymentEventData(
             String memo,
             String originalAmount,
             String appliedAmount,
             ZonedDateTime transactionTime,
-            ApplyPaymentEventDataPaymentMethod paymentMethod,
-            Integer transactionId) {
+            InvoiceEventPayment paymentMethod,
+            Integer transactionId,
+            Integer parentInvoiceNumber,
+            String remainingPrepaymentAmount,
+            Boolean prepayment,
+            Boolean external) {
         this.memo = memo;
         this.originalAmount = originalAmount;
         this.appliedAmount = appliedAmount;
         this.transactionTime = transactionTime;
         this.paymentMethod = paymentMethod;
         this.transactionId = transactionId;
+        this.parentInvoiceNumber = OptionalNullable.of(parentInvoiceNumber);
+        this.remainingPrepaymentAmount = OptionalNullable.of(remainingPrepaymentAmount);
+        this.prepayment = prepayment;
+        this.external = external;
     }
 
     /**
@@ -64,7 +81,38 @@ public class ApplyPaymentEventData {
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
-     * @param  paymentMethod  ApplyPaymentEventDataPaymentMethod value for paymentMethod.
+     * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
+     * @param  transactionId  Integer value for transactionId.
+     * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
+     * @param  remainingPrepaymentAmount  String value for remainingPrepaymentAmount.
+     * @param  prepayment  Boolean value for prepayment.
+     * @param  external  Boolean value for external.
+     */
+
+    protected ApplyPaymentEventData(String memo, String originalAmount, String appliedAmount,
+            ZonedDateTime transactionTime, InvoiceEventPayment paymentMethod, Integer transactionId,
+            OptionalNullable<Integer> parentInvoiceNumber,
+            OptionalNullable<String> remainingPrepaymentAmount, Boolean prepayment,
+            Boolean external) {
+        this.memo = memo;
+        this.originalAmount = originalAmount;
+        this.appliedAmount = appliedAmount;
+        this.transactionTime = transactionTime;
+        this.paymentMethod = paymentMethod;
+        this.transactionId = transactionId;
+        this.parentInvoiceNumber = parentInvoiceNumber;
+        this.remainingPrepaymentAmount = remainingPrepaymentAmount;
+        this.prepayment = prepayment;
+        this.external = external;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  memo  String value for memo.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
      */
     @JsonCreator
     protected ApplyPaymentEventData(
@@ -72,8 +120,11 @@ public class ApplyPaymentEventData {
             @JsonProperty("original_amount") String originalAmount,
             @JsonProperty("applied_amount") String appliedAmount,
             @JsonProperty("transaction_time") ZonedDateTime transactionTime,
-            @JsonProperty("payment_method") ApplyPaymentEventDataPaymentMethod paymentMethod) {
-        this(memo, originalAmount, appliedAmount, transactionTime, paymentMethod, null);
+            @JsonProperty("payment_method") InvoiceEventPayment paymentMethod) {
+        this(memo, originalAmount, appliedAmount, transactionTime, paymentMethod, null,
+                OptionalNullable.of(null), OptionalNullable.of(null), null, null);
+        unsetParentInvoiceNumber();
+        unsetRemainingPrepaymentAmount();
     }
 
     /**
@@ -173,20 +224,20 @@ public class ApplyPaymentEventData {
     /**
      * Getter for PaymentMethod.
      * A nested data structure detailing the method of payment
-     * @return Returns the ApplyPaymentEventDataPaymentMethod
+     * @return Returns the InvoiceEventPayment
      */
     @JsonGetter("payment_method")
-    public ApplyPaymentEventDataPaymentMethod getPaymentMethod() {
+    public InvoiceEventPayment getPaymentMethod() {
         return paymentMethod;
     }
 
     /**
      * Setter for PaymentMethod.
      * A nested data structure detailing the method of payment
-     * @param paymentMethod Value for ApplyPaymentEventDataPaymentMethod
+     * @param paymentMethod Value for InvoiceEventPayment
      */
     @JsonSetter("payment_method")
-    public void setPaymentMethod(ApplyPaymentEventDataPaymentMethod paymentMethod) {
+    public void setPaymentMethod(InvoiceEventPayment paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -212,6 +263,114 @@ public class ApplyPaymentEventData {
     }
 
     /**
+     * Internal Getter for ParentInvoiceNumber.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("parent_invoice_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetParentInvoiceNumber() {
+        return this.parentInvoiceNumber;
+    }
+
+    /**
+     * Getter for ParentInvoiceNumber.
+     * @return Returns the Integer
+     */
+    public Integer getParentInvoiceNumber() {
+        return OptionalNullable.getFrom(parentInvoiceNumber);
+    }
+
+    /**
+     * Setter for ParentInvoiceNumber.
+     * @param parentInvoiceNumber Value for Integer
+     */
+    @JsonSetter("parent_invoice_number")
+    public void setParentInvoiceNumber(Integer parentInvoiceNumber) {
+        this.parentInvoiceNumber = OptionalNullable.of(parentInvoiceNumber);
+    }
+
+    /**
+     * UnSetter for ParentInvoiceNumber.
+     */
+    public void unsetParentInvoiceNumber() {
+        parentInvoiceNumber = null;
+    }
+
+    /**
+     * Internal Getter for RemainingPrepaymentAmount.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("remaining_prepayment_amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRemainingPrepaymentAmount() {
+        return this.remainingPrepaymentAmount;
+    }
+
+    /**
+     * Getter for RemainingPrepaymentAmount.
+     * @return Returns the String
+     */
+    public String getRemainingPrepaymentAmount() {
+        return OptionalNullable.getFrom(remainingPrepaymentAmount);
+    }
+
+    /**
+     * Setter for RemainingPrepaymentAmount.
+     * @param remainingPrepaymentAmount Value for String
+     */
+    @JsonSetter("remaining_prepayment_amount")
+    public void setRemainingPrepaymentAmount(String remainingPrepaymentAmount) {
+        this.remainingPrepaymentAmount = OptionalNullable.of(remainingPrepaymentAmount);
+    }
+
+    /**
+     * UnSetter for RemainingPrepaymentAmount.
+     */
+    public void unsetRemainingPrepaymentAmount() {
+        remainingPrepaymentAmount = null;
+    }
+
+    /**
+     * Getter for Prepayment.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("prepayment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getPrepayment() {
+        return prepayment;
+    }
+
+    /**
+     * Setter for Prepayment.
+     * @param prepayment Value for Boolean
+     */
+    @JsonSetter("prepayment")
+    public void setPrepayment(Boolean prepayment) {
+        this.prepayment = prepayment;
+    }
+
+    /**
+     * Getter for External.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("external")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getExternal() {
+        return external;
+    }
+
+    /**
+     * Setter for External.
+     * @param external Value for Boolean
+     */
+    @JsonSetter("external")
+    public void setExternal(Boolean external) {
+        this.external = external;
+    }
+
+    /**
      * Converts this ApplyPaymentEventData into string format.
      * @return String representation of this class
      */
@@ -219,7 +378,10 @@ public class ApplyPaymentEventData {
     public String toString() {
         return "ApplyPaymentEventData [" + "memo=" + memo + ", originalAmount=" + originalAmount
                 + ", appliedAmount=" + appliedAmount + ", transactionTime=" + transactionTime
-                + ", paymentMethod=" + paymentMethod + ", transactionId=" + transactionId + "]";
+                + ", paymentMethod=" + paymentMethod + ", transactionId=" + transactionId
+                + ", parentInvoiceNumber=" + parentInvoiceNumber + ", remainingPrepaymentAmount="
+                + remainingPrepaymentAmount + ", prepayment=" + prepayment + ", external="
+                + external + "]";
     }
 
     /**
@@ -230,7 +392,11 @@ public class ApplyPaymentEventData {
     public Builder toBuilder() {
         Builder builder = new Builder(memo, originalAmount, appliedAmount, transactionTime,
                 paymentMethod)
-                .transactionId(getTransactionId());
+                .transactionId(getTransactionId())
+                .prepayment(getPrepayment())
+                .external(getExternal());
+        builder.parentInvoiceNumber = internalGetParentInvoiceNumber();
+        builder.remainingPrepaymentAmount = internalGetRemainingPrepaymentAmount();
         return builder;
     }
 
@@ -242,8 +408,12 @@ public class ApplyPaymentEventData {
         private String originalAmount;
         private String appliedAmount;
         private ZonedDateTime transactionTime;
-        private ApplyPaymentEventDataPaymentMethod paymentMethod;
+        private InvoiceEventPayment paymentMethod;
         private Integer transactionId;
+        private OptionalNullable<Integer> parentInvoiceNumber;
+        private OptionalNullable<String> remainingPrepaymentAmount;
+        private Boolean prepayment;
+        private Boolean external;
 
         /**
          * Initialization constructor.
@@ -257,10 +427,10 @@ public class ApplyPaymentEventData {
          * @param  originalAmount  String value for originalAmount.
          * @param  appliedAmount  String value for appliedAmount.
          * @param  transactionTime  ZonedDateTime value for transactionTime.
-         * @param  paymentMethod  ApplyPaymentEventDataPaymentMethod value for paymentMethod.
+         * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
          */
         public Builder(String memo, String originalAmount, String appliedAmount,
-                ZonedDateTime transactionTime, ApplyPaymentEventDataPaymentMethod paymentMethod) {
+                ZonedDateTime transactionTime, InvoiceEventPayment paymentMethod) {
             this.memo = memo;
             this.originalAmount = originalAmount;
             this.appliedAmount = appliedAmount;
@@ -310,10 +480,10 @@ public class ApplyPaymentEventData {
 
         /**
          * Setter for paymentMethod.
-         * @param  paymentMethod  ApplyPaymentEventDataPaymentMethod value for paymentMethod.
+         * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
          * @return Builder
          */
-        public Builder paymentMethod(ApplyPaymentEventDataPaymentMethod paymentMethod) {
+        public Builder paymentMethod(InvoiceEventPayment paymentMethod) {
             this.paymentMethod = paymentMethod;
             return this;
         }
@@ -329,12 +499,71 @@ public class ApplyPaymentEventData {
         }
 
         /**
+         * Setter for parentInvoiceNumber.
+         * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
+         * @return Builder
+         */
+        public Builder parentInvoiceNumber(Integer parentInvoiceNumber) {
+            this.parentInvoiceNumber = OptionalNullable.of(parentInvoiceNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for parentInvoiceNumber.
+         * @return Builder
+         */
+        public Builder unsetParentInvoiceNumber() {
+            parentInvoiceNumber = null;
+            return this;
+        }
+
+        /**
+         * Setter for remainingPrepaymentAmount.
+         * @param  remainingPrepaymentAmount  String value for remainingPrepaymentAmount.
+         * @return Builder
+         */
+        public Builder remainingPrepaymentAmount(String remainingPrepaymentAmount) {
+            this.remainingPrepaymentAmount = OptionalNullable.of(remainingPrepaymentAmount);
+            return this;
+        }
+
+        /**
+         * UnSetter for remainingPrepaymentAmount.
+         * @return Builder
+         */
+        public Builder unsetRemainingPrepaymentAmount() {
+            remainingPrepaymentAmount = null;
+            return this;
+        }
+
+        /**
+         * Setter for prepayment.
+         * @param  prepayment  Boolean value for prepayment.
+         * @return Builder
+         */
+        public Builder prepayment(Boolean prepayment) {
+            this.prepayment = prepayment;
+            return this;
+        }
+
+        /**
+         * Setter for external.
+         * @param  external  Boolean value for external.
+         * @return Builder
+         */
+        public Builder external(Boolean external) {
+            this.external = external;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ApplyPaymentEventData} object using the set fields.
          * @return {@link ApplyPaymentEventData}
          */
         public ApplyPaymentEventData build() {
             return new ApplyPaymentEventData(memo, originalAmount, appliedAmount, transactionTime,
-                    paymentMethod, transactionId);
+                    paymentMethod, transactionId, parentInvoiceNumber, remainingPrepaymentAmount,
+                    prepayment, external);
         }
     }
 }

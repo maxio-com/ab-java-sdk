@@ -17,7 +17,6 @@ import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.matchers.MetafieldEnumGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -34,10 +33,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerListMetafieldsTest {
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
 
-    static Metafield radioMetafield = new Metafield.Builder()
+    private static final Metafield radioMetafield = new Metafield.Builder()
             .name("metafield-" + randomNumeric(7))
             .inputType(MetafieldInput.RADIO)
             .mEnum(MetafieldEnum.fromListOfString(List.of("option 1", "option 2")))
@@ -45,14 +44,14 @@ public class CustomFieldsControllerListMetafieldsTest {
             .dataCount(0)
             .build();
 
-    static Metafield textMetafield = new Metafield.Builder()
+    private static final Metafield textMetafield = new Metafield.Builder()
             .name("metafield-" + randomNumeric(7))
             .inputType(MetafieldInput.TEXT)
             .scope(randomScope())
             .dataCount(0)
             .build();
 
-    static Metafield dropdownMetafield = new Metafield.Builder()
+    private static final Metafield dropdownMetafield = new Metafield.Builder()
             .name("metafield-" + randomNumeric(7))
             .inputType(MetafieldInput.DROPDOWN)
             .mEnum(MetafieldEnum.fromListOfString(List.of("option 11", "option 22")))
@@ -168,7 +167,6 @@ public class CustomFieldsControllerListMetafieldsTest {
 
     @ParameterizedTest
     @EnumSource(ResourceType.class)
-    @Disabled("Disabled until global error templates bug is fixed")
     void shouldNotListMetafieldsWhenProvidingInvalidPage(ResourceType resourceType) {
         // when-then
         assertUnprocessableEntity(

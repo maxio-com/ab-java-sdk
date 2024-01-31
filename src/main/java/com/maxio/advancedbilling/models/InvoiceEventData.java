@@ -12,14 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.InvoiceEvent1PaymentMethod;
+import com.maxio.advancedbilling.models.containers.InvoiceEventDataPaymentMethod;
+import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * This is a model class for InvoiceEvent1 type.
+ * This is a model class for InvoiceEventData type.
  */
-public class InvoiceEvent1 {
+public class InvoiceEventData {
     private String uid;
     private String creditNoteNumber;
     private String creditNoteUid;
@@ -32,8 +33,12 @@ public class InvoiceEvent1 {
     private List<AppliedCreditNoteData> appliedCreditNotes;
     private String debitNoteNumber;
     private String debitNoteUid;
-    private InvoiceEvent1PaymentMethod paymentMethod;
+    private InvoiceEventDataPaymentMethod paymentMethod;
     private Integer transactionId;
+    private OptionalNullable<Integer> parentInvoiceNumber;
+    private OptionalNullable<String> remainingPrepaymentAmount;
+    private Boolean prepayment;
+    private Boolean external;
     private String fromCollectionMethod;
     private String toCollectionMethod;
     private InvoiceConsolidationLevel consolidationLevel;
@@ -46,13 +51,13 @@ public class InvoiceEvent1 {
     private Integer paymentId;
     private String refundAmount;
     private Integer refundId;
-    private Boolean prepayment;
     private Boolean isAdvanceInvoice;
+    private String reason;
 
     /**
      * Default constructor.
      */
-    public InvoiceEvent1() {
+    public InvoiceEventData() {
     }
 
     /**
@@ -69,8 +74,12 @@ public class InvoiceEvent1 {
      * @param  appliedCreditNotes  List of AppliedCreditNoteData value for appliedCreditNotes.
      * @param  debitNoteNumber  String value for debitNoteNumber.
      * @param  debitNoteUid  String value for debitNoteUid.
-     * @param  paymentMethod  InvoiceEvent1PaymentMethod value for paymentMethod.
+     * @param  paymentMethod  InvoiceEventDataPaymentMethod value for paymentMethod.
      * @param  transactionId  Integer value for transactionId.
+     * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
+     * @param  remainingPrepaymentAmount  String value for remainingPrepaymentAmount.
+     * @param  prepayment  Boolean value for prepayment.
+     * @param  external  Boolean value for external.
      * @param  fromCollectionMethod  String value for fromCollectionMethod.
      * @param  toCollectionMethod  String value for toCollectionMethod.
      * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
@@ -83,10 +92,10 @@ public class InvoiceEvent1 {
      * @param  paymentId  Integer value for paymentId.
      * @param  refundAmount  String value for refundAmount.
      * @param  refundId  Integer value for refundId.
-     * @param  prepayment  Boolean value for prepayment.
      * @param  isAdvanceInvoice  Boolean value for isAdvanceInvoice.
+     * @param  reason  String value for reason.
      */
-    public InvoiceEvent1(
+    public InvoiceEventData(
             String uid,
             String creditNoteNumber,
             String creditNoteUid,
@@ -99,8 +108,12 @@ public class InvoiceEvent1 {
             List<AppliedCreditNoteData> appliedCreditNotes,
             String debitNoteNumber,
             String debitNoteUid,
-            InvoiceEvent1PaymentMethod paymentMethod,
+            InvoiceEventDataPaymentMethod paymentMethod,
             Integer transactionId,
+            Integer parentInvoiceNumber,
+            String remainingPrepaymentAmount,
+            Boolean prepayment,
+            Boolean external,
             String fromCollectionMethod,
             String toCollectionMethod,
             InvoiceConsolidationLevel consolidationLevel,
@@ -113,8 +126,8 @@ public class InvoiceEvent1 {
             Integer paymentId,
             String refundAmount,
             Integer refundId,
-            Boolean prepayment,
-            Boolean isAdvanceInvoice) {
+            Boolean isAdvanceInvoice,
+            String reason) {
         this.uid = uid;
         this.creditNoteNumber = creditNoteNumber;
         this.creditNoteUid = creditNoteUid;
@@ -129,6 +142,10 @@ public class InvoiceEvent1 {
         this.debitNoteUid = debitNoteUid;
         this.paymentMethod = paymentMethod;
         this.transactionId = transactionId;
+        this.parentInvoiceNumber = OptionalNullable.of(parentInvoiceNumber);
+        this.remainingPrepaymentAmount = OptionalNullable.of(remainingPrepaymentAmount);
+        this.prepayment = prepayment;
+        this.external = external;
         this.fromCollectionMethod = fromCollectionMethod;
         this.toCollectionMethod = toCollectionMethod;
         this.consolidationLevel = consolidationLevel;
@@ -141,8 +158,90 @@ public class InvoiceEvent1 {
         this.paymentId = paymentId;
         this.refundAmount = refundAmount;
         this.refundId = refundId;
-        this.prepayment = prepayment;
         this.isAdvanceInvoice = isAdvanceInvoice;
+        this.reason = reason;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  creditNoteNumber  String value for creditNoteNumber.
+     * @param  creditNoteUid  String value for creditNoteUid.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     * @param  memo  String value for memo.
+     * @param  role  String value for role.
+     * @param  consolidatedInvoice  Boolean value for consolidatedInvoice.
+     * @param  appliedCreditNotes  List of AppliedCreditNoteData value for appliedCreditNotes.
+     * @param  debitNoteNumber  String value for debitNoteNumber.
+     * @param  debitNoteUid  String value for debitNoteUid.
+     * @param  paymentMethod  InvoiceEventDataPaymentMethod value for paymentMethod.
+     * @param  transactionId  Integer value for transactionId.
+     * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
+     * @param  remainingPrepaymentAmount  String value for remainingPrepaymentAmount.
+     * @param  prepayment  Boolean value for prepayment.
+     * @param  external  Boolean value for external.
+     * @param  fromCollectionMethod  String value for fromCollectionMethod.
+     * @param  toCollectionMethod  String value for toCollectionMethod.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
+     * @param  fromStatus  InvoiceStatus value for fromStatus.
+     * @param  toStatus  InvoiceStatus value for toStatus.
+     * @param  dueAmount  String value for dueAmount.
+     * @param  totalAmount  String value for totalAmount.
+     * @param  applyCredit  Boolean value for applyCredit.
+     * @param  creditNoteAttributes  CreditNote1 value for creditNoteAttributes.
+     * @param  paymentId  Integer value for paymentId.
+     * @param  refundAmount  String value for refundAmount.
+     * @param  refundId  Integer value for refundId.
+     * @param  isAdvanceInvoice  Boolean value for isAdvanceInvoice.
+     * @param  reason  String value for reason.
+     */
+
+    protected InvoiceEventData(String uid, String creditNoteNumber, String creditNoteUid,
+            String originalAmount, String appliedAmount, ZonedDateTime transactionTime, String memo,
+            String role, Boolean consolidatedInvoice,
+            List<AppliedCreditNoteData> appliedCreditNotes, String debitNoteNumber,
+            String debitNoteUid, InvoiceEventDataPaymentMethod paymentMethod, Integer transactionId,
+            OptionalNullable<Integer> parentInvoiceNumber,
+            OptionalNullable<String> remainingPrepaymentAmount, Boolean prepayment,
+            Boolean external, String fromCollectionMethod, String toCollectionMethod,
+            InvoiceConsolidationLevel consolidationLevel, InvoiceStatus fromStatus,
+            InvoiceStatus toStatus, String dueAmount, String totalAmount, Boolean applyCredit,
+            CreditNote1 creditNoteAttributes, Integer paymentId, String refundAmount,
+            Integer refundId, Boolean isAdvanceInvoice, String reason) {
+        this.uid = uid;
+        this.creditNoteNumber = creditNoteNumber;
+        this.creditNoteUid = creditNoteUid;
+        this.originalAmount = originalAmount;
+        this.appliedAmount = appliedAmount;
+        this.transactionTime = transactionTime;
+        this.memo = memo;
+        this.role = role;
+        this.consolidatedInvoice = consolidatedInvoice;
+        this.appliedCreditNotes = appliedCreditNotes;
+        this.debitNoteNumber = debitNoteNumber;
+        this.debitNoteUid = debitNoteUid;
+        this.paymentMethod = paymentMethod;
+        this.transactionId = transactionId;
+        this.parentInvoiceNumber = parentInvoiceNumber;
+        this.remainingPrepaymentAmount = remainingPrepaymentAmount;
+        this.prepayment = prepayment;
+        this.external = external;
+        this.fromCollectionMethod = fromCollectionMethod;
+        this.toCollectionMethod = toCollectionMethod;
+        this.consolidationLevel = consolidationLevel;
+        this.fromStatus = fromStatus;
+        this.toStatus = toStatus;
+        this.dueAmount = dueAmount;
+        this.totalAmount = totalAmount;
+        this.applyCredit = applyCredit;
+        this.creditNoteAttributes = creditNoteAttributes;
+        this.paymentId = paymentId;
+        this.refundAmount = refundAmount;
+        this.refundId = refundId;
+        this.isAdvanceInvoice = isAdvanceInvoice;
+        this.reason = reason;
     }
 
     /**
@@ -408,21 +507,21 @@ public class InvoiceEvent1 {
     /**
      * Getter for PaymentMethod.
      * A nested data structure detailing the method of payment
-     * @return Returns the InvoiceEvent1PaymentMethod
+     * @return Returns the InvoiceEventDataPaymentMethod
      */
     @JsonGetter("payment_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public InvoiceEvent1PaymentMethod getPaymentMethod() {
+    public InvoiceEventDataPaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
     /**
      * Setter for PaymentMethod.
      * A nested data structure detailing the method of payment
-     * @param paymentMethod Value for InvoiceEvent1PaymentMethod
+     * @param paymentMethod Value for InvoiceEventDataPaymentMethod
      */
     @JsonSetter("payment_method")
-    public void setPaymentMethod(InvoiceEvent1PaymentMethod paymentMethod) {
+    public void setPaymentMethod(InvoiceEventDataPaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -445,6 +544,116 @@ public class InvoiceEvent1 {
     @JsonSetter("transaction_id")
     public void setTransactionId(Integer transactionId) {
         this.transactionId = transactionId;
+    }
+
+    /**
+     * Internal Getter for ParentInvoiceNumber.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("parent_invoice_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetParentInvoiceNumber() {
+        return this.parentInvoiceNumber;
+    }
+
+    /**
+     * Getter for ParentInvoiceNumber.
+     * @return Returns the Integer
+     */
+    public Integer getParentInvoiceNumber() {
+        return OptionalNullable.getFrom(parentInvoiceNumber);
+    }
+
+    /**
+     * Setter for ParentInvoiceNumber.
+     * @param parentInvoiceNumber Value for Integer
+     */
+    @JsonSetter("parent_invoice_number")
+    public void setParentInvoiceNumber(Integer parentInvoiceNumber) {
+        this.parentInvoiceNumber = OptionalNullable.of(parentInvoiceNumber);
+    }
+
+    /**
+     * UnSetter for ParentInvoiceNumber.
+     */
+    public void unsetParentInvoiceNumber() {
+        parentInvoiceNumber = null;
+    }
+
+    /**
+     * Internal Getter for RemainingPrepaymentAmount.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("remaining_prepayment_amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetRemainingPrepaymentAmount() {
+        return this.remainingPrepaymentAmount;
+    }
+
+    /**
+     * Getter for RemainingPrepaymentAmount.
+     * @return Returns the String
+     */
+    public String getRemainingPrepaymentAmount() {
+        return OptionalNullable.getFrom(remainingPrepaymentAmount);
+    }
+
+    /**
+     * Setter for RemainingPrepaymentAmount.
+     * @param remainingPrepaymentAmount Value for String
+     */
+    @JsonSetter("remaining_prepayment_amount")
+    public void setRemainingPrepaymentAmount(String remainingPrepaymentAmount) {
+        this.remainingPrepaymentAmount = OptionalNullable.of(remainingPrepaymentAmount);
+    }
+
+    /**
+     * UnSetter for RemainingPrepaymentAmount.
+     */
+    public void unsetRemainingPrepaymentAmount() {
+        remainingPrepaymentAmount = null;
+    }
+
+    /**
+     * Getter for Prepayment.
+     * The flag that shows whether the original payment was a prepayment or not
+     * @return Returns the Boolean
+     */
+    @JsonGetter("prepayment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getPrepayment() {
+        return prepayment;
+    }
+
+    /**
+     * Setter for Prepayment.
+     * The flag that shows whether the original payment was a prepayment or not
+     * @param prepayment Value for Boolean
+     */
+    @JsonSetter("prepayment")
+    public void setPrepayment(Boolean prepayment) {
+        this.prepayment = prepayment;
+    }
+
+    /**
+     * Getter for External.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("external")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getExternal() {
+        return external;
+    }
+
+    /**
+     * Setter for External.
+     * @param external Value for Boolean
+     */
+    @JsonSetter("external")
+    public void setExternal(Boolean external) {
+        this.external = external;
     }
 
     /**
@@ -718,27 +927,6 @@ public class InvoiceEvent1 {
     }
 
     /**
-     * Getter for Prepayment.
-     * The flag that shows whether the original payment was a prepayment or not
-     * @return Returns the Boolean
-     */
-    @JsonGetter("prepayment")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getPrepayment() {
-        return prepayment;
-    }
-
-    /**
-     * Setter for Prepayment.
-     * The flag that shows whether the original payment was a prepayment or not
-     * @param prepayment Value for Boolean
-     */
-    @JsonSetter("prepayment")
-    public void setPrepayment(Boolean prepayment) {
-        this.prepayment = prepayment;
-    }
-
-    /**
      * Getter for IsAdvanceInvoice.
      * If true, the invoice is an advance invoice.
      * @return Returns the Boolean
@@ -760,31 +948,54 @@ public class InvoiceEvent1 {
     }
 
     /**
-     * Converts this InvoiceEvent1 into string format.
+     * Getter for Reason.
+     * The reason for the void.
+     * @return Returns the String
+     */
+    @JsonGetter("reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getReason() {
+        return reason;
+    }
+
+    /**
+     * Setter for Reason.
+     * The reason for the void.
+     * @param reason Value for String
+     */
+    @JsonSetter("reason")
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    /**
+     * Converts this InvoiceEventData into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "InvoiceEvent1 [" + "uid=" + uid + ", creditNoteNumber=" + creditNoteNumber
+        return "InvoiceEventData [" + "uid=" + uid + ", creditNoteNumber=" + creditNoteNumber
                 + ", creditNoteUid=" + creditNoteUid + ", originalAmount=" + originalAmount
                 + ", appliedAmount=" + appliedAmount + ", transactionTime=" + transactionTime
                 + ", memo=" + memo + ", role=" + role + ", consolidatedInvoice="
                 + consolidatedInvoice + ", appliedCreditNotes=" + appliedCreditNotes
                 + ", debitNoteNumber=" + debitNoteNumber + ", debitNoteUid=" + debitNoteUid
                 + ", paymentMethod=" + paymentMethod + ", transactionId=" + transactionId
-                + ", fromCollectionMethod=" + fromCollectionMethod + ", toCollectionMethod="
-                + toCollectionMethod + ", consolidationLevel=" + consolidationLevel
-                + ", fromStatus=" + fromStatus + ", toStatus=" + toStatus + ", dueAmount="
-                + dueAmount + ", totalAmount=" + totalAmount + ", applyCredit=" + applyCredit
-                + ", creditNoteAttributes=" + creditNoteAttributes + ", paymentId=" + paymentId
-                + ", refundAmount=" + refundAmount + ", refundId=" + refundId + ", prepayment="
-                + prepayment + ", isAdvanceInvoice=" + isAdvanceInvoice + "]";
+                + ", parentInvoiceNumber=" + parentInvoiceNumber + ", remainingPrepaymentAmount="
+                + remainingPrepaymentAmount + ", prepayment=" + prepayment + ", external="
+                + external + ", fromCollectionMethod=" + fromCollectionMethod
+                + ", toCollectionMethod=" + toCollectionMethod + ", consolidationLevel="
+                + consolidationLevel + ", fromStatus=" + fromStatus + ", toStatus=" + toStatus
+                + ", dueAmount=" + dueAmount + ", totalAmount=" + totalAmount + ", applyCredit="
+                + applyCredit + ", creditNoteAttributes=" + creditNoteAttributes + ", paymentId="
+                + paymentId + ", refundAmount=" + refundAmount + ", refundId=" + refundId
+                + ", isAdvanceInvoice=" + isAdvanceInvoice + ", reason=" + reason + "]";
     }
 
     /**
-     * Builds a new {@link InvoiceEvent1.Builder} object.
+     * Builds a new {@link InvoiceEventData.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link InvoiceEvent1.Builder} object
+     * @return a new {@link InvoiceEventData.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -802,6 +1013,8 @@ public class InvoiceEvent1 {
                 .debitNoteUid(getDebitNoteUid())
                 .paymentMethod(getPaymentMethod())
                 .transactionId(getTransactionId())
+                .prepayment(getPrepayment())
+                .external(getExternal())
                 .fromCollectionMethod(getFromCollectionMethod())
                 .toCollectionMethod(getToCollectionMethod())
                 .consolidationLevel(getConsolidationLevel())
@@ -814,13 +1027,15 @@ public class InvoiceEvent1 {
                 .paymentId(getPaymentId())
                 .refundAmount(getRefundAmount())
                 .refundId(getRefundId())
-                .prepayment(getPrepayment())
-                .isAdvanceInvoice(getIsAdvanceInvoice());
+                .isAdvanceInvoice(getIsAdvanceInvoice())
+                .reason(getReason());
+        builder.parentInvoiceNumber = internalGetParentInvoiceNumber();
+        builder.remainingPrepaymentAmount = internalGetRemainingPrepaymentAmount();
         return builder;
     }
 
     /**
-     * Class to build instances of {@link InvoiceEvent1}.
+     * Class to build instances of {@link InvoiceEventData}.
      */
     public static class Builder {
         private String uid;
@@ -835,8 +1050,12 @@ public class InvoiceEvent1 {
         private List<AppliedCreditNoteData> appliedCreditNotes;
         private String debitNoteNumber;
         private String debitNoteUid;
-        private InvoiceEvent1PaymentMethod paymentMethod;
+        private InvoiceEventDataPaymentMethod paymentMethod;
         private Integer transactionId;
+        private OptionalNullable<Integer> parentInvoiceNumber;
+        private OptionalNullable<String> remainingPrepaymentAmount;
+        private Boolean prepayment;
+        private Boolean external;
         private String fromCollectionMethod;
         private String toCollectionMethod;
         private InvoiceConsolidationLevel consolidationLevel;
@@ -849,8 +1068,8 @@ public class InvoiceEvent1 {
         private Integer paymentId;
         private String refundAmount;
         private Integer refundId;
-        private Boolean prepayment;
         private Boolean isAdvanceInvoice;
+        private String reason;
 
 
 
@@ -976,10 +1195,10 @@ public class InvoiceEvent1 {
 
         /**
          * Setter for paymentMethod.
-         * @param  paymentMethod  InvoiceEvent1PaymentMethod value for paymentMethod.
+         * @param  paymentMethod  InvoiceEventDataPaymentMethod value for paymentMethod.
          * @return Builder
          */
-        public Builder paymentMethod(InvoiceEvent1PaymentMethod paymentMethod) {
+        public Builder paymentMethod(InvoiceEventDataPaymentMethod paymentMethod) {
             this.paymentMethod = paymentMethod;
             return this;
         }
@@ -991,6 +1210,64 @@ public class InvoiceEvent1 {
          */
         public Builder transactionId(Integer transactionId) {
             this.transactionId = transactionId;
+            return this;
+        }
+
+        /**
+         * Setter for parentInvoiceNumber.
+         * @param  parentInvoiceNumber  Integer value for parentInvoiceNumber.
+         * @return Builder
+         */
+        public Builder parentInvoiceNumber(Integer parentInvoiceNumber) {
+            this.parentInvoiceNumber = OptionalNullable.of(parentInvoiceNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for parentInvoiceNumber.
+         * @return Builder
+         */
+        public Builder unsetParentInvoiceNumber() {
+            parentInvoiceNumber = null;
+            return this;
+        }
+
+        /**
+         * Setter for remainingPrepaymentAmount.
+         * @param  remainingPrepaymentAmount  String value for remainingPrepaymentAmount.
+         * @return Builder
+         */
+        public Builder remainingPrepaymentAmount(String remainingPrepaymentAmount) {
+            this.remainingPrepaymentAmount = OptionalNullable.of(remainingPrepaymentAmount);
+            return this;
+        }
+
+        /**
+         * UnSetter for remainingPrepaymentAmount.
+         * @return Builder
+         */
+        public Builder unsetRemainingPrepaymentAmount() {
+            remainingPrepaymentAmount = null;
+            return this;
+        }
+
+        /**
+         * Setter for prepayment.
+         * @param  prepayment  Boolean value for prepayment.
+         * @return Builder
+         */
+        public Builder prepayment(Boolean prepayment) {
+            this.prepayment = prepayment;
+            return this;
+        }
+
+        /**
+         * Setter for external.
+         * @param  external  Boolean value for external.
+         * @return Builder
+         */
+        public Builder external(Boolean external) {
+            this.external = external;
             return this;
         }
 
@@ -1115,16 +1392,6 @@ public class InvoiceEvent1 {
         }
 
         /**
-         * Setter for prepayment.
-         * @param  prepayment  Boolean value for prepayment.
-         * @return Builder
-         */
-        public Builder prepayment(Boolean prepayment) {
-            this.prepayment = prepayment;
-            return this;
-        }
-
-        /**
          * Setter for isAdvanceInvoice.
          * @param  isAdvanceInvoice  Boolean value for isAdvanceInvoice.
          * @return Builder
@@ -1135,16 +1402,27 @@ public class InvoiceEvent1 {
         }
 
         /**
-         * Builds a new {@link InvoiceEvent1} object using the set fields.
-         * @return {@link InvoiceEvent1}
+         * Setter for reason.
+         * @param  reason  String value for reason.
+         * @return Builder
          */
-        public InvoiceEvent1 build() {
-            return new InvoiceEvent1(uid, creditNoteNumber, creditNoteUid, originalAmount,
+        public Builder reason(String reason) {
+            this.reason = reason;
+            return this;
+        }
+
+        /**
+         * Builds a new {@link InvoiceEventData} object using the set fields.
+         * @return {@link InvoiceEventData}
+         */
+        public InvoiceEventData build() {
+            return new InvoiceEventData(uid, creditNoteNumber, creditNoteUid, originalAmount,
                     appliedAmount, transactionTime, memo, role, consolidatedInvoice,
                     appliedCreditNotes, debitNoteNumber, debitNoteUid, paymentMethod, transactionId,
+                    parentInvoiceNumber, remainingPrepaymentAmount, prepayment, external,
                     fromCollectionMethod, toCollectionMethod, consolidationLevel, fromStatus,
                     toStatus, dueAmount, totalAmount, applyCredit, creditNoteAttributes, paymentId,
-                    refundAmount, refundId, prepayment, isAdvanceInvoice);
+                    refundAmount, refundId, isAdvanceInvoice, reason);
         }
     }
 }
