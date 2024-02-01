@@ -9,8 +9,6 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListMetadataInput;
 import com.maxio.advancedbilling.models.Metadata;
 import com.maxio.advancedbilling.models.PaginatedMetadata;
-import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.utils.TestSetup;
@@ -32,10 +30,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerListMetadataTest {
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static CustomFieldsTestsUtils.Resources resources;
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
-    private static Customer customer;
-    private static Subscription subscription;
     private static Customer customer2;
 
     private static List<Metadata> customerMetadata;
@@ -44,14 +41,13 @@ public class CustomFieldsControllerListMetadataTest {
     @BeforeAll
     static void setup() throws IOException, ApiException {
         new TestTeardown().deleteMetafields();
+        TestSetup testSetup = new TestSetup();
 
-        TestSetup TEST_SETUP = new TestSetup();
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        Product product = TEST_SETUP.createProduct(productFamily);
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
-        customer2 = TEST_SETUP.createCustomer();
-        Subscription subscription2 = TEST_SETUP.createSubscription(customer2, product);
+        resources = new CustomFieldsTestsUtils.Resources();
+        Customer customer = resources.getCustomer();
+        Subscription subscription = resources.getSubscription();
+        customer2 = testSetup.createCustomer();
+        Subscription subscription2 = testSetup.createSubscription(customer2, subscription.getProduct());
 
         //    Create metafields for customer
         String customerMetafieldName1 = "customer-metafield" + randomNumeric(5);
@@ -110,7 +106,7 @@ public class CustomFieldsControllerListMetadataTest {
     static void teardown() throws IOException, ApiException {
         TestTeardown testTeardown = new TestTeardown();
         testTeardown.deleteMetafields();
-        testTeardown.deleteCustomer(customer);
+        testTeardown.deleteCustomer(resources.getCustomer());
         testTeardown.deleteCustomer(customer2);
 
     }
@@ -120,7 +116,7 @@ public class CustomFieldsControllerListMetadataTest {
     void shouldListMetadata(ResourceType resourceType) throws IOException, ApiException {
         // when
         PaginatedMetadata paginatedMetadata = CUSTOM_FIELDS_CONTROLLER.listMetadata(new ListMetadataInput(
-                resourceType, getIdForResourceType(resourceType), 1, 10
+                resourceType, resources.getIdForResourceType(resourceType), 1, 10
         ));
 
         // then
@@ -139,13 +135,13 @@ public class CustomFieldsControllerListMetadataTest {
     void shouldListMetadataWithPaging(ResourceType resourceType) throws IOException, ApiException {
         // when
         PaginatedMetadata firstPage = CUSTOM_FIELDS_CONTROLLER.listMetadata(new ListMetadataInput(
-                resourceType, getIdForResourceType(resourceType), 1, 2
+                resourceType, resources.getIdForResourceType(resourceType), 1, 2
         ));
         PaginatedMetadata secondPage = CUSTOM_FIELDS_CONTROLLER.listMetadata(new ListMetadataInput(
-                resourceType, getIdForResourceType(resourceType), 2, 2
+                resourceType, resources.getIdForResourceType(resourceType), 2, 2
         ));
         PaginatedMetadata thirdPage = CUSTOM_FIELDS_CONTROLLER.listMetadata(new ListMetadataInput(
-                resourceType, getIdForResourceType(resourceType), 3, 2
+                resourceType, resources.getIdForResourceType(resourceType), 3, 2
         ));
 
         // then
@@ -179,7 +175,7 @@ public class CustomFieldsControllerListMetadataTest {
                 () -> CUSTOM_FIELDS_CONTROLLER.listMetadata(new ListMetadataInput
                         .Builder()
                         .resourceType(resourceType)
-                        .resourceId(getIdForResourceType(resourceType))
+                        .resourceId(resources.getIdForResourceType(resourceType))
                         .page(-3)
                         .build()),
                 e -> assertThat(e.getMessage()).startsWith("HTTP Response Not OK. Status code: 422. Response:")
@@ -190,18 +186,6 @@ public class CustomFieldsControllerListMetadataTest {
     void shouldNotListMetadataWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
                 .listMetadata(new ListMetadataInput(ResourceType.SUBSCRIPTIONS, 1, 1, 1)));
-    }
-
-    private int getIdForResourceType(ResourceType resourceType) {
-        switch (resourceType) {
-            case SUBSCRIPTIONS -> {
-                return subscription.getId();
-            }
-            case CUSTOMERS -> {
-                return customer.getId();
-            }
-        }
-        throw new IllegalStateException();
     }
 
     private List<Metadata> getMetadataForResourceType(ResourceType resourceType) {

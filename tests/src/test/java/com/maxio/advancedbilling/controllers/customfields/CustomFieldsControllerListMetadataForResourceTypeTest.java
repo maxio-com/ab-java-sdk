@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerListMetadataForResourceTypeTest {
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
     private static Customer customer;
     private static Customer customer2;

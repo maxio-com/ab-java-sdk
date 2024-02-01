@@ -175,8 +175,7 @@ public class CustomFieldsControllerListMetafieldsTest {
                         .Builder()
                         .resourceType(resourceType)
                         .page(-3)
-                        .build()),
-                e -> assertThat(e.getMessage()).startsWith("HTTP Response Not OK. Status code: 422. Response:")
+                        .build())
         );
     }
 

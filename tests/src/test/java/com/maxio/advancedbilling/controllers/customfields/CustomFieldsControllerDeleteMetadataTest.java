@@ -5,14 +5,10 @@ import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateMetadata;
 import com.maxio.advancedbilling.models.CreateMetadataRequest;
-import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListMetadataForResourceTypeInput;
 import com.maxio.advancedbilling.models.Metadata;
-import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ResourceType;
-import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.utils.TestSetup;
+
 import com.maxio.advancedbilling.utils.TestTeardown;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,27 +26,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerDeleteMetadataTest {
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static CustomFieldsTestsUtils.Resources resources;
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
-    private static Customer customer;
-
-    private static Subscription subscription;
-
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
-        TestSetup TEST_SETUP = new TestSetup();
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        Product product = TEST_SETUP.createProduct(productFamily);
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
+        resources = new CustomFieldsTestsUtils.Resources();
     }
 
     @AfterAll
     static void teardown() throws IOException, ApiException {
         TestTeardown testTeardown = new TestTeardown();
         testTeardown.deleteMetafields();
-        testTeardown.deleteCustomer(customer);
+        testTeardown.deleteCustomer(resources.getCustomer());
     }
 
     @ParameterizedTest
@@ -58,7 +47,7 @@ public class CustomFieldsControllerDeleteMetadataTest {
     void shouldDeleteSingleMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
         String textMetafieldName = "text-to-delete-" + randomNumeric(7);
-        int resourceId = getIdForResourceType(resourceType);
+        int resourceId = resources.getIdForResourceType(resourceType);
 
         CreateMetadataRequest createMetadataRequest =
                 new CreateMetadataRequest(
@@ -88,7 +77,7 @@ public class CustomFieldsControllerDeleteMetadataTest {
         String metafieldName2 = "metafield-delete-" + randomNumeric(7);
         String metafieldName3 = "metafield-" + randomNumeric(7);
 
-        int resourceId = getIdForResourceType(resourceType);
+        int resourceId = resources.getIdForResourceType(resourceType);
 
         CreateMetadataRequest createMetadataRequest =
                 new CreateMetadataRequest(
@@ -117,7 +106,7 @@ public class CustomFieldsControllerDeleteMetadataTest {
     @ParameterizedTest
     @EnumSource(ResourceType.class)
     void shouldNotDeleteNonExistentMetadata(ResourceType resourceType) {
-        assertNotFound(() -> CUSTOM_FIELDS_CONTROLLER.deleteMetadata(resourceType, getIdForResourceType(resourceType),
+        assertNotFound(() -> CUSTOM_FIELDS_CONTROLLER.deleteMetadata(resourceType, resources.getIdForResourceType(resourceType),
                 "123", null));
     }
 
@@ -131,18 +120,6 @@ public class CustomFieldsControllerDeleteMetadataTest {
     void shouldNotDeleteMetadataWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
                 .deleteMetadata(ResourceType.SUBSCRIPTIONS, 123, null, null));
-    }
-
-    private int getIdForResourceType(ResourceType resourceType) {
-        switch (resourceType) {
-            case SUBSCRIPTIONS -> {
-                return subscription.getId();
-            }
-            case CUSTOMERS -> {
-                return customer.getId();
-            }
-        }
-        throw new IllegalStateException();
     }
 
 }

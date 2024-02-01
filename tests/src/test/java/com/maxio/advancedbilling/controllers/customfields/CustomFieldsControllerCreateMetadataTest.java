@@ -3,23 +3,18 @@ package com.maxio.advancedbilling.controllers.customfields;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.models.CreateMetadata;
 import com.maxio.advancedbilling.models.CreateMetadataRequest;
 import com.maxio.advancedbilling.models.CreateMetafield;
 import com.maxio.advancedbilling.models.CreateMetafieldsRequest;
-import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListMetafieldsInput;
 import com.maxio.advancedbilling.models.Metadata;
 import com.maxio.advancedbilling.models.Metafield;
 import com.maxio.advancedbilling.models.MetafieldInput;
-import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ResourceType;
-import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateMetafieldsRequestMetafields;
-import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
+import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -34,32 +29,25 @@ import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerCreateMetadataTest {
 
-    protected static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
+    private static CustomFieldsTestsUtils.Resources resources;
+    private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
-    private static Customer customer;
-    private static Subscription subscription;
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
-        TestSetup TEST_SETUP = new TestSetup();
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        Product product = TEST_SETUP.createProduct(productFamily);
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
+        resources = new CustomFieldsTestsUtils.Resources();
     }
 
     @AfterAll
     static void teardown() throws IOException, ApiException {
         TestTeardown testTeardown = new TestTeardown();
         testTeardown.deleteMetafields();
-        testTeardown.deleteCustomer(customer);
-
+        testTeardown.deleteCustomer(resources.getCustomer());
     }
 
     @ParameterizedTest
@@ -71,7 +59,7 @@ public class CustomFieldsControllerCreateMetadataTest {
         List<String> radioEnum = List.of("radio-option-1", "radio-option-2");
         String dropdownMetafieldName = "dropdown-" + randomNumeric(7);
         List<String> dropdownEnum = List.of("dropdown-option-1", "dropdown-option-2");
-        int resourceId = getIdForResourceType(resourceType);
+        int resourceId = resources.getIdForResourceType(resourceType);
 
         CreateMetafieldsRequest createMetafieldsRequest =
                 new CreateMetafieldsRequest(
@@ -136,7 +124,7 @@ public class CustomFieldsControllerCreateMetadataTest {
     void shouldCreateAdHocMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
         String textMetafieldName = "adhoc-text-" + randomNumeric(7);
-        int resourceId = getIdForResourceType(resourceType);
+        int resourceId = resources.getIdForResourceType(resourceType);
         CreateMetadataRequest createMetadataRequest =
                 new CreateMetadataRequest(
                         List.of(
@@ -166,7 +154,7 @@ public class CustomFieldsControllerCreateMetadataTest {
 
         assertThat(metafields.size()).isEqualTo(1);
         assertThat(metadata.get(0).getName()).isEqualTo(textMetafieldName);
-        assertThat(metadata.get(0).getId()).isEqualTo(metafields.get(0).getId());
+        assertThat(metadata.get(0).getMetafieldId()).isEqualTo(metafields.get(0).getId());
     }
 
     @ParameterizedTest
@@ -183,7 +171,7 @@ public class CustomFieldsControllerCreateMetadataTest {
 
         // when
         List<Metadata> metadata = CUSTOM_FIELDS_CONTROLLER
-                .createMetadata(resourceType, getIdForResourceType(resourceType), createMetadataRequest);
+                .createMetadata(resourceType, resources.getIdForResourceType(resourceType), createMetadataRequest);
 
         // then
         assertThat(metadata.size()).isEqualTo(1);
@@ -213,9 +201,9 @@ public class CustomFieldsControllerCreateMetadataTest {
                 );
 
         // when
-        List<Metafield> metafields = CUSTOM_FIELDS_CONTROLLER.createMetafields(resourceType, createMetafieldsRequest);
+        CUSTOM_FIELDS_CONTROLLER.createMetafields(resourceType, createMetafieldsRequest);
         List<Metadata> metadata = CUSTOM_FIELDS_CONTROLLER
-                .createMetadata(resourceType, getIdForResourceType(resourceType), createMetadataRequest);
+                .createMetadata(resourceType, resources.getIdForResourceType(resourceType), createMetadataRequest);
 
         // then
         assertThat(metadata.size()).isEqualTo(1);
@@ -227,11 +215,11 @@ public class CustomFieldsControllerCreateMetadataTest {
     void shouldReturn422WhenCreatingMetadataWithInvalidData(CreateMetadataRequest request,
                                                             String expectedError) {
         // when - then
-        assertUnprocessableEntity(
-                SingleErrorResponseException.class,
-                () -> CUSTOM_FIELDS_CONTROLLER.createMetadata(ResourceType.SUBSCRIPTIONS, subscription.getId(), request),
-                e -> assertThat(e.getError()).isEqualTo(expectedError)
-        );
+        CommonAssertions.assertThatSingleErrorResponse(
+                        () -> CUSTOM_FIELDS_CONTROLLER.createMetadata(ResourceType.SUBSCRIPTIONS,
+                                resources.getSubscription().getId(), request))
+                .isUnprocessableEntity()
+                .hasErrorMessage(expectedError);
     }
 
     private static Stream<Arguments> argsForShouldReturn422WhenCreatingMetafieldsWithInvalidData() {
@@ -260,18 +248,6 @@ public class CustomFieldsControllerCreateMetadataTest {
     void shouldNotCreateMetadataWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
                 .createMetadata(ResourceType.SUBSCRIPTIONS, 123, null));
-    }
-
-    private int getIdForResourceType(ResourceType resourceType) {
-        switch (resourceType) {
-            case SUBSCRIPTIONS -> {
-                return subscription.getId();
-            }
-            case CUSTOMERS -> {
-                return customer.getId();
-            }
-        }
-        throw new IllegalStateException();
     }
 
     private void assertEmptyMetadata(Metadata metadata, String name) {
