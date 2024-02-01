@@ -7,17 +7,12 @@ import com.maxio.advancedbilling.models.CreateMetadata;
 import com.maxio.advancedbilling.models.CreateMetadataRequest;
 import com.maxio.advancedbilling.models.CreateMetafield;
 import com.maxio.advancedbilling.models.CreateMetafieldsRequest;
-import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListMetadataInput;
 import com.maxio.advancedbilling.models.ListMetafieldsInput;
 import com.maxio.advancedbilling.models.Metadata;
 import com.maxio.advancedbilling.models.Metafield;
-import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ResourceType;
-import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateMetafieldsRequestMetafields;
-import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,24 +30,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomFieldsControllerDeleteMetafieldTest {
 
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static Customer customer;
-    private static Subscription subscription;
+    private static CustomFieldsTestsUtils.Resources resources;
 
     private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
             TestClient.createClient().getCustomFieldsController();
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        Product product = TEST_SETUP.createProduct(productFamily);
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
+        resources = new CustomFieldsTestsUtils.Resources();
     }
 
     @AfterAll
     static void teardown() throws IOException, ApiException {
-        new TestTeardown().deleteCustomer(customer);
+        new TestTeardown().deleteCustomer(resources.getCustomer());
     }
 
     @ParameterizedTest
@@ -60,7 +50,7 @@ public class CustomFieldsControllerDeleteMetafieldTest {
     void shouldDeleteCustomerMetafieldAndAssociatedMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
         String metafieldName = "customer-metafield-" + randomNumeric(5);
-        int resourceId = getIdForResourceType(resourceType);
+        int resourceId = resources.getIdForResourceType(resourceType);
         CUSTOM_FIELDS_CONTROLLER
                 .createMetafields(resourceType, new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromCreateMetafield(
@@ -94,15 +84,6 @@ public class CustomFieldsControllerDeleteMetafieldTest {
                 .resourceId(resourceId)
                 .build()).getMetadata();
         assertThat(metadataList).isEmpty();
-    }
-
-    private int getIdForResourceType(ResourceType resourceType) {
-        return switch (resourceType) {
-            case SUBSCRIPTIONS ->
-                subscription.getId();
-            case CUSTOMERS ->
-                customer.getId();
-        };
     }
 
     @Test
