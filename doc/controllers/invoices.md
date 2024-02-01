@@ -3064,20 +3064,18 @@ try {
   ],
   "custom_fields": [
     {
-      "name": "non nul",
-      "value": "consectetur aliqua",
-      "owner_type": "ad",
-      "owner_id": 18482224
+      "name": "CustomerStatus",
+      "value": "Gold",
+      "owner_type": "Customer",
+      "owner_id": 18482224,
+      "metadatum_id": 13924
     },
     {
-      "value": "anim",
-      "owner_type": "in"
-    },
-    {
-      "owner_id": -13438519
-    },
-    {
-      "name": "ullamco non deserunt in"
+      "name": "SubscriptionTag",
+      "value": "Special Subscriber",
+      "owner_type": "Subscription",
+      "owner_id": 21344,
+      "metadatum_id": 139245
     }
   ],
   "public_url": "dolo",

@@ -14,10 +14,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for InvoiceCustomField type.
  */
 public class InvoiceCustomField {
+    private Integer ownerId;
+    private CustomFieldOwner ownerType;
     private String name;
     private String value;
-    private Integer ownerId;
-    private String ownerType;
+    private Integer metadatumId;
 
     /**
      * Default constructor.
@@ -27,19 +28,60 @@ public class InvoiceCustomField {
 
     /**
      * Initialization constructor.
+     * @param  ownerId  Integer value for ownerId.
+     * @param  ownerType  CustomFieldOwner value for ownerType.
      * @param  name  String value for name.
      * @param  value  String value for value.
-     * @param  ownerId  Integer value for ownerId.
-     * @param  ownerType  String value for ownerType.
+     * @param  metadatumId  Integer value for metadatumId.
      */
     public InvoiceCustomField(
+            Integer ownerId,
+            CustomFieldOwner ownerType,
             String name,
             String value,
-            Integer ownerId,
-            String ownerType) {
+            Integer metadatumId) {
+        this.ownerId = ownerId;
+        this.ownerType = ownerType;
         this.name = name;
         this.value = value;
+        this.metadatumId = metadatumId;
+    }
+
+    /**
+     * Getter for OwnerId.
+     * @return Returns the Integer
+     */
+    @JsonGetter("owner_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    /**
+     * Setter for OwnerId.
+     * @param ownerId Value for Integer
+     */
+    @JsonSetter("owner_id")
+    public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
+    }
+
+    /**
+     * Getter for OwnerType.
+     * @return Returns the CustomFieldOwner
+     */
+    @JsonGetter("owner_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CustomFieldOwner getOwnerType() {
+        return ownerType;
+    }
+
+    /**
+     * Setter for OwnerType.
+     * @param ownerType Value for CustomFieldOwner
+     */
+    @JsonSetter("owner_type")
+    public void setOwnerType(CustomFieldOwner ownerType) {
         this.ownerType = ownerType;
     }
 
@@ -82,41 +124,22 @@ public class InvoiceCustomField {
     }
 
     /**
-     * Getter for OwnerId.
+     * Getter for MetadatumId.
      * @return Returns the Integer
      */
-    @JsonGetter("owner_id")
+    @JsonGetter("metadatum_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getOwnerId() {
-        return ownerId;
+    public Integer getMetadatumId() {
+        return metadatumId;
     }
 
     /**
-     * Setter for OwnerId.
-     * @param ownerId Value for Integer
+     * Setter for MetadatumId.
+     * @param metadatumId Value for Integer
      */
-    @JsonSetter("owner_id")
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    /**
-     * Getter for OwnerType.
-     * @return Returns the String
-     */
-    @JsonGetter("owner_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getOwnerType() {
-        return ownerType;
-    }
-
-    /**
-     * Setter for OwnerType.
-     * @param ownerType Value for String
-     */
-    @JsonSetter("owner_type")
-    public void setOwnerType(String ownerType) {
-        this.ownerType = ownerType;
+    @JsonSetter("metadatum_id")
+    public void setMetadatumId(Integer metadatumId) {
+        this.metadatumId = metadatumId;
     }
 
     /**
@@ -125,8 +148,8 @@ public class InvoiceCustomField {
      */
     @Override
     public String toString() {
-        return "InvoiceCustomField [" + "name=" + name + ", value=" + value + ", ownerId=" + ownerId
-                + ", ownerType=" + ownerType + "]";
+        return "InvoiceCustomField [" + "ownerId=" + ownerId + ", ownerType=" + ownerType
+                + ", name=" + name + ", value=" + value + ", metadatumId=" + metadatumId + "]";
     }
 
     /**
@@ -136,10 +159,11 @@ public class InvoiceCustomField {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .ownerId(getOwnerId())
+                .ownerType(getOwnerType())
                 .name(getName())
                 .value(getValue())
-                .ownerId(getOwnerId())
-                .ownerType(getOwnerType());
+                .metadatumId(getMetadatumId());
         return builder;
     }
 
@@ -147,12 +171,33 @@ public class InvoiceCustomField {
      * Class to build instances of {@link InvoiceCustomField}.
      */
     public static class Builder {
+        private Integer ownerId;
+        private CustomFieldOwner ownerType;
         private String name;
         private String value;
-        private Integer ownerId;
-        private String ownerType;
+        private Integer metadatumId;
 
 
+
+        /**
+         * Setter for ownerId.
+         * @param  ownerId  Integer value for ownerId.
+         * @return Builder
+         */
+        public Builder ownerId(Integer ownerId) {
+            this.ownerId = ownerId;
+            return this;
+        }
+
+        /**
+         * Setter for ownerType.
+         * @param  ownerType  CustomFieldOwner value for ownerType.
+         * @return Builder
+         */
+        public Builder ownerType(CustomFieldOwner ownerType) {
+            this.ownerType = ownerType;
+            return this;
+        }
 
         /**
          * Setter for name.
@@ -175,22 +220,12 @@ public class InvoiceCustomField {
         }
 
         /**
-         * Setter for ownerId.
-         * @param  ownerId  Integer value for ownerId.
+         * Setter for metadatumId.
+         * @param  metadatumId  Integer value for metadatumId.
          * @return Builder
          */
-        public Builder ownerId(Integer ownerId) {
-            this.ownerId = ownerId;
-            return this;
-        }
-
-        /**
-         * Setter for ownerType.
-         * @param  ownerType  String value for ownerType.
-         * @return Builder
-         */
-        public Builder ownerType(String ownerType) {
-            this.ownerType = ownerType;
+        public Builder metadatumId(Integer metadatumId) {
+            this.metadatumId = metadatumId;
             return this;
         }
 
@@ -199,7 +234,7 @@ public class InvoiceCustomField {
          * @return {@link InvoiceCustomField}
          */
         public InvoiceCustomField build() {
-            return new InvoiceCustomField(name, value, ownerId, ownerType);
+            return new InvoiceCustomField(ownerId, ownerType, name, value, metadatumId);
         }
     }
 }
