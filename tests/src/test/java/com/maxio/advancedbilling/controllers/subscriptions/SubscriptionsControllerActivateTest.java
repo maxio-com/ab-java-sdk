@@ -86,7 +86,7 @@ class SubscriptionsControllerActivateTest {
                 customer,
                 paidProduct,
                 subscriptionCustomizer -> subscriptionCustomizer
-                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString()),
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5)),
                 paymentProfileCustomizer -> paymentProfileCustomizer.fullNumber("2")
         );
 
@@ -127,7 +127,7 @@ class SubscriptionsControllerActivateTest {
                 customer,
                 paidProduct,
                 subscriptionCustomizer -> subscriptionCustomizer
-                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString())
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5))
                         .creditCardAttributes(null)
         );
 
@@ -153,7 +153,7 @@ class SubscriptionsControllerActivateTest {
                 customer,
                 paidProduct,
                 subscriptionCustomizer -> subscriptionCustomizer
-                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString())
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5))
         );
 
         // when
@@ -185,7 +185,7 @@ class SubscriptionsControllerActivateTest {
                 customer,
                 freeProduct,
                 subscriptionCustomizer -> subscriptionCustomizer
-                        .initialBillingAt(ZonedDateTime.now().plusDays(5).toOffsetDateTime().toString())
+                        .initialBillingAt(ZonedDateTime.now().plusDays(5))
                         .productPricePointId(trialProductPricePoint.getId())
         );
 
