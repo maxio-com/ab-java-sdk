@@ -24,6 +24,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -148,8 +149,8 @@ public class CustomFieldsControllerListMetadataForResourceTypeTest {
                 .Builder()
                 .resourceType(resourceType)
                 .dateField(BasicDateField.CREATED_AT)
-                .startDate(ZonedDateTime.now().minusDays(3).toString())
-                .endDate(ZonedDateTime.now().plusHours(3).toString())
+                .startDate(LocalDate.now().minusDays(3))
+                .endDatetime(ZonedDateTime.now().plusHours(3))
                 .build()
         );
 
