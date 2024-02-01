@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for CustomerPayerChange type.
  */
 public class CustomerPayerChange {
-    private Object before;
-    private Object after;
+    private PayerAttributes before;
+    private PayerAttributes after;
 
     /**
      * Default constructor.
@@ -25,51 +25,51 @@ public class CustomerPayerChange {
 
     /**
      * Initialization constructor.
-     * @param  before  Object value for before.
-     * @param  after  Object value for after.
+     * @param  before  PayerAttributes value for before.
+     * @param  after  PayerAttributes value for after.
      */
     public CustomerPayerChange(
-            Object before,
-            Object after) {
+            PayerAttributes before,
+            PayerAttributes after) {
         this.before = before;
         this.after = after;
     }
 
     /**
      * Getter for Before.
-     * @return Returns the Object
+     * @return Returns the PayerAttributes
      */
     @JsonGetter("before")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Object getBefore() {
+    public PayerAttributes getBefore() {
         return before;
     }
 
     /**
      * Setter for Before.
-     * @param before Value for Object
+     * @param before Value for PayerAttributes
      */
     @JsonSetter("before")
-    public void setBefore(Object before) {
+    public void setBefore(PayerAttributes before) {
         this.before = before;
     }
 
     /**
      * Getter for After.
-     * @return Returns the Object
+     * @return Returns the PayerAttributes
      */
     @JsonGetter("after")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Object getAfter() {
+    public PayerAttributes getAfter() {
         return after;
     }
 
     /**
      * Setter for After.
-     * @param after Value for Object
+     * @param after Value for PayerAttributes
      */
     @JsonSetter("after")
-    public void setAfter(Object after) {
+    public void setAfter(PayerAttributes after) {
         this.after = after;
     }
 
@@ -98,27 +98,27 @@ public class CustomerPayerChange {
      * Class to build instances of {@link CustomerPayerChange}.
      */
     public static class Builder {
-        private Object before;
-        private Object after;
+        private PayerAttributes before;
+        private PayerAttributes after;
 
 
 
         /**
          * Setter for before.
-         * @param  before  Object value for before.
+         * @param  before  PayerAttributes value for before.
          * @return Builder
          */
-        public Builder before(Object before) {
+        public Builder before(PayerAttributes before) {
             this.before = before;
             return this;
         }
 
         /**
          * Setter for after.
-         * @param  after  Object value for after.
+         * @param  after  PayerAttributes value for after.
          * @return Builder
          */
-        public Builder after(Object after) {
+        public Builder after(PayerAttributes after) {
             this.after = after;
             return this;
         }

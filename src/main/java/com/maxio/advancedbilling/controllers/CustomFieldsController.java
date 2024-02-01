@@ -8,6 +8,7 @@ package com.maxio.advancedbilling.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
@@ -414,6 +415,9 @@ public final class CustomFieldsController extends BaseController {
                                 response -> ApiHelper.deserializeArray(response,
                                         Metadata[].class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new SingleErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -514,13 +518,13 @@ public final class CustomFieldsController extends BaseController {
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(input.getStartDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getStartDate())).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(input.getEndDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getEndDate())).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(input.getStartDatetime()).isRequired(false))
+                                .value(DateTimeHelper.toRfc8601DateTime(input.getStartDatetime())).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(input.getEndDatetime()).isRequired(false))
+                                .value(DateTimeHelper.toRfc8601DateTime(input.getEndDatetime())).isRequired(false))
                         .queryParam(param -> param.key("with_deleted")
                                 .value(input.getWithDeleted()).isRequired(false))
                         .queryParam(param -> param.key("resource_ids[]")

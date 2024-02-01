@@ -9,20 +9,26 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Before` | `Object` | Optional | - | Object getBefore() | setBefore(Object before) |
-| `After` | `Object` | Optional | - | Object getAfter() | setAfter(Object after) |
+| `Before` | [`PayerAttributes`](../../doc/models/payer-attributes.md) | Optional | - | PayerAttributes getBefore() | setBefore(PayerAttributes before) |
+| `After` | [`PayerAttributes`](../../doc/models/payer-attributes.md) | Optional | - | PayerAttributes getAfter() | setAfter(PayerAttributes after) |
 
 ## Example (as JSON)
 
 ```json
 {
   "before": {
-    "key1": "val1",
-    "key2": "val2"
+    "first_name": "first_name0",
+    "last_name": "last_name8",
+    "email": "email6",
+    "cc_emails": "cc_emails0",
+    "organization": "organization4"
   },
   "after": {
-    "key1": "val1",
-    "key2": "val2"
+    "first_name": "first_name2",
+    "last_name": "last_name0",
+    "email": "email4",
+    "cc_emails": "cc_emails8",
+    "organization": "organization4"
   }
 }
 ```
