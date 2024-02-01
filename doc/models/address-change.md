@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Before` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - | InvoiceAddress getBefore() | setBefore(InvoiceAddress before) |
-| `After` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | - | InvoiceAddress getAfter() | setAfter(InvoiceAddress after) |
+| `Before` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Required | - | InvoiceAddress getBefore() | setBefore(InvoiceAddress before) |
+| `After` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Required | - | InvoiceAddress getAfter() | setAfter(InvoiceAddress after) |
 
 ## Example (as JSON)
 

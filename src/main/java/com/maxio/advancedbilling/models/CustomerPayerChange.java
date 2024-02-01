@@ -6,16 +6,17 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * This is a model class for CustomerPayerChange type.
  */
 public class CustomerPayerChange {
-    private PayerAttributes before;
-    private PayerAttributes after;
+    private InvoicePayerChange before;
+    private InvoicePayerChange after;
 
     /**
      * Default constructor.
@@ -25,51 +26,50 @@ public class CustomerPayerChange {
 
     /**
      * Initialization constructor.
-     * @param  before  PayerAttributes value for before.
-     * @param  after  PayerAttributes value for after.
+     * @param  before  InvoicePayerChange value for before.
+     * @param  after  InvoicePayerChange value for after.
      */
+    @JsonCreator
     public CustomerPayerChange(
-            PayerAttributes before,
-            PayerAttributes after) {
+            @JsonProperty("before") InvoicePayerChange before,
+            @JsonProperty("after") InvoicePayerChange after) {
         this.before = before;
         this.after = after;
     }
 
     /**
      * Getter for Before.
-     * @return Returns the PayerAttributes
+     * @return Returns the InvoicePayerChange
      */
     @JsonGetter("before")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PayerAttributes getBefore() {
+    public InvoicePayerChange getBefore() {
         return before;
     }
 
     /**
      * Setter for Before.
-     * @param before Value for PayerAttributes
+     * @param before Value for InvoicePayerChange
      */
     @JsonSetter("before")
-    public void setBefore(PayerAttributes before) {
+    public void setBefore(InvoicePayerChange before) {
         this.before = before;
     }
 
     /**
      * Getter for After.
-     * @return Returns the PayerAttributes
+     * @return Returns the InvoicePayerChange
      */
     @JsonGetter("after")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public PayerAttributes getAfter() {
+    public InvoicePayerChange getAfter() {
         return after;
     }
 
     /**
      * Setter for After.
-     * @param after Value for PayerAttributes
+     * @param after Value for InvoicePayerChange
      */
     @JsonSetter("after")
-    public void setAfter(PayerAttributes after) {
+    public void setAfter(InvoicePayerChange after) {
         this.after = after;
     }
 
@@ -88,9 +88,7 @@ public class CustomerPayerChange {
      * @return a new {@link CustomerPayerChange.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .before(getBefore())
-                .after(getAfter());
+        Builder builder = new Builder(before, after);
         return builder;
     }
 
@@ -98,27 +96,41 @@ public class CustomerPayerChange {
      * Class to build instances of {@link CustomerPayerChange}.
      */
     public static class Builder {
-        private PayerAttributes before;
-        private PayerAttributes after;
+        private InvoicePayerChange before;
+        private InvoicePayerChange after;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  before  InvoicePayerChange value for before.
+         * @param  after  InvoicePayerChange value for after.
+         */
+        public Builder(InvoicePayerChange before, InvoicePayerChange after) {
+            this.before = before;
+            this.after = after;
+        }
 
         /**
          * Setter for before.
-         * @param  before  PayerAttributes value for before.
+         * @param  before  InvoicePayerChange value for before.
          * @return Builder
          */
-        public Builder before(PayerAttributes before) {
+        public Builder before(InvoicePayerChange before) {
             this.before = before;
             return this;
         }
 
         /**
          * Setter for after.
-         * @param  after  PayerAttributes value for after.
+         * @param  after  InvoicePayerChange value for after.
          * @return Builder
          */
-        public Builder after(PayerAttributes after) {
+        public Builder after(InvoicePayerChange after) {
             this.after = after;
             return this;
         }
