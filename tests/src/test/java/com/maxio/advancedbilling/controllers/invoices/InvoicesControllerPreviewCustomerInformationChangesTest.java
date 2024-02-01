@@ -107,8 +107,7 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
         // when then
         assertThatErrorListResponse(() -> INVOICES_CONTROLLER.previewCustomerInformationChanges(paidInvoice.getUid()))
                 .hasErrors("Invoice must have an open status")
-                .hasErrorCode(422)
-                .hasMessageStartingWith("HTTP Response Not OK. Status code: 422. Response:");
+                .isUnprocessableEntity();
     }
 
     @Test

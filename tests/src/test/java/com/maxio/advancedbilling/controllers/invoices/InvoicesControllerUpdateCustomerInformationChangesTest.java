@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerUpdateCustomerInformationChangesTest extends BaseCustomerInformationTest {
     @Test
-    void shouldReturnPreviewOfChanges() throws IOException, ApiException {
+    void shouldUpdateCustomerInformation() throws IOException, ApiException {
         // given
         TestData testData = setupCustomerDataChangedScenario();
         Customer customerBeforeUpdate = testData.customerBeforeUpdate();
@@ -78,8 +78,7 @@ public class InvoicesControllerUpdateCustomerInformationChangesTest extends Base
         // when then
         assertThatErrorListResponse(() -> INVOICES_CONTROLLER.updateCustomerInformation(paidInvoice.getUid()))
                 .hasErrors("Invoice must have an open status")
-                .hasErrorCode(422)
-                .hasMessageStartingWith("HTTP Response Not OK. Status code: 422. Response:");
+                .isUnprocessableEntity();
     }
 
     @Test
