@@ -43,7 +43,7 @@
 | `Taxes` | [`List<ProformaInvoiceTax>`](../../doc/models/proforma-invoice-tax.md) | Optional | - | List<ProformaInvoiceTax> getTaxes() | setTaxes(List<ProformaInvoiceTax> taxes) |
 | `Credits` | [`List<ProformaInvoiceCredit>`](../../doc/models/proforma-invoice-credit.md) | Optional | - | List<ProformaInvoiceCredit> getCredits() | setCredits(List<ProformaInvoiceCredit> credits) |
 | `Payments` | [`List<ProformaInvoicePayment>`](../../doc/models/proforma-invoice-payment.md) | Optional | - | List<ProformaInvoicePayment> getPayments() | setPayments(List<ProformaInvoicePayment> payments) |
-| `CustomFields` | [`List<ProformaCustomField>`](../../doc/models/proforma-custom-field.md) | Optional | - | List<ProformaCustomField> getCustomFields() | setCustomFields(List<ProformaCustomField> customFields) |
+| `CustomFields` | [`List<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Optional | - | List<InvoiceCustomField> getCustomFields() | setCustomFields(List<InvoiceCustomField> customFields) |
 | `PublicUrl` | `String` | Optional | - | String getPublicUrl() | setPublicUrl(String publicUrl) |
 
 ## Example (as JSON)

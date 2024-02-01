@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
@@ -28,9 +29,10 @@ public class AddressChange {
      * @param  before  InvoiceAddress value for before.
      * @param  after  InvoiceAddress value for after.
      */
+    @JsonCreator
     public AddressChange(
-            InvoiceAddress before,
-            InvoiceAddress after) {
+            @JsonProperty("before") InvoiceAddress before,
+            @JsonProperty("after") InvoiceAddress after) {
         this.before = before;
         this.after = after;
     }
@@ -40,7 +42,6 @@ public class AddressChange {
      * @return Returns the InvoiceAddress
      */
     @JsonGetter("before")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceAddress getBefore() {
         return before;
     }
@@ -59,7 +60,6 @@ public class AddressChange {
      * @return Returns the InvoiceAddress
      */
     @JsonGetter("after")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public InvoiceAddress getAfter() {
         return after;
     }
@@ -88,9 +88,7 @@ public class AddressChange {
      * @return a new {@link AddressChange.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .before(getBefore())
-                .after(getAfter());
+        Builder builder = new Builder(before, after);
         return builder;
     }
 
@@ -101,7 +99,21 @@ public class AddressChange {
         private InvoiceAddress before;
         private InvoiceAddress after;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  before  InvoiceAddress value for before.
+         * @param  after  InvoiceAddress value for after.
+         */
+        public Builder(InvoiceAddress before, InvoiceAddress after) {
+            this.before = before;
+            this.after = after;
+        }
 
         /**
          * Setter for before.

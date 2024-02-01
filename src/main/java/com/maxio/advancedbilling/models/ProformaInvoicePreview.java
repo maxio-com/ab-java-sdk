@@ -49,7 +49,7 @@ public class ProformaInvoicePreview {
     private List<ProformaInvoiceTax> taxes;
     private List<ProformaInvoiceCredit> credits;
     private List<ProformaInvoicePayment> payments;
-    private List<ProformaCustomField> customFields;
+    private List<InvoiceCustomField> customFields;
     private String publicUrl;
 
     /**
@@ -94,7 +94,7 @@ public class ProformaInvoicePreview {
      * @param  taxes  List of ProformaInvoiceTax value for taxes.
      * @param  credits  List of ProformaInvoiceCredit value for credits.
      * @param  payments  List of ProformaInvoicePayment value for payments.
-     * @param  customFields  List of ProformaCustomField value for customFields.
+     * @param  customFields  List of InvoiceCustomField value for customFields.
      * @param  publicUrl  String value for publicUrl.
      */
     public ProformaInvoicePreview(
@@ -132,7 +132,7 @@ public class ProformaInvoicePreview {
             List<ProformaInvoiceTax> taxes,
             List<ProformaInvoiceCredit> credits,
             List<ProformaInvoicePayment> payments,
-            List<ProformaCustomField> customFields,
+            List<InvoiceCustomField> customFields,
             String publicUrl) {
         this.uid = uid;
         this.siteId = siteId;
@@ -824,20 +824,20 @@ public class ProformaInvoicePreview {
 
     /**
      * Getter for CustomFields.
-     * @return Returns the List of ProformaCustomField
+     * @return Returns the List of InvoiceCustomField
      */
     @JsonGetter("custom_fields")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ProformaCustomField> getCustomFields() {
+    public List<InvoiceCustomField> getCustomFields() {
         return customFields;
     }
 
     /**
      * Setter for CustomFields.
-     * @param customFields Value for List of ProformaCustomField
+     * @param customFields Value for List of InvoiceCustomField
      */
     @JsonSetter("custom_fields")
-    public void setCustomFields(List<ProformaCustomField> customFields) {
+    public void setCustomFields(List<InvoiceCustomField> customFields) {
         this.customFields = customFields;
     }
 
@@ -967,7 +967,7 @@ public class ProformaInvoicePreview {
         private List<ProformaInvoiceTax> taxes;
         private List<ProformaInvoiceCredit> credits;
         private List<ProformaInvoicePayment> payments;
-        private List<ProformaCustomField> customFields;
+        private List<InvoiceCustomField> customFields;
         private String publicUrl;
 
 
@@ -1314,10 +1314,10 @@ public class ProformaInvoicePreview {
 
         /**
          * Setter for customFields.
-         * @param  customFields  List of ProformaCustomField value for customFields.
+         * @param  customFields  List of InvoiceCustomField value for customFields.
          * @return Builder
          */
-        public Builder customFields(List<ProformaCustomField> customFields) {
+        public Builder customFields(List<InvoiceCustomField> customFields) {
             this.customFields = customFields;
             return this;
         }
