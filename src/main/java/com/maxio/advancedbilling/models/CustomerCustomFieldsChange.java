@@ -6,8 +6,9 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
  * This is a model class for CustomerCustomFieldsChange type.
  */
 public class CustomerCustomFieldsChange {
-    private List<ProformaCustomField> before;
-    private List<ProformaCustomField> after;
+    private List<InvoiceCustomField> before;
+    private List<InvoiceCustomField> after;
 
     /**
      * Default constructor.
@@ -26,51 +27,50 @@ public class CustomerCustomFieldsChange {
 
     /**
      * Initialization constructor.
-     * @param  before  List of ProformaCustomField value for before.
-     * @param  after  List of ProformaCustomField value for after.
+     * @param  before  List of InvoiceCustomField value for before.
+     * @param  after  List of InvoiceCustomField value for after.
      */
+    @JsonCreator
     public CustomerCustomFieldsChange(
-            List<ProformaCustomField> before,
-            List<ProformaCustomField> after) {
+            @JsonProperty("before") List<InvoiceCustomField> before,
+            @JsonProperty("after") List<InvoiceCustomField> after) {
         this.before = before;
         this.after = after;
     }
 
     /**
      * Getter for Before.
-     * @return Returns the List of ProformaCustomField
+     * @return Returns the List of InvoiceCustomField
      */
     @JsonGetter("before")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ProformaCustomField> getBefore() {
+    public List<InvoiceCustomField> getBefore() {
         return before;
     }
 
     /**
      * Setter for Before.
-     * @param before Value for List of ProformaCustomField
+     * @param before Value for List of InvoiceCustomField
      */
     @JsonSetter("before")
-    public void setBefore(List<ProformaCustomField> before) {
+    public void setBefore(List<InvoiceCustomField> before) {
         this.before = before;
     }
 
     /**
      * Getter for After.
-     * @return Returns the List of ProformaCustomField
+     * @return Returns the List of InvoiceCustomField
      */
     @JsonGetter("after")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ProformaCustomField> getAfter() {
+    public List<InvoiceCustomField> getAfter() {
         return after;
     }
 
     /**
      * Setter for After.
-     * @param after Value for List of ProformaCustomField
+     * @param after Value for List of InvoiceCustomField
      */
     @JsonSetter("after")
-    public void setAfter(List<ProformaCustomField> after) {
+    public void setAfter(List<InvoiceCustomField> after) {
         this.after = after;
     }
 
@@ -89,9 +89,7 @@ public class CustomerCustomFieldsChange {
      * @return a new {@link CustomerCustomFieldsChange.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .before(getBefore())
-                .after(getAfter());
+        Builder builder = new Builder(before, after);
         return builder;
     }
 
@@ -99,27 +97,41 @@ public class CustomerCustomFieldsChange {
      * Class to build instances of {@link CustomerCustomFieldsChange}.
      */
     public static class Builder {
-        private List<ProformaCustomField> before;
-        private List<ProformaCustomField> after;
+        private List<InvoiceCustomField> before;
+        private List<InvoiceCustomField> after;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  before  List of InvoiceCustomField value for before.
+         * @param  after  List of InvoiceCustomField value for after.
+         */
+        public Builder(List<InvoiceCustomField> before, List<InvoiceCustomField> after) {
+            this.before = before;
+            this.after = after;
+        }
 
         /**
          * Setter for before.
-         * @param  before  List of ProformaCustomField value for before.
+         * @param  before  List of InvoiceCustomField value for before.
          * @return Builder
          */
-        public Builder before(List<ProformaCustomField> before) {
+        public Builder before(List<InvoiceCustomField> before) {
             this.before = before;
             return this;
         }
 
         /**
          * Setter for after.
-         * @param  after  List of ProformaCustomField value for after.
+         * @param  after  List of InvoiceCustomField value for after.
          * @return Builder
          */
-        public Builder after(List<ProformaCustomField> after) {
+        public Builder after(List<InvoiceCustomField> after) {
             this.after = after;
             return this;
         }
