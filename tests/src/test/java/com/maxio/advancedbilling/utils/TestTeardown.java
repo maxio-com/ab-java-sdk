@@ -2,6 +2,7 @@ package com.maxio.advancedbilling.utils;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
@@ -10,6 +11,8 @@ import com.maxio.advancedbilling.models.ListMetafieldsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionsInput;
 import com.maxio.advancedbilling.models.Metafield;
 import com.maxio.advancedbilling.models.ResourceType;
+import com.maxio.advancedbilling.models.SubscriptionGroupItem;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +58,25 @@ public class TestTeardown {
             subscriptions = advancedBillingClient.getSubscriptionsController()
                     .listSubscriptions(new ListSubscriptionsInput.Builder().perPage(200).build());
         }
+    }
 
+    public void deleteSubscriptionGroup(SubscriptionGroupSignupResponse groupSignup) throws IOException, ApiException {
+        SubscriptionGroupsController subscriptionGroupsController = advancedBillingClient.getSubscriptionGroupsController();
+        List<SubscriptionGroupItem> subscriptions = groupSignup.getSubscriptions();
+        SubscriptionGroupItem primarySubscription = null;
+
+        for (SubscriptionGroupItem subscription : subscriptions) {
+            if (groupSignup.getPrimarySubscriptionId().equals(subscription.getId())) {
+                primarySubscription = subscription;
+                continue;
+            }
+            subscriptionGroupsController.removeSubscriptionFromGroup(subscription.getId());
+        }
+
+        if (primarySubscription != null) {
+            subscriptionGroupsController.removeSubscriptionFromGroup(primarySubscription.getId());
+        }
+        deleteCustomer(new Customer.Builder().id(groupSignup.getCustomerId()).build());
     }
 
     public void archiveComponents() throws IOException, ApiException {
@@ -79,10 +100,10 @@ public class TestTeardown {
     }
 
     public void deleteMetafields() throws IOException, ApiException {
-        for (ResourceType resourceType: ResourceType.values()) {
+        for (ResourceType resourceType : ResourceType.values()) {
             List<Metafield> metafields = listMetafields(resourceType);
             while (!metafields.isEmpty()) {
-                for (Metafield metafield: metafields) {
+                for (Metafield metafield : metafields) {
                     advancedBillingClient.getCustomFieldsController()
                             .deleteMetafield(resourceType, metafield.getName());
                     metafields = listMetafields(resourceType);
