@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Payer` | [`CustomerPayerChange`](../../doc/models/customer-payer-change.md) | Optional | - | CustomerPayerChange getPayer() | setPayer(CustomerPayerChange payer) |
-| `ShippingAddress` | [`CustomerShippingAddressChange`](../../doc/models/customer-shipping-address-change.md) | Optional | - | CustomerShippingAddressChange getShippingAddress() | setShippingAddress(CustomerShippingAddressChange shippingAddress) |
-| `BillingAddress` | [`CustomerBillingAddressChange`](../../doc/models/customer-billing-address-change.md) | Optional | - | CustomerBillingAddressChange getBillingAddress() | setBillingAddress(CustomerBillingAddressChange billingAddress) |
+| `ShippingAddress` | [`AddressChange`](../../doc/models/address-change.md) | Optional | - | AddressChange getShippingAddress() | setShippingAddress(AddressChange shippingAddress) |
+| `BillingAddress` | [`AddressChange`](../../doc/models/address-change.md) | Optional | - | AddressChange getBillingAddress() | setBillingAddress(AddressChange billingAddress) |
 | `CustomFields` | [`CustomerCustomFieldsChange`](../../doc/models/customer-custom-fields-change.md) | Optional | - | CustomerCustomFieldsChange getCustomFields() | setCustomFields(CustomerCustomFieldsChange customFields) |
 
 ## Example (as JSON)
@@ -20,32 +20,50 @@
 {
   "payer": {
     "before": {
-      "key1": "val1",
-      "key2": "val2"
+      "first_name": "first_name0",
+      "last_name": "last_name8",
+      "email": "email6",
+      "cc_emails": "cc_emails0",
+      "organization": "organization4"
     },
     "after": {
-      "key1": "val1",
-      "key2": "val2"
+      "first_name": "first_name2",
+      "last_name": "last_name0",
+      "email": "email4",
+      "cc_emails": "cc_emails8",
+      "organization": "organization4"
     }
   },
   "shipping_address": {
     "before": {
-      "key1": "val1",
-      "key2": "val2"
+      "street": "street0",
+      "line2": "line24",
+      "city": "city0",
+      "state": "state6",
+      "zip": "zip4"
     },
     "after": {
-      "key1": "val1",
-      "key2": "val2"
+      "street": "street2",
+      "line2": "line26",
+      "city": "city8",
+      "state": "state2",
+      "zip": "zip4"
     }
   },
   "billing_address": {
     "before": {
-      "key1": "val1",
-      "key2": "val2"
+      "street": "street0",
+      "line2": "line24",
+      "city": "city0",
+      "state": "state6",
+      "zip": "zip4"
     },
     "after": {
-      "key1": "val1",
-      "key2": "val2"
+      "street": "street2",
+      "line2": "line26",
+      "city": "city8",
+      "state": "state2",
+      "zip": "zip4"
     }
   },
   "custom_fields": {
