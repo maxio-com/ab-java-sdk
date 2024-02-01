@@ -34,7 +34,7 @@ public class CreateSubscription {
     private String netTerms;
     private Integer customerId;
     private ZonedDateTime nextBillingAt;
-    private String initialBillingAt;
+    private ZonedDateTime initialBillingAt;
     private Integer storedCredentialTransactionId;
     private Integer salesRepId;
     private Integer paymentProfileId;
@@ -95,7 +95,7 @@ public class CreateSubscription {
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
-     * @param  initialBillingAt  String value for initialBillingAt.
+     * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  salesRepId  Integer value for salesRepId.
      * @param  paymentProfileId  Integer value for paymentProfileId.
@@ -149,7 +149,7 @@ public class CreateSubscription {
             String netTerms,
             Integer customerId,
             ZonedDateTime nextBillingAt,
-            String initialBillingAt,
+            ZonedDateTime initialBillingAt,
             Integer storedCredentialTransactionId,
             Integer salesRepId,
             Integer paymentProfileId,
@@ -253,7 +253,7 @@ public class CreateSubscription {
      * @param  netTerms  String value for netTerms.
      * @param  customerId  Integer value for customerId.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
-     * @param  initialBillingAt  String value for initialBillingAt.
+     * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  salesRepId  Integer value for salesRepId.
      * @param  paymentProfileId  Integer value for paymentProfileId.
@@ -299,7 +299,7 @@ public class CreateSubscription {
             String productPricePointHandle, Integer productPricePointId,
             SubscriptionCustomPrice customPrice, String couponCode, List<String> couponCodes,
             CollectionMethod paymentCollectionMethod, String receivesInvoiceEmails, String netTerms,
-            Integer customerId, ZonedDateTime nextBillingAt, String initialBillingAt,
+            Integer customerId, ZonedDateTime nextBillingAt, ZonedDateTime initialBillingAt,
             Integer storedCredentialTransactionId, Integer salesRepId, Integer paymentProfileId,
             String reference, CustomerAttributes customerAttributes,
             PaymentProfileAttributes paymentProfileAttributes,
@@ -671,11 +671,12 @@ public class CreateSubscription {
      * either before or after the trial, as configured on the price point. If the payment is due at
      * the initial_billing_at and it fails the subscription will be immediately canceled. See
      * further notes in the section on Delayed Signups.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("initial_billing_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getInitialBillingAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getInitialBillingAt() {
         return initialBillingAt;
     }
 
@@ -692,10 +693,11 @@ public class CreateSubscription {
      * either before or after the trial, as configured on the price point. If the payment is due at
      * the initial_billing_at and it fails the subscription will be immediately canceled. See
      * further notes in the section on Delayed Signups.
-     * @param initialBillingAt Value for String
+     * @param initialBillingAt Value for ZonedDateTime
      */
     @JsonSetter("initial_billing_at")
-    public void setInitialBillingAt(String initialBillingAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setInitialBillingAt(ZonedDateTime initialBillingAt) {
         this.initialBillingAt = initialBillingAt;
     }
 
@@ -1673,7 +1675,7 @@ public class CreateSubscription {
         private String netTerms;
         private Integer customerId;
         private ZonedDateTime nextBillingAt;
-        private String initialBillingAt;
+        private ZonedDateTime initialBillingAt;
         private Integer storedCredentialTransactionId;
         private Integer salesRepId;
         private Integer paymentProfileId;
@@ -1836,10 +1838,10 @@ public class CreateSubscription {
 
         /**
          * Setter for initialBillingAt.
-         * @param  initialBillingAt  String value for initialBillingAt.
+         * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
          * @return Builder
          */
-        public Builder initialBillingAt(String initialBillingAt) {
+        public Builder initialBillingAt(ZonedDateTime initialBillingAt) {
             this.initialBillingAt = initialBillingAt;
             return this;
         }
