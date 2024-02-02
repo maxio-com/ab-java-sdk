@@ -149,16 +149,16 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ServiceCreditResponse issueSubscriptionGroupServiceCredits(
+    public ServiceCreditResponse issueSubscriptionGroupServiceCredit(
             final String uid,
             final IssueServiceCreditRequest body) throws ApiException, IOException {
-        return prepareIssueSubscriptionGroupServiceCreditsRequest(uid, body).execute();
+        return prepareIssueSubscriptionGroupServiceCreditRequest(uid, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for issueSubscriptionGroupServiceCredits.
+     * Builds the ApiCall object for issueSubscriptionGroupServiceCredit.
      */
-    private ApiCall<ServiceCreditResponse, ApiException> prepareIssueSubscriptionGroupServiceCreditsRequest(
+    private ApiCall<ServiceCreditResponse, ApiException> prepareIssueSubscriptionGroupServiceCreditRequest(
             final String uid,
             final IssueServiceCreditRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ServiceCreditResponse, ApiException>()
@@ -197,16 +197,16 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ServiceCredit deductSubscriptionGroupServiceCredits(
+    public ServiceCredit deductSubscriptionGroupServiceCredit(
             final String uid,
             final DeductServiceCreditRequest body) throws ApiException, IOException {
-        return prepareDeductSubscriptionGroupServiceCreditsRequest(uid, body).execute();
+        return prepareDeductSubscriptionGroupServiceCreditRequest(uid, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for deductSubscriptionGroupServiceCredits.
+     * Builds the ApiCall object for deductSubscriptionGroupServiceCredit.
      */
-    private ApiCall<ServiceCredit, ApiException> prepareDeductSubscriptionGroupServiceCreditsRequest(
+    private ApiCall<ServiceCredit, ApiException> prepareDeductSubscriptionGroupServiceCreditRequest(
             final String uid,
             final DeductServiceCreditRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ServiceCredit, ApiException>()

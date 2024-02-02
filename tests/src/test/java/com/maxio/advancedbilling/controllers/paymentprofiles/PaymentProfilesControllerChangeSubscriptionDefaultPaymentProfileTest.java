@@ -96,7 +96,7 @@ class PaymentProfilesControllerChangeSubscriptionDefaultPaymentProfileTest {
 
         // when
         BankAccountPaymentProfile newDefaultPaymentProfile = PAYMENT_PROFILES_CONTROLLER
-                .updateSubscriptionDefaultPaymentProfile(subscription.getId(), bankAccountPaymentProfile.getId())
+                .changeSubscriptionDefaultPaymentProfile(subscription.getId(), bankAccountPaymentProfile.getId())
                 .getPaymentProfile()
                 .match(new PaymentProfileResponsePaymentProfileGetter<>());
 
@@ -130,7 +130,7 @@ class PaymentProfilesControllerChangeSubscriptionDefaultPaymentProfileTest {
     void shouldReturn404WhenPathParamsPointToNotExistentResources(int subscriptionId, int paymentProfileId) {
         // when - then
         CommonAssertions.assertNotFound(
-                () -> PAYMENT_PROFILES_CONTROLLER.updateSubscriptionDefaultPaymentProfile(subscriptionId, paymentProfileId)
+                () -> PAYMENT_PROFILES_CONTROLLER.changeSubscriptionDefaultPaymentProfile(subscriptionId, paymentProfileId)
         );
     }
 
@@ -146,12 +146,12 @@ class PaymentProfilesControllerChangeSubscriptionDefaultPaymentProfileTest {
     void shouldReturn422WhenProvidedPaymentProfileIdIsAlreadyTheCurrentOne() throws IOException, ApiException {
         // given (updating the default payment profile)
         PAYMENT_PROFILES_CONTROLLER
-                .updateSubscriptionDefaultPaymentProfile(subscription.getId(), creditCardPaymentProfile.getId());
+                .changeSubscriptionDefaultPaymentProfile(subscription.getId(), creditCardPaymentProfile.getId());
 
         // when - then (the same operation again)
         CommonAssertions
                 .assertThatErrorListResponse(() -> PAYMENT_PROFILES_CONTROLLER
-                        .updateSubscriptionDefaultPaymentProfile(subscription.getId(), creditCardPaymentProfile.getId())
+                        .changeSubscriptionDefaultPaymentProfile(subscription.getId(), creditCardPaymentProfile.getId())
                 )
                 .isUnprocessableEntity()
                 .hasErrors("This is already the current payment profile");
@@ -163,7 +163,7 @@ class PaymentProfilesControllerChangeSubscriptionDefaultPaymentProfileTest {
         CommonAssertions.assertUnauthorized(
                 () -> TestClient.createInvalidCredentialsClient()
                         .getPaymentProfilesController()
-                        .updateSubscriptionDefaultPaymentProfile(subscription.getId(), 123)
+                        .changeSubscriptionDefaultPaymentProfile(subscription.getId(), 123)
         );
     }
 }

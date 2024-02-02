@@ -18,8 +18,8 @@ PaymentProfilesController paymentProfilesController = client.getPaymentProfilesC
 * [Delete Subscriptions Payment Profile](../../doc/controllers/payment-profiles.md#delete-subscriptions-payment-profile)
 * [Verify Bank Account](../../doc/controllers/payment-profiles.md#verify-bank-account)
 * [Delete Subscription Group Payment Profile](../../doc/controllers/payment-profiles.md#delete-subscription-group-payment-profile)
-* [Update Subscription Default Payment Profile](../../doc/controllers/payment-profiles.md#update-subscription-default-payment-profile)
-* [Update Subscription Group Default Payment Profile](../../doc/controllers/payment-profiles.md#update-subscription-group-default-payment-profile)
+* [Change Subscription Default Payment Profile](../../doc/controllers/payment-profiles.md#change-subscription-default-payment-profile)
+* [Change Subscription Group Default Payment Profile](../../doc/controllers/payment-profiles.md#change-subscription-group-default-payment-profile)
 * [Read One Time Token](../../doc/controllers/payment-profiles.md#read-one-time-token)
 * [Send Request Update Payment Email](../../doc/controllers/payment-profiles.md#send-request-update-payment-email)
 
@@ -878,14 +878,14 @@ try {
 ```
 
 
-# Update Subscription Default Payment Profile
+# Change Subscription Default Payment Profile
 
 This will change the default payment profile on the subscription to the existing payment profile with the id specified.
 
 You must elect to change the existing payment profile to a new payment profile ID in order to receive a satisfactory response from this endpoint.
 
 ```java
-PaymentProfileResponse updateSubscriptionDefaultPaymentProfile(
+PaymentProfileResponse changeSubscriptionDefaultPaymentProfile(
     final int subscriptionId,
     final int paymentProfileId)
 ```
@@ -908,7 +908,7 @@ int subscriptionId = 222;
 int paymentProfileId = 198;
 
 try {
-    PaymentProfileResponse result = paymentProfilesController.updateSubscriptionDefaultPaymentProfile(subscriptionId, paymentProfileId);
+    PaymentProfileResponse result = paymentProfilesController.changeSubscriptionDefaultPaymentProfile(subscriptionId, paymentProfileId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -954,7 +954,7 @@ try {
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Update Subscription Group Default Payment Profile
+# Change Subscription Group Default Payment Profile
 
 This will change the default payment profile on the subscription group to the existing payment profile with the id specified.
 
@@ -963,7 +963,7 @@ You must elect to change the existing payment profile to a new payment profile I
 The new payment profile must belong to the subscription group's customer, otherwise you will receive an error.
 
 ```java
-PaymentProfileResponse updateSubscriptionGroupDefaultPaymentProfile(
+PaymentProfileResponse changeSubscriptionGroupDefaultPaymentProfile(
     final String uid,
     final int paymentProfileId)
 ```
@@ -986,7 +986,7 @@ String uid = "uid0";
 int paymentProfileId = 198;
 
 try {
-    PaymentProfileResponse result = paymentProfilesController.updateSubscriptionGroupDefaultPaymentProfile(uid, paymentProfileId);
+    PaymentProfileResponse result = paymentProfilesController.changeSubscriptionGroupDefaultPaymentProfile(uid, paymentProfileId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

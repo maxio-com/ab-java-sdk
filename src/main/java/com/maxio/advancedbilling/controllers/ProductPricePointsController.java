@@ -398,16 +398,16 @@ public final class ProductPricePointsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public BulkCreateProductPricePointsResponse createProductPricePoints(
+    public BulkCreateProductPricePointsResponse bulkCreateProductPricePoints(
             final int productId,
             final BulkCreateProductPricePointsRequest body) throws ApiException, IOException {
-        return prepareCreateProductPricePointsRequest(productId, body).execute();
+        return prepareBulkCreateProductPricePointsRequest(productId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for createProductPricePoints.
+     * Builds the ApiCall object for bulkCreateProductPricePoints.
      */
-    private ApiCall<BulkCreateProductPricePointsResponse, ApiException> prepareCreateProductPricePointsRequest(
+    private ApiCall<BulkCreateProductPricePointsResponse, ApiException> prepareBulkCreateProductPricePointsRequest(
             final int productId,
             final BulkCreateProductPricePointsRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<BulkCreateProductPricePointsResponse, ApiException>()

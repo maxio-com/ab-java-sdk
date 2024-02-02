@@ -178,16 +178,16 @@ public final class CouponsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public CouponResponse readCouponByCode(
+    public CouponResponse findCoupon(
             final Integer productFamilyId,
             final String code) throws ApiException, IOException {
-        return prepareReadCouponByCodeRequest(productFamilyId, code).execute();
+        return prepareFindCouponRequest(productFamilyId, code).execute();
     }
 
     /**
-     * Builds the ApiCall object for readCouponByCode.
+     * Builds the ApiCall object for findCoupon.
      */
-    private ApiCall<CouponResponse, ApiException> prepareReadCouponByCodeRequest(
+    private ApiCall<CouponResponse, ApiException> prepareFindCouponRequest(
             final Integer productFamilyId,
             final String code) throws IOException {
         return new ApiCall.Builder<CouponResponse, ApiException>()
@@ -547,16 +547,16 @@ public final class CouponsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public CouponCurrencyResponse updateCouponCurrencyPrices(
+    public CouponCurrencyResponse createOrUpdateCouponCurrencyPrices(
             final int couponId,
             final CouponCurrencyRequest body) throws ApiException, IOException {
-        return prepareUpdateCouponCurrencyPricesRequest(couponId, body).execute();
+        return prepareCreateOrUpdateCouponCurrencyPricesRequest(couponId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for updateCouponCurrencyPrices.
+     * Builds the ApiCall object for createOrUpdateCouponCurrencyPrices.
      */
-    private ApiCall<CouponCurrencyResponse, ApiException> prepareUpdateCouponCurrencyPricesRequest(
+    private ApiCall<CouponCurrencyResponse, ApiException> prepareCreateOrUpdateCouponCurrencyPricesRequest(
             final int couponId,
             final CouponCurrencyRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<CouponCurrencyResponse, ApiException>()

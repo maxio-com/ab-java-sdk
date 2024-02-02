@@ -13,9 +13,9 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.SubscriptionsMrrErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.ListMRRResponse;
+import com.maxio.advancedbilling.models.ListMrrMovementsInput;
 import com.maxio.advancedbilling.models.ListMrrPerSubscriptionInput;
 import com.maxio.advancedbilling.models.MRRResponse;
-import com.maxio.advancedbilling.models.ReadMrrMovementsInput;
 import com.maxio.advancedbilling.models.SiteSummary;
 import com.maxio.advancedbilling.models.SubscriptionMRRResponse;
 import io.apimatic.core.ApiCall;
@@ -137,22 +137,22 @@ public final class InsightsController extends BaseController {
      * revenue from: * Metered Components * Prepaid Usage Components.
      * @deprecated
      * 
-     * @param  input  ReadMrrMovementsInput object containing request parameters
+     * @param  input  ListMrrMovementsInput object containing request parameters
      * @return    Returns the ListMRRResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     @Deprecated
-    public ListMRRResponse readMrrMovements(
-            final ReadMrrMovementsInput input) throws ApiException, IOException {
-        return prepareReadMrrMovementsRequest(input).execute();
+    public ListMRRResponse listMrrMovements(
+            final ListMrrMovementsInput input) throws ApiException, IOException {
+        return prepareListMrrMovementsRequest(input).execute();
     }
 
     /**
-     * Builds the ApiCall object for readMrrMovements.
+     * Builds the ApiCall object for listMrrMovements.
      */
-    private ApiCall<ListMRRResponse, ApiException> prepareReadMrrMovementsRequest(
-            final ReadMrrMovementsInput input) throws IOException {
+    private ApiCall<ListMRRResponse, ApiException> prepareListMrrMovementsRequest(
+            final ListMrrMovementsInput input) throws IOException {
         return new ApiCall.Builder<ListMRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

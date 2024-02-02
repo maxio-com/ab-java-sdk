@@ -12,7 +12,7 @@ OffersController offersController = client.getOffersController();
 
 * [Create Offer](../../doc/controllers/offers.md#create-offer)
 * [List Offers](../../doc/controllers/offers.md#list-offers)
-* [Read Offers](../../doc/controllers/offers.md#read-offers)
+* [Read Offer](../../doc/controllers/offers.md#read-offer)
 * [Archive Offer](../../doc/controllers/offers.md#archive-offer)
 * [Unarchive Offer](../../doc/controllers/offers.md#unarchive-offer)
 
@@ -228,12 +228,12 @@ try {
 ```
 
 
-# Read Offers
+# Read Offer
 
 This method allows you to list a specific offer's attributes. This is different than list all offers for a site, as it requires an `offer_id`.
 
 ```java
-OfferResponse readOffers(
+OfferResponse readOffer(
     final int offerId)
 ```
 
@@ -253,7 +253,7 @@ OfferResponse readOffers(
 int offerId = 130;
 
 try {
-    OfferResponse result = offersController.readOffers(offerId);
+    OfferResponse result = offersController.readOffer(offerId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

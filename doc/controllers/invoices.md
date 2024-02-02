@@ -15,13 +15,13 @@ InvoicesController invoicesController = client.getInvoicesController();
 * [Read Invoice](../../doc/controllers/invoices.md#read-invoice)
 * [List Invoice Events](../../doc/controllers/invoices.md#list-invoice-events)
 * [Record Payment for Invoice](../../doc/controllers/invoices.md#record-payment-for-invoice)
-* [Record External Payment for Invoices](../../doc/controllers/invoices.md#record-external-payment-for-invoices)
+* [Record Payment for Multiple Invoices](../../doc/controllers/invoices.md#record-payment-for-multiple-invoices)
 * [List Credit Notes](../../doc/controllers/invoices.md#list-credit-notes)
 * [Read Credit Note](../../doc/controllers/invoices.md#read-credit-note)
 * [Record Payment for Subscription](../../doc/controllers/invoices.md#record-payment-for-subscription)
 * [Reopen Invoice](../../doc/controllers/invoices.md#reopen-invoice)
 * [Void Invoice](../../doc/controllers/invoices.md#void-invoice)
-* [List Invoice Segments](../../doc/controllers/invoices.md#list-invoice-segments)
+* [List Consolidated Invoice Segments](../../doc/controllers/invoices.md#list-consolidated-invoice-segments)
 * [Create Invoice](../../doc/controllers/invoices.md#create-invoice)
 * [Send Invoice](../../doc/controllers/invoices.md#send-invoice)
 * [Preview Customer Information Changes](../../doc/controllers/invoices.md#preview-customer-information-changes)
@@ -1128,7 +1128,7 @@ try {
 ```
 
 
-# Record External Payment for Invoices
+# Record Payment for Multiple Invoices
 
 This API call should be used when you want to record an external payment against multiple invoices.
 
@@ -1158,7 +1158,7 @@ In order apply a payment to multiple invoices, at minimum, specify the `amount` 
 Note that the invoice payment amounts must be greater than 0. Total amount must be greater or equal to invoices payment amount sum.
 
 ```java
-MultiInvoicePaymentResponse recordExternalPaymentForInvoices(
+MultiInvoicePaymentResponse recordPaymentForMultipleInvoices(
     final CreateMultiInvoicePaymentRequest body)
 ```
 
@@ -1201,7 +1201,7 @@ CreateMultiInvoicePaymentRequest body = new CreateMultiInvoicePaymentRequest.Bui
 .build();
 
 try {
-    MultiInvoicePaymentResponse result = invoicesController.recordExternalPaymentForInvoices(body);
+    MultiInvoicePaymentResponse result = invoicesController.recordPaymentForMultipleInvoices(body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -2073,13 +2073,13 @@ try {
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# List Invoice Segments
+# List Consolidated Invoice Segments
 
 Invoice segments returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
 
 ```java
-ConsolidatedInvoice listInvoiceSegments(
-    final ListInvoiceSegmentsInput input)
+ConsolidatedInvoice listConsolidatedInvoiceSegments(
+    final ListConsolidatedInvoiceSegmentsInput input)
 ```
 
 ## Parameters
@@ -2098,7 +2098,7 @@ ConsolidatedInvoice listInvoiceSegments(
 ## Example Usage
 
 ```java
-ListInvoiceSegmentsInput listInvoiceSegmentsInput = new ListInvoiceSegmentsInput.Builder(
+ListConsolidatedInvoiceSegmentsInput listConsolidatedInvoiceSegmentsInput = new ListConsolidatedInvoiceSegmentsInput.Builder(
     "invoice_uid0"
 )
 .page(2)
@@ -2107,7 +2107,7 @@ ListInvoiceSegmentsInput listInvoiceSegmentsInput = new ListInvoiceSegmentsInput
 .build();
 
 try {
-    ConsolidatedInvoice result = invoicesController.listInvoiceSegments(listInvoiceSegmentsInput);
+    ConsolidatedInvoice result = invoicesController.listConsolidatedInvoiceSegments(listConsolidatedInvoiceSegmentsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

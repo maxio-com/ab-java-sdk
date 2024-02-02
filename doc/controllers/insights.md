@@ -12,7 +12,7 @@ InsightsController insightsController = client.getInsightsController();
 
 * [Read Site Stats](../../doc/controllers/insights.md#read-site-stats)
 * [Read Mrr](../../doc/controllers/insights.md#read-mrr)
-* [Read Mrr Movements](../../doc/controllers/insights.md#read-mrr-movements)
+* [List Mrr Movements](../../doc/controllers/insights.md#list-mrr-movements)
 * [List Mrr Per Subscription](../../doc/controllers/insights.md#list-mrr-per-subscription)
 
 
@@ -126,7 +126,7 @@ try {
 ```
 
 
-# Read Mrr Movements
+# List Mrr Movements
 
 **This endpoint is deprecated.**
 
@@ -156,8 +156,8 @@ Usage includes revenue from:
 * Prepaid Usage Components
 
 ```java
-ListMRRResponse readMrrMovements(
-    final ReadMrrMovementsInput input)
+ListMRRResponse listMrrMovements(
+    final ListMrrMovementsInput input)
 ```
 
 ## Parameters
@@ -176,13 +176,13 @@ ListMRRResponse readMrrMovements(
 ## Example Usage
 
 ```java
-ReadMrrMovementsInput readMrrMovementsInput = new ReadMrrMovementsInput.Builder()
+ListMrrMovementsInput listMrrMovementsInput = new ListMrrMovementsInput.Builder()
     .page(2)
     .perPage(20)
     .build();
 
 try {
-    ListMRRResponse result = insightsController.readMrrMovements(readMrrMovementsInput);
+    ListMRRResponse result = insightsController.listMrrMovements(listMrrMovementsInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

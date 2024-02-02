@@ -12,8 +12,8 @@ SubscriptionGroupInvoiceAccountController subscriptionGroupInvoiceAccountControl
 
 * [Create Subscription Group Prepayment](../../doc/controllers/subscription-group-invoice-account.md#create-subscription-group-prepayment)
 * [List Prepayments for Subscription Group](../../doc/controllers/subscription-group-invoice-account.md#list-prepayments-for-subscription-group)
-* [Issue Subscription Group Service Credits](../../doc/controllers/subscription-group-invoice-account.md#issue-subscription-group-service-credits)
-* [Deduct Subscription Group Service Credits](../../doc/controllers/subscription-group-invoice-account.md#deduct-subscription-group-service-credits)
+* [Issue Subscription Group Service Credit](../../doc/controllers/subscription-group-invoice-account.md#issue-subscription-group-service-credit)
+* [Deduct Subscription Group Service Credit](../../doc/controllers/subscription-group-invoice-account.md#deduct-subscription-group-service-credit)
 
 
 # Create Subscription Group Prepayment
@@ -143,12 +143,12 @@ try {
 | 404 | Not Found | `ApiException` |
 
 
-# Issue Subscription Group Service Credits
+# Issue Subscription Group Service Credit
 
 Credit can be issued for a subscription group identified by the group's `uid`. Credit will be added to the group in the amount specified in the request body. The credit will be applied to group member invoices as they are generated.
 
 ```java
-ServiceCreditResponse issueSubscriptionGroupServiceCredits(
+ServiceCreditResponse issueSubscriptionGroupServiceCredit(
     final String uid,
     final IssueServiceCreditRequest body)
 ```
@@ -180,7 +180,7 @@ IssueServiceCreditRequest body = new IssueServiceCreditRequest.Builder(
 .build();
 
 try {
-    ServiceCreditResponse result = subscriptionGroupInvoiceAccountController.issueSubscriptionGroupServiceCredits(uid, body);
+    ServiceCreditResponse result = subscriptionGroupInvoiceAccountController.issueSubscriptionGroupServiceCredit(uid, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -210,12 +210,12 @@ try {
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Deduct Subscription Group Service Credits
+# Deduct Subscription Group Service Credit
 
 Credit can be deducted for a subscription group identified by the group's `uid`. Credit will be deducted from the group in the amount specified in the request body.
 
 ```java
-ServiceCredit deductSubscriptionGroupServiceCredits(
+ServiceCredit deductSubscriptionGroupServiceCredit(
     final String uid,
     final DeductServiceCreditRequest body)
 ```
@@ -247,7 +247,7 @@ DeductServiceCreditRequest body = new DeductServiceCreditRequest.Builder(
 .build();
 
 try {
-    ServiceCredit result = subscriptionGroupInvoiceAccountController.deductSubscriptionGroupServiceCredits(uid, body);
+    ServiceCredit result = subscriptionGroupInvoiceAccountController.deductSubscriptionGroupServiceCredit(uid, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

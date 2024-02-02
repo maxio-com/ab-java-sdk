@@ -134,15 +134,15 @@ public final class OffersController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public OfferResponse readOffers(
+    public OfferResponse readOffer(
             final int offerId) throws ApiException, IOException {
-        return prepareReadOffersRequest(offerId).execute();
+        return prepareReadOfferRequest(offerId).execute();
     }
 
     /**
-     * Builds the ApiCall object for readOffers.
+     * Builds the ApiCall object for readOffer.
      */
-    private ApiCall<OfferResponse, ApiException> prepareReadOffersRequest(
+    private ApiCall<OfferResponse, ApiException> prepareReadOfferRequest(
             final int offerId) throws IOException {
         return new ApiCall.Builder<OfferResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
