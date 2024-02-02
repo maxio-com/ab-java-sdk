@@ -60,7 +60,7 @@ class SubscriptionsControllerAddCouponsTest {
     void shouldReturn404WhenSubscriptionNotExists() {
         // when - then
         CommonAssertions.assertNotFound(() -> SUBSCRIPTIONS_CONTROLLER
-                .applyCouponToSubscription(123, "coupon", null)
+                .applyCouponsToSubscription(123, "coupon", null)
         );
     }
 
@@ -71,7 +71,7 @@ class SubscriptionsControllerAddCouponsTest {
         // when - then
         CommonAssertions.assertUnprocessableEntity(
                 SubscriptionAddCouponErrorException.class,
-                () -> SUBSCRIPTIONS_CONTROLLER.applyCouponToSubscription(subscription.getId(), code, request),
+                () -> SUBSCRIPTIONS_CONTROLLER.applyCouponsToSubscription(subscription.getId(), code, request),
                 additionalRequirements
         );
     }
@@ -143,7 +143,7 @@ class SubscriptionsControllerAddCouponsTest {
         // when - then
         CommonAssertions.assertUnprocessableEntity(
                 SubscriptionAddCouponErrorException.class,
-                () -> SUBSCRIPTIONS_CONTROLLER.applyCouponToSubscription(subscription.getId(), null, new AddCouponsRequest(List.of(nonStackableCoupon.getCode()))),
+                () -> SUBSCRIPTIONS_CONTROLLER.applyCouponsToSubscription(subscription.getId(), null, new AddCouponsRequest(List.of(nonStackableCoupon.getCode()))),
                 e -> {
                     assertThat(e.getCodes()).containsExactly("Coupon Codes: Subscription already has at least one non-stackable coupon.");
                     assertThat(e.getCouponCode()).isNull();
@@ -161,7 +161,7 @@ class SubscriptionsControllerAddCouponsTest {
 
         // when
         subscription = SUBSCRIPTIONS_CONTROLLER
-                .applyCouponToSubscription(subscription.getId(), null,
+                .applyCouponsToSubscription(subscription.getId(), null,
                         new AddCouponsRequest(List.of(stackableCoupon.getCode(), percentageCoupon.getCode()))
                 )
                 .getSubscription();

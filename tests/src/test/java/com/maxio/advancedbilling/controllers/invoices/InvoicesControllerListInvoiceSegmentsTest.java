@@ -9,7 +9,7 @@ import com.maxio.advancedbilling.models.ConsolidatedInvoice;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceStatus;
-import com.maxio.advancedbilling.models.ListInvoiceSegmentsInput;
+import com.maxio.advancedbilling.models.ListConsolidatedInvoiceSegmentsInput;
 import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
@@ -79,10 +79,11 @@ public class InvoicesControllerListInvoiceSegmentsTest {
         String uid2 = getInvoiceUid(groupSignup.getSubscriptionIds().get(1));
 
         // when
-        ConsolidatedInvoice consolidatedInvoice = INVOICES_CONTROLLER.listInvoiceSegments(new ListInvoiceSegmentsInput.Builder()
-                .perPage(10)
-                .invoiceUid(subscriptionGroupInvoice.getUid())
-                .build());
+        ConsolidatedInvoice consolidatedInvoice = INVOICES_CONTROLLER.listConsolidatedInvoiceSegments(
+                new ListConsolidatedInvoiceSegmentsInput.Builder()
+                        .perPage(10)
+                        .invoiceUid(subscriptionGroupInvoice.getUid())
+                        .build());
 
         // then
         assertThat(consolidatedInvoice).isNotNull();
@@ -108,9 +109,10 @@ public class InvoicesControllerListInvoiceSegmentsTest {
     @Test
     void shouldReturnEmptyListForNonConsolidatedInvoice() throws IOException, ApiException {
         // when
-        ConsolidatedInvoice response = INVOICES_CONTROLLER.listInvoiceSegments(new ListInvoiceSegmentsInput.Builder()
-                .invoiceUid(getInvoiceUid(subscription.getId()))
-                .build());
+        ConsolidatedInvoice response = INVOICES_CONTROLLER.listConsolidatedInvoiceSegments(
+                new ListConsolidatedInvoiceSegmentsInput.Builder()
+                        .invoiceUid(getInvoiceUid(subscription.getId()))
+                        .build());
 
         // then
         assertThat(response).isNotNull();
@@ -122,14 +124,15 @@ public class InvoicesControllerListInvoiceSegmentsTest {
         // when then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
                 .getInvoicesController()
-                .listInvoiceSegments(new ListInvoiceSegmentsInput.Builder().invoiceUid("uid").build())
+                .listConsolidatedInvoiceSegments(new ListConsolidatedInvoiceSegmentsInput.Builder().invoiceUid("uid").build())
         );
     }
 
     @Test
     void shouldThrowNotFoundIfInvoiceDoesNotExist() {
         // when then
-        assertNotFound(() -> INVOICES_CONTROLLER.listInvoiceSegments(new ListInvoiceSegmentsInput.Builder().invoiceUid("uid").build()));
+        assertNotFound(() -> INVOICES_CONTROLLER.listConsolidatedInvoiceSegments(
+                new ListConsolidatedInvoiceSegmentsInput.Builder().invoiceUid("uid").build()));
     }
 
     private String getInvoiceUid(int subscriptionId) throws ApiException, IOException {

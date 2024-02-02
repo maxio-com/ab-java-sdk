@@ -73,7 +73,7 @@ class PaymentProfilesControllerDeleteUnusedPaymentProfileTest {
                 .getSubscription();
 
         // making bankAccountPaymentProfile active for this subscription
-        PAYMENT_PROFILES_CONTROLLER.updateSubscriptionDefaultPaymentProfile(
+        PAYMENT_PROFILES_CONTROLLER.changeSubscriptionDefaultPaymentProfile(
                 subscription.getId(),
                 bankAccountPaymentProfile.getId()
         );

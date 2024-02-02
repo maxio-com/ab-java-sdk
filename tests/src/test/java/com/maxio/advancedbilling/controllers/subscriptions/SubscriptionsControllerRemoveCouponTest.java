@@ -48,7 +48,7 @@ class SubscriptionsControllerRemoveCouponTest {
     void shouldReturn404WhenSubscriptionNotExists() {
         // when - then
         CommonAssertions.assertNotFound(() -> SUBSCRIPTIONS_CONTROLLER
-                .deleteCouponFromSubscription(123, "coupon")
+                .removeCouponFromSubscription(123, "coupon")
         );
     }
 
@@ -60,7 +60,7 @@ class SubscriptionsControllerRemoveCouponTest {
         // when - then
         CommonAssertions.assertUnprocessableEntity(
                 SubscriptionRemoveCouponErrorsException.class,
-                () -> SUBSCRIPTIONS_CONTROLLER.deleteCouponFromSubscription(subscription.getId(), "coupon"),
+                () -> SUBSCRIPTIONS_CONTROLLER.removeCouponFromSubscription(subscription.getId(), "coupon"),
                 e -> assertThat(e.getSubscription()).containsExactly("This subscription does not have any coupons.")
         );
     }
@@ -73,7 +73,7 @@ class SubscriptionsControllerRemoveCouponTest {
         // when - then
         CommonAssertions.assertUnprocessableEntity(
                 SubscriptionRemoveCouponErrorsException.class,
-                () -> SUBSCRIPTIONS_CONTROLLER.deleteCouponFromSubscription(subscription.getId(), "not-existing-coupon"),
+                () -> SUBSCRIPTIONS_CONTROLLER.removeCouponFromSubscription(subscription.getId(), "not-existing-coupon"),
                 e -> assertThat(e.getSubscription()).containsExactly("Coupon is invalid.")
         );
     }
@@ -84,7 +84,7 @@ class SubscriptionsControllerRemoveCouponTest {
         Subscription subscription = TEST_SETUP.createSubscription(customer, product, b -> b.couponCode(percentageCoupon.getCode()));
 
         // when
-        SUBSCRIPTIONS_CONTROLLER.deleteCouponFromSubscription(subscription.getId(), subscription.getCouponCode());
+        SUBSCRIPTIONS_CONTROLLER.removeCouponFromSubscription(subscription.getId(), subscription.getCouponCode());
 
         // then
         Subscription updatedSubscription = SUBSCRIPTIONS_CONTROLLER

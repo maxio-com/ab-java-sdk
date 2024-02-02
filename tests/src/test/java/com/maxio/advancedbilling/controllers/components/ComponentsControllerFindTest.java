@@ -3,7 +3,6 @@ package com.maxio.advancedbilling.controllers.components;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
-import com.maxio.advancedbilling.models.ListComponentsInput;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class ComponentsControllerFindTest extends ComponentsControllerTestBase {
 
         // when
         Component foundComponent = COMPONENTS_CONTROLLER
-                        .readComponentByHandle(component.getHandle())
+                        .findComponent(component.getHandle())
                         .getComponent();
 
         // then
@@ -31,7 +30,7 @@ public class ComponentsControllerFindTest extends ComponentsControllerTestBase {
 
     @Test
     void shouldNotFindNonExistentComponent() {
-        assertNotFound(() -> COMPONENTS_CONTROLLER.readComponentByHandle("non-existent-handle"));
+        assertNotFound(() -> COMPONENTS_CONTROLLER.findComponent("non-existent-handle"));
     }
 
     @Test
@@ -41,7 +40,7 @@ public class ComponentsControllerFindTest extends ComponentsControllerTestBase {
 
         // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
-                .readComponentByHandle(component.getHandle()));
+                .findComponent(component.getHandle()));
     }
 
 }

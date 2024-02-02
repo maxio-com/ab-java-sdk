@@ -34,7 +34,7 @@ class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseT
     void shouldReturn201AndCreatePricePoints() throws IOException, ApiException {
         // when
         List<ProductPricePoint> pricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
-                .createProductPricePoints(
+                .bulkCreateProductPricePoints(
                         product.getId(),
                         new BulkCreateProductPricePointsRequest(List.of(
                                 defaultBuilder().name("price-point-name-1").build(),
@@ -54,7 +54,7 @@ class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseT
     void shouldReturn404WhenCreatingPricePointsForNotExistingProduct() {
         // when - then
         assertNotFound(() -> PRODUCT_PRICE_POINTS_CONTROLLER
-                .createProductPricePoints(12345, new BulkCreateProductPricePointsRequest())
+                .bulkCreateProductPricePoints(12345, new BulkCreateProductPricePointsRequest())
         );
     }
 
@@ -64,7 +64,7 @@ class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseT
             throws IOException, ApiException {
         // when
         List<ProductPricePoint> pricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
-                .createProductPricePoints(createProduct().getId(), request) // new different product
+                .bulkCreateProductPricePoints(createProduct().getId(), request) // new different product
                 .getPricePoints();
 
         // then
@@ -87,7 +87,7 @@ class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseT
         // when - then
         assertUnprocessableEntity(
                 ApiException.class,
-                () -> PRODUCT_PRICE_POINTS_CONTROLLER.createProductPricePoints(
+                () -> PRODUCT_PRICE_POINTS_CONTROLLER.bulkCreateProductPricePoints(
                         product.getId(),
                         new BulkCreateProductPricePointsRequest(List.of(
                                 new CreateProductPricePoint(),
