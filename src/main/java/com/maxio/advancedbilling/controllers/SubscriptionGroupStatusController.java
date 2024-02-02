@@ -129,15 +129,15 @@ public final class SubscriptionGroupStatusController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public void stopDelayedCancellationForGroup(
+    public void cancelDelayedCancellationForGroup(
             final String uid) throws ApiException, IOException {
-        prepareStopDelayedCancellationForGroupRequest(uid).execute();
+        prepareCancelDelayedCancellationForGroupRequest(uid).execute();
     }
 
     /**
-     * Builds the ApiCall object for stopDelayedCancellationForGroup.
+     * Builds the ApiCall object for cancelDelayedCancellationForGroup.
      */
-    private ApiCall<Void, ApiException> prepareStopDelayedCancellationForGroupRequest(
+    private ApiCall<Void, ApiException> prepareCancelDelayedCancellationForGroupRequest(
             final String uid) throws IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())

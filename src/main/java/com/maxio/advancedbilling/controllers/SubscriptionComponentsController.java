@@ -175,17 +175,17 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public BulkComponentSPricePointAssignment updateSubscriptionComponentsPricePoints(
+    public BulkComponentSPricePointAssignment bulkUpdateSubscriptionComponentsPricePoints(
             final int subscriptionId,
             final BulkComponentSPricePointAssignment body) throws ApiException, IOException {
-        return prepareUpdateSubscriptionComponentsPricePointsRequest(subscriptionId,
+        return prepareBulkUpdateSubscriptionComponentsPricePointsRequest(subscriptionId,
                 body).execute();
     }
 
     /**
-     * Builds the ApiCall object for updateSubscriptionComponentsPricePoints.
+     * Builds the ApiCall object for bulkUpdateSubscriptionComponentsPricePoints.
      */
-    private ApiCall<BulkComponentSPricePointAssignment, ApiException> prepareUpdateSubscriptionComponentsPricePointsRequest(
+    private ApiCall<BulkComponentSPricePointAssignment, ApiException> prepareBulkUpdateSubscriptionComponentsPricePointsRequest(
             final int subscriptionId,
             final BulkComponentSPricePointAssignment body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<BulkComponentSPricePointAssignment, ApiException>()
@@ -224,15 +224,15 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public SubscriptionResponse resetSubscriptionComponentsPricePoints(
+    public SubscriptionResponse bulkResetSubscriptionComponentsPricePoints(
             final int subscriptionId) throws ApiException, IOException {
-        return prepareResetSubscriptionComponentsPricePointsRequest(subscriptionId).execute();
+        return prepareBulkResetSubscriptionComponentsPricePointsRequest(subscriptionId).execute();
     }
 
     /**
-     * Builds the ApiCall object for resetSubscriptionComponentsPricePoints.
+     * Builds the ApiCall object for bulkResetSubscriptionComponentsPricePoints.
      */
-    private ApiCall<SubscriptionResponse, ApiException> prepareResetSubscriptionComponentsPricePointsRequest(
+    private ApiCall<SubscriptionResponse, ApiException> prepareBulkResetSubscriptionComponentsPricePointsRequest(
             final int subscriptionId) throws IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -542,19 +542,19 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public void updatePrepaidUsageAllocation(
+    public void updatePrepaidUsageAllocationExpirationDate(
             final int subscriptionId,
             final int componentId,
             final int allocationId,
             final UpdateAllocationExpirationDate body) throws ApiException, IOException {
-        prepareUpdatePrepaidUsageAllocationRequest(subscriptionId, componentId, allocationId,
-                body).execute();
+        prepareUpdatePrepaidUsageAllocationExpirationDateRequest(subscriptionId, componentId,
+                allocationId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for updatePrepaidUsageAllocation.
+     * Builds the ApiCall object for updatePrepaidUsageAllocationExpirationDate.
      */
-    private ApiCall<Void, ApiException> prepareUpdatePrepaidUsageAllocationRequest(
+    private ApiCall<Void, ApiException> prepareUpdatePrepaidUsageAllocationExpirationDateRequest(
             final int subscriptionId,
             final int componentId,
             final int allocationId,
@@ -957,18 +957,18 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public void recordEvents(
+    public void bulkRecordEvents(
             final String subdomain,
             final String apiHandle,
             final String storeUid,
             final List<EBBEvent> body) throws ApiException, IOException {
-        prepareRecordEventsRequest(subdomain, apiHandle, storeUid, body).execute();
+        prepareBulkRecordEventsRequest(subdomain, apiHandle, storeUid, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for recordEvents.
+     * Builds the ApiCall object for bulkRecordEvents.
      */
-    private ApiCall<Void, ApiException> prepareRecordEventsRequest(
+    private ApiCall<Void, ApiException> prepareBulkRecordEventsRequest(
             final String subdomain,
             final String apiHandle,
             final String storeUid,

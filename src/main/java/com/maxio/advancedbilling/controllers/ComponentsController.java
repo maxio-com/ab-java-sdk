@@ -361,15 +361,15 @@ public final class ComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentResponse readComponentByHandle(
+    public ComponentResponse findComponent(
             final String handle) throws ApiException, IOException {
-        return prepareReadComponentByHandleRequest(handle).execute();
+        return prepareFindComponentRequest(handle).execute();
     }
 
     /**
-     * Builds the ApiCall object for readComponentByHandle.
+     * Builds the ApiCall object for findComponent.
      */
-    private ApiCall<ComponentResponse, ApiException> prepareReadComponentByHandleRequest(
+    private ApiCall<ComponentResponse, ApiException> prepareFindComponentRequest(
             final String handle) throws IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -403,16 +403,16 @@ public final class ComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentResponse readComponentById(
+    public ComponentResponse readComponent(
             final int productFamilyId,
             final String componentId) throws ApiException, IOException {
-        return prepareReadComponentByIdRequest(productFamilyId, componentId).execute();
+        return prepareReadComponentRequest(productFamilyId, componentId).execute();
     }
 
     /**
-     * Builds the ApiCall object for readComponentById.
+     * Builds the ApiCall object for readComponent.
      */
-    private ApiCall<ComponentResponse, ApiException> prepareReadComponentByIdRequest(
+    private ApiCall<ComponentResponse, ApiException> prepareReadComponentRequest(
             final int productFamilyId,
             final String componentId) throws IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
@@ -660,17 +660,17 @@ public final class ComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentResponse updateDefaultPricePointForComponent(
+    public ComponentResponse promoteComponentPricePointToDefault(
             final int componentId,
             final int pricePointId) throws ApiException, IOException {
-        return prepareUpdateDefaultPricePointForComponentRequest(componentId,
+        return preparePromoteComponentPricePointToDefaultRequest(componentId,
                 pricePointId).execute();
     }
 
     /**
-     * Builds the ApiCall object for updateDefaultPricePointForComponent.
+     * Builds the ApiCall object for promoteComponentPricePointToDefault.
      */
-    private ApiCall<ComponentResponse, ApiException> prepareUpdateDefaultPricePointForComponentRequest(
+    private ApiCall<ComponentResponse, ApiException> preparePromoteComponentPricePointToDefaultRequest(
             final int componentId,
             final int pricePointId) throws IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
@@ -857,16 +857,16 @@ public final class ComponentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentPricePointsResponse createComponentPricePoints(
+    public ComponentPricePointsResponse bulkCreateComponentPricePoints(
             final String componentId,
             final CreateComponentPricePointsRequest body) throws ApiException, IOException {
-        return prepareCreateComponentPricePointsRequest(componentId, body).execute();
+        return prepareBulkCreateComponentPricePointsRequest(componentId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for createComponentPricePoints.
+     * Builds the ApiCall object for bulkCreateComponentPricePoints.
      */
-    private ApiCall<ComponentPricePointsResponse, ApiException> prepareCreateComponentPricePointsRequest(
+    private ApiCall<ComponentPricePointsResponse, ApiException> prepareBulkCreateComponentPricePointsRequest(
             final String componentId,
             final CreateComponentPricePointsRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ComponentPricePointsResponse, ApiException>()

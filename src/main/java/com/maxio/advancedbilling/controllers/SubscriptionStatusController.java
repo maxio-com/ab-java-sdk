@@ -456,15 +456,15 @@ public final class SubscriptionStatusController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public DelayedCancellationResponse stopDelayedCancellation(
+    public DelayedCancellationResponse cancelDelayedCancellation(
             final int subscriptionId) throws ApiException, IOException {
-        return prepareStopDelayedCancellationRequest(subscriptionId).execute();
+        return prepareCancelDelayedCancellationRequest(subscriptionId).execute();
     }
 
     /**
-     * Builds the ApiCall object for stopDelayedCancellation.
+     * Builds the ApiCall object for cancelDelayedCancellation.
      */
-    private ApiCall<DelayedCancellationResponse, ApiException> prepareStopDelayedCancellationRequest(
+    private ApiCall<DelayedCancellationResponse, ApiException> prepareCancelDelayedCancellationRequest(
             final int subscriptionId) throws IOException {
         return new ApiCall.Builder<DelayedCancellationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())

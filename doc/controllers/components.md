@@ -15,17 +15,17 @@ ComponentsController componentsController = client.getComponentsController();
 * [Create on Off Component](../../doc/controllers/components.md#create-on-off-component)
 * [Create Prepaid Usage Component](../../doc/controllers/components.md#create-prepaid-usage-component)
 * [Create Event Based Component](../../doc/controllers/components.md#create-event-based-component)
-* [Read Component by Handle](../../doc/controllers/components.md#read-component-by-handle)
-* [Read Component by Id](../../doc/controllers/components.md#read-component-by-id)
+* [Find Component](../../doc/controllers/components.md#find-component)
+* [Read Component](../../doc/controllers/components.md#read-component)
 * [Update Product Family Component](../../doc/controllers/components.md#update-product-family-component)
 * [Archive Component](../../doc/controllers/components.md#archive-component)
 * [List Components](../../doc/controllers/components.md#list-components)
 * [Update Component](../../doc/controllers/components.md#update-component)
-* [Update Default Price Point for Component](../../doc/controllers/components.md#update-default-price-point-for-component)
+* [Promote Component Price Point to Default](../../doc/controllers/components.md#promote-component-price-point-to-default)
 * [List Components for Product Family](../../doc/controllers/components.md#list-components-for-product-family)
 * [Create Component Price Point](../../doc/controllers/components.md#create-component-price-point)
 * [List Component Price Points](../../doc/controllers/components.md#list-component-price-points)
-* [Create Component Price Points](../../doc/controllers/components.md#create-component-price-points)
+* [Bulk Create Component Price Points](../../doc/controllers/components.md#bulk-create-component-price-points)
 * [Update Component Price Point](../../doc/controllers/components.md#update-component-price-point)
 * [Archive Component Price Point](../../doc/controllers/components.md#archive-component-price-point)
 * [Unarchive Component Price Point](../../doc/controllers/components.md#unarchive-component-price-point)
@@ -659,12 +659,12 @@ try {
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Read Component by Handle
+# Find Component
 
 This request will return information regarding a component having the handle you provide. You can identify your components with a handle so you don't have to save or reference the IDs we generate.
 
 ```java
-ComponentResponse readComponentByHandle(
+ComponentResponse findComponent(
     final String handle)
 ```
 
@@ -684,7 +684,7 @@ ComponentResponse readComponentByHandle(
 String handle = "handle6";
 
 try {
-    ComponentResponse result = componentsController.readComponentByHandle(handle);
+    ComponentResponse result = componentsController.findComponent(handle);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -724,14 +724,14 @@ try {
 ```
 
 
-# Read Component by Id
+# Read Component
 
 This request will return information regarding a component from a specific product family.
 
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
 ```java
-ComponentResponse readComponentById(
+ComponentResponse readComponent(
     final int productFamilyId,
     final String componentId)
 ```
@@ -754,7 +754,7 @@ int productFamilyId = 140;
 String componentId = "component_id8";
 
 try {
-    ComponentResponse result = componentsController.readComponentById(productFamilyId, componentId);
+    ComponentResponse result = componentsController.readComponent(productFamilyId, componentId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1173,7 +1173,7 @@ try {
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
-# Update Default Price Point for Component
+# Promote Component Price Point to Default
 
 Sets a new default price point for the component. This new default will apply to all new subscriptions going forward - existing subscriptions will remain on their current price point.
 
@@ -1182,7 +1182,7 @@ See [Price Points Documentation](https://chargify.zendesk.com/hc/en-us/articles/
 Note: Custom price points are not able to be set as the default for a component.
 
 ```java
-ComponentResponse updateDefaultPricePointForComponent(
+ComponentResponse promoteComponentPricePointToDefault(
     final int componentId,
     final int pricePointId)
 ```
@@ -1205,7 +1205,7 @@ int componentId = 222;
 int pricePointId = 10;
 
 try {
-    ComponentResponse result = componentsController.updateDefaultPricePointForComponent(componentId, pricePointId);
+    ComponentResponse result = componentsController.promoteComponentPricePointToDefault(componentId, pricePointId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1566,12 +1566,12 @@ try {
 ```
 
 
-# Create Component Price Points
+# Bulk Create Component Price Points
 
 Use this endpoint to create multiple component price points in one request.
 
 ```java
-ComponentPricePointsResponse createComponentPricePoints(
+ComponentPricePointsResponse bulkCreateComponentPricePoints(
     final String componentId,
     final CreateComponentPricePointsRequest body)
 ```
@@ -1655,7 +1655,7 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
 .build();
 
 try {
-    ComponentPricePointsResponse result = componentsController.createComponentPricePoints(componentId, body);
+    ComponentPricePointsResponse result = componentsController.bulkCreateComponentPricePoints(componentId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

@@ -23,11 +23,11 @@ import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceEventType;
 import com.maxio.advancedbilling.models.InvoiceResponse;
 import com.maxio.advancedbilling.models.IssueInvoiceRequest;
+import com.maxio.advancedbilling.models.ListConsolidatedInvoiceSegmentsInput;
 import com.maxio.advancedbilling.models.ListCreditNotesInput;
 import com.maxio.advancedbilling.models.ListCreditNotesResponse;
 import com.maxio.advancedbilling.models.ListInvoiceEventsInput;
 import com.maxio.advancedbilling.models.ListInvoiceEventsResponse;
-import com.maxio.advancedbilling.models.ListInvoiceSegmentsInput;
 import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.ListInvoicesResponse;
 import com.maxio.advancedbilling.models.MultiInvoicePaymentResponse;
@@ -359,15 +359,15 @@ public final class InvoicesController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public MultiInvoicePaymentResponse recordExternalPaymentForInvoices(
+    public MultiInvoicePaymentResponse recordPaymentForMultipleInvoices(
             final CreateMultiInvoicePaymentRequest body) throws ApiException, IOException {
-        return prepareRecordExternalPaymentForInvoicesRequest(body).execute();
+        return prepareRecordPaymentForMultipleInvoicesRequest(body).execute();
     }
 
     /**
-     * Builds the ApiCall object for recordExternalPaymentForInvoices.
+     * Builds the ApiCall object for recordPaymentForMultipleInvoices.
      */
-    private ApiCall<MultiInvoicePaymentResponse, ApiException> prepareRecordExternalPaymentForInvoicesRequest(
+    private ApiCall<MultiInvoicePaymentResponse, ApiException> prepareRecordPaymentForMultipleInvoicesRequest(
             final CreateMultiInvoicePaymentRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<MultiInvoicePaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -647,21 +647,21 @@ public final class InvoicesController extends BaseController {
     /**
      * Invoice segments returned on the index will only include totals, not detailed breakdowns for
      * `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
-     * @param  input  ListInvoiceSegmentsInput object containing request parameters
+     * @param  input  ListConsolidatedInvoiceSegmentsInput object containing request parameters
      * @return    Returns the ConsolidatedInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ConsolidatedInvoice listInvoiceSegments(
-            final ListInvoiceSegmentsInput input) throws ApiException, IOException {
-        return prepareListInvoiceSegmentsRequest(input).execute();
+    public ConsolidatedInvoice listConsolidatedInvoiceSegments(
+            final ListConsolidatedInvoiceSegmentsInput input) throws ApiException, IOException {
+        return prepareListConsolidatedInvoiceSegmentsRequest(input).execute();
     }
 
     /**
-     * Builds the ApiCall object for listInvoiceSegments.
+     * Builds the ApiCall object for listConsolidatedInvoiceSegments.
      */
-    private ApiCall<ConsolidatedInvoice, ApiException> prepareListInvoiceSegmentsRequest(
-            final ListInvoiceSegmentsInput input) throws IOException {
+    private ApiCall<ConsolidatedInvoice, ApiException> prepareListConsolidatedInvoiceSegmentsRequest(
+            final ListConsolidatedInvoiceSegmentsInput input) throws IOException {
         return new ApiCall.Builder<ConsolidatedInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

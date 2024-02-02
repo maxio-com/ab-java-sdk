@@ -725,15 +725,15 @@ public final class SubscriptionsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public SubscriptionResponse readSubscriptionByReference(
+    public SubscriptionResponse findSubscription(
             final String reference) throws ApiException, IOException {
-        return prepareReadSubscriptionByReferenceRequest(reference).execute();
+        return prepareFindSubscriptionRequest(reference).execute();
     }
 
     /**
-     * Builds the ApiCall object for readSubscriptionByReference.
+     * Builds the ApiCall object for findSubscription.
      */
-    private ApiCall<SubscriptionResponse, ApiException> prepareReadSubscriptionByReferenceRequest(
+    private ApiCall<SubscriptionResponse, ApiException> prepareFindSubscriptionRequest(
             final String reference) throws IOException {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -813,16 +813,16 @@ public final class SubscriptionsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public PrepaidConfigurationResponse createPrepaidSubscription(
+    public PrepaidConfigurationResponse updatePrepaidSubscriptionConfiguration(
             final int subscriptionId,
             final UpsertPrepaidConfigurationRequest body) throws ApiException, IOException {
-        return prepareCreatePrepaidSubscriptionRequest(subscriptionId, body).execute();
+        return prepareUpdatePrepaidSubscriptionConfigurationRequest(subscriptionId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for createPrepaidSubscription.
+     * Builds the ApiCall object for updatePrepaidSubscriptionConfiguration.
      */
-    private ApiCall<PrepaidConfigurationResponse, ApiException> prepareCreatePrepaidSubscriptionRequest(
+    private ApiCall<PrepaidConfigurationResponse, ApiException> prepareUpdatePrepaidSubscriptionConfigurationRequest(
             final int subscriptionId,
             final UpsertPrepaidConfigurationRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<PrepaidConfigurationResponse, ApiException>()
@@ -928,17 +928,17 @@ public final class SubscriptionsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public SubscriptionResponse applyCouponToSubscription(
+    public SubscriptionResponse applyCouponsToSubscription(
             final int subscriptionId,
             final String code,
             final AddCouponsRequest body) throws ApiException, IOException {
-        return prepareApplyCouponToSubscriptionRequest(subscriptionId, code, body).execute();
+        return prepareApplyCouponsToSubscriptionRequest(subscriptionId, code, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for applyCouponToSubscription.
+     * Builds the ApiCall object for applyCouponsToSubscription.
      */
-    private ApiCall<SubscriptionResponse, ApiException> prepareApplyCouponToSubscriptionRequest(
+    private ApiCall<SubscriptionResponse, ApiException> prepareApplyCouponsToSubscriptionRequest(
             final int subscriptionId,
             final String code,
             final AddCouponsRequest body) throws JsonProcessingException, IOException {
@@ -981,16 +981,16 @@ public final class SubscriptionsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public String deleteCouponFromSubscription(
+    public String removeCouponFromSubscription(
             final int subscriptionId,
             final String couponCode) throws ApiException, IOException {
-        return prepareDeleteCouponFromSubscriptionRequest(subscriptionId, couponCode).execute();
+        return prepareRemoveCouponFromSubscriptionRequest(subscriptionId, couponCode).execute();
     }
 
     /**
-     * Builds the ApiCall object for deleteCouponFromSubscription.
+     * Builds the ApiCall object for removeCouponFromSubscription.
      */
-    private ApiCall<String, ApiException> prepareDeleteCouponFromSubscriptionRequest(
+    private ApiCall<String, ApiException> prepareRemoveCouponFromSubscriptionRequest(
             final int subscriptionId,
             final String couponCode) throws IOException {
         return new ApiCall.Builder<String, ApiException>()

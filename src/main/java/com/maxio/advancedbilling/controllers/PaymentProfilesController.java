@@ -567,17 +567,17 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public PaymentProfileResponse updateSubscriptionDefaultPaymentProfile(
+    public PaymentProfileResponse changeSubscriptionDefaultPaymentProfile(
             final int subscriptionId,
             final int paymentProfileId) throws ApiException, IOException {
-        return prepareUpdateSubscriptionDefaultPaymentProfileRequest(subscriptionId,
+        return prepareChangeSubscriptionDefaultPaymentProfileRequest(subscriptionId,
                 paymentProfileId).execute();
     }
 
     /**
-     * Builds the ApiCall object for updateSubscriptionDefaultPaymentProfile.
+     * Builds the ApiCall object for changeSubscriptionDefaultPaymentProfile.
      */
-    private ApiCall<PaymentProfileResponse, ApiException> prepareUpdateSubscriptionDefaultPaymentProfileRequest(
+    private ApiCall<PaymentProfileResponse, ApiException> prepareChangeSubscriptionDefaultPaymentProfileRequest(
             final int subscriptionId,
             final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
@@ -620,17 +620,17 @@ public final class PaymentProfilesController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public PaymentProfileResponse updateSubscriptionGroupDefaultPaymentProfile(
+    public PaymentProfileResponse changeSubscriptionGroupDefaultPaymentProfile(
             final String uid,
             final int paymentProfileId) throws ApiException, IOException {
-        return prepareUpdateSubscriptionGroupDefaultPaymentProfileRequest(uid,
+        return prepareChangeSubscriptionGroupDefaultPaymentProfileRequest(uid,
                 paymentProfileId).execute();
     }
 
     /**
-     * Builds the ApiCall object for updateSubscriptionGroupDefaultPaymentProfile.
+     * Builds the ApiCall object for changeSubscriptionGroupDefaultPaymentProfile.
      */
-    private ApiCall<PaymentProfileResponse, ApiException> prepareUpdateSubscriptionGroupDefaultPaymentProfileRequest(
+    private ApiCall<PaymentProfileResponse, ApiException> prepareChangeSubscriptionGroupDefaultPaymentProfileRequest(
             final String uid,
             final int paymentProfileId) throws IOException {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()

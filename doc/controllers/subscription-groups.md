@@ -16,8 +16,8 @@ SubscriptionGroupsController subscriptionGroupsController = client.getSubscripti
 * [Read Subscription Group](../../doc/controllers/subscription-groups.md#read-subscription-group)
 * [Update Subscription Group Members](../../doc/controllers/subscription-groups.md#update-subscription-group-members)
 * [Delete Subscription Group](../../doc/controllers/subscription-groups.md#delete-subscription-group)
-* [Read Subscription Group by Subscription Id](../../doc/controllers/subscription-groups.md#read-subscription-group-by-subscription-id)
-* [Create Subscription Group Hierarchy](../../doc/controllers/subscription-groups.md#create-subscription-group-hierarchy)
+* [Find Subscription Group](../../doc/controllers/subscription-groups.md#find-subscription-group)
+* [Add Subscription to Group](../../doc/controllers/subscription-groups.md#add-subscription-to-group)
 * [Remove Subscription From Group](../../doc/controllers/subscription-groups.md#remove-subscription-from-group)
 
 
@@ -454,14 +454,14 @@ try {
 | 404 | Not Found | `ApiException` |
 
 
-# Read Subscription Group by Subscription Id
+# Find Subscription Group
 
 Use this endpoint to find subscription group associated with subscription.
 
 If the subscription is not in a group endpoint will return 404 code.
 
 ```java
-FullSubscriptionGroupResponse readSubscriptionGroupBySubscriptionId(
+FullSubscriptionGroupResponse findSubscriptionGroup(
     final String subscriptionId)
 ```
 
@@ -481,7 +481,7 @@ FullSubscriptionGroupResponse readSubscriptionGroupBySubscriptionId(
 String subscriptionId = "subscription_id0";
 
 try {
-    FullSubscriptionGroupResponse result = subscriptionGroupsController.readSubscriptionGroupBySubscriptionId(subscriptionId);
+    FullSubscriptionGroupResponse result = subscriptionGroupsController.findSubscriptionGroup(subscriptionId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -538,7 +538,7 @@ try {
 | 404 | Not Found | `ApiException` |
 
 
-# Create Subscription Group Hierarchy
+# Add Subscription to Group
 
 For sites making use of the [Relationship Billing](https://chargify.zendesk.com/hc/en-us/articles/4407737494171) and [Customer Hierarchy](https://chargify.zendesk.com/hc/en-us/articles/4407746683291) features, it is possible to add existing subscriptions to subscription groups.
 
@@ -556,7 +556,7 @@ To create a new subscription into a subscription group, please reference the fol
 [Create Subscription in a Subscription Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-subscription#subscription-in-a-subscription-group)
 
 ```java
-SubscriptionGroupResponse createSubscriptionGroupHierarchy(
+SubscriptionGroupResponse addSubscriptionToGroup(
     final int subscriptionId,
     final AddSubscriptionToAGroup body)
 ```
@@ -595,7 +595,7 @@ AddSubscriptionToAGroup body = new AddSubscriptionToAGroup.Builder()
     .build();
 
 try {
-    SubscriptionGroupResponse result = subscriptionGroupsController.createSubscriptionGroupHierarchy(subscriptionId, body);
+    SubscriptionGroupResponse result = subscriptionGroupsController.addSubscriptionToGroup(subscriptionId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

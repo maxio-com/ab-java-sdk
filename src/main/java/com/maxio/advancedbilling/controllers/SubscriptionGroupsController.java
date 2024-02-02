@@ -319,15 +319,15 @@ public final class SubscriptionGroupsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public FullSubscriptionGroupResponse readSubscriptionGroupBySubscriptionId(
+    public FullSubscriptionGroupResponse findSubscriptionGroup(
             final String subscriptionId) throws ApiException, IOException {
-        return prepareReadSubscriptionGroupBySubscriptionIdRequest(subscriptionId).execute();
+        return prepareFindSubscriptionGroupRequest(subscriptionId).execute();
     }
 
     /**
-     * Builds the ApiCall object for readSubscriptionGroupBySubscriptionId.
+     * Builds the ApiCall object for findSubscriptionGroup.
      */
-    private ApiCall<FullSubscriptionGroupResponse, ApiException> prepareReadSubscriptionGroupBySubscriptionIdRequest(
+    private ApiCall<FullSubscriptionGroupResponse, ApiException> prepareFindSubscriptionGroupRequest(
             final String subscriptionId) throws IOException {
         return new ApiCall.Builder<FullSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -379,16 +379,16 @@ public final class SubscriptionGroupsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public SubscriptionGroupResponse createSubscriptionGroupHierarchy(
+    public SubscriptionGroupResponse addSubscriptionToGroup(
             final int subscriptionId,
             final AddSubscriptionToAGroup body) throws ApiException, IOException {
-        return prepareCreateSubscriptionGroupHierarchyRequest(subscriptionId, body).execute();
+        return prepareAddSubscriptionToGroupRequest(subscriptionId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for createSubscriptionGroupHierarchy.
+     * Builds the ApiCall object for addSubscriptionToGroup.
      */
-    private ApiCall<SubscriptionGroupResponse, ApiException> prepareCreateSubscriptionGroupHierarchyRequest(
+    private ApiCall<SubscriptionGroupResponse, ApiException> prepareAddSubscriptionToGroupRequest(
             final int subscriptionId,
             final AddSubscriptionToAGroup body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()

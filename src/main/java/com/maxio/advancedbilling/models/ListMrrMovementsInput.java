@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for ReadMrrMovementsInput type.
+ * This is a model class for ListMrrMovementsInput type.
  */
-public class ReadMrrMovementsInput {
+public class ListMrrMovementsInput {
     private Integer subscriptionId;
     private Integer page;
     private Integer perPage;
@@ -22,7 +22,7 @@ public class ReadMrrMovementsInput {
     /**
      * Default constructor.
      */
-    public ReadMrrMovementsInput() {
+    public ListMrrMovementsInput() {
         page = 1;
         perPage = 10;
     }
@@ -34,7 +34,7 @@ public class ReadMrrMovementsInput {
      * @param  perPage  Integer value for perPage.
      * @param  direction  SortingDirection value for direction.
      */
-    public ReadMrrMovementsInput(
+    public ListMrrMovementsInput(
             Integer subscriptionId,
             Integer page,
             Integer perPage,
@@ -142,19 +142,19 @@ public class ReadMrrMovementsInput {
     }
 
     /**
-     * Converts this ReadMrrMovementsInput into string format.
+     * Converts this ListMrrMovementsInput into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ReadMrrMovementsInput [" + "subscriptionId=" + subscriptionId + ", page=" + page
+        return "ListMrrMovementsInput [" + "subscriptionId=" + subscriptionId + ", page=" + page
                 + ", perPage=" + perPage + ", direction=" + direction + "]";
     }
 
     /**
-     * Builds a new {@link ReadMrrMovementsInput.Builder} object.
+     * Builds a new {@link ListMrrMovementsInput.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ReadMrrMovementsInput.Builder} object
+     * @return a new {@link ListMrrMovementsInput.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -166,7 +166,7 @@ public class ReadMrrMovementsInput {
     }
 
     /**
-     * Class to build instances of {@link ReadMrrMovementsInput}.
+     * Class to build instances of {@link ListMrrMovementsInput}.
      */
     public static class Builder {
         private Integer subscriptionId;
@@ -217,11 +217,11 @@ public class ReadMrrMovementsInput {
         }
 
         /**
-         * Builds a new {@link ReadMrrMovementsInput} object using the set fields.
-         * @return {@link ReadMrrMovementsInput}
+         * Builds a new {@link ListMrrMovementsInput} object using the set fields.
+         * @return {@link ListMrrMovementsInput}
          */
-        public ReadMrrMovementsInput build() {
-            return new ReadMrrMovementsInput(subscriptionId, page, perPage, direction);
+        public ListMrrMovementsInput build() {
+            return new ListMrrMovementsInput(subscriptionId, page, perPage, direction);
         }
     }
 }

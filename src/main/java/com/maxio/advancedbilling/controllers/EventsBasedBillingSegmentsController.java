@@ -289,17 +289,17 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ListSegmentsResponse createSegments(
+    public ListSegmentsResponse bulkCreateSegments(
             final String componentId,
             final String pricePointId,
             final BulkCreateSegments body) throws ApiException, IOException {
-        return prepareCreateSegmentsRequest(componentId, pricePointId, body).execute();
+        return prepareBulkCreateSegmentsRequest(componentId, pricePointId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for createSegments.
+     * Builds the ApiCall object for bulkCreateSegments.
      */
-    private ApiCall<ListSegmentsResponse, ApiException> prepareCreateSegmentsRequest(
+    private ApiCall<ListSegmentsResponse, ApiException> prepareBulkCreateSegmentsRequest(
             final String componentId,
             final String pricePointId,
             final BulkCreateSegments body) throws JsonProcessingException, IOException {
@@ -350,17 +350,17 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ListSegmentsResponse updateSegments(
+    public ListSegmentsResponse bulkUpdateSegments(
             final String componentId,
             final String pricePointId,
             final BulkUpdateSegments body) throws ApiException, IOException {
-        return prepareUpdateSegmentsRequest(componentId, pricePointId, body).execute();
+        return prepareBulkUpdateSegmentsRequest(componentId, pricePointId, body).execute();
     }
 
     /**
-     * Builds the ApiCall object for updateSegments.
+     * Builds the ApiCall object for bulkUpdateSegments.
      */
-    private ApiCall<ListSegmentsResponse, ApiException> prepareUpdateSegmentsRequest(
+    private ApiCall<ListSegmentsResponse, ApiException> prepareBulkUpdateSegmentsRequest(
             final String componentId,
             final String pricePointId,
             final BulkUpdateSegments body) throws JsonProcessingException, IOException {

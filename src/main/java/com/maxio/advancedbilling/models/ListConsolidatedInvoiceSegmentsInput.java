@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for ListInvoiceSegmentsInput type.
+ * This is a model class for ListConsolidatedInvoiceSegmentsInput type.
  */
-public class ListInvoiceSegmentsInput {
+public class ListConsolidatedInvoiceSegmentsInput {
     private String invoiceUid;
     private Integer page;
     private Integer perPage;
@@ -22,7 +22,7 @@ public class ListInvoiceSegmentsInput {
     /**
      * Default constructor.
      */
-    public ListInvoiceSegmentsInput() {
+    public ListConsolidatedInvoiceSegmentsInput() {
         page = 1;
         perPage = 20;
         direction = Direction.ASC;
@@ -35,7 +35,7 @@ public class ListInvoiceSegmentsInput {
      * @param  perPage  Integer value for perPage.
      * @param  direction  Direction value for direction.
      */
-    public ListInvoiceSegmentsInput(
+    public ListConsolidatedInvoiceSegmentsInput(
             String invoiceUid,
             Integer page,
             Integer perPage,
@@ -142,19 +142,19 @@ public class ListInvoiceSegmentsInput {
     }
 
     /**
-     * Converts this ListInvoiceSegmentsInput into string format.
+     * Converts this ListConsolidatedInvoiceSegmentsInput into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ListInvoiceSegmentsInput [" + "invoiceUid=" + invoiceUid + ", page=" + page
-                + ", perPage=" + perPage + ", direction=" + direction + "]";
+        return "ListConsolidatedInvoiceSegmentsInput [" + "invoiceUid=" + invoiceUid + ", page="
+                + page + ", perPage=" + perPage + ", direction=" + direction + "]";
     }
 
     /**
-     * Builds a new {@link ListInvoiceSegmentsInput.Builder} object.
+     * Builds a new {@link ListConsolidatedInvoiceSegmentsInput.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ListInvoiceSegmentsInput.Builder} object
+     * @return a new {@link ListConsolidatedInvoiceSegmentsInput.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(invoiceUid)
@@ -165,7 +165,7 @@ public class ListInvoiceSegmentsInput {
     }
 
     /**
-     * Class to build instances of {@link ListInvoiceSegmentsInput}.
+     * Class to build instances of {@link ListConsolidatedInvoiceSegmentsInput}.
      */
     public static class Builder {
         private String invoiceUid;
@@ -228,11 +228,11 @@ public class ListInvoiceSegmentsInput {
         }
 
         /**
-         * Builds a new {@link ListInvoiceSegmentsInput} object using the set fields.
-         * @return {@link ListInvoiceSegmentsInput}
+         * Builds a new {@link ListConsolidatedInvoiceSegmentsInput} object using the set fields.
+         * @return {@link ListConsolidatedInvoiceSegmentsInput}
          */
-        public ListInvoiceSegmentsInput build() {
-            return new ListInvoiceSegmentsInput(invoiceUid, page, perPage, direction);
+        public ListConsolidatedInvoiceSegmentsInput build() {
+            return new ListConsolidatedInvoiceSegmentsInput(invoiceUid, page, perPage, direction);
         }
     }
 }
