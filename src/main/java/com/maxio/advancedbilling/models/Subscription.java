@@ -89,7 +89,6 @@ public class Subscription {
      */
     public Subscription() {
         paymentCollectionMethod = CollectionMethod.AUTOMATIC;
-        dunningCommunicationDelayEnabled = false;
     }
 
     /**
@@ -2624,7 +2623,7 @@ public class Subscription {
         private OptionalNullable<ZonedDateTime> onHoldAt;
         private Boolean prepaidDunning;
         private List<SubscriptionIncludedCoupon> coupons;
-        private Boolean dunningCommunicationDelayEnabled = false;
+        private Boolean dunningCommunicationDelayEnabled;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
         private OptionalNullable<Boolean> receivesInvoiceEmails;
         private OptionalNullable<String> locale;

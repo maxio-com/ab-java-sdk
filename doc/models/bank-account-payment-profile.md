@@ -25,7 +25,7 @@
 | `BankName` | `String` | Optional | The bank where the account resides | String getBankName() | setBankName(String bankName) |
 | `MaskedBankRoutingNumber` | `String` | Required | A string representation of the stored bank routing number with all but the last 4 digits marked with X’s (i.e. ‘XXXXXXX1111’). payment_type will be bank_account | String getMaskedBankRoutingNumber() | setMaskedBankRoutingNumber(String maskedBankRoutingNumber) |
 | `MaskedBankAccountNumber` | `String` | Required | A string representation of the stored bank account number with all but the last 4 digits marked with X’s (i.e. ‘XXXXXXX1111’) | String getMaskedBankAccountNumber() | setMaskedBankAccountNumber(String maskedBankAccountNumber) |
-| `BankAccountType` | [`BankAccountType`](../../doc/models/bank-account-type.md) | Optional | Defaults to checking<br>**Default**: `BankAccountType.CHECKING` | BankAccountType getBankAccountType() | setBankAccountType(BankAccountType bankAccountType) |
+| `BankAccountType` | [`BankAccountType`](../../doc/models/bank-account-type.md) | Optional | Defaults to checking | BankAccountType getBankAccountType() | setBankAccountType(BankAccountType bankAccountType) |
 | `BankAccountHolderType` | [`BankAccountHolderType`](../../doc/models/bank-account-holder-type.md) | Optional | Defaults to personal | BankAccountHolderType getBankAccountHolderType() | setBankAccountHolderType(BankAccountHolderType bankAccountHolderType) |
 | `PaymentType` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | - | PaymentType getPaymentType() | setPaymentType(PaymentType paymentType) |
 | `Verified` | `Boolean` | Optional | denotes whether a bank account has been verified by providing the amounts of two small deposits made into the account<br>**Default**: `false` | Boolean getVerified() | setVerified(Boolean verified) |
@@ -38,7 +38,6 @@
 {
   "masked_bank_routing_number": "masked_bank_routing_number8",
   "masked_bank_account_number": "masked_bank_account_number8",
-  "bank_account_type": "checking",
   "verified": false,
   "id": 188,
   "first_name": "first_name6",

@@ -61,7 +61,7 @@
 | `OnHoldAt` | `ZonedDateTime` | Optional | The timestamp of the most recent on hold action. | ZonedDateTime getOnHoldAt() | setOnHoldAt(ZonedDateTime onHoldAt) |
 | `PrepaidDunning` | `Boolean` | Optional | Boolean representing whether the subscription is prepaid and currently in dunning. Only returned for Relationship Invoicing sites with the feature enabled | Boolean getPrepaidDunning() | setPrepaidDunning(Boolean prepaidDunning) |
 | `Coupons` | [`List<SubscriptionIncludedCoupon>`](../../doc/models/subscription-included-coupon.md) | Optional | Additional coupon data. To use this data you also have to include the following param in the request`include[]=coupons`.<br>Only in Read Subscription Endpoint. | List<SubscriptionIncludedCoupon> getCoupons() | setCoupons(List<SubscriptionIncludedCoupon> coupons) |
-| `DunningCommunicationDelayEnabled` | `Boolean` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute.<br>**Default**: `false` | Boolean getDunningCommunicationDelayEnabled() | setDunningCommunicationDelayEnabled(Boolean dunningCommunicationDelayEnabled) |
+| `DunningCommunicationDelayEnabled` | `Boolean` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute. | Boolean getDunningCommunicationDelayEnabled() | setDunningCommunicationDelayEnabled(Boolean dunningCommunicationDelayEnabled) |
 | `DunningCommunicationDelayTimeZone` | `String` | Optional | Time zone for the Dunning Communication Delay feature. | String getDunningCommunicationDelayTimeZone() | setDunningCommunicationDelayTimeZone(String dunningCommunicationDelayTimeZone) |
 | `ReceivesInvoiceEmails` | `Boolean` | Optional | - | Boolean getReceivesInvoiceEmails() | setReceivesInvoiceEmails(Boolean receivesInvoiceEmails) |
 | `Locale` | `String` | Optional | - | String getLocale() | setLocale(String locale) |
@@ -99,7 +99,6 @@
     "site_gateway_setting_id": 1,
     "gateway_handle": null
   },
-  "dunning_communication_delay_enabled": false,
   "dunning_communication_delay_time_zone": "\"Eastern Time (US & Canada)\"",
   "id": 96,
   "state": "soft_failure",

@@ -35,7 +35,6 @@ public class SubscriptionGroupBankAccount {
      * Default constructor.
      */
     public SubscriptionGroupBankAccount() {
-        bankAccountType = BankAccountType.CHECKING;
     }
 
     /**
@@ -476,7 +475,7 @@ public class SubscriptionGroupBankAccount {
         private String bankRoutingNumber;
         private String bankIban;
         private String bankBranchCode;
-        private BankAccountType bankAccountType = BankAccountType.CHECKING;
+        private BankAccountType bankAccountType;
         private BankAccountHolderType bankAccountHolderType;
         private PaymentType paymentType;
         private String billingAddress;

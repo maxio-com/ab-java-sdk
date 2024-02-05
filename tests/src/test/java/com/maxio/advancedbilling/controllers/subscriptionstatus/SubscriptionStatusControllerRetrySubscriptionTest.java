@@ -23,7 +23,7 @@ public class SubscriptionStatusControllerRetrySubscriptionTest extends Subscript
 
         // then
         assertThat(retriedSubscription).usingRecursiveComparison()
-                .ignoringFields("productPricePointType", "prepaidDunning", "updatedAt")
+                .ignoringFields("productPricePointType", "prepaidDunning", "updatedAt", "dunningCommunicationDelayEnabled")
                 .isEqualTo(subscription);
     }
 

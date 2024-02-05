@@ -21,7 +21,6 @@ public class CreateInvoicePaymentRequest {
      * Default constructor.
      */
     public CreateInvoicePaymentRequest() {
-        type = InvoicePaymentType.EXTERNAL;
     }
 
     /**
@@ -56,7 +55,7 @@ public class CreateInvoicePaymentRequest {
 
     /**
      * Getter for Type.
-     * The type of payment to be applied to an Invoice.
+     * The type of payment to be applied to an Invoice. Defaults to external.
      * @return Returns the InvoicePaymentType
      */
     @JsonGetter("type")
@@ -67,7 +66,7 @@ public class CreateInvoicePaymentRequest {
 
     /**
      * Setter for Type.
-     * The type of payment to be applied to an Invoice.
+     * The type of payment to be applied to an Invoice. Defaults to external.
      * @param type Value for InvoicePaymentType
      */
     @JsonSetter("type")
@@ -100,7 +99,7 @@ public class CreateInvoicePaymentRequest {
      */
     public static class Builder {
         private CreateInvoicePayment payment;
-        private InvoicePaymentType type = InvoicePaymentType.EXTERNAL;
+        private InvoicePaymentType type;
 
         /**
          * Initialization constructor.

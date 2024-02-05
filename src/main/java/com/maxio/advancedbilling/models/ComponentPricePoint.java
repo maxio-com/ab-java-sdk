@@ -43,7 +43,6 @@ public class ComponentPricePoint {
      * Default constructor.
      */
     public ComponentPricePoint() {
-        useSiteExchangeRate = true;
     }
 
     /**
@@ -399,7 +398,7 @@ public class ComponentPricePoint {
     /**
      * Getter for UseSiteExchangeRate.
      * Whether to use the site level exchange rate or define your own prices for each currency if
-     * you have multiple currencies defined on the site.
+     * you have multiple currencies defined on the site. Defaults to true during creation.
      * @return Returns the Boolean
      */
     @JsonGetter("use_site_exchange_rate")
@@ -411,7 +410,7 @@ public class ComponentPricePoint {
     /**
      * Setter for UseSiteExchangeRate.
      * Whether to use the site level exchange rate or define your own prices for each currency if
-     * you have multiple currencies defined on the site.
+     * you have multiple currencies defined on the site. Defaults to true during creation.
      * @param useSiteExchangeRate Value for Boolean
      */
     @JsonSetter("use_site_exchange_rate")
@@ -635,7 +634,7 @@ public class ComponentPricePoint {
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
         private List<ComponentPrice> prices;
-        private Boolean useSiteExchangeRate = true;
+        private Boolean useSiteExchangeRate;
         private Integer subscriptionId;
         private Boolean taxIncluded;
         private OptionalNullable<Integer> interval;
