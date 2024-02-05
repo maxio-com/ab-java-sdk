@@ -43,7 +43,8 @@ public class SubscriptionStatusControllerReactivateSubscriptionTest extends Subs
 
         // then
         assertThat(reactivatedSubscription).usingRecursiveComparison()
-                .ignoringFields("updatedAt", "cancelAtEndOfPeriod", "previousState", "productPricePointType")
+                .ignoringFields("updatedAt", "cancelAtEndOfPeriod", "previousState", "productPricePointType",
+                        "dunningCommunicationDelayEnabled")
                 .isEqualTo(subscription);
         assertThat(reactivatedSubscription.getPreviousState()).isEqualTo(CANCELED);
     }

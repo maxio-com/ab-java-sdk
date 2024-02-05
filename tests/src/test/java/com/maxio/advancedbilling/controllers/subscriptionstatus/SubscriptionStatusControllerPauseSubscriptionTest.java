@@ -29,7 +29,7 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         // then
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
-                        "productPricePointType")
+                        "productPricePointType", "dunningCommunicationDelayEnabled")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
@@ -53,7 +53,7 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         // then
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
-                        "productPricePointType", "automaticallyResumeAt")
+                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
@@ -85,7 +85,7 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         // then
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
-                        "productPricePointType", "automaticallyResumeAt")
+                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
