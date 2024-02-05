@@ -24,7 +24,6 @@ public class CreateInvoicePayment {
      * Default constructor.
      */
     public CreateInvoicePayment() {
-        method = InvoicePaymentMethodType.OTHER;
     }
 
     /**
@@ -89,7 +88,7 @@ public class CreateInvoicePayment {
 
     /**
      * Getter for Method.
-     * The type of payment method used.
+     * The type of payment method used. Defaults to other.
      * @return Returns the InvoicePaymentMethodType
      */
     @JsonGetter("method")
@@ -100,7 +99,7 @@ public class CreateInvoicePayment {
 
     /**
      * Setter for Method.
-     * The type of payment method used.
+     * The type of payment method used. Defaults to other.
      * @param method Value for InvoicePaymentMethodType
      */
     @JsonSetter("method")
@@ -159,7 +158,7 @@ public class CreateInvoicePayment {
     public static class Builder {
         private CreateInvoicePaymentAmount amount;
         private String memo;
-        private InvoicePaymentMethodType method = InvoicePaymentMethodType.OTHER;
+        private InvoicePaymentMethodType method;
         private String details;
 
 

@@ -31,7 +31,6 @@ public class BankAccountAttributes {
      * Default constructor.
      */
     public BankAccountAttributes() {
-        bankAccountType = BankAccountType.CHECKING;
     }
 
     /**
@@ -381,7 +380,7 @@ public class BankAccountAttributes {
         private String bankName;
         private String bankRoutingNumber;
         private String bankAccountNumber;
-        private BankAccountType bankAccountType = BankAccountType.CHECKING;
+        private BankAccountType bankAccountType;
         private String bankBranchCode;
         private String bankIban;
         private BankAccountHolderType bankAccountHolderType;

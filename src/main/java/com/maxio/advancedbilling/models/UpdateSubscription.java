@@ -41,8 +41,6 @@ public class UpdateSubscription {
      * Default constructor.
      */
     public UpdateSubscription() {
-        productChangeDelayed = false;
-        dunningCommunicationDelayEnabled = OptionalNullable.of(false);
     }
 
     /**
@@ -596,7 +594,7 @@ public class UpdateSubscription {
         private CreditCardAttributes creditCardAttributes;
         private String productHandle;
         private Integer productId;
-        private Boolean productChangeDelayed = false;
+        private Boolean productChangeDelayed;
         private String nextProductId;
         private String nextProductPricePointId;
         private UpdateSubscriptionSnapDay snapDay;
@@ -608,8 +606,7 @@ public class UpdateSubscription {
         private String reference;
         private SubscriptionCustomPrice customPrice;
         private List<UpdateSubscriptionComponent> components;
-        private OptionalNullable<Boolean> dunningCommunicationDelayEnabled =
-                OptionalNullable.of(false);
+        private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
 
 

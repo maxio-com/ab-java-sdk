@@ -27,7 +27,6 @@ public class CreateMultiInvoicePayment {
      * Default constructor.
      */
     public CreateMultiInvoicePayment() {
-        method = InvoicePaymentMethodType.OTHER;
     }
 
     /**
@@ -98,7 +97,7 @@ public class CreateMultiInvoicePayment {
 
     /**
      * Getter for Method.
-     * The type of payment method used.
+     * The type of payment method used. Defaults to other.
      * @return Returns the InvoicePaymentMethodType
      */
     @JsonGetter("method")
@@ -109,7 +108,7 @@ public class CreateMultiInvoicePayment {
 
     /**
      * Setter for Method.
-     * The type of payment method used.
+     * The type of payment method used. Defaults to other.
      * @param method Value for InvoicePaymentMethodType
      */
     @JsonSetter("method")
@@ -209,7 +208,7 @@ public class CreateMultiInvoicePayment {
         private List<CreateInvoicePaymentApplication> applications;
         private String memo;
         private String details;
-        private InvoicePaymentMethodType method = InvoicePaymentMethodType.OTHER;
+        private InvoicePaymentMethodType method;
         private String receivedOn;
 
         /**

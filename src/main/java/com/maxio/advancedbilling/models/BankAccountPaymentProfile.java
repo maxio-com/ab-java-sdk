@@ -45,7 +45,6 @@ public class BankAccountPaymentProfile {
      * Default constructor.
      */
     public BankAccountPaymentProfile() {
-        bankAccountType = BankAccountType.CHECKING;
         verified = false;
     }
 
@@ -885,7 +884,7 @@ public class BankAccountPaymentProfile {
         private OptionalNullable<String> customerVaultToken;
         private OptionalNullable<String> billingAddress2;
         private String bankName;
-        private BankAccountType bankAccountType = BankAccountType.CHECKING;
+        private BankAccountType bankAccountType;
         private BankAccountHolderType bankAccountHolderType;
         private PaymentType paymentType;
         private Boolean verified = false;

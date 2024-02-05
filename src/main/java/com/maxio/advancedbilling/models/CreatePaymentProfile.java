@@ -55,7 +55,6 @@ public class CreatePaymentProfile {
      * Default constructor.
      */
     public CreatePaymentProfile() {
-        bankAccountType = BankAccountType.CHECKING;
     }
 
     /**
@@ -1086,7 +1085,7 @@ public class CreatePaymentProfile {
         private String bankRoutingNumber;
         private String bankAccountNumber;
         private String bankBranchCode;
-        private BankAccountType bankAccountType = BankAccountType.CHECKING;
+        private BankAccountType bankAccountType;
         private BankAccountHolderType bankAccountHolderType;
         private String lastFour;
 
