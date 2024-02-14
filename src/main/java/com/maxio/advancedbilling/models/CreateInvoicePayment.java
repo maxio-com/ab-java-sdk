@@ -19,6 +19,7 @@ public class CreateInvoicePayment {
     private String memo;
     private InvoicePaymentMethodType method;
     private String details;
+    private Integer paymentProfileId;
 
     /**
      * Default constructor.
@@ -32,16 +33,19 @@ public class CreateInvoicePayment {
      * @param  memo  String value for memo.
      * @param  method  InvoicePaymentMethodType value for method.
      * @param  details  String value for details.
+     * @param  paymentProfileId  Integer value for paymentProfileId.
      */
     public CreateInvoicePayment(
             CreateInvoicePaymentAmount amount,
             String memo,
             InvoicePaymentMethodType method,
-            String details) {
+            String details,
+            Integer paymentProfileId) {
         this.amount = amount;
         this.memo = memo;
         this.method = method;
         this.details = details;
+        this.paymentProfileId = paymentProfileId;
     }
 
     /**
@@ -129,13 +133,34 @@ public class CreateInvoicePayment {
     }
 
     /**
+     * Getter for PaymentProfileId.
+     * The ID of the payment profile to be used for the payment.
+     * @return Returns the Integer
+     */
+    @JsonGetter("payment_profile_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getPaymentProfileId() {
+        return paymentProfileId;
+    }
+
+    /**
+     * Setter for PaymentProfileId.
+     * The ID of the payment profile to be used for the payment.
+     * @param paymentProfileId Value for Integer
+     */
+    @JsonSetter("payment_profile_id")
+    public void setPaymentProfileId(Integer paymentProfileId) {
+        this.paymentProfileId = paymentProfileId;
+    }
+
+    /**
      * Converts this CreateInvoicePayment into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "CreateInvoicePayment [" + "amount=" + amount + ", memo=" + memo + ", method="
-                + method + ", details=" + details + "]";
+                + method + ", details=" + details + ", paymentProfileId=" + paymentProfileId + "]";
     }
 
     /**
@@ -148,7 +173,8 @@ public class CreateInvoicePayment {
                 .amount(getAmount())
                 .memo(getMemo())
                 .method(getMethod())
-                .details(getDetails());
+                .details(getDetails())
+                .paymentProfileId(getPaymentProfileId());
         return builder;
     }
 
@@ -160,6 +186,7 @@ public class CreateInvoicePayment {
         private String memo;
         private InvoicePaymentMethodType method;
         private String details;
+        private Integer paymentProfileId;
 
 
 
@@ -204,11 +231,21 @@ public class CreateInvoicePayment {
         }
 
         /**
+         * Setter for paymentProfileId.
+         * @param  paymentProfileId  Integer value for paymentProfileId.
+         * @return Builder
+         */
+        public Builder paymentProfileId(Integer paymentProfileId) {
+            this.paymentProfileId = paymentProfileId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateInvoicePayment} object using the set fields.
          * @return {@link CreateInvoicePayment}
          */
         public CreateInvoicePayment build() {
-            return new CreateInvoicePayment(amount, memo, method, details);
+            return new CreateInvoicePayment(amount, memo, method, details, paymentProfileId);
         }
     }
 }

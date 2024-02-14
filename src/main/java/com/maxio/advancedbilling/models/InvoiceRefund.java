@@ -22,6 +22,8 @@ public class InvoiceRefund {
     private String originalAmount;
     private String appliedAmount;
     private OptionalNullable<String> gatewayTransactionId;
+    private String gatewayUsed;
+    private OptionalNullable<String> gatewayHandle;
 
     /**
      * Default constructor.
@@ -37,6 +39,8 @@ public class InvoiceRefund {
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
+     * @param  gatewayUsed  String value for gatewayUsed.
+     * @param  gatewayHandle  String value for gatewayHandle.
      */
     public InvoiceRefund(
             Integer transactionId,
@@ -44,13 +48,17 @@ public class InvoiceRefund {
             String memo,
             String originalAmount,
             String appliedAmount,
-            String gatewayTransactionId) {
+            String gatewayTransactionId,
+            String gatewayUsed,
+            String gatewayHandle) {
         this.transactionId = transactionId;
         this.paymentId = paymentId;
         this.memo = memo;
         this.originalAmount = originalAmount;
         this.appliedAmount = appliedAmount;
         this.gatewayTransactionId = OptionalNullable.of(gatewayTransactionId);
+        this.gatewayUsed = gatewayUsed;
+        this.gatewayHandle = OptionalNullable.of(gatewayHandle);
     }
 
     /**
@@ -61,17 +69,22 @@ public class InvoiceRefund {
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
+     * @param  gatewayUsed  String value for gatewayUsed.
+     * @param  gatewayHandle  String value for gatewayHandle.
      */
 
     protected InvoiceRefund(Integer transactionId, Integer paymentId, String memo,
             String originalAmount, String appliedAmount,
-            OptionalNullable<String> gatewayTransactionId) {
+            OptionalNullable<String> gatewayTransactionId, String gatewayUsed,
+            OptionalNullable<String> gatewayHandle) {
         this.transactionId = transactionId;
         this.paymentId = paymentId;
         this.memo = memo;
         this.originalAmount = originalAmount;
         this.appliedAmount = appliedAmount;
         this.gatewayTransactionId = gatewayTransactionId;
+        this.gatewayUsed = gatewayUsed;
+        this.gatewayHandle = gatewayHandle;
     }
 
     /**
@@ -209,6 +222,60 @@ public class InvoiceRefund {
     }
 
     /**
+     * Getter for GatewayUsed.
+     * @return Returns the String
+     */
+    @JsonGetter("gateway_used")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getGatewayUsed() {
+        return gatewayUsed;
+    }
+
+    /**
+     * Setter for GatewayUsed.
+     * @param gatewayUsed Value for String
+     */
+    @JsonSetter("gateway_used")
+    public void setGatewayUsed(String gatewayUsed) {
+        this.gatewayUsed = gatewayUsed;
+    }
+
+    /**
+     * Internal Getter for GatewayHandle.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("gateway_handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetGatewayHandle() {
+        return this.gatewayHandle;
+    }
+
+    /**
+     * Getter for GatewayHandle.
+     * @return Returns the String
+     */
+    public String getGatewayHandle() {
+        return OptionalNullable.getFrom(gatewayHandle);
+    }
+
+    /**
+     * Setter for GatewayHandle.
+     * @param gatewayHandle Value for String
+     */
+    @JsonSetter("gateway_handle")
+    public void setGatewayHandle(String gatewayHandle) {
+        this.gatewayHandle = OptionalNullable.of(gatewayHandle);
+    }
+
+    /**
+     * UnSetter for GatewayHandle.
+     */
+    public void unsetGatewayHandle() {
+        gatewayHandle = null;
+    }
+
+    /**
      * Converts this InvoiceRefund into string format.
      * @return String representation of this class
      */
@@ -216,7 +283,8 @@ public class InvoiceRefund {
     public String toString() {
         return "InvoiceRefund [" + "transactionId=" + transactionId + ", paymentId=" + paymentId
                 + ", memo=" + memo + ", originalAmount=" + originalAmount + ", appliedAmount="
-                + appliedAmount + ", gatewayTransactionId=" + gatewayTransactionId + "]";
+                + appliedAmount + ", gatewayTransactionId=" + gatewayTransactionId
+                + ", gatewayUsed=" + gatewayUsed + ", gatewayHandle=" + gatewayHandle + "]";
     }
 
     /**
@@ -230,8 +298,10 @@ public class InvoiceRefund {
                 .paymentId(getPaymentId())
                 .memo(getMemo())
                 .originalAmount(getOriginalAmount())
-                .appliedAmount(getAppliedAmount());
+                .appliedAmount(getAppliedAmount())
+                .gatewayUsed(getGatewayUsed());
         builder.gatewayTransactionId = internalGetGatewayTransactionId();
+        builder.gatewayHandle = internalGetGatewayHandle();
         return builder;
     }
 
@@ -245,6 +315,8 @@ public class InvoiceRefund {
         private String originalAmount;
         private String appliedAmount;
         private OptionalNullable<String> gatewayTransactionId;
+        private String gatewayUsed;
+        private OptionalNullable<String> gatewayHandle;
 
 
 
@@ -318,12 +390,41 @@ public class InvoiceRefund {
         }
 
         /**
+         * Setter for gatewayUsed.
+         * @param  gatewayUsed  String value for gatewayUsed.
+         * @return Builder
+         */
+        public Builder gatewayUsed(String gatewayUsed) {
+            this.gatewayUsed = gatewayUsed;
+            return this;
+        }
+
+        /**
+         * Setter for gatewayHandle.
+         * @param  gatewayHandle  String value for gatewayHandle.
+         * @return Builder
+         */
+        public Builder gatewayHandle(String gatewayHandle) {
+            this.gatewayHandle = OptionalNullable.of(gatewayHandle);
+            return this;
+        }
+
+        /**
+         * UnSetter for gatewayHandle.
+         * @return Builder
+         */
+        public Builder unsetGatewayHandle() {
+            gatewayHandle = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceRefund} object using the set fields.
          * @return {@link InvoiceRefund}
          */
         public InvoiceRefund build() {
             return new InvoiceRefund(transactionId, paymentId, memo, originalAmount, appliedAmount,
-                    gatewayTransactionId);
+                    gatewayTransactionId, gatewayUsed, gatewayHandle);
         }
     }
 }

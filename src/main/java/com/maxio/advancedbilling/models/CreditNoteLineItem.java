@@ -9,8 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.LocalDate;
 
 /**
  * This is a model class for CreditNoteLineItem type.
@@ -26,12 +29,14 @@ public class CreditNoteLineItem {
     private String taxAmount;
     private String totalAmount;
     private Boolean tieredUnitPrice;
-    private String periodRangeStart;
-    private String periodRangeEnd;
+    private LocalDate periodRangeStart;
+    private LocalDate periodRangeEnd;
     private Integer productId;
     private Integer productVersion;
     private OptionalNullable<Integer> componentId;
     private OptionalNullable<Integer> pricePointId;
+    private OptionalNullable<Integer> billingScheduleItemId;
+    private Boolean customItem;
 
     /**
      * Default constructor.
@@ -51,12 +56,14 @@ public class CreditNoteLineItem {
      * @param  taxAmount  String value for taxAmount.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
-     * @param  periodRangeStart  String value for periodRangeStart.
-     * @param  periodRangeEnd  String value for periodRangeEnd.
+     * @param  periodRangeStart  LocalDate value for periodRangeStart.
+     * @param  periodRangeEnd  LocalDate value for periodRangeEnd.
      * @param  productId  Integer value for productId.
      * @param  productVersion  Integer value for productVersion.
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
+     * @param  customItem  Boolean value for customItem.
      */
     public CreditNoteLineItem(
             String uid,
@@ -69,12 +76,14 @@ public class CreditNoteLineItem {
             String taxAmount,
             String totalAmount,
             Boolean tieredUnitPrice,
-            String periodRangeStart,
-            String periodRangeEnd,
+            LocalDate periodRangeStart,
+            LocalDate periodRangeEnd,
             Integer productId,
             Integer productVersion,
             Integer componentId,
-            Integer pricePointId) {
+            Integer pricePointId,
+            Integer billingScheduleItemId,
+            Boolean customItem) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -91,6 +100,8 @@ public class CreditNoteLineItem {
         this.productVersion = productVersion;
         this.componentId = OptionalNullable.of(componentId);
         this.pricePointId = OptionalNullable.of(pricePointId);
+        this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
+        this.customItem = customItem;
     }
 
     /**
@@ -105,19 +116,22 @@ public class CreditNoteLineItem {
      * @param  taxAmount  String value for taxAmount.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
-     * @param  periodRangeStart  String value for periodRangeStart.
-     * @param  periodRangeEnd  String value for periodRangeEnd.
+     * @param  periodRangeStart  LocalDate value for periodRangeStart.
+     * @param  periodRangeEnd  LocalDate value for periodRangeEnd.
      * @param  productId  Integer value for productId.
      * @param  productVersion  Integer value for productVersion.
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
+     * @param  customItem  Boolean value for customItem.
      */
 
     protected CreditNoteLineItem(String uid, String title, String description, String quantity,
             String unitPrice, String subtotalAmount, String discountAmount, String taxAmount,
-            String totalAmount, Boolean tieredUnitPrice, String periodRangeStart,
-            String periodRangeEnd, Integer productId, Integer productVersion,
-            OptionalNullable<Integer> componentId, OptionalNullable<Integer> pricePointId) {
+            String totalAmount, Boolean tieredUnitPrice, LocalDate periodRangeStart,
+            LocalDate periodRangeEnd, Integer productId, Integer productVersion,
+            OptionalNullable<Integer> componentId, OptionalNullable<Integer> pricePointId,
+            OptionalNullable<Integer> billingScheduleItemId, Boolean customItem) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -134,6 +148,8 @@ public class CreditNoteLineItem {
         this.productVersion = productVersion;
         this.componentId = componentId;
         this.pricePointId = pricePointId;
+        this.billingScheduleItemId = billingScheduleItemId;
+        this.customItem = customItem;
     }
 
     /**
@@ -389,42 +405,46 @@ public class CreditNoteLineItem {
     /**
      * Getter for PeriodRangeStart.
      * Start date for the period credited by this line. The format is `"YYYY-MM-DD"`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("period_range_start")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPeriodRangeStart() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getPeriodRangeStart() {
         return periodRangeStart;
     }
 
     /**
      * Setter for PeriodRangeStart.
      * Start date for the period credited by this line. The format is `"YYYY-MM-DD"`.
-     * @param periodRangeStart Value for String
+     * @param periodRangeStart Value for LocalDate
      */
     @JsonSetter("period_range_start")
-    public void setPeriodRangeStart(String periodRangeStart) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPeriodRangeStart(LocalDate periodRangeStart) {
         this.periodRangeStart = periodRangeStart;
     }
 
     /**
      * Getter for PeriodRangeEnd.
      * End date for the period credited by this line. The format is `"YYYY-MM-DD"`.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("period_range_end")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPeriodRangeEnd() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getPeriodRangeEnd() {
         return periodRangeEnd;
     }
 
     /**
      * Setter for PeriodRangeEnd.
      * End date for the period credited by this line. The format is `"YYYY-MM-DD"`.
-     * @param periodRangeEnd Value for String
+     * @param periodRangeEnd Value for LocalDate
      */
     @JsonSetter("period_range_end")
-    public void setPeriodRangeEnd(String periodRangeEnd) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPeriodRangeEnd(LocalDate periodRangeEnd) {
         this.periodRangeEnd = periodRangeEnd;
     }
 
@@ -551,6 +571,60 @@ public class CreditNoteLineItem {
     }
 
     /**
+     * Internal Getter for BillingScheduleItemId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("billing_schedule_item_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBillingScheduleItemId() {
+        return this.billingScheduleItemId;
+    }
+
+    /**
+     * Getter for BillingScheduleItemId.
+     * @return Returns the Integer
+     */
+    public Integer getBillingScheduleItemId() {
+        return OptionalNullable.getFrom(billingScheduleItemId);
+    }
+
+    /**
+     * Setter for BillingScheduleItemId.
+     * @param billingScheduleItemId Value for Integer
+     */
+    @JsonSetter("billing_schedule_item_id")
+    public void setBillingScheduleItemId(Integer billingScheduleItemId) {
+        this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
+    }
+
+    /**
+     * UnSetter for BillingScheduleItemId.
+     */
+    public void unsetBillingScheduleItemId() {
+        billingScheduleItemId = null;
+    }
+
+    /**
+     * Getter for CustomItem.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("custom_item")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getCustomItem() {
+        return customItem;
+    }
+
+    /**
+     * Setter for CustomItem.
+     * @param customItem Value for Boolean
+     */
+    @JsonSetter("custom_item")
+    public void setCustomItem(Boolean customItem) {
+        this.customItem = customItem;
+    }
+
+    /**
      * Converts this CreditNoteLineItem into string format.
      * @return String representation of this class
      */
@@ -562,7 +636,9 @@ public class CreditNoteLineItem {
                 + ", taxAmount=" + taxAmount + ", totalAmount=" + totalAmount + ", tieredUnitPrice="
                 + tieredUnitPrice + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd="
                 + periodRangeEnd + ", productId=" + productId + ", productVersion=" + productVersion
-                + ", componentId=" + componentId + ", pricePointId=" + pricePointId + "]";
+                + ", componentId=" + componentId + ", pricePointId=" + pricePointId
+                + ", billingScheduleItemId=" + billingScheduleItemId + ", customItem=" + customItem
+                + "]";
     }
 
     /**
@@ -585,9 +661,11 @@ public class CreditNoteLineItem {
                 .periodRangeStart(getPeriodRangeStart())
                 .periodRangeEnd(getPeriodRangeEnd())
                 .productId(getProductId())
-                .productVersion(getProductVersion());
+                .productVersion(getProductVersion())
+                .customItem(getCustomItem());
         builder.componentId = internalGetComponentId();
         builder.pricePointId = internalGetPricePointId();
+        builder.billingScheduleItemId = internalGetBillingScheduleItemId();
         return builder;
     }
 
@@ -605,12 +683,14 @@ public class CreditNoteLineItem {
         private String taxAmount;
         private String totalAmount;
         private Boolean tieredUnitPrice;
-        private String periodRangeStart;
-        private String periodRangeEnd;
+        private LocalDate periodRangeStart;
+        private LocalDate periodRangeEnd;
         private Integer productId;
         private Integer productVersion;
         private OptionalNullable<Integer> componentId;
         private OptionalNullable<Integer> pricePointId;
+        private OptionalNullable<Integer> billingScheduleItemId;
+        private Boolean customItem;
 
 
 
@@ -716,20 +796,20 @@ public class CreditNoteLineItem {
 
         /**
          * Setter for periodRangeStart.
-         * @param  periodRangeStart  String value for periodRangeStart.
+         * @param  periodRangeStart  LocalDate value for periodRangeStart.
          * @return Builder
          */
-        public Builder periodRangeStart(String periodRangeStart) {
+        public Builder periodRangeStart(LocalDate periodRangeStart) {
             this.periodRangeStart = periodRangeStart;
             return this;
         }
 
         /**
          * Setter for periodRangeEnd.
-         * @param  periodRangeEnd  String value for periodRangeEnd.
+         * @param  periodRangeEnd  LocalDate value for periodRangeEnd.
          * @return Builder
          */
-        public Builder periodRangeEnd(String periodRangeEnd) {
+        public Builder periodRangeEnd(LocalDate periodRangeEnd) {
             this.periodRangeEnd = periodRangeEnd;
             return this;
         }
@@ -793,6 +873,35 @@ public class CreditNoteLineItem {
         }
 
         /**
+         * Setter for billingScheduleItemId.
+         * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
+         * @return Builder
+         */
+        public Builder billingScheduleItemId(Integer billingScheduleItemId) {
+            this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingScheduleItemId.
+         * @return Builder
+         */
+        public Builder unsetBillingScheduleItemId() {
+            billingScheduleItemId = null;
+            return this;
+        }
+
+        /**
+         * Setter for customItem.
+         * @param  customItem  Boolean value for customItem.
+         * @return Builder
+         */
+        public Builder customItem(Boolean customItem) {
+            this.customItem = customItem;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreditNoteLineItem} object using the set fields.
          * @return {@link CreditNoteLineItem}
          */
@@ -800,7 +909,7 @@ public class CreditNoteLineItem {
             return new CreditNoteLineItem(uid, title, description, quantity, unitPrice,
                     subtotalAmount, discountAmount, taxAmount, totalAmount, tieredUnitPrice,
                     periodRangeStart, periodRangeEnd, productId, productVersion, componentId,
-                    pricePointId);
+                    pricePointId, billingScheduleItemId, customItem);
         }
     }
 }
