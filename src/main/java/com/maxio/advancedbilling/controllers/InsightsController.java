@@ -62,7 +62,8 @@ public final class InsightsController extends BaseController {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/stats.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -109,7 +110,8 @@ public final class InsightsController extends BaseController {
                         .queryParam(param -> param.key("subscription_id")
                                 .value(subscriptionId).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -167,7 +169,8 @@ public final class InsightsController extends BaseController {
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -216,7 +219,8 @@ public final class InsightsController extends BaseController {
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

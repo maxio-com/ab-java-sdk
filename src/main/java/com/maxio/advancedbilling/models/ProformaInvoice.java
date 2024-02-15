@@ -9,6 +9,8 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -19,8 +21,8 @@ public class ProformaInvoice {
     private Integer siteId;
     private Integer customerId;
     private Integer subscriptionId;
-    private Integer number;
-    private Integer sequenceNumber;
+    private OptionalNullable<Integer> number;
+    private OptionalNullable<Integer> sequenceNumber;
     private String createdAt;
     private String deliveryDate;
     private String status;
@@ -50,7 +52,7 @@ public class ProformaInvoice {
     private List<ProformaInvoiceCredit> credits;
     private List<ProformaInvoicePayment> payments;
     private List<InvoiceCustomField> customFields;
-    private String publicUrl;
+    private OptionalNullable<String> publicUrl;
 
     /**
      * Default constructor.
@@ -134,6 +136,97 @@ public class ProformaInvoice {
             List<ProformaInvoicePayment> payments,
             List<InvoiceCustomField> customFields,
             String publicUrl) {
+        this.uid = uid;
+        this.siteId = siteId;
+        this.customerId = customerId;
+        this.subscriptionId = subscriptionId;
+        this.number = OptionalNullable.of(number);
+        this.sequenceNumber = OptionalNullable.of(sequenceNumber);
+        this.createdAt = createdAt;
+        this.deliveryDate = deliveryDate;
+        this.status = status;
+        this.collectionMethod = collectionMethod;
+        this.paymentInstructions = paymentInstructions;
+        this.currency = currency;
+        this.consolidationLevel = consolidationLevel;
+        this.productName = productName;
+        this.productFamilyName = productFamilyName;
+        this.role = role;
+        this.seller = seller;
+        this.customer = customer;
+        this.memo = memo;
+        this.billingAddress = billingAddress;
+        this.shippingAddress = shippingAddress;
+        this.subtotalAmount = subtotalAmount;
+        this.discountAmount = discountAmount;
+        this.taxAmount = taxAmount;
+        this.totalAmount = totalAmount;
+        this.creditAmount = creditAmount;
+        this.paidAmount = paidAmount;
+        this.refundAmount = refundAmount;
+        this.dueAmount = dueAmount;
+        this.lineItems = lineItems;
+        this.discounts = discounts;
+        this.taxes = taxes;
+        this.credits = credits;
+        this.payments = payments;
+        this.customFields = customFields;
+        this.publicUrl = OptionalNullable.of(publicUrl);
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  uid  String value for uid.
+     * @param  siteId  Integer value for siteId.
+     * @param  customerId  Integer value for customerId.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  number  Integer value for number.
+     * @param  sequenceNumber  Integer value for sequenceNumber.
+     * @param  createdAt  String value for createdAt.
+     * @param  deliveryDate  String value for deliveryDate.
+     * @param  status  String value for status.
+     * @param  collectionMethod  String value for collectionMethod.
+     * @param  paymentInstructions  String value for paymentInstructions.
+     * @param  currency  String value for currency.
+     * @param  consolidationLevel  String value for consolidationLevel.
+     * @param  productName  String value for productName.
+     * @param  productFamilyName  String value for productFamilyName.
+     * @param  role  String value for role.
+     * @param  seller  InvoiceSeller value for seller.
+     * @param  customer  InvoiceCustomer value for customer.
+     * @param  memo  String value for memo.
+     * @param  billingAddress  InvoiceAddress value for billingAddress.
+     * @param  shippingAddress  InvoiceAddress value for shippingAddress.
+     * @param  subtotalAmount  String value for subtotalAmount.
+     * @param  discountAmount  String value for discountAmount.
+     * @param  taxAmount  String value for taxAmount.
+     * @param  totalAmount  String value for totalAmount.
+     * @param  creditAmount  String value for creditAmount.
+     * @param  paidAmount  String value for paidAmount.
+     * @param  refundAmount  String value for refundAmount.
+     * @param  dueAmount  String value for dueAmount.
+     * @param  lineItems  List of InvoiceLineItem value for lineItems.
+     * @param  discounts  List of ProformaInvoiceDiscount value for discounts.
+     * @param  taxes  List of ProformaInvoiceTax value for taxes.
+     * @param  credits  List of ProformaInvoiceCredit value for credits.
+     * @param  payments  List of ProformaInvoicePayment value for payments.
+     * @param  customFields  List of InvoiceCustomField value for customFields.
+     * @param  publicUrl  String value for publicUrl.
+     */
+
+    protected ProformaInvoice(String uid, Integer siteId, Integer customerId,
+            Integer subscriptionId, OptionalNullable<Integer> number,
+            OptionalNullable<Integer> sequenceNumber, String createdAt, String deliveryDate,
+            String status, String collectionMethod, String paymentInstructions, String currency,
+            String consolidationLevel, String productName, String productFamilyName, String role,
+            InvoiceSeller seller, InvoiceCustomer customer, String memo,
+            InvoiceAddress billingAddress, InvoiceAddress shippingAddress, String subtotalAmount,
+            String discountAmount, String taxAmount, String totalAmount, String creditAmount,
+            String paidAmount, String refundAmount, String dueAmount,
+            List<InvoiceLineItem> lineItems, List<ProformaInvoiceDiscount> discounts,
+            List<ProformaInvoiceTax> taxes, List<ProformaInvoiceCredit> credits,
+            List<ProformaInvoicePayment> payments, List<InvoiceCustomField> customFields,
+            OptionalNullable<String> publicUrl) {
         this.uid = uid;
         this.siteId = siteId;
         this.customerId = customerId;
@@ -249,13 +342,22 @@ public class ProformaInvoice {
     }
 
     /**
-     * Getter for Number.
-     * @return Returns the Integer
+     * Internal Getter for Number.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("number")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetNumber() {
+        return this.number;
+    }
+
+    /**
+     * Getter for Number.
+     * @return Returns the Integer
+     */
     public Integer getNumber() {
-        return number;
+        return OptionalNullable.getFrom(number);
     }
 
     /**
@@ -264,17 +366,33 @@ public class ProformaInvoice {
      */
     @JsonSetter("number")
     public void setNumber(Integer number) {
-        this.number = number;
+        this.number = OptionalNullable.of(number);
+    }
+
+    /**
+     * UnSetter for Number.
+     */
+    public void unsetNumber() {
+        number = null;
+    }
+
+    /**
+     * Internal Getter for SequenceNumber.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("sequence_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetSequenceNumber() {
+        return this.sequenceNumber;
     }
 
     /**
      * Getter for SequenceNumber.
      * @return Returns the Integer
      */
-    @JsonGetter("sequence_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getSequenceNumber() {
-        return sequenceNumber;
+        return OptionalNullable.getFrom(sequenceNumber);
     }
 
     /**
@@ -283,7 +401,14 @@ public class ProformaInvoice {
      */
     @JsonSetter("sequence_number")
     public void setSequenceNumber(Integer sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
+        this.sequenceNumber = OptionalNullable.of(sequenceNumber);
+    }
+
+    /**
+     * UnSetter for SequenceNumber.
+     */
+    public void unsetSequenceNumber() {
+        sequenceNumber = null;
     }
 
     /**
@@ -842,13 +967,22 @@ public class ProformaInvoice {
     }
 
     /**
-     * Getter for PublicUrl.
-     * @return Returns the String
+     * Internal Getter for PublicUrl.
+     * @return Returns the Internal String
      */
     @JsonGetter("public_url")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPublicUrl() {
+        return this.publicUrl;
+    }
+
+    /**
+     * Getter for PublicUrl.
+     * @return Returns the String
+     */
     public String getPublicUrl() {
-        return publicUrl;
+        return OptionalNullable.getFrom(publicUrl);
     }
 
     /**
@@ -857,7 +991,14 @@ public class ProformaInvoice {
      */
     @JsonSetter("public_url")
     public void setPublicUrl(String publicUrl) {
-        this.publicUrl = publicUrl;
+        this.publicUrl = OptionalNullable.of(publicUrl);
+    }
+
+    /**
+     * UnSetter for PublicUrl.
+     */
+    public void unsetPublicUrl() {
+        publicUrl = null;
     }
 
     /**
@@ -894,8 +1035,6 @@ public class ProformaInvoice {
                 .siteId(getSiteId())
                 .customerId(getCustomerId())
                 .subscriptionId(getSubscriptionId())
-                .number(getNumber())
-                .sequenceNumber(getSequenceNumber())
                 .createdAt(getCreatedAt())
                 .deliveryDate(getDeliveryDate())
                 .status(getStatus())
@@ -924,8 +1063,10 @@ public class ProformaInvoice {
                 .taxes(getTaxes())
                 .credits(getCredits())
                 .payments(getPayments())
-                .customFields(getCustomFields())
-                .publicUrl(getPublicUrl());
+                .customFields(getCustomFields());
+        builder.number = internalGetNumber();
+        builder.sequenceNumber = internalGetSequenceNumber();
+        builder.publicUrl = internalGetPublicUrl();
         return builder;
     }
 
@@ -937,8 +1078,8 @@ public class ProformaInvoice {
         private Integer siteId;
         private Integer customerId;
         private Integer subscriptionId;
-        private Integer number;
-        private Integer sequenceNumber;
+        private OptionalNullable<Integer> number;
+        private OptionalNullable<Integer> sequenceNumber;
         private String createdAt;
         private String deliveryDate;
         private String status;
@@ -968,7 +1109,7 @@ public class ProformaInvoice {
         private List<ProformaInvoiceCredit> credits;
         private List<ProformaInvoicePayment> payments;
         private List<InvoiceCustomField> customFields;
-        private String publicUrl;
+        private OptionalNullable<String> publicUrl;
 
 
 
@@ -1018,7 +1159,16 @@ public class ProformaInvoice {
          * @return Builder
          */
         public Builder number(Integer number) {
-            this.number = number;
+            this.number = OptionalNullable.of(number);
+            return this;
+        }
+
+        /**
+         * UnSetter for number.
+         * @return Builder
+         */
+        public Builder unsetNumber() {
+            number = null;
             return this;
         }
 
@@ -1028,7 +1178,16 @@ public class ProformaInvoice {
          * @return Builder
          */
         public Builder sequenceNumber(Integer sequenceNumber) {
-            this.sequenceNumber = sequenceNumber;
+            this.sequenceNumber = OptionalNullable.of(sequenceNumber);
+            return this;
+        }
+
+        /**
+         * UnSetter for sequenceNumber.
+         * @return Builder
+         */
+        public Builder unsetSequenceNumber() {
+            sequenceNumber = null;
             return this;
         }
 
@@ -1328,7 +1487,16 @@ public class ProformaInvoice {
          * @return Builder
          */
         public Builder publicUrl(String publicUrl) {
-            this.publicUrl = publicUrl;
+            this.publicUrl = OptionalNullable.of(publicUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for publicUrl.
+         * @return Builder
+         */
+        public Builder unsetPublicUrl() {
+            publicUrl = null;
             return this;
         }
 

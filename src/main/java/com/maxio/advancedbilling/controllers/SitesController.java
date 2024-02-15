@@ -60,7 +60,8 @@ public final class SitesController extends BaseController {
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/site.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -102,7 +103,8 @@ public final class SitesController extends BaseController {
                         .path("/sites/clear_data.json")
                         .queryParam(param -> param.key("cleanup_scope")
                                 .value((cleanupScope != null) ? cleanupScope.value() : "all").isRequired(false))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -139,7 +141,8 @@ public final class SitesController extends BaseController {
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

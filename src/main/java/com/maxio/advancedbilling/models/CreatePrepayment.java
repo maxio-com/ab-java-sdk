@@ -17,7 +17,7 @@ public class CreatePrepayment {
     private double amount;
     private String details;
     private String memo;
-    private PrepaymentMethod method;
+    private CreatePrepaymentMethod method;
     private Integer paymentProfileId;
 
     /**
@@ -31,14 +31,14 @@ public class CreatePrepayment {
      * @param  amount  double value for amount.
      * @param  details  String value for details.
      * @param  memo  String value for memo.
-     * @param  method  PrepaymentMethod value for method.
+     * @param  method  CreatePrepaymentMethod value for method.
      * @param  paymentProfileId  Integer value for paymentProfileId.
      */
     public CreatePrepayment(
             double amount,
             String details,
             String memo,
-            PrepaymentMethod method,
+            CreatePrepaymentMethod method,
             Integer paymentProfileId) {
         this.amount = amount;
         this.details = details;
@@ -106,10 +106,10 @@ public class CreatePrepayment {
      * :- When the `method` specified is `"credit_card_on_file"`, the prepayment amount will be
      * collected using the default credit card payment profile and applied to the prepayment account
      * balance. This is especially useful for manual replenishment of prepaid subscriptions.
-     * @return Returns the PrepaymentMethod
+     * @return Returns the CreatePrepaymentMethod
      */
     @JsonGetter("method")
-    public PrepaymentMethod getMethod() {
+    public CreatePrepaymentMethod getMethod() {
         return method;
     }
 
@@ -118,10 +118,10 @@ public class CreatePrepayment {
      * :- When the `method` specified is `"credit_card_on_file"`, the prepayment amount will be
      * collected using the default credit card payment profile and applied to the prepayment account
      * balance. This is especially useful for manual replenishment of prepaid subscriptions.
-     * @param method Value for PrepaymentMethod
+     * @param method Value for CreatePrepaymentMethod
      */
     @JsonSetter("method")
-    public void setMethod(PrepaymentMethod method) {
+    public void setMethod(CreatePrepaymentMethod method) {
         this.method = method;
     }
 
@@ -172,7 +172,7 @@ public class CreatePrepayment {
         private double amount;
         private String details;
         private String memo;
-        private PrepaymentMethod method;
+        private CreatePrepaymentMethod method;
         private Integer paymentProfileId;
 
         /**
@@ -186,9 +186,9 @@ public class CreatePrepayment {
          * @param  amount  double value for amount.
          * @param  details  String value for details.
          * @param  memo  String value for memo.
-         * @param  method  PrepaymentMethod value for method.
+         * @param  method  CreatePrepaymentMethod value for method.
          */
-        public Builder(double amount, String details, String memo, PrepaymentMethod method) {
+        public Builder(double amount, String details, String memo, CreatePrepaymentMethod method) {
             this.amount = amount;
             this.details = details;
             this.memo = memo;
@@ -227,10 +227,10 @@ public class CreatePrepayment {
 
         /**
          * Setter for method.
-         * @param  method  PrepaymentMethod value for method.
+         * @param  method  CreatePrepaymentMethod value for method.
          * @return Builder
          */
-        public Builder method(PrepaymentMethod method) {
+        public Builder method(CreatePrepaymentMethod method) {
             this.method = method;
             return this;
         }

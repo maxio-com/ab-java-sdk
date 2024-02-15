@@ -120,14 +120,14 @@ Proforma invoices are only available on Relationship Invoicing sites.
 
 ```java
 ProformaInvoice readProformaInvoice(
-    final int proformaInvoiceUid)
+    final String proformaInvoiceUid)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `proformaInvoiceUid` | `int` | Template, Required | The uid of the proforma invoice |
+| `proformaInvoiceUid` | `String` | Template, Required | The uid of the proforma invoice |
 
 ## Response Type
 
@@ -136,7 +136,7 @@ ProformaInvoice readProformaInvoice(
 ## Example Usage
 
 ```java
-int proformaInvoiceUid = 242;
+String proformaInvoiceUid = "proforma_invoice_uid4";
 
 try {
     ProformaInvoice result = proformaInvoicesController.readProformaInvoice(proformaInvoiceUid);
@@ -207,7 +207,7 @@ try {
 By default, proforma invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`. To include breakdowns, pass the specific field as a key in the query with a value set to `true`.
 
 ```java
-List<ProformaInvoice> listProformaInvoices(
+ListProformaInvoicesResponse listProformaInvoices(
     final ListProformaInvoicesInput input)
 ```
 
@@ -231,7 +231,7 @@ List<ProformaInvoice> listProformaInvoices(
 
 ## Response Type
 
-[`List<ProformaInvoice>`](../../doc/models/proforma-invoice.md)
+[`ListProformaInvoicesResponse`](../../doc/models/list-proforma-invoices-response.md)
 
 ## Example Usage
 
@@ -251,7 +251,7 @@ ListProformaInvoicesInput listProformaInvoicesInput = new ListProformaInvoicesIn
 .build();
 
 try {
-    List<ProformaInvoice> result = proformaInvoicesController.listProformaInvoices(listProformaInvoicesInput);
+    ListProformaInvoicesResponse result = proformaInvoicesController.listProformaInvoices(listProformaInvoicesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

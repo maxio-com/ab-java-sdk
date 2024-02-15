@@ -1913,7 +1913,7 @@ Excess payment will result in the creation of a prepayment on the Invoice Accoun
 Only ungrouped or primary subscriptions may be paid using the "bulk" payment request.
 
 ```java
-PaymentResponse recordPaymentForSubscription(
+RecordPaymentResponse recordPaymentForSubscription(
     final int subscriptionId,
     final RecordPaymentRequest body)
 ```
@@ -1927,7 +1927,7 @@ PaymentResponse recordPaymentForSubscription(
 
 ## Response Type
 
-[`PaymentResponse`](../../doc/models/payment-response.md)
+[`RecordPaymentResponse`](../../doc/models/record-payment-response.md)
 
 ## Example Usage
 
@@ -1938,14 +1938,14 @@ RecordPaymentRequest body = new RecordPaymentRequest.Builder(
         "10.0",
         "to pay the bills",
         "check number 8675309",
-        "check"
+        InvoicePaymentMethodType.CHECK
     )
     .build()
 )
 .build();
 
 try {
-    PaymentResponse result = invoicesController.recordPaymentForSubscription(subscriptionId, body);
+    RecordPaymentResponse result = invoicesController.recordPaymentForSubscription(subscriptionId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1960,23 +1960,19 @@ try {
 {
   "paid_invoices": [
     {
-      "invoice_uid": "xyz_012345678",
+      "invoice_id": "inv_bchyhr6z5grby",
       "status": "paid",
       "due_amount": "0.0",
       "paid_amount": "50.0"
     },
     {
-      "invoice_uid": "xyz_012345678",
+      "invoice_id": "inv_bchyhrgvyb6vm",
       "status": "paid",
       "due_amount": "0.0",
       "paid_amount": "50.0"
     }
   ],
-  "prepayment": {
-    "subscription_id": "123456",
-    "amount_in_cents": "5000",
-    "ending_balance_in_cents": "5000"
-  }
+  "prepayment": null
 }
 ```
 

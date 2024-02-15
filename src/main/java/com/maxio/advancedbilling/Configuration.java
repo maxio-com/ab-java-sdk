@@ -6,6 +6,7 @@
 
 package com.maxio.advancedbilling;
 
+import com.maxio.advancedbilling.authentication.BasicAuthModel;
 import com.maxio.advancedbilling.http.client.ReadonlyHttpClientConfiguration;
 
 /**
@@ -48,6 +49,12 @@ public interface Configuration {
      * @return basicAuthCredentials
      */
     BasicAuthCredentials getBasicAuthCredentials();
+
+    /**
+     * The auth credential model for BasicAuth.
+     * @return the instance of BasicAuthModel
+     */
+    BasicAuthModel getBasicAuthModel();
 
     /**
      * Get base URI by current environment.

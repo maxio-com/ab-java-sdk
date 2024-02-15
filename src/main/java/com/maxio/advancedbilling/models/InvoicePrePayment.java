@@ -14,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for InvoicePrePayment type.
  */
 public class InvoicePrePayment {
-    private String subscriptionId;
-    private String amountInCents;
-    private String endingBalanceInCents;
+    private Integer subscriptionId;
+    private Long amountInCents;
+    private Long endingBalanceInCents;
 
     /**
      * Default constructor.
@@ -26,14 +26,14 @@ public class InvoicePrePayment {
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  String value for subscriptionId.
-     * @param  amountInCents  String value for amountInCents.
-     * @param  endingBalanceInCents  String value for endingBalanceInCents.
+     * @param  subscriptionId  Integer value for subscriptionId.
+     * @param  amountInCents  Long value for amountInCents.
+     * @param  endingBalanceInCents  Long value for endingBalanceInCents.
      */
     public InvoicePrePayment(
-            String subscriptionId,
-            String amountInCents,
-            String endingBalanceInCents) {
+            Integer subscriptionId,
+            Long amountInCents,
+            Long endingBalanceInCents) {
         this.subscriptionId = subscriptionId;
         this.amountInCents = amountInCents;
         this.endingBalanceInCents = endingBalanceInCents;
@@ -42,42 +42,42 @@ public class InvoicePrePayment {
     /**
      * Getter for SubscriptionId.
      * The subscription id for the prepayment account
-     * @return Returns the String
+     * @return Returns the Integer
      */
     @JsonGetter("subscription_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSubscriptionId() {
+    public Integer getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
      * The subscription id for the prepayment account
-     * @param subscriptionId Value for String
+     * @param subscriptionId Value for Integer
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(String subscriptionId) {
+    public void setSubscriptionId(Integer subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
     /**
      * Getter for AmountInCents.
      * The amount in cents of the prepayment that was created as a result of this payment.
-     * @return Returns the String
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
      * The amount in cents of the prepayment that was created as a result of this payment.
-     * @param amountInCents Value for String
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(String amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -85,11 +85,11 @@ public class InvoicePrePayment {
      * Getter for EndingBalanceInCents.
      * The total balance of the prepayment account for this subscription including any prior
      * prepayments
-     * @return Returns the String
+     * @return Returns the Long
      */
     @JsonGetter("ending_balance_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndingBalanceInCents() {
+    public Long getEndingBalanceInCents() {
         return endingBalanceInCents;
     }
 
@@ -97,10 +97,10 @@ public class InvoicePrePayment {
      * Setter for EndingBalanceInCents.
      * The total balance of the prepayment account for this subscription including any prior
      * prepayments
-     * @param endingBalanceInCents Value for String
+     * @param endingBalanceInCents Value for Long
      */
     @JsonSetter("ending_balance_in_cents")
-    public void setEndingBalanceInCents(String endingBalanceInCents) {
+    public void setEndingBalanceInCents(Long endingBalanceInCents) {
         this.endingBalanceInCents = endingBalanceInCents;
     }
 
@@ -131,38 +131,38 @@ public class InvoicePrePayment {
      * Class to build instances of {@link InvoicePrePayment}.
      */
     public static class Builder {
-        private String subscriptionId;
-        private String amountInCents;
-        private String endingBalanceInCents;
+        private Integer subscriptionId;
+        private Long amountInCents;
+        private Long endingBalanceInCents;
 
 
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  String value for subscriptionId.
+         * @param  subscriptionId  Integer value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(String subscriptionId) {
+        public Builder subscriptionId(Integer subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  String value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(String amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }
 
         /**
          * Setter for endingBalanceInCents.
-         * @param  endingBalanceInCents  String value for endingBalanceInCents.
+         * @param  endingBalanceInCents  Long value for endingBalanceInCents.
          * @return Builder
          */
-        public Builder endingBalanceInCents(String endingBalanceInCents) {
+        public Builder endingBalanceInCents(Long endingBalanceInCents) {
             this.endingBalanceInCents = endingBalanceInCents;
             return this;
         }

@@ -16,6 +16,7 @@ import com.maxio.advancedbilling.exceptions.ProformaBadRequestErrorResponseExcep
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.ListProformaInvoicesInput;
+import com.maxio.advancedbilling.models.ListProformaInvoicesResponse;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoicePreview;
 import com.maxio.advancedbilling.models.SignupProformaPreviewResponse;
@@ -25,7 +26,6 @@ import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -70,7 +70,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .path("/subscription_groups/{uid}/proforma_invoices.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -111,7 +112,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -135,7 +137,7 @@ public final class ProformaInvoicesController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProformaInvoice readProformaInvoice(
-            final int proformaInvoiceUid) throws ApiException, IOException {
+            final String proformaInvoiceUid) throws ApiException, IOException {
         return prepareReadProformaInvoiceRequest(proformaInvoiceUid).execute();
     }
 
@@ -143,16 +145,17 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for readProformaInvoice.
      */
     private ApiCall<ProformaInvoice, ApiException> prepareReadProformaInvoiceRequest(
-            final int proformaInvoiceUid) throws IOException {
+            final String proformaInvoiceUid) throws IOException {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/proforma_invoices/{proforma_invoice_uid}.json")
-                        .templateParam(param -> param.key("proforma_invoice_uid").value(proformaInvoiceUid).isRequired(false)
+                        .templateParam(param -> param.key("proforma_invoice_uid").value(proformaInvoiceUid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -197,7 +200,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -218,11 +222,11 @@ public final class ProformaInvoicesController extends BaseController {
      * To include breakdowns, pass the specific field as a key in the query with a value set to
      * `true`.
      * @param  input  ListProformaInvoicesInput object containing request parameters
-     * @return    Returns the List of ProformaInvoice response from the API call
+     * @return    Returns the ListProformaInvoicesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public List<ProformaInvoice> listProformaInvoices(
+    public ListProformaInvoicesResponse listProformaInvoices(
             final ListProformaInvoicesInput input) throws ApiException, IOException {
         return prepareListProformaInvoicesRequest(input).execute();
     }
@@ -230,9 +234,9 @@ public final class ProformaInvoicesController extends BaseController {
     /**
      * Builds the ApiCall object for listProformaInvoices.
      */
-    private ApiCall<List<ProformaInvoice>, ApiException> prepareListProformaInvoicesRequest(
+    private ApiCall<ListProformaInvoicesResponse, ApiException> prepareListProformaInvoicesRequest(
             final ListProformaInvoicesInput input) throws IOException {
-        return new ApiCall.Builder<List<ProformaInvoice>, ApiException>()
+        return new ApiCall.Builder<ListProformaInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -264,12 +268,12 @@ public final class ProformaInvoicesController extends BaseController {
                         .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserializeArray(response,
-                                        ProformaInvoice[].class))
+                                response -> ApiHelper.deserialize(response, ListProformaInvoicesResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
@@ -314,7 +318,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -368,7 +373,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -422,7 +428,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -482,7 +489,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

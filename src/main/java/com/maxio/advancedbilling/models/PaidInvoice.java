@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * This is a model class for Payment type.
+ * This is a model class for PaidInvoice type.
  */
-public class Payment {
-    private String invoiceUid;
+public class PaidInvoice {
+    private String invoiceId;
     private InvoiceStatus status;
     private String dueAmount;
     private String paidAmount;
@@ -22,46 +22,46 @@ public class Payment {
     /**
      * Default constructor.
      */
-    public Payment() {
+    public PaidInvoice() {
     }
 
     /**
      * Initialization constructor.
-     * @param  invoiceUid  String value for invoiceUid.
+     * @param  invoiceId  String value for invoiceId.
      * @param  status  InvoiceStatus value for status.
      * @param  dueAmount  String value for dueAmount.
      * @param  paidAmount  String value for paidAmount.
      */
-    public Payment(
-            String invoiceUid,
+    public PaidInvoice(
+            String invoiceId,
             InvoiceStatus status,
             String dueAmount,
             String paidAmount) {
-        this.invoiceUid = invoiceUid;
+        this.invoiceId = invoiceId;
         this.status = status;
         this.dueAmount = dueAmount;
         this.paidAmount = paidAmount;
     }
 
     /**
-     * Getter for InvoiceUid.
+     * Getter for InvoiceId.
      * The uid of the paid invoice
      * @return Returns the String
      */
-    @JsonGetter("invoice_uid")
+    @JsonGetter("invoice_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getInvoiceUid() {
-        return invoiceUid;
+    public String getInvoiceId() {
+        return invoiceId;
     }
 
     /**
-     * Setter for InvoiceUid.
+     * Setter for InvoiceId.
      * The uid of the paid invoice
-     * @param invoiceUid Value for String
+     * @param invoiceId Value for String
      */
-    @JsonSetter("invoice_uid")
-    public void setInvoiceUid(String invoiceUid) {
-        this.invoiceUid = invoiceUid;
+    @JsonSetter("invoice_id")
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
     /**
@@ -132,23 +132,23 @@ public class Payment {
     }
 
     /**
-     * Converts this Payment into string format.
+     * Converts this PaidInvoice into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "Payment [" + "invoiceUid=" + invoiceUid + ", status=" + status + ", dueAmount="
+        return "PaidInvoice [" + "invoiceId=" + invoiceId + ", status=" + status + ", dueAmount="
                 + dueAmount + ", paidAmount=" + paidAmount + "]";
     }
 
     /**
-     * Builds a new {@link Payment.Builder} object.
+     * Builds a new {@link PaidInvoice.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link Payment.Builder} object
+     * @return a new {@link PaidInvoice.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .invoiceUid(getInvoiceUid())
+                .invoiceId(getInvoiceId())
                 .status(getStatus())
                 .dueAmount(getDueAmount())
                 .paidAmount(getPaidAmount());
@@ -156,10 +156,10 @@ public class Payment {
     }
 
     /**
-     * Class to build instances of {@link Payment}.
+     * Class to build instances of {@link PaidInvoice}.
      */
     public static class Builder {
-        private String invoiceUid;
+        private String invoiceId;
         private InvoiceStatus status;
         private String dueAmount;
         private String paidAmount;
@@ -167,12 +167,12 @@ public class Payment {
 
 
         /**
-         * Setter for invoiceUid.
-         * @param  invoiceUid  String value for invoiceUid.
+         * Setter for invoiceId.
+         * @param  invoiceId  String value for invoiceId.
          * @return Builder
          */
-        public Builder invoiceUid(String invoiceUid) {
-            this.invoiceUid = invoiceUid;
+        public Builder invoiceId(String invoiceId) {
+            this.invoiceId = invoiceId;
             return this;
         }
 
@@ -207,11 +207,11 @@ public class Payment {
         }
 
         /**
-         * Builds a new {@link Payment} object using the set fields.
-         * @return {@link Payment}
+         * Builds a new {@link PaidInvoice} object using the set fields.
+         * @return {@link PaidInvoice}
          */
-        public Payment build() {
-            return new Payment(invoiceUid, status, dueAmount, paidAmount);
+        public PaidInvoice build() {
+            return new PaidInvoice(invoiceId, status, dueAmount, paidAmount);
         }
     }
 }

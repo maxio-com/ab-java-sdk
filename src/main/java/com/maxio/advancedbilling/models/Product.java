@@ -512,7 +512,7 @@ public class Product {
 
     /**
      * Internal Getter for ExpirationIntervalUnit.
-     * A string representing the trial interval unit for this product, either month or day
+     * A string representing the expiration interval unit for this product, either month or day
      * @return Returns the Internal ProductExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
@@ -524,7 +524,7 @@ public class Product {
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * A string representing the trial interval unit for this product, either month or day
+     * A string representing the expiration interval unit for this product, either month or day
      * @return Returns the ProductExpirationIntervalUnit
      */
     public ProductExpirationIntervalUnit getExpirationIntervalUnit() {
@@ -533,7 +533,7 @@ public class Product {
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * A string representing the trial interval unit for this product, either month or day
+     * A string representing the expiration interval unit for this product, either month or day
      * @param expirationIntervalUnit Value for ProductExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
@@ -543,7 +543,7 @@ public class Product {
 
     /**
      * UnSetter for ExpirationIntervalUnit.
-     * A string representing the trial interval unit for this product, either month or day
+     * A string representing the expiration interval unit for this product, either month or day
      */
     public void unsetExpirationIntervalUnit() {
         expirationIntervalUnit = null;

@@ -14,9 +14,9 @@ import java.util.TreeMap;
 
 
 /**
- * PrepaymentMethod to be used.
+ * CreatePrepaymentMethod to be used.
  */
-public enum PrepaymentMethod {
+public enum CreatePrepaymentMethod {
     CHECK,
 
     CASH,
@@ -29,10 +29,12 @@ public enum PrepaymentMethod {
 
     CREDIT_CARD,
 
+    CREDIT_CARD_ON_FILE,
+
     OTHER;
 
 
-    private static TreeMap<String, PrepaymentMethod> valueMap = new TreeMap<>();
+    private static TreeMap<String, CreatePrepaymentMethod> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -42,6 +44,7 @@ public enum PrepaymentMethod {
         ACH.value = "ach";
         PAYPAL_ACCOUNT.value = "paypal_account";
         CREDIT_CARD.value = "credit_card";
+        CREDIT_CARD_ON_FILE.value = "credit_card_on_file";
         OTHER.value = "other";
 
         valueMap.put("check", CHECK);
@@ -50,6 +53,7 @@ public enum PrepaymentMethod {
         valueMap.put("ach", ACH);
         valueMap.put("paypal_account", PAYPAL_ACCOUNT);
         valueMap.put("credit_card", CREDIT_CARD);
+        valueMap.put("credit_card_on_file", CREDIT_CARD_ON_FILE);
         valueMap.put("other", OTHER);
     }
 
@@ -60,8 +64,8 @@ public enum PrepaymentMethod {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static PrepaymentMethod constructFromString(String toConvert) throws IOException {
-        PrepaymentMethod enumValue = fromString(toConvert);
+    public static CreatePrepaymentMethod constructFromString(String toConvert) throws IOException {
+        CreatePrepaymentMethod enumValue = fromString(toConvert);
         if (enumValue == null)
         {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
@@ -74,7 +78,7 @@ public enum PrepaymentMethod {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static PrepaymentMethod fromString(String toConvert) {
+    public static CreatePrepaymentMethod fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -96,16 +100,16 @@ public enum PrepaymentMethod {
     }
 
     /**
-     * Convert list of PrepaymentMethod values to list of string values.
-     * @param toConvert The list of PrepaymentMethod values to convert.
+     * Convert list of CreatePrepaymentMethod values to list of string values.
+     * @param toConvert The list of CreatePrepaymentMethod values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<PrepaymentMethod> toConvert) {
+    public static List<String> toValue(List<CreatePrepaymentMethod> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (PrepaymentMethod enumValue : toConvert) {
+        for (CreatePrepaymentMethod enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;
