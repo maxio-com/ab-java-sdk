@@ -3,7 +3,6 @@ package com.maxio.advancedbilling.controllers.invoices;
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.InvoicesController;
-import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Coupon;
@@ -21,7 +20,6 @@ import com.maxio.advancedbilling.models.RefundConsolidatedInvoice;
 import com.maxio.advancedbilling.models.RefundInvoice;
 import com.maxio.advancedbilling.models.RefundInvoiceRequest;
 import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.models.SubscriptionGroupItem;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
 import com.maxio.advancedbilling.models.containers.RefundConsolidatedInvoiceSegmentUids;
@@ -36,8 +34,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.Consumer;
 
+import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForCustomer;
+import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForSubscription;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -268,34 +267,6 @@ public class InvoicesControllerRefundInvoiceTest {
                 .hasErrorCode(422)
                 .hasErrors("Invoice not found")
                 .hasMessageStartingWith("HTTP Response Not OK. Status code: 422. Response:");
-    }
-
-    private Invoice getPaidInvoiceForCustomer(Integer customerId) throws ApiException, IOException {
-        return listInvoices(b -> b.customerIds(List.of(customerId))
-                .status(InvoiceStatus.PAID))
-                .get(0);
-    }
-
-    private Invoice getPaidInvoiceForSubscription(Integer subscriptionId) throws ApiException, IOException {
-        return listInvoices(b -> b.subscriptionId(subscriptionId)
-                .status(InvoiceStatus.PAID))
-                .get(0);
-    }
-
-    private List<Invoice> listInvoices(Consumer<ListInvoicesInput.Builder> customizer) throws ApiException, IOException {
-        ListInvoicesInput.Builder builder = new ListInvoicesInput.Builder()
-                .lineItems(true)
-                .discounts(true)
-                .taxes(true)
-                .credits(true)
-                .payments(true)
-                .customFields(true)
-                .refunds(true);
-        customizer.accept(builder);
-
-        return INVOICES_CONTROLLER
-                .listInvoices(builder.build())
-                .getInvoices();
     }
 
     private void assertRefundedInvoice(Invoice refundedInvoice, Invoice paidInvoice) {

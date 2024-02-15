@@ -1,8 +1,5 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
-import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
-import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
@@ -45,13 +42,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.CLIENT;
+import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.INVOICES_CONTROLLER;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class BaseCustomerInformationTest {
     protected static final TestSetup TEST_SETUP = new TestSetup();
-    protected static final AdvancedBillingClient CLIENT = TestClient.createClient();
-    protected static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     protected static Product product;
     protected static Customer customer;
