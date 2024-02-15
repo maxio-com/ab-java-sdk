@@ -64,7 +64,7 @@ public class CreateSubscription {
     private UpsertPrepaidConfiguration prepaidConfiguration;
     private ZonedDateTime previousBillingAt;
     private Boolean importMrr;
-    private String canceledAt;
+    private ZonedDateTime canceledAt;
     private ZonedDateTime activatedAt;
     private AgreementAcceptance agreementAcceptance;
     private ACHAgreement achAgreement;
@@ -127,7 +127,7 @@ public class CreateSubscription {
      * @param  prepaidConfiguration  UpsertPrepaidConfiguration value for prepaidConfiguration.
      * @param  previousBillingAt  ZonedDateTime value for previousBillingAt.
      * @param  importMrr  Boolean value for importMrr.
-     * @param  canceledAt  String value for canceledAt.
+     * @param  canceledAt  ZonedDateTime value for canceledAt.
      * @param  activatedAt  ZonedDateTime value for activatedAt.
      * @param  agreementAcceptance  AgreementAcceptance value for agreementAcceptance.
      * @param  achAgreement  ACHAgreement value for achAgreement.
@@ -179,7 +179,7 @@ public class CreateSubscription {
             UpsertPrepaidConfiguration prepaidConfiguration,
             ZonedDateTime previousBillingAt,
             Boolean importMrr,
-            String canceledAt,
+            ZonedDateTime canceledAt,
             ZonedDateTime activatedAt,
             AgreementAcceptance agreementAcceptance,
             ACHAgreement achAgreement,
@@ -285,7 +285,7 @@ public class CreateSubscription {
      * @param  prepaidConfiguration  UpsertPrepaidConfiguration value for prepaidConfiguration.
      * @param  previousBillingAt  ZonedDateTime value for previousBillingAt.
      * @param  importMrr  Boolean value for importMrr.
-     * @param  canceledAt  String value for canceledAt.
+     * @param  canceledAt  ZonedDateTime value for canceledAt.
      * @param  activatedAt  ZonedDateTime value for activatedAt.
      * @param  agreementAcceptance  AgreementAcceptance value for agreementAcceptance.
      * @param  achAgreement  ACHAgreement value for achAgreement.
@@ -312,7 +312,7 @@ public class CreateSubscription {
             String agreementTerms, String authorizerFirstName, String authorizerLastName,
             String calendarBillingFirstCharge, String reasonCode, Boolean productChangeDelayed,
             CreateSubscriptionOfferId offerId, UpsertPrepaidConfiguration prepaidConfiguration,
-            ZonedDateTime previousBillingAt, Boolean importMrr, String canceledAt,
+            ZonedDateTime previousBillingAt, Boolean importMrr, ZonedDateTime canceledAt,
             ZonedDateTime activatedAt, AgreementAcceptance agreementAcceptance,
             ACHAgreement achAgreement, OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone,
@@ -1374,20 +1374,22 @@ public class CreateSubscription {
 
     /**
      * Getter for CanceledAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("canceled_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCanceledAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCanceledAt() {
         return canceledAt;
     }
 
     /**
      * Setter for CanceledAt.
-     * @param canceledAt Value for String
+     * @param canceledAt Value for ZonedDateTime
      */
     @JsonSetter("canceled_at")
-    public void setCanceledAt(String canceledAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCanceledAt(ZonedDateTime canceledAt) {
         this.canceledAt = canceledAt;
     }
 
@@ -1705,7 +1707,7 @@ public class CreateSubscription {
         private UpsertPrepaidConfiguration prepaidConfiguration;
         private ZonedDateTime previousBillingAt;
         private Boolean importMrr;
-        private String canceledAt;
+        private ZonedDateTime canceledAt;
         private ZonedDateTime activatedAt;
         private AgreementAcceptance agreementAcceptance;
         private ACHAgreement achAgreement;
@@ -2142,10 +2144,10 @@ public class CreateSubscription {
 
         /**
          * Setter for canceledAt.
-         * @param  canceledAt  String value for canceledAt.
+         * @param  canceledAt  ZonedDateTime value for canceledAt.
          * @return Builder
          */
-        public Builder canceledAt(String canceledAt) {
+        public Builder canceledAt(ZonedDateTime canceledAt) {
             this.canceledAt = canceledAt;
             return this;
         }

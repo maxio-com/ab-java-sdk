@@ -11,10 +11,10 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Url` | `String` | Optional | - | String getUrl() | setUrl(String url) |
 | `FetchCount` | `Integer` | Optional | - | Integer getFetchCount() | setFetchCount(Integer fetchCount) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `NewLinkAvailableAt` | `String` | Optional | - | String getNewLinkAvailableAt() | setNewLinkAvailableAt(String newLinkAvailableAt) |
-| `ExpiresAt` | `String` | Optional | - | String getExpiresAt() | setExpiresAt(String expiresAt) |
-| `LastInviteSentAt` | `String` | Optional | - | String getLastInviteSentAt() | setLastInviteSentAt(String lastInviteSentAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `NewLinkAvailableAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getNewLinkAvailableAt() | setNewLinkAvailableAt(ZonedDateTime newLinkAvailableAt) |
+| `ExpiresAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getExpiresAt() | setExpiresAt(ZonedDateTime expiresAt) |
+| `LastInviteSentAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getLastInviteSentAt() | setLastInviteSentAt(ZonedDateTime lastInviteSentAt) |
 
 ## Example (as JSON)
 
@@ -22,9 +22,9 @@
 {
   "url": "url0",
   "fetch_count": 222,
-  "created_at": "created_at6",
-  "new_link_available_at": "new_link_available_at0",
-  "expires_at": "expires_at0"
+  "created_at": "2016-03-13T12:52:32.123Z",
+  "new_link_available_at": "2016-03-13T12:52:32.123Z",
+  "expires_at": "2016-03-13T12:52:32.123Z"
 }
 ```
 

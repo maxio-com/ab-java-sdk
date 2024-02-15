@@ -9,17 +9,20 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for BatchJob type.
  */
 public class BatchJob {
     private Integer id;
-    private OptionalNullable<String> finishedAt;
+    private OptionalNullable<ZonedDateTime> finishedAt;
     private OptionalNullable<Integer> rowCount;
-    private OptionalNullable<String> createdAt;
+    private OptionalNullable<ZonedDateTime> createdAt;
     private String completed;
 
     /**
@@ -31,16 +34,16 @@ public class BatchJob {
     /**
      * Initialization constructor.
      * @param  id  Integer value for id.
-     * @param  finishedAt  String value for finishedAt.
+     * @param  finishedAt  ZonedDateTime value for finishedAt.
      * @param  rowCount  Integer value for rowCount.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  completed  String value for completed.
      */
     public BatchJob(
             Integer id,
-            String finishedAt,
+            ZonedDateTime finishedAt,
             Integer rowCount,
-            String createdAt,
+            ZonedDateTime createdAt,
             String completed) {
         this.id = id;
         this.finishedAt = OptionalNullable.of(finishedAt);
@@ -52,14 +55,14 @@ public class BatchJob {
     /**
      * Initialization constructor.
      * @param  id  Integer value for id.
-     * @param  finishedAt  String value for finishedAt.
+     * @param  finishedAt  ZonedDateTime value for finishedAt.
      * @param  rowCount  Integer value for rowCount.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  completed  String value for completed.
      */
 
-    protected BatchJob(Integer id, OptionalNullable<String> finishedAt,
-            OptionalNullable<Integer> rowCount, OptionalNullable<String> createdAt,
+    protected BatchJob(Integer id, OptionalNullable<ZonedDateTime> finishedAt,
+            OptionalNullable<Integer> rowCount, OptionalNullable<ZonedDateTime> createdAt,
             String completed) {
         this.id = id;
         this.finishedAt = finishedAt;
@@ -89,29 +92,30 @@ public class BatchJob {
 
     /**
      * Internal Getter for FinishedAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("finished_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetFinishedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetFinishedAt() {
         return this.finishedAt;
     }
 
     /**
      * Getter for FinishedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getFinishedAt() {
+    public ZonedDateTime getFinishedAt() {
         return OptionalNullable.getFrom(finishedAt);
     }
 
     /**
      * Setter for FinishedAt.
-     * @param finishedAt Value for String
+     * @param finishedAt Value for ZonedDateTime
      */
     @JsonSetter("finished_at")
-    public void setFinishedAt(String finishedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setFinishedAt(ZonedDateTime finishedAt) {
         this.finishedAt = OptionalNullable.of(finishedAt);
     }
 
@@ -159,29 +163,30 @@ public class BatchJob {
 
     /**
      * Internal Getter for CreatedAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetCreatedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetCreatedAt() {
         return this.createdAt;
     }
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return OptionalNullable.getFrom(createdAt);
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = OptionalNullable.of(createdAt);
     }
 
@@ -241,9 +246,9 @@ public class BatchJob {
      */
     public static class Builder {
         private Integer id;
-        private OptionalNullable<String> finishedAt;
+        private OptionalNullable<ZonedDateTime> finishedAt;
         private OptionalNullable<Integer> rowCount;
-        private OptionalNullable<String> createdAt;
+        private OptionalNullable<ZonedDateTime> createdAt;
         private String completed;
 
 
@@ -260,10 +265,10 @@ public class BatchJob {
 
         /**
          * Setter for finishedAt.
-         * @param  finishedAt  String value for finishedAt.
+         * @param  finishedAt  ZonedDateTime value for finishedAt.
          * @return Builder
          */
-        public Builder finishedAt(String finishedAt) {
+        public Builder finishedAt(ZonedDateTime finishedAt) {
             this.finishedAt = OptionalNullable.of(finishedAt);
             return this;
         }
@@ -298,10 +303,10 @@ public class BatchJob {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = OptionalNullable.of(createdAt);
             return this;
         }

@@ -9,8 +9,8 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `StartDate` | `String` | Optional | - | String getStartDate() | setStartDate(String startDate) |
-| `EndDate` | `String` | Optional | - | String getEndDate() | setEndDate(String endDate) |
+| `StartDate` | `ZonedDateTime` | Optional | - | ZonedDateTime getStartDate() | setStartDate(ZonedDateTime startDate) |
+| `EndDate` | `ZonedDateTime` | Optional | - | ZonedDateTime getEndDate() | setEndDate(ZonedDateTime endDate) |
 | `SubtotalInCents` | `Long` | Optional | - | Long getSubtotalInCents() | setSubtotalInCents(Long subtotalInCents) |
 | `TotalTaxInCents` | `Long` | Optional | - | Long getTotalTaxInCents() | setTotalTaxInCents(Long totalTaxInCents) |
 | `TotalDiscountInCents` | `Long` | Optional | - | Long getTotalDiscountInCents() | setTotalDiscountInCents(Long totalDiscountInCents) |
@@ -27,8 +27,8 @@
 
 ```json
 {
-  "start_date": "start_date2",
-  "end_date": "end_date8",
+  "start_date": "2016-03-13T12:52:32.123Z",
+  "end_date": "2016-03-13T12:52:32.123Z",
   "subtotal_in_cents": 4,
   "total_tax_in_cents": 128,
   "total_discount_in_cents": 122

@@ -8,7 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.EventEventSpecificData;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Event type.
@@ -19,7 +23,7 @@ public class Event {
     private String message;
     private Integer subscriptionId;
     private int customerId;
-    private String createdAt;
+    private ZonedDateTime createdAt;
     private EventEventSpecificData eventSpecificData;
 
     /**
@@ -35,7 +39,7 @@ public class Event {
      * @param  message  String value for message.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  customerId  int value for customerId.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
      */
     public Event(
@@ -44,7 +48,7 @@ public class Event {
             String message,
             Integer subscriptionId,
             int customerId,
-            String createdAt,
+            ZonedDateTime createdAt,
             EventEventSpecificData eventSpecificData) {
         this.id = id;
         this.key = key;
@@ -147,19 +151,21 @@ public class Event {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -212,7 +218,7 @@ public class Event {
         private String message;
         private Integer subscriptionId;
         private int customerId;
-        private String createdAt;
+        private ZonedDateTime createdAt;
         private EventEventSpecificData eventSpecificData;
 
         /**
@@ -228,11 +234,11 @@ public class Event {
          * @param  message  String value for message.
          * @param  subscriptionId  Integer value for subscriptionId.
          * @param  customerId  int value for customerId.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
          */
         public Builder(int id, String key, String message, Integer subscriptionId, int customerId,
-                String createdAt, EventEventSpecificData eventSpecificData) {
+                ZonedDateTime createdAt, EventEventSpecificData eventSpecificData) {
             this.id = id;
             this.key = key;
             this.message = message;
@@ -294,10 +300,10 @@ public class Event {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }

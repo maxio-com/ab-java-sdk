@@ -37,7 +37,7 @@ public class SubscriptionComponent {
     private Boolean recurring;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
-    private OptionalNullable<String> archivedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
     private OptionalNullable<Integer> pricePointId;
     private OptionalNullable<String> pricePointHandle;
     private SubscriptionComponentPricePointType pricePointType;
@@ -78,7 +78,7 @@ public class SubscriptionComponent {
      * @param  recurring  Boolean value for recurring.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
      * @param  pricePointType  SubscriptionComponentPricePointType value for pricePointType.
@@ -111,7 +111,7 @@ public class SubscriptionComponent {
             Boolean recurring,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            String archivedAt,
+            ZonedDateTime archivedAt,
             Integer pricePointId,
             String pricePointHandle,
             SubscriptionComponentPricePointType pricePointType,
@@ -178,7 +178,7 @@ public class SubscriptionComponent {
      * @param  recurring  Boolean value for recurring.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
      * @param  pricePointType  SubscriptionComponentPricePointType value for pricePointType.
@@ -202,8 +202,9 @@ public class SubscriptionComponent {
             OptionalNullable<SubscriptionComponentPricingScheme> pricingScheme, Integer componentId,
             OptionalNullable<String> componentHandle, Integer subscriptionId, Boolean recurring,
             OptionalNullable<CreditType> upgradeCharge,
-            OptionalNullable<CreditType> downgradeCredit, OptionalNullable<String> archivedAt,
-            OptionalNullable<Integer> pricePointId, OptionalNullable<String> pricePointHandle,
+            OptionalNullable<CreditType> downgradeCredit,
+            OptionalNullable<ZonedDateTime> archivedAt, OptionalNullable<Integer> pricePointId,
+            OptionalNullable<String> pricePointHandle,
             SubscriptionComponentPricePointType pricePointType,
             OptionalNullable<String> pricePointName, Integer productFamilyId,
             String productFamilyHandle, ZonedDateTime createdAt, ZonedDateTime updatedAt,
@@ -618,29 +619,30 @@ public class SubscriptionComponent {
 
     /**
      * Internal Getter for ArchivedAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetArchivedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
         return this.archivedAt;
     }
 
     /**
      * Getter for ArchivedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getArchivedAt() {
+    public ZonedDateTime getArchivedAt() {
         return OptionalNullable.getFrom(archivedAt);
     }
 
     /**
      * Setter for ArchivedAt.
-     * @param archivedAt Value for String
+     * @param archivedAt Value for ZonedDateTime
      */
     @JsonSetter("archived_at")
-    public void setArchivedAt(String archivedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setArchivedAt(ZonedDateTime archivedAt) {
         this.archivedAt = OptionalNullable.of(archivedAt);
     }
 
@@ -1115,7 +1117,7 @@ public class SubscriptionComponent {
         private Boolean recurring;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
-        private OptionalNullable<String> archivedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
         private OptionalNullable<Integer> pricePointId;
         private OptionalNullable<String> pricePointHandle;
         private SubscriptionComponentPricePointType pricePointType;
@@ -1324,10 +1326,10 @@ public class SubscriptionComponent {
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  String value for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(String archivedAt) {
+        public Builder archivedAt(ZonedDateTime archivedAt) {
             this.archivedAt = OptionalNullable.of(archivedAt);
             return this;
         }

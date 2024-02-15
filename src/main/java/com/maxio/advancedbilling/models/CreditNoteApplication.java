@@ -9,13 +9,17 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for CreditNoteApplication type.
  */
 public class CreditNoteApplication {
     private String uid;
-    private String transactionTime;
+    private ZonedDateTime transactionTime;
     private String invoiceUid;
     private String memo;
     private String appliedAmount;
@@ -29,14 +33,14 @@ public class CreditNoteApplication {
     /**
      * Initialization constructor.
      * @param  uid  String value for uid.
-     * @param  transactionTime  String value for transactionTime.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
      * @param  invoiceUid  String value for invoiceUid.
      * @param  memo  String value for memo.
      * @param  appliedAmount  String value for appliedAmount.
      */
     public CreditNoteApplication(
             String uid,
-            String transactionTime,
+            ZonedDateTime transactionTime,
             String invoiceUid,
             String memo,
             String appliedAmount) {
@@ -68,20 +72,22 @@ public class CreditNoteApplication {
 
     /**
      * Getter for TransactionTime.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("transaction_time")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTransactionTime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getTransactionTime() {
         return transactionTime;
     }
 
     /**
      * Setter for TransactionTime.
-     * @param transactionTime Value for String
+     * @param transactionTime Value for ZonedDateTime
      */
     @JsonSetter("transaction_time")
-    public void setTransactionTime(String transactionTime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTransactionTime(ZonedDateTime transactionTime) {
         this.transactionTime = transactionTime;
     }
 
@@ -173,7 +179,7 @@ public class CreditNoteApplication {
      */
     public static class Builder {
         private String uid;
-        private String transactionTime;
+        private ZonedDateTime transactionTime;
         private String invoiceUid;
         private String memo;
         private String appliedAmount;
@@ -192,10 +198,10 @@ public class CreditNoteApplication {
 
         /**
          * Setter for transactionTime.
-         * @param  transactionTime  String value for transactionTime.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
          * @return Builder
          */
-        public Builder transactionTime(String transactionTime) {
+        public Builder transactionTime(ZonedDateTime transactionTime) {
             this.transactionTime = transactionTime;
             return this;
         }

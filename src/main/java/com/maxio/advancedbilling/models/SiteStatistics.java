@@ -21,10 +21,10 @@ public class SiteStatistics {
     private String revenueThisMonth;
     private String revenueThisYear;
     private Integer totalCanceledSubscriptions;
-    private Double totalActiveSubscriptions;
-    private Double totalPastDueSubscriptions;
-    private Double totalUnpaidSubscriptions;
-    private Double totalDunningSubscriptions;
+    private Integer totalActiveSubscriptions;
+    private Integer totalPastDueSubscriptions;
+    private Integer totalUnpaidSubscriptions;
+    private Integer totalDunningSubscriptions;
 
     /**
      * Default constructor.
@@ -41,10 +41,10 @@ public class SiteStatistics {
      * @param  revenueThisMonth  String value for revenueThisMonth.
      * @param  revenueThisYear  String value for revenueThisYear.
      * @param  totalCanceledSubscriptions  Integer value for totalCanceledSubscriptions.
-     * @param  totalActiveSubscriptions  Double value for totalActiveSubscriptions.
-     * @param  totalPastDueSubscriptions  Double value for totalPastDueSubscriptions.
-     * @param  totalUnpaidSubscriptions  Double value for totalUnpaidSubscriptions.
-     * @param  totalDunningSubscriptions  Double value for totalDunningSubscriptions.
+     * @param  totalActiveSubscriptions  Integer value for totalActiveSubscriptions.
+     * @param  totalPastDueSubscriptions  Integer value for totalPastDueSubscriptions.
+     * @param  totalUnpaidSubscriptions  Integer value for totalUnpaidSubscriptions.
+     * @param  totalDunningSubscriptions  Integer value for totalDunningSubscriptions.
      */
     public SiteStatistics(
             Integer totalSubscriptions,
@@ -54,10 +54,10 @@ public class SiteStatistics {
             String revenueThisMonth,
             String revenueThisYear,
             Integer totalCanceledSubscriptions,
-            Double totalActiveSubscriptions,
-            Double totalPastDueSubscriptions,
-            Double totalUnpaidSubscriptions,
-            Double totalDunningSubscriptions) {
+            Integer totalActiveSubscriptions,
+            Integer totalPastDueSubscriptions,
+            Integer totalUnpaidSubscriptions,
+            Integer totalDunningSubscriptions) {
         this.totalSubscriptions = totalSubscriptions;
         this.subscriptionsToday = subscriptionsToday;
         this.totalRevenue = totalRevenue;
@@ -206,77 +206,77 @@ public class SiteStatistics {
 
     /**
      * Getter for TotalActiveSubscriptions.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("total_active_subscriptions")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getTotalActiveSubscriptions() {
+    public Integer getTotalActiveSubscriptions() {
         return totalActiveSubscriptions;
     }
 
     /**
      * Setter for TotalActiveSubscriptions.
-     * @param totalActiveSubscriptions Value for Double
+     * @param totalActiveSubscriptions Value for Integer
      */
     @JsonSetter("total_active_subscriptions")
-    public void setTotalActiveSubscriptions(Double totalActiveSubscriptions) {
+    public void setTotalActiveSubscriptions(Integer totalActiveSubscriptions) {
         this.totalActiveSubscriptions = totalActiveSubscriptions;
     }
 
     /**
      * Getter for TotalPastDueSubscriptions.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("total_past_due_subscriptions")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getTotalPastDueSubscriptions() {
+    public Integer getTotalPastDueSubscriptions() {
         return totalPastDueSubscriptions;
     }
 
     /**
      * Setter for TotalPastDueSubscriptions.
-     * @param totalPastDueSubscriptions Value for Double
+     * @param totalPastDueSubscriptions Value for Integer
      */
     @JsonSetter("total_past_due_subscriptions")
-    public void setTotalPastDueSubscriptions(Double totalPastDueSubscriptions) {
+    public void setTotalPastDueSubscriptions(Integer totalPastDueSubscriptions) {
         this.totalPastDueSubscriptions = totalPastDueSubscriptions;
     }
 
     /**
      * Getter for TotalUnpaidSubscriptions.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("total_unpaid_subscriptions")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getTotalUnpaidSubscriptions() {
+    public Integer getTotalUnpaidSubscriptions() {
         return totalUnpaidSubscriptions;
     }
 
     /**
      * Setter for TotalUnpaidSubscriptions.
-     * @param totalUnpaidSubscriptions Value for Double
+     * @param totalUnpaidSubscriptions Value for Integer
      */
     @JsonSetter("total_unpaid_subscriptions")
-    public void setTotalUnpaidSubscriptions(Double totalUnpaidSubscriptions) {
+    public void setTotalUnpaidSubscriptions(Integer totalUnpaidSubscriptions) {
         this.totalUnpaidSubscriptions = totalUnpaidSubscriptions;
     }
 
     /**
      * Getter for TotalDunningSubscriptions.
-     * @return Returns the Double
+     * @return Returns the Integer
      */
     @JsonGetter("total_dunning_subscriptions")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Double getTotalDunningSubscriptions() {
+    public Integer getTotalDunningSubscriptions() {
         return totalDunningSubscriptions;
     }
 
     /**
      * Setter for TotalDunningSubscriptions.
-     * @param totalDunningSubscriptions Value for Double
+     * @param totalDunningSubscriptions Value for Integer
      */
     @JsonSetter("total_dunning_subscriptions")
-    public void setTotalDunningSubscriptions(Double totalDunningSubscriptions) {
+    public void setTotalDunningSubscriptions(Integer totalDunningSubscriptions) {
         this.totalDunningSubscriptions = totalDunningSubscriptions;
     }
 
@@ -329,10 +329,10 @@ public class SiteStatistics {
         private String revenueThisMonth;
         private String revenueThisYear;
         private Integer totalCanceledSubscriptions;
-        private Double totalActiveSubscriptions;
-        private Double totalPastDueSubscriptions;
-        private Double totalUnpaidSubscriptions;
-        private Double totalDunningSubscriptions;
+        private Integer totalActiveSubscriptions;
+        private Integer totalPastDueSubscriptions;
+        private Integer totalUnpaidSubscriptions;
+        private Integer totalDunningSubscriptions;
 
 
 
@@ -408,40 +408,40 @@ public class SiteStatistics {
 
         /**
          * Setter for totalActiveSubscriptions.
-         * @param  totalActiveSubscriptions  Double value for totalActiveSubscriptions.
+         * @param  totalActiveSubscriptions  Integer value for totalActiveSubscriptions.
          * @return Builder
          */
-        public Builder totalActiveSubscriptions(Double totalActiveSubscriptions) {
+        public Builder totalActiveSubscriptions(Integer totalActiveSubscriptions) {
             this.totalActiveSubscriptions = totalActiveSubscriptions;
             return this;
         }
 
         /**
          * Setter for totalPastDueSubscriptions.
-         * @param  totalPastDueSubscriptions  Double value for totalPastDueSubscriptions.
+         * @param  totalPastDueSubscriptions  Integer value for totalPastDueSubscriptions.
          * @return Builder
          */
-        public Builder totalPastDueSubscriptions(Double totalPastDueSubscriptions) {
+        public Builder totalPastDueSubscriptions(Integer totalPastDueSubscriptions) {
             this.totalPastDueSubscriptions = totalPastDueSubscriptions;
             return this;
         }
 
         /**
          * Setter for totalUnpaidSubscriptions.
-         * @param  totalUnpaidSubscriptions  Double value for totalUnpaidSubscriptions.
+         * @param  totalUnpaidSubscriptions  Integer value for totalUnpaidSubscriptions.
          * @return Builder
          */
-        public Builder totalUnpaidSubscriptions(Double totalUnpaidSubscriptions) {
+        public Builder totalUnpaidSubscriptions(Integer totalUnpaidSubscriptions) {
             this.totalUnpaidSubscriptions = totalUnpaidSubscriptions;
             return this;
         }
 
         /**
          * Setter for totalDunningSubscriptions.
-         * @param  totalDunningSubscriptions  Double value for totalDunningSubscriptions.
+         * @param  totalDunningSubscriptions  Integer value for totalDunningSubscriptions.
          * @return Builder
          */
-        public Builder totalDunningSubscriptions(Double totalDunningSubscriptions) {
+        public Builder totalDunningSubscriptions(Integer totalDunningSubscriptions) {
             this.totalDunningSubscriptions = totalDunningSubscriptions;
             return this;
         }

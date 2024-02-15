@@ -9,7 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceEventEventData;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for InvoiceEvent type.
@@ -18,7 +22,7 @@ public class InvoiceEvent {
     private Integer id;
     private InvoiceEventType eventType;
     private InvoiceEventEventData eventData;
-    private String timestamp;
+    private ZonedDateTime timestamp;
     private Invoice invoice;
 
     /**
@@ -32,14 +36,14 @@ public class InvoiceEvent {
      * @param  id  Integer value for id.
      * @param  eventType  InvoiceEventType value for eventType.
      * @param  eventData  InvoiceEventEventData value for eventData.
-     * @param  timestamp  String value for timestamp.
+     * @param  timestamp  ZonedDateTime value for timestamp.
      * @param  invoice  Invoice value for invoice.
      */
     public InvoiceEvent(
             Integer id,
             InvoiceEventType eventType,
             InvoiceEventEventData eventData,
-            String timestamp,
+            ZonedDateTime timestamp,
             Invoice invoice) {
         this.id = id;
         this.eventType = eventType;
@@ -113,20 +117,22 @@ public class InvoiceEvent {
 
     /**
      * Getter for Timestamp.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("timestamp")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTimestamp() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
     /**
      * Setter for Timestamp.
-     * @param timestamp Value for String
+     * @param timestamp Value for ZonedDateTime
      */
     @JsonSetter("timestamp")
-    public void setTimestamp(String timestamp) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -181,7 +187,7 @@ public class InvoiceEvent {
         private Integer id;
         private InvoiceEventType eventType;
         private InvoiceEventEventData eventData;
-        private String timestamp;
+        private ZonedDateTime timestamp;
         private Invoice invoice;
 
 
@@ -218,10 +224,10 @@ public class InvoiceEvent {
 
         /**
          * Setter for timestamp.
-         * @param  timestamp  String value for timestamp.
+         * @param  timestamp  ZonedDateTime value for timestamp.
          * @return Builder
          */
-        public Builder timestamp(String timestamp) {
+        public Builder timestamp(ZonedDateTime timestamp) {
             this.timestamp = timestamp;
             return this;
         }

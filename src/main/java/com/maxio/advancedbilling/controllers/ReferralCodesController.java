@@ -70,7 +70,7 @@ public final class ReferralCodesController extends BaseController {
                                 response -> ApiHelper.deserialize(response, ReferralValidationResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                 ErrorCase.setTemplate("Invalid referral code.",
                                 (reason, context) -> new SingleStringErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param

@@ -9,9 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.CouponCompoundingStrategy;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -26,8 +29,8 @@ public class Coupon {
     private OptionalNullable<Integer> amountInCents;
     private Integer productFamilyId;
     private OptionalNullable<String> productFamilyName;
-    private String startDate;
-    private OptionalNullable<String> endDate;
+    private ZonedDateTime startDate;
+    private OptionalNullable<ZonedDateTime> endDate;
     private OptionalNullable<String> percentage;
     private Boolean recurring;
     private RecurringScheme recurringScheme;
@@ -36,13 +39,13 @@ public class Coupon {
     private OptionalNullable<String> durationIntervalUnit;
     private OptionalNullable<String> durationIntervalSpan;
     private Boolean allowNegativeBalance;
-    private OptionalNullable<String> archivedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
     private OptionalNullable<String> conversionLimit;
     private Boolean stackable;
     private CouponCompoundingStrategy compoundingStrategy;
     private Boolean useSiteExchangeRate;
-    private String createdAt;
-    private String updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private DiscountType discountType;
     private Boolean excludeMidPeriodAllocations;
     private Boolean applyOnCancelAtEndOfPeriod;
@@ -64,8 +67,8 @@ public class Coupon {
      * @param  amountInCents  Integer value for amountInCents.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
-     * @param  startDate  String value for startDate.
-     * @param  endDate  String value for endDate.
+     * @param  startDate  ZonedDateTime value for startDate.
+     * @param  endDate  ZonedDateTime value for endDate.
      * @param  percentage  String value for percentage.
      * @param  recurring  Boolean value for recurring.
      * @param  recurringScheme  RecurringScheme value for recurringScheme.
@@ -74,13 +77,13 @@ public class Coupon {
      * @param  durationIntervalUnit  String value for durationIntervalUnit.
      * @param  durationIntervalSpan  String value for durationIntervalSpan.
      * @param  allowNegativeBalance  Boolean value for allowNegativeBalance.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
      * @param  compoundingStrategy  CouponCompoundingStrategy value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  discountType  DiscountType value for discountType.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
@@ -95,8 +98,8 @@ public class Coupon {
             Integer amountInCents,
             Integer productFamilyId,
             String productFamilyName,
-            String startDate,
-            String endDate,
+            ZonedDateTime startDate,
+            ZonedDateTime endDate,
             String percentage,
             Boolean recurring,
             RecurringScheme recurringScheme,
@@ -105,13 +108,13 @@ public class Coupon {
             String durationIntervalUnit,
             String durationIntervalSpan,
             Boolean allowNegativeBalance,
-            String archivedAt,
+            ZonedDateTime archivedAt,
             String conversionLimit,
             Boolean stackable,
             CouponCompoundingStrategy compoundingStrategy,
             Boolean useSiteExchangeRate,
-            String createdAt,
-            String updatedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             DiscountType discountType,
             Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod,
@@ -157,8 +160,8 @@ public class Coupon {
      * @param  amountInCents  Integer value for amountInCents.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
-     * @param  startDate  String value for startDate.
-     * @param  endDate  String value for endDate.
+     * @param  startDate  ZonedDateTime value for startDate.
+     * @param  endDate  ZonedDateTime value for endDate.
      * @param  percentage  String value for percentage.
      * @param  recurring  Boolean value for recurring.
      * @param  recurringScheme  RecurringScheme value for recurringScheme.
@@ -167,13 +170,13 @@ public class Coupon {
      * @param  durationIntervalUnit  String value for durationIntervalUnit.
      * @param  durationIntervalSpan  String value for durationIntervalSpan.
      * @param  allowNegativeBalance  Boolean value for allowNegativeBalance.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
      * @param  compoundingStrategy  CouponCompoundingStrategy value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  discountType  DiscountType value for discountType.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
@@ -182,16 +185,16 @@ public class Coupon {
 
     protected Coupon(Integer id, String name, String code, String description,
             OptionalNullable<Double> amount, OptionalNullable<Integer> amountInCents,
-            Integer productFamilyId, OptionalNullable<String> productFamilyName, String startDate,
-            OptionalNullable<String> endDate, OptionalNullable<String> percentage,
-            Boolean recurring, RecurringScheme recurringScheme,
+            Integer productFamilyId, OptionalNullable<String> productFamilyName,
+            ZonedDateTime startDate, OptionalNullable<ZonedDateTime> endDate,
+            OptionalNullable<String> percentage, Boolean recurring, RecurringScheme recurringScheme,
             OptionalNullable<Integer> durationPeriodCount,
             OptionalNullable<Integer> durationInterval,
             OptionalNullable<String> durationIntervalUnit,
             OptionalNullable<String> durationIntervalSpan, Boolean allowNegativeBalance,
-            OptionalNullable<String> archivedAt, OptionalNullable<String> conversionLimit,
+            OptionalNullable<ZonedDateTime> archivedAt, OptionalNullable<String> conversionLimit,
             Boolean stackable, CouponCompoundingStrategy compoundingStrategy,
-            Boolean useSiteExchangeRate, String createdAt, String updatedAt,
+            Boolean useSiteExchangeRate, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             DiscountType discountType, Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod, List<CouponRestriction> couponRestrictions) {
         this.id = id;
@@ -427,48 +430,51 @@ public class Coupon {
 
     /**
      * Getter for StartDate.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("start_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDate() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
     /**
      * Setter for StartDate.
-     * @param startDate Value for String
+     * @param startDate Value for ZonedDateTime
      */
     @JsonSetter("start_date")
-    public void setStartDate(String startDate) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
     /**
      * Internal Getter for EndDate.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("end_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetEndDate() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetEndDate() {
         return this.endDate;
     }
 
     /**
      * Getter for EndDate.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getEndDate() {
+    public ZonedDateTime getEndDate() {
         return OptionalNullable.getFrom(endDate);
     }
 
     /**
      * Setter for EndDate.
-     * @param endDate Value for String
+     * @param endDate Value for ZonedDateTime
      */
     @JsonSetter("end_date")
-    public void setEndDate(String endDate) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setEndDate(ZonedDateTime endDate) {
         this.endDate = OptionalNullable.of(endDate);
     }
 
@@ -713,29 +719,30 @@ public class Coupon {
 
     /**
      * Internal Getter for ArchivedAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetArchivedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
         return this.archivedAt;
     }
 
     /**
      * Getter for ArchivedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getArchivedAt() {
+    public ZonedDateTime getArchivedAt() {
         return OptionalNullable.getFrom(archivedAt);
     }
 
     /**
      * Setter for ArchivedAt.
-     * @param archivedAt Value for String
+     * @param archivedAt Value for ZonedDateTime
      */
     @JsonSetter("archived_at")
-    public void setArchivedAt(String archivedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setArchivedAt(ZonedDateTime archivedAt) {
         this.archivedAt = OptionalNullable.of(archivedAt);
     }
 
@@ -840,39 +847,43 @@ public class Coupon {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -1026,8 +1037,8 @@ public class Coupon {
         private OptionalNullable<Integer> amountInCents;
         private Integer productFamilyId;
         private OptionalNullable<String> productFamilyName;
-        private String startDate;
-        private OptionalNullable<String> endDate;
+        private ZonedDateTime startDate;
+        private OptionalNullable<ZonedDateTime> endDate;
         private OptionalNullable<String> percentage;
         private Boolean recurring;
         private RecurringScheme recurringScheme;
@@ -1036,13 +1047,13 @@ public class Coupon {
         private OptionalNullable<String> durationIntervalUnit;
         private OptionalNullable<String> durationIntervalSpan;
         private Boolean allowNegativeBalance;
-        private OptionalNullable<String> archivedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
         private OptionalNullable<String> conversionLimit;
         private Boolean stackable;
         private CouponCompoundingStrategy compoundingStrategy;
         private Boolean useSiteExchangeRate;
-        private String createdAt;
-        private String updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private DiscountType discountType;
         private Boolean excludeMidPeriodAllocations;
         private Boolean applyOnCancelAtEndOfPeriod;
@@ -1159,20 +1170,20 @@ public class Coupon {
 
         /**
          * Setter for startDate.
-         * @param  startDate  String value for startDate.
+         * @param  startDate  ZonedDateTime value for startDate.
          * @return Builder
          */
-        public Builder startDate(String startDate) {
+        public Builder startDate(ZonedDateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
         /**
          * Setter for endDate.
-         * @param  endDate  String value for endDate.
+         * @param  endDate  ZonedDateTime value for endDate.
          * @return Builder
          */
-        public Builder endDate(String endDate) {
+        public Builder endDate(ZonedDateTime endDate) {
             this.endDate = OptionalNullable.of(endDate);
             return this;
         }
@@ -1313,10 +1324,10 @@ public class Coupon {
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  String value for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(String archivedAt) {
+        public Builder archivedAt(ZonedDateTime archivedAt) {
             this.archivedAt = OptionalNullable.of(archivedAt);
             return this;
         }
@@ -1381,20 +1392,20 @@ public class Coupon {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }

@@ -9,20 +9,23 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Webhook type.
  */
 public class Webhook {
     private String event;
-    private Integer id;
-    private String createdAt;
+    private Long id;
+    private ZonedDateTime createdAt;
     private String lastError;
-    private String lastErrorAt;
-    private OptionalNullable<String> acceptedAt;
-    private String lastSentAt;
+    private ZonedDateTime lastErrorAt;
+    private OptionalNullable<ZonedDateTime> acceptedAt;
+    private ZonedDateTime lastSentAt;
     private String lastSentUrl;
     private Boolean successful;
     private String body;
@@ -38,12 +41,12 @@ public class Webhook {
     /**
      * Initialization constructor.
      * @param  event  String value for event.
-     * @param  id  Integer value for id.
-     * @param  createdAt  String value for createdAt.
+     * @param  id  Long value for id.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  lastError  String value for lastError.
-     * @param  lastErrorAt  String value for lastErrorAt.
-     * @param  acceptedAt  String value for acceptedAt.
-     * @param  lastSentAt  String value for lastSentAt.
+     * @param  lastErrorAt  ZonedDateTime value for lastErrorAt.
+     * @param  acceptedAt  ZonedDateTime value for acceptedAt.
+     * @param  lastSentAt  ZonedDateTime value for lastSentAt.
      * @param  lastSentUrl  String value for lastSentUrl.
      * @param  successful  Boolean value for successful.
      * @param  body  String value for body.
@@ -52,12 +55,12 @@ public class Webhook {
      */
     public Webhook(
             String event,
-            Integer id,
-            String createdAt,
+            Long id,
+            ZonedDateTime createdAt,
             String lastError,
-            String lastErrorAt,
-            String acceptedAt,
-            String lastSentAt,
+            ZonedDateTime lastErrorAt,
+            ZonedDateTime acceptedAt,
+            ZonedDateTime lastSentAt,
             String lastSentUrl,
             Boolean successful,
             String body,
@@ -80,12 +83,12 @@ public class Webhook {
     /**
      * Initialization constructor.
      * @param  event  String value for event.
-     * @param  id  Integer value for id.
-     * @param  createdAt  String value for createdAt.
+     * @param  id  Long value for id.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  lastError  String value for lastError.
-     * @param  lastErrorAt  String value for lastErrorAt.
-     * @param  acceptedAt  String value for acceptedAt.
-     * @param  lastSentAt  String value for lastSentAt.
+     * @param  lastErrorAt  ZonedDateTime value for lastErrorAt.
+     * @param  acceptedAt  ZonedDateTime value for acceptedAt.
+     * @param  lastSentAt  ZonedDateTime value for lastSentAt.
      * @param  lastSentUrl  String value for lastSentUrl.
      * @param  successful  Boolean value for successful.
      * @param  body  String value for body.
@@ -93,10 +96,10 @@ public class Webhook {
      * @param  signatureHmacSha256  String value for signatureHmacSha256.
      */
 
-    protected Webhook(String event, Integer id, String createdAt, String lastError,
-            String lastErrorAt, OptionalNullable<String> acceptedAt, String lastSentAt,
-            String lastSentUrl, Boolean successful, String body, String signature,
-            String signatureHmacSha256) {
+    protected Webhook(String event, Long id, ZonedDateTime createdAt, String lastError,
+            ZonedDateTime lastErrorAt, OptionalNullable<ZonedDateTime> acceptedAt,
+            ZonedDateTime lastSentAt, String lastSentUrl, Boolean successful, String body,
+            String signature, String signatureHmacSha256) {
         this.event = event;
         this.id = id;
         this.createdAt = createdAt;
@@ -137,11 +140,11 @@ public class Webhook {
      * The unique identifier for the webhooks (unique across all of Chargify). This is not changed
      * on a retry/replay of the same webhook, so it may be used to avoid duplicate action for the
      * same event.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -150,31 +153,33 @@ public class Webhook {
      * The unique identifier for the webhooks (unique across all of Chargify). This is not changed
      * on a retry/replay of the same webhook, so it may be used to avoid duplicate action for the
      * same event.
-     * @param id Value for Integer
+     * @param id Value for Long
      */
     @JsonSetter("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     /**
      * Getter for CreatedAt.
      * Timestamp indicating when the webhook was created
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
      * Timestamp indicating when the webhook was created
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -205,11 +210,12 @@ public class Webhook {
      * Getter for LastErrorAt.
      * Timestamp indicating when the last non-acceptance occurred. If a webhook is later resent and
      * accepted, this field will be cleared.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("last_error_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getLastErrorAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getLastErrorAt() {
         return lastErrorAt;
     }
 
@@ -217,10 +223,11 @@ public class Webhook {
      * Setter for LastErrorAt.
      * Timestamp indicating when the last non-acceptance occurred. If a webhook is later resent and
      * accepted, this field will be cleared.
-     * @param lastErrorAt Value for String
+     * @param lastErrorAt Value for ZonedDateTime
      */
     @JsonSetter("last_error_at")
-    public void setLastErrorAt(String lastErrorAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setLastErrorAt(ZonedDateTime lastErrorAt) {
         this.lastErrorAt = lastErrorAt;
     }
 
@@ -229,12 +236,12 @@ public class Webhook {
      * Timestamp indicating when the webhook was accepted by the merchant endpoint. When a webhook
      * is explicitly replayed by the merchant, this value will be cleared until it is accepted
      * again.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("accepted_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetAcceptedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetAcceptedAt() {
         return this.acceptedAt;
     }
 
@@ -243,9 +250,9 @@ public class Webhook {
      * Timestamp indicating when the webhook was accepted by the merchant endpoint. When a webhook
      * is explicitly replayed by the merchant, this value will be cleared until it is accepted
      * again.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getAcceptedAt() {
+    public ZonedDateTime getAcceptedAt() {
         return OptionalNullable.getFrom(acceptedAt);
     }
 
@@ -254,10 +261,11 @@ public class Webhook {
      * Timestamp indicating when the webhook was accepted by the merchant endpoint. When a webhook
      * is explicitly replayed by the merchant, this value will be cleared until it is accepted
      * again.
-     * @param acceptedAt Value for String
+     * @param acceptedAt Value for ZonedDateTime
      */
     @JsonSetter("accepted_at")
-    public void setAcceptedAt(String acceptedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setAcceptedAt(ZonedDateTime acceptedAt) {
         this.acceptedAt = OptionalNullable.of(acceptedAt);
     }
 
@@ -274,21 +282,23 @@ public class Webhook {
     /**
      * Getter for LastSentAt.
      * Timestamp indicating when the most recent attempt was made to send the webhook
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("last_sent_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getLastSentAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getLastSentAt() {
         return lastSentAt;
     }
 
     /**
      * Setter for LastSentAt.
      * Timestamp indicating when the most recent attempt was made to send the webhook
-     * @param lastSentAt Value for String
+     * @param lastSentAt Value for ZonedDateTime
      */
     @JsonSetter("last_sent_at")
-    public void setLastSentAt(String lastSentAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setLastSentAt(ZonedDateTime lastSentAt) {
         this.lastSentAt = lastSentAt;
     }
 
@@ -441,12 +451,12 @@ public class Webhook {
      */
     public static class Builder {
         private String event;
-        private Integer id;
-        private String createdAt;
+        private Long id;
+        private ZonedDateTime createdAt;
         private String lastError;
-        private String lastErrorAt;
-        private OptionalNullable<String> acceptedAt;
-        private String lastSentAt;
+        private ZonedDateTime lastErrorAt;
+        private OptionalNullable<ZonedDateTime> acceptedAt;
+        private ZonedDateTime lastSentAt;
         private String lastSentUrl;
         private Boolean successful;
         private String body;
@@ -467,20 +477,20 @@ public class Webhook {
 
         /**
          * Setter for id.
-         * @param  id  Integer value for id.
+         * @param  id  Long value for id.
          * @return Builder
          */
-        public Builder id(Integer id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
@@ -497,20 +507,20 @@ public class Webhook {
 
         /**
          * Setter for lastErrorAt.
-         * @param  lastErrorAt  String value for lastErrorAt.
+         * @param  lastErrorAt  ZonedDateTime value for lastErrorAt.
          * @return Builder
          */
-        public Builder lastErrorAt(String lastErrorAt) {
+        public Builder lastErrorAt(ZonedDateTime lastErrorAt) {
             this.lastErrorAt = lastErrorAt;
             return this;
         }
 
         /**
          * Setter for acceptedAt.
-         * @param  acceptedAt  String value for acceptedAt.
+         * @param  acceptedAt  ZonedDateTime value for acceptedAt.
          * @return Builder
          */
-        public Builder acceptedAt(String acceptedAt) {
+        public Builder acceptedAt(ZonedDateTime acceptedAt) {
             this.acceptedAt = OptionalNullable.of(acceptedAt);
             return this;
         }
@@ -526,10 +536,10 @@ public class Webhook {
 
         /**
          * Setter for lastSentAt.
-         * @param  lastSentAt  String value for lastSentAt.
+         * @param  lastSentAt  ZonedDateTime value for lastSentAt.
          * @return Builder
          */
-        public Builder lastSentAt(String lastSentAt) {
+        public Builder lastSentAt(ZonedDateTime lastSentAt) {
             this.lastSentAt = lastSentAt;
             return this;
         }

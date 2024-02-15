@@ -14,8 +14,8 @@
 | `Code` | `String` | Optional | - | String getCode() | setCode(String code) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
 | `Position` | `Integer` | Optional | - | Integer getPosition() | setPosition(Integer position) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `UpdatedAt` | `String` | Optional | - | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 
 ## Example (as JSON)
 

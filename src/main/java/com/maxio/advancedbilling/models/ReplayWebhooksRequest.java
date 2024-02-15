@@ -14,7 +14,7 @@ import java.util.List;
  * This is a model class for ReplayWebhooksRequest type.
  */
 public class ReplayWebhooksRequest {
-    private List<Integer> ids;
+    private List<Long> ids;
 
     /**
      * Default constructor.
@@ -24,28 +24,28 @@ public class ReplayWebhooksRequest {
 
     /**
      * Initialization constructor.
-     * @param  ids  List of Integer value for ids.
+     * @param  ids  List of Long value for ids.
      */
     public ReplayWebhooksRequest(
-            List<Integer> ids) {
+            List<Long> ids) {
         this.ids = ids;
     }
 
     /**
      * Getter for Ids.
-     * @return Returns the List of Integer
+     * @return Returns the List of Long
      */
     @JsonGetter("ids")
-    public List<Integer> getIds() {
+    public List<Long> getIds() {
         return ids;
     }
 
     /**
      * Setter for Ids.
-     * @param ids Value for List of Integer
+     * @param ids Value for List of Long
      */
     @JsonSetter("ids")
-    public void setIds(List<Integer> ids) {
+    public void setIds(List<Long> ids) {
         this.ids = ids;
     }
 
@@ -72,7 +72,7 @@ public class ReplayWebhooksRequest {
      * Class to build instances of {@link ReplayWebhooksRequest}.
      */
     public static class Builder {
-        private List<Integer> ids;
+        private List<Long> ids;
 
         /**
          * Initialization constructor.
@@ -82,18 +82,18 @@ public class ReplayWebhooksRequest {
 
         /**
          * Initialization constructor.
-         * @param  ids  List of Integer value for ids.
+         * @param  ids  List of Long value for ids.
          */
-        public Builder(List<Integer> ids) {
+        public Builder(List<Long> ids) {
             this.ids = ids;
         }
 
         /**
          * Setter for ids.
-         * @param  ids  List of Integer value for ids.
+         * @param  ids  List of Long value for ids.
          * @return Builder
          */
-        public Builder ids(List<Integer> ids) {
+        public Builder ids(List<Long> ids) {
             this.ids = ids;
             return this;
         }

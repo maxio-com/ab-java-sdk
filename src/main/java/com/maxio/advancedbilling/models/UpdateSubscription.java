@@ -9,10 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.UpdateSubscriptionNetTerms;
 import com.maxio.advancedbilling.models.containers.UpdateSubscriptionSnapDay;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -26,7 +29,7 @@ public class UpdateSubscription {
     private String nextProductId;
     private String nextProductPricePointId;
     private UpdateSubscriptionSnapDay snapDay;
-    private String nextBillingAt;
+    private ZonedDateTime nextBillingAt;
     private String paymentCollectionMethod;
     private Boolean receivesInvoiceEmails;
     private UpdateSubscriptionNetTerms netTerms;
@@ -52,7 +55,7 @@ public class UpdateSubscription {
      * @param  nextProductId  String value for nextProductId.
      * @param  nextProductPricePointId  String value for nextProductPricePointId.
      * @param  snapDay  UpdateSubscriptionSnapDay value for snapDay.
-     * @param  nextBillingAt  String value for nextBillingAt.
+     * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
      * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
      * @param  netTerms  UpdateSubscriptionNetTerms value for netTerms.
@@ -72,7 +75,7 @@ public class UpdateSubscription {
             String nextProductId,
             String nextProductPricePointId,
             UpdateSubscriptionSnapDay snapDay,
-            String nextBillingAt,
+            ZonedDateTime nextBillingAt,
             String paymentCollectionMethod,
             Boolean receivesInvoiceEmails,
             UpdateSubscriptionNetTerms netTerms,
@@ -112,7 +115,7 @@ public class UpdateSubscription {
      * @param  nextProductId  String value for nextProductId.
      * @param  nextProductPricePointId  String value for nextProductPricePointId.
      * @param  snapDay  UpdateSubscriptionSnapDay value for snapDay.
-     * @param  nextBillingAt  String value for nextBillingAt.
+     * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
      * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
      * @param  netTerms  UpdateSubscriptionNetTerms value for netTerms.
@@ -127,11 +130,11 @@ public class UpdateSubscription {
 
     protected UpdateSubscription(CreditCardAttributes creditCardAttributes, String productHandle,
             Integer productId, Boolean productChangeDelayed, String nextProductId,
-            String nextProductPricePointId, UpdateSubscriptionSnapDay snapDay, String nextBillingAt,
-            String paymentCollectionMethod, Boolean receivesInvoiceEmails,
-            UpdateSubscriptionNetTerms netTerms, Integer storedCredentialTransactionId,
-            String reference, SubscriptionCustomPrice customPrice,
-            List<UpdateSubscriptionComponent> components,
+            String nextProductPricePointId, UpdateSubscriptionSnapDay snapDay,
+            ZonedDateTime nextBillingAt, String paymentCollectionMethod,
+            Boolean receivesInvoiceEmails, UpdateSubscriptionNetTerms netTerms,
+            Integer storedCredentialTransactionId, String reference,
+            SubscriptionCustomPrice customPrice, List<UpdateSubscriptionComponent> components,
             OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone) {
         this.creditCardAttributes = creditCardAttributes;
@@ -298,20 +301,22 @@ public class UpdateSubscription {
 
     /**
      * Getter for NextBillingAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("next_billing_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getNextBillingAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getNextBillingAt() {
         return nextBillingAt;
     }
 
     /**
      * Setter for NextBillingAt.
-     * @param nextBillingAt Value for String
+     * @param nextBillingAt Value for ZonedDateTime
      */
     @JsonSetter("next_billing_at")
-    public void setNextBillingAt(String nextBillingAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setNextBillingAt(ZonedDateTime nextBillingAt) {
         this.nextBillingAt = nextBillingAt;
     }
 
@@ -598,7 +603,7 @@ public class UpdateSubscription {
         private String nextProductId;
         private String nextProductPricePointId;
         private UpdateSubscriptionSnapDay snapDay;
-        private String nextBillingAt;
+        private ZonedDateTime nextBillingAt;
         private String paymentCollectionMethod;
         private Boolean receivesInvoiceEmails;
         private UpdateSubscriptionNetTerms netTerms;
@@ -683,10 +688,10 @@ public class UpdateSubscription {
 
         /**
          * Setter for nextBillingAt.
-         * @param  nextBillingAt  String value for nextBillingAt.
+         * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
          * @return Builder
          */
-        public Builder nextBillingAt(String nextBillingAt) {
+        public Builder nextBillingAt(ZonedDateTime nextBillingAt) {
             this.nextBillingAt = nextBillingAt;
             return this;
         }

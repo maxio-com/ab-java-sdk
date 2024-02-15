@@ -9,14 +9,18 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ChargifyEBB type.
  */
 public class ChargifyEBB {
-    private String timestamp;
+    private ZonedDateTime timestamp;
     private String id;
-    private String createdAt;
+    private ZonedDateTime createdAt;
     private String uniquenessToken;
     private Integer subscriptionId;
     private String subscriptionReference;
@@ -29,17 +33,17 @@ public class ChargifyEBB {
 
     /**
      * Initialization constructor.
-     * @param  timestamp  String value for timestamp.
+     * @param  timestamp  ZonedDateTime value for timestamp.
      * @param  id  String value for id.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  uniquenessToken  String value for uniquenessToken.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  subscriptionReference  String value for subscriptionReference.
      */
     public ChargifyEBB(
-            String timestamp,
+            ZonedDateTime timestamp,
             String id,
-            String createdAt,
+            ZonedDateTime createdAt,
             String uniquenessToken,
             Integer subscriptionId,
             String subscriptionReference) {
@@ -56,11 +60,12 @@ public class ChargifyEBB {
      * This timestamp determines what billing period the event will be billed in. If your request
      * payload does not include it, Chargify will add `chargify.timestamp` to the event payload and
      * set the value to `now`.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("timestamp")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTimestamp() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
@@ -69,10 +74,11 @@ public class ChargifyEBB {
      * This timestamp determines what billing period the event will be billed in. If your request
      * payload does not include it, Chargify will add `chargify.timestamp` to the event payload and
      * set the value to `now`.
-     * @param timestamp Value for String
+     * @param timestamp Value for ZonedDateTime
      */
     @JsonSetter("timestamp")
-    public void setTimestamp(String timestamp) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -104,11 +110,12 @@ public class ChargifyEBB {
      * An ISO-8601 timestamp, set by Chargify at the time each event is recorded. Please note that
      * this field is reserved. If `chargify.created_at` is present in the request payload, it will
      * be overwritten.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
@@ -117,10 +124,11 @@ public class ChargifyEBB {
      * An ISO-8601 timestamp, set by Chargify at the time each event is recorded. Please note that
      * this field is reserved. If `chargify.created_at` is present in the request payload, it will
      * be overwritten.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -228,9 +236,9 @@ public class ChargifyEBB {
      * Class to build instances of {@link ChargifyEBB}.
      */
     public static class Builder {
-        private String timestamp;
+        private ZonedDateTime timestamp;
         private String id;
-        private String createdAt;
+        private ZonedDateTime createdAt;
         private String uniquenessToken;
         private Integer subscriptionId;
         private String subscriptionReference;
@@ -239,10 +247,10 @@ public class ChargifyEBB {
 
         /**
          * Setter for timestamp.
-         * @param  timestamp  String value for timestamp.
+         * @param  timestamp  ZonedDateTime value for timestamp.
          * @return Builder
          */
-        public Builder timestamp(String timestamp) {
+        public Builder timestamp(ZonedDateTime timestamp) {
             this.timestamp = timestamp;
             return this;
         }
@@ -259,10 +267,10 @@ public class ChargifyEBB {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }

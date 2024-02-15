@@ -16,8 +16,8 @@
 | `Organization` | `String` | Optional | The organization of the customer | String getOrganization() | setOrganization(String organization) |
 | `Reference` | `String` | Optional | The unique identifier used within your own application for this customer | String getReference() | setReference(String reference) |
 | `Id` | `Integer` | Optional | The customer ID in Chargify | Integer getId() | setId(Integer id) |
-| `CreatedAt` | `String` | Optional | The timestamp in which the customer object was created in Chargify | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `UpdatedAt` | `String` | Optional | The timestamp in which the customer object was last edited | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | The timestamp in which the customer object was created in Chargify | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | The timestamp in which the customer object was last edited | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `Address` | `String` | Optional | The customer’s shipping street address (i.e. “123 Main St.”) | String getAddress() | setAddress(String address) |
 | `Address2` | `String` | Optional | Second line of the customer’s shipping address i.e. “Apt. 100” | String getAddress2() | setAddress2(String address2) |
 | `City` | `String` | Optional | The customer’s shipping address city (i.e. “Boston”) | String getCity() | setCity(String city) |
@@ -28,9 +28,9 @@
 | `CountryName` | `String` | Optional | The customer's full name of country | String getCountryName() | setCountryName(String countryName) |
 | `Phone` | `String` | Optional | The phone number of the customer | String getPhone() | setPhone(String phone) |
 | `Verified` | `Boolean` | Optional | Is the customer verified to use ACH as a payment method. Available only on Authorize.Net gateway | Boolean getVerified() | setVerified(Boolean verified) |
-| `PortalCustomerCreatedAt` | `String` | Optional | The timestamp of when the Billing Portal entry was created at for the customer | String getPortalCustomerCreatedAt() | setPortalCustomerCreatedAt(String portalCustomerCreatedAt) |
-| `PortalInviteLastSentAt` | `String` | Optional | The timestamp of when the Billing Portal invite was last sent at | String getPortalInviteLastSentAt() | setPortalInviteLastSentAt(String portalInviteLastSentAt) |
-| `PortalInviteLastAcceptedAt` | `String` | Optional | The timestamp of when the Billing Portal invite was last accepted | String getPortalInviteLastAcceptedAt() | setPortalInviteLastAcceptedAt(String portalInviteLastAcceptedAt) |
+| `PortalCustomerCreatedAt` | `ZonedDateTime` | Optional | The timestamp of when the Billing Portal entry was created at for the customer | ZonedDateTime getPortalCustomerCreatedAt() | setPortalCustomerCreatedAt(ZonedDateTime portalCustomerCreatedAt) |
+| `PortalInviteLastSentAt` | `ZonedDateTime` | Optional | The timestamp of when the Billing Portal invite was last sent at | ZonedDateTime getPortalInviteLastSentAt() | setPortalInviteLastSentAt(ZonedDateTime portalInviteLastSentAt) |
+| `PortalInviteLastAcceptedAt` | `ZonedDateTime` | Optional | The timestamp of when the Billing Portal invite was last accepted | ZonedDateTime getPortalInviteLastAcceptedAt() | setPortalInviteLastAcceptedAt(ZonedDateTime portalInviteLastAcceptedAt) |
 | `TaxExempt` | `Boolean` | Optional | The tax exempt status for the customer. Acceptable values are true or 1 for true and false or 0 for false. | Boolean getTaxExempt() | setTaxExempt(Boolean taxExempt) |
 | `VatNumber` | `String` | Optional | The VAT business identification number for the customer. This number is used to determine VAT tax opt out rules. It is not validated when added or updated on a customer record. Instead, it is validated via VIES before calculating taxes. Only valid business identification numbers will allow for VAT opt out. | String getVatNumber() | setVatNumber(String vatNumber) |
 | `ParentId` | `Integer` | Optional | The parent ID in Chargify if applicable. Parent is another Customer object. | Integer getParentId() | setParentId(Integer parentId) |

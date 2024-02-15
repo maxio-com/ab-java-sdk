@@ -10,6 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -19,8 +24,8 @@ public class ProformaInvoiceIssued {
     private String uid;
     private String number;
     private String role;
-    private String deliveryDate;
-    private String createdAt;
+    private LocalDate deliveryDate;
+    private ZonedDateTime createdAt;
     private String dueAmount;
     private String paidAmount;
     private String taxAmount;
@@ -39,8 +44,8 @@ public class ProformaInvoiceIssued {
      * @param  uid  String value for uid.
      * @param  number  String value for number.
      * @param  role  String value for role.
-     * @param  deliveryDate  String value for deliveryDate.
-     * @param  createdAt  String value for createdAt.
+     * @param  deliveryDate  LocalDate value for deliveryDate.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  dueAmount  String value for dueAmount.
      * @param  paidAmount  String value for paidAmount.
      * @param  taxAmount  String value for taxAmount.
@@ -53,8 +58,8 @@ public class ProformaInvoiceIssued {
             @JsonProperty("uid") String uid,
             @JsonProperty("number") String number,
             @JsonProperty("role") String role,
-            @JsonProperty("delivery_date") String deliveryDate,
-            @JsonProperty("created_at") String createdAt,
+            @JsonProperty("delivery_date") LocalDate deliveryDate,
+            @JsonProperty("created_at") ZonedDateTime createdAt,
             @JsonProperty("due_amount") String dueAmount,
             @JsonProperty("paid_amount") String paidAmount,
             @JsonProperty("tax_amount") String taxAmount,
@@ -130,37 +135,41 @@ public class ProformaInvoiceIssued {
 
     /**
      * Getter for DeliveryDate.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("delivery_date")
-    public String getDeliveryDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
     /**
      * Setter for DeliveryDate.
-     * @param deliveryDate Value for String
+     * @param deliveryDate Value for LocalDate
      */
     @JsonSetter("delivery_date")
-    public void setDeliveryDate(String deliveryDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -303,8 +312,8 @@ public class ProformaInvoiceIssued {
         private String uid;
         private String number;
         private String role;
-        private String deliveryDate;
-        private String createdAt;
+        private LocalDate deliveryDate;
+        private ZonedDateTime createdAt;
         private String dueAmount;
         private String paidAmount;
         private String taxAmount;
@@ -323,8 +332,8 @@ public class ProformaInvoiceIssued {
          * @param  uid  String value for uid.
          * @param  number  String value for number.
          * @param  role  String value for role.
-         * @param  deliveryDate  String value for deliveryDate.
-         * @param  createdAt  String value for createdAt.
+         * @param  deliveryDate  LocalDate value for deliveryDate.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @param  dueAmount  String value for dueAmount.
          * @param  paidAmount  String value for paidAmount.
          * @param  taxAmount  String value for taxAmount.
@@ -332,8 +341,8 @@ public class ProformaInvoiceIssued {
          * @param  productName  String value for productName.
          * @param  lineItems  List of InvoiceLineItemEventData value for lineItems.
          */
-        public Builder(String uid, String number, String role, String deliveryDate,
-                String createdAt, String dueAmount, String paidAmount, String taxAmount,
+        public Builder(String uid, String number, String role, LocalDate deliveryDate,
+                ZonedDateTime createdAt, String dueAmount, String paidAmount, String taxAmount,
                 String totalAmount, String productName, List<InvoiceLineItemEventData> lineItems) {
             this.uid = uid;
             this.number = number;
@@ -380,20 +389,20 @@ public class ProformaInvoiceIssued {
 
         /**
          * Setter for deliveryDate.
-         * @param  deliveryDate  String value for deliveryDate.
+         * @param  deliveryDate  LocalDate value for deliveryDate.
          * @return Builder
          */
-        public Builder deliveryDate(String deliveryDate) {
+        public Builder deliveryDate(LocalDate deliveryDate) {
             this.deliveryDate = deliveryDate;
             return this;
         }
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }

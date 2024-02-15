@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionMigrationPreviewOptions type.
@@ -23,7 +27,7 @@ public class SubscriptionMigrationPreviewOptions {
     private String productHandle;
     private String productPricePointHandle;
     private Proration proration;
-    private String prorationDate;
+    private ZonedDateTime prorationDate;
 
     /**
      * Default constructor.
@@ -46,7 +50,7 @@ public class SubscriptionMigrationPreviewOptions {
      * @param  productHandle  String value for productHandle.
      * @param  productPricePointHandle  String value for productPricePointHandle.
      * @param  proration  Proration value for proration.
-     * @param  prorationDate  String value for prorationDate.
+     * @param  prorationDate  ZonedDateTime value for prorationDate.
      */
     public SubscriptionMigrationPreviewOptions(
             Integer productId,
@@ -58,7 +62,7 @@ public class SubscriptionMigrationPreviewOptions {
             String productHandle,
             String productPricePointHandle,
             Proration proration,
-            String prorationDate) {
+            ZonedDateTime prorationDate) {
         this.productId = productId;
         this.productPricePointId = productPricePointId;
         this.includeTrial = includeTrial;
@@ -287,21 +291,23 @@ public class SubscriptionMigrationPreviewOptions {
     /**
      * Getter for ProrationDate.
      * The date that the proration is calculated from for the preview
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("proration_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getProrationDate() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getProrationDate() {
         return prorationDate;
     }
 
     /**
      * Setter for ProrationDate.
      * The date that the proration is calculated from for the preview
-     * @param prorationDate Value for String
+     * @param prorationDate Value for ZonedDateTime
      */
     @JsonSetter("proration_date")
-    public void setProrationDate(String prorationDate) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setProrationDate(ZonedDateTime prorationDate) {
         this.prorationDate = prorationDate;
     }
 
@@ -352,7 +358,7 @@ public class SubscriptionMigrationPreviewOptions {
         private String productHandle;
         private String productPricePointHandle;
         private Proration proration;
-        private String prorationDate;
+        private ZonedDateTime prorationDate;
 
 
 
@@ -448,10 +454,10 @@ public class SubscriptionMigrationPreviewOptions {
 
         /**
          * Setter for prorationDate.
-         * @param  prorationDate  String value for prorationDate.
+         * @param  prorationDate  ZonedDateTime value for prorationDate.
          * @return Builder
          */
-        public Builder prorationDate(String prorationDate) {
+        public Builder prorationDate(ZonedDateTime prorationDate) {
             this.prorationDate = prorationDate;
             return this;
         }

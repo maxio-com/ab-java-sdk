@@ -13,7 +13,7 @@
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `StartingBalanceInCents` | `Long` | Optional | - | Long getStartingBalanceInCents() | setStartingBalanceInCents(Long startingBalanceInCents) |
 | `EndingBalanceInCents` | `Long` | Optional | - | Long getEndingBalanceInCents() | setEndingBalanceInCents(Long endingBalanceInCents) |
 
@@ -25,7 +25,7 @@
   "subscription_id": 220,
   "amount_in_cents": 196,
   "memo": "memo6",
-  "created_at": "created_at0"
+  "created_at": "2016-03-13T12:52:32.123Z"
 }
 ```
 

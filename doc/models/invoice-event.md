@@ -12,7 +12,7 @@
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Optional | Invoice Event Type | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`InvoiceEventEventData`](../../doc/models/containers/invoice-event-event-data.md) | Optional | This is a container for any-of cases. | InvoiceEventEventData getEventData() | setEventData(InvoiceEventEventData eventData) |
-| `Timestamp` | `String` | Optional | - | String getTimestamp() | setTimestamp(String timestamp) |
+| `Timestamp` | `ZonedDateTime` | Optional | - | ZonedDateTime getTimestamp() | setTimestamp(ZonedDateTime timestamp) |
 | `Invoice` | [`Invoice`](../../doc/models/invoice.md) | Optional | - | Invoice getInvoice() | setInvoice(Invoice invoice) |
 
 ## Example (as JSON)
@@ -42,7 +42,7 @@
       }
     ]
   },
-  "timestamp": "timestamp8",
+  "timestamp": "2016-03-13T12:52:32.123Z",
   "invoice": {
     "id": 166,
     "uid": "uid6",

@@ -10,6 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,9 +23,9 @@ public class InvoiceIssued {
     private String uid;
     private String number;
     private String role;
-    private String dueDate;
-    private String issueDate;
-    private String paidDate;
+    private LocalDate dueDate;
+    private LocalDate issueDate;
+    private LocalDate paidDate;
     private String dueAmount;
     private String paidAmount;
     private String taxAmount;
@@ -43,9 +47,9 @@ public class InvoiceIssued {
      * @param  uid  String value for uid.
      * @param  number  String value for number.
      * @param  role  String value for role.
-     * @param  dueDate  String value for dueDate.
-     * @param  issueDate  String value for issueDate.
-     * @param  paidDate  String value for paidDate.
+     * @param  dueDate  LocalDate value for dueDate.
+     * @param  issueDate  LocalDate value for issueDate.
+     * @param  paidDate  LocalDate value for paidDate.
      * @param  dueAmount  String value for dueAmount.
      * @param  paidAmount  String value for paidAmount.
      * @param  taxAmount  String value for taxAmount.
@@ -61,9 +65,9 @@ public class InvoiceIssued {
             @JsonProperty("uid") String uid,
             @JsonProperty("number") String number,
             @JsonProperty("role") String role,
-            @JsonProperty("due_date") String dueDate,
-            @JsonProperty("issue_date") String issueDate,
-            @JsonProperty("paid_date") String paidDate,
+            @JsonProperty("due_date") LocalDate dueDate,
+            @JsonProperty("issue_date") LocalDate issueDate,
+            @JsonProperty("paid_date") LocalDate paidDate,
             @JsonProperty("due_amount") String dueAmount,
             @JsonProperty("paid_amount") String paidAmount,
             @JsonProperty("tax_amount") String taxAmount,
@@ -146,55 +150,61 @@ public class InvoiceIssued {
 
     /**
      * Getter for DueDate.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("due_date")
-    public String getDueDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
     /**
      * Setter for DueDate.
-     * @param dueDate Value for String
+     * @param dueDate Value for LocalDate
      */
     @JsonSetter("due_date")
-    public void setDueDate(String dueDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
     /**
      * Getter for IssueDate.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("issue_date")
-    public String getIssueDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getIssueDate() {
         return issueDate;
     }
 
     /**
      * Setter for IssueDate.
-     * @param issueDate Value for String
+     * @param issueDate Value for LocalDate
      */
     @JsonSetter("issue_date")
-    public void setIssueDate(String issueDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setIssueDate(LocalDate issueDate) {
         this.issueDate = issueDate;
     }
 
     /**
      * Getter for PaidDate.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("paid_date")
-    public String getPaidDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getPaidDate() {
         return paidDate;
     }
 
     /**
      * Setter for PaidDate.
-     * @param paidDate Value for String
+     * @param paidDate Value for LocalDate
      */
     @JsonSetter("paid_date")
-    public void setPaidDate(String paidDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPaidDate(LocalDate paidDate) {
         this.paidDate = paidDate;
     }
 
@@ -393,9 +403,9 @@ public class InvoiceIssued {
         private String uid;
         private String number;
         private String role;
-        private String dueDate;
-        private String issueDate;
-        private String paidDate;
+        private LocalDate dueDate;
+        private LocalDate issueDate;
+        private LocalDate paidDate;
         private String dueAmount;
         private String paidAmount;
         private String taxAmount;
@@ -417,9 +427,9 @@ public class InvoiceIssued {
          * @param  uid  String value for uid.
          * @param  number  String value for number.
          * @param  role  String value for role.
-         * @param  dueDate  String value for dueDate.
-         * @param  issueDate  String value for issueDate.
-         * @param  paidDate  String value for paidDate.
+         * @param  dueDate  LocalDate value for dueDate.
+         * @param  issueDate  LocalDate value for issueDate.
+         * @param  paidDate  LocalDate value for paidDate.
          * @param  dueAmount  String value for dueAmount.
          * @param  paidAmount  String value for paidAmount.
          * @param  taxAmount  String value for taxAmount.
@@ -430,10 +440,11 @@ public class InvoiceIssued {
          * @param  consolidationLevel  String value for consolidationLevel.
          * @param  lineItems  List of InvoiceLineItemEventData value for lineItems.
          */
-        public Builder(String uid, String number, String role, String dueDate, String issueDate,
-                String paidDate, String dueAmount, String paidAmount, String taxAmount,
-                String refundAmount, String totalAmount, String statusAmount, String productName,
-                String consolidationLevel, List<InvoiceLineItemEventData> lineItems) {
+        public Builder(String uid, String number, String role, LocalDate dueDate,
+                LocalDate issueDate, LocalDate paidDate, String dueAmount, String paidAmount,
+                String taxAmount, String refundAmount, String totalAmount, String statusAmount,
+                String productName, String consolidationLevel,
+                List<InvoiceLineItemEventData> lineItems) {
             this.uid = uid;
             this.number = number;
             this.role = role;
@@ -483,30 +494,30 @@ public class InvoiceIssued {
 
         /**
          * Setter for dueDate.
-         * @param  dueDate  String value for dueDate.
+         * @param  dueDate  LocalDate value for dueDate.
          * @return Builder
          */
-        public Builder dueDate(String dueDate) {
+        public Builder dueDate(LocalDate dueDate) {
             this.dueDate = dueDate;
             return this;
         }
 
         /**
          * Setter for issueDate.
-         * @param  issueDate  String value for issueDate.
+         * @param  issueDate  LocalDate value for issueDate.
          * @return Builder
          */
-        public Builder issueDate(String issueDate) {
+        public Builder issueDate(LocalDate issueDate) {
             this.issueDate = issueDate;
             return this;
         }
 
         /**
          * Setter for paidDate.
-         * @param  paidDate  String value for paidDate.
+         * @param  paidDate  LocalDate value for paidDate.
          * @return Builder
          */
-        public Builder paidDate(String paidDate) {
+        public Builder paidDate(LocalDate paidDate) {
             this.paidDate = paidDate;
             return this;
         }

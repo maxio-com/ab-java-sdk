@@ -16,7 +16,7 @@
 | `NextProductId` | `String` | Optional | Set to an empty string to cancel a delayed product change. | String getNextProductId() | setNextProductId(String nextProductId) |
 | `NextProductPricePointId` | `String` | Optional | - | String getNextProductPricePointId() | setNextProductPricePointId(String nextProductPricePointId) |
 | `SnapDay` | [`UpdateSubscriptionSnapDay`](../../doc/models/containers/update-subscription-snap-day.md) | Optional | This is a container for one-of cases. | UpdateSubscriptionSnapDay getSnapDay() | setSnapDay(UpdateSubscriptionSnapDay snapDay) |
-| `NextBillingAt` | `String` | Optional | - | String getNextBillingAt() | setNextBillingAt(String nextBillingAt) |
+| `NextBillingAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getNextBillingAt() | setNextBillingAt(ZonedDateTime nextBillingAt) |
 | `PaymentCollectionMethod` | `String` | Optional | - | String getPaymentCollectionMethod() | setPaymentCollectionMethod(String paymentCollectionMethod) |
 | `ReceivesInvoiceEmails` | `Boolean` | Optional | - | Boolean getReceivesInvoiceEmails() | setReceivesInvoiceEmails(Boolean receivesInvoiceEmails) |
 | `NetTerms` | [`UpdateSubscriptionNetTerms`](../../doc/models/containers/update-subscription-net-terms.md) | Optional | This is a container for one-of cases. | UpdateSubscriptionNetTerms getNetTerms() | setNetTerms(UpdateSubscriptionNetTerms netTerms) |

@@ -9,8 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Metadata type.
@@ -20,7 +23,7 @@ public class Metadata {
     private OptionalNullable<String> value;
     private OptionalNullable<Integer> resourceId;
     private String name;
-    private OptionalNullable<String> deletedAt;
+    private OptionalNullable<ZonedDateTime> deletedAt;
     private OptionalNullable<Integer> metafieldId;
 
     /**
@@ -35,7 +38,7 @@ public class Metadata {
      * @param  value  String value for value.
      * @param  resourceId  Integer value for resourceId.
      * @param  name  String value for name.
-     * @param  deletedAt  String value for deletedAt.
+     * @param  deletedAt  ZonedDateTime value for deletedAt.
      * @param  metafieldId  Integer value for metafieldId.
      */
     public Metadata(
@@ -43,7 +46,7 @@ public class Metadata {
             String value,
             Integer resourceId,
             String name,
-            String deletedAt,
+            ZonedDateTime deletedAt,
             Integer metafieldId) {
         this.id = OptionalNullable.of(id);
         this.value = OptionalNullable.of(value);
@@ -59,13 +62,13 @@ public class Metadata {
      * @param  value  String value for value.
      * @param  resourceId  Integer value for resourceId.
      * @param  name  String value for name.
-     * @param  deletedAt  String value for deletedAt.
+     * @param  deletedAt  ZonedDateTime value for deletedAt.
      * @param  metafieldId  Integer value for metafieldId.
      */
 
     protected Metadata(OptionalNullable<Integer> id, OptionalNullable<String> value,
-            OptionalNullable<Integer> resourceId, String name, OptionalNullable<String> deletedAt,
-            OptionalNullable<Integer> metafieldId) {
+            OptionalNullable<Integer> resourceId, String name,
+            OptionalNullable<ZonedDateTime> deletedAt, OptionalNullable<Integer> metafieldId) {
         this.id = id;
         this.value = value;
         this.resourceId = resourceId;
@@ -200,29 +203,30 @@ public class Metadata {
 
     /**
      * Internal Getter for DeletedAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("deleted_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetDeletedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetDeletedAt() {
         return this.deletedAt;
     }
 
     /**
      * Getter for DeletedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getDeletedAt() {
+    public ZonedDateTime getDeletedAt() {
         return OptionalNullable.getFrom(deletedAt);
     }
 
     /**
      * Setter for DeletedAt.
-     * @param deletedAt Value for String
+     * @param deletedAt Value for ZonedDateTime
      */
     @JsonSetter("deleted_at")
-    public void setDeletedAt(String deletedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setDeletedAt(ZonedDateTime deletedAt) {
         this.deletedAt = OptionalNullable.of(deletedAt);
     }
 
@@ -303,7 +307,7 @@ public class Metadata {
         private OptionalNullable<String> value;
         private OptionalNullable<Integer> resourceId;
         private String name;
-        private OptionalNullable<String> deletedAt;
+        private OptionalNullable<ZonedDateTime> deletedAt;
         private OptionalNullable<Integer> metafieldId;
 
 
@@ -377,10 +381,10 @@ public class Metadata {
 
         /**
          * Setter for deletedAt.
-         * @param  deletedAt  String value for deletedAt.
+         * @param  deletedAt  ZonedDateTime value for deletedAt.
          * @return Builder
          */
-        public Builder deletedAt(String deletedAt) {
+        public Builder deletedAt(ZonedDateTime deletedAt) {
             this.deletedAt = OptionalNullable.of(deletedAt);
             return this;
         }

@@ -9,13 +9,17 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionComponentSubscription type.
  */
 public class SubscriptionComponentSubscription {
     private SubscriptionState state;
-    private String updatedAt;
+    private ZonedDateTime updatedAt;
 
     /**
      * Default constructor.
@@ -26,11 +30,11 @@ public class SubscriptionComponentSubscription {
     /**
      * Initialization constructor.
      * @param  state  SubscriptionState value for state.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
     public SubscriptionComponentSubscription(
             SubscriptionState state,
-            String updatedAt) {
+            ZonedDateTime updatedAt) {
         this.state = state;
         this.updatedAt = updatedAt;
     }
@@ -146,20 +150,22 @@ public class SubscriptionComponentSubscription {
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -190,7 +196,7 @@ public class SubscriptionComponentSubscription {
      */
     public static class Builder {
         private SubscriptionState state;
-        private String updatedAt;
+        private ZonedDateTime updatedAt;
 
 
 
@@ -206,10 +212,10 @@ public class SubscriptionComponentSubscription {
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }

@@ -8,6 +8,10 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -20,7 +24,7 @@ public class SubscriptionGroupSignupSuccessData {
     private int paymentProfileId;
     private List<Integer> subscriptionIds;
     private int primarySubscriptionId;
-    private String nextAssessmentAt;
+    private ZonedDateTime nextAssessmentAt;
     private String state;
     private boolean cancelAtEndOfPeriod;
 
@@ -38,7 +42,7 @@ public class SubscriptionGroupSignupSuccessData {
      * @param  paymentProfileId  int value for paymentProfileId.
      * @param  subscriptionIds  List of Integer value for subscriptionIds.
      * @param  primarySubscriptionId  int value for primarySubscriptionId.
-     * @param  nextAssessmentAt  String value for nextAssessmentAt.
+     * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
      * @param  state  String value for state.
      * @param  cancelAtEndOfPeriod  boolean value for cancelAtEndOfPeriod.
      */
@@ -49,7 +53,7 @@ public class SubscriptionGroupSignupSuccessData {
             int paymentProfileId,
             List<Integer> subscriptionIds,
             int primarySubscriptionId,
-            String nextAssessmentAt,
+            ZonedDateTime nextAssessmentAt,
             String state,
             boolean cancelAtEndOfPeriod) {
         this.uid = uid;
@@ -173,19 +177,21 @@ public class SubscriptionGroupSignupSuccessData {
 
     /**
      * Getter for NextAssessmentAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("next_assessment_at")
-    public String getNextAssessmentAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getNextAssessmentAt() {
         return nextAssessmentAt;
     }
 
     /**
      * Setter for NextAssessmentAt.
-     * @param nextAssessmentAt Value for String
+     * @param nextAssessmentAt Value for ZonedDateTime
      */
     @JsonSetter("next_assessment_at")
-    public void setNextAssessmentAt(String nextAssessmentAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setNextAssessmentAt(ZonedDateTime nextAssessmentAt) {
         this.nextAssessmentAt = nextAssessmentAt;
     }
 
@@ -259,7 +265,7 @@ public class SubscriptionGroupSignupSuccessData {
         private int paymentProfileId;
         private List<Integer> subscriptionIds;
         private int primarySubscriptionId;
-        private String nextAssessmentAt;
+        private ZonedDateTime nextAssessmentAt;
         private String state;
         private boolean cancelAtEndOfPeriod;
 
@@ -277,13 +283,13 @@ public class SubscriptionGroupSignupSuccessData {
          * @param  paymentProfileId  int value for paymentProfileId.
          * @param  subscriptionIds  List of Integer value for subscriptionIds.
          * @param  primarySubscriptionId  int value for primarySubscriptionId.
-         * @param  nextAssessmentAt  String value for nextAssessmentAt.
+         * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
          * @param  state  String value for state.
          * @param  cancelAtEndOfPeriod  boolean value for cancelAtEndOfPeriod.
          */
         public Builder(String uid, int scheme, int customerId, int paymentProfileId,
-                List<Integer> subscriptionIds, int primarySubscriptionId, String nextAssessmentAt,
-                String state, boolean cancelAtEndOfPeriod) {
+                List<Integer> subscriptionIds, int primarySubscriptionId,
+                ZonedDateTime nextAssessmentAt, String state, boolean cancelAtEndOfPeriod) {
             this.uid = uid;
             this.scheme = scheme;
             this.customerId = customerId;
@@ -357,10 +363,10 @@ public class SubscriptionGroupSignupSuccessData {
 
         /**
          * Setter for nextAssessmentAt.
-         * @param  nextAssessmentAt  String value for nextAssessmentAt.
+         * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
          * @return Builder
          */
-        public Builder nextAssessmentAt(String nextAssessmentAt) {
+        public Builder nextAssessmentAt(ZonedDateTime nextAssessmentAt) {
             this.nextAssessmentAt = nextAssessmentAt;
             return this;
         }

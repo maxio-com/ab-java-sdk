@@ -18,9 +18,9 @@
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `UpdatedAt` | `String` | Optional | - | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
-| `ArchivedAt` | `String` | Optional | - | String getArchivedAt() | setArchivedAt(String archivedAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
+| `ArchivedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getArchivedAt() | setArchivedAt(ZonedDateTime archivedAt) |
 | `OfferItems` | [`List<OfferItem>`](../../doc/models/offer-item.md) | Optional | - | List<OfferItem> getOfferItems() | setOfferItems(List<OfferItem> offerItems) |
 | `OfferDiscounts` | [`List<OfferDiscount>`](../../doc/models/offer-discount.md) | Optional | - | List<OfferDiscount> getOfferDiscounts() | setOfferDiscounts(List<OfferDiscount> offerDiscounts) |
 | `ProductFamilyName` | `String` | Optional | - | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |

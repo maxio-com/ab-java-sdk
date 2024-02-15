@@ -15,8 +15,8 @@
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `Number` | `Integer` | Optional | - | Integer getNumber() | setNumber(Integer number) |
 | `SequenceNumber` | `Integer` | Optional | - | Integer getSequenceNumber() | setSequenceNumber(Integer sequenceNumber) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `DeliveryDate` | `String` | Optional | - | String getDeliveryDate() | setDeliveryDate(String deliveryDate) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `DeliveryDate` | `LocalDate` | Optional | - | LocalDate getDeliveryDate() | setDeliveryDate(LocalDate deliveryDate) |
 | `Status` | `String` | Optional | - | String getStatus() | setStatus(String status) |
 | `CollectionMethod` | `String` | Optional | - | String getCollectionMethod() | setCollectionMethod(String collectionMethod) |
 | `PaymentInstructions` | `String` | Optional | - | String getPaymentInstructions() | setPaymentInstructions(String paymentInstructions) |

@@ -17,7 +17,7 @@
 | `External` | `Boolean` | Optional | - | Boolean getExternal() | setExternal(Boolean external) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `PaymentType` | [`PrepaymentMethod`](../../doc/models/prepayment-method.md) | Optional | - | PrepaymentMethod getPaymentType() | setPaymentType(PrepaymentMethod paymentType) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 
 ## Example (as JSON)
 

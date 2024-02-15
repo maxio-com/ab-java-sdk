@@ -987,7 +987,7 @@ UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder(
             .expirationMonth("10")
             .expirationYear("2030")
             .build())
-        .nextBillingAt("2010-08-06T15:34:00Z")
+        .nextBillingAt(DateTimeHelper.fromRfc8601DateTime("2010-08-06T15:34:00Z"))
         .build()
 )
 .build();

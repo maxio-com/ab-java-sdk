@@ -13,7 +13,7 @@
 | `PaymentProfile` | [`SubscriptionGroupPaymentProfile`](../../doc/models/subscription-group-payment-profile.md) | Optional | - | SubscriptionGroupPaymentProfile getPaymentProfile() | setPaymentProfile(SubscriptionGroupPaymentProfile paymentProfile) |
 | `PaymentCollectionMethod` | `String` | Optional | - | String getPaymentCollectionMethod() | setPaymentCollectionMethod(String paymentCollectionMethod) |
 | `SubscriptionIds` | `List<Integer>` | Optional | - | List<Integer> getSubscriptionIds() | setSubscriptionIds(List<Integer> subscriptionIds) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 
 ## Example (as JSON)
 
@@ -32,7 +32,7 @@
     147,
     148
   ],
-  "created_at": "created_at2"
+  "created_at": "2016-03-13T12:52:32.123Z"
 }
 ```
 

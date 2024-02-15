@@ -10,14 +10,14 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `CancellationState` | `String` | Required | - | String getCancellationState() | setCancellationState(String cancellationState) |
-| `CancelsAt` | `String` | Required | - | String getCancelsAt() | setCancelsAt(String cancelsAt) |
+| `CancelsAt` | `ZonedDateTime` | Required | - | ZonedDateTime getCancelsAt() | setCancelsAt(ZonedDateTime cancelsAt) |
 
 ## Example (as JSON)
 
 ```json
 {
   "cancellation_state": "cancellation_state8",
-  "cancels_at": "cancels_at6"
+  "cancels_at": "2016-03-13T12:52:32.123Z"
 }
 ```
 

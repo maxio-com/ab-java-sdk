@@ -9,8 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -23,8 +27,8 @@ public class ProformaInvoice {
     private Integer subscriptionId;
     private OptionalNullable<Integer> number;
     private OptionalNullable<Integer> sequenceNumber;
-    private String createdAt;
-    private String deliveryDate;
+    private ZonedDateTime createdAt;
+    private LocalDate deliveryDate;
     private String status;
     private String collectionMethod;
     private String paymentInstructions;
@@ -68,8 +72,8 @@ public class ProformaInvoice {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  number  Integer value for number.
      * @param  sequenceNumber  Integer value for sequenceNumber.
-     * @param  createdAt  String value for createdAt.
-     * @param  deliveryDate  String value for deliveryDate.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  deliveryDate  LocalDate value for deliveryDate.
      * @param  status  String value for status.
      * @param  collectionMethod  String value for collectionMethod.
      * @param  paymentInstructions  String value for paymentInstructions.
@@ -106,8 +110,8 @@ public class ProformaInvoice {
             Integer subscriptionId,
             Integer number,
             Integer sequenceNumber,
-            String createdAt,
-            String deliveryDate,
+            ZonedDateTime createdAt,
+            LocalDate deliveryDate,
             String status,
             String collectionMethod,
             String paymentInstructions,
@@ -182,8 +186,8 @@ public class ProformaInvoice {
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  number  Integer value for number.
      * @param  sequenceNumber  Integer value for sequenceNumber.
-     * @param  createdAt  String value for createdAt.
-     * @param  deliveryDate  String value for deliveryDate.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  deliveryDate  LocalDate value for deliveryDate.
      * @param  status  String value for status.
      * @param  collectionMethod  String value for collectionMethod.
      * @param  paymentInstructions  String value for paymentInstructions.
@@ -216,17 +220,17 @@ public class ProformaInvoice {
 
     protected ProformaInvoice(String uid, Integer siteId, Integer customerId,
             Integer subscriptionId, OptionalNullable<Integer> number,
-            OptionalNullable<Integer> sequenceNumber, String createdAt, String deliveryDate,
-            String status, String collectionMethod, String paymentInstructions, String currency,
-            String consolidationLevel, String productName, String productFamilyName, String role,
-            InvoiceSeller seller, InvoiceCustomer customer, String memo,
-            InvoiceAddress billingAddress, InvoiceAddress shippingAddress, String subtotalAmount,
-            String discountAmount, String taxAmount, String totalAmount, String creditAmount,
-            String paidAmount, String refundAmount, String dueAmount,
-            List<InvoiceLineItem> lineItems, List<ProformaInvoiceDiscount> discounts,
-            List<ProformaInvoiceTax> taxes, List<ProformaInvoiceCredit> credits,
-            List<ProformaInvoicePayment> payments, List<InvoiceCustomField> customFields,
-            OptionalNullable<String> publicUrl) {
+            OptionalNullable<Integer> sequenceNumber, ZonedDateTime createdAt,
+            LocalDate deliveryDate, String status, String collectionMethod,
+            String paymentInstructions, String currency, String consolidationLevel,
+            String productName, String productFamilyName, String role, InvoiceSeller seller,
+            InvoiceCustomer customer, String memo, InvoiceAddress billingAddress,
+            InvoiceAddress shippingAddress, String subtotalAmount, String discountAmount,
+            String taxAmount, String totalAmount, String creditAmount, String paidAmount,
+            String refundAmount, String dueAmount, List<InvoiceLineItem> lineItems,
+            List<ProformaInvoiceDiscount> discounts, List<ProformaInvoiceTax> taxes,
+            List<ProformaInvoiceCredit> credits, List<ProformaInvoicePayment> payments,
+            List<InvoiceCustomField> customFields, OptionalNullable<String> publicUrl) {
         this.uid = uid;
         this.siteId = siteId;
         this.customerId = customerId;
@@ -413,39 +417,43 @@ public class ProformaInvoice {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for DeliveryDate.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("delivery_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDeliveryDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getDeliveryDate() {
         return deliveryDate;
     }
 
     /**
      * Setter for DeliveryDate.
-     * @param deliveryDate Value for String
+     * @param deliveryDate Value for LocalDate
      */
     @JsonSetter("delivery_date")
-    public void setDeliveryDate(String deliveryDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -1080,8 +1088,8 @@ public class ProformaInvoice {
         private Integer subscriptionId;
         private OptionalNullable<Integer> number;
         private OptionalNullable<Integer> sequenceNumber;
-        private String createdAt;
-        private String deliveryDate;
+        private ZonedDateTime createdAt;
+        private LocalDate deliveryDate;
         private String status;
         private String collectionMethod;
         private String paymentInstructions;
@@ -1193,20 +1201,20 @@ public class ProformaInvoice {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for deliveryDate.
-         * @param  deliveryDate  String value for deliveryDate.
+         * @param  deliveryDate  LocalDate value for deliveryDate.
          * @return Builder
          */
-        public Builder deliveryDate(String deliveryDate) {
+        public Builder deliveryDate(LocalDate deliveryDate) {
             this.deliveryDate = deliveryDate;
             return this;
         }

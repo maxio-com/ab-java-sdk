@@ -10,13 +10,17 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for PendingCancellationChange type.
  */
 public class PendingCancellationChange {
     private String cancellationState;
-    private String cancelsAt;
+    private ZonedDateTime cancelsAt;
 
     /**
      * Default constructor.
@@ -27,12 +31,12 @@ public class PendingCancellationChange {
     /**
      * Initialization constructor.
      * @param  cancellationState  String value for cancellationState.
-     * @param  cancelsAt  String value for cancelsAt.
+     * @param  cancelsAt  ZonedDateTime value for cancelsAt.
      */
     @JsonCreator
     public PendingCancellationChange(
             @JsonProperty("cancellation_state") String cancellationState,
-            @JsonProperty("cancels_at") String cancelsAt) {
+            @JsonProperty("cancels_at") ZonedDateTime cancelsAt) {
         this.cancellationState = cancellationState;
         this.cancelsAt = cancelsAt;
     }
@@ -57,19 +61,21 @@ public class PendingCancellationChange {
 
     /**
      * Getter for CancelsAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("cancels_at")
-    public String getCancelsAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCancelsAt() {
         return cancelsAt;
     }
 
     /**
      * Setter for CancelsAt.
-     * @param cancelsAt Value for String
+     * @param cancelsAt Value for ZonedDateTime
      */
     @JsonSetter("cancels_at")
-    public void setCancelsAt(String cancelsAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCancelsAt(ZonedDateTime cancelsAt) {
         this.cancelsAt = cancelsAt;
     }
 
@@ -98,7 +104,7 @@ public class PendingCancellationChange {
      */
     public static class Builder {
         private String cancellationState;
-        private String cancelsAt;
+        private ZonedDateTime cancelsAt;
 
         /**
          * Initialization constructor.
@@ -109,9 +115,9 @@ public class PendingCancellationChange {
         /**
          * Initialization constructor.
          * @param  cancellationState  String value for cancellationState.
-         * @param  cancelsAt  String value for cancelsAt.
+         * @param  cancelsAt  ZonedDateTime value for cancelsAt.
          */
-        public Builder(String cancellationState, String cancelsAt) {
+        public Builder(String cancellationState, ZonedDateTime cancelsAt) {
             this.cancellationState = cancellationState;
             this.cancelsAt = cancelsAt;
         }
@@ -128,10 +134,10 @@ public class PendingCancellationChange {
 
         /**
          * Setter for cancelsAt.
-         * @param  cancelsAt  String value for cancelsAt.
+         * @param  cancelsAt  ZonedDateTime value for cancelsAt.
          * @return Builder
          */
-        public Builder cancelsAt(String cancelsAt) {
+        public Builder cancelsAt(ZonedDateTime cancelsAt) {
             this.cancelsAt = cancelsAt;
             return this;
         }

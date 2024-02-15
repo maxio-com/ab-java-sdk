@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Timestamp` | `String` | Optional | - | String getTimestamp() | setTimestamp(String timestamp) |
+| `Timestamp` | `ZonedDateTime` | Optional | - | ZonedDateTime getTimestamp() | setTimestamp(ZonedDateTime timestamp) |
 | `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `AmountFormatted` | `String` | Optional | - | String getAmountFormatted() | setAmountFormatted(String amountFormatted) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
@@ -23,7 +23,7 @@
 
 ```json
 {
-  "timestamp": "timestamp0",
+  "timestamp": "2016-03-13T12:52:32.123Z",
   "amount_in_cents": 174,
   "amount_formatted": "amount_formatted4",
   "description": "description2",

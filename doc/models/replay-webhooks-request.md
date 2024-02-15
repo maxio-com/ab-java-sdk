@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Ids` | `List<Integer>` | Required | - | List<Integer> getIds() | setIds(List<Integer> ids) |
+| `Ids` | `List<Long>` | Required | - | List<Long> getIds() | setIds(List<Long> ids) |
 
 ## Example (as JSON)
 

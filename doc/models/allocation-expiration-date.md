@@ -9,13 +9,13 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `ExpiresAt` | `String` | Optional | - | String getExpiresAt() | setExpiresAt(String expiresAt) |
+| `ExpiresAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getExpiresAt() | setExpiresAt(ZonedDateTime expiresAt) |
 
 ## Example (as JSON)
 
 ```json
 {
-  "expires_at": "expires_at0"
+  "expires_at": "2016-03-13T12:52:32.123Z"
 }
 ```
 

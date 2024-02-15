@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -21,7 +25,7 @@ public class FullSubscriptionGroupResponse {
     private Integer paymentProfileId;
     private List<Integer> subscriptionIds;
     private Integer primarySubscriptionId;
-    private String nextAssessmentAt;
+    private ZonedDateTime nextAssessmentAt;
     private String state;
     private Boolean cancelAtEndOfPeriod;
     private Long currentBillingAmountInCents;
@@ -42,7 +46,7 @@ public class FullSubscriptionGroupResponse {
      * @param  paymentProfileId  Integer value for paymentProfileId.
      * @param  subscriptionIds  List of Integer value for subscriptionIds.
      * @param  primarySubscriptionId  Integer value for primarySubscriptionId.
-     * @param  nextAssessmentAt  String value for nextAssessmentAt.
+     * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
      * @param  state  String value for state.
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
      * @param  currentBillingAmountInCents  Long value for currentBillingAmountInCents.
@@ -56,7 +60,7 @@ public class FullSubscriptionGroupResponse {
             Integer paymentProfileId,
             List<Integer> subscriptionIds,
             Integer primarySubscriptionId,
-            String nextAssessmentAt,
+            ZonedDateTime nextAssessmentAt,
             String state,
             Boolean cancelAtEndOfPeriod,
             Long currentBillingAmountInCents,
@@ -192,20 +196,22 @@ public class FullSubscriptionGroupResponse {
 
     /**
      * Getter for NextAssessmentAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("next_assessment_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getNextAssessmentAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getNextAssessmentAt() {
         return nextAssessmentAt;
     }
 
     /**
      * Setter for NextAssessmentAt.
-     * @param nextAssessmentAt Value for String
+     * @param nextAssessmentAt Value for ZonedDateTime
      */
     @JsonSetter("next_assessment_at")
-    public void setNextAssessmentAt(String nextAssessmentAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setNextAssessmentAt(ZonedDateTime nextAssessmentAt) {
         this.nextAssessmentAt = nextAssessmentAt;
     }
 
@@ -351,7 +357,7 @@ public class FullSubscriptionGroupResponse {
         private Integer paymentProfileId;
         private List<Integer> subscriptionIds;
         private Integer primarySubscriptionId;
-        private String nextAssessmentAt;
+        private ZonedDateTime nextAssessmentAt;
         private String state;
         private Boolean cancelAtEndOfPeriod;
         private Long currentBillingAmountInCents;
@@ -422,10 +428,10 @@ public class FullSubscriptionGroupResponse {
 
         /**
          * Setter for nextAssessmentAt.
-         * @param  nextAssessmentAt  String value for nextAssessmentAt.
+         * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
          * @return Builder
          */
-        public Builder nextAssessmentAt(String nextAssessmentAt) {
+        public Builder nextAssessmentAt(ZonedDateTime nextAssessmentAt) {
             this.nextAssessmentAt = nextAssessmentAt;
             return this;
         }

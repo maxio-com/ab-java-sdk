@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for MRR type.
@@ -19,7 +23,7 @@ public class MRR {
     private String currency;
     private String currencySymbol;
     private Breakouts breakouts;
-    private String atTime;
+    private ZonedDateTime atTime;
 
     /**
      * Default constructor.
@@ -34,7 +38,7 @@ public class MRR {
      * @param  currency  String value for currency.
      * @param  currencySymbol  String value for currencySymbol.
      * @param  breakouts  Breakouts value for breakouts.
-     * @param  atTime  String value for atTime.
+     * @param  atTime  ZonedDateTime value for atTime.
      */
     public MRR(
             Long amountInCents,
@@ -42,7 +46,7 @@ public class MRR {
             String currency,
             String currencySymbol,
             Breakouts breakouts,
-            String atTime) {
+            ZonedDateTime atTime) {
         this.amountInCents = amountInCents;
         this.amountFormatted = amountFormatted;
         this.currency = currency;
@@ -149,21 +153,23 @@ public class MRR {
     /**
      * Getter for AtTime.
      * ISO8601 timestamp
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("at_time")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getAtTime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getAtTime() {
         return atTime;
     }
 
     /**
      * Setter for AtTime.
      * ISO8601 timestamp
-     * @param atTime Value for String
+     * @param atTime Value for ZonedDateTime
      */
     @JsonSetter("at_time")
-    public void setAtTime(String atTime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setAtTime(ZonedDateTime atTime) {
         this.atTime = atTime;
     }
 
@@ -203,7 +209,7 @@ public class MRR {
         private String currency;
         private String currencySymbol;
         private Breakouts breakouts;
-        private String atTime;
+        private ZonedDateTime atTime;
 
 
 
@@ -259,10 +265,10 @@ public class MRR {
 
         /**
          * Setter for atTime.
-         * @param  atTime  String value for atTime.
+         * @param  atTime  ZonedDateTime value for atTime.
          * @return Builder
          */
-        public Builder atTime(String atTime) {
+        public Builder atTime(ZonedDateTime atTime) {
             this.atTime = atTime;
             return this;
         }

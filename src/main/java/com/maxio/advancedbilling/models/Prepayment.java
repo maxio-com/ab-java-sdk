@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Prepayment type.
@@ -23,7 +27,7 @@ public class Prepayment {
     private boolean external;
     private String memo;
     private PrepaymentMethod paymentType;
-    private String createdAt;
+    private ZonedDateTime createdAt;
 
     /**
      * Default constructor.
@@ -39,7 +43,7 @@ public class Prepayment {
      * @param  remainingAmountInCents  long value for remainingAmountInCents.
      * @param  external  boolean value for external.
      * @param  memo  String value for memo.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  refundedAmountInCents  Long value for refundedAmountInCents.
      * @param  details  String value for details.
      * @param  paymentType  PrepaymentMethod value for paymentType.
@@ -51,7 +55,7 @@ public class Prepayment {
             long remainingAmountInCents,
             boolean external,
             String memo,
-            String createdAt,
+            ZonedDateTime createdAt,
             Long refundedAmountInCents,
             String details,
             PrepaymentMethod paymentType) {
@@ -236,19 +240,21 @@ public class Prepayment {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -289,7 +295,7 @@ public class Prepayment {
         private long remainingAmountInCents;
         private boolean external;
         private String memo;
-        private String createdAt;
+        private ZonedDateTime createdAt;
         private Long refundedAmountInCents;
         private String details;
         private PrepaymentMethod paymentType;
@@ -308,10 +314,10 @@ public class Prepayment {
          * @param  remainingAmountInCents  long value for remainingAmountInCents.
          * @param  external  boolean value for external.
          * @param  memo  String value for memo.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          */
         public Builder(int id, int subscriptionId, long amountInCents, long remainingAmountInCents,
-                boolean external, String memo, String createdAt) {
+                boolean external, String memo, ZonedDateTime createdAt) {
             this.id = id;
             this.subscriptionId = subscriptionId;
             this.amountInCents = amountInCents;
@@ -383,10 +389,10 @@ public class Prepayment {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
