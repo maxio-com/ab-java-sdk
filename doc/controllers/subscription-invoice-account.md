@@ -89,7 +89,7 @@ CreatePrepaymentRequest body = new CreatePrepaymentRequest.Builder(
         100D,
         "John Doe signup for $100",
         "Signup for $100",
-        PrepaymentMethod.CHECK
+        CreatePrepaymentMethod.CHECK
     )
     .build()
 )

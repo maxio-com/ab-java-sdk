@@ -24,7 +24,7 @@
     "details": "details8",
     "external": false,
     "memo": "memo2",
-    "payment_type": "credit_card_on_file",
+    "payment_type": "credit_card",
     "created_at": "created_at6"
   }
 }

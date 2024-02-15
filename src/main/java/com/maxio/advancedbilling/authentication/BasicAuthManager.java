@@ -4,8 +4,10 @@
  * This file was automatically generated for Maxio by APIMATIC v3.0 ( https://www.apimatic.io ).
  */
 
-package com.maxio.advancedbilling;
+package com.maxio.advancedbilling.authentication;
 
+import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.BasicAuthCredentials;
 import io.apimatic.core.authentication.HeaderAuth;
 import java.util.Collections;
 
@@ -14,20 +16,21 @@ import java.util.Collections;
  */
 public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials {
 
-    private String basicAuthUserName;
-
-    private String basicAuthPassword;
+    /**
+     * Private instance of the auth model containing the auth credentials.
+     */
+    private BasicAuthModel authModel;
 
     /**
      * Constructor.
-     * @param username String value for username.
-     * @param password String value for password.
+     * @param authModel The data model instance for auth credentials.
      */
-    public BasicAuthManager(String username, String password) {
+    public BasicAuthManager(BasicAuthModel authModel) {
         super(Collections.singletonMap("Authorization",
-                ApiHelper.getBase64EncodedCredentials(username, password)));
-        this.basicAuthUserName = username;
-        this.basicAuthPassword = password;
+                ApiHelper.getBase64EncodedCredentials(
+                        authModel.getUsername(),
+                        authModel.getPassword())));
+        this.authModel = authModel;
     }
 
     /**
@@ -35,7 +38,7 @@ public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials
      * @return basicAuthUserName
      */
     public String getBasicAuthUserName() {
-        return basicAuthUserName;
+        return authModel.getUsername();
     }
 
     /**
@@ -43,7 +46,7 @@ public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials
      * @return basicAuthPassword
      */
     public String getBasicAuthPassword() {
-        return basicAuthPassword;
+        return authModel.getPassword();
     }
 
     /**
@@ -63,8 +66,21 @@ public class BasicAuthManager extends HeaderAuth implements BasicAuthCredentials
      */
     @Override
     public String toString() {
-        return "BasicAuthManager [" + "basicAuthUserName=" + basicAuthUserName
-                + ", basicAuthPassword=" + basicAuthPassword + "]";
+        return "BasicAuthManager [" + "basicAuthUserName=" + getBasicAuthUserName()
+                + ", basicAuthPassword=" + getBasicAuthPassword() + "]";
     }
+    /**
+    * Returns the error message if the auth credentials are not valid.
+    * @return the auth specific error message.
+    */
+    @Override
+    public String getErrorMessage() {
+        String errorMessage = super.getErrorMessage();
+        if (errorMessage == null) {
+            return null;
+        }
+
+        return "BasicAuth - " + errorMessage;
+     }
 
 }

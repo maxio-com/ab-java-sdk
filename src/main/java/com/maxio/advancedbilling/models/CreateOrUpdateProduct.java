@@ -22,6 +22,12 @@ public class CreateOrUpdateProduct {
     private long priceInCents;
     private int interval;
     private IntervalUnit intervalUnit;
+    private Long trialPriceInCents;
+    private Integer trialInterval;
+    private IntervalUnit trialIntervalUnit;
+    private String trialType;
+    private Integer expirationInterval;
+    private IntervalUnit expirationIntervalUnit;
     private Boolean autoCreateSignupPage;
     private String taxCode;
 
@@ -41,6 +47,12 @@ public class CreateOrUpdateProduct {
      * @param  handle  String value for handle.
      * @param  accountingCode  String value for accountingCode.
      * @param  requireCreditCard  Boolean value for requireCreditCard.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
+     * @param  trialInterval  Integer value for trialInterval.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
+     * @param  trialType  String value for trialType.
+     * @param  expirationInterval  Integer value for expirationInterval.
+     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
      * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
      * @param  taxCode  String value for taxCode.
      */
@@ -53,6 +65,12 @@ public class CreateOrUpdateProduct {
             String handle,
             String accountingCode,
             Boolean requireCreditCard,
+            Long trialPriceInCents,
+            Integer trialInterval,
+            IntervalUnit trialIntervalUnit,
+            String trialType,
+            Integer expirationInterval,
+            IntervalUnit expirationIntervalUnit,
             Boolean autoCreateSignupPage,
             String taxCode) {
         this.name = name;
@@ -63,6 +81,12 @@ public class CreateOrUpdateProduct {
         this.priceInCents = priceInCents;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
+        this.trialPriceInCents = trialPriceInCents;
+        this.trialInterval = trialInterval;
+        this.trialIntervalUnit = trialIntervalUnit;
+        this.trialType = trialType;
+        this.expirationInterval = expirationInterval;
+        this.expirationIntervalUnit = expirationIntervalUnit;
         this.autoCreateSignupPage = autoCreateSignupPage;
         this.taxCode = taxCode;
     }
@@ -235,6 +259,134 @@ public class CreateOrUpdateProduct {
     }
 
     /**
+     * Getter for TrialPriceInCents.
+     * The product trial price, in integer cents
+     * @return Returns the Long
+     */
+    @JsonGetter("trial_price_in_cents")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getTrialPriceInCents() {
+        return trialPriceInCents;
+    }
+
+    /**
+     * Setter for TrialPriceInCents.
+     * The product trial price, in integer cents
+     * @param trialPriceInCents Value for Long
+     */
+    @JsonSetter("trial_price_in_cents")
+    public void setTrialPriceInCents(Long trialPriceInCents) {
+        this.trialPriceInCents = trialPriceInCents;
+    }
+
+    /**
+     * Getter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product trial would last 30 days.
+     * @return Returns the Integer
+     */
+    @JsonGetter("trial_interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getTrialInterval() {
+        return trialInterval;
+    }
+
+    /**
+     * Setter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product trial would last 30 days.
+     * @param trialInterval Value for Integer
+     */
+    @JsonSetter("trial_interval")
+    public void setTrialInterval(Integer trialInterval) {
+        this.trialInterval = trialInterval;
+    }
+
+    /**
+     * Getter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("trial_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getTrialIntervalUnit() {
+        return trialIntervalUnit;
+    }
+
+    /**
+     * Setter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     * @param trialIntervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("trial_interval_unit")
+    public void setTrialIntervalUnit(IntervalUnit trialIntervalUnit) {
+        this.trialIntervalUnit = trialIntervalUnit;
+    }
+
+    /**
+     * Getter for TrialType.
+     * @return Returns the String
+     */
+    @JsonGetter("trial_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTrialType() {
+        return trialType;
+    }
+
+    /**
+     * Setter for TrialType.
+     * @param trialType Value for String
+     */
+    @JsonSetter("trial_type")
+    public void setTrialType(String trialType) {
+        this.trialType = trialType;
+    }
+
+    /**
+     * Getter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product would expire after 30 days.
+     * @return Returns the Integer
+     */
+    @JsonGetter("expiration_interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getExpirationInterval() {
+        return expirationInterval;
+    }
+
+    /**
+     * Setter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product would expire after 30 days.
+     * @param expirationInterval Value for Integer
+     */
+    @JsonSetter("expiration_interval")
+    public void setExpirationInterval(Integer expirationInterval) {
+        this.expirationInterval = expirationInterval;
+    }
+
+    /**
+     * Getter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product, either month or day
+     * @return Returns the IntervalUnit
+     */
+    @JsonGetter("expiration_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public IntervalUnit getExpirationIntervalUnit() {
+        return expirationIntervalUnit;
+    }
+
+    /**
+     * Setter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product, either month or day
+     * @param expirationIntervalUnit Value for IntervalUnit
+     */
+    @JsonSetter("expiration_interval_unit")
+    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
+        this.expirationIntervalUnit = expirationIntervalUnit;
+    }
+
+    /**
      * Getter for AutoCreateSignupPage.
      * @return Returns the Boolean
      */
@@ -287,8 +439,11 @@ public class CreateOrUpdateProduct {
         return "CreateOrUpdateProduct [" + "name=" + name + ", description=" + description
                 + ", priceInCents=" + priceInCents + ", interval=" + interval + ", intervalUnit="
                 + intervalUnit + ", handle=" + handle + ", accountingCode=" + accountingCode
-                + ", requireCreditCard=" + requireCreditCard + ", autoCreateSignupPage="
-                + autoCreateSignupPage + ", taxCode=" + taxCode + "]";
+                + ", requireCreditCard=" + requireCreditCard + ", trialPriceInCents="
+                + trialPriceInCents + ", trialInterval=" + trialInterval + ", trialIntervalUnit="
+                + trialIntervalUnit + ", trialType=" + trialType + ", expirationInterval="
+                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
+                + ", autoCreateSignupPage=" + autoCreateSignupPage + ", taxCode=" + taxCode + "]";
     }
 
     /**
@@ -301,6 +456,12 @@ public class CreateOrUpdateProduct {
                 .handle(getHandle())
                 .accountingCode(getAccountingCode())
                 .requireCreditCard(getRequireCreditCard())
+                .trialPriceInCents(getTrialPriceInCents())
+                .trialInterval(getTrialInterval())
+                .trialIntervalUnit(getTrialIntervalUnit())
+                .trialType(getTrialType())
+                .expirationInterval(getExpirationInterval())
+                .expirationIntervalUnit(getExpirationIntervalUnit())
                 .autoCreateSignupPage(getAutoCreateSignupPage())
                 .taxCode(getTaxCode());
         return builder;
@@ -318,6 +479,12 @@ public class CreateOrUpdateProduct {
         private String handle;
         private String accountingCode;
         private Boolean requireCreditCard;
+        private Long trialPriceInCents;
+        private Integer trialInterval;
+        private IntervalUnit trialIntervalUnit;
+        private String trialType;
+        private Integer expirationInterval;
+        private IntervalUnit expirationIntervalUnit;
         private Boolean autoCreateSignupPage;
         private String taxCode;
 
@@ -425,6 +592,66 @@ public class CreateOrUpdateProduct {
         }
 
         /**
+         * Setter for trialPriceInCents.
+         * @param  trialPriceInCents  Long value for trialPriceInCents.
+         * @return Builder
+         */
+        public Builder trialPriceInCents(Long trialPriceInCents) {
+            this.trialPriceInCents = trialPriceInCents;
+            return this;
+        }
+
+        /**
+         * Setter for trialInterval.
+         * @param  trialInterval  Integer value for trialInterval.
+         * @return Builder
+         */
+        public Builder trialInterval(Integer trialInterval) {
+            this.trialInterval = trialInterval;
+            return this;
+        }
+
+        /**
+         * Setter for trialIntervalUnit.
+         * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
+         * @return Builder
+         */
+        public Builder trialIntervalUnit(IntervalUnit trialIntervalUnit) {
+            this.trialIntervalUnit = trialIntervalUnit;
+            return this;
+        }
+
+        /**
+         * Setter for trialType.
+         * @param  trialType  String value for trialType.
+         * @return Builder
+         */
+        public Builder trialType(String trialType) {
+            this.trialType = trialType;
+            return this;
+        }
+
+        /**
+         * Setter for expirationInterval.
+         * @param  expirationInterval  Integer value for expirationInterval.
+         * @return Builder
+         */
+        public Builder expirationInterval(Integer expirationInterval) {
+            this.expirationInterval = expirationInterval;
+            return this;
+        }
+
+        /**
+         * Setter for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
+            this.expirationIntervalUnit = expirationIntervalUnit;
+            return this;
+        }
+
+        /**
          * Setter for autoCreateSignupPage.
          * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
          * @return Builder
@@ -450,8 +677,9 @@ public class CreateOrUpdateProduct {
          */
         public CreateOrUpdateProduct build() {
             return new CreateOrUpdateProduct(name, description, priceInCents, interval,
-                    intervalUnit, handle, accountingCode, requireCreditCard, autoCreateSignupPage,
-                    taxCode);
+                    intervalUnit, handle, accountingCode, requireCreditCard, trialPriceInCents,
+                    trialInterval, trialIntervalUnit, trialType, expirationInterval,
+                    expirationIntervalUnit, autoCreateSignupPage, taxCode);
         }
     }
 }

@@ -12,7 +12,7 @@
 | `Amount` | `String` | Required | - | String getAmount() | setAmount(String amount) |
 | `Memo` | `String` | Required | - | String getMemo() | setMemo(String memo) |
 | `PaymentDetails` | `String` | Required | - | String getPaymentDetails() | setPaymentDetails(String paymentDetails) |
-| `PaymentMethod` | `String` | Required | - | String getPaymentMethod() | setPaymentMethod(String paymentMethod) |
+| `PaymentMethod` | [`InvoicePaymentMethodType`](../../doc/models/invoice-payment-method-type.md) | Required | The type of payment method used. Defaults to other. | InvoicePaymentMethodType getPaymentMethod() | setPaymentMethod(InvoicePaymentMethodType paymentMethod) |
 
 ## Example (as JSON)
 
@@ -21,7 +21,7 @@
   "amount": "amount6",
   "memo": "memo8",
   "payment_details": "payment_details4",
-  "payment_method": "payment_method6"
+  "payment_method": "cash"
 }
 ```
 

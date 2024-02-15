@@ -6,6 +6,8 @@
 
 package com.maxio.advancedbilling;
 
+import com.maxio.advancedbilling.authentication.BasicAuthManager;
+import com.maxio.advancedbilling.authentication.BasicAuthModel;
 import com.maxio.advancedbilling.controllers.APIExportsController;
 import com.maxio.advancedbilling.controllers.AdvanceInvoiceController;
 import com.maxio.advancedbilling.controllers.BillingPortalController;
@@ -126,15 +128,18 @@ public final class AdvancedBillingClient implements Configuration {
     private BasicAuthManager basicAuthManager;
 
     /**
+     * The instance of BasicAuthModel.
+     */
+    private BasicAuthModel basicAuthModel;
+
+    /**
      * Map of authentication Managers.
      */
     private Map<String, Authentication> authentications;
 
-
     private AdvancedBillingClient(Environment environment, String subdomain, String domain,
             HttpClient httpClient, ReadonlyHttpClientConfiguration httpClientConfig,
-            String basicAuthUserName, String basicAuthPassword,
-            Map<String, Authentication> authentications) {
+            BasicAuthModel basicAuthModel, Map<String, Authentication> authentications) {
         this.environment = environment;
         this.subdomain = subdomain;
         this.domain = domain;
@@ -142,19 +147,23 @@ public final class AdvancedBillingClient implements Configuration {
         this.httpClientConfig = httpClientConfig;
         this.authentications = 
                 (authentications == null) ? new HashMap<>() : new HashMap<>(authentications);
-        if (this.authentications.containsKey("global")) {
-            this.basicAuthManager = (BasicAuthManager) this.authentications.get("global");
+        this.basicAuthModel = basicAuthModel;
+
+        if (this.authentications.containsKey("BasicAuth")) {
+            this.basicAuthManager = (BasicAuthManager) this.authentications.get("BasicAuth");
         }
 
-        if (!this.authentications.containsKey("global")
-                || !getBasicAuthCredentials().equals(basicAuthUserName, basicAuthPassword)) {
-            this.basicAuthManager = new BasicAuthManager(basicAuthUserName, basicAuthPassword);
-            this.authentications.put("global", basicAuthManager);
+        if (!this.authentications.containsKey("BasicAuth")
+                || !getBasicAuthCredentials().equals(basicAuthModel.getUsername(),
+                        basicAuthModel.getPassword())) {
+            this.basicAuthManager = new BasicAuthManager(basicAuthModel);
+            this.authentications.put("BasicAuth", basicAuthManager);
         }
 
         GlobalConfiguration globalConfig = new GlobalConfiguration.Builder()
-                .authentication(this.authentications).compatibilityFactory(compatibilityFactory)
                 .httpClient(httpClient).baseUri(server -> getBaseUri(server))
+                .compatibilityFactory(compatibilityFactory)
+                .authentication(this.authentications)
                 .userAgent(userAgent)
                 .build();
         aPIExports = new APIExportsController(globalConfig);
@@ -493,6 +502,14 @@ public final class AdvancedBillingClient implements Configuration {
     public BasicAuthCredentials getBasicAuthCredentials() {
         return basicAuthManager;
     }
+
+    /**
+     * The auth credential model for BasicAuth.
+     * @return the instance of BasicAuthModel
+     */
+    public BasicAuthModel getBasicAuthModel() {
+        return basicAuthModel;
+    }
     /**
      * The timeout to use for making HTTP requests.
      * @deprecated This method will be removed in a future version. Use
@@ -583,8 +600,8 @@ public final class AdvancedBillingClient implements Configuration {
         builder.subdomain = getSubdomain();
         builder.domain = getDomain();
         builder.httpClient = getHttpClient();
-        builder.basicAuthUserName = getBasicAuthCredentials().getBasicAuthUserName();
-        builder.basicAuthPassword = getBasicAuthCredentials().getBasicAuthPassword();
+        builder.basicAuthCredentials(getBasicAuthModel()
+                .toBuilder().build());
         builder.authentications = authentications;
         builder.httpClientConfig(configBldr -> configBldr =
                 ((HttpClientConfiguration) httpClientConfig).newBuilder());
@@ -600,8 +617,7 @@ public final class AdvancedBillingClient implements Configuration {
         private String subdomain = "subdomain";
         private String domain = "chargify.com";
         private HttpClient httpClient;
-        private String basicAuthUserName = "TODO: Replace";
-        private String basicAuthPassword = "TODO: Replace";
+        private BasicAuthModel basicAuthModel = new BasicAuthModel.Builder("", "").build();
         private Map<String, Authentication> authentications = null;
         private HttpClientConfiguration.Builder httpClientConfigBuilder =
                 new HttpClientConfiguration.Builder();
@@ -611,17 +627,26 @@ public final class AdvancedBillingClient implements Configuration {
          * Credentials setter for BasicAuth.
          * @param basicAuthUserName String value for basicAuthUserName.
          * @param basicAuthPassword String value for basicAuthPassword.
-         * @return Builder
+         * @deprecated This builder method is deprecated.
+         * Use {@link #basicAuthCredentials(BasicAuthModel) basicAuthCredentials} instead.
+         * @return The current instance of builder.
          */
+        @Deprecated
         public Builder basicAuthCredentials(String basicAuthUserName, String basicAuthPassword) {
-            if (basicAuthUserName == null) {
-                throw new NullPointerException("BasicAuthUserName cannot be null.");
-            }
-            if (basicAuthPassword == null) {
-                throw new NullPointerException("BasicAuthPassword cannot be null.");
-            }
-            this.basicAuthUserName = basicAuthUserName;
-            this.basicAuthPassword = basicAuthPassword;
+            basicAuthModel = basicAuthModel.toBuilder()
+                .username(basicAuthUserName)
+                .password(basicAuthPassword)
+                .build();
+            return this;
+        }
+
+        /**
+         * Credentials setter for BasicAuthCredentials.
+         * @param basicAuthModel The instance of BasicAuthModel.
+         * @return The current instance of builder.
+         */
+        public Builder basicAuthCredentials(BasicAuthModel basicAuthModel) {
+            this.basicAuthModel = basicAuthModel;
             return this;
         }
 
@@ -689,7 +714,7 @@ public final class AdvancedBillingClient implements Configuration {
             httpClient = new OkClient(httpClientConfig.getConfiguration(), compatibilityFactory);
 
             return new AdvancedBillingClient(environment, subdomain, domain, httpClient,
-                    httpClientConfig, basicAuthUserName, basicAuthPassword, authentications);
+                    httpClientConfig, basicAuthModel, authentications);
         }
     }
 }

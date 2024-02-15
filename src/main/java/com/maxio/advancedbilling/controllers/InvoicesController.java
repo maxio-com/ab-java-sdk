@@ -31,8 +31,8 @@ import com.maxio.advancedbilling.models.ListInvoiceEventsResponse;
 import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.ListInvoicesResponse;
 import com.maxio.advancedbilling.models.MultiInvoicePaymentResponse;
-import com.maxio.advancedbilling.models.PaymentResponse;
 import com.maxio.advancedbilling.models.RecordPaymentRequest;
+import com.maxio.advancedbilling.models.RecordPaymentResponse;
 import com.maxio.advancedbilling.models.RefundInvoiceRequest;
 import com.maxio.advancedbilling.models.SendInvoiceRequest;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
@@ -91,7 +91,8 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -176,7 +177,8 @@ public final class InvoicesController extends BaseController {
                         .queryParam(param -> param.key("sort")
                                 .value((input.getSort() != null) ? input.getSort().value() : "number").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -214,7 +216,8 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -271,7 +274,8 @@ public final class InvoicesController extends BaseController {
                         .queryParam(param -> param.key("event_types")
                                 .value(InvoiceEventType.toValue(input.getEventTypes())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -333,7 +337,8 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -382,7 +387,8 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -439,7 +445,8 @@ public final class InvoicesController extends BaseController {
                         .queryParam(param -> param.key("applications")
                                 .value(input.getApplications()).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -476,7 +483,8 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -496,11 +504,11 @@ public final class InvoicesController extends BaseController {
      * subscriptions may be paid using the "bulk" payment request.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter: Example:
-     * @return    Returns the PaymentResponse response from the API call
+     * @return    Returns the RecordPaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public PaymentResponse recordPaymentForSubscription(
+    public RecordPaymentResponse recordPaymentForSubscription(
             final int subscriptionId,
             final RecordPaymentRequest body) throws ApiException, IOException {
         return prepareRecordPaymentForSubscriptionRequest(subscriptionId, body).execute();
@@ -509,10 +517,10 @@ public final class InvoicesController extends BaseController {
     /**
      * Builds the ApiCall object for recordPaymentForSubscription.
      */
-    private ApiCall<PaymentResponse, ApiException> prepareRecordPaymentForSubscriptionRequest(
+    private ApiCall<RecordPaymentResponse, ApiException> prepareRecordPaymentForSubscriptionRequest(
             final int subscriptionId,
             final RecordPaymentRequest body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<PaymentResponse, ApiException>()
+        return new ApiCall.Builder<RecordPaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -524,11 +532,12 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, PaymentResponse.class))
+                                response -> ApiHelper.deserialize(response, RecordPaymentResponse.class))
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
@@ -576,7 +585,8 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -629,7 +639,8 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -679,7 +690,8 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("invoice_uid").value(input.getInvoiceUid())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -790,7 +802,8 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -846,7 +859,8 @@ public final class InvoicesController extends BaseController {
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -889,7 +903,8 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -937,7 +952,8 @@ public final class InvoicesController extends BaseController {
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -1006,7 +1022,8 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
-                        .authenticationKey(BaseController.AUTHENTICATION_KEY)
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(

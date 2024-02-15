@@ -9,8 +9,7 @@ The following parameters are configurable for the API Client:
 | `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
 | `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
-| `basicAuthUserName` | `String` | The username to use with basic authentication |
-| `basicAuthPassword` | `String` | The password to use with basic authentication |
+| `basicAuthCredentials` | [`BasicAuthCredentials`]($a/basic-authentication.md) | The Credentials Setter for Basic Authentication |
 
 The API client can be initialized as follows:
 
@@ -18,7 +17,11 @@ The API client can be initialized as follows:
 AdvancedBillingClient client = new AdvancedBillingClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
-    .basicAuthCredentials("BasicAuthUserName", "BasicAuthPassword")
+    .basicAuthCredentials(new BasicAuthModel.Builder(
+            "BasicAuthUserName",
+            "BasicAuthPassword"
+        )
+        .build())
     .environment(Environment.PRODUCTION)
     .subdomain("subdomain")
     .domain("chargify.com")
@@ -75,6 +78,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | `getDomain()` | The Chargify server domain. | `String` |
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
 | `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) |
+| `getBasicAuthCredentials()` | The credentials to use with BasicAuth. | [`BasicAuthCredentials`]($a/basic-authentication.md) |
 | `getBaseUri(Server server)` | Get base URI by current environment | `String` |
 | `getBaseUri()` | Get base URI by current environment | `String` |
 

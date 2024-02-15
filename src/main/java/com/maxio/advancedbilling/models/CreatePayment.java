@@ -16,7 +16,7 @@ public class CreatePayment {
     private String amount;
     private String memo;
     private String paymentDetails;
-    private String paymentMethod;
+    private InvoicePaymentMethodType paymentMethod;
 
     /**
      * Default constructor.
@@ -29,13 +29,13 @@ public class CreatePayment {
      * @param  amount  String value for amount.
      * @param  memo  String value for memo.
      * @param  paymentDetails  String value for paymentDetails.
-     * @param  paymentMethod  String value for paymentMethod.
+     * @param  paymentMethod  InvoicePaymentMethodType value for paymentMethod.
      */
     public CreatePayment(
             String amount,
             String memo,
             String paymentDetails,
-            String paymentMethod) {
+            InvoicePaymentMethodType paymentMethod) {
         this.amount = amount;
         this.memo = memo;
         this.paymentDetails = paymentDetails;
@@ -98,19 +98,21 @@ public class CreatePayment {
 
     /**
      * Getter for PaymentMethod.
-     * @return Returns the String
+     * The type of payment method used. Defaults to other.
+     * @return Returns the InvoicePaymentMethodType
      */
     @JsonGetter("payment_method")
-    public String getPaymentMethod() {
+    public InvoicePaymentMethodType getPaymentMethod() {
         return paymentMethod;
     }
 
     /**
      * Setter for PaymentMethod.
-     * @param paymentMethod Value for String
+     * The type of payment method used. Defaults to other.
+     * @param paymentMethod Value for InvoicePaymentMethodType
      */
     @JsonSetter("payment_method")
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(InvoicePaymentMethodType paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -141,7 +143,7 @@ public class CreatePayment {
         private String amount;
         private String memo;
         private String paymentDetails;
-        private String paymentMethod;
+        private InvoicePaymentMethodType paymentMethod;
 
         /**
          * Initialization constructor.
@@ -154,9 +156,10 @@ public class CreatePayment {
          * @param  amount  String value for amount.
          * @param  memo  String value for memo.
          * @param  paymentDetails  String value for paymentDetails.
-         * @param  paymentMethod  String value for paymentMethod.
+         * @param  paymentMethod  InvoicePaymentMethodType value for paymentMethod.
          */
-        public Builder(String amount, String memo, String paymentDetails, String paymentMethod) {
+        public Builder(String amount, String memo, String paymentDetails,
+                InvoicePaymentMethodType paymentMethod) {
             this.amount = amount;
             this.memo = memo;
             this.paymentDetails = paymentDetails;
@@ -195,10 +198,10 @@ public class CreatePayment {
 
         /**
          * Setter for paymentMethod.
-         * @param  paymentMethod  String value for paymentMethod.
+         * @param  paymentMethod  InvoicePaymentMethodType value for paymentMethod.
          * @return Builder
          */
-        public Builder paymentMethod(String paymentMethod) {
+        public Builder paymentMethod(InvoicePaymentMethodType paymentMethod) {
             this.paymentMethod = paymentMethod;
             return this;
         }

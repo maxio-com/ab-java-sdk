@@ -210,8 +210,8 @@ public class CreateProductPricePoint {
 
     /**
      * Getter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with an trial_interval_unit of
-     * day would mean this product price point would renew every 30 days
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days.
      * @return Returns the Integer
      */
     @JsonGetter("trial_interval")
@@ -222,8 +222,8 @@ public class CreateProductPricePoint {
 
     /**
      * Setter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with an trial_interval_unit of
-     * day would mean this product price point would renew every 30 days
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days.
      * @param trialInterval Value for Integer
      */
     @JsonSetter("trial_interval")
@@ -316,8 +316,8 @@ public class CreateProductPricePoint {
     /**
      * Getter for ExpirationInterval.
      * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
-     * expiration_interval_unit of day would mean this product price point would expire every 30
-     * days
+     * expiration_interval_unit of day would mean this product price point would expire after 30
+     * days.
      * @return Returns the Integer
      */
     @JsonGetter("expiration_interval")
@@ -329,8 +329,8 @@ public class CreateProductPricePoint {
     /**
      * Setter for ExpirationInterval.
      * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
-     * expiration_interval_unit of day would mean this product price point would expire every 30
-     * days
+     * expiration_interval_unit of day would mean this product price point would expire after 30
+     * days.
      * @param expirationInterval Value for Integer
      */
     @JsonSetter("expiration_interval")
