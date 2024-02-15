@@ -8,6 +8,10 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for DunnerData type.
@@ -16,9 +20,9 @@ public class DunnerData {
     private String state;
     private int subscriptionId;
     private long revenueAtRiskInCents;
-    private String createdAt;
+    private ZonedDateTime createdAt;
     private int attempts;
-    private String lastAttemptedAt;
+    private ZonedDateTime lastAttemptedAt;
 
     /**
      * Default constructor.
@@ -31,17 +35,17 @@ public class DunnerData {
      * @param  state  String value for state.
      * @param  subscriptionId  int value for subscriptionId.
      * @param  revenueAtRiskInCents  long value for revenueAtRiskInCents.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  attempts  int value for attempts.
-     * @param  lastAttemptedAt  String value for lastAttemptedAt.
+     * @param  lastAttemptedAt  ZonedDateTime value for lastAttemptedAt.
      */
     public DunnerData(
             String state,
             int subscriptionId,
             long revenueAtRiskInCents,
-            String createdAt,
+            ZonedDateTime createdAt,
             int attempts,
-            String lastAttemptedAt) {
+            ZonedDateTime lastAttemptedAt) {
         this.state = state;
         this.subscriptionId = subscriptionId;
         this.revenueAtRiskInCents = revenueAtRiskInCents;
@@ -106,19 +110,21 @@ public class DunnerData {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -142,19 +148,21 @@ public class DunnerData {
 
     /**
      * Getter for LastAttemptedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("last_attempted_at")
-    public String getLastAttemptedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getLastAttemptedAt() {
         return lastAttemptedAt;
     }
 
     /**
      * Setter for LastAttemptedAt.
-     * @param lastAttemptedAt Value for String
+     * @param lastAttemptedAt Value for ZonedDateTime
      */
     @JsonSetter("last_attempted_at")
-    public void setLastAttemptedAt(String lastAttemptedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setLastAttemptedAt(ZonedDateTime lastAttemptedAt) {
         this.lastAttemptedAt = lastAttemptedAt;
     }
 
@@ -187,9 +195,9 @@ public class DunnerData {
         private String state;
         private int subscriptionId;
         private long revenueAtRiskInCents;
-        private String createdAt;
+        private ZonedDateTime createdAt;
         private int attempts;
-        private String lastAttemptedAt;
+        private ZonedDateTime lastAttemptedAt;
 
         /**
          * Initialization constructor.
@@ -202,12 +210,12 @@ public class DunnerData {
          * @param  state  String value for state.
          * @param  subscriptionId  int value for subscriptionId.
          * @param  revenueAtRiskInCents  long value for revenueAtRiskInCents.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @param  attempts  int value for attempts.
-         * @param  lastAttemptedAt  String value for lastAttemptedAt.
+         * @param  lastAttemptedAt  ZonedDateTime value for lastAttemptedAt.
          */
         public Builder(String state, int subscriptionId, long revenueAtRiskInCents,
-                String createdAt, int attempts, String lastAttemptedAt) {
+                ZonedDateTime createdAt, int attempts, ZonedDateTime lastAttemptedAt) {
             this.state = state;
             this.subscriptionId = subscriptionId;
             this.revenueAtRiskInCents = revenueAtRiskInCents;
@@ -248,10 +256,10 @@ public class DunnerData {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
@@ -268,10 +276,10 @@ public class DunnerData {
 
         /**
          * Setter for lastAttemptedAt.
-         * @param  lastAttemptedAt  String value for lastAttemptedAt.
+         * @param  lastAttemptedAt  ZonedDateTime value for lastAttemptedAt.
          * @return Builder
          */
-        public Builder lastAttemptedAt(String lastAttemptedAt) {
+        public Builder lastAttemptedAt(ZonedDateTime lastAttemptedAt) {
             this.lastAttemptedAt = lastAttemptedAt;
             return this;
         }

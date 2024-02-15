@@ -14,7 +14,7 @@
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
 | `CurrencySymbol` | `String` | Optional | - | String getCurrencySymbol() | setCurrencySymbol(String currencySymbol) |
 | `Breakouts` | [`Breakouts`](../../doc/models/breakouts.md) | Optional | - | Breakouts getBreakouts() | setBreakouts(Breakouts breakouts) |
-| `AtTime` | `String` | Optional | ISO8601 timestamp | String getAtTime() | setAtTime(String atTime) |
+| `AtTime` | `ZonedDateTime` | Optional | ISO8601 timestamp | ZonedDateTime getAtTime() | setAtTime(ZonedDateTime atTime) |
 
 ## Example (as JSON)
 

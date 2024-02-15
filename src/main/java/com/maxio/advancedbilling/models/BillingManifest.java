@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -20,8 +24,8 @@ public class BillingManifest {
     private Long totalDiscountInCents;
     private Long totalTaxInCents;
     private Long subtotalInCents;
-    private String startDate;
-    private String endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
     private String periodType;
     private Long existingBalanceInCents;
 
@@ -38,8 +42,8 @@ public class BillingManifest {
      * @param  totalDiscountInCents  Long value for totalDiscountInCents.
      * @param  totalTaxInCents  Long value for totalTaxInCents.
      * @param  subtotalInCents  Long value for subtotalInCents.
-     * @param  startDate  String value for startDate.
-     * @param  endDate  String value for endDate.
+     * @param  startDate  ZonedDateTime value for startDate.
+     * @param  endDate  ZonedDateTime value for endDate.
      * @param  periodType  String value for periodType.
      * @param  existingBalanceInCents  Long value for existingBalanceInCents.
      */
@@ -49,8 +53,8 @@ public class BillingManifest {
             Long totalDiscountInCents,
             Long totalTaxInCents,
             Long subtotalInCents,
-            String startDate,
-            String endDate,
+            ZonedDateTime startDate,
+            ZonedDateTime endDate,
             String periodType,
             Long existingBalanceInCents) {
         this.lineItems = lineItems;
@@ -161,39 +165,43 @@ public class BillingManifest {
 
     /**
      * Getter for StartDate.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("start_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDate() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
     /**
      * Setter for StartDate.
-     * @param startDate Value for String
+     * @param startDate Value for ZonedDateTime
      */
     @JsonSetter("start_date")
-    public void setStartDate(String startDate) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
     /**
      * Getter for EndDate.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("end_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDate() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getEndDate() {
         return endDate;
     }
 
     /**
      * Setter for EndDate.
-     * @param endDate Value for String
+     * @param endDate Value for ZonedDateTime
      */
     @JsonSetter("end_date")
-    public void setEndDate(String endDate) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -276,8 +284,8 @@ public class BillingManifest {
         private Long totalDiscountInCents;
         private Long totalTaxInCents;
         private Long subtotalInCents;
-        private String startDate;
-        private String endDate;
+        private ZonedDateTime startDate;
+        private ZonedDateTime endDate;
         private String periodType;
         private Long existingBalanceInCents;
 
@@ -335,20 +343,20 @@ public class BillingManifest {
 
         /**
          * Setter for startDate.
-         * @param  startDate  String value for startDate.
+         * @param  startDate  ZonedDateTime value for startDate.
          * @return Builder
          */
-        public Builder startDate(String startDate) {
+        public Builder startDate(ZonedDateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
         /**
          * Setter for endDate.
-         * @param  endDate  String value for endDate.
+         * @param  endDate  ZonedDateTime value for endDate.
          * @return Builder
          */
-        public Builder endDate(String endDate) {
+        public Builder endDate(ZonedDateTime endDate) {
             this.endDate = endDate;
             return this;
         }

@@ -12,9 +12,9 @@
 | `Uid` | `String` | Required | - | String getUid() | setUid(String uid) |
 | `Number` | `String` | Required | - | String getNumber() | setNumber(String number) |
 | `Role` | `String` | Required | - | String getRole() | setRole(String role) |
-| `DueDate` | `String` | Required | - | String getDueDate() | setDueDate(String dueDate) |
-| `IssueDate` | `String` | Required | - | String getIssueDate() | setIssueDate(String issueDate) |
-| `PaidDate` | `String` | Required | - | String getPaidDate() | setPaidDate(String paidDate) |
+| `DueDate` | `LocalDate` | Required | - | LocalDate getDueDate() | setDueDate(LocalDate dueDate) |
+| `IssueDate` | `LocalDate` | Required | - | LocalDate getIssueDate() | setIssueDate(LocalDate issueDate) |
+| `PaidDate` | `LocalDate` | Required | - | LocalDate getPaidDate() | setPaidDate(LocalDate paidDate) |
 | `DueAmount` | `String` | Required | - | String getDueAmount() | setDueAmount(String dueAmount) |
 | `PaidAmount` | `String` | Required | - | String getPaidAmount() | setPaidAmount(String paidAmount) |
 | `TaxAmount` | `String` | Required | - | String getTaxAmount() | setTaxAmount(String taxAmount) |
@@ -32,9 +32,9 @@
   "uid": "uid4",
   "number": "number8",
   "role": "role2",
-  "due_date": "due_date2",
-  "issue_date": "issue_date0",
-  "paid_date": "paid_date6",
+  "due_date": "2016-03-13",
+  "issue_date": "2016-03-13",
+  "paid_date": "2016-03-13",
   "due_amount": "due_amount6",
   "paid_amount": "paid_amount4",
   "tax_amount": "tax_amount2",

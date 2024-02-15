@@ -9,8 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Customer type.
@@ -23,8 +26,8 @@ public class Customer {
     private OptionalNullable<String> organization;
     private OptionalNullable<String> reference;
     private Integer id;
-    private String createdAt;
-    private String updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private OptionalNullable<String> address;
     private OptionalNullable<String> address2;
     private OptionalNullable<String> city;
@@ -35,9 +38,9 @@ public class Customer {
     private OptionalNullable<String> countryName;
     private OptionalNullable<String> phone;
     private OptionalNullable<Boolean> verified;
-    private OptionalNullable<String> portalCustomerCreatedAt;
-    private OptionalNullable<String> portalInviteLastSentAt;
-    private OptionalNullable<String> portalInviteLastAcceptedAt;
+    private OptionalNullable<ZonedDateTime> portalCustomerCreatedAt;
+    private OptionalNullable<ZonedDateTime> portalInviteLastSentAt;
+    private OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt;
     private Boolean taxExempt;
     private OptionalNullable<String> vatNumber;
     private OptionalNullable<Integer> parentId;
@@ -59,8 +62,8 @@ public class Customer {
      * @param  organization  String value for organization.
      * @param  reference  String value for reference.
      * @param  id  Integer value for id.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  address  String value for address.
      * @param  address2  String value for address2.
      * @param  city  String value for city.
@@ -71,9 +74,9 @@ public class Customer {
      * @param  countryName  String value for countryName.
      * @param  phone  String value for phone.
      * @param  verified  Boolean value for verified.
-     * @param  portalCustomerCreatedAt  String value for portalCustomerCreatedAt.
-     * @param  portalInviteLastSentAt  String value for portalInviteLastSentAt.
-     * @param  portalInviteLastAcceptedAt  String value for portalInviteLastAcceptedAt.
+     * @param  portalCustomerCreatedAt  ZonedDateTime value for portalCustomerCreatedAt.
+     * @param  portalInviteLastSentAt  ZonedDateTime value for portalInviteLastSentAt.
+     * @param  portalInviteLastAcceptedAt  ZonedDateTime value for portalInviteLastAcceptedAt.
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  vatNumber  String value for vatNumber.
      * @param  parentId  Integer value for parentId.
@@ -88,8 +91,8 @@ public class Customer {
             String organization,
             String reference,
             Integer id,
-            String createdAt,
-            String updatedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             String address,
             String address2,
             String city,
@@ -100,9 +103,9 @@ public class Customer {
             String countryName,
             String phone,
             Boolean verified,
-            String portalCustomerCreatedAt,
-            String portalInviteLastSentAt,
-            String portalInviteLastAcceptedAt,
+            ZonedDateTime portalCustomerCreatedAt,
+            ZonedDateTime portalInviteLastSentAt,
+            ZonedDateTime portalInviteLastAcceptedAt,
             Boolean taxExempt,
             String vatNumber,
             Integer parentId,
@@ -146,8 +149,8 @@ public class Customer {
      * @param  organization  String value for organization.
      * @param  reference  String value for reference.
      * @param  id  Integer value for id.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  address  String value for address.
      * @param  address2  String value for address2.
      * @param  city  String value for city.
@@ -158,9 +161,9 @@ public class Customer {
      * @param  countryName  String value for countryName.
      * @param  phone  String value for phone.
      * @param  verified  Boolean value for verified.
-     * @param  portalCustomerCreatedAt  String value for portalCustomerCreatedAt.
-     * @param  portalInviteLastSentAt  String value for portalInviteLastSentAt.
-     * @param  portalInviteLastAcceptedAt  String value for portalInviteLastAcceptedAt.
+     * @param  portalCustomerCreatedAt  ZonedDateTime value for portalCustomerCreatedAt.
+     * @param  portalInviteLastSentAt  ZonedDateTime value for portalInviteLastSentAt.
+     * @param  portalInviteLastAcceptedAt  ZonedDateTime value for portalInviteLastAcceptedAt.
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  vatNumber  String value for vatNumber.
      * @param  parentId  Integer value for parentId.
@@ -170,15 +173,16 @@ public class Customer {
 
     protected Customer(String firstName, String lastName, String email,
             OptionalNullable<String> ccEmails, OptionalNullable<String> organization,
-            OptionalNullable<String> reference, Integer id, String createdAt, String updatedAt,
-            OptionalNullable<String> address, OptionalNullable<String> address2,
-            OptionalNullable<String> city, OptionalNullable<String> state,
-            OptionalNullable<String> stateName, OptionalNullable<String> zip,
-            OptionalNullable<String> country, OptionalNullable<String> countryName,
-            OptionalNullable<String> phone, OptionalNullable<Boolean> verified,
-            OptionalNullable<String> portalCustomerCreatedAt,
-            OptionalNullable<String> portalInviteLastSentAt,
-            OptionalNullable<String> portalInviteLastAcceptedAt, Boolean taxExempt,
+            OptionalNullable<String> reference, Integer id, ZonedDateTime createdAt,
+            ZonedDateTime updatedAt, OptionalNullable<String> address,
+            OptionalNullable<String> address2, OptionalNullable<String> city,
+            OptionalNullable<String> state, OptionalNullable<String> stateName,
+            OptionalNullable<String> zip, OptionalNullable<String> country,
+            OptionalNullable<String> countryName, OptionalNullable<String> phone,
+            OptionalNullable<Boolean> verified,
+            OptionalNullable<ZonedDateTime> portalCustomerCreatedAt,
+            OptionalNullable<ZonedDateTime> portalInviteLastSentAt,
+            OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt, Boolean taxExempt,
             OptionalNullable<String> vatNumber, OptionalNullable<Integer> parentId,
             OptionalNullable<String> locale,
             OptionalNullable<String> defaultSubscriptionGroupUid) {
@@ -419,42 +423,46 @@ public class Customer {
     /**
      * Getter for CreatedAt.
      * The timestamp in which the customer object was created in Chargify
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
      * The timestamp in which the customer object was created in Chargify
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
      * The timestamp in which the customer object was last edited
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
      * The timestamp in which the customer object was last edited
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -855,31 +863,32 @@ public class Customer {
     /**
      * Internal Getter for PortalCustomerCreatedAt.
      * The timestamp of when the Billing Portal entry was created at for the customer
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("portal_customer_created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetPortalCustomerCreatedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetPortalCustomerCreatedAt() {
         return this.portalCustomerCreatedAt;
     }
 
     /**
      * Getter for PortalCustomerCreatedAt.
      * The timestamp of when the Billing Portal entry was created at for the customer
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getPortalCustomerCreatedAt() {
+    public ZonedDateTime getPortalCustomerCreatedAt() {
         return OptionalNullable.getFrom(portalCustomerCreatedAt);
     }
 
     /**
      * Setter for PortalCustomerCreatedAt.
      * The timestamp of when the Billing Portal entry was created at for the customer
-     * @param portalCustomerCreatedAt Value for String
+     * @param portalCustomerCreatedAt Value for ZonedDateTime
      */
     @JsonSetter("portal_customer_created_at")
-    public void setPortalCustomerCreatedAt(String portalCustomerCreatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setPortalCustomerCreatedAt(ZonedDateTime portalCustomerCreatedAt) {
         this.portalCustomerCreatedAt = OptionalNullable.of(portalCustomerCreatedAt);
     }
 
@@ -894,31 +903,32 @@ public class Customer {
     /**
      * Internal Getter for PortalInviteLastSentAt.
      * The timestamp of when the Billing Portal invite was last sent at
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("portal_invite_last_sent_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetPortalInviteLastSentAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetPortalInviteLastSentAt() {
         return this.portalInviteLastSentAt;
     }
 
     /**
      * Getter for PortalInviteLastSentAt.
      * The timestamp of when the Billing Portal invite was last sent at
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getPortalInviteLastSentAt() {
+    public ZonedDateTime getPortalInviteLastSentAt() {
         return OptionalNullable.getFrom(portalInviteLastSentAt);
     }
 
     /**
      * Setter for PortalInviteLastSentAt.
      * The timestamp of when the Billing Portal invite was last sent at
-     * @param portalInviteLastSentAt Value for String
+     * @param portalInviteLastSentAt Value for ZonedDateTime
      */
     @JsonSetter("portal_invite_last_sent_at")
-    public void setPortalInviteLastSentAt(String portalInviteLastSentAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setPortalInviteLastSentAt(ZonedDateTime portalInviteLastSentAt) {
         this.portalInviteLastSentAt = OptionalNullable.of(portalInviteLastSentAt);
     }
 
@@ -933,31 +943,32 @@ public class Customer {
     /**
      * Internal Getter for PortalInviteLastAcceptedAt.
      * The timestamp of when the Billing Portal invite was last accepted
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("portal_invite_last_accepted_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetPortalInviteLastAcceptedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetPortalInviteLastAcceptedAt() {
         return this.portalInviteLastAcceptedAt;
     }
 
     /**
      * Getter for PortalInviteLastAcceptedAt.
      * The timestamp of when the Billing Portal invite was last accepted
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getPortalInviteLastAcceptedAt() {
+    public ZonedDateTime getPortalInviteLastAcceptedAt() {
         return OptionalNullable.getFrom(portalInviteLastAcceptedAt);
     }
 
     /**
      * Setter for PortalInviteLastAcceptedAt.
      * The timestamp of when the Billing Portal invite was last accepted
-     * @param portalInviteLastAcceptedAt Value for String
+     * @param portalInviteLastAcceptedAt Value for ZonedDateTime
      */
     @JsonSetter("portal_invite_last_accepted_at")
-    public void setPortalInviteLastAcceptedAt(String portalInviteLastAcceptedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setPortalInviteLastAcceptedAt(ZonedDateTime portalInviteLastAcceptedAt) {
         this.portalInviteLastAcceptedAt = OptionalNullable.of(portalInviteLastAcceptedAt);
     }
 
@@ -1223,8 +1234,8 @@ public class Customer {
         private OptionalNullable<String> organization;
         private OptionalNullable<String> reference;
         private Integer id;
-        private String createdAt;
-        private String updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private OptionalNullable<String> address;
         private OptionalNullable<String> address2;
         private OptionalNullable<String> city;
@@ -1235,9 +1246,9 @@ public class Customer {
         private OptionalNullable<String> countryName;
         private OptionalNullable<String> phone;
         private OptionalNullable<Boolean> verified;
-        private OptionalNullable<String> portalCustomerCreatedAt;
-        private OptionalNullable<String> portalInviteLastSentAt;
-        private OptionalNullable<String> portalInviteLastAcceptedAt;
+        private OptionalNullable<ZonedDateTime> portalCustomerCreatedAt;
+        private OptionalNullable<ZonedDateTime> portalInviteLastSentAt;
+        private OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt;
         private Boolean taxExempt;
         private OptionalNullable<String> vatNumber;
         private OptionalNullable<Integer> parentId;
@@ -1345,20 +1356,20 @@ public class Customer {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
@@ -1555,10 +1566,10 @@ public class Customer {
 
         /**
          * Setter for portalCustomerCreatedAt.
-         * @param  portalCustomerCreatedAt  String value for portalCustomerCreatedAt.
+         * @param  portalCustomerCreatedAt  ZonedDateTime value for portalCustomerCreatedAt.
          * @return Builder
          */
-        public Builder portalCustomerCreatedAt(String portalCustomerCreatedAt) {
+        public Builder portalCustomerCreatedAt(ZonedDateTime portalCustomerCreatedAt) {
             this.portalCustomerCreatedAt = OptionalNullable.of(portalCustomerCreatedAt);
             return this;
         }
@@ -1574,10 +1585,10 @@ public class Customer {
 
         /**
          * Setter for portalInviteLastSentAt.
-         * @param  portalInviteLastSentAt  String value for portalInviteLastSentAt.
+         * @param  portalInviteLastSentAt  ZonedDateTime value for portalInviteLastSentAt.
          * @return Builder
          */
-        public Builder portalInviteLastSentAt(String portalInviteLastSentAt) {
+        public Builder portalInviteLastSentAt(ZonedDateTime portalInviteLastSentAt) {
             this.portalInviteLastSentAt = OptionalNullable.of(portalInviteLastSentAt);
             return this;
         }
@@ -1593,10 +1604,10 @@ public class Customer {
 
         /**
          * Setter for portalInviteLastAcceptedAt.
-         * @param  portalInviteLastAcceptedAt  String value for portalInviteLastAcceptedAt.
+         * @param  portalInviteLastAcceptedAt  ZonedDateTime value for portalInviteLastAcceptedAt.
          * @return Builder
          */
-        public Builder portalInviteLastAcceptedAt(String portalInviteLastAcceptedAt) {
+        public Builder portalInviteLastAcceptedAt(ZonedDateTime portalInviteLastAcceptedAt) {
             this.portalInviteLastAcceptedAt = OptionalNullable.of(portalInviteLastAcceptedAt);
             return this;
         }

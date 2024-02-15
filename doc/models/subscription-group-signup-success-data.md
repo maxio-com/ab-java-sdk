@@ -15,7 +15,7 @@
 | `PaymentProfileId` | `int` | Required | - | int getPaymentProfileId() | setPaymentProfileId(int paymentProfileId) |
 | `SubscriptionIds` | `List<Integer>` | Required | - | List<Integer> getSubscriptionIds() | setSubscriptionIds(List<Integer> subscriptionIds) |
 | `PrimarySubscriptionId` | `int` | Required | - | int getPrimarySubscriptionId() | setPrimarySubscriptionId(int primarySubscriptionId) |
-| `NextAssessmentAt` | `String` | Required | - | String getNextAssessmentAt() | setNextAssessmentAt(String nextAssessmentAt) |
+| `NextAssessmentAt` | `ZonedDateTime` | Required | - | ZonedDateTime getNextAssessmentAt() | setNextAssessmentAt(ZonedDateTime nextAssessmentAt) |
 | `State` | `String` | Required | - | String getState() | setState(String state) |
 | `CancelAtEndOfPeriod` | `boolean` | Required | - | boolean getCancelAtEndOfPeriod() | setCancelAtEndOfPeriod(boolean cancelAtEndOfPeriod) |
 
@@ -32,7 +32,7 @@
     29
   ],
   "primary_subscription_id": 102,
-  "next_assessment_at": "next_assessment_at2",
+  "next_assessment_at": "2016-03-13T12:52:32.123Z",
   "state": "state4",
   "cancel_at_end_of_period": false
 }

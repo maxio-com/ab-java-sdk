@@ -9,13 +9,17 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for Movement type.
  */
 public class Movement {
-    private String timestamp;
+    private ZonedDateTime timestamp;
     private Long amountInCents;
     private String amountFormatted;
     private String description;
@@ -33,7 +37,7 @@ public class Movement {
 
     /**
      * Initialization constructor.
-     * @param  timestamp  String value for timestamp.
+     * @param  timestamp  ZonedDateTime value for timestamp.
      * @param  amountInCents  Long value for amountInCents.
      * @param  amountFormatted  String value for amountFormatted.
      * @param  description  String value for description.
@@ -44,7 +48,7 @@ public class Movement {
      * @param  subscriberName  String value for subscriberName.
      */
     public Movement(
-            String timestamp,
+            ZonedDateTime timestamp,
             Long amountInCents,
             String amountFormatted,
             String description,
@@ -66,20 +70,22 @@ public class Movement {
 
     /**
      * Getter for Timestamp.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("timestamp")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTimestamp() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getTimestamp() {
         return timestamp;
     }
 
     /**
      * Setter for Timestamp.
-     * @param timestamp Value for String
+     * @param timestamp Value for ZonedDateTime
      */
     @JsonSetter("timestamp")
-    public void setTimestamp(String timestamp) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTimestamp(ZonedDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -270,7 +276,7 @@ public class Movement {
      * Class to build instances of {@link Movement}.
      */
     public static class Builder {
-        private String timestamp;
+        private ZonedDateTime timestamp;
         private Long amountInCents;
         private String amountFormatted;
         private String description;
@@ -284,10 +290,10 @@ public class Movement {
 
         /**
          * Setter for timestamp.
-         * @param  timestamp  String value for timestamp.
+         * @param  timestamp  ZonedDateTime value for timestamp.
          * @return Builder
          */
-        public Builder timestamp(String timestamp) {
+        public Builder timestamp(ZonedDateTime timestamp) {
             this.timestamp = timestamp;
             return this;
         }

@@ -13,7 +13,7 @@
 | `Value` | `String` | Optional | - | String getValue() | setValue(String value) |
 | `ResourceId` | `Integer` | Optional | - | Integer getResourceId() | setResourceId(Integer resourceId) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
-| `DeletedAt` | `String` | Optional | - | String getDeletedAt() | setDeletedAt(String deletedAt) |
+| `DeletedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getDeletedAt() | setDeletedAt(ZonedDateTime deletedAt) |
 | `MetafieldId` | `Integer` | Optional | - | Integer getMetafieldId() | setMetafieldId(Integer metafieldId) |
 
 ## Example (as JSON)
@@ -24,7 +24,7 @@
   "value": "value0",
   "resource_id": 96,
   "name": "name8",
-  "deleted_at": "deleted_at6"
+  "deleted_at": "2016-03-13T12:52:32.123Z"
 }
 ```
 

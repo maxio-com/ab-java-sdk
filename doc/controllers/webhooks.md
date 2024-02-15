@@ -186,8 +186,8 @@ ReplayWebhooksResponse replayWebhooks(
 ```java
 ReplayWebhooksRequest body = new ReplayWebhooksRequest.Builder(
     Arrays.asList(
-        123456789,
-        123456788
+        123456789L,
+        123456788L
     )
 )
 .build();
@@ -220,14 +220,14 @@ You can check available events here.
 
 ```java
 EndpointResponse createEndpoint(
-    final UpdateEndpointRequest body)
+    final CreateOrUpdateEndpointRequest body)
 ```
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
+| `body` | [`CreateOrUpdateEndpointRequest`](../../doc/models/create-or-update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
 
@@ -236,8 +236,8 @@ EndpointResponse createEndpoint(
 ## Example Usage
 
 ```java
-UpdateEndpointRequest body = new UpdateEndpointRequest.Builder(
-    new UpdateEndpoint.Builder(
+CreateOrUpdateEndpointRequest body = new CreateOrUpdateEndpointRequest.Builder(
+    new CreateOrUpdateEndpoint.Builder(
         "https://your.site/webhooks",
         Arrays.asList(
             WebhookSubscription.PAYMENT_SUCCESS,
@@ -351,7 +351,7 @@ If you want unsubscribe from specific event, just send a list of `webhook_subscr
 ```java
 EndpointResponse updateEndpoint(
     final int endpointId,
-    final UpdateEndpointRequest body)
+    final CreateOrUpdateEndpointRequest body)
 ```
 
 ## Parameters
@@ -359,7 +359,7 @@ EndpointResponse updateEndpoint(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `endpointId` | `int` | Template, Required | The Chargify id for the endpoint that should be updated |
-| `body` | [`UpdateEndpointRequest`](../../doc/models/update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
+| `body` | [`CreateOrUpdateEndpointRequest`](../../doc/models/create-or-update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
 
@@ -369,8 +369,8 @@ EndpointResponse updateEndpoint(
 
 ```java
 int endpointId = 42;
-UpdateEndpointRequest body = new UpdateEndpointRequest.Builder(
-    new UpdateEndpoint.Builder(
+CreateOrUpdateEndpointRequest body = new CreateOrUpdateEndpointRequest.Builder(
+    new CreateOrUpdateEndpoint.Builder(
         "https://yout.site/webhooks/1/json.",
         Arrays.asList(
             WebhookSubscription.PAYMENT_FAILURE,

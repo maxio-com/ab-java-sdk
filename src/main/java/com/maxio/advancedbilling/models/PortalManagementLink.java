@@ -9,8 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for PortalManagementLink type.
@@ -18,10 +21,10 @@ import io.apimatic.core.types.OptionalNullable;
 public class PortalManagementLink {
     private String url;
     private Integer fetchCount;
-    private String createdAt;
-    private String newLinkAvailableAt;
-    private String expiresAt;
-    private OptionalNullable<String> lastInviteSentAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime newLinkAvailableAt;
+    private ZonedDateTime expiresAt;
+    private OptionalNullable<ZonedDateTime> lastInviteSentAt;
 
     /**
      * Default constructor.
@@ -33,18 +36,18 @@ public class PortalManagementLink {
      * Initialization constructor.
      * @param  url  String value for url.
      * @param  fetchCount  Integer value for fetchCount.
-     * @param  createdAt  String value for createdAt.
-     * @param  newLinkAvailableAt  String value for newLinkAvailableAt.
-     * @param  expiresAt  String value for expiresAt.
-     * @param  lastInviteSentAt  String value for lastInviteSentAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  newLinkAvailableAt  ZonedDateTime value for newLinkAvailableAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
+     * @param  lastInviteSentAt  ZonedDateTime value for lastInviteSentAt.
      */
     public PortalManagementLink(
             String url,
             Integer fetchCount,
-            String createdAt,
-            String newLinkAvailableAt,
-            String expiresAt,
-            String lastInviteSentAt) {
+            ZonedDateTime createdAt,
+            ZonedDateTime newLinkAvailableAt,
+            ZonedDateTime expiresAt,
+            ZonedDateTime lastInviteSentAt) {
         this.url = url;
         this.fetchCount = fetchCount;
         this.createdAt = createdAt;
@@ -57,15 +60,15 @@ public class PortalManagementLink {
      * Initialization constructor.
      * @param  url  String value for url.
      * @param  fetchCount  Integer value for fetchCount.
-     * @param  createdAt  String value for createdAt.
-     * @param  newLinkAvailableAt  String value for newLinkAvailableAt.
-     * @param  expiresAt  String value for expiresAt.
-     * @param  lastInviteSentAt  String value for lastInviteSentAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  newLinkAvailableAt  ZonedDateTime value for newLinkAvailableAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
+     * @param  lastInviteSentAt  ZonedDateTime value for lastInviteSentAt.
      */
 
-    protected PortalManagementLink(String url, Integer fetchCount, String createdAt,
-            String newLinkAvailableAt, String expiresAt,
-            OptionalNullable<String> lastInviteSentAt) {
+    protected PortalManagementLink(String url, Integer fetchCount, ZonedDateTime createdAt,
+            ZonedDateTime newLinkAvailableAt, ZonedDateTime expiresAt,
+            OptionalNullable<ZonedDateTime> lastInviteSentAt) {
         this.url = url;
         this.fetchCount = fetchCount;
         this.createdAt = createdAt;
@@ -114,86 +117,93 @@ public class PortalManagementLink {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for NewLinkAvailableAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("new_link_available_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getNewLinkAvailableAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getNewLinkAvailableAt() {
         return newLinkAvailableAt;
     }
 
     /**
      * Setter for NewLinkAvailableAt.
-     * @param newLinkAvailableAt Value for String
+     * @param newLinkAvailableAt Value for ZonedDateTime
      */
     @JsonSetter("new_link_available_at")
-    public void setNewLinkAvailableAt(String newLinkAvailableAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setNewLinkAvailableAt(ZonedDateTime newLinkAvailableAt) {
         this.newLinkAvailableAt = newLinkAvailableAt;
     }
 
     /**
      * Getter for ExpiresAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("expires_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getExpiresAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getExpiresAt() {
         return expiresAt;
     }
 
     /**
      * Setter for ExpiresAt.
-     * @param expiresAt Value for String
+     * @param expiresAt Value for ZonedDateTime
      */
     @JsonSetter("expires_at")
-    public void setExpiresAt(String expiresAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 
     /**
      * Internal Getter for LastInviteSentAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("last_invite_sent_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetLastInviteSentAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetLastInviteSentAt() {
         return this.lastInviteSentAt;
     }
 
     /**
      * Getter for LastInviteSentAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getLastInviteSentAt() {
+    public ZonedDateTime getLastInviteSentAt() {
         return OptionalNullable.getFrom(lastInviteSentAt);
     }
 
     /**
      * Setter for LastInviteSentAt.
-     * @param lastInviteSentAt Value for String
+     * @param lastInviteSentAt Value for ZonedDateTime
      */
     @JsonSetter("last_invite_sent_at")
-    public void setLastInviteSentAt(String lastInviteSentAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setLastInviteSentAt(ZonedDateTime lastInviteSentAt) {
         this.lastInviteSentAt = OptionalNullable.of(lastInviteSentAt);
     }
 
@@ -237,10 +247,10 @@ public class PortalManagementLink {
     public static class Builder {
         private String url;
         private Integer fetchCount;
-        private String createdAt;
-        private String newLinkAvailableAt;
-        private String expiresAt;
-        private OptionalNullable<String> lastInviteSentAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime newLinkAvailableAt;
+        private ZonedDateTime expiresAt;
+        private OptionalNullable<ZonedDateTime> lastInviteSentAt;
 
 
 
@@ -266,40 +276,40 @@ public class PortalManagementLink {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for newLinkAvailableAt.
-         * @param  newLinkAvailableAt  String value for newLinkAvailableAt.
+         * @param  newLinkAvailableAt  ZonedDateTime value for newLinkAvailableAt.
          * @return Builder
          */
-        public Builder newLinkAvailableAt(String newLinkAvailableAt) {
+        public Builder newLinkAvailableAt(ZonedDateTime newLinkAvailableAt) {
             this.newLinkAvailableAt = newLinkAvailableAt;
             return this;
         }
 
         /**
          * Setter for expiresAt.
-         * @param  expiresAt  String value for expiresAt.
+         * @param  expiresAt  ZonedDateTime value for expiresAt.
          * @return Builder
          */
-        public Builder expiresAt(String expiresAt) {
+        public Builder expiresAt(ZonedDateTime expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
 
         /**
          * Setter for lastInviteSentAt.
-         * @param  lastInviteSentAt  String value for lastInviteSentAt.
+         * @param  lastInviteSentAt  ZonedDateTime value for lastInviteSentAt.
          * @return Builder
          */
-        public Builder lastInviteSentAt(String lastInviteSentAt) {
+        public Builder lastInviteSentAt(ZonedDateTime lastInviteSentAt) {
             this.lastInviteSentAt = OptionalNullable.of(lastInviteSentAt);
             return this;
         }

@@ -34,7 +34,7 @@
 | `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
 | `CreatedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this component was created | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `UpdatedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this component was updated | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
-| `ArchivedAt` | `String` | Optional | Timestamp indicating when this component was archived | String getArchivedAt() | setArchivedAt(String archivedAt) |
+| `ArchivedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this component was archived | ZonedDateTime getArchivedAt() | setArchivedAt(ZonedDateTime archivedAt) |
 | `HideDateRangeOnInvoice` | `Boolean` | Optional | (Only available on Relationship Invoicing sites) Boolean flag describing if the service date range should show for the component on generated invoices. | Boolean getHideDateRangeOnInvoice() | setHideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) |
 | `AllowFractionalQuantities` | `Boolean` | Optional | - | Boolean getAllowFractionalQuantities() | setAllowFractionalQuantities(Boolean allowFractionalQuantities) |
 | `ItemCategory` | [`ItemCategory`](../../doc/models/item-category.md) | Optional | One of the following: Business Software, Consumer Software, Digital Services, Physical Goods, Other | ItemCategory getItemCategory() | setItemCategory(ItemCategory itemCategory) |

@@ -15,8 +15,8 @@
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `Number` | `String` | Optional | - | String getNumber() | setNumber(String number) |
 | `SequenceNumber` | `Integer` | Optional | - | Integer getSequenceNumber() | setSequenceNumber(Integer sequenceNumber) |
-| `CreatedAt` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `DeliveryDate` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getDeliveryDate() | setDeliveryDate(String deliveryDate) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `DeliveryDate` | `LocalDate` | Optional | - | LocalDate getDeliveryDate() | setDeliveryDate(LocalDate deliveryDate) |
 | `Status` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getStatus() | setStatus(String status) |
 | `CollectionMethod` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getCollectionMethod() | setCollectionMethod(String collectionMethod) |
 | `PaymentInstructions` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getPaymentInstructions() | setPaymentInstructions(String paymentInstructions) |

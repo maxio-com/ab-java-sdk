@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ReasonCode type.
@@ -19,8 +23,8 @@ public class ReasonCode {
     private String code;
     private String description;
     private Integer position;
-    private String createdAt;
-    private String updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
 
     /**
      * Default constructor.
@@ -35,8 +39,8 @@ public class ReasonCode {
      * @param  code  String value for code.
      * @param  description  String value for description.
      * @param  position  Integer value for position.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
     public ReasonCode(
             Integer id,
@@ -44,8 +48,8 @@ public class ReasonCode {
             String code,
             String description,
             Integer position,
-            String createdAt,
-            String updatedAt) {
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt) {
         this.id = id;
         this.siteId = siteId;
         this.code = code;
@@ -152,39 +156,43 @@ public class ReasonCode {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -225,8 +233,8 @@ public class ReasonCode {
         private String code;
         private String description;
         private Integer position;
-        private String createdAt;
-        private String updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
 
 
 
@@ -282,20 +290,20 @@ public class ReasonCode {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }

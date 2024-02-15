@@ -46,7 +46,7 @@ public class Component {
     private OptionalNullable<CreditType> downgradeCredit;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
-    private OptionalNullable<String> archivedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
     private Boolean hideDateRangeOnInvoice;
     private Boolean allowFractionalQuantities;
     private OptionalNullable<ItemCategory> itemCategory;
@@ -89,7 +89,7 @@ public class Component {
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  itemCategory  ItemCategory value for itemCategory.
@@ -125,7 +125,7 @@ public class Component {
             CreditType downgradeCredit,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
-            String archivedAt,
+            ZonedDateTime archivedAt,
             Boolean hideDateRangeOnInvoice,
             Boolean allowFractionalQuantities,
             ItemCategory itemCategory,
@@ -197,7 +197,7 @@ public class Component {
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  itemCategory  ItemCategory value for itemCategory.
@@ -219,7 +219,7 @@ public class Component {
             String pricePointsUrl, String defaultPricePointName, OptionalNullable<String> taxCode,
             Boolean recurring, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, ZonedDateTime createdAt,
-            ZonedDateTime updatedAt, OptionalNullable<String> archivedAt,
+            ZonedDateTime updatedAt, OptionalNullable<ZonedDateTime> archivedAt,
             Boolean hideDateRangeOnInvoice, Boolean allowFractionalQuantities,
             OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
@@ -1008,31 +1008,32 @@ public class Component {
     /**
      * Internal Getter for ArchivedAt.
      * Timestamp indicating when this component was archived
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetArchivedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
         return this.archivedAt;
     }
 
     /**
      * Getter for ArchivedAt.
      * Timestamp indicating when this component was archived
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getArchivedAt() {
+    public ZonedDateTime getArchivedAt() {
         return OptionalNullable.getFrom(archivedAt);
     }
 
     /**
      * Setter for ArchivedAt.
      * Timestamp indicating when this component was archived
-     * @param archivedAt Value for String
+     * @param archivedAt Value for ZonedDateTime
      */
     @JsonSetter("archived_at")
-    public void setArchivedAt(String archivedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setArchivedAt(ZonedDateTime archivedAt) {
         this.archivedAt = OptionalNullable.of(archivedAt);
     }
 
@@ -1372,7 +1373,7 @@ public class Component {
         private OptionalNullable<CreditType> downgradeCredit;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
-        private OptionalNullable<String> archivedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
         private Boolean hideDateRangeOnInvoice;
         private Boolean allowFractionalQuantities;
         private OptionalNullable<ItemCategory> itemCategory;
@@ -1735,10 +1736,10 @@ public class Component {
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  String value for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(String archivedAt) {
+        public Builder archivedAt(ZonedDateTime archivedAt) {
             this.archivedAt = OptionalNullable.of(archivedAt);
             return this;
         }

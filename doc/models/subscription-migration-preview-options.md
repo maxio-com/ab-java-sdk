@@ -18,7 +18,7 @@
 | `ProductHandle` | `String` | Optional | The handle of the target Product. Either a product_id or product_handle must be present. A Subscription can be migrated to another product for both the current Product Family and another Product Family. Note: Going to another Product Family, components will not be migrated as well. | String getProductHandle() | setProductHandle(String productHandle) |
 | `ProductPricePointHandle` | `String` | Optional | The ID or handle of the specified product's price point. This can be passed to migrate to a non-default price point. | String getProductPricePointHandle() | setProductPricePointHandle(String productPricePointHandle) |
 | `Proration` | [`Proration`](../../doc/models/proration.md) | Optional | - | Proration getProration() | setProration(Proration proration) |
-| `ProrationDate` | `String` | Optional | The date that the proration is calculated from for the preview | String getProrationDate() | setProrationDate(String prorationDate) |
+| `ProrationDate` | `ZonedDateTime` | Optional | The date that the proration is calculated from for the preview | ZonedDateTime getProrationDate() | setProrationDate(ZonedDateTime prorationDate) |
 
 ## Example (as JSON)
 

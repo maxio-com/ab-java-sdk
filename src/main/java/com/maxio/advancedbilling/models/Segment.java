@@ -9,10 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty1Value;
 import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty2Value;
 import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty3Value;
 import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty4Value;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -28,8 +32,8 @@ public class Segment {
     private SegmentSegmentProperty2Value segmentProperty2Value;
     private SegmentSegmentProperty3Value segmentProperty3Value;
     private SegmentSegmentProperty4Value segmentProperty4Value;
-    private String createdAt;
-    private String updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private List<SegmentPrice> prices;
 
     /**
@@ -49,8 +53,8 @@ public class Segment {
      * @param  segmentProperty2Value  SegmentSegmentProperty2Value value for segmentProperty2Value.
      * @param  segmentProperty3Value  SegmentSegmentProperty3Value value for segmentProperty3Value.
      * @param  segmentProperty4Value  SegmentSegmentProperty4Value value for segmentProperty4Value.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  prices  List of SegmentPrice value for prices.
      */
     public Segment(
@@ -63,8 +67,8 @@ public class Segment {
             SegmentSegmentProperty2Value segmentProperty2Value,
             SegmentSegmentProperty3Value segmentProperty3Value,
             SegmentSegmentProperty4Value segmentProperty4Value,
-            String createdAt,
-            String updatedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
             List<SegmentPrice> prices) {
         this.id = id;
         this.componentId = componentId;
@@ -259,39 +263,43 @@ public class Segment {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -364,8 +372,8 @@ public class Segment {
         private SegmentSegmentProperty2Value segmentProperty2Value;
         private SegmentSegmentProperty3Value segmentProperty3Value;
         private SegmentSegmentProperty4Value segmentProperty4Value;
-        private String createdAt;
-        private String updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
         private List<SegmentPrice> prices;
 
 
@@ -466,20 +474,20 @@ public class Segment {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }

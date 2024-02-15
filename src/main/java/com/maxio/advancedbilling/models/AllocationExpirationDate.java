@@ -9,12 +9,16 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for AllocationExpirationDate type.
  */
 public class AllocationExpirationDate {
-    private String expiresAt;
+    private ZonedDateTime expiresAt;
 
     /**
      * Default constructor.
@@ -24,29 +28,31 @@ public class AllocationExpirationDate {
 
     /**
      * Initialization constructor.
-     * @param  expiresAt  String value for expiresAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
      */
     public AllocationExpirationDate(
-            String expiresAt) {
+            ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 
     /**
      * Getter for ExpiresAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("expires_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getExpiresAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getExpiresAt() {
         return expiresAt;
     }
 
     /**
      * Setter for ExpiresAt.
-     * @param expiresAt Value for String
+     * @param expiresAt Value for ZonedDateTime
      */
     @JsonSetter("expires_at")
-    public void setExpiresAt(String expiresAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 
@@ -74,16 +80,16 @@ public class AllocationExpirationDate {
      * Class to build instances of {@link AllocationExpirationDate}.
      */
     public static class Builder {
-        private String expiresAt;
+        private ZonedDateTime expiresAt;
 
 
 
         /**
          * Setter for expiresAt.
-         * @param  expiresAt  String value for expiresAt.
+         * @param  expiresAt  ZonedDateTime value for expiresAt.
          * @return Builder
          */
-        public Builder expiresAt(String expiresAt) {
+        public Builder expiresAt(ZonedDateTime expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }

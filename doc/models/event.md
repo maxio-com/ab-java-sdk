@@ -14,7 +14,7 @@
 | `Message` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getMessage() | setMessage(String message) |
 | `SubscriptionId` | `Integer` | Required | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `CustomerId` | `int` | Required | - | int getCustomerId() | setCustomerId(int customerId) |
-| `CreatedAt` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getCreatedAt() | setCreatedAt(String createdAt) |
+| `CreatedAt` | `ZonedDateTime` | Required | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `EventSpecificData` | [`EventEventSpecificData`](../../doc/models/containers/event-event-specific-data.md) | Required | This is a container for one-of cases. | EventEventSpecificData getEventSpecificData() | setEventSpecificData(EventEventSpecificData eventSpecificData) |
 
 ## Example (as JSON)
@@ -26,7 +26,7 @@
   "message": "message8",
   "subscription_id": 150,
   "customer_id": 78,
-  "created_at": "created_at0",
+  "created_at": "2016-03-13T12:52:32.123Z",
   "event_specific_data": {
     "previous_unit_balance": null,
     "previous_overage_unit_balance": null,

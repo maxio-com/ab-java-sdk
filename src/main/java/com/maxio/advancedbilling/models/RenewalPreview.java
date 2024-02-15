@@ -9,13 +9,17 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for RenewalPreview type.
  */
 public class RenewalPreview {
-    private String nextAssessmentAt;
+    private ZonedDateTime nextAssessmentAt;
     private Long subtotalInCents;
     private Long totalTaxInCents;
     private Long totalDiscountInCents;
@@ -33,7 +37,7 @@ public class RenewalPreview {
 
     /**
      * Initialization constructor.
-     * @param  nextAssessmentAt  String value for nextAssessmentAt.
+     * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
      * @param  subtotalInCents  Long value for subtotalInCents.
      * @param  totalTaxInCents  Long value for totalTaxInCents.
      * @param  totalDiscountInCents  Long value for totalDiscountInCents.
@@ -44,7 +48,7 @@ public class RenewalPreview {
      * @param  lineItems  List of RenewalPreviewLineItem value for lineItems.
      */
     public RenewalPreview(
-            String nextAssessmentAt,
+            ZonedDateTime nextAssessmentAt,
             Long subtotalInCents,
             Long totalTaxInCents,
             Long totalDiscountInCents,
@@ -67,21 +71,23 @@ public class RenewalPreview {
     /**
      * Getter for NextAssessmentAt.
      * The timestamp for the subscription’s next renewal
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("next_assessment_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getNextAssessmentAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getNextAssessmentAt() {
         return nextAssessmentAt;
     }
 
     /**
      * Setter for NextAssessmentAt.
      * The timestamp for the subscription’s next renewal
-     * @param nextAssessmentAt Value for String
+     * @param nextAssessmentAt Value for ZonedDateTime
      */
     @JsonSetter("next_assessment_at")
-    public void setNextAssessmentAt(String nextAssessmentAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setNextAssessmentAt(ZonedDateTime nextAssessmentAt) {
         this.nextAssessmentAt = nextAssessmentAt;
     }
 
@@ -302,7 +308,7 @@ public class RenewalPreview {
      * Class to build instances of {@link RenewalPreview}.
      */
     public static class Builder {
-        private String nextAssessmentAt;
+        private ZonedDateTime nextAssessmentAt;
         private Long subtotalInCents;
         private Long totalTaxInCents;
         private Long totalDiscountInCents;
@@ -316,10 +322,10 @@ public class RenewalPreview {
 
         /**
          * Setter for nextAssessmentAt.
-         * @param  nextAssessmentAt  String value for nextAssessmentAt.
+         * @param  nextAssessmentAt  ZonedDateTime value for nextAssessmentAt.
          * @return Builder
          */
-        public Builder nextAssessmentAt(String nextAssessmentAt) {
+        public Builder nextAssessmentAt(ZonedDateTime nextAssessmentAt) {
             this.nextAssessmentAt = nextAssessmentAt;
             return this;
         }

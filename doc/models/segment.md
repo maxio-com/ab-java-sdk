@@ -18,8 +18,8 @@
 | `SegmentProperty2Value` | [`SegmentSegmentProperty2Value`](../../doc/models/containers/segment-segment-property-2-value.md) | Optional | This is a container for one-of cases. | SegmentSegmentProperty2Value getSegmentProperty2Value() | setSegmentProperty2Value(SegmentSegmentProperty2Value segmentProperty2Value) |
 | `SegmentProperty3Value` | [`SegmentSegmentProperty3Value`](../../doc/models/containers/segment-segment-property-3-value.md) | Optional | This is a container for one-of cases. | SegmentSegmentProperty3Value getSegmentProperty3Value() | setSegmentProperty3Value(SegmentSegmentProperty3Value segmentProperty3Value) |
 | `SegmentProperty4Value` | [`SegmentSegmentProperty4Value`](../../doc/models/containers/segment-segment-property-4-value.md) | Optional | This is a container for one-of cases. | SegmentSegmentProperty4Value getSegmentProperty4Value() | setSegmentProperty4Value(SegmentSegmentProperty4Value segmentProperty4Value) |
-| `CreatedAt` | `String` | Optional | - | String getCreatedAt() | setCreatedAt(String createdAt) |
-| `UpdatedAt` | `String` | Optional | - | String getUpdatedAt() | setUpdatedAt(String updatedAt) |
+| `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 | `Prices` | [`List<SegmentPrice>`](../../doc/models/segment-price.md) | Optional | **Constraints**: *Minimum Items*: `1` | List<SegmentPrice> getPrices() | setPrices(List<SegmentPrice> prices) |
 
 ## Example (as JSON)

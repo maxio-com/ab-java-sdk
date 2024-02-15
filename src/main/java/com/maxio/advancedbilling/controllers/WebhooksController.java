@@ -12,6 +12,7 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
+import com.maxio.advancedbilling.models.CreateOrUpdateEndpointRequest;
 import com.maxio.advancedbilling.models.EnableWebhooksRequest;
 import com.maxio.advancedbilling.models.EnableWebhooksResponse;
 import com.maxio.advancedbilling.models.Endpoint;
@@ -19,7 +20,6 @@ import com.maxio.advancedbilling.models.EndpointResponse;
 import com.maxio.advancedbilling.models.ListWebhooksInput;
 import com.maxio.advancedbilling.models.ReplayWebhooksRequest;
 import com.maxio.advancedbilling.models.ReplayWebhooksResponse;
-import com.maxio.advancedbilling.models.UpdateEndpointRequest;
 import com.maxio.advancedbilling.models.WebhookResponse;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
@@ -198,7 +198,7 @@ public final class WebhooksController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public EndpointResponse createEndpoint(
-            final UpdateEndpointRequest body) throws ApiException, IOException {
+            final CreateOrUpdateEndpointRequest body) throws ApiException, IOException {
         return prepareCreateEndpointRequest(body).execute();
     }
 
@@ -206,7 +206,7 @@ public final class WebhooksController extends BaseController {
      * Builds the ApiCall object for createEndpoint.
      */
     private ApiCall<EndpointResponse, ApiException> prepareCreateEndpointRequest(
-            final UpdateEndpointRequest body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateEndpointRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<EndpointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -285,7 +285,7 @@ public final class WebhooksController extends BaseController {
      */
     public EndpointResponse updateEndpoint(
             final int endpointId,
-            final UpdateEndpointRequest body) throws ApiException, IOException {
+            final CreateOrUpdateEndpointRequest body) throws ApiException, IOException {
         return prepareUpdateEndpointRequest(endpointId, body).execute();
     }
 
@@ -294,7 +294,7 @@ public final class WebhooksController extends BaseController {
      */
     private ApiCall<EndpointResponse, ApiException> prepareUpdateEndpointRequest(
             final int endpointId,
-            final UpdateEndpointRequest body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateEndpointRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<EndpointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

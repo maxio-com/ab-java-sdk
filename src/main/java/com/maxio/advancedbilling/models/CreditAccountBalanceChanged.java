@@ -10,6 +10,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for CreditAccountBalanceChanged type.
@@ -19,7 +23,7 @@ public class CreditAccountBalanceChanged {
     private long serviceCreditAccountBalanceInCents;
     private long serviceCreditBalanceChangeInCents;
     private String currencyCode;
-    private String atTime;
+    private ZonedDateTime atTime;
 
     /**
      * Default constructor.
@@ -34,7 +38,7 @@ public class CreditAccountBalanceChanged {
      *         serviceCreditAccountBalanceInCents.
      * @param  serviceCreditBalanceChangeInCents  long value for serviceCreditBalanceChangeInCents.
      * @param  currencyCode  String value for currencyCode.
-     * @param  atTime  String value for atTime.
+     * @param  atTime  ZonedDateTime value for atTime.
      */
     @JsonCreator
     public CreditAccountBalanceChanged(
@@ -42,7 +46,7 @@ public class CreditAccountBalanceChanged {
             @JsonProperty("service_credit_account_balance_in_cents") long serviceCreditAccountBalanceInCents,
             @JsonProperty("service_credit_balance_change_in_cents") long serviceCreditBalanceChangeInCents,
             @JsonProperty("currency_code") String currencyCode,
-            @JsonProperty("at_time") String atTime) {
+            @JsonProperty("at_time") ZonedDateTime atTime) {
         this.reason = reason;
         this.serviceCreditAccountBalanceInCents = serviceCreditAccountBalanceInCents;
         this.serviceCreditBalanceChangeInCents = serviceCreditBalanceChangeInCents;
@@ -124,19 +128,21 @@ public class CreditAccountBalanceChanged {
 
     /**
      * Getter for AtTime.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("at_time")
-    public String getAtTime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getAtTime() {
         return atTime;
     }
 
     /**
      * Setter for AtTime.
-     * @param atTime Value for String
+     * @param atTime Value for ZonedDateTime
      */
     @JsonSetter("at_time")
-    public void setAtTime(String atTime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setAtTime(ZonedDateTime atTime) {
         this.atTime = atTime;
     }
 
@@ -171,7 +177,7 @@ public class CreditAccountBalanceChanged {
         private long serviceCreditAccountBalanceInCents;
         private long serviceCreditBalanceChangeInCents;
         private String currencyCode;
-        private String atTime;
+        private ZonedDateTime atTime;
 
         /**
          * Initialization constructor.
@@ -187,10 +193,10 @@ public class CreditAccountBalanceChanged {
          * @param  serviceCreditBalanceChangeInCents  long value for
          *         serviceCreditBalanceChangeInCents.
          * @param  currencyCode  String value for currencyCode.
-         * @param  atTime  String value for atTime.
+         * @param  atTime  ZonedDateTime value for atTime.
          */
         public Builder(String reason, long serviceCreditAccountBalanceInCents,
-                long serviceCreditBalanceChangeInCents, String currencyCode, String atTime) {
+                long serviceCreditBalanceChangeInCents, String currencyCode, ZonedDateTime atTime) {
             this.reason = reason;
             this.serviceCreditAccountBalanceInCents = serviceCreditAccountBalanceInCents;
             this.serviceCreditBalanceChangeInCents = serviceCreditBalanceChangeInCents;
@@ -243,10 +249,10 @@ public class CreditAccountBalanceChanged {
 
         /**
          * Setter for atTime.
-         * @param  atTime  String value for atTime.
+         * @param  atTime  ZonedDateTime value for atTime.
          * @return Builder
          */
-        public Builder atTime(String atTime) {
+        public Builder atTime(ZonedDateTime atTime) {
             this.atTime = atTime;
             return this;
         }

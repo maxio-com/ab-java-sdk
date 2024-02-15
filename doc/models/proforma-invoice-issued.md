@@ -12,8 +12,8 @@
 | `Uid` | `String` | Required | - | String getUid() | setUid(String uid) |
 | `Number` | `String` | Required | - | String getNumber() | setNumber(String number) |
 | `Role` | `String` | Required | - | String getRole() | setRole(String role) |
-| `DeliveryDate` | `String` | Required | - | String getDeliveryDate() | setDeliveryDate(String deliveryDate) |
-| `CreatedAt` | `String` | Required | - | String getCreatedAt() | setCreatedAt(String createdAt) |
+| `DeliveryDate` | `LocalDate` | Required | - | LocalDate getDeliveryDate() | setDeliveryDate(LocalDate deliveryDate) |
+| `CreatedAt` | `ZonedDateTime` | Required | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `DueAmount` | `String` | Required | - | String getDueAmount() | setDueAmount(String dueAmount) |
 | `PaidAmount` | `String` | Required | - | String getPaidAmount() | setPaidAmount(String paidAmount) |
 | `TaxAmount` | `String` | Required | - | String getTaxAmount() | setTaxAmount(String taxAmount) |
@@ -28,8 +28,8 @@
   "uid": "uid0",
   "number": "number2",
   "role": "role6",
-  "delivery_date": "delivery_date0",
-  "created_at": "created_at8",
+  "delivery_date": "2016-03-13",
+  "created_at": "2016-03-13T12:52:32.123Z",
   "due_amount": "due_amount2",
   "paid_amount": "paid_amount8",
   "tax_amount": "tax_amount6",

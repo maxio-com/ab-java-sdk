@@ -9,6 +9,10 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -19,7 +23,7 @@ public class SubscriptionGroup {
     private SubscriptionGroupPaymentProfile paymentProfile;
     private String paymentCollectionMethod;
     private List<Integer> subscriptionIds;
-    private String createdAt;
+    private ZonedDateTime createdAt;
 
     /**
      * Default constructor.
@@ -33,14 +37,14 @@ public class SubscriptionGroup {
      * @param  paymentProfile  SubscriptionGroupPaymentProfile value for paymentProfile.
      * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
      * @param  subscriptionIds  List of Integer value for subscriptionIds.
-     * @param  createdAt  String value for createdAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
      */
     public SubscriptionGroup(
             Integer customerId,
             SubscriptionGroupPaymentProfile paymentProfile,
             String paymentCollectionMethod,
             List<Integer> subscriptionIds,
-            String createdAt) {
+            ZonedDateTime createdAt) {
         this.customerId = customerId;
         this.paymentProfile = paymentProfile;
         this.paymentCollectionMethod = paymentCollectionMethod;
@@ -126,20 +130,22 @@ public class SubscriptionGroup {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -177,7 +183,7 @@ public class SubscriptionGroup {
         private SubscriptionGroupPaymentProfile paymentProfile;
         private String paymentCollectionMethod;
         private List<Integer> subscriptionIds;
-        private String createdAt;
+        private ZonedDateTime createdAt;
 
 
 
@@ -223,10 +229,10 @@ public class SubscriptionGroup {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }

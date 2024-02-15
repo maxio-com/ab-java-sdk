@@ -15,7 +15,7 @@
 | `PaymentProfileId` | `Integer` | Optional | - | Integer getPaymentProfileId() | setPaymentProfileId(Integer paymentProfileId) |
 | `SubscriptionIds` | `List<Integer>` | Optional | - | List<Integer> getSubscriptionIds() | setSubscriptionIds(List<Integer> subscriptionIds) |
 | `PrimarySubscriptionId` | `Integer` | Optional | - | Integer getPrimarySubscriptionId() | setPrimarySubscriptionId(Integer primarySubscriptionId) |
-| `NextAssessmentAt` | `String` | Optional | - | String getNextAssessmentAt() | setNextAssessmentAt(String nextAssessmentAt) |
+| `NextAssessmentAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getNextAssessmentAt() | setNextAssessmentAt(ZonedDateTime nextAssessmentAt) |
 | `State` | `String` | Optional | - | String getState() | setState(String state) |
 | `CancelAtEndOfPeriod` | `Boolean` | Optional | - | Boolean getCancelAtEndOfPeriod() | setCancelAtEndOfPeriod(Boolean cancelAtEndOfPeriod) |
 | `Subscriptions` | [`List<SubscriptionGroupItem>`](../../doc/models/subscription-group-item.md) | Optional | - | List<SubscriptionGroupItem> getSubscriptions() | setSubscriptions(List<SubscriptionGroupItem> subscriptions) |

@@ -25,7 +25,7 @@
     "external": false,
     "memo": "memo2",
     "payment_type": "credit_card",
-    "created_at": "created_at6"
+    "created_at": "2016-03-13T12:52:32.123Z"
   }
 }
 ```

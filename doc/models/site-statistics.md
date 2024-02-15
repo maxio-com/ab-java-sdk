@@ -16,10 +16,10 @@
 | `RevenueThisMonth` | `String` | Optional | - | String getRevenueThisMonth() | setRevenueThisMonth(String revenueThisMonth) |
 | `RevenueThisYear` | `String` | Optional | - | String getRevenueThisYear() | setRevenueThisYear(String revenueThisYear) |
 | `TotalCanceledSubscriptions` | `Integer` | Optional | - | Integer getTotalCanceledSubscriptions() | setTotalCanceledSubscriptions(Integer totalCanceledSubscriptions) |
-| `TotalActiveSubscriptions` | `Double` | Optional | - | Double getTotalActiveSubscriptions() | setTotalActiveSubscriptions(Double totalActiveSubscriptions) |
-| `TotalPastDueSubscriptions` | `Double` | Optional | - | Double getTotalPastDueSubscriptions() | setTotalPastDueSubscriptions(Double totalPastDueSubscriptions) |
-| `TotalUnpaidSubscriptions` | `Double` | Optional | - | Double getTotalUnpaidSubscriptions() | setTotalUnpaidSubscriptions(Double totalUnpaidSubscriptions) |
-| `TotalDunningSubscriptions` | `Double` | Optional | - | Double getTotalDunningSubscriptions() | setTotalDunningSubscriptions(Double totalDunningSubscriptions) |
+| `TotalActiveSubscriptions` | `Integer` | Optional | - | Integer getTotalActiveSubscriptions() | setTotalActiveSubscriptions(Integer totalActiveSubscriptions) |
+| `TotalPastDueSubscriptions` | `Integer` | Optional | - | Integer getTotalPastDueSubscriptions() | setTotalPastDueSubscriptions(Integer totalPastDueSubscriptions) |
+| `TotalUnpaidSubscriptions` | `Integer` | Optional | - | Integer getTotalUnpaidSubscriptions() | setTotalUnpaidSubscriptions(Integer totalUnpaidSubscriptions) |
+| `TotalDunningSubscriptions` | `Integer` | Optional | - | Integer getTotalDunningSubscriptions() | setTotalDunningSubscriptions(Integer totalDunningSubscriptions) |
 
 ## Example (as JSON)
 

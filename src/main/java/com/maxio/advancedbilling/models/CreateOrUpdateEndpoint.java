@@ -11,16 +11,16 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.List;
 
 /**
- * This is a model class for UpdateEndpoint type.
+ * This is a model class for CreateOrUpdateEndpoint type.
  */
-public class UpdateEndpoint {
+public class CreateOrUpdateEndpoint {
     private String url;
     private List<WebhookSubscription> webhookSubscriptions;
 
     /**
      * Default constructor.
      */
-    public UpdateEndpoint() {
+    public CreateOrUpdateEndpoint() {
     }
 
     /**
@@ -28,7 +28,7 @@ public class UpdateEndpoint {
      * @param  url  String value for url.
      * @param  webhookSubscriptions  List of WebhookSubscription value for webhookSubscriptions.
      */
-    public UpdateEndpoint(
+    public CreateOrUpdateEndpoint(
             String url,
             List<WebhookSubscription> webhookSubscriptions) {
         this.url = url;
@@ -72,19 +72,19 @@ public class UpdateEndpoint {
     }
 
     /**
-     * Converts this UpdateEndpoint into string format.
+     * Converts this CreateOrUpdateEndpoint into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "UpdateEndpoint [" + "url=" + url + ", webhookSubscriptions=" + webhookSubscriptions
-                + "]";
+        return "CreateOrUpdateEndpoint [" + "url=" + url + ", webhookSubscriptions="
+                + webhookSubscriptions + "]";
     }
 
     /**
-     * Builds a new {@link UpdateEndpoint.Builder} object.
+     * Builds a new {@link CreateOrUpdateEndpoint.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link UpdateEndpoint.Builder} object
+     * @return a new {@link CreateOrUpdateEndpoint.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(url, webhookSubscriptions);
@@ -92,7 +92,7 @@ public class UpdateEndpoint {
     }
 
     /**
-     * Class to build instances of {@link UpdateEndpoint}.
+     * Class to build instances of {@link CreateOrUpdateEndpoint}.
      */
     public static class Builder {
         private String url;
@@ -135,11 +135,11 @@ public class UpdateEndpoint {
         }
 
         /**
-         * Builds a new {@link UpdateEndpoint} object using the set fields.
-         * @return {@link UpdateEndpoint}
+         * Builds a new {@link CreateOrUpdateEndpoint} object using the set fields.
+         * @return {@link CreateOrUpdateEndpoint}
          */
-        public UpdateEndpoint build() {
-            return new UpdateEndpoint(url, webhookSubscriptions);
+        public CreateOrUpdateEndpoint build() {
+            return new CreateOrUpdateEndpoint(url, webhookSubscriptions);
         }
     }
 }

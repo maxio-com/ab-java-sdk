@@ -9,8 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ProductFamily type.
@@ -21,8 +24,8 @@ public class ProductFamily {
     private String handle;
     private OptionalNullable<String> accountingCode;
     private OptionalNullable<String> description;
-    private String createdAt;
-    private String updatedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
 
     /**
      * Default constructor.
@@ -37,8 +40,8 @@ public class ProductFamily {
      * @param  handle  String value for handle.
      * @param  accountingCode  String value for accountingCode.
      * @param  description  String value for description.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
     public ProductFamily(
             Integer id,
@@ -46,8 +49,8 @@ public class ProductFamily {
             String handle,
             String accountingCode,
             String description,
-            String createdAt,
-            String updatedAt) {
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -64,13 +67,13 @@ public class ProductFamily {
      * @param  handle  String value for handle.
      * @param  accountingCode  String value for accountingCode.
      * @param  description  String value for description.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
 
     protected ProductFamily(Integer id, String name, String handle,
             OptionalNullable<String> accountingCode, OptionalNullable<String> description,
-            String createdAt, String updatedAt) {
+            ZonedDateTime createdAt, ZonedDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -209,39 +212,43 @@ public class ProductFamily {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -282,8 +289,8 @@ public class ProductFamily {
         private String handle;
         private OptionalNullable<String> accountingCode;
         private OptionalNullable<String> description;
-        private String createdAt;
-        private String updatedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
 
 
 
@@ -357,20 +364,20 @@ public class ProductFamily {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }

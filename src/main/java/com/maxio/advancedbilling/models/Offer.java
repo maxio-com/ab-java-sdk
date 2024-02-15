@@ -9,8 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -26,9 +29,9 @@ public class Offer {
     private String name;
     private String handle;
     private OptionalNullable<String> description;
-    private String createdAt;
-    private String updatedAt;
-    private OptionalNullable<String> archivedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
     private List<OfferItem> offerItems;
     private List<OfferDiscount> offerDiscounts;
     private String productFamilyName;
@@ -54,9 +57,9 @@ public class Offer {
      * @param  name  String value for name.
      * @param  handle  String value for handle.
      * @param  description  String value for description.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  offerItems  List of OfferItem value for offerItems.
      * @param  offerDiscounts  List of OfferDiscount value for offerDiscounts.
      * @param  productFamilyName  String value for productFamilyName.
@@ -75,9 +78,9 @@ public class Offer {
             String name,
             String handle,
             String description,
-            String createdAt,
-            String updatedAt,
-            String archivedAt,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt,
+            ZonedDateTime archivedAt,
             List<OfferItem> offerItems,
             List<OfferDiscount> offerDiscounts,
             String productFamilyName,
@@ -117,9 +120,9 @@ public class Offer {
      * @param  name  String value for name.
      * @param  handle  String value for handle.
      * @param  description  String value for description.
-     * @param  createdAt  String value for createdAt.
-     * @param  updatedAt  String value for updatedAt.
-     * @param  archivedAt  String value for archivedAt.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  offerItems  List of OfferItem value for offerItems.
      * @param  offerDiscounts  List of OfferDiscount value for offerDiscounts.
      * @param  productFamilyName  String value for productFamilyName.
@@ -131,8 +134,8 @@ public class Offer {
 
     protected Offer(Integer id, Integer siteId, Integer productFamilyId, Integer productId,
             Integer productPricePointId, Integer productRevisableNumber, String name, String handle,
-            OptionalNullable<String> description, String createdAt, String updatedAt,
-            OptionalNullable<String> archivedAt, List<OfferItem> offerItems,
+            OptionalNullable<String> description, ZonedDateTime createdAt, ZonedDateTime updatedAt,
+            OptionalNullable<ZonedDateTime> archivedAt, List<OfferItem> offerItems,
             List<OfferDiscount> offerDiscounts, String productFamilyName, String productName,
             String productPricePointName, Long productPriceInCents,
             List<OfferSignupPage> offerSignupPages) {
@@ -346,67 +349,72 @@ public class Offer {
 
     /**
      * Getter for CreatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCreatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
     /**
      * Setter for CreatedAt.
-     * @param createdAt Value for String
+     * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")
-    public void setCreatedAt(String createdAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
     /**
      * Getter for UpdatedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("updated_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getUpdatedAt() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     /**
      * Setter for UpdatedAt.
-     * @param updatedAt Value for String
+     * @param updatedAt Value for ZonedDateTime
      */
     @JsonSetter("updated_at")
-    public void setUpdatedAt(String updatedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
     /**
      * Internal Getter for ArchivedAt.
-     * @return Returns the Internal String
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetArchivedAt() {
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
         return this.archivedAt;
     }
 
     /**
      * Getter for ArchivedAt.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
-    public String getArchivedAt() {
+    public ZonedDateTime getArchivedAt() {
         return OptionalNullable.getFrom(archivedAt);
     }
 
     /**
      * Setter for ArchivedAt.
-     * @param archivedAt Value for String
+     * @param archivedAt Value for ZonedDateTime
      */
     @JsonSetter("archived_at")
-    public void setArchivedAt(String archivedAt) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setArchivedAt(ZonedDateTime archivedAt) {
         this.archivedAt = OptionalNullable.of(archivedAt);
     }
 
@@ -609,9 +617,9 @@ public class Offer {
         private String name;
         private String handle;
         private OptionalNullable<String> description;
-        private String createdAt;
-        private String updatedAt;
-        private OptionalNullable<String> archivedAt;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
         private List<OfferItem> offerItems;
         private List<OfferDiscount> offerDiscounts;
         private String productFamilyName;
@@ -723,30 +731,30 @@ public class Offer {
 
         /**
          * Setter for createdAt.
-         * @param  createdAt  String value for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
          * @return Builder
          */
-        public Builder createdAt(String createdAt) {
+        public Builder createdAt(ZonedDateTime createdAt) {
             this.createdAt = createdAt;
             return this;
         }
 
         /**
          * Setter for updatedAt.
-         * @param  updatedAt  String value for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
          * @return Builder
          */
-        public Builder updatedAt(String updatedAt) {
+        public Builder updatedAt(ZonedDateTime updatedAt) {
             this.updatedAt = updatedAt;
             return this;
         }
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  String value for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(String archivedAt) {
+        public Builder archivedAt(ZonedDateTime archivedAt) {
             this.archivedAt = OptionalNullable.of(archivedAt);
             return this;
         }

@@ -14,8 +14,8 @@
 | `TotalDiscountInCents` | `Long` | Optional | - | Long getTotalDiscountInCents() | setTotalDiscountInCents(Long totalDiscountInCents) |
 | `TotalTaxInCents` | `Long` | Optional | - | Long getTotalTaxInCents() | setTotalTaxInCents(Long totalTaxInCents) |
 | `SubtotalInCents` | `Long` | Optional | - | Long getSubtotalInCents() | setSubtotalInCents(Long subtotalInCents) |
-| `StartDate` | `String` | Optional | - | String getStartDate() | setStartDate(String startDate) |
-| `EndDate` | `String` | Optional | - | String getEndDate() | setEndDate(String endDate) |
+| `StartDate` | `ZonedDateTime` | Optional | - | ZonedDateTime getStartDate() | setStartDate(ZonedDateTime startDate) |
+| `EndDate` | `ZonedDateTime` | Optional | - | ZonedDateTime getEndDate() | setEndDate(ZonedDateTime endDate) |
 | `PeriodType` | `String` | Optional | - | String getPeriodType() | setPeriodType(String periodType) |
 | `ExistingBalanceInCents` | `Long` | Optional | - | Long getExistingBalanceInCents() | setExistingBalanceInCents(Long existingBalanceInCents) |
 
