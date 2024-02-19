@@ -624,23 +624,6 @@ public final class AdvancedBillingClient implements Configuration {
 
 
         /**
-         * Credentials setter for BasicAuth.
-         * @param basicAuthUserName String value for basicAuthUserName.
-         * @param basicAuthPassword String value for basicAuthPassword.
-         * @deprecated This builder method is deprecated.
-         * Use {@link #basicAuthCredentials(BasicAuthModel) basicAuthCredentials} instead.
-         * @return The current instance of builder.
-         */
-        @Deprecated
-        public Builder basicAuthCredentials(String basicAuthUserName, String basicAuthPassword) {
-            basicAuthModel = basicAuthModel.toBuilder()
-                .username(basicAuthUserName)
-                .password(basicAuthPassword)
-                .build();
-            return this;
-        }
-
-        /**
          * Credentials setter for BasicAuthCredentials.
          * @param basicAuthModel The instance of BasicAuthModel.
          * @return The current instance of builder.
