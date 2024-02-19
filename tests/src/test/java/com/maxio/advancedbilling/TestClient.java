@@ -1,5 +1,7 @@
 package com.maxio.advancedbilling;
 
+import com.maxio.advancedbilling.authentication.BasicAuthModel;
+
 public class TestClient {
     private static final String SUBDOMAIN_ENV = "SUBDOMAIN";
     private static final String DOMAIN_ENV = "DOMAIN";
@@ -10,7 +12,9 @@ public class TestClient {
     public static AdvancedBillingClient createClient() {
         return new AdvancedBillingClient.Builder()
                 .httpClientConfig(configBuilder -> configBuilder.timeout(10))
-                .basicAuthCredentials(getEnvValue(API_KEY_ENV), PASSWORD)
+                .basicAuthCredentials(
+                        new BasicAuthModel.Builder(getEnvValue(API_KEY_ENV), PASSWORD)
+                                .build())
                 .environment(Environment.PRODUCTION)
                 .subdomain(getEnvValue(SUBDOMAIN_ENV))
                 .domain(getEnvValue(DOMAIN_ENV))
@@ -20,7 +24,8 @@ public class TestClient {
     public static AdvancedBillingClient createInvalidCredentialsClient() {
         return new AdvancedBillingClient.Builder()
                 .httpClientConfig(configBuilder -> configBuilder.timeout(10))
-                .basicAuthCredentials("123", "abc")
+                .basicAuthCredentials(new BasicAuthModel.Builder("123", "abc")
+                        .build())
                 .environment(Environment.PRODUCTION)
                 .subdomain(getEnvValue(SUBDOMAIN_ENV))
                 .domain(getEnvValue(DOMAIN_ENV))
