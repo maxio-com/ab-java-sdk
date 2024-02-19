@@ -13,7 +13,10 @@ import com.maxio.advancedbilling.models.CreateCustomer;
 import com.maxio.advancedbilling.models.CreateCustomerRequest;
 import com.maxio.advancedbilling.models.CreateInvoice;
 import com.maxio.advancedbilling.models.CreateInvoiceAddress;
+import com.maxio.advancedbilling.models.CreateInvoiceCoupon;
+import com.maxio.advancedbilling.models.CreateInvoiceItem;
 import com.maxio.advancedbilling.models.CreateInvoiceRequest;
+import com.maxio.advancedbilling.models.CreateInvoiceStatus;
 import com.maxio.advancedbilling.models.CreateMeteredComponent;
 import com.maxio.advancedbilling.models.CreateOnOffComponent;
 import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
@@ -52,6 +55,9 @@ import com.maxio.advancedbilling.models.SubscriptionGroupSignupItem;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupRequest;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
+import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
+import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductId;
+import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
 import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
@@ -418,7 +424,30 @@ public class TestSetup {
                 .getInvoice();
     }
 
-    public SubscriptionGroupSignupResponse signupWithSubscriptionGroup(Product product, Component component) throws ApiException, IOException {
+    public Invoice createOpenInvoice(int subscriptionId, int productId) throws IOException, ApiException {
+        return createInvoice(
+                subscriptionId,
+                b -> b
+                        .status(CreateInvoiceStatus.OPEN)
+                        .lineItems(List.of(
+                                new CreateInvoiceItem.Builder()
+                                        .productId(CreateInvoiceItemProductId.fromNumber(productId))
+                                        .quantity(CreateInvoiceItemQuantity.fromString("1"))
+                                        .build()
+                        ))
+                        .coupons(List.of(
+                                new CreateInvoiceCoupon.Builder()
+                                        .code("MY_CUSTOM_CODE")
+                                        .amount(CreateInvoiceCouponAmount.fromString("8.5"))
+                                        .description("Super coupon with 8.5 amount.")
+                                        .build()
+                        ))
+                        .build()
+        );
+    }
+
+    public SubscriptionGroupSignupResponse signupWithSubscriptionGroup(Product product, Component component) throws
+            ApiException, IOException {
         return advancedBillingClient.getSubscriptionGroupsController()
                 .signupWithSubscriptionGroup(new SubscriptionGroupSignupRequest(
                         new SubscriptionGroupSignup.Builder()

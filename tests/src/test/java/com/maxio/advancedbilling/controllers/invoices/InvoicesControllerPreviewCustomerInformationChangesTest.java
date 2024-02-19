@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.INVOICES_CONTROLLER;
 import static com.maxio.advancedbilling.models.CustomFieldOwner.CUSTOMER;
 import static com.maxio.advancedbilling.models.CustomFieldOwner.SUBSCRIPTION;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
