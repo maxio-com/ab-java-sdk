@@ -16,7 +16,7 @@ import io.apimatic.core.types.OptionalNullable;
  * This is a model class for Customer1 type.
  */
 public class Customer1 {
-    private Integer chargifyId;
+    private OptionalNullable<Integer> chargifyId;
     private String firstName;
     private String lastName;
     private OptionalNullable<String> organization;
@@ -48,7 +48,7 @@ public class Customer1 {
             String email,
             String vatNumber,
             String reference) {
-        this.chargifyId = chargifyId;
+        this.chargifyId = OptionalNullable.of(chargifyId);
         this.firstName = firstName;
         this.lastName = lastName;
         this.organization = OptionalNullable.of(organization);
@@ -68,7 +68,7 @@ public class Customer1 {
      * @param  reference  String value for reference.
      */
 
-    protected Customer1(Integer chargifyId, String firstName, String lastName,
+    protected Customer1(OptionalNullable<Integer> chargifyId, String firstName, String lastName,
             OptionalNullable<String> organization, String email, OptionalNullable<String> vatNumber,
             OptionalNullable<String> reference) {
         this.chargifyId = chargifyId;
@@ -81,13 +81,22 @@ public class Customer1 {
     }
 
     /**
-     * Getter for ChargifyId.
-     * @return Returns the Integer
+     * Internal Getter for ChargifyId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("chargify_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetChargifyId() {
+        return this.chargifyId;
+    }
+
+    /**
+     * Getter for ChargifyId.
+     * @return Returns the Integer
+     */
     public Integer getChargifyId() {
-        return chargifyId;
+        return OptionalNullable.getFrom(chargifyId);
     }
 
     /**
@@ -96,7 +105,14 @@ public class Customer1 {
      */
     @JsonSetter("chargify_id")
     public void setChargifyId(Integer chargifyId) {
-        this.chargifyId = chargifyId;
+        this.chargifyId = OptionalNullable.of(chargifyId);
+    }
+
+    /**
+     * UnSetter for ChargifyId.
+     */
+    public void unsetChargifyId() {
+        chargifyId = null;
     }
 
     /**
@@ -279,10 +295,10 @@ public class Customer1 {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .chargifyId(getChargifyId())
                 .firstName(getFirstName())
                 .lastName(getLastName())
                 .email(getEmail());
+        builder.chargifyId = internalGetChargifyId();
         builder.organization = internalGetOrganization();
         builder.vatNumber = internalGetVatNumber();
         builder.reference = internalGetReference();
@@ -293,7 +309,7 @@ public class Customer1 {
      * Class to build instances of {@link Customer1}.
      */
     public static class Builder {
-        private Integer chargifyId;
+        private OptionalNullable<Integer> chargifyId;
         private String firstName;
         private String lastName;
         private OptionalNullable<String> organization;
@@ -309,7 +325,16 @@ public class Customer1 {
          * @return Builder
          */
         public Builder chargifyId(Integer chargifyId) {
-            this.chargifyId = chargifyId;
+            this.chargifyId = OptionalNullable.of(chargifyId);
+            return this;
+        }
+
+        /**
+         * UnSetter for chargifyId.
+         * @return Builder
+         */
+        public Builder unsetChargifyId() {
+            chargifyId = null;
             return this;
         }
 

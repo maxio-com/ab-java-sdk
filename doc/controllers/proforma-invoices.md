@@ -74,7 +74,7 @@ Only proforma invoices with a `consolidation_level` of parent are returned.
 By default, proforma invoices returned on the index will only include totals, not detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`. To include breakdowns, pass the specific field as a key in the query with a value set to true.
 
 ```java
-ProformaInvoice listSubscriptionGroupProformaInvoices(
+ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
     final String uid)
 ```
 
@@ -86,7 +86,7 @@ ProformaInvoice listSubscriptionGroupProformaInvoices(
 
 ## Response Type
 
-[`ProformaInvoice`](../../doc/models/proforma-invoice.md)
+[`ListProformaInvoicesResponse`](../../doc/models/list-proforma-invoices-response.md)
 
 ## Example Usage
 
@@ -94,7 +94,7 @@ ProformaInvoice listSubscriptionGroupProformaInvoices(
 String uid = "uid0";
 
 try {
-    ProformaInvoice result = proformaInvoicesController.listSubscriptionGroupProformaInvoices(uid);
+    ListProformaInvoicesResponse result = proformaInvoicesController.listSubscriptionGroupProformaInvoices(uid);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -323,7 +323,7 @@ If all the data returned in the preview is as expected, you may then create a st
 Alternatively, if you have some proforma invoices already, you may make a preview call to determine whether any billing information for the subscription's upcoming renewal has changed.
 
 ```java
-ProformaInvoicePreview previewProformaInvoice(
+ProformaInvoice previewProformaInvoice(
     final int subscriptionId)
 ```
 
@@ -335,7 +335,7 @@ ProformaInvoicePreview previewProformaInvoice(
 
 ## Response Type
 
-[`ProformaInvoicePreview`](../../doc/models/proforma-invoice-preview.md)
+[`ProformaInvoice`](../../doc/models/proforma-invoice.md)
 
 ## Example Usage
 
@@ -343,7 +343,7 @@ ProformaInvoicePreview previewProformaInvoice(
 int subscriptionId = 222;
 
 try {
-    ProformaInvoicePreview result = proformaInvoicesController.previewProformaInvoice(subscriptionId);
+    ProformaInvoice result = proformaInvoicesController.previewProformaInvoice(subscriptionId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
