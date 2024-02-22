@@ -41,6 +41,7 @@ public class InvoiceLineItem {
     private OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData;
     private OptionalNullable<Integer> productPricePointId;
     private Boolean customItem;
+    private String kind;
 
     /**
      * Default constructor.
@@ -71,6 +72,7 @@ public class InvoiceLineItem {
      * @param  componentCostData  InvoiceLineItemComponentCostData2 value for componentCostData.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customItem  Boolean value for customItem.
+     * @param  kind  String value for kind.
      */
     public InvoiceLineItem(
             String uid,
@@ -93,7 +95,8 @@ public class InvoiceLineItem {
             Boolean hide,
             InvoiceLineItemComponentCostData2 componentCostData,
             Integer productPricePointId,
-            Boolean customItem) {
+            Boolean customItem,
+            String kind) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -115,6 +118,7 @@ public class InvoiceLineItem {
         this.componentCostData = OptionalNullable.of(componentCostData);
         this.productPricePointId = OptionalNullable.of(productPricePointId);
         this.customItem = customItem;
+        this.kind = kind;
     }
 
     /**
@@ -140,6 +144,7 @@ public class InvoiceLineItem {
      * @param  componentCostData  InvoiceLineItemComponentCostData2 value for componentCostData.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customItem  Boolean value for customItem.
+     * @param  kind  String value for kind.
      */
 
     protected InvoiceLineItem(String uid, String title, String description, String quantity,
@@ -149,7 +154,7 @@ public class InvoiceLineItem {
             OptionalNullable<Integer> productVersion, OptionalNullable<Integer> componentId,
             OptionalNullable<Integer> pricePointId, Boolean hide,
             OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData,
-            OptionalNullable<Integer> productPricePointId, Boolean customItem) {
+            OptionalNullable<Integer> productPricePointId, Boolean customItem, String kind) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -171,6 +176,7 @@ public class InvoiceLineItem {
         this.componentCostData = componentCostData;
         this.productPricePointId = productPricePointId;
         this.customItem = customItem;
+        this.kind = kind;
     }
 
     /**
@@ -777,6 +783,25 @@ public class InvoiceLineItem {
     }
 
     /**
+     * Getter for Kind.
+     * @return Returns the String
+     */
+    @JsonGetter("kind")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getKind() {
+        return kind;
+    }
+
+    /**
+     * Setter for Kind.
+     * @param kind Value for String
+     */
+    @JsonSetter("kind")
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    /**
      * Converts this InvoiceLineItem into string format.
      * @return String representation of this class
      */
@@ -791,7 +816,7 @@ public class InvoiceLineItem {
                 + ", productVersion=" + productVersion + ", componentId=" + componentId
                 + ", pricePointId=" + pricePointId + ", hide=" + hide + ", componentCostData="
                 + componentCostData + ", productPricePointId=" + productPricePointId
-                + ", customItem=" + customItem + "]";
+                + ", customItem=" + customItem + ", kind=" + kind + "]";
     }
 
     /**
@@ -815,7 +840,8 @@ public class InvoiceLineItem {
                 .periodRangeEnd(getPeriodRangeEnd())
                 .transactionId(getTransactionId())
                 .hide(getHide())
-                .customItem(getCustomItem());
+                .customItem(getCustomItem())
+                .kind(getKind());
         builder.productId = internalGetProductId();
         builder.productVersion = internalGetProductVersion();
         builder.componentId = internalGetComponentId();
@@ -850,6 +876,7 @@ public class InvoiceLineItem {
         private OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData;
         private OptionalNullable<Integer> productPricePointId;
         private Boolean customItem;
+        private String kind;
 
 
 
@@ -1118,6 +1145,16 @@ public class InvoiceLineItem {
         }
 
         /**
+         * Setter for kind.
+         * @param  kind  String value for kind.
+         * @return Builder
+         */
+        public Builder kind(String kind) {
+            this.kind = kind;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceLineItem} object using the set fields.
          * @return {@link InvoiceLineItem}
          */
@@ -1125,7 +1162,7 @@ public class InvoiceLineItem {
             return new InvoiceLineItem(uid, title, description, quantity, unitPrice, subtotalAmount,
                     discountAmount, taxAmount, totalAmount, tieredUnitPrice, periodRangeStart,
                     periodRangeEnd, transactionId, productId, productVersion, componentId,
-                    pricePointId, hide, componentCostData, productPricePointId, customItem);
+                    pricePointId, hide, componentCostData, productPricePointId, customItem, kind);
         }
     }
 }

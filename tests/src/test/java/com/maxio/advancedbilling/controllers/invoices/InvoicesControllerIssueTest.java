@@ -215,6 +215,7 @@ class InvoicesControllerIssueTest {
                                 .discountAmount("0.0")
                                 .taxAmount("0.0")
                                 .totalAmount("5.4")
+                                .kind("quantity_based_component")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now())
                                 .periodRangeEnd(LocalDate.now().plusMonths(1))

@@ -38,7 +38,7 @@ public class BankAccountPaymentProfile {
     private BankAccountHolderType bankAccountHolderType;
     private PaymentType paymentType;
     private Boolean verified;
-    private Integer siteGatewaySettingId;
+    private OptionalNullable<Integer> siteGatewaySettingId;
     private OptionalNullable<String> gatewayHandle;
 
     /**
@@ -116,7 +116,7 @@ public class BankAccountPaymentProfile {
         this.bankAccountHolderType = bankAccountHolderType;
         this.paymentType = paymentType;
         this.verified = verified;
-        this.siteGatewaySettingId = siteGatewaySettingId;
+        this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
     }
 
@@ -154,7 +154,8 @@ public class BankAccountPaymentProfile {
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
             OptionalNullable<String> billingAddress2, String bankName,
             BankAccountType bankAccountType, BankAccountHolderType bankAccountHolderType,
-            PaymentType paymentType, Boolean verified, Integer siteGatewaySettingId,
+            PaymentType paymentType, Boolean verified,
+            OptionalNullable<Integer> siteGatewaySettingId,
             OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
@@ -192,7 +193,7 @@ public class BankAccountPaymentProfile {
         this(maskedBankRoutingNumber, maskedBankAccountNumber, null, null, null, null, null, null,
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
-                OptionalNullable.of(null), null, null, null, null, null, null,
+                OptionalNullable.of(null), null, null, null, null, null, OptionalNullable.of(null),
                 OptionalNullable.of(null));
         unsetBillingAddress();
         unsetBillingCity();
@@ -201,6 +202,7 @@ public class BankAccountPaymentProfile {
         unsetBillingCountry();
         unsetCustomerVaultToken();
         unsetBillingAddress2();
+        unsetSiteGatewaySettingId();
         unsetGatewayHandle();
     }
 
@@ -761,13 +763,22 @@ public class BankAccountPaymentProfile {
     }
 
     /**
-     * Getter for SiteGatewaySettingId.
-     * @return Returns the Integer
+     * Internal Getter for SiteGatewaySettingId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("site_gateway_setting_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetSiteGatewaySettingId() {
+        return this.siteGatewaySettingId;
+    }
+
+    /**
+     * Getter for SiteGatewaySettingId.
+     * @return Returns the Integer
+     */
     public Integer getSiteGatewaySettingId() {
-        return siteGatewaySettingId;
+        return OptionalNullable.getFrom(siteGatewaySettingId);
     }
 
     /**
@@ -776,7 +787,14 @@ public class BankAccountPaymentProfile {
      */
     @JsonSetter("site_gateway_setting_id")
     public void setSiteGatewaySettingId(Integer siteGatewaySettingId) {
-        this.siteGatewaySettingId = siteGatewaySettingId;
+        this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
+    }
+
+    /**
+     * UnSetter for SiteGatewaySettingId.
+     */
+    public void unsetSiteGatewaySettingId() {
+        siteGatewaySettingId = null;
     }
 
     /**
@@ -851,8 +869,7 @@ public class BankAccountPaymentProfile {
                 .bankAccountType(getBankAccountType())
                 .bankAccountHolderType(getBankAccountHolderType())
                 .paymentType(getPaymentType())
-                .verified(getVerified())
-                .siteGatewaySettingId(getSiteGatewaySettingId());
+                .verified(getVerified());
         builder.billingAddress = internalGetBillingAddress();
         builder.billingCity = internalGetBillingCity();
         builder.billingState = internalGetBillingState();
@@ -860,6 +877,7 @@ public class BankAccountPaymentProfile {
         builder.billingCountry = internalGetBillingCountry();
         builder.customerVaultToken = internalGetCustomerVaultToken();
         builder.billingAddress2 = internalGetBillingAddress2();
+        builder.siteGatewaySettingId = internalGetSiteGatewaySettingId();
         builder.gatewayHandle = internalGetGatewayHandle();
         return builder;
     }
@@ -888,7 +906,7 @@ public class BankAccountPaymentProfile {
         private BankAccountHolderType bankAccountHolderType;
         private PaymentType paymentType;
         private Boolean verified = false;
-        private Integer siteGatewaySettingId;
+        private OptionalNullable<Integer> siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
 
         /**
@@ -1176,7 +1194,16 @@ public class BankAccountPaymentProfile {
          * @return Builder
          */
         public Builder siteGatewaySettingId(Integer siteGatewaySettingId) {
-            this.siteGatewaySettingId = siteGatewaySettingId;
+            this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
+            return this;
+        }
+
+        /**
+         * UnSetter for siteGatewaySettingId.
+         * @return Builder
+         */
+        public Builder unsetSiteGatewaySettingId() {
+            siteGatewaySettingId = null;
             return this;
         }
 
