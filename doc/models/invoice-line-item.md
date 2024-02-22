@@ -30,6 +30,7 @@
 | `ComponentCostData` | [`InvoiceLineItemComponentCostData2`](../../doc/models/containers/invoice-line-item-component-cost-data-2.md) | Optional | This is a container for one-of cases. | InvoiceLineItemComponentCostData2 getComponentCostData() | setComponentCostData(InvoiceLineItemComponentCostData2 componentCostData) |
 | `ProductPricePointId` | `Integer` | Optional | The price point ID of the line item's product | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
 | `CustomItem` | `Boolean` | Optional | - | Boolean getCustomItem() | setCustomItem(Boolean customItem) |
+| `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
 
 ## Example (as JSON)
 

@@ -18,7 +18,6 @@ import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.ListProformaInvoicesInput;
 import com.maxio.advancedbilling.models.ListProformaInvoicesResponse;
 import com.maxio.advancedbilling.models.ProformaInvoice;
-import com.maxio.advancedbilling.models.ProformaInvoicePreview;
 import com.maxio.advancedbilling.models.SignupProformaPreviewResponse;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import io.apimatic.core.ApiCall;
@@ -90,11 +89,11 @@ public final class ProformaInvoicesController extends BaseController {
      * `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`. To include
      * breakdowns, pass the specific field as a key in the query with a value set to true.
      * @param  uid  Required parameter: The uid of the subscription group
-     * @return    Returns the ProformaInvoice response from the API call
+     * @return    Returns the ListProformaInvoicesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ProformaInvoice listSubscriptionGroupProformaInvoices(
+    public ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
             final String uid) throws ApiException, IOException {
         return prepareListSubscriptionGroupProformaInvoicesRequest(uid).execute();
     }
@@ -102,9 +101,9 @@ public final class ProformaInvoicesController extends BaseController {
     /**
      * Builds the ApiCall object for listSubscriptionGroupProformaInvoices.
      */
-    private ApiCall<ProformaInvoice, ApiException> prepareListSubscriptionGroupProformaInvoicesRequest(
+    private ApiCall<ListProformaInvoicesResponse, ApiException> prepareListSubscriptionGroupProformaInvoicesRequest(
             final String uid) throws IOException {
-        return new ApiCall.Builder<ProformaInvoice, ApiException>()
+        return new ApiCall.Builder<ListProformaInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -117,7 +116,7 @@ public final class ProformaInvoicesController extends BaseController {
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                                response -> ApiHelper.deserialize(response, ListProformaInvoicesResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",
@@ -351,11 +350,11 @@ public final class ProformaInvoicesController extends BaseController {
      * you may make a preview call to determine whether any billing information for the
      * subscription's upcoming renewal has changed.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @return    Returns the ProformaInvoicePreview response from the API call
+     * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ProformaInvoicePreview previewProformaInvoice(
+    public ProformaInvoice previewProformaInvoice(
             final int subscriptionId) throws ApiException, IOException {
         return preparePreviewProformaInvoiceRequest(subscriptionId).execute();
     }
@@ -363,9 +362,9 @@ public final class ProformaInvoicesController extends BaseController {
     /**
      * Builds the ApiCall object for previewProformaInvoice.
      */
-    private ApiCall<ProformaInvoicePreview, ApiException> preparePreviewProformaInvoiceRequest(
+    private ApiCall<ProformaInvoice, ApiException> preparePreviewProformaInvoiceRequest(
             final int subscriptionId) throws IOException {
-        return new ApiCall.Builder<ProformaInvoicePreview, ApiException>()
+        return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -378,7 +377,7 @@ public final class ProformaInvoicesController extends BaseController {
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ProformaInvoicePreview.class))
+                                response -> ApiHelper.deserialize(response, ProformaInvoice.class))
                         .nullify404(false)
                         .localErrorCase("404",
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",

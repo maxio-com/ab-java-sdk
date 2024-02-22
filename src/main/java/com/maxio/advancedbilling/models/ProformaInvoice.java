@@ -23,8 +23,8 @@ import java.util.List;
 public class ProformaInvoice {
     private String uid;
     private Integer siteId;
-    private Integer customerId;
-    private Integer subscriptionId;
+    private OptionalNullable<Integer> customerId;
+    private OptionalNullable<Integer> subscriptionId;
     private OptionalNullable<Integer> number;
     private OptionalNullable<Integer> sequenceNumber;
     private ZonedDateTime createdAt;
@@ -142,8 +142,8 @@ public class ProformaInvoice {
             String publicUrl) {
         this.uid = uid;
         this.siteId = siteId;
-        this.customerId = customerId;
-        this.subscriptionId = subscriptionId;
+        this.customerId = OptionalNullable.of(customerId);
+        this.subscriptionId = OptionalNullable.of(subscriptionId);
         this.number = OptionalNullable.of(number);
         this.sequenceNumber = OptionalNullable.of(sequenceNumber);
         this.createdAt = createdAt;
@@ -218,8 +218,8 @@ public class ProformaInvoice {
      * @param  publicUrl  String value for publicUrl.
      */
 
-    protected ProformaInvoice(String uid, Integer siteId, Integer customerId,
-            Integer subscriptionId, OptionalNullable<Integer> number,
+    protected ProformaInvoice(String uid, Integer siteId, OptionalNullable<Integer> customerId,
+            OptionalNullable<Integer> subscriptionId, OptionalNullable<Integer> number,
             OptionalNullable<Integer> sequenceNumber, ZonedDateTime createdAt,
             LocalDate deliveryDate, String status, String collectionMethod,
             String paymentInstructions, String currency, String consolidationLevel,
@@ -308,13 +308,22 @@ public class ProformaInvoice {
     }
 
     /**
-     * Getter for CustomerId.
-     * @return Returns the Integer
+     * Internal Getter for CustomerId.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("customer_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetCustomerId() {
+        return this.customerId;
+    }
+
+    /**
+     * Getter for CustomerId.
+     * @return Returns the Integer
+     */
     public Integer getCustomerId() {
-        return customerId;
+        return OptionalNullable.getFrom(customerId);
     }
 
     /**
@@ -323,17 +332,33 @@ public class ProformaInvoice {
      */
     @JsonSetter("customer_id")
     public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+        this.customerId = OptionalNullable.of(customerId);
+    }
+
+    /**
+     * UnSetter for CustomerId.
+     */
+    public void unsetCustomerId() {
+        customerId = null;
+    }
+
+    /**
+     * Internal Getter for SubscriptionId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("subscription_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetSubscriptionId() {
+        return this.subscriptionId;
     }
 
     /**
      * Getter for SubscriptionId.
      * @return Returns the Integer
      */
-    @JsonGetter("subscription_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getSubscriptionId() {
-        return subscriptionId;
+        return OptionalNullable.getFrom(subscriptionId);
     }
 
     /**
@@ -342,7 +367,14 @@ public class ProformaInvoice {
      */
     @JsonSetter("subscription_id")
     public void setSubscriptionId(Integer subscriptionId) {
-        this.subscriptionId = subscriptionId;
+        this.subscriptionId = OptionalNullable.of(subscriptionId);
+    }
+
+    /**
+     * UnSetter for SubscriptionId.
+     */
+    public void unsetSubscriptionId() {
+        subscriptionId = null;
     }
 
     /**
@@ -1041,8 +1073,6 @@ public class ProformaInvoice {
         Builder builder = new Builder()
                 .uid(getUid())
                 .siteId(getSiteId())
-                .customerId(getCustomerId())
-                .subscriptionId(getSubscriptionId())
                 .createdAt(getCreatedAt())
                 .deliveryDate(getDeliveryDate())
                 .status(getStatus())
@@ -1072,6 +1102,8 @@ public class ProformaInvoice {
                 .credits(getCredits())
                 .payments(getPayments())
                 .customFields(getCustomFields());
+        builder.customerId = internalGetCustomerId();
+        builder.subscriptionId = internalGetSubscriptionId();
         builder.number = internalGetNumber();
         builder.sequenceNumber = internalGetSequenceNumber();
         builder.publicUrl = internalGetPublicUrl();
@@ -1084,8 +1116,8 @@ public class ProformaInvoice {
     public static class Builder {
         private String uid;
         private Integer siteId;
-        private Integer customerId;
-        private Integer subscriptionId;
+        private OptionalNullable<Integer> customerId;
+        private OptionalNullable<Integer> subscriptionId;
         private OptionalNullable<Integer> number;
         private OptionalNullable<Integer> sequenceNumber;
         private ZonedDateTime createdAt;
@@ -1147,7 +1179,16 @@ public class ProformaInvoice {
          * @return Builder
          */
         public Builder customerId(Integer customerId) {
-            this.customerId = customerId;
+            this.customerId = OptionalNullable.of(customerId);
+            return this;
+        }
+
+        /**
+         * UnSetter for customerId.
+         * @return Builder
+         */
+        public Builder unsetCustomerId() {
+            customerId = null;
             return this;
         }
 
@@ -1157,7 +1198,16 @@ public class ProformaInvoice {
          * @return Builder
          */
         public Builder subscriptionId(Integer subscriptionId) {
-            this.subscriptionId = subscriptionId;
+            this.subscriptionId = OptionalNullable.of(subscriptionId);
+            return this;
+        }
+
+        /**
+         * UnSetter for subscriptionId.
+         * @return Builder
+         */
+        public Builder unsetSubscriptionId() {
+            subscriptionId = null;
             return this;
         }
 

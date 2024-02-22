@@ -22,7 +22,7 @@ public class Event {
     private String key;
     private String message;
     private Integer subscriptionId;
-    private int customerId;
+    private Integer customerId;
     private ZonedDateTime createdAt;
     private EventEventSpecificData eventSpecificData;
 
@@ -38,7 +38,7 @@ public class Event {
      * @param  key  String value for key.
      * @param  message  String value for message.
      * @param  subscriptionId  Integer value for subscriptionId.
-     * @param  customerId  int value for customerId.
+     * @param  customerId  Integer value for customerId.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
      */
@@ -47,7 +47,7 @@ public class Event {
             String key,
             String message,
             Integer subscriptionId,
-            int customerId,
+            Integer customerId,
             ZonedDateTime createdAt,
             EventEventSpecificData eventSpecificData) {
         this.id = id;
@@ -133,19 +133,19 @@ public class Event {
 
     /**
      * Getter for CustomerId.
-     * @return Returns the int
+     * @return Returns the Integer
      */
     @JsonGetter("customer_id")
-    public int getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
     /**
      * Setter for CustomerId.
-     * @param customerId Value for int
+     * @param customerId Value for Integer
      */
     @JsonSetter("customer_id")
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
@@ -217,7 +217,7 @@ public class Event {
         private String key;
         private String message;
         private Integer subscriptionId;
-        private int customerId;
+        private Integer customerId;
         private ZonedDateTime createdAt;
         private EventEventSpecificData eventSpecificData;
 
@@ -233,12 +233,13 @@ public class Event {
          * @param  key  String value for key.
          * @param  message  String value for message.
          * @param  subscriptionId  Integer value for subscriptionId.
-         * @param  customerId  int value for customerId.
+         * @param  customerId  Integer value for customerId.
          * @param  createdAt  ZonedDateTime value for createdAt.
          * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
          */
-        public Builder(int id, String key, String message, Integer subscriptionId, int customerId,
-                ZonedDateTime createdAt, EventEventSpecificData eventSpecificData) {
+        public Builder(int id, String key, String message, Integer subscriptionId,
+                Integer customerId, ZonedDateTime createdAt,
+                EventEventSpecificData eventSpecificData) {
             this.id = id;
             this.key = key;
             this.message = message;
@@ -290,10 +291,10 @@ public class Event {
 
         /**
          * Setter for customerId.
-         * @param  customerId  int value for customerId.
+         * @param  customerId  Integer value for customerId.
          * @return Builder
          */
-        public Builder customerId(int customerId) {
+        public Builder customerId(Integer customerId) {
             this.customerId = customerId;
             return this;
         }
