@@ -4,14 +4,7 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Customer;
-import com.maxio.advancedbilling.models.InvoiceAddress;
-import com.maxio.advancedbilling.models.InvoiceCustomer;
-import com.maxio.advancedbilling.models.InvoiceLineItem;
-import com.maxio.advancedbilling.models.InvoiceSeller;
-import com.maxio.advancedbilling.models.ProformaInvoice;
-import com.maxio.advancedbilling.models.ProformaInvoiceCredit;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
@@ -20,11 +13,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class ProformaInvoicesControllerCreateTest {
 
@@ -53,7 +41,7 @@ public class ProformaInvoicesControllerCreateTest {
                 proformaInvoicesCreator.createComplicatedProformaInvoice(customer);
 
         // then
-        proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData, false);
+        proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData, true);
     }
 
     @Test

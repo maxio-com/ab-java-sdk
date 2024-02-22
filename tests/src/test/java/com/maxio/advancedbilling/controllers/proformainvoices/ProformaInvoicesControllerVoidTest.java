@@ -41,7 +41,7 @@ public class ProformaInvoicesControllerVoidTest {
     }
 
     @Test
-    public void voidProformaInvoice() throws IOException, ApiException {
+    public void shouldVoidProformaInvoice() throws IOException, ApiException {
         // given
         ProformaInvoice proformaInvoice =  proformaInvoicesCreator.createBasicProformaInvoice(customer);
 

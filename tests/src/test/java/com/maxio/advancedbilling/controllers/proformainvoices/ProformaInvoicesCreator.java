@@ -5,7 +5,6 @@ import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AllocateComponents;
 import com.maxio.advancedbilling.models.Component;
-import com.maxio.advancedbilling.models.Coupon;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreateUsage;
 import com.maxio.advancedbilling.models.CreateUsageRequest;
@@ -30,6 +29,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -48,18 +48,13 @@ public class ProformaInvoicesCreator {
 
     protected ProformaInvoice createBasicProformaInvoice(Customer customer) throws IOException, ApiException {
         Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        return createBasicProformaInvoiceForSubscription(subscription);
-    }
-
-    protected ProformaInvoice createBasicProformaInvoiceForSubscription(Subscription subscription) throws IOException, ApiException {
         return CLIENT.getProformaInvoicesController().createProformaInvoice(subscription.getId());
     }
 
     protected ProformaInvoiceWithComponents createComplicatedProformaInvoice(Customer customer) throws IOException, ApiException {
         Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
         Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        Coupon coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
-        Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent, coupon);
+        Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent);
 
         return new ProformaInvoiceWithComponents(
                 CLIENT.getProformaInvoicesController().createProformaInvoice(subscription.getId()),
@@ -70,8 +65,7 @@ public class ProformaInvoicesCreator {
     protected ProformaInvoiceWithComponents previewComplicatedProformaInvoice(Customer customer) throws IOException, ApiException {
         Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
         Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        Coupon coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
-        Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent, coupon);
+        Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent);
 
         return new ProformaInvoiceWithComponents(
                 CLIENT.getProformaInvoicesController().previewProformaInvoice(subscription.getId()),
@@ -80,8 +74,8 @@ public class ProformaInvoicesCreator {
     }
 
     private Subscription setupSubscription(Customer customer, Component quantityBasedComponent,
-                                           Component meteredComponent, Coupon coupon) throws IOException, ApiException {
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product, s -> s.couponCode(coupon.getCode()));
+                                           Component meteredComponent) throws IOException, ApiException {
+        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
         CLIENT.getSubscriptionInvoiceAccountController().issueServiceCredit(subscription.getId(),
                 new IssueServiceCreditRequest(
                         new IssueServiceCredit(IssueServiceCreditAmount.fromString("5"), "credit")
@@ -102,6 +96,7 @@ public class ProformaInvoicesCreator {
                 new CreateUsageRequest(new CreateUsage.Builder()
                         .quantity(20.0)
                         .build()));
+        return subscription;
     }
 
     protected void assertProformaInvoice(Customer customer,
@@ -175,18 +170,18 @@ public class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getDiscountAmount()).isEqualTo("0.0");
         assertThat(proformaInvoice.getDiscounts()).isEmpty();
         assertThat(proformaInvoice.getDueAmount()).isEqualTo("277.5");
-        assertThat(proformaInvoice.getMemo()).isEmpty();
+        assertThat(proformaInvoice.getMemo()).isEqualTo("Thanks for your business! If you have any questions, please contact your account manager.");
         assertThat(proformaInvoice.getPaidAmount()).isEqualTo("0.0");
-        assertThat(proformaInvoice.getPaymentInstructions()).isEmpty();
+        assertThat(proformaInvoice.getPaymentInstructions()).isEqualTo("Please make checks payable to \"Acme, Inc.\"");
         assertThat(proformaInvoice.getProductFamilyName()).isEqualTo(productFamily.getName());
         assertThat(proformaInvoice.getProductName()).isEqualTo(product.getName());
         assertThat(proformaInvoice.getRefundAmount()).isEqualTo("0.0");
         assertThat(proformaInvoice.getRole()).isEqualTo("proforma_adhoc");
 
         InvoiceSeller invoiceSeller = proformaInvoice.getSeller();
-//        assertThat(invoiceSeller)
-//                .usingRecursiveComparison()
-//                .isEqualTo(INVOICE_SELLER);
+        assertThat(invoiceSeller)
+                .usingRecursiveComparison()
+                .isEqualTo(INVOICE_SELLER);
         assertThat(proformaInvoice.getSiteId()).isNotNull();
         assertThat(proformaInvoice.getStatus()).isEqualTo("draft");
         assertThat(proformaInvoice.getSubscriptionId()).isNotNull();
@@ -209,6 +204,7 @@ public class ProformaInvoicesCreator {
                                 .discountAmount("0.0")
                                 .taxAmount("0.0")
                                 .totalAmount("12.5")
+                                .kind("baseline")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now().plusMonths(1))
                                 .periodRangeEnd(LocalDate.now().plusMonths(1).plusMonths(1))
@@ -230,6 +226,7 @@ public class ProformaInvoicesCreator {
                                 .discountAmount("0.0")
                                 .taxAmount("0.0")
                                 .totalAmount("20.0")
+                                .kind("quantity_based_component")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now())
                                 .periodRangeEnd(LocalDate.now().plusMonths(1))
@@ -251,6 +248,7 @@ public class ProformaInvoicesCreator {
                                 .discountAmount("0.0")
                                 .taxAmount("0.0")
                                 .totalAmount("230.0")
+                                .kind("metered_component")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now())
                                 .periodRangeEnd(LocalDate.now().plusMonths(1))
@@ -272,6 +270,7 @@ public class ProformaInvoicesCreator {
                                 .discountAmount("0.0")
                                 .taxAmount("0.0")
                                 .totalAmount("20.0")
+                                .kind("quantity_based_component")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now().plusMonths(1))
                                 .periodRangeEnd(LocalDate.now().plusMonths(1).plusMonths(1))
@@ -287,7 +286,7 @@ public class ProformaInvoicesCreator {
 
     private String formatDescriptionDate(LocalDate localDate) {
         return localDate
-                .format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+                .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
     protected record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,

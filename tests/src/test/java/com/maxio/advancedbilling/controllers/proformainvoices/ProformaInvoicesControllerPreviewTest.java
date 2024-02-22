@@ -14,9 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
-
 public class ProformaInvoicesControllerPreviewTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
