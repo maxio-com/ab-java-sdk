@@ -17,6 +17,7 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.Direction;
 import com.maxio.advancedbilling.models.IncludeOption;
 import com.maxio.advancedbilling.models.InvoiceCustomField;
+import com.maxio.advancedbilling.models.InvoiceDiscountBreakout;
 import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
@@ -28,7 +29,6 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoiceDiscount;
-import com.maxio.advancedbilling.models.ProformaInvoiceDiscountBreakout;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.VoidInvoice;
@@ -39,6 +39,7 @@ import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -164,16 +165,23 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
         // discounts
         ProformaInvoiceDiscount.Builder discountBuilder = new ProformaInvoiceDiscount.Builder()
                 .title("Coupon: %s - %s".formatted(coupon.getCode(), coupon.getDescription()))
+                .code(coupon.getCode())
                 .discountAmount("12.5")
                 .discountType("flat_amount")
                 .eligibleAmount("500.0")
                 .sourceType("Coupon");
         assertThat(expectedInvoices).extracting(p -> p.getDiscounts().get(0))
-                .usingRecursiveFieldByFieldElementComparator()
+                .usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration.builder()
+                        .withIgnoredFields("uid")
+                        // also ignore uid nested in InvoiceDiscountBreakouts list
+                        .withComparatorForType(((o1, o2) -> o1.getDiscountAmount().equals(o2.getDiscountAmount()) &&
+                                        o1.getEligibleAmount().equals(o2.getEligibleAmount()) ? 0 : -1),
+                                 InvoiceDiscountBreakout.class)
+                        .build())
                 .containsOnly(
                         discountBuilder
                                 .lineItemBreakouts(List.of(
-                                        new ProformaInvoiceDiscountBreakout("500.0", "12.5")
+                                        new InvoiceDiscountBreakout(null, "500.0", "12.5")
                                 ))
                                 .build(),
                         discountBuilder
@@ -181,8 +189,8 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
                                 .eligibleAmount("770.0")
                                 .discountAmount("25.0")
                                 .lineItemBreakouts(List.of(
-                                        new ProformaInvoiceDiscountBreakout("20.0", "12.5"),
-                                        new ProformaInvoiceDiscountBreakout("500.0", "12.5")
+                                        new InvoiceDiscountBreakout(null, "20.0", "12.5"),
+                                        new InvoiceDiscountBreakout(null, "500.0", "12.5")
                                 ))
                                 .build()
                 );

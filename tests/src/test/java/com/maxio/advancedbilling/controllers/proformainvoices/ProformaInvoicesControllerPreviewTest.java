@@ -48,7 +48,7 @@ public class ProformaInvoicesControllerPreviewTest {
     void shouldReturn404WhenCreatingProformaInvoiceForNonExistentSubscription() {
         // when - then
         CommonAssertions.assertNotFound(
-                () -> PROFORMA_INVOICES_CONTROLLER.createProformaInvoice(123)
+                () -> PROFORMA_INVOICES_CONTROLLER.previewProformaInvoice(123)
         );
     }
 
@@ -56,7 +56,7 @@ public class ProformaInvoicesControllerPreviewTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
-                .createProformaInvoice(123)
+                .previewProformaInvoice(123)
         );
     }
 
