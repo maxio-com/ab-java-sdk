@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for PortalManagementLink type.
  */
-public class PortalManagementLink {
+public class PortalManagementLink
+        extends BaseModel {
     private String url;
     private Integer fetchCount;
     private ZonedDateTime createdAt;
@@ -222,7 +224,8 @@ public class PortalManagementLink {
     public String toString() {
         return "PortalManagementLink [" + "url=" + url + ", fetchCount=" + fetchCount
                 + ", createdAt=" + createdAt + ", newLinkAvailableAt=" + newLinkAvailableAt
-                + ", expiresAt=" + expiresAt + ", lastInviteSentAt=" + lastInviteSentAt + "]";
+                + ", expiresAt=" + expiresAt + ", lastInviteSentAt=" + lastInviteSentAt
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

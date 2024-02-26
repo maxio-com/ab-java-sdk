@@ -16,13 +16,15 @@ import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty1Value;
 import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty2Value;
 import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty3Value;
 import com.maxio.advancedbilling.models.containers.SegmentSegmentProperty4Value;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for Segment type.
  */
-public class Segment {
+public class Segment
+        extends BaseModel {
     private Integer id;
     private Integer componentId;
     private Integer pricePointId;
@@ -334,7 +336,8 @@ public class Segment {
                 + segmentProperty1Value + ", segmentProperty2Value=" + segmentProperty2Value
                 + ", segmentProperty3Value=" + segmentProperty3Value + ", segmentProperty4Value="
                 + segmentProperty4Value + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", prices=" + prices + "]";
+                + ", prices=" + prices + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

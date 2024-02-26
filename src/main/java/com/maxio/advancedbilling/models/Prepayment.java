@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Prepayment type.
  */
-public class Prepayment {
+public class Prepayment
+        extends BaseModel {
     private int id;
     private int subscriptionId;
     private long amountInCents;
@@ -268,7 +270,8 @@ public class Prepayment {
                 + ", amountInCents=" + amountInCents + ", remainingAmountInCents="
                 + remainingAmountInCents + ", external=" + external + ", memo=" + memo
                 + ", createdAt=" + createdAt + ", refundedAmountInCents=" + refundedAmountInCents
-                + ", details=" + details + ", paymentType=" + paymentType + "]";
+                + ", details=" + details + ", paymentType=" + paymentType
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

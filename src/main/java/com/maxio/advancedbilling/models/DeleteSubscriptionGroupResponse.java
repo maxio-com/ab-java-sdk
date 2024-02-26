@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for DeleteSubscriptionGroupResponse type.
  */
-public class DeleteSubscriptionGroupResponse {
+public class DeleteSubscriptionGroupResponse
+        extends BaseModel {
     private String uid;
     private Boolean deleted;
 
@@ -79,7 +81,8 @@ public class DeleteSubscriptionGroupResponse {
      */
     @Override
     public String toString() {
-        return "DeleteSubscriptionGroupResponse [" + "uid=" + uid + ", deleted=" + deleted + "]";
+        return "DeleteSubscriptionGroupResponse [" + "uid=" + uid + ", deleted=" + deleted
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

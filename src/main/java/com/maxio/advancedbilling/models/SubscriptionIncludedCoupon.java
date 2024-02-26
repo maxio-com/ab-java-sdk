@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for SubscriptionIncludedCoupon type.
  */
-public class SubscriptionIncludedCoupon {
+public class SubscriptionIncludedCoupon
+        extends BaseModel {
     private String code;
     private Integer useCount;
     private Integer usesAllowed;
@@ -270,7 +272,7 @@ public class SubscriptionIncludedCoupon {
         return "SubscriptionIncludedCoupon [" + "code=" + code + ", useCount=" + useCount
                 + ", usesAllowed=" + usesAllowed + ", expiresAt=" + expiresAt + ", recurring="
                 + recurring + ", amountInCents=" + amountInCents + ", percentage=" + percentage
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

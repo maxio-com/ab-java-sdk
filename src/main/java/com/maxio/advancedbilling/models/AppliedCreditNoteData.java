@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for AppliedCreditNoteData type.
  */
-public class AppliedCreditNoteData {
+public class AppliedCreditNoteData
+        extends BaseModel {
     private String uid;
     private String number;
 
@@ -83,7 +85,8 @@ public class AppliedCreditNoteData {
      */
     @Override
     public String toString() {
-        return "AppliedCreditNoteData [" + "uid=" + uid + ", number=" + number + "]";
+        return "AppliedCreditNoteData [" + "uid=" + uid + ", number=" + number
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

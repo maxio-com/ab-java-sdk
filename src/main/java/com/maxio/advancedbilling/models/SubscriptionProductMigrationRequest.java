@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionProductMigrationRequest type.
  */
-public class SubscriptionProductMigrationRequest {
+public class SubscriptionProductMigrationRequest
+        extends BaseModel {
     private SubscriptionProductMigration migration;
 
     /**
@@ -54,7 +56,8 @@ public class SubscriptionProductMigrationRequest {
      */
     @Override
     public String toString() {
-        return "SubscriptionProductMigrationRequest [" + "migration=" + migration + "]";
+        return "SubscriptionProductMigrationRequest [" + "migration=" + migration
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

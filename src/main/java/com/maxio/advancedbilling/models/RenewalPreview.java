@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for RenewalPreview type.
  */
-public class RenewalPreview {
+public class RenewalPreview
+        extends BaseModel {
     private ZonedDateTime nextAssessmentAt;
     private Long subtotalInCents;
     private Long totalTaxInCents;
@@ -282,7 +284,8 @@ public class RenewalPreview {
                 + ", totalDiscountInCents=" + totalDiscountInCents + ", totalInCents="
                 + totalInCents + ", existingBalanceInCents=" + existingBalanceInCents
                 + ", totalAmountDueInCents=" + totalAmountDueInCents + ", uncalculatedTaxes="
-                + uncalculatedTaxes + ", lineItems=" + lineItems + "]";
+                + uncalculatedTaxes + ", lineItems=" + lineItems + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

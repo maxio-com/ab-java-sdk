@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ComponentAllocationErrorItem type.
  */
-public class ComponentAllocationErrorItem {
+public class ComponentAllocationErrorItem
+        extends BaseModel {
     private Integer componentId;
     private String message;
     private String kind;
@@ -126,7 +128,8 @@ public class ComponentAllocationErrorItem {
     @Override
     public String toString() {
         return "ComponentAllocationErrorItem [" + "componentId=" + componentId + ", message="
-                + message + ", kind=" + kind + ", on=" + on + "]";
+                + message + ", kind=" + kind + ", on=" + on + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

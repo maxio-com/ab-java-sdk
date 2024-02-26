@@ -13,11 +13,13 @@ import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupCompon
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentComponentId;
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentPricePointId;
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentUnitBalance;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupSignupComponent type.
  */
-public class SubscriptionGroupSignupComponent {
+public class SubscriptionGroupSignupComponent
+        extends BaseModel {
     private SubscriptionGroupSignupComponentComponentId componentId;
     private SubscriptionGroupSignupComponentAllocatedQuantity allocatedQuantity;
     private SubscriptionGroupSignupComponentUnitBalance unitBalance;
@@ -161,7 +163,8 @@ public class SubscriptionGroupSignupComponent {
     public String toString() {
         return "SubscriptionGroupSignupComponent [" + "componentId=" + componentId
                 + ", allocatedQuantity=" + allocatedQuantity + ", unitBalance=" + unitBalance
-                + ", pricePointId=" + pricePointId + ", customPrice=" + customPrice + "]";
+                + ", pricePointId=" + pricePointId + ", customPrice=" + customPrice
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

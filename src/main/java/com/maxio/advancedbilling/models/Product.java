@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.ProductExpirationIntervalUnit;
 import com.maxio.advancedbilling.models.containers.ProductTrialIntervalUnit;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -21,7 +22,8 @@ import java.util.List;
 /**
  * This is a model class for Product type.
  */
-public class Product {
+public class Product
+        extends BaseModel {
     private Integer id;
     private String name;
     private OptionalNullable<String> handle;
@@ -1412,7 +1414,8 @@ public class Product {
                 + ", defaultProductPricePointId=" + defaultProductPricePointId
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", itemCategory=" + itemCategory
                 + ", productPricePointId=" + productPricePointId + ", productPricePointHandle="
-                + productPricePointHandle + "]";
+                + productPricePointHandle + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

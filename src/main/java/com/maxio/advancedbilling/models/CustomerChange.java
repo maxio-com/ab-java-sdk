@@ -14,12 +14,14 @@ import com.maxio.advancedbilling.models.containers.CustomerChangeBillingAddress;
 import com.maxio.advancedbilling.models.containers.CustomerChangeCustomFields;
 import com.maxio.advancedbilling.models.containers.CustomerChangePayer;
 import com.maxio.advancedbilling.models.containers.CustomerChangeShippingAddress;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CustomerChange type.
  */
-public class CustomerChange {
+public class CustomerChange
+        extends BaseModel {
     private OptionalNullable<CustomerChangePayer> payer;
     private OptionalNullable<CustomerChangeShippingAddress> shippingAddress;
     private OptionalNullable<CustomerChangeBillingAddress> billingAddress;
@@ -214,7 +216,8 @@ public class CustomerChange {
     @Override
     public String toString() {
         return "CustomerChange [" + "payer=" + payer + ", shippingAddress=" + shippingAddress
-                + ", billingAddress=" + billingAddress + ", customFields=" + customFields + "]";
+                + ", billingAddress=" + billingAddress + ", customFields=" + customFields
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

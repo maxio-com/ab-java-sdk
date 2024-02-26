@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ServiceCredit type.
  */
-public class ServiceCredit {
+public class ServiceCredit
+        extends BaseModel {
     private Integer id;
     private Long amountInCents;
     private Long endingBalanceInCents;
@@ -158,7 +160,7 @@ public class ServiceCredit {
     public String toString() {
         return "ServiceCredit [" + "id=" + id + ", amountInCents=" + amountInCents
                 + ", endingBalanceInCents=" + endingBalanceInCents + ", entryType=" + entryType
-                + ", memo=" + memo + "]";
+                + ", memo=" + memo + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Webhook type.
  */
-public class Webhook {
+public class Webhook
+        extends BaseModel {
     private String event;
     private Long id;
     private ZonedDateTime createdAt;
@@ -421,7 +423,8 @@ public class Webhook {
                 + ", lastError=" + lastError + ", lastErrorAt=" + lastErrorAt + ", acceptedAt="
                 + acceptedAt + ", lastSentAt=" + lastSentAt + ", lastSentUrl=" + lastSentUrl
                 + ", successful=" + successful + ", body=" + body + ", signature=" + signature
-                + ", signatureHmacSha256=" + signatureHmacSha256 + "]";
+                + ", signatureHmacSha256=" + signatureHmacSha256 + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

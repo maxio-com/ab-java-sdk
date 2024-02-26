@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for BillingManifestItem type.
  */
-public class BillingManifestItem {
+public class BillingManifestItem
+        extends BaseModel {
     private LineItemTransactionType transactionType;
     private BillingManifestLineItemKind kind;
     private Long amountInCents;
@@ -366,7 +368,7 @@ public class BillingManifestItem {
                 + ", componentName=" + componentName + ", productId=" + productId
                 + ", productHandle=" + productHandle + ", productName=" + productName
                 + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for UpdateSubscriptionGroup type.
  */
-public class UpdateSubscriptionGroup {
+public class UpdateSubscriptionGroup
+        extends BaseModel {
     private List<Integer> memberIds;
 
     /**
@@ -57,7 +59,8 @@ public class UpdateSubscriptionGroup {
      */
     @Override
     public String toString() {
-        return "UpdateSubscriptionGroup [" + "memberIds=" + memberIds + "]";
+        return "UpdateSubscriptionGroup [" + "memberIds=" + memberIds + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

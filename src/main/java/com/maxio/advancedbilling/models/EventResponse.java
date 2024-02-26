@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for EventResponse type.
  */
-public class EventResponse {
+public class EventResponse
+        extends BaseModel {
     private Event event;
 
     /**
@@ -54,7 +56,8 @@ public class EventResponse {
      */
     @Override
     public String toString() {
-        return "EventResponse [" + "event=" + event + "]";
+        return "EventResponse [" + "event=" + event + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

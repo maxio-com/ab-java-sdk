@@ -11,12 +11,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for TooManyManagementLinkRequests type.
  */
-public class TooManyManagementLinkRequests {
+public class TooManyManagementLinkRequests
+        extends BaseModel {
     private String error;
     private ZonedDateTime newLinkAvailableAt;
 
@@ -83,7 +85,7 @@ public class TooManyManagementLinkRequests {
     @Override
     public String toString() {
         return "TooManyManagementLinkRequests [" + "error=" + error + ", newLinkAvailableAt="
-                + newLinkAvailableAt + "]";
+                + newLinkAvailableAt + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

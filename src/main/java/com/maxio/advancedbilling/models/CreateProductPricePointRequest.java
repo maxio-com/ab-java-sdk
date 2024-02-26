@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateProductPricePointRequest type.
  */
-public class CreateProductPricePointRequest {
+public class CreateProductPricePointRequest
+        extends BaseModel {
     private CreateProductPricePoint pricePoint;
 
     /**
@@ -54,7 +56,8 @@ public class CreateProductPricePointRequest {
      */
     @Override
     public String toString() {
-        return "CreateProductPricePointRequest [" + "pricePoint=" + pricePoint + "]";
+        return "CreateProductPricePointRequest [" + "pricePoint=" + pricePoint
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

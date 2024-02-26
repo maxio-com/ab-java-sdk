@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateProductFamilyRequest type.
  */
-public class CreateProductFamilyRequest {
+public class CreateProductFamilyRequest
+        extends BaseModel {
     private CreateProductFamily productFamily;
 
     /**
@@ -54,7 +56,8 @@ public class CreateProductFamilyRequest {
      */
     @Override
     public String toString() {
-        return "CreateProductFamilyRequest [" + "productFamily=" + productFamily + "]";
+        return "CreateProductFamilyRequest [" + "productFamily=" + productFamily
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PaymentCollectionMethodChanged type.
  */
-public class PaymentCollectionMethodChanged {
+public class PaymentCollectionMethodChanged
+        extends BaseModel {
     private String previousValue;
     private String currentValue;
 
@@ -80,7 +82,8 @@ public class PaymentCollectionMethodChanged {
     @Override
     public String toString() {
         return "PaymentCollectionMethodChanged [" + "previousValue=" + previousValue
-                + ", currentValue=" + currentValue + "]";
+                + ", currentValue=" + currentValue + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

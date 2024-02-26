@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for BankAccountVerification type.
  */
-public class BankAccountVerification {
+public class BankAccountVerification
+        extends BaseModel {
     private Long deposit1InCents;
     private Long deposit2InCents;
 
@@ -80,7 +82,8 @@ public class BankAccountVerification {
     @Override
     public String toString() {
         return "BankAccountVerification [" + "deposit1InCents=" + deposit1InCents
-                + ", deposit2InCents=" + deposit2InCents + "]";
+                + ", deposit2InCents=" + deposit2InCents + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

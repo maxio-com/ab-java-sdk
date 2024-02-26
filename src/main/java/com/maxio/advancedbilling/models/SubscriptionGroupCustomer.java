@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupCustomer type.
  */
-public class SubscriptionGroupCustomer {
+public class SubscriptionGroupCustomer
+        extends BaseModel {
     private String firstName;
     private String lastName;
     private String organization;
@@ -150,7 +152,7 @@ public class SubscriptionGroupCustomer {
     public String toString() {
         return "SubscriptionGroupCustomer [" + "firstName=" + firstName + ", lastName=" + lastName
                 + ", organization=" + organization + ", email=" + email + ", reference=" + reference
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -10,13 +10,15 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for AllocateComponents type.
  */
-public class AllocateComponents {
+public class AllocateComponents
+        extends BaseModel {
     private String prorationUpgradeScheme;
     private String prorationDowngradeScheme;
     private List<CreateAllocation> allocations;
@@ -308,7 +310,7 @@ public class AllocateComponents {
                 + allocations + ", accrueCharge=" + accrueCharge + ", upgradeCharge="
                 + upgradeCharge + ", downgradeCredit=" + downgradeCredit
                 + ", paymentCollectionMethod=" + paymentCollectionMethod + ", initiateDunning="
-                + initiateDunning + "]";
+                + initiateDunning + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

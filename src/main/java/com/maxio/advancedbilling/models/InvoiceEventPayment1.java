@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
@@ -24,7 +25,8 @@ import io.apimatic.core.types.OptionalNullable;
         defaultImpl = InvoiceEventPayment1.class,
         visible = true)
 @JsonInclude(Include.ALWAYS)
-public class InvoiceEventPayment1 {
+public class InvoiceEventPayment1
+        extends BaseModel {
     private String type;
     private String maskedAccountNumber;
     private String maskedRoutingNumber;
@@ -341,7 +343,8 @@ public class InvoiceEventPayment1 {
                 + ", maskedRoutingNumber=" + maskedRoutingNumber + ", cardBrand=" + cardBrand
                 + ", maskedCardNumber=" + maskedCardNumber + ", details=" + details + ", kind="
                 + kind + ", memo=" + memo + ", email=" + email + ", type=" + type
-                + ", cardExpiration=" + cardExpiration + ", lastFour=" + lastFour + "]";
+                + ", cardExpiration=" + cardExpiration + ", lastFour=" + lastFour
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

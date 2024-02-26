@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionMigrationPreview type.
  */
-public class SubscriptionMigrationPreview {
+public class SubscriptionMigrationPreview
+        extends BaseModel {
     private Long proratedAdjustmentInCents;
     private Long chargeInCents;
     private Long paymentDueInCents;
@@ -138,7 +140,8 @@ public class SubscriptionMigrationPreview {
         return "SubscriptionMigrationPreview [" + "proratedAdjustmentInCents="
                 + proratedAdjustmentInCents + ", chargeInCents=" + chargeInCents
                 + ", paymentDueInCents=" + paymentDueInCents + ", creditAppliedInCents="
-                + creditAppliedInCents + "]";
+                + creditAppliedInCents + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

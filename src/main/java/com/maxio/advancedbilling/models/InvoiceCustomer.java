@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for InvoiceCustomer type.
  */
-public class InvoiceCustomer {
+public class InvoiceCustomer
+        extends BaseModel {
     private OptionalNullable<Integer> chargifyId;
     private String firstName;
     private String lastName;
@@ -285,7 +287,8 @@ public class InvoiceCustomer {
     public String toString() {
         return "InvoiceCustomer [" + "chargifyId=" + chargifyId + ", firstName=" + firstName
                 + ", lastName=" + lastName + ", organization=" + organization + ", email=" + email
-                + ", vatNumber=" + vatNumber + ", reference=" + reference + "]";
+                + ", vatNumber=" + vatNumber + ", reference=" + reference
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

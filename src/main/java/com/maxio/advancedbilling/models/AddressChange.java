@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for AddressChange type.
  */
-public class AddressChange {
+public class AddressChange
+        extends BaseModel {
     private InvoiceAddress before;
     private InvoiceAddress after;
 
@@ -79,7 +81,8 @@ public class AddressChange {
      */
     @Override
     public String toString() {
-        return "AddressChange [" + "before=" + before + ", after=" + after + "]";
+        return "AddressChange [" + "before=" + before + ", after=" + after
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

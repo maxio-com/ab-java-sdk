@@ -13,12 +13,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.UsageQuantity;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Usage type.
  */
-public class Usage {
+public class Usage
+        extends BaseModel {
     private Long id;
     private String memo;
     private ZonedDateTime createdAt;
@@ -250,7 +252,8 @@ public class Usage {
         return "Usage [" + "id=" + id + ", memo=" + memo + ", createdAt=" + createdAt
                 + ", pricePointId=" + pricePointId + ", quantity=" + quantity + ", overageQuantity="
                 + overageQuantity + ", componentId=" + componentId + ", componentHandle="
-                + componentHandle + ", subscriptionId=" + subscriptionId + "]";
+                + componentHandle + ", subscriptionId=" + subscriptionId + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

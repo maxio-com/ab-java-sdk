@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for AgreementAcceptance type.
  */
-public class AgreementAcceptance {
+public class AgreementAcceptance
+        extends BaseModel {
     private String ipAddress;
     private String termsUrl;
     private String privacyPolicyUrl;
@@ -180,7 +182,8 @@ public class AgreementAcceptance {
         return "AgreementAcceptance [" + "ipAddress=" + ipAddress + ", termsUrl=" + termsUrl
                 + ", privacyPolicyUrl=" + privacyPolicyUrl + ", returnRefundPolicyUrl="
                 + returnRefundPolicyUrl + ", deliveryPolicyUrl=" + deliveryPolicyUrl
-                + ", secureCheckoutPolicyUrl=" + secureCheckoutPolicyUrl + "]";
+                + ", secureCheckoutPolicyUrl=" + secureCheckoutPolicyUrl + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

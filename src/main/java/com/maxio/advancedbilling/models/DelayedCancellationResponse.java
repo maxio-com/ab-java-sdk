@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for DelayedCancellationResponse type.
  */
-public class DelayedCancellationResponse {
+public class DelayedCancellationResponse
+        extends BaseModel {
     private String message;
 
     /**
@@ -56,7 +58,8 @@ public class DelayedCancellationResponse {
      */
     @Override
     public String toString() {
-        return "DelayedCancellationResponse [" + "message=" + message + "]";
+        return "DelayedCancellationResponse [" + "message=" + message + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

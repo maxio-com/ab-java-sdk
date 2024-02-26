@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for BatchJob type.
  */
-public class BatchJob {
+public class BatchJob
+        extends BaseModel {
     private Integer id;
     private OptionalNullable<ZonedDateTime> finishedAt;
     private OptionalNullable<Integer> rowCount;
@@ -223,7 +225,8 @@ public class BatchJob {
     @Override
     public String toString() {
         return "BatchJob [" + "id=" + id + ", finishedAt=" + finishedAt + ", rowCount=" + rowCount
-                + ", createdAt=" + createdAt + ", completed=" + completed + "]";
+                + ", createdAt=" + createdAt + ", completed=" + completed
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

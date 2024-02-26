@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionComponentAllocationErrorItem type.
  */
-public class SubscriptionComponentAllocationErrorItem {
+public class SubscriptionComponentAllocationErrorItem
+        extends BaseModel {
     private String kind;
     private String message;
 
@@ -80,7 +82,7 @@ public class SubscriptionComponentAllocationErrorItem {
     @Override
     public String toString() {
         return "SubscriptionComponentAllocationErrorItem [" + "kind=" + kind + ", message="
-                + message + "]";
+                + message + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

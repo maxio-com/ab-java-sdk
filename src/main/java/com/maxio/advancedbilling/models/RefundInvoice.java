@@ -11,11 +11,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for RefundInvoice type.
  */
-public class RefundInvoice {
+public class RefundInvoice
+        extends BaseModel {
     private String amount;
     private String memo;
     private int paymentId;
@@ -204,7 +206,8 @@ public class RefundInvoice {
     public String toString() {
         return "RefundInvoice [" + "amount=" + amount + ", memo=" + memo + ", paymentId="
                 + paymentId + ", external=" + external + ", applyCredit=" + applyCredit
-                + ", voidInvoice=" + voidInvoice + "]";
+                + ", voidInvoice=" + voidInvoice + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

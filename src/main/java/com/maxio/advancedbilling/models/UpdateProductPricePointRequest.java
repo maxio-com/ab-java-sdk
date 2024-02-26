@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateProductPricePointRequest type.
  */
-public class UpdateProductPricePointRequest {
+public class UpdateProductPricePointRequest
+        extends BaseModel {
     private UpdateProductPricePoint pricePoint;
 
     /**
@@ -54,7 +56,8 @@ public class UpdateProductPricePointRequest {
      */
     @Override
     public String toString() {
-        return "UpdateProductPricePointRequest [" + "pricePoint=" + pricePoint + "]";
+        return "UpdateProductPricePointRequest [" + "pricePoint=" + pricePoint
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

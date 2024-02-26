@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for OfferSignupPage type.
  */
-public class OfferSignupPage {
+public class OfferSignupPage
+        extends BaseModel {
     private Integer id;
     private String nickname;
     private Boolean enabled;
@@ -173,7 +175,7 @@ public class OfferSignupPage {
     public String toString() {
         return "OfferSignupPage [" + "id=" + id + ", nickname=" + nickname + ", enabled=" + enabled
                 + ", returnUrl=" + returnUrl + ", returnParams=" + returnParams + ", url=" + url
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for CreditNoteApplication type.
  */
-public class CreditNoteApplication {
+public class CreditNoteApplication
+        extends BaseModel {
     private String uid;
     private ZonedDateTime transactionTime;
     private String invoiceUid;
@@ -156,7 +158,7 @@ public class CreditNoteApplication {
     public String toString() {
         return "CreditNoteApplication [" + "uid=" + uid + ", transactionTime=" + transactionTime
                 + ", invoiceUid=" + invoiceUid + ", memo=" + memo + ", appliedAmount="
-                + appliedAmount + "]";
+                + appliedAmount + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

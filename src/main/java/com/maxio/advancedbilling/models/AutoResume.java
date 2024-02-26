@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for AutoResume type.
  */
-public class AutoResume {
+public class AutoResume
+        extends BaseModel {
     private OptionalNullable<ZonedDateTime> automaticallyResumeAt;
 
     /**
@@ -87,7 +89,8 @@ public class AutoResume {
      */
     @Override
     public String toString() {
-        return "AutoResume [" + "automaticallyResumeAt=" + automaticallyResumeAt + "]";
+        return "AutoResume [" + "automaticallyResumeAt=" + automaticallyResumeAt
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

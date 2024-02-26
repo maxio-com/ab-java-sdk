@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.RefundSegmentUids;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for Refund type.
  */
-public class Refund {
+public class Refund
+        extends BaseModel {
     private String amount;
     private String memo;
     private Integer paymentId;
@@ -219,7 +221,8 @@ public class Refund {
     public String toString() {
         return "Refund [" + "amount=" + amount + ", memo=" + memo + ", paymentId=" + paymentId
                 + ", external=" + external + ", applyCredit=" + applyCredit + ", voidInvoice="
-                + voidInvoice + ", segmentUids=" + segmentUids + "]";
+                + voidInvoice + ", segmentUids=" + segmentUids + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for BankAccountPaymentProfile type.
  */
-public class BankAccountPaymentProfile {
+public class BankAccountPaymentProfile
+        extends BaseModel {
     private Integer id;
     private String firstName;
     private String lastName;
@@ -849,7 +851,7 @@ public class BankAccountPaymentProfile {
                 + bankName + ", bankAccountType=" + bankAccountType + ", bankAccountHolderType="
                 + bankAccountHolderType + ", paymentType=" + paymentType + ", verified=" + verified
                 + ", siteGatewaySettingId=" + siteGatewaySettingId + ", gatewayHandle="
-                + gatewayHandle + "]";
+                + gatewayHandle + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
