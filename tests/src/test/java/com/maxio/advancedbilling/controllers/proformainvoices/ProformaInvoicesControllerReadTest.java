@@ -40,7 +40,7 @@ public class ProformaInvoicesControllerReadTest {
     void shouldReadProformaInvoice() throws IOException, ApiException {
         // given
         ProformaInvoice createdProformaInvoice = new ProformaInvoicesCreator()
-                .createComplicatedProformaInvoice(customer).invoice();
+                .createProformaInvoiceWithComponents(customer).invoice();
 
         // when
         ProformaInvoice proformaInvoice = PROFORMA_INVOICES_CONTROLLER.readProformaInvoice(createdProformaInvoice.getUid());

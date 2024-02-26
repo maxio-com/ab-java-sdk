@@ -33,25 +33,25 @@ import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class ProformaInvoicesCreator {
+class ProformaInvoicesCreator {
 
     private static final TestSetup TEST_SETUP  = new TestSetup();
     private static final AdvancedBillingClient CLIENT = TestClient.createClient();
 
-    Product product;
-    ProductFamily productFamily;
+    private final Product product;
+    private final ProductFamily productFamily;
 
-    protected ProformaInvoicesCreator() throws IOException, ApiException {
+    ProformaInvoicesCreator() throws IOException, ApiException {
         productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
     }
 
-    protected ProformaInvoice createBasicProformaInvoice(Customer customer) throws IOException, ApiException {
+    ProformaInvoice createBasicProformaInvoice(Customer customer) throws IOException, ApiException {
         Subscription subscription = TEST_SETUP.createSubscription(customer, product);
         return CLIENT.getProformaInvoicesController().createProformaInvoice(subscription.getId());
     }
 
-    protected ProformaInvoiceWithComponents createComplicatedProformaInvoice(Customer customer) throws IOException, ApiException {
+    ProformaInvoiceWithComponents createProformaInvoiceWithComponents(Customer customer) throws IOException, ApiException {
         Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
         Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
         Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent);
@@ -62,7 +62,7 @@ public class ProformaInvoicesCreator {
         );
     }
 
-    protected ProformaInvoiceWithComponents previewComplicatedProformaInvoice(Customer customer) throws IOException, ApiException {
+    ProformaInvoiceWithComponents previewProformaInvoiceWithComponents(Customer customer) throws IOException, ApiException {
         Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
         Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
         Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent);
@@ -99,7 +99,7 @@ public class ProformaInvoicesCreator {
         return subscription;
     }
 
-    protected void assertProformaInvoice(Customer customer,
+    void assertProformaInvoice(Customer customer,
                                          ProformaInvoiceWithComponents invoiceWithData,
                                          boolean assertPreservationDataNonEmpty) {
         ProformaInvoice proformaInvoice = invoiceWithData.invoice();
@@ -289,7 +289,7 @@ public class ProformaInvoicesCreator {
                 .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
-    protected record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,
+    record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,
                                                    Component meteredComponent) {
     }
 }

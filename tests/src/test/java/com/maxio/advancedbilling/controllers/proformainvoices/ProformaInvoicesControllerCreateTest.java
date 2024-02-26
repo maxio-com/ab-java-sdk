@@ -38,7 +38,7 @@ public class ProformaInvoicesControllerCreateTest {
         // given-when
         ProformaInvoicesCreator proformaInvoicesCreator = new ProformaInvoicesCreator();
         ProformaInvoicesCreator.ProformaInvoiceWithComponents invoiceWithData =
-                proformaInvoicesCreator.createComplicatedProformaInvoice(customer);
+                proformaInvoicesCreator.createProformaInvoiceWithComponents(customer);
 
         // then
         proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData, true);
