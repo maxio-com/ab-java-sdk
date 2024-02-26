@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for MovementLineItem type.
  */
-public class MovementLineItem {
+public class MovementLineItem
+        extends BaseModel {
     private Integer productId;
     private Integer componentId;
     private Integer pricePointId;
@@ -250,7 +252,8 @@ public class MovementLineItem {
         return "MovementLineItem [" + "productId=" + productId + ", componentId=" + componentId
                 + ", pricePointId=" + pricePointId + ", name=" + name + ", mrr=" + mrr
                 + ", mrrMovements=" + mrrMovements + ", quantity=" + quantity + ", prevQuantity="
-                + prevQuantity + ", recurring=" + recurring + "]";
+                + prevQuantity + ", recurring=" + recurring + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

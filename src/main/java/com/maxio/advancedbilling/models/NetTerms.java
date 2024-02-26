@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for NetTerms type.
  */
-public class NetTerms {
+public class NetTerms
+        extends BaseModel {
     private Integer defaultNetTerms;
     private Integer automaticNetTerms;
     private Integer remittanceNetTerms;
@@ -157,7 +159,8 @@ public class NetTerms {
         return "NetTerms [" + "defaultNetTerms=" + defaultNetTerms + ", automaticNetTerms="
                 + automaticNetTerms + ", remittanceNetTerms=" + remittanceNetTerms
                 + ", netTermsOnRemittanceSignupsEnabled=" + netTermsOnRemittanceSignupsEnabled
-                + ", customNetTermsEnabled=" + customNetTermsEnabled + "]";
+                + ", customNetTermsEnabled=" + customNetTermsEnabled + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

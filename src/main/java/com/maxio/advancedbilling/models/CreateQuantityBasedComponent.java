@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateQuantityBasedComponent type.
  */
-public class CreateQuantityBasedComponent {
+public class CreateQuantityBasedComponent
+        extends BaseModel {
     private QuantityBasedComponent quantityBasedComponent;
 
     /**
@@ -55,7 +57,7 @@ public class CreateQuantityBasedComponent {
     @Override
     public String toString() {
         return "CreateQuantityBasedComponent [" + "quantityBasedComponent=" + quantityBasedComponent
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

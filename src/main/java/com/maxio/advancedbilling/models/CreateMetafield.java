@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateMetafield type.
  */
-public class CreateMetafield {
+public class CreateMetafield
+        extends BaseModel {
     private String name;
     private MetafieldScope scope;
     private MetafieldInput inputType;
@@ -141,7 +143,8 @@ public class CreateMetafield {
     @Override
     public String toString() {
         return "CreateMetafield [" + "name=" + name + ", scope=" + scope + ", inputType="
-                + inputType + ", mEnum=" + mEnum + "]";
+                + inputType + ", mEnum=" + mEnum + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

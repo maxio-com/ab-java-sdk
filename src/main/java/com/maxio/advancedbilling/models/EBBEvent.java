@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for EBBEvent type.
  */
-public class EBBEvent {
+public class EBBEvent
+        extends BaseModel {
     private ChargifyEBB chargify;
 
     /**
@@ -56,7 +58,8 @@ public class EBBEvent {
      */
     @Override
     public String toString() {
-        return "EBBEvent [" + "chargify=" + chargify + "]";
+        return "EBBEvent [" + "chargify=" + chargify + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

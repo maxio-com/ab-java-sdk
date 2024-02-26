@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.LocalDate;
 
 /**
  * This is a model class for BillingSchedule type.
  */
-public class BillingSchedule {
+public class BillingSchedule
+        extends BaseModel {
     private LocalDate initialBillingAt;
 
     /**
@@ -68,7 +70,8 @@ public class BillingSchedule {
      */
     @Override
     public String toString() {
-        return "BillingSchedule [" + "initialBillingAt=" + initialBillingAt + "]";
+        return "BillingSchedule [" + "initialBillingAt=" + initialBillingAt
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

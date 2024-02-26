@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for VoidInvoiceRequest type.
  */
-public class VoidInvoiceRequest {
+public class VoidInvoiceRequest
+        extends BaseModel {
     private VoidInvoice mVoid;
 
     /**
@@ -54,7 +56,8 @@ public class VoidInvoiceRequest {
      */
     @Override
     public String toString() {
-        return "VoidInvoiceRequest [" + "mVoid=" + mVoid + "]";
+        return "VoidInvoiceRequest [" + "mVoid=" + mVoid + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

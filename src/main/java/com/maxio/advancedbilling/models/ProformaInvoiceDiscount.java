@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ProformaInvoiceDiscount type.
  */
-public class ProformaInvoiceDiscount {
+public class ProformaInvoiceDiscount
+        extends BaseModel {
     private String uid;
     private String title;
     private String code;
@@ -221,7 +223,8 @@ public class ProformaInvoiceDiscount {
         return "ProformaInvoiceDiscount [" + "uid=" + uid + ", title=" + title + ", code=" + code
                 + ", sourceType=" + sourceType + ", discountType=" + discountType
                 + ", eligibleAmount=" + eligibleAmount + ", discountAmount=" + discountAmount
-                + ", lineItemBreakouts=" + lineItemBreakouts + "]";
+                + ", lineItemBreakouts=" + lineItemBreakouts + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

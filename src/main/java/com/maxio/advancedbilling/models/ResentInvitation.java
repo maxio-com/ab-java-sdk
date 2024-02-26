@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ResentInvitation type.
  */
-public class ResentInvitation {
+public class ResentInvitation
+        extends BaseModel {
     private String lastSentAt;
     private String lastAcceptedAt;
     private String sendInviteLinkText;
@@ -127,7 +129,8 @@ public class ResentInvitation {
     public String toString() {
         return "ResentInvitation [" + "lastSentAt=" + lastSentAt + ", lastAcceptedAt="
                 + lastAcceptedAt + ", sendInviteLinkText=" + sendInviteLinkText
-                + ", uninvitedCount=" + uninvitedCount + "]";
+                + ", uninvitedCount=" + uninvitedCount + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

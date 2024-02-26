@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for InvoiceLineItemComponentCostData type.
  */
-public class InvoiceLineItemComponentCostData {
+public class InvoiceLineItemComponentCostData
+        extends BaseModel {
     private List<ComponentCostData> rates;
 
     /**
@@ -57,7 +59,8 @@ public class InvoiceLineItemComponentCostData {
      */
     @Override
     public String toString() {
-        return "InvoiceLineItemComponentCostData [" + "rates=" + rates + "]";
+        return "InvoiceLineItemComponentCostData [" + "rates=" + rates + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

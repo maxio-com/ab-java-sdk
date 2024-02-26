@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for RenewalPreviewRequest type.
  */
-public class RenewalPreviewRequest {
+public class RenewalPreviewRequest
+        extends BaseModel {
     private List<RenewalPreviewComponent> components;
 
     /**
@@ -63,7 +65,8 @@ public class RenewalPreviewRequest {
      */
     @Override
     public String toString() {
-        return "RenewalPreviewRequest [" + "components=" + components + "]";
+        return "RenewalPreviewRequest [" + "components=" + components + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

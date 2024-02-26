@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for PrepaymentAggregatedError type.
  */
-public class PrepaymentAggregatedError {
+public class PrepaymentAggregatedError
+        extends BaseModel {
     private List<String> amountInCents;
     private List<String> base;
     private List<String> external;
@@ -104,7 +106,8 @@ public class PrepaymentAggregatedError {
     @Override
     public String toString() {
         return "PrepaymentAggregatedError [" + "amountInCents=" + amountInCents + ", base=" + base
-                + ", external=" + external + "]";
+                + ", external=" + external + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

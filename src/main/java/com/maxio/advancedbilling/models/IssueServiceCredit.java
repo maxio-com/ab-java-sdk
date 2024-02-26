@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for IssueServiceCredit type.
  */
-public class IssueServiceCredit {
+public class IssueServiceCredit
+        extends BaseModel {
     private IssueServiceCreditAmount amount;
     private String memo;
 
@@ -77,7 +79,8 @@ public class IssueServiceCredit {
      */
     @Override
     public String toString() {
-        return "IssueServiceCredit [" + "amount=" + amount + ", memo=" + memo + "]";
+        return "IssueServiceCredit [" + "amount=" + amount + ", memo=" + memo
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

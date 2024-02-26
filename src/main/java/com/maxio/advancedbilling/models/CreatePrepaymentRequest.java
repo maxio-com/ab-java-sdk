@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreatePrepaymentRequest type.
  */
-public class CreatePrepaymentRequest {
+public class CreatePrepaymentRequest
+        extends BaseModel {
     private CreatePrepayment prepayment;
 
     /**
@@ -54,7 +56,8 @@ public class CreatePrepaymentRequest {
      */
     @Override
     public String toString() {
-        return "CreatePrepaymentRequest [" + "prepayment=" + prepayment + "]";
+        return "CreatePrepaymentRequest [" + "prepayment=" + prepayment + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

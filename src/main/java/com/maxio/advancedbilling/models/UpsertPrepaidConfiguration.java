@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpsertPrepaidConfiguration type.
  */
-public class UpsertPrepaidConfiguration {
+public class UpsertPrepaidConfiguration
+        extends BaseModel {
     private Long initialFundingAmountInCents;
     private Long replenishToAmountInCents;
     private Boolean autoReplenish;
@@ -128,7 +130,8 @@ public class UpsertPrepaidConfiguration {
         return "UpsertPrepaidConfiguration [" + "initialFundingAmountInCents="
                 + initialFundingAmountInCents + ", replenishToAmountInCents="
                 + replenishToAmountInCents + ", autoReplenish=" + autoReplenish
-                + ", replenishThresholdAmountInCents=" + replenishThresholdAmountInCents + "]";
+                + ", replenishThresholdAmountInCents=" + replenishThresholdAmountInCents
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

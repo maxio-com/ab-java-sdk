@@ -13,12 +13,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for CreditAccountBalanceChanged type.
  */
-public class CreditAccountBalanceChanged {
+public class CreditAccountBalanceChanged
+        extends BaseModel {
     private String reason;
     private long serviceCreditAccountBalanceInCents;
     private long serviceCreditBalanceChangeInCents;
@@ -155,7 +157,8 @@ public class CreditAccountBalanceChanged {
         return "CreditAccountBalanceChanged [" + "reason=" + reason
                 + ", serviceCreditAccountBalanceInCents=" + serviceCreditAccountBalanceInCents
                 + ", serviceCreditBalanceChangeInCents=" + serviceCreditBalanceChangeInCents
-                + ", currencyCode=" + currencyCode + ", atTime=" + atTime + "]";
+                + ", currencyCode=" + currencyCode + ", atTime=" + atTime
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

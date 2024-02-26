@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for InvoiceDiscountBreakout type.
  */
-public class InvoiceDiscountBreakout {
+public class InvoiceDiscountBreakout
+        extends BaseModel {
     private String uid;
     private String eligibleAmount;
     private String discountAmount;
@@ -103,7 +105,8 @@ public class InvoiceDiscountBreakout {
     @Override
     public String toString() {
         return "InvoiceDiscountBreakout [" + "uid=" + uid + ", eligibleAmount=" + eligibleAmount
-                + ", discountAmount=" + discountAmount + "]";
+                + ", discountAmount=" + discountAmount + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

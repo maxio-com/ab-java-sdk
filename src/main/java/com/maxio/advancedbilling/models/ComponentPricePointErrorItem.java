@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ComponentPricePointErrorItem type.
  */
-public class ComponentPricePointErrorItem {
+public class ComponentPricePointErrorItem
+        extends BaseModel {
     private Integer componentId;
     private String message;
     private Integer pricePoint;
@@ -103,7 +105,8 @@ public class ComponentPricePointErrorItem {
     @Override
     public String toString() {
         return "ComponentPricePointErrorItem [" + "componentId=" + componentId + ", message="
-                + message + ", pricePoint=" + pricePoint + "]";
+                + message + ", pricePoint=" + pricePoint + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

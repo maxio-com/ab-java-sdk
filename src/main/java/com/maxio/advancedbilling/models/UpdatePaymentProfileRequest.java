@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdatePaymentProfileRequest type.
  */
-public class UpdatePaymentProfileRequest {
+public class UpdatePaymentProfileRequest
+        extends BaseModel {
     private UpdatePaymentProfile paymentProfile;
 
     /**
@@ -54,7 +56,8 @@ public class UpdatePaymentProfileRequest {
      */
     @Override
     public String toString() {
-        return "UpdatePaymentProfileRequest [" + "paymentProfile=" + paymentProfile + "]";
+        return "UpdatePaymentProfileRequest [" + "paymentProfile=" + paymentProfile
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

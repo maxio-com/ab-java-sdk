@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for Errors type.
  */
-public class Errors {
+public class Errors
+        extends BaseModel {
     private List<String> perPage;
     private List<String> pricePoint;
 
@@ -80,7 +82,8 @@ public class Errors {
      */
     @Override
     public String toString() {
-        return "Errors [" + "perPage=" + perPage + ", pricePoint=" + pricePoint + "]";
+        return "Errors [" + "perPage=" + perPage + ", pricePoint=" + pricePoint
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

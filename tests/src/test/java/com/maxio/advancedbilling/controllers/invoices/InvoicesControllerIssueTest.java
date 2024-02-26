@@ -34,6 +34,7 @@ import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import io.apimatic.core.types.BaseModel;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
@@ -130,6 +133,13 @@ class InvoicesControllerIssueTest {
         );
 
         // then
+        assertThat(issuedInvoice.getAdditionalProperties())
+                .hasSize(2)
+                .containsExactlyInAnyOrderEntriesOf(Map.of(
+                                "debit_amount", "0.0",
+                                "debits", Collections.emptyList()
+                        )
+                );
         assertThat(issuedInvoice.getUid()).isEqualTo(pendingInvoice.getUid());
         assertThat(issuedInvoice.getSiteId()).isNotNull();
         assertThat(issuedInvoice.getCustomerId()).isEqualTo(customer.getId());
@@ -203,9 +213,13 @@ class InvoicesControllerIssueTest {
         assertThat(issuedInvoice.getPaidAmount()).isEqualTo("0.0");
         assertThat(issuedInvoice.getDueAmount()).isEqualTo("5.4");
 
-        assertThat(issuedInvoice.getLineItems())
+        List<InvoiceLineItem> lineItems = issuedInvoice.getLineItems();
+        assertThat(lineItems)
                 .hasSize(1)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "description")
+                .extracting(BaseModel::getAdditionalProperties)
+                .containsExactly(Collections.singletonMap("billing_schedule_item_id", null));
+        assertThat(lineItems)
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "description", "additionalProperties")
                 .containsExactly(
                         new InvoiceLineItem.Builder()
                                 .title("%s: 0.0 to 5.4 units".formatted(quantityBasedComponent.getName()))

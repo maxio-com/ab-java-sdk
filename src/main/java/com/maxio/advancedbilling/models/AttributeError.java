@@ -8,12 +8,14 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for AttributeError type.
  */
-public class AttributeError {
+public class AttributeError
+        extends BaseModel {
     private List<String> attribute;
 
     /**
@@ -55,7 +57,8 @@ public class AttributeError {
      */
     @Override
     public String toString() {
-        return "AttributeError [" + "attribute=" + attribute + "]";
+        return "AttributeError [" + "attribute=" + attribute + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

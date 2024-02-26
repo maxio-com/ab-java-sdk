@@ -8,12 +8,14 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateMetadataRequest type.
  */
-public class CreateMetadataRequest {
+public class CreateMetadataRequest
+        extends BaseModel {
     private List<CreateMetadata> metadata;
 
     /**
@@ -55,7 +57,8 @@ public class CreateMetadataRequest {
      */
     @Override
     public String toString() {
-        return "CreateMetadataRequest [" + "metadata=" + metadata + "]";
+        return "CreateMetadataRequest [" + "metadata=" + metadata + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

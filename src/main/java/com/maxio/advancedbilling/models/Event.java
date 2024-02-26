@@ -12,12 +12,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.EventEventSpecificData;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Event type.
  */
-public class Event {
+public class Event
+        extends BaseModel {
     private int id;
     private String key;
     private String message;
@@ -195,7 +197,8 @@ public class Event {
     public String toString() {
         return "Event [" + "id=" + id + ", key=" + key + ", message=" + message
                 + ", subscriptionId=" + subscriptionId + ", customerId=" + customerId
-                + ", createdAt=" + createdAt + ", eventSpecificData=" + eventSpecificData + "]";
+                + ", createdAt=" + createdAt + ", eventSpecificData=" + eventSpecificData
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

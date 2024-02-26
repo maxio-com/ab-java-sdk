@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for AllocationPreview type.
  */
-public class AllocationPreview {
+public class AllocationPreview
+        extends BaseModel {
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private Long subtotalInCents;
@@ -349,7 +351,8 @@ public class AllocationPreview {
                 + totalInCents + ", direction=" + direction + ", prorationScheme=" + prorationScheme
                 + ", lineItems=" + lineItems + ", accrueCharge=" + accrueCharge + ", allocations="
                 + allocations + ", periodType=" + periodType + ", existingBalanceInCents="
-                + existingBalanceInCents + "]";
+                + existingBalanceInCents + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

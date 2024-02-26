@@ -11,13 +11,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.OnOffComponentUnitPrice;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for OnOffComponent type.
  */
-public class OnOffComponent {
+public class OnOffComponent
+        extends BaseModel {
     private String name;
     private String description;
     private String handle;
@@ -579,7 +581,8 @@ public class OnOffComponent {
                 + priceInCents + ", displayOnHostedPage=" + displayOnHostedPage
                 + ", allowFractionalQuantities=" + allowFractionalQuantities
                 + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + "]";
+                + ", intervalUnit=" + intervalUnit + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

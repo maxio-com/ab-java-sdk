@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for UpdateMetafield type.
  */
-public class UpdateMetafield {
+public class UpdateMetafield
+        extends BaseModel {
     private String currentName;
     private String name;
     private MetafieldScope scope;
@@ -164,7 +166,8 @@ public class UpdateMetafield {
     @Override
     public String toString() {
         return "UpdateMetafield [" + "currentName=" + currentName + ", name=" + name + ", scope="
-                + scope + ", inputType=" + inputType + ", mEnum=" + mEnum + "]";
+                + scope + ", inputType=" + inputType + ", mEnum=" + mEnum
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

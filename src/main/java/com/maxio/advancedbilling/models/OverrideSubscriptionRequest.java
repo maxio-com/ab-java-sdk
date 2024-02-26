@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for OverrideSubscriptionRequest type.
  */
-public class OverrideSubscriptionRequest {
+public class OverrideSubscriptionRequest
+        extends BaseModel {
     private OverrideSubscription subscription;
 
     /**
@@ -54,7 +56,8 @@ public class OverrideSubscriptionRequest {
      */
     @Override
     public String toString() {
-        return "OverrideSubscriptionRequest [" + "subscription=" + subscription + "]";
+        return "OverrideSubscriptionRequest [" + "subscription=" + subscription
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

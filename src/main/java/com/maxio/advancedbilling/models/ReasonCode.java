@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ReasonCode type.
  */
-public class ReasonCode {
+public class ReasonCode
+        extends BaseModel {
     private Integer id;
     private Integer siteId;
     private String code;
@@ -204,7 +206,8 @@ public class ReasonCode {
     public String toString() {
         return "ReasonCode [" + "id=" + id + ", siteId=" + siteId + ", code=" + code
                 + ", description=" + description + ", position=" + position + ", createdAt="
-                + createdAt + ", updatedAt=" + updatedAt + "]";
+                + createdAt + ", updatedAt=" + updatedAt + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

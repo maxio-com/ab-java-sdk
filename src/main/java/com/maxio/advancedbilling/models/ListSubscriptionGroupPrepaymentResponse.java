@@ -8,12 +8,14 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ListSubscriptionGroupPrepaymentResponse type.
  */
-public class ListSubscriptionGroupPrepaymentResponse {
+public class ListSubscriptionGroupPrepaymentResponse
+        extends BaseModel {
     private List<ListSubscriptionGroupPrepayment> prepayments;
 
     /**
@@ -55,7 +57,8 @@ public class ListSubscriptionGroupPrepaymentResponse {
      */
     @Override
     public String toString() {
-        return "ListSubscriptionGroupPrepaymentResponse [" + "prepayments=" + prepayments + "]";
+        return "ListSubscriptionGroupPrepaymentResponse [" + "prepayments=" + prepayments
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -13,12 +13,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceEventEventData;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for InvoiceEvent type.
  */
-public class InvoiceEvent {
+public class InvoiceEvent
+        extends BaseModel {
     private Integer id;
     private InvoiceEventType eventType;
     private InvoiceEventEventData eventData;
@@ -162,7 +164,8 @@ public class InvoiceEvent {
     @Override
     public String toString() {
         return "InvoiceEvent [" + "id=" + id + ", eventType=" + eventType + ", eventData="
-                + eventData + ", timestamp=" + timestamp + ", invoice=" + invoice + "]";
+                + eventData + ", timestamp=" + timestamp + ", invoice=" + invoice
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreatePayment type.
  */
-public class CreatePayment {
+public class CreatePayment
+        extends BaseModel {
     private String amount;
     private String memo;
     private String paymentDetails;
@@ -123,7 +125,8 @@ public class CreatePayment {
     @Override
     public String toString() {
         return "CreatePayment [" + "amount=" + amount + ", memo=" + memo + ", paymentDetails="
-                + paymentDetails + ", paymentMethod=" + paymentMethod + "]";
+                + paymentDetails + ", paymentMethod=" + paymentMethod + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

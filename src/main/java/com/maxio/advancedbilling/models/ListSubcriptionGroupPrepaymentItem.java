@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ListSubcriptionGroupPrepaymentItem type.
  */
-public class ListSubcriptionGroupPrepaymentItem {
+public class ListSubcriptionGroupPrepaymentItem
+        extends BaseModel {
     private Integer id;
     private String subscriptionGroupUid;
     private Long amountInCents;
@@ -250,7 +252,8 @@ public class ListSubcriptionGroupPrepaymentItem {
                 + subscriptionGroupUid + ", amountInCents=" + amountInCents
                 + ", remainingAmountInCents=" + remainingAmountInCents + ", details=" + details
                 + ", external=" + external + ", memo=" + memo + ", paymentType=" + paymentType
-                + ", createdAt=" + createdAt + "]";
+                + ", createdAt=" + createdAt + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

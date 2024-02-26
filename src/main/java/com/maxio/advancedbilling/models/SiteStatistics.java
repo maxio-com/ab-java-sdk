@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SiteStatistics type.
  */
-public class SiteStatistics {
+public class SiteStatistics
+        extends BaseModel {
     private Integer totalSubscriptions;
     private Integer subscriptionsToday;
     private String totalRevenue;
@@ -294,7 +296,8 @@ public class SiteStatistics {
                 + totalActiveSubscriptions + ", totalPastDueSubscriptions="
                 + totalPastDueSubscriptions + ", totalUnpaidSubscriptions="
                 + totalUnpaidSubscriptions + ", totalDunningSubscriptions="
-                + totalDunningSubscriptions + "]";
+                + totalDunningSubscriptions + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

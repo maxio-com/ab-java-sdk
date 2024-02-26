@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionGroup type.
  */
-public class SubscriptionGroup {
+public class SubscriptionGroup
+        extends BaseModel {
     private Integer customerId;
     private SubscriptionGroupPaymentProfile paymentProfile;
     private String paymentCollectionMethod;
@@ -157,7 +159,8 @@ public class SubscriptionGroup {
     public String toString() {
         return "SubscriptionGroup [" + "customerId=" + customerId + ", paymentProfile="
                 + paymentProfile + ", paymentCollectionMethod=" + paymentCollectionMethod
-                + ", subscriptionIds=" + subscriptionIds + ", createdAt=" + createdAt + "]";
+                + ", subscriptionIds=" + subscriptionIds + ", createdAt=" + createdAt
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
