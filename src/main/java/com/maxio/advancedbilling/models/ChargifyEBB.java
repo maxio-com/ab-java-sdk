@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ChargifyEBB type.
  */
-public class ChargifyEBB
-        extends BaseModel {
+public class ChargifyEBB {
     private ZonedDateTime timestamp;
     private String id;
     private ZonedDateTime createdAt;
@@ -215,8 +213,7 @@ public class ChargifyEBB
     public String toString() {
         return "ChargifyEBB [" + "timestamp=" + timestamp + ", id=" + id + ", createdAt="
                 + createdAt + ", uniquenessToken=" + uniquenessToken + ", subscriptionId="
-                + subscriptionId + ", subscriptionReference=" + subscriptionReference
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + subscriptionId + ", subscriptionReference=" + subscriptionReference + "]";
     }
 
     /**

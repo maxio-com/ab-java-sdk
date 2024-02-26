@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ACHAgreement type.
  */
-public class ACHAgreement
-        extends BaseModel {
+public class ACHAgreement {
     private String agreementTerms;
     private String authorizerFirstName;
     private String authorizerLastName;
@@ -143,8 +141,7 @@ public class ACHAgreement
     public String toString() {
         return "ACHAgreement [" + "agreementTerms=" + agreementTerms + ", authorizerFirstName="
                 + authorizerFirstName + ", authorizerLastName=" + authorizerLastName
-                + ", ipAddress=" + ipAddress + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", ipAddress=" + ipAddress + "]";
     }
 
     /**

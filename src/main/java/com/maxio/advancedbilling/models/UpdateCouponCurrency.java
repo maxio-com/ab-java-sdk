@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateCouponCurrency type.
  */
-public class UpdateCouponCurrency
-        extends BaseModel {
+public class UpdateCouponCurrency {
     private String currency;
     private int price;
 
@@ -82,8 +80,7 @@ public class UpdateCouponCurrency
      */
     @Override
     public String toString() {
-        return "UpdateCouponCurrency [" + "currency=" + currency + ", price=" + price
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "UpdateCouponCurrency [" + "currency=" + currency + ", price=" + price + "]";
     }
 
     /**

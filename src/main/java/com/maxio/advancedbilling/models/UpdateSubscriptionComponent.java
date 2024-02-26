@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateSubscriptionComponent type.
  */
-public class UpdateSubscriptionComponent
-        extends BaseModel {
+public class UpdateSubscriptionComponent {
     private Integer componentId;
     private ComponentCustomPrice customPrice;
 
@@ -86,7 +84,7 @@ public class UpdateSubscriptionComponent
     @Override
     public String toString() {
         return "UpdateSubscriptionComponent [" + "componentId=" + componentId + ", customPrice="
-                + customPrice + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + customPrice + "]";
     }
 
     /**

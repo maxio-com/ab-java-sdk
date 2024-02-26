@@ -9,15 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Map;
 
 /**
  * This is a model class for SubscriptionGroupSignupError type.
  */
-public class SubscriptionGroupSignupError
-        extends BaseModel {
+public class SubscriptionGroupSignupError {
     private Map<String, SubscriptionGroupSubscriptionError> subscriptions;
     private String payerReference;
     private PayerError payer;
@@ -182,7 +180,7 @@ public class SubscriptionGroupSignupError
         return "SubscriptionGroupSignupError [" + "subscriptions=" + subscriptions
                 + ", payerReference=" + payerReference + ", payer=" + payer + ", subscriptionGroup="
                 + subscriptionGroup + ", paymentProfileId=" + paymentProfileId + ", payerId="
-                + payerId + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + payerId + "]";
     }
 
     /**

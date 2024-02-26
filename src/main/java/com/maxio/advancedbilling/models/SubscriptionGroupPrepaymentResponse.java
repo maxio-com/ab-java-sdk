@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupPrepaymentResponse type.
  */
-public class SubscriptionGroupPrepaymentResponse
-        extends BaseModel {
+public class SubscriptionGroupPrepaymentResponse {
     private Integer id;
     private Long amountInCents;
     private Long endingBalanceInCents;
@@ -160,8 +158,7 @@ public class SubscriptionGroupPrepaymentResponse
     public String toString() {
         return "SubscriptionGroupPrepaymentResponse [" + "id=" + id + ", amountInCents="
                 + amountInCents + ", endingBalanceInCents=" + endingBalanceInCents + ", entryType="
-                + entryType + ", memo=" + memo + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + entryType + ", memo=" + memo + "]";
     }
 
     /**

@@ -15,14 +15,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for RemovePaymentEventData type.
  */
-public class RemovePaymentEventData
-        extends BaseModel {
+public class RemovePaymentEventData {
     private int transactionId;
     private String memo;
     private String originalAmount;
@@ -237,8 +235,7 @@ public class RemovePaymentEventData
         return "RemovePaymentEventData [" + "transactionId=" + transactionId + ", memo=" + memo
                 + ", appliedAmount=" + appliedAmount + ", transactionTime=" + transactionTime
                 + ", paymentMethod=" + paymentMethod + ", prepayment=" + prepayment
-                + ", originalAmount=" + originalAmount + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", originalAmount=" + originalAmount + "]";
     }
 
     /**

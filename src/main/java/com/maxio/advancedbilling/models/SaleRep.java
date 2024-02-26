@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for SaleRep type.
  */
-public class SaleRep
-        extends BaseModel {
+public class SaleRep {
     private Integer id;
     private String fullName;
     private Integer subscriptionsCount;
@@ -153,7 +151,7 @@ public class SaleRep
     public String toString() {
         return "SaleRep [" + "id=" + id + ", fullName=" + fullName + ", subscriptionsCount="
                 + subscriptionsCount + ", testMode=" + testMode + ", subscriptions=" + subscriptions
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateSubscriptionNote type.
  */
-public class UpdateSubscriptionNote
-        extends BaseModel {
+public class UpdateSubscriptionNote {
     private String body;
     private boolean sticky;
 
@@ -78,8 +76,7 @@ public class UpdateSubscriptionNote
      */
     @Override
     public String toString() {
-        return "UpdateSubscriptionNote [" + "body=" + body + ", sticky=" + sticky
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "UpdateSubscriptionNote [" + "body=" + body + ", sticky=" + sticky + "]";
     }
 
     /**

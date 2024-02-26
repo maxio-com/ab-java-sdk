@@ -15,15 +15,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ApplyPaymentEventData type.
  */
-public class ApplyPaymentEventData
-        extends BaseModel {
+public class ApplyPaymentEventData {
     private String memo;
     private String originalAmount;
     private String appliedAmount;
@@ -383,7 +381,7 @@ public class ApplyPaymentEventData
                 + ", paymentMethod=" + paymentMethod + ", transactionId=" + transactionId
                 + ", parentInvoiceNumber=" + parentInvoiceNumber + ", remainingPrepaymentAmount="
                 + remainingPrepaymentAmount + ", prepayment=" + prepayment + ", external="
-                + external + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + external + "]";
     }
 
     /**

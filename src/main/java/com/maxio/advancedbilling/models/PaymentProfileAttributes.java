@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for PaymentProfileAttributes type.
  */
-public class PaymentProfileAttributes
-        extends BaseModel {
+public class PaymentProfileAttributes {
     private String chargifyToken;
     private Integer id;
     private String paymentType;
@@ -821,8 +819,7 @@ public class PaymentProfileAttributes
                 + vaultToken + ", customerVaultToken=" + customerVaultToken + ", customerId="
                 + customerId + ", paypalEmail=" + paypalEmail + ", paymentMethodNonce="
                 + paymentMethodNonce + ", gatewayHandle=" + gatewayHandle + ", cvv=" + cvv
-                + ", lastFour=" + lastFour + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", lastFour=" + lastFour + "]";
     }
 
     /**

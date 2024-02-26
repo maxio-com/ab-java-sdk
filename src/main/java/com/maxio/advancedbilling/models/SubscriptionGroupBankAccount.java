@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupBankAccount type.
  */
-public class SubscriptionGroupBankAccount
-        extends BaseModel {
+public class SubscriptionGroupBankAccount {
     private String bankName;
     private String bankAccountNumber;
     private String bankRoutingNumber;
@@ -439,8 +437,7 @@ public class SubscriptionGroupBankAccount
                 + ", billingCity=" + billingCity + ", billingState=" + billingState
                 + ", billingZip=" + billingZip + ", billingCountry=" + billingCountry
                 + ", chargifyToken=" + chargifyToken + ", currentVault=" + currentVault
-                + ", gatewayHandle=" + gatewayHandle + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", gatewayHandle=" + gatewayHandle + "]";
     }
 
     /**

@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ProductPricePointErrors type.
  */
-public class ProductPricePointErrors
-        extends BaseModel {
+public class ProductPricePointErrors {
     private String pricePoint;
     private List<String> interval;
     private List<String> intervalUnit;
@@ -176,8 +174,7 @@ public class ProductPricePointErrors
     public String toString() {
         return "ProductPricePointErrors [" + "pricePoint=" + pricePoint + ", interval=" + interval
                 + ", intervalUnit=" + intervalUnit + ", name=" + name + ", price=" + price
-                + ", priceInCents=" + priceInCents + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", priceInCents=" + priceInCents + "]";
     }
 
     /**

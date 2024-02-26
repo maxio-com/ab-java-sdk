@@ -14,15 +14,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for ApplyCreditNoteEventData type.
  */
-public class ApplyCreditNoteEventData
-        extends BaseModel {
+public class ApplyCreditNoteEventData {
     private String uid;
     private String creditNoteNumber;
     private String creditNoteUid;
@@ -316,8 +314,7 @@ public class ApplyCreditNoteEventData
                 + creditNoteNumber + ", creditNoteUid=" + creditNoteUid + ", originalAmount="
                 + originalAmount + ", appliedAmount=" + appliedAmount + ", transactionTime="
                 + transactionTime + ", memo=" + memo + ", role=" + role + ", consolidatedInvoice="
-                + consolidatedInvoice + ", appliedCreditNotes=" + appliedCreditNotes
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + consolidatedInvoice + ", appliedCreditNotes=" + appliedCreditNotes + "]";
     }
 
     /**

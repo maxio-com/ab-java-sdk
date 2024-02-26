@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ProformaInvoiceTax type.
  */
-public class ProformaInvoiceTax
-        extends BaseModel {
+public class ProformaInvoiceTax {
     private String uid;
     private String title;
     private ProformaInvoiceTaxSourceType sourceType;
@@ -199,8 +197,7 @@ public class ProformaInvoiceTax
     public String toString() {
         return "ProformaInvoiceTax [" + "uid=" + uid + ", title=" + title + ", sourceType="
                 + sourceType + ", percentage=" + percentage + ", taxableAmount=" + taxableAmount
-                + ", taxAmount=" + taxAmount + ", lineItemBreakouts=" + lineItemBreakouts
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", taxAmount=" + taxAmount + ", lineItemBreakouts=" + lineItemBreakouts + "]";
     }
 
     /**

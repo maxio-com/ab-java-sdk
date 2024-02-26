@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateComponentRequest type.
  */
-public class UpdateComponentRequest
-        extends BaseModel {
+public class UpdateComponentRequest {
     private UpdateComponent component;
 
     /**
@@ -56,8 +54,7 @@ public class UpdateComponentRequest
      */
     @Override
     public String toString() {
-        return "UpdateComponentRequest [" + "component=" + component + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "UpdateComponentRequest [" + "component=" + component + "]";
     }
 
     /**

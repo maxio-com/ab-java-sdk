@@ -11,14 +11,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreatePrepaidUsageComponentPricePoint type.
  */
-public class CreatePrepaidUsageComponentPricePoint
-        extends BaseModel {
+public class CreatePrepaidUsageComponentPricePoint {
     private String name;
     private String handle;
     private PricingScheme pricingScheme;
@@ -308,8 +306,7 @@ public class CreatePrepaidUsageComponentPricePoint
                 + ", handle=" + handle + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder
                 + ", renewPrepaidAllocation=" + renewPrepaidAllocation + ", expirationInterval="
-                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit + "]";
     }
 
     /**

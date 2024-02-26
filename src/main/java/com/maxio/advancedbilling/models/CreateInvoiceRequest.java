@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateInvoiceRequest type.
  */
-public class CreateInvoiceRequest
-        extends BaseModel {
+public class CreateInvoiceRequest {
     private CreateInvoice invoice;
 
     /**
@@ -56,8 +54,7 @@ public class CreateInvoiceRequest
      */
     @Override
     public String toString() {
-        return "CreateInvoiceRequest [" + "invoice=" + invoice + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "CreateInvoiceRequest [" + "invoice=" + invoice + "]";
     }
 
     /**

@@ -12,13 +12,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.UpdatePriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.UpdatePriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.UpdatePriceUnitPrice;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdatePrice type.
  */
-public class UpdatePrice
-        extends BaseModel {
+public class UpdatePrice {
     private Integer id;
     private UpdatePriceEndingQuantity endingQuantity;
     private UpdatePriceUnitPrice unitPrice;
@@ -157,7 +155,7 @@ public class UpdatePrice
     public String toString() {
         return "UpdatePrice [" + "id=" + id + ", endingQuantity=" + endingQuantity + ", unitPrice="
                 + unitPrice + ", destroy=" + destroy + ", startingQuantity=" + startingQuantity
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

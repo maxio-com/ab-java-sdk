@@ -15,14 +15,12 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for CreateOrUpdatePercentageCoupon type.
  */
-public class CreateOrUpdatePercentageCoupon
-        extends BaseModel {
+public class CreateOrUpdatePercentageCoupon {
     private String name;
     private String code;
     private String description;
@@ -343,8 +341,7 @@ public class CreateOrUpdatePercentageCoupon
                 + ", endDate=" + endDate + ", productFamilyId=" + productFamilyId + ", stackable="
                 + stackable + ", compoundingStrategy=" + compoundingStrategy
                 + ", excludeMidPeriodAllocations=" + excludeMidPeriodAllocations
-                + ", applyOnCancelAtEndOfPeriod=" + applyOnCancelAtEndOfPeriod
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", applyOnCancelAtEndOfPeriod=" + applyOnCancelAtEndOfPeriod + "]";
     }
 
     /**

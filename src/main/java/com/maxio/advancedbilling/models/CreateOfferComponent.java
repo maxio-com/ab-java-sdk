@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateOfferComponent type.
  */
-public class CreateOfferComponent
-        extends BaseModel {
+public class CreateOfferComponent {
     private Integer componentId;
     private Integer startingQuantity;
 
@@ -82,7 +80,7 @@ public class CreateOfferComponent
     @Override
     public String toString() {
         return "CreateOfferComponent [" + "componentId=" + componentId + ", startingQuantity="
-                + startingQuantity + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + startingQuantity + "]";
     }
 
     /**

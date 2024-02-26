@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PaymentMethodBankAccount type.
  */
-public class PaymentMethodBankAccount
-        extends BaseModel {
+public class PaymentMethodBankAccount {
     private String maskedAccountNumber;
     private String maskedRoutingNumber;
     private InvoiceEventPaymentMethod type;
@@ -104,8 +102,7 @@ public class PaymentMethodBankAccount
     @Override
     public String toString() {
         return "PaymentMethodBankAccount [" + "maskedAccountNumber=" + maskedAccountNumber
-                + ", maskedRoutingNumber=" + maskedRoutingNumber + ", type=" + type
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", maskedRoutingNumber=" + maskedRoutingNumber + ", type=" + type + "]";
     }
 
     /**

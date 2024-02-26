@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CustomerCustomFieldsChange type.
  */
-public class CustomerCustomFieldsChange
-        extends BaseModel {
+public class CustomerCustomFieldsChange {
     private List<InvoiceCustomField> before;
     private List<InvoiceCustomField> after;
 
@@ -82,8 +80,7 @@ public class CustomerCustomFieldsChange
      */
     @Override
     public String toString() {
-        return "CustomerCustomFieldsChange [" + "before=" + before + ", after=" + after
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "CustomerCustomFieldsChange [" + "before=" + before + ", after=" + after + "]";
     }
 
     /**

@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ComponentCurrencyPrice type.
  */
-public class ComponentCurrencyPrice
-        extends BaseModel {
+public class ComponentCurrencyPrice {
     private Integer id;
     private String currency;
     private String price;
@@ -175,8 +173,7 @@ public class ComponentCurrencyPrice
     public String toString() {
         return "ComponentCurrencyPrice [" + "id=" + id + ", currency=" + currency + ", price="
                 + price + ", formattedPrice=" + formattedPrice + ", priceId=" + priceId
-                + ", pricePointId=" + pricePointId + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", pricePointId=" + pricePointId + "]";
     }
 
     /**

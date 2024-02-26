@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for RenewalPreviewLineItem type.
  */
-public class RenewalPreviewLineItem
-        extends BaseModel {
+public class RenewalPreviewLineItem {
     private LineItemTransactionType transactionType;
     private LineItemKind kind;
     private Long amountInCents;
@@ -367,8 +365,7 @@ public class RenewalPreviewLineItem
                 + ", productId=" + productId + ", productName=" + productName + ", componentId="
                 + componentId + ", componentHandle=" + componentHandle + ", componentName="
                 + componentName + ", productHandle=" + productHandle + ", periodRangeStart="
-                + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd + "]";
     }
 
     /**

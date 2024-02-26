@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for MRR type.
  */
-public class MRR
-        extends BaseModel {
+public class MRR {
     private Long amountInCents;
     private String amountFormatted;
     private String currency;
@@ -183,8 +181,7 @@ public class MRR
     public String toString() {
         return "MRR [" + "amountInCents=" + amountInCents + ", amountFormatted=" + amountFormatted
                 + ", currency=" + currency + ", currencySymbol=" + currencySymbol + ", breakouts="
-                + breakouts + ", atTime=" + atTime + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + breakouts + ", atTime=" + atTime + "]";
     }
 
     /**

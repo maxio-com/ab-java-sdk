@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for ComponentPrice type.
  */
-public class ComponentPrice
-        extends BaseModel {
+public class ComponentPrice {
     private Integer id;
     private Integer componentId;
     private Integer startingQuantity;
@@ -281,8 +279,7 @@ public class ComponentPrice
         return "ComponentPrice [" + "id=" + id + ", componentId=" + componentId
                 + ", startingQuantity=" + startingQuantity + ", endingQuantity=" + endingQuantity
                 + ", unitPrice=" + unitPrice + ", pricePointId=" + pricePointId
-                + ", formattedUnitPrice=" + formattedUnitPrice + ", segmentId=" + segmentId
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", formattedUnitPrice=" + formattedUnitPrice + ", segmentId=" + segmentId + "]";
     }
 
     /**

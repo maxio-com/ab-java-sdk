@@ -12,15 +12,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for BillingManifest type.
  */
-public class BillingManifest
-        extends BaseModel {
+public class BillingManifest {
     private List<BillingManifestItem> lineItems;
     private Long totalInCents;
     private Long totalDiscountInCents;
@@ -255,8 +253,7 @@ public class BillingManifest
                 + ", totalDiscountInCents=" + totalDiscountInCents + ", totalTaxInCents="
                 + totalTaxInCents + ", subtotalInCents=" + subtotalInCents + ", startDate="
                 + startDate + ", endDate=" + endDate + ", periodType=" + periodType
-                + ", existingBalanceInCents=" + existingBalanceInCents + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", existingBalanceInCents=" + existingBalanceInCents + "]";
     }
 
     /**

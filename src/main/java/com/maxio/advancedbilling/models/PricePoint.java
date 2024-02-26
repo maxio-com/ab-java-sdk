@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for PricePoint type.
  */
-public class PricePoint
-        extends BaseModel {
+public class PricePoint {
     private String name;
     private String handle;
     private PricingScheme pricingScheme;
@@ -376,8 +374,7 @@ public class PricePoint
                 + ", intervalUnit=" + intervalUnit + ", overagePricing=" + overagePricing
                 + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder
                 + ", renewPrepaidAllocation=" + renewPrepaidAllocation + ", expirationInterval="
-                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit + "]";
     }
 
     /**

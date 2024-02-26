@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateMultiInvoicePaymentAmount;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateMultiInvoicePayment type.
  */
-public class CreateMultiInvoicePayment
-        extends BaseModel {
+public class CreateMultiInvoicePayment {
     private String memo;
     private String details;
     private InvoicePaymentMethodType method;
@@ -185,7 +183,7 @@ public class CreateMultiInvoicePayment
     public String toString() {
         return "CreateMultiInvoicePayment [" + "amount=" + amount + ", applications=" + applications
                 + ", memo=" + memo + ", details=" + details + ", method=" + method + ", receivedOn="
-                + receivedOn + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + receivedOn + "]";
     }
 
     /**

@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for DeductServiceCreditRequest type.
  */
-public class DeductServiceCreditRequest
-        extends BaseModel {
+public class DeductServiceCreditRequest {
     private DeductServiceCredit deduction;
 
     /**
@@ -56,8 +54,7 @@ public class DeductServiceCreditRequest
      */
     @Override
     public String toString() {
-        return "DeductServiceCreditRequest [" + "deduction=" + deduction + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "DeductServiceCreditRequest [" + "deduction=" + deduction + "]";
     }
 
     /**

@@ -12,15 +12,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for InvoicePayment type.
  */
-public class InvoicePayment
-        extends BaseModel {
+public class InvoicePayment {
     private ZonedDateTime transactionTime;
     private String memo;
     private String originalAmount;
@@ -343,7 +341,7 @@ public class InvoicePayment
                 + ", paymentMethod=" + paymentMethod + ", transactionId=" + transactionId
                 + ", prepayment=" + prepayment + ", gatewayHandle=" + gatewayHandle
                 + ", gatewayUsed=" + gatewayUsed + ", gatewayTransactionId=" + gatewayTransactionId
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

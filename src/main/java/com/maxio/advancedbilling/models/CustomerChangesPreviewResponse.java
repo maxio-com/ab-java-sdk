@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CustomerChangesPreviewResponse type.
  */
-public class CustomerChangesPreviewResponse
-        extends BaseModel {
+public class CustomerChangesPreviewResponse {
     private CustomerChange changes;
 
     /**
@@ -56,8 +54,7 @@ public class CustomerChangesPreviewResponse
      */
     @Override
     public String toString() {
-        return "CustomerChangesPreviewResponse [" + "changes=" + changes + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "CustomerChangesPreviewResponse [" + "changes=" + changes + "]";
     }
 
     /**

@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for IssueInvoiceRequest type.
  */
-public class IssueInvoiceRequest
-        extends BaseModel {
+public class IssueInvoiceRequest {
     private FailedPaymentAction onFailedPayment;
 
     /**
@@ -77,8 +75,7 @@ public class IssueInvoiceRequest
      */
     @Override
     public String toString() {
-        return "IssueInvoiceRequest [" + "onFailedPayment=" + onFailedPayment
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "IssueInvoiceRequest [" + "onFailedPayment=" + onFailedPayment + "]";
     }
 
     /**

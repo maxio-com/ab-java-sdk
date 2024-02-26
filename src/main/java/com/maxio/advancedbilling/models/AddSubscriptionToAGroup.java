@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.AddSubscriptionToAGroupGroup;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for AddSubscriptionToAGroup type.
  */
-public class AddSubscriptionToAGroup
-        extends BaseModel {
+public class AddSubscriptionToAGroup {
     private AddSubscriptionToAGroupGroup group;
 
     /**
@@ -59,8 +57,7 @@ public class AddSubscriptionToAGroup
      */
     @Override
     public String toString() {
-        return "AddSubscriptionToAGroup [" + "group=" + group + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "AddSubscriptionToAGroup [" + "group=" + group + "]";
     }
 
     /**

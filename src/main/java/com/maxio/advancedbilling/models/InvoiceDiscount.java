@@ -10,15 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for InvoiceDiscount type.
  */
-public class InvoiceDiscount
-        extends BaseModel {
+public class InvoiceDiscount {
     private String uid;
     private String title;
     private OptionalNullable<String> description;
@@ -370,7 +368,7 @@ public class InvoiceDiscount
                 + sourceId + ", discountType=" + discountType + ", percentage=" + percentage
                 + ", eligibleAmount=" + eligibleAmount + ", discountAmount=" + discountAmount
                 + ", transactionId=" + transactionId + ", lineItemBreakouts=" + lineItemBreakouts
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

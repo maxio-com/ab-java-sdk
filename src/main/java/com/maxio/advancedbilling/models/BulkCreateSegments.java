@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for BulkCreateSegments type.
  */
-public class BulkCreateSegments
-        extends BaseModel {
+public class BulkCreateSegments {
     private List<CreateSegment> segments;
 
     /**
@@ -59,8 +57,7 @@ public class BulkCreateSegments
      */
     @Override
     public String toString() {
-        return "BulkCreateSegments [" + "segments=" + segments + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "BulkCreateSegments [" + "segments=" + segments + "]";
     }
 
     /**

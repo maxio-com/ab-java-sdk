@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -21,8 +20,7 @@ import java.util.List;
 /**
  * This is a model class for ProformaInvoiceIssued type.
  */
-public class ProformaInvoiceIssued
-        extends BaseModel {
+public class ProformaInvoiceIssued {
     private String uid;
     private String number;
     private String role;
@@ -293,7 +291,7 @@ public class ProformaInvoiceIssued
                 + ", deliveryDate=" + deliveryDate + ", createdAt=" + createdAt + ", dueAmount="
                 + dueAmount + ", paidAmount=" + paidAmount + ", taxAmount=" + taxAmount
                 + ", totalAmount=" + totalAmount + ", productName=" + productName + ", lineItems="
-                + lineItems + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + lineItems + "]";
     }
 
     /**

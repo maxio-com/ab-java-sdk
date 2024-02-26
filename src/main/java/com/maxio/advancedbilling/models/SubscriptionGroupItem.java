@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for SubscriptionGroupItem type.
  */
-public class SubscriptionGroupItem
-        extends BaseModel {
+public class SubscriptionGroupItem {
     private Integer id;
     private OptionalNullable<String> reference;
     private Integer productId;
@@ -349,8 +347,7 @@ public class SubscriptionGroupItem
                 + productId + ", productHandle=" + productHandle + ", productPricePointId="
                 + productPricePointId + ", productPricePointHandle=" + productPricePointHandle
                 + ", currency=" + currency + ", couponCode=" + couponCode + ", totalRevenueInCents="
-                + totalRevenueInCents + ", balanceInCents=" + balanceInCents
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + totalRevenueInCents + ", balanceInCents=" + balanceInCents + "]";
     }
 
     /**

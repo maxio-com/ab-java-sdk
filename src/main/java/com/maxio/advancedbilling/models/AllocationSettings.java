@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for AllocationSettings type.
  */
-public class AllocationSettings
-        extends BaseModel {
+public class AllocationSettings {
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private String accrueCharge;
@@ -171,8 +169,7 @@ public class AllocationSettings
     @Override
     public String toString() {
         return "AllocationSettings [" + "upgradeCharge=" + upgradeCharge + ", downgradeCredit="
-                + downgradeCredit + ", accrueCharge=" + accrueCharge + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + downgradeCredit + ", accrueCharge=" + accrueCharge + "]";
     }
 
     /**

@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.UpdateSubscriptionNetTerms;
 import com.maxio.advancedbilling.models.containers.UpdateSubscriptionSnapDay;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -22,8 +21,7 @@ import java.util.List;
 /**
  * This is a model class for UpdateSubscription type.
  */
-public class UpdateSubscription
-        extends BaseModel {
+public class UpdateSubscription {
     private CreditCardAttributes creditCardAttributes;
     private String productHandle;
     private Integer productId;
@@ -564,8 +562,7 @@ public class UpdateSubscription
                 + ", reference=" + reference + ", customPrice=" + customPrice + ", components="
                 + components + ", dunningCommunicationDelayEnabled="
                 + dunningCommunicationDelayEnabled + ", dunningCommunicationDelayTimeZone="
-                + dunningCommunicationDelayTimeZone + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + dunningCommunicationDelayTimeZone + "]";
     }
 
     /**

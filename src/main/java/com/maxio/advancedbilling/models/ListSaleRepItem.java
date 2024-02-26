@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.Map;
 
 /**
  * This is a model class for ListSaleRepItem type.
  */
-public class ListSaleRepItem
-        extends BaseModel {
+public class ListSaleRepItem {
     private Integer id;
     private String fullName;
     private Integer subscriptionsCount;
@@ -152,8 +150,7 @@ public class ListSaleRepItem
     @Override
     public String toString() {
         return "ListSaleRepItem [" + "id=" + id + ", fullName=" + fullName + ", subscriptionsCount="
-                + subscriptionsCount + ", mrrData=" + mrrData + ", testMode=" + testMode
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + subscriptionsCount + ", mrrData=" + mrrData + ", testMode=" + testMode + "]";
     }
 
     /**

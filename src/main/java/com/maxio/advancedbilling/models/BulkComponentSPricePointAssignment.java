@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for BulkComponentSPricePointAssignment type.
  */
-public class BulkComponentSPricePointAssignment
-        extends BaseModel {
+public class BulkComponentSPricePointAssignment {
     private List<ComponentSPricePointAssignment> components;
 
     /**
@@ -59,8 +57,7 @@ public class BulkComponentSPricePointAssignment
      */
     @Override
     public String toString() {
-        return "BulkComponentSPricePointAssignment [" + "components=" + components
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "BulkComponentSPricePointAssignment [" + "components=" + components + "]";
     }
 
     /**

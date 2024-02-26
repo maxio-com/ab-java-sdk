@@ -11,13 +11,11 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for GroupSettings type.
  */
-public class GroupSettings
-        extends BaseModel {
+public class GroupSettings {
     private GroupTarget target;
     private GroupBilling billing;
 
@@ -100,8 +98,7 @@ public class GroupSettings
      */
     @Override
     public String toString() {
-        return "GroupSettings [" + "target=" + target + ", billing=" + billing
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "GroupSettings [" + "target=" + target + ", billing=" + billing + "]";
     }
 
     /**

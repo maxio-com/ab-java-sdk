@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for MeteredUsage type.
  */
-public class MeteredUsage
-        extends BaseModel {
+public class MeteredUsage {
     private String previousUnitBalance;
     private int newUnitBalance;
     private int usageQuantity;
@@ -171,8 +169,7 @@ public class MeteredUsage
     public String toString() {
         return "MeteredUsage [" + "previousUnitBalance=" + previousUnitBalance + ", newUnitBalance="
                 + newUnitBalance + ", usageQuantity=" + usageQuantity + ", componentId="
-                + componentId + ", componentHandle=" + componentHandle + ", memo=" + memo
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + componentId + ", componentHandle=" + componentHandle + ", memo=" + memo + "]";
     }
 
     /**

@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for PrepaidComponentPricePoint type.
  */
-public class PrepaidComponentPricePoint
-        extends BaseModel {
+public class PrepaidComponentPricePoint {
     private String name;
     private String handle;
     private PricingScheme pricingScheme;
@@ -159,7 +157,7 @@ public class PrepaidComponentPricePoint
     public String toString() {
         return "PrepaidComponentPricePoint [" + "name=" + name + ", handle=" + handle
                 + ", pricingScheme=" + pricingScheme + ", prices=" + prices + ", overagePricing="
-                + overagePricing + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + overagePricing + "]";
     }
 
     /**

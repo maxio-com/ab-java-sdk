@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceEventDataPaymentMethod;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -21,8 +20,7 @@ import java.util.List;
 /**
  * This is a model class for InvoiceEventData type.
  */
-public class InvoiceEventData
-        extends BaseModel {
+public class InvoiceEventData {
     private String uid;
     private String creditNoteNumber;
     private String creditNoteUid;
@@ -991,8 +989,7 @@ public class InvoiceEventData
                 + ", dueAmount=" + dueAmount + ", totalAmount=" + totalAmount + ", applyCredit="
                 + applyCredit + ", creditNoteAttributes=" + creditNoteAttributes + ", paymentId="
                 + paymentId + ", refundAmount=" + refundAmount + ", refundId=" + refundId
-                + ", isAdvanceInvoice=" + isAdvanceInvoice + ", reason=" + reason
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", isAdvanceInvoice=" + isAdvanceInvoice + ", reason=" + reason + "]";
     }
 
     /**

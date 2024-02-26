@@ -13,14 +13,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for VoidRemainderEventData type.
  */
-public class VoidRemainderEventData
-        extends BaseModel {
+public class VoidRemainderEventData {
     private CreditNote creditNoteAttributes;
     private String memo;
     private String appliedAmount;
@@ -139,7 +137,7 @@ public class VoidRemainderEventData
     public String toString() {
         return "VoidRemainderEventData [" + "creditNoteAttributes=" + creditNoteAttributes
                 + ", memo=" + memo + ", appliedAmount=" + appliedAmount + ", transactionTime="
-                + transactionTime + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + transactionTime + "]";
     }
 
     /**

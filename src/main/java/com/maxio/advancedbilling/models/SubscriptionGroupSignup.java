@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionGroupSignup type.
  */
-public class SubscriptionGroupSignup
-        extends BaseModel {
+public class SubscriptionGroupSignup {
     private Integer paymentProfileId;
     private Integer payerId;
     private String payerReference;
@@ -231,8 +229,7 @@ public class SubscriptionGroupSignup
                 + ", payerReference=" + payerReference + ", paymentCollectionMethod="
                 + paymentCollectionMethod + ", payerAttributes=" + payerAttributes
                 + ", creditCardAttributes=" + creditCardAttributes + ", bankAccountAttributes="
-                + bankAccountAttributes + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + bankAccountAttributes + "]";
     }
 
     /**

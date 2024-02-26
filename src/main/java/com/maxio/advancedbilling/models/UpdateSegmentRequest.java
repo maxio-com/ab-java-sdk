@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateSegmentRequest type.
  */
-public class UpdateSegmentRequest
-        extends BaseModel {
+public class UpdateSegmentRequest {
     private UpdateSegment segment;
 
     /**
@@ -56,8 +54,7 @@ public class UpdateSegmentRequest
      */
     @Override
     public String toString() {
-        return "UpdateSegmentRequest [" + "segment=" + segment + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "UpdateSegmentRequest [" + "segment=" + segment + "]";
     }
 
     /**

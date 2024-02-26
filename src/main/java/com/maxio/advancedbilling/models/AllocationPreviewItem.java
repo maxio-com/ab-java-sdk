@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.AllocationPreviewItemPreviousQuantity;
 import com.maxio.advancedbilling.models.containers.AllocationPreviewItemQuantity;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for AllocationPreviewItem type.
  */
-public class AllocationPreviewItem
-        extends BaseModel {
+public class AllocationPreviewItem {
     private Integer componentId;
     private Integer subscriptionId;
     private AllocationPreviewItemQuantity quantity;
@@ -620,7 +618,7 @@ public class AllocationPreviewItem
                 + ", intervalUnit=" + intervalUnit + ", previousPricePointId="
                 + previousPricePointId + ", pricePointHandle=" + pricePointHandle
                 + ", pricePointName=" + pricePointName + ", componentHandle=" + componentHandle
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

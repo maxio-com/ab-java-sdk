@@ -15,15 +15,13 @@ import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.AllocationPayment;
 import com.maxio.advancedbilling.models.containers.AllocationPreviousQuantity;
 import com.maxio.advancedbilling.models.containers.AllocationQuantity;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Allocation type.
  */
-public class Allocation
-        extends BaseModel {
+public class Allocation {
     private Integer allocationId;
     private Integer componentId;
     private OptionalNullable<String> componentHandle;
@@ -782,7 +780,7 @@ public class Allocation
                 + ", previousPricePointId=" + previousPricePointId + ", accrueCharge="
                 + accrueCharge + ", initiateDunning=" + initiateDunning + ", upgradeCharge="
                 + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", payment=" + payment
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

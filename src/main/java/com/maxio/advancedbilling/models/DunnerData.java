@@ -11,14 +11,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for DunnerData type.
  */
-public class DunnerData
-        extends BaseModel {
+public class DunnerData {
     private String state;
     private int subscriptionId;
     private long revenueAtRiskInCents;
@@ -176,8 +174,7 @@ public class DunnerData
     public String toString() {
         return "DunnerData [" + "state=" + state + ", subscriptionId=" + subscriptionId
                 + ", revenueAtRiskInCents=" + revenueAtRiskInCents + ", createdAt=" + createdAt
-                + ", attempts=" + attempts + ", lastAttemptedAt=" + lastAttemptedAt
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", attempts=" + attempts + ", lastAttemptedAt=" + lastAttemptedAt + "]";
     }
 
     /**

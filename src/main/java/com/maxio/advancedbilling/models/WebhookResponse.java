@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for WebhookResponse type.
  */
-public class WebhookResponse
-        extends BaseModel {
+public class WebhookResponse {
     private Webhook webhook;
 
     /**
@@ -58,8 +56,7 @@ public class WebhookResponse
      */
     @Override
     public String toString() {
-        return "WebhookResponse [" + "webhook=" + webhook + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "WebhookResponse [" + "webhook=" + webhook + "]";
     }
 
     /**

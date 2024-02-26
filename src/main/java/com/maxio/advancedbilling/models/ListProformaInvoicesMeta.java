@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ListProformaInvoicesMeta type.
  */
-public class ListProformaInvoicesMeta
-        extends BaseModel {
+public class ListProformaInvoicesMeta {
     private Integer totalCount;
     private Integer currentPage;
     private Integer totalPages;
@@ -128,8 +126,7 @@ public class ListProformaInvoicesMeta
     @Override
     public String toString() {
         return "ListProformaInvoicesMeta [" + "totalCount=" + totalCount + ", currentPage="
-                + currentPage + ", totalPages=" + totalPages + ", statusCode=" + statusCode
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + currentPage + ", totalPages=" + totalPages + ", statusCode=" + statusCode + "]";
     }
 
     /**

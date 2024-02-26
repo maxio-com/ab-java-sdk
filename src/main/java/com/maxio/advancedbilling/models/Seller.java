@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for Seller type.
  */
-public class Seller
-        extends BaseModel {
+public class Seller {
     private String name;
     private InvoiceAddress address;
     private String phone;
@@ -162,8 +160,7 @@ public class Seller
     @Override
     public String toString() {
         return "Seller [" + "name=" + name + ", address=" + address + ", phone=" + phone
-                + ", logoUrl=" + logoUrl + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", logoUrl=" + logoUrl + "]";
     }
 
     /**

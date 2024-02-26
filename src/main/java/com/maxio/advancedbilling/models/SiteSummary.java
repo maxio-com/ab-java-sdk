@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SiteSummary type.
  */
-public class SiteSummary
-        extends BaseModel {
+public class SiteSummary {
     private String sellerName;
     private String siteName;
     private Integer siteId;
@@ -151,8 +149,7 @@ public class SiteSummary
     @Override
     public String toString() {
         return "SiteSummary [" + "sellerName=" + sellerName + ", siteName=" + siteName + ", siteId="
-                + siteId + ", siteCurrency=" + siteCurrency + ", stats=" + stats
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + siteId + ", siteCurrency=" + siteCurrency + ", stats=" + stats + "]";
     }
 
     /**

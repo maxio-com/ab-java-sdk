@@ -12,13 +12,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.RefundConsolidatedInvoiceSegmentUids;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for RefundConsolidatedInvoice type.
  */
-public class RefundConsolidatedInvoice
-        extends BaseModel {
+public class RefundConsolidatedInvoice {
     private String memo;
     private int paymentId;
     private RefundConsolidatedInvoiceSegmentUids segmentUids;
@@ -207,8 +205,7 @@ public class RefundConsolidatedInvoice
     public String toString() {
         return "RefundConsolidatedInvoice [" + "memo=" + memo + ", paymentId=" + paymentId
                 + ", segmentUids=" + segmentUids + ", external=" + external + ", applyCredit="
-                + applyCredit + ", amount=" + amount + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + applyCredit + ", amount=" + amount + "]";
     }
 
     /**

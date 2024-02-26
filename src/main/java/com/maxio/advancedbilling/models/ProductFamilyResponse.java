@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ProductFamilyResponse type.
  */
-public class ProductFamilyResponse
-        extends BaseModel {
+public class ProductFamilyResponse {
     private ProductFamily productFamily;
 
     /**
@@ -58,8 +56,7 @@ public class ProductFamilyResponse
      */
     @Override
     public String toString() {
-        return "ProductFamilyResponse [" + "productFamily=" + productFamily
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "ProductFamilyResponse [" + "productFamily=" + productFamily + "]";
     }
 
     /**

@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for InvoiceBalanceItem type.
  */
-public class InvoiceBalanceItem
-        extends BaseModel {
+public class InvoiceBalanceItem {
     private String uid;
     private String number;
     private String outstandingAmount;
@@ -105,7 +103,7 @@ public class InvoiceBalanceItem
     @Override
     public String toString() {
         return "InvoiceBalanceItem [" + "uid=" + uid + ", number=" + number + ", outstandingAmount="
-                + outstandingAmount + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + outstandingAmount + "]";
     }
 
     /**

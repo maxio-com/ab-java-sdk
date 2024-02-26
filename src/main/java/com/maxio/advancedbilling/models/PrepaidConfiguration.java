@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PrepaidConfiguration type.
  */
-public class PrepaidConfiguration
-        extends BaseModel {
+public class PrepaidConfiguration {
     private Integer id;
     private Long initialFundingAmountInCents;
     private Long replenishToAmountInCents;
@@ -153,8 +151,7 @@ public class PrepaidConfiguration
         return "PrepaidConfiguration [" + "id=" + id + ", initialFundingAmountInCents="
                 + initialFundingAmountInCents + ", replenishToAmountInCents="
                 + replenishToAmountInCents + ", autoReplenish=" + autoReplenish
-                + ", replenishThresholdAmountInCents=" + replenishThresholdAmountInCents
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", replenishThresholdAmountInCents=" + replenishThresholdAmountInCents + "]";
     }
 
     /**

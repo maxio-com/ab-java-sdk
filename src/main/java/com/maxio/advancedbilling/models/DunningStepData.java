@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for DunningStepData type.
  */
-public class DunningStepData
-        extends BaseModel {
+public class DunningStepData {
     private int dayThreshold;
     private String action;
     private OptionalNullable<String> emailBody;
@@ -292,8 +290,7 @@ public class DunningStepData
         return "DunningStepData [" + "dayThreshold=" + dayThreshold + ", action=" + action
                 + ", sendEmail=" + sendEmail + ", sendBccEmail=" + sendBccEmail + ", sendSms="
                 + sendSms + ", emailBody=" + emailBody + ", emailSubject=" + emailSubject
-                + ", smsBody=" + smsBody + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", smsBody=" + smsBody + "]";
     }
 
     /**

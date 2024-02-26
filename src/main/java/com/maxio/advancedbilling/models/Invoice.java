@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -21,8 +20,7 @@ import java.util.List;
 /**
  * This is a model class for Invoice type.
  */
-public class Invoice
-        extends BaseModel {
+public class Invoice {
     private Long id;
     private String uid;
     private Integer siteId;
@@ -1632,8 +1630,7 @@ public class Invoice
                 + lineItems + ", discounts=" + discounts + ", taxes=" + taxes + ", credits="
                 + credits + ", refunds=" + refunds + ", payments=" + payments + ", customFields="
                 + customFields + ", displaySettings=" + displaySettings + ", publicUrl=" + publicUrl
-                + ", previousBalanceData=" + previousBalanceData + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", previousBalanceData=" + previousBalanceData + "]";
     }
 
     /**

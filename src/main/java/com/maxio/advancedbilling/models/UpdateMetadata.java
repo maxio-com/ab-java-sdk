@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateMetadata type.
  */
-public class UpdateMetadata
-        extends BaseModel {
+public class UpdateMetadata {
     private String currentName;
     private String name;
     private String value;
@@ -105,7 +103,7 @@ public class UpdateMetadata
     @Override
     public String toString() {
         return "UpdateMetadata [" + "currentName=" + currentName + ", name=" + name + ", value="
-                + value + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + value + "]";
     }
 
     /**

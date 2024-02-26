@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ListMRRResponse type.
  */
-public class ListMRRResponse
-        extends BaseModel {
+public class ListMRRResponse {
     private ListMRRResponseResult mrr;
 
     /**
@@ -56,8 +54,7 @@ public class ListMRRResponse
      */
     @Override
     public String toString() {
-        return "ListMRRResponse [" + "mrr=" + mrr + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "ListMRRResponse [" + "mrr=" + mrr + "]";
     }
 
     /**

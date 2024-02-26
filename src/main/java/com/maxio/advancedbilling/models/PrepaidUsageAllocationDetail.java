@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PrepaidUsageAllocationDetail type.
  */
-public class PrepaidUsageAllocationDetail
-        extends BaseModel {
+public class PrepaidUsageAllocationDetail {
     private Integer allocationId;
     private Integer chargeId;
     private Integer usageQuantity;
@@ -105,8 +103,7 @@ public class PrepaidUsageAllocationDetail
     @Override
     public String toString() {
         return "PrepaidUsageAllocationDetail [" + "allocationId=" + allocationId + ", chargeId="
-                + chargeId + ", usageQuantity=" + usageQuantity + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + chargeId + ", usageQuantity=" + usageQuantity + "]";
     }
 
     /**

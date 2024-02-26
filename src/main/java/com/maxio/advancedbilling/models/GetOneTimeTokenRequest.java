@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for GetOneTimeTokenRequest type.
  */
-public class GetOneTimeTokenRequest
-        extends BaseModel {
+public class GetOneTimeTokenRequest {
     private GetOneTimeTokenPaymentProfile paymentProfile;
 
     /**
@@ -56,8 +54,7 @@ public class GetOneTimeTokenRequest
      */
     @Override
     public String toString() {
-        return "GetOneTimeTokenRequest [" + "paymentProfile=" + paymentProfile
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "GetOneTimeTokenRequest [" + "paymentProfile=" + paymentProfile + "]";
     }
 
     /**

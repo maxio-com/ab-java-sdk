@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CancellationOptions type.
  */
-public class CancellationOptions
-        extends BaseModel {
+public class CancellationOptions {
     private String cancellationMessage;
     private String reasonCode;
 
@@ -88,8 +86,7 @@ public class CancellationOptions
     @Override
     public String toString() {
         return "CancellationOptions [" + "cancellationMessage=" + cancellationMessage
-                + ", reasonCode=" + reasonCode + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", reasonCode=" + reasonCode + "]";
     }
 
     /**

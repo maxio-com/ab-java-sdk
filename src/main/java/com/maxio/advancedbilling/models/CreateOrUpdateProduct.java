@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateOrUpdateProduct type.
  */
-public class CreateOrUpdateProduct
-        extends BaseModel {
+public class CreateOrUpdateProduct {
     private String name;
     private String handle;
     private String description;
@@ -445,8 +443,7 @@ public class CreateOrUpdateProduct
                 + trialPriceInCents + ", trialInterval=" + trialInterval + ", trialIntervalUnit="
                 + trialIntervalUnit + ", trialType=" + trialType + ", expirationInterval="
                 + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
-                + ", autoCreateSignupPage=" + autoCreateSignupPage + ", taxCode=" + taxCode
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", autoCreateSignupPage=" + autoCreateSignupPage + ", taxCode=" + taxCode + "]";
     }
 
     /**

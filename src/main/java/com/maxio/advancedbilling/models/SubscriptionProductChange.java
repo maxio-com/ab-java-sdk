@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionProductChange type.
  */
-public class SubscriptionProductChange
-        extends BaseModel {
+public class SubscriptionProductChange {
     private int previousProductId;
     private int newProductId;
 
@@ -82,8 +80,7 @@ public class SubscriptionProductChange
     @Override
     public String toString() {
         return "SubscriptionProductChange [" + "previousProductId=" + previousProductId
-                + ", newProductId=" + newProductId + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", newProductId=" + newProductId + "]";
     }
 
     /**

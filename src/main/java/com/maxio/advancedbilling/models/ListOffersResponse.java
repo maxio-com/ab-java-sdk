@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ListOffersResponse type.
  */
-public class ListOffersResponse
-        extends BaseModel {
+public class ListOffersResponse {
     private List<Offer> offers;
 
     /**
@@ -59,8 +57,7 @@ public class ListOffersResponse
      */
     @Override
     public String toString() {
-        return "ListOffersResponse [" + "offers=" + offers + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "ListOffersResponse [" + "offers=" + offers + "]";
     }
 
     /**

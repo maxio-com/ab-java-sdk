@@ -11,15 +11,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.RecordPaymentResponsePrepayment;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for RecordPaymentResponse type.
  */
-public class RecordPaymentResponse
-        extends BaseModel {
+public class RecordPaymentResponse {
     private List<PaidInvoice> paidInvoices;
     private OptionalNullable<RecordPaymentResponsePrepayment> prepayment;
 
@@ -114,7 +112,7 @@ public class RecordPaymentResponse
     @Override
     public String toString() {
         return "RecordPaymentResponse [" + "paidInvoices=" + paidInvoices + ", prepayment="
-                + prepayment + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + prepayment + "]";
     }
 
     /**

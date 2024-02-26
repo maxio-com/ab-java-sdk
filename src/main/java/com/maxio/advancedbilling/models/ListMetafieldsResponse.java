@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ListMetafieldsResponse type.
  */
-public class ListMetafieldsResponse
-        extends BaseModel {
+public class ListMetafieldsResponse {
     private Integer totalCount;
     private Integer currentPage;
     private Integer totalPages;
@@ -153,8 +151,7 @@ public class ListMetafieldsResponse
     public String toString() {
         return "ListMetafieldsResponse [" + "totalCount=" + totalCount + ", currentPage="
                 + currentPage + ", totalPages=" + totalPages + ", perPage=" + perPage
-                + ", metafields=" + metafields + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", metafields=" + metafields + "]";
     }
 
     /**

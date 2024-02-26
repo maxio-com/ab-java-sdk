@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for PayerError type.
  */
-public class PayerError
-        extends BaseModel {
+public class PayerError {
     private List<String> lastName;
     private List<String> firstName;
     private List<String> email;
@@ -106,7 +104,7 @@ public class PayerError
     @Override
     public String toString() {
         return "PayerError [" + "lastName=" + lastName + ", firstName=" + firstName + ", email="
-                + email + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + email + "]";
     }
 
     /**

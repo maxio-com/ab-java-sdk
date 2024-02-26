@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for RefundInvoiceRequest type.
  */
-public class RefundInvoiceRequest
-        extends BaseModel {
+public class RefundInvoiceRequest {
     private RefundInvoiceRequestRefund refund;
 
     /**
@@ -57,8 +55,7 @@ public class RefundInvoiceRequest
      */
     @Override
     public String toString() {
-        return "RefundInvoiceRequest [" + "refund=" + refund + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "RefundInvoiceRequest [" + "refund=" + refund + "]";
     }
 
     /**

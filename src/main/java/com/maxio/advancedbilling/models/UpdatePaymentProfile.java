@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for UpdatePaymentProfile type.
  */
-public class UpdatePaymentProfile
-        extends BaseModel {
+public class UpdatePaymentProfile {
     private String firstName;
     private String lastName;
     private String fullNumber;
@@ -449,7 +447,7 @@ public class UpdatePaymentProfile
                 + currentVault + ", billingAddress=" + billingAddress + ", billingCity="
                 + billingCity + ", billingState=" + billingState + ", billingZip=" + billingZip
                 + ", billingCountry=" + billingCountry + ", billingAddress2=" + billingAddress2
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

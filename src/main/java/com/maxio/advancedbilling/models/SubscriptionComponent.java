@@ -15,15 +15,13 @@ import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentAllocatedQuantity;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentPricePointType;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentPricingScheme;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionComponent type.
  */
-public class SubscriptionComponent
-        extends BaseModel {
+public class SubscriptionComponent {
     private Integer id;
     private String name;
     private ComponentKind kind;
@@ -1056,8 +1054,7 @@ public class SubscriptionComponent
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", description=" + description
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", subscription="
                 + subscription + ", displayOnHostedPage=" + displayOnHostedPage + ", interval="
-                + interval + ", intervalUnit=" + intervalUnit + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + interval + ", intervalUnit=" + intervalUnit + "]";
     }
 
     /**

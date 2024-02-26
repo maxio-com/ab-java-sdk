@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateSegmentPriceUnitPrice;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateOrUpdateSegmentPrice type.
  */
-public class CreateOrUpdateSegmentPrice
-        extends BaseModel {
+public class CreateOrUpdateSegmentPrice {
     private Integer startingQuantity;
     private Integer endingQuantity;
     private CreateOrUpdateSegmentPriceUnitPrice unitPrice;
@@ -107,8 +105,7 @@ public class CreateOrUpdateSegmentPrice
     @Override
     public String toString() {
         return "CreateOrUpdateSegmentPrice [" + "unitPrice=" + unitPrice + ", startingQuantity="
-                + startingQuantity + ", endingQuantity=" + endingQuantity
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + startingQuantity + ", endingQuantity=" + endingQuantity + "]";
     }
 
     /**

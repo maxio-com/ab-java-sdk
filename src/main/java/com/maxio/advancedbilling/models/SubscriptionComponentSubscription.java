@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionComponentSubscription type.
  */
-public class SubscriptionComponentSubscription
-        extends BaseModel {
+public class SubscriptionComponentSubscription {
     private SubscriptionState state;
     private ZonedDateTime updatedAt;
 
@@ -178,7 +176,7 @@ public class SubscriptionComponentSubscription
     @Override
     public String toString() {
         return "SubscriptionComponentSubscription [" + "state=" + state + ", updatedAt=" + updatedAt
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

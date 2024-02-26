@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for PaymentMethodCreditCard type.
  */
-public class PaymentMethodCreditCard
-        extends BaseModel {
+public class PaymentMethodCreditCard {
     private String cardBrand;
     private String cardExpiration;
     private OptionalNullable<String> lastFour;
@@ -203,8 +201,7 @@ public class PaymentMethodCreditCard
     public String toString() {
         return "PaymentMethodCreditCard [" + "cardBrand=" + cardBrand + ", maskedCardNumber="
                 + maskedCardNumber + ", type=" + type + ", cardExpiration=" + cardExpiration
-                + ", lastFour=" + lastFour + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", lastFour=" + lastFour + "]";
     }
 
     /**

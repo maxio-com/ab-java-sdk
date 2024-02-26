@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for AllocationResponse type.
  */
-public class AllocationResponse
-        extends BaseModel {
+public class AllocationResponse {
     private Allocation allocation;
 
     /**
@@ -58,8 +56,7 @@ public class AllocationResponse
      */
     @Override
     public String toString() {
-        return "AllocationResponse [" + "allocation=" + allocation + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "AllocationResponse [" + "allocation=" + allocation + "]";
     }
 
     /**

@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateMetafieldsRequestMetafields;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateMetafieldsRequest type.
  */
-public class CreateMetafieldsRequest
-        extends BaseModel {
+public class CreateMetafieldsRequest {
     private CreateMetafieldsRequestMetafields metafields;
 
     /**
@@ -57,8 +55,7 @@ public class CreateMetafieldsRequest
      */
     @Override
     public String toString() {
-        return "CreateMetafieldsRequest [" + "metafields=" + metafields + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "CreateMetafieldsRequest [" + "metafields=" + metafields + "]";
     }
 
     /**

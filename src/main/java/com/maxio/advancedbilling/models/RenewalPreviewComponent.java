@@ -11,13 +11,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.RenewalPreviewComponentComponentId;
 import com.maxio.advancedbilling.models.containers.RenewalPreviewComponentPricePointId;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for RenewalPreviewComponent type.
  */
-public class RenewalPreviewComponent
-        extends BaseModel {
+public class RenewalPreviewComponent {
     private RenewalPreviewComponentComponentId componentId;
     private Integer quantity;
     private RenewalPreviewComponentPricePointId pricePointId;
@@ -123,8 +121,7 @@ public class RenewalPreviewComponent
     @Override
     public String toString() {
         return "RenewalPreviewComponent [" + "componentId=" + componentId + ", quantity=" + quantity
-                + ", pricePointId=" + pricePointId + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", pricePointId=" + pricePointId + "]";
     }
 
     /**

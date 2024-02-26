@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ReasonCodeResponse type.
  */
-public class ReasonCodeResponse
-        extends BaseModel {
+public class ReasonCodeResponse {
     private ReasonCode reasonCode;
 
     /**
@@ -56,8 +54,7 @@ public class ReasonCodeResponse
      */
     @Override
     public String toString() {
-        return "ReasonCodeResponse [" + "reasonCode=" + reasonCode + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "ReasonCodeResponse [" + "reasonCode=" + reasonCode + "]";
     }
 
     /**

@@ -11,14 +11,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateComponentPricePoint type.
  */
-public class CreateComponentPricePoint
-        extends BaseModel {
+public class CreateComponentPricePoint {
     private String name;
     private String handle;
     private PricingScheme pricingScheme;
@@ -259,8 +257,7 @@ public class CreateComponentPricePoint
         return "CreateComponentPricePoint [" + "name=" + name + ", pricingScheme=" + pricingScheme
                 + ", prices=" + prices + ", handle=" + handle + ", useSiteExchangeRate="
                 + useSiteExchangeRate + ", taxIncluded=" + taxIncluded + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", intervalUnit=" + intervalUnit + "]";
     }
 
     /**

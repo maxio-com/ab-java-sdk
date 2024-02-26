@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for RefundPrepaymentBaseRefundError type.
  */
-public class RefundPrepaymentBaseRefundError
-        extends BaseModel {
+public class RefundPrepaymentBaseRefundError {
     private BaseRefundError refund;
 
     /**
@@ -58,8 +56,7 @@ public class RefundPrepaymentBaseRefundError
      */
     @Override
     public String toString() {
-        return "RefundPrepaymentBaseRefundError [" + "refund=" + refund + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "RefundPrepaymentBaseRefundError [" + "refund=" + refund + "]";
     }
 
     /**

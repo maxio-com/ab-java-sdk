@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for ComponentCostDataRateTier type.
  */
-public class ComponentCostDataRateTier
-        extends BaseModel {
+public class ComponentCostDataRateTier {
     private Integer startingQuantity;
     private OptionalNullable<Integer> endingQuantity;
     private String quantity;
@@ -189,8 +187,7 @@ public class ComponentCostDataRateTier
     public String toString() {
         return "ComponentCostDataRateTier [" + "startingQuantity=" + startingQuantity
                 + ", endingQuantity=" + endingQuantity + ", quantity=" + quantity + ", unitPrice="
-                + unitPrice + ", amount=" + amount + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + unitPrice + ", amount=" + amount + "]";
     }
 
     /**

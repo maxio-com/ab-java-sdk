@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PaidInvoice type.
  */
-public class PaidInvoice
-        extends BaseModel {
+public class PaidInvoice {
     private String invoiceId;
     private InvoiceStatus status;
     private String dueAmount;
@@ -140,8 +138,7 @@ public class PaidInvoice
     @Override
     public String toString() {
         return "PaidInvoice [" + "invoiceId=" + invoiceId + ", status=" + status + ", dueAmount="
-                + dueAmount + ", paidAmount=" + paidAmount + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + dueAmount + ", paidAmount=" + paidAmount + "]";
     }
 
     /**

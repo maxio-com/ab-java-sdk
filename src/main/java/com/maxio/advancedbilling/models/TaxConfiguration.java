@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for TaxConfiguration type.
  */
-public class TaxConfiguration
-        extends BaseModel {
+public class TaxConfiguration {
     private TaxConfigurationKind kind;
     private TaxDestinationAddress destinationAddress;
     private Boolean fullyConfigured;
@@ -113,8 +111,7 @@ public class TaxConfiguration
     @Override
     public String toString() {
         return "TaxConfiguration [" + "kind=" + kind + ", destinationAddress=" + destinationAddress
-                + ", fullyConfigured=" + fullyConfigured + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", fullyConfigured=" + fullyConfigured + "]";
     }
 
     /**

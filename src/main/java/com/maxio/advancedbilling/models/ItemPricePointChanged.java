@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ItemPricePointChanged type.
  */
-public class ItemPricePointChanged
-        extends BaseModel {
+public class ItemPricePointChanged {
     private int itemId;
     private String itemType;
     private String itemHandle;
@@ -171,8 +169,7 @@ public class ItemPricePointChanged
     public String toString() {
         return "ItemPricePointChanged [" + "itemId=" + itemId + ", itemType=" + itemType
                 + ", itemHandle=" + itemHandle + ", itemName=" + itemName + ", previousPricePoint="
-                + previousPricePoint + ", currentPricePoint=" + currentPricePoint
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + previousPricePoint + ", currentPricePoint=" + currentPricePoint + "]";
     }
 
     /**

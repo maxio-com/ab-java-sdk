@@ -8,14 +8,12 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ComponentCurrencyPricesResponse type.
  */
-public class ComponentCurrencyPricesResponse
-        extends BaseModel {
+public class ComponentCurrencyPricesResponse {
     private List<ComponentCurrencyPrice> currencyPrices;
 
     /**
@@ -57,8 +55,7 @@ public class ComponentCurrencyPricesResponse
      */
     @Override
     public String toString() {
-        return "ComponentCurrencyPricesResponse [" + "currencyPrices=" + currencyPrices
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "ComponentCurrencyPricesResponse [" + "currencyPrices=" + currencyPrices + "]";
     }
 
     /**

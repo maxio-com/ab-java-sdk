@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ItemPricePointData type.
  */
-public class ItemPricePointData
-        extends BaseModel {
+public class ItemPricePointData {
     private Integer id;
     private String handle;
     private String name;
@@ -104,8 +102,7 @@ public class ItemPricePointData
      */
     @Override
     public String toString() {
-        return "ItemPricePointData [" + "id=" + id + ", handle=" + handle + ", name=" + name
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "ItemPricePointData [" + "id=" + id + ", handle=" + handle + ", name=" + name + "]";
     }
 
     /**

@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for GetOneTimeTokenPaymentProfile type.
  */
-public class GetOneTimeTokenPaymentProfile
-        extends BaseModel {
+public class GetOneTimeTokenPaymentProfile {
     private OptionalNullable<String> id;
     private String firstName;
     private String lastName;
@@ -640,7 +638,7 @@ public class GetOneTimeTokenPaymentProfile
                 + disabled + ", siteGatewaySettingId=" + siteGatewaySettingId + ", id=" + id
                 + ", customerId=" + customerId + ", billingAddress2=" + billingAddress2
                 + ", customerVaultToken=" + customerVaultToken + ", gatewayHandle=" + gatewayHandle
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

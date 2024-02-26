@@ -11,15 +11,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.EBBComponentUnitPrice;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for EBBComponent type.
  */
-public class EBBComponent
-        extends BaseModel {
+public class EBBComponent {
     private String name;
     private String unitName;
     private String description;
@@ -587,7 +585,7 @@ public class EBBComponent
                 + downgradeCredit + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
                 + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
                 + ", priceInCents=" + priceInCents + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + intervalUnit + "]";
     }
 
     /**

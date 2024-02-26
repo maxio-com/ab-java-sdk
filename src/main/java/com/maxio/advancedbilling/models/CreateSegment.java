@@ -13,14 +13,12 @@ import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty1
 import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty2Value;
 import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty3Value;
 import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty4Value;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateSegment type.
  */
-public class CreateSegment
-        extends BaseModel {
+public class CreateSegment {
     private CreateSegmentSegmentProperty1Value segmentProperty1Value;
     private CreateSegmentSegmentProperty2Value segmentProperty2Value;
     private CreateSegmentSegmentProperty3Value segmentProperty3Value;
@@ -206,8 +204,7 @@ public class CreateSegment
         return "CreateSegment [" + "pricingScheme=" + pricingScheme + ", segmentProperty1Value="
                 + segmentProperty1Value + ", segmentProperty2Value=" + segmentProperty2Value
                 + ", segmentProperty3Value=" + segmentProperty3Value + ", segmentProperty4Value="
-                + segmentProperty4Value + ", prices=" + prices + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + segmentProperty4Value + ", prices=" + prices + "]";
     }
 
     /**

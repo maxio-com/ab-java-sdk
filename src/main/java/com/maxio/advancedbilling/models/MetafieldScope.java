@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for MetafieldScope type.
  */
-public class MetafieldScope
-        extends BaseModel {
+public class MetafieldScope {
     private IncludeOption csv;
     private IncludeOption invoices;
     private IncludeOption statements;
@@ -211,8 +209,7 @@ public class MetafieldScope
     public String toString() {
         return "MetafieldScope [" + "csv=" + csv + ", invoices=" + invoices + ", statements="
                 + statements + ", portal=" + portal + ", publicShow=" + publicShow + ", publicEdit="
-                + publicEdit + ", hosted=" + hosted + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + publicEdit + ", hosted=" + hosted + "]";
     }
 
     /**

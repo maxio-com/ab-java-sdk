@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CouponSubcodesResponse type.
  */
-public class CouponSubcodesResponse
-        extends BaseModel {
+public class CouponSubcodesResponse {
     private List<String> createdCodes;
     private List<String> duplicateCodes;
     private List<String> invalidCodes;
@@ -106,8 +104,7 @@ public class CouponSubcodesResponse
     @Override
     public String toString() {
         return "CouponSubcodesResponse [" + "createdCodes=" + createdCodes + ", duplicateCodes="
-                + duplicateCodes + ", invalidCodes=" + invalidCodes + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + duplicateCodes + ", invalidCodes=" + invalidCodes + "]";
     }
 
     /**

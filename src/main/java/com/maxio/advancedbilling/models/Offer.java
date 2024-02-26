@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -20,8 +19,7 @@ import java.util.List;
 /**
  * This is a model class for Offer type.
  */
-public class Offer
-        extends BaseModel {
+public class Offer {
     private Integer id;
     private Integer siteId;
     private Integer productFamilyId;
@@ -574,8 +572,7 @@ public class Offer
                 + archivedAt + ", offerItems=" + offerItems + ", offerDiscounts=" + offerDiscounts
                 + ", productFamilyName=" + productFamilyName + ", productName=" + productName
                 + ", productPricePointName=" + productPricePointName + ", productPriceInCents="
-                + productPriceInCents + ", offerSignupPages=" + offerSignupPages
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + productPriceInCents + ", offerSignupPages=" + offerSignupPages + "]";
     }
 
     /**

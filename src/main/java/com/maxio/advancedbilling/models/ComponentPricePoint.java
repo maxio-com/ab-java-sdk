@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.ComponentPricePointIntervalUnit;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -21,8 +20,7 @@ import java.util.List;
 /**
  * This is a model class for ComponentPricePoint type.
  */
-public class ComponentPricePoint
-        extends BaseModel {
+public class ComponentPricePoint {
     private Integer id;
     private PricePointType type;
     private Boolean mDefault;
@@ -591,8 +589,7 @@ public class ComponentPricePoint
                 + createdAt + ", updatedAt=" + updatedAt + ", prices=" + prices
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", subscriptionId="
                 + subscriptionId + ", taxIncluded=" + taxIncluded + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", currencyPrices=" + currencyPrices
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", intervalUnit=" + intervalUnit + ", currencyPrices=" + currencyPrices + "]";
     }
 
     /**

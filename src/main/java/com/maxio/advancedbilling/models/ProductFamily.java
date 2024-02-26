@@ -12,15 +12,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ProductFamily type.
  */
-public class ProductFamily
-        extends BaseModel {
+public class ProductFamily {
     private Integer id;
     private String name;
     private String handle;
@@ -262,8 +260,7 @@ public class ProductFamily
     public String toString() {
         return "ProductFamily [" + "id=" + id + ", name=" + name + ", handle=" + handle
                 + ", accountingCode=" + accountingCode + ", description=" + description
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 
     /**

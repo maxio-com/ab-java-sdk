@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ListPublicKeysMeta type.
  */
-public class ListPublicKeysMeta
-        extends BaseModel {
+public class ListPublicKeysMeta {
     private Integer totalCount;
     private Integer currentPage;
     private Integer totalPages;
@@ -128,8 +126,7 @@ public class ListPublicKeysMeta
     @Override
     public String toString() {
         return "ListPublicKeysMeta [" + "totalCount=" + totalCount + ", currentPage=" + currentPage
-                + ", totalPages=" + totalPages + ", perPage=" + perPage + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", totalPages=" + totalPages + ", perPage=" + perPage + "]";
     }
 
     /**

@@ -14,14 +14,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for RefundInvoiceEventData type.
  */
-public class RefundInvoiceEventData
-        extends BaseModel {
+public class RefundInvoiceEventData {
     private boolean applyCredit;
     private InvoiceConsolidationLevel consolidationLevel;
     private CreditNote creditNoteAttributes;
@@ -297,8 +295,7 @@ public class RefundInvoiceEventData
                 + creditNoteAttributes + ", paymentId=" + paymentId + ", refundAmount="
                 + refundAmount + ", refundId=" + refundId + ", transactionTime=" + transactionTime
                 + ", consolidationLevel=" + consolidationLevel + ", memo=" + memo
-                + ", originalAmount=" + originalAmount + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", originalAmount=" + originalAmount + "]";
     }
 
     /**

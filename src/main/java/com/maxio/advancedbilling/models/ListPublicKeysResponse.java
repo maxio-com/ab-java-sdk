@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ListPublicKeysResponse type.
  */
-public class ListPublicKeysResponse
-        extends BaseModel {
+public class ListPublicKeysResponse {
     private List<PublicKey> chargifyJsKeys;
     private ListPublicKeysMeta meta;
 
@@ -83,7 +81,7 @@ public class ListPublicKeysResponse
     @Override
     public String toString() {
         return "ListPublicKeysResponse [" + "chargifyJsKeys=" + chargifyJsKeys + ", meta=" + meta
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

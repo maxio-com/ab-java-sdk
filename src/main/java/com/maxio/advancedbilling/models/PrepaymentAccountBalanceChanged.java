@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PrepaymentAccountBalanceChanged type.
  */
-public class PrepaymentAccountBalanceChanged
-        extends BaseModel {
+public class PrepaymentAccountBalanceChanged {
     private String reason;
     private long prepaymentAccountBalanceInCents;
     private long prepaymentBalanceChangeInCents;
@@ -128,8 +126,7 @@ public class PrepaymentAccountBalanceChanged
         return "PrepaymentAccountBalanceChanged [" + "reason=" + reason
                 + ", prepaymentAccountBalanceInCents=" + prepaymentAccountBalanceInCents
                 + ", prepaymentBalanceChangeInCents=" + prepaymentBalanceChangeInCents
-                + ", currencyCode=" + currencyCode + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", currencyCode=" + currencyCode + "]";
     }
 
     /**

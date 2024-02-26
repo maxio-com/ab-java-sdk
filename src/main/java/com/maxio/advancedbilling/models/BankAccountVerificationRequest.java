@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for BankAccountVerificationRequest type.
  */
-public class BankAccountVerificationRequest
-        extends BaseModel {
+public class BankAccountVerificationRequest {
     private BankAccountVerification bankAccountVerification;
 
     /**
@@ -57,8 +55,7 @@ public class BankAccountVerificationRequest
     @Override
     public String toString() {
         return "BankAccountVerificationRequest [" + "bankAccountVerification="
-                + bankAccountVerification + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + bankAccountVerification + "]";
     }
 
     /**

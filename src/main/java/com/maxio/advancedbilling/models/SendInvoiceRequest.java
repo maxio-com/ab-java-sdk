@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for SendInvoiceRequest type.
  */
-public class SendInvoiceRequest
-        extends BaseModel {
+public class SendInvoiceRequest {
     private List<String> recipientEmails;
     private List<String> ccRecipientEmails;
     private List<String> bccRecipientEmails;
@@ -107,7 +105,7 @@ public class SendInvoiceRequest
     public String toString() {
         return "SendInvoiceRequest [" + "recipientEmails=" + recipientEmails
                 + ", ccRecipientEmails=" + ccRecipientEmails + ", bccRecipientEmails="
-                + bccRecipientEmails + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + bccRecipientEmails + "]";
     }
 
     /**

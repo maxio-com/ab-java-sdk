@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreditSchemeRequest type.
  */
-public class CreditSchemeRequest
-        extends BaseModel {
+public class CreditSchemeRequest {
     private CreditScheme creditScheme;
 
     /**
@@ -56,8 +54,7 @@ public class CreditSchemeRequest
      */
     @Override
     public String toString() {
-        return "CreditSchemeRequest [" + "creditScheme=" + creditScheme + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "CreditSchemeRequest [" + "creditScheme=" + creditScheme + "]";
     }
 
     /**

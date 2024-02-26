@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.ReactivateSubscriptionRequestResume;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ReactivateSubscriptionRequest type.
  */
-public class ReactivateSubscriptionRequest
-        extends BaseModel {
+public class ReactivateSubscriptionRequest {
     private ReactivationBilling calendarBilling;
     private Boolean includeTrial;
     private Boolean preserveBalance;
@@ -199,8 +197,7 @@ public class ReactivateSubscriptionRequest
         return "ReactivateSubscriptionRequest [" + "calendarBilling=" + calendarBilling
                 + ", includeTrial=" + includeTrial + ", preserveBalance=" + preserveBalance
                 + ", couponCode=" + couponCode + ", useCreditsAndPrepayments="
-                + useCreditsAndPrepayments + ", resume=" + resume + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + useCreditsAndPrepayments + ", resume=" + resume + "]";
     }
 
     /**

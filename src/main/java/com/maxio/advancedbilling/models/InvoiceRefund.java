@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for InvoiceRefund type.
  */
-public class InvoiceRefund
-        extends BaseModel {
+public class InvoiceRefund {
     private Integer transactionId;
     private Integer paymentId;
     private String memo;
@@ -286,8 +284,7 @@ public class InvoiceRefund
         return "InvoiceRefund [" + "transactionId=" + transactionId + ", paymentId=" + paymentId
                 + ", memo=" + memo + ", originalAmount=" + originalAmount + ", appliedAmount="
                 + appliedAmount + ", gatewayTransactionId=" + gatewayTransactionId
-                + ", gatewayUsed=" + gatewayUsed + ", gatewayHandle=" + gatewayHandle
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", gatewayUsed=" + gatewayUsed + ", gatewayHandle=" + gatewayHandle + "]";
     }
 
     /**

@@ -11,14 +11,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.MetafieldEnum;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for Metafield type.
  */
-public class Metafield
-        extends BaseModel {
+public class Metafield {
     private Integer id;
     private String name;
     private MetafieldScope scope;
@@ -227,8 +225,7 @@ public class Metafield
     @Override
     public String toString() {
         return "Metafield [" + "id=" + id + ", name=" + name + ", scope=" + scope + ", dataCount="
-                + dataCount + ", inputType=" + inputType + ", mEnum=" + mEnum
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + dataCount + ", inputType=" + inputType + ", mEnum=" + mEnum + "]";
     }
 
     /**

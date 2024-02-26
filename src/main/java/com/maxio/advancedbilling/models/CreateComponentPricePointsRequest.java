@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointsRequestPricePoints;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateComponentPricePointsRequest type.
  */
-public class CreateComponentPricePointsRequest
-        extends BaseModel {
+public class CreateComponentPricePointsRequest {
     private List<CreateComponentPricePointsRequestPricePoints> pricePoints;
 
     /**
@@ -59,8 +57,7 @@ public class CreateComponentPricePointsRequest
      */
     @Override
     public String toString() {
-        return "CreateComponentPricePointsRequest [" + "pricePoints=" + pricePoints
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "CreateComponentPricePointsRequest [" + "pricePoints=" + pricePoints + "]";
     }
 
     /**

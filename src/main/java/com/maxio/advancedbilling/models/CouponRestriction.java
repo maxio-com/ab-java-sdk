@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CouponRestriction type.
  */
-public class CouponRestriction
-        extends BaseModel {
+public class CouponRestriction {
     private Integer id;
     private RestrictionType itemType;
     private Integer itemId;
@@ -187,8 +185,7 @@ public class CouponRestriction
     @Override
     public String toString() {
         return "CouponRestriction [" + "id=" + id + ", itemType=" + itemType + ", itemId=" + itemId
-                + ", name=" + name + ", handle=" + handle + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", name=" + name + ", handle=" + handle + "]";
     }
 
     /**

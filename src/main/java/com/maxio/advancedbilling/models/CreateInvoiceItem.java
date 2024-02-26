@@ -15,13 +15,11 @@ import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductId;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductPricePointId;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemUnitPrice;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateInvoiceItem type.
  */
-public class CreateInvoiceItem
-        extends BaseModel {
+public class CreateInvoiceItem {
     private String title;
     private CreateInvoiceItemQuantity quantity;
     private CreateInvoiceItemUnitPrice unitPrice;
@@ -349,7 +347,7 @@ public class CreateInvoiceItem
                 + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd
                 + ", productId=" + productId + ", componentId=" + componentId + ", pricePointId="
                 + pricePointId + ", productPricePointId=" + productPricePointId + ", description="
-                + description + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + description + "]";
     }
 
     /**

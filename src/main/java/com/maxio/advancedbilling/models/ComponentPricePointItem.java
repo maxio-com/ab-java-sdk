@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ComponentPricePointItem type.
  */
-public class ComponentPricePointItem
-        extends BaseModel {
+public class ComponentPricePointItem {
     private String name;
     private String handle;
     private PricingScheme pricingScheme;
@@ -192,8 +190,7 @@ public class ComponentPricePointItem
     public String toString() {
         return "ComponentPricePointItem [" + "name=" + name + ", handle=" + handle
                 + ", pricingScheme=" + pricingScheme + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", prices=" + prices + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + intervalUnit + ", prices=" + prices + "]";
     }
 
     /**

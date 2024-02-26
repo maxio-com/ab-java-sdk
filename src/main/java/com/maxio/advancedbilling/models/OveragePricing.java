@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for OveragePricing type.
  */
-public class OveragePricing
-        extends BaseModel {
+public class OveragePricing {
     private PricingScheme pricingScheme;
     private List<Price> prices;
 
@@ -87,8 +85,7 @@ public class OveragePricing
      */
     @Override
     public String toString() {
-        return "OveragePricing [" + "pricingScheme=" + pricingScheme + ", prices=" + prices
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "OveragePricing [" + "pricingScheme=" + pricingScheme + ", prices=" + prices + "]";
     }
 
     /**

@@ -8,14 +8,12 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for BulkUpdateSegmentsItem type.
  */
-public class BulkUpdateSegmentsItem
-        extends BaseModel {
+public class BulkUpdateSegmentsItem {
     private int id;
     private PricingScheme pricingScheme;
     private List<CreateOrUpdateSegmentPrice> prices;
@@ -110,8 +108,7 @@ public class BulkUpdateSegmentsItem
     @Override
     public String toString() {
         return "BulkUpdateSegmentsItem [" + "id=" + id + ", pricingScheme=" + pricingScheme
-                + ", prices=" + prices + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", prices=" + prices + "]";
     }
 
     /**

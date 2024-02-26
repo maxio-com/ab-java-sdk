@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for PublicSignupPage type.
  */
-public class PublicSignupPage
-        extends BaseModel {
+public class PublicSignupPage {
     private Integer id;
     private OptionalNullable<String> returnUrl;
     private OptionalNullable<String> returnParams;
@@ -194,8 +192,7 @@ public class PublicSignupPage
     @Override
     public String toString() {
         return "PublicSignupPage [" + "id=" + id + ", returnUrl=" + returnUrl + ", returnParams="
-                + returnParams + ", url=" + url + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + returnParams + ", url=" + url + "]";
     }
 
     /**

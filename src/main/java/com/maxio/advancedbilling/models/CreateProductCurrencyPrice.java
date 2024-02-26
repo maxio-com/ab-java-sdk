@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateProductCurrencyPrice type.
  */
-public class CreateProductCurrencyPrice
-        extends BaseModel {
+public class CreateProductCurrencyPrice {
     private String currency;
     private int price;
     private CurrencyPriceRole role;
@@ -107,7 +105,7 @@ public class CreateProductCurrencyPrice
     @Override
     public String toString() {
         return "CreateProductCurrencyPrice [" + "currency=" + currency + ", price=" + price
-                + ", role=" + role + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", role=" + role + "]";
     }
 
     /**

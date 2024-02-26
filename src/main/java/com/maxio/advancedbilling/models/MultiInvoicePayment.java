@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for MultiInvoicePayment type.
  */
-public class MultiInvoicePayment
-        extends BaseModel {
+public class MultiInvoicePayment {
     private Integer transactionId;
     private String totalAmount;
     private String currencyCode;
@@ -138,7 +136,7 @@ public class MultiInvoicePayment
     public String toString() {
         return "MultiInvoicePayment [" + "transactionId=" + transactionId + ", totalAmount="
                 + totalAmount + ", currencyCode=" + currencyCode + ", applications=" + applications
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

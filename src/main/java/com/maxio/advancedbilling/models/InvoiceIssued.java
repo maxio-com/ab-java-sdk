@@ -13,15 +13,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.LocalDate;
 import java.util.List;
 
 /**
  * This is a model class for InvoiceIssued type.
  */
-public class InvoiceIssued
-        extends BaseModel {
+public class InvoiceIssued {
     private String uid;
     private String number;
     private String role;
@@ -383,8 +381,7 @@ public class InvoiceIssued
                 + ", dueAmount=" + dueAmount + ", paidAmount=" + paidAmount + ", taxAmount="
                 + taxAmount + ", refundAmount=" + refundAmount + ", totalAmount=" + totalAmount
                 + ", statusAmount=" + statusAmount + ", productName=" + productName
-                + ", consolidationLevel=" + consolidationLevel + ", lineItems=" + lineItems
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", consolidationLevel=" + consolidationLevel + ", lineItems=" + lineItems + "]";
     }
 
     /**

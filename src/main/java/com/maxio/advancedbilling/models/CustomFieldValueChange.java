@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CustomFieldValueChange type.
  */
-public class CustomFieldValueChange
-        extends BaseModel {
+public class CustomFieldValueChange {
     private String eventType;
     private String metafieldName;
     private int metafieldId;
@@ -194,7 +192,7 @@ public class CustomFieldValueChange
         return "CustomFieldValueChange [" + "eventType=" + eventType + ", metafieldName="
                 + metafieldName + ", metafieldId=" + metafieldId + ", oldValue=" + oldValue
                 + ", newValue=" + newValue + ", resourceType=" + resourceType + ", resourceId="
-                + resourceId + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + resourceId + "]";
     }
 
     /**

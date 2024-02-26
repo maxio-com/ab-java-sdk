@@ -10,15 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for ComponentCostData type.
  */
-public class ComponentCostData
-        extends BaseModel {
+public class ComponentCostData {
     private OptionalNullable<Integer> componentCodeId;
     private Integer pricePointId;
     private Integer productId;
@@ -246,8 +244,7 @@ public class ComponentCostData
     public String toString() {
         return "ComponentCostData [" + "componentCodeId=" + componentCodeId + ", pricePointId="
                 + pricePointId + ", productId=" + productId + ", quantity=" + quantity + ", amount="
-                + amount + ", pricingScheme=" + pricingScheme + ", tiers=" + tiers
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + amount + ", pricingScheme=" + pricingScheme + ", tiers=" + tiers + "]";
     }
 
     /**

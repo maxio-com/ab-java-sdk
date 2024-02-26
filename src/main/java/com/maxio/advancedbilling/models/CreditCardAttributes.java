@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreditCardAttributes type.
  */
-public class CreditCardAttributes
-        extends BaseModel {
+public class CreditCardAttributes {
     private String fullNumber;
     private String expirationMonth;
     private String expirationYear;
@@ -105,8 +103,7 @@ public class CreditCardAttributes
     @Override
     public String toString() {
         return "CreditCardAttributes [" + "fullNumber=" + fullNumber + ", expirationMonth="
-                + expirationMonth + ", expirationYear=" + expirationYear + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + expirationMonth + ", expirationYear=" + expirationYear + "]";
     }
 
     /**

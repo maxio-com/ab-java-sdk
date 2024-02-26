@@ -12,13 +12,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentAllocatedQuantity;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentPricePointId;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateSubscriptionComponent type.
  */
-public class CreateSubscriptionComponent
-        extends BaseModel {
+public class CreateSubscriptionComponent {
     private CreateSubscriptionComponentComponentId componentId;
     private Boolean enabled;
     private Integer unitBalance;
@@ -215,8 +213,7 @@ public class CreateSubscriptionComponent
         return "CreateSubscriptionComponent [" + "componentId=" + componentId + ", enabled="
                 + enabled + ", unitBalance=" + unitBalance + ", allocatedQuantity="
                 + allocatedQuantity + ", quantity=" + quantity + ", pricePointId=" + pricePointId
-                + ", customPrice=" + customPrice + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", customPrice=" + customPrice + "]";
     }
 
     /**

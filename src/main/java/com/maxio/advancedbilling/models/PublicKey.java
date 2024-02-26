@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for PublicKey type.
  */
-public class PublicKey
-        extends BaseModel {
+public class PublicKey {
     private String publicKey;
     private Boolean requiresSecurityToken;
     private ZonedDateTime createdAt;
@@ -111,8 +109,7 @@ public class PublicKey
     @Override
     public String toString() {
         return "PublicKey [" + "publicKey=" + publicKey + ", requiresSecurityToken="
-                + requiresSecurityToken + ", createdAt=" + createdAt + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + requiresSecurityToken + ", createdAt=" + createdAt + "]";
     }
 
     /**

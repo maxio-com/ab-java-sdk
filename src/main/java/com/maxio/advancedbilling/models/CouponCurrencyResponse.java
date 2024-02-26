@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CouponCurrencyResponse type.
  */
-public class CouponCurrencyResponse
-        extends BaseModel {
+public class CouponCurrencyResponse {
     private List<CouponCurrency> currencyPrices;
 
     /**
@@ -59,8 +57,7 @@ public class CouponCurrencyResponse
      */
     @Override
     public String toString() {
-        return "CouponCurrencyResponse [" + "currencyPrices=" + currencyPrices
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "CouponCurrencyResponse [" + "currencyPrices=" + currencyPrices + "]";
     }
 
     /**

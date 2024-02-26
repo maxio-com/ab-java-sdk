@@ -13,15 +13,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.InvoiceLineItemComponentCostData2;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.LocalDate;
 
 /**
  * This is a model class for InvoiceLineItem type.
  */
-public class InvoiceLineItem
-        extends BaseModel {
+public class InvoiceLineItem {
     private String uid;
     private String title;
     private String description;
@@ -818,8 +816,7 @@ public class InvoiceLineItem
                 + ", productVersion=" + productVersion + ", componentId=" + componentId
                 + ", pricePointId=" + pricePointId + ", hide=" + hide + ", componentCostData="
                 + componentCostData + ", productPricePointId=" + productPricePointId
-                + ", customItem=" + customItem + ", kind=" + kind + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", customItem=" + customItem + ", kind=" + kind + "]";
     }
 
     /**

@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UsageResponse type.
  */
-public class UsageResponse
-        extends BaseModel {
+public class UsageResponse {
     private Usage usage;
 
     /**
@@ -56,8 +54,7 @@ public class UsageResponse
      */
     @Override
     public String toString() {
-        return "UsageResponse [" + "usage=" + usage + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "UsageResponse [" + "usage=" + usage + "]";
     }
 
     /**

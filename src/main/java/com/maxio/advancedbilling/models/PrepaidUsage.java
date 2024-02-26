@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for PrepaidUsage type.
  */
-public class PrepaidUsage
-        extends BaseModel {
+public class PrepaidUsage {
     private String previousUnitBalance;
     private String previousOverageUnitBalance;
     private int newUnitBalance;
@@ -264,7 +262,7 @@ public class PrepaidUsage
                 + ", usageQuantity=" + usageQuantity + ", overageUsageQuantity="
                 + overageUsageQuantity + ", componentId=" + componentId + ", componentHandle="
                 + componentHandle + ", memo=" + memo + ", allocationDetails=" + allocationDetails
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + "]";
     }
 
     /**

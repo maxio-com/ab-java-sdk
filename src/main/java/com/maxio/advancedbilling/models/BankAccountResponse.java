@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for BankAccountResponse type.
  */
-public class BankAccountResponse
-        extends BaseModel {
+public class BankAccountResponse {
     private BankAccountPaymentProfile paymentProfile;
 
     /**
@@ -56,8 +54,7 @@ public class BankAccountResponse
      */
     @Override
     public String toString() {
-        return "BankAccountResponse [" + "paymentProfile=" + paymentProfile
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "BankAccountResponse [" + "paymentProfile=" + paymentProfile + "]";
     }
 
     /**

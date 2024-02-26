@@ -12,14 +12,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionNote type.
  */
-public class SubscriptionNote
-        extends BaseModel {
+public class SubscriptionNote {
     private Integer id;
     private String body;
     private Integer subscriptionId;
@@ -183,8 +181,7 @@ public class SubscriptionNote
     public String toString() {
         return "SubscriptionNote [" + "id=" + id + ", body=" + body + ", subscriptionId="
                 + subscriptionId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", sticky=" + sticky + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", sticky=" + sticky + "]";
     }
 
     /**

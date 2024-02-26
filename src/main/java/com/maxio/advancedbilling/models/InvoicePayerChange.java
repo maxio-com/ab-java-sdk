@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for InvoicePayerChange type.
  */
-public class InvoicePayerChange
-        extends BaseModel {
+public class InvoicePayerChange {
     private String firstName;
     private String lastName;
     private String organization;
@@ -128,8 +126,7 @@ public class InvoicePayerChange
     @Override
     public String toString() {
         return "InvoicePayerChange [" + "firstName=" + firstName + ", lastName=" + lastName
-                + ", organization=" + organization + ", email=" + email + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", organization=" + organization + ", email=" + email + "]";
     }
 
     /**

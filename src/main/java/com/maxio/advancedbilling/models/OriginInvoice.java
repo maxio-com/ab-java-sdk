@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for OriginInvoice type.
  */
-public class OriginInvoice
-        extends BaseModel {
+public class OriginInvoice {
     private String uid;
     private String number;
 
@@ -85,8 +83,7 @@ public class OriginInvoice
      */
     @Override
     public String toString() {
-        return "OriginInvoice [" + "uid=" + uid + ", number=" + number + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "OriginInvoice [" + "uid=" + uid + ", number=" + number + "]";
     }
 
     /**

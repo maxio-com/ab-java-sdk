@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupSignupFailure type.
  */
-public class SubscriptionGroupSignupFailure
-        extends BaseModel {
+public class SubscriptionGroupSignupFailure {
     private SubscriptionGroupSignupFailureData subscriptionGroup;
     private String customer;
 
@@ -82,8 +80,7 @@ public class SubscriptionGroupSignupFailure
     @Override
     public String toString() {
         return "SubscriptionGroupSignupFailure [" + "subscriptionGroup=" + subscriptionGroup
-                + ", customer=" + customer + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", customer=" + customer + "]";
     }
 
     /**

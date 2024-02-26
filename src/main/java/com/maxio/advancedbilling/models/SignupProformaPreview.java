@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SignupProformaPreview type.
  */
-public class SignupProformaPreview
-        extends BaseModel {
+public class SignupProformaPreview {
     private ProformaInvoice currentProformaInvoice;
     private ProformaInvoice nextProformaInvoice;
 
@@ -82,8 +80,7 @@ public class SignupProformaPreview
     @Override
     public String toString() {
         return "SignupProformaPreview [" + "currentProformaInvoice=" + currentProformaInvoice
-                + ", nextProformaInvoice=" + nextProformaInvoice + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", nextProformaInvoice=" + nextProformaInvoice + "]";
     }
 
     /**

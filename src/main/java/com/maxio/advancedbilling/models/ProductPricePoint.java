@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -20,8 +19,7 @@ import java.util.List;
 /**
  * This is a model class for ProductPricePoint type.
  */
-public class ProductPricePoint
-        extends BaseModel {
+public class ProductPricePoint {
     private Integer id;
     private String name;
     private String handle;
@@ -769,8 +767,7 @@ public class ProductPricePoint
                 + expirationIntervalUnit + ", productId=" + productId + ", archivedAt=" + archivedAt
                 + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", useSiteExchangeRate="
                 + useSiteExchangeRate + ", type=" + type + ", taxIncluded=" + taxIncluded
-                + ", subscriptionId=" + subscriptionId + ", currencyPrices=" + currencyPrices
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", subscriptionId=" + subscriptionId + ", currencyPrices=" + currencyPrices + "]";
     }
 
     /**

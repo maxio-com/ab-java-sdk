@@ -10,15 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.Map;
 
 /**
  * This is a model class for CustomerAttributes type.
  */
-public class CustomerAttributes
-        extends BaseModel {
+public class CustomerAttributes {
     private String firstName;
     private String lastName;
     private String email;
@@ -595,7 +593,7 @@ public class CustomerAttributes
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", verified=" + verified + ", taxExempt=" + taxExempt
                 + ", vatNumber=" + vatNumber + ", metafields=" + metafields + ", parentId="
-                + parentId + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + parentId + "]";
     }
 
     /**

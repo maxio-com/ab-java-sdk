@@ -12,13 +12,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponPercentage;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponProductFamilyId;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateInvoiceCoupon type.
  */
-public class CreateInvoiceCoupon
-        extends BaseModel {
+public class CreateInvoiceCoupon {
     private String code;
     private CreateInvoiceCouponPercentage percentage;
     private CreateInvoiceCouponAmount amount;
@@ -178,8 +176,7 @@ public class CreateInvoiceCoupon
     public String toString() {
         return "CreateInvoiceCoupon [" + "code=" + code + ", percentage=" + percentage + ", amount="
                 + amount + ", description=" + description + ", productFamilyId=" + productFamilyId
-                + ", compoundingStrategy=" + compoundingStrategy + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", compoundingStrategy=" + compoundingStrategy + "]";
     }
 
     /**

@@ -13,14 +13,12 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for PendingCancellationChange type.
  */
-public class PendingCancellationChange
-        extends BaseModel {
+public class PendingCancellationChange {
     private String cancellationState;
     private ZonedDateTime cancelsAt;
 
@@ -88,8 +86,7 @@ public class PendingCancellationChange
     @Override
     public String toString() {
         return "PendingCancellationChange [" + "cancellationState=" + cancellationState
-                + ", cancelsAt=" + cancelsAt + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", cancelsAt=" + cancelsAt + "]";
     }
 
     /**

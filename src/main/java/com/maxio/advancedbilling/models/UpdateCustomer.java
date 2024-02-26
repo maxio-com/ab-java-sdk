@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for UpdateCustomer type.
  */
-public class UpdateCustomer
-        extends BaseModel {
+public class UpdateCustomer {
     private String firstName;
     private String lastName;
     private String email;
@@ -521,8 +519,7 @@ public class UpdateCustomer
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
                 + ", taxExempt=" + taxExempt + ", taxExemptReason=" + taxExemptReason
-                + ", parentId=" + parentId + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", parentId=" + parentId + "]";
     }
 
     /**

@@ -8,14 +8,12 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateOrUpdateEndpoint type.
  */
-public class CreateOrUpdateEndpoint
-        extends BaseModel {
+public class CreateOrUpdateEndpoint {
     private String url;
     private List<WebhookSubscription> webhookSubscriptions;
 
@@ -80,8 +78,7 @@ public class CreateOrUpdateEndpoint
     @Override
     public String toString() {
         return "CreateOrUpdateEndpoint [" + "url=" + url + ", webhookSubscriptions="
-                + webhookSubscriptions + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + webhookSubscriptions + "]";
     }
 
     /**

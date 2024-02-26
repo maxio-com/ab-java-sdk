@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for AccountBalance type.
  */
-public class AccountBalance
-        extends BaseModel {
+public class AccountBalance {
     private Long balanceInCents;
 
     /**
@@ -60,8 +58,7 @@ public class AccountBalance
      */
     @Override
     public String toString() {
-        return "AccountBalance [" + "balanceInCents=" + balanceInCents + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "AccountBalance [" + "balanceInCents=" + balanceInCents + "]";
     }
 
     /**

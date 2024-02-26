@@ -8,13 +8,11 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateOfferRequest type.
  */
-public class CreateOfferRequest
-        extends BaseModel {
+public class CreateOfferRequest {
     private CreateOffer offer;
 
     /**
@@ -56,8 +54,7 @@ public class CreateOfferRequest
      */
     @Override
     public String toString() {
-        return "CreateOfferRequest [" + "offer=" + offer + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "CreateOfferRequest [" + "offer=" + offer + "]";
     }
 
     /**

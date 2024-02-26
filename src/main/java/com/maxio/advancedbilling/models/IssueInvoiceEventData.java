@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for IssueInvoiceEventData type.
  */
-public class IssueInvoiceEventData
-        extends BaseModel {
+public class IssueInvoiceEventData {
     private InvoiceConsolidationLevel consolidationLevel;
     private InvoiceStatus fromStatus;
     private InvoiceStatus toStatus;
@@ -179,8 +177,7 @@ public class IssueInvoiceEventData
     public String toString() {
         return "IssueInvoiceEventData [" + "consolidationLevel=" + consolidationLevel
                 + ", fromStatus=" + fromStatus + ", toStatus=" + toStatus + ", dueAmount="
-                + dueAmount + ", totalAmount=" + totalAmount + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + dueAmount + ", totalAmount=" + totalAmount + "]";
     }
 
     /**

@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for ShippingAddress type.
  */
-public class ShippingAddress
-        extends BaseModel {
+public class ShippingAddress {
     private OptionalNullable<String> street;
     private OptionalNullable<String> line2;
     private OptionalNullable<String> city;
@@ -293,8 +291,7 @@ public class ShippingAddress
     @Override
     public String toString() {
         return "ShippingAddress [" + "street=" + street + ", line2=" + line2 + ", city=" + city
-                + ", state=" + state + ", zip=" + zip + ", country=" + country
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", state=" + state + ", zip=" + zip + ", country=" + country + "]";
     }
 
     /**

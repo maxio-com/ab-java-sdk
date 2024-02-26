@@ -10,14 +10,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for ActivateSubscriptionRequest type.
  */
-public class ActivateSubscriptionRequest
-        extends BaseModel {
+public class ActivateSubscriptionRequest {
     private OptionalNullable<Boolean> revertOnFailure;
 
     /**
@@ -101,8 +99,7 @@ public class ActivateSubscriptionRequest
      */
     @Override
     public String toString() {
-        return "ActivateSubscriptionRequest [" + "revertOnFailure=" + revertOnFailure
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "ActivateSubscriptionRequest [" + "revertOnFailure=" + revertOnFailure + "]";
     }
 
     /**

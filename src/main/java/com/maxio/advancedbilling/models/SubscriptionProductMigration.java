@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionProductMigration type.
  */
-public class SubscriptionProductMigration
-        extends BaseModel {
+public class SubscriptionProductMigration {
     private Integer productId;
     private Integer productPricePointId;
     private Boolean includeTrial;
@@ -293,8 +291,7 @@ public class SubscriptionProductMigration
                 + ", includeInitialCharge=" + includeInitialCharge + ", includeCoupons="
                 + includeCoupons + ", preservePeriod=" + preservePeriod + ", productHandle="
                 + productHandle + ", productPricePointHandle=" + productPricePointHandle
-                + ", proration=" + proration + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", proration=" + proration + "]";
     }
 
     /**

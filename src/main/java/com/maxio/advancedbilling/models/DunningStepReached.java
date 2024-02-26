@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for DunningStepReached type.
  */
-public class DunningStepReached
-        extends BaseModel {
+public class DunningStepReached {
     private DunnerData dunner;
     private DunningStepData currentStep;
     private DunningStepData nextStep;
@@ -104,8 +102,7 @@ public class DunningStepReached
     @Override
     public String toString() {
         return "DunningStepReached [" + "dunner=" + dunner + ", currentStep=" + currentStep
-                + ", nextStep=" + nextStep + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", nextStep=" + nextStep + "]";
     }
 
     /**

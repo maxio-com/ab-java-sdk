@@ -9,13 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateUsage type.
  */
-public class CreateUsage
-        extends BaseModel {
+public class CreateUsage {
     private Double quantity;
     private String pricePointId;
     private String memo;
@@ -136,8 +134,7 @@ public class CreateUsage
     @Override
     public String toString() {
         return "CreateUsage [" + "quantity=" + quantity + ", pricePointId=" + pricePointId
-                + ", memo=" + memo + ", billingSchedule=" + billingSchedule
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", memo=" + memo + ", billingSchedule=" + billingSchedule + "]";
     }
 
     /**

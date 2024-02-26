@@ -9,14 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for Site type.
  */
-public class Site
-        extends BaseModel {
+public class Site {
     private Integer id;
     private String name;
     private String subdomain;
@@ -413,7 +411,7 @@ public class Site
                 + allocationSettings + ", defaultPaymentCollectionMethod="
                 + defaultPaymentCollectionMethod + ", organizationAddress=" + organizationAddress
                 + ", taxConfiguration=" + taxConfiguration + ", netTerms=" + netTerms + ", test="
-                + test + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + test + "]";
     }
 
     /**
