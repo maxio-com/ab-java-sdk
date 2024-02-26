@@ -21,9 +21,9 @@ public class InvoiceDiscount {
     private String title;
     private OptionalNullable<String> description;
     private String code;
-    private String sourceType;
+    private InvoiceDiscountSourceType sourceType;
     private Integer sourceId;
-    private String discountType;
+    private InvoiceDiscountType discountType;
     private String percentage;
     private String eligibleAmount;
     private String discountAmount;
@@ -42,9 +42,9 @@ public class InvoiceDiscount {
      * @param  title  String value for title.
      * @param  description  String value for description.
      * @param  code  String value for code.
-     * @param  sourceType  String value for sourceType.
+     * @param  sourceType  InvoiceDiscountSourceType value for sourceType.
      * @param  sourceId  Integer value for sourceId.
-     * @param  discountType  String value for discountType.
+     * @param  discountType  InvoiceDiscountType value for discountType.
      * @param  percentage  String value for percentage.
      * @param  eligibleAmount  String value for eligibleAmount.
      * @param  discountAmount  String value for discountAmount.
@@ -56,9 +56,9 @@ public class InvoiceDiscount {
             String title,
             String description,
             String code,
-            String sourceType,
+            InvoiceDiscountSourceType sourceType,
             Integer sourceId,
-            String discountType,
+            InvoiceDiscountType discountType,
             String percentage,
             String eligibleAmount,
             String discountAmount,
@@ -84,9 +84,9 @@ public class InvoiceDiscount {
      * @param  title  String value for title.
      * @param  description  String value for description.
      * @param  code  String value for code.
-     * @param  sourceType  String value for sourceType.
+     * @param  sourceType  InvoiceDiscountSourceType value for sourceType.
      * @param  sourceId  Integer value for sourceId.
-     * @param  discountType  String value for discountType.
+     * @param  discountType  InvoiceDiscountType value for discountType.
      * @param  percentage  String value for percentage.
      * @param  eligibleAmount  String value for eligibleAmount.
      * @param  discountAmount  String value for discountAmount.
@@ -95,8 +95,9 @@ public class InvoiceDiscount {
      */
 
     protected InvoiceDiscount(String uid, String title, OptionalNullable<String> description,
-            String code, String sourceType, Integer sourceId, String discountType,
-            String percentage, String eligibleAmount, String discountAmount, Integer transactionId,
+            String code, InvoiceDiscountSourceType sourceType, Integer sourceId,
+            InvoiceDiscountType discountType, String percentage, String eligibleAmount,
+            String discountAmount, Integer transactionId,
             List<InvoiceDiscountBreakout> lineItemBreakouts) {
         this.uid = uid;
         this.title = title;
@@ -206,20 +207,20 @@ public class InvoiceDiscount {
 
     /**
      * Getter for SourceType.
-     * @return Returns the String
+     * @return Returns the InvoiceDiscountSourceType
      */
     @JsonGetter("source_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSourceType() {
+    public InvoiceDiscountSourceType getSourceType() {
         return sourceType;
     }
 
     /**
      * Setter for SourceType.
-     * @param sourceType Value for String
+     * @param sourceType Value for InvoiceDiscountSourceType
      */
     @JsonSetter("source_type")
-    public void setSourceType(String sourceType) {
+    public void setSourceType(InvoiceDiscountSourceType sourceType) {
         this.sourceType = sourceType;
     }
 
@@ -244,20 +245,20 @@ public class InvoiceDiscount {
 
     /**
      * Getter for DiscountType.
-     * @return Returns the String
+     * @return Returns the InvoiceDiscountType
      */
     @JsonGetter("discount_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDiscountType() {
+    public InvoiceDiscountType getDiscountType() {
         return discountType;
     }
 
     /**
      * Setter for DiscountType.
-     * @param discountType Value for String
+     * @param discountType Value for InvoiceDiscountType
      */
     @JsonSetter("discount_type")
-    public void setDiscountType(String discountType) {
+    public void setDiscountType(InvoiceDiscountType discountType) {
         this.discountType = discountType;
     }
 
@@ -400,9 +401,9 @@ public class InvoiceDiscount {
         private String title;
         private OptionalNullable<String> description;
         private String code;
-        private String sourceType;
+        private InvoiceDiscountSourceType sourceType;
         private Integer sourceId;
-        private String discountType;
+        private InvoiceDiscountType discountType;
         private String percentage;
         private String eligibleAmount;
         private String discountAmount;
@@ -462,10 +463,10 @@ public class InvoiceDiscount {
 
         /**
          * Setter for sourceType.
-         * @param  sourceType  String value for sourceType.
+         * @param  sourceType  InvoiceDiscountSourceType value for sourceType.
          * @return Builder
          */
-        public Builder sourceType(String sourceType) {
+        public Builder sourceType(InvoiceDiscountSourceType sourceType) {
             this.sourceType = sourceType;
             return this;
         }
@@ -482,10 +483,10 @@ public class InvoiceDiscount {
 
         /**
          * Setter for discountType.
-         * @param  discountType  String value for discountType.
+         * @param  discountType  InvoiceDiscountType value for discountType.
          * @return Builder
          */
-        public Builder discountType(String discountType) {
+        public Builder discountType(InvoiceDiscountType discountType) {
             this.discountType = discountType;
             return this;
         }
