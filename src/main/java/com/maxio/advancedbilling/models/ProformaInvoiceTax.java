@@ -17,11 +17,11 @@ import java.util.List;
 public class ProformaInvoiceTax {
     private String uid;
     private String title;
-    private String sourceType;
+    private ProformaInvoiceTaxSourceType sourceType;
     private String percentage;
     private String taxableAmount;
     private String taxAmount;
-    private List<ProformaInvoiceTaxBreakout> lineItemBreakouts;
+    private List<InvoiceTaxBreakout> lineItemBreakouts;
 
     /**
      * Default constructor.
@@ -33,20 +33,20 @@ public class ProformaInvoiceTax {
      * Initialization constructor.
      * @param  uid  String value for uid.
      * @param  title  String value for title.
-     * @param  sourceType  String value for sourceType.
+     * @param  sourceType  ProformaInvoiceTaxSourceType value for sourceType.
      * @param  percentage  String value for percentage.
      * @param  taxableAmount  String value for taxableAmount.
      * @param  taxAmount  String value for taxAmount.
-     * @param  lineItemBreakouts  List of ProformaInvoiceTaxBreakout value for lineItemBreakouts.
+     * @param  lineItemBreakouts  List of InvoiceTaxBreakout value for lineItemBreakouts.
      */
     public ProformaInvoiceTax(
             String uid,
             String title,
-            String sourceType,
+            ProformaInvoiceTaxSourceType sourceType,
             String percentage,
             String taxableAmount,
             String taxAmount,
-            List<ProformaInvoiceTaxBreakout> lineItemBreakouts) {
+            List<InvoiceTaxBreakout> lineItemBreakouts) {
         this.uid = uid;
         this.title = title;
         this.sourceType = sourceType;
@@ -96,20 +96,20 @@ public class ProformaInvoiceTax {
 
     /**
      * Getter for SourceType.
-     * @return Returns the String
+     * @return Returns the ProformaInvoiceTaxSourceType
      */
     @JsonGetter("source_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSourceType() {
+    public ProformaInvoiceTaxSourceType getSourceType() {
         return sourceType;
     }
 
     /**
      * Setter for SourceType.
-     * @param sourceType Value for String
+     * @param sourceType Value for ProformaInvoiceTaxSourceType
      */
     @JsonSetter("source_type")
-    public void setSourceType(String sourceType) {
+    public void setSourceType(ProformaInvoiceTaxSourceType sourceType) {
         this.sourceType = sourceType;
     }
 
@@ -172,20 +172,20 @@ public class ProformaInvoiceTax {
 
     /**
      * Getter for LineItemBreakouts.
-     * @return Returns the List of ProformaInvoiceTaxBreakout
+     * @return Returns the List of InvoiceTaxBreakout
      */
     @JsonGetter("line_item_breakouts")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ProformaInvoiceTaxBreakout> getLineItemBreakouts() {
+    public List<InvoiceTaxBreakout> getLineItemBreakouts() {
         return lineItemBreakouts;
     }
 
     /**
      * Setter for LineItemBreakouts.
-     * @param lineItemBreakouts Value for List of ProformaInvoiceTaxBreakout
+     * @param lineItemBreakouts Value for List of InvoiceTaxBreakout
      */
     @JsonSetter("line_item_breakouts")
-    public void setLineItemBreakouts(List<ProformaInvoiceTaxBreakout> lineItemBreakouts) {
+    public void setLineItemBreakouts(List<InvoiceTaxBreakout> lineItemBreakouts) {
         this.lineItemBreakouts = lineItemBreakouts;
     }
 
@@ -223,11 +223,11 @@ public class ProformaInvoiceTax {
     public static class Builder {
         private String uid;
         private String title;
-        private String sourceType;
+        private ProformaInvoiceTaxSourceType sourceType;
         private String percentage;
         private String taxableAmount;
         private String taxAmount;
-        private List<ProformaInvoiceTaxBreakout> lineItemBreakouts;
+        private List<InvoiceTaxBreakout> lineItemBreakouts;
 
 
 
@@ -253,10 +253,10 @@ public class ProformaInvoiceTax {
 
         /**
          * Setter for sourceType.
-         * @param  sourceType  String value for sourceType.
+         * @param  sourceType  ProformaInvoiceTaxSourceType value for sourceType.
          * @return Builder
          */
-        public Builder sourceType(String sourceType) {
+        public Builder sourceType(ProformaInvoiceTaxSourceType sourceType) {
             this.sourceType = sourceType;
             return this;
         }
@@ -293,11 +293,10 @@ public class ProformaInvoiceTax {
 
         /**
          * Setter for lineItemBreakouts.
-         * @param  lineItemBreakouts  List of ProformaInvoiceTaxBreakout value for
-         *         lineItemBreakouts.
+         * @param  lineItemBreakouts  List of InvoiceTaxBreakout value for lineItemBreakouts.
          * @return Builder
          */
-        public Builder lineItemBreakouts(List<ProformaInvoiceTaxBreakout> lineItemBreakouts) {
+        public Builder lineItemBreakouts(List<InvoiceTaxBreakout> lineItemBreakouts) {
             this.lineItemBreakouts = lineItemBreakouts;
             return this;
         }

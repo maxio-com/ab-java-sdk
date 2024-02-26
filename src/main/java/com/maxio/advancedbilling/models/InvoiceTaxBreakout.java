@@ -17,6 +17,7 @@ public class InvoiceTaxBreakout {
     private String uid;
     private String taxableAmount;
     private String taxAmount;
+    private String taxExemptAmount;
 
     /**
      * Default constructor.
@@ -29,14 +30,17 @@ public class InvoiceTaxBreakout {
      * @param  uid  String value for uid.
      * @param  taxableAmount  String value for taxableAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  taxExemptAmount  String value for taxExemptAmount.
      */
     public InvoiceTaxBreakout(
             String uid,
             String taxableAmount,
-            String taxAmount) {
+            String taxAmount,
+            String taxExemptAmount) {
         this.uid = uid;
         this.taxableAmount = taxableAmount;
         this.taxAmount = taxAmount;
+        this.taxExemptAmount = taxExemptAmount;
     }
 
     /**
@@ -97,13 +101,32 @@ public class InvoiceTaxBreakout {
     }
 
     /**
+     * Getter for TaxExemptAmount.
+     * @return Returns the String
+     */
+    @JsonGetter("tax_exempt_amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTaxExemptAmount() {
+        return taxExemptAmount;
+    }
+
+    /**
+     * Setter for TaxExemptAmount.
+     * @param taxExemptAmount Value for String
+     */
+    @JsonSetter("tax_exempt_amount")
+    public void setTaxExemptAmount(String taxExemptAmount) {
+        this.taxExemptAmount = taxExemptAmount;
+    }
+
+    /**
      * Converts this InvoiceTaxBreakout into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "InvoiceTaxBreakout [" + "uid=" + uid + ", taxableAmount=" + taxableAmount
-                + ", taxAmount=" + taxAmount + "]";
+                + ", taxAmount=" + taxAmount + ", taxExemptAmount=" + taxExemptAmount + "]";
     }
 
     /**
@@ -115,7 +138,8 @@ public class InvoiceTaxBreakout {
         Builder builder = new Builder()
                 .uid(getUid())
                 .taxableAmount(getTaxableAmount())
-                .taxAmount(getTaxAmount());
+                .taxAmount(getTaxAmount())
+                .taxExemptAmount(getTaxExemptAmount());
         return builder;
     }
 
@@ -126,6 +150,7 @@ public class InvoiceTaxBreakout {
         private String uid;
         private String taxableAmount;
         private String taxAmount;
+        private String taxExemptAmount;
 
 
 
@@ -160,11 +185,21 @@ public class InvoiceTaxBreakout {
         }
 
         /**
+         * Setter for taxExemptAmount.
+         * @param  taxExemptAmount  String value for taxExemptAmount.
+         * @return Builder
+         */
+        public Builder taxExemptAmount(String taxExemptAmount) {
+            this.taxExemptAmount = taxExemptAmount;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceTaxBreakout} object using the set fields.
          * @return {@link InvoiceTaxBreakout}
          */
         public InvoiceTaxBreakout build() {
-            return new InvoiceTaxBreakout(uid, taxableAmount, taxAmount);
+            return new InvoiceTaxBreakout(uid, taxableAmount, taxAmount, taxExemptAmount);
         }
     }
 }

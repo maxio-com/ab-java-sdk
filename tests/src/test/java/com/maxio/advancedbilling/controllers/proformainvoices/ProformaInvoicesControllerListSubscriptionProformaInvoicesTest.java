@@ -18,6 +18,7 @@ import com.maxio.advancedbilling.models.Direction;
 import com.maxio.advancedbilling.models.IncludeOption;
 import com.maxio.advancedbilling.models.InvoiceCustomField;
 import com.maxio.advancedbilling.models.InvoiceDiscountBreakout;
+import com.maxio.advancedbilling.models.InvoiceDiscountType;
 import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
@@ -29,6 +30,7 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoiceDiscount;
+import com.maxio.advancedbilling.models.ProformaInvoiceDiscountSourceType;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.VoidInvoice;
@@ -167,9 +169,9 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
                 .title("Coupon: %s - %s".formatted(coupon.getCode(), coupon.getDescription()))
                 .code(coupon.getCode())
                 .discountAmount("12.5")
-                .discountType("flat_amount")
+                .discountType(InvoiceDiscountType.FLAT_AMOUNT)
                 .eligibleAmount("500.0")
-                .sourceType("Coupon");
+                .sourceType(ProformaInvoiceDiscountSourceType.COUPON);
         assertThat(expectedInvoices).extracting(p -> p.getDiscounts().get(0))
                 .usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration.builder()
                         .withIgnoredFields("uid")

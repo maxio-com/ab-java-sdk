@@ -4,12 +4,14 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AllocateComponents;
+import com.maxio.advancedbilling.models.CollectionMethod;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreateUsage;
 import com.maxio.advancedbilling.models.CreateUsageRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.InvoiceAddress;
+import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
 import com.maxio.advancedbilling.models.InvoiceCustomer;
 import com.maxio.advancedbilling.models.InvoiceLineItem;
 import com.maxio.advancedbilling.models.InvoiceSeller;
@@ -19,6 +21,8 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoiceCredit;
+import com.maxio.advancedbilling.models.ProformaInvoiceRole;
+import com.maxio.advancedbilling.models.ProformaInvoiceStatus;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
@@ -139,8 +143,8 @@ class ProformaInvoicesCreator {
                 () -> assertThat(invoiceShippingAddress.getCountry()).isEqualTo(customer.getCountry())
         );
 
-        assertThat(proformaInvoice.getCollectionMethod()).isEqualTo("automatic");
-        assertThat(proformaInvoice.getConsolidationLevel()).isEqualTo("none");
+        assertThat(proformaInvoice.getCollectionMethod()).isEqualTo(CollectionMethod.AUTOMATIC);
+        assertThat(proformaInvoice.getConsolidationLevel()).isEqualTo(InvoiceConsolidationLevel.NONE);
         assertThat(proformaInvoice.getCreatedAt()).isNotNull();
         assertThat(proformaInvoice.getCreditAmount()).isNotNull();
 
@@ -176,14 +180,14 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getProductFamilyName()).isEqualTo(productFamily.getName());
         assertThat(proformaInvoice.getProductName()).isEqualTo(product.getName());
         assertThat(proformaInvoice.getRefundAmount()).isEqualTo("0.0");
-        assertThat(proformaInvoice.getRole()).isEqualTo("proforma_adhoc");
+        assertThat(proformaInvoice.getRole()).isEqualTo(ProformaInvoiceRole.PROFORMA_ADHOC);
 
         InvoiceSeller invoiceSeller = proformaInvoice.getSeller();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
                 .isEqualTo(INVOICE_SELLER);
         assertThat(proformaInvoice.getSiteId()).isNotNull();
-        assertThat(proformaInvoice.getStatus()).isEqualTo("draft");
+        assertThat(proformaInvoice.getStatus()).isEqualTo(ProformaInvoiceStatus.DRAFT);
         assertThat(proformaInvoice.getSubscriptionId()).isNotNull();
         assertThat(proformaInvoice.getSubtotalAmount()).isEqualTo("282.5");
         assertThat(proformaInvoice.getTaxAmount()).isEqualTo("0.0");

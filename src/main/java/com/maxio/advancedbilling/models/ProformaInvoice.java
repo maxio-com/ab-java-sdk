@@ -29,14 +29,14 @@ public class ProformaInvoice {
     private OptionalNullable<Integer> sequenceNumber;
     private ZonedDateTime createdAt;
     private LocalDate deliveryDate;
-    private String status;
-    private String collectionMethod;
+    private ProformaInvoiceStatus status;
+    private CollectionMethod collectionMethod;
     private String paymentInstructions;
     private String currency;
-    private String consolidationLevel;
+    private InvoiceConsolidationLevel consolidationLevel;
     private String productName;
     private String productFamilyName;
-    private String role;
+    private ProformaInvoiceRole role;
     private InvoiceSeller seller;
     private InvoiceCustomer customer;
     private String memo;
@@ -62,6 +62,7 @@ public class ProformaInvoice {
      * Default constructor.
      */
     public ProformaInvoice() {
+        collectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -74,14 +75,14 @@ public class ProformaInvoice {
      * @param  sequenceNumber  Integer value for sequenceNumber.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  deliveryDate  LocalDate value for deliveryDate.
-     * @param  status  String value for status.
-     * @param  collectionMethod  String value for collectionMethod.
+     * @param  status  ProformaInvoiceStatus value for status.
+     * @param  collectionMethod  CollectionMethod value for collectionMethod.
      * @param  paymentInstructions  String value for paymentInstructions.
      * @param  currency  String value for currency.
-     * @param  consolidationLevel  String value for consolidationLevel.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
      * @param  productName  String value for productName.
      * @param  productFamilyName  String value for productFamilyName.
-     * @param  role  String value for role.
+     * @param  role  ProformaInvoiceRole value for role.
      * @param  seller  InvoiceSeller value for seller.
      * @param  customer  InvoiceCustomer value for customer.
      * @param  memo  String value for memo.
@@ -112,14 +113,14 @@ public class ProformaInvoice {
             Integer sequenceNumber,
             ZonedDateTime createdAt,
             LocalDate deliveryDate,
-            String status,
-            String collectionMethod,
+            ProformaInvoiceStatus status,
+            CollectionMethod collectionMethod,
             String paymentInstructions,
             String currency,
-            String consolidationLevel,
+            InvoiceConsolidationLevel consolidationLevel,
             String productName,
             String productFamilyName,
-            String role,
+            ProformaInvoiceRole role,
             InvoiceSeller seller,
             InvoiceCustomer customer,
             String memo,
@@ -188,14 +189,14 @@ public class ProformaInvoice {
      * @param  sequenceNumber  Integer value for sequenceNumber.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  deliveryDate  LocalDate value for deliveryDate.
-     * @param  status  String value for status.
-     * @param  collectionMethod  String value for collectionMethod.
+     * @param  status  ProformaInvoiceStatus value for status.
+     * @param  collectionMethod  CollectionMethod value for collectionMethod.
      * @param  paymentInstructions  String value for paymentInstructions.
      * @param  currency  String value for currency.
-     * @param  consolidationLevel  String value for consolidationLevel.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
      * @param  productName  String value for productName.
      * @param  productFamilyName  String value for productFamilyName.
-     * @param  role  String value for role.
+     * @param  role  ProformaInvoiceRole value for role.
      * @param  seller  InvoiceSeller value for seller.
      * @param  customer  InvoiceCustomer value for customer.
      * @param  memo  String value for memo.
@@ -221,9 +222,10 @@ public class ProformaInvoice {
     protected ProformaInvoice(String uid, Integer siteId, OptionalNullable<Integer> customerId,
             OptionalNullable<Integer> subscriptionId, OptionalNullable<Integer> number,
             OptionalNullable<Integer> sequenceNumber, ZonedDateTime createdAt,
-            LocalDate deliveryDate, String status, String collectionMethod,
-            String paymentInstructions, String currency, String consolidationLevel,
-            String productName, String productFamilyName, String role, InvoiceSeller seller,
+            LocalDate deliveryDate, ProformaInvoiceStatus status, CollectionMethod collectionMethod,
+            String paymentInstructions, String currency,
+            InvoiceConsolidationLevel consolidationLevel, String productName,
+            String productFamilyName, ProformaInvoiceRole role, InvoiceSeller seller,
             InvoiceCustomer customer, String memo, InvoiceAddress billingAddress,
             InvoiceAddress shippingAddress, String subtotalAmount, String discountAmount,
             String taxAmount, String totalAmount, String creditAmount, String paidAmount,
@@ -491,39 +493,45 @@ public class ProformaInvoice {
 
     /**
      * Getter for Status.
-     * @return Returns the String
+     * @return Returns the ProformaInvoiceStatus
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStatus() {
+    public ProformaInvoiceStatus getStatus() {
         return status;
     }
 
     /**
      * Setter for Status.
-     * @param status Value for String
+     * @param status Value for ProformaInvoiceStatus
      */
     @JsonSetter("status")
-    public void setStatus(String status) {
+    public void setStatus(ProformaInvoiceStatus status) {
         this.status = status;
     }
 
     /**
      * Getter for CollectionMethod.
-     * @return Returns the String
+     * The type of payment collection to be used in the subscription. For legacy Statements
+     * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
+     * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getCollectionMethod() {
+    public CollectionMethod getCollectionMethod() {
         return collectionMethod;
     }
 
     /**
      * Setter for CollectionMethod.
-     * @param collectionMethod Value for String
+     * The type of payment collection to be used in the subscription. For legacy Statements
+     * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
+     * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
+     * @param collectionMethod Value for CollectionMethod
      */
     @JsonSetter("collection_method")
-    public void setCollectionMethod(String collectionMethod) {
+    public void setCollectionMethod(CollectionMethod collectionMethod) {
         this.collectionMethod = collectionMethod;
     }
 
@@ -567,20 +575,34 @@ public class ProformaInvoice {
 
     /**
      * Getter for ConsolidationLevel.
-     * @return Returns the String
+     * Consolidation level of the invoice, which is applicable to invoice consolidation. It will
+     * hold one of the following values: * "none": A normal invoice with no consolidation. *
+     * "child": An invoice segment which has been combined into a consolidated invoice. * "parent":
+     * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
+     * not have lines of their own, but they have subtotals and totals which aggregate the member
+     * invoice segments. See also the [invoice consolidation
+     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * @return Returns the InvoiceConsolidationLevel
      */
     @JsonGetter("consolidation_level")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getConsolidationLevel() {
+    public InvoiceConsolidationLevel getConsolidationLevel() {
         return consolidationLevel;
     }
 
     /**
      * Setter for ConsolidationLevel.
-     * @param consolidationLevel Value for String
+     * Consolidation level of the invoice, which is applicable to invoice consolidation. It will
+     * hold one of the following values: * "none": A normal invoice with no consolidation. *
+     * "child": An invoice segment which has been combined into a consolidated invoice. * "parent":
+     * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
+     * not have lines of their own, but they have subtotals and totals which aggregate the member
+     * invoice segments. See also the [invoice consolidation
+     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * @param consolidationLevel Value for InvoiceConsolidationLevel
      */
     @JsonSetter("consolidation_level")
-    public void setConsolidationLevel(String consolidationLevel) {
+    public void setConsolidationLevel(InvoiceConsolidationLevel consolidationLevel) {
         this.consolidationLevel = consolidationLevel;
     }
 
@@ -624,20 +646,22 @@ public class ProformaInvoice {
 
     /**
      * Getter for Role.
-     * @return Returns the String
+     * 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic
+     * @return Returns the ProformaInvoiceRole
      */
     @JsonGetter("role")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getRole() {
+    public ProformaInvoiceRole getRole() {
         return role;
     }
 
     /**
      * Setter for Role.
-     * @param role Value for String
+     * 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic
+     * @param role Value for ProformaInvoiceRole
      */
     @JsonSetter("role")
-    public void setRole(String role) {
+    public void setRole(ProformaInvoiceRole role) {
         this.role = role;
     }
 
@@ -1122,14 +1146,14 @@ public class ProformaInvoice {
         private OptionalNullable<Integer> sequenceNumber;
         private ZonedDateTime createdAt;
         private LocalDate deliveryDate;
-        private String status;
-        private String collectionMethod;
+        private ProformaInvoiceStatus status;
+        private CollectionMethod collectionMethod = CollectionMethod.AUTOMATIC;
         private String paymentInstructions;
         private String currency;
-        private String consolidationLevel;
+        private InvoiceConsolidationLevel consolidationLevel;
         private String productName;
         private String productFamilyName;
-        private String role;
+        private ProformaInvoiceRole role;
         private InvoiceSeller seller;
         private InvoiceCustomer customer;
         private String memo;
@@ -1271,20 +1295,20 @@ public class ProformaInvoice {
 
         /**
          * Setter for status.
-         * @param  status  String value for status.
+         * @param  status  ProformaInvoiceStatus value for status.
          * @return Builder
          */
-        public Builder status(String status) {
+        public Builder status(ProformaInvoiceStatus status) {
             this.status = status;
             return this;
         }
 
         /**
          * Setter for collectionMethod.
-         * @param  collectionMethod  String value for collectionMethod.
+         * @param  collectionMethod  CollectionMethod value for collectionMethod.
          * @return Builder
          */
-        public Builder collectionMethod(String collectionMethod) {
+        public Builder collectionMethod(CollectionMethod collectionMethod) {
             this.collectionMethod = collectionMethod;
             return this;
         }
@@ -1311,10 +1335,10 @@ public class ProformaInvoice {
 
         /**
          * Setter for consolidationLevel.
-         * @param  consolidationLevel  String value for consolidationLevel.
+         * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
          * @return Builder
          */
-        public Builder consolidationLevel(String consolidationLevel) {
+        public Builder consolidationLevel(InvoiceConsolidationLevel consolidationLevel) {
             this.consolidationLevel = consolidationLevel;
             return this;
         }
@@ -1341,10 +1365,10 @@ public class ProformaInvoice {
 
         /**
          * Setter for role.
-         * @param  role  String value for role.
+         * @param  role  ProformaInvoiceRole value for role.
          * @return Builder
          */
-        public Builder role(String role) {
+        public Builder role(ProformaInvoiceRole role) {
             this.role = role;
             return this;
         }

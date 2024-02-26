@@ -20,7 +20,7 @@ public class InvoiceTax {
     private String uid;
     private String title;
     private OptionalNullable<String> description;
-    private String sourceType;
+    private ProformaInvoiceTaxSourceType sourceType;
     private Integer sourceId;
     private String percentage;
     private String taxableAmount;
@@ -40,7 +40,7 @@ public class InvoiceTax {
      * @param  uid  String value for uid.
      * @param  title  String value for title.
      * @param  description  String value for description.
-     * @param  sourceType  String value for sourceType.
+     * @param  sourceType  ProformaInvoiceTaxSourceType value for sourceType.
      * @param  sourceId  Integer value for sourceId.
      * @param  percentage  String value for percentage.
      * @param  taxableAmount  String value for taxableAmount.
@@ -54,7 +54,7 @@ public class InvoiceTax {
             String uid,
             String title,
             String description,
-            String sourceType,
+            ProformaInvoiceTaxSourceType sourceType,
             Integer sourceId,
             String percentage,
             String taxableAmount,
@@ -80,7 +80,7 @@ public class InvoiceTax {
      * @param  uid  String value for uid.
      * @param  title  String value for title.
      * @param  description  String value for description.
-     * @param  sourceType  String value for sourceType.
+     * @param  sourceType  ProformaInvoiceTaxSourceType value for sourceType.
      * @param  sourceId  Integer value for sourceId.
      * @param  percentage  String value for percentage.
      * @param  taxableAmount  String value for taxableAmount.
@@ -92,8 +92,9 @@ public class InvoiceTax {
      */
 
     protected InvoiceTax(String uid, String title, OptionalNullable<String> description,
-            String sourceType, Integer sourceId, String percentage, String taxableAmount,
-            String taxAmount, Integer transactionId, List<InvoiceTaxBreakout> lineItemBreakouts,
+            ProformaInvoiceTaxSourceType sourceType, Integer sourceId, String percentage,
+            String taxableAmount, String taxAmount, Integer transactionId,
+            List<InvoiceTaxBreakout> lineItemBreakouts,
             List<InvoiceTaxComponentBreakout> taxComponentBreakouts) {
         this.uid = uid;
         this.title = title;
@@ -183,20 +184,20 @@ public class InvoiceTax {
 
     /**
      * Getter for SourceType.
-     * @return Returns the String
+     * @return Returns the ProformaInvoiceTaxSourceType
      */
     @JsonGetter("source_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSourceType() {
+    public ProformaInvoiceTaxSourceType getSourceType() {
         return sourceType;
     }
 
     /**
      * Setter for SourceType.
-     * @param sourceType Value for String
+     * @param sourceType Value for ProformaInvoiceTaxSourceType
      */
     @JsonSetter("source_type")
-    public void setSourceType(String sourceType) {
+    public void setSourceType(ProformaInvoiceTaxSourceType sourceType) {
         this.sourceType = sourceType;
     }
 
@@ -374,7 +375,7 @@ public class InvoiceTax {
         private String uid;
         private String title;
         private OptionalNullable<String> description;
-        private String sourceType;
+        private ProformaInvoiceTaxSourceType sourceType;
         private Integer sourceId;
         private String percentage;
         private String taxableAmount;
@@ -426,10 +427,10 @@ public class InvoiceTax {
 
         /**
          * Setter for sourceType.
-         * @param  sourceType  String value for sourceType.
+         * @param  sourceType  ProformaInvoiceTaxSourceType value for sourceType.
          * @return Builder
          */
-        public Builder sourceType(String sourceType) {
+        public Builder sourceType(ProformaInvoiceTaxSourceType sourceType) {
             this.sourceType = sourceType;
             return this;
         }

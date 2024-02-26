@@ -17,14 +17,14 @@
 | `SequenceNumber` | `Integer` | Optional | - | Integer getSequenceNumber() | setSequenceNumber(Integer sequenceNumber) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `DeliveryDate` | `LocalDate` | Optional | - | LocalDate getDeliveryDate() | setDeliveryDate(LocalDate deliveryDate) |
-| `Status` | `String` | Optional | - | String getStatus() | setStatus(String status) |
-| `CollectionMethod` | `String` | Optional | - | String getCollectionMethod() | setCollectionMethod(String collectionMethod) |
+| `Status` | [`ProformaInvoiceStatus`](../../doc/models/proforma-invoice-status.md) | Optional | - | ProformaInvoiceStatus getStatus() | setStatus(ProformaInvoiceStatus status) |
+| `CollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`.<br>**Default**: `CollectionMethod.AUTOMATIC` | CollectionMethod getCollectionMethod() | setCollectionMethod(CollectionMethod collectionMethod) |
 | `PaymentInstructions` | `String` | Optional | - | String getPaymentInstructions() | setPaymentInstructions(String paymentInstructions) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
-| `ConsolidationLevel` | `String` | Optional | - | String getConsolidationLevel() | setConsolidationLevel(String consolidationLevel) |
+| `ConsolidationLevel` | [`InvoiceConsolidationLevel`](../../doc/models/invoice-consolidation-level.md) | Optional | Consolidation level of the invoice, which is applicable to invoice consolidation.  It will hold one of the following values:<br><br>* "none": A normal invoice with no consolidation.<br>* "child": An invoice segment which has been combined into a consolidated invoice.<br>* "parent": A consolidated invoice, whose contents are composed of invoice segments.<br><br>"Parent" invoices do not have lines of their own, but they have subtotals and totals which aggregate the member invoice segments.<br><br>See also the [invoice consolidation documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835). | InvoiceConsolidationLevel getConsolidationLevel() | setConsolidationLevel(InvoiceConsolidationLevel consolidationLevel) |
 | `ProductName` | `String` | Optional | - | String getProductName() | setProductName(String productName) |
 | `ProductFamilyName` | `String` | Optional | - | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
-| `Role` | `String` | Optional | - | String getRole() | setRole(String role) |
+| `Role` | [`ProformaInvoiceRole`](../../doc/models/proforma-invoice-role.md) | Optional | 'proforma' value is deprecated in favor of proforma_adhoc and proforma_automatic | ProformaInvoiceRole getRole() | setRole(ProformaInvoiceRole role) |
 | `Seller` | [`InvoiceSeller`](../../doc/models/invoice-seller.md) | Optional | Information about the seller (merchant) listed on the masthead of the invoice. | InvoiceSeller getSeller() | setSeller(InvoiceSeller seller) |
 | `Customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient the invoiced subscription. | InvoiceCustomer getCustomer() | setCustomer(InvoiceCustomer customer) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
@@ -50,6 +50,7 @@
 
 ```json
 {
+  "collection_method": "automatic",
   "uid": "uid6",
   "site_id": 196,
   "customer_id": 52,

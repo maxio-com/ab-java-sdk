@@ -15,6 +15,8 @@ import com.maxio.advancedbilling.models.InvoiceAddress;
 import com.maxio.advancedbilling.models.InvoiceCustomer;
 import com.maxio.advancedbilling.models.InvoiceDiscount;
 import com.maxio.advancedbilling.models.InvoiceDiscountBreakout;
+import com.maxio.advancedbilling.models.InvoiceDiscountSourceType;
+import com.maxio.advancedbilling.models.InvoiceDiscountType;
 import com.maxio.advancedbilling.models.InvoicePayment;
 import com.maxio.advancedbilling.models.InvoiceRefund;
 import com.maxio.advancedbilling.models.ListCreditNotesInput;
@@ -204,9 +206,9 @@ class InvoicesControllerReadCreditNoteTest {
                         .title("Huuuuge amount discount: 1250")
                         .code(coupon.getCode())
                         .description("Coupon: %s - %s".formatted(coupon.getCode(), coupon.getDescription()))
-                        .sourceType("Coupon")
+                        .sourceType(InvoiceDiscountSourceType.COUPON)
                         .sourceId(coupon.getId())
-                        .discountType("flat_amount")
+                        .discountType(InvoiceDiscountType.FLAT_AMOUNT)
                         .percentage(null)
                         .eligibleAmount("13.13")
                         .discountAmount("2.63")

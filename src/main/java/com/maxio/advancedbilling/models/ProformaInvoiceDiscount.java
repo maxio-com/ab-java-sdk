@@ -18,8 +18,8 @@ public class ProformaInvoiceDiscount {
     private String uid;
     private String title;
     private String code;
-    private String sourceType;
-    private String discountType;
+    private ProformaInvoiceDiscountSourceType sourceType;
+    private InvoiceDiscountType discountType;
     private String eligibleAmount;
     private String discountAmount;
     private List<InvoiceDiscountBreakout> lineItemBreakouts;
@@ -35,8 +35,8 @@ public class ProformaInvoiceDiscount {
      * @param  uid  String value for uid.
      * @param  title  String value for title.
      * @param  code  String value for code.
-     * @param  sourceType  String value for sourceType.
-     * @param  discountType  String value for discountType.
+     * @param  sourceType  ProformaInvoiceDiscountSourceType value for sourceType.
+     * @param  discountType  InvoiceDiscountType value for discountType.
      * @param  eligibleAmount  String value for eligibleAmount.
      * @param  discountAmount  String value for discountAmount.
      * @param  lineItemBreakouts  List of InvoiceDiscountBreakout value for lineItemBreakouts.
@@ -45,8 +45,8 @@ public class ProformaInvoiceDiscount {
             String uid,
             String title,
             String code,
-            String sourceType,
-            String discountType,
+            ProformaInvoiceDiscountSourceType sourceType,
+            InvoiceDiscountType discountType,
             String eligibleAmount,
             String discountAmount,
             List<InvoiceDiscountBreakout> lineItemBreakouts) {
@@ -119,39 +119,39 @@ public class ProformaInvoiceDiscount {
 
     /**
      * Getter for SourceType.
-     * @return Returns the String
+     * @return Returns the ProformaInvoiceDiscountSourceType
      */
     @JsonGetter("source_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getSourceType() {
+    public ProformaInvoiceDiscountSourceType getSourceType() {
         return sourceType;
     }
 
     /**
      * Setter for SourceType.
-     * @param sourceType Value for String
+     * @param sourceType Value for ProformaInvoiceDiscountSourceType
      */
     @JsonSetter("source_type")
-    public void setSourceType(String sourceType) {
+    public void setSourceType(ProformaInvoiceDiscountSourceType sourceType) {
         this.sourceType = sourceType;
     }
 
     /**
      * Getter for DiscountType.
-     * @return Returns the String
+     * @return Returns the InvoiceDiscountType
      */
     @JsonGetter("discount_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getDiscountType() {
+    public InvoiceDiscountType getDiscountType() {
         return discountType;
     }
 
     /**
      * Setter for DiscountType.
-     * @param discountType Value for String
+     * @param discountType Value for InvoiceDiscountType
      */
     @JsonSetter("discount_type")
-    public void setDiscountType(String discountType) {
+    public void setDiscountType(InvoiceDiscountType discountType) {
         this.discountType = discountType;
     }
 
@@ -249,8 +249,8 @@ public class ProformaInvoiceDiscount {
         private String uid;
         private String title;
         private String code;
-        private String sourceType;
-        private String discountType;
+        private ProformaInvoiceDiscountSourceType sourceType;
+        private InvoiceDiscountType discountType;
         private String eligibleAmount;
         private String discountAmount;
         private List<InvoiceDiscountBreakout> lineItemBreakouts;
@@ -289,20 +289,20 @@ public class ProformaInvoiceDiscount {
 
         /**
          * Setter for sourceType.
-         * @param  sourceType  String value for sourceType.
+         * @param  sourceType  ProformaInvoiceDiscountSourceType value for sourceType.
          * @return Builder
          */
-        public Builder sourceType(String sourceType) {
+        public Builder sourceType(ProformaInvoiceDiscountSourceType sourceType) {
             this.sourceType = sourceType;
             return this;
         }
 
         /**
          * Setter for discountType.
-         * @param  discountType  String value for discountType.
+         * @param  discountType  InvoiceDiscountType value for discountType.
          * @return Builder
          */
-        public Builder discountType(String discountType) {
+        public Builder discountType(InvoiceDiscountType discountType) {
             this.discountType = discountType;
             return this;
         }
