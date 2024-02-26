@@ -18,6 +18,8 @@ import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
 import com.maxio.advancedbilling.models.InvoiceCustomer;
 import com.maxio.advancedbilling.models.InvoiceDiscount;
 import com.maxio.advancedbilling.models.InvoiceDiscountBreakout;
+import com.maxio.advancedbilling.models.InvoiceDiscountSourceType;
+import com.maxio.advancedbilling.models.InvoiceDiscountType;
 import com.maxio.advancedbilling.models.InvoiceLineItem;
 import com.maxio.advancedbilling.models.InvoicePreviousBalance;
 import com.maxio.advancedbilling.models.InvoiceRole;
@@ -268,7 +270,7 @@ public class InvoicesControllerCreateTest {
                                 .code(coupon.getCode())
                                 .description(coupon.getDescription())
                                 .discountAmount("12.5")
-                                .discountType("flat_amount")
+                                .discountType(InvoiceDiscountType.FLAT_AMOUNT)
                                 .eligibleAmount("150.0")
                                 .lineItemBreakouts(List.of(new InvoiceDiscountBreakout.Builder()
                                         .discountAmount("12.5")
@@ -276,7 +278,7 @@ public class InvoicesControllerCreateTest {
                                         .build())
                                 )
                                 .percentage(null)
-                                .sourceType("Coupon")
+                                .sourceType(InvoiceDiscountSourceType.COUPON)
                                 .title(coupon.getName())
                                 .transactionId(null)
                                 .build(),
@@ -284,7 +286,7 @@ public class InvoicesControllerCreateTest {
                                 .code("MY_CUSTOM_CODE")
                                 .description("Coupon: MY_CUSTOM_CODE - Super coupon with 8.5 amount.")
                                 .discountAmount("8.5")
-                                .discountType("flat_amount")
+                                .discountType(InvoiceDiscountType.FLAT_AMOUNT)
                                 .eligibleAmount("150.0")
                                 .lineItemBreakouts(List.of(new InvoiceDiscountBreakout.Builder()
                                         .discountAmount("8.5")
@@ -292,7 +294,7 @@ public class InvoicesControllerCreateTest {
                                         .build())
                                 )
                                 .percentage(null)
-                                .sourceType("Ad Hoc Coupon")
+                                .sourceType(InvoiceDiscountSourceType.ENUM_AD_HOC_COUPON)
                                 .title("Super coupon with 8.5 amount.")
                                 .transactionId(null)
                                 .build()
