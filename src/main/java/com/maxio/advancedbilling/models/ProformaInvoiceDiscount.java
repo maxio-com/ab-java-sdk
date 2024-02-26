@@ -15,12 +15,14 @@ import java.util.List;
  * This is a model class for ProformaInvoiceDiscount type.
  */
 public class ProformaInvoiceDiscount {
+    private String uid;
     private String title;
+    private String code;
     private String sourceType;
     private String discountType;
     private String eligibleAmount;
     private String discountAmount;
-    private List<ProformaInvoiceDiscountBreakout> lineItemBreakouts;
+    private List<InvoiceDiscountBreakout> lineItemBreakouts;
 
     /**
      * Default constructor.
@@ -30,27 +32,51 @@ public class ProformaInvoiceDiscount {
 
     /**
      * Initialization constructor.
+     * @param  uid  String value for uid.
      * @param  title  String value for title.
+     * @param  code  String value for code.
      * @param  sourceType  String value for sourceType.
      * @param  discountType  String value for discountType.
      * @param  eligibleAmount  String value for eligibleAmount.
      * @param  discountAmount  String value for discountAmount.
-     * @param  lineItemBreakouts  List of ProformaInvoiceDiscountBreakout value for
-     *         lineItemBreakouts.
+     * @param  lineItemBreakouts  List of InvoiceDiscountBreakout value for lineItemBreakouts.
      */
     public ProformaInvoiceDiscount(
+            String uid,
             String title,
+            String code,
             String sourceType,
             String discountType,
             String eligibleAmount,
             String discountAmount,
-            List<ProformaInvoiceDiscountBreakout> lineItemBreakouts) {
+            List<InvoiceDiscountBreakout> lineItemBreakouts) {
+        this.uid = uid;
         this.title = title;
+        this.code = code;
         this.sourceType = sourceType;
         this.discountType = discountType;
         this.eligibleAmount = eligibleAmount;
         this.discountAmount = discountAmount;
         this.lineItemBreakouts = lineItemBreakouts;
+    }
+
+    /**
+     * Getter for Uid.
+     * @return Returns the String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getUid() {
+        return uid;
+    }
+
+    /**
+     * Setter for Uid.
+     * @param uid Value for String
+     */
+    @JsonSetter("uid")
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     /**
@@ -70,6 +96,25 @@ public class ProformaInvoiceDiscount {
     @JsonSetter("title")
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Getter for Code.
+     * @return Returns the String
+     */
+    @JsonGetter("code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * Setter for Code.
+     * @param code Value for String
+     */
+    @JsonSetter("code")
+    public void setCode(String code) {
+        this.code = code;
     }
 
     /**
@@ -150,20 +195,20 @@ public class ProformaInvoiceDiscount {
 
     /**
      * Getter for LineItemBreakouts.
-     * @return Returns the List of ProformaInvoiceDiscountBreakout
+     * @return Returns the List of InvoiceDiscountBreakout
      */
     @JsonGetter("line_item_breakouts")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ProformaInvoiceDiscountBreakout> getLineItemBreakouts() {
+    public List<InvoiceDiscountBreakout> getLineItemBreakouts() {
         return lineItemBreakouts;
     }
 
     /**
      * Setter for LineItemBreakouts.
-     * @param lineItemBreakouts Value for List of ProformaInvoiceDiscountBreakout
+     * @param lineItemBreakouts Value for List of InvoiceDiscountBreakout
      */
     @JsonSetter("line_item_breakouts")
-    public void setLineItemBreakouts(List<ProformaInvoiceDiscountBreakout> lineItemBreakouts) {
+    public void setLineItemBreakouts(List<InvoiceDiscountBreakout> lineItemBreakouts) {
         this.lineItemBreakouts = lineItemBreakouts;
     }
 
@@ -173,10 +218,10 @@ public class ProformaInvoiceDiscount {
      */
     @Override
     public String toString() {
-        return "ProformaInvoiceDiscount [" + "title=" + title + ", sourceType=" + sourceType
-                + ", discountType=" + discountType + ", eligibleAmount=" + eligibleAmount
-                + ", discountAmount=" + discountAmount + ", lineItemBreakouts=" + lineItemBreakouts
-                + "]";
+        return "ProformaInvoiceDiscount [" + "uid=" + uid + ", title=" + title + ", code=" + code
+                + ", sourceType=" + sourceType + ", discountType=" + discountType
+                + ", eligibleAmount=" + eligibleAmount + ", discountAmount=" + discountAmount
+                + ", lineItemBreakouts=" + lineItemBreakouts + "]";
     }
 
     /**
@@ -186,7 +231,9 @@ public class ProformaInvoiceDiscount {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .uid(getUid())
                 .title(getTitle())
+                .code(getCode())
                 .sourceType(getSourceType())
                 .discountType(getDiscountType())
                 .eligibleAmount(getEligibleAmount())
@@ -199,14 +246,26 @@ public class ProformaInvoiceDiscount {
      * Class to build instances of {@link ProformaInvoiceDiscount}.
      */
     public static class Builder {
+        private String uid;
         private String title;
+        private String code;
         private String sourceType;
         private String discountType;
         private String eligibleAmount;
         private String discountAmount;
-        private List<ProformaInvoiceDiscountBreakout> lineItemBreakouts;
+        private List<InvoiceDiscountBreakout> lineItemBreakouts;
 
 
+
+        /**
+         * Setter for uid.
+         * @param  uid  String value for uid.
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
 
         /**
          * Setter for title.
@@ -215,6 +274,16 @@ public class ProformaInvoiceDiscount {
          */
         public Builder title(String title) {
             this.title = title;
+            return this;
+        }
+
+        /**
+         * Setter for code.
+         * @param  code  String value for code.
+         * @return Builder
+         */
+        public Builder code(String code) {
+            this.code = code;
             return this;
         }
 
@@ -260,12 +329,10 @@ public class ProformaInvoiceDiscount {
 
         /**
          * Setter for lineItemBreakouts.
-         * @param  lineItemBreakouts  List of ProformaInvoiceDiscountBreakout value for
-         *         lineItemBreakouts.
+         * @param  lineItemBreakouts  List of InvoiceDiscountBreakout value for lineItemBreakouts.
          * @return Builder
          */
-        public Builder lineItemBreakouts(
-                List<ProformaInvoiceDiscountBreakout> lineItemBreakouts) {
+        public Builder lineItemBreakouts(List<InvoiceDiscountBreakout> lineItemBreakouts) {
             this.lineItemBreakouts = lineItemBreakouts;
             return this;
         }
@@ -275,8 +342,8 @@ public class ProformaInvoiceDiscount {
          * @return {@link ProformaInvoiceDiscount}
          */
         public ProformaInvoiceDiscount build() {
-            return new ProformaInvoiceDiscount(title, sourceType, discountType, eligibleAmount,
-                    discountAmount, lineItemBreakouts);
+            return new ProformaInvoiceDiscount(uid, title, code, sourceType, discountType,
+                    eligibleAmount, discountAmount, lineItemBreakouts);
         }
     }
 }
