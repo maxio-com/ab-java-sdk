@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateOffer type.
  */
-public class CreateOffer {
+public class CreateOffer
+        extends BaseModel {
     private String name;
     private String handle;
     private String description;
@@ -194,7 +196,8 @@ public class CreateOffer {
     public String toString() {
         return "CreateOffer [" + "name=" + name + ", handle=" + handle + ", productId=" + productId
                 + ", description=" + description + ", productPricePointId=" + productPricePointId
-                + ", components=" + components + ", coupons=" + coupons + "]";
+                + ", components=" + components + ", coupons=" + coupons + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionOfferId;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -21,7 +22,8 @@ import java.util.Map;
 /**
  * This is a model class for CreateSubscription type.
  */
-public class CreateSubscription {
+public class CreateSubscription
+        extends BaseModel {
     private String productHandle;
     private Integer productId;
     private String productPricePointHandle;
@@ -1599,7 +1601,8 @@ public class CreateSubscription {
                 + ", agreementAcceptance=" + agreementAcceptance + ", achAgreement=" + achAgreement
                 + ", dunningCommunicationDelayEnabled=" + dunningCommunicationDelayEnabled
                 + ", dunningCommunicationDelayTimeZone=" + dunningCommunicationDelayTimeZone
-                + ", skipBillingManifestTaxes=" + skipBillingManifestTaxes + "]";
+                + ", skipBillingManifestTaxes=" + skipBillingManifestTaxes
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

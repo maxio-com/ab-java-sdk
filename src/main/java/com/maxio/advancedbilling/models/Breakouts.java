@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for Breakouts type.
  */
-public class Breakouts {
+public class Breakouts
+        extends BaseModel {
     private Long planAmountInCents;
     private String planAmountFormatted;
     private Long usageAmountInCents;
@@ -127,7 +129,8 @@ public class Breakouts {
     public String toString() {
         return "Breakouts [" + "planAmountInCents=" + planAmountInCents + ", planAmountFormatted="
                 + planAmountFormatted + ", usageAmountInCents=" + usageAmountInCents
-                + ", usageAmountFormatted=" + usageAmountFormatted + "]";
+                + ", usageAmountFormatted=" + usageAmountFormatted + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for Movement type.
  */
-public class Movement {
+public class Movement
+        extends BaseModel {
     private ZonedDateTime timestamp;
     private Long amountInCents;
     private String amountFormatted;
@@ -250,7 +252,8 @@ public class Movement {
         return "Movement [" + "timestamp=" + timestamp + ", amountInCents=" + amountInCents
                 + ", amountFormatted=" + amountFormatted + ", description=" + description
                 + ", category=" + category + ", breakouts=" + breakouts + ", lineItems=" + lineItems
-                + ", subscriptionId=" + subscriptionId + ", subscriberName=" + subscriberName + "]";
+                + ", subscriptionId=" + subscriptionId + ", subscriberName=" + subscriberName
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

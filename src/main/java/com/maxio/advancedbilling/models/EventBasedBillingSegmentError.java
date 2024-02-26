@@ -8,12 +8,14 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.Map;
 
 /**
  * This is a model class for EventBasedBillingSegmentError type.
  */
-public class EventBasedBillingSegmentError {
+public class EventBasedBillingSegmentError
+        extends BaseModel {
     private Map<String, Object> segments;
 
     /**
@@ -61,7 +63,8 @@ public class EventBasedBillingSegmentError {
      */
     @Override
     public String toString() {
-        return "EventBasedBillingSegmentError [" + "segments=" + segments + "]";
+        return "EventBasedBillingSegmentError [" + "segments=" + segments
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

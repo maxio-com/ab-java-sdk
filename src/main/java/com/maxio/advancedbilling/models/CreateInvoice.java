@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.LocalDate;
 import java.util.List;
 
 /**
  * This is a model class for CreateInvoice type.
  */
-public class CreateInvoice {
+public class CreateInvoice
+        extends BaseModel {
     private List<CreateInvoiceItem> lineItems;
     private LocalDate issueDate;
     private Integer netTerms;
@@ -289,7 +291,8 @@ public class CreateInvoice {
                 + ", netTerms=" + netTerms + ", paymentInstructions=" + paymentInstructions
                 + ", memo=" + memo + ", sellerAddress=" + sellerAddress + ", billingAddress="
                 + billingAddress + ", shippingAddress=" + shippingAddress + ", coupons=" + coupons
-                + ", status=" + status + "]";
+                + ", status=" + status + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

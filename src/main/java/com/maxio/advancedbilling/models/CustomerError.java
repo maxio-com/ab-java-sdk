@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CustomerError type.
  */
-public class CustomerError {
+public class CustomerError
+        extends BaseModel {
     private String customer;
 
     /**
@@ -56,7 +58,8 @@ public class CustomerError {
      */
     @Override
     public String toString() {
-        return "CustomerError [" + "customer=" + customer + "]";
+        return "CustomerError [" + "customer=" + customer + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

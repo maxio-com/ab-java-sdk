@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.ComponentSPricePointAssignmentPricePoint;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ComponentSPricePointAssignment type.
  */
-public class ComponentSPricePointAssignment {
+public class ComponentSPricePointAssignment
+        extends BaseModel {
     private Integer componentId;
     private ComponentSPricePointAssignmentPricePoint pricePoint;
 
@@ -81,7 +83,7 @@ public class ComponentSPricePointAssignment {
     @Override
     public String toString() {
         return "ComponentSPricePointAssignment [" + "componentId=" + componentId + ", pricePoint="
-                + pricePoint + "]";
+                + pricePoint + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +20,8 @@ import java.util.List;
 /**
  * This is a model class for PreviewAllocationsRequest type.
  */
-public class PreviewAllocationsRequest {
+public class PreviewAllocationsRequest
+        extends BaseModel {
     private List<CreateAllocation> allocations;
     private LocalDate effectiveProrationDate;
     private OptionalNullable<CreditType> upgradeCharge;
@@ -203,7 +205,8 @@ public class PreviewAllocationsRequest {
     public String toString() {
         return "PreviewAllocationsRequest [" + "allocations=" + allocations
                 + ", effectiveProrationDate=" + effectiveProrationDate + ", upgradeCharge="
-                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + "]";
+                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

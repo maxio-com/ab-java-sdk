@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for AllocationPreviewLineItem type.
  */
-public class AllocationPreviewLineItem {
+public class AllocationPreviewLineItem
+        extends BaseModel {
     private LineItemTransactionType transactionType;
     private AllocationPreviewLineItemKind kind;
     private Long amountInCents;
@@ -250,7 +252,8 @@ public class AllocationPreviewLineItem {
                 + kind + ", amountInCents=" + amountInCents + ", memo=" + memo
                 + ", discountAmountInCents=" + discountAmountInCents + ", taxableAmountInCents="
                 + taxableAmountInCents + ", componentId=" + componentId + ", componentHandle="
-                + componentHandle + ", direction=" + direction + "]";
+                + componentHandle + ", direction=" + direction + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

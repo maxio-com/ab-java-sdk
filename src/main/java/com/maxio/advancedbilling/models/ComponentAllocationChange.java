@@ -12,11 +12,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.ComponentAllocationChangeAllocatedQuantity;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ComponentAllocationChange type.
  */
-public class ComponentAllocationChange {
+public class ComponentAllocationChange
+        extends BaseModel {
     private int previousAllocation;
     private int newAllocation;
     private int componentId;
@@ -216,7 +218,8 @@ public class ComponentAllocationChange {
         return "ComponentAllocationChange [" + "previousAllocation=" + previousAllocation
                 + ", newAllocation=" + newAllocation + ", componentId=" + componentId
                 + ", componentHandle=" + componentHandle + ", memo=" + memo + ", allocationId="
-                + allocationId + ", allocatedQuantity=" + allocatedQuantity + "]";
+                + allocationId + ", allocatedQuantity=" + allocatedQuantity
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

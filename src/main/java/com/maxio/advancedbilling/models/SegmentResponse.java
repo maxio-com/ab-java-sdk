@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SegmentResponse type.
  */
-public class SegmentResponse {
+public class SegmentResponse
+        extends BaseModel {
     private Segment segment;
 
     /**
@@ -56,7 +58,8 @@ public class SegmentResponse {
      */
     @Override
     public String toString() {
-        return "SegmentResponse [" + "segment=" + segment + "]";
+        return "SegmentResponse [" + "segment=" + segment + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

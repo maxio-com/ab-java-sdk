@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupPaymentProfile type.
  */
-public class SubscriptionGroupPaymentProfile {
+public class SubscriptionGroupPaymentProfile
+        extends BaseModel {
     private Integer id;
     private String firstName;
     private String lastName;
@@ -126,7 +128,8 @@ public class SubscriptionGroupPaymentProfile {
     @Override
     public String toString() {
         return "SubscriptionGroupPaymentProfile [" + "id=" + id + ", firstName=" + firstName
-                + ", lastName=" + lastName + ", maskedCardNumber=" + maskedCardNumber + "]";
+                + ", lastName=" + lastName + ", maskedCardNumber=" + maskedCardNumber
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

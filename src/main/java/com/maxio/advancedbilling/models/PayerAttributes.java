@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.Map;
 
 /**
  * This is a model class for PayerAttributes type.
  */
-public class PayerAttributes {
+public class PayerAttributes
+        extends BaseModel {
     private String firstName;
     private String lastName;
     private String email;
@@ -458,7 +460,8 @@ public class PayerAttributes {
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
                 + ", taxExempt=" + taxExempt + ", taxExemptReason=" + taxExemptReason
-                + ", metafields=" + metafields + "]";
+                + ", metafields=" + metafields + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

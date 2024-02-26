@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for InvoiceCustomField type.
  */
-public class InvoiceCustomField {
+public class InvoiceCustomField
+        extends BaseModel {
     private Integer ownerId;
     private CustomFieldOwner ownerType;
     private String name;
@@ -149,7 +151,8 @@ public class InvoiceCustomField {
     @Override
     public String toString() {
         return "InvoiceCustomField [" + "ownerId=" + ownerId + ", ownerType=" + ownerType
-                + ", name=" + name + ", value=" + value + ", metadatumId=" + metadatumId + "]";
+                + ", name=" + name + ", value=" + value + ", metadatumId=" + metadatumId
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

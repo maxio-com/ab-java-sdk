@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ReferralValidationResponse type.
  */
-public class ReferralValidationResponse {
+public class ReferralValidationResponse
+        extends BaseModel {
     private ReferralCode referralCode;
 
     /**
@@ -56,7 +58,8 @@ public class ReferralValidationResponse {
      */
     @Override
     public String toString() {
-        return "ReferralValidationResponse [" + "referralCode=" + referralCode + "]";
+        return "ReferralValidationResponse [" + "referralCode=" + referralCode
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

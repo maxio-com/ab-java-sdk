@@ -14,12 +14,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for CreateOrUpdateFlatAmountCoupon type.
  */
-public class CreateOrUpdateFlatAmountCoupon {
+public class CreateOrUpdateFlatAmountCoupon
+        extends BaseModel {
     private String name;
     private String code;
     private String description;
@@ -340,7 +342,8 @@ public class CreateOrUpdateFlatAmountCoupon {
                 + ", endDate=" + endDate + ", productFamilyId=" + productFamilyId + ", stackable="
                 + stackable + ", compoundingStrategy=" + compoundingStrategy
                 + ", excludeMidPeriodAllocations=" + excludeMidPeriodAllocations
-                + ", applyOnCancelAtEndOfPeriod=" + applyOnCancelAtEndOfPeriod + "]";
+                + ", applyOnCancelAtEndOfPeriod=" + applyOnCancelAtEndOfPeriod
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

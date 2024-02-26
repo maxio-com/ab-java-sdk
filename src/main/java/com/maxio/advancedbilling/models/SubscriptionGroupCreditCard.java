@@ -12,11 +12,13 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardExpirationMonth;
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardExpirationYear;
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardFullNumber;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupCreditCard type.
  */
-public class SubscriptionGroupCreditCard {
+public class SubscriptionGroupCreditCard
+        extends BaseModel {
     private SubscriptionGroupCreditCardFullNumber fullNumber;
     private SubscriptionGroupCreditCardExpirationMonth expirationMonth;
     private SubscriptionGroupCreditCardExpirationYear expirationYear;
@@ -511,7 +513,8 @@ public class SubscriptionGroupCreditCard {
                 + billingAddress2 + ", billingCity=" + billingCity + ", billingState="
                 + billingState + ", billingZip=" + billingZip + ", billingCountry=" + billingCountry
                 + ", lastFour=" + lastFour + ", cardType=" + cardType + ", customerVaultToken="
-                + customerVaultToken + ", cvv=" + cvv + ", paymentType=" + paymentType + "]";
+                + customerVaultToken + ", cvv=" + cvv + ", paymentType=" + paymentType
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

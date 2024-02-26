@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateInvoiceAddress type.
  */
-public class CreateInvoiceAddress {
+public class CreateInvoiceAddress
+        extends BaseModel {
     private String firstName;
     private String lastName;
     private String phone;
@@ -242,7 +244,8 @@ public class CreateInvoiceAddress {
     public String toString() {
         return "CreateInvoiceAddress [" + "firstName=" + firstName + ", lastName=" + lastName
                 + ", phone=" + phone + ", address=" + address + ", address2=" + address2 + ", city="
-                + city + ", state=" + state + ", zip=" + zip + ", country=" + country + "]";
+                + city + ", state=" + state + ", zip=" + zip + ", country=" + country
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

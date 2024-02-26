@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for InvoiceSeller type.
  */
-public class InvoiceSeller {
+public class InvoiceSeller
+        extends BaseModel {
     private String name;
     private InvoiceAddress address;
     private String phone;
@@ -160,7 +162,8 @@ public class InvoiceSeller {
     @Override
     public String toString() {
         return "InvoiceSeller [" + "name=" + name + ", address=" + address + ", phone=" + phone
-                + ", logoUrl=" + logoUrl + "]";
+                + ", logoUrl=" + logoUrl + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

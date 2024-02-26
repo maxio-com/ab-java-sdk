@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.RefundPrepaymentAmount;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for RefundPrepayment type.
  */
-public class RefundPrepayment {
+public class RefundPrepayment
+        extends BaseModel {
     private long amountInCents;
     private RefundPrepaymentAmount amount;
     private String memo;
@@ -134,7 +136,8 @@ public class RefundPrepayment {
     @Override
     public String toString() {
         return "RefundPrepayment [" + "amountInCents=" + amountInCents + ", amount=" + amount
-                + ", memo=" + memo + ", external=" + external + "]";
+                + ", memo=" + memo + ", external=" + external + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

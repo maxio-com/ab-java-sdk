@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for UpdateSegment type.
  */
-public class UpdateSegment {
+public class UpdateSegment
+        extends BaseModel {
     private PricingScheme pricingScheme;
     private List<CreateOrUpdateSegmentPrice> prices;
 
@@ -85,7 +87,8 @@ public class UpdateSegment {
      */
     @Override
     public String toString() {
-        return "UpdateSegment [" + "pricingScheme=" + pricingScheme + ", prices=" + prices + "]";
+        return "UpdateSegment [" + "pricingScheme=" + pricingScheme + ", prices=" + prices
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

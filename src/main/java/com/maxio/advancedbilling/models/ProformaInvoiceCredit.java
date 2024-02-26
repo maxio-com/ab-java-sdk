@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ProformaInvoiceCredit type.
  */
-public class ProformaInvoiceCredit {
+public class ProformaInvoiceCredit
+        extends BaseModel {
     private String uid;
     private String memo;
     private String originalAmount;
@@ -126,7 +128,8 @@ public class ProformaInvoiceCredit {
     @Override
     public String toString() {
         return "ProformaInvoiceCredit [" + "uid=" + uid + ", memo=" + memo + ", originalAmount="
-                + originalAmount + ", appliedAmount=" + appliedAmount + "]";
+                + originalAmount + ", appliedAmount=" + appliedAmount + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

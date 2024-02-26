@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CouponUsage type.
  */
-public class CouponUsage {
+public class CouponUsage
+        extends BaseModel {
     private Integer id;
     private String name;
     private Integer signups;
@@ -289,7 +291,8 @@ public class CouponUsage {
     public String toString() {
         return "CouponUsage [" + "id=" + id + ", name=" + name + ", signups=" + signups
                 + ", savings=" + savings + ", savingsInCents=" + savingsInCents + ", revenue="
-                + revenue + ", revenueInCents=" + revenueInCents + "]";
+                + revenue + ", revenueInCents=" + revenueInCents + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

@@ -13,12 +13,14 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for Price type.
  */
-public class Price {
+public class Price
+        extends BaseModel {
     private PriceStartingQuantity startingQuantity;
     private OptionalNullable<PriceEndingQuantity> endingQuantity;
     private PriceUnitPrice unitPrice;
@@ -138,7 +140,8 @@ public class Price {
     @Override
     public String toString() {
         return "Price [" + "startingQuantity=" + startingQuantity + ", unitPrice=" + unitPrice
-                + ", endingQuantity=" + endingQuantity + "]";
+                + ", endingQuantity=" + endingQuantity + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

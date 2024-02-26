@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateReasonCode type.
  */
-public class UpdateReasonCode {
+public class UpdateReasonCode
+        extends BaseModel {
     private String code;
     private String description;
     private Integer position;
@@ -109,7 +111,8 @@ public class UpdateReasonCode {
     @Override
     public String toString() {
         return "UpdateReasonCode [" + "code=" + code + ", description=" + description
-                + ", position=" + position + "]";
+                + ", position=" + position + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

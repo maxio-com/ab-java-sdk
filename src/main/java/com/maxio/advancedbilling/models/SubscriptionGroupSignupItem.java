@@ -9,13 +9,15 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 import java.util.Map;
 
 /**
  * This is a model class for SubscriptionGroupSignupItem type.
  */
-public class SubscriptionGroupSignupItem {
+public class SubscriptionGroupSignupItem
+        extends BaseModel {
     private String productHandle;
     private Integer productId;
     private Integer productPricePointId;
@@ -380,7 +382,7 @@ public class SubscriptionGroupSignupItem {
                 + ", reference=" + reference + ", primary=" + primary + ", currency=" + currency
                 + ", couponCodes=" + couponCodes + ", components=" + components + ", customPrice="
                 + customPrice + ", calendarBilling=" + calendarBilling + ", metafields="
-                + metafields + "]";
+                + metafields + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

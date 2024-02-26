@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for BulkCreateProductPricePointsResponse type.
  */
-public class BulkCreateProductPricePointsResponse {
+public class BulkCreateProductPricePointsResponse
+        extends BaseModel {
     private List<ProductPricePoint> pricePoints;
 
     /**
@@ -57,7 +59,8 @@ public class BulkCreateProductPricePointsResponse {
      */
     @Override
     public String toString() {
-        return "BulkCreateProductPricePointsResponse [" + "pricePoints=" + pricePoints + "]";
+        return "BulkCreateProductPricePointsResponse [" + "pricePoints=" + pricePoints
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

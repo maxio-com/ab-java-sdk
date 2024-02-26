@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateOnOffComponent type.
  */
-public class CreateOnOffComponent {
+public class CreateOnOffComponent
+        extends BaseModel {
     private OnOffComponent onOffComponent;
 
     /**
@@ -54,7 +56,8 @@ public class CreateOnOffComponent {
      */
     @Override
     public String toString() {
-        return "CreateOnOffComponent [" + "onOffComponent=" + onOffComponent + "]";
+        return "CreateOnOffComponent [" + "onOffComponent=" + onOffComponent
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
