@@ -6,6 +6,7 @@ import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ProformaInvoice;
+import com.maxio.advancedbilling.models.ProformaInvoiceStatus;
 import com.maxio.advancedbilling.models.VoidInvoice;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import com.maxio.advancedbilling.utils.TestSetup;
@@ -54,7 +55,7 @@ public class ProformaInvoicesControllerVoidTest {
         // then
         assertThat(voidedInvoice).usingRecursiveComparison().ignoringFields("status")
                 .isEqualTo(proformaInvoice);
-        assertThat(voidedInvoice.getStatus()).isEqualTo("voided");
+        assertThat(voidedInvoice.getStatus()).isEqualTo(ProformaInvoiceStatus.VOIDED);
     }
 
     @Test
