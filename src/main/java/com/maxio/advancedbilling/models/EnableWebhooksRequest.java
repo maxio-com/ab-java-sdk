@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for EnableWebhooksRequest type.
  */
-public class EnableWebhooksRequest {
+public class EnableWebhooksRequest
+        extends BaseModel {
     private boolean webhooksEnabled;
 
     /**
@@ -54,7 +56,8 @@ public class EnableWebhooksRequest {
      */
     @Override
     public String toString() {
-        return "EnableWebhooksRequest [" + "webhooksEnabled=" + webhooksEnabled + "]";
+        return "EnableWebhooksRequest [" + "webhooksEnabled=" + webhooksEnabled
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

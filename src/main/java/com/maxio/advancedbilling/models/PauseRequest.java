@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PauseRequest type.
  */
-public class PauseRequest {
+public class PauseRequest
+        extends BaseModel {
     private AutoResume hold;
 
     /**
@@ -56,7 +58,8 @@ public class PauseRequest {
      */
     @Override
     public String toString() {
-        return "PauseRequest [" + "hold=" + hold + "]";
+        return "PauseRequest [" + "hold=" + hold + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

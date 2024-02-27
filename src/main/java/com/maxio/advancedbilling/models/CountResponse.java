@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CountResponse type.
  */
-public class CountResponse {
+public class CountResponse
+        extends BaseModel {
     private Integer count;
 
     /**
@@ -56,7 +58,8 @@ public class CountResponse {
      */
     @Override
     public String toString() {
-        return "CountResponse [" + "count=" + count + "]";
+        return "CountResponse [" + "count=" + count + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

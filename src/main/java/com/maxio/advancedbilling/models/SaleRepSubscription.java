@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for SaleRepSubscription type.
  */
-public class SaleRepSubscription {
+public class SaleRepSubscription
+        extends BaseModel {
     private Integer id;
     private String siteName;
     private String subscriptionUrl;
@@ -313,7 +315,8 @@ public class SaleRepSubscription {
         return "SaleRepSubscription [" + "id=" + id + ", siteName=" + siteName
                 + ", subscriptionUrl=" + subscriptionUrl + ", customerName=" + customerName
                 + ", createdAt=" + createdAt + ", mrr=" + mrr + ", usage=" + usage + ", recurring="
-                + recurring + ", lastPayment=" + lastPayment + ", churnDate=" + churnDate + "]";
+                + recurring + ", lastPayment=" + lastPayment + ", churnDate=" + churnDate
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

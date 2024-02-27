@@ -375,12 +375,25 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(event.getEventType()).isEqualTo(expectedType);
         assertThat(event.getTimestamp()).isNotNull();
         Invoice eventInvoice = event.getInvoice();
+        assertThat(eventInvoice.getAdditionalProperties()).satisfies(additionalProperties -> {
+            assertThat(additionalProperties.get("statement_id")).isNull();
+            assertThat(additionalProperties.get("legacy_invoice_number")).isNull();
+            assertThat(additionalProperties.get("backported_at")).isNull();
+            assertThat(additionalProperties.get("subscription_group_customer_ids")).isNull();
+            assertThat(additionalProperties.get("debit_amount")).isEqualTo("0.0");
+            assertThat(additionalProperties.get("debits")).usingRecursiveComparison().isEqualTo(List.of());
+            assertThat(additionalProperties.get("tax_exempt_amount")).isEqualTo("0.0");
+            assertThat(additionalProperties.get("status_changed_at")).isNotNull();
+            assertThat(additionalProperties.get("prepaid_usage_details")).isNull();
+            assertThat(additionalProperties.get("invoice_account_details")).isNull();
+            assertThat(additionalProperties.get("external_connected_data")).isNull();
+        });
         assertThat(eventInvoice)
                 .usingRecursiveComparison()
                 .ignoringFields("createdAt", "creditAmount", "credits", "discounts", "displaySettings",
                         "dueAmount", "id", "lineItems", "netTerms", "paidAmount", "paidDate", "payer", "payments",
                         "previousBalanceData", "publicUrl", "recipientEmails", "refundAmount", "refunds",
-                        "status", "transactionTime", "updatedAt")
+                        "status", "transactionTime", "updatedAt", "additionalProperties")
                 .isEqualTo(invoice);
         assertThat(eventInvoice.getCreatedAt()).isNotNull();
         assertThat(eventInvoice.getUpdatedAt()).isNotNull();

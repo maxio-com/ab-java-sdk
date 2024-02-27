@@ -11,13 +11,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.QuantityBasedComponentUnitPrice;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for QuantityBasedComponent type.
  */
-public class QuantityBasedComponent {
+public class QuantityBasedComponent
+        extends BaseModel {
     private String name;
     private String unitName;
     private String description;
@@ -667,7 +669,8 @@ public class QuantityBasedComponent {
                 + priceInCents + ", recurring=" + recurring + ", displayOnHostedPage="
                 + displayOnHostedPage + ", allowFractionalQuantities=" + allowFractionalQuantities
                 + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + "]";
+                + ", intervalUnit=" + intervalUnit + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

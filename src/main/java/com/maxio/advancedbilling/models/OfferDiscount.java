@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for OfferDiscount type.
  */
-public class OfferDiscount {
+public class OfferDiscount
+        extends BaseModel {
     private String couponCode;
     private Integer couponId;
     private String couponName;
@@ -103,7 +105,8 @@ public class OfferDiscount {
     @Override
     public String toString() {
         return "OfferDiscount [" + "couponCode=" + couponCode + ", couponId=" + couponId
-                + ", couponName=" + couponName + "]";
+                + ", couponName=" + couponName + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

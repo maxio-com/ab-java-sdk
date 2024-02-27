@@ -32,6 +32,7 @@ import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import io.apimatic.core.types.BaseModel;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -232,9 +233,17 @@ class InvoicesControllerReadCreditNoteTest {
                         .build()
                 );
 
-        assertThat(creditNote.getRefunds())
+        List<InvoiceRefund> refunds = creditNote.getRefunds();
+        assertThat(refunds)
                 .hasSize(1)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "transactionId", "paymentId", "transactionTime")
+                .extracting(BaseModel::getAdditionalProperties)
+                .singleElement()
+                .satisfies(additionalProperties -> {
+                    assertThat(additionalProperties.get("uid")).isNotNull();
+                    assertThat(additionalProperties.get("transaction_time")).isNotNull();
+                });
+        assertThat(refunds)
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "transactionId", "paymentId", "transactionTime", "additionalProperties")
                 .containsExactly(new InvoiceRefund.Builder()
                         .memo("Special refund")
                         .originalAmount("10.5")

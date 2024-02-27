@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for InvoiceTaxComponentBreakout type.
  */
-public class InvoiceTaxComponentBreakout {
+public class InvoiceTaxComponentBreakout
+        extends BaseModel {
     private Integer taxRuleId;
     private String percentage;
     private String countryCode;
@@ -127,7 +129,7 @@ public class InvoiceTaxComponentBreakout {
     public String toString() {
         return "InvoiceTaxComponentBreakout [" + "taxRuleId=" + taxRuleId + ", percentage="
                 + percentage + ", countryCode=" + countryCode + ", subdivisionCode="
-                + subdivisionCode + "]";
+                + subdivisionCode + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

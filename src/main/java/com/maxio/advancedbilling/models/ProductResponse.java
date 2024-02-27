@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ProductResponse type.
  */
-public class ProductResponse {
+public class ProductResponse
+        extends BaseModel {
     private Product product;
 
     /**
@@ -54,7 +56,8 @@ public class ProductResponse {
      */
     @Override
     public String toString() {
-        return "ProductResponse [" + "product=" + product + "]";
+        return "ProductResponse [" + "product=" + product + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

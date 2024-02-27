@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
+import io.apimatic.core.types.BaseModel;
 import java.util.Map;
 
 /**
  * This is a model class for CreateOrUpdateCoupon type.
  */
-public class CreateOrUpdateCoupon {
+public class CreateOrUpdateCoupon
+        extends BaseModel {
     private CreateOrUpdateCouponCoupon coupon;
     private Map<String, Boolean> restrictedProducts;
     private Map<String, Boolean> restrictedComponents;
@@ -113,7 +115,8 @@ public class CreateOrUpdateCoupon {
     @Override
     public String toString() {
         return "CreateOrUpdateCoupon [" + "coupon=" + coupon + ", restrictedProducts="
-                + restrictedProducts + ", restrictedComponents=" + restrictedComponents + "]";
+                + restrictedProducts + ", restrictedComponents=" + restrictedComponents
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

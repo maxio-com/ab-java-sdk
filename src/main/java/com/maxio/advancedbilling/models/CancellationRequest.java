@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CancellationRequest type.
  */
-public class CancellationRequest {
+public class CancellationRequest
+        extends BaseModel {
     private CancellationOptions subscription;
 
     /**
@@ -54,7 +56,8 @@ public class CancellationRequest {
      */
     @Override
     public String toString() {
-        return "CancellationRequest [" + "subscription=" + subscription + "]";
+        return "CancellationRequest [" + "subscription=" + subscription + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

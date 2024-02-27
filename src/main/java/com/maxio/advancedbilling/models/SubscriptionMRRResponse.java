@@ -8,12 +8,14 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionMRRResponse type.
  */
-public class SubscriptionMRRResponse {
+public class SubscriptionMRRResponse
+        extends BaseModel {
     private List<SubscriptionMRR> subscriptionsMrr;
 
     /**
@@ -55,7 +57,8 @@ public class SubscriptionMRRResponse {
      */
     @Override
     public String toString() {
-        return "SubscriptionMRRResponse [" + "subscriptionsMrr=" + subscriptionsMrr + "]";
+        return "SubscriptionMRRResponse [" + "subscriptionsMrr=" + subscriptionsMrr
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SiteResponse type.
  */
-public class SiteResponse {
+public class SiteResponse
+        extends BaseModel {
     private Site site;
 
     /**
@@ -54,7 +56,8 @@ public class SiteResponse {
      */
     @Override
     public String toString() {
-        return "SiteResponse [" + "site=" + site + "]";
+        return "SiteResponse [" + "site=" + site + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

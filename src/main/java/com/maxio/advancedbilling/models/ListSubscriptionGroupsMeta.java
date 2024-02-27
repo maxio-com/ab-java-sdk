@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ListSubscriptionGroupsMeta type.
  */
-public class ListSubscriptionGroupsMeta {
+public class ListSubscriptionGroupsMeta
+        extends BaseModel {
     private Integer currentPage;
     private Integer totalCount;
 
@@ -80,7 +82,7 @@ public class ListSubscriptionGroupsMeta {
     @Override
     public String toString() {
         return "ListSubscriptionGroupsMeta [" + "currentPage=" + currentPage + ", totalCount="
-                + totalCount + "]";
+                + totalCount + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

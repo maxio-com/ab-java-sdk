@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PrepaidConfigurationResponse type.
  */
-public class PrepaidConfigurationResponse {
+public class PrepaidConfigurationResponse
+        extends BaseModel {
     private PrepaidConfiguration prepaidConfiguration;
 
     /**
@@ -55,7 +57,7 @@ public class PrepaidConfigurationResponse {
     @Override
     public String toString() {
         return "PrepaidConfigurationResponse [" + "prepaidConfiguration=" + prepaidConfiguration
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for GroupTarget type.
  */
-public class GroupTarget {
+public class GroupTarget
+        extends BaseModel {
     private GroupTargetType type;
     private Integer id;
 
@@ -84,7 +86,8 @@ public class GroupTarget {
      */
     @Override
     public String toString() {
-        return "GroupTarget [" + "type=" + type + ", id=" + id + "]";
+        return "GroupTarget [" + "type=" + type + ", id=" + id + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

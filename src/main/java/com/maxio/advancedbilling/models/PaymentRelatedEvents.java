@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PaymentRelatedEvents type.
  */
-public class PaymentRelatedEvents {
+public class PaymentRelatedEvents
+        extends BaseModel {
     private int productId;
     private int accountTransactionId;
 
@@ -80,7 +82,8 @@ public class PaymentRelatedEvents {
     @Override
     public String toString() {
         return "PaymentRelatedEvents [" + "productId=" + productId + ", accountTransactionId="
-                + accountTransactionId + "]";
+                + accountTransactionId + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

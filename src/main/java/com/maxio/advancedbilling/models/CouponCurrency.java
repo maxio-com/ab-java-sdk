@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CouponCurrency type.
  */
-public class CouponCurrency {
+public class CouponCurrency
+        extends BaseModel {
     private Integer id;
     private String currency;
     private Integer price;
@@ -126,7 +128,8 @@ public class CouponCurrency {
     @Override
     public String toString() {
         return "CouponCurrency [" + "id=" + id + ", currency=" + currency + ", price=" + price
-                + ", couponId=" + couponId + "]";
+                + ", couponId=" + couponId + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

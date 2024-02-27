@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for InvoicePayer type.
  */
-public class InvoicePayer {
+public class InvoicePayer
+        extends BaseModel {
     private Integer chargifyId;
     private String firstName;
     private String lastName;
@@ -228,7 +230,8 @@ public class InvoicePayer {
     public String toString() {
         return "InvoicePayer [" + "chargifyId=" + chargifyId + ", firstName=" + firstName
                 + ", lastName=" + lastName + ", organization=" + organization + ", email=" + email
-                + ", vatNumber=" + vatNumber + "]";
+                + ", vatNumber=" + vatNumber + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

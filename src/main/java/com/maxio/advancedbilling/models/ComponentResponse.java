@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ComponentResponse type.
  */
-public class ComponentResponse {
+public class ComponentResponse
+        extends BaseModel {
     private Component component;
 
     /**
@@ -54,7 +56,8 @@ public class ComponentResponse {
      */
     @Override
     public String toString() {
-        return "ComponentResponse [" + "component=" + component + "]";
+        return "ComponentResponse [" + "component=" + component + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

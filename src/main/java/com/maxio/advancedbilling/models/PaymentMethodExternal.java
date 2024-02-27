@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PaymentMethodExternal type.
  */
-public class PaymentMethodExternal {
+public class PaymentMethodExternal
+        extends BaseModel {
     private String details;
     private String kind;
     private String memo;
@@ -124,7 +126,8 @@ public class PaymentMethodExternal {
     @Override
     public String toString() {
         return "PaymentMethodExternal [" + "details=" + details + ", kind=" + kind + ", memo="
-                + memo + ", type=" + type + "]";
+                + memo + ", type=" + type + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

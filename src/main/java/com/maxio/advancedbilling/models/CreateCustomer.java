@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CreateCustomer type.
  */
-public class CreateCustomer {
+public class CreateCustomer
+        extends BaseModel {
     private String firstName;
     private String lastName;
     private String email;
@@ -520,7 +522,8 @@ public class CreateCustomer {
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
                 + ", taxExempt=" + taxExempt + ", taxExemptReason=" + taxExemptReason
-                + ", parentId=" + parentId + "]";
+                + ", parentId=" + parentId + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

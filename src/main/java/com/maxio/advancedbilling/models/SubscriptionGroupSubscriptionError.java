@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionGroupSubscriptionError type.
  */
-public class SubscriptionGroupSubscriptionError {
+public class SubscriptionGroupSubscriptionError
+        extends BaseModel {
     private List<String> product;
     private List<String> productPricePointId;
     private List<String> paymentProfile;
@@ -129,7 +131,7 @@ public class SubscriptionGroupSubscriptionError {
         return "SubscriptionGroupSubscriptionError [" + "product=" + product
                 + ", productPricePointId=" + productPricePointId + ", paymentProfile="
                 + paymentProfile + ", paymentProfileChargifyToken=" + paymentProfileChargifyToken
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

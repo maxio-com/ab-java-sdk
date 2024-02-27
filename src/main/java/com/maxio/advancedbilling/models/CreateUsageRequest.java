@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateUsageRequest type.
  */
-public class CreateUsageRequest {
+public class CreateUsageRequest
+        extends BaseModel {
     private CreateUsage usage;
 
     /**
@@ -54,7 +56,8 @@ public class CreateUsageRequest {
      */
     @Override
     public String toString() {
-        return "CreateUsageRequest [" + "usage=" + usage + "]";
+        return "CreateUsageRequest [" + "usage=" + usage + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

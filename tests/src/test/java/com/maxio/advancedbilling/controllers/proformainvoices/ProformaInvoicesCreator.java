@@ -27,10 +27,12 @@ import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.utils.TestSetup;
+import io.apimatic.core.types.BaseModel;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
@@ -39,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ProformaInvoicesCreator {
 
-    private static final TestSetup TEST_SETUP  = new TestSetup();
+    private static final TestSetup TEST_SETUP = new TestSetup();
     private static final AdvancedBillingClient CLIENT = TestClient.createClient();
 
     private final Product product;
@@ -104,11 +106,16 @@ class ProformaInvoicesCreator {
     }
 
     void assertProformaInvoice(Customer customer,
-                                         ProformaInvoiceWithComponents invoiceWithData,
-                                         boolean assertPreservationDataNonEmpty) {
+                               ProformaInvoiceWithComponents invoiceWithData,
+                               boolean assertPreservationDataNonEmpty) {
         ProformaInvoice proformaInvoice = invoiceWithData.invoice();
+        assertThat(proformaInvoice.getAdditionalProperties()).isEmpty();
+
         Component quantityBasedComponent = invoiceWithData.quantityBasedComponent();
+        assertThat(quantityBasedComponent.getAdditionalProperties()).isEmpty();
+
         Component meteredComponent = invoiceWithData.meteredComponent();
+        assertThat(meteredComponent.getAdditionalProperties()).isEmpty();
 
         if (assertPreservationDataNonEmpty) {
             assertThat(proformaInvoice.getNumber()).isNotNull();
@@ -122,6 +129,7 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getUid()).isNotNull().isNotBlank();
 
         InvoiceAddress invoiceBillingAddress = proformaInvoice.getBillingAddress();
+        assertThat(invoiceBillingAddress.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceBillingAddress).isNotNull(),
                 () -> assertThat(invoiceBillingAddress.getStreet()).isEqualTo("My Billing Address"),
@@ -133,6 +141,7 @@ class ProformaInvoicesCreator {
         );
 
         InvoiceAddress invoiceShippingAddress = proformaInvoice.getShippingAddress();
+        assertThat(invoiceShippingAddress.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceShippingAddress).isNotNull(),
                 () -> assertThat(invoiceShippingAddress.getStreet()).isEqualTo(customer.getAddress()),
@@ -158,6 +167,7 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getCustomFields()).isEmpty();
 
         InvoiceCustomer invoiceCustomer = proformaInvoice.getCustomer();
+        assertThat(invoiceCustomer.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceCustomer).isNotNull(),
                 () -> assertThat(invoiceCustomer.getChargifyId()).isEqualTo(customer.getId()),
@@ -183,6 +193,7 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getRole()).isEqualTo(ProformaInvoiceRole.PROFORMA_ADHOC);
 
         InvoiceSeller invoiceSeller = proformaInvoice.getSeller();
+        assertThat(invoiceSeller.getAdditionalProperties()).isEmpty();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
                 .isEqualTo(INVOICE_SELLER);
@@ -194,9 +205,18 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getTaxes()).isEmpty();
         assertThat(proformaInvoice.getTotalAmount()).isEqualTo("282.5");
 
-        assertThat(proformaInvoice.getLineItems())
+        List<InvoiceLineItem> lineItems = proformaInvoice.getLineItems();
+        assertThat(lineItems)
                 .hasSize(4)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid")
+                .extracting(BaseModel::getAdditionalProperties)
+                .containsExactlyInAnyOrder(
+                        Collections.singletonMap("billing_schedule_item_id", null),
+                        Collections.singletonMap("billing_schedule_item_id", null),
+                        Collections.singletonMap("billing_schedule_item_id", null),
+                        Collections.singletonMap("billing_schedule_item_id", null)
+                );
+        assertThat(lineItems)
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "additionalProperties")
                 .containsExactlyInAnyOrder(
                         new InvoiceLineItem.Builder()
                                 .title(product.getName())
@@ -294,6 +314,6 @@ class ProformaInvoicesCreator {
     }
 
     record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,
-                                                   Component meteredComponent) {
+                                         Component meteredComponent) {
     }
 }

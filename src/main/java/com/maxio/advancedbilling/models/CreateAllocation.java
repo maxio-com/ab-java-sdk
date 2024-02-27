@@ -11,12 +11,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.CreateAllocationPricePointId;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CreateAllocation type.
  */
-public class CreateAllocation {
+public class CreateAllocation
+        extends BaseModel {
     private double quantity;
     private Integer componentId;
     private String memo;
@@ -437,7 +439,8 @@ public class CreateAllocation {
                 + ", prorationUpgradeScheme=" + prorationUpgradeScheme + ", accrueCharge="
                 + accrueCharge + ", downgradeCredit=" + downgradeCredit + ", upgradeCharge="
                 + upgradeCharge + ", initiateDunning=" + initiateDunning + ", pricePointId="
-                + pricePointId + ", billingSchedule=" + billingSchedule + "]";
+                + pricePointId + ", billingSchedule=" + billingSchedule + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

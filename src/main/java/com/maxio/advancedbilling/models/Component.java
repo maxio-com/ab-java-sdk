@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.ComponentPricingScheme;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -20,7 +21,8 @@ import java.util.List;
 /**
  * This is a model class for Component type.
  */
-public class Component {
+public class Component
+        extends BaseModel {
     private Integer id;
     private String name;
     private OptionalNullable<String> handle;
@@ -1297,7 +1299,7 @@ public class Component {
                 + itemCategory + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", accountingCode=" + accountingCode + ", eventBasedBillingMetricId="
                 + eventBasedBillingMetricId + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + "]";
+                + intervalUnit + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

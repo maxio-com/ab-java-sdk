@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.CouponCompoundingStrategy;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -20,7 +21,8 @@ import java.util.List;
 /**
  * This is a model class for Coupon type.
  */
-public class Coupon {
+public class Coupon
+        extends BaseModel {
     private Integer id;
     private String name;
     private String code;
@@ -983,7 +985,8 @@ public class Coupon {
                 + useSiteExchangeRate + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", discountType=" + discountType + ", excludeMidPeriodAllocations="
                 + excludeMidPeriodAllocations + ", applyOnCancelAtEndOfPeriod="
-                + applyOnCancelAtEndOfPeriod + ", couponRestrictions=" + couponRestrictions + "]";
+                + applyOnCancelAtEndOfPeriod + ", couponRestrictions=" + couponRestrictions
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

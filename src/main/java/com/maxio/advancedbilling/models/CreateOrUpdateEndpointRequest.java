@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateOrUpdateEndpointRequest type.
  */
-public class CreateOrUpdateEndpointRequest {
+public class CreateOrUpdateEndpointRequest
+        extends BaseModel {
     private CreateOrUpdateEndpoint endpoint;
 
     /**
@@ -56,7 +58,8 @@ public class CreateOrUpdateEndpointRequest {
      */
     @Override
     public String toString() {
-        return "CreateOrUpdateEndpointRequest [" + "endpoint=" + endpoint + "]";
+        return "CreateOrUpdateEndpointRequest [" + "endpoint=" + endpoint
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionGroupComponentCustomPrice type.
  */
-public class SubscriptionGroupComponentCustomPrice {
+public class SubscriptionGroupComponentCustomPrice
+        extends BaseModel {
     private PricingScheme pricingScheme;
     private List<Price> prices;
     private List<ComponentCustomPrice> overagePricing;
@@ -110,7 +112,8 @@ public class SubscriptionGroupComponentCustomPrice {
     @Override
     public String toString() {
         return "SubscriptionGroupComponentCustomPrice [" + "pricingScheme=" + pricingScheme
-                + ", prices=" + prices + ", overagePricing=" + overagePricing + "]";
+                + ", prices=" + prices + ", overagePricing=" + overagePricing
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CancelGroupedSubscriptionsRequest type.
  */
-public class CancelGroupedSubscriptionsRequest {
+public class CancelGroupedSubscriptionsRequest
+        extends BaseModel {
     private Boolean chargeUnbilledUsage;
 
     /**
@@ -57,7 +59,7 @@ public class CancelGroupedSubscriptionsRequest {
     @Override
     public String toString() {
         return "CancelGroupedSubscriptionsRequest [" + "chargeUnbilledUsage=" + chargeUnbilledUsage
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

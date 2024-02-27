@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Metadata type.
  */
-public class Metadata {
+public class Metadata
+        extends BaseModel {
     private OptionalNullable<Integer> id;
     private OptionalNullable<String> value;
     private OptionalNullable<Integer> resourceId;
@@ -280,7 +282,7 @@ public class Metadata {
     public String toString() {
         return "Metadata [" + "id=" + id + ", value=" + value + ", resourceId=" + resourceId
                 + ", name=" + name + ", deletedAt=" + deletedAt + ", metafieldId=" + metafieldId
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

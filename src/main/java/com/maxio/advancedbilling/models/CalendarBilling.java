@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CalendarBillingSnapDay;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CalendarBilling type.
  */
-public class CalendarBilling {
+public class CalendarBilling
+        extends BaseModel {
     private CalendarBillingSnapDay snapDay;
     private FirstChargeType calendarBillingFirstCharge;
 
@@ -83,7 +85,8 @@ public class CalendarBilling {
     @Override
     public String toString() {
         return "CalendarBilling [" + "snapDay=" + snapDay + ", calendarBillingFirstCharge="
-                + calendarBillingFirstCharge + "]";
+                + calendarBillingFirstCharge + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**

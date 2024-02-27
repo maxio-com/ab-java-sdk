@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for NestedSubscriptionGroup type.
  */
-public class NestedSubscriptionGroup {
+public class NestedSubscriptionGroup
+        extends BaseModel {
     private String uid;
     private Integer scheme;
     private Integer primarySubscriptionId;
@@ -138,7 +140,8 @@ public class NestedSubscriptionGroup {
     @Override
     public String toString() {
         return "NestedSubscriptionGroup [" + "uid=" + uid + ", scheme=" + scheme
-                + ", primarySubscriptionId=" + primarySubscriptionId + ", primary=" + primary + "]";
+                + ", primarySubscriptionId=" + primarySubscriptionId + ", primary=" + primary
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

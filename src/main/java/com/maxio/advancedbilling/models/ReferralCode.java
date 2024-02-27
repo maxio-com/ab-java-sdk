@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ReferralCode type.
  */
-public class ReferralCode {
+public class ReferralCode
+        extends BaseModel {
     private Integer id;
     private Integer siteId;
     private Integer subscriptionId;
@@ -126,7 +128,8 @@ public class ReferralCode {
     @Override
     public String toString() {
         return "ReferralCode [" + "id=" + id + ", siteId=" + siteId + ", subscriptionId="
-                + subscriptionId + ", code=" + code + "]";
+                + subscriptionId + ", code=" + code + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

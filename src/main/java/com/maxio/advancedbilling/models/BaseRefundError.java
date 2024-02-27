@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for BaseRefundError type.
  */
-public class BaseRefundError {
+public class BaseRefundError
+        extends BaseModel {
     private List<Object> base;
 
     /**
@@ -57,7 +59,8 @@ public class BaseRefundError {
      */
     @Override
     public String toString() {
-        return "BaseRefundError [" + "base=" + base + "]";
+        return "BaseRefundError [" + "base=" + base + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
