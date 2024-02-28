@@ -13,60 +13,60 @@ import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
- * This is a model class for BulkComponentSPricePointAssignment type.
+ * This is a model class for BulkComponentsPricePointAssignment type.
  */
-public class BulkComponentSPricePointAssignment
+public class BulkComponentsPricePointAssignment
         extends BaseModel {
-    private List<ComponentSPricePointAssignment> components;
+    private List<ComponentPricePointAssignment> components;
 
     /**
      * Default constructor.
      */
-    public BulkComponentSPricePointAssignment() {
+    public BulkComponentsPricePointAssignment() {
     }
 
     /**
      * Initialization constructor.
-     * @param  components  List of ComponentSPricePointAssignment value for components.
+     * @param  components  List of ComponentPricePointAssignment value for components.
      */
-    public BulkComponentSPricePointAssignment(
-            List<ComponentSPricePointAssignment> components) {
+    public BulkComponentsPricePointAssignment(
+            List<ComponentPricePointAssignment> components) {
         this.components = components;
     }
 
     /**
      * Getter for Components.
-     * @return Returns the List of ComponentSPricePointAssignment
+     * @return Returns the List of ComponentPricePointAssignment
      */
     @JsonGetter("components")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ComponentSPricePointAssignment> getComponents() {
+    public List<ComponentPricePointAssignment> getComponents() {
         return components;
     }
 
     /**
      * Setter for Components.
-     * @param components Value for List of ComponentSPricePointAssignment
+     * @param components Value for List of ComponentPricePointAssignment
      */
     @JsonSetter("components")
-    public void setComponents(List<ComponentSPricePointAssignment> components) {
+    public void setComponents(List<ComponentPricePointAssignment> components) {
         this.components = components;
     }
 
     /**
-     * Converts this BulkComponentSPricePointAssignment into string format.
+     * Converts this BulkComponentsPricePointAssignment into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "BulkComponentSPricePointAssignment [" + "components=" + components
+        return "BulkComponentsPricePointAssignment [" + "components=" + components
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
-     * Builds a new {@link BulkComponentSPricePointAssignment.Builder} object.
+     * Builds a new {@link BulkComponentsPricePointAssignment.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link BulkComponentSPricePointAssignment.Builder} object
+     * @return a new {@link BulkComponentsPricePointAssignment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -75,29 +75,29 @@ public class BulkComponentSPricePointAssignment
     }
 
     /**
-     * Class to build instances of {@link BulkComponentSPricePointAssignment}.
+     * Class to build instances of {@link BulkComponentsPricePointAssignment}.
      */
     public static class Builder {
-        private List<ComponentSPricePointAssignment> components;
+        private List<ComponentPricePointAssignment> components;
 
 
 
         /**
          * Setter for components.
-         * @param  components  List of ComponentSPricePointAssignment value for components.
+         * @param  components  List of ComponentPricePointAssignment value for components.
          * @return Builder
          */
-        public Builder components(List<ComponentSPricePointAssignment> components) {
+        public Builder components(List<ComponentPricePointAssignment> components) {
             this.components = components;
             return this;
         }
 
         /**
-         * Builds a new {@link BulkComponentSPricePointAssignment} object using the set fields.
-         * @return {@link BulkComponentSPricePointAssignment}
+         * Builds a new {@link BulkComponentsPricePointAssignment} object using the set fields.
+         * @return {@link BulkComponentsPricePointAssignment}
          */
-        public BulkComponentSPricePointAssignment build() {
-            return new BulkComponentSPricePointAssignment(components);
+        public BulkComponentsPricePointAssignment build() {
+            return new BulkComponentsPricePointAssignment(components);
         }
     }
 }
