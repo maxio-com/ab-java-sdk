@@ -7,7 +7,7 @@ The following parameters are configurable for the API Client:
 |  --- | --- | --- |
 | `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `"subdomain"` |
 | `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
-| `environment` | Environment | The API environment. <br> **Default: `Environment.PRODUCTION`** |
+| `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
 | `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) | Http Client Configuration instance. |
 | `basicAuthCredentials` | [`BasicAuthCredentials`]($a/basic-authentication.md) | The Credentials Setter for Basic Authentication |
 

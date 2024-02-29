@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = ComponentSPricePointAssignmentPricePoint.ComponentSPricePointAssignmentPricePointDeserializer.class)
-public abstract class ComponentSPricePointAssignmentPricePoint {
+@JsonDeserialize(using = ComponentPricePointAssignmentPricePoint.ComponentPricePointAssignmentPricePointDeserializer.class)
+public abstract class ComponentPricePointAssignmentPricePoint {
     
     /**
      * This is String case.
      * @param string String value for string.
      * @return The StringCase object.
      */
-    public static ComponentSPricePointAssignmentPricePoint fromString(String string) {
+    public static ComponentPricePointAssignmentPricePoint fromString(String string) {
         return string == null ? null : new StringCase(string);
     }
 
@@ -41,7 +41,7 @@ public abstract class ComponentSPricePointAssignmentPricePoint {
      * @param number int value for number.
      * @return The NumberCase object.
      */
-    public static ComponentSPricePointAssignmentPricePoint fromNumber(int number) {
+    public static ComponentPricePointAssignmentPricePoint fromNumber(int number) {
         return new NumberCase(number);
     }
 
@@ -69,7 +69,7 @@ public abstract class ComponentSPricePointAssignmentPricePoint {
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class StringCase extends ComponentSPricePointAssignmentPricePoint {
+    private static class StringCase extends ComponentPricePointAssignmentPricePoint {
 
         @JsonValue
         private String string;
@@ -103,7 +103,7 @@ public abstract class ComponentSPricePointAssignmentPricePoint {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "int")
-    private static class NumberCase extends ComponentSPricePointAssignmentPricePoint {
+    private static class NumberCase extends ComponentPricePointAssignmentPricePoint {
 
         @JsonValue
         private int number;
@@ -133,13 +133,13 @@ public abstract class ComponentSPricePointAssignmentPricePoint {
     }
 
     /**
-     * This is a custom deserializer class for ComponentSPricePointAssignmentPricePoint.
+     * This is a custom deserializer class for ComponentPricePointAssignmentPricePoint.
      */
-    protected static class ComponentSPricePointAssignmentPricePointDeserializer
-            extends JsonDeserializer<ComponentSPricePointAssignmentPricePoint> {
+    protected static class ComponentPricePointAssignmentPricePointDeserializer
+            extends JsonDeserializer<ComponentPricePointAssignmentPricePoint> {
 
         @Override
-        public ComponentSPricePointAssignmentPricePoint deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ComponentPricePointAssignmentPricePoint deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

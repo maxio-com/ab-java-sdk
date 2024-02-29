@@ -14,6 +14,7 @@ import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.ProformaBadRequestErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
+import com.maxio.advancedbilling.models.CreateSignupProformaPreviewInclude;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.ListProformaInvoicesInput;
 import com.maxio.advancedbilling.models.ListProformaInvoicesResponse;
@@ -456,25 +457,24 @@ public final class ProformaInvoicesController extends BaseController {
      * custom pricing, and an existing customer or payment profile to populate a shipping or billing
      * address. A product and customer first name, last name, and email are the minimum
      * requirements.
-     * @param  includeNextProformaInvoice  Optional parameter: Choose to include a proforma invoice
-     *         preview for the first renewal
+     * @param  include  Optional parameter: Choose to include a proforma invoice preview for the
+     *         first renewal. Use in query `include=next_proforma_invoice`.
      * @param  body  Optional parameter: Example:
      * @return    Returns the SignupProformaPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public SignupProformaPreviewResponse previewSignupProformaInvoice(
-            final String includeNextProformaInvoice,
+            final CreateSignupProformaPreviewInclude include,
             final CreateSubscriptionRequest body) throws ApiException, IOException {
-        return preparePreviewSignupProformaInvoiceRequest(includeNextProformaInvoice,
-                body).execute();
+        return preparePreviewSignupProformaInvoiceRequest(include, body).execute();
     }
 
     /**
      * Builds the ApiCall object for previewSignupProformaInvoice.
      */
     private ApiCall<SignupProformaPreviewResponse, ApiException> preparePreviewSignupProformaInvoiceRequest(
-            final String includeNextProformaInvoice,
+            final CreateSignupProformaPreviewInclude include,
             final CreateSubscriptionRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<SignupProformaPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -483,8 +483,8 @@ public final class ProformaInvoicesController extends BaseController {
                         .path("/subscriptions/proforma_invoices/preview.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .queryParam(param -> param.key("include=next_proforma_invoice")
-                                .value(includeNextProformaInvoice).isRequired(false))
+                        .queryParam(param -> param.key("include")
+                                .value((include != null) ? include.value() : null).isRequired(false))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
