@@ -9,31 +9,31 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.ComponentSPricePointAssignmentPricePoint;
+import com.maxio.advancedbilling.models.containers.ComponentPricePointAssignmentPricePoint;
 import io.apimatic.core.types.BaseModel;
 
 /**
- * This is a model class for ComponentSPricePointAssignment type.
+ * This is a model class for ComponentPricePointAssignment type.
  */
-public class ComponentSPricePointAssignment
+public class ComponentPricePointAssignment
         extends BaseModel {
     private Integer componentId;
-    private ComponentSPricePointAssignmentPricePoint pricePoint;
+    private ComponentPricePointAssignmentPricePoint pricePoint;
 
     /**
      * Default constructor.
      */
-    public ComponentSPricePointAssignment() {
+    public ComponentPricePointAssignment() {
     }
 
     /**
      * Initialization constructor.
      * @param  componentId  Integer value for componentId.
-     * @param  pricePoint  ComponentSPricePointAssignmentPricePoint value for pricePoint.
+     * @param  pricePoint  ComponentPricePointAssignmentPricePoint value for pricePoint.
      */
-    public ComponentSPricePointAssignment(
+    public ComponentPricePointAssignment(
             Integer componentId,
-            ComponentSPricePointAssignmentPricePoint pricePoint) {
+            ComponentPricePointAssignmentPricePoint pricePoint) {
         this.componentId = componentId;
         this.pricePoint = pricePoint;
     }
@@ -59,37 +59,37 @@ public class ComponentSPricePointAssignment
 
     /**
      * Getter for PricePoint.
-     * @return Returns the ComponentSPricePointAssignmentPricePoint
+     * @return Returns the ComponentPricePointAssignmentPricePoint
      */
     @JsonGetter("price_point")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ComponentSPricePointAssignmentPricePoint getPricePoint() {
+    public ComponentPricePointAssignmentPricePoint getPricePoint() {
         return pricePoint;
     }
 
     /**
      * Setter for PricePoint.
-     * @param pricePoint Value for ComponentSPricePointAssignmentPricePoint
+     * @param pricePoint Value for ComponentPricePointAssignmentPricePoint
      */
     @JsonSetter("price_point")
-    public void setPricePoint(ComponentSPricePointAssignmentPricePoint pricePoint) {
+    public void setPricePoint(ComponentPricePointAssignmentPricePoint pricePoint) {
         this.pricePoint = pricePoint;
     }
 
     /**
-     * Converts this ComponentSPricePointAssignment into string format.
+     * Converts this ComponentPricePointAssignment into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ComponentSPricePointAssignment [" + "componentId=" + componentId + ", pricePoint="
+        return "ComponentPricePointAssignment [" + "componentId=" + componentId + ", pricePoint="
                 + pricePoint + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
-     * Builds a new {@link ComponentSPricePointAssignment.Builder} object.
+     * Builds a new {@link ComponentPricePointAssignment.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ComponentSPricePointAssignment.Builder} object
+     * @return a new {@link ComponentPricePointAssignment.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -99,11 +99,11 @@ public class ComponentSPricePointAssignment
     }
 
     /**
-     * Class to build instances of {@link ComponentSPricePointAssignment}.
+     * Class to build instances of {@link ComponentPricePointAssignment}.
      */
     public static class Builder {
         private Integer componentId;
-        private ComponentSPricePointAssignmentPricePoint pricePoint;
+        private ComponentPricePointAssignmentPricePoint pricePoint;
 
 
 
@@ -119,20 +119,20 @@ public class ComponentSPricePointAssignment
 
         /**
          * Setter for pricePoint.
-         * @param  pricePoint  ComponentSPricePointAssignmentPricePoint value for pricePoint.
+         * @param  pricePoint  ComponentPricePointAssignmentPricePoint value for pricePoint.
          * @return Builder
          */
-        public Builder pricePoint(ComponentSPricePointAssignmentPricePoint pricePoint) {
+        public Builder pricePoint(ComponentPricePointAssignmentPricePoint pricePoint) {
             this.pricePoint = pricePoint;
             return this;
         }
 
         /**
-         * Builds a new {@link ComponentSPricePointAssignment} object using the set fields.
-         * @return {@link ComponentSPricePointAssignment}
+         * Builds a new {@link ComponentPricePointAssignment} object using the set fields.
+         * @return {@link ComponentPricePointAssignment}
          */
-        public ComponentSPricePointAssignment build() {
-            return new ComponentSPricePointAssignment(componentId, pricePoint);
+        public ComponentPricePointAssignment build() {
+            return new ComponentPricePointAssignment(componentId, pricePoint);
         }
     }
 }

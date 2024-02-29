@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class BulkComponentsPricePointAssignment
         extends BaseModel {
-    private List<ComponentSPricePointAssignment> components;
+    private List<ComponentPricePointAssignment> components;
 
     /**
      * Default constructor.
@@ -27,29 +27,29 @@ public class BulkComponentsPricePointAssignment
 
     /**
      * Initialization constructor.
-     * @param  components  List of ComponentSPricePointAssignment value for components.
+     * @param  components  List of ComponentPricePointAssignment value for components.
      */
     public BulkComponentsPricePointAssignment(
-            List<ComponentSPricePointAssignment> components) {
+            List<ComponentPricePointAssignment> components) {
         this.components = components;
     }
 
     /**
      * Getter for Components.
-     * @return Returns the List of ComponentSPricePointAssignment
+     * @return Returns the List of ComponentPricePointAssignment
      */
     @JsonGetter("components")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ComponentSPricePointAssignment> getComponents() {
+    public List<ComponentPricePointAssignment> getComponents() {
         return components;
     }
 
     /**
      * Setter for Components.
-     * @param components Value for List of ComponentSPricePointAssignment
+     * @param components Value for List of ComponentPricePointAssignment
      */
     @JsonSetter("components")
-    public void setComponents(List<ComponentSPricePointAssignment> components) {
+    public void setComponents(List<ComponentPricePointAssignment> components) {
         this.components = components;
     }
 
@@ -78,16 +78,16 @@ public class BulkComponentsPricePointAssignment
      * Class to build instances of {@link BulkComponentsPricePointAssignment}.
      */
     public static class Builder {
-        private List<ComponentSPricePointAssignment> components;
+        private List<ComponentPricePointAssignment> components;
 
 
 
         /**
          * Setter for components.
-         * @param  components  List of ComponentSPricePointAssignment value for components.
+         * @param  components  List of ComponentPricePointAssignment value for components.
          * @return Builder
          */
-        public Builder components(List<ComponentSPricePointAssignment> components) {
+        public Builder components(List<ComponentPricePointAssignment> components) {
             this.components = components;
             return this;
         }

@@ -430,7 +430,7 @@ A product and customer first name, last name, and email are the minimum requirem
 
 ```java
 SignupProformaPreviewResponse previewSignupProformaInvoice(
-    final String includeNextProformaInvoice,
+    final CreateSignupProformaPreviewInclude include,
     final CreateSubscriptionRequest body)
 ```
 
@@ -438,7 +438,7 @@ SignupProformaPreviewResponse previewSignupProformaInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `includeNextProformaInvoice` | `String` | Query, Optional | Choose to include a proforma invoice preview for the first renewal |
+| `include` | [`CreateSignupProformaPreviewInclude`](../../doc/models/create-signup-proforma-preview-include.md) | Query, Optional | Choose to include a proforma invoice preview for the first renewal. Use in query `include=next_proforma_invoice`. |
 | `body` | [`CreateSubscriptionRequest`](../../doc/models/create-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
