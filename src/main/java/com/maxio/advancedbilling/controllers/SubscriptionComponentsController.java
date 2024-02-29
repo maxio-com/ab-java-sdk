@@ -19,7 +19,7 @@ import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.AllocateComponents;
 import com.maxio.advancedbilling.models.AllocationPreviewResponse;
 import com.maxio.advancedbilling.models.AllocationResponse;
-import com.maxio.advancedbilling.models.BulkComponentSPricePointAssignment;
+import com.maxio.advancedbilling.models.BulkComponentsPricePointAssignment;
 import com.maxio.advancedbilling.models.CreateAllocationRequest;
 import com.maxio.advancedbilling.models.CreateUsageRequest;
 import com.maxio.advancedbilling.models.CreditSchemeRequest;
@@ -173,13 +173,13 @@ public final class SubscriptionComponentsController extends BaseController {
      * string, which will reset the price point to the component's current default price point.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter: Example:
-     * @return    Returns the BulkComponentSPricePointAssignment response from the API call
+     * @return    Returns the BulkComponentsPricePointAssignment response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public BulkComponentSPricePointAssignment bulkUpdateSubscriptionComponentsPricePoints(
+    public BulkComponentsPricePointAssignment bulkUpdateSubscriptionComponentsPricePoints(
             final int subscriptionId,
-            final BulkComponentSPricePointAssignment body) throws ApiException, IOException {
+            final BulkComponentsPricePointAssignment body) throws ApiException, IOException {
         return prepareBulkUpdateSubscriptionComponentsPricePointsRequest(subscriptionId,
                 body).execute();
     }
@@ -187,10 +187,10 @@ public final class SubscriptionComponentsController extends BaseController {
     /**
      * Builds the ApiCall object for bulkUpdateSubscriptionComponentsPricePoints.
      */
-    private ApiCall<BulkComponentSPricePointAssignment, ApiException> prepareBulkUpdateSubscriptionComponentsPricePointsRequest(
+    private ApiCall<BulkComponentsPricePointAssignment, ApiException> prepareBulkUpdateSubscriptionComponentsPricePointsRequest(
             final int subscriptionId,
-            final BulkComponentSPricePointAssignment body) throws JsonProcessingException, IOException {
-        return new ApiCall.Builder<BulkComponentSPricePointAssignment, ApiException>()
+            final BulkComponentsPricePointAssignment body) throws JsonProcessingException, IOException {
+        return new ApiCall.Builder<BulkComponentsPricePointAssignment, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -207,7 +207,7 @@ public final class SubscriptionComponentsController extends BaseController {
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, BulkComponentSPricePointAssignment.class))
+                                response -> ApiHelper.deserialize(response, BulkComponentsPricePointAssignment.class))
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
