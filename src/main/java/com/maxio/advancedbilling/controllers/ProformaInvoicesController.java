@@ -18,6 +18,7 @@ import com.maxio.advancedbilling.models.CreateSignupProformaPreviewInclude;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.ListProformaInvoicesInput;
 import com.maxio.advancedbilling.models.ListProformaInvoicesResponse;
+import com.maxio.advancedbilling.models.ListSubscriptionGroupProformaInvoicesInput;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.SignupProformaPreviewResponse;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
@@ -89,27 +90,39 @@ public final class ProformaInvoicesController extends BaseController {
      * proforma invoices returned on the index will only include totals, not detailed breakdowns for
      * `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`. To include
      * breakdowns, pass the specific field as a key in the query with a value set to true.
-     * @param  uid  Required parameter: The uid of the subscription group
+     * @param  input  ListSubscriptionGroupProformaInvoicesInput object containing request parameters
      * @return    Returns the ListProformaInvoicesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
-            final String uid) throws ApiException, IOException {
-        return prepareListSubscriptionGroupProformaInvoicesRequest(uid).execute();
+            final ListSubscriptionGroupProformaInvoicesInput input) throws ApiException, IOException {
+        return prepareListSubscriptionGroupProformaInvoicesRequest(input).execute();
     }
 
     /**
      * Builds the ApiCall object for listSubscriptionGroupProformaInvoices.
      */
     private ApiCall<ListProformaInvoicesResponse, ApiException> prepareListSubscriptionGroupProformaInvoicesRequest(
-            final String uid) throws IOException {
+            final ListSubscriptionGroupProformaInvoicesInput input) throws IOException {
         return new ApiCall.Builder<ListProformaInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscription_groups/{uid}/proforma_invoices.json")
-                        .templateParam(param -> param.key("uid").value(uid)
+                        .queryParam(param -> param.key("line_items")
+                                .value(input.getLineItems()).isRequired(false))
+                        .queryParam(param -> param.key("discounts")
+                                .value(input.getDiscounts()).isRequired(false))
+                        .queryParam(param -> param.key("taxes")
+                                .value(input.getTaxes()).isRequired(false))
+                        .queryParam(param -> param.key("credits")
+                                .value(input.getCredits()).isRequired(false))
+                        .queryParam(param -> param.key("payments")
+                                .value(input.getPayments()).isRequired(false))
+                        .queryParam(param -> param.key("custom_fields")
+                                .value(input.getCustomFields()).isRequired(false))
+                        .templateParam(param -> param.key("uid").value(input.getUid())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
