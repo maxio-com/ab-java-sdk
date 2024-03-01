@@ -135,9 +135,9 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
         assertThat(proformaInvoice.getCustomerId()).isEqualTo(groupSignup.getCustomerId());
 
         assertThat(proformaInvoice.getDeliveryDate()).isEqualTo(LocalDate.now().plusMonths(1));
-        assertThat(proformaInvoice.getMemo()).isEmpty();
+        assertThat(proformaInvoice.getMemo()).isEqualTo("Thanks for your business! If you have any questions, please contact your account manager.");
         assertThat(proformaInvoice.getNumber()).isNotNull();
-        assertThat(proformaInvoice.getPaymentInstructions()).isEmpty();
+        assertThat(proformaInvoice.getPaymentInstructions()).isEqualTo("Please make checks payable to \"Acme, Inc.\"");
         assertThat(proformaInvoice.getProductFamilyName()).isEqualTo(productFamily.getName());
         assertThat(proformaInvoice.getProductName()).isEqualTo(product.getName());
         assertThat(proformaInvoice.getPublicUrl()).isNotNull().isNotBlank();
