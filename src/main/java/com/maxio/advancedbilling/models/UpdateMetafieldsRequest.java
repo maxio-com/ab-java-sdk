@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.UpdateMetafieldsRequestMetafields;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateMetafieldsRequest type.
  */
-public class UpdateMetafieldsRequest {
+public class UpdateMetafieldsRequest
+        extends BaseModel {
     private UpdateMetafieldsRequestMetafields metafields;
 
     /**
@@ -57,7 +59,8 @@ public class UpdateMetafieldsRequest {
      */
     @Override
     public String toString() {
-        return "UpdateMetafieldsRequest [" + "metafields=" + metafields + "]";
+        return "UpdateMetafieldsRequest [" + "metafields=" + metafields + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

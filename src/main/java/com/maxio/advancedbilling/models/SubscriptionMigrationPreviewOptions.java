@@ -12,12 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for SubscriptionMigrationPreviewOptions type.
  */
-public class SubscriptionMigrationPreviewOptions {
+public class SubscriptionMigrationPreviewOptions
+        extends BaseModel {
     private Integer productId;
     private Integer productPricePointId;
     private Boolean includeTrial;
@@ -322,7 +324,8 @@ public class SubscriptionMigrationPreviewOptions {
                 + ", includeInitialCharge=" + includeInitialCharge + ", includeCoupons="
                 + includeCoupons + ", preservePeriod=" + preservePeriod + ", productHandle="
                 + productHandle + ", productPricePointHandle=" + productPricePointHandle
-                + ", proration=" + proration + ", prorationDate=" + prorationDate + "]";
+                + ", proration=" + proration + ", prorationDate=" + prorationDate
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

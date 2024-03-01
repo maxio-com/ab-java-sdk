@@ -11,13 +11,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for MeteredComponent type.
  */
-public class MeteredComponent {
+public class MeteredComponent
+        extends BaseModel {
     private String name;
     private String unitName;
     private String description;
@@ -640,7 +642,8 @@ public class MeteredComponent {
                 + hideDateRangeOnInvoice + ", priceInCents=" + priceInCents
                 + ", displayOnHostedPage=" + displayOnHostedPage + ", allowFractionalQuantities="
                 + allowFractionalQuantities + ", publicSignupPageIds=" + publicSignupPageIds
-                + ", interval=" + interval + ", intervalUnit=" + intervalUnit + "]";
+                + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

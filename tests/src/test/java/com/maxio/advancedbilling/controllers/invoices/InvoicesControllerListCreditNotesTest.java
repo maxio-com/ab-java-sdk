@@ -25,12 +25,14 @@ import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import io.apimatic.core.types.BaseModel;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -226,10 +228,21 @@ class InvoicesControllerListCreditNotesTest {
                 .getCreditNotes();
 
         // then
-        assertThat(creditNotes).hasSize(1);
-        assertThat(creditNotes.get(0).getRefunds())
+        assertThat(creditNotes)
                 .hasSize(1)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "transactionId", "paymentId", "transactionTime")
+                .extracting(BaseModel::getAdditionalProperties)
+                .containsExactly(Collections.emptyMap());
+        List<InvoiceRefund> refunds = creditNotes.get(0).getRefunds();
+        assertThat(refunds)
+                .hasSize(1)
+                .singleElement()
+                .extracting(BaseModel::getAdditionalProperties)
+                .satisfies(additionalProperties -> {
+                    assertThat(additionalProperties.get("uid")).isNotNull();
+                    assertThat(additionalProperties.get("transaction_time")).isNotNull();
+                });
+        assertThat(refunds)
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "transactionId", "paymentId", "transactionTime", "additionalProperties")
                 .containsExactly(new InvoiceRefund.Builder()
                         .memo("Special refund")
                         .originalAmount("10.5")

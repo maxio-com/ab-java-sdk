@@ -10,13 +10,15 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
  * This is a model class for InvoiceTax type.
  */
-public class InvoiceTax {
+public class InvoiceTax
+        extends BaseModel {
     private String uid;
     private String title;
     private OptionalNullable<String> description;
@@ -344,7 +346,8 @@ public class InvoiceTax {
                 + ", sourceType=" + sourceType + ", sourceId=" + sourceId + ", percentage="
                 + percentage + ", taxableAmount=" + taxableAmount + ", taxAmount=" + taxAmount
                 + ", transactionId=" + transactionId + ", lineItemBreakouts=" + lineItemBreakouts
-                + ", taxComponentBreakouts=" + taxComponentBreakouts + "]";
+                + ", taxComponentBreakouts=" + taxComponentBreakouts + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

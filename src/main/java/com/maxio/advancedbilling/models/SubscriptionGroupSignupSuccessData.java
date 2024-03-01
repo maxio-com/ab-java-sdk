@@ -11,13 +11,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionGroupSignupSuccessData type.
  */
-public class SubscriptionGroupSignupSuccessData {
+public class SubscriptionGroupSignupSuccessData
+        extends BaseModel {
     private String uid;
     private int scheme;
     private int customerId;
@@ -241,7 +243,8 @@ public class SubscriptionGroupSignupSuccessData {
                 + ", customerId=" + customerId + ", paymentProfileId=" + paymentProfileId
                 + ", subscriptionIds=" + subscriptionIds + ", primarySubscriptionId="
                 + primarySubscriptionId + ", nextAssessmentAt=" + nextAssessmentAt + ", state="
-                + state + ", cancelAtEndOfPeriod=" + cancelAtEndOfPeriod + "]";
+                + state + ", cancelAtEndOfPeriod=" + cancelAtEndOfPeriod + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

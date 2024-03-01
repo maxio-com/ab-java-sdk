@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Customer type.
  */
-public class Customer {
+public class Customer
+        extends BaseModel {
     private String firstName;
     private String lastName;
     private String email;
@@ -1183,7 +1185,8 @@ public class Customer {
                 + ", portalInviteLastSentAt=" + portalInviteLastSentAt
                 + ", portalInviteLastAcceptedAt=" + portalInviteLastAcceptedAt + ", taxExempt="
                 + taxExempt + ", vatNumber=" + vatNumber + ", parentId=" + parentId + ", locale="
-                + locale + ", defaultSubscriptionGroupUid=" + defaultSubscriptionGroupUid + "]";
+                + locale + ", defaultSubscriptionGroupUid=" + defaultSubscriptionGroupUid
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

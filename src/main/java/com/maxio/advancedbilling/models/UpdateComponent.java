@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for UpdateComponent type.
  */
-public class UpdateComponent {
+public class UpdateComponent
+        extends BaseModel {
     private String handle;
     private String name;
     private OptionalNullable<String> description;
@@ -390,7 +392,7 @@ public class UpdateComponent {
                 + description + ", accountingCode=" + accountingCode + ", taxable=" + taxable
                 + ", taxCode=" + taxCode + ", itemCategory=" + itemCategory
                 + ", displayOnHostedPage=" + displayOnHostedPage + ", upgradeCharge="
-                + upgradeCharge + "]";
+                + upgradeCharge + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

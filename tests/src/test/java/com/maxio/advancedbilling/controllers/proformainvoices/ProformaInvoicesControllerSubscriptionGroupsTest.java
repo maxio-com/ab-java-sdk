@@ -6,6 +6,7 @@ import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ListProformaInvoicesResponse;
+import com.maxio.advancedbilling.models.ListSubscriptionGroupProformaInvoicesInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
@@ -55,7 +56,10 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
     void shouldListGroupProformas() throws IOException, ApiException {
         // given-when
         ListProformaInvoicesResponse listProformaInvoicesResponse = PROFORMA_INVOICES_CONTROLLER
-                .listSubscriptionGroupProformaInvoices(groupSignup.getUid());
+                .listSubscriptionGroupProformaInvoices(new ListSubscriptionGroupProformaInvoicesInput.Builder()
+                        .uid(groupSignup.getUid())
+                        .build()
+                );
 
         // then
         assertThat(listProformaInvoicesResponse.getProformaInvoices()).isNotEmpty();

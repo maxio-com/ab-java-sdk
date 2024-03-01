@@ -8,6 +8,7 @@ import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CollectionMethod;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
+import com.maxio.advancedbilling.models.CreateSignupProformaPreviewInclude;
 import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
@@ -37,11 +38,13 @@ import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
 import com.maxio.advancedbilling.utils.TestSetup;
+import io.apimatic.core.types.BaseModel;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.maxio.advancedbilling.models.ProformaInvoiceStatus.DRAFT;
@@ -51,7 +54,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ProformaInvoicesCreator {
 
-    private static final TestSetup TEST_SETUP  = new TestSetup();
+    private static final TestSetup TEST_SETUP = new TestSetup();
     private static final AdvancedBillingClient CLIENT = TestClient.createClient();
 
     private final Product product;
@@ -107,7 +110,7 @@ class ProformaInvoicesCreator {
         Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
 
         SignupProformaPreview signupProformaPreview = CLIENT.getProformaInvoicesController().previewSignupProformaInvoice(
-                "true",
+                CreateSignupProformaPreviewInclude.NEXT_PROFORMA_INVOICE,
                 new CreateSubscriptionRequest(
                         getCreateSubscription(customer, meteredComponent, quantityBasedComponent)
                 )
@@ -187,8 +190,13 @@ class ProformaInvoicesCreator {
                                // won't be shifted
                                boolean isSignup) {
         ProformaInvoice proformaInvoice = invoiceWithData.invoice();
+        assertThat(proformaInvoice.getAdditionalProperties()).isEmpty();
+
         Component quantityBasedComponent = invoiceWithData.quantityBasedComponent();
+        assertThat(quantityBasedComponent.getAdditionalProperties()).isEmpty();
+
         Component meteredComponent = invoiceWithData.meteredComponent();
+        assertThat(meteredComponent.getAdditionalProperties()).isEmpty();
 
         if (assertPreservationDataNonEmpty) {
             assertThat(proformaInvoice.getNumber()).isNotNull();
@@ -215,6 +223,7 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getUid()).isNotNull().isNotBlank();
 
         InvoiceAddress invoiceBillingAddress = proformaInvoice.getBillingAddress();
+        assertThat(invoiceBillingAddress.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceBillingAddress).isNotNull(),
                 () -> assertThat(invoiceBillingAddress.getStreet()).isEqualTo("My Billing Address"),
@@ -226,6 +235,7 @@ class ProformaInvoicesCreator {
         );
 
         InvoiceAddress invoiceShippingAddress = proformaInvoice.getShippingAddress();
+        assertThat(invoiceShippingAddress.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceShippingAddress).isNotNull(),
                 () -> assertThat(invoiceShippingAddress.getStreet()).isEqualTo(customer.getAddress()),
@@ -245,6 +255,7 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getCustomFields()).isEmpty();
 
         InvoiceCustomer invoiceCustomer = proformaInvoice.getCustomer();
+        assertThat(invoiceCustomer.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceCustomer).isNotNull(),
                 () -> assertThat(invoiceCustomer.getChargifyId()).isEqualTo(customer.getId()),
@@ -270,6 +281,7 @@ class ProformaInvoicesCreator {
         assertThat(proformaInvoice.getRole()).isEqualTo(ProformaInvoiceRole.PROFORMA_ADHOC);
 
         InvoiceSeller invoiceSeller = proformaInvoice.getSeller();
+        assertThat(invoiceSeller.getAdditionalProperties()).isEmpty();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
                 .isEqualTo(INVOICE_SELLER);
@@ -287,8 +299,8 @@ class ProformaInvoicesCreator {
                 isSignup ? formatDescriptionDate(LocalDate.now().plusMonths(1)) :
                         formatDescriptionDate(LocalDate.now().plusMonths(1).plusMonths(1)));
 
-        List<InvoiceLineItem> lineItems = new ArrayList<>();
-        lineItems.add(
+        List<InvoiceLineItem> expectedLineItems = new ArrayList<>();
+        expectedLineItems.add(
                 new InvoiceLineItem.Builder()
                         .title(product.getName())
                         .description(lineItemDescription)
@@ -310,7 +322,7 @@ class ProformaInvoicesCreator {
                         .productPricePointId(product.getDefaultProductPricePointId())
                         .customItem(false)
                         .build());
-        lineItems.add(
+        expectedLineItems.add(
                 new InvoiceLineItem.Builder()
                         .title(meteredComponent.getName())
                         .description(isSignup ? formatDescriptionDate(LocalDate.now()) : "%s - %s"
@@ -334,7 +346,7 @@ class ProformaInvoicesCreator {
                         .productPricePointId(product.getDefaultProductPricePointId())
                         .customItem(false)
                         .build());
-        lineItems.add(
+        expectedLineItems.add(
                 new InvoiceLineItem.Builder()
                         .title(quantityBasedComponent.getName())
                         .description(lineItemDescription)
@@ -359,7 +371,7 @@ class ProformaInvoicesCreator {
         );
 
         if (!isSignup) {
-            lineItems.add(
+            expectedLineItems.add(
                     new InvoiceLineItem.Builder()
                             .title("%s: 0 to 20 units".formatted(quantityBasedComponent.getName()))
                             .description("Prorated: %s - %s (100.0%% of original period)"
@@ -386,10 +398,11 @@ class ProformaInvoicesCreator {
         }
 
         assertThat(proformaInvoice.getLineItems())
-                .hasSize(lineItems.size())
+                .hasSize(expectedLineItems.size())
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid")
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "additionalProperties")
                 .containsExactlyInAnyOrder(
-                        lineItems.toArray(new InvoiceLineItem[0])
+                        expectedLineItems.toArray(new InvoiceLineItem[0])
                 );
     }
 
@@ -399,7 +412,7 @@ class ProformaInvoicesCreator {
     }
 
     record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,
-                                                   Component meteredComponent) {
+                                         Component meteredComponent) {
     }
 
     record SignupProformaPreviewWithComponents(SignupProformaPreview preview, Component quantityBasedComponent,

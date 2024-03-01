@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for UpdateAllocationExpirationDate type.
  */
-public class UpdateAllocationExpirationDate {
+public class UpdateAllocationExpirationDate
+        extends BaseModel {
     private AllocationExpirationDate allocation;
 
     /**
@@ -56,7 +58,8 @@ public class UpdateAllocationExpirationDate {
      */
     @Override
     public String toString() {
-        return "UpdateAllocationExpirationDate [" + "allocation=" + allocation + "]";
+        return "UpdateAllocationExpirationDate [" + "allocation=" + allocation
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

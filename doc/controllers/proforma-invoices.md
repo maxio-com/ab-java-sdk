@@ -75,7 +75,7 @@ By default, proforma invoices returned on the index will only include totals, no
 
 ```java
 ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
-    final String uid)
+    final ListSubscriptionGroupProformaInvoicesInput input)
 ```
 
 ## Parameters
@@ -83,6 +83,12 @@ ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `uid` | `String` | Template, Required | The uid of the subscription group |
+| `lineItems` | `Boolean` | Query, Optional | Include line items data |
+| `discounts` | `Boolean` | Query, Optional | Include discounts data |
+| `taxes` | `Boolean` | Query, Optional | Include taxes data |
+| `credits` | `Boolean` | Query, Optional | Include credits data |
+| `payments` | `Boolean` | Query, Optional | Include payments data |
+| `customFields` | `Boolean` | Query, Optional | Include custom fields data |
 
 ## Response Type
 
@@ -91,10 +97,19 @@ ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
 ## Example Usage
 
 ```java
-String uid = "uid0";
+ListSubscriptionGroupProformaInvoicesInput listSubscriptionGroupProformaInvoicesInput = new ListSubscriptionGroupProformaInvoicesInput.Builder(
+    "uid0"
+)
+.lineItems(false)
+.discounts(false)
+.taxes(false)
+.credits(false)
+.payments(false)
+.customFields(false)
+.build();
 
 try {
-    ListProformaInvoicesResponse result = proformaInvoicesController.listSubscriptionGroupProformaInvoices(uid);
+    ListProformaInvoicesResponse result = proformaInvoicesController.listSubscriptionGroupProformaInvoices(listSubscriptionGroupProformaInvoicesInput);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -218,7 +233,7 @@ ListProformaInvoicesResponse listProformaInvoices(
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `startDate` | `String` | Query, Optional | The beginning date range for the invoice's Due Date, in the YYYY-MM-DD format. |
 | `endDate` | `String` | Query, Optional | The ending date range for the invoice's Due Date, in the YYYY-MM-DD format. |
-| `status` | [`InvoiceStatus`](../../doc/models/invoice-status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
+| `status` | [`ProformaInvoiceStatus`](../../doc/models/proforma-invoice-status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices. |
@@ -430,7 +445,7 @@ A product and customer first name, last name, and email are the minimum requirem
 
 ```java
 SignupProformaPreviewResponse previewSignupProformaInvoice(
-    final String includeNextProformaInvoice,
+    final CreateSignupProformaPreviewInclude include,
     final CreateSubscriptionRequest body)
 ```
 
@@ -438,7 +453,7 @@ SignupProformaPreviewResponse previewSignupProformaInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `includeNextProformaInvoice` | `String` | Query, Optional | Choose to include a proforma invoice preview for the first renewal |
+| `include` | [`CreateSignupProformaPreviewInclude`](../../doc/models/create-signup-proforma-preview-include.md) | Query, Optional | Choose to include a proforma invoice preview for the first renewal. Use in query `include=next_proforma_invoice`. |
 | `body` | [`CreateSubscriptionRequest`](../../doc/models/create-subscription-request.md) | Body, Optional | - |
 
 ## Response Type

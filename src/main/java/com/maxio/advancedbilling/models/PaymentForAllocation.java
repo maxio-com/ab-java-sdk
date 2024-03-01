@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for PaymentForAllocation type.
  */
-public class PaymentForAllocation {
+public class PaymentForAllocation
+        extends BaseModel {
     private Integer id;
     private Long amountInCents;
     private Boolean success;
@@ -126,7 +128,8 @@ public class PaymentForAllocation {
     @Override
     public String toString() {
         return "PaymentForAllocation [" + "id=" + id + ", amountInCents=" + amountInCents
-                + ", success=" + success + ", memo=" + memo + "]";
+                + ", success=" + success + ", memo=" + memo + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for InvoiceDisplaySettings type.
  */
-public class InvoiceDisplaySettings {
+public class InvoiceDisplaySettings
+        extends BaseModel {
     private Boolean hideZeroSubtotalLines;
     private Boolean includeDiscountsOnLines;
 
@@ -80,7 +82,8 @@ public class InvoiceDisplaySettings {
     @Override
     public String toString() {
         return "InvoiceDisplaySettings [" + "hideZeroSubtotalLines=" + hideZeroSubtotalLines
-                + ", includeDiscountsOnLines=" + includeDiscountsOnLines + "]";
+                + ", includeDiscountsOnLines=" + includeDiscountsOnLines + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

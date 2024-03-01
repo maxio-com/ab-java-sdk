@@ -8,12 +8,14 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ReplayWebhooksRequest type.
  */
-public class ReplayWebhooksRequest {
+public class ReplayWebhooksRequest
+        extends BaseModel {
     private List<Long> ids;
 
     /**
@@ -55,7 +57,8 @@ public class ReplayWebhooksRequest {
      */
     @Override
     public String toString() {
-        return "ReplayWebhooksRequest [" + "ids=" + ids + "]";
+        return "ReplayWebhooksRequest [" + "ids=" + ids + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

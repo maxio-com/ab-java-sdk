@@ -37,6 +37,7 @@ import com.maxio.advancedbilling.models.containers.CreateInvoiceItemUnitPrice;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
+import io.apimatic.core.types.BaseModel;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
@@ -196,9 +198,17 @@ public class InvoicesControllerCreateTest {
         assertThat(invoice.getPaidAmount()).isEqualTo("0.0");
         assertThat(invoice.getDueAmount()).isEqualTo("129.0");
 
-        assertThat(invoice.getLineItems())
+        List<InvoiceLineItem> lineItems = invoice.getLineItems();
+        assertThat(lineItems)
                 .hasSize(3)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid")
+                .extracting(BaseModel::getAdditionalProperties)
+                .containsExactlyInAnyOrder(
+                        Collections.singletonMap("billing_schedule_item_id", null),
+                        Collections.singletonMap("billing_schedule_item_id", null),
+                        Collections.singletonMap("billing_schedule_item_id", null)
+                );
+        assertThat(lineItems)
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "additionalProperties")
                 .containsExactlyInAnyOrder(
                         new InvoiceLineItem.Builder()
                                 .title(product.getName())

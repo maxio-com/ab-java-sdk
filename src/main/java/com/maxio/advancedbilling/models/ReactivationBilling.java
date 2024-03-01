@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for ReactivationBilling type.
  */
-public class ReactivationBilling {
+public class ReactivationBilling
+        extends BaseModel {
     private ReactivationCharge reactivationCharge;
 
     /**
@@ -65,7 +67,8 @@ public class ReactivationBilling {
      */
     @Override
     public String toString() {
-        return "ReactivationBilling [" + "reactivationCharge=" + reactivationCharge + "]";
+        return "ReactivationBilling [" + "reactivationCharge=" + reactivationCharge
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

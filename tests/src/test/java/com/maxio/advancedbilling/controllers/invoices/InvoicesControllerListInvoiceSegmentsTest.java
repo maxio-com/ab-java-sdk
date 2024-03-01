@@ -65,7 +65,7 @@ public class InvoicesControllerListInvoiceSegmentsTest {
         // given
         // Invoice segments returned on the index will only include totals, not detailed breakdowns for line_items,
         // discounts, taxes, credits, payments, or custom_fields
-        String[] IGNORED_FIELDS = {"credits", "customFields", "discounts", "lineItems", "payments", "refunds", "taxes", "updatedAt", "createdAt"};
+        String[] IGNORED_FIELDS = {"credits", "customFields", "discounts", "lineItems", "payments", "refunds", "taxes", "updatedAt", "createdAt", "additionalProperties"};
 
         Invoice subscriptionGroupInvoice = INVOICES_CONTROLLER
                 .listInvoices(new ListInvoicesInput.Builder()
@@ -93,7 +93,10 @@ public class InvoicesControllerListInvoiceSegmentsTest {
                 .collect(Collectors.toMap(Invoice::getSubscriptionId, Function.identity()));
 
         Invoice segment1 = subscriptionIdToInvoice.get(groupSignup.getSubscriptionIds().get(0));
+        assertThat(segment1.getAdditionalProperties()).containsExactly(Map.entry("debit_amount", "0.0"));
+
         Invoice segment2 = subscriptionIdToInvoice.get(groupSignup.getSubscriptionIds().get(1));
+        assertThat(segment2.getAdditionalProperties()).containsExactly(Map.entry("debit_amount", "0.0"));
 
         assertThat(segment1)
                 .usingRecursiveComparison()

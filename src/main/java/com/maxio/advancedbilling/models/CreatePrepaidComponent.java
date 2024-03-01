@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreatePrepaidComponent type.
  */
-public class CreatePrepaidComponent {
+public class CreatePrepaidComponent
+        extends BaseModel {
     private PrepaidUsageComponent prepaidUsageComponent;
 
     /**
@@ -54,7 +56,8 @@ public class CreatePrepaidComponent {
      */
     @Override
     public String toString() {
-        return "CreatePrepaidComponent [" + "prepaidUsageComponent=" + prepaidUsageComponent + "]";
+        return "CreatePrepaidComponent [" + "prepaidUsageComponent=" + prepaidUsageComponent
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

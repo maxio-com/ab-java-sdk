@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ListMRRResponseResult type.
  */
-public class ListMRRResponseResult {
+public class ListMRRResponseResult
+        extends BaseModel {
     private Integer page;
     private Integer perPage;
     private Integer totalPages;
@@ -197,7 +199,8 @@ public class ListMRRResponseResult {
     public String toString() {
         return "ListMRRResponseResult [" + "page=" + page + ", perPage=" + perPage + ", totalPages="
                 + totalPages + ", totalEntries=" + totalEntries + ", currency=" + currency
-                + ", currencySymbol=" + currencySymbol + ", movements=" + movements + "]";
+                + ", currencySymbol=" + currencySymbol + ", movements=" + movements
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

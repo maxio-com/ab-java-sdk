@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateInvoicePaymentAmount;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateInvoicePayment type.
  */
-public class CreateInvoicePayment {
+public class CreateInvoicePayment
+        extends BaseModel {
     private CreateInvoicePaymentAmount amount;
     private String memo;
     private InvoicePaymentMethodType method;
@@ -160,7 +162,8 @@ public class CreateInvoicePayment {
     @Override
     public String toString() {
         return "CreateInvoicePayment [" + "amount=" + amount + ", memo=" + memo + ", method="
-                + method + ", details=" + details + ", paymentProfileId=" + paymentProfileId + "]";
+                + method + ", details=" + details + ", paymentProfileId=" + paymentProfileId
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

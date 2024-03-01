@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateEBBComponent type.
  */
-public class CreateEBBComponent {
+public class CreateEBBComponent
+        extends BaseModel {
     private EBBComponent eventBasedComponent;
 
     /**
@@ -54,7 +56,8 @@ public class CreateEBBComponent {
      */
     @Override
     public String toString() {
-        return "CreateEBBComponent [" + "eventBasedComponent=" + eventBasedComponent + "]";
+        return "CreateEBBComponent [" + "eventBasedComponent=" + eventBasedComponent
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for BankAccountAttributes type.
  */
-public class BankAccountAttributes {
+public class BankAccountAttributes
+        extends BaseModel {
     private String chargifyToken;
     private String bankName;
     private String bankRoutingNumber;
@@ -347,7 +349,7 @@ public class BankAccountAttributes {
                 + bankBranchCode + ", bankIban=" + bankIban + ", bankAccountHolderType="
                 + bankAccountHolderType + ", paymentType=" + paymentType + ", currentVault="
                 + currentVault + ", vaultToken=" + vaultToken + ", customerVaultToken="
-                + customerVaultToken + "]";
+                + customerVaultToken + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
  * This is a model class for InvoicePreviousBalance type.
  */
-public class InvoicePreviousBalance {
+public class InvoicePreviousBalance
+        extends BaseModel {
     private ZonedDateTime capturedAt;
     private List<InvoiceBalanceItem> invoices;
 
@@ -87,7 +89,7 @@ public class InvoicePreviousBalance {
     @Override
     public String toString() {
         return "InvoicePreviousBalance [" + "capturedAt=" + capturedAt + ", invoices=" + invoices
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

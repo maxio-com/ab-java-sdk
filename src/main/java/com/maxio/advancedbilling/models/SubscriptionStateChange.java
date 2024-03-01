@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionStateChange type.
  */
-public class SubscriptionStateChange {
+public class SubscriptionStateChange
+        extends BaseModel {
     private String previousSubscriptionState;
     private String newSubscriptionState;
 
@@ -81,7 +83,7 @@ public class SubscriptionStateChange {
     public String toString() {
         return "SubscriptionStateChange [" + "previousSubscriptionState="
                 + previousSubscriptionState + ", newSubscriptionState=" + newSubscriptionState
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

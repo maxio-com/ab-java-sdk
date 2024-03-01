@@ -14,12 +14,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.VoidInvoiceEventDataCreditNoteAttributes;
+import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for VoidInvoiceEventData type.
  */
-public class VoidInvoiceEventData {
+public class VoidInvoiceEventData
+        extends BaseModel {
     private VoidInvoiceEventDataCreditNoteAttributes creditNoteAttributes;
     private String memo;
     private String appliedAmount;
@@ -187,7 +189,8 @@ public class VoidInvoiceEventData {
     public String toString() {
         return "VoidInvoiceEventData [" + "creditNoteAttributes=" + creditNoteAttributes + ", memo="
                 + memo + ", appliedAmount=" + appliedAmount + ", transactionTime=" + transactionTime
-                + ", isAdvanceInvoice=" + isAdvanceInvoice + ", reason=" + reason + "]";
+                + ", isAdvanceInvoice=" + isAdvanceInvoice + ", reason=" + reason
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

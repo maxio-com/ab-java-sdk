@@ -15,11 +15,13 @@ import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInterv
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPricePriceInCents;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialInterval;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialPriceInCents;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionCustomPrice type.
  */
-public class SubscriptionCustomPrice {
+public class SubscriptionCustomPrice
+        extends BaseModel {
     private String name;
     private String handle;
     private SubscriptionCustomPricePriceInCents priceInCents;
@@ -371,7 +373,7 @@ public class SubscriptionCustomPrice {
                 + ", initialChargeInCents=" + initialChargeInCents + ", initialChargeAfterTrial="
                 + initialChargeAfterTrial + ", expirationInterval=" + expirationInterval
                 + ", expirationIntervalUnit=" + expirationIntervalUnit + ", taxIncluded="
-                + taxIncluded + "]";
+                + taxIncluded + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

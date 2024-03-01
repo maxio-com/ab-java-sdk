@@ -12,13 +12,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.LocalDate;
 
 /**
  * This is a model class for CreditNoteLineItem type.
  */
-public class CreditNoteLineItem {
+public class CreditNoteLineItem
+        extends BaseModel {
     private String uid;
     private String title;
     private String description;
@@ -638,7 +640,7 @@ public class CreditNoteLineItem {
                 + periodRangeEnd + ", productId=" + productId + ", productVersion=" + productVersion
                 + ", componentId=" + componentId + ", pricePointId=" + pricePointId
                 + ", billingScheduleItemId=" + billingScheduleItemId + ", customItem=" + customItem
-                + "]";
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

@@ -15,13 +15,15 @@ import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.AllocationPayment;
 import com.maxio.advancedbilling.models.containers.AllocationPreviousQuantity;
 import com.maxio.advancedbilling.models.containers.AllocationQuantity;
+import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for Allocation type.
  */
-public class Allocation {
+public class Allocation
+        extends BaseModel {
     private Integer allocationId;
     private Integer componentId;
     private OptionalNullable<String> componentHandle;
@@ -44,6 +46,9 @@ public class Allocation {
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private OptionalNullable<AllocationPayment> payment;
+    private ZonedDateTime expiresAt;
+    private Long usedQuantity;
+    private Long chargeId;
 
     /**
      * Default constructor.
@@ -75,6 +80,9 @@ public class Allocation {
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  payment  AllocationPayment value for payment.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
+     * @param  usedQuantity  Long value for usedQuantity.
+     * @param  chargeId  Long value for chargeId.
      */
     public Allocation(
             Integer allocationId,
@@ -98,7 +106,10 @@ public class Allocation {
             Boolean initiateDunning,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            AllocationPayment payment) {
+            AllocationPayment payment,
+            ZonedDateTime expiresAt,
+            Long usedQuantity,
+            Long chargeId) {
         this.allocationId = allocationId;
         this.componentId = componentId;
         this.componentHandle = OptionalNullable.of(componentHandle);
@@ -121,6 +132,9 @@ public class Allocation {
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.payment = OptionalNullable.of(payment);
+        this.expiresAt = expiresAt;
+        this.usedQuantity = usedQuantity;
+        this.chargeId = chargeId;
     }
 
     /**
@@ -147,6 +161,9 @@ public class Allocation {
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  payment  AllocationPayment value for payment.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
+     * @param  usedQuantity  Long value for usedQuantity.
+     * @param  chargeId  Long value for chargeId.
      */
 
     protected Allocation(Integer allocationId, Integer componentId,
@@ -158,7 +175,8 @@ public class Allocation {
             IntervalUnit intervalUnit, Integer previousPricePointId, Boolean accrueCharge,
             Boolean initiateDunning, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
-            OptionalNullable<AllocationPayment> payment) {
+            OptionalNullable<AllocationPayment> payment, ZonedDateTime expiresAt, Long usedQuantity,
+            Long chargeId) {
         this.allocationId = allocationId;
         this.componentId = componentId;
         this.componentHandle = componentHandle;
@@ -181,6 +199,9 @@ public class Allocation {
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
         this.payment = payment;
+        this.expiresAt = expiresAt;
+        this.usedQuantity = usedQuantity;
+        this.chargeId = chargeId;
     }
 
     /**
@@ -764,6 +785,65 @@ public class Allocation {
     }
 
     /**
+     * Getter for ExpiresAt.
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    /**
+     * Setter for ExpiresAt.
+     * @param expiresAt Value for ZonedDateTime
+     */
+    @JsonSetter("expires_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setExpiresAt(ZonedDateTime expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    /**
+     * Getter for UsedQuantity.
+     * @return Returns the Long
+     */
+    @JsonGetter("used_quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getUsedQuantity() {
+        return usedQuantity;
+    }
+
+    /**
+     * Setter for UsedQuantity.
+     * @param usedQuantity Value for Long
+     */
+    @JsonSetter("used_quantity")
+    public void setUsedQuantity(Long usedQuantity) {
+        this.usedQuantity = usedQuantity;
+    }
+
+    /**
+     * Getter for ChargeId.
+     * @return Returns the Long
+     */
+    @JsonGetter("charge_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getChargeId() {
+        return chargeId;
+    }
+
+    /**
+     * Setter for ChargeId.
+     * @param chargeId Value for Long
+     */
+    @JsonSetter("charge_id")
+    public void setChargeId(Long chargeId) {
+        this.chargeId = chargeId;
+    }
+
+    /**
      * Converts this Allocation into string format.
      * @return String representation of this class
      */
@@ -780,7 +860,8 @@ public class Allocation {
                 + ", previousPricePointId=" + previousPricePointId + ", accrueCharge="
                 + accrueCharge + ", initiateDunning=" + initiateDunning + ", upgradeCharge="
                 + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", payment=" + payment
-                + "]";
+                + ", expiresAt=" + expiresAt + ", usedQuantity=" + usedQuantity + ", chargeId="
+                + chargeId + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -806,7 +887,10 @@ public class Allocation {
                 .intervalUnit(getIntervalUnit())
                 .previousPricePointId(getPreviousPricePointId())
                 .accrueCharge(getAccrueCharge())
-                .initiateDunning(getInitiateDunning());
+                .initiateDunning(getInitiateDunning())
+                .expiresAt(getExpiresAt())
+                .usedQuantity(getUsedQuantity())
+                .chargeId(getChargeId());
         builder.componentHandle = internalGetComponentHandle();
         builder.memo = internalGetMemo();
         builder.upgradeCharge = internalGetUpgradeCharge();
@@ -841,6 +925,9 @@ public class Allocation {
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
         private OptionalNullable<AllocationPayment> payment;
+        private ZonedDateTime expiresAt;
+        private Long usedQuantity;
+        private Long chargeId;
 
 
 
@@ -1110,6 +1197,36 @@ public class Allocation {
         }
 
         /**
+         * Setter for expiresAt.
+         * @param  expiresAt  ZonedDateTime value for expiresAt.
+         * @return Builder
+         */
+        public Builder expiresAt(ZonedDateTime expiresAt) {
+            this.expiresAt = expiresAt;
+            return this;
+        }
+
+        /**
+         * Setter for usedQuantity.
+         * @param  usedQuantity  Long value for usedQuantity.
+         * @return Builder
+         */
+        public Builder usedQuantity(Long usedQuantity) {
+            this.usedQuantity = usedQuantity;
+            return this;
+        }
+
+        /**
+         * Setter for chargeId.
+         * @param  chargeId  Long value for chargeId.
+         * @return Builder
+         */
+        public Builder chargeId(Long chargeId) {
+            this.chargeId = chargeId;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Allocation} object using the set fields.
          * @return {@link Allocation}
          */
@@ -1118,7 +1235,7 @@ public class Allocation {
                     quantity, previousQuantity, memo, timestamp, createdAt, prorationUpgradeScheme,
                     prorationDowngradeScheme, pricePointId, pricePointName, pricePointHandle,
                     interval, intervalUnit, previousPricePointId, accrueCharge, initiateDunning,
-                    upgradeCharge, downgradeCredit, payment);
+                    upgradeCharge, downgradeCredit, payment, expiresAt, usedQuantity, chargeId);
         }
     }
 }

@@ -9,11 +9,13 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for SubscriptionGroupBalances type.
  */
-public class SubscriptionGroupBalances {
+public class SubscriptionGroupBalances
+        extends BaseModel {
     private AccountBalance prepayments;
     private AccountBalance serviceCredits;
     private AccountBalance openInvoices;
@@ -127,7 +129,7 @@ public class SubscriptionGroupBalances {
     public String toString() {
         return "SubscriptionGroupBalances [" + "prepayments=" + prepayments + ", serviceCredits="
                 + serviceCredits + ", openInvoices=" + openInvoices + ", pendingDiscounts="
-                + pendingDiscounts + "]";
+                + pendingDiscounts + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

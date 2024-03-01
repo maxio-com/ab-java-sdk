@@ -33,7 +33,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForCustomer;
 import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForSubscription;
@@ -271,10 +273,16 @@ public class InvoicesControllerRefundInvoiceTest {
 
     private void assertRefundedInvoice(Invoice refundedInvoice, Invoice paidInvoice) {
         assertThat(refundedInvoice).isNotNull();
+        assertThat(refundedInvoice.getAdditionalProperties())
+                .hasSize(2)
+                .containsExactly(
+                        Map.entry("debit_amount", "0.0"),
+                        Map.entry("debits", Collections.emptyList())
+                );
         assertThat(refundedInvoice)
                 .usingRecursiveComparison()
                 .ignoringFields("createdAt", "updatedAt", "previousBalanceData.capturedAt",
-                        "payments.transactionTime", "creditAmount", "refundAmount", "credits", "refunds")
+                        "payments.transactionTime", "creditAmount", "refundAmount", "credits", "refunds", "additionalProperties")
                 .isEqualTo(paidInvoice);
     }
 

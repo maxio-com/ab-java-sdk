@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for ListInvoiceEventsResponse type.
  */
-public class ListInvoiceEventsResponse {
+public class ListInvoiceEventsResponse
+        extends BaseModel {
     private List<InvoiceEvent> events;
     private Integer page;
     private Integer perPage;
@@ -127,7 +129,8 @@ public class ListInvoiceEventsResponse {
     @Override
     public String toString() {
         return "ListInvoiceEventsResponse [" + "events=" + events + ", page=" + page + ", perPage="
-                + perPage + ", totalPages=" + totalPages + "]";
+                + perPage + ", totalPages=" + totalPages + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**

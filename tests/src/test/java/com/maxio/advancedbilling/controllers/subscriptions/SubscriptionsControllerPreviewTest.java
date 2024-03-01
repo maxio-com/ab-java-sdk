@@ -20,6 +20,7 @@ import com.maxio.advancedbilling.models.SubscriptionPreview;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
+import io.apimatic.core.types.BaseModel;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -123,9 +125,18 @@ class SubscriptionsControllerPreviewTest {
         assertThat(subscriptionPreview).isNotNull();
 
         BillingManifest currentBillingManifest = subscriptionPreview.getCurrentBillingManifest();
+        assertThat(currentBillingManifest.getAdditionalProperties()).isEmpty();
+        assertThat(currentBillingManifest.getLineItems())
+                .extracting(BaseModel::getAdditionalProperties)
+                .containsExactlyInAnyOrder(
+                        Collections.emptyMap(),
+                        Collections.emptyMap(),
+                        Map.of("coupon_code", percentageCoupon.getCode())
+                );
         assertThat(currentBillingManifest)
                 .usingRecursiveComparison()
-                .ignoringFields("startDate", "endDate")
+                .ignoringFields("startDate", "endDate", "additionalProperties", "lineItems.additionalProperties")
+                .ignoringFieldsOfTypes(Map.class)
                 .isEqualTo(new BillingManifest.Builder()
                         .lineItems(List.of(
                                 new BillingManifestItem.Builder()

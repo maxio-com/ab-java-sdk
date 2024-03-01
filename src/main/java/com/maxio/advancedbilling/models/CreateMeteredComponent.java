@@ -8,11 +8,13 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 
 /**
  * This is a model class for CreateMeteredComponent type.
  */
-public class CreateMeteredComponent {
+public class CreateMeteredComponent
+        extends BaseModel {
     private MeteredComponent meteredComponent;
 
     /**
@@ -54,7 +56,8 @@ public class CreateMeteredComponent {
      */
     @Override
     public String toString() {
-        return "CreateMeteredComponent [" + "meteredComponent=" + meteredComponent + "]";
+        return "CreateMeteredComponent [" + "meteredComponent=" + meteredComponent
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

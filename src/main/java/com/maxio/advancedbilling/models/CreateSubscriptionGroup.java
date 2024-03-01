@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroupSubscriptionId;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for CreateSubscriptionGroup type.
  */
-public class CreateSubscriptionGroup {
+public class CreateSubscriptionGroup
+        extends BaseModel {
     private CreateSubscriptionGroupSubscriptionId subscriptionId;
     private List<Integer> memberIds;
 
@@ -81,7 +83,7 @@ public class CreateSubscriptionGroup {
     @Override
     public String toString() {
         return "CreateSubscriptionGroup [" + "subscriptionId=" + subscriptionId + ", memberIds="
-                + memberIds + "]";
+                + memberIds + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**

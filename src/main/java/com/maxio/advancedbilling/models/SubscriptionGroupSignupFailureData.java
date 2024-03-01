@@ -9,12 +9,14 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
 /**
  * This is a model class for SubscriptionGroupSignupFailureData type.
  */
-public class SubscriptionGroupSignupFailureData {
+public class SubscriptionGroupSignupFailureData
+        extends BaseModel {
     private Integer payerId;
     private String payerReference;
     private Integer paymentProfileId;
@@ -223,7 +225,7 @@ public class SubscriptionGroupSignupFailureData {
                 + ", paymentCollectionMethod=" + paymentCollectionMethod + ", payerAttributes="
                 + payerAttributes + ", creditCardAttributes=" + creditCardAttributes
                 + ", bankAccountAttributes=" + bankAccountAttributes + ", subscriptions="
-                + subscriptions + "]";
+                + subscriptions + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
