@@ -399,7 +399,6 @@ class ProformaInvoicesCreator {
 
         assertThat(proformaInvoice.getLineItems())
                 .hasSize(expectedLineItems.size())
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid")
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "additionalProperties")
                 .containsExactlyInAnyOrder(
                         expectedLineItems.toArray(new InvoiceLineItem[0])
