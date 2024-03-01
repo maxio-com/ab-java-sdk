@@ -1,15 +1,13 @@
 package com.maxio.advancedbilling.controllers.proformainvoices;
 
-import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
-import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoiceStatus;
+import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.VoidInvoice;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
-import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.AfterAll;
@@ -20,20 +18,16 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProformaInvoicesControllerVoidTest {
-
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
-    private static final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
-            .getProformaInvoicesController();
-    private static ProformaInvoicesCreator proformaInvoicesCreator;
+public class ProformaInvoicesControllerVoidTest extends ProformaInvoicesTestBase {
 
     private static Customer customer;
+
+    ProformaInvoicesControllerVoidTest() throws IOException, ApiException {
+    }
 
     @BeforeAll
     static void setUp() throws IOException, ApiException {
         customer = TEST_SETUP.createCustomer();
-        proformaInvoicesCreator = new ProformaInvoicesCreator();
     }
 
     @AfterAll
@@ -44,7 +38,7 @@ public class ProformaInvoicesControllerVoidTest {
     @Test
     public void shouldVoidProformaInvoice() throws IOException, ApiException {
         // given
-        ProformaInvoice proformaInvoice =  proformaInvoicesCreator.createBasicProformaInvoice(customer);
+        ProformaInvoice proformaInvoice = createBasicProformaInvoice(customer);
 
         // when
         ProformaInvoice voidedInvoice = PROFORMA_INVOICES_CONTROLLER
@@ -61,7 +55,7 @@ public class ProformaInvoicesControllerVoidTest {
     @Test
     void shouldReturn422WhenVoidingVoidedInvoice() throws IOException, ApiException {
         // given
-        ProformaInvoice proformaInvoice =  proformaInvoicesCreator.createBasicProformaInvoice(customer);
+        ProformaInvoice proformaInvoice = createBasicProformaInvoice(customer);
         PROFORMA_INVOICES_CONTROLLER
                 .voidProformaInvoice(proformaInvoice.getUid(), new VoidInvoiceRequest(
                         new VoidInvoice("Duplicate invoice")
@@ -78,7 +72,7 @@ public class ProformaInvoicesControllerVoidTest {
     @Test
     void shouldReturn422WhenVoidingInvoiceWithoutReason() throws IOException, ApiException {
         // given
-        ProformaInvoice proformaInvoice =  proformaInvoicesCreator.createBasicProformaInvoice(customer);
+        ProformaInvoice proformaInvoice = createBasicProformaInvoice(customer);
 
         // when - then
         CommonAssertions
@@ -103,6 +97,11 @@ public class ProformaInvoicesControllerVoidTest {
                 () -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
                         .voidProformaInvoice("123", new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice")))
         );
+    }
+
+    private ProformaInvoice createBasicProformaInvoice(Customer customer) throws IOException, ApiException {
+        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
+        return CLIENT.getProformaInvoicesController().createProformaInvoice(subscription.getId());
     }
 
 }

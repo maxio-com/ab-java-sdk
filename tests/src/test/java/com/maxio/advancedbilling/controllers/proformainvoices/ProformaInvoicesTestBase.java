@@ -2,16 +2,15 @@ package com.maxio.advancedbilling.controllers.proformainvoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AllocateComponents;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CollectionMethod;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
-import com.maxio.advancedbilling.models.CreateSignupProformaPreviewInclude;
 import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
-import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.CreateUsage;
 import com.maxio.advancedbilling.models.CreateUsageRequest;
 import com.maxio.advancedbilling.models.Customer;
@@ -29,7 +28,6 @@ import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoiceCredit;
 import com.maxio.advancedbilling.models.ProformaInvoiceRole;
 import com.maxio.advancedbilling.models.SignupProformaPreview;
-import com.maxio.advancedbilling.models.SignupProformaPreviewResponse;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentAllocatedQuantity;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
@@ -38,13 +36,11 @@ import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
 import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
 import com.maxio.advancedbilling.utils.TestSetup;
-import io.apimatic.core.types.BaseModel;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.maxio.advancedbilling.models.ProformaInvoiceStatus.DRAFT;
@@ -52,25 +48,22 @@ import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class ProformaInvoicesCreator {
+public abstract class ProformaInvoicesTestBase {
 
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    protected static final TestSetup TEST_SETUP = new TestSetup();
+    protected static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    protected static final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
+            .getProformaInvoicesController();
 
-    private final Product product;
-    private final ProductFamily productFamily;
+    protected final Product product;
+    protected final ProductFamily productFamily;
 
-    ProformaInvoicesCreator() throws IOException, ApiException {
+    ProformaInvoicesTestBase() throws IOException, ApiException {
         productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
     }
 
-    ProformaInvoice createBasicProformaInvoice(Customer customer) throws IOException, ApiException {
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        return CLIENT.getProformaInvoicesController().createProformaInvoice(subscription.getId());
-    }
-
-    ProformaInvoiceWithComponents createProformaInvoiceWithComponents(Customer customer) throws IOException, ApiException {
+    protected ProformaInvoiceWithComponents createProformaInvoiceWithComponents(Customer customer) throws IOException, ApiException {
         Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
         Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
         Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent);
@@ -81,45 +74,7 @@ class ProformaInvoicesCreator {
         );
     }
 
-    ProformaInvoiceWithComponents previewProformaInvoiceWithComponents(Customer customer) throws IOException, ApiException {
-        Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
-        Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent);
-
-        return new ProformaInvoiceWithComponents(
-                CLIENT.getProformaInvoicesController().previewProformaInvoice(subscription.getId()),
-                quantityBasedComponent, meteredComponent
-        );
-    }
-
-    ProformaInvoiceWithComponents createSignupProformaInvoice(Customer customer) throws IOException, ApiException {
-        Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
-        Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-
-        ProformaInvoice proformaInvoice = CLIENT.getProformaInvoicesController().createSignupProformaInvoice(
-                new CreateSubscriptionRequest(
-                        getCreateSubscription(customer, meteredComponent, quantityBasedComponent)
-                )
-        );
-
-        return new ProformaInvoiceWithComponents(proformaInvoice, quantityBasedComponent, meteredComponent);
-    }
-
-    SignupProformaPreviewWithComponents previewSignupProformaInvoice(Customer customer) throws IOException, ApiException {
-        Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
-        Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-
-        SignupProformaPreview signupProformaPreview = CLIENT.getProformaInvoicesController().previewSignupProformaInvoice(
-                CreateSignupProformaPreviewInclude.NEXT_PROFORMA_INVOICE,
-                new CreateSubscriptionRequest(
-                        getCreateSubscription(customer, meteredComponent, quantityBasedComponent)
-                )
-        ).getProformaInvoicePreview();
-
-        return new SignupProformaPreviewWithComponents(signupProformaPreview, quantityBasedComponent, meteredComponent);
-    }
-
-    private CreateSubscription getCreateSubscription(Customer customer, Component meteredComponent,
+    protected CreateSubscription getCreateSubscription(Customer customer, Component meteredComponent,
                                                      Component quantityBasedComponent) {
         return new CreateSubscription.Builder()
                 .productId(product.getId())
@@ -157,7 +112,7 @@ class ProformaInvoicesCreator {
     }
 
 
-    private Subscription setupSubscription(Customer customer, Component quantityBasedComponent,
+    protected Subscription setupSubscription(Customer customer, Component quantityBasedComponent,
                                            Component meteredComponent) throws IOException, ApiException {
         Subscription subscription = TEST_SETUP.createSubscription(customer, product);
         CLIENT.getSubscriptionInvoiceAccountController().issueServiceCredit(subscription.getId(),
@@ -405,16 +360,17 @@ class ProformaInvoicesCreator {
                 );
     }
 
-    private String formatDescriptionDate(LocalDate localDate) {
+    static String formatDescriptionDate(LocalDate localDate) {
         return localDate
                 .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
-    record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,
+    protected record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,
                                          Component meteredComponent) {
     }
 
     record SignupProformaPreviewWithComponents(SignupProformaPreview preview, Component quantityBasedComponent,
-                                                       Component meteredComponent) {
+                                               Component meteredComponent) {
     }
+
 }

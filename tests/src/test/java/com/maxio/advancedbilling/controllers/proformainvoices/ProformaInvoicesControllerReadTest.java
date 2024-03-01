@@ -1,12 +1,10 @@
 package com.maxio.advancedbilling.controllers.proformainvoices;
 
-import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ProformaInvoice;
-import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.AfterAll;
@@ -17,14 +15,12 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProformaInvoicesControllerReadTest {
-
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
-    private static final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
-            .getProformaInvoicesController();
+public class ProformaInvoicesControllerReadTest extends ProformaInvoicesTestBase {
 
     private static Customer customer;
+
+    ProformaInvoicesControllerReadTest() throws IOException, ApiException {
+    }
 
     @BeforeAll
     static void setUp() throws IOException, ApiException {
@@ -39,8 +35,7 @@ public class ProformaInvoicesControllerReadTest {
     @Test
     void shouldReadProformaInvoice() throws IOException, ApiException {
         // given
-        ProformaInvoice createdProformaInvoice = new ProformaInvoicesCreator()
-                .createProformaInvoiceWithComponents(customer).invoice();
+        ProformaInvoice createdProformaInvoice = createProformaInvoiceWithComponents(customer).invoice();
 
         // when
         ProformaInvoice proformaInvoice = PROFORMA_INVOICES_CONTROLLER.readProformaInvoice(createdProformaInvoice.getUid());

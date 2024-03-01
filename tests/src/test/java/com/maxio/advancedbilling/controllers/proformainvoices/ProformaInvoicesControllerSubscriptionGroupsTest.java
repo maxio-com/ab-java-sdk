@@ -27,8 +27,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+import static com.maxio.advancedbilling.controllers.proformainvoices.ProformaInvoicesTestBase.formatDescriptionDate;
 import static com.maxio.advancedbilling.models.ProformaInvoiceStatus.DRAFT;
 import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -201,14 +201,10 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
     @Test
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
-        CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
+        CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+                .getProformaInvoicesController()
                 .createConsolidatedProformaInvoice("123")
         );
-    }
-
-    private String formatDescriptionDate(LocalDate localDate) {
-        return localDate
-                .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
 }
