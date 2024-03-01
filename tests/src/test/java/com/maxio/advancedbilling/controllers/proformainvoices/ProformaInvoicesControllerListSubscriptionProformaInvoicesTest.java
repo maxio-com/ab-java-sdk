@@ -19,7 +19,6 @@ import com.maxio.advancedbilling.models.IncludeOption;
 import com.maxio.advancedbilling.models.InvoiceCustomField;
 import com.maxio.advancedbilling.models.InvoiceDiscountBreakout;
 import com.maxio.advancedbilling.models.InvoiceDiscountType;
-import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
 import com.maxio.advancedbilling.models.ListProformaInvoicesInput;
@@ -31,6 +30,7 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProformaInvoice;
 import com.maxio.advancedbilling.models.ProformaInvoiceDiscount;
 import com.maxio.advancedbilling.models.ProformaInvoiceDiscountSourceType;
+import com.maxio.advancedbilling.models.ProformaInvoiceStatus;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.VoidInvoice;
@@ -230,7 +230,7 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
         List<ProformaInvoice> proformaInvoices = PROFORMA_INVOICES_CONTROLLER
                 .listProformaInvoices(new ListProformaInvoicesInput.Builder()
                         .subscriptionId(subscription.getId())
-                        .status(InvoiceStatus.VOIDED)
+                        .status(ProformaInvoiceStatus.VOIDED)
                         .build()
                 ).getProformaInvoices();
 
