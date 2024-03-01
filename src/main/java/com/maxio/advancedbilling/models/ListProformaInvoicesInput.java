@@ -17,7 +17,7 @@ public class ListProformaInvoicesInput {
     private int subscriptionId;
     private String startDate;
     private String endDate;
-    private InvoiceStatus status;
+    private ProformaInvoiceStatus status;
     private Integer page;
     private Integer perPage;
     private Direction direction;
@@ -48,7 +48,7 @@ public class ListProformaInvoicesInput {
      * @param  subscriptionId  int value for subscriptionId.
      * @param  startDate  String value for startDate.
      * @param  endDate  String value for endDate.
-     * @param  status  InvoiceStatus value for status.
+     * @param  status  ProformaInvoiceStatus value for status.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  direction  Direction value for direction.
@@ -63,7 +63,7 @@ public class ListProformaInvoicesInput {
             int subscriptionId,
             String startDate,
             String endDate,
-            InvoiceStatus status,
+            ProformaInvoiceStatus status,
             Integer page,
             Integer perPage,
             Direction direction,
@@ -153,21 +153,21 @@ public class ListProformaInvoicesInput {
     /**
      * Getter for Status.
      * The current status of the invoice. Allowed Values: draft, open, paid, pending, voided
-     * @return Returns the InvoiceStatus
+     * @return Returns the ProformaInvoiceStatus
      */
     @JsonGetter("status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public InvoiceStatus getStatus() {
+    public ProformaInvoiceStatus getStatus() {
         return status;
     }
 
     /**
      * Setter for Status.
      * The current status of the invoice. Allowed Values: draft, open, paid, pending, voided
-     * @param status Value for InvoiceStatus
+     * @param status Value for ProformaInvoiceStatus
      */
     @JsonSetter("status")
-    public void setStatus(InvoiceStatus status) {
+    public void setStatus(ProformaInvoiceStatus status) {
         this.status = status;
     }
 
@@ -414,7 +414,7 @@ public class ListProformaInvoicesInput {
         private int subscriptionId;
         private String startDate;
         private String endDate;
-        private InvoiceStatus status;
+        private ProformaInvoiceStatus status;
         private Integer page = 1;
         private Integer perPage = 20;
         private Direction direction = Direction.DESC;
@@ -471,10 +471,10 @@ public class ListProformaInvoicesInput {
 
         /**
          * Setter for status.
-         * @param  status  InvoiceStatus value for status.
+         * @param  status  ProformaInvoiceStatus value for status.
          * @return Builder
          */
-        public Builder status(InvoiceStatus status) {
+        public Builder status(ProformaInvoiceStatus status) {
             this.status = status;
             return this;
         }
