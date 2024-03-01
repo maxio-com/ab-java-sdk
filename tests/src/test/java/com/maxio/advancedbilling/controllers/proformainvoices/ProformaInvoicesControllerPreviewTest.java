@@ -41,7 +41,8 @@ public class ProformaInvoicesControllerPreviewTest {
                 proformaInvoicesCreator.previewProformaInvoiceWithComponents(customer);
 
         // then
-        proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData, false);
+        proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData,
+                false, false);
     }
 
     @Test

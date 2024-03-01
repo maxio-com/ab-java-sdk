@@ -4,6 +4,8 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.CreateSubscription;
+import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -13,8 +15,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
-public class ProformaInvoicesControllerCreateTest {
+public class ProformaInvoicesControllerCreateSignupProformaTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final AdvancedBillingClient CLIENT = TestClient.createClient();
@@ -34,30 +38,36 @@ public class ProformaInvoicesControllerCreateTest {
     }
 
     @Test
-    void shouldCreateProformaInvoice() throws IOException, ApiException {
+    void shouldCreateSignupProforma() throws IOException, ApiException {
         // given-when
         ProformaInvoicesCreator proformaInvoicesCreator = new ProformaInvoicesCreator();
         ProformaInvoicesCreator.ProformaInvoiceWithComponents invoiceWithData =
-                proformaInvoicesCreator.createProformaInvoiceWithComponents(customer);
+                proformaInvoicesCreator.createSignupProformaInvoice(customer);
 
         // then
-        proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData,
-                true, false);
+        proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData, true, true);
     }
 
     @Test
-    void shouldReturn404WhenCreatingProformaInvoiceForNonExistentSubscription() {
+    void shouldReturn422WhenCreatingProformaInvoiceWithInvalidData() {
         // when - then
-        CommonAssertions.assertNotFound(
-                () -> PROFORMA_INVOICES_CONTROLLER.createProformaInvoice(123)
-        );
+        CommonAssertions
+                .assertThatErrorArrayMapResponse(() -> PROFORMA_INVOICES_CONTROLLER.createSignupProformaInvoice(
+                        new CreateSubscriptionRequest(new CreateSubscription.Builder()
+                                .productId(11)
+                                .build()
+                                )
+                        )
+                )
+                .isUnprocessableEntity()
+                .hasErrorMap(Map.of("base", List.of("Couldn't find Product by 11")));
     }
 
     @Test
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
-                .createProformaInvoice(123)
+                .createSignupProformaInvoice(null)
         );
     }
 
