@@ -208,34 +208,40 @@ public class TestSetup {
     }
 
     public Component createPrepaidComponent(ProductFamily productFamily, double unitPrice) throws IOException, ApiException {
+        return createPrepaidComponent(productFamily, customizer -> customizer
+                .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(unitPrice))
+        );
+    }
+
+    public Component createPrepaidComponent(ProductFamily productFamily, Consumer<PrepaidUsageComponent.Builder> customizer)
+            throws IOException, ApiException {
         String componentName = "Test Prepaid Component " + randomNumeric(5);
         String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
-        return advancedBillingClient.getComponentsController()
-                .createPrepaidUsageComponent(
-                        productFamily.getId(),
-                        new CreatePrepaidComponent(new PrepaidUsageComponent.Builder()
-                                .name(componentName)
-                                .handle(handle)
-                                .unitName("unit")
-                                .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(unitPrice))
-                                .description("Description for: " + componentName)
-                                .allowFractionalQuantities(false)
+        PrepaidUsageComponent.Builder builder = new PrepaidUsageComponent.Builder()
+                .name(componentName)
+                .handle(handle)
+                .unitName("unit")
+                .description("Description for: " + componentName)
+                .allowFractionalQuantities(false)
+                .pricingScheme(PricingScheme.PER_UNIT)
+                .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(2.0))
+                .overagePricing(
+                        new OveragePricing.Builder()
                                 .pricingScheme(PricingScheme.PER_UNIT)
-                                .overagePricing(
-                                        new OveragePricing.Builder()
-                                                .pricingScheme(PricingScheme.PER_UNIT)
-                                                .prices(List.of(
-                                                                new Price.Builder()
-                                                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
-                                                                        .unitPrice(PriceUnitPrice.fromPrecision(1.0))
-                                                                        .build()
-                                                        )
-                                                )
-                                                .build()
+                                .prices(List.of(
+                                                new Price.Builder()
+                                                        .startingQuantity(PriceStartingQuantity.fromNumber(1))
+                                                        .unitPrice(PriceUnitPrice.fromPrecision(1.0))
+                                                        .build()
+                                        )
                                 )
                                 .build()
-                        )
-                )
+                );
+        customizer.accept(builder);
+
+        return advancedBillingClient
+                .getComponentsController()
+                .createPrepaidUsageComponent(productFamily.getId(), new CreatePrepaidComponent(builder.build()))
                 .getComponent();
     }
 
