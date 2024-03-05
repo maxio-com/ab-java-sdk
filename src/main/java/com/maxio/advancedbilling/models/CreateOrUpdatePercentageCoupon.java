@@ -35,6 +35,7 @@ public class CreateOrUpdatePercentageCoupon
     private CompoundingStrategy compoundingStrategy;
     private Boolean excludeMidPeriodAllocations;
     private Boolean applyOnCancelAtEndOfPeriod;
+    private Boolean applyOnSubscriptionExpiration;
 
     /**
      * Default constructor.
@@ -56,6 +57,7 @@ public class CreateOrUpdatePercentageCoupon
      * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
+     * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
      */
     public CreateOrUpdatePercentageCoupon(
             String name,
@@ -69,7 +71,8 @@ public class CreateOrUpdatePercentageCoupon
             Boolean stackable,
             CompoundingStrategy compoundingStrategy,
             Boolean excludeMidPeriodAllocations,
-            Boolean applyOnCancelAtEndOfPeriod) {
+            Boolean applyOnCancelAtEndOfPeriod,
+            Boolean applyOnSubscriptionExpiration) {
         this.name = name;
         this.code = code;
         this.description = description;
@@ -82,6 +85,7 @@ public class CreateOrUpdatePercentageCoupon
         this.compoundingStrategy = compoundingStrategy;
         this.excludeMidPeriodAllocations = excludeMidPeriodAllocations;
         this.applyOnCancelAtEndOfPeriod = applyOnCancelAtEndOfPeriod;
+        this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
     }
 
     /**
@@ -95,7 +99,7 @@ public class CreateOrUpdatePercentageCoupon
             @JsonProperty("name") String name,
             @JsonProperty("code") String code,
             @JsonProperty("percentage") CreateOrUpdatePercentageCouponPercentage percentage) {
-        this(name, code, percentage, null, null, null, null, null, null, null, null, null);
+        this(name, code, percentage, null, null, null, null, null, null, null, null, null, null);
     }
 
     /**
@@ -332,6 +336,25 @@ public class CreateOrUpdatePercentageCoupon
     }
 
     /**
+     * Getter for ApplyOnSubscriptionExpiration.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("apply_on_subscription_expiration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getApplyOnSubscriptionExpiration() {
+        return applyOnSubscriptionExpiration;
+    }
+
+    /**
+     * Setter for ApplyOnSubscriptionExpiration.
+     * @param applyOnSubscriptionExpiration Value for Boolean
+     */
+    @JsonSetter("apply_on_subscription_expiration")
+    public void setApplyOnSubscriptionExpiration(Boolean applyOnSubscriptionExpiration) {
+        this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
+    }
+
+    /**
      * Converts this CreateOrUpdatePercentageCoupon into string format.
      * @return String representation of this class
      */
@@ -344,6 +367,7 @@ public class CreateOrUpdatePercentageCoupon
                 + stackable + ", compoundingStrategy=" + compoundingStrategy
                 + ", excludeMidPeriodAllocations=" + excludeMidPeriodAllocations
                 + ", applyOnCancelAtEndOfPeriod=" + applyOnCancelAtEndOfPeriod
+                + ", applyOnSubscriptionExpiration=" + applyOnSubscriptionExpiration
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
@@ -362,7 +386,8 @@ public class CreateOrUpdatePercentageCoupon
                 .stackable(getStackable())
                 .compoundingStrategy(getCompoundingStrategy())
                 .excludeMidPeriodAllocations(getExcludeMidPeriodAllocations())
-                .applyOnCancelAtEndOfPeriod(getApplyOnCancelAtEndOfPeriod());
+                .applyOnCancelAtEndOfPeriod(getApplyOnCancelAtEndOfPeriod())
+                .applyOnSubscriptionExpiration(getApplyOnSubscriptionExpiration());
         return builder;
     }
 
@@ -382,6 +407,7 @@ public class CreateOrUpdatePercentageCoupon
         private CompoundingStrategy compoundingStrategy;
         private Boolean excludeMidPeriodAllocations;
         private Boolean applyOnCancelAtEndOfPeriod;
+        private Boolean applyOnSubscriptionExpiration;
 
         /**
          * Initialization constructor.
@@ -523,13 +549,24 @@ public class CreateOrUpdatePercentageCoupon
         }
 
         /**
+         * Setter for applyOnSubscriptionExpiration.
+         * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
+         * @return Builder
+         */
+        public Builder applyOnSubscriptionExpiration(Boolean applyOnSubscriptionExpiration) {
+            this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateOrUpdatePercentageCoupon} object using the set fields.
          * @return {@link CreateOrUpdatePercentageCoupon}
          */
         public CreateOrUpdatePercentageCoupon build() {
             return new CreateOrUpdatePercentageCoupon(name, code, percentage, description,
                     allowNegativeBalance, recurring, endDate, productFamilyId, stackable,
-                    compoundingStrategy, excludeMidPeriodAllocations, applyOnCancelAtEndOfPeriod);
+                    compoundingStrategy, excludeMidPeriodAllocations, applyOnCancelAtEndOfPeriod,
+                    applyOnSubscriptionExpiration);
         }
     }
 }
