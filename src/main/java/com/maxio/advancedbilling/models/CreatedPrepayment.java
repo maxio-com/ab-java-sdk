@@ -20,7 +20,7 @@ import java.time.ZonedDateTime;
  */
 public class CreatedPrepayment
         extends BaseModel {
-    private Integer id;
+    private Long id;
     private Integer subscriptionId;
     private Long amountInCents;
     private String memo;
@@ -36,7 +36,7 @@ public class CreatedPrepayment
 
     /**
      * Initialization constructor.
-     * @param  id  Integer value for id.
+     * @param  id  Long value for id.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  amountInCents  Long value for amountInCents.
      * @param  memo  String value for memo.
@@ -45,7 +45,7 @@ public class CreatedPrepayment
      * @param  endingBalanceInCents  Long value for endingBalanceInCents.
      */
     public CreatedPrepayment(
-            Integer id,
+            Long id,
             Integer subscriptionId,
             Long amountInCents,
             String memo,
@@ -63,20 +63,20 @@ public class CreatedPrepayment
 
     /**
      * Getter for Id.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Integer
+     * @param id Value for Long
      */
     @JsonSetter("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -230,7 +230,7 @@ public class CreatedPrepayment
      * Class to build instances of {@link CreatedPrepayment}.
      */
     public static class Builder {
-        private Integer id;
+        private Long id;
         private Integer subscriptionId;
         private Long amountInCents;
         private String memo;
@@ -242,10 +242,10 @@ public class CreatedPrepayment
 
         /**
          * Setter for id.
-         * @param  id  Integer value for id.
+         * @param  id  Long value for id.
          * @return Builder
          */
-        public Builder id(Integer id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
