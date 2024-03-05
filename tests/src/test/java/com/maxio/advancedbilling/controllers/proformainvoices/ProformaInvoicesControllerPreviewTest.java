@@ -1,11 +1,10 @@
 package com.maxio.advancedbilling.controllers.proformainvoices;
 
-import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
-import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Customer;
-import com.maxio.advancedbilling.utils.TestSetup;
+import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.AfterAll;
@@ -14,12 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class ProformaInvoicesControllerPreviewTest {
-
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
-    private static final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
-            .getProformaInvoicesController();
+public class ProformaInvoicesControllerPreviewTest extends ProformaInvoicesTestBase {
 
     private static Customer customer;
 
@@ -35,13 +29,11 @@ public class ProformaInvoicesControllerPreviewTest {
 
     @Test
     void shouldPreviewProformaInvoice() throws IOException, ApiException {
-        // given-when
-        ProformaInvoicesCreator proformaInvoicesCreator = new ProformaInvoicesCreator();
-        ProformaInvoicesCreator.ProformaInvoiceWithComponents invoiceWithData =
-                proformaInvoicesCreator.previewProformaInvoiceWithComponents(customer);
+        // given - when
+        ProformaInvoiceWithComponents invoiceWithData = previewProformaInvoiceWithComponents(customer);
 
         // then
-        proformaInvoicesCreator.assertProformaInvoice(customer, invoiceWithData, false);
+        assertProformaInvoice(customer, invoiceWithData, false, false);
     }
 
     @Test
@@ -57,6 +49,17 @@ public class ProformaInvoicesControllerPreviewTest {
         // when - then
         CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
                 .previewProformaInvoice(123)
+        );
+    }
+
+    private ProformaInvoiceWithComponents previewProformaInvoiceWithComponents(Customer customer) throws IOException, ApiException {
+        Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
+        Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
+        Subscription subscription = setupSubscription(customer, quantityBasedComponent, meteredComponent);
+
+        return new ProformaInvoiceWithComponents(
+                CLIENT.getProformaInvoicesController().previewProformaInvoice(subscription.getId()),
+                quantityBasedComponent, meteredComponent
         );
     }
 
