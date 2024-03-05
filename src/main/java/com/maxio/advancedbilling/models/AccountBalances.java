@@ -17,6 +17,7 @@ import io.apimatic.core.types.BaseModel;
 public class AccountBalances
         extends BaseModel {
     private AccountBalance openInvoices;
+    private AccountBalance pendingInvoices;
     private AccountBalance pendingDiscounts;
     private AccountBalance serviceCredits;
     private AccountBalance prepayments;
@@ -30,16 +31,19 @@ public class AccountBalances
     /**
      * Initialization constructor.
      * @param  openInvoices  AccountBalance value for openInvoices.
+     * @param  pendingInvoices  AccountBalance value for pendingInvoices.
      * @param  pendingDiscounts  AccountBalance value for pendingDiscounts.
      * @param  serviceCredits  AccountBalance value for serviceCredits.
      * @param  prepayments  AccountBalance value for prepayments.
      */
     public AccountBalances(
             AccountBalance openInvoices,
+            AccountBalance pendingInvoices,
             AccountBalance pendingDiscounts,
             AccountBalance serviceCredits,
             AccountBalance prepayments) {
         this.openInvoices = openInvoices;
+        this.pendingInvoices = pendingInvoices;
         this.pendingDiscounts = pendingDiscounts;
         this.serviceCredits = serviceCredits;
         this.prepayments = prepayments;
@@ -64,6 +68,27 @@ public class AccountBalances
     @JsonSetter("open_invoices")
     public void setOpenInvoices(AccountBalance openInvoices) {
         this.openInvoices = openInvoices;
+    }
+
+    /**
+     * Getter for PendingInvoices.
+     * The balance, in cents, of the sum of the subscription's pending, payable invoices.
+     * @return Returns the AccountBalance
+     */
+    @JsonGetter("pending_invoices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public AccountBalance getPendingInvoices() {
+        return pendingInvoices;
+    }
+
+    /**
+     * Setter for PendingInvoices.
+     * The balance, in cents, of the sum of the subscription's pending, payable invoices.
+     * @param pendingInvoices Value for AccountBalance
+     */
+    @JsonSetter("pending_invoices")
+    public void setPendingInvoices(AccountBalance pendingInvoices) {
+        this.pendingInvoices = pendingInvoices;
     }
 
     /**
@@ -135,9 +160,10 @@ public class AccountBalances
      */
     @Override
     public String toString() {
-        return "AccountBalances [" + "openInvoices=" + openInvoices + ", pendingDiscounts="
-                + pendingDiscounts + ", serviceCredits=" + serviceCredits + ", prepayments="
-                + prepayments + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "AccountBalances [" + "openInvoices=" + openInvoices + ", pendingInvoices="
+                + pendingInvoices + ", pendingDiscounts=" + pendingDiscounts + ", serviceCredits="
+                + serviceCredits + ", prepayments=" + prepayments + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -148,6 +174,7 @@ public class AccountBalances
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .openInvoices(getOpenInvoices())
+                .pendingInvoices(getPendingInvoices())
                 .pendingDiscounts(getPendingDiscounts())
                 .serviceCredits(getServiceCredits())
                 .prepayments(getPrepayments());
@@ -159,6 +186,7 @@ public class AccountBalances
      */
     public static class Builder {
         private AccountBalance openInvoices;
+        private AccountBalance pendingInvoices;
         private AccountBalance pendingDiscounts;
         private AccountBalance serviceCredits;
         private AccountBalance prepayments;
@@ -172,6 +200,16 @@ public class AccountBalances
          */
         public Builder openInvoices(AccountBalance openInvoices) {
             this.openInvoices = openInvoices;
+            return this;
+        }
+
+        /**
+         * Setter for pendingInvoices.
+         * @param  pendingInvoices  AccountBalance value for pendingInvoices.
+         * @return Builder
+         */
+        public Builder pendingInvoices(AccountBalance pendingInvoices) {
+            this.pendingInvoices = pendingInvoices;
             return this;
         }
 
@@ -210,7 +248,8 @@ public class AccountBalances
          * @return {@link AccountBalances}
          */
         public AccountBalances build() {
-            return new AccountBalances(openInvoices, pendingDiscounts, serviceCredits, prepayments);
+            return new AccountBalances(openInvoices, pendingInvoices, pendingDiscounts,
+                    serviceCredits, prepayments);
         }
     }
 }

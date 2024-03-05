@@ -112,7 +112,7 @@ try {
   "prepayment": {
     "id": 1,
     "subscription_id": 1,
-    "amount_in_cents": 10000,
+    "amount": 10000,
     "memo": "John Doe - Prepayment",
     "created_at": "2020-07-31T05:52:32-04:00",
     "starting_balance_in_cents": 0,
@@ -120,6 +120,12 @@ try {
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
 
 
 # List Prepayments

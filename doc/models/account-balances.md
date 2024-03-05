@@ -10,6 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `OpenInvoices` | [`AccountBalance`](../../doc/models/account-balance.md) | Optional | The balance, in cents, of the sum of the subscription's  open, payable invoices. | AccountBalance getOpenInvoices() | setOpenInvoices(AccountBalance openInvoices) |
+| `PendingInvoices` | [`AccountBalance`](../../doc/models/account-balance.md) | Optional | The balance, in cents, of the sum of the subscription's  pending, payable invoices. | AccountBalance getPendingInvoices() | setPendingInvoices(AccountBalance pendingInvoices) |
 | `PendingDiscounts` | [`AccountBalance`](../../doc/models/account-balance.md) | Optional | The balance, in cents, of the subscription's Pending Discount account. | AccountBalance getPendingDiscounts() | setPendingDiscounts(AccountBalance pendingDiscounts) |
 | `ServiceCredits` | [`AccountBalance`](../../doc/models/account-balance.md) | Optional | The balance, in cents, of the subscription's Service Credit account. | AccountBalance getServiceCredits() | setServiceCredits(AccountBalance serviceCredits) |
 | `Prepayments` | [`AccountBalance`](../../doc/models/account-balance.md) | Optional | The balance, in cents, of the subscription's Prepayment account. | AccountBalance getPrepayments() | setPrepayments(AccountBalance prepayments) |
@@ -19,16 +20,29 @@
 ```json
 {
   "open_invoices": {
-    "balance_in_cents": 40
+    "balance_in_cents": 40,
+    "automatic_balance_in_cents": 202,
+    "remittance_balance_in_cents": 170
+  },
+  "pending_invoices": {
+    "balance_in_cents": 0,
+    "automatic_balance_in_cents": 242,
+    "remittance_balance_in_cents": 46
   },
   "pending_discounts": {
-    "balance_in_cents": 88
+    "balance_in_cents": 88,
+    "automatic_balance_in_cents": 154,
+    "remittance_balance_in_cents": 134
   },
   "service_credits": {
-    "balance_in_cents": 84
+    "balance_in_cents": 84,
+    "automatic_balance_in_cents": 70,
+    "remittance_balance_in_cents": 38
   },
   "prepayments": {
-    "balance_in_cents": 192
+    "balance_in_cents": 192,
+    "automatic_balance_in_cents": 178,
+    "remittance_balance_in_cents": 146
   }
 }
 ```

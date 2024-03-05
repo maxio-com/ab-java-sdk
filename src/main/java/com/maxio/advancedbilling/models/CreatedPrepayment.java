@@ -20,9 +20,9 @@ import java.time.ZonedDateTime;
  */
 public class CreatedPrepayment
         extends BaseModel {
-    private Integer id;
+    private Long id;
     private Integer subscriptionId;
-    private Long amountInCents;
+    private Long amount;
     private String memo;
     private ZonedDateTime createdAt;
     private Long startingBalanceInCents;
@@ -36,25 +36,25 @@ public class CreatedPrepayment
 
     /**
      * Initialization constructor.
-     * @param  id  Integer value for id.
+     * @param  id  Long value for id.
      * @param  subscriptionId  Integer value for subscriptionId.
-     * @param  amountInCents  Long value for amountInCents.
+     * @param  amount  Long value for amount.
      * @param  memo  String value for memo.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  startingBalanceInCents  Long value for startingBalanceInCents.
      * @param  endingBalanceInCents  Long value for endingBalanceInCents.
      */
     public CreatedPrepayment(
-            Integer id,
+            Long id,
             Integer subscriptionId,
-            Long amountInCents,
+            Long amount,
             String memo,
             ZonedDateTime createdAt,
             Long startingBalanceInCents,
             Long endingBalanceInCents) {
         this.id = id;
         this.subscriptionId = subscriptionId;
-        this.amountInCents = amountInCents;
+        this.amount = amount;
         this.memo = memo;
         this.createdAt = createdAt;
         this.startingBalanceInCents = startingBalanceInCents;
@@ -63,20 +63,20 @@ public class CreatedPrepayment
 
     /**
      * Getter for Id.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Integer
+     * @param id Value for Long
      */
     @JsonSetter("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -100,22 +100,22 @@ public class CreatedPrepayment
     }
 
     /**
-     * Getter for AmountInCents.
+     * Getter for Amount.
      * @return Returns the Long
      */
-    @JsonGetter("amount_in_cents")
+    @JsonGetter("amount")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Long getAmountInCents() {
-        return amountInCents;
+    public Long getAmount() {
+        return amount;
     }
 
     /**
-     * Setter for AmountInCents.
-     * @param amountInCents Value for Long
+     * Setter for Amount.
+     * @param amount Value for Long
      */
-    @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Long amountInCents) {
-        this.amountInCents = amountInCents;
+    @JsonSetter("amount")
+    public void setAmount(Long amount) {
+        this.amount = amount;
     }
 
     /**
@@ -203,7 +203,7 @@ public class CreatedPrepayment
     @Override
     public String toString() {
         return "CreatedPrepayment [" + "id=" + id + ", subscriptionId=" + subscriptionId
-                + ", amountInCents=" + amountInCents + ", memo=" + memo + ", createdAt=" + createdAt
+                + ", amount=" + amount + ", memo=" + memo + ", createdAt=" + createdAt
                 + ", startingBalanceInCents=" + startingBalanceInCents + ", endingBalanceInCents="
                 + endingBalanceInCents + ", additionalProperties=" + getAdditionalProperties()
                 + "]";
@@ -218,7 +218,7 @@ public class CreatedPrepayment
         Builder builder = new Builder()
                 .id(getId())
                 .subscriptionId(getSubscriptionId())
-                .amountInCents(getAmountInCents())
+                .amount(getAmount())
                 .memo(getMemo())
                 .createdAt(getCreatedAt())
                 .startingBalanceInCents(getStartingBalanceInCents())
@@ -230,9 +230,9 @@ public class CreatedPrepayment
      * Class to build instances of {@link CreatedPrepayment}.
      */
     public static class Builder {
-        private Integer id;
+        private Long id;
         private Integer subscriptionId;
-        private Long amountInCents;
+        private Long amount;
         private String memo;
         private ZonedDateTime createdAt;
         private Long startingBalanceInCents;
@@ -242,10 +242,10 @@ public class CreatedPrepayment
 
         /**
          * Setter for id.
-         * @param  id  Integer value for id.
+         * @param  id  Long value for id.
          * @return Builder
          */
-        public Builder id(Integer id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
@@ -261,12 +261,12 @@ public class CreatedPrepayment
         }
 
         /**
-         * Setter for amountInCents.
-         * @param  amountInCents  Long value for amountInCents.
+         * Setter for amount.
+         * @param  amount  Long value for amount.
          * @return Builder
          */
-        public Builder amountInCents(Long amountInCents) {
-            this.amountInCents = amountInCents;
+        public Builder amount(Long amount) {
+            this.amount = amount;
             return this;
         }
 
@@ -315,7 +315,7 @@ public class CreatedPrepayment
          * @return {@link CreatedPrepayment}
          */
         public CreatedPrepayment build() {
-            return new CreatedPrepayment(id, subscriptionId, amountInCents, memo, createdAt,
+            return new CreatedPrepayment(id, subscriptionId, amount, memo, createdAt,
                     startingBalanceInCents, endingBalanceInCents);
         }
     }
