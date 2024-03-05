@@ -22,9 +22,6 @@ public class ProformaInvoicesControllerVoidTest extends ProformaInvoicesTestBase
 
     private static Customer customer;
 
-    ProformaInvoicesControllerVoidTest() throws IOException, ApiException {
-    }
-
     @BeforeAll
     static void setUp() throws IOException, ApiException {
         customer = TEST_SETUP.createCustomer();

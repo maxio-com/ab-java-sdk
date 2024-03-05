@@ -24,9 +24,6 @@ public class ProformaInvoicesControllerPreviewSignupProformaTest extends Proform
 
     private static Customer customer;
 
-    ProformaInvoicesControllerPreviewSignupProformaTest() throws IOException, ApiException {
-    }
-
     @BeforeAll
     static void setUp() throws IOException, ApiException {
         customer = TEST_SETUP.createCustomer();
@@ -39,13 +36,15 @@ public class ProformaInvoicesControllerPreviewSignupProformaTest extends Proform
 
     @Test
     void shouldPreviewSignupProformaWithNextProforma() throws IOException, ApiException {
-        // given-when
+        // given - when
         SignupProformaPreviewWithComponents previewWithData = previewSignupProformaInvoice(customer);
 
         // then
-        assertProformaInvoice(customer, new ProformaInvoiceWithComponents(previewWithData.preview().getCurrentProformaInvoice(),
-                        previewWithData.quantityBasedComponent(), previewWithData.meteredComponent()),
-                false, true);
+        ProformaInvoiceWithComponents proformaInvoiceWithComponents = new ProformaInvoiceWithComponents(
+                previewWithData.preview().getCurrentProformaInvoice(),
+                previewWithData.quantityBasedComponent(), previewWithData.meteredComponent()
+        );
+        assertProformaInvoice(customer, proformaInvoiceWithComponents, false, true);
 
         assertThat(previewWithData.preview().getNextProformaInvoice()).usingRecursiveComparison()
                 .ignoringFields("createdAt", "subtotalAmount", "totalAmount", "uid", "lineItems",

@@ -63,13 +63,12 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
 
     @AfterAll
     static void teardown() throws IOException, ApiException {
-        TestTeardown testTeardown = new TestTeardown();
-        testTeardown.deleteSubscriptionGroup(groupSignup);
+        new TestTeardown().deleteSubscriptionGroup(groupSignup);
     }
 
     @Test
-    void shouldListGroupProformas() throws IOException, ApiException {
-        // given-when
+    void shouldListSubscriptionGroupProformaInvoices() throws IOException, ApiException {
+        // given - when
         ListProformaInvoicesResponse listProformaInvoicesResponse = PROFORMA_INVOICES_CONTROLLER
                 .listSubscriptionGroupProformaInvoices(new ListSubscriptionGroupProformaInvoicesInput.Builder()
                         .uid(groupSignup.getUid())
@@ -92,10 +91,10 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
         assertThat(invoiceBillingAddress.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceBillingAddress).isNotNull(),
-                () -> assertThat(invoiceBillingAddress.getStreet()).isNull(),
+                () -> assertThat(invoiceBillingAddress.getStreet()).isEqualTo("1703 Edsel Road"),
                 () -> assertThat(invoiceBillingAddress.getLine2()).isNull(),
-                () -> assertThat(invoiceBillingAddress.getCity()).isNull(),
-                () -> assertThat(invoiceBillingAddress.getState()).isNull(),
+                () -> assertThat(invoiceBillingAddress.getCity()).isEqualTo("Los Angeles"),
+                () -> assertThat(invoiceBillingAddress.getState()).isEqualTo("CA"),
                 () -> assertThat(invoiceBillingAddress.getZip()).isNull(),
                 () -> assertThat(invoiceBillingAddress.getCountry()).isNull()
         );

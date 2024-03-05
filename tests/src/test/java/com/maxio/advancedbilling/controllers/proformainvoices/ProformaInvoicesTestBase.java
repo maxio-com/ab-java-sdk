@@ -48,7 +48,7 @@ import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public abstract class ProformaInvoicesTestBase {
+abstract class ProformaInvoicesTestBase {
 
     protected static final TestSetup TEST_SETUP = new TestSetup();
     protected static final AdvancedBillingClient CLIENT = TestClient.createClient();
@@ -58,9 +58,13 @@ public abstract class ProformaInvoicesTestBase {
     protected final Product product;
     protected final ProductFamily productFamily;
 
-    ProformaInvoicesTestBase() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
+    ProformaInvoicesTestBase() {
+        try {
+            productFamily = TEST_SETUP.createProductFamily();
+            product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
+        } catch (IOException | ApiException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected ProformaInvoiceWithComponents createProformaInvoiceWithComponents(Customer customer) throws IOException, ApiException {
@@ -141,7 +145,7 @@ public abstract class ProformaInvoicesTestBase {
     void assertProformaInvoice(Customer customer,
                                ProformaInvoiceWithComponents invoiceWithData,
                                boolean assertPreservationDataNonEmpty,
-                               // signup proforma won't contain service credits and subscription id and it's periods
+                               // signup proforma won't contain service credits and subscription id and its periods
                                // won't be shifted
                                boolean isSignup) {
         ProformaInvoice proformaInvoice = invoiceWithData.invoice();
@@ -366,10 +370,10 @@ public abstract class ProformaInvoicesTestBase {
     }
 
     protected record ProformaInvoiceWithComponents(ProformaInvoice invoice, Component quantityBasedComponent,
-                                         Component meteredComponent) {
+                                                   Component meteredComponent) {
     }
 
-    record SignupProformaPreviewWithComponents(SignupProformaPreview preview, Component quantityBasedComponent,
+    protected record SignupProformaPreviewWithComponents(SignupProformaPreview preview, Component quantityBasedComponent,
                                                Component meteredComponent) {
     }
 

@@ -15,9 +15,6 @@ public class ProformaInvoicesControllerCreateTest extends ProformaInvoicesTestBa
 
     private static Customer customer;
 
-    ProformaInvoicesControllerCreateTest() throws IOException, ApiException {
-    }
-
     @BeforeAll
     static void setUp() throws IOException, ApiException {
         customer = TEST_SETUP.createCustomer();
@@ -30,7 +27,7 @@ public class ProformaInvoicesControllerCreateTest extends ProformaInvoicesTestBa
 
     @Test
     void shouldCreateProformaInvoice() throws IOException, ApiException {
-        // given-when
+        // given - when
         ProformaInvoiceWithComponents invoiceWithData = createProformaInvoiceWithComponents(customer);
 
         // then
