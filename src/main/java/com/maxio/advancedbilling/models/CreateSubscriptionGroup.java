@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroupSubscriptionId;
 import io.apimatic.core.types.BaseModel;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import java.util.List;
  */
 public class CreateSubscriptionGroup
         extends BaseModel {
-    private CreateSubscriptionGroupSubscriptionId subscriptionId;
+    private int subscriptionId;
     private List<Integer> memberIds;
 
     /**
@@ -29,11 +28,11 @@ public class CreateSubscriptionGroup
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  CreateSubscriptionGroupSubscriptionId value for subscriptionId.
+     * @param  subscriptionId  int value for subscriptionId.
      * @param  memberIds  List of Integer value for memberIds.
      */
     public CreateSubscriptionGroup(
-            CreateSubscriptionGroupSubscriptionId subscriptionId,
+            int subscriptionId,
             List<Integer> memberIds) {
         this.subscriptionId = subscriptionId;
         this.memberIds = memberIds;
@@ -41,19 +40,19 @@ public class CreateSubscriptionGroup
 
     /**
      * Getter for SubscriptionId.
-     * @return Returns the CreateSubscriptionGroupSubscriptionId
+     * @return Returns the int
      */
     @JsonGetter("subscription_id")
-    public CreateSubscriptionGroupSubscriptionId getSubscriptionId() {
+    public int getSubscriptionId() {
         return subscriptionId;
     }
 
     /**
      * Setter for SubscriptionId.
-     * @param subscriptionId Value for CreateSubscriptionGroupSubscriptionId
+     * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")
-    public void setSubscriptionId(CreateSubscriptionGroupSubscriptionId subscriptionId) {
+    public void setSubscriptionId(int subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
@@ -101,7 +100,7 @@ public class CreateSubscriptionGroup
      * Class to build instances of {@link CreateSubscriptionGroup}.
      */
     public static class Builder {
-        private CreateSubscriptionGroupSubscriptionId subscriptionId;
+        private int subscriptionId;
         private List<Integer> memberIds;
 
         /**
@@ -112,18 +111,18 @@ public class CreateSubscriptionGroup
 
         /**
          * Initialization constructor.
-         * @param  subscriptionId  CreateSubscriptionGroupSubscriptionId value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          */
-        public Builder(CreateSubscriptionGroupSubscriptionId subscriptionId) {
+        public Builder(int subscriptionId) {
             this.subscriptionId = subscriptionId;
         }
 
         /**
          * Setter for subscriptionId.
-         * @param  subscriptionId  CreateSubscriptionGroupSubscriptionId value for subscriptionId.
+         * @param  subscriptionId  int value for subscriptionId.
          * @return Builder
          */
-        public Builder subscriptionId(CreateSubscriptionGroupSubscriptionId subscriptionId) {
+        public Builder subscriptionId(int subscriptionId) {
             this.subscriptionId = subscriptionId;
             return this;
         }

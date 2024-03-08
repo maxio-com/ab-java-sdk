@@ -31,6 +31,7 @@ public class ListSubscriptionGroupsItem
     private String state;
     private Boolean cancelAtEndOfPeriod;
     private SubscriptionGroupBalances accountBalances;
+    private GroupType groupType;
 
     /**
      * Default constructor.
@@ -50,6 +51,7 @@ public class ListSubscriptionGroupsItem
      * @param  state  String value for state.
      * @param  cancelAtEndOfPeriod  Boolean value for cancelAtEndOfPeriod.
      * @param  accountBalances  SubscriptionGroupBalances value for accountBalances.
+     * @param  groupType  GroupType value for groupType.
      */
     public ListSubscriptionGroupsItem(
             String uid,
@@ -61,7 +63,8 @@ public class ListSubscriptionGroupsItem
             ZonedDateTime nextAssessmentAt,
             String state,
             Boolean cancelAtEndOfPeriod,
-            SubscriptionGroupBalances accountBalances) {
+            SubscriptionGroupBalances accountBalances,
+            GroupType groupType) {
         this.uid = uid;
         this.scheme = scheme;
         this.customerId = customerId;
@@ -72,6 +75,7 @@ public class ListSubscriptionGroupsItem
         this.state = state;
         this.cancelAtEndOfPeriod = cancelAtEndOfPeriod;
         this.accountBalances = accountBalances;
+        this.groupType = groupType;
     }
 
     /**
@@ -267,6 +271,25 @@ public class ListSubscriptionGroupsItem
     }
 
     /**
+     * Getter for GroupType.
+     * @return Returns the GroupType
+     */
+    @JsonGetter("group_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public GroupType getGroupType() {
+        return groupType;
+    }
+
+    /**
+     * Setter for GroupType.
+     * @param groupType Value for GroupType
+     */
+    @JsonSetter("group_type")
+    public void setGroupType(GroupType groupType) {
+        this.groupType = groupType;
+    }
+
+    /**
      * Converts this ListSubscriptionGroupsItem into string format.
      * @return String representation of this class
      */
@@ -277,7 +300,8 @@ public class ListSubscriptionGroupsItem
                 + ", subscriptionIds=" + subscriptionIds + ", primarySubscriptionId="
                 + primarySubscriptionId + ", nextAssessmentAt=" + nextAssessmentAt + ", state="
                 + state + ", cancelAtEndOfPeriod=" + cancelAtEndOfPeriod + ", accountBalances="
-                + accountBalances + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + accountBalances + ", groupType=" + groupType + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -296,7 +320,8 @@ public class ListSubscriptionGroupsItem
                 .nextAssessmentAt(getNextAssessmentAt())
                 .state(getState())
                 .cancelAtEndOfPeriod(getCancelAtEndOfPeriod())
-                .accountBalances(getAccountBalances());
+                .accountBalances(getAccountBalances())
+                .groupType(getGroupType());
         return builder;
     }
 
@@ -314,6 +339,7 @@ public class ListSubscriptionGroupsItem
         private String state;
         private Boolean cancelAtEndOfPeriod;
         private SubscriptionGroupBalances accountBalances;
+        private GroupType groupType;
 
 
 
@@ -418,13 +444,23 @@ public class ListSubscriptionGroupsItem
         }
 
         /**
+         * Setter for groupType.
+         * @param  groupType  GroupType value for groupType.
+         * @return Builder
+         */
+        public Builder groupType(GroupType groupType) {
+            this.groupType = groupType;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListSubscriptionGroupsItem} object using the set fields.
          * @return {@link ListSubscriptionGroupsItem}
          */
         public ListSubscriptionGroupsItem build() {
             return new ListSubscriptionGroupsItem(uid, scheme, customerId, paymentProfileId,
                     subscriptionIds, primarySubscriptionId, nextAssessmentAt, state,
-                    cancelAtEndOfPeriod, accountBalances);
+                    cancelAtEndOfPeriod, accountBalances, groupType);
         }
     }
 }

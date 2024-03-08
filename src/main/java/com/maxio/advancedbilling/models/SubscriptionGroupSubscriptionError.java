@@ -21,6 +21,10 @@ public class SubscriptionGroupSubscriptionError
     private List<String> productPricePointId;
     private List<String> paymentProfile;
     private List<String> paymentProfileChargifyToken;
+    private List<String> base;
+    private List<String> paymentProfileExpirationMonth;
+    private List<String> paymentProfileExpirationYear;
+    private List<String> paymentProfileFullNumber;
 
     /**
      * Default constructor.
@@ -34,16 +38,29 @@ public class SubscriptionGroupSubscriptionError
      * @param  productPricePointId  List of String value for productPricePointId.
      * @param  paymentProfile  List of String value for paymentProfile.
      * @param  paymentProfileChargifyToken  List of String value for paymentProfileChargifyToken.
+     * @param  base  List of String value for base.
+     * @param  paymentProfileExpirationMonth  List of String value for
+     *         paymentProfileExpirationMonth.
+     * @param  paymentProfileExpirationYear  List of String value for paymentProfileExpirationYear.
+     * @param  paymentProfileFullNumber  List of String value for paymentProfileFullNumber.
      */
     public SubscriptionGroupSubscriptionError(
             List<String> product,
             List<String> productPricePointId,
             List<String> paymentProfile,
-            List<String> paymentProfileChargifyToken) {
+            List<String> paymentProfileChargifyToken,
+            List<String> base,
+            List<String> paymentProfileExpirationMonth,
+            List<String> paymentProfileExpirationYear,
+            List<String> paymentProfileFullNumber) {
         this.product = product;
         this.productPricePointId = productPricePointId;
         this.paymentProfile = paymentProfile;
         this.paymentProfileChargifyToken = paymentProfileChargifyToken;
+        this.base = base;
+        this.paymentProfileExpirationMonth = paymentProfileExpirationMonth;
+        this.paymentProfileExpirationYear = paymentProfileExpirationYear;
+        this.paymentProfileFullNumber = paymentProfileFullNumber;
     }
 
     /**
@@ -123,6 +140,82 @@ public class SubscriptionGroupSubscriptionError
     }
 
     /**
+     * Getter for Base.
+     * @return Returns the List of String
+     */
+    @JsonGetter("base")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getBase() {
+        return base;
+    }
+
+    /**
+     * Setter for Base.
+     * @param base Value for List of String
+     */
+    @JsonSetter("base")
+    public void setBase(List<String> base) {
+        this.base = base;
+    }
+
+    /**
+     * Getter for PaymentProfileExpirationMonth.
+     * @return Returns the List of String
+     */
+    @JsonGetter("payment_profile.expiration_month")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getPaymentProfileExpirationMonth() {
+        return paymentProfileExpirationMonth;
+    }
+
+    /**
+     * Setter for PaymentProfileExpirationMonth.
+     * @param paymentProfileExpirationMonth Value for List of String
+     */
+    @JsonSetter("payment_profile.expiration_month")
+    public void setPaymentProfileExpirationMonth(List<String> paymentProfileExpirationMonth) {
+        this.paymentProfileExpirationMonth = paymentProfileExpirationMonth;
+    }
+
+    /**
+     * Getter for PaymentProfileExpirationYear.
+     * @return Returns the List of String
+     */
+    @JsonGetter("payment_profile.expiration_year")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getPaymentProfileExpirationYear() {
+        return paymentProfileExpirationYear;
+    }
+
+    /**
+     * Setter for PaymentProfileExpirationYear.
+     * @param paymentProfileExpirationYear Value for List of String
+     */
+    @JsonSetter("payment_profile.expiration_year")
+    public void setPaymentProfileExpirationYear(List<String> paymentProfileExpirationYear) {
+        this.paymentProfileExpirationYear = paymentProfileExpirationYear;
+    }
+
+    /**
+     * Getter for PaymentProfileFullNumber.
+     * @return Returns the List of String
+     */
+    @JsonGetter("payment_profile.full_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getPaymentProfileFullNumber() {
+        return paymentProfileFullNumber;
+    }
+
+    /**
+     * Setter for PaymentProfileFullNumber.
+     * @param paymentProfileFullNumber Value for List of String
+     */
+    @JsonSetter("payment_profile.full_number")
+    public void setPaymentProfileFullNumber(List<String> paymentProfileFullNumber) {
+        this.paymentProfileFullNumber = paymentProfileFullNumber;
+    }
+
+    /**
      * Converts this SubscriptionGroupSubscriptionError into string format.
      * @return String representation of this class
      */
@@ -131,7 +224,11 @@ public class SubscriptionGroupSubscriptionError
         return "SubscriptionGroupSubscriptionError [" + "product=" + product
                 + ", productPricePointId=" + productPricePointId + ", paymentProfile="
                 + paymentProfile + ", paymentProfileChargifyToken=" + paymentProfileChargifyToken
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", base=" + base + ", paymentProfileExpirationMonth="
+                + paymentProfileExpirationMonth + ", paymentProfileExpirationYear="
+                + paymentProfileExpirationYear + ", paymentProfileFullNumber="
+                + paymentProfileFullNumber + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**
@@ -144,7 +241,11 @@ public class SubscriptionGroupSubscriptionError
                 .product(getProduct())
                 .productPricePointId(getProductPricePointId())
                 .paymentProfile(getPaymentProfile())
-                .paymentProfileChargifyToken(getPaymentProfileChargifyToken());
+                .paymentProfileChargifyToken(getPaymentProfileChargifyToken())
+                .base(getBase())
+                .paymentProfileExpirationMonth(getPaymentProfileExpirationMonth())
+                .paymentProfileExpirationYear(getPaymentProfileExpirationYear())
+                .paymentProfileFullNumber(getPaymentProfileFullNumber());
         return builder;
     }
 
@@ -156,6 +257,10 @@ public class SubscriptionGroupSubscriptionError
         private List<String> productPricePointId;
         private List<String> paymentProfile;
         private List<String> paymentProfileChargifyToken;
+        private List<String> base;
+        private List<String> paymentProfileExpirationMonth;
+        private List<String> paymentProfileExpirationYear;
+        private List<String> paymentProfileFullNumber;
 
 
 
@@ -201,12 +306,56 @@ public class SubscriptionGroupSubscriptionError
         }
 
         /**
+         * Setter for base.
+         * @param  base  List of String value for base.
+         * @return Builder
+         */
+        public Builder base(List<String> base) {
+            this.base = base;
+            return this;
+        }
+
+        /**
+         * Setter for paymentProfileExpirationMonth.
+         * @param  paymentProfileExpirationMonth  List of String value for
+         *         paymentProfileExpirationMonth.
+         * @return Builder
+         */
+        public Builder paymentProfileExpirationMonth(List<String> paymentProfileExpirationMonth) {
+            this.paymentProfileExpirationMonth = paymentProfileExpirationMonth;
+            return this;
+        }
+
+        /**
+         * Setter for paymentProfileExpirationYear.
+         * @param  paymentProfileExpirationYear  List of String value for
+         *         paymentProfileExpirationYear.
+         * @return Builder
+         */
+        public Builder paymentProfileExpirationYear(List<String> paymentProfileExpirationYear) {
+            this.paymentProfileExpirationYear = paymentProfileExpirationYear;
+            return this;
+        }
+
+        /**
+         * Setter for paymentProfileFullNumber.
+         * @param  paymentProfileFullNumber  List of String value for paymentProfileFullNumber.
+         * @return Builder
+         */
+        public Builder paymentProfileFullNumber(List<String> paymentProfileFullNumber) {
+            this.paymentProfileFullNumber = paymentProfileFullNumber;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SubscriptionGroupSubscriptionError} object using the set fields.
          * @return {@link SubscriptionGroupSubscriptionError}
          */
         public SubscriptionGroupSubscriptionError build() {
             return new SubscriptionGroupSubscriptionError(product, productPricePointId,
-                    paymentProfile, paymentProfileChargifyToken);
+                    paymentProfile, paymentProfileChargifyToken, base,
+                    paymentProfileExpirationMonth, paymentProfileExpirationYear,
+                    paymentProfileFullNumber);
         }
     }
 }

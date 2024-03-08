@@ -23,7 +23,7 @@ public class SubscriptionGroup
         extends BaseModel {
     private Integer customerId;
     private SubscriptionGroupPaymentProfile paymentProfile;
-    private String paymentCollectionMethod;
+    private CollectionMethod paymentCollectionMethod;
     private List<Integer> subscriptionIds;
     private ZonedDateTime createdAt;
 
@@ -31,20 +31,21 @@ public class SubscriptionGroup
      * Default constructor.
      */
     public SubscriptionGroup() {
+        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
      * Initialization constructor.
      * @param  customerId  Integer value for customerId.
      * @param  paymentProfile  SubscriptionGroupPaymentProfile value for paymentProfile.
-     * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
+     * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  subscriptionIds  List of Integer value for subscriptionIds.
      * @param  createdAt  ZonedDateTime value for createdAt.
      */
     public SubscriptionGroup(
             Integer customerId,
             SubscriptionGroupPaymentProfile paymentProfile,
-            String paymentCollectionMethod,
+            CollectionMethod paymentCollectionMethod,
             List<Integer> subscriptionIds,
             ZonedDateTime createdAt) {
         this.customerId = customerId;
@@ -94,20 +95,26 @@ public class SubscriptionGroup
 
     /**
      * Getter for PaymentCollectionMethod.
-     * @return Returns the String
+     * The type of payment collection to be used in the subscription. For legacy Statements
+     * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
+     * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
+     * @return Returns the CollectionMethod
      */
     @JsonGetter("payment_collection_method")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPaymentCollectionMethod() {
+    public CollectionMethod getPaymentCollectionMethod() {
         return paymentCollectionMethod;
     }
 
     /**
      * Setter for PaymentCollectionMethod.
-     * @param paymentCollectionMethod Value for String
+     * The type of payment collection to be used in the subscription. For legacy Statements
+     * Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing
+     * Architecture valid options are - `remittance`, `automatic`, `prepaid`.
+     * @param paymentCollectionMethod Value for CollectionMethod
      */
     @JsonSetter("payment_collection_method")
-    public void setPaymentCollectionMethod(String paymentCollectionMethod) {
+    public void setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
         this.paymentCollectionMethod = paymentCollectionMethod;
     }
 
@@ -184,7 +191,7 @@ public class SubscriptionGroup
     public static class Builder {
         private Integer customerId;
         private SubscriptionGroupPaymentProfile paymentProfile;
-        private String paymentCollectionMethod;
+        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
         private List<Integer> subscriptionIds;
         private ZonedDateTime createdAt;
 
@@ -212,10 +219,10 @@ public class SubscriptionGroup
 
         /**
          * Setter for paymentCollectionMethod.
-         * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
+         * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
          * @return Builder
          */
-        public Builder paymentCollectionMethod(String paymentCollectionMethod) {
+        public Builder paymentCollectionMethod(CollectionMethod paymentCollectionMethod) {
             this.paymentCollectionMethod = paymentCollectionMethod;
             return this;
         }

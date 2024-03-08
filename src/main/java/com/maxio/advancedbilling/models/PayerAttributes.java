@@ -32,7 +32,7 @@ public class PayerAttributes
     private String phone;
     private String locale;
     private String vatNumber;
-    private String taxExempt;
+    private Boolean taxExempt;
     private String taxExemptReason;
     private Map<String, String> metafields;
 
@@ -59,7 +59,7 @@ public class PayerAttributes
      * @param  phone  String value for phone.
      * @param  locale  String value for locale.
      * @param  vatNumber  String value for vatNumber.
-     * @param  taxExempt  String value for taxExempt.
+     * @param  taxExempt  Boolean value for taxExempt.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  metafields  Map of String, value for metafields.
      */
@@ -79,7 +79,7 @@ public class PayerAttributes
             String phone,
             String locale,
             String vatNumber,
-            String taxExempt,
+            Boolean taxExempt,
             String taxExemptReason,
             Map<String, String> metafields) {
         this.firstName = firstName;
@@ -389,20 +389,20 @@ public class PayerAttributes
 
     /**
      * Getter for TaxExempt.
-     * @return Returns the String
+     * @return Returns the Boolean
      */
     @JsonGetter("tax_exempt")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTaxExempt() {
+    public Boolean getTaxExempt() {
         return taxExempt;
     }
 
     /**
      * Setter for TaxExempt.
-     * @param taxExempt Value for String
+     * @param taxExempt Value for Boolean
      */
     @JsonSetter("tax_exempt")
-    public void setTaxExempt(String taxExempt) {
+    public void setTaxExempt(Boolean taxExempt) {
         this.taxExempt = taxExempt;
     }
 
@@ -511,7 +511,7 @@ public class PayerAttributes
         private String phone;
         private String locale;
         private String vatNumber;
-        private String taxExempt;
+        private Boolean taxExempt;
         private String taxExemptReason;
         private Map<String, String> metafields;
 
@@ -669,10 +669,10 @@ public class PayerAttributes
 
         /**
          * Setter for taxExempt.
-         * @param  taxExempt  String value for taxExempt.
+         * @param  taxExempt  Boolean value for taxExempt.
          * @return Builder
          */
-        public Builder taxExempt(String taxExempt) {
+        public Builder taxExempt(Boolean taxExempt) {
             this.taxExempt = taxExempt;
             return this;
         }
