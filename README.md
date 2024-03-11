@@ -7,9 +7,7 @@ Maxio Advanced Billing (formerly Chargify) provides an HTTP-based API that confo
 One of the many reasons to use Advanced Billing is the immense feature set and surrounding community [client libraries](page:development-tools/client-libraries).
 The Maxio API returns JSON responses as the primary and recommended format, but XML is also provided as a backwards compatible option for Merchants who require it.
 
-### Getting Started
-
-Steps to make your first Maxio Advanced Billing API call:
+### Steps to make your first Maxio Advanced Billing API call
 
 1. [Sign-up](https://app.chargify.com/signup/maxio-billing-sandbox) or [log-in](https://app.chargify.com/login.html) to your [test site](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405553861773-Testing-Intro) account.
 2. [Setup and configure authentication](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405281550477-API-Keys#api) credentials.
@@ -21,7 +19,7 @@ We strongly suggest exploring the developer portal, our [integrations](https://w
 
 #### Example
 
-The following examples use the curl command-line tool to execute API requests.
+The following example uses the curl command-line tool to execute API requests.
 
 **Request**
 

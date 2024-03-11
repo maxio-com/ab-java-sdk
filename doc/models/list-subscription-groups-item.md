@@ -19,6 +19,7 @@
 | `State` | `String` | Optional | - | String getState() | setState(String state) |
 | `CancelAtEndOfPeriod` | `Boolean` | Optional | - | Boolean getCancelAtEndOfPeriod() | setCancelAtEndOfPeriod(Boolean cancelAtEndOfPeriod) |
 | `AccountBalances` | [`SubscriptionGroupBalances`](../../doc/models/subscription-group-balances.md) | Optional | - | SubscriptionGroupBalances getAccountBalances() | setAccountBalances(SubscriptionGroupBalances accountBalances) |
+| `GroupType` | [`GroupType`](../../doc/models/group-type.md) | Optional | - | GroupType getGroupType() | setGroupType(GroupType groupType) |
 
 ## Example (as JSON)
 

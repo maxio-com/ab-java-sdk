@@ -11,7 +11,7 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
-import com.maxio.advancedbilling.exceptions.SingleStringErrorResponseException;
+import com.maxio.advancedbilling.exceptions.SubscriptionGroupCreateErrorResponseException;
 import com.maxio.advancedbilling.exceptions.SubscriptionGroupSignupErrorResponseException;
 import com.maxio.advancedbilling.exceptions.SubscriptionGroupUpdateErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
@@ -21,15 +21,18 @@ import com.maxio.advancedbilling.models.DeleteSubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsResponse;
+import com.maxio.advancedbilling.models.SubscriptionGroupInclude;
 import com.maxio.advancedbilling.models.SubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupRequest;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
+import com.maxio.advancedbilling.models.SubscriptionGroupsListInclude;
 import com.maxio.advancedbilling.models.UpdateSubscriptionGroupRequest;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This class lists all the endpoints of the groups.
@@ -130,7 +133,7 @@ public final class SubscriptionGroupsController extends BaseController {
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new SingleStringErrorResponseException(reason, context)))
+                                (reason, context) -> new SubscriptionGroupCreateErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -167,8 +170,8 @@ public final class SubscriptionGroupsController extends BaseController {
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
-                        .queryParam(param -> param.key("include")
-                                .value(input.getInclude()).isRequired(false))
+                        .queryParam(param -> param.key("include[]")
+                                .value(SubscriptionGroupsListInclude.toValue(input.getInclude())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
@@ -189,25 +192,31 @@ public final class SubscriptionGroupsController extends BaseController {
      * information is desired, the `include[]=current_billing_amount_in_cents` parameter must be
      * provided with the request.
      * @param  uid  Required parameter: The uid of the subscription group
+     * @param  include  Optional parameter: Allows including additional data in the response. Use in
+     *         query: `include[]=current_billing_amount_in_cents`.
      * @return    Returns the FullSubscriptionGroupResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public FullSubscriptionGroupResponse readSubscriptionGroup(
-            final String uid) throws ApiException, IOException {
-        return prepareReadSubscriptionGroupRequest(uid).execute();
+            final String uid,
+            final List<SubscriptionGroupInclude> include) throws ApiException, IOException {
+        return prepareReadSubscriptionGroupRequest(uid, include).execute();
     }
 
     /**
      * Builds the ApiCall object for readSubscriptionGroup.
      */
     private ApiCall<FullSubscriptionGroupResponse, ApiException> prepareReadSubscriptionGroupRequest(
-            final String uid) throws IOException {
+            final String uid,
+            final List<SubscriptionGroupInclude> include) throws IOException {
         return new ApiCall.Builder<FullSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscription_groups/{uid}.json")
+                        .queryParam(param -> param.key("include[]")
+                                .value(SubscriptionGroupInclude.toValue(include)).isRequired(false))
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))

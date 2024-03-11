@@ -24,7 +24,7 @@
 | `Phone` | `String` | Optional | - | String getPhone() | setPhone(String phone) |
 | `Locale` | `String` | Optional | - | String getLocale() | setLocale(String locale) |
 | `VatNumber` | `String` | Optional | - | String getVatNumber() | setVatNumber(String vatNumber) |
-| `TaxExempt` | `String` | Optional | - | String getTaxExempt() | setTaxExempt(String taxExempt) |
+| `TaxExempt` | `Boolean` | Optional | - | Boolean getTaxExempt() | setTaxExempt(Boolean taxExempt) |
 | `TaxExemptReason` | `String` | Optional | - | String getTaxExemptReason() | setTaxExemptReason(String taxExemptReason) |
 | `Metafields` | `Map<String, String>` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. | Map<String, String> getMetafields() | setMetafields(Map<String, String> metafields) |
 

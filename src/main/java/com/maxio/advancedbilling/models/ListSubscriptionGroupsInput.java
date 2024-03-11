@@ -9,6 +9,7 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import java.util.List;
 
 /**
  * This is a model class for ListSubscriptionGroupsInput type.
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 public class ListSubscriptionGroupsInput {
     private Integer page;
     private Integer perPage;
-    private String include;
+    private List<SubscriptionGroupsListInclude> include;
 
     /**
      * Default constructor.
@@ -30,12 +31,12 @@ public class ListSubscriptionGroupsInput {
      * Initialization constructor.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  include  String value for include.
+     * @param  include  List of SubscriptionGroupsListInclude value for include.
      */
     public ListSubscriptionGroupsInput(
             Integer page,
             Integer perPage,
-            String include) {
+            List<SubscriptionGroupsListInclude> include) {
         this.page = page;
         this.perPage = perPage;
         this.include = include;
@@ -100,11 +101,11 @@ public class ListSubscriptionGroupsInput {
      * A list of additional information to include in the response. The following values are
      * supported: - `account_balances`: Account balance information for the subscription groups. Use
      * in query: `include[]=account_balances`
-     * @return Returns the String
+     * @return Returns the List of SubscriptionGroupsListInclude
      */
-    @JsonGetter("include")
+    @JsonGetter("include[]")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getInclude() {
+    public List<SubscriptionGroupsListInclude> getInclude() {
         return include;
     }
 
@@ -113,10 +114,10 @@ public class ListSubscriptionGroupsInput {
      * A list of additional information to include in the response. The following values are
      * supported: - `account_balances`: Account balance information for the subscription groups. Use
      * in query: `include[]=account_balances`
-     * @param include Value for String
+     * @param include Value for List of SubscriptionGroupsListInclude
      */
-    @JsonSetter("include")
-    public void setInclude(String include) {
+    @JsonSetter("include[]")
+    public void setInclude(List<SubscriptionGroupsListInclude> include) {
         this.include = include;
     }
 
@@ -149,7 +150,7 @@ public class ListSubscriptionGroupsInput {
     public static class Builder {
         private Integer page = 1;
         private Integer perPage = 20;
-        private String include;
+        private List<SubscriptionGroupsListInclude> include;
 
 
 
@@ -175,10 +176,10 @@ public class ListSubscriptionGroupsInput {
 
         /**
          * Setter for include.
-         * @param  include  String value for include.
+         * @param  include  List of SubscriptionGroupsListInclude value for include.
          * @return Builder
          */
-        public Builder include(String include) {
+        public Builder include(List<SubscriptionGroupsListInclude> include) {
             this.include = include;
             return this;
         }
