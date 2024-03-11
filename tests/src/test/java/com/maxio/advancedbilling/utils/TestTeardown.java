@@ -8,10 +8,11 @@ import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListComponentsInput;
 import com.maxio.advancedbilling.models.ListMetafieldsInput;
+import com.maxio.advancedbilling.models.ListSubscriptionGroupsInput;
+import com.maxio.advancedbilling.models.ListSubscriptionGroupsItem;
 import com.maxio.advancedbilling.models.ListSubscriptionsInput;
 import com.maxio.advancedbilling.models.Metafield;
 import com.maxio.advancedbilling.models.ResourceType;
-import com.maxio.advancedbilling.models.SubscriptionGroupItem;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
 import org.slf4j.Logger;
@@ -61,22 +62,39 @@ public class TestTeardown {
     }
 
     public void deleteSubscriptionGroup(SubscriptionGroupSignupResponse groupSignup) throws IOException, ApiException {
-        SubscriptionGroupsController subscriptionGroupsController = advancedBillingClient.getSubscriptionGroupsController();
-        List<SubscriptionGroupItem> subscriptions = groupSignup.getSubscriptions();
-        SubscriptionGroupItem primarySubscription = null;
+        deleteSubscriptionGroup(groupSignup.getPrimarySubscriptionId(), groupSignup.getSubscriptionIds(), groupSignup.getCustomerId());
+    }
 
-        for (SubscriptionGroupItem subscription : subscriptions) {
-            if (groupSignup.getPrimarySubscriptionId().equals(subscription.getId())) {
-                primarySubscription = subscription;
-                continue;
+    public void deleteAllSubscriptionGroups() throws IOException, ApiException {
+        LOGGER.info("Deleting all subscription groups");
+        List<ListSubscriptionGroupsItem> subscriptionGroups = advancedBillingClient.getSubscriptionGroupsController()
+                .listSubscriptionGroups(new ListSubscriptionGroupsInput()).getSubscriptionGroups();
+
+        while (!subscriptionGroups.isEmpty()) {
+            LOGGER.info("Subscription groups batch: {}", subscriptionGroups.size());
+            for (ListSubscriptionGroupsItem group : subscriptionGroups) {
+                LOGGER.info("Purging subscription group: {}", group.getUid());
+                deleteSubscriptionGroup(group.getPrimarySubscriptionId(), group.getSubscriptionIds(), group.getCustomerId());
+                LOGGER.info("Subscription group purged successfully: {}", group.getUid());
             }
-            subscriptionGroupsController.removeSubscriptionFromGroup(subscription.getId());
+
+            subscriptionGroups = advancedBillingClient.getSubscriptionGroupsController()
+                    .listSubscriptionGroups(new ListSubscriptionGroupsInput()).getSubscriptionGroups();
+        }
+    }
+
+    public void deleteSubscriptionGroup(Integer primarySubscriptionId, List<Integer> subscriptionsIds,
+                                        Integer customerId) throws IOException, ApiException {
+        SubscriptionGroupsController subscriptionGroupsController = advancedBillingClient.getSubscriptionGroupsController();
+
+        for (Integer subscriptionId : subscriptionsIds) {
+            if (!primarySubscriptionId.equals(subscriptionId)) {
+                subscriptionGroupsController.removeSubscriptionFromGroup(subscriptionId);
+            }
         }
 
-        if (primarySubscription != null) {
-            subscriptionGroupsController.removeSubscriptionFromGroup(primarySubscription.getId());
-        }
-        deleteCustomer(new Customer.Builder().id(groupSignup.getCustomerId()).build());
+        subscriptionGroupsController.removeSubscriptionFromGroup(primarySubscriptionId);
+        deleteCustomer(new Customer.Builder().id(customerId).build());
     }
 
     public void archiveComponents() throws IOException, ApiException {
