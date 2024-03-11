@@ -34,6 +34,7 @@ public class CreateOrUpdateFlatAmountCoupon
     private CompoundingStrategy compoundingStrategy;
     private Boolean excludeMidPeriodAllocations;
     private Boolean applyOnCancelAtEndOfPeriod;
+    private Boolean applyOnSubscriptionExpiration;
 
     /**
      * Default constructor.
@@ -55,6 +56,7 @@ public class CreateOrUpdateFlatAmountCoupon
      * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
+     * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
      */
     public CreateOrUpdateFlatAmountCoupon(
             String name,
@@ -68,7 +70,8 @@ public class CreateOrUpdateFlatAmountCoupon
             Boolean stackable,
             CompoundingStrategy compoundingStrategy,
             Boolean excludeMidPeriodAllocations,
-            Boolean applyOnCancelAtEndOfPeriod) {
+            Boolean applyOnCancelAtEndOfPeriod,
+            Boolean applyOnSubscriptionExpiration) {
         this.name = name;
         this.code = code;
         this.description = description;
@@ -81,6 +84,7 @@ public class CreateOrUpdateFlatAmountCoupon
         this.compoundingStrategy = compoundingStrategy;
         this.excludeMidPeriodAllocations = excludeMidPeriodAllocations;
         this.applyOnCancelAtEndOfPeriod = applyOnCancelAtEndOfPeriod;
+        this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
     }
 
     /**
@@ -94,7 +98,7 @@ public class CreateOrUpdateFlatAmountCoupon
             @JsonProperty("name") String name,
             @JsonProperty("code") String code,
             @JsonProperty("amount_in_cents") long amountInCents) {
-        this(name, code, amountInCents, null, null, null, null, null, null, null, null, null);
+        this(name, code, amountInCents, null, null, null, null, null, null, null, null, null, null);
     }
 
     /**
@@ -331,6 +335,25 @@ public class CreateOrUpdateFlatAmountCoupon
     }
 
     /**
+     * Getter for ApplyOnSubscriptionExpiration.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("apply_on_subscription_expiration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getApplyOnSubscriptionExpiration() {
+        return applyOnSubscriptionExpiration;
+    }
+
+    /**
+     * Setter for ApplyOnSubscriptionExpiration.
+     * @param applyOnSubscriptionExpiration Value for Boolean
+     */
+    @JsonSetter("apply_on_subscription_expiration")
+    public void setApplyOnSubscriptionExpiration(Boolean applyOnSubscriptionExpiration) {
+        this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
+    }
+
+    /**
      * Converts this CreateOrUpdateFlatAmountCoupon into string format.
      * @return String representation of this class
      */
@@ -343,6 +366,7 @@ public class CreateOrUpdateFlatAmountCoupon
                 + stackable + ", compoundingStrategy=" + compoundingStrategy
                 + ", excludeMidPeriodAllocations=" + excludeMidPeriodAllocations
                 + ", applyOnCancelAtEndOfPeriod=" + applyOnCancelAtEndOfPeriod
+                + ", applyOnSubscriptionExpiration=" + applyOnSubscriptionExpiration
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
@@ -361,7 +385,8 @@ public class CreateOrUpdateFlatAmountCoupon
                 .stackable(getStackable())
                 .compoundingStrategy(getCompoundingStrategy())
                 .excludeMidPeriodAllocations(getExcludeMidPeriodAllocations())
-                .applyOnCancelAtEndOfPeriod(getApplyOnCancelAtEndOfPeriod());
+                .applyOnCancelAtEndOfPeriod(getApplyOnCancelAtEndOfPeriod())
+                .applyOnSubscriptionExpiration(getApplyOnSubscriptionExpiration());
         return builder;
     }
 
@@ -381,6 +406,7 @@ public class CreateOrUpdateFlatAmountCoupon
         private CompoundingStrategy compoundingStrategy;
         private Boolean excludeMidPeriodAllocations;
         private Boolean applyOnCancelAtEndOfPeriod;
+        private Boolean applyOnSubscriptionExpiration;
 
         /**
          * Initialization constructor.
@@ -521,13 +547,24 @@ public class CreateOrUpdateFlatAmountCoupon
         }
 
         /**
+         * Setter for applyOnSubscriptionExpiration.
+         * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
+         * @return Builder
+         */
+        public Builder applyOnSubscriptionExpiration(Boolean applyOnSubscriptionExpiration) {
+            this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateOrUpdateFlatAmountCoupon} object using the set fields.
          * @return {@link CreateOrUpdateFlatAmountCoupon}
          */
         public CreateOrUpdateFlatAmountCoupon build() {
             return new CreateOrUpdateFlatAmountCoupon(name, code, amountInCents, description,
                     allowNegativeBalance, recurring, endDate, productFamilyId, stackable,
-                    compoundingStrategy, excludeMidPeriodAllocations, applyOnCancelAtEndOfPeriod);
+                    compoundingStrategy, excludeMidPeriodAllocations, applyOnCancelAtEndOfPeriod,
+                    applyOnSubscriptionExpiration);
         }
     }
 }

@@ -9,12 +9,12 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
-| `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
-| `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
+| `Id` | `Long` | Optional | **Constraints**: `>= 1` | Long getId() | setId(Long id) |
+| `SubscriptionId` | `Integer` | Optional | **Constraints**: `>= 1` | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
+| `AmountInCents` | `Long` | Optional | **Constraints**: `>= 0.01` | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
-| `StartingBalanceInCents` | `Long` | Optional | - | Long getStartingBalanceInCents() | setStartingBalanceInCents(Long startingBalanceInCents) |
+| `StartingBalanceInCents` | `Long` | Optional | **Constraints**: `>= 0` | Long getStartingBalanceInCents() | setStartingBalanceInCents(Long startingBalanceInCents) |
 | `EndingBalanceInCents` | `Long` | Optional | - | Long getEndingBalanceInCents() | setEndingBalanceInCents(Long endingBalanceInCents) |
 
 ## Example (as JSON)

@@ -36,15 +36,15 @@ public final class AdvanceInvoiceController extends BaseController {
 
     /**
      * Generate an invoice in advance for a subscription's next renewal date. [Please see our
-     * docs](reference/Chargify-API.v1.yaml/components/schemas/Invoice) for more information on
-     * advance invoices, including eligibility on generating one; for the most part, they function
-     * like any other invoice, except they are issued early and have special behavior upon being
-     * voided. A subscription may only have one advance invoice per billing period. Attempting to
-     * issue an advance invoice when one already exists will return an error. That said,
-     * regeneration of the invoice may be forced with the params `force: true`, which will void an
-     * advance invoice if one exists and generate a new one. If no advance invoice exists, a new one
-     * will be generated. We recommend using either the create or preview endpoints for proforma
-     * invoices to preview this advance invoice before using this endpoint to generate it.
+     * docs]($m/Invoice) for more information on advance invoices, including eligibility on
+     * generating one; for the most part, they function like any other invoice, except they are
+     * issued early and have special behavior upon being voided. A subscription may only have one
+     * advance invoice per billing period. Attempting to issue an advance invoice when one already
+     * exists will return an error. That said, regeneration of the invoice may be forced with the
+     * params `force: true`, which will void an advance invoice if one exists and generate a new
+     * one. If no advance invoice exists, a new one will be generated. We recommend using either the
+     * create or preview endpoints for proforma invoices to preview this advance invoice before
+     * using this endpoint to generate it.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter: Example:
      * @return    Returns the Invoice response from the API call
@@ -142,7 +142,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * desired. A `reason` is required in order to void, and the invoice must have an open status.
      * Voiding will cause any prepayments and credits that were applied to the invoice to be
      * returned to the subscription. For a full overview of the impact of voiding, please [see our
-     * help docs](reference/Chargify-API.v1.yaml/components/schemas/Invoice).
+     * help docs]($m/Invoice).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter: Example:
      * @return    Returns the Invoice response from the API call

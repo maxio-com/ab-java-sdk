@@ -51,6 +51,7 @@ public class Coupon
     private DiscountType discountType;
     private Boolean excludeMidPeriodAllocations;
     private Boolean applyOnCancelAtEndOfPeriod;
+    private Boolean applyOnSubscriptionExpiration;
     private List<CouponRestriction> couponRestrictions;
 
     /**
@@ -89,6 +90,7 @@ public class Coupon
      * @param  discountType  DiscountType value for discountType.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
+     * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
      * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
      */
     public Coupon(
@@ -120,6 +122,7 @@ public class Coupon
             DiscountType discountType,
             Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod,
+            Boolean applyOnSubscriptionExpiration,
             List<CouponRestriction> couponRestrictions) {
         this.id = id;
         this.name = name;
@@ -149,6 +152,7 @@ public class Coupon
         this.discountType = discountType;
         this.excludeMidPeriodAllocations = excludeMidPeriodAllocations;
         this.applyOnCancelAtEndOfPeriod = applyOnCancelAtEndOfPeriod;
+        this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
         this.couponRestrictions = couponRestrictions;
     }
 
@@ -182,6 +186,7 @@ public class Coupon
      * @param  discountType  DiscountType value for discountType.
      * @param  excludeMidPeriodAllocations  Boolean value for excludeMidPeriodAllocations.
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
+     * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
      * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
      */
 
@@ -198,7 +203,8 @@ public class Coupon
             Boolean stackable, CouponCompoundingStrategy compoundingStrategy,
             Boolean useSiteExchangeRate, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             DiscountType discountType, Boolean excludeMidPeriodAllocations,
-            Boolean applyOnCancelAtEndOfPeriod, List<CouponRestriction> couponRestrictions) {
+            Boolean applyOnCancelAtEndOfPeriod, Boolean applyOnSubscriptionExpiration,
+            List<CouponRestriction> couponRestrictions) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -227,6 +233,7 @@ public class Coupon
         this.discountType = discountType;
         this.excludeMidPeriodAllocations = excludeMidPeriodAllocations;
         this.applyOnCancelAtEndOfPeriod = applyOnCancelAtEndOfPeriod;
+        this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
         this.couponRestrictions = couponRestrictions;
     }
 
@@ -947,6 +954,25 @@ public class Coupon
     }
 
     /**
+     * Getter for ApplyOnSubscriptionExpiration.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("apply_on_subscription_expiration")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getApplyOnSubscriptionExpiration() {
+        return applyOnSubscriptionExpiration;
+    }
+
+    /**
+     * Setter for ApplyOnSubscriptionExpiration.
+     * @param applyOnSubscriptionExpiration Value for Boolean
+     */
+    @JsonSetter("apply_on_subscription_expiration")
+    public void setApplyOnSubscriptionExpiration(Boolean applyOnSubscriptionExpiration) {
+        this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
+    }
+
+    /**
      * Getter for CouponRestrictions.
      * @return Returns the List of CouponRestriction
      */
@@ -985,7 +1011,8 @@ public class Coupon
                 + useSiteExchangeRate + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", discountType=" + discountType + ", excludeMidPeriodAllocations="
                 + excludeMidPeriodAllocations + ", applyOnCancelAtEndOfPeriod="
-                + applyOnCancelAtEndOfPeriod + ", couponRestrictions=" + couponRestrictions
+                + applyOnCancelAtEndOfPeriod + ", applyOnSubscriptionExpiration="
+                + applyOnSubscriptionExpiration + ", couponRestrictions=" + couponRestrictions
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
@@ -1013,6 +1040,7 @@ public class Coupon
                 .discountType(getDiscountType())
                 .excludeMidPeriodAllocations(getExcludeMidPeriodAllocations())
                 .applyOnCancelAtEndOfPeriod(getApplyOnCancelAtEndOfPeriod())
+                .applyOnSubscriptionExpiration(getApplyOnSubscriptionExpiration())
                 .couponRestrictions(getCouponRestrictions());
         builder.amount = internalGetAmount();
         builder.amountInCents = internalGetAmountInCents();
@@ -1060,6 +1088,7 @@ public class Coupon
         private DiscountType discountType;
         private Boolean excludeMidPeriodAllocations;
         private Boolean applyOnCancelAtEndOfPeriod;
+        private Boolean applyOnSubscriptionExpiration;
         private List<CouponRestriction> couponRestrictions;
 
 
@@ -1444,6 +1473,16 @@ public class Coupon
         }
 
         /**
+         * Setter for applyOnSubscriptionExpiration.
+         * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
+         * @return Builder
+         */
+        public Builder applyOnSubscriptionExpiration(Boolean applyOnSubscriptionExpiration) {
+            this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
+            return this;
+        }
+
+        /**
          * Setter for couponRestrictions.
          * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
          * @return Builder
@@ -1464,7 +1503,7 @@ public class Coupon
                     durationIntervalSpan, allowNegativeBalance, archivedAt, conversionLimit,
                     stackable, compoundingStrategy, useSiteExchangeRate, createdAt, updatedAt,
                     discountType, excludeMidPeriodAllocations, applyOnCancelAtEndOfPeriod,
-                    couponRestrictions);
+                    applyOnSubscriptionExpiration, couponRestrictions);
         }
     }
 }
