@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static com.maxio.advancedbilling.models.SubscriptionState.ACTIVE;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
@@ -158,7 +159,7 @@ public class SubscriptionGroupsControllerSignupTest {
                                         .phone("555-111-222")
                                         .locale("es-MX")
                                         .vatNumber("123")
-                                        .taxExempt("true")
+                                        .taxExempt(true)
                                         .taxExemptReason("N")
                                         .build())
                                 .bankAccountAttributes(new SubscriptionGroupBankAccount.Builder()
@@ -274,7 +275,7 @@ public class SubscriptionGroupsControllerSignupTest {
                             assertThat(error.getErrors().getSubscriptionGroup()).isNull();
                             assertThat(error.getErrors().getSubscriptions()).usingRecursiveComparison().isEqualTo(
                                     Map.of("0", new SubscriptionGroupSubscriptionError.Builder()
-//                                            .base(List.of("No payment method was on file for the $12.50 balance"))
+                                            .base(List.of("No payment method was on file for the $12.50 balance"))
                                             .build())
                             );
                         }
@@ -344,7 +345,7 @@ public class SubscriptionGroupsControllerSignupTest {
         assertThat(groupSignup.getPrimarySubscriptionId()).isNotNull();
         assertThat(groupSignup.getScheme()).isEqualTo(1);
         assertThat(groupSignup.getScheme()).isEqualTo(1);
-        assertThat(groupSignup.getState()).isEqualTo("active");
+        assertThat(groupSignup.getState()).isEqualTo(ACTIVE);
         assertThat(groupSignup.getSubscriptionIds()).isNotEmpty();
         assertThat(groupSignup.getSubscriptionIds()).hasSize(2);
         assertThat(groupSignup.getUid()).isNotNull();

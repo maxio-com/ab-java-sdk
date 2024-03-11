@@ -4,6 +4,9 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.models.Component;
+import com.maxio.advancedbilling.models.CreateAllocation;
+import com.maxio.advancedbilling.models.CreateAllocationRequest;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroup;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroupRequest;
 import com.maxio.advancedbilling.models.Customer;
@@ -12,11 +15,12 @@ import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.Subscription;
+import com.maxio.advancedbilling.models.SubscriptionGroupInclude;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepayment;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentMethod;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentRequest;
 import com.maxio.advancedbilling.models.SubscriptionGroupResponse;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroupSubscriptionId;
+import com.maxio.advancedbilling.models.SubscriptionState;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -27,6 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
@@ -67,12 +72,13 @@ public class SubscriptionGroupsControllerReadTest {
         Customer customer = TEST_SETUP.createCustomer();
         Subscription subscription1 = TEST_SETUP.createSubscription(customer, product);
         Subscription subscription2 = TEST_SETUP.createSubscription(customer, product);
+        Component component = TEST_SETUP.createQuantityBasedComponent(product.getProductFamily().getId());
 
         // when
         // create group
         createSubscriptionGroupResponse = SUBSCRIPTION_GROUPS_CONTROLLER
                 .createSubscriptionGroup(new CreateSubscriptionGroupRequest(new CreateSubscriptionGroup.Builder()
-                        .subscriptionId(CreateSubscriptionGroupSubscriptionId.fromNumber(subscription1.getId()))
+                        .subscriptionId(subscription1.getId())
                         .memberIds(List.of(subscription2.getId()))
                         .build()
                 ));
@@ -90,9 +96,17 @@ public class SubscriptionGroupsControllerReadTest {
                         new SubscriptionGroupPrepayment(3, "details", "pay", SubscriptionGroupPrepaymentMethod.CHECK)
                 ));
 
+        // make some allocation to generate billing amount
+        CLIENT.getSubscriptionComponentsController().allocateComponent(subscription1.getId(), component.getId(), new CreateAllocationRequest(
+                new CreateAllocation.Builder()
+                        .quantity(3)
+                        .build()
+        ));
+
         // read group
-        FullSubscriptionGroupResponse subscriptionGroup = SUBSCRIPTION_GROUPS_CONTROLLER.readSubscriptionGroup(groupUid);
-        FullSubscriptionGroupResponse subscriptionGroupWithCurrentBalance = SUBSCRIPTION_GROUPS_CONTROLLER.readSubscriptionGroup(groupUid);
+        FullSubscriptionGroupResponse subscriptionGroup = SUBSCRIPTION_GROUPS_CONTROLLER.readSubscriptionGroup(groupUid, null);
+        FullSubscriptionGroupResponse subscriptionGroupWithCurrentBalance = SUBSCRIPTION_GROUPS_CONTROLLER
+                .readSubscriptionGroup(groupUid, Collections.singletonList(SubscriptionGroupInclude.CURRENT_BILLING_AMOUNT_IN_CENTS));
 
         // then
         assertThat(subscriptionGroup.getAdditionalProperties()).isEmpty();
@@ -115,26 +129,26 @@ public class SubscriptionGroupsControllerReadTest {
         assertThat(subscriptionGroup.getPaymentProfileId()).isNotNull();
         assertThat(subscriptionGroup.getPrimarySubscriptionId()).isEqualTo(primarySubscriptionId);
         assertThat(subscriptionGroup.getScheme()).isEqualTo(1);
-        assertThat(subscriptionGroup.getState()).isEqualTo("active");
+        assertThat(subscriptionGroup.getState()).isEqualTo(SubscriptionState.ACTIVE);
         assertThat(subscriptionGroup.getSubscriptionIds()).containsOnly(primarySubscriptionId, subscription2.getId());
         assertThat(subscriptionGroup.getUid()).isEqualTo(groupUid);
 
         assertThat(subscriptionGroupWithCurrentBalance).usingRecursiveComparison().ignoringFields("currentBillingAmountInCents")
                 .isEqualTo(subscriptionGroup);
-//        assertThat(subscriptionGroupWithCurrentBalance.getCurrentBillingAmountInCents()).isEqualTo(333);
+        assertThat(subscriptionGroupWithCurrentBalance.getCurrentBillingAmountInCents()).isEqualTo(300);
     }
 
     @Test
     void shouldNotReadGroupWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionGroupsController()
-                .readSubscriptionGroup("abc"));
+                .readSubscriptionGroup("abc", null));
     }
 
     @Test
     void shouldReturn404ForNotExistentSubscriptionGroup() {
         // when - then
         CommonAssertions.assertNotFound(
-                () -> SUBSCRIPTION_GROUPS_CONTROLLER.readSubscriptionGroup("123")
+                () -> SUBSCRIPTION_GROUPS_CONTROLLER.readSubscriptionGroup("123", null)
         );
     }
 

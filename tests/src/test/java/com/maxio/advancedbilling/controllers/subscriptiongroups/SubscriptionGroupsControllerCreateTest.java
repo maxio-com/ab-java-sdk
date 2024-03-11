@@ -4,17 +4,19 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.SingleStringErrorResponseException;
+import com.maxio.advancedbilling.exceptions.SubscriptionGroupCreateErrorResponseException;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroup;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroupRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionGroup;
+import com.maxio.advancedbilling.models.SubscriptionGroupMembersArrayError;
 import com.maxio.advancedbilling.models.SubscriptionGroupResponse;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroupSubscriptionId;
+import com.maxio.advancedbilling.models.SubscriptionGroupSingleError;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
+import com.maxio.advancedbilling.utils.matchers.SubscriptionGroupCreateErrorResponseErrorsGetter;
 import org.assertj.core.api.ThrowingConsumer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -74,7 +76,7 @@ public class SubscriptionGroupsControllerCreateTest {
         // when
         createSubscriptionGroupResponse = SUBSCRIPTION_GROUPS_CONTROLLER
                 .createSubscriptionGroup(new CreateSubscriptionGroupRequest(new CreateSubscriptionGroup.Builder()
-                        .subscriptionId(CreateSubscriptionGroupSubscriptionId.fromNumber(subscription1.getId()))
+                        .subscriptionId(subscription1.getId())
                         .memberIds(List.of(subscription2.getId()))
                         .build()
                 ));
@@ -85,7 +87,7 @@ public class SubscriptionGroupsControllerCreateTest {
         assertThat(subscriptionGroup.getAdditionalProperties()).isEmpty();
         assertThat(subscriptionGroup.getCustomerId()).isEqualTo(customer.getId());
         assertThat(subscriptionGroup.getCreatedAt()).isNotNull();
-        assertThat(subscriptionGroup.getPaymentCollectionMethod()).isEqualTo(AUTOMATIC.toString());
+        assertThat(subscriptionGroup.getPaymentCollectionMethod()).isEqualTo(AUTOMATIC);
         assertThat(subscriptionGroup.getSubscriptionIds()).containsOnly(subscription1.getId(), subscription2.getId());
 
         assertThat(subscriptionGroup.getPaymentProfile().getAdditionalProperties()).isEmpty();
@@ -98,10 +100,10 @@ public class SubscriptionGroupsControllerCreateTest {
     @ParameterizedTest
     @MethodSource("argsForShouldReturn422WhenCreatingGroupWithInvalidData")
     void shouldReturn422WhenCreatingGroupWithInvalidData(CreateSubscriptionGroupRequest request,
-                                                         ThrowingConsumer<SingleStringErrorResponseException>
+                                                         ThrowingConsumer<SubscriptionGroupCreateErrorResponseException>
                                                                  assertionsConsumer) {
         assertUnprocessableEntity(
-                SingleStringErrorResponseException.class,
+                SubscriptionGroupCreateErrorResponseException.class,
                 () -> SUBSCRIPTION_GROUPS_CONTROLLER.createSubscriptionGroup(request),
                 assertionsConsumer::accept
         );
@@ -111,47 +113,38 @@ public class SubscriptionGroupsControllerCreateTest {
         return Stream.of(
                 Arguments.of(
                         new CreateSubscriptionGroupRequest(
-                                new CreateSubscriptionGroup()
+                                null
                         ),
-                        (ThrowingConsumer<SingleStringErrorResponseException>) error ->
-                        {
-                            assertThat(error.getErrors()).isEqualTo("{'errors': {'subscription_group': \"can't be blank\"}}");
-                        }
+                        (ThrowingConsumer<SubscriptionGroupCreateErrorResponseException>) error ->
+                            assertThat(error.getErrors()
+                                    .match(new SubscriptionGroupCreateErrorResponseErrorsGetter<SubscriptionGroupSingleError>())
+                                    .getSubscriptionGroup())
+                                    .isEqualTo("can't be blank")
                 ),
                 Arguments.of(
                         new CreateSubscriptionGroupRequest(
                                 new CreateSubscriptionGroup.Builder()
-                                        .memberIds(List.of())
-                                        .build()
-                        ),
-                        (ThrowingConsumer<SingleStringErrorResponseException>) error ->
-                        {
-                            assertThat(error.getErrors()).isEqualTo("Couldn't find Subscription without an ID");
-                        }
-                ),
-                Arguments.of(
-                        new CreateSubscriptionGroupRequest(
-                                new CreateSubscriptionGroup.Builder()
-                                        .subscriptionId(CreateSubscriptionGroupSubscriptionId.fromNumber(otherSubscription.getId()))
+                                        .subscriptionId(otherSubscription.getId())
                                         .memberIds(List.of(123))
                                         .build()
                         ),
-                        (ThrowingConsumer<SingleStringErrorResponseException>) error ->
-                        {
-                            assertThat(error.getErrors()).isEqualTo("'members': ['not_found']}");
-                        }
+                        (ThrowingConsumer<SubscriptionGroupCreateErrorResponseException>) error ->
+                                assertThat(error.getErrors()
+                                        .match(new SubscriptionGroupCreateErrorResponseErrorsGetter<SubscriptionGroupMembersArrayError>())
+                                        .getMembers())
+                                        .containsOnly("not_found")
                 ),
                 Arguments.of(
                         new CreateSubscriptionGroupRequest(
                                 new CreateSubscriptionGroup.Builder()
-                                        .subscriptionId(CreateSubscriptionGroupSubscriptionId.fromNumber(123))
+                                        .subscriptionId((123))
                                         .memberIds(List.of())
                                         .build()
                         ),
-                        (ThrowingConsumer<SingleStringErrorResponseException>) error ->
-                        {
-                            assertThat(error.getErrors()).startsWith("Couldn't find Subscription with 'id'=123");
-                        }
+                        (ThrowingConsumer<SubscriptionGroupCreateErrorResponseException>) error ->
+                                assertThat(error.getErrors()
+                                        .match(new SubscriptionGroupCreateErrorResponseErrorsGetter<String>()))
+                                        .startsWith("Couldn't find Subscription with 'id'=123")
                 )
         );
     }

@@ -7,6 +7,7 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroup;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroupRequest;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.GroupType;
 import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsInput;
@@ -18,7 +19,7 @@ import com.maxio.advancedbilling.models.SubscriptionGroupPrepayment;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentMethod;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentRequest;
 import com.maxio.advancedbilling.models.SubscriptionGroupResponse;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionGroupSubscriptionId;
+import com.maxio.advancedbilling.models.SubscriptionGroupsListInclude;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -28,6 +29,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
@@ -60,7 +62,7 @@ public class SubscriptionGroupsControllerListTest {
 
         createSubscriptionGroupResponse1 = SUBSCRIPTION_GROUPS_CONTROLLER
                 .createSubscriptionGroup(new CreateSubscriptionGroupRequest(new CreateSubscriptionGroup.Builder()
-                        .subscriptionId(CreateSubscriptionGroupSubscriptionId.fromNumber(customer1Subscription1.getId()))
+                        .subscriptionId(customer1Subscription1.getId())
                         .memberIds(List.of(customer1Subscription2.getId()))
                         .build()
                 ));
@@ -68,7 +70,7 @@ public class SubscriptionGroupsControllerListTest {
 
         createSubscriptionGroupResponse2 = SUBSCRIPTION_GROUPS_CONTROLLER
                 .createSubscriptionGroup(new CreateSubscriptionGroupRequest(new CreateSubscriptionGroup.Builder()
-                        .subscriptionId(CreateSubscriptionGroupSubscriptionId.fromNumber(customer2Subscription1.getId()))
+                        .subscriptionId(customer2Subscription1.getId())
                         .memberIds(List.of(customer2Subscription2.getId()))
                         .build()
                 ));
@@ -128,6 +130,7 @@ public class SubscriptionGroupsControllerListTest {
         assertThat(group1.getPrimarySubscriptionId()).isEqualTo(primarySubscriptionId1);
         assertThat(group1.getScheme()).isEqualTo(1);
         assertThat(group1.getState()).isEqualTo("active");
+        assertThat(group1.getGroupType()).isEqualTo(GroupType.SINGLE_CUSTOMER);
         assertThat(group1.getSubscriptionIds())
                 .containsExactlyInAnyOrderElementsOf(createSubscriptionGroupResponse1.getSubscriptionGroup().getSubscriptionIds());
         assertThat(group1.getUid()).isNotNull();
@@ -141,6 +144,7 @@ public class SubscriptionGroupsControllerListTest {
         assertThat(group2.getPrimarySubscriptionId()).isEqualTo(primarySubscriptionId2);
         assertThat(group2.getScheme()).isEqualTo(1);
         assertThat(group2.getState()).isEqualTo("active");
+        assertThat(group2.getGroupType()).isEqualTo(GroupType.SINGLE_CUSTOMER);
         assertThat(group2.getSubscriptionIds())
                 .containsExactlyInAnyOrderElementsOf(createSubscriptionGroupResponse2.getSubscriptionGroup().getSubscriptionIds());
         assertThat(group2.getUid()).isNotNull();
@@ -151,7 +155,7 @@ public class SubscriptionGroupsControllerListTest {
         // given - when
         ListSubscriptionGroupsResponse listSubscriptionGroups = SUBSCRIPTION_GROUPS_CONTROLLER.listSubscriptionGroups(
                 new ListSubscriptionGroupsInput.Builder()
-                        .include("account_balances")
+                        .include(Collections.singletonList(SubscriptionGroupsListInclude.ACCOUNT_BALANCES))
                         .build()
         );
 
