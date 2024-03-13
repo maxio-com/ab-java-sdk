@@ -20,7 +20,7 @@ import java.time.ZonedDateTime;
  */
 public class Event
         extends BaseModel {
-    private int id;
+    private long id;
     private String key;
     private String message;
     private Integer subscriptionId;
@@ -36,7 +36,7 @@ public class Event
 
     /**
      * Initialization constructor.
-     * @param  id  int value for id.
+     * @param  id  long value for id.
      * @param  key  String value for key.
      * @param  message  String value for message.
      * @param  subscriptionId  Integer value for subscriptionId.
@@ -45,7 +45,7 @@ public class Event
      * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
      */
     public Event(
-            int id,
+            long id,
             String key,
             String message,
             Integer subscriptionId,
@@ -63,19 +63,19 @@ public class Event
 
     /**
      * Getter for Id.
-     * @return Returns the int
+     * @return Returns the long
      */
     @JsonGetter("id")
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for int
+     * @param id Value for long
      */
     @JsonSetter("id")
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -216,7 +216,7 @@ public class Event
      * Class to build instances of {@link Event}.
      */
     public static class Builder {
-        private int id;
+        private long id;
         private String key;
         private String message;
         private Integer subscriptionId;
@@ -232,7 +232,7 @@ public class Event
 
         /**
          * Initialization constructor.
-         * @param  id  int value for id.
+         * @param  id  long value for id.
          * @param  key  String value for key.
          * @param  message  String value for message.
          * @param  subscriptionId  Integer value for subscriptionId.
@@ -240,7 +240,7 @@ public class Event
          * @param  createdAt  ZonedDateTime value for createdAt.
          * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
          */
-        public Builder(int id, String key, String message, Integer subscriptionId,
+        public Builder(long id, String key, String message, Integer subscriptionId,
                 Integer customerId, ZonedDateTime createdAt,
                 EventEventSpecificData eventSpecificData) {
             this.id = id;
@@ -254,10 +254,10 @@ public class Event
 
         /**
          * Setter for id.
-         * @param  id  int value for id.
+         * @param  id  long value for id.
          * @return Builder
          */
-        public Builder id(int id) {
+        public Builder id(long id) {
             this.id = id;
             return this;
         }
