@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `int` | Required | - | int getId() | setId(int id) |
+| `Id` | `long` | Required | - | long getId() | setId(long id) |
 | `Key` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getKey() | setKey(String key) |
 | `Message` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getMessage() | setMessage(String message) |
 | `SubscriptionId` | `Integer` | Required | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
