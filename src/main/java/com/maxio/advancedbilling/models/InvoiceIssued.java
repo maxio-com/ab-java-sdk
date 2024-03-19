@@ -26,8 +26,8 @@ public class InvoiceIssued
     private String number;
     private String role;
     private LocalDate dueDate;
-    private LocalDate issueDate;
-    private LocalDate paidDate;
+    private String issueDate;
+    private String paidDate;
     private String dueAmount;
     private String paidAmount;
     private String taxAmount;
@@ -50,8 +50,8 @@ public class InvoiceIssued
      * @param  number  String value for number.
      * @param  role  String value for role.
      * @param  dueDate  LocalDate value for dueDate.
-     * @param  issueDate  LocalDate value for issueDate.
-     * @param  paidDate  LocalDate value for paidDate.
+     * @param  issueDate  String value for issueDate.
+     * @param  paidDate  String value for paidDate.
      * @param  dueAmount  String value for dueAmount.
      * @param  paidAmount  String value for paidAmount.
      * @param  taxAmount  String value for taxAmount.
@@ -68,8 +68,8 @@ public class InvoiceIssued
             @JsonProperty("number") String number,
             @JsonProperty("role") String role,
             @JsonProperty("due_date") LocalDate dueDate,
-            @JsonProperty("issue_date") LocalDate issueDate,
-            @JsonProperty("paid_date") LocalDate paidDate,
+            @JsonProperty("issue_date") String issueDate,
+            @JsonProperty("paid_date") String paidDate,
             @JsonProperty("due_amount") String dueAmount,
             @JsonProperty("paid_amount") String paidAmount,
             @JsonProperty("tax_amount") String taxAmount,
@@ -172,41 +172,41 @@ public class InvoiceIssued
 
     /**
      * Getter for IssueDate.
-     * @return Returns the LocalDate
+     * Invoice issue date. Can be an empty string if value is missing.
+     * @return Returns the String
      */
     @JsonGetter("issue_date")
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getIssueDate() {
+    public String getIssueDate() {
         return issueDate;
     }
 
     /**
      * Setter for IssueDate.
-     * @param issueDate Value for LocalDate
+     * Invoice issue date. Can be an empty string if value is missing.
+     * @param issueDate Value for String
      */
     @JsonSetter("issue_date")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setIssueDate(LocalDate issueDate) {
+    public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
     }
 
     /**
      * Getter for PaidDate.
-     * @return Returns the LocalDate
+     * Paid date. Can be an empty string if value is missing.
+     * @return Returns the String
      */
     @JsonGetter("paid_date")
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getPaidDate() {
+    public String getPaidDate() {
         return paidDate;
     }
 
     /**
      * Setter for PaidDate.
-     * @param paidDate Value for LocalDate
+     * Paid date. Can be an empty string if value is missing.
+     * @param paidDate Value for String
      */
     @JsonSetter("paid_date")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setPaidDate(LocalDate paidDate) {
+    public void setPaidDate(String paidDate) {
         this.paidDate = paidDate;
     }
 
@@ -407,8 +407,8 @@ public class InvoiceIssued
         private String number;
         private String role;
         private LocalDate dueDate;
-        private LocalDate issueDate;
-        private LocalDate paidDate;
+        private String issueDate;
+        private String paidDate;
         private String dueAmount;
         private String paidAmount;
         private String taxAmount;
@@ -431,8 +431,8 @@ public class InvoiceIssued
          * @param  number  String value for number.
          * @param  role  String value for role.
          * @param  dueDate  LocalDate value for dueDate.
-         * @param  issueDate  LocalDate value for issueDate.
-         * @param  paidDate  LocalDate value for paidDate.
+         * @param  issueDate  String value for issueDate.
+         * @param  paidDate  String value for paidDate.
          * @param  dueAmount  String value for dueAmount.
          * @param  paidAmount  String value for paidAmount.
          * @param  taxAmount  String value for taxAmount.
@@ -443,11 +443,10 @@ public class InvoiceIssued
          * @param  consolidationLevel  String value for consolidationLevel.
          * @param  lineItems  List of InvoiceLineItemEventData value for lineItems.
          */
-        public Builder(String uid, String number, String role, LocalDate dueDate,
-                LocalDate issueDate, LocalDate paidDate, String dueAmount, String paidAmount,
-                String taxAmount, String refundAmount, String totalAmount, String statusAmount,
-                String productName, String consolidationLevel,
-                List<InvoiceLineItemEventData> lineItems) {
+        public Builder(String uid, String number, String role, LocalDate dueDate, String issueDate,
+                String paidDate, String dueAmount, String paidAmount, String taxAmount,
+                String refundAmount, String totalAmount, String statusAmount, String productName,
+                String consolidationLevel, List<InvoiceLineItemEventData> lineItems) {
             this.uid = uid;
             this.number = number;
             this.role = role;
@@ -507,20 +506,20 @@ public class InvoiceIssued
 
         /**
          * Setter for issueDate.
-         * @param  issueDate  LocalDate value for issueDate.
+         * @param  issueDate  String value for issueDate.
          * @return Builder
          */
-        public Builder issueDate(LocalDate issueDate) {
+        public Builder issueDate(String issueDate) {
             this.issueDate = issueDate;
             return this;
         }
 
         /**
          * Setter for paidDate.
-         * @param  paidDate  LocalDate value for paidDate.
+         * @param  paidDate  String value for paidDate.
          * @return Builder
          */
-        public Builder paidDate(LocalDate paidDate) {
+        public Builder paidDate(String paidDate) {
             this.paidDate = paidDate;
             return this;
         }

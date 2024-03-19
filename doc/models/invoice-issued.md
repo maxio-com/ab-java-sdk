@@ -13,8 +13,8 @@
 | `Number` | `String` | Required | - | String getNumber() | setNumber(String number) |
 | `Role` | `String` | Required | - | String getRole() | setRole(String role) |
 | `DueDate` | `LocalDate` | Required | - | LocalDate getDueDate() | setDueDate(LocalDate dueDate) |
-| `IssueDate` | `LocalDate` | Required | - | LocalDate getIssueDate() | setIssueDate(LocalDate issueDate) |
-| `PaidDate` | `LocalDate` | Required | - | LocalDate getPaidDate() | setPaidDate(LocalDate paidDate) |
+| `IssueDate` | `String` | Required | Invoice issue date. Can be an empty string if value is missing. | String getIssueDate() | setIssueDate(String issueDate) |
+| `PaidDate` | `String` | Required | Paid date. Can be an empty string if value is missing. | String getPaidDate() | setPaidDate(String paidDate) |
 | `DueAmount` | `String` | Required | - | String getDueAmount() | setDueAmount(String dueAmount) |
 | `PaidAmount` | `String` | Required | - | String getPaidAmount() | setPaidAmount(String paidAmount) |
 | `TaxAmount` | `String` | Required | - | String getTaxAmount() | setTaxAmount(String taxAmount) |
@@ -33,8 +33,8 @@
   "number": "number8",
   "role": "role2",
   "due_date": "2016-03-13",
-  "issue_date": "2016-03-13",
-  "paid_date": "2016-03-13",
+  "issue_date": "issue_date0",
+  "paid_date": "paid_date6",
   "due_amount": "due_amount6",
   "paid_amount": "paid_amount4",
   "tax_amount": "tax_amount2",
