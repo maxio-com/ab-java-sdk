@@ -284,7 +284,7 @@ public class TestSetup {
         String reference = firstName + "_" + lastName;
         reference = reference.toLowerCase();
 
-        return advancedBillingClient.getCustomersController()
+        Customer customer = advancedBillingClient.getCustomersController()
                 .createCustomer(
                         new CreateCustomerRequest(
                                 new CreateCustomer.Builder()
@@ -304,6 +304,8 @@ public class TestSetup {
                                         .locale("es-MX")
                                         .build()
                         )).getCustomer();
+        System.out.println("Created customer: " + customer.getId());
+        return customer;
     }
 
     public Coupon createAmountCoupon(ProductFamily productFamily, long amountInCents, boolean stackable) throws IOException, ApiException {
@@ -401,9 +403,11 @@ public class TestSetup {
                 .creditCardAttributes(paymentProfileBuilder.build());
         subscriptionCustomizer.accept(subscriptionBuilder);
 
-        return advancedBillingClient.getSubscriptionsController()
+        Subscription subscription = advancedBillingClient.getSubscriptionsController()
                 .createSubscription(new CreateSubscriptionRequest(subscriptionBuilder.build()))
                 .getSubscription();
+        System.out.println("Created subscription: " + subscription.getId());
+        return subscription;
     }
 
     public Invoice createInvoice(int subscriptionId, Consumer<CreateInvoice.Builder> customizer) throws IOException, ApiException {
@@ -425,9 +429,11 @@ public class TestSetup {
                 );
         customizer.accept(builder);
 
-        return advancedBillingClient.getInvoicesController()
+        Invoice invoice = advancedBillingClient.getInvoicesController()
                 .createInvoice(subscriptionId, new CreateInvoiceRequest(builder.build()))
                 .getInvoice();
+        System.out.println("Created invoice: " + invoice.getId());
+        return invoice;
     }
 
     public Invoice createOpenInvoice(int subscriptionId, int productId) throws IOException, ApiException {
