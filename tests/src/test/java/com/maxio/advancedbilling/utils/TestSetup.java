@@ -76,6 +76,8 @@ import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardFu
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentComponentId;
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentUnitBalance;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -86,6 +88,8 @@ import java.util.function.Consumer;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 public class TestSetup {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestTeardown.class);
+
     private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
 
     public ProductFamily createProductFamily() throws IOException, ApiException {
@@ -304,7 +308,7 @@ public class TestSetup {
                                         .locale("es-MX")
                                         .build()
                         )).getCustomer();
-        System.out.println("Created customer: " + customer.getId());
+        LOGGER.info("Created customer: {}", customer.getId());
         return customer;
     }
 
@@ -406,7 +410,7 @@ public class TestSetup {
         Subscription subscription = advancedBillingClient.getSubscriptionsController()
                 .createSubscription(new CreateSubscriptionRequest(subscriptionBuilder.build()))
                 .getSubscription();
-        System.out.println("Created subscription: " + subscription.getId());
+        LOGGER.info("Created subscription {} for customer {}", subscription.getId(), customer.getId());
         return subscription;
     }
 
@@ -432,7 +436,7 @@ public class TestSetup {
         Invoice invoice = advancedBillingClient.getInvoicesController()
                 .createInvoice(subscriptionId, new CreateInvoiceRequest(builder.build()))
                 .getInvoice();
-        System.out.println("Created invoice: " + invoice.getId());
+        LOGGER.info("Created invoice {} for subscription {}", invoice.getId(), subscriptionId);
         return invoice;
     }
 
