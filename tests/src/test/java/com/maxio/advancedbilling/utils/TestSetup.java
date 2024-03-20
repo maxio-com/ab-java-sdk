@@ -88,7 +88,7 @@ import java.util.function.Consumer;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 public class TestSetup {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestTeardown.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestSetup.class);
 
     private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
 
