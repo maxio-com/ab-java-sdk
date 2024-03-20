@@ -45,7 +45,7 @@ public class CustomFieldsControllerCreateMetafieldsTest {
     @EnumSource(ResourceType.class)
     void shouldCreateSingleTextMetafieldWithScope(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String metafieldName = "text-metafield-" + randomNumeric(5);
+        String metafieldName = "text-metafield-" + randomNumeric(10);
         MetafieldScope scope = new MetafieldScope.Builder()
                 .csv(IncludeOption.INCLUDE)
                 .invoices(IncludeOption.INCLUDE)
@@ -84,9 +84,9 @@ public class CustomFieldsControllerCreateMetafieldsTest {
     @EnumSource(ResourceType.class)
     void shouldCreateMultipleMetafieldsRadioAndDropdown(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String radioMetafieldName = "radio-" + randomNumeric(5);
+        String radioMetafieldName = "radio-" + randomNumeric(10);
         List<String> radioEnum = List.of("radio-option-1", "radio-option-2");
-        String dropdownMetafieldName = "dropdown-" + randomNumeric(5);
+        String dropdownMetafieldName = "dropdown-" + randomNumeric(10);
         List<String> dropdownEnum = List.of("dropdown-option-1");
 
         CreateMetafieldsRequest createMetafieldsRequest =

@@ -85,7 +85,7 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
                 ResourceType.SUBSCRIPTIONS, new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromCreateMetafield(
                                 new CreateMetafield.Builder()
-                                        .name("sub-metafield-" + randomNumeric(5))
+                                        .name("sub-metafield-" + randomNumeric(10))
                                         .scope(new MetafieldScope.Builder().invoices(IncludeOption.INCLUDE).build())
                                         .build()
                         )

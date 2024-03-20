@@ -104,7 +104,7 @@ class CustomersControllerListSubscriptionsTest {
 
         ProductFamily productFamily = productFamiliesController
                 .createProductFamily(new CreateProductFamilyRequest(new CreateProductFamily.Builder()
-                        .name("Test Product Family " + randomNumeric(5))
+                        .name("Test Product Family " + randomNumeric(10))
                         .build())
                 )
                 .getProductFamily();
@@ -113,8 +113,8 @@ class CustomersControllerListSubscriptionsTest {
                 .createProduct(
                         productFamily.getId(),
                         new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
-                                .name("Test Product " + randomNumeric(5))
-                                .handle("test-product-" + randomNumeric(5))
+                                .name("Test Product " + randomNumeric(10))
+                                .handle("test-product-" + randomNumeric(10))
                                 .intervalUnit(IntervalUnit.MONTH)
                                 .interval(2)
                                 .build()

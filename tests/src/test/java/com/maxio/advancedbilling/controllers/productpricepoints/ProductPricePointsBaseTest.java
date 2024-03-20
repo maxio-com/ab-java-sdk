@@ -58,8 +58,8 @@ abstract class ProductPricePointsBaseTest {
                 .createProduct(
                         productFamily.getId(),
                         new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
-                                .name("product-name-%s".formatted(randomNumeric(5)))
-                                .handle("product-handle-%s".formatted(randomNumeric(5)))
+                                .name("product-name-%s".formatted(randomNumeric(10)))
+                                .handle("product-handle-%s".formatted(randomNumeric(10)))
                                 .intervalUnit(IntervalUnit.MONTH)
                                 .interval(2)
                                 .build()

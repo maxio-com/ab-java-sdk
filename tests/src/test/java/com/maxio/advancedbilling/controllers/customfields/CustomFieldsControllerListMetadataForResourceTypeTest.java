@@ -63,11 +63,11 @@ public class CustomFieldsControllerListMetadataForResourceTypeTest {
         Subscription subscription2 = TEST_SETUP.createSubscription(customer2, product);
 
         //    Create metafields for customer
-        String customerMetafieldName1 = "customer-metafield" + randomNumeric(5);
-        String customerMetafieldName2 = "customer-metafield" + randomNumeric(5);
-        String customerMetafieldName3 = "customer-metafield" + randomNumeric(5);
+        String customerMetafieldName1 = "customer-metafield" + randomNumeric(10);
+        String customerMetafieldName2 = "customer-metafield" + randomNumeric(10);
+        String customerMetafieldName3 = "customer-metafield" + randomNumeric(10);
         String customerMetafieldToDeleteName =
-                "customer-metafield-to-delete" + randomNumeric(5);
+                "customer-metafield-to-delete" + randomNumeric(10);
 
         CreateMetadataRequest createCustomer1MetadataRequest =
                 new CreateMetadataRequest(
@@ -97,9 +97,9 @@ public class CustomFieldsControllerListMetadataForResourceTypeTest {
                 .createMetadata(ResourceType.CUSTOMERS, customer2.getId(), createCustomer2MetadataRequest);
 
         //    Create metafields for subscription
-        String subscriptionMetafieldName1 = "subscription-metafield" + randomNumeric(5);
-        String subscriptionMetafieldName2 = "subscription-metafield" + randomNumeric(5);
-        String subscriptionMetafieldName3 = "subscription-metafield" + randomNumeric(5);
+        String subscriptionMetafieldName1 = "subscription-metafield" + randomNumeric(10);
+        String subscriptionMetafieldName2 = "subscription-metafield" + randomNumeric(10);
+        String subscriptionMetafieldName3 = "subscription-metafield" + randomNumeric(10);
         String subscriptionMetafieldToDeleteName =
                 "subscription-metafield-to-delete" + randomNumeric(5);
 

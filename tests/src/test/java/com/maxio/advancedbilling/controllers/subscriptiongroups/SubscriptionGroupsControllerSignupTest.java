@@ -139,7 +139,7 @@ public class SubscriptionGroupsControllerSignupTest {
     @Test
     void shouldSignupSubscriptionGroupWithPayerAttributes() throws IOException, ApiException {
         // given - when
-        String reference = "ref-" + randomNumeric(5);
+        String reference = "ref-" + randomNumeric(10);
         groupSignup = SUBSCRIPTION_GROUPS_CONTROLLER
                 .signupWithSubscriptionGroup(new SubscriptionGroupSignupRequest(
                         new SubscriptionGroupSignup.Builder()

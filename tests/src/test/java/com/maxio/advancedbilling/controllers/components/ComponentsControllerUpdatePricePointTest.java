@@ -47,8 +47,8 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
         ComponentPricePoint componentPricePoint = TEST_SETUP.createComponentPricePoint(component.getId());
 
         UpdateComponentPricePoint updateComponentPricePoint = new UpdateComponentPricePoint.Builder()
-                .name("test-price-point-" + randomNumeric(5))
-                .handle("test-handle-" + randomNumeric(5))
+                .name("test-price-point-" + randomNumeric(10))
+                .handle("test-handle-" + randomNumeric(10))
                 .pricingScheme(PricingScheme.STAIRSTEP)
                 .useSiteExchangeRate(true)
                 .taxIncluded(true)

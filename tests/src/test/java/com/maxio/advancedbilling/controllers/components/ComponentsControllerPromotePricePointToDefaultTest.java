@@ -78,7 +78,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
     private ComponentPricePoint createCatalogPricePoint(int componentId) throws IOException, ApiException {
         CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
                 .name("New price point")
-                .handle("new-price-point-" + randomNumeric(5))
+                .handle("new-price-point-" + randomNumeric(10))
                 .pricingScheme(PricingScheme.STAIRSTEP)
                 .prices(
                         List.of(
