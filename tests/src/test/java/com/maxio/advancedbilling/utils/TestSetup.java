@@ -76,6 +76,8 @@ import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardFu
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentComponentId;
 import com.maxio.advancedbilling.models.containers.SubscriptionGroupSignupComponentUnitBalance;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -86,12 +88,14 @@ import java.util.function.Consumer;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 public class TestSetup {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestSetup.class);
+
     private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
 
     public ProductFamily createProductFamily() throws IOException, ApiException {
         return advancedBillingClient.getProductFamiliesController()
                 .createProductFamily(new CreateProductFamilyRequest(
-                        new CreateProductFamily.Builder().name("Test Product Family " + randomNumeric(5)).build())
+                        new CreateProductFamily.Builder().name("Test Product Family " + randomNumeric(10)).build())
                 )
                 .getProductFamily();
     }
@@ -103,7 +107,7 @@ public class TestSetup {
 
     public Product createProduct(ProductFamily productFamily, Consumer<CreateOrUpdateProduct.Builder> customizer)
             throws IOException, ApiException {
-        String productName = "My Super Product " + randomNumeric(5);
+        String productName = "My Super Product " + randomNumeric(10);
         String handle = productName.toLowerCase().replace(" ", "-");
         CreateOrUpdateProduct.Builder builder = new CreateOrUpdateProduct.Builder()
                 .name(productName)
@@ -144,8 +148,8 @@ public class TestSetup {
     }
 
     public Component createMeteredComponent(ProductFamily productFamily, double unitPrice) throws IOException, ApiException {
-        String componentName = "Test Metered Component " + randomNumeric(5);
-        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
+        String componentName = "Test Metered Component " + randomNumeric(10);
+        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(10);
         return advancedBillingClient.getComponentsController()
                 .createMeteredComponent(
                         productFamily.getId(),
@@ -191,8 +195,8 @@ public class TestSetup {
     }
 
     public Component createOnOffComponent(int productFamilyId, Consumer<OnOffComponent.Builder> customizer) throws IOException, ApiException {
-        String componentName = "Test On-Off Component " + randomNumeric(5);
-        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
+        String componentName = "Test On-Off Component " + randomNumeric(10);
+        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(10);
         OnOffComponent.Builder onOffComponentBuilder = new OnOffComponent.Builder()
                 .name(componentName)
                 .handle(handle)
@@ -215,8 +219,8 @@ public class TestSetup {
 
     public Component createPrepaidComponent(ProductFamily productFamily, Consumer<PrepaidUsageComponent.Builder> customizer)
             throws IOException, ApiException {
-        String componentName = "Test Prepaid Component " + randomNumeric(5);
-        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(5);
+        String componentName = "Test Prepaid Component " + randomNumeric(10);
+        String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(10);
         PrepaidUsageComponent.Builder builder = new PrepaidUsageComponent.Builder()
                 .name(componentName)
                 .handle(handle)
@@ -253,8 +257,8 @@ public class TestSetup {
     public ComponentPricePoint createComponentPricePoint(int componentId, Consumer<CreateComponentPricePoint.Builder> customizer)
             throws IOException, ApiException {
         CreateComponentPricePoint.Builder builder = new CreateComponentPricePoint.Builder()
-                .name("test-price-point-initial-" + randomNumeric(5))
-                .handle("test-handle-initial-" + randomNumeric(5))
+                .name("test-price-point-initial-" + randomNumeric(10))
+                .handle("test-handle-initial-" + randomNumeric(10))
                 .pricingScheme(PricingScheme.VOLUME)
                 .useSiteExchangeRate(false)
                 .taxIncluded(false)
@@ -279,23 +283,23 @@ public class TestSetup {
     }
 
     public Customer createCustomer() throws IOException, ApiException {
-        String firstName = "John" + randomNumeric(5);
-        String lastName = "Doe" + randomNumeric(5);
+        String firstName = "John" + randomNumeric(10);
+        String lastName = "Doe" + randomNumeric(10);
         String reference = firstName + "_" + lastName;
         reference = reference.toLowerCase();
 
-        return advancedBillingClient.getCustomersController()
+        Customer customer = advancedBillingClient.getCustomersController()
                 .createCustomer(
                         new CreateCustomerRequest(
                                 new CreateCustomer.Builder()
                                         .firstName(firstName)
                                         .lastName(lastName)
-                                        .email("john.doe+test" + randomNumeric(5) + "@maxio.com")
-                                        .ccEmails("ccemail" + randomNumeric(5) + "@maxio.com")
-                                        .organization("Maxio Org " + randomNumeric(5))
+                                        .email("john.doe+test" + randomNumeric(10) + "@maxio.com")
+                                        .ccEmails("ccemail" + randomNumeric(10) + "@maxio.com")
+                                        .organization("Maxio Org " + randomNumeric(10))
                                         .reference(reference)
-                                        .address("Maple Street " + randomNumeric(5))
-                                        .address2("Address2 line" + randomNumeric(2))
+                                        .address("Maple Street " + randomNumeric(10))
+                                        .address2("Address2 line" + randomNumeric(10))
                                         .city("New York")
                                         .state("NY")
                                         .zip("111-11")
@@ -304,6 +308,8 @@ public class TestSetup {
                                         .locale("es-MX")
                                         .build()
                         )).getCustomer();
+        LOGGER.info("Created customer: {}", customer.getId());
+        return customer;
     }
 
     public Coupon createAmountCoupon(ProductFamily productFamily, long amountInCents, boolean stackable) throws IOException, ApiException {
@@ -311,8 +317,8 @@ public class TestSetup {
                 .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
                         .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdateFlatAmountCoupon(
                                 new CreateOrUpdateFlatAmountCoupon.Builder()
-                                        .name("Amount Discount " + randomNumeric(5))
-                                        .code("AMOUNT_DISCOUNT_" + randomNumeric(5))
+                                        .name("Amount Discount " + randomNumeric(10))
+                                        .code("AMOUNT_DISCOUNT_" + randomNumeric(10))
                                         .description("Huuuuge amount discount: " + amountInCents)
                                         .amountInCents(amountInCents)
                                         .stackable(stackable)
@@ -331,8 +337,8 @@ public class TestSetup {
                 .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
                         .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
                                 new CreateOrUpdatePercentageCoupon.Builder()
-                                        .name("Percentage Discount " + randomNumeric(5))
-                                        .code("PERCENTAGE_DISCOUNT_" + randomNumeric(5))
+                                        .name("Percentage Discount " + randomNumeric(10))
+                                        .code("PERCENTAGE_DISCOUNT_" + randomNumeric(10))
                                         .description("Huuuuge percentage discount: " + percentage)
                                         .percentage(CreateOrUpdatePercentageCouponPercentage.fromString(percentage))
                                         .stackable(stackable)
@@ -343,7 +349,7 @@ public class TestSetup {
     }
 
     public ComponentPricePoint createPricePointForComponent(int componentId, double unitPrice) throws IOException, ApiException {
-        String name = "Price Point " + randomNumeric(5);
+        String name = "Price Point " + randomNumeric(10);
         String handle = name.toLowerCase().replace(" ", "-");
         CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder()
                 .name(name)
@@ -401,9 +407,11 @@ public class TestSetup {
                 .creditCardAttributes(paymentProfileBuilder.build());
         subscriptionCustomizer.accept(subscriptionBuilder);
 
-        return advancedBillingClient.getSubscriptionsController()
+        Subscription subscription = advancedBillingClient.getSubscriptionsController()
                 .createSubscription(new CreateSubscriptionRequest(subscriptionBuilder.build()))
                 .getSubscription();
+        LOGGER.info("Created subscription {} for customer {}", subscription.getId(), customer.getId());
+        return subscription;
     }
 
     public Invoice createInvoice(int subscriptionId, Consumer<CreateInvoice.Builder> customizer) throws IOException, ApiException {
@@ -425,9 +433,11 @@ public class TestSetup {
                 );
         customizer.accept(builder);
 
-        return advancedBillingClient.getInvoicesController()
+        Invoice invoice = advancedBillingClient.getInvoicesController()
                 .createInvoice(subscriptionId, new CreateInvoiceRequest(builder.build()))
                 .getInvoice();
+        LOGGER.info("Created invoice {} for subscription {}", invoice.getId(), subscriptionId);
+        return invoice;
     }
 
     public Invoice createOpenInvoice(int subscriptionId, int productId) throws IOException, ApiException {

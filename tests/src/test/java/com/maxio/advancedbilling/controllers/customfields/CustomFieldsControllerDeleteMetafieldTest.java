@@ -49,7 +49,7 @@ public class CustomFieldsControllerDeleteMetafieldTest {
     @EnumSource(ResourceType.class)
     void shouldDeleteCustomerMetafieldAndAssociatedMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String metafieldName = "customer-metafield-" + randomNumeric(5);
+        String metafieldName = "customer-metafield-" + randomNumeric(10);
         int resourceId = resources.getIdForResourceType(resourceType);
         CUSTOM_FIELDS_CONTROLLER
                 .createMetafields(resourceType, new CreateMetafieldsRequest(

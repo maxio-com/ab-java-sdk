@@ -20,7 +20,6 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
-import org.assertj.core.api.ThrowingConsumer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -67,11 +66,11 @@ class SubscriptionComponentsDeletePrepaidUsageAllocationTest {
         new TestTeardown().deleteCustomer(customer);
     }
 
-    @ParameterizedTest
-    @MethodSource("argsForShouldDeletePrepaidUsageAllocationWithDifferentCreditSchemas")
-    void shouldDeletePrepaidUsageAllocationWithDifferentCreditSchemas(CreditScheme creditScheme,
-                                                                      ThrowingConsumer<Integer> assertionsConsumer) throws Exception {
+    @Test
+    void shouldDeletePrepaidUsageAllocationWithWithoutCredit() throws Exception {
         // given
+        CreditScheme creditScheme = CreditScheme.NONE;
+
         Integer subscriptionId = TEST_SETUP.createSubscription(customer, TEST_SETUP.createProduct(productFamily)).getId();
         Component prepaidComponent = TEST_SETUP.createPrepaidComponent(productFamily, 2.0);
         Allocation allocation = allocateComponent(subscriptionId, prepaidComponent.getId());
@@ -85,48 +84,66 @@ class SubscriptionComponentsDeletePrepaidUsageAllocationTest {
         );
 
         // then
-        assertionsConsumer.accept(subscriptionId);
+        assertListAllocationsIsEmpty(subscriptionId);
+        assertThat(getServiceCreditsBalanceInCents(subscriptionId)).isEqualTo(0L);
+        assertThat(getCreditNotesWithRefunds(subscriptionId)).isEmpty();
     }
 
-    private static Stream<Arguments> argsForShouldDeletePrepaidUsageAllocationWithDifferentCreditSchemas() {
-        return Stream.of(
-                Arguments.arguments(
-                        CreditScheme.NONE,
-                        (ThrowingConsumer<Integer>) subscriptionId -> {
-                            assertListAllocationsIsEmpty(subscriptionId);
-                            assertThat(getServiceCreditsBalanceInCents(subscriptionId)).isEqualTo(0L);
-                            assertThat(getCreditNotesWithRefunds(subscriptionId)).isEmpty();
-                        }
-                ),
-                Arguments.arguments(
-                        CreditScheme.CREDIT,
-                        (ThrowingConsumer<Integer>) subscriptionId -> {
-                            assertListAllocationsIsEmpty(subscriptionId);
-                            assertThat(getServiceCreditsBalanceInCents(subscriptionId)).isEqualTo(2000L);
-                            assertThat(getCreditNotesWithRefunds(subscriptionId)).isEmpty();
-                        }
-                ),
-                Arguments.arguments(
-                        CreditScheme.REFUND,
-                        (ThrowingConsumer<Integer>) subscriptionId -> {
-                            assertListAllocationsIsEmpty(subscriptionId);
-                            assertThat(getServiceCreditsBalanceInCents(subscriptionId)).isEqualTo(0L);
+    @Test
+    void shouldDeletePrepaidUsageAllocationWithCredit() throws Exception {
+        // given
+        CreditScheme creditScheme = CreditScheme.CREDIT;
+        Integer subscriptionId = TEST_SETUP.createSubscription(customer, TEST_SETUP.createProduct(productFamily)).getId();
+        Component prepaidComponent = TEST_SETUP.createPrepaidComponent(productFamily, 2.0);
+        Allocation allocation = allocateComponent(subscriptionId, prepaidComponent.getId());
 
-                            List<CreditNote> creditNotesWithRefunds = getCreditNotesWithRefunds(subscriptionId);
-                            assertThat(creditNotesWithRefunds).hasSize(1);
-
-                            List<InvoiceRefund> refunds = creditNotesWithRefunds.get(0).getRefunds();
-                            assertThat(refunds)
-                                    .hasSize(1)
-                                    .singleElement()
-                                    .satisfies(invoiceRefund -> {
-                                        assertThat(invoiceRefund.getMemo()).isEqualTo("Refund for reverted prepaid usage allocation: 10 units");
-                                        assertThat(invoiceRefund.getOriginalAmount()).isEqualTo("20.0");
-                                        assertThat(invoiceRefund.getAppliedAmount()).isEqualTo("20.0");
-                                    });
-                        }
-                )
+        // when
+        SUBSCRIPTION_COMPONENTS_CONTROLLER.deletePrepaidUsageAllocation(
+                subscriptionId,
+                prepaidComponent.getId(),
+                allocation.getAllocationId(),
+                new CreditSchemeRequest(creditScheme)
         );
+
+        // then
+        assertListAllocationsIsEmpty(subscriptionId);
+        assertThat(getServiceCreditsBalanceInCents(subscriptionId)).isEqualTo(2000L);
+        assertThat(getCreditNotesWithRefunds(subscriptionId)).isEmpty();
+    }
+
+    @Test
+    void shouldDeletePrepaidUsageAllocationWithRefund() throws Exception {
+        // given
+        CreditScheme creditScheme = CreditScheme.REFUND;
+        Integer subscriptionId = TEST_SETUP.createSubscription(customer, TEST_SETUP.createProduct(productFamily)).getId();
+        Component prepaidComponent = TEST_SETUP.createPrepaidComponent(productFamily, 2.0);
+        Allocation allocation = allocateComponent(subscriptionId, prepaidComponent.getId());
+
+        // when
+        SUBSCRIPTION_COMPONENTS_CONTROLLER.deletePrepaidUsageAllocation(
+                subscriptionId,
+                prepaidComponent.getId(),
+                allocation.getAllocationId(),
+                new CreditSchemeRequest(creditScheme)
+        );
+
+        // then
+        Thread.sleep(2000);
+        assertListAllocationsIsEmpty(subscriptionId);
+        assertThat(getServiceCreditsBalanceInCents(subscriptionId)).isEqualTo(0L);
+
+        List<CreditNote> creditNotesWithRefunds = getCreditNotesWithRefunds(subscriptionId);
+        assertThat(creditNotesWithRefunds).hasSize(1);
+
+        List<InvoiceRefund> refunds = creditNotesWithRefunds.get(0).getRefunds();
+        assertThat(refunds)
+                .hasSize(1)
+                .singleElement()
+                .satisfies(invoiceRefund -> {
+                    assertThat(invoiceRefund.getMemo()).isEqualTo("Refund for reverted prepaid usage allocation: 10 units");
+                    assertThat(invoiceRefund.getOriginalAmount()).isEqualTo("20.0");
+                    assertThat(invoiceRefund.getAppliedAmount()).isEqualTo("20.0");
+                });
     }
 
     @ParameterizedTest

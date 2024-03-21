@@ -201,7 +201,7 @@ public abstract class BaseCustomerInformationTest {
                         .locale("PL")
                         .vatNumber("123-213-123-123")
                         .phone("0700722722")
-                        .reference("new-reference-for-a-new-customer-" + randomNumeric(5))
+                        .reference("new-reference-for-a-new-customer-" + randomNumeric(10))
                         .zip("1111")
                         .country("New Country")
                         .build()))

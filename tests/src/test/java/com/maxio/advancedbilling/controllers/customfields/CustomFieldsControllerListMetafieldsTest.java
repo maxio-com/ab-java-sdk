@@ -37,7 +37,7 @@ public class CustomFieldsControllerListMetafieldsTest {
             TestClient.createClient().getCustomFieldsController();
 
     private static final Metafield radioMetafield = new Metafield.Builder()
-            .name("metafield-" + randomNumeric(7))
+            .name("metafield-" + randomNumeric(10))
             .inputType(MetafieldInput.RADIO)
             .mEnum(MetafieldEnum.fromListOfString(List.of("option 1", "option 2")))
             .scope(randomScope())
@@ -45,14 +45,14 @@ public class CustomFieldsControllerListMetafieldsTest {
             .build();
 
     private static final Metafield textMetafield = new Metafield.Builder()
-            .name("metafield-" + randomNumeric(7))
+            .name("metafield-" + randomNumeric(10))
             .inputType(MetafieldInput.TEXT)
             .scope(randomScope())
             .dataCount(0)
             .build();
 
     private static final Metafield dropdownMetafield = new Metafield.Builder()
-            .name("metafield-" + randomNumeric(7))
+            .name("metafield-" + randomNumeric(10))
             .inputType(MetafieldInput.DROPDOWN)
             .mEnum(MetafieldEnum.fromListOfString(List.of("option 11", "option 22")))
             .scope(randomScope())

@@ -58,7 +58,7 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
         groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
         PROFORMA_INVOICES_CONTROLLER.createConsolidatedProformaInvoice(groupSignup.getUid());
 
-        Thread.sleep(5000);
+        Thread.sleep(8000);
     }
 
     @AfterAll

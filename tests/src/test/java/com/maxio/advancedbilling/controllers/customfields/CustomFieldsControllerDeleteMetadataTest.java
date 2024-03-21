@@ -46,7 +46,7 @@ public class CustomFieldsControllerDeleteMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldDeleteSingleMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String textMetafieldName = "text-to-delete-" + randomNumeric(7);
+        String textMetafieldName = "text-to-delete-" + randomNumeric(10);
         int resourceId = resources.getIdForResourceType(resourceType);
 
         CreateMetadataRequest createMetadataRequest =
@@ -73,9 +73,9 @@ public class CustomFieldsControllerDeleteMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldDeleteMultipleMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String metafieldName1 = "metafield-delete-" + randomNumeric(7);
-        String metafieldName2 = "metafield-delete-" + randomNumeric(7);
-        String metafieldName3 = "metafield-" + randomNumeric(7);
+        String metafieldName1 = "metafield-delete-" + randomNumeric(10);
+        String metafieldName2 = "metafield-delete-" + randomNumeric(10);
+        String metafieldName3 = "metafield-" + randomNumeric(10);
 
         int resourceId = resources.getIdForResourceType(resourceType);
 

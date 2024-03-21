@@ -69,7 +69,6 @@ public class SubscriptionGroupsControllerCreateTest {
     @Test
     void shouldCreateSubscriptionGroup() throws IOException, ApiException {
         // given
-        Customer customer = TEST_SETUP.createCustomer();
         Subscription subscription1 = TEST_SETUP.createSubscription(customer, product);
         Subscription subscription2 = TEST_SETUP.createSubscription(customer, product);
 

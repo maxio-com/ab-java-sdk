@@ -54,10 +54,10 @@ public class CustomFieldsControllerCreateMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldCreateMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String textMetafieldName = "text-" + randomNumeric(7);
-        String radioMetafieldName = "radio-" + randomNumeric(7);
+        String textMetafieldName = "text-" + randomNumeric(10);
+        String radioMetafieldName = "radio-" + randomNumeric(10);
         List<String> radioEnum = List.of("radio-option-1", "radio-option-2");
-        String dropdownMetafieldName = "dropdown-" + randomNumeric(7);
+        String dropdownMetafieldName = "dropdown-" + randomNumeric(10);
         List<String> dropdownEnum = List.of("dropdown-option-1", "dropdown-option-2");
         int resourceId = resources.getIdForResourceType(resourceType);
 
@@ -123,7 +123,7 @@ public class CustomFieldsControllerCreateMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldCreateAdHocMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String textMetafieldName = "adhoc-text-" + randomNumeric(7);
+        String textMetafieldName = "adhoc-text-" + randomNumeric(10);
         int resourceId = resources.getIdForResourceType(resourceType);
         CreateMetadataRequest createMetadataRequest =
                 new CreateMetadataRequest(
@@ -161,7 +161,7 @@ public class CustomFieldsControllerCreateMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldNotCreateMetadataWhenValueIsTooBig(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String textMetafieldName = "adhoc-text-" + randomNumeric(7);
+        String textMetafieldName = "adhoc-text-" + randomNumeric(10);
         CreateMetadataRequest createMetadataRequest =
                 new CreateMetadataRequest(
                         List.of(
@@ -183,7 +183,7 @@ public class CustomFieldsControllerCreateMetadataTest {
     void shouldNotCreateMetadataWhenValueNotInEnum(ResourceType resourceType) throws IOException, ApiException {
         // given
         List<String> radioEnum = List.of("radio-option-1", "radio-option-2");
-        String radioMetafieldName = "radio-" + randomNumeric(7);
+        String radioMetafieldName = "radio-" + randomNumeric(10);
         CreateMetafieldsRequest createMetafieldsRequest =
                 new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromCreateMetafield(

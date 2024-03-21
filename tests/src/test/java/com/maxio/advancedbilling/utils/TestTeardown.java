@@ -62,7 +62,9 @@ public class TestTeardown {
     }
 
     public void deleteSubscriptionGroup(SubscriptionGroupSignupResponse groupSignup) throws IOException, ApiException {
-        deleteSubscriptionGroup(groupSignup.getPrimarySubscriptionId(), groupSignup.getSubscriptionIds(), groupSignup.getCustomerId());
+        if (groupSignup != null) {
+            deleteSubscriptionGroup(groupSignup.getPrimarySubscriptionId(), groupSignup.getSubscriptionIds(), groupSignup.getCustomerId());
+        }
     }
 
     public void deleteAllSubscriptionGroups() throws IOException, ApiException {

@@ -43,7 +43,7 @@ public class CustomFieldsControllerUpdateMetafieldTest {
     @EnumSource(ResourceType.class)
     void shouldUpdateMetafieldEnumAndScope(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String metafieldName = "test-metafield-" + randomNumeric(5);
+        String metafieldName = "test-metafield-" + randomNumeric(10);
         CreateMetafieldsRequest createMetafieldsRequest =
                 new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromCreateMetafield(
@@ -88,8 +88,8 @@ public class CustomFieldsControllerUpdateMetafieldTest {
     @EnumSource(ResourceType.class)
     void shouldUpdateMultipleMetafields(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String metafieldName1 = "test-metafield-" + randomNumeric(5);
-        String metafieldName2 = "test-metafield-" + randomNumeric(5);
+        String metafieldName1 = "test-metafield-" + randomNumeric(10);
+        String metafieldName2 = "test-metafield-" + randomNumeric(10);
         List<String> menum = List.of("radio-option-1", "radio-option-2");
         MetafieldScope scope = randomScope();
 
@@ -112,8 +112,8 @@ public class CustomFieldsControllerUpdateMetafieldTest {
                                 )
                         ));
 
-        String updatedName1 = "updated-metafield-name-" + randomNumeric(5);
-        String updatedName2 = "updated-metafield-name-" + randomNumeric(5);
+        String updatedName1 = "updated-metafield-name-" + randomNumeric(10);
+        String updatedName2 = "updated-metafield-name-" + randomNumeric(10);
 
         UpdateMetafieldsRequest updateMetafieldsRequest =
                 new UpdateMetafieldsRequest(
@@ -148,7 +148,7 @@ public class CustomFieldsControllerUpdateMetafieldTest {
     @EnumSource(ResourceType.class)
     void shouldUpdateMetafieldInputTypeToText(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String metafieldName = "test-metafield-" + randomNumeric(5);
+        String metafieldName = "test-metafield-" + randomNumeric(10);
         CreateMetafieldsRequest createMetafieldsRequest =
                 new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromCreateMetafield(

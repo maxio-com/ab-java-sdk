@@ -73,7 +73,7 @@ public class CustomFieldsControllerUpdateMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldUpdateTextMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String textMetafieldName = "text-" + randomNumeric(7);
+        String textMetafieldName = "text-" + randomNumeric(10);
         int resourceId = getIdForResourceType(resourceType);
 
         CreateMetadataRequest createMetadataRequest =
@@ -109,7 +109,7 @@ public class CustomFieldsControllerUpdateMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldUpdateDropdownMetadata(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String dropdownMetafieldName = "dropdown-" + randomNumeric(7);
+        String dropdownMetafieldName = "dropdown-" + randomNumeric(10);
         List<String> dropdownEnum = List.of("dropdown-option-1", "dropdown-option-2");
         int resourceId = getIdForResourceType(resourceType);
 
@@ -158,8 +158,8 @@ public class CustomFieldsControllerUpdateMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldUpdateMetadataName(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String textMetafieldName = "text-" + randomNumeric(7);
-        String updatedMetafieldName = "updated-text-" + randomNumeric(7);
+        String textMetafieldName = "text-" + randomNumeric(10);
+        String updatedMetafieldName = "updated-text-" + randomNumeric(10);
         int resourceId = getIdForResourceType(resourceType);
         int resourceId2 = getSecondIdForResourceType(resourceType);
 
@@ -215,7 +215,7 @@ public class CustomFieldsControllerUpdateMetadataTest {
     void shouldNotUpdateMetadataWhenValueNotInEnum(ResourceType resourceType) throws IOException, ApiException {
         // given
         List<String> radioEnum = List.of("radio-option-1", "radio-option-2");
-        String radioMetafieldName = "radio-" + randomNumeric(7);
+        String radioMetafieldName = "radio-" + randomNumeric(10);
         CreateMetafieldsRequest createMetafieldsRequest =
                 new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromCreateMetafield(
@@ -252,8 +252,8 @@ public class CustomFieldsControllerUpdateMetadataTest {
     @EnumSource(ResourceType.class)
     void shouldReturn422WhenUpdatingMetadataNameToExistingName(ResourceType resourceType) throws IOException, ApiException {
         // given
-        String name1 = "text-name-" + randomNumeric(5);
-        String name2 = "text-name2-" + randomNumeric(5);
+        String name1 = "text-name-" + randomNumeric(10);
+        String name2 = "text-name2-" + randomNumeric(10);
         CreateMetafieldsRequest createMetafieldsRequest =
                 new CreateMetafieldsRequest(
                         CreateMetafieldsRequestMetafields.fromListOfCreateMetafield(
