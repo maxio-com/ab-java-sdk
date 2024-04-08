@@ -46,8 +46,7 @@ public enum FailedPaymentAction {
     @JsonCreator
     public static FailedPaymentAction constructFromString(String toConvert) throws IOException {
         FailedPaymentAction enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

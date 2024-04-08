@@ -42,8 +42,7 @@ public enum SortingDirection {
     @JsonCreator
     public static SortingDirection constructFromString(String toConvert) throws IOException {
         SortingDirection enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

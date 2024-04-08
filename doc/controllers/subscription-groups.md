@@ -194,7 +194,10 @@ ListSubscriptionGroupsResponse listSubscriptionGroups(
 ListSubscriptionGroupsInput listSubscriptionGroupsInput = new ListSubscriptionGroupsInput.Builder()
     .page(2)
     .perPage(50)
-Liquid error: Value cannot be null. (Parameter 'key')    .build();
+    .include(Arrays.asList(
+        SubscriptionGroupsListInclude.ACCOUNT_BALANCES
+    ))
+    .build();
 
 try {
     ListSubscriptionGroupsResponse result = subscriptionGroupsController.listSubscriptionGroups(listSubscriptionGroupsInput);
@@ -274,8 +277,12 @@ FullSubscriptionGroupResponse readSubscriptionGroup(
 
 ```java
 String uid = "uid0";
-Liquid error: Value cannot be null. (Parameter 'key')try {
-    FullSubscriptionGroupResponse result = subscriptionGroupsController.readSubscriptionGroup(uid, Liquid error: Value cannot be null. (Parameter 'key'));
+List<SubscriptionGroupInclude> include = Arrays.asList(
+    SubscriptionGroupInclude.CURRENT_BILLING_AMOUNT_IN_CENTS
+);
+
+try {
+    FullSubscriptionGroupResponse result = subscriptionGroupsController.readSubscriptionGroup(uid, include);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -330,7 +337,7 @@ Liquid error: Value cannot be null. (Parameter 'key')try {
 # Update Subscription Group Members
 
 Use this endpoint to update subscription group members.
-`"member_ids": []` should contain an array of both subscription IDs to set as group members and subscription IDs already present in the groups. Not including them will result in removing them from subscription group. To clean up members, just leave the array empty.
+`"member_ids"` should contain an array of both subscription IDs to set as group members and subscription IDs already present in the groups. Not including them will result in removing them from subscription group. To clean up members, just leave the array empty.
 
 ```java
 SubscriptionGroupResponse updateSubscriptionGroupMembers(

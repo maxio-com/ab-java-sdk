@@ -509,7 +509,7 @@ public final class SubscriptionsController extends BaseController {
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("sort")
                                 .value((input.getSort() != null) ? input.getSort().value() : "signup_date").isRequired(false))
-                        .queryParam(param -> param.key("include[]")
+                        .queryParam(param -> param.key("include")
                                 .value(SubscriptionListInclude.toValue(input.getInclude())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -522,7 +522,7 @@ public final class SubscriptionsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.UNINDEXED))
                 .build();
     }
 
@@ -641,7 +641,7 @@ public final class SubscriptionsController extends BaseController {
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions/{subscription_id}.json")
-                        .queryParam(param -> param.key("include[]")
+                        .queryParam(param -> param.key("include")
                                 .value(SubscriptionInclude.toValue(include)).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -655,7 +655,7 @@ public final class SubscriptionsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
+                                .arraySerializationFormat(ArraySerializationFormat.UNINDEXED))
                 .build();
     }
 
@@ -797,7 +797,7 @@ public final class SubscriptionsController extends BaseController {
                         .path("/subscriptions/{subscription_id}/purge.json")
                         .queryParam(param -> param.key("ack")
                                 .value(ack).isRequired(false))
-                        .queryParam(param -> param.key("cascade[]")
+                        .queryParam(param -> param.key("cascade")
                                 .value(SubscriptionPurgeType.toValue(cascade)).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -808,7 +808,7 @@ public final class SubscriptionsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 

@@ -9,11 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maxio.advancedbilling.DateTimeHelper;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -24,6 +19,7 @@ public class ListSubscriptionComponentsForSiteInput {
     private Integer perPage;
     private ListSubscriptionComponentsSort sort;
     private SortingDirection direction;
+    private ListSubscriptionComponentsForSiteFilter filter;
     private SubscriptionListDateField dateField;
     private String startDate;
     private String startDatetime;
@@ -33,14 +29,6 @@ public class ListSubscriptionComponentsForSiteInput {
     private IncludeNotNull pricePointIds;
     private List<Integer> productFamilyIds;
     private ListSubscriptionComponentsInclude include;
-    private Boolean filterUseSiteExchangeRate;
-    private List<String> filterCurrencies;
-    private List<SubscriptionStateFilter> filterSubscriptionStates;
-    private SubscriptionListDateField filterSubscriptionDateField;
-    private LocalDate filterSubscriptionStartDate;
-    private ZonedDateTime filterSubscriptionStartDatetime;
-    private LocalDate filterSubscriptionEndDate;
-    private ZonedDateTime filterSubscriptionEndDatetime;
 
     /**
      * Default constructor.
@@ -56,6 +44,7 @@ public class ListSubscriptionComponentsForSiteInput {
      * @param  perPage  Integer value for perPage.
      * @param  sort  ListSubscriptionComponentsSort value for sort.
      * @param  direction  SortingDirection value for direction.
+     * @param  filter  ListSubscriptionComponentsForSiteFilter value for filter.
      * @param  dateField  SubscriptionListDateField value for dateField.
      * @param  startDate  String value for startDate.
      * @param  startDatetime  String value for startDatetime.
@@ -65,23 +54,13 @@ public class ListSubscriptionComponentsForSiteInput {
      * @param  pricePointIds  IncludeNotNull value for pricePointIds.
      * @param  productFamilyIds  List of Integer value for productFamilyIds.
      * @param  include  ListSubscriptionComponentsInclude value for include.
-     * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
-     * @param  filterCurrencies  List of String value for filterCurrencies.
-     * @param  filterSubscriptionStates  List of SubscriptionStateFilter value for
-     *         filterSubscriptionStates.
-     * @param  filterSubscriptionDateField  SubscriptionListDateField value for
-     *         filterSubscriptionDateField.
-     * @param  filterSubscriptionStartDate  LocalDate value for filterSubscriptionStartDate.
-     * @param  filterSubscriptionStartDatetime  ZonedDateTime value for
-     *         filterSubscriptionStartDatetime.
-     * @param  filterSubscriptionEndDate  LocalDate value for filterSubscriptionEndDate.
-     * @param  filterSubscriptionEndDatetime  ZonedDateTime value for filterSubscriptionEndDatetime.
      */
     public ListSubscriptionComponentsForSiteInput(
             Integer page,
             Integer perPage,
             ListSubscriptionComponentsSort sort,
             SortingDirection direction,
+            ListSubscriptionComponentsForSiteFilter filter,
             SubscriptionListDateField dateField,
             String startDate,
             String startDatetime,
@@ -90,19 +69,12 @@ public class ListSubscriptionComponentsForSiteInput {
             List<Integer> subscriptionIds,
             IncludeNotNull pricePointIds,
             List<Integer> productFamilyIds,
-            ListSubscriptionComponentsInclude include,
-            Boolean filterUseSiteExchangeRate,
-            List<String> filterCurrencies,
-            List<SubscriptionStateFilter> filterSubscriptionStates,
-            SubscriptionListDateField filterSubscriptionDateField,
-            LocalDate filterSubscriptionStartDate,
-            ZonedDateTime filterSubscriptionStartDatetime,
-            LocalDate filterSubscriptionEndDate,
-            ZonedDateTime filterSubscriptionEndDatetime) {
+            ListSubscriptionComponentsInclude include) {
         this.page = page;
         this.perPage = perPage;
         this.sort = sort;
         this.direction = direction;
+        this.filter = filter;
         this.dateField = dateField;
         this.startDate = startDate;
         this.startDatetime = startDatetime;
@@ -112,14 +84,6 @@ public class ListSubscriptionComponentsForSiteInput {
         this.pricePointIds = pricePointIds;
         this.productFamilyIds = productFamilyIds;
         this.include = include;
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-        this.filterCurrencies = filterCurrencies;
-        this.filterSubscriptionStates = filterSubscriptionStates;
-        this.filterSubscriptionDateField = filterSubscriptionDateField;
-        this.filterSubscriptionStartDate = filterSubscriptionStartDate;
-        this.filterSubscriptionStartDatetime = filterSubscriptionStartDatetime;
-        this.filterSubscriptionEndDate = filterSubscriptionEndDate;
-        this.filterSubscriptionEndDatetime = filterSubscriptionEndDatetime;
     }
 
     /**
@@ -216,6 +180,27 @@ public class ListSubscriptionComponentsForSiteInput {
     @JsonSetter("direction")
     public void setDirection(SortingDirection direction) {
         this.direction = direction;
+    }
+
+    /**
+     * Getter for Filter.
+     * Filter to use for List Subscription Components For Site operation
+     * @return Returns the ListSubscriptionComponentsForSiteFilter
+     */
+    @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ListSubscriptionComponentsForSiteFilter getFilter() {
+        return filter;
+    }
+
+    /**
+     * Setter for Filter.
+     * Filter to use for List Subscription Components For Site operation
+     * @param filter Value for ListSubscriptionComponentsForSiteFilter
+     */
+    @JsonSetter("filter")
+    public void setFilter(ListSubscriptionComponentsForSiteFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -436,240 +421,17 @@ public class ListSubscriptionComponentsForSiteInput {
     }
 
     /**
-     * Getter for FilterUseSiteExchangeRate.
-     * Allows fetching components allocation with matching use_site_exchange_rate based on provided
-     * value. Use in query `filter[use_site_exchange_rate]=true`.
-     * @return Returns the Boolean
-     */
-    @JsonGetter("filter[use_site_exchange_rate]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getFilterUseSiteExchangeRate() {
-        return filterUseSiteExchangeRate;
-    }
-
-    /**
-     * Setter for FilterUseSiteExchangeRate.
-     * Allows fetching components allocation with matching use_site_exchange_rate based on provided
-     * value. Use in query `filter[use_site_exchange_rate]=true`.
-     * @param filterUseSiteExchangeRate Value for Boolean
-     */
-    @JsonSetter("filter[use_site_exchange_rate]")
-    public void setFilterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-    }
-
-    /**
-     * Getter for FilterCurrencies.
-     * Allows fetching components allocation with matching currency based on provided values. Use in
-     * query `filter[currencies]=USD,EUR`.
-     * @return Returns the List of String
-     */
-    @JsonGetter("filter[currencies]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<String> getFilterCurrencies() {
-        return filterCurrencies;
-    }
-
-    /**
-     * Setter for FilterCurrencies.
-     * Allows fetching components allocation with matching currency based on provided values. Use in
-     * query `filter[currencies]=USD,EUR`.
-     * @param filterCurrencies Value for List of String
-     */
-    @JsonSetter("filter[currencies]")
-    public void setFilterCurrencies(List<String> filterCurrencies) {
-        this.filterCurrencies = filterCurrencies;
-    }
-
-    /**
-     * Getter for FilterSubscriptionStates.
-     * Allows fetching components allocations that belong to the subscription with matching states
-     * based on provided values. To use this filter you also have to include the following param in
-     * the request `include=subscription`. Use in query
-     * `filter[subscription][states]=active,canceled&amp;include=subscription`.
-     * @return Returns the List of SubscriptionStateFilter
-     */
-    @JsonGetter("filter[subscription][states]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<SubscriptionStateFilter> getFilterSubscriptionStates() {
-        return filterSubscriptionStates;
-    }
-
-    /**
-     * Setter for FilterSubscriptionStates.
-     * Allows fetching components allocations that belong to the subscription with matching states
-     * based on provided values. To use this filter you also have to include the following param in
-     * the request `include=subscription`. Use in query
-     * `filter[subscription][states]=active,canceled&amp;include=subscription`.
-     * @param filterSubscriptionStates Value for List of SubscriptionStateFilter
-     */
-    @JsonSetter("filter[subscription][states]")
-    public void setFilterSubscriptionStates(List<SubscriptionStateFilter> filterSubscriptionStates) {
-        this.filterSubscriptionStates = filterSubscriptionStates;
-    }
-
-    /**
-     * Getter for FilterSubscriptionDateField.
-     * The type of filter you'd like to apply to your search. To use this filter you also have to
-     * include the following param in the request `include=subscription`.
-     * @return Returns the SubscriptionListDateField
-     */
-    @JsonGetter("filter[subscription][date_field]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionListDateField getFilterSubscriptionDateField() {
-        return filterSubscriptionDateField;
-    }
-
-    /**
-     * Setter for FilterSubscriptionDateField.
-     * The type of filter you'd like to apply to your search. To use this filter you also have to
-     * include the following param in the request `include=subscription`.
-     * @param filterSubscriptionDateField Value for SubscriptionListDateField
-     */
-    @JsonSetter("filter[subscription][date_field]")
-    public void setFilterSubscriptionDateField(SubscriptionListDateField filterSubscriptionDateField) {
-        this.filterSubscriptionDateField = filterSubscriptionDateField;
-    }
-
-    /**
-     * Getter for FilterSubscriptionStartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components
-     * that belong to the subscription with a timestamp at or after midnight (12:00:00 AM) in your
-     * site’s time zone on the date specified. To use this filter you also have to include the
-     * following param in the request `include=subscription`.
-     * @return Returns the LocalDate
-     */
-    @JsonGetter("filter[subscription][start_date]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getFilterSubscriptionStartDate() {
-        return filterSubscriptionStartDate;
-    }
-
-    /**
-     * Setter for FilterSubscriptionStartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components
-     * that belong to the subscription with a timestamp at or after midnight (12:00:00 AM) in your
-     * site’s time zone on the date specified. To use this filter you also have to include the
-     * following param in the request `include=subscription`.
-     * @param filterSubscriptionStartDate Value for LocalDate
-     */
-    @JsonSetter("filter[subscription][start_date]")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setFilterSubscriptionStartDate(LocalDate filterSubscriptionStartDate) {
-        this.filterSubscriptionStartDate = filterSubscriptionStartDate;
-    }
-
-    /**
-     * Getter for FilterSubscriptionStartDatetime.
-     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns components that belong to the subscription with a timestamp at or after exact time
-     * provided in query. You can specify timezone in query - otherwise your site''s time zone will
-     * be used. If provided, this parameter will be used instead of start_date. To use this filter
-     * you also have to include the following param in the request `include=subscription`.
-     * @return Returns the ZonedDateTime
-     */
-    @JsonGetter("filter[subscription][start_datetime]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public ZonedDateTime getFilterSubscriptionStartDatetime() {
-        return filterSubscriptionStartDatetime;
-    }
-
-    /**
-     * Setter for FilterSubscriptionStartDatetime.
-     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns components that belong to the subscription with a timestamp at or after exact time
-     * provided in query. You can specify timezone in query - otherwise your site''s time zone will
-     * be used. If provided, this parameter will be used instead of start_date. To use this filter
-     * you also have to include the following param in the request `include=subscription`.
-     * @param filterSubscriptionStartDatetime Value for ZonedDateTime
-     */
-    @JsonSetter("filter[subscription][start_datetime]")
-    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setFilterSubscriptionStartDatetime(ZonedDateTime filterSubscriptionStartDatetime) {
-        this.filterSubscriptionStartDatetime = filterSubscriptionStartDatetime;
-    }
-
-    /**
-     * Getter for FilterSubscriptionEndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components that
-     * belong to the subscription with a timestamp up to and including 11:59:59PM in your site’s
-     * time zone on the date specified. To use this filter you also have to include the following
-     * param in the request `include=subscription`.
-     * @return Returns the LocalDate
-     */
-    @JsonGetter("filter[subscription][end_date]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getFilterSubscriptionEndDate() {
-        return filterSubscriptionEndDate;
-    }
-
-    /**
-     * Setter for FilterSubscriptionEndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components that
-     * belong to the subscription with a timestamp up to and including 11:59:59PM in your site’s
-     * time zone on the date specified. To use this filter you also have to include the following
-     * param in the request `include=subscription`.
-     * @param filterSubscriptionEndDate Value for LocalDate
-     */
-    @JsonSetter("filter[subscription][end_date]")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setFilterSubscriptionEndDate(LocalDate filterSubscriptionEndDate) {
-        this.filterSubscriptionEndDate = filterSubscriptionEndDate;
-    }
-
-    /**
-     * Getter for FilterSubscriptionEndDatetime.
-     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns components that belong to the subscription with a timestamp at or before exact time
-     * provided in query. You can specify timezone in query - otherwise your site''s time zone will
-     * be used. If provided, this parameter will be used instead of end_date. To use this filter you
-     * also have to include the following param in the request `include=subscription`.
-     * @return Returns the ZonedDateTime
-     */
-    @JsonGetter("filter[subscription][end_datetime]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public ZonedDateTime getFilterSubscriptionEndDatetime() {
-        return filterSubscriptionEndDatetime;
-    }
-
-    /**
-     * Setter for FilterSubscriptionEndDatetime.
-     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns components that belong to the subscription with a timestamp at or before exact time
-     * provided in query. You can specify timezone in query - otherwise your site''s time zone will
-     * be used. If provided, this parameter will be used instead of end_date. To use this filter you
-     * also have to include the following param in the request `include=subscription`.
-     * @param filterSubscriptionEndDatetime Value for ZonedDateTime
-     */
-    @JsonSetter("filter[subscription][end_datetime]")
-    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setFilterSubscriptionEndDatetime(ZonedDateTime filterSubscriptionEndDatetime) {
-        this.filterSubscriptionEndDatetime = filterSubscriptionEndDatetime;
-    }
-
-    /**
      * Converts this ListSubscriptionComponentsForSiteInput into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "ListSubscriptionComponentsForSiteInput [" + "page=" + page + ", perPage=" + perPage
-                + ", sort=" + sort + ", direction=" + direction + ", dateField=" + dateField
-                + ", startDate=" + startDate + ", startDatetime=" + startDatetime + ", endDate="
-                + endDate + ", endDatetime=" + endDatetime + ", subscriptionIds=" + subscriptionIds
-                + ", pricePointIds=" + pricePointIds + ", productFamilyIds=" + productFamilyIds
-                + ", include=" + include + ", filterUseSiteExchangeRate="
-                + filterUseSiteExchangeRate + ", filterCurrencies=" + filterCurrencies
-                + ", filterSubscriptionStates=" + filterSubscriptionStates
-                + ", filterSubscriptionDateField=" + filterSubscriptionDateField
-                + ", filterSubscriptionStartDate=" + filterSubscriptionStartDate
-                + ", filterSubscriptionStartDatetime=" + filterSubscriptionStartDatetime
-                + ", filterSubscriptionEndDate=" + filterSubscriptionEndDate
-                + ", filterSubscriptionEndDatetime=" + filterSubscriptionEndDatetime + "]";
+                + ", sort=" + sort + ", direction=" + direction + ", filter=" + filter
+                + ", dateField=" + dateField + ", startDate=" + startDate + ", startDatetime="
+                + startDatetime + ", endDate=" + endDate + ", endDatetime=" + endDatetime
+                + ", subscriptionIds=" + subscriptionIds + ", pricePointIds=" + pricePointIds
+                + ", productFamilyIds=" + productFamilyIds + ", include=" + include + "]";
     }
 
     /**
@@ -683,6 +445,7 @@ public class ListSubscriptionComponentsForSiteInput {
                 .perPage(getPerPage())
                 .sort(getSort())
                 .direction(getDirection())
+                .filter(getFilter())
                 .dateField(getDateField())
                 .startDate(getStartDate())
                 .startDatetime(getStartDatetime())
@@ -691,15 +454,7 @@ public class ListSubscriptionComponentsForSiteInput {
                 .subscriptionIds(getSubscriptionIds())
                 .pricePointIds(getPricePointIds())
                 .productFamilyIds(getProductFamilyIds())
-                .include(getInclude())
-                .filterUseSiteExchangeRate(getFilterUseSiteExchangeRate())
-                .filterCurrencies(getFilterCurrencies())
-                .filterSubscriptionStates(getFilterSubscriptionStates())
-                .filterSubscriptionDateField(getFilterSubscriptionDateField())
-                .filterSubscriptionStartDate(getFilterSubscriptionStartDate())
-                .filterSubscriptionStartDatetime(getFilterSubscriptionStartDatetime())
-                .filterSubscriptionEndDate(getFilterSubscriptionEndDate())
-                .filterSubscriptionEndDatetime(getFilterSubscriptionEndDatetime());
+                .include(getInclude());
         return builder;
     }
 
@@ -711,6 +466,7 @@ public class ListSubscriptionComponentsForSiteInput {
         private Integer perPage = 20;
         private ListSubscriptionComponentsSort sort;
         private SortingDirection direction;
+        private ListSubscriptionComponentsForSiteFilter filter;
         private SubscriptionListDateField dateField;
         private String startDate;
         private String startDatetime;
@@ -720,14 +476,6 @@ public class ListSubscriptionComponentsForSiteInput {
         private IncludeNotNull pricePointIds;
         private List<Integer> productFamilyIds;
         private ListSubscriptionComponentsInclude include;
-        private Boolean filterUseSiteExchangeRate;
-        private List<String> filterCurrencies;
-        private List<SubscriptionStateFilter> filterSubscriptionStates;
-        private SubscriptionListDateField filterSubscriptionDateField;
-        private LocalDate filterSubscriptionStartDate;
-        private ZonedDateTime filterSubscriptionStartDatetime;
-        private LocalDate filterSubscriptionEndDate;
-        private ZonedDateTime filterSubscriptionEndDatetime;
 
 
 
@@ -768,6 +516,16 @@ public class ListSubscriptionComponentsForSiteInput {
          */
         public Builder direction(SortingDirection direction) {
             this.direction = direction;
+            return this;
+        }
+
+        /**
+         * Setter for filter.
+         * @param  filter  ListSubscriptionComponentsForSiteFilter value for filter.
+         * @return Builder
+         */
+        public Builder filter(ListSubscriptionComponentsForSiteFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -862,104 +620,13 @@ public class ListSubscriptionComponentsForSiteInput {
         }
 
         /**
-         * Setter for filterUseSiteExchangeRate.
-         * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
-         * @return Builder
-         */
-        public Builder filterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-            this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-            return this;
-        }
-
-        /**
-         * Setter for filterCurrencies.
-         * @param  filterCurrencies  List of String value for filterCurrencies.
-         * @return Builder
-         */
-        public Builder filterCurrencies(List<String> filterCurrencies) {
-            this.filterCurrencies = filterCurrencies;
-            return this;
-        }
-
-        /**
-         * Setter for filterSubscriptionStates.
-         * @param  filterSubscriptionStates  List of SubscriptionStateFilter value for
-         *         filterSubscriptionStates.
-         * @return Builder
-         */
-        public Builder filterSubscriptionStates(
-                List<SubscriptionStateFilter> filterSubscriptionStates) {
-            this.filterSubscriptionStates = filterSubscriptionStates;
-            return this;
-        }
-
-        /**
-         * Setter for filterSubscriptionDateField.
-         * @param  filterSubscriptionDateField  SubscriptionListDateField value for
-         *         filterSubscriptionDateField.
-         * @return Builder
-         */
-        public Builder filterSubscriptionDateField(
-                SubscriptionListDateField filterSubscriptionDateField) {
-            this.filterSubscriptionDateField = filterSubscriptionDateField;
-            return this;
-        }
-
-        /**
-         * Setter for filterSubscriptionStartDate.
-         * @param  filterSubscriptionStartDate  LocalDate value for filterSubscriptionStartDate.
-         * @return Builder
-         */
-        public Builder filterSubscriptionStartDate(LocalDate filterSubscriptionStartDate) {
-            this.filterSubscriptionStartDate = filterSubscriptionStartDate;
-            return this;
-        }
-
-        /**
-         * Setter for filterSubscriptionStartDatetime.
-         * @param  filterSubscriptionStartDatetime  ZonedDateTime value for
-         *         filterSubscriptionStartDatetime.
-         * @return Builder
-         */
-        public Builder filterSubscriptionStartDatetime(
-                ZonedDateTime filterSubscriptionStartDatetime) {
-            this.filterSubscriptionStartDatetime = filterSubscriptionStartDatetime;
-            return this;
-        }
-
-        /**
-         * Setter for filterSubscriptionEndDate.
-         * @param  filterSubscriptionEndDate  LocalDate value for filterSubscriptionEndDate.
-         * @return Builder
-         */
-        public Builder filterSubscriptionEndDate(LocalDate filterSubscriptionEndDate) {
-            this.filterSubscriptionEndDate = filterSubscriptionEndDate;
-            return this;
-        }
-
-        /**
-         * Setter for filterSubscriptionEndDatetime.
-         * @param  filterSubscriptionEndDatetime  ZonedDateTime value for
-         *         filterSubscriptionEndDatetime.
-         * @return Builder
-         */
-        public Builder filterSubscriptionEndDatetime(
-                ZonedDateTime filterSubscriptionEndDatetime) {
-            this.filterSubscriptionEndDatetime = filterSubscriptionEndDatetime;
-            return this;
-        }
-
-        /**
          * Builds a new {@link ListSubscriptionComponentsForSiteInput} object using the set fields.
          * @return {@link ListSubscriptionComponentsForSiteInput}
          */
         public ListSubscriptionComponentsForSiteInput build() {
             return new ListSubscriptionComponentsForSiteInput(page, perPage, sort, direction,
-                    dateField, startDate, startDatetime, endDate, endDatetime, subscriptionIds,
-                    pricePointIds, productFamilyIds, include, filterUseSiteExchangeRate,
-                    filterCurrencies, filterSubscriptionStates, filterSubscriptionDateField,
-                    filterSubscriptionStartDate, filterSubscriptionStartDatetime,
-                    filterSubscriptionEndDate, filterSubscriptionEndDatetime);
+                    filter, dateField, startDate, startDatetime, endDate, endDatetime,
+                    subscriptionIds, pricePointIds, productFamilyIds, include);
         }
     }
 }

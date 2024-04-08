@@ -8,7 +8,6 @@ package com.maxio.advancedbilling.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
-import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
@@ -573,22 +572,8 @@ public final class ProductPricePointsController extends BaseController {
                         .path("/products_price_points.json")
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("filter[archived_at]")
-                                .value((input.getFilterArchivedAt() != null) ? input.getFilterArchivedAt().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("filter[date_field]")
-                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("filter[end_date]")
-                                .value(DateTimeHelper.toSimpleDate(input.getFilterEndDate())).isRequired(false))
-                        .queryParam(param -> param.key("filter[end_datetime]")
-                                .value(DateTimeHelper.toRfc8601DateTime(input.getFilterEndDatetime())).isRequired(false))
-                        .queryParam(param -> param.key("filter[ids]")
-                                .value(input.getFilterIds()).isRequired(false))
-                        .queryParam(param -> param.key("filter[start_date]")
-                                .value(DateTimeHelper.toSimpleDate(input.getFilterStartDate())).isRequired(false))
-                        .queryParam(param -> param.key("filter[start_datetime]")
-                                .value(DateTimeHelper.toRfc8601DateTime(input.getFilterStartDatetime())).isRequired(false))
-                        .queryParam(param -> param.key("filter[type]")
-                                .value(PricePointType.toValue(input.getFilterType())).isRequired(false))
+                        .queryParam(param -> param.key("filter")
+                                .value(input.getFilter()).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
                         .queryParam(param -> param.key("page")

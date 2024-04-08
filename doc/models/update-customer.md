@@ -27,6 +27,7 @@
 | `TaxExempt` | `Boolean` | Optional | - | Boolean getTaxExempt() | setTaxExempt(Boolean taxExempt) |
 | `TaxExemptReason` | `String` | Optional | - | String getTaxExemptReason() | setTaxExemptReason(String taxExemptReason) |
 | `ParentId` | `Integer` | Optional | - | Integer getParentId() | setParentId(Integer parentId) |
+| `Verified` | `Boolean` | Optional | Is the customer verified to use ACH as a payment method. Available only on Authorize.Net gateway | Boolean getVerified() | setVerified(Boolean verified) |
 
 ## Example (as JSON)
 

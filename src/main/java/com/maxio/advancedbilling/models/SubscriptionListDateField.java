@@ -38,8 +38,7 @@ public enum SubscriptionListDateField {
     @JsonCreator
     public static SubscriptionListDateField constructFromString(String toConvert) throws IOException {
         SubscriptionListDateField enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

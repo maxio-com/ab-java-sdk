@@ -42,8 +42,7 @@ public enum ListSubscriptionComponentsSort {
     @JsonCreator
     public static ListSubscriptionComponentsSort constructFromString(String toConvert) throws IOException {
         ListSubscriptionComponentsSort enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

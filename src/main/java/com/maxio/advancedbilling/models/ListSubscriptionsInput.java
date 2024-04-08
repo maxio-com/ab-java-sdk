@@ -447,7 +447,7 @@ public class ListSubscriptionsInput {
      * `include[]=self_service_page_token`.
      * @return Returns the List of SubscriptionListInclude
      */
-    @JsonGetter("include[]")
+    @JsonGetter("include")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<SubscriptionListInclude> getInclude() {
         return include;
@@ -459,7 +459,7 @@ public class ListSubscriptionsInput {
      * `include[]=self_service_page_token`.
      * @param include Value for List of SubscriptionListInclude
      */
-    @JsonSetter("include[]")
+    @JsonSetter("include")
     public void setInclude(List<SubscriptionListInclude> include) {
         this.include = include;
     }

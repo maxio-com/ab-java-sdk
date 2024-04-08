@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentAllocatedQuantity;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentPricePointType;
-import com.maxio.advancedbilling.models.containers.SubscriptionComponentPricingScheme;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -32,7 +31,7 @@ public class SubscriptionComponent
     private Integer unitBalance;
     private String currency;
     private SubscriptionComponentAllocatedQuantity allocatedQuantity;
-    private OptionalNullable<SubscriptionComponentPricingScheme> pricingScheme;
+    private OptionalNullable<PricingScheme> pricingScheme;
     private Integer componentId;
     private OptionalNullable<String> componentHandle;
     private Integer subscriptionId;
@@ -73,7 +72,7 @@ public class SubscriptionComponent
      * @param  currency  String value for currency.
      * @param  allocatedQuantity  SubscriptionComponentAllocatedQuantity value for
      *         allocatedQuantity.
-     * @param  pricingScheme  SubscriptionComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
@@ -106,7 +105,7 @@ public class SubscriptionComponent
             Integer unitBalance,
             String currency,
             SubscriptionComponentAllocatedQuantity allocatedQuantity,
-            SubscriptionComponentPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             Integer componentId,
             String componentHandle,
             Integer subscriptionId,
@@ -173,7 +172,7 @@ public class SubscriptionComponent
      * @param  currency  String value for currency.
      * @param  allocatedQuantity  SubscriptionComponentAllocatedQuantity value for
      *         allocatedQuantity.
-     * @param  pricingScheme  SubscriptionComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  componentId  Integer value for componentId.
      * @param  componentHandle  String value for componentHandle.
      * @param  subscriptionId  Integer value for subscriptionId.
@@ -201,7 +200,7 @@ public class SubscriptionComponent
     protected SubscriptionComponent(Integer id, String name, ComponentKind kind, String unitName,
             Boolean enabled, Integer unitBalance, String currency,
             SubscriptionComponentAllocatedQuantity allocatedQuantity,
-            OptionalNullable<SubscriptionComponentPricingScheme> pricingScheme, Integer componentId,
+            OptionalNullable<PricingScheme> pricingScheme, Integer componentId,
             OptionalNullable<String> componentHandle, Integer subscriptionId, Boolean recurring,
             OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
@@ -408,29 +407,29 @@ public class SubscriptionComponent
 
     /**
      * Internal Getter for PricingScheme.
-     * @return Returns the Internal SubscriptionComponentPricingScheme
+     * @return Returns the Internal PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<SubscriptionComponentPricingScheme> internalGetPricingScheme() {
+    protected OptionalNullable<PricingScheme> internalGetPricingScheme() {
         return this.pricingScheme;
     }
 
     /**
      * Getter for PricingScheme.
-     * @return Returns the SubscriptionComponentPricingScheme
+     * @return Returns the PricingScheme
      */
-    public SubscriptionComponentPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return OptionalNullable.getFrom(pricingScheme);
     }
 
     /**
      * Setter for PricingScheme.
-     * @param pricingScheme Value for SubscriptionComponentPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(SubscriptionComponentPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = OptionalNullable.of(pricingScheme);
     }
 
@@ -1113,7 +1112,7 @@ public class SubscriptionComponent
         private Integer unitBalance;
         private String currency;
         private SubscriptionComponentAllocatedQuantity allocatedQuantity;
-        private OptionalNullable<SubscriptionComponentPricingScheme> pricingScheme;
+        private OptionalNullable<PricingScheme> pricingScheme;
         private Integer componentId;
         private OptionalNullable<String> componentHandle;
         private Integer subscriptionId;
@@ -1223,10 +1222,10 @@ public class SubscriptionComponent
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  SubscriptionComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(SubscriptionComponentPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = OptionalNullable.of(pricingScheme);
             return this;
         }

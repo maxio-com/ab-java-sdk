@@ -42,8 +42,7 @@ public enum BankAccountHolderType {
     @JsonCreator
     public static BankAccountHolderType constructFromString(String toConvert) throws IOException {
         BankAccountHolderType enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

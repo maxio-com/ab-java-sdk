@@ -38,8 +38,7 @@ public enum ListSubscriptionComponentsInclude {
     @JsonCreator
     public static ListSubscriptionComponentsInclude constructFromString(String toConvert) throws IOException {
         ListSubscriptionComponentsInclude enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

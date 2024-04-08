@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.ComponentPricingScheme;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -26,7 +25,7 @@ public class Component
     private Integer id;
     private String name;
     private OptionalNullable<String> handle;
-    private OptionalNullable<ComponentPricingScheme> pricingScheme;
+    private OptionalNullable<PricingScheme> pricingScheme;
     private String unitName;
     private OptionalNullable<String> unitPrice;
     private Integer productFamilyId;
@@ -69,7 +68,7 @@ public class Component
      * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  pricingScheme  ComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  unitName  String value for unitName.
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
@@ -105,7 +104,7 @@ public class Component
             Integer id,
             String name,
             String handle,
-            ComponentPricingScheme pricingScheme,
+            PricingScheme pricingScheme,
             String unitName,
             String unitPrice,
             Integer productFamilyId,
@@ -177,7 +176,7 @@ public class Component
      * @param  id  Integer value for id.
      * @param  name  String value for name.
      * @param  handle  String value for handle.
-     * @param  pricingScheme  ComponentPricingScheme value for pricingScheme.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  unitName  String value for unitName.
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
@@ -211,7 +210,7 @@ public class Component
      */
 
     protected Component(Integer id, String name, OptionalNullable<String> handle,
-            OptionalNullable<ComponentPricingScheme> pricingScheme, String unitName,
+            OptionalNullable<PricingScheme> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
             OptionalNullable<Long> pricePerUnitInCents, ComponentKind kind, Boolean archived,
             Boolean taxable, OptionalNullable<String> description,
@@ -347,29 +346,29 @@ public class Component
 
     /**
      * Internal Getter for PricingScheme.
-     * @return Returns the Internal ComponentPricingScheme
+     * @return Returns the Internal PricingScheme
      */
     @JsonGetter("pricing_scheme")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<ComponentPricingScheme> internalGetPricingScheme() {
+    protected OptionalNullable<PricingScheme> internalGetPricingScheme() {
         return this.pricingScheme;
     }
 
     /**
      * Getter for PricingScheme.
-     * @return Returns the ComponentPricingScheme
+     * @return Returns the PricingScheme
      */
-    public ComponentPricingScheme getPricingScheme() {
+    public PricingScheme getPricingScheme() {
         return OptionalNullable.getFrom(pricingScheme);
     }
 
     /**
      * Setter for PricingScheme.
-     * @param pricingScheme Value for ComponentPricingScheme
+     * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
-    public void setPricingScheme(ComponentPricingScheme pricingScheme) {
+    public void setPricingScheme(PricingScheme pricingScheme) {
         this.pricingScheme = OptionalNullable.of(pricingScheme);
     }
 
@@ -1353,7 +1352,7 @@ public class Component
         private Integer id;
         private String name;
         private OptionalNullable<String> handle;
-        private OptionalNullable<ComponentPricingScheme> pricingScheme;
+        private OptionalNullable<PricingScheme> pricingScheme;
         private String unitName;
         private OptionalNullable<String> unitPrice;
         private Integer productFamilyId;
@@ -1428,10 +1427,10 @@ public class Component
 
         /**
          * Setter for pricingScheme.
-         * @param  pricingScheme  ComponentPricingScheme value for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
          * @return Builder
          */
-        public Builder pricingScheme(ComponentPricingScheme pricingScheme) {
+        public Builder pricingScheme(PricingScheme pricingScheme) {
             this.pricingScheme = OptionalNullable.of(pricingScheme);
             return this;
         }

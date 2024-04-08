@@ -9,13 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 
 /**
  * This is a model class for ListMrrPerSubscriptionInput type.
  */
 public class ListMrrPerSubscriptionInput {
-    private List<Integer> filterSubscriptionIds;
+    private ListMrrFilter filter;
     private String atTime;
     private Integer page;
     private Integer perPage;
@@ -31,19 +30,19 @@ public class ListMrrPerSubscriptionInput {
 
     /**
      * Initialization constructor.
-     * @param  filterSubscriptionIds  List of Integer value for filterSubscriptionIds.
+     * @param  filter  ListMrrFilter value for filter.
      * @param  atTime  String value for atTime.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  direction  Direction value for direction.
      */
     public ListMrrPerSubscriptionInput(
-            List<Integer> filterSubscriptionIds,
+            ListMrrFilter filter,
             String atTime,
             Integer page,
             Integer perPage,
             Direction direction) {
-        this.filterSubscriptionIds = filterSubscriptionIds;
+        this.filter = filter;
         this.atTime = atTime;
         this.page = page;
         this.perPage = perPage;
@@ -51,24 +50,24 @@ public class ListMrrPerSubscriptionInput {
     }
 
     /**
-     * Getter for FilterSubscriptionIds.
-     * Submit ids in order to limit results. Use in query: `filter[subscription_ids]=1,2,3`.
-     * @return Returns the List of Integer
+     * Getter for Filter.
+     * Filter to use for List MRR per subscription operation
+     * @return Returns the ListMrrFilter
      */
-    @JsonGetter("filter[subscription_ids]")
+    @JsonGetter("filter")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<Integer> getFilterSubscriptionIds() {
-        return filterSubscriptionIds;
+    public ListMrrFilter getFilter() {
+        return filter;
     }
 
     /**
-     * Setter for FilterSubscriptionIds.
-     * Submit ids in order to limit results. Use in query: `filter[subscription_ids]=1,2,3`.
-     * @param filterSubscriptionIds Value for List of Integer
+     * Setter for Filter.
+     * Filter to use for List MRR per subscription operation
+     * @param filter Value for ListMrrFilter
      */
-    @JsonSetter("filter[subscription_ids]")
-    public void setFilterSubscriptionIds(List<Integer> filterSubscriptionIds) {
-        this.filterSubscriptionIds = filterSubscriptionIds;
+    @JsonSetter("filter")
+    public void setFilter(ListMrrFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -177,9 +176,8 @@ public class ListMrrPerSubscriptionInput {
      */
     @Override
     public String toString() {
-        return "ListMrrPerSubscriptionInput [" + "filterSubscriptionIds=" + filterSubscriptionIds
-                + ", atTime=" + atTime + ", page=" + page + ", perPage=" + perPage + ", direction="
-                + direction + "]";
+        return "ListMrrPerSubscriptionInput [" + "filter=" + filter + ", atTime=" + atTime
+                + ", page=" + page + ", perPage=" + perPage + ", direction=" + direction + "]";
     }
 
     /**
@@ -189,7 +187,7 @@ public class ListMrrPerSubscriptionInput {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .filterSubscriptionIds(getFilterSubscriptionIds())
+                .filter(getFilter())
                 .atTime(getAtTime())
                 .page(getPage())
                 .perPage(getPerPage())
@@ -201,7 +199,7 @@ public class ListMrrPerSubscriptionInput {
      * Class to build instances of {@link ListMrrPerSubscriptionInput}.
      */
     public static class Builder {
-        private List<Integer> filterSubscriptionIds;
+        private ListMrrFilter filter;
         private String atTime;
         private Integer page = 1;
         private Integer perPage = 20;
@@ -210,12 +208,12 @@ public class ListMrrPerSubscriptionInput {
 
 
         /**
-         * Setter for filterSubscriptionIds.
-         * @param  filterSubscriptionIds  List of Integer value for filterSubscriptionIds.
+         * Setter for filter.
+         * @param  filter  ListMrrFilter value for filter.
          * @return Builder
          */
-        public Builder filterSubscriptionIds(List<Integer> filterSubscriptionIds) {
-            this.filterSubscriptionIds = filterSubscriptionIds;
+        public Builder filter(ListMrrFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -264,8 +262,7 @@ public class ListMrrPerSubscriptionInput {
          * @return {@link ListMrrPerSubscriptionInput}
          */
         public ListMrrPerSubscriptionInput build() {
-            return new ListMrrPerSubscriptionInput(filterSubscriptionIds, atTime, page, perPage,
-                    direction);
+            return new ListMrrPerSubscriptionInput(filter, atTime, page, perPage, direction);
         }
     }
 }

@@ -18,6 +18,7 @@ public class ListSubscriptionComponentsInput {
     private int subscriptionId;
     private SubscriptionListDateField dateField;
     private SortingDirection direction;
+    private ListSubscriptionComponentsFilter filter;
     private String endDate;
     private String endDatetime;
     private IncludeNotNull pricePointIds;
@@ -26,8 +27,6 @@ public class ListSubscriptionComponentsInput {
     private String startDate;
     private String startDatetime;
     private ListSubscriptionComponentsInclude include;
-    private Boolean filterUseSiteExchangeRate;
-    private List<String> filterCurrencies;
 
     /**
      * Default constructor.
@@ -40,6 +39,7 @@ public class ListSubscriptionComponentsInput {
      * @param  subscriptionId  int value for subscriptionId.
      * @param  dateField  SubscriptionListDateField value for dateField.
      * @param  direction  SortingDirection value for direction.
+     * @param  filter  ListSubscriptionComponentsFilter value for filter.
      * @param  endDate  String value for endDate.
      * @param  endDatetime  String value for endDatetime.
      * @param  pricePointIds  IncludeNotNull value for pricePointIds.
@@ -48,13 +48,12 @@ public class ListSubscriptionComponentsInput {
      * @param  startDate  String value for startDate.
      * @param  startDatetime  String value for startDatetime.
      * @param  include  ListSubscriptionComponentsInclude value for include.
-     * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
-     * @param  filterCurrencies  List of String value for filterCurrencies.
      */
     public ListSubscriptionComponentsInput(
             int subscriptionId,
             SubscriptionListDateField dateField,
             SortingDirection direction,
+            ListSubscriptionComponentsFilter filter,
             String endDate,
             String endDatetime,
             IncludeNotNull pricePointIds,
@@ -62,12 +61,11 @@ public class ListSubscriptionComponentsInput {
             ListSubscriptionComponentsSort sort,
             String startDate,
             String startDatetime,
-            ListSubscriptionComponentsInclude include,
-            Boolean filterUseSiteExchangeRate,
-            List<String> filterCurrencies) {
+            ListSubscriptionComponentsInclude include) {
         this.subscriptionId = subscriptionId;
         this.dateField = dateField;
         this.direction = direction;
+        this.filter = filter;
         this.endDate = endDate;
         this.endDatetime = endDatetime;
         this.pricePointIds = pricePointIds;
@@ -76,8 +74,6 @@ public class ListSubscriptionComponentsInput {
         this.startDate = startDate;
         this.startDatetime = startDatetime;
         this.include = include;
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-        this.filterCurrencies = filterCurrencies;
     }
 
     /**
@@ -140,6 +136,27 @@ public class ListSubscriptionComponentsInput {
     @JsonSetter("direction")
     public void setDirection(SortingDirection direction) {
         this.direction = direction;
+    }
+
+    /**
+     * Getter for Filter.
+     * Filter to use for List Subscription Components operation
+     * @return Returns the ListSubscriptionComponentsFilter
+     */
+    @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ListSubscriptionComponentsFilter getFilter() {
+        return filter;
+    }
+
+    /**
+     * Setter for Filter.
+     * Filter to use for List Subscription Components operation
+     * @param filter Value for ListSubscriptionComponentsFilter
+     */
+    @JsonSetter("filter")
+    public void setFilter(ListSubscriptionComponentsFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -333,64 +350,17 @@ public class ListSubscriptionComponentsInput {
     }
 
     /**
-     * Getter for FilterUseSiteExchangeRate.
-     * Allows fetching components allocation with matching use_site_exchange_rate based on provided
-     * value. Use in query `filter[use_site_exchange_rate]=true`.
-     * @return Returns the Boolean
-     */
-    @JsonGetter("filter[use_site_exchange_rate]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getFilterUseSiteExchangeRate() {
-        return filterUseSiteExchangeRate;
-    }
-
-    /**
-     * Setter for FilterUseSiteExchangeRate.
-     * Allows fetching components allocation with matching use_site_exchange_rate based on provided
-     * value. Use in query `filter[use_site_exchange_rate]=true`.
-     * @param filterUseSiteExchangeRate Value for Boolean
-     */
-    @JsonSetter("filter[use_site_exchange_rate]")
-    public void setFilterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-    }
-
-    /**
-     * Getter for FilterCurrencies.
-     * Allows fetching components allocation with matching currency based on provided values. Use in
-     * query `filter[currencies]=EUR,USD`.
-     * @return Returns the List of String
-     */
-    @JsonGetter("filter[currencies]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<String> getFilterCurrencies() {
-        return filterCurrencies;
-    }
-
-    /**
-     * Setter for FilterCurrencies.
-     * Allows fetching components allocation with matching currency based on provided values. Use in
-     * query `filter[currencies]=EUR,USD`.
-     * @param filterCurrencies Value for List of String
-     */
-    @JsonSetter("filter[currencies]")
-    public void setFilterCurrencies(List<String> filterCurrencies) {
-        this.filterCurrencies = filterCurrencies;
-    }
-
-    /**
      * Converts this ListSubscriptionComponentsInput into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
         return "ListSubscriptionComponentsInput [" + "subscriptionId=" + subscriptionId
-                + ", dateField=" + dateField + ", direction=" + direction + ", endDate=" + endDate
-                + ", endDatetime=" + endDatetime + ", pricePointIds=" + pricePointIds
-                + ", productFamilyIds=" + productFamilyIds + ", sort=" + sort + ", startDate="
-                + startDate + ", startDatetime=" + startDatetime + ", include=" + include
-                + ", filterUseSiteExchangeRate=" + filterUseSiteExchangeRate + ", filterCurrencies="
-                + filterCurrencies + "]";
+                + ", dateField=" + dateField + ", direction=" + direction + ", filter=" + filter
+                + ", endDate=" + endDate + ", endDatetime=" + endDatetime + ", pricePointIds="
+                + pricePointIds + ", productFamilyIds=" + productFamilyIds + ", sort=" + sort
+                + ", startDate=" + startDate + ", startDatetime=" + startDatetime + ", include="
+                + include + "]";
     }
 
     /**
@@ -402,6 +372,7 @@ public class ListSubscriptionComponentsInput {
         Builder builder = new Builder(subscriptionId)
                 .dateField(getDateField())
                 .direction(getDirection())
+                .filter(getFilter())
                 .endDate(getEndDate())
                 .endDatetime(getEndDatetime())
                 .pricePointIds(getPricePointIds())
@@ -409,9 +380,7 @@ public class ListSubscriptionComponentsInput {
                 .sort(getSort())
                 .startDate(getStartDate())
                 .startDatetime(getStartDatetime())
-                .include(getInclude())
-                .filterUseSiteExchangeRate(getFilterUseSiteExchangeRate())
-                .filterCurrencies(getFilterCurrencies());
+                .include(getInclude());
         return builder;
     }
 
@@ -422,6 +391,7 @@ public class ListSubscriptionComponentsInput {
         private int subscriptionId;
         private SubscriptionListDateField dateField;
         private SortingDirection direction;
+        private ListSubscriptionComponentsFilter filter;
         private String endDate;
         private String endDatetime;
         private IncludeNotNull pricePointIds;
@@ -430,8 +400,6 @@ public class ListSubscriptionComponentsInput {
         private String startDate;
         private String startDatetime;
         private ListSubscriptionComponentsInclude include;
-        private Boolean filterUseSiteExchangeRate;
-        private List<String> filterCurrencies;
 
         /**
          * Initialization constructor.
@@ -474,6 +442,16 @@ public class ListSubscriptionComponentsInput {
          */
         public Builder direction(SortingDirection direction) {
             this.direction = direction;
+            return this;
+        }
+
+        /**
+         * Setter for filter.
+         * @param  filter  ListSubscriptionComponentsFilter value for filter.
+         * @return Builder
+         */
+        public Builder filter(ListSubscriptionComponentsFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -558,33 +536,13 @@ public class ListSubscriptionComponentsInput {
         }
 
         /**
-         * Setter for filterUseSiteExchangeRate.
-         * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
-         * @return Builder
-         */
-        public Builder filterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-            this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-            return this;
-        }
-
-        /**
-         * Setter for filterCurrencies.
-         * @param  filterCurrencies  List of String value for filterCurrencies.
-         * @return Builder
-         */
-        public Builder filterCurrencies(List<String> filterCurrencies) {
-            this.filterCurrencies = filterCurrencies;
-            return this;
-        }
-
-        /**
          * Builds a new {@link ListSubscriptionComponentsInput} object using the set fields.
          * @return {@link ListSubscriptionComponentsInput}
          */
         public ListSubscriptionComponentsInput build() {
-            return new ListSubscriptionComponentsInput(subscriptionId, dateField, direction,
+            return new ListSubscriptionComponentsInput(subscriptionId, dateField, direction, filter,
                     endDate, endDatetime, pricePointIds, productFamilyIds, sort, startDate,
-                    startDatetime, include, filterUseSiteExchangeRate, filterCurrencies);
+                    startDatetime, include);
         }
     }
 }

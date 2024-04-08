@@ -103,7 +103,7 @@ public class ListSubscriptionGroupsInput {
      * in query: `include[]=account_balances`
      * @return Returns the List of SubscriptionGroupsListInclude
      */
-    @JsonGetter("include[]")
+    @JsonGetter("include")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<SubscriptionGroupsListInclude> getInclude() {
         return include;
@@ -116,7 +116,7 @@ public class ListSubscriptionGroupsInput {
      * in query: `include[]=account_balances`
      * @param include Value for List of SubscriptionGroupsListInclude
      */
-    @JsonSetter("include[]")
+    @JsonSetter("include")
     public void setInclude(List<SubscriptionGroupsListInclude> include) {
         this.include = include;
     }

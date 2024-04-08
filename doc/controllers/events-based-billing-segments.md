@@ -118,10 +118,7 @@ ListSegmentsResponse listSegmentsForPricePoint(
 | `pricePointId` | `String` | Template, Required | ID or Handle for the Price Point belonging to the Component |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `filterSegmentProperty1Value` | `String` | Query, Optional | The value passed here would be used to filter segments. Pass a value related to `segment_property_1` on attached Metric. If empty string is passed, this filter would be rejected. Use in query `filter[segment_property_1_value]=EU`. |
-| `filterSegmentProperty2Value` | `String` | Query, Optional | The value passed here would be used to filter segments. Pass a value related to `segment_property_2` on attached Metric. If empty string is passed, this filter would be rejected. |
-| `filterSegmentProperty3Value` | `String` | Query, Optional | The value passed here would be used to filter segments. Pass a value related to `segment_property_3` on attached Metric. If empty string is passed, this filter would be rejected. |
-| `filterSegmentProperty4Value` | `String` | Query, Optional | The value passed here would be used to filter segments. Pass a value related to `segment_property_4` on attached Metric. If empty string is passed, this filter would be rejected. |
+| `filter` | [`ListSegmentsFilter`](../../doc/models/list-segments-filter.md) | Query, Optional | Filter to use for List Segments for a Price Point operation |
 
 ## Response Type
 
@@ -136,7 +133,10 @@ ListSegmentsForPricePointInput listSegmentsForPricePointInput = new ListSegments
 )
 .page(2)
 .perPage(50)
-Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key')Liquid error: Value cannot be null. (Parameter 'key').build();
+.filter(new ListSegmentsFilter.Builder()
+        .segmentProperty1Value("EU")
+        .build())
+.build();
 
 try {
     ListSegmentsResponse result = eventsBasedBillingSegmentsController.listSegmentsForPricePoint(listSegmentsForPricePointInput);

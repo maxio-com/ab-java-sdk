@@ -42,8 +42,7 @@ public enum ResourceType {
     @JsonCreator
     public static ResourceType constructFromString(String toConvert) throws IOException {
         ResourceType enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

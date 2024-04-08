@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.AllocationPayment;
 import com.maxio.advancedbilling.models.containers.AllocationPreviousQuantity;
 import com.maxio.advancedbilling.models.containers.AllocationQuantity;
 import io.apimatic.core.types.BaseModel;
@@ -45,7 +44,7 @@ public class Allocation
     private Boolean initiateDunning;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
-    private OptionalNullable<AllocationPayment> payment;
+    private OptionalNullable<PaymentForAllocation> payment;
     private ZonedDateTime expiresAt;
     private Long usedQuantity;
     private Long chargeId;
@@ -79,7 +78,7 @@ public class Allocation
      * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  payment  AllocationPayment value for payment.
+     * @param  payment  PaymentForAllocation value for payment.
      * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  usedQuantity  Long value for usedQuantity.
      * @param  chargeId  Long value for chargeId.
@@ -106,7 +105,7 @@ public class Allocation
             Boolean initiateDunning,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            AllocationPayment payment,
+            PaymentForAllocation payment,
             ZonedDateTime expiresAt,
             Long usedQuantity,
             Long chargeId) {
@@ -160,7 +159,7 @@ public class Allocation
      * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  payment  AllocationPayment value for payment.
+     * @param  payment  PaymentForAllocation value for payment.
      * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  usedQuantity  Long value for usedQuantity.
      * @param  chargeId  Long value for chargeId.
@@ -175,8 +174,8 @@ public class Allocation
             IntervalUnit intervalUnit, Integer previousPricePointId, Boolean accrueCharge,
             Boolean initiateDunning, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
-            OptionalNullable<AllocationPayment> payment, ZonedDateTime expiresAt, Long usedQuantity,
-            Long chargeId) {
+            OptionalNullable<PaymentForAllocation> payment, ZonedDateTime expiresAt,
+            Long usedQuantity, Long chargeId) {
         this.allocationId = allocationId;
         this.componentId = componentId;
         this.componentHandle = componentHandle;
@@ -751,29 +750,29 @@ public class Allocation
 
     /**
      * Internal Getter for Payment.
-     * @return Returns the Internal AllocationPayment
+     * @return Returns the Internal PaymentForAllocation
      */
     @JsonGetter("payment")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<AllocationPayment> internalGetPayment() {
+    protected OptionalNullable<PaymentForAllocation> internalGetPayment() {
         return this.payment;
     }
 
     /**
      * Getter for Payment.
-     * @return Returns the AllocationPayment
+     * @return Returns the PaymentForAllocation
      */
-    public AllocationPayment getPayment() {
+    public PaymentForAllocation getPayment() {
         return OptionalNullable.getFrom(payment);
     }
 
     /**
      * Setter for Payment.
-     * @param payment Value for AllocationPayment
+     * @param payment Value for PaymentForAllocation
      */
     @JsonSetter("payment")
-    public void setPayment(AllocationPayment payment) {
+    public void setPayment(PaymentForAllocation payment) {
         this.payment = OptionalNullable.of(payment);
     }
 
@@ -924,7 +923,7 @@ public class Allocation
         private Boolean initiateDunning;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
-        private OptionalNullable<AllocationPayment> payment;
+        private OptionalNullable<PaymentForAllocation> payment;
         private ZonedDateTime expiresAt;
         private Long usedQuantity;
         private Long chargeId;
@@ -1179,10 +1178,10 @@ public class Allocation
 
         /**
          * Setter for payment.
-         * @param  payment  AllocationPayment value for payment.
+         * @param  payment  PaymentForAllocation value for payment.
          * @return Builder
          */
-        public Builder payment(AllocationPayment payment) {
+        public Builder payment(PaymentForAllocation payment) {
             this.payment = OptionalNullable.of(payment);
             return this;
         }

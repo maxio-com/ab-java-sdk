@@ -8,7 +8,6 @@ package com.maxio.advancedbilling.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
-import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
@@ -112,16 +111,12 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscription_groups/{uid}/prepayments.json")
-                        .queryParam(param -> param.key("filter[date_field]")
-                                .value((input.getFilterDateField() != null) ? input.getFilterDateField().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("filter[end_date]")
-                                .value(DateTimeHelper.toSimpleDate(input.getFilterEndDate())).isRequired(false))
-                        .queryParam(param -> param.key("filter[start_date]")
-                                .value(DateTimeHelper.toSimpleDate(input.getFilterStartDate())).isRequired(false))
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
+                        .queryParam(param -> param.key("filter")
+                                .value(input.getFilter()).isRequired(false))
                         .templateParam(param -> param.key("uid").value(input.getUid())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))

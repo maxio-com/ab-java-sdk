@@ -36,6 +36,7 @@ public class UpdateCustomer
     private Boolean taxExempt;
     private String taxExemptReason;
     private OptionalNullable<Integer> parentId;
+    private OptionalNullable<Boolean> verified;
 
     /**
      * Default constructor.
@@ -63,6 +64,7 @@ public class UpdateCustomer
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
+     * @param  verified  Boolean value for verified.
      */
     public UpdateCustomer(
             String firstName,
@@ -82,7 +84,8 @@ public class UpdateCustomer
             String vatNumber,
             Boolean taxExempt,
             String taxExemptReason,
-            Integer parentId) {
+            Integer parentId,
+            Boolean verified) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -101,6 +104,7 @@ public class UpdateCustomer
         this.taxExempt = taxExempt;
         this.taxExemptReason = taxExemptReason;
         this.parentId = OptionalNullable.of(parentId);
+        this.verified = OptionalNullable.of(verified);
     }
 
     /**
@@ -123,12 +127,14 @@ public class UpdateCustomer
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
+     * @param  verified  Boolean value for verified.
      */
 
     protected UpdateCustomer(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address, String address2, String city,
             String state, String zip, String country, String phone, String locale, String vatNumber,
-            Boolean taxExempt, String taxExemptReason, OptionalNullable<Integer> parentId) {
+            Boolean taxExempt, String taxExemptReason, OptionalNullable<Integer> parentId,
+            OptionalNullable<Boolean> verified) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -147,6 +153,7 @@ public class UpdateCustomer
         this.taxExempt = taxExempt;
         this.taxExemptReason = taxExemptReason;
         this.parentId = parentId;
+        this.verified = verified;
     }
 
     /**
@@ -510,6 +517,49 @@ public class UpdateCustomer
     }
 
     /**
+     * Internal Getter for Verified.
+     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
+     * gateway
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("verified")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetVerified() {
+        return this.verified;
+    }
+
+    /**
+     * Getter for Verified.
+     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
+     * gateway
+     * @return Returns the Boolean
+     */
+    public Boolean getVerified() {
+        return OptionalNullable.getFrom(verified);
+    }
+
+    /**
+     * Setter for Verified.
+     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
+     * gateway
+     * @param verified Value for Boolean
+     */
+    @JsonSetter("verified")
+    public void setVerified(Boolean verified) {
+        this.verified = OptionalNullable.of(verified);
+    }
+
+    /**
+     * UnSetter for Verified.
+     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
+     * gateway
+     */
+    public void unsetVerified() {
+        verified = null;
+    }
+
+    /**
      * Converts this UpdateCustomer into string format.
      * @return String representation of this class
      */
@@ -521,8 +571,8 @@ public class UpdateCustomer
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
                 + ", taxExempt=" + taxExempt + ", taxExemptReason=" + taxExemptReason
-                + ", parentId=" + parentId + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", parentId=" + parentId + ", verified=" + verified + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -550,6 +600,7 @@ public class UpdateCustomer
                 .taxExempt(getTaxExempt())
                 .taxExemptReason(getTaxExemptReason());
         builder.parentId = internalGetParentId();
+        builder.verified = internalGetVerified();
         return builder;
     }
 
@@ -575,6 +626,7 @@ public class UpdateCustomer
         private Boolean taxExempt;
         private String taxExemptReason;
         private OptionalNullable<Integer> parentId;
+        private OptionalNullable<Boolean> verified;
 
 
 
@@ -768,13 +820,32 @@ public class UpdateCustomer
         }
 
         /**
+         * Setter for verified.
+         * @param  verified  Boolean value for verified.
+         * @return Builder
+         */
+        public Builder verified(Boolean verified) {
+            this.verified = OptionalNullable.of(verified);
+            return this;
+        }
+
+        /**
+         * UnSetter for verified.
+         * @return Builder
+         */
+        public Builder unsetVerified() {
+            verified = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link UpdateCustomer} object using the set fields.
          * @return {@link UpdateCustomer}
          */
         public UpdateCustomer build() {
             return new UpdateCustomer(firstName, lastName, email, ccEmails, organization, reference,
                     address, address2, city, state, zip, country, phone, locale, vatNumber,
-                    taxExempt, taxExemptReason, parentId);
+                    taxExempt, taxExemptReason, parentId, verified);
         }
     }
 }

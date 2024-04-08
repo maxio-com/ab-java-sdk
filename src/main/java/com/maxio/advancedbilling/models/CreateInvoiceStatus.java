@@ -42,8 +42,7 @@ public enum CreateInvoiceStatus {
     @JsonCreator
     public static CreateInvoiceStatus constructFromString(String toConvert) throws IOException {
         CreateInvoiceStatus enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

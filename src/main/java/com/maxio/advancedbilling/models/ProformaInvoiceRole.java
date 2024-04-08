@@ -50,8 +50,7 @@ public enum ProformaInvoiceRole {
     @JsonCreator
     public static ProformaInvoiceRole constructFromString(String toConvert) throws IOException {
         ProformaInvoiceRole enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

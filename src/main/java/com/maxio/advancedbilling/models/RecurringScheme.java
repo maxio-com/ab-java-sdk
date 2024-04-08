@@ -46,8 +46,7 @@ public enum RecurringScheme {
     @JsonCreator
     public static RecurringScheme constructFromString(String toConvert) throws IOException {
         RecurringScheme enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

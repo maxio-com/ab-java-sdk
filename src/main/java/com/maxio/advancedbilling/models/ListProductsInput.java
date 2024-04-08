@@ -20,6 +20,7 @@ import java.time.ZonedDateTime;
  */
 public class ListProductsInput {
     private BasicDateField dateField;
+    private ListProductsFilter filter;
     private LocalDate endDate;
     private ZonedDateTime endDatetime;
     private LocalDate startDate;
@@ -28,8 +29,6 @@ public class ListProductsInput {
     private Integer perPage;
     private Boolean includeArchived;
     private ListProductsInclude include;
-    private IncludeNotNull filterPrepaidProductPricePointProductPricePointId;
-    private Boolean filterUseSiteExchangeRate;
 
     /**
      * Default constructor.
@@ -42,6 +41,7 @@ public class ListProductsInput {
     /**
      * Initialization constructor.
      * @param  dateField  BasicDateField value for dateField.
+     * @param  filter  ListProductsFilter value for filter.
      * @param  endDate  LocalDate value for endDate.
      * @param  endDatetime  ZonedDateTime value for endDatetime.
      * @param  startDate  LocalDate value for startDate.
@@ -50,12 +50,10 @@ public class ListProductsInput {
      * @param  perPage  Integer value for perPage.
      * @param  includeArchived  Boolean value for includeArchived.
      * @param  include  ListProductsInclude value for include.
-     * @param  filterPrepaidProductPricePointProductPricePointId  IncludeNotNull value for
-     *         filterPrepaidProductPricePointProductPricePointId.
-     * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
      */
     public ListProductsInput(
             BasicDateField dateField,
+            ListProductsFilter filter,
             LocalDate endDate,
             ZonedDateTime endDatetime,
             LocalDate startDate,
@@ -63,10 +61,9 @@ public class ListProductsInput {
             Integer page,
             Integer perPage,
             Boolean includeArchived,
-            ListProductsInclude include,
-            IncludeNotNull filterPrepaidProductPricePointProductPricePointId,
-            Boolean filterUseSiteExchangeRate) {
+            ListProductsInclude include) {
         this.dateField = dateField;
+        this.filter = filter;
         this.endDate = endDate;
         this.endDatetime = endDatetime;
         this.startDate = startDate;
@@ -75,9 +72,6 @@ public class ListProductsInput {
         this.perPage = perPage;
         this.includeArchived = includeArchived;
         this.include = include;
-        this.filterPrepaidProductPricePointProductPricePointId =
-                filterPrepaidProductPricePointProductPricePointId;
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
     }
 
     /**
@@ -101,6 +95,27 @@ public class ListProductsInput {
     @JsonSetter("date_field")
     public void setDateField(BasicDateField dateField) {
         this.dateField = dateField;
+    }
+
+    /**
+     * Getter for Filter.
+     * Filter to use for List Products operations
+     * @return Returns the ListProductsFilter
+     */
+    @JsonGetter("filter")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ListProductsFilter getFilter() {
+        return filter;
+    }
+
+    /**
+     * Setter for Filter.
+     * Filter to use for List Products operations
+     * @param filter Value for ListProductsFilter
+     */
+    @JsonSetter("filter")
+    public void setFilter(ListProductsFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -312,68 +327,15 @@ public class ListProductsInput {
     }
 
     /**
-     * Getter for FilterPrepaidProductPricePointProductPricePointId.
-     * Allows fetching products only if a prepaid product price point is present or not. To use this
-     * filter you also have to include the following param in the request
-     * `include=prepaid_product_price_point`. Use in query
-     * `filter[prepaid_product_price_point][product_price_point_id]=not_null`.
-     * @return Returns the IncludeNotNull
-     */
-    @JsonGetter("filter[prepaid_product_price_point][product_price_point_id]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IncludeNotNull getFilterPrepaidProductPricePointProductPricePointId() {
-        return filterPrepaidProductPricePointProductPricePointId;
-    }
-
-    /**
-     * Setter for FilterPrepaidProductPricePointProductPricePointId.
-     * Allows fetching products only if a prepaid product price point is present or not. To use this
-     * filter you also have to include the following param in the request
-     * `include=prepaid_product_price_point`. Use in query
-     * `filter[prepaid_product_price_point][product_price_point_id]=not_null`.
-     * @param filterPrepaidProductPricePointProductPricePointId Value for IncludeNotNull
-     */
-    @JsonSetter("filter[prepaid_product_price_point][product_price_point_id]")
-    public void setFilterPrepaidProductPricePointProductPricePointId(IncludeNotNull filterPrepaidProductPricePointProductPricePointId) {
-        this.filterPrepaidProductPricePointProductPricePointId = filterPrepaidProductPricePointProductPricePointId;
-    }
-
-    /**
-     * Getter for FilterUseSiteExchangeRate.
-     * Allows fetching products with matching use_site_exchange_rate based on provided value (refers
-     * to default price point). Use in query `filter[use_site_exchange_rate]=true`.
-     * @return Returns the Boolean
-     */
-    @JsonGetter("filter[use_site_exchange_rate]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getFilterUseSiteExchangeRate() {
-        return filterUseSiteExchangeRate;
-    }
-
-    /**
-     * Setter for FilterUseSiteExchangeRate.
-     * Allows fetching products with matching use_site_exchange_rate based on provided value (refers
-     * to default price point). Use in query `filter[use_site_exchange_rate]=true`.
-     * @param filterUseSiteExchangeRate Value for Boolean
-     */
-    @JsonSetter("filter[use_site_exchange_rate]")
-    public void setFilterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-    }
-
-    /**
      * Converts this ListProductsInput into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ListProductsInput [" + "dateField=" + dateField + ", endDate=" + endDate
-                + ", endDatetime=" + endDatetime + ", startDate=" + startDate + ", startDatetime="
-                + startDatetime + ", page=" + page + ", perPage=" + perPage + ", includeArchived="
-                + includeArchived + ", include=" + include
-                + ", filterPrepaidProductPricePointProductPricePointId="
-                + filterPrepaidProductPricePointProductPricePointId + ", filterUseSiteExchangeRate="
-                + filterUseSiteExchangeRate + "]";
+        return "ListProductsInput [" + "dateField=" + dateField + ", filter=" + filter
+                + ", endDate=" + endDate + ", endDatetime=" + endDatetime + ", startDate="
+                + startDate + ", startDatetime=" + startDatetime + ", page=" + page + ", perPage="
+                + perPage + ", includeArchived=" + includeArchived + ", include=" + include + "]";
     }
 
     /**
@@ -384,6 +346,7 @@ public class ListProductsInput {
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .dateField(getDateField())
+                .filter(getFilter())
                 .endDate(getEndDate())
                 .endDatetime(getEndDatetime())
                 .startDate(getStartDate())
@@ -391,9 +354,7 @@ public class ListProductsInput {
                 .page(getPage())
                 .perPage(getPerPage())
                 .includeArchived(getIncludeArchived())
-                .include(getInclude())
-                .filterPrepaidProductPricePointProductPricePointId(getFilterPrepaidProductPricePointProductPricePointId())
-                .filterUseSiteExchangeRate(getFilterUseSiteExchangeRate());
+                .include(getInclude());
         return builder;
     }
 
@@ -402,6 +363,7 @@ public class ListProductsInput {
      */
     public static class Builder {
         private BasicDateField dateField;
+        private ListProductsFilter filter;
         private LocalDate endDate;
         private ZonedDateTime endDatetime;
         private LocalDate startDate;
@@ -410,8 +372,6 @@ public class ListProductsInput {
         private Integer perPage = 20;
         private Boolean includeArchived;
         private ListProductsInclude include;
-        private IncludeNotNull filterPrepaidProductPricePointProductPricePointId;
-        private Boolean filterUseSiteExchangeRate;
 
 
 
@@ -422,6 +382,16 @@ public class ListProductsInput {
          */
         public Builder dateField(BasicDateField dateField) {
             this.dateField = dateField;
+            return this;
+        }
+
+        /**
+         * Setter for filter.
+         * @param  filter  ListProductsFilter value for filter.
+         * @return Builder
+         */
+        public Builder filter(ListProductsFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -506,36 +476,12 @@ public class ListProductsInput {
         }
 
         /**
-         * Setter for filterPrepaidProductPricePointProductPricePointId.
-         * @param  filterPrepaidProductPricePointProductPricePointId  IncludeNotNull value for
-         *         filterPrepaidProductPricePointProductPricePointId.
-         * @return Builder
-         */
-        public Builder filterPrepaidProductPricePointProductPricePointId(
-                IncludeNotNull filterPrepaidProductPricePointProductPricePointId) {
-            this.filterPrepaidProductPricePointProductPricePointId =
-                    filterPrepaidProductPricePointProductPricePointId;
-            return this;
-        }
-
-        /**
-         * Setter for filterUseSiteExchangeRate.
-         * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
-         * @return Builder
-         */
-        public Builder filterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-            this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
-            return this;
-        }
-
-        /**
          * Builds a new {@link ListProductsInput} object using the set fields.
          * @return {@link ListProductsInput}
          */
         public ListProductsInput build() {
-            return new ListProductsInput(dateField, endDate, endDatetime, startDate, startDatetime,
-                    page, perPage, includeArchived, include,
-                    filterPrepaidProductPricePointProductPricePointId, filterUseSiteExchangeRate);
+            return new ListProductsInput(dateField, filter, endDate, endDatetime, startDate,
+                    startDatetime, page, perPage, includeArchived, include);
         }
     }
 }
