@@ -8,6 +8,7 @@ import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.IncludeNotNull;
 import com.maxio.advancedbilling.models.ListAllComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentsPricePointsInclude;
+import com.maxio.advancedbilling.models.ListPricePointsFilter;
 import com.maxio.advancedbilling.models.SortingDirection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,11 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
         // when
         Map<Integer, ComponentPricePoint> componentPricePointMap = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
                 new ListAllComponentPricePointsInput.Builder()
-                        .filterIds(List.of(component1_PricePoint1.getId(), component1_PricePoint2.getId()))
+                        .filter(
+                                new ListPricePointsFilter.Builder()
+                                        .ids(List.of(component1_PricePoint1.getId(), component1_PricePoint2.getId()))
+                                        .build()
+                        )
                         .include(ListComponentsPricePointsInclude.CURRENCY_PRICES)
                         .build())
                 .getPricePoints()
@@ -88,9 +93,13 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
         // when
         List<ComponentPricePoint> componentPricePoints = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
-                                .filterDateField(BasicDateField.CREATED_AT)
-                                .filterStartDatetime(component1_PricePoint1.getCreatedAt())
-                                .filterArchivedAt(IncludeNotNull.NOT_NULL)
+                                .filter(
+                                        new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(component1_PricePoint1.getCreatedAt())
+                                                .archivedAt(IncludeNotNull.NOT_NULL)
+                                                .build()
+                                )
                                 .build())
                 .getPricePoints();
 
@@ -112,7 +121,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
         // when
         List<ComponentPricePoint> responsePage1 = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
-                                .filterIds(allIds)
+                                .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(1)
                                 .perPage(2)
                                 .build())
@@ -125,7 +134,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
 
         List<ComponentPricePoint> responsePage2 = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
-                                .filterIds(allIds)
+                                .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(2)
                                 .perPage(2)
                                 .build())
@@ -138,7 +147,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
 
         List<ComponentPricePoint> responsePage3 = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
-                                .filterIds(allIds)
+                                .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(3)
                                 .perPage(2)
                                 .build())
@@ -148,7 +157,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
 
         List<ComponentPricePoint> responsePageDesc = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
-                                .filterIds(allIds)
+                                .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(1)
                                 .perPage(2)
                                 .direction(SortingDirection.DESC)

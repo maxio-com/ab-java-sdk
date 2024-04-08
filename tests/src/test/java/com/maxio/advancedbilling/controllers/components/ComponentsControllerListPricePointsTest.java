@@ -75,7 +75,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
 
         ComponentPricePoint defaultPricePoint = componentPricePointMap.get(component.getDefaultPricePointId());
         assertThat(defaultPricePoint.getType()).isEqualTo(PricePointType.ENUM_DEFAULT);
-        assertThat(defaultPricePoint.getPricingScheme()).isEqualTo(component.getPricingScheme().match(v -> v));
+        assertThat(defaultPricePoint.getPricingScheme()).isEqualTo(component.getPricingScheme());
         assertThat(defaultPricePoint.getDefault()).isTrue();
         assertThat(defaultPricePoint.getName()).isNotNull();
         assertThat(defaultPricePoint.getHandle()).isNotNull();

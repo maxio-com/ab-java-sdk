@@ -78,7 +78,7 @@ public class SubscriptionGroupsControllerListTest {
 
         // setup account balances
         String groupUid = CLIENT.getSubscriptionsController().readSubscription(primarySubscriptionId1, null)
-                        .getSubscription().getGroup().match(g -> g).getUid();
+                        .getSubscription().getGroup().getUid();
         CLIENT.getSubscriptionGroupInvoiceAccountController().issueSubscriptionGroupServiceCredit(groupUid,
                 new IssueServiceCreditRequest(
                         new IssueServiceCredit(IssueServiceCreditAmount.fromString("5"), "credit")

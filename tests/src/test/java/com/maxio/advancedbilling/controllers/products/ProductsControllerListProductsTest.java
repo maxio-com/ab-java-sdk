@@ -6,6 +6,7 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateProductPricePoint;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.ListProductsFilter;
 import com.maxio.advancedbilling.models.ListProductsInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
@@ -178,10 +179,20 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
 
         // when
         List<ProductResponse> productsWithUseSiteExchangeRateFalse = productsController.listProducts(
-                new ListProductsInput.Builder().filterUseSiteExchangeRate(false).build()
+                new ListProductsInput.Builder().filter(
+                                new ListProductsFilter.Builder()
+                                        .useSiteExchangeRate(false)
+                                        .build()
+                        )
+                        .build()
         );
         List<ProductResponse> productsWithUseSiteExchangeRateTrue = productsController.listProducts(
-                new ListProductsInput.Builder().filterUseSiteExchangeRate(true).build()
+                new ListProductsInput.Builder().filter(
+                                new ListProductsFilter.Builder()
+                                        .useSiteExchangeRate(true)
+                                        .build()
+                        )
+                        .build()
         );
 
         // then
