@@ -38,7 +38,7 @@
 | `Customer` | [`Customer`](../../doc/models/customer.md) | Optional | - | Customer getCustomer() | setCustomer(Customer customer) |
 | `Product` | [`Product`](../../doc/models/product.md) | Optional | - | Product getProduct() | setProduct(Product product) |
 | `CreditCard` | [`CreditCardPaymentProfile`](../../doc/models/credit-card-payment-profile.md) | Optional | - | CreditCardPaymentProfile getCreditCard() | setCreditCard(CreditCardPaymentProfile creditCard) |
-| `Group` | [`SubscriptionGroup2`](../../doc/models/containers/subscription-group-2.md) | Optional | This is a container for one-of cases. | SubscriptionGroup2 getGroup() | setGroup(SubscriptionGroup2 group) |
+| `Group` | [`NestedSubscriptionGroup`](../../doc/models/nested-subscription-group.md) | Optional | - | NestedSubscriptionGroup getGroup() | setGroup(NestedSubscriptionGroup group) |
 | `BankAccount` | [`BankAccountPaymentProfile`](../../doc/models/bank-account-payment-profile.md) | Optional | - | BankAccountPaymentProfile getBankAccount() | setBankAccount(BankAccountPaymentProfile bankAccount) |
 | `PaymentType` | `String` | Optional | The payment profile type for the active profile on file. | String getPaymentType() | setPaymentType(String paymentType) |
 | `ReferralCode` | `String` | Optional | The subscription's unique code that can be given to referrals. | String getReferralCode() | setReferralCode(String referralCode) |
@@ -51,7 +51,7 @@
 | `CouponCodes` | `List<String>` | Optional | An array for all the coupons attached to the subscription. | List<String> getCouponCodes() | setCouponCodes(List<String> couponCodes) |
 | `OfferId` | `Integer` | Optional | The ID of the offer associated with the subscription. | Integer getOfferId() | setOfferId(Integer offerId) |
 | `PayerId` | `Integer` | Optional | On Relationship Invoicing, the ID of the individual paying for the subscription. Defaults to the Customer ID unless the 'Customer Hierarchies & WhoPays' feature is enabled. | Integer getPayerId() | setPayerId(Integer payerId) |
-| `CurrentBillingAmountInCents` | `Long` | Optional | The balance in cents plus the estimated renewal amount in cents. | Long getCurrentBillingAmountInCents() | setCurrentBillingAmountInCents(Long currentBillingAmountInCents) |
+| `CurrentBillingAmountInCents` | `Long` | Optional | The balance in cents plus the estimated renewal amount in cents. Returned ONLY for readSubscription operation as it's compute intensive operation. | Long getCurrentBillingAmountInCents() | setCurrentBillingAmountInCents(Long currentBillingAmountInCents) |
 | `ProductPricePointId` | `Integer` | Optional | The product price point currently subscribed to. | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
 | `ProductPricePointType` | [`PricePointType`](../../doc/models/price-point-type.md) | Optional | Price point type. We expose the following types:<br><br>1. **default**: a price point that is marked as a default price for a certain product.<br>2. **custom**: a custom price point.<br>3. **catalog**: a price point that is **not** marked as a default price for a certain product and is **not** a custom one. | PricePointType getProductPricePointType() | setProductPricePointType(PricePointType productPricePointType) |
 | `NextProductPricePointId` | `Integer` | Optional | If a delayed product change is scheduled, the ID of the product price point that the subscription will be changed to at the next renewal. | Integer getNextProductPricePointId() | setNextProductPricePointId(Integer nextProductPricePointId) |

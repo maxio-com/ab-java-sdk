@@ -9,29 +9,16 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maxio.advancedbilling.DateTimeHelper;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.List;
 
 /**
  * This is a model class for ListAllComponentPricePointsInput type.
  */
 public class ListAllComponentPricePointsInput {
-    private BasicDateField filterDateField;
-    private LocalDate filterEndDate;
-    private ZonedDateTime filterEndDatetime;
     private ListComponentsPricePointsInclude include;
     private Integer page;
     private Integer perPage;
-    private LocalDate filterStartDate;
-    private ZonedDateTime filterStartDatetime;
-    private List<PricePointType> filterType;
     private SortingDirection direction;
-    private List<Integer> filterIds;
-    private IncludeNotNull filterArchivedAt;
+    private ListPricePointsFilter filter;
 
     /**
      * Default constructor.
@@ -43,123 +30,23 @@ public class ListAllComponentPricePointsInput {
 
     /**
      * Initialization constructor.
-     * @param  filterDateField  BasicDateField value for filterDateField.
-     * @param  filterEndDate  LocalDate value for filterEndDate.
-     * @param  filterEndDatetime  ZonedDateTime value for filterEndDatetime.
      * @param  include  ListComponentsPricePointsInclude value for include.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  filterStartDate  LocalDate value for filterStartDate.
-     * @param  filterStartDatetime  ZonedDateTime value for filterStartDatetime.
-     * @param  filterType  List of PricePointType value for filterType.
      * @param  direction  SortingDirection value for direction.
-     * @param  filterIds  List of Integer value for filterIds.
-     * @param  filterArchivedAt  IncludeNotNull value for filterArchivedAt.
+     * @param  filter  ListPricePointsFilter value for filter.
      */
     public ListAllComponentPricePointsInput(
-            BasicDateField filterDateField,
-            LocalDate filterEndDate,
-            ZonedDateTime filterEndDatetime,
             ListComponentsPricePointsInclude include,
             Integer page,
             Integer perPage,
-            LocalDate filterStartDate,
-            ZonedDateTime filterStartDatetime,
-            List<PricePointType> filterType,
             SortingDirection direction,
-            List<Integer> filterIds,
-            IncludeNotNull filterArchivedAt) {
-        this.filterDateField = filterDateField;
-        this.filterEndDate = filterEndDate;
-        this.filterEndDatetime = filterEndDatetime;
+            ListPricePointsFilter filter) {
         this.include = include;
         this.page = page;
         this.perPage = perPage;
-        this.filterStartDate = filterStartDate;
-        this.filterStartDatetime = filterStartDatetime;
-        this.filterType = filterType;
         this.direction = direction;
-        this.filterIds = filterIds;
-        this.filterArchivedAt = filterArchivedAt;
-    }
-
-    /**
-     * Getter for FilterDateField.
-     * The type of filter you would like to apply to your search. Use in query:
-     * `filter[date_field]=created_at`.
-     * @return Returns the BasicDateField
-     */
-    @JsonGetter("filter[date_field]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public BasicDateField getFilterDateField() {
-        return filterDateField;
-    }
-
-    /**
-     * Setter for FilterDateField.
-     * The type of filter you would like to apply to your search. Use in query:
-     * `filter[date_field]=created_at`.
-     * @param filterDateField Value for BasicDateField
-     */
-    @JsonSetter("filter[date_field]")
-    public void setFilterDateField(BasicDateField filterDateField) {
-        this.filterDateField = filterDateField;
-    }
-
-    /**
-     * Getter for FilterEndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
-     * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
-     * specified.
-     * @return Returns the LocalDate
-     */
-    @JsonGetter("filter[end_date]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getFilterEndDate() {
-        return filterEndDate;
-    }
-
-    /**
-     * Setter for FilterEndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
-     * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
-     * specified.
-     * @param filterEndDate Value for LocalDate
-     */
-    @JsonSetter("filter[end_date]")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setFilterEndDate(LocalDate filterEndDate) {
-        this.filterEndDate = filterEndDate;
-    }
-
-    /**
-     * Getter for FilterEndDatetime.
-     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns price points with a timestamp at or before exact time provided in query. You can
-     * specify timezone in query - otherwise your site's time zone will be used. If provided, this
-     * parameter will be used instead of end_date.
-     * @return Returns the ZonedDateTime
-     */
-    @JsonGetter("filter[end_datetime]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public ZonedDateTime getFilterEndDatetime() {
-        return filterEndDatetime;
-    }
-
-    /**
-     * Setter for FilterEndDatetime.
-     * The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns price points with a timestamp at or before exact time provided in query. You can
-     * specify timezone in query - otherwise your site's time zone will be used. If provided, this
-     * parameter will be used instead of end_date.
-     * @param filterEndDatetime Value for ZonedDateTime
-     */
-    @JsonSetter("filter[end_datetime]")
-    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setFilterEndDatetime(ZonedDateTime filterEndDatetime) {
-        this.filterEndDatetime = filterEndDatetime;
+        this.filter = filter;
     }
 
     /**
@@ -238,83 +125,6 @@ public class ListAllComponentPricePointsInput {
     }
 
     /**
-     * Getter for FilterStartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
-     * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
-     * specified.
-     * @return Returns the LocalDate
-     */
-    @JsonGetter("filter[start_date]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getFilterStartDate() {
-        return filterStartDate;
-    }
-
-    /**
-     * Setter for FilterStartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns price points
-     * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
-     * specified.
-     * @param filterStartDate Value for LocalDate
-     */
-    @JsonSetter("filter[start_date]")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setFilterStartDate(LocalDate filterStartDate) {
-        this.filterStartDate = filterStartDate;
-    }
-
-    /**
-     * Getter for FilterStartDatetime.
-     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns price points with a timestamp at or after exact time provided in query. You can
-     * specify timezone in query - otherwise your site's time zone will be used. If provided, this
-     * parameter will be used instead of start_date.
-     * @return Returns the ZonedDateTime
-     */
-    @JsonGetter("filter[start_datetime]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public ZonedDateTime getFilterStartDatetime() {
-        return filterStartDatetime;
-    }
-
-    /**
-     * Setter for FilterStartDatetime.
-     * The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field.
-     * Returns price points with a timestamp at or after exact time provided in query. You can
-     * specify timezone in query - otherwise your site's time zone will be used. If provided, this
-     * parameter will be used instead of start_date.
-     * @param filterStartDatetime Value for ZonedDateTime
-     */
-    @JsonSetter("filter[start_datetime]")
-    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setFilterStartDatetime(ZonedDateTime filterStartDatetime) {
-        this.filterStartDatetime = filterStartDatetime;
-    }
-
-    /**
-     * Getter for FilterType.
-     * Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`.
-     * @return Returns the List of PricePointType
-     */
-    @JsonGetter("filter[type]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<PricePointType> getFilterType() {
-        return filterType;
-    }
-
-    /**
-     * Setter for FilterType.
-     * Allows fetching price points with matching type. Use in query: `filter[type]=custom,catalog`.
-     * @param filterType Value for List of PricePointType
-     */
-    @JsonSetter("filter[type]")
-    public void setFilterType(List<PricePointType> filterType) {
-        this.filterType = filterType;
-    }
-
-    /**
      * Getter for Direction.
      * Controls the order in which results are returned. Use in query `direction=asc`.
      * @return Returns the SortingDirection
@@ -336,49 +146,24 @@ public class ListAllComponentPricePointsInput {
     }
 
     /**
-     * Getter for FilterIds.
-     * Allows fetching price points with matching id based on provided values. Use in query:
-     * `filter[ids]=1,2,3`.
-     * @return Returns the List of Integer
+     * Getter for Filter.
+     * Filter to use for List PricePoints operations
+     * @return Returns the ListPricePointsFilter
      */
-    @JsonGetter("filter[ids]")
+    @JsonGetter("filter")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<Integer> getFilterIds() {
-        return filterIds;
+    public ListPricePointsFilter getFilter() {
+        return filter;
     }
 
     /**
-     * Setter for FilterIds.
-     * Allows fetching price points with matching id based on provided values. Use in query:
-     * `filter[ids]=1,2,3`.
-     * @param filterIds Value for List of Integer
+     * Setter for Filter.
+     * Filter to use for List PricePoints operations
+     * @param filter Value for ListPricePointsFilter
      */
-    @JsonSetter("filter[ids]")
-    public void setFilterIds(List<Integer> filterIds) {
-        this.filterIds = filterIds;
-    }
-
-    /**
-     * Getter for FilterArchivedAt.
-     * Allows fetching price points only if archived_at is present or not. Use in query:
-     * `filter[archived_at]=not_null`.
-     * @return Returns the IncludeNotNull
-     */
-    @JsonGetter("filter[archived_at]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IncludeNotNull getFilterArchivedAt() {
-        return filterArchivedAt;
-    }
-
-    /**
-     * Setter for FilterArchivedAt.
-     * Allows fetching price points only if archived_at is present or not. Use in query:
-     * `filter[archived_at]=not_null`.
-     * @param filterArchivedAt Value for IncludeNotNull
-     */
-    @JsonSetter("filter[archived_at]")
-    public void setFilterArchivedAt(IncludeNotNull filterArchivedAt) {
-        this.filterArchivedAt = filterArchivedAt;
+    @JsonSetter("filter")
+    public void setFilter(ListPricePointsFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -387,12 +172,8 @@ public class ListAllComponentPricePointsInput {
      */
     @Override
     public String toString() {
-        return "ListAllComponentPricePointsInput [" + "filterDateField=" + filterDateField
-                + ", filterEndDate=" + filterEndDate + ", filterEndDatetime=" + filterEndDatetime
-                + ", include=" + include + ", page=" + page + ", perPage=" + perPage
-                + ", filterStartDate=" + filterStartDate + ", filterStartDatetime="
-                + filterStartDatetime + ", filterType=" + filterType + ", direction=" + direction
-                + ", filterIds=" + filterIds + ", filterArchivedAt=" + filterArchivedAt + "]";
+        return "ListAllComponentPricePointsInput [" + "include=" + include + ", page=" + page
+                + ", perPage=" + perPage + ", direction=" + direction + ", filter=" + filter + "]";
     }
 
     /**
@@ -402,18 +183,11 @@ public class ListAllComponentPricePointsInput {
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .filterDateField(getFilterDateField())
-                .filterEndDate(getFilterEndDate())
-                .filterEndDatetime(getFilterEndDatetime())
                 .include(getInclude())
                 .page(getPage())
                 .perPage(getPerPage())
-                .filterStartDate(getFilterStartDate())
-                .filterStartDatetime(getFilterStartDatetime())
-                .filterType(getFilterType())
                 .direction(getDirection())
-                .filterIds(getFilterIds())
-                .filterArchivedAt(getFilterArchivedAt());
+                .filter(getFilter());
         return builder;
     }
 
@@ -421,50 +195,13 @@ public class ListAllComponentPricePointsInput {
      * Class to build instances of {@link ListAllComponentPricePointsInput}.
      */
     public static class Builder {
-        private BasicDateField filterDateField;
-        private LocalDate filterEndDate;
-        private ZonedDateTime filterEndDatetime;
         private ListComponentsPricePointsInclude include;
         private Integer page = 1;
         private Integer perPage = 20;
-        private LocalDate filterStartDate;
-        private ZonedDateTime filterStartDatetime;
-        private List<PricePointType> filterType;
         private SortingDirection direction;
-        private List<Integer> filterIds;
-        private IncludeNotNull filterArchivedAt;
+        private ListPricePointsFilter filter;
 
 
-
-        /**
-         * Setter for filterDateField.
-         * @param  filterDateField  BasicDateField value for filterDateField.
-         * @return Builder
-         */
-        public Builder filterDateField(BasicDateField filterDateField) {
-            this.filterDateField = filterDateField;
-            return this;
-        }
-
-        /**
-         * Setter for filterEndDate.
-         * @param  filterEndDate  LocalDate value for filterEndDate.
-         * @return Builder
-         */
-        public Builder filterEndDate(LocalDate filterEndDate) {
-            this.filterEndDate = filterEndDate;
-            return this;
-        }
-
-        /**
-         * Setter for filterEndDatetime.
-         * @param  filterEndDatetime  ZonedDateTime value for filterEndDatetime.
-         * @return Builder
-         */
-        public Builder filterEndDatetime(ZonedDateTime filterEndDatetime) {
-            this.filterEndDatetime = filterEndDatetime;
-            return this;
-        }
 
         /**
          * Setter for include.
@@ -497,36 +234,6 @@ public class ListAllComponentPricePointsInput {
         }
 
         /**
-         * Setter for filterStartDate.
-         * @param  filterStartDate  LocalDate value for filterStartDate.
-         * @return Builder
-         */
-        public Builder filterStartDate(LocalDate filterStartDate) {
-            this.filterStartDate = filterStartDate;
-            return this;
-        }
-
-        /**
-         * Setter for filterStartDatetime.
-         * @param  filterStartDatetime  ZonedDateTime value for filterStartDatetime.
-         * @return Builder
-         */
-        public Builder filterStartDatetime(ZonedDateTime filterStartDatetime) {
-            this.filterStartDatetime = filterStartDatetime;
-            return this;
-        }
-
-        /**
-         * Setter for filterType.
-         * @param  filterType  List of PricePointType value for filterType.
-         * @return Builder
-         */
-        public Builder filterType(List<PricePointType> filterType) {
-            this.filterType = filterType;
-            return this;
-        }
-
-        /**
          * Setter for direction.
          * @param  direction  SortingDirection value for direction.
          * @return Builder
@@ -537,22 +244,12 @@ public class ListAllComponentPricePointsInput {
         }
 
         /**
-         * Setter for filterIds.
-         * @param  filterIds  List of Integer value for filterIds.
+         * Setter for filter.
+         * @param  filter  ListPricePointsFilter value for filter.
          * @return Builder
          */
-        public Builder filterIds(List<Integer> filterIds) {
-            this.filterIds = filterIds;
-            return this;
-        }
-
-        /**
-         * Setter for filterArchivedAt.
-         * @param  filterArchivedAt  IncludeNotNull value for filterArchivedAt.
-         * @return Builder
-         */
-        public Builder filterArchivedAt(IncludeNotNull filterArchivedAt) {
-            this.filterArchivedAt = filterArchivedAt;
+        public Builder filter(ListPricePointsFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -561,9 +258,7 @@ public class ListAllComponentPricePointsInput {
          * @return {@link ListAllComponentPricePointsInput}
          */
         public ListAllComponentPricePointsInput build() {
-            return new ListAllComponentPricePointsInput(filterDateField, filterEndDate,
-                    filterEndDatetime, include, page, perPage, filterStartDate, filterStartDatetime,
-                    filterType, direction, filterIds, filterArchivedAt);
+            return new ListAllComponentPricePointsInput(include, page, perPage, direction, filter);
         }
     }
 }

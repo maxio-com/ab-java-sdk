@@ -42,8 +42,7 @@ public enum Direction {
     @JsonCreator
     public static Direction constructFromString(String toConvert) throws IOException {
         Direction enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

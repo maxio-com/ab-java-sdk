@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `PaidInvoices` | [`List<PaidInvoice>`](../../doc/models/paid-invoice.md) | Optional | - | List<PaidInvoice> getPaidInvoices() | setPaidInvoices(List<PaidInvoice> paidInvoices) |
-| `Prepayment` | [`RecordPaymentResponsePrepayment`](../../doc/models/containers/record-payment-response-prepayment.md) | Optional | This is a container for one-of cases. | RecordPaymentResponsePrepayment getPrepayment() | setPrepayment(RecordPaymentResponsePrepayment prepayment) |
+| `Prepayment` | [`InvoicePrePayment`](../../doc/models/invoice-pre-payment.md) | Optional | - | InvoicePrePayment getPrepayment() | setPrepayment(InvoicePrePayment prepayment) |
 
 ## Example (as JSON)
 
@@ -37,9 +37,9 @@
     }
   ],
   "prepayment": {
-    "subscription_id": 180,
-    "amount_in_cents": 100,
-    "ending_balance_in_cents": 60
+    "subscription_id": 148,
+    "amount_in_cents": 124,
+    "ending_balance_in_cents": 164
   }
 }
 ```

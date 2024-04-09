@@ -38,8 +38,7 @@ public enum ListEventsDateField {
     @JsonCreator
     public static ListEventsDateField constructFromString(String toConvert) throws IOException {
         ListEventsDateField enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

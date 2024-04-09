@@ -17,7 +17,6 @@ import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
-import com.maxio.advancedbilling.utils.matchers.RecordPaymentResponsePrepaymentGetter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -126,7 +125,7 @@ class InvoicesControllerRecordPaymentForSubscriptionTest {
                                 .paidAmount("4.0")
                                 .build()
                 );
-        assertThat(paymentResponse.getPrepayment().match(new RecordPaymentResponsePrepaymentGetter()))
+        assertThat(paymentResponse.getPrepayment())
                 .usingRecursiveComparison()
                 .isEqualTo(new InvoicePrePayment.Builder()
                         .subscriptionId(subscription.getId())

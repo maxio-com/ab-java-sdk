@@ -8,6 +8,8 @@ import com.maxio.advancedbilling.models.CreatePrepayment;
 import com.maxio.advancedbilling.models.CreatePrepaymentMethod;
 import com.maxio.advancedbilling.models.CreatePrepaymentRequest;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.ListPrepaymentDateField;
+import com.maxio.advancedbilling.models.ListPrepaymentsFilter;
 import com.maxio.advancedbilling.models.ListPrepaymentsInput;
 import com.maxio.advancedbilling.models.Prepayment;
 import com.maxio.advancedbilling.models.PrepaymentMethod;
@@ -20,6 +22,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
@@ -84,6 +87,42 @@ class SubscriptionInvoiceAccountListPrepaymentsTest {
                                 .paymentType(PrepaymentMethod.CHECK)
                                 .build()
                 );
+    }
+
+    @Test
+    void shouldReturnListOfPrepaymentsUsingFilters() throws IOException, ApiException {
+        // given
+        Integer subscriptionId = TEST_SETUP
+                .createSubscription(customer, TEST_SETUP.createProduct(TEST_SETUP.createProductFamily()))
+                .getId();
+        createCheckPrepaymentForSignup(subscriptionId);
+
+        // when - then
+        List<Prepayment> filteredPrepayments1 = SUBSCRIPTION_INVOICE_ACCOUNT_CONTROLLER
+                .listPrepayments(new ListPrepaymentsInput.Builder()
+                        .subscriptionId(subscriptionId)
+                        .filter(new ListPrepaymentsFilter.Builder()
+                                .dateField(ListPrepaymentDateField.CREATED_AT)
+                                .startDate(LocalDate.now().minusDays(1))
+                                .build()
+                        )
+                        .build()
+                )
+                .getPrepayments();
+        List<Prepayment> filteredPrepayments2 = SUBSCRIPTION_INVOICE_ACCOUNT_CONTROLLER
+                .listPrepayments(new ListPrepaymentsInput.Builder()
+                        .subscriptionId(subscriptionId)
+                        .filter(new ListPrepaymentsFilter.Builder()
+                                .dateField(ListPrepaymentDateField.CREATED_AT)
+                                .endDate(LocalDate.now().minusDays(1))
+                                .build()
+                        )
+                        .build()
+                )
+                .getPrepayments();
+
+        assertThat(filteredPrepayments1).hasSize(1);
+        assertThat(filteredPrepayments2).isEmpty();
     }
 
     @Test

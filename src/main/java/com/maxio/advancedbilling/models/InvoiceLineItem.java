@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.InvoiceLineItemComponentCostData2;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.LocalDate;
@@ -40,7 +39,7 @@ public class InvoiceLineItem
     private OptionalNullable<Integer> componentId;
     private OptionalNullable<Integer> pricePointId;
     private Boolean hide;
-    private OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData;
+    private OptionalNullable<InvoiceLineItemComponentCostData> componentCostData;
     private OptionalNullable<Integer> productPricePointId;
     private Boolean customItem;
     private String kind;
@@ -71,7 +70,7 @@ public class InvoiceLineItem
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  hide  Boolean value for hide.
-     * @param  componentCostData  InvoiceLineItemComponentCostData2 value for componentCostData.
+     * @param  componentCostData  InvoiceLineItemComponentCostData value for componentCostData.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customItem  Boolean value for customItem.
      * @param  kind  String value for kind.
@@ -95,7 +94,7 @@ public class InvoiceLineItem
             Integer componentId,
             Integer pricePointId,
             Boolean hide,
-            InvoiceLineItemComponentCostData2 componentCostData,
+            InvoiceLineItemComponentCostData componentCostData,
             Integer productPricePointId,
             Boolean customItem,
             String kind) {
@@ -143,7 +142,7 @@ public class InvoiceLineItem
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  hide  Boolean value for hide.
-     * @param  componentCostData  InvoiceLineItemComponentCostData2 value for componentCostData.
+     * @param  componentCostData  InvoiceLineItemComponentCostData value for componentCostData.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customItem  Boolean value for customItem.
      * @param  kind  String value for kind.
@@ -155,7 +154,7 @@ public class InvoiceLineItem
             LocalDate periodRangeEnd, Integer transactionId, OptionalNullable<Integer> productId,
             OptionalNullable<Integer> productVersion, OptionalNullable<Integer> componentId,
             OptionalNullable<Integer> pricePointId, Boolean hide,
-            OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData,
+            OptionalNullable<InvoiceLineItemComponentCostData> componentCostData,
             OptionalNullable<Integer> productPricePointId, Boolean customItem, String kind) {
         this.uid = uid;
         this.title = title;
@@ -693,29 +692,29 @@ public class InvoiceLineItem
 
     /**
      * Internal Getter for ComponentCostData.
-     * @return Returns the Internal InvoiceLineItemComponentCostData2
+     * @return Returns the Internal InvoiceLineItemComponentCostData
      */
     @JsonGetter("component_cost_data")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<InvoiceLineItemComponentCostData2> internalGetComponentCostData() {
+    protected OptionalNullable<InvoiceLineItemComponentCostData> internalGetComponentCostData() {
         return this.componentCostData;
     }
 
     /**
      * Getter for ComponentCostData.
-     * @return Returns the InvoiceLineItemComponentCostData2
+     * @return Returns the InvoiceLineItemComponentCostData
      */
-    public InvoiceLineItemComponentCostData2 getComponentCostData() {
+    public InvoiceLineItemComponentCostData getComponentCostData() {
         return OptionalNullable.getFrom(componentCostData);
     }
 
     /**
      * Setter for ComponentCostData.
-     * @param componentCostData Value for InvoiceLineItemComponentCostData2
+     * @param componentCostData Value for InvoiceLineItemComponentCostData
      */
     @JsonSetter("component_cost_data")
-    public void setComponentCostData(InvoiceLineItemComponentCostData2 componentCostData) {
+    public void setComponentCostData(InvoiceLineItemComponentCostData componentCostData) {
         this.componentCostData = OptionalNullable.of(componentCostData);
     }
 
@@ -876,7 +875,7 @@ public class InvoiceLineItem
         private OptionalNullable<Integer> componentId;
         private OptionalNullable<Integer> pricePointId;
         private Boolean hide;
-        private OptionalNullable<InvoiceLineItemComponentCostData2> componentCostData;
+        private OptionalNullable<InvoiceLineItemComponentCostData> componentCostData;
         private OptionalNullable<Integer> productPricePointId;
         private Boolean customItem;
         private String kind;
@@ -1101,10 +1100,10 @@ public class InvoiceLineItem
 
         /**
          * Setter for componentCostData.
-         * @param  componentCostData  InvoiceLineItemComponentCostData2 value for componentCostData.
+         * @param  componentCostData  InvoiceLineItemComponentCostData value for componentCostData.
          * @return Builder
          */
-        public Builder componentCostData(InvoiceLineItemComponentCostData2 componentCostData) {
+        public Builder componentCostData(InvoiceLineItemComponentCostData componentCostData) {
             this.componentCostData = OptionalNullable.of(componentCostData);
             return this;
         }

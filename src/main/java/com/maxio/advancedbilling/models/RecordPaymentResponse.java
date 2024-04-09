@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maxio.advancedbilling.models.containers.RecordPaymentResponsePrepayment;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
 public class RecordPaymentResponse
         extends BaseModel {
     private List<PaidInvoice> paidInvoices;
-    private OptionalNullable<RecordPaymentResponsePrepayment> prepayment;
+    private OptionalNullable<InvoicePrePayment> prepayment;
 
     /**
      * Default constructor.
@@ -32,11 +31,11 @@ public class RecordPaymentResponse
     /**
      * Initialization constructor.
      * @param  paidInvoices  List of PaidInvoice value for paidInvoices.
-     * @param  prepayment  RecordPaymentResponsePrepayment value for prepayment.
+     * @param  prepayment  InvoicePrePayment value for prepayment.
      */
     public RecordPaymentResponse(
             List<PaidInvoice> paidInvoices,
-            RecordPaymentResponsePrepayment prepayment) {
+            InvoicePrePayment prepayment) {
         this.paidInvoices = paidInvoices;
         this.prepayment = OptionalNullable.of(prepayment);
     }
@@ -44,11 +43,11 @@ public class RecordPaymentResponse
     /**
      * Initialization constructor.
      * @param  paidInvoices  List of PaidInvoice value for paidInvoices.
-     * @param  prepayment  RecordPaymentResponsePrepayment value for prepayment.
+     * @param  prepayment  InvoicePrePayment value for prepayment.
      */
 
     protected RecordPaymentResponse(List<PaidInvoice> paidInvoices,
-            OptionalNullable<RecordPaymentResponsePrepayment> prepayment) {
+            OptionalNullable<InvoicePrePayment> prepayment) {
         this.paidInvoices = paidInvoices;
         this.prepayment = prepayment;
     }
@@ -74,29 +73,29 @@ public class RecordPaymentResponse
 
     /**
      * Internal Getter for Prepayment.
-     * @return Returns the Internal RecordPaymentResponsePrepayment
+     * @return Returns the Internal InvoicePrePayment
      */
     @JsonGetter("prepayment")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<RecordPaymentResponsePrepayment> internalGetPrepayment() {
+    protected OptionalNullable<InvoicePrePayment> internalGetPrepayment() {
         return this.prepayment;
     }
 
     /**
      * Getter for Prepayment.
-     * @return Returns the RecordPaymentResponsePrepayment
+     * @return Returns the InvoicePrePayment
      */
-    public RecordPaymentResponsePrepayment getPrepayment() {
+    public InvoicePrePayment getPrepayment() {
         return OptionalNullable.getFrom(prepayment);
     }
 
     /**
      * Setter for Prepayment.
-     * @param prepayment Value for RecordPaymentResponsePrepayment
+     * @param prepayment Value for InvoicePrePayment
      */
     @JsonSetter("prepayment")
-    public void setPrepayment(RecordPaymentResponsePrepayment prepayment) {
+    public void setPrepayment(InvoicePrePayment prepayment) {
         this.prepayment = OptionalNullable.of(prepayment);
     }
 
@@ -134,7 +133,7 @@ public class RecordPaymentResponse
      */
     public static class Builder {
         private List<PaidInvoice> paidInvoices;
-        private OptionalNullable<RecordPaymentResponsePrepayment> prepayment;
+        private OptionalNullable<InvoicePrePayment> prepayment;
 
 
 
@@ -150,10 +149,10 @@ public class RecordPaymentResponse
 
         /**
          * Setter for prepayment.
-         * @param  prepayment  RecordPaymentResponsePrepayment value for prepayment.
+         * @param  prepayment  InvoicePrePayment value for prepayment.
          * @return Builder
          */
-        public Builder prepayment(RecordPaymentResponsePrepayment prepayment) {
+        public Builder prepayment(InvoicePrePayment prepayment) {
             this.prepayment = OptionalNullable.of(prepayment);
             return this;
         }

@@ -104,7 +104,6 @@ try {
   {
     "name": "Color",
     "scope": {
-      "hosted": [],
       "csv": "0",
       "statements": "0",
       "invoices": "0",
@@ -117,7 +116,6 @@ try {
   {
     "name": "Brand",
     "scope": {
-      "hosted": [],
       "csv": "0",
       "statements": "0",
       "invoices": "0",
@@ -520,8 +518,8 @@ Void deleteMetadata(
 ```java
 ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
 int resourceId = 60;
-Liquid error: Value cannot be null. (Parameter 'key')try {
-    customFieldsController.deleteMetadata(resourceType, resourceId, null, Liquid error: Value cannot be null. (Parameter 'key'));
+try {
+    customFieldsController.deleteMetadata(resourceType, resourceId, null, null);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {
@@ -586,7 +584,7 @@ ListMetadataForResourceTypeInput listMetadataForResourceTypeInput = new ListMeta
 .page(2)
 .perPage(50)
 .dateField(BasicDateField.UPDATED_AT)
-Liquid error: Value cannot be null. (Parameter 'key').build();
+.build();
 
 try {
     PaginatedMetadata result = customFieldsController.listMetadataForResourceType(listMetadataForResourceTypeInput);

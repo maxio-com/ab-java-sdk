@@ -371,7 +371,7 @@ public final class CustomFieldsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
+                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -472,7 +472,7 @@ public final class CustomFieldsController extends BaseController {
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .queryParam(param -> param.key("name")
                                 .value(name).isRequired(false))
-                        .queryParam(param -> param.key("names[]")
+                        .queryParam(param -> param.key("names")
                                 .value(names).isRequired(false))
                         .templateParam(param -> param.key("resource_type").value((resourceType != null) ? resourceType.value() : null)
                                 .shouldEncode(true))
@@ -488,7 +488,7 @@ public final class CustomFieldsController extends BaseController {
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.PLAIN))
+                                .arraySerializationFormat(ArraySerializationFormat.UNINDEXED))
                 .build();
     }
 
@@ -535,7 +535,7 @@ public final class CustomFieldsController extends BaseController {
                                 .value(DateTimeHelper.toRfc8601DateTime(input.getEndDatetime())).isRequired(false))
                         .queryParam(param -> param.key("with_deleted")
                                 .value(input.getWithDeleted()).isRequired(false))
-                        .queryParam(param -> param.key("resource_ids[]")
+                        .queryParam(param -> param.key("resource_ids")
                                 .value(input.getResourceIds()).isRequired(false))
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
@@ -551,7 +551,7 @@ public final class CustomFieldsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.UNINDEXED))
                 .build();
     }
 }

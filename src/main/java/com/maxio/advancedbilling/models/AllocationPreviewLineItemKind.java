@@ -50,8 +50,7 @@ public enum AllocationPreviewLineItemKind {
     @JsonCreator
     public static AllocationPreviewLineItemKind constructFromString(String toConvert) throws IOException {
         AllocationPreviewLineItemKind enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

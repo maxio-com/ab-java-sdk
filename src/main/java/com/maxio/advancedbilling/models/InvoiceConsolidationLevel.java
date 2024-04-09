@@ -46,8 +46,7 @@ public enum InvoiceConsolidationLevel {
     @JsonCreator
     public static InvoiceConsolidationLevel constructFromString(String toConvert) throws IOException {
         InvoiceConsolidationLevel enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

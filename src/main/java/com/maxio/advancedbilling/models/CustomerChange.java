@@ -10,10 +10,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maxio.advancedbilling.models.containers.CustomerChangeBillingAddress;
-import com.maxio.advancedbilling.models.containers.CustomerChangeCustomFields;
-import com.maxio.advancedbilling.models.containers.CustomerChangePayer;
-import com.maxio.advancedbilling.models.containers.CustomerChangeShippingAddress;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
@@ -22,10 +18,10 @@ import io.apimatic.core.types.OptionalNullable;
  */
 public class CustomerChange
         extends BaseModel {
-    private OptionalNullable<CustomerChangePayer> payer;
-    private OptionalNullable<CustomerChangeShippingAddress> shippingAddress;
-    private OptionalNullable<CustomerChangeBillingAddress> billingAddress;
-    private OptionalNullable<CustomerChangeCustomFields> customFields;
+    private OptionalNullable<CustomerPayerChange> payer;
+    private OptionalNullable<AddressChange> shippingAddress;
+    private OptionalNullable<AddressChange> billingAddress;
+    private OptionalNullable<CustomerCustomFieldsChange> customFields;
 
     /**
      * Default constructor.
@@ -35,16 +31,16 @@ public class CustomerChange
 
     /**
      * Initialization constructor.
-     * @param  payer  CustomerChangePayer value for payer.
-     * @param  shippingAddress  CustomerChangeShippingAddress value for shippingAddress.
-     * @param  billingAddress  CustomerChangeBillingAddress value for billingAddress.
-     * @param  customFields  CustomerChangeCustomFields value for customFields.
+     * @param  payer  CustomerPayerChange value for payer.
+     * @param  shippingAddress  AddressChange value for shippingAddress.
+     * @param  billingAddress  AddressChange value for billingAddress.
+     * @param  customFields  CustomerCustomFieldsChange value for customFields.
      */
     public CustomerChange(
-            CustomerChangePayer payer,
-            CustomerChangeShippingAddress shippingAddress,
-            CustomerChangeBillingAddress billingAddress,
-            CustomerChangeCustomFields customFields) {
+            CustomerPayerChange payer,
+            AddressChange shippingAddress,
+            AddressChange billingAddress,
+            CustomerCustomFieldsChange customFields) {
         this.payer = OptionalNullable.of(payer);
         this.shippingAddress = OptionalNullable.of(shippingAddress);
         this.billingAddress = OptionalNullable.of(billingAddress);
@@ -53,16 +49,16 @@ public class CustomerChange
 
     /**
      * Initialization constructor.
-     * @param  payer  CustomerChangePayer value for payer.
-     * @param  shippingAddress  CustomerChangeShippingAddress value for shippingAddress.
-     * @param  billingAddress  CustomerChangeBillingAddress value for billingAddress.
-     * @param  customFields  CustomerChangeCustomFields value for customFields.
+     * @param  payer  CustomerPayerChange value for payer.
+     * @param  shippingAddress  AddressChange value for shippingAddress.
+     * @param  billingAddress  AddressChange value for billingAddress.
+     * @param  customFields  CustomerCustomFieldsChange value for customFields.
      */
 
-    protected CustomerChange(OptionalNullable<CustomerChangePayer> payer,
-            OptionalNullable<CustomerChangeShippingAddress> shippingAddress,
-            OptionalNullable<CustomerChangeBillingAddress> billingAddress,
-            OptionalNullable<CustomerChangeCustomFields> customFields) {
+    protected CustomerChange(OptionalNullable<CustomerPayerChange> payer,
+            OptionalNullable<AddressChange> shippingAddress,
+            OptionalNullable<AddressChange> billingAddress,
+            OptionalNullable<CustomerCustomFieldsChange> customFields) {
         this.payer = payer;
         this.shippingAddress = shippingAddress;
         this.billingAddress = billingAddress;
@@ -71,29 +67,29 @@ public class CustomerChange
 
     /**
      * Internal Getter for Payer.
-     * @return Returns the Internal CustomerChangePayer
+     * @return Returns the Internal CustomerPayerChange
      */
     @JsonGetter("payer")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CustomerChangePayer> internalGetPayer() {
+    protected OptionalNullable<CustomerPayerChange> internalGetPayer() {
         return this.payer;
     }
 
     /**
      * Getter for Payer.
-     * @return Returns the CustomerChangePayer
+     * @return Returns the CustomerPayerChange
      */
-    public CustomerChangePayer getPayer() {
+    public CustomerPayerChange getPayer() {
         return OptionalNullable.getFrom(payer);
     }
 
     /**
      * Setter for Payer.
-     * @param payer Value for CustomerChangePayer
+     * @param payer Value for CustomerPayerChange
      */
     @JsonSetter("payer")
-    public void setPayer(CustomerChangePayer payer) {
+    public void setPayer(CustomerPayerChange payer) {
         this.payer = OptionalNullable.of(payer);
     }
 
@@ -106,29 +102,29 @@ public class CustomerChange
 
     /**
      * Internal Getter for ShippingAddress.
-     * @return Returns the Internal CustomerChangeShippingAddress
+     * @return Returns the Internal AddressChange
      */
     @JsonGetter("shipping_address")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CustomerChangeShippingAddress> internalGetShippingAddress() {
+    protected OptionalNullable<AddressChange> internalGetShippingAddress() {
         return this.shippingAddress;
     }
 
     /**
      * Getter for ShippingAddress.
-     * @return Returns the CustomerChangeShippingAddress
+     * @return Returns the AddressChange
      */
-    public CustomerChangeShippingAddress getShippingAddress() {
+    public AddressChange getShippingAddress() {
         return OptionalNullable.getFrom(shippingAddress);
     }
 
     /**
      * Setter for ShippingAddress.
-     * @param shippingAddress Value for CustomerChangeShippingAddress
+     * @param shippingAddress Value for AddressChange
      */
     @JsonSetter("shipping_address")
-    public void setShippingAddress(CustomerChangeShippingAddress shippingAddress) {
+    public void setShippingAddress(AddressChange shippingAddress) {
         this.shippingAddress = OptionalNullable.of(shippingAddress);
     }
 
@@ -141,29 +137,29 @@ public class CustomerChange
 
     /**
      * Internal Getter for BillingAddress.
-     * @return Returns the Internal CustomerChangeBillingAddress
+     * @return Returns the Internal AddressChange
      */
     @JsonGetter("billing_address")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CustomerChangeBillingAddress> internalGetBillingAddress() {
+    protected OptionalNullable<AddressChange> internalGetBillingAddress() {
         return this.billingAddress;
     }
 
     /**
      * Getter for BillingAddress.
-     * @return Returns the CustomerChangeBillingAddress
+     * @return Returns the AddressChange
      */
-    public CustomerChangeBillingAddress getBillingAddress() {
+    public AddressChange getBillingAddress() {
         return OptionalNullable.getFrom(billingAddress);
     }
 
     /**
      * Setter for BillingAddress.
-     * @param billingAddress Value for CustomerChangeBillingAddress
+     * @param billingAddress Value for AddressChange
      */
     @JsonSetter("billing_address")
-    public void setBillingAddress(CustomerChangeBillingAddress billingAddress) {
+    public void setBillingAddress(AddressChange billingAddress) {
         this.billingAddress = OptionalNullable.of(billingAddress);
     }
 
@@ -176,29 +172,29 @@ public class CustomerChange
 
     /**
      * Internal Getter for CustomFields.
-     * @return Returns the Internal CustomerChangeCustomFields
+     * @return Returns the Internal CustomerCustomFieldsChange
      */
     @JsonGetter("custom_fields")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CustomerChangeCustomFields> internalGetCustomFields() {
+    protected OptionalNullable<CustomerCustomFieldsChange> internalGetCustomFields() {
         return this.customFields;
     }
 
     /**
      * Getter for CustomFields.
-     * @return Returns the CustomerChangeCustomFields
+     * @return Returns the CustomerCustomFieldsChange
      */
-    public CustomerChangeCustomFields getCustomFields() {
+    public CustomerCustomFieldsChange getCustomFields() {
         return OptionalNullable.getFrom(customFields);
     }
 
     /**
      * Setter for CustomFields.
-     * @param customFields Value for CustomerChangeCustomFields
+     * @param customFields Value for CustomerCustomFieldsChange
      */
     @JsonSetter("custom_fields")
-    public void setCustomFields(CustomerChangeCustomFields customFields) {
+    public void setCustomFields(CustomerCustomFieldsChange customFields) {
         this.customFields = OptionalNullable.of(customFields);
     }
 
@@ -238,19 +234,19 @@ public class CustomerChange
      * Class to build instances of {@link CustomerChange}.
      */
     public static class Builder {
-        private OptionalNullable<CustomerChangePayer> payer;
-        private OptionalNullable<CustomerChangeShippingAddress> shippingAddress;
-        private OptionalNullable<CustomerChangeBillingAddress> billingAddress;
-        private OptionalNullable<CustomerChangeCustomFields> customFields;
+        private OptionalNullable<CustomerPayerChange> payer;
+        private OptionalNullable<AddressChange> shippingAddress;
+        private OptionalNullable<AddressChange> billingAddress;
+        private OptionalNullable<CustomerCustomFieldsChange> customFields;
 
 
 
         /**
          * Setter for payer.
-         * @param  payer  CustomerChangePayer value for payer.
+         * @param  payer  CustomerPayerChange value for payer.
          * @return Builder
          */
-        public Builder payer(CustomerChangePayer payer) {
+        public Builder payer(CustomerPayerChange payer) {
             this.payer = OptionalNullable.of(payer);
             return this;
         }
@@ -266,10 +262,10 @@ public class CustomerChange
 
         /**
          * Setter for shippingAddress.
-         * @param  shippingAddress  CustomerChangeShippingAddress value for shippingAddress.
+         * @param  shippingAddress  AddressChange value for shippingAddress.
          * @return Builder
          */
-        public Builder shippingAddress(CustomerChangeShippingAddress shippingAddress) {
+        public Builder shippingAddress(AddressChange shippingAddress) {
             this.shippingAddress = OptionalNullable.of(shippingAddress);
             return this;
         }
@@ -285,10 +281,10 @@ public class CustomerChange
 
         /**
          * Setter for billingAddress.
-         * @param  billingAddress  CustomerChangeBillingAddress value for billingAddress.
+         * @param  billingAddress  AddressChange value for billingAddress.
          * @return Builder
          */
-        public Builder billingAddress(CustomerChangeBillingAddress billingAddress) {
+        public Builder billingAddress(AddressChange billingAddress) {
             this.billingAddress = OptionalNullable.of(billingAddress);
             return this;
         }
@@ -304,10 +300,10 @@ public class CustomerChange
 
         /**
          * Setter for customFields.
-         * @param  customFields  CustomerChangeCustomFields value for customFields.
+         * @param  customFields  CustomerCustomFieldsChange value for customFields.
          * @return Builder
          */
-        public Builder customFields(CustomerChangeCustomFields customFields) {
+        public Builder customFields(CustomerCustomFieldsChange customFields) {
             this.customFields = OptionalNullable.of(customFields);
             return this;
         }

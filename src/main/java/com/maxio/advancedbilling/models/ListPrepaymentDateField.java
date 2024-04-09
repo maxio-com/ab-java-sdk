@@ -14,15 +14,15 @@ import java.util.TreeMap;
 
 
 /**
- * ListSubscriptionGroupPrepaymentDateField to be used.
+ * ListPrepaymentDateField to be used.
  */
-public enum ListSubscriptionGroupPrepaymentDateField {
+public enum ListPrepaymentDateField {
     CREATED_AT,
 
     APPLICATION_AT;
 
 
-    private static TreeMap<String, ListSubscriptionGroupPrepaymentDateField> valueMap = new TreeMap<>();
+    private static TreeMap<String, ListPrepaymentDateField> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -40,10 +40,9 @@ public enum ListSubscriptionGroupPrepaymentDateField {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static ListSubscriptionGroupPrepaymentDateField constructFromString(String toConvert) throws IOException {
-        ListSubscriptionGroupPrepaymentDateField enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+    public static ListPrepaymentDateField constructFromString(String toConvert) throws IOException {
+        ListPrepaymentDateField enumValue = fromString(toConvert);
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;
@@ -54,7 +53,7 @@ public enum ListSubscriptionGroupPrepaymentDateField {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static ListSubscriptionGroupPrepaymentDateField fromString(String toConvert) {
+    public static ListPrepaymentDateField fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -76,16 +75,16 @@ public enum ListSubscriptionGroupPrepaymentDateField {
     }
 
     /**
-     * Convert list of ListSubscriptionGroupPrepaymentDateField values to list of string values.
-     * @param toConvert The list of ListSubscriptionGroupPrepaymentDateField values to convert.
+     * Convert list of ListPrepaymentDateField values to list of string values.
+     * @param toConvert The list of ListPrepaymentDateField values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<ListSubscriptionGroupPrepaymentDateField> toConvert) {
+    public static List<String> toValue(List<ListPrepaymentDateField> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (ListSubscriptionGroupPrepaymentDateField enumValue : toConvert) {
+        for (ListPrepaymentDateField enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

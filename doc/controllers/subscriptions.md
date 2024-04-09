@@ -902,7 +902,10 @@ ListSubscriptionsInput listSubscriptionsInput = new ListSubscriptionsInput.Build
     .startDatetime(DateTimeHelper.fromRfc8601DateTime("2022-07-01 09:00:05"))
     .endDatetime(DateTimeHelper.fromRfc8601DateTime("2022-08-01 10:00:05"))
     .sort(SubscriptionSort.SIGNUP_DATE)
-Liquid error: Value cannot be null. (Parameter 'key')    .build();
+    .include(Arrays.asList(
+        SubscriptionListInclude.SELF_SERVICE_PAGE_TOKEN
+    ))
+    .build();
 
 try {
     List<SubscriptionResponse> result = subscriptionsController.listSubscriptions(listSubscriptionsInput);
@@ -1148,8 +1151,13 @@ SubscriptionResponse readSubscription(
 
 ```java
 int subscriptionId = 222;
-Liquid error: Value cannot be null. (Parameter 'key')try {
-    SubscriptionResponse result = subscriptionsController.readSubscription(subscriptionId, Liquid error: Value cannot be null. (Parameter 'key'));
+List<SubscriptionInclude> include = Arrays.asList(
+    SubscriptionInclude.COUPONS,
+    SubscriptionInclude.SELF_SERVICE_PAGE_TOKEN
+);
+
+try {
+    SubscriptionResponse result = subscriptionsController.readSubscription(subscriptionId, include);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1436,8 +1444,13 @@ Void purgeSubscription(
 ```java
 int subscriptionId = 222;
 int ack = 252;
-Liquid error: Value cannot be null. (Parameter 'key')try {
-    subscriptionsController.purgeSubscription(subscriptionId, ack, Liquid error: Value cannot be null. (Parameter 'key'));
+List<SubscriptionPurgeType> cascade = Arrays.asList(
+    SubscriptionPurgeType.CUSTOMER,
+    SubscriptionPurgeType.PAYMENT_PROFILE
+);
+
+try {
+    subscriptionsController.purgeSubscription(subscriptionId, ack, cascade);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {

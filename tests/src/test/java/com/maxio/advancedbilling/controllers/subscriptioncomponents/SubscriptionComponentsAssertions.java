@@ -63,7 +63,7 @@ public class SubscriptionComponentsAssertions {
         assertProrationScheme(responseAllocation.getProrationDowngradeScheme(), CreditType.NONE);
 
         assertThat(responseAllocation.getPayment()).isNotNull();
-        PaymentForAllocation allocationPayment = responseAllocation.getPayment().match(v -> v);
+        PaymentForAllocation allocationPayment = responseAllocation.getPayment();
         assertThat(allocationPayment.getId()).isNotNull();
         assertThat((double) allocationPayment.getAmountInCents())
                 .isEqualTo(

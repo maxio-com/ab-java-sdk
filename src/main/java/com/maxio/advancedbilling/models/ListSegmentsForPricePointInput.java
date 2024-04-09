@@ -18,10 +18,7 @@ public class ListSegmentsForPricePointInput {
     private String pricePointId;
     private Integer page;
     private Integer perPage;
-    private String filterSegmentProperty1Value;
-    private String filterSegmentProperty2Value;
-    private String filterSegmentProperty3Value;
-    private String filterSegmentProperty4Value;
+    private ListSegmentsFilter filter;
 
     /**
      * Default constructor.
@@ -37,28 +34,19 @@ public class ListSegmentsForPricePointInput {
      * @param  pricePointId  String value for pricePointId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  filterSegmentProperty1Value  String value for filterSegmentProperty1Value.
-     * @param  filterSegmentProperty2Value  String value for filterSegmentProperty2Value.
-     * @param  filterSegmentProperty3Value  String value for filterSegmentProperty3Value.
-     * @param  filterSegmentProperty4Value  String value for filterSegmentProperty4Value.
+     * @param  filter  ListSegmentsFilter value for filter.
      */
     public ListSegmentsForPricePointInput(
             String componentId,
             String pricePointId,
             Integer page,
             Integer perPage,
-            String filterSegmentProperty1Value,
-            String filterSegmentProperty2Value,
-            String filterSegmentProperty3Value,
-            String filterSegmentProperty4Value) {
+            ListSegmentsFilter filter) {
         this.componentId = componentId;
         this.pricePointId = pricePointId;
         this.page = page;
         this.perPage = perPage;
-        this.filterSegmentProperty1Value = filterSegmentProperty1Value;
-        this.filterSegmentProperty2Value = filterSegmentProperty2Value;
-        this.filterSegmentProperty3Value = filterSegmentProperty3Value;
-        this.filterSegmentProperty4Value = filterSegmentProperty4Value;
+        this.filter = filter;
     }
 
     /**
@@ -156,103 +144,24 @@ public class ListSegmentsForPricePointInput {
     }
 
     /**
-     * Getter for FilterSegmentProperty1Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_1` on attached Metric. If empty string is passed, this filter would be
-     * rejected. Use in query `filter[segment_property_1_value]=EU`.
-     * @return Returns the String
+     * Getter for Filter.
+     * Filter to use for List Segments for a Price Point operation
+     * @return Returns the ListSegmentsFilter
      */
-    @JsonGetter("filter[segment_property_1_value]")
+    @JsonGetter("filter")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterSegmentProperty1Value() {
-        return filterSegmentProperty1Value;
+    public ListSegmentsFilter getFilter() {
+        return filter;
     }
 
     /**
-     * Setter for FilterSegmentProperty1Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_1` on attached Metric. If empty string is passed, this filter would be
-     * rejected. Use in query `filter[segment_property_1_value]=EU`.
-     * @param filterSegmentProperty1Value Value for String
+     * Setter for Filter.
+     * Filter to use for List Segments for a Price Point operation
+     * @param filter Value for ListSegmentsFilter
      */
-    @JsonSetter("filter[segment_property_1_value]")
-    public void setFilterSegmentProperty1Value(String filterSegmentProperty1Value) {
-        this.filterSegmentProperty1Value = filterSegmentProperty1Value;
-    }
-
-    /**
-     * Getter for FilterSegmentProperty2Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_2` on attached Metric. If empty string is passed, this filter would be
-     * rejected.
-     * @return Returns the String
-     */
-    @JsonGetter("filter[segment_property_2_value]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterSegmentProperty2Value() {
-        return filterSegmentProperty2Value;
-    }
-
-    /**
-     * Setter for FilterSegmentProperty2Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_2` on attached Metric. If empty string is passed, this filter would be
-     * rejected.
-     * @param filterSegmentProperty2Value Value for String
-     */
-    @JsonSetter("filter[segment_property_2_value]")
-    public void setFilterSegmentProperty2Value(String filterSegmentProperty2Value) {
-        this.filterSegmentProperty2Value = filterSegmentProperty2Value;
-    }
-
-    /**
-     * Getter for FilterSegmentProperty3Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_3` on attached Metric. If empty string is passed, this filter would be
-     * rejected.
-     * @return Returns the String
-     */
-    @JsonGetter("filter[segment_property_3_value]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterSegmentProperty3Value() {
-        return filterSegmentProperty3Value;
-    }
-
-    /**
-     * Setter for FilterSegmentProperty3Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_3` on attached Metric. If empty string is passed, this filter would be
-     * rejected.
-     * @param filterSegmentProperty3Value Value for String
-     */
-    @JsonSetter("filter[segment_property_3_value]")
-    public void setFilterSegmentProperty3Value(String filterSegmentProperty3Value) {
-        this.filterSegmentProperty3Value = filterSegmentProperty3Value;
-    }
-
-    /**
-     * Getter for FilterSegmentProperty4Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_4` on attached Metric. If empty string is passed, this filter would be
-     * rejected.
-     * @return Returns the String
-     */
-    @JsonGetter("filter[segment_property_4_value]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getFilterSegmentProperty4Value() {
-        return filterSegmentProperty4Value;
-    }
-
-    /**
-     * Setter for FilterSegmentProperty4Value.
-     * The value passed here would be used to filter segments. Pass a value related to
-     * `segment_property_4` on attached Metric. If empty string is passed, this filter would be
-     * rejected.
-     * @param filterSegmentProperty4Value Value for String
-     */
-    @JsonSetter("filter[segment_property_4_value]")
-    public void setFilterSegmentProperty4Value(String filterSegmentProperty4Value) {
-        this.filterSegmentProperty4Value = filterSegmentProperty4Value;
+    @JsonSetter("filter")
+    public void setFilter(ListSegmentsFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -262,11 +171,8 @@ public class ListSegmentsForPricePointInput {
     @Override
     public String toString() {
         return "ListSegmentsForPricePointInput [" + "componentId=" + componentId + ", pricePointId="
-                + pricePointId + ", page=" + page + ", perPage=" + perPage
-                + ", filterSegmentProperty1Value=" + filterSegmentProperty1Value
-                + ", filterSegmentProperty2Value=" + filterSegmentProperty2Value
-                + ", filterSegmentProperty3Value=" + filterSegmentProperty3Value
-                + ", filterSegmentProperty4Value=" + filterSegmentProperty4Value + "]";
+                + pricePointId + ", page=" + page + ", perPage=" + perPage + ", filter=" + filter
+                + "]";
     }
 
     /**
@@ -278,10 +184,7 @@ public class ListSegmentsForPricePointInput {
         Builder builder = new Builder(componentId, pricePointId)
                 .page(getPage())
                 .perPage(getPerPage())
-                .filterSegmentProperty1Value(getFilterSegmentProperty1Value())
-                .filterSegmentProperty2Value(getFilterSegmentProperty2Value())
-                .filterSegmentProperty3Value(getFilterSegmentProperty3Value())
-                .filterSegmentProperty4Value(getFilterSegmentProperty4Value());
+                .filter(getFilter());
         return builder;
     }
 
@@ -293,10 +196,7 @@ public class ListSegmentsForPricePointInput {
         private String pricePointId;
         private Integer page = 1;
         private Integer perPage = 30;
-        private String filterSegmentProperty1Value;
-        private String filterSegmentProperty2Value;
-        private String filterSegmentProperty3Value;
-        private String filterSegmentProperty4Value;
+        private ListSegmentsFilter filter;
 
         /**
          * Initialization constructor.
@@ -355,42 +255,12 @@ public class ListSegmentsForPricePointInput {
         }
 
         /**
-         * Setter for filterSegmentProperty1Value.
-         * @param  filterSegmentProperty1Value  String value for filterSegmentProperty1Value.
+         * Setter for filter.
+         * @param  filter  ListSegmentsFilter value for filter.
          * @return Builder
          */
-        public Builder filterSegmentProperty1Value(String filterSegmentProperty1Value) {
-            this.filterSegmentProperty1Value = filterSegmentProperty1Value;
-            return this;
-        }
-
-        /**
-         * Setter for filterSegmentProperty2Value.
-         * @param  filterSegmentProperty2Value  String value for filterSegmentProperty2Value.
-         * @return Builder
-         */
-        public Builder filterSegmentProperty2Value(String filterSegmentProperty2Value) {
-            this.filterSegmentProperty2Value = filterSegmentProperty2Value;
-            return this;
-        }
-
-        /**
-         * Setter for filterSegmentProperty3Value.
-         * @param  filterSegmentProperty3Value  String value for filterSegmentProperty3Value.
-         * @return Builder
-         */
-        public Builder filterSegmentProperty3Value(String filterSegmentProperty3Value) {
-            this.filterSegmentProperty3Value = filterSegmentProperty3Value;
-            return this;
-        }
-
-        /**
-         * Setter for filterSegmentProperty4Value.
-         * @param  filterSegmentProperty4Value  String value for filterSegmentProperty4Value.
-         * @return Builder
-         */
-        public Builder filterSegmentProperty4Value(String filterSegmentProperty4Value) {
-            this.filterSegmentProperty4Value = filterSegmentProperty4Value;
+        public Builder filter(ListSegmentsFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -400,8 +270,7 @@ public class ListSegmentsForPricePointInput {
          */
         public ListSegmentsForPricePointInput build() {
             return new ListSegmentsForPricePointInput(componentId, pricePointId, page, perPage,
-                    filterSegmentProperty1Value, filterSegmentProperty2Value,
-                    filterSegmentProperty3Value, filterSegmentProperty4Value);
+                    filter);
         }
     }
 }

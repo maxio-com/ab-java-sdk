@@ -503,7 +503,7 @@ public class SubscriptionsControllerCreateTest {
         // then
         assertBasicSubscriptionFields(subscription2);
 
-        NestedSubscriptionGroup subscription2Group = subscription2.getGroup().match(g -> g);
+        NestedSubscriptionGroup subscription2Group = subscription2.getGroup();
         assertThat(subscription2Group).isNotNull();
         assertThat(subscription2Group.getUid()).isNotNull();
         assertThat(subscription2Group.getPrimarySubscriptionId()).isEqualTo(subscription1.getId());
@@ -511,7 +511,7 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscription2Group.getScheme()).isEqualTo(1);
 
         subscription1 = SUBSCRIPTIONS_CONTROLLER.readSubscription(subscription1.getId(), List.of()).getSubscription();
-        NestedSubscriptionGroup subscription1Group = subscription1.getGroup().match(g -> g);
+        NestedSubscriptionGroup subscription1Group = subscription1.getGroup();
         assertThat(subscription1Group).isNotNull();
         assertThat(subscription1Group.getUid()).isNotNull();
         assertThat(subscription1Group.getPrimarySubscriptionId()).isEqualTo(subscription1.getId());
@@ -753,8 +753,7 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscriptionComponent1.getKind()).isEqualTo(component1.getKind());
         assertThat(subscriptionComponent1.getName()).isEqualTo(component1.getName());
         assertThat(subscriptionComponent1.getUnitName()).isEqualTo(component1.getUnitName());
-        assertThat(subscriptionComponent1.getPricingScheme().match(p -> p).value())
-                .isEqualTo(component1.getPricingScheme().match(p -> p).value());
+        assertThat(subscriptionComponent1.getPricingScheme()).isEqualTo(component1.getPricingScheme());
         assertThat(subscriptionComponent1.getComponentHandle()).isEqualTo(component1.getHandle());
         assertThat(subscriptionComponent1.getSubscriptionId()).isEqualTo(subscription.getId());
         assertThat(subscriptionComponent1.getRecurring()).isFalse();

@@ -42,8 +42,7 @@ public enum ServiceCreditType {
     @JsonCreator
     public static ServiceCreditType constructFromString(String toConvert) throws IOException {
         ServiceCreditType enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

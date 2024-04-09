@@ -12,8 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.ProductExpirationIntervalUnit;
-import com.maxio.advancedbilling.models.containers.ProductTrialIntervalUnit;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -31,7 +29,7 @@ public class Product
     private OptionalNullable<String> accountingCode;
     private Boolean requestCreditCard;
     private OptionalNullable<Integer> expirationInterval;
-    private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
+    private OptionalNullable<ExtendedIntervalUnit> expirationIntervalUnit;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
     private Long priceInCents;
@@ -40,7 +38,7 @@ public class Product
     private OptionalNullable<Long> initialChargeInCents;
     private OptionalNullable<Long> trialPriceInCents;
     private OptionalNullable<Integer> trialInterval;
-    private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
+    private OptionalNullable<IntervalUnit> trialIntervalUnit;
     private OptionalNullable<ZonedDateTime> archivedAt;
     private Boolean requireCreditCard;
     private OptionalNullable<String> returnParams;
@@ -77,8 +75,7 @@ public class Product
      * @param  accountingCode  String value for accountingCode.
      * @param  requestCreditCard  Boolean value for requestCreditCard.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  ProductExpirationIntervalUnit value for
-     *         expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExtendedIntervalUnit value for expirationIntervalUnit.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  priceInCents  Long value for priceInCents.
@@ -87,7 +84,7 @@ public class Product
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
-     * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  requireCreditCard  Boolean value for requireCreditCard.
      * @param  returnParams  String value for returnParams.
@@ -117,7 +114,7 @@ public class Product
             String accountingCode,
             Boolean requestCreditCard,
             Integer expirationInterval,
-            ProductExpirationIntervalUnit expirationIntervalUnit,
+            ExtendedIntervalUnit expirationIntervalUnit,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
             Long priceInCents,
@@ -126,7 +123,7 @@ public class Product
             Long initialChargeInCents,
             Long trialPriceInCents,
             Integer trialInterval,
-            ProductTrialIntervalUnit trialIntervalUnit,
+            IntervalUnit trialIntervalUnit,
             ZonedDateTime archivedAt,
             Boolean requireCreditCard,
             String returnParams,
@@ -195,8 +192,7 @@ public class Product
      * @param  accountingCode  String value for accountingCode.
      * @param  requestCreditCard  Boolean value for requestCreditCard.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  ProductExpirationIntervalUnit value for
-     *         expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExtendedIntervalUnit value for expirationIntervalUnit.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
      * @param  priceInCents  Long value for priceInCents.
@@ -205,7 +201,7 @@ public class Product
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
-     * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  requireCreditCard  Boolean value for requireCreditCard.
      * @param  returnParams  String value for returnParams.
@@ -231,11 +227,11 @@ public class Product
     protected Product(Integer id, String name, OptionalNullable<String> handle,
             OptionalNullable<String> description, OptionalNullable<String> accountingCode,
             Boolean requestCreditCard, OptionalNullable<Integer> expirationInterval,
-            OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit,
-            ZonedDateTime createdAt, ZonedDateTime updatedAt, Long priceInCents, Integer interval,
-            IntervalUnit intervalUnit, OptionalNullable<Long> initialChargeInCents,
-            OptionalNullable<Long> trialPriceInCents, OptionalNullable<Integer> trialInterval,
-            OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit,
+            OptionalNullable<ExtendedIntervalUnit> expirationIntervalUnit, ZonedDateTime createdAt,
+            ZonedDateTime updatedAt, Long priceInCents, Integer interval, IntervalUnit intervalUnit,
+            OptionalNullable<Long> initialChargeInCents, OptionalNullable<Long> trialPriceInCents,
+            OptionalNullable<Integer> trialInterval,
+            OptionalNullable<IntervalUnit> trialIntervalUnit,
             OptionalNullable<ZonedDateTime> archivedAt, Boolean requireCreditCard,
             OptionalNullable<String> returnParams, Boolean taxable,
             OptionalNullable<String> updateReturnUrl, Boolean initialChargeAfterTrial,
@@ -515,31 +511,31 @@ public class Product
     /**
      * Internal Getter for ExpirationIntervalUnit.
      * A string representing the expiration interval unit for this product, either month or day
-     * @return Returns the Internal ProductExpirationIntervalUnit
+     * @return Returns the Internal ExtendedIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<ProductExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
+    protected OptionalNullable<ExtendedIntervalUnit> internalGetExpirationIntervalUnit() {
         return this.expirationIntervalUnit;
     }
 
     /**
      * Getter for ExpirationIntervalUnit.
      * A string representing the expiration interval unit for this product, either month or day
-     * @return Returns the ProductExpirationIntervalUnit
+     * @return Returns the ExtendedIntervalUnit
      */
-    public ProductExpirationIntervalUnit getExpirationIntervalUnit() {
+    public ExtendedIntervalUnit getExpirationIntervalUnit() {
         return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
      * A string representing the expiration interval unit for this product, either month or day
-     * @param expirationIntervalUnit Value for ProductExpirationIntervalUnit
+     * @param expirationIntervalUnit Value for ExtendedIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(ProductExpirationIntervalUnit expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(ExtendedIntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
     }
 
@@ -790,31 +786,31 @@ public class Product
     /**
      * Internal Getter for TrialIntervalUnit.
      * A string representing the trial interval unit for this product, either month or day
-     * @return Returns the Internal ProductTrialIntervalUnit
+     * @return Returns the Internal IntervalUnit
      */
     @JsonGetter("trial_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<ProductTrialIntervalUnit> internalGetTrialIntervalUnit() {
+    protected OptionalNullable<IntervalUnit> internalGetTrialIntervalUnit() {
         return this.trialIntervalUnit;
     }
 
     /**
      * Getter for TrialIntervalUnit.
      * A string representing the trial interval unit for this product, either month or day
-     * @return Returns the ProductTrialIntervalUnit
+     * @return Returns the IntervalUnit
      */
-    public ProductTrialIntervalUnit getTrialIntervalUnit() {
+    public IntervalUnit getTrialIntervalUnit() {
         return OptionalNullable.getFrom(trialIntervalUnit);
     }
 
     /**
      * Setter for TrialIntervalUnit.
      * A string representing the trial interval unit for this product, either month or day
-     * @param trialIntervalUnit Value for ProductTrialIntervalUnit
+     * @param trialIntervalUnit Value for IntervalUnit
      */
     @JsonSetter("trial_interval_unit")
-    public void setTrialIntervalUnit(ProductTrialIntervalUnit trialIntervalUnit) {
+    public void setTrialIntervalUnit(IntervalUnit trialIntervalUnit) {
         this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
     }
 
@@ -1476,7 +1472,7 @@ public class Product
         private OptionalNullable<String> accountingCode;
         private Boolean requestCreditCard;
         private OptionalNullable<Integer> expirationInterval;
-        private OptionalNullable<ProductExpirationIntervalUnit> expirationIntervalUnit;
+        private OptionalNullable<ExtendedIntervalUnit> expirationIntervalUnit;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
         private Long priceInCents;
@@ -1485,7 +1481,7 @@ public class Product
         private OptionalNullable<Long> initialChargeInCents;
         private OptionalNullable<Long> trialPriceInCents;
         private OptionalNullable<Integer> trialInterval;
-        private OptionalNullable<ProductTrialIntervalUnit> trialIntervalUnit;
+        private OptionalNullable<IntervalUnit> trialIntervalUnit;
         private OptionalNullable<ZonedDateTime> archivedAt;
         private Boolean requireCreditCard;
         private OptionalNullable<String> returnParams;
@@ -1617,12 +1613,10 @@ public class Product
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  ProductExpirationIntervalUnit value for
-         *         expirationIntervalUnit.
+         * @param  expirationIntervalUnit  ExtendedIntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(
-                ProductExpirationIntervalUnit expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(ExtendedIntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
             return this;
         }
@@ -1745,10 +1739,10 @@ public class Product
 
         /**
          * Setter for trialIntervalUnit.
-         * @param  trialIntervalUnit  ProductTrialIntervalUnit value for trialIntervalUnit.
+         * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
          * @return Builder
          */
-        public Builder trialIntervalUnit(ProductTrialIntervalUnit trialIntervalUnit) {
+        public Builder trialIntervalUnit(IntervalUnit trialIntervalUnit) {
             this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
             return this;
         }

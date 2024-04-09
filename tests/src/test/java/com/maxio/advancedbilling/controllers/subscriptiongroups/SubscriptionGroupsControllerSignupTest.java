@@ -379,9 +379,9 @@ public class SubscriptionGroupsControllerSignupTest {
         assertThat(subscription2.getTotalRevenueInCents()).isEqualTo(24000);
 
         NestedSubscriptionGroup subscription1Group = CLIENT.getSubscriptionsController().readSubscription(subscription1.getId(), null)
-                .getSubscription().getGroup().match(g -> g);
+                .getSubscription().getGroup();
         NestedSubscriptionGroup subscription2Group = CLIENT.getSubscriptionsController().readSubscription(subscription2.getId(), null)
-                .getSubscription().getGroup().match(g -> g);
+                .getSubscription().getGroup();
 
         assertThat(subscription1Group.getPrimary()).isTrue();
         assertThat(subscription1Group.getPrimarySubscriptionId()).isEqualTo(subscription1.getId());

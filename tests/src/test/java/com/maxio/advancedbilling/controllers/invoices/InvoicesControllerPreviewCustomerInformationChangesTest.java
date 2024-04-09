@@ -59,15 +59,15 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
         assertThat(preview.getChanges().getBillingAddress()).isNull();
 
         assertThat(preview.getChanges().getPayer()).isNotNull();
-        assertPayerData(preview.getChanges().getPayer().match(b -> b).getBefore(), customerBeforeUpdate);
-        assertPayerData(preview.getChanges().getPayer().match(b -> b).getAfter(), customerAfterUpdate);
+        assertPayerData(preview.getChanges().getPayer().getBefore(), customerBeforeUpdate);
+        assertPayerData(preview.getChanges().getPayer().getAfter(), customerAfterUpdate);
 
         assertThat(preview.getChanges().getShippingAddress()).isNotNull();
-        assertShippingData(preview.getChanges().getShippingAddress().match(b -> b).getBefore(), customerBeforeUpdate);
-        assertShippingData(preview.getChanges().getShippingAddress().match(b -> b).getAfter(), customerAfterUpdate);
+        assertShippingData(preview.getChanges().getShippingAddress().getBefore(), customerBeforeUpdate);
+        assertShippingData(preview.getChanges().getShippingAddress().getAfter(), customerAfterUpdate);
 
         assertThat(preview.getChanges().getCustomFields()).isNotNull();
-        assertThat(preview.getChanges().getCustomFields().match(b -> b).getBefore())
+        assertThat(preview.getChanges().getCustomFields().getBefore())
                 .hasSize(3)
                 .usingRecursiveFieldByFieldElementComparator()
                 .containsExactlyInAnyOrder(
@@ -79,7 +79,7 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
                                 "value1", customerMetadata.get("CustomerField1").getId())
                 );
 
-        assertThat(preview.getChanges().getCustomFields().match(b -> b).getAfter())
+        assertThat(preview.getChanges().getCustomFields().getAfter())
                 .usingRecursiveFieldByFieldElementComparator()
                 .hasSize(3)
                 .containsExactlyInAnyOrder(

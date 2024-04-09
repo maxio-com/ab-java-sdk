@@ -31,7 +31,6 @@ import com.maxio.advancedbilling.models.ListUsagesInput;
 import com.maxio.advancedbilling.models.PreviewAllocationsRequest;
 import com.maxio.advancedbilling.models.SubscriptionComponentResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
-import com.maxio.advancedbilling.models.SubscriptionStateFilter;
 import com.maxio.advancedbilling.models.UpdateAllocationExpirationDate;
 import com.maxio.advancedbilling.models.UsageResponse;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
@@ -130,6 +129,8 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
+                        .queryParam(param -> param.key("filter")
+                                .value(input.getFilter()).isRequired(false))
                         .queryParam(param -> param.key("end_date")
                                 .value(input.getEndDate()).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
@@ -146,10 +147,6 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
-                        .queryParam(param -> param.key("filter[currencies]")
-                                .value(input.getFilterCurrencies()).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
@@ -1050,6 +1047,8 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value((input.getSort() != null) ? input.getSort().value() : null).isRequired(false))
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
+                        .queryParam(param -> param.key("filter")
+                                .value(input.getFilter()).isRequired(false))
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
@@ -1068,22 +1067,6 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value(input.getProductFamilyIds()).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("filter[use_site_exchange_rate]")
-                                .value(input.getFilterUseSiteExchangeRate()).isRequired(false))
-                        .queryParam(param -> param.key("filter[currencies]")
-                                .value(input.getFilterCurrencies()).isRequired(false))
-                        .queryParam(param -> param.key("filter[subscription][states]")
-                                .value(SubscriptionStateFilter.toValue(input.getFilterSubscriptionStates())).isRequired(false))
-                        .queryParam(param -> param.key("filter[subscription][date_field]")
-                                .value((input.getFilterSubscriptionDateField() != null) ? input.getFilterSubscriptionDateField().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("filter[subscription][start_date]")
-                                .value(DateTimeHelper.toSimpleDate(input.getFilterSubscriptionStartDate())).isRequired(false))
-                        .queryParam(param -> param.key("filter[subscription][start_datetime]")
-                                .value(DateTimeHelper.toRfc8601DateTime(input.getFilterSubscriptionStartDatetime())).isRequired(false))
-                        .queryParam(param -> param.key("filter[subscription][end_date]")
-                                .value(DateTimeHelper.toSimpleDate(input.getFilterSubscriptionEndDate())).isRequired(false))
-                        .queryParam(param -> param.key("filter[subscription][end_datetime]")
-                                .value(DateTimeHelper.toRfc8601DateTime(input.getFilterSubscriptionEndDatetime())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))

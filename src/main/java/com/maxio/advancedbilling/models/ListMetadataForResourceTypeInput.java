@@ -311,7 +311,7 @@ public class ListMetadataForResourceTypeInput {
      * `resource_ids[]=122&amp;resource_ids[]=123&amp;resource_ids[]=124`.
      * @return Returns the List of Integer
      */
-    @JsonGetter("resource_ids[]")
+    @JsonGetter("resource_ids")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Integer> getResourceIds() {
         return resourceIds;
@@ -323,7 +323,7 @@ public class ListMetadataForResourceTypeInput {
      * `resource_ids[]=122&amp;resource_ids[]=123&amp;resource_ids[]=124`.
      * @param resourceIds Value for List of Integer
      */
-    @JsonSetter("resource_ids[]")
+    @JsonSetter("resource_ids")
     public void setResourceIds(List<Integer> resourceIds) {
         this.resourceIds = resourceIds;
     }

@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.SubscriptionGroup2;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -52,7 +51,7 @@ public class Subscription
     private Customer customer;
     private Product product;
     private CreditCardPaymentProfile creditCard;
-    private OptionalNullable<SubscriptionGroup2> group;
+    private OptionalNullable<NestedSubscriptionGroup> group;
     private BankAccountPaymentProfile bankAccount;
     private OptionalNullable<String> paymentType;
     private OptionalNullable<String> referralCode;
@@ -124,7 +123,7 @@ public class Subscription
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  CreditCardPaymentProfile value for creditCard.
-     * @param  group  SubscriptionGroup2 value for group.
+     * @param  group  NestedSubscriptionGroup value for group.
      * @param  bankAccount  BankAccountPaymentProfile value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
@@ -189,7 +188,7 @@ public class Subscription
             Customer customer,
             Product product,
             CreditCardPaymentProfile creditCard,
-            SubscriptionGroup2 group,
+            NestedSubscriptionGroup group,
             BankAccountPaymentProfile bankAccount,
             String paymentType,
             String referralCode,
@@ -318,7 +317,7 @@ public class Subscription
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  CreditCardPaymentProfile value for creditCard.
-     * @param  group  SubscriptionGroup2 value for group.
+     * @param  group  NestedSubscriptionGroup value for group.
      * @param  bankAccount  BankAccountPaymentProfile value for bankAccount.
      * @param  paymentType  String value for paymentType.
      * @param  referralCode  String value for referralCode.
@@ -368,7 +367,7 @@ public class Subscription
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
             OptionalNullable<String> snapDay, CollectionMethod paymentCollectionMethod,
             Customer customer, Product product, CreditCardPaymentProfile creditCard,
-            OptionalNullable<SubscriptionGroup2> group, BankAccountPaymentProfile bankAccount,
+            OptionalNullable<NestedSubscriptionGroup> group, BankAccountPaymentProfile bankAccount,
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
             OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
             OptionalNullable<Integer> couponUseCount, OptionalNullable<Integer> couponUsesAllowed,
@@ -1379,29 +1378,29 @@ public class Subscription
 
     /**
      * Internal Getter for Group.
-     * @return Returns the Internal SubscriptionGroup2
+     * @return Returns the Internal NestedSubscriptionGroup
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<SubscriptionGroup2> internalGetGroup() {
+    protected OptionalNullable<NestedSubscriptionGroup> internalGetGroup() {
         return this.group;
     }
 
     /**
      * Getter for Group.
-     * @return Returns the SubscriptionGroup2
+     * @return Returns the NestedSubscriptionGroup
      */
-    public SubscriptionGroup2 getGroup() {
+    public NestedSubscriptionGroup getGroup() {
         return OptionalNullable.getFrom(group);
     }
 
     /**
      * Setter for Group.
-     * @param group Value for SubscriptionGroup2
+     * @param group Value for NestedSubscriptionGroup
      */
     @JsonSetter("group")
-    public void setGroup(SubscriptionGroup2 group) {
+    public void setGroup(NestedSubscriptionGroup group) {
         this.group = OptionalNullable.of(group);
     }
 
@@ -1865,7 +1864,8 @@ public class Subscription
 
     /**
      * Getter for CurrentBillingAmountInCents.
-     * The balance in cents plus the estimated renewal amount in cents.
+     * The balance in cents plus the estimated renewal amount in cents. Returned ONLY for
+     * readSubscription operation as it's compute intensive operation.
      * @return Returns the Long
      */
     @JsonGetter("current_billing_amount_in_cents")
@@ -1876,7 +1876,8 @@ public class Subscription
 
     /**
      * Setter for CurrentBillingAmountInCents.
-     * The balance in cents plus the estimated renewal amount in cents.
+     * The balance in cents plus the estimated renewal amount in cents. Returned ONLY for
+     * readSubscription operation as it's compute intensive operation.
      * @param currentBillingAmountInCents Value for Long
      */
     @JsonSetter("current_billing_amount_in_cents")
@@ -2603,7 +2604,7 @@ public class Subscription
         private Customer customer;
         private Product product;
         private CreditCardPaymentProfile creditCard;
-        private OptionalNullable<SubscriptionGroup2> group;
+        private OptionalNullable<NestedSubscriptionGroup> group;
         private BankAccountPaymentProfile bankAccount;
         private OptionalNullable<String> paymentType;
         private OptionalNullable<String> referralCode;
@@ -3021,10 +3022,10 @@ public class Subscription
 
         /**
          * Setter for group.
-         * @param  group  SubscriptionGroup2 value for group.
+         * @param  group  NestedSubscriptionGroup value for group.
          * @return Builder
          */
-        public Builder group(SubscriptionGroup2 group) {
+        public Builder group(NestedSubscriptionGroup group) {
             this.group = OptionalNullable.of(group);
             return this;
         }

@@ -46,8 +46,7 @@ public enum PricePointType {
     @JsonCreator
     public static PricePointType constructFromString(String toConvert) throws IOException {
         PricePointType enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

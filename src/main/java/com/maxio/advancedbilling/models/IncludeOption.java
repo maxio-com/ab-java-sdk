@@ -42,8 +42,7 @@ public enum IncludeOption {
     @JsonCreator
     public static IncludeOption constructFromString(String toConvert) throws IOException {
         IncludeOption enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

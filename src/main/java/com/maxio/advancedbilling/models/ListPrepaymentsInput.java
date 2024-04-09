@@ -9,10 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.maxio.advancedbilling.DateTimeHelper;
-import java.time.LocalDate;
 
 /**
  * This is a model class for ListPrepaymentsInput type.
@@ -21,9 +17,7 @@ public class ListPrepaymentsInput {
     private int subscriptionId;
     private Integer page;
     private Integer perPage;
-    private BasicDateField filterDateField;
-    private LocalDate filterStartDate;
-    private LocalDate filterEndDate;
+    private ListPrepaymentsFilter filter;
 
     /**
      * Default constructor.
@@ -38,23 +32,17 @@ public class ListPrepaymentsInput {
      * @param  subscriptionId  int value for subscriptionId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  filterDateField  BasicDateField value for filterDateField.
-     * @param  filterStartDate  LocalDate value for filterStartDate.
-     * @param  filterEndDate  LocalDate value for filterEndDate.
+     * @param  filter  ListPrepaymentsFilter value for filter.
      */
     public ListPrepaymentsInput(
             int subscriptionId,
             Integer page,
             Integer perPage,
-            BasicDateField filterDateField,
-            LocalDate filterStartDate,
-            LocalDate filterEndDate) {
+            ListPrepaymentsFilter filter) {
         this.subscriptionId = subscriptionId;
         this.page = page;
         this.perPage = perPage;
-        this.filterDateField = filterDateField;
-        this.filterStartDate = filterStartDate;
-        this.filterEndDate = filterEndDate;
+        this.filter = filter;
     }
 
     /**
@@ -132,82 +120,24 @@ public class ListPrepaymentsInput {
     }
 
     /**
-     * Getter for FilterDateField.
-     * The type of filter you would like to apply to your search. created_at - Time when prepayment
-     * was created. application_at - Time when prepayment was applied to invoice. Use in query
-     * `filter[date_field]=created_at`.
-     * @return Returns the BasicDateField
+     * Getter for Filter.
+     * Filter to use for List Prepayments operations
+     * @return Returns the ListPrepaymentsFilter
      */
-    @JsonGetter("filter[date_field]")
+    @JsonGetter("filter")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public BasicDateField getFilterDateField() {
-        return filterDateField;
+    public ListPrepaymentsFilter getFilter() {
+        return filter;
     }
 
     /**
-     * Setter for FilterDateField.
-     * The type of filter you would like to apply to your search. created_at - Time when prepayment
-     * was created. application_at - Time when prepayment was applied to invoice. Use in query
-     * `filter[date_field]=created_at`.
-     * @param filterDateField Value for BasicDateField
+     * Setter for Filter.
+     * Filter to use for List Prepayments operations
+     * @param filter Value for ListPrepaymentsFilter
      */
-    @JsonSetter("filter[date_field]")
-    public void setFilterDateField(BasicDateField filterDateField) {
-        this.filterDateField = filterDateField;
-    }
-
-    /**
-     * Getter for FilterStartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
-     * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
-     * specified. Use in query `filter[start_date]=2011-12-15`.
-     * @return Returns the LocalDate
-     */
-    @JsonGetter("filter[start_date]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getFilterStartDate() {
-        return filterStartDate;
-    }
-
-    /**
-     * Setter for FilterStartDate.
-     * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
-     * with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
-     * specified. Use in query `filter[start_date]=2011-12-15`.
-     * @param filterStartDate Value for LocalDate
-     */
-    @JsonSetter("filter[start_date]")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setFilterStartDate(LocalDate filterStartDate) {
-        this.filterStartDate = filterStartDate;
-    }
-
-    /**
-     * Getter for FilterEndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
-     * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
-     * specified. Use in query `filter[end_date]=2011-12-15`.
-     * @return Returns the LocalDate
-     */
-    @JsonGetter("filter[end_date]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
-    public LocalDate getFilterEndDate() {
-        return filterEndDate;
-    }
-
-    /**
-     * Setter for FilterEndDate.
-     * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns prepayments
-     * with a timestamp up to and including 11:59:59PM in your site’s time zone on the date
-     * specified. Use in query `filter[end_date]=2011-12-15`.
-     * @param filterEndDate Value for LocalDate
-     */
-    @JsonSetter("filter[end_date]")
-    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
-    public void setFilterEndDate(LocalDate filterEndDate) {
-        this.filterEndDate = filterEndDate;
+    @JsonSetter("filter")
+    public void setFilter(ListPrepaymentsFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -217,8 +147,7 @@ public class ListPrepaymentsInput {
     @Override
     public String toString() {
         return "ListPrepaymentsInput [" + "subscriptionId=" + subscriptionId + ", page=" + page
-                + ", perPage=" + perPage + ", filterDateField=" + filterDateField
-                + ", filterStartDate=" + filterStartDate + ", filterEndDate=" + filterEndDate + "]";
+                + ", perPage=" + perPage + ", filter=" + filter + "]";
     }
 
     /**
@@ -230,9 +159,7 @@ public class ListPrepaymentsInput {
         Builder builder = new Builder(subscriptionId)
                 .page(getPage())
                 .perPage(getPerPage())
-                .filterDateField(getFilterDateField())
-                .filterStartDate(getFilterStartDate())
-                .filterEndDate(getFilterEndDate());
+                .filter(getFilter());
         return builder;
     }
 
@@ -243,9 +170,7 @@ public class ListPrepaymentsInput {
         private int subscriptionId;
         private Integer page = 1;
         private Integer perPage = 20;
-        private BasicDateField filterDateField;
-        private LocalDate filterStartDate;
-        private LocalDate filterEndDate;
+        private ListPrepaymentsFilter filter;
 
         /**
          * Initialization constructor.
@@ -292,32 +217,12 @@ public class ListPrepaymentsInput {
         }
 
         /**
-         * Setter for filterDateField.
-         * @param  filterDateField  BasicDateField value for filterDateField.
+         * Setter for filter.
+         * @param  filter  ListPrepaymentsFilter value for filter.
          * @return Builder
          */
-        public Builder filterDateField(BasicDateField filterDateField) {
-            this.filterDateField = filterDateField;
-            return this;
-        }
-
-        /**
-         * Setter for filterStartDate.
-         * @param  filterStartDate  LocalDate value for filterStartDate.
-         * @return Builder
-         */
-        public Builder filterStartDate(LocalDate filterStartDate) {
-            this.filterStartDate = filterStartDate;
-            return this;
-        }
-
-        /**
-         * Setter for filterEndDate.
-         * @param  filterEndDate  LocalDate value for filterEndDate.
-         * @return Builder
-         */
-        public Builder filterEndDate(LocalDate filterEndDate) {
-            this.filterEndDate = filterEndDate;
+        public Builder filter(ListPrepaymentsFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -326,8 +231,7 @@ public class ListPrepaymentsInput {
          * @return {@link ListPrepaymentsInput}
          */
         public ListPrepaymentsInput build() {
-            return new ListPrepaymentsInput(subscriptionId, page, perPage, filterDateField,
-                    filterStartDate, filterEndDate);
+            return new ListPrepaymentsInput(subscriptionId, page, perPage, filter);
         }
     }
 }

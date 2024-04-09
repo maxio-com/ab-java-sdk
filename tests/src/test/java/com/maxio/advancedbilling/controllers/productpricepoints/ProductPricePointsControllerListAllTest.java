@@ -5,6 +5,7 @@ import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.IncludeNotNull;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListAllProductPricePointsInput;
+import com.maxio.advancedbilling.models.ListPricePointsFilter;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductPricePoint;
@@ -64,8 +65,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder.filterType(List.of(PricePointType.ENUM_DEFAULT)))
-                )
+                        new ListAllProductPricePointsInput.Builder()
+                                .filter(
+                                        new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
+                                                .type(List.of(PricePointType.ENUM_DEFAULT))
+                                                .build())
+                                .build())
                 .getPricePoints();
 
         // then
@@ -120,8 +127,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> archivedPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder.filterArchivedAt(IncludeNotNull.NOT_NULL))
-                )
+                        new ListAllProductPricePointsInput.Builder()
+                                .filter(
+                                        new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
+                                                .archivedAt(IncludeNotNull.NOT_NULL)
+                                                .build())
+                                .build())
                 .getPricePoints();
 
         // then
@@ -137,8 +150,11 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(new ListAllProductPricePointsInput.Builder()
-                        .filterDateField(BasicDateField.CREATED_AT)
-                        .filterEndDate(LocalDate.parse("2020-01-01"))
+                        .filter(
+                                new ListPricePointsFilter.Builder()
+                                        .dateField(BasicDateField.CREATED_AT)
+                                        .endDate(LocalDate.parse("2020-01-01"))
+                                        .build())
                         .build()
                 )
                 .getPricePoints();
@@ -152,8 +168,11 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(new ListAllProductPricePointsInput.Builder()
-                        .filterDateField(BasicDateField.CREATED_AT)
-                        .filterEndDatetime(ZonedDateTime.parse("2020-01-01T00:00:00Z"))
+                        .filter(
+                                new ListPricePointsFilter.Builder()
+                                        .dateField(BasicDateField.CREATED_AT)
+                                        .endDatetime(ZonedDateTime.parse("2020-01-01T00:00:00Z"))
+                                        .build())
                         .build()
                 )
                 .getPricePoints();
@@ -167,8 +186,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder.filterIds(List.of(1, 2, 3, 4, 5)))
-                )
+                        new ListAllProductPricePointsInput.Builder()
+                                .filter(
+                                        new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
+                                                .ids(List.of(1, 2, 3, 4, 5))
+                                                .build())
+                                .build())
                 .getPricePoints();
 
         // then
@@ -180,8 +205,11 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(new ListAllProductPricePointsInput.Builder()
-                        .filterDateField(BasicDateField.CREATED_AT)
-                        .filterStartDate(LocalDate.parse("2030-01-01"))
+                        .filter(
+                                new ListPricePointsFilter.Builder()
+                                        .dateField(BasicDateField.CREATED_AT)
+                                        .startDate(LocalDate.parse("2030-01-01"))
+                                        .build())
                         .build()
                 )
                 .getPricePoints();
@@ -195,8 +223,11 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(new ListAllProductPricePointsInput.Builder()
-                        .filterDateField(BasicDateField.CREATED_AT)
-                        .filterStartDatetime(ZonedDateTime.parse("2030-01-01T00:00:00Z"))
+                        .filter(
+                                new ListPricePointsFilter.Builder()
+                                        .dateField(BasicDateField.CREATED_AT)
+                                        .startDatetime(ZonedDateTime.parse("2030-01-01T00:00:00Z"))
+                                        .build())
                         .build()
                 )
                 .getPricePoints();
@@ -210,8 +241,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> customPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder.filterType(List.of(PricePointType.CATALOG)))
-                )
+                        new ListAllProductPricePointsInput.Builder()
+                                .filter(
+                                        new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
+                                                .type(List.of(PricePointType.CATALOG))
+                                                .build())
+                                .build())
                 .getPricePoints();
 
         // then
@@ -249,8 +286,10 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
     private ListAllProductPricePointsInput filterByStartDatetimeOfProductCreation(Consumer<ListAllProductPricePointsInput.Builder> customizer) {
         ListAllProductPricePointsInput.Builder builder = new ListAllProductPricePointsInput.Builder()
                 // filtering by product's createdAt to skip potential leftovers from other tests
-                .filterDateField(BasicDateField.CREATED_AT)
-                .filterStartDatetime(product.getCreatedAt());
+                .filter(new ListPricePointsFilter.Builder()
+                        .dateField(BasicDateField.CREATED_AT)
+                        .startDatetime(product.getCreatedAt())
+                        .build());
         customizer.accept(builder);
         return builder.build();
     }

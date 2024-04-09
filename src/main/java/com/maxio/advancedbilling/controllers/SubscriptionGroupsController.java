@@ -170,7 +170,7 @@ public final class SubscriptionGroupsController extends BaseController {
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
-                        .queryParam(param -> param.key("include[]")
+                        .queryParam(param -> param.key("include")
                                 .value(SubscriptionGroupsListInclude.toValue(input.getInclude())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -182,7 +182,7 @@ public final class SubscriptionGroupsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.UNINDEXED))
                 .build();
     }
 
@@ -215,7 +215,7 @@ public final class SubscriptionGroupsController extends BaseController {
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscription_groups/{uid}.json")
-                        .queryParam(param -> param.key("include[]")
+                        .queryParam(param -> param.key("include")
                                 .value(SubscriptionGroupInclude.toValue(include)).isRequired(false))
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -229,12 +229,12 @@ public final class SubscriptionGroupsController extends BaseController {
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
+                                .arraySerializationFormat(ArraySerializationFormat.UNINDEXED))
                 .build();
     }
 
     /**
-     * Use this endpoint to update subscription group members. `"member_ids": []` should contain an
+     * Use this endpoint to update subscription group members. `"member_ids"` should contain an
      * array of both subscription IDs to set as group members and subscription IDs already present
      * in the groups. Not including them will result in removing them from subscription group. To
      * clean up members, just leave the array empty.

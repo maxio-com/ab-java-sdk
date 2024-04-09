@@ -208,8 +208,8 @@ public final class InsightsController extends BaseController {
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/subscriptions_mrr.json")
-                        .queryParam(param -> param.key("filter[subscription_ids]")
-                                .value(input.getFilterSubscriptionIds()).isRequired(false))
+                        .queryParam(param -> param.key("filter")
+                                .value(input.getFilter()).isRequired(false))
                         .queryParam(param -> param.key("at_time")
                                 .value(input.getAtTime()).isRequired(false))
                         .queryParam(param -> param.key("page")

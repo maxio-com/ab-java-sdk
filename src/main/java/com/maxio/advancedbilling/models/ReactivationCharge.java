@@ -46,8 +46,7 @@ public enum ReactivationCharge {
     @JsonCreator
     public static ReactivationCharge constructFromString(String toConvert) throws IOException {
         ReactivationCharge enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

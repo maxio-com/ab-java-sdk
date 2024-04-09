@@ -50,8 +50,7 @@ public enum TaxConfigurationKind {
     @JsonCreator
     public static TaxConfigurationKind constructFromString(String toConvert) throws IOException {
         TaxConfigurationKind enumValue = fromString(toConvert);
-        if (enumValue == null)
-        {
+        if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
         return enumValue;

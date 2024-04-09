@@ -13,6 +13,7 @@ import com.maxio.advancedbilling.models.CreateProductPricePoint;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListAllProductPricePointsInput;
+import com.maxio.advancedbilling.models.ListPricePointsFilter;
 import com.maxio.advancedbilling.models.ListProductsInput;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
@@ -137,7 +138,9 @@ abstract class ProductPricePointsBaseTest {
     private static List<ProductPricePoint> listAllSiteCatalogPricePointsPerPage200() throws IOException, ApiException {
         return PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(new ListAllProductPricePointsInput.Builder()
-                        .filterType(List.of(PricePointType.CATALOG))
+                        .filter(new ListPricePointsFilter.Builder()
+                                .type(List.of(PricePointType.CATALOG))
+                                .build())
                         .perPage(200)
                         .build()
                 )

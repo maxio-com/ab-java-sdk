@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import java.util.List;
 
 /**
  * This is a model class for ListComponentsInput type.
@@ -23,8 +22,7 @@ public class ListComponentsInput {
     private Boolean includeArchived;
     private Integer page;
     private Integer perPage;
-    private List<String> filterIds;
-    private Boolean filterUseSiteExchangeRate;
+    private ListComponentsFilter filter;
 
     /**
      * Default constructor.
@@ -44,8 +42,7 @@ public class ListComponentsInput {
      * @param  includeArchived  Boolean value for includeArchived.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  filterIds  List of String value for filterIds.
-     * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
+     * @param  filter  ListComponentsFilter value for filter.
      */
     public ListComponentsInput(
             BasicDateField dateField,
@@ -56,8 +53,7 @@ public class ListComponentsInput {
             Boolean includeArchived,
             Integer page,
             Integer perPage,
-            List<String> filterIds,
-            Boolean filterUseSiteExchangeRate) {
+            ListComponentsFilter filter) {
         this.dateField = dateField;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -66,8 +62,7 @@ public class ListComponentsInput {
         this.includeArchived = includeArchived;
         this.page = page;
         this.perPage = perPage;
-        this.filterIds = filterIds;
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
+        this.filter = filter;
     }
 
     /**
@@ -269,49 +264,24 @@ public class ListComponentsInput {
     }
 
     /**
-     * Getter for FilterIds.
-     * Allows fetching components with matching id based on provided value. Use in query
-     * `filter[ids]=1,2,3`.
-     * @return Returns the List of String
+     * Getter for Filter.
+     * Filter to use for List Components operations
+     * @return Returns the ListComponentsFilter
      */
-    @JsonGetter("filter[ids]")
+    @JsonGetter("filter")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<String> getFilterIds() {
-        return filterIds;
+    public ListComponentsFilter getFilter() {
+        return filter;
     }
 
     /**
-     * Setter for FilterIds.
-     * Allows fetching components with matching id based on provided value. Use in query
-     * `filter[ids]=1,2,3`.
-     * @param filterIds Value for List of String
+     * Setter for Filter.
+     * Filter to use for List Components operations
+     * @param filter Value for ListComponentsFilter
      */
-    @JsonSetter("filter[ids]")
-    public void setFilterIds(List<String> filterIds) {
-        this.filterIds = filterIds;
-    }
-
-    /**
-     * Getter for FilterUseSiteExchangeRate.
-     * Allows fetching components with matching use_site_exchange_rate based on provided value
-     * (refers to default price point). Use in query `filter[use_site_exchange_rate]=true`.
-     * @return Returns the Boolean
-     */
-    @JsonGetter("filter[use_site_exchange_rate]")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getFilterUseSiteExchangeRate() {
-        return filterUseSiteExchangeRate;
-    }
-
-    /**
-     * Setter for FilterUseSiteExchangeRate.
-     * Allows fetching components with matching use_site_exchange_rate based on provided value
-     * (refers to default price point). Use in query `filter[use_site_exchange_rate]=true`.
-     * @param filterUseSiteExchangeRate Value for Boolean
-     */
-    @JsonSetter("filter[use_site_exchange_rate]")
-    public void setFilterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-        this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
+    @JsonSetter("filter")
+    public void setFilter(ListComponentsFilter filter) {
+        this.filter = filter;
     }
 
     /**
@@ -323,8 +293,7 @@ public class ListComponentsInput {
         return "ListComponentsInput [" + "dateField=" + dateField + ", startDate=" + startDate
                 + ", endDate=" + endDate + ", startDatetime=" + startDatetime + ", endDatetime="
                 + endDatetime + ", includeArchived=" + includeArchived + ", page=" + page
-                + ", perPage=" + perPage + ", filterIds=" + filterIds
-                + ", filterUseSiteExchangeRate=" + filterUseSiteExchangeRate + "]";
+                + ", perPage=" + perPage + ", filter=" + filter + "]";
     }
 
     /**
@@ -342,8 +311,7 @@ public class ListComponentsInput {
                 .includeArchived(getIncludeArchived())
                 .page(getPage())
                 .perPage(getPerPage())
-                .filterIds(getFilterIds())
-                .filterUseSiteExchangeRate(getFilterUseSiteExchangeRate());
+                .filter(getFilter());
         return builder;
     }
 
@@ -359,8 +327,7 @@ public class ListComponentsInput {
         private Boolean includeArchived;
         private Integer page = 1;
         private Integer perPage = 20;
-        private List<String> filterIds;
-        private Boolean filterUseSiteExchangeRate;
+        private ListComponentsFilter filter;
 
 
 
@@ -445,22 +412,12 @@ public class ListComponentsInput {
         }
 
         /**
-         * Setter for filterIds.
-         * @param  filterIds  List of String value for filterIds.
+         * Setter for filter.
+         * @param  filter  ListComponentsFilter value for filter.
          * @return Builder
          */
-        public Builder filterIds(List<String> filterIds) {
-            this.filterIds = filterIds;
-            return this;
-        }
-
-        /**
-         * Setter for filterUseSiteExchangeRate.
-         * @param  filterUseSiteExchangeRate  Boolean value for filterUseSiteExchangeRate.
-         * @return Builder
-         */
-        public Builder filterUseSiteExchangeRate(Boolean filterUseSiteExchangeRate) {
-            this.filterUseSiteExchangeRate = filterUseSiteExchangeRate;
+        public Builder filter(ListComponentsFilter filter) {
+            this.filter = filter;
             return this;
         }
 
@@ -470,8 +427,7 @@ public class ListComponentsInput {
          */
         public ListComponentsInput build() {
             return new ListComponentsInput(dateField, startDate, endDate, startDatetime,
-                    endDatetime, includeArchived, page, perPage, filterIds,
-                    filterUseSiteExchangeRate);
+                    endDatetime, includeArchived, page, perPage, filter);
         }
     }
 }

@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 
@@ -31,10 +29,9 @@ public class AddressChange
      * @param  before  InvoiceAddress value for before.
      * @param  after  InvoiceAddress value for after.
      */
-    @JsonCreator
     public AddressChange(
-            @JsonProperty("before") InvoiceAddress before,
-            @JsonProperty("after") InvoiceAddress after) {
+            InvoiceAddress before,
+            InvoiceAddress after) {
         this.before = before;
         this.after = after;
     }
