@@ -65,13 +65,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder
+                        new ListAllProductPricePointsInput.Builder()
                                 .filter(
                                         new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
                                                 .type(List.of(PricePointType.ENUM_DEFAULT))
                                                 .build())
-                        )
-                )
+                                .build())
                 .getPricePoints();
 
         // then
@@ -126,12 +127,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> archivedPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder
+                        new ListAllProductPricePointsInput.Builder()
                                 .filter(
                                         new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
                                                 .archivedAt(IncludeNotNull.NOT_NULL)
                                                 .build())
-                        ))
+                                .build())
                 .getPricePoints();
 
         // then
@@ -183,14 +186,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> productPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder
+                        new ListAllProductPricePointsInput.Builder()
                                 .filter(
                                         new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
                                                 .ids(List.of(1, 2, 3, 4, 5))
-                                                .build()
-                                )
-                        )
-                )
+                                                .build())
+                                .build())
                 .getPricePoints();
 
         // then
@@ -238,11 +241,14 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
         // when
         List<ProductPricePoint> customPricePoints = PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(
-                        filterByStartDatetimeOfProductCreation(builder -> builder.filter(
-                                new ListPricePointsFilter.Builder()
-                                        .type(List.of(PricePointType.CATALOG))
-                                        .build()))
-                )
+                        new ListAllProductPricePointsInput.Builder()
+                                .filter(
+                                        new ListPricePointsFilter.Builder()
+                                                .dateField(BasicDateField.CREATED_AT)
+                                                .startDatetime(product.getCreatedAt())
+                                                .type(List.of(PricePointType.CATALOG))
+                                                .build())
+                                .build())
                 .getPricePoints();
 
         // then
