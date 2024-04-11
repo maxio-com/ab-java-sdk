@@ -7,6 +7,7 @@
 package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.DeductServiceCreditAmount;
 import io.apimatic.core.types.BaseModel;
@@ -60,6 +61,7 @@ public class DeductServiceCredit
      * @return Returns the String
      */
     @JsonGetter("memo")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMemo() {
         return memo;
     }
@@ -89,7 +91,8 @@ public class DeductServiceCredit
      * @return a new {@link DeductServiceCredit.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(amount, memo);
+        Builder builder = new Builder(amount)
+                .memo(getMemo());
         return builder;
     }
 
@@ -109,11 +112,9 @@ public class DeductServiceCredit
         /**
          * Initialization constructor.
          * @param  amount  DeductServiceCreditAmount value for amount.
-         * @param  memo  String value for memo.
          */
-        public Builder(DeductServiceCreditAmount amount, String memo) {
+        public Builder(DeductServiceCreditAmount amount) {
             this.amount = amount;
-            this.memo = memo;
         }
 
         /**

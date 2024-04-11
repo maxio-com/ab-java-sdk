@@ -232,8 +232,7 @@ IssueServiceCreditRequest body = new IssueServiceCreditRequest.Builder(
     new IssueServiceCredit.Builder(
         IssueServiceCreditAmount.fromString(
             "1"
-        ),
-        "Courtesy credit"
+        )
     )
     .build()
 )
@@ -260,6 +259,12 @@ try {
   "memo": "Credit to group account"
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
 
 
 # Deduct Service Credit
@@ -291,9 +296,9 @@ DeductServiceCreditRequest body = new DeductServiceCreditRequest.Builder(
     new DeductServiceCredit.Builder(
         DeductServiceCreditAmount.fromString(
             "1"
-        ),
-        "Deduction"
+        )
     )
+    .memo("Deduction")
     .build()
 )
 .build();
@@ -311,7 +316,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | `ApiException` |
 
 
 # Refund Prepayment
@@ -323,7 +328,7 @@ The amount may be passed either as a decimal, with `amount`, or an integer in ce
 ```java
 PrepaymentResponse refundPrepayment(
     final int subscriptionId,
-    final String prepaymentId,
+    final long prepaymentId,
     final RefundPrepaymentRequest body)
 ```
 
@@ -332,7 +337,7 @@ PrepaymentResponse refundPrepayment(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `prepaymentId` | `String` | Template, Required | id of prepayment |
+| `prepaymentId` | `long` | Template, Required | id of prepayment |
 | `body` | [`RefundPrepaymentRequest`](../../doc/models/refund-prepayment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -343,7 +348,7 @@ PrepaymentResponse refundPrepayment(
 
 ```java
 int subscriptionId = 222;
-String prepaymentId = "prepayment_id8";
+long prepaymentId = 228L;
 try {
     PrepaymentResponse result = subscriptionInvoiceAccountController.refundPrepayment(subscriptionId, prepaymentId, null);
     System.out.println(result);
@@ -360,5 +365,5 @@ try {
 |  --- | --- | --- |
 | 400 | Bad Request | [`RefundPrepaymentBaseErrorsResponseException`](../../doc/models/refund-prepayment-base-errors-response-exception.md) |
 | 404 | Not Found | `ApiException` |
-| 422 | Unprocessable Entity | [`RefundPrepaymentAggregatedErrorsResponseException`](../../doc/models/refund-prepayment-aggregated-errors-response-exception.md) |
+| 422 | Unprocessable Entity | `ApiException` |
 

@@ -5,7 +5,7 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
-import com.maxio.advancedbilling.models.IncludeNotNull;
+import com.maxio.advancedbilling.models.IncludeNullOrNotNull;
 import com.maxio.advancedbilling.models.ListAllComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentsPricePointsInclude;
 import com.maxio.advancedbilling.models.ListPricePointsFilter;
@@ -97,7 +97,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
                                         new ListPricePointsFilter.Builder()
                                                 .dateField(BasicDateField.CREATED_AT)
                                                 .startDatetime(component1_PricePoint1.getCreatedAt())
-                                                .archivedAt(IncludeNotNull.NOT_NULL)
+                                                .archivedAt(IncludeNullOrNotNull.NOT_NULL)
                                                 .build()
                                 )
                                 .build())
