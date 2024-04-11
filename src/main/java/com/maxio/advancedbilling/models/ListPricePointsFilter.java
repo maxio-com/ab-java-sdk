@@ -29,7 +29,7 @@ public class ListPricePointsFilter
     private ZonedDateTime endDatetime;
     private List<PricePointType> type;
     private List<Integer> ids;
-    private IncludeNotNull archivedAt;
+    private IncludeNullOrNotNull archivedAt;
 
     /**
      * Default constructor.
@@ -46,7 +46,7 @@ public class ListPricePointsFilter
      * @param  endDatetime  ZonedDateTime value for endDatetime.
      * @param  type  List of PricePointType value for type.
      * @param  ids  List of Integer value for ids.
-     * @param  archivedAt  IncludeNotNull value for archivedAt.
+     * @param  archivedAt  IncludeNullOrNotNull value for archivedAt.
      */
     public ListPricePointsFilter(
             BasicDateField dateField,
@@ -56,7 +56,7 @@ public class ListPricePointsFilter
             ZonedDateTime endDatetime,
             List<PricePointType> type,
             List<Integer> ids,
-            IncludeNotNull archivedAt) {
+            IncludeNullOrNotNull archivedAt) {
         this.dateField = dateField;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -250,11 +250,11 @@ public class ListPricePointsFilter
      * Getter for ArchivedAt.
      * Allows fetching price points only if archived_at is present or not. Use in query:
      * `filter[archived_at]=not_null`.
-     * @return Returns the IncludeNotNull
+     * @return Returns the IncludeNullOrNotNull
      */
     @JsonGetter("archived_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IncludeNotNull getArchivedAt() {
+    public IncludeNullOrNotNull getArchivedAt() {
         return archivedAt;
     }
 
@@ -262,10 +262,10 @@ public class ListPricePointsFilter
      * Setter for ArchivedAt.
      * Allows fetching price points only if archived_at is present or not. Use in query:
      * `filter[archived_at]=not_null`.
-     * @param archivedAt Value for IncludeNotNull
+     * @param archivedAt Value for IncludeNullOrNotNull
      */
     @JsonSetter("archived_at")
-    public void setArchivedAt(IncludeNotNull archivedAt) {
+    public void setArchivedAt(IncludeNullOrNotNull archivedAt) {
         this.archivedAt = archivedAt;
     }
 
@@ -310,7 +310,7 @@ public class ListPricePointsFilter
         private ZonedDateTime endDatetime;
         private List<PricePointType> type;
         private List<Integer> ids;
-        private IncludeNotNull archivedAt;
+        private IncludeNullOrNotNull archivedAt;
 
 
 
@@ -386,10 +386,10 @@ public class ListPricePointsFilter
 
         /**
          * Setter for archivedAt.
-         * @param  archivedAt  IncludeNotNull value for archivedAt.
+         * @param  archivedAt  IncludeNullOrNotNull value for archivedAt.
          * @return Builder
          */
-        public Builder archivedAt(IncludeNotNull archivedAt) {
+        public Builder archivedAt(IncludeNullOrNotNull archivedAt) {
             this.archivedAt = archivedAt;
             return this;
         }

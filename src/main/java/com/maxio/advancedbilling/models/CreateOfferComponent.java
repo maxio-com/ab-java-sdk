@@ -17,6 +17,7 @@ import io.apimatic.core.types.BaseModel;
 public class CreateOfferComponent
         extends BaseModel {
     private Integer componentId;
+    private Integer pricePointId;
     private Integer startingQuantity;
 
     /**
@@ -28,12 +29,15 @@ public class CreateOfferComponent
     /**
      * Initialization constructor.
      * @param  componentId  Integer value for componentId.
+     * @param  pricePointId  Integer value for pricePointId.
      * @param  startingQuantity  Integer value for startingQuantity.
      */
     public CreateOfferComponent(
             Integer componentId,
+            Integer pricePointId,
             Integer startingQuantity) {
         this.componentId = componentId;
+        this.pricePointId = pricePointId;
         this.startingQuantity = startingQuantity;
     }
 
@@ -54,6 +58,25 @@ public class CreateOfferComponent
     @JsonSetter("component_id")
     public void setComponentId(Integer componentId) {
         this.componentId = componentId;
+    }
+
+    /**
+     * Getter for PricePointId.
+     * @return Returns the Integer
+     */
+    @JsonGetter("price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getPricePointId() {
+        return pricePointId;
+    }
+
+    /**
+     * Setter for PricePointId.
+     * @param pricePointId Value for Integer
+     */
+    @JsonSetter("price_point_id")
+    public void setPricePointId(Integer pricePointId) {
+        this.pricePointId = pricePointId;
     }
 
     /**
@@ -81,8 +104,9 @@ public class CreateOfferComponent
      */
     @Override
     public String toString() {
-        return "CreateOfferComponent [" + "componentId=" + componentId + ", startingQuantity="
-                + startingQuantity + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "CreateOfferComponent [" + "componentId=" + componentId + ", pricePointId="
+                + pricePointId + ", startingQuantity=" + startingQuantity
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -93,6 +117,7 @@ public class CreateOfferComponent
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .componentId(getComponentId())
+                .pricePointId(getPricePointId())
                 .startingQuantity(getStartingQuantity());
         return builder;
     }
@@ -102,6 +127,7 @@ public class CreateOfferComponent
      */
     public static class Builder {
         private Integer componentId;
+        private Integer pricePointId;
         private Integer startingQuantity;
 
 
@@ -113,6 +139,16 @@ public class CreateOfferComponent
          */
         public Builder componentId(Integer componentId) {
             this.componentId = componentId;
+            return this;
+        }
+
+        /**
+         * Setter for pricePointId.
+         * @param  pricePointId  Integer value for pricePointId.
+         * @return Builder
+         */
+        public Builder pricePointId(Integer pricePointId) {
+            this.pricePointId = pricePointId;
             return this;
         }
 
@@ -131,7 +167,7 @@ public class CreateOfferComponent
          * @return {@link CreateOfferComponent}
          */
         public CreateOfferComponent build() {
-            return new CreateOfferComponent(componentId, startingQuantity);
+            return new CreateOfferComponent(componentId, pricePointId, startingQuantity);
         }
     }
 }

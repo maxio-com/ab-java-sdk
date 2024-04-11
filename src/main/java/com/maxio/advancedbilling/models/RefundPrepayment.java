@@ -17,7 +17,7 @@ import io.apimatic.core.types.BaseModel;
  */
 public class RefundPrepayment
         extends BaseModel {
-    private long amountInCents;
+    private Long amountInCents;
     private RefundPrepaymentAmount amount;
     private String memo;
     private Boolean external;
@@ -30,13 +30,13 @@ public class RefundPrepayment
 
     /**
      * Initialization constructor.
-     * @param  amountInCents  long value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  amount  RefundPrepaymentAmount value for amount.
      * @param  memo  String value for memo.
      * @param  external  Boolean value for external.
      */
     public RefundPrepayment(
-            long amountInCents,
+            Long amountInCents,
             RefundPrepaymentAmount amount,
             String memo,
             Boolean external) {
@@ -49,20 +49,20 @@ public class RefundPrepayment
     /**
      * Getter for AmountInCents.
      * `amount` is not required if you pass `amount_in_cents`.
-     * @return Returns the long
+     * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
-    public long getAmountInCents() {
+    public Long getAmountInCents() {
         return amountInCents;
     }
 
     /**
      * Setter for AmountInCents.
      * `amount` is not required if you pass `amount_in_cents`.
-     * @param amountInCents Value for long
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(long amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -155,7 +155,7 @@ public class RefundPrepayment
      * Class to build instances of {@link RefundPrepayment}.
      */
     public static class Builder {
-        private long amountInCents;
+        private Long amountInCents;
         private RefundPrepaymentAmount amount;
         private String memo;
         private Boolean external;
@@ -168,11 +168,11 @@ public class RefundPrepayment
 
         /**
          * Initialization constructor.
-         * @param  amountInCents  long value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @param  amount  RefundPrepaymentAmount value for amount.
          * @param  memo  String value for memo.
          */
-        public Builder(long amountInCents, RefundPrepaymentAmount amount, String memo) {
+        public Builder(Long amountInCents, RefundPrepaymentAmount amount, String memo) {
             this.amountInCents = amountInCents;
             this.amount = amount;
             this.memo = memo;
@@ -180,10 +180,10 @@ public class RefundPrepayment
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  long value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(long amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = amountInCents;
             return this;
         }

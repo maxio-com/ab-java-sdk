@@ -10,8 +10,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
-import com.maxio.advancedbilling.exceptions.RefundPrepaymentAggregatedErrorsResponseException;
 import com.maxio.advancedbilling.exceptions.RefundPrepaymentBaseErrorsResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.AccountBalances;
@@ -221,6 +219,9 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ServiceCredit.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -265,7 +266,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))
@@ -286,7 +287,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      */
     public PrepaymentResponse refundPrepayment(
             final int subscriptionId,
-            final String prepaymentId,
+            final long prepaymentId,
             final RefundPrepaymentRequest body) throws ApiException, IOException {
         return prepareRefundPrepaymentRequest(subscriptionId, prepaymentId, body).execute();
     }
@@ -296,7 +297,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      */
     private ApiCall<PrepaymentResponse, ApiException> prepareRefundPrepaymentRequest(
             final int subscriptionId,
-            final String prepaymentId,
+            final long prepaymentId,
             final RefundPrepaymentRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<PrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -307,7 +308,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
-                        .templateParam(param -> param.key("prepayment_id").value(prepaymentId)
+                        .templateParam(param -> param.key("prepayment_id").value(prepaymentId).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -327,7 +328,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
                                 (reason, context) -> new RefundPrepaymentBaseErrorsResponseException(reason, context)))
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new RefundPrepaymentAggregatedErrorsResponseException(reason, context)))
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .endpointConfiguration(param -> param
                                 .arraySerializationFormat(ArraySerializationFormat.CSV))

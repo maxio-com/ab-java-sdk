@@ -2,7 +2,7 @@ package com.maxio.advancedbilling.controllers.productpricepoints;
 
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BasicDateField;
-import com.maxio.advancedbilling.models.IncludeNotNull;
+import com.maxio.advancedbilling.models.IncludeNullOrNotNull;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListAllProductPricePointsInput;
 import com.maxio.advancedbilling.models.ListPricePointsFilter;
@@ -132,7 +132,7 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
                                         new ListPricePointsFilter.Builder()
                                                 .dateField(BasicDateField.CREATED_AT)
                                                 .startDatetime(product.getCreatedAt())
-                                                .archivedAt(IncludeNotNull.NOT_NULL)
+                                                .archivedAt(IncludeNullOrNotNull.NOT_NULL)
                                                 .build())
                                 .build())
                 .getPricePoints();

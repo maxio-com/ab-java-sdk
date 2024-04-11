@@ -175,9 +175,9 @@ IssueServiceCreditRequest body = new IssueServiceCreditRequest.Builder(
     new IssueServiceCredit.Builder(
         IssueServiceCreditAmount.fromPrecision(
             10D
-        ),
-        "Credit the group account"
+        )
     )
+    .memo("Credit the group account")
     .build()
 )
 .build();
@@ -242,9 +242,9 @@ DeductServiceCreditRequest body = new DeductServiceCreditRequest.Builder(
     new DeductServiceCredit.Builder(
         DeductServiceCreditAmount.fromPrecision(
             10D
-        ),
-        "Deduct from group account"
+        )
     )
+    .memo("Deduct from group account")
     .build()
 )
 .build();
