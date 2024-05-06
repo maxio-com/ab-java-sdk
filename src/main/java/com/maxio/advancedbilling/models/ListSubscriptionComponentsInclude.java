@@ -17,7 +17,9 @@ import java.util.TreeMap;
  * ListSubscriptionComponentsInclude to be used.
  */
 public enum ListSubscriptionComponentsInclude {
-    SUBSCRIPTION;
+    SUBSCRIPTION,
+
+    HISTORIC_USAGES;
 
 
     private static TreeMap<String, ListSubscriptionComponentsInclude> valueMap = new TreeMap<>();
@@ -25,8 +27,10 @@ public enum ListSubscriptionComponentsInclude {
 
     static {
         SUBSCRIPTION.value = "subscription";
+        HISTORIC_USAGES.value = "historic_usages";
 
         valueMap.put("subscription", SUBSCRIPTION);
+        valueMap.put("historic_usages", HISTORIC_USAGES);
     }
 
     /**

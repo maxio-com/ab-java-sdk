@@ -62,14 +62,13 @@ public final class SitesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SiteResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -105,12 +104,11 @@ public final class SitesController extends BaseController {
                                 .value((cleanupScope != null) ? cleanupScope.value() : "all").isRequired(false))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -143,14 +141,13 @@ public final class SitesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListPublicKeysResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

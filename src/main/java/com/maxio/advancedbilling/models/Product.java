@@ -44,7 +44,7 @@ public class Product
     private OptionalNullable<String> returnParams;
     private Boolean taxable;
     private OptionalNullable<String> updateReturnUrl;
-    private Boolean initialChargeAfterTrial;
+    private OptionalNullable<Boolean> initialChargeAfterTrial;
     private Integer versionNumber;
     private OptionalNullable<String> updateReturnParams;
     private ProductFamily productFamily;
@@ -166,7 +166,7 @@ public class Product
         this.returnParams = OptionalNullable.of(returnParams);
         this.taxable = taxable;
         this.updateReturnUrl = OptionalNullable.of(updateReturnUrl);
-        this.initialChargeAfterTrial = initialChargeAfterTrial;
+        this.initialChargeAfterTrial = OptionalNullable.of(initialChargeAfterTrial);
         this.versionNumber = versionNumber;
         this.updateReturnParams = OptionalNullable.of(updateReturnParams);
         this.productFamily = productFamily;
@@ -234,14 +234,15 @@ public class Product
             OptionalNullable<IntervalUnit> trialIntervalUnit,
             OptionalNullable<ZonedDateTime> archivedAt, Boolean requireCreditCard,
             OptionalNullable<String> returnParams, Boolean taxable,
-            OptionalNullable<String> updateReturnUrl, Boolean initialChargeAfterTrial,
-            Integer versionNumber, OptionalNullable<String> updateReturnParams,
-            ProductFamily productFamily, List<PublicSignupPage> publicSignupPages,
-            String productPricePointName, Boolean requestBillingAddress,
-            Boolean requireBillingAddress, Boolean requireShippingAddress,
-            OptionalNullable<String> taxCode, Integer defaultProductPricePointId,
-            OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> itemCategory,
-            Integer productPricePointId, OptionalNullable<String> productPricePointHandle) {
+            OptionalNullable<String> updateReturnUrl,
+            OptionalNullable<Boolean> initialChargeAfterTrial, Integer versionNumber,
+            OptionalNullable<String> updateReturnParams, ProductFamily productFamily,
+            List<PublicSignupPage> publicSignupPages, String productPricePointName,
+            Boolean requestBillingAddress, Boolean requireBillingAddress,
+            Boolean requireShippingAddress, OptionalNullable<String> taxCode,
+            Integer defaultProductPricePointId, OptionalNullable<Boolean> useSiteExchangeRate,
+            OptionalNullable<String> itemCategory, Integer productPricePointId,
+            OptionalNullable<String> productPricePointHandle) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -979,13 +980,22 @@ public class Product
     }
 
     /**
-     * Getter for InitialChargeAfterTrial.
-     * @return Returns the Boolean
+     * Internal Getter for InitialChargeAfterTrial.
+     * @return Returns the Internal Boolean
      */
     @JsonGetter("initial_charge_after_trial")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetInitialChargeAfterTrial() {
+        return this.initialChargeAfterTrial;
+    }
+
+    /**
+     * Getter for InitialChargeAfterTrial.
+     * @return Returns the Boolean
+     */
     public Boolean getInitialChargeAfterTrial() {
-        return initialChargeAfterTrial;
+        return OptionalNullable.getFrom(initialChargeAfterTrial);
     }
 
     /**
@@ -994,7 +1004,14 @@ public class Product
      */
     @JsonSetter("initial_charge_after_trial")
     public void setInitialChargeAfterTrial(Boolean initialChargeAfterTrial) {
-        this.initialChargeAfterTrial = initialChargeAfterTrial;
+        this.initialChargeAfterTrial = OptionalNullable.of(initialChargeAfterTrial);
+    }
+
+    /**
+     * UnSetter for InitialChargeAfterTrial.
+     */
+    public void unsetInitialChargeAfterTrial() {
+        initialChargeAfterTrial = null;
     }
 
     /**
@@ -1431,7 +1448,6 @@ public class Product
                 .intervalUnit(getIntervalUnit())
                 .requireCreditCard(getRequireCreditCard())
                 .taxable(getTaxable())
-                .initialChargeAfterTrial(getInitialChargeAfterTrial())
                 .versionNumber(getVersionNumber())
                 .productFamily(getProductFamily())
                 .publicSignupPages(getPublicSignupPages())
@@ -1453,6 +1469,7 @@ public class Product
         builder.archivedAt = internalGetArchivedAt();
         builder.returnParams = internalGetReturnParams();
         builder.updateReturnUrl = internalGetUpdateReturnUrl();
+        builder.initialChargeAfterTrial = internalGetInitialChargeAfterTrial();
         builder.updateReturnParams = internalGetUpdateReturnParams();
         builder.taxCode = internalGetTaxCode();
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
@@ -1487,7 +1504,7 @@ public class Product
         private OptionalNullable<String> returnParams;
         private Boolean taxable;
         private OptionalNullable<String> updateReturnUrl;
-        private Boolean initialChargeAfterTrial;
+        private OptionalNullable<Boolean> initialChargeAfterTrial;
         private Integer versionNumber;
         private OptionalNullable<String> updateReturnParams;
         private ProductFamily productFamily;
@@ -1839,7 +1856,16 @@ public class Product
          * @return Builder
          */
         public Builder initialChargeAfterTrial(Boolean initialChargeAfterTrial) {
-            this.initialChargeAfterTrial = initialChargeAfterTrial;
+            this.initialChargeAfterTrial = OptionalNullable.of(initialChargeAfterTrial);
+            return this;
+        }
+
+        /**
+         * UnSetter for initialChargeAfterTrial.
+         * @return Builder
+         */
+        public Builder unsetInitialChargeAfterTrial() {
+            initialChargeAfterTrial = null;
             return this;
         }
 

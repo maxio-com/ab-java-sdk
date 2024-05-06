@@ -75,6 +75,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -84,8 +85,6 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -122,6 +121,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -131,8 +131,6 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -172,6 +170,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -181,8 +180,6 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -221,6 +218,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -230,8 +228,6 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

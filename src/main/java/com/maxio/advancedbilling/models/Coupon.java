@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.CouponCompoundingStrategy;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -44,7 +43,7 @@ public class Coupon
     private OptionalNullable<ZonedDateTime> archivedAt;
     private OptionalNullable<String> conversionLimit;
     private Boolean stackable;
-    private CouponCompoundingStrategy compoundingStrategy;
+    private OptionalNullable<CompoundingStrategy> compoundingStrategy;
     private Boolean useSiteExchangeRate;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
@@ -83,7 +82,7 @@ public class Coupon
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
-     * @param  compoundingStrategy  CouponCompoundingStrategy value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
@@ -115,7 +114,7 @@ public class Coupon
             ZonedDateTime archivedAt,
             String conversionLimit,
             Boolean stackable,
-            CouponCompoundingStrategy compoundingStrategy,
+            CompoundingStrategy compoundingStrategy,
             Boolean useSiteExchangeRate,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
@@ -145,7 +144,7 @@ public class Coupon
         this.archivedAt = OptionalNullable.of(archivedAt);
         this.conversionLimit = OptionalNullable.of(conversionLimit);
         this.stackable = stackable;
-        this.compoundingStrategy = compoundingStrategy;
+        this.compoundingStrategy = OptionalNullable.of(compoundingStrategy);
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -179,7 +178,7 @@ public class Coupon
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
-     * @param  compoundingStrategy  CouponCompoundingStrategy value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
@@ -200,7 +199,7 @@ public class Coupon
             OptionalNullable<String> durationIntervalUnit,
             OptionalNullable<String> durationIntervalSpan, Boolean allowNegativeBalance,
             OptionalNullable<ZonedDateTime> archivedAt, OptionalNullable<String> conversionLimit,
-            Boolean stackable, CouponCompoundingStrategy compoundingStrategy,
+            Boolean stackable, OptionalNullable<CompoundingStrategy> compoundingStrategy,
             Boolean useSiteExchangeRate, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             DiscountType discountType, Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod, Boolean applyOnSubscriptionExpiration,
@@ -817,22 +816,38 @@ public class Coupon
     }
 
     /**
-     * Getter for CompoundingStrategy.
-     * @return Returns the CouponCompoundingStrategy
+     * Internal Getter for CompoundingStrategy.
+     * @return Returns the Internal CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CouponCompoundingStrategy getCompoundingStrategy() {
-        return compoundingStrategy;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CompoundingStrategy> internalGetCompoundingStrategy() {
+        return this.compoundingStrategy;
+    }
+
+    /**
+     * Getter for CompoundingStrategy.
+     * @return Returns the CompoundingStrategy
+     */
+    public CompoundingStrategy getCompoundingStrategy() {
+        return OptionalNullable.getFrom(compoundingStrategy);
     }
 
     /**
      * Setter for CompoundingStrategy.
-     * @param compoundingStrategy Value for CouponCompoundingStrategy
+     * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CouponCompoundingStrategy compoundingStrategy) {
-        this.compoundingStrategy = compoundingStrategy;
+    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
+        this.compoundingStrategy = OptionalNullable.of(compoundingStrategy);
+    }
+
+    /**
+     * UnSetter for CompoundingStrategy.
+     */
+    public void unsetCompoundingStrategy() {
+        compoundingStrategy = null;
     }
 
     /**
@@ -1033,7 +1048,6 @@ public class Coupon
                 .recurringScheme(getRecurringScheme())
                 .allowNegativeBalance(getAllowNegativeBalance())
                 .stackable(getStackable())
-                .compoundingStrategy(getCompoundingStrategy())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
@@ -1053,6 +1067,7 @@ public class Coupon
         builder.durationIntervalSpan = internalGetDurationIntervalSpan();
         builder.archivedAt = internalGetArchivedAt();
         builder.conversionLimit = internalGetConversionLimit();
+        builder.compoundingStrategy = internalGetCompoundingStrategy();
         return builder;
     }
 
@@ -1081,7 +1096,7 @@ public class Coupon
         private OptionalNullable<ZonedDateTime> archivedAt;
         private OptionalNullable<String> conversionLimit;
         private Boolean stackable;
-        private CouponCompoundingStrategy compoundingStrategy;
+        private OptionalNullable<CompoundingStrategy> compoundingStrategy;
         private Boolean useSiteExchangeRate;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
@@ -1404,11 +1419,20 @@ public class Coupon
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CouponCompoundingStrategy value for compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(CouponCompoundingStrategy compoundingStrategy) {
-            this.compoundingStrategy = compoundingStrategy;
+        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
+            this.compoundingStrategy = OptionalNullable.of(compoundingStrategy);
+            return this;
+        }
+
+        /**
+         * UnSetter for compoundingStrategy.
+         * @return Builder
+         */
+        public Builder unsetCompoundingStrategy() {
+            compoundingStrategy = null;
             return this;
         }
 

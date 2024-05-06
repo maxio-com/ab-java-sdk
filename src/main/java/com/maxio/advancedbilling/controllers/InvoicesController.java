@@ -93,6 +93,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -102,8 +103,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -179,19 +178,23 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListInvoicesResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
     /**
-     * Use this endpoint to retrieve the details for an invoice.
+     * Use this endpoint to retrieve the details for an invoice. ## PDF Invoice retrieval Individual
+     * PDF Invoices can be retrieved by using the "Accept" header application/pdf or appending .pdf
+     * as the format portion of the URL: ```curl -u &lt;api_key&gt;:x -H Accept:application/pdf -H
+     * https://acme.chargify.com/invoices/inv_8gd8tdhtd3hgr.pdf &gt; output_file.pdf URL:
+     * `https://&lt;subdomain&gt;.chargify.com/invoices/&lt;uid&gt;.&lt;format&gt;` Method: GET Required parameters:
+     * `uid` Response: A single Invoice. ```.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
      * @return    Returns the Invoice response from the API call
@@ -218,14 +221,13 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, Invoice.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -276,14 +278,13 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListInvoiceEventsResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -339,6 +340,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -348,8 +350,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -389,6 +389,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -398,8 +399,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -447,14 +446,13 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListCreditNotesResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -485,14 +483,13 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CreditNote.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -534,6 +531,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -543,8 +541,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -587,6 +583,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -599,8 +596,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -641,6 +636,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -653,8 +649,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -692,14 +686,13 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ConsolidatedInvoice.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -804,6 +797,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -813,8 +807,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -861,6 +853,7 @@ public final class InvoicesController extends BaseController {
                                 .value("application/json").isRequired(false))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
@@ -868,8 +861,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -905,6 +896,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -917,8 +909,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -954,6 +944,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -966,8 +957,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -1024,6 +1013,7 @@ public final class InvoicesController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -1036,8 +1026,6 @@ public final class InvoicesController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

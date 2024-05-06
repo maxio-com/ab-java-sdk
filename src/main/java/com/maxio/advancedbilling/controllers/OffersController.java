@@ -72,6 +72,7 @@ public final class OffersController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -81,8 +82,6 @@ public final class OffersController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -117,14 +116,13 @@ public final class OffersController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListOffersResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -156,14 +154,13 @@ public final class OffersController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, OfferResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -192,12 +189,11 @@ public final class OffersController extends BaseController {
                                 .shouldEncode(true))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -227,12 +223,11 @@ public final class OffersController extends BaseController {
                                 .shouldEncode(true))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.PUT))
                 .responseHandler(responseHandler -> responseHandler
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

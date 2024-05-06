@@ -39,7 +39,7 @@ public class Component
     private OptionalNullable<List<ComponentPrice>> overagePrices;
     private OptionalNullable<List<ComponentPrice>> prices;
     private Integer pricePointCount;
-    private String pricePointsUrl;
+    private OptionalNullable<String> pricePointsUrl;
     private String defaultPricePointName;
     private OptionalNullable<String> taxCode;
     private Boolean recurring;
@@ -152,7 +152,7 @@ public class Component
         this.overagePrices = OptionalNullable.of(overagePrices);
         this.prices = OptionalNullable.of(prices);
         this.pricePointCount = pricePointCount;
-        this.pricePointsUrl = pricePointsUrl;
+        this.pricePointsUrl = OptionalNullable.of(pricePointsUrl);
         this.defaultPricePointName = defaultPricePointName;
         this.taxCode = OptionalNullable.of(taxCode);
         this.recurring = recurring;
@@ -217,8 +217,9 @@ public class Component
             OptionalNullable<Integer> defaultPricePointId,
             OptionalNullable<List<ComponentPrice>> overagePrices,
             OptionalNullable<List<ComponentPrice>> prices, Integer pricePointCount,
-            String pricePointsUrl, String defaultPricePointName, OptionalNullable<String> taxCode,
-            Boolean recurring, OptionalNullable<CreditType> upgradeCharge,
+            OptionalNullable<String> pricePointsUrl, String defaultPricePointName,
+            OptionalNullable<String> taxCode, Boolean recurring,
+            OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, ZonedDateTime createdAt,
             ZonedDateTime updatedAt, OptionalNullable<ZonedDateTime> archivedAt,
             Boolean hideDateRangeOnInvoice, Boolean allowFractionalQuantities,
@@ -769,14 +770,24 @@ public class Component
     }
 
     /**
+     * Internal Getter for PricePointsUrl.
+     * URL that points to the location to read the existing price points via GET request
+     * @return Returns the Internal String
+     */
+    @JsonGetter("price_points_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPricePointsUrl() {
+        return this.pricePointsUrl;
+    }
+
+    /**
      * Getter for PricePointsUrl.
      * URL that points to the location to read the existing price points via GET request
      * @return Returns the String
      */
-    @JsonGetter("price_points_url")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPricePointsUrl() {
-        return pricePointsUrl;
+        return OptionalNullable.getFrom(pricePointsUrl);
     }
 
     /**
@@ -786,7 +797,15 @@ public class Component
      */
     @JsonSetter("price_points_url")
     public void setPricePointsUrl(String pricePointsUrl) {
-        this.pricePointsUrl = pricePointsUrl;
+        this.pricePointsUrl = OptionalNullable.of(pricePointsUrl);
+    }
+
+    /**
+     * UnSetter for PricePointsUrl.
+     * URL that points to the location to read the existing price points via GET request
+     */
+    public void unsetPricePointsUrl() {
+        pricePointsUrl = null;
     }
 
     /**
@@ -1317,7 +1336,6 @@ public class Component
                 .archived(getArchived())
                 .taxable(getTaxable())
                 .pricePointCount(getPricePointCount())
-                .pricePointsUrl(getPricePointsUrl())
                 .defaultPricePointName(getDefaultPricePointName())
                 .recurring(getRecurring())
                 .createdAt(getCreatedAt())
@@ -1335,6 +1353,7 @@ public class Component
         builder.defaultPricePointId = internalGetDefaultPricePointId();
         builder.overagePrices = internalGetOveragePrices();
         builder.prices = internalGetPrices();
+        builder.pricePointsUrl = internalGetPricePointsUrl();
         builder.taxCode = internalGetTaxCode();
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
@@ -1366,7 +1385,7 @@ public class Component
         private OptionalNullable<List<ComponentPrice>> overagePrices;
         private OptionalNullable<List<ComponentPrice>> prices;
         private Integer pricePointCount;
-        private String pricePointsUrl;
+        private OptionalNullable<String> pricePointsUrl;
         private String defaultPricePointName;
         private OptionalNullable<String> taxCode;
         private Boolean recurring;
@@ -1634,7 +1653,16 @@ public class Component
          * @return Builder
          */
         public Builder pricePointsUrl(String pricePointsUrl) {
-            this.pricePointsUrl = pricePointsUrl;
+            this.pricePointsUrl = OptionalNullable.of(pricePointsUrl);
+            return this;
+        }
+
+        /**
+         * UnSetter for pricePointsUrl.
+         * @return Builder
+         */
+        public Builder unsetPricePointsUrl() {
+            pricePointsUrl = null;
             return this;
         }
 

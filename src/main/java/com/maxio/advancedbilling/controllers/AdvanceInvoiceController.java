@@ -36,15 +36,16 @@ public final class AdvanceInvoiceController extends BaseController {
 
     /**
      * Generate an invoice in advance for a subscription's next renewal date. [Please see our
-     * docs]($m/Invoice) for more information on advance invoices, including eligibility on
-     * generating one; for the most part, they function like any other invoice, except they are
-     * issued early and have special behavior upon being voided. A subscription may only have one
-     * advance invoice per billing period. Attempting to issue an advance invoice when one already
-     * exists will return an error. That said, regeneration of the invoice may be forced with the
-     * params `force: true`, which will void an advance invoice if one exists and generate a new
-     * one. If no advance invoice exists, a new one will be generated. We recommend using either the
-     * create or preview endpoints for proforma invoices to preview this advance invoice before
-     * using this endpoint to generate it.
+     * docs](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404811062541-Issue-Invoice-In-Advance
+     * ) for more information on advance invoices, including eligibility on generating one; for the
+     * most part, they function like any other invoice, except they are issued early and have
+     * special behavior upon being voided. A subscription may only have one advance invoice per
+     * billing period. Attempting to issue an advance invoice when one already exists will return an
+     * error. That said, regeneration of the invoice may be forced with the params `force: true`,
+     * which will void an advance invoice if one exists and generate a new one. If no advance
+     * invoice exists, a new one will be generated. We recommend using either the create or preview
+     * endpoints for proforma invoices to preview this advance invoice before using this endpoint to
+     * generate it.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter: Example:
      * @return    Returns the Invoice response from the API call
@@ -77,6 +78,7 @@ public final class AdvanceInvoiceController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -89,8 +91,6 @@ public final class AdvanceInvoiceController extends BaseController {
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
                                 (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -123,6 +123,7 @@ public final class AdvanceInvoiceController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -132,8 +133,6 @@ public final class AdvanceInvoiceController extends BaseController {
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 
@@ -175,6 +174,7 @@ public final class AdvanceInvoiceController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -184,8 +184,6 @@ public final class AdvanceInvoiceController extends BaseController {
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
-                .endpointConfiguration(param -> param
-                                .arraySerializationFormat(ArraySerializationFormat.CSV))
                 .build();
     }
 }

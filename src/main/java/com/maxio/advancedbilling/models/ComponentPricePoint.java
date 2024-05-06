@@ -28,7 +28,7 @@ public class ComponentPricePoint
     private String name;
     private PricingScheme pricingScheme;
     private Integer componentId;
-    private String handle;
+    private OptionalNullable<String> handle;
     private OptionalNullable<ZonedDateTime> archivedAt;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
@@ -90,7 +90,7 @@ public class ComponentPricePoint
         this.name = name;
         this.pricingScheme = pricingScheme;
         this.componentId = componentId;
-        this.handle = handle;
+        this.handle = OptionalNullable.of(handle);
         this.archivedAt = OptionalNullable.of(archivedAt);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -125,7 +125,7 @@ public class ComponentPricePoint
      */
 
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
-            PricingScheme pricingScheme, Integer componentId, String handle,
+            PricingScheme pricingScheme, Integer componentId, OptionalNullable<String> handle,
             OptionalNullable<ZonedDateTime> archivedAt, ZonedDateTime createdAt,
             ZonedDateTime updatedAt, List<ComponentPrice> prices, Boolean useSiteExchangeRate,
             Integer subscriptionId, Boolean taxIncluded, OptionalNullable<Integer> interval,
@@ -281,13 +281,22 @@ public class ComponentPricePoint
     }
 
     /**
-     * Getter for Handle.
-     * @return Returns the String
+     * Internal Getter for Handle.
+     * @return Returns the Internal String
      */
     @JsonGetter("handle")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetHandle() {
+        return this.handle;
+    }
+
+    /**
+     * Getter for Handle.
+     * @return Returns the String
+     */
     public String getHandle() {
-        return handle;
+        return OptionalNullable.getFrom(handle);
     }
 
     /**
@@ -296,7 +305,14 @@ public class ComponentPricePoint
      */
     @JsonSetter("handle")
     public void setHandle(String handle) {
-        this.handle = handle;
+        this.handle = OptionalNullable.of(handle);
+    }
+
+    /**
+     * UnSetter for Handle.
+     */
+    public void unsetHandle() {
+        handle = null;
     }
 
     /**
@@ -607,7 +623,6 @@ public class ComponentPricePoint
                 .name(getName())
                 .pricingScheme(getPricingScheme())
                 .componentId(getComponentId())
-                .handle(getHandle())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .prices(getPrices())
@@ -615,6 +630,7 @@ public class ComponentPricePoint
                 .subscriptionId(getSubscriptionId())
                 .taxIncluded(getTaxIncluded())
                 .currencyPrices(getCurrencyPrices());
+        builder.handle = internalGetHandle();
         builder.archivedAt = internalGetArchivedAt();
         builder.interval = internalGetInterval();
         builder.intervalUnit = internalGetIntervalUnit();
@@ -631,7 +647,7 @@ public class ComponentPricePoint
         private String name;
         private PricingScheme pricingScheme;
         private Integer componentId;
-        private String handle;
+        private OptionalNullable<String> handle;
         private OptionalNullable<ZonedDateTime> archivedAt;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
@@ -711,7 +727,16 @@ public class ComponentPricePoint
          * @return Builder
          */
         public Builder handle(String handle) {
-            this.handle = handle;
+            this.handle = OptionalNullable.of(handle);
+            return this;
+        }
+
+        /**
+         * UnSetter for handle.
+         * @return Builder
+         */
+        public Builder unsetHandle() {
+            handle = null;
             return this;
         }
 
