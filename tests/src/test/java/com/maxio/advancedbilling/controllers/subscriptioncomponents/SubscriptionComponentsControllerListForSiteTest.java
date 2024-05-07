@@ -73,7 +73,7 @@ public class SubscriptionComponentsControllerListForSiteTest {
                 .listSubscriptionComponents(new ListSubscriptionComponentsInput()
                         .toBuilder()
                         .subscriptionId(subscription.getId())
-                        .include(ListSubscriptionComponentsInclude.SUBSCRIPTION)
+                        .include(List.of(ListSubscriptionComponentsInclude.SUBSCRIPTION))
                         .build()
                 );
     }

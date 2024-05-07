@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -77,7 +78,7 @@ public class SubscriptionComponentsControllerListTest {
                 .listSubscriptionComponents(new ListSubscriptionComponentsInput()
                         .toBuilder()
                         .subscriptionId(subscription.getId())
-                        .include(ListSubscriptionComponentsInclude.SUBSCRIPTION)
+                        .include(Collections.singletonList(ListSubscriptionComponentsInclude.SUBSCRIPTION))
                         .build()
                 )
                 .stream().map(SubscriptionComponentResponse::getComponent).toList();
