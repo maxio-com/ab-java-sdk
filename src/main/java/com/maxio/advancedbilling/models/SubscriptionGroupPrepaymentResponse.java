@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for SubscriptionGroupPrepaymentResponse type.
@@ -20,7 +22,7 @@ public class SubscriptionGroupPrepaymentResponse
     private Long amountInCents;
     private Long endingBalanceInCents;
     private ServiceCreditType entryType;
-    private String memo;
+    private OptionalNullable<String> memo;
 
     /**
      * Default constructor.
@@ -42,6 +44,25 @@ public class SubscriptionGroupPrepaymentResponse
             Long endingBalanceInCents,
             ServiceCreditType entryType,
             String memo) {
+        this.id = id;
+        this.amountInCents = amountInCents;
+        this.endingBalanceInCents = endingBalanceInCents;
+        this.entryType = entryType;
+        this.memo = OptionalNullable.of(memo);
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  amountInCents  Long value for amountInCents.
+     * @param  endingBalanceInCents  Long value for endingBalanceInCents.
+     * @param  entryType  ServiceCreditType value for entryType.
+     * @param  memo  String value for memo.
+     */
+
+    protected SubscriptionGroupPrepaymentResponse(Integer id, Long amountInCents,
+            Long endingBalanceInCents, ServiceCreditType entryType,
+            OptionalNullable<String> memo) {
         this.id = id;
         this.amountInCents = amountInCents;
         this.endingBalanceInCents = endingBalanceInCents;
@@ -132,14 +153,24 @@ public class SubscriptionGroupPrepaymentResponse
     }
 
     /**
+     * Internal Getter for Memo.
+     * A memo attached to the entry.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("memo")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMemo() {
+        return this.memo;
+    }
+
+    /**
      * Getter for Memo.
      * A memo attached to the entry.
      * @return Returns the String
      */
-    @JsonGetter("memo")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMemo() {
-        return memo;
+        return OptionalNullable.getFrom(memo);
     }
 
     /**
@@ -149,7 +180,15 @@ public class SubscriptionGroupPrepaymentResponse
      */
     @JsonSetter("memo")
     public void setMemo(String memo) {
-        this.memo = memo;
+        this.memo = OptionalNullable.of(memo);
+    }
+
+    /**
+     * UnSetter for Memo.
+     * A memo attached to the entry.
+     */
+    public void unsetMemo() {
+        memo = null;
     }
 
     /**
@@ -174,8 +213,8 @@ public class SubscriptionGroupPrepaymentResponse
                 .id(getId())
                 .amountInCents(getAmountInCents())
                 .endingBalanceInCents(getEndingBalanceInCents())
-                .entryType(getEntryType())
-                .memo(getMemo());
+                .entryType(getEntryType());
+        builder.memo = internalGetMemo();
         return builder;
     }
 
@@ -187,7 +226,7 @@ public class SubscriptionGroupPrepaymentResponse
         private Long amountInCents;
         private Long endingBalanceInCents;
         private ServiceCreditType entryType;
-        private String memo;
+        private OptionalNullable<String> memo;
 
 
 
@@ -237,7 +276,16 @@ public class SubscriptionGroupPrepaymentResponse
          * @return Builder
          */
         public Builder memo(String memo) {
-            this.memo = memo;
+            this.memo = OptionalNullable.of(memo);
+            return this;
+        }
+
+        /**
+         * UnSetter for memo.
+         * @return Builder
+         */
+        public Builder unsetMemo() {
+            memo = null;
             return this;
         }
 

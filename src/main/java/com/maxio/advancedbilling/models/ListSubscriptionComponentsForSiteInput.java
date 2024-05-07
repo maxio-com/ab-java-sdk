@@ -401,7 +401,8 @@ public class ListSubscriptionComponentsForSiteInput {
 
     /**
      * Getter for Include.
-     * Allows including additional data in the response. Use in query `include=subscription`.
+     * Allows including additional data in the response. Use in query
+     * `include=subscription,historic_usages`.
      * @return Returns the ListSubscriptionComponentsInclude
      */
     @JsonGetter("include")
@@ -412,7 +413,8 @@ public class ListSubscriptionComponentsForSiteInput {
 
     /**
      * Setter for Include.
-     * Allows including additional data in the response. Use in query `include=subscription`.
+     * Allows including additional data in the response. Use in query
+     * `include=subscription,historic_usages`.
      * @param include Value for ListSubscriptionComponentsInclude
      */
     @JsonSetter("include")

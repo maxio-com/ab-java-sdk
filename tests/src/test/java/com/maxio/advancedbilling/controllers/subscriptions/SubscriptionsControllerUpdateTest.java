@@ -147,14 +147,14 @@ public class SubscriptionsControllerUpdateTest {
         assertThat(subscriptionComponent1.getName()).isEqualTo(component1.getName());
         PricingScheme pricingScheme1 = subscriptionComponent1.getPricingScheme();
         assertThat(pricingScheme1).isEqualTo(PricingScheme.STAIRSTEP);
-        PricePointType pricePointType1 = subscriptionComponent1.getPricePointType().match(p -> p);
+        PricePointType pricePointType1 = subscriptionComponent1.getPricePointType();
         assertThat(pricePointType1).isEqualTo(PricePointType.CUSTOM);
 
         SubscriptionComponent subscriptionComponent2 = componentMap.get(component2.getId());
         assertThat(subscriptionComponent2.getName()).isEqualTo(component2.getName());
         PricingScheme pricingScheme2 = subscriptionComponent2.getPricingScheme();
         assertThat(pricingScheme2).isEqualTo(PricingScheme.PER_UNIT);
-        PricePointType pricePointType2 = subscriptionComponent2.getPricePointType().match(p -> p);
+        PricePointType pricePointType2 = subscriptionComponent2.getPricePointType();
         assertThat(pricePointType2).isEqualTo(PricePointType.ENUM_DEFAULT);
 
         ComponentPricePointsResponse customPricePoint1 = CLIENT.getComponentsController().listComponentPricePoints(new ListComponentPricePointsInput.Builder()

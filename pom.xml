@@ -46,17 +46,17 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core-interfaces</artifactId>
-      <version>[0.2, 0.3)</version>
+      <version>[0.3, 0.4)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core</artifactId>
-      <version>[0.5, 0.6)</version>
+      <version>[0.6, 0.7)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>okhttp-client-adapter</artifactId>
-      <version>[0.2, 0.3)</version>
+      <version>[0.3, 0.4)</version>
     </dependency>
   </dependencies>
   <build>

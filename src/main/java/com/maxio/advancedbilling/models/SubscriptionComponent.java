@@ -13,10 +13,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.SubscriptionComponentAllocatedQuantity;
-import com.maxio.advancedbilling.models.containers.SubscriptionComponentPricePointType;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * This is a model class for SubscriptionComponent type.
@@ -41,7 +41,7 @@ public class SubscriptionComponent
     private OptionalNullable<ZonedDateTime> archivedAt;
     private OptionalNullable<Integer> pricePointId;
     private OptionalNullable<String> pricePointHandle;
-    private SubscriptionComponentPricePointType pricePointType;
+    private OptionalNullable<PricePointType> pricePointType;
     private OptionalNullable<String> pricePointName;
     private Integer productFamilyId;
     private String productFamilyHandle;
@@ -51,6 +51,7 @@ public class SubscriptionComponent
     private OptionalNullable<String> description;
     private Boolean allowFractionalQuantities;
     private SubscriptionComponentSubscription subscription;
+    private List<HistoricUsage> historicUsages;
     private Boolean displayOnHostedPage;
     private Integer interval;
     private IntervalUnit intervalUnit;
@@ -82,7 +83,7 @@ public class SubscriptionComponent
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
-     * @param  pricePointType  SubscriptionComponentPricePointType value for pricePointType.
+     * @param  pricePointType  PricePointType value for pricePointType.
      * @param  pricePointName  String value for pricePointName.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyHandle  String value for productFamilyHandle.
@@ -92,6 +93,7 @@ public class SubscriptionComponent
      * @param  description  String value for description.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  subscription  SubscriptionComponentSubscription value for subscription.
+     * @param  historicUsages  List of HistoricUsage value for historicUsages.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
@@ -115,7 +117,7 @@ public class SubscriptionComponent
             ZonedDateTime archivedAt,
             Integer pricePointId,
             String pricePointHandle,
-            SubscriptionComponentPricePointType pricePointType,
+            PricePointType pricePointType,
             String pricePointName,
             Integer productFamilyId,
             String productFamilyHandle,
@@ -125,6 +127,7 @@ public class SubscriptionComponent
             String description,
             Boolean allowFractionalQuantities,
             SubscriptionComponentSubscription subscription,
+            List<HistoricUsage> historicUsages,
             Boolean displayOnHostedPage,
             Integer interval,
             IntervalUnit intervalUnit) {
@@ -146,7 +149,7 @@ public class SubscriptionComponent
         this.archivedAt = OptionalNullable.of(archivedAt);
         this.pricePointId = OptionalNullable.of(pricePointId);
         this.pricePointHandle = OptionalNullable.of(pricePointHandle);
-        this.pricePointType = pricePointType;
+        this.pricePointType = OptionalNullable.of(pricePointType);
         this.pricePointName = OptionalNullable.of(pricePointName);
         this.productFamilyId = productFamilyId;
         this.productFamilyHandle = productFamilyHandle;
@@ -156,6 +159,7 @@ public class SubscriptionComponent
         this.description = OptionalNullable.of(description);
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.subscription = subscription;
+        this.historicUsages = historicUsages;
         this.displayOnHostedPage = displayOnHostedPage;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
@@ -182,7 +186,7 @@ public class SubscriptionComponent
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  pricePointId  Integer value for pricePointId.
      * @param  pricePointHandle  String value for pricePointHandle.
-     * @param  pricePointType  SubscriptionComponentPricePointType value for pricePointType.
+     * @param  pricePointType  PricePointType value for pricePointType.
      * @param  pricePointName  String value for pricePointName.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyHandle  String value for productFamilyHandle.
@@ -192,6 +196,7 @@ public class SubscriptionComponent
      * @param  description  String value for description.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  subscription  SubscriptionComponentSubscription value for subscription.
+     * @param  historicUsages  List of HistoricUsage value for historicUsages.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
@@ -206,12 +211,13 @@ public class SubscriptionComponent
             OptionalNullable<CreditType> downgradeCredit,
             OptionalNullable<ZonedDateTime> archivedAt, OptionalNullable<Integer> pricePointId,
             OptionalNullable<String> pricePointHandle,
-            SubscriptionComponentPricePointType pricePointType,
+            OptionalNullable<PricePointType> pricePointType,
             OptionalNullable<String> pricePointName, Integer productFamilyId,
             String productFamilyHandle, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> description,
             Boolean allowFractionalQuantities, SubscriptionComponentSubscription subscription,
-            Boolean displayOnHostedPage, Integer interval, IntervalUnit intervalUnit) {
+            List<HistoricUsage> historicUsages, Boolean displayOnHostedPage, Integer interval,
+            IntervalUnit intervalUnit) {
         this.id = id;
         this.name = name;
         this.kind = kind;
@@ -240,6 +246,7 @@ public class SubscriptionComponent
         this.description = description;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.subscription = subscription;
+        this.historicUsages = historicUsages;
         this.displayOnHostedPage = displayOnHostedPage;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
@@ -725,22 +732,38 @@ public class SubscriptionComponent
     }
 
     /**
-     * Getter for PricePointType.
-     * @return Returns the SubscriptionComponentPricePointType
+     * Internal Getter for PricePointType.
+     * @return Returns the Internal PricePointType
      */
     @JsonGetter("price_point_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionComponentPricePointType getPricePointType() {
-        return pricePointType;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<PricePointType> internalGetPricePointType() {
+        return this.pricePointType;
+    }
+
+    /**
+     * Getter for PricePointType.
+     * @return Returns the PricePointType
+     */
+    public PricePointType getPricePointType() {
+        return OptionalNullable.getFrom(pricePointType);
     }
 
     /**
      * Setter for PricePointType.
-     * @param pricePointType Value for SubscriptionComponentPricePointType
+     * @param pricePointType Value for PricePointType
      */
     @JsonSetter("price_point_type")
-    public void setPricePointType(SubscriptionComponentPricePointType pricePointType) {
-        this.pricePointType = pricePointType;
+    public void setPricePointType(PricePointType pricePointType) {
+        this.pricePointType = OptionalNullable.of(pricePointType);
+    }
+
+    /**
+     * UnSetter for PricePointType.
+     */
+    public void unsetPricePointType() {
+        pricePointType = null;
     }
 
     /**
@@ -969,6 +992,25 @@ public class SubscriptionComponent
     }
 
     /**
+     * Getter for HistoricUsages.
+     * @return Returns the List of HistoricUsage
+     */
+    @JsonGetter("historic_usages")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<HistoricUsage> getHistoricUsages() {
+        return historicUsages;
+    }
+
+    /**
+     * Setter for HistoricUsages.
+     * @param historicUsages Value for List of HistoricUsage
+     */
+    @JsonSetter("historic_usages")
+    public void setHistoricUsages(List<HistoricUsage> historicUsages) {
+        this.historicUsages = historicUsages;
+    }
+
+    /**
      * Getter for DisplayOnHostedPage.
      * @return Returns the Boolean
      */
@@ -1054,9 +1096,9 @@ public class SubscriptionComponent
                 + productFamilyHandle + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", description=" + description
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", subscription="
-                + subscription + ", displayOnHostedPage=" + displayOnHostedPage + ", interval="
-                + interval + ", intervalUnit=" + intervalUnit + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + subscription + ", historicUsages=" + historicUsages + ", displayOnHostedPage="
+                + displayOnHostedPage + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1077,13 +1119,13 @@ public class SubscriptionComponent
                 .componentId(getComponentId())
                 .subscriptionId(getSubscriptionId())
                 .recurring(getRecurring())
-                .pricePointType(getPricePointType())
                 .productFamilyId(getProductFamilyId())
                 .productFamilyHandle(getProductFamilyHandle())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .subscription(getSubscription())
+                .historicUsages(getHistoricUsages())
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .interval(getInterval())
                 .intervalUnit(getIntervalUnit());
@@ -1094,6 +1136,7 @@ public class SubscriptionComponent
         builder.archivedAt = internalGetArchivedAt();
         builder.pricePointId = internalGetPricePointId();
         builder.pricePointHandle = internalGetPricePointHandle();
+        builder.pricePointType = internalGetPricePointType();
         builder.pricePointName = internalGetPricePointName();
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.description = internalGetDescription();
@@ -1122,7 +1165,7 @@ public class SubscriptionComponent
         private OptionalNullable<ZonedDateTime> archivedAt;
         private OptionalNullable<Integer> pricePointId;
         private OptionalNullable<String> pricePointHandle;
-        private SubscriptionComponentPricePointType pricePointType;
+        private OptionalNullable<PricePointType> pricePointType;
         private OptionalNullable<String> pricePointName;
         private Integer productFamilyId;
         private String productFamilyHandle;
@@ -1132,6 +1175,7 @@ public class SubscriptionComponent
         private OptionalNullable<String> description;
         private Boolean allowFractionalQuantities;
         private SubscriptionComponentSubscription subscription;
+        private List<HistoricUsage> historicUsages;
         private Boolean displayOnHostedPage;
         private Integer interval;
         private IntervalUnit intervalUnit;
@@ -1385,11 +1429,20 @@ public class SubscriptionComponent
 
         /**
          * Setter for pricePointType.
-         * @param  pricePointType  SubscriptionComponentPricePointType value for pricePointType.
+         * @param  pricePointType  PricePointType value for pricePointType.
          * @return Builder
          */
-        public Builder pricePointType(SubscriptionComponentPricePointType pricePointType) {
-            this.pricePointType = pricePointType;
+        public Builder pricePointType(PricePointType pricePointType) {
+            this.pricePointType = OptionalNullable.of(pricePointType);
+            return this;
+        }
+
+        /**
+         * UnSetter for pricePointType.
+         * @return Builder
+         */
+        public Builder unsetPricePointType() {
+            pricePointType = null;
             return this;
         }
 
@@ -1511,6 +1564,16 @@ public class SubscriptionComponent
         }
 
         /**
+         * Setter for historicUsages.
+         * @param  historicUsages  List of HistoricUsage value for historicUsages.
+         * @return Builder
+         */
+        public Builder historicUsages(List<HistoricUsage> historicUsages) {
+            this.historicUsages = historicUsages;
+            return this;
+        }
+
+        /**
          * Setter for displayOnHostedPage.
          * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
          * @return Builder
@@ -1550,8 +1613,8 @@ public class SubscriptionComponent
                     subscriptionId, recurring, upgradeCharge, downgradeCredit, archivedAt,
                     pricePointId, pricePointHandle, pricePointType, pricePointName, productFamilyId,
                     productFamilyHandle, createdAt, updatedAt, useSiteExchangeRate, description,
-                    allowFractionalQuantities, subscription, displayOnHostedPage, interval,
-                    intervalUnit);
+                    allowFractionalQuantities, subscription, historicUsages, displayOnHostedPage,
+                    interval, intervalUnit);
         }
     }
 }

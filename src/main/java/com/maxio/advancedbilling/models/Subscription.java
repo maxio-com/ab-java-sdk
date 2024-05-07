@@ -28,11 +28,11 @@ public class Subscription
     private Long totalRevenueInCents;
     private Long productPriceInCents;
     private Integer productVersionNumber;
-    private ZonedDateTime currentPeriodEndsAt;
-    private ZonedDateTime nextAssessmentAt;
+    private OptionalNullable<ZonedDateTime> currentPeriodEndsAt;
+    private OptionalNullable<ZonedDateTime> nextAssessmentAt;
     private OptionalNullable<ZonedDateTime> trialStartedAt;
     private OptionalNullable<ZonedDateTime> trialEndedAt;
-    private ZonedDateTime activatedAt;
+    private OptionalNullable<ZonedDateTime> activatedAt;
     private OptionalNullable<ZonedDateTime> expiresAt;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
@@ -40,7 +40,7 @@ public class Subscription
     private OptionalNullable<CancellationMethod> cancellationMethod;
     private OptionalNullable<Boolean> cancelAtEndOfPeriod;
     private OptionalNullable<ZonedDateTime> canceledAt;
-    private ZonedDateTime currentPeriodStartedAt;
+    private OptionalNullable<ZonedDateTime> currentPeriodStartedAt;
     private SubscriptionState previousState;
     private Integer signupPaymentId;
     private String signupRevenue;
@@ -82,7 +82,7 @@ public class Subscription
     private OptionalNullable<ZonedDateTime> scheduledCancellationAt;
     private Long creditBalanceInCents;
     private Long prepaymentBalanceInCents;
-    private PrepaidConfiguration prepaidConfiguration;
+    private OptionalNullable<PrepaidConfiguration> prepaidConfiguration;
     private String selfServicePageToken;
 
     /**
@@ -227,11 +227,11 @@ public class Subscription
         this.totalRevenueInCents = totalRevenueInCents;
         this.productPriceInCents = productPriceInCents;
         this.productVersionNumber = productVersionNumber;
-        this.currentPeriodEndsAt = currentPeriodEndsAt;
-        this.nextAssessmentAt = nextAssessmentAt;
+        this.currentPeriodEndsAt = OptionalNullable.of(currentPeriodEndsAt);
+        this.nextAssessmentAt = OptionalNullable.of(nextAssessmentAt);
         this.trialStartedAt = OptionalNullable.of(trialStartedAt);
         this.trialEndedAt = OptionalNullable.of(trialEndedAt);
-        this.activatedAt = activatedAt;
+        this.activatedAt = OptionalNullable.of(activatedAt);
         this.expiresAt = OptionalNullable.of(expiresAt);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -239,7 +239,7 @@ public class Subscription
         this.cancellationMethod = OptionalNullable.of(cancellationMethod);
         this.cancelAtEndOfPeriod = OptionalNullable.of(cancelAtEndOfPeriod);
         this.canceledAt = OptionalNullable.of(canceledAt);
-        this.currentPeriodStartedAt = currentPeriodStartedAt;
+        this.currentPeriodStartedAt = OptionalNullable.of(currentPeriodStartedAt);
         this.previousState = previousState;
         this.signupPaymentId = signupPaymentId;
         this.signupRevenue = signupRevenue;
@@ -282,7 +282,7 @@ public class Subscription
         this.scheduledCancellationAt = OptionalNullable.of(scheduledCancellationAt);
         this.creditBalanceInCents = creditBalanceInCents;
         this.prepaymentBalanceInCents = prepaymentBalanceInCents;
-        this.prepaidConfiguration = prepaidConfiguration;
+        this.prepaidConfiguration = OptionalNullable.of(prepaidConfiguration);
         this.selfServicePageToken = selfServicePageToken;
     }
 
@@ -355,15 +355,18 @@ public class Subscription
 
     protected Subscription(Integer id, SubscriptionState state, Long balanceInCents,
             Long totalRevenueInCents, Long productPriceInCents, Integer productVersionNumber,
-            ZonedDateTime currentPeriodEndsAt, ZonedDateTime nextAssessmentAt,
+            OptionalNullable<ZonedDateTime> currentPeriodEndsAt,
+            OptionalNullable<ZonedDateTime> nextAssessmentAt,
             OptionalNullable<ZonedDateTime> trialStartedAt,
-            OptionalNullable<ZonedDateTime> trialEndedAt, ZonedDateTime activatedAt,
-            OptionalNullable<ZonedDateTime> expiresAt, ZonedDateTime createdAt,
-            ZonedDateTime updatedAt, OptionalNullable<String> cancellationMessage,
+            OptionalNullable<ZonedDateTime> trialEndedAt,
+            OptionalNullable<ZonedDateTime> activatedAt, OptionalNullable<ZonedDateTime> expiresAt,
+            ZonedDateTime createdAt, ZonedDateTime updatedAt,
+            OptionalNullable<String> cancellationMessage,
             OptionalNullable<CancellationMethod> cancellationMethod,
             OptionalNullable<Boolean> cancelAtEndOfPeriod,
-            OptionalNullable<ZonedDateTime> canceledAt, ZonedDateTime currentPeriodStartedAt,
-            SubscriptionState previousState, Integer signupPaymentId, String signupRevenue,
+            OptionalNullable<ZonedDateTime> canceledAt,
+            OptionalNullable<ZonedDateTime> currentPeriodStartedAt, SubscriptionState previousState,
+            Integer signupPaymentId, String signupRevenue,
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
             OptionalNullable<String> snapDay, CollectionMethod paymentCollectionMethod,
             Customer customer, Product product, CreditCardPaymentProfile creditCard,
@@ -385,7 +388,8 @@ public class Subscription
             OptionalNullable<Boolean> receivesInvoiceEmails, OptionalNullable<String> locale,
             String currency, OptionalNullable<ZonedDateTime> scheduledCancellationAt,
             Long creditBalanceInCents, Long prepaymentBalanceInCents,
-            PrepaidConfiguration prepaidConfiguration, String selfServicePageToken) {
+            OptionalNullable<PrepaidConfiguration> prepaidConfiguration,
+            String selfServicePageToken) {
         this.id = id;
         this.state = state;
         this.balanceInCents = balanceInCents;
@@ -671,16 +675,26 @@ public class Subscription
     }
 
     /**
+     * Internal Getter for CurrentPeriodEndsAt.
+     * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
+     * scheduled attempted charge will occur)
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("current_period_ends_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetCurrentPeriodEndsAt() {
+        return this.currentPeriodEndsAt;
+    }
+
+    /**
      * Getter for CurrentPeriodEndsAt.
      * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
      * scheduled attempted charge will occur)
      * @return Returns the ZonedDateTime
      */
-    @JsonGetter("current_period_ends_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getCurrentPeriodEndsAt() {
-        return currentPeriodEndsAt;
+        return OptionalNullable.getFrom(currentPeriodEndsAt);
     }
 
     /**
@@ -692,7 +706,32 @@ public class Subscription
     @JsonSetter("current_period_ends_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setCurrentPeriodEndsAt(ZonedDateTime currentPeriodEndsAt) {
-        this.currentPeriodEndsAt = currentPeriodEndsAt;
+        this.currentPeriodEndsAt = OptionalNullable.of(currentPeriodEndsAt);
+    }
+
+    /**
+     * UnSetter for CurrentPeriodEndsAt.
+     * Timestamp relating to the end of the current (recurring) period (i.e.,when the next regularly
+     * scheduled attempted charge will occur)
+     */
+    public void unsetCurrentPeriodEndsAt() {
+        currentPeriodEndsAt = null;
+    }
+
+    /**
+     * Internal Getter for NextAssessmentAt.
+     * Timestamp that indicates when capture of payment will be tried or,retried. This value will
+     * usually track the current_period_ends_at, but,will diverge if a renewal payment fails and
+     * must be retried. In that,case, the current_period_ends_at will advance to the end of the
+     * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
+     * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("next_assessment_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetNextAssessmentAt() {
+        return this.nextAssessmentAt;
     }
 
     /**
@@ -704,11 +743,8 @@ public class Subscription
      * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
      * @return Returns the ZonedDateTime
      */
-    @JsonGetter("next_assessment_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getNextAssessmentAt() {
-        return nextAssessmentAt;
+        return OptionalNullable.getFrom(nextAssessmentAt);
     }
 
     /**
@@ -723,7 +759,19 @@ public class Subscription
     @JsonSetter("next_assessment_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setNextAssessmentAt(ZonedDateTime nextAssessmentAt) {
-        this.nextAssessmentAt = nextAssessmentAt;
+        this.nextAssessmentAt = OptionalNullable.of(nextAssessmentAt);
+    }
+
+    /**
+     * UnSetter for NextAssessmentAt.
+     * Timestamp that indicates when capture of payment will be tried or,retried. This value will
+     * usually track the current_period_ends_at, but,will diverge if a renewal payment fails and
+     * must be retried. In that,case, the current_period_ends_at will advance to the end of the
+     * next,period (time doesn’t stop because a payment was missed) but the,next_assessment_at will
+     * be scheduled for the auto-retry time (i.e. 24,hours in the future, in some cases)
+     */
+    public void unsetNextAssessmentAt() {
+        nextAssessmentAt = null;
     }
 
     /**
@@ -807,16 +855,26 @@ public class Subscription
     }
 
     /**
+     * Internal Getter for ActivatedAt.
+     * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
+     * in the case of no trial)
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("activated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetActivatedAt() {
+        return this.activatedAt;
+    }
+
+    /**
      * Getter for ActivatedAt.
      * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
      * in the case of no trial)
      * @return Returns the ZonedDateTime
      */
-    @JsonGetter("activated_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getActivatedAt() {
-        return activatedAt;
+        return OptionalNullable.getFrom(activatedAt);
     }
 
     /**
@@ -828,7 +886,16 @@ public class Subscription
     @JsonSetter("activated_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setActivatedAt(ZonedDateTime activatedAt) {
-        this.activatedAt = activatedAt;
+        this.activatedAt = OptionalNullable.of(activatedAt);
+    }
+
+    /**
+     * UnSetter for ActivatedAt.
+     * Timestamp for when the subscription began (i.e. when it came out of trial, or when it began
+     * in the case of no trial)
+     */
+    public void unsetActivatedAt() {
+        activatedAt = null;
     }
 
     /**
@@ -1079,15 +1146,24 @@ public class Subscription
     }
 
     /**
+     * Internal Getter for CurrentPeriodStartedAt.
+     * Timestamp relating to the start of the current (recurring) period
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("current_period_started_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetCurrentPeriodStartedAt() {
+        return this.currentPeriodStartedAt;
+    }
+
+    /**
      * Getter for CurrentPeriodStartedAt.
      * Timestamp relating to the start of the current (recurring) period
      * @return Returns the ZonedDateTime
      */
-    @JsonGetter("current_period_started_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getCurrentPeriodStartedAt() {
-        return currentPeriodStartedAt;
+        return OptionalNullable.getFrom(currentPeriodStartedAt);
     }
 
     /**
@@ -1098,7 +1174,15 @@ public class Subscription
     @JsonSetter("current_period_started_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setCurrentPeriodStartedAt(ZonedDateTime currentPeriodStartedAt) {
-        this.currentPeriodStartedAt = currentPeriodStartedAt;
+        this.currentPeriodStartedAt = OptionalNullable.of(currentPeriodStartedAt);
+    }
+
+    /**
+     * UnSetter for CurrentPeriodStartedAt.
+     * Timestamp relating to the start of the current (recurring) period
+     */
+    public void unsetCurrentPeriodStartedAt() {
+        currentPeriodStartedAt = null;
     }
 
     /**
@@ -2415,13 +2499,22 @@ public class Subscription
     }
 
     /**
-     * Getter for PrepaidConfiguration.
-     * @return Returns the PrepaidConfiguration
+     * Internal Getter for PrepaidConfiguration.
+     * @return Returns the Internal PrepaidConfiguration
      */
     @JsonGetter("prepaid_configuration")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<PrepaidConfiguration> internalGetPrepaidConfiguration() {
+        return this.prepaidConfiguration;
+    }
+
+    /**
+     * Getter for PrepaidConfiguration.
+     * @return Returns the PrepaidConfiguration
+     */
     public PrepaidConfiguration getPrepaidConfiguration() {
-        return prepaidConfiguration;
+        return OptionalNullable.getFrom(prepaidConfiguration);
     }
 
     /**
@@ -2430,7 +2523,14 @@ public class Subscription
      */
     @JsonSetter("prepaid_configuration")
     public void setPrepaidConfiguration(PrepaidConfiguration prepaidConfiguration) {
-        this.prepaidConfiguration = prepaidConfiguration;
+        this.prepaidConfiguration = OptionalNullable.of(prepaidConfiguration);
+    }
+
+    /**
+     * UnSetter for PrepaidConfiguration.
+     */
+    public void unsetPrepaidConfiguration() {
+        prepaidConfiguration = null;
     }
 
     /**
@@ -2512,12 +2612,8 @@ public class Subscription
                 .totalRevenueInCents(getTotalRevenueInCents())
                 .productPriceInCents(getProductPriceInCents())
                 .productVersionNumber(getProductVersionNumber())
-                .currentPeriodEndsAt(getCurrentPeriodEndsAt())
-                .nextAssessmentAt(getNextAssessmentAt())
-                .activatedAt(getActivatedAt())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .currentPeriodStartedAt(getCurrentPeriodStartedAt())
                 .previousState(getPreviousState())
                 .signupPaymentId(getSignupPaymentId())
                 .signupRevenue(getSignupRevenue())
@@ -2536,15 +2632,18 @@ public class Subscription
                 .currency(getCurrency())
                 .creditBalanceInCents(getCreditBalanceInCents())
                 .prepaymentBalanceInCents(getPrepaymentBalanceInCents())
-                .prepaidConfiguration(getPrepaidConfiguration())
                 .selfServicePageToken(getSelfServicePageToken());
+        builder.currentPeriodEndsAt = internalGetCurrentPeriodEndsAt();
+        builder.nextAssessmentAt = internalGetNextAssessmentAt();
         builder.trialStartedAt = internalGetTrialStartedAt();
         builder.trialEndedAt = internalGetTrialEndedAt();
+        builder.activatedAt = internalGetActivatedAt();
         builder.expiresAt = internalGetExpiresAt();
         builder.cancellationMessage = internalGetCancellationMessage();
         builder.cancellationMethod = internalGetCancellationMethod();
         builder.cancelAtEndOfPeriod = internalGetCancelAtEndOfPeriod();
         builder.canceledAt = internalGetCanceledAt();
+        builder.currentPeriodStartedAt = internalGetCurrentPeriodStartedAt();
         builder.delayedCancelAt = internalGetDelayedCancelAt();
         builder.couponCode = internalGetCouponCode();
         builder.snapDay = internalGetSnapDay();
@@ -2568,6 +2667,7 @@ public class Subscription
         builder.receivesInvoiceEmails = internalGetReceivesInvoiceEmails();
         builder.locale = internalGetLocale();
         builder.scheduledCancellationAt = internalGetScheduledCancellationAt();
+        builder.prepaidConfiguration = internalGetPrepaidConfiguration();
         return builder;
     }
 
@@ -2581,11 +2681,11 @@ public class Subscription
         private Long totalRevenueInCents;
         private Long productPriceInCents;
         private Integer productVersionNumber;
-        private ZonedDateTime currentPeriodEndsAt;
-        private ZonedDateTime nextAssessmentAt;
+        private OptionalNullable<ZonedDateTime> currentPeriodEndsAt;
+        private OptionalNullable<ZonedDateTime> nextAssessmentAt;
         private OptionalNullable<ZonedDateTime> trialStartedAt;
         private OptionalNullable<ZonedDateTime> trialEndedAt;
-        private ZonedDateTime activatedAt;
+        private OptionalNullable<ZonedDateTime> activatedAt;
         private OptionalNullable<ZonedDateTime> expiresAt;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
@@ -2593,7 +2693,7 @@ public class Subscription
         private OptionalNullable<CancellationMethod> cancellationMethod;
         private OptionalNullable<Boolean> cancelAtEndOfPeriod;
         private OptionalNullable<ZonedDateTime> canceledAt;
-        private ZonedDateTime currentPeriodStartedAt;
+        private OptionalNullable<ZonedDateTime> currentPeriodStartedAt;
         private SubscriptionState previousState;
         private Integer signupPaymentId;
         private String signupRevenue;
@@ -2635,7 +2735,7 @@ public class Subscription
         private OptionalNullable<ZonedDateTime> scheduledCancellationAt;
         private Long creditBalanceInCents;
         private Long prepaymentBalanceInCents;
-        private PrepaidConfiguration prepaidConfiguration;
+        private OptionalNullable<PrepaidConfiguration> prepaidConfiguration;
         private String selfServicePageToken;
 
 
@@ -2706,7 +2806,16 @@ public class Subscription
          * @return Builder
          */
         public Builder currentPeriodEndsAt(ZonedDateTime currentPeriodEndsAt) {
-            this.currentPeriodEndsAt = currentPeriodEndsAt;
+            this.currentPeriodEndsAt = OptionalNullable.of(currentPeriodEndsAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for currentPeriodEndsAt.
+         * @return Builder
+         */
+        public Builder unsetCurrentPeriodEndsAt() {
+            currentPeriodEndsAt = null;
             return this;
         }
 
@@ -2716,7 +2825,16 @@ public class Subscription
          * @return Builder
          */
         public Builder nextAssessmentAt(ZonedDateTime nextAssessmentAt) {
-            this.nextAssessmentAt = nextAssessmentAt;
+            this.nextAssessmentAt = OptionalNullable.of(nextAssessmentAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for nextAssessmentAt.
+         * @return Builder
+         */
+        public Builder unsetNextAssessmentAt() {
+            nextAssessmentAt = null;
             return this;
         }
 
@@ -2764,7 +2882,16 @@ public class Subscription
          * @return Builder
          */
         public Builder activatedAt(ZonedDateTime activatedAt) {
-            this.activatedAt = activatedAt;
+            this.activatedAt = OptionalNullable.of(activatedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for activatedAt.
+         * @return Builder
+         */
+        public Builder unsetActivatedAt() {
+            activatedAt = null;
             return this;
         }
 
@@ -2889,7 +3016,16 @@ public class Subscription
          * @return Builder
          */
         public Builder currentPeriodStartedAt(ZonedDateTime currentPeriodStartedAt) {
-            this.currentPeriodStartedAt = currentPeriodStartedAt;
+            this.currentPeriodStartedAt = OptionalNullable.of(currentPeriodStartedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for currentPeriodStartedAt.
+         * @return Builder
+         */
+        public Builder unsetCurrentPeriodStartedAt() {
+            currentPeriodStartedAt = null;
             return this;
         }
 
@@ -3521,7 +3657,16 @@ public class Subscription
          * @return Builder
          */
         public Builder prepaidConfiguration(PrepaidConfiguration prepaidConfiguration) {
-            this.prepaidConfiguration = prepaidConfiguration;
+            this.prepaidConfiguration = OptionalNullable.of(prepaidConfiguration);
+            return this;
+        }
+
+        /**
+         * UnSetter for prepaidConfiguration.
+         * @return Builder
+         */
+        public Builder unsetPrepaidConfiguration() {
+            prepaidConfiguration = null;
             return this;
         }
 

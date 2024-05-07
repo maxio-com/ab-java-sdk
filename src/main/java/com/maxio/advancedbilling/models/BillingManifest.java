@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class BillingManifest
     private Long totalDiscountInCents;
     private Long totalTaxInCents;
     private Long subtotalInCents;
-    private ZonedDateTime startDate;
-    private ZonedDateTime endDate;
-    private String periodType;
+    private OptionalNullable<ZonedDateTime> startDate;
+    private OptionalNullable<ZonedDateTime> endDate;
+    private OptionalNullable<String> periodType;
     private Long existingBalanceInCents;
 
     /**
@@ -59,6 +60,34 @@ public class BillingManifest
             ZonedDateTime endDate,
             String periodType,
             Long existingBalanceInCents) {
+        this.lineItems = lineItems;
+        this.totalInCents = totalInCents;
+        this.totalDiscountInCents = totalDiscountInCents;
+        this.totalTaxInCents = totalTaxInCents;
+        this.subtotalInCents = subtotalInCents;
+        this.startDate = OptionalNullable.of(startDate);
+        this.endDate = OptionalNullable.of(endDate);
+        this.periodType = OptionalNullable.of(periodType);
+        this.existingBalanceInCents = existingBalanceInCents;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  lineItems  List of BillingManifestItem value for lineItems.
+     * @param  totalInCents  Long value for totalInCents.
+     * @param  totalDiscountInCents  Long value for totalDiscountInCents.
+     * @param  totalTaxInCents  Long value for totalTaxInCents.
+     * @param  subtotalInCents  Long value for subtotalInCents.
+     * @param  startDate  ZonedDateTime value for startDate.
+     * @param  endDate  ZonedDateTime value for endDate.
+     * @param  periodType  String value for periodType.
+     * @param  existingBalanceInCents  Long value for existingBalanceInCents.
+     */
+
+    protected BillingManifest(List<BillingManifestItem> lineItems, Long totalInCents,
+            Long totalDiscountInCents, Long totalTaxInCents, Long subtotalInCents,
+            OptionalNullable<ZonedDateTime> startDate, OptionalNullable<ZonedDateTime> endDate,
+            OptionalNullable<String> periodType, Long existingBalanceInCents) {
         this.lineItems = lineItems;
         this.totalInCents = totalInCents;
         this.totalDiscountInCents = totalDiscountInCents;
@@ -166,14 +195,22 @@ public class BillingManifest
     }
 
     /**
-     * Getter for StartDate.
-     * @return Returns the ZonedDateTime
+     * Internal Getter for StartDate.
+     * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("start_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * Getter for StartDate.
+     * @return Returns the ZonedDateTime
+     */
     public ZonedDateTime getStartDate() {
-        return startDate;
+        return OptionalNullable.getFrom(startDate);
     }
 
     /**
@@ -183,18 +220,33 @@ public class BillingManifest
     @JsonSetter("start_date")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setStartDate(ZonedDateTime startDate) {
-        this.startDate = startDate;
+        this.startDate = OptionalNullable.of(startDate);
+    }
+
+    /**
+     * UnSetter for StartDate.
+     */
+    public void unsetStartDate() {
+        startDate = null;
+    }
+
+    /**
+     * Internal Getter for EndDate.
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("end_date")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetEndDate() {
+        return this.endDate;
     }
 
     /**
      * Getter for EndDate.
      * @return Returns the ZonedDateTime
      */
-    @JsonGetter("end_date")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
     public ZonedDateTime getEndDate() {
-        return endDate;
+        return OptionalNullable.getFrom(endDate);
     }
 
     /**
@@ -204,17 +256,33 @@ public class BillingManifest
     @JsonSetter("end_date")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setEndDate(ZonedDateTime endDate) {
-        this.endDate = endDate;
+        this.endDate = OptionalNullable.of(endDate);
+    }
+
+    /**
+     * UnSetter for EndDate.
+     */
+    public void unsetEndDate() {
+        endDate = null;
+    }
+
+    /**
+     * Internal Getter for PeriodType.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("period_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetPeriodType() {
+        return this.periodType;
     }
 
     /**
      * Getter for PeriodType.
      * @return Returns the String
      */
-    @JsonGetter("period_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPeriodType() {
-        return periodType;
+        return OptionalNullable.getFrom(periodType);
     }
 
     /**
@@ -223,7 +291,14 @@ public class BillingManifest
      */
     @JsonSetter("period_type")
     public void setPeriodType(String periodType) {
-        this.periodType = periodType;
+        this.periodType = OptionalNullable.of(periodType);
+    }
+
+    /**
+     * UnSetter for PeriodType.
+     */
+    public void unsetPeriodType() {
+        periodType = null;
     }
 
     /**
@@ -271,10 +346,10 @@ public class BillingManifest
                 .totalDiscountInCents(getTotalDiscountInCents())
                 .totalTaxInCents(getTotalTaxInCents())
                 .subtotalInCents(getSubtotalInCents())
-                .startDate(getStartDate())
-                .endDate(getEndDate())
-                .periodType(getPeriodType())
                 .existingBalanceInCents(getExistingBalanceInCents());
+        builder.startDate = internalGetStartDate();
+        builder.endDate = internalGetEndDate();
+        builder.periodType = internalGetPeriodType();
         return builder;
     }
 
@@ -287,9 +362,9 @@ public class BillingManifest
         private Long totalDiscountInCents;
         private Long totalTaxInCents;
         private Long subtotalInCents;
-        private ZonedDateTime startDate;
-        private ZonedDateTime endDate;
-        private String periodType;
+        private OptionalNullable<ZonedDateTime> startDate;
+        private OptionalNullable<ZonedDateTime> endDate;
+        private OptionalNullable<String> periodType;
         private Long existingBalanceInCents;
 
 
@@ -350,7 +425,16 @@ public class BillingManifest
          * @return Builder
          */
         public Builder startDate(ZonedDateTime startDate) {
-            this.startDate = startDate;
+            this.startDate = OptionalNullable.of(startDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for startDate.
+         * @return Builder
+         */
+        public Builder unsetStartDate() {
+            startDate = null;
             return this;
         }
 
@@ -360,7 +444,16 @@ public class BillingManifest
          * @return Builder
          */
         public Builder endDate(ZonedDateTime endDate) {
-            this.endDate = endDate;
+            this.endDate = OptionalNullable.of(endDate);
+            return this;
+        }
+
+        /**
+         * UnSetter for endDate.
+         * @return Builder
+         */
+        public Builder unsetEndDate() {
+            endDate = null;
             return this;
         }
 
@@ -370,7 +463,16 @@ public class BillingManifest
          * @return Builder
          */
         public Builder periodType(String periodType) {
-            this.periodType = periodType;
+            this.periodType = OptionalNullable.of(periodType);
+            return this;
+        }
+
+        /**
+         * UnSetter for periodType.
+         * @return Builder
+         */
+        public Builder unsetPeriodType() {
+            periodType = null;
             return this;
         }
 

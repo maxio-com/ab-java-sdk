@@ -24,19 +24,19 @@ public class ProductPricePoint
         extends BaseModel {
     private Integer id;
     private String name;
-    private String handle;
+    private OptionalNullable<String> handle;
     private Long priceInCents;
     private Integer interval;
     private IntervalUnit intervalUnit;
-    private Long trialPriceInCents;
-    private Integer trialInterval;
-    private IntervalUnit trialIntervalUnit;
+    private OptionalNullable<Long> trialPriceInCents;
+    private OptionalNullable<Integer> trialInterval;
+    private OptionalNullable<IntervalUnit> trialIntervalUnit;
     private String trialType;
-    private Boolean introductoryOffer;
-    private Long initialChargeInCents;
-    private Boolean initialChargeAfterTrial;
-    private Integer expirationInterval;
-    private IntervalUnit expirationIntervalUnit;
+    private OptionalNullable<Boolean> introductoryOffer;
+    private OptionalNullable<Long> initialChargeInCents;
+    private OptionalNullable<Boolean> initialChargeAfterTrial;
+    private OptionalNullable<Integer> expirationInterval;
+    private OptionalNullable<IntervalUnit> expirationIntervalUnit;
     private Integer productId;
     private OptionalNullable<ZonedDateTime> archivedAt;
     private ZonedDateTime createdAt;
@@ -107,19 +107,19 @@ public class ProductPricePoint
             List<CurrencyPrice> currencyPrices) {
         this.id = id;
         this.name = name;
-        this.handle = handle;
+        this.handle = OptionalNullable.of(handle);
         this.priceInCents = priceInCents;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
-        this.trialPriceInCents = trialPriceInCents;
-        this.trialInterval = trialInterval;
-        this.trialIntervalUnit = trialIntervalUnit;
+        this.trialPriceInCents = OptionalNullable.of(trialPriceInCents);
+        this.trialInterval = OptionalNullable.of(trialInterval);
+        this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
         this.trialType = trialType;
-        this.introductoryOffer = introductoryOffer;
-        this.initialChargeInCents = initialChargeInCents;
-        this.initialChargeAfterTrial = initialChargeAfterTrial;
-        this.expirationInterval = expirationInterval;
-        this.expirationIntervalUnit = expirationIntervalUnit;
+        this.introductoryOffer = OptionalNullable.of(introductoryOffer);
+        this.initialChargeInCents = OptionalNullable.of(initialChargeInCents);
+        this.initialChargeAfterTrial = OptionalNullable.of(initialChargeAfterTrial);
+        this.expirationInterval = OptionalNullable.of(expirationInterval);
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
         this.productId = productId;
         this.archivedAt = OptionalNullable.of(archivedAt);
         this.createdAt = createdAt;
@@ -159,11 +159,15 @@ public class ProductPricePoint
      * @param  currencyPrices  List of CurrencyPrice value for currencyPrices.
      */
 
-    protected ProductPricePoint(Integer id, String name, String handle, Long priceInCents,
-            Integer interval, IntervalUnit intervalUnit, Long trialPriceInCents,
-            Integer trialInterval, IntervalUnit trialIntervalUnit, String trialType,
-            Boolean introductoryOffer, Long initialChargeInCents, Boolean initialChargeAfterTrial,
-            Integer expirationInterval, IntervalUnit expirationIntervalUnit, Integer productId,
+    protected ProductPricePoint(Integer id, String name, OptionalNullable<String> handle,
+            Long priceInCents, Integer interval, IntervalUnit intervalUnit,
+            OptionalNullable<Long> trialPriceInCents, OptionalNullable<Integer> trialInterval,
+            OptionalNullable<IntervalUnit> trialIntervalUnit, String trialType,
+            OptionalNullable<Boolean> introductoryOffer,
+            OptionalNullable<Long> initialChargeInCents,
+            OptionalNullable<Boolean> initialChargeAfterTrial,
+            OptionalNullable<Integer> expirationInterval,
+            OptionalNullable<IntervalUnit> expirationIntervalUnit, Integer productId,
             OptionalNullable<ZonedDateTime> archivedAt, ZonedDateTime createdAt,
             ZonedDateTime updatedAt, Boolean useSiteExchangeRate, PricePointType type,
             Boolean taxIncluded, OptionalNullable<Integer> subscriptionId,
@@ -235,14 +239,24 @@ public class ProductPricePoint
     }
 
     /**
+     * Internal Getter for Handle.
+     * The product price point API handle
+     * @return Returns the Internal String
+     */
+    @JsonGetter("handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetHandle() {
+        return this.handle;
+    }
+
+    /**
      * Getter for Handle.
      * The product price point API handle
      * @return Returns the String
      */
-    @JsonGetter("handle")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getHandle() {
-        return handle;
+        return OptionalNullable.getFrom(handle);
     }
 
     /**
@@ -252,7 +266,15 @@ public class ProductPricePoint
      */
     @JsonSetter("handle")
     public void setHandle(String handle) {
-        this.handle = handle;
+        this.handle = OptionalNullable.of(handle);
+    }
+
+    /**
+     * UnSetter for Handle.
+     * The product price point API handle
+     */
+    public void unsetHandle() {
+        handle = null;
     }
 
     /**
@@ -321,14 +343,24 @@ public class ProductPricePoint
     }
 
     /**
+     * Internal Getter for TrialPriceInCents.
+     * The product price point trial price, in integer cents
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("trial_price_in_cents")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetTrialPriceInCents() {
+        return this.trialPriceInCents;
+    }
+
+    /**
      * Getter for TrialPriceInCents.
      * The product price point trial price, in integer cents
      * @return Returns the Long
      */
-    @JsonGetter("trial_price_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getTrialPriceInCents() {
-        return trialPriceInCents;
+        return OptionalNullable.getFrom(trialPriceInCents);
     }
 
     /**
@@ -338,7 +370,28 @@ public class ProductPricePoint
      */
     @JsonSetter("trial_price_in_cents")
     public void setTrialPriceInCents(Long trialPriceInCents) {
-        this.trialPriceInCents = trialPriceInCents;
+        this.trialPriceInCents = OptionalNullable.of(trialPriceInCents);
+    }
+
+    /**
+     * UnSetter for TrialPriceInCents.
+     * The product price point trial price, in integer cents
+     */
+    public void unsetTrialPriceInCents() {
+        trialPriceInCents = null;
+    }
+
+    /**
+     * Internal Getter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("trial_interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetTrialInterval() {
+        return this.trialInterval;
     }
 
     /**
@@ -347,10 +400,8 @@ public class ProductPricePoint
      * day would mean this product price point trial would last 30 days
      * @return Returns the Integer
      */
-    @JsonGetter("trial_interval")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getTrialInterval() {
-        return trialInterval;
+        return OptionalNullable.getFrom(trialInterval);
     }
 
     /**
@@ -361,7 +412,29 @@ public class ProductPricePoint
      */
     @JsonSetter("trial_interval")
     public void setTrialInterval(Integer trialInterval) {
-        this.trialInterval = trialInterval;
+        this.trialInterval = OptionalNullable.of(trialInterval);
+    }
+
+    /**
+     * UnSetter for TrialInterval.
+     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days
+     */
+    public void unsetTrialInterval() {
+        trialInterval = null;
+    }
+
+    /**
+     * Internal Getter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product price point, either month or
+     * day
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("trial_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetTrialIntervalUnit() {
+        return this.trialIntervalUnit;
     }
 
     /**
@@ -370,10 +443,8 @@ public class ProductPricePoint
      * day
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("trial_interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getTrialIntervalUnit() {
-        return trialIntervalUnit;
+        return OptionalNullable.getFrom(trialIntervalUnit);
     }
 
     /**
@@ -384,7 +455,16 @@ public class ProductPricePoint
      */
     @JsonSetter("trial_interval_unit")
     public void setTrialIntervalUnit(IntervalUnit trialIntervalUnit) {
-        this.trialIntervalUnit = trialIntervalUnit;
+        this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
+    }
+
+    /**
+     * UnSetter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product price point, either month or
+     * day
+     */
+    public void unsetTrialIntervalUnit() {
+        trialIntervalUnit = null;
     }
 
     /**
@@ -407,14 +487,24 @@ public class ProductPricePoint
     }
 
     /**
+     * Internal Getter for IntroductoryOffer.
+     * reserved for future use
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("introductory_offer")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetIntroductoryOffer() {
+        return this.introductoryOffer;
+    }
+
+    /**
      * Getter for IntroductoryOffer.
      * reserved for future use
      * @return Returns the Boolean
      */
-    @JsonGetter("introductory_offer")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getIntroductoryOffer() {
-        return introductoryOffer;
+        return OptionalNullable.getFrom(introductoryOffer);
     }
 
     /**
@@ -424,7 +514,27 @@ public class ProductPricePoint
      */
     @JsonSetter("introductory_offer")
     public void setIntroductoryOffer(Boolean introductoryOffer) {
-        this.introductoryOffer = introductoryOffer;
+        this.introductoryOffer = OptionalNullable.of(introductoryOffer);
+    }
+
+    /**
+     * UnSetter for IntroductoryOffer.
+     * reserved for future use
+     */
+    public void unsetIntroductoryOffer() {
+        introductoryOffer = null;
+    }
+
+    /**
+     * Internal Getter for InitialChargeInCents.
+     * The product price point initial charge, in integer cents
+     * @return Returns the Internal Long
+     */
+    @JsonGetter("initial_charge_in_cents")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Long> internalGetInitialChargeInCents() {
+        return this.initialChargeInCents;
     }
 
     /**
@@ -432,10 +542,8 @@ public class ProductPricePoint
      * The product price point initial charge, in integer cents
      * @return Returns the Long
      */
-    @JsonGetter("initial_charge_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Long getInitialChargeInCents() {
-        return initialChargeInCents;
+        return OptionalNullable.getFrom(initialChargeInCents);
     }
 
     /**
@@ -445,17 +553,34 @@ public class ProductPricePoint
      */
     @JsonSetter("initial_charge_in_cents")
     public void setInitialChargeInCents(Long initialChargeInCents) {
-        this.initialChargeInCents = initialChargeInCents;
+        this.initialChargeInCents = OptionalNullable.of(initialChargeInCents);
+    }
+
+    /**
+     * UnSetter for InitialChargeInCents.
+     * The product price point initial charge, in integer cents
+     */
+    public void unsetInitialChargeInCents() {
+        initialChargeInCents = null;
+    }
+
+    /**
+     * Internal Getter for InitialChargeAfterTrial.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("initial_charge_after_trial")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetInitialChargeAfterTrial() {
+        return this.initialChargeAfterTrial;
     }
 
     /**
      * Getter for InitialChargeAfterTrial.
      * @return Returns the Boolean
      */
-    @JsonGetter("initial_charge_after_trial")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getInitialChargeAfterTrial() {
-        return initialChargeAfterTrial;
+        return OptionalNullable.getFrom(initialChargeAfterTrial);
     }
 
     /**
@@ -464,7 +589,28 @@ public class ProductPricePoint
      */
     @JsonSetter("initial_charge_after_trial")
     public void setInitialChargeAfterTrial(Boolean initialChargeAfterTrial) {
-        this.initialChargeAfterTrial = initialChargeAfterTrial;
+        this.initialChargeAfterTrial = OptionalNullable.of(initialChargeAfterTrial);
+    }
+
+    /**
+     * UnSetter for InitialChargeAfterTrial.
+     */
+    public void unsetInitialChargeAfterTrial() {
+        initialChargeAfterTrial = null;
+    }
+
+    /**
+     * Internal Getter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product price point would expire after 30
+     * days
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("expiration_interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetExpirationInterval() {
+        return this.expirationInterval;
     }
 
     /**
@@ -474,10 +620,8 @@ public class ProductPricePoint
      * days
      * @return Returns the Integer
      */
-    @JsonGetter("expiration_interval")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Integer getExpirationInterval() {
-        return expirationInterval;
+        return OptionalNullable.getFrom(expirationInterval);
     }
 
     /**
@@ -489,7 +633,30 @@ public class ProductPricePoint
      */
     @JsonSetter("expiration_interval")
     public void setExpirationInterval(Integer expirationInterval) {
-        this.expirationInterval = expirationInterval;
+        this.expirationInterval = OptionalNullable.of(expirationInterval);
+    }
+
+    /**
+     * UnSetter for ExpirationInterval.
+     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * expiration_interval_unit of day would mean this product price point would expire after 30
+     * days
+     */
+    public void unsetExpirationInterval() {
+        expirationInterval = null;
+    }
+
+    /**
+     * Internal Getter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product price point, either month
+     * or day
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("expiration_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetExpirationIntervalUnit() {
+        return this.expirationIntervalUnit;
     }
 
     /**
@@ -498,10 +665,8 @@ public class ProductPricePoint
      * or day
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("expiration_interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getExpirationIntervalUnit() {
-        return expirationIntervalUnit;
+        return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
@@ -512,7 +677,16 @@ public class ProductPricePoint
      */
     @JsonSetter("expiration_interval_unit")
     public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-        this.expirationIntervalUnit = expirationIntervalUnit;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+    }
+
+    /**
+     * UnSetter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product price point, either month
+     * or day
+     */
+    public void unsetExpirationIntervalUnit() {
+        expirationIntervalUnit = null;
     }
 
     /**
@@ -782,19 +956,10 @@ public class ProductPricePoint
         Builder builder = new Builder()
                 .id(getId())
                 .name(getName())
-                .handle(getHandle())
                 .priceInCents(getPriceInCents())
                 .interval(getInterval())
                 .intervalUnit(getIntervalUnit())
-                .trialPriceInCents(getTrialPriceInCents())
-                .trialInterval(getTrialInterval())
-                .trialIntervalUnit(getTrialIntervalUnit())
                 .trialType(getTrialType())
-                .introductoryOffer(getIntroductoryOffer())
-                .initialChargeInCents(getInitialChargeInCents())
-                .initialChargeAfterTrial(getInitialChargeAfterTrial())
-                .expirationInterval(getExpirationInterval())
-                .expirationIntervalUnit(getExpirationIntervalUnit())
                 .productId(getProductId())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
@@ -802,6 +967,15 @@ public class ProductPricePoint
                 .type(getType())
                 .taxIncluded(getTaxIncluded())
                 .currencyPrices(getCurrencyPrices());
+        builder.handle = internalGetHandle();
+        builder.trialPriceInCents = internalGetTrialPriceInCents();
+        builder.trialInterval = internalGetTrialInterval();
+        builder.trialIntervalUnit = internalGetTrialIntervalUnit();
+        builder.introductoryOffer = internalGetIntroductoryOffer();
+        builder.initialChargeInCents = internalGetInitialChargeInCents();
+        builder.initialChargeAfterTrial = internalGetInitialChargeAfterTrial();
+        builder.expirationInterval = internalGetExpirationInterval();
+        builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         builder.archivedAt = internalGetArchivedAt();
         builder.subscriptionId = internalGetSubscriptionId();
         return builder;
@@ -813,19 +987,19 @@ public class ProductPricePoint
     public static class Builder {
         private Integer id;
         private String name;
-        private String handle;
+        private OptionalNullable<String> handle;
         private Long priceInCents;
         private Integer interval;
         private IntervalUnit intervalUnit;
-        private Long trialPriceInCents;
-        private Integer trialInterval;
-        private IntervalUnit trialIntervalUnit;
+        private OptionalNullable<Long> trialPriceInCents;
+        private OptionalNullable<Integer> trialInterval;
+        private OptionalNullable<IntervalUnit> trialIntervalUnit;
         private String trialType;
-        private Boolean introductoryOffer;
-        private Long initialChargeInCents;
-        private Boolean initialChargeAfterTrial;
-        private Integer expirationInterval;
-        private IntervalUnit expirationIntervalUnit;
+        private OptionalNullable<Boolean> introductoryOffer;
+        private OptionalNullable<Long> initialChargeInCents;
+        private OptionalNullable<Boolean> initialChargeAfterTrial;
+        private OptionalNullable<Integer> expirationInterval;
+        private OptionalNullable<IntervalUnit> expirationIntervalUnit;
         private Integer productId;
         private OptionalNullable<ZonedDateTime> archivedAt;
         private ZonedDateTime createdAt;
@@ -864,7 +1038,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder handle(String handle) {
-            this.handle = handle;
+            this.handle = OptionalNullable.of(handle);
+            return this;
+        }
+
+        /**
+         * UnSetter for handle.
+         * @return Builder
+         */
+        public Builder unsetHandle() {
+            handle = null;
             return this;
         }
 
@@ -904,7 +1087,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder trialPriceInCents(Long trialPriceInCents) {
-            this.trialPriceInCents = trialPriceInCents;
+            this.trialPriceInCents = OptionalNullable.of(trialPriceInCents);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialPriceInCents.
+         * @return Builder
+         */
+        public Builder unsetTrialPriceInCents() {
+            trialPriceInCents = null;
             return this;
         }
 
@@ -914,7 +1106,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder trialInterval(Integer trialInterval) {
-            this.trialInterval = trialInterval;
+            this.trialInterval = OptionalNullable.of(trialInterval);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialInterval.
+         * @return Builder
+         */
+        public Builder unsetTrialInterval() {
+            trialInterval = null;
             return this;
         }
 
@@ -924,7 +1125,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder trialIntervalUnit(IntervalUnit trialIntervalUnit) {
-            this.trialIntervalUnit = trialIntervalUnit;
+            this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetTrialIntervalUnit() {
+            trialIntervalUnit = null;
             return this;
         }
 
@@ -944,7 +1154,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder introductoryOffer(Boolean introductoryOffer) {
-            this.introductoryOffer = introductoryOffer;
+            this.introductoryOffer = OptionalNullable.of(introductoryOffer);
+            return this;
+        }
+
+        /**
+         * UnSetter for introductoryOffer.
+         * @return Builder
+         */
+        public Builder unsetIntroductoryOffer() {
+            introductoryOffer = null;
             return this;
         }
 
@@ -954,7 +1173,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder initialChargeInCents(Long initialChargeInCents) {
-            this.initialChargeInCents = initialChargeInCents;
+            this.initialChargeInCents = OptionalNullable.of(initialChargeInCents);
+            return this;
+        }
+
+        /**
+         * UnSetter for initialChargeInCents.
+         * @return Builder
+         */
+        public Builder unsetInitialChargeInCents() {
+            initialChargeInCents = null;
             return this;
         }
 
@@ -964,7 +1192,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder initialChargeAfterTrial(Boolean initialChargeAfterTrial) {
-            this.initialChargeAfterTrial = initialChargeAfterTrial;
+            this.initialChargeAfterTrial = OptionalNullable.of(initialChargeAfterTrial);
+            return this;
+        }
+
+        /**
+         * UnSetter for initialChargeAfterTrial.
+         * @return Builder
+         */
+        public Builder unsetInitialChargeAfterTrial() {
+            initialChargeAfterTrial = null;
             return this;
         }
 
@@ -974,7 +1211,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder expirationInterval(Integer expirationInterval) {
-            this.expirationInterval = expirationInterval;
+            this.expirationInterval = OptionalNullable.of(expirationInterval);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationInterval.
+         * @return Builder
+         */
+        public Builder unsetExpirationInterval() {
+            expirationInterval = null;
             return this;
         }
 
@@ -984,7 +1230,16 @@ public class ProductPricePoint
          * @return Builder
          */
         public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-            this.expirationIntervalUnit = expirationIntervalUnit;
+            this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetExpirationIntervalUnit() {
+            expirationIntervalUnit = null;
             return this;
         }
 

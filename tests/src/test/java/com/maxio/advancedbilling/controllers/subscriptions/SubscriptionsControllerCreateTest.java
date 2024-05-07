@@ -762,8 +762,7 @@ public class SubscriptionsControllerCreateTest {
         assertThat(subscriptionComponent1.getArchivedAt()).isNull();
         assertThat(subscriptionComponent1.getPricePointId()).isNotNull();
         assertThat(subscriptionComponent1.getPricePointHandle()).isNotNull();
-        assertThat(subscriptionComponent1.getPricePointType().match(PricePointType::value))
-                .isEqualTo("default");
+        assertThat(subscriptionComponent1.getPricePointType()).isEqualTo(PricePointType.ENUM_DEFAULT);
         assertThat(subscriptionComponent1.getPricePointName()).isNotNull();
         assertThat(subscriptionComponent1.getProductFamilyId()).isEqualTo(PRODUCT_FAMILY.getId());
         assertThat(subscriptionComponent1.getProductFamilyHandle()).isEqualTo(PRODUCT_FAMILY.getHandle());

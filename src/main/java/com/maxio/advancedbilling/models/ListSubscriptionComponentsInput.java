@@ -26,7 +26,7 @@ public class ListSubscriptionComponentsInput {
     private ListSubscriptionComponentsSort sort;
     private String startDate;
     private String startDatetime;
-    private ListSubscriptionComponentsInclude include;
+    private List<ListSubscriptionComponentsInclude> include;
 
     /**
      * Default constructor.
@@ -47,7 +47,7 @@ public class ListSubscriptionComponentsInput {
      * @param  sort  ListSubscriptionComponentsSort value for sort.
      * @param  startDate  String value for startDate.
      * @param  startDatetime  String value for startDatetime.
-     * @param  include  ListSubscriptionComponentsInclude value for include.
+     * @param  include  List of ListSubscriptionComponentsInclude value for include.
      */
     public ListSubscriptionComponentsInput(
             int subscriptionId,
@@ -61,7 +61,7 @@ public class ListSubscriptionComponentsInput {
             ListSubscriptionComponentsSort sort,
             String startDate,
             String startDatetime,
-            ListSubscriptionComponentsInclude include) {
+            List<ListSubscriptionComponentsInclude> include) {
         this.subscriptionId = subscriptionId;
         this.dateField = dateField;
         this.direction = direction;
@@ -330,22 +330,24 @@ public class ListSubscriptionComponentsInput {
 
     /**
      * Getter for Include.
-     * Allows including additional data in the response. Use in query `include=subscription`.
-     * @return Returns the ListSubscriptionComponentsInclude
+     * Allows including additional data in the response. Use in query
+     * `include=subscription,historic_usages`.
+     * @return Returns the List of ListSubscriptionComponentsInclude
      */
     @JsonGetter("include")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public ListSubscriptionComponentsInclude getInclude() {
+    public List<ListSubscriptionComponentsInclude> getInclude() {
         return include;
     }
 
     /**
      * Setter for Include.
-     * Allows including additional data in the response. Use in query `include=subscription`.
-     * @param include Value for ListSubscriptionComponentsInclude
+     * Allows including additional data in the response. Use in query
+     * `include=subscription,historic_usages`.
+     * @param include Value for List of ListSubscriptionComponentsInclude
      */
     @JsonSetter("include")
-    public void setInclude(ListSubscriptionComponentsInclude include) {
+    public void setInclude(List<ListSubscriptionComponentsInclude> include) {
         this.include = include;
     }
 
@@ -399,7 +401,7 @@ public class ListSubscriptionComponentsInput {
         private ListSubscriptionComponentsSort sort;
         private String startDate;
         private String startDatetime;
-        private ListSubscriptionComponentsInclude include;
+        private List<ListSubscriptionComponentsInclude> include;
 
         /**
          * Initialization constructor.
@@ -527,10 +529,10 @@ public class ListSubscriptionComponentsInput {
 
         /**
          * Setter for include.
-         * @param  include  ListSubscriptionComponentsInclude value for include.
+         * @param  include  List of ListSubscriptionComponentsInclude value for include.
          * @return Builder
          */
-        public Builder include(ListSubscriptionComponentsInclude include) {
+        public Builder include(List<ListSubscriptionComponentsInclude> include) {
             this.include = include;
             return this;
         }
