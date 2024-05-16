@@ -4,11 +4,11 @@ import com.maxio.advancedbilling.models.InvoiceAddress;
 import com.maxio.advancedbilling.models.InvoiceSeller;
 
 public class TestFixtures {
-    private static final Integer DEFAULT_SITE_ID = 4512;
+    private static final Integer DEFAULT_SITE_ID = 86550;
     public static final Integer SITE_ID = getSiteId();
 
     public static final InvoiceSeller INVOICE_SELLER = new InvoiceSeller.Builder()
-            .name("Developer Experience")
+            .name("Root Testing RUIC")
             .address(new InvoiceAddress.Builder()
                     .street("Asdf Street")
                     .line2("123/444")
