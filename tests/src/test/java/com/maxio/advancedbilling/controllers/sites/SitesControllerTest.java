@@ -25,10 +25,10 @@ class SitesControllerTest {
 
         // then
         assertThat(site.getId()).isEqualTo(SITE_ID);
-        assertThat(site.getName()).isEqualTo("Java SDK Env");
+        assertThat(site.getName()).isEqualTo("Java SDK");
         assertThat(site.getSubdomain()).isEqualTo("java-sdk");
         assertThat(site.getCurrency()).isEqualTo("USD");
-        assertThat(site.getSellerId()).isEqualTo(722159);
+        assertThat(site.getSellerId()).isEqualTo(56887);
         assertThat(site.getNonPrimaryCurrencies()).containsExactlyInAnyOrder("EUR");
         assertThat(site.getRelationshipInvoicingEnabled()).isTrue();
         assertThat(site.getCustomerHierarchyEnabled()).isFalse();
@@ -47,7 +47,7 @@ class SitesControllerTest {
         assertThat(organizationAddress.getState()).isEqualTo("TX");
         assertThat(organizationAddress.getZip()).isEqualTo("78015");
         assertThat(organizationAddress.getCountry()).isEqualTo("US");
-        assertThat(organizationAddress.getName()).isEqualTo("Developer Experience");
+        assertThat(organizationAddress.getName()).isEqualTo("Maxio Developer Experience");
         assertThat(organizationAddress.getPhone()).isEqualTo("555 111 222");
 
         TaxConfiguration taxConfiguration = site.getTaxConfiguration();

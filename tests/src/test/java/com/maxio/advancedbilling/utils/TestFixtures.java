@@ -8,7 +8,7 @@ public class TestFixtures {
     public static final Integer SITE_ID = getSiteId();
 
     public static final InvoiceSeller INVOICE_SELLER = new InvoiceSeller.Builder()
-            .name("Root Testing RUIC")
+            .name("Maxio Developer Experience")
             .address(new InvoiceAddress.Builder()
                     .street("Asdf Street")
                     .line2("123/444")
