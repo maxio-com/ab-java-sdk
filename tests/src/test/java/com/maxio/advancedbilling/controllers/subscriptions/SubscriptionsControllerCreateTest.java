@@ -52,7 +52,6 @@ import com.maxio.advancedbilling.utils.TestTeardown;
 import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -526,7 +525,6 @@ public class SubscriptionsControllerCreateTest {
     }
 
     @Test
-    @Disabled
     void shouldCreateSubscriptionWithPrepaidConfiguration() throws IOException, ApiException {
         // given
         int component1UnitPrice = 10;
