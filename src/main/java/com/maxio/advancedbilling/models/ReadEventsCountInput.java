@@ -17,8 +17,8 @@ import java.util.List;
 public class ReadEventsCountInput {
     private Integer page;
     private Integer perPage;
-    private Integer sinceId;
-    private Integer maxId;
+    private Long sinceId;
+    private Long maxId;
     private Direction direction;
     private List<EventType> filter;
 
@@ -35,16 +35,16 @@ public class ReadEventsCountInput {
      * Initialization constructor.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
-     * @param  sinceId  Integer value for sinceId.
-     * @param  maxId  Integer value for maxId.
+     * @param  sinceId  Long value for sinceId.
+     * @param  maxId  Long value for maxId.
      * @param  direction  Direction value for direction.
      * @param  filter  List of EventType value for filter.
      */
     public ReadEventsCountInput(
             Integer page,
             Integer perPage,
-            Integer sinceId,
-            Integer maxId,
+            Long sinceId,
+            Long maxId,
             Direction direction,
             List<EventType> filter) {
         this.page = page;
@@ -112,42 +112,42 @@ public class ReadEventsCountInput {
     /**
      * Getter for SinceId.
      * Returns events with an id greater than or equal to the one specified
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("since_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getSinceId() {
+    public Long getSinceId() {
         return sinceId;
     }
 
     /**
      * Setter for SinceId.
      * Returns events with an id greater than or equal to the one specified
-     * @param sinceId Value for Integer
+     * @param sinceId Value for Long
      */
     @JsonSetter("since_id")
-    public void setSinceId(Integer sinceId) {
+    public void setSinceId(Long sinceId) {
         this.sinceId = sinceId;
     }
 
     /**
      * Getter for MaxId.
      * Returns events with an id less than or equal to the one specified
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("max_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getMaxId() {
+    public Long getMaxId() {
         return maxId;
     }
 
     /**
      * Setter for MaxId.
      * Returns events with an id less than or equal to the one specified
-     * @param maxId Value for Integer
+     * @param maxId Value for Long
      */
     @JsonSetter("max_id")
-    public void setMaxId(Integer maxId) {
+    public void setMaxId(Long maxId) {
         this.maxId = maxId;
     }
 
@@ -228,8 +228,8 @@ public class ReadEventsCountInput {
     public static class Builder {
         private Integer page = 1;
         private Integer perPage = 20;
-        private Integer sinceId;
-        private Integer maxId;
+        private Long sinceId;
+        private Long maxId;
         private Direction direction = Direction.DESC;
         private List<EventType> filter;
 
@@ -257,20 +257,20 @@ public class ReadEventsCountInput {
 
         /**
          * Setter for sinceId.
-         * @param  sinceId  Integer value for sinceId.
+         * @param  sinceId  Long value for sinceId.
          * @return Builder
          */
-        public Builder sinceId(Integer sinceId) {
+        public Builder sinceId(Long sinceId) {
             this.sinceId = sinceId;
             return this;
         }
 
         /**
          * Setter for maxId.
-         * @param  maxId  Integer value for maxId.
+         * @param  maxId  Long value for maxId.
          * @return Builder
          */
-        public Builder maxId(Integer maxId) {
+        public Builder maxId(Long maxId) {
             this.maxId = maxId;
             return this;
         }

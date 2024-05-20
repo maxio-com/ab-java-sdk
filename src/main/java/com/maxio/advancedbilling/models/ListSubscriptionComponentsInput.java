@@ -27,6 +27,7 @@ public class ListSubscriptionComponentsInput {
     private String startDate;
     private String startDatetime;
     private List<ListSubscriptionComponentsInclude> include;
+    private Boolean inUse;
 
     /**
      * Default constructor.
@@ -48,6 +49,7 @@ public class ListSubscriptionComponentsInput {
      * @param  startDate  String value for startDate.
      * @param  startDatetime  String value for startDatetime.
      * @param  include  List of ListSubscriptionComponentsInclude value for include.
+     * @param  inUse  Boolean value for inUse.
      */
     public ListSubscriptionComponentsInput(
             int subscriptionId,
@@ -61,7 +63,8 @@ public class ListSubscriptionComponentsInput {
             ListSubscriptionComponentsSort sort,
             String startDate,
             String startDatetime,
-            List<ListSubscriptionComponentsInclude> include) {
+            List<ListSubscriptionComponentsInclude> include,
+            Boolean inUse) {
         this.subscriptionId = subscriptionId;
         this.dateField = dateField;
         this.direction = direction;
@@ -74,6 +77,7 @@ public class ListSubscriptionComponentsInput {
         this.startDate = startDate;
         this.startDatetime = startDatetime;
         this.include = include;
+        this.inUse = inUse;
     }
 
     /**
@@ -352,6 +356,29 @@ public class ListSubscriptionComponentsInput {
     }
 
     /**
+     * Getter for InUse.
+     * If in_use is set to true, it returns only components that are currently in use. However, if
+     * it's set to false or not provided, it returns all components connected with the subscription.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("in_use")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getInUse() {
+        return inUse;
+    }
+
+    /**
+     * Setter for InUse.
+     * If in_use is set to true, it returns only components that are currently in use. However, if
+     * it's set to false or not provided, it returns all components connected with the subscription.
+     * @param inUse Value for Boolean
+     */
+    @JsonSetter("in_use")
+    public void setInUse(Boolean inUse) {
+        this.inUse = inUse;
+    }
+
+    /**
      * Converts this ListSubscriptionComponentsInput into string format.
      * @return String representation of this class
      */
@@ -362,7 +389,7 @@ public class ListSubscriptionComponentsInput {
                 + ", endDate=" + endDate + ", endDatetime=" + endDatetime + ", pricePointIds="
                 + pricePointIds + ", productFamilyIds=" + productFamilyIds + ", sort=" + sort
                 + ", startDate=" + startDate + ", startDatetime=" + startDatetime + ", include="
-                + include + "]";
+                + include + ", inUse=" + inUse + "]";
     }
 
     /**
@@ -382,7 +409,8 @@ public class ListSubscriptionComponentsInput {
                 .sort(getSort())
                 .startDate(getStartDate())
                 .startDatetime(getStartDatetime())
-                .include(getInclude());
+                .include(getInclude())
+                .inUse(getInUse());
         return builder;
     }
 
@@ -402,6 +430,7 @@ public class ListSubscriptionComponentsInput {
         private String startDate;
         private String startDatetime;
         private List<ListSubscriptionComponentsInclude> include;
+        private Boolean inUse;
 
         /**
          * Initialization constructor.
@@ -538,13 +567,23 @@ public class ListSubscriptionComponentsInput {
         }
 
         /**
+         * Setter for inUse.
+         * @param  inUse  Boolean value for inUse.
+         * @return Builder
+         */
+        public Builder inUse(Boolean inUse) {
+            this.inUse = inUse;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListSubscriptionComponentsInput} object using the set fields.
          * @return {@link ListSubscriptionComponentsInput}
          */
         public ListSubscriptionComponentsInput build() {
             return new ListSubscriptionComponentsInput(subscriptionId, dateField, direction, filter,
                     endDate, endDatetime, pricePointIds, productFamilyIds, sort, startDate,
-                    startDatetime, include);
+                    startDatetime, include, inUse);
         }
     }
 }

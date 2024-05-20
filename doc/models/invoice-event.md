@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
+| `Id` | `Long` | Optional | - | Long getId() | setId(Long id) |
 | `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Optional | Invoice Event Type | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`InvoiceEventEventData`](../../doc/models/containers/invoice-event-event-data.md) | Optional | This is a container for any-of cases. | InvoiceEventEventData getEventData() | setEventData(InvoiceEventEventData eventData) |
 | `Timestamp` | `ZonedDateTime` | Optional | - | ZonedDateTime getTimestamp() | setTimestamp(ZonedDateTime timestamp) |
@@ -20,7 +20,7 @@
 ```json
 {
   "id": 78,
-  "event_type": "void_invoice",
+  "event_type": "create_debit_note",
   "event_data": {
     "uid": "uid2",
     "credit_note_number": "credit_note_number4",

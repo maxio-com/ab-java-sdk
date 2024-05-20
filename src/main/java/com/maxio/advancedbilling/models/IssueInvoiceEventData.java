@@ -85,8 +85,8 @@ public class IssueInvoiceEventData
 
     /**
      * Getter for FromStatus.
-     * The status of the invoice before event occurence. See [Invoice
-     * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
+     * The status of the invoice before event occurrence. See [Invoice
+     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -97,8 +97,8 @@ public class IssueInvoiceEventData
 
     /**
      * Setter for FromStatus.
-     * The status of the invoice before event occurence. See [Invoice
-     * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
+     * The status of the invoice before event occurrence. See [Invoice
+     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
      * for more.
      * @param fromStatus Value for InvoiceStatus
      */
@@ -109,8 +109,8 @@ public class IssueInvoiceEventData
 
     /**
      * Getter for ToStatus.
-     * The status of the invoice after event occurence. See [Invoice
-     * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
+     * The status of the invoice after event occurrence. See [Invoice
+     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -121,8 +121,8 @@ public class IssueInvoiceEventData
 
     /**
      * Setter for ToStatus.
-     * The status of the invoice after event occurence. See [Invoice
-     * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
+     * The status of the invoice after event occurrence. See [Invoice
+     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
      * for more.
      * @param toStatus Value for InvoiceStatus
      */

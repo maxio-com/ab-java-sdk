@@ -198,10 +198,11 @@ ProductFamilyResponse createProductFamily(
 
 ```java
 CreateProductFamilyRequest body = new CreateProductFamilyRequest.Builder(
-    new CreateProductFamily.Builder()
-        .name("Acme Projects")
-        .description("Amazing project management tool")
-        .build()
+    new CreateProductFamily.Builder(
+        "Acme Projects"
+    )
+    .description("Amazing project management tool")
+    .build()
 )
 .build();
 

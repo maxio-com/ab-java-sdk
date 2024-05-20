@@ -8,9 +8,15 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ApplyDebitNoteEventData type.
@@ -21,6 +27,8 @@ public class ApplyDebitNoteEventData
     private String debitNoteUid;
     private String originalAmount;
     private String appliedAmount;
+    private OptionalNullable<String> memo;
+    private OptionalNullable<ZonedDateTime> transactionTime;
 
     /**
      * Default constructor.
@@ -34,17 +42,62 @@ public class ApplyDebitNoteEventData
      * @param  debitNoteUid  String value for debitNoteUid.
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
+     * @param  memo  String value for memo.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
      */
-    @JsonCreator
     public ApplyDebitNoteEventData(
-            @JsonProperty("debit_note_number") String debitNoteNumber,
-            @JsonProperty("debit_note_uid") String debitNoteUid,
-            @JsonProperty("original_amount") String originalAmount,
-            @JsonProperty("applied_amount") String appliedAmount) {
+            String debitNoteNumber,
+            String debitNoteUid,
+            String originalAmount,
+            String appliedAmount,
+            String memo,
+            ZonedDateTime transactionTime) {
         this.debitNoteNumber = debitNoteNumber;
         this.debitNoteUid = debitNoteUid;
         this.originalAmount = originalAmount;
         this.appliedAmount = appliedAmount;
+        this.memo = OptionalNullable.of(memo);
+        this.transactionTime = OptionalNullable.of(transactionTime);
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  debitNoteNumber  String value for debitNoteNumber.
+     * @param  debitNoteUid  String value for debitNoteUid.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     * @param  memo  String value for memo.
+     * @param  transactionTime  ZonedDateTime value for transactionTime.
+     */
+
+    protected ApplyDebitNoteEventData(String debitNoteNumber, String debitNoteUid,
+            String originalAmount, String appliedAmount, OptionalNullable<String> memo,
+            OptionalNullable<ZonedDateTime> transactionTime) {
+        this.debitNoteNumber = debitNoteNumber;
+        this.debitNoteUid = debitNoteUid;
+        this.originalAmount = originalAmount;
+        this.appliedAmount = appliedAmount;
+        this.memo = memo;
+        this.transactionTime = transactionTime;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  debitNoteNumber  String value for debitNoteNumber.
+     * @param  debitNoteUid  String value for debitNoteUid.
+     * @param  originalAmount  String value for originalAmount.
+     * @param  appliedAmount  String value for appliedAmount.
+     */
+    @JsonCreator
+    protected ApplyDebitNoteEventData(
+            @JsonProperty("debit_note_number") String debitNoteNumber,
+            @JsonProperty("debit_note_uid") String debitNoteUid,
+            @JsonProperty("original_amount") String originalAmount,
+            @JsonProperty("applied_amount") String appliedAmount) {
+        this(debitNoteNumber, debitNoteUid, originalAmount, appliedAmount,
+                OptionalNullable.of(null), OptionalNullable.of(null));
+        unsetMemo();
+        unsetTransactionTime();
     }
 
     /**
@@ -130,6 +183,85 @@ public class ApplyDebitNoteEventData
     }
 
     /**
+     * Internal Getter for Memo.
+     * The debit note memo.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("memo")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMemo() {
+        return this.memo;
+    }
+
+    /**
+     * Getter for Memo.
+     * The debit note memo.
+     * @return Returns the String
+     */
+    public String getMemo() {
+        return OptionalNullable.getFrom(memo);
+    }
+
+    /**
+     * Setter for Memo.
+     * The debit note memo.
+     * @param memo Value for String
+     */
+    @JsonSetter("memo")
+    public void setMemo(String memo) {
+        this.memo = OptionalNullable.of(memo);
+    }
+
+    /**
+     * UnSetter for Memo.
+     * The debit note memo.
+     */
+    public void unsetMemo() {
+        memo = null;
+    }
+
+    /**
+     * Internal Getter for TransactionTime.
+     * The time the debit note was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("transaction_time")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetTransactionTime() {
+        return this.transactionTime;
+    }
+
+    /**
+     * Getter for TransactionTime.
+     * The time the debit note was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
+     * @return Returns the ZonedDateTime
+     */
+    public ZonedDateTime getTransactionTime() {
+        return OptionalNullable.getFrom(transactionTime);
+    }
+
+    /**
+     * Setter for TransactionTime.
+     * The time the debit note was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
+     * @param transactionTime Value for ZonedDateTime
+     */
+    @JsonSetter("transaction_time")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setTransactionTime(ZonedDateTime transactionTime) {
+        this.transactionTime = OptionalNullable.of(transactionTime);
+    }
+
+    /**
+     * UnSetter for TransactionTime.
+     * The time the debit note was applied, in ISO 8601 format, i.e. "2019-06-07T17:20:06Z"
+     */
+    public void unsetTransactionTime() {
+        transactionTime = null;
+    }
+
+    /**
      * Converts this ApplyDebitNoteEventData into string format.
      * @return String representation of this class
      */
@@ -137,8 +269,8 @@ public class ApplyDebitNoteEventData
     public String toString() {
         return "ApplyDebitNoteEventData [" + "debitNoteNumber=" + debitNoteNumber
                 + ", debitNoteUid=" + debitNoteUid + ", originalAmount=" + originalAmount
-                + ", appliedAmount=" + appliedAmount + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", appliedAmount=" + appliedAmount + ", memo=" + memo + ", transactionTime="
+                + transactionTime + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -148,6 +280,8 @@ public class ApplyDebitNoteEventData
      */
     public Builder toBuilder() {
         Builder builder = new Builder(debitNoteNumber, debitNoteUid, originalAmount, appliedAmount);
+        builder.memo = internalGetMemo();
+        builder.transactionTime = internalGetTransactionTime();
         return builder;
     }
 
@@ -159,6 +293,8 @@ public class ApplyDebitNoteEventData
         private String debitNoteUid;
         private String originalAmount;
         private String appliedAmount;
+        private OptionalNullable<String> memo;
+        private OptionalNullable<ZonedDateTime> transactionTime;
 
         /**
          * Initialization constructor.
@@ -222,12 +358,50 @@ public class ApplyDebitNoteEventData
         }
 
         /**
+         * Setter for memo.
+         * @param  memo  String value for memo.
+         * @return Builder
+         */
+        public Builder memo(String memo) {
+            this.memo = OptionalNullable.of(memo);
+            return this;
+        }
+
+        /**
+         * UnSetter for memo.
+         * @return Builder
+         */
+        public Builder unsetMemo() {
+            memo = null;
+            return this;
+        }
+
+        /**
+         * Setter for transactionTime.
+         * @param  transactionTime  ZonedDateTime value for transactionTime.
+         * @return Builder
+         */
+        public Builder transactionTime(ZonedDateTime transactionTime) {
+            this.transactionTime = OptionalNullable.of(transactionTime);
+            return this;
+        }
+
+        /**
+         * UnSetter for transactionTime.
+         * @return Builder
+         */
+        public Builder unsetTransactionTime() {
+            transactionTime = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ApplyDebitNoteEventData} object using the set fields.
          * @return {@link ApplyDebitNoteEventData}
          */
         public ApplyDebitNoteEventData build() {
             return new ApplyDebitNoteEventData(debitNoteNumber, debitNoteUid, originalAmount,
-                    appliedAmount);
+                    appliedAmount, memo, transactionTime);
         }
     }
 }
