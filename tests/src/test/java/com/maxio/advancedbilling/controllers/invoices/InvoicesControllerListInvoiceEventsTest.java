@@ -7,7 +7,9 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ApplyCreditNoteEventData;
 import com.maxio.advancedbilling.models.ApplyDebitNoteEventData;
 import com.maxio.advancedbilling.models.ApplyPaymentEventData;
+import com.maxio.advancedbilling.models.ChangeChargebackStatusEventData;
 import com.maxio.advancedbilling.models.ChangeInvoiceCollectionMethodEventData;
+import com.maxio.advancedbilling.models.ChangeInvoiceStatusEventData;
 import com.maxio.advancedbilling.models.CreateInvoiceCoupon;
 import com.maxio.advancedbilling.models.CreateInvoiceItem;
 import com.maxio.advancedbilling.models.CreateInvoicePayment;
@@ -16,6 +18,8 @@ import com.maxio.advancedbilling.models.CreateInvoiceStatus;
 import com.maxio.advancedbilling.models.CreditNote;
 import com.maxio.advancedbilling.models.CreditNoteStatus;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.DebitNote;
+import com.maxio.advancedbilling.models.FailedPaymentEventData;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
 import com.maxio.advancedbilling.models.InvoiceEvent;
@@ -452,6 +456,36 @@ public class InvoicesControllerListInvoiceEventsTest {
         @Override
         public R voidRemainderEventData(VoidRemainderEventData voidRemainderEventData) {
             return cast(voidRemainderEventData);
+        }
+
+        @Override
+        public R invoice(Invoice invoice) {
+            return cast(invoice);
+        }
+
+        @Override
+        public R changeInvoiceStatusEventData(ChangeInvoiceStatusEventData changeInvoiceStatusEventData) {
+            return cast(changeInvoiceStatusEventData);
+        }
+
+        @Override
+        public R failedPaymentEventData(FailedPaymentEventData failedPaymentEventData) {
+            return cast(failedPaymentEventData);
+        }
+
+        @Override
+        public R debitNote(DebitNote debitNote) {
+            return cast(debitNote);
+        }
+
+        @Override
+        public R creditNote(CreditNote creditNote) {
+            return cast(creditNote);
+        }
+
+        @Override
+        public R changeChargebackStatusEventData(ChangeChargebackStatusEventData changeChargebackStatusEventData) {
+            return cast(changeChargebackStatusEventData);
         }
 
         private R cast(Object o) {
