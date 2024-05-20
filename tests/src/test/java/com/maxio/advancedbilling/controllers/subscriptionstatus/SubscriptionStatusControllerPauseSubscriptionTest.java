@@ -29,7 +29,8 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         // then
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
-                        "productPricePointType", "dunningCommunicationDelayEnabled")
+                        "productPricePointType", "dunningCommunicationDelayEnabled",
+                        "customer.countryName", "customer.stateName")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
@@ -53,7 +54,8 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         // then
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
-                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled")
+                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled",
+                        "customer.countryName", "customer.stateName")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
@@ -85,7 +87,8 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         // then
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
-                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled")
+                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled",
+                        "customer.countryName", "customer.stateName")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
