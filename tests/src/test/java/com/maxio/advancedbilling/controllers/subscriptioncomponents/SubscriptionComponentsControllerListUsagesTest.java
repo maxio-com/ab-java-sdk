@@ -120,8 +120,8 @@ public class SubscriptionComponentsControllerListUsagesTest {
         List<UsageResponse> usages = SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
                 .subscriptionId(subscription.getId())
                 .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
-                .sinceId(Math.toIntExact(usage1.getId()))
-                .maxId(Math.toIntExact(usage2.getId()))
+                .sinceId(usage1.getId())
+                .maxId(usage2.getId())
                 .build()
         );
 
