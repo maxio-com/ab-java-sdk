@@ -21,7 +21,7 @@ import java.time.ZonedDateTime;
  */
 public class InvoiceEvent
         extends BaseModel {
-    private Integer id;
+    private Long id;
     private InvoiceEventType eventType;
     private InvoiceEventEventData eventData;
     private ZonedDateTime timestamp;
@@ -35,14 +35,14 @@ public class InvoiceEvent
 
     /**
      * Initialization constructor.
-     * @param  id  Integer value for id.
+     * @param  id  Long value for id.
      * @param  eventType  InvoiceEventType value for eventType.
      * @param  eventData  InvoiceEventEventData value for eventData.
      * @param  timestamp  ZonedDateTime value for timestamp.
      * @param  invoice  Invoice value for invoice.
      */
     public InvoiceEvent(
-            Integer id,
+            Long id,
             InvoiceEventType eventType,
             InvoiceEventEventData eventData,
             ZonedDateTime timestamp,
@@ -56,20 +56,20 @@ public class InvoiceEvent
 
     /**
      * Getter for Id.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * Setter for Id.
-     * @param id Value for Integer
+     * @param id Value for Long
      */
     @JsonSetter("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -187,7 +187,7 @@ public class InvoiceEvent
      * Class to build instances of {@link InvoiceEvent}.
      */
     public static class Builder {
-        private Integer id;
+        private Long id;
         private InvoiceEventType eventType;
         private InvoiceEventEventData eventData;
         private ZonedDateTime timestamp;
@@ -197,10 +197,10 @@ public class InvoiceEvent
 
         /**
          * Setter for id.
-         * @param  id  Integer value for id.
+         * @param  id  Long value for id.
          * @return Builder
          */
-        public Builder id(Integer id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }

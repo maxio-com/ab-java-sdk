@@ -11,6 +11,7 @@ Example schema for an `apply_payment` event
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
+| `ConsolidationLevel` | [`InvoiceConsolidationLevel`](../../doc/models/invoice-consolidation-level.md) | Required | - | InvoiceConsolidationLevel getConsolidationLevel() | setConsolidationLevel(InvoiceConsolidationLevel consolidationLevel) |
 | `Memo` | `String` | Required | The payment memo | String getMemo() | setMemo(String memo) |
 | `OriginalAmount` | `String` | Required | The full, original amount of the payment transaction as a string in full units. Incoming payments can be split amongst several invoices, which will result in a `applied_amount` less than the `original_amount`. Example: A $100.99 payment, of which $40.11 is applied to this invoice, will have an `original_amount` of `"100.99"`. | String getOriginalAmount() | setOriginalAmount(String originalAmount) |
 | `AppliedAmount` | `String` | Required | The amount of the payment applied to this invoice. Incoming payments can be split amongst several invoices, which will result in a `applied_amount` less than the `original_amount`. Example: A $100.99 payment, of which $40.11 is applied to this invoice, will have an `applied_amount` of `"40.11"`. | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
@@ -26,6 +27,7 @@ Example schema for an `apply_payment` event
 
 ```json
 {
+  "consolidation_level": "child",
   "memo": "memo8",
   "original_amount": "original_amount8",
   "applied_amount": "applied_amount4",
