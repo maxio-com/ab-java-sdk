@@ -27,6 +27,8 @@ public enum InvoiceEventType {
 
     APPLY_DEBIT_NOTE,
 
+    CREATE_DEBIT_NOTE,
+
     REFUND_INVOICE,
 
     VOID_INVOICE,
@@ -55,6 +57,7 @@ public enum InvoiceEventType {
         CREATE_CREDIT_NOTE.value = "create_credit_note";
         APPLY_PAYMENT.value = "apply_payment";
         APPLY_DEBIT_NOTE.value = "apply_debit_note";
+        CREATE_DEBIT_NOTE.value = "create_debit_note";
         REFUND_INVOICE.value = "refund_invoice";
         VOID_INVOICE.value = "void_invoice";
         VOID_REMAINDER.value = "void_remainder";
@@ -70,6 +73,7 @@ public enum InvoiceEventType {
         valueMap.put("create_credit_note", CREATE_CREDIT_NOTE);
         valueMap.put("apply_payment", APPLY_PAYMENT);
         valueMap.put("apply_debit_note", APPLY_DEBIT_NOTE);
+        valueMap.put("create_debit_note", CREATE_DEBIT_NOTE);
         valueMap.put("refund_invoice", REFUND_INVOICE);
         valueMap.put("void_invoice", VOID_INVOICE);
         valueMap.put("void_remainder", VOID_REMAINDER);

@@ -879,8 +879,8 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BankAccountNumber.
-     * (Required when creating with ACH, GoCardless, Stripe BECS Direct Debit and bank_iban is
-     * blank) The customerʼs bank account number
+     * (Required when creating with ACH, GoCardless, Stripe BECS or BACS Direct Debit, and bank_iban
+     * is blank) The customerʼs bank account number
      * @return Returns the String
      */
     @JsonGetter("bank_account_number")
@@ -891,8 +891,8 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BankAccountNumber.
-     * (Required when creating with ACH, GoCardless, Stripe BECS Direct Debit and bank_iban is
-     * blank) The customerʼs bank account number
+     * (Required when creating with ACH, GoCardless, Stripe BECS or BACS Direct Debit, and bank_iban
+     * is blank) The customerʼs bank account number
      * @param bankAccountNumber Value for String
      */
     @JsonSetter("bank_account_number")
@@ -902,8 +902,8 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BankBranchCode.
-     * (Optional when creating with GoCardless, required with Stripe BECS Direct Debit) Branch code.
-     * Alternatively, an IBAN can be provided
+     * (Optional when creating with GoCardless, required with Stripe BECS or BACS Direct Debit)
+     * Branch/Sort code. Alternatively, an IBAN can be provided
      * @return Returns the String
      */
     @JsonGetter("bank_branch_code")
@@ -914,8 +914,8 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BankBranchCode.
-     * (Optional when creating with GoCardless, required with Stripe BECS Direct Debit) Branch code.
-     * Alternatively, an IBAN can be provided
+     * (Optional when creating with GoCardless, required with Stripe BECS or BACS Direct Debit)
+     * Branch/Sort code. Alternatively, an IBAN can be provided
      * @param bankBranchCode Value for String
      */
     @JsonSetter("bank_branch_code")

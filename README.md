@@ -38,7 +38,7 @@ Install the SDK by adding the following dependency in your project's pom.xml fil
 ```
 
 You can also view the package at:
-https://mvnrepository.com/artifact/com.maxio/advanced-billing-sdk/3.0.0
+https://central.sonatype.com/artifact/com.maxio/advanced-billing-sdk/3.0.0
 
 ## Initialize the API Client
 
@@ -51,7 +51,7 @@ The following parameters are configurable for the API Client:
 | `subdomain` | `String` | The subdomain for your Chargify site.<br>*Default*: `"subdomain"` |
 | `domain` | `String` | The Chargify server domain.<br>*Default*: `"chargify.com"` |
 | `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
-| `httpClientConfig` | [`ReadonlyHttpClientConfiguration`](https://www.github.com/maxio-com/ab-java-sdk/tree/3.0.0/doc/http-client-configuration.md) | Http Client Configuration instance. |
+| `httpClientConfig` | [`Consumer<HttpClientConfiguration.Builder>`](https://www.github.com/maxio-com/ab-java-sdk/tree/3.0.0/doc/http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
 | `basicAuthCredentials` | [`BasicAuthCredentials`](https://www.github.com/maxio-com/ab-java-sdk/tree/3.0.0/doc/$a/https://www.github.com/maxio-com/ab-java-sdk/tree/3.0.0/basic-authentication.md) | The Credentials Setter for Basic Authentication |
 
 The API client can be initialized as follows:

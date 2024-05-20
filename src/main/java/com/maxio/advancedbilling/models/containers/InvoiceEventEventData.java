@@ -19,7 +19,13 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.models.ApplyCreditNoteEventData;
 import com.maxio.advancedbilling.models.ApplyDebitNoteEventData;
 import com.maxio.advancedbilling.models.ApplyPaymentEventData;
+import com.maxio.advancedbilling.models.ChangeChargebackStatusEventData;
 import com.maxio.advancedbilling.models.ChangeInvoiceCollectionMethodEventData;
+import com.maxio.advancedbilling.models.ChangeInvoiceStatusEventData;
+import com.maxio.advancedbilling.models.CreditNote;
+import com.maxio.advancedbilling.models.DebitNote;
+import com.maxio.advancedbilling.models.FailedPaymentEventData;
+import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.IssueInvoiceEventData;
 import com.maxio.advancedbilling.models.RefundInvoiceEventData;
 import com.maxio.advancedbilling.models.RemovePaymentEventData;
@@ -126,6 +132,63 @@ public abstract class InvoiceEventEventData {
     }
 
     /**
+     * This is Invoice case.
+     * @param invoice Invoice value for invoice.
+     * @return The InvoiceCase object.
+     */
+    public static InvoiceEventEventData fromInvoice(Invoice invoice) {
+        return invoice == null ? null : new InvoiceCase(invoice);
+    }
+
+    /**
+     * This is Change Invoice Status Event Data case.
+     * @param changeInvoiceStatusEventData ChangeInvoiceStatusEventData value for changeInvoiceStatusEventData.
+     * @return The ChangeInvoiceStatusEventDataCase object.
+     */
+    public static InvoiceEventEventData fromChangeInvoiceStatusEventData(
+            ChangeInvoiceStatusEventData changeInvoiceStatusEventData) {
+        return changeInvoiceStatusEventData == null ? null : new ChangeInvoiceStatusEventDataCase(changeInvoiceStatusEventData);
+    }
+
+    /**
+     * This is Failed Payment Event Data case.
+     * @param failedPaymentEventData FailedPaymentEventData value for failedPaymentEventData.
+     * @return The FailedPaymentEventDataCase object.
+     */
+    public static InvoiceEventEventData fromFailedPaymentEventData(
+            FailedPaymentEventData failedPaymentEventData) {
+        return failedPaymentEventData == null ? null : new FailedPaymentEventDataCase(failedPaymentEventData);
+    }
+
+    /**
+     * This is Debit Note case.
+     * @param debitNote DebitNote value for debitNote.
+     * @return The DebitNoteCase object.
+     */
+    public static InvoiceEventEventData fromDebitNote(DebitNote debitNote) {
+        return debitNote == null ? null : new DebitNoteCase(debitNote);
+    }
+
+    /**
+     * This is Credit Note case.
+     * @param creditNote CreditNote value for creditNote.
+     * @return The CreditNoteCase object.
+     */
+    public static InvoiceEventEventData fromCreditNote(CreditNote creditNote) {
+        return creditNote == null ? null : new CreditNoteCase(creditNote);
+    }
+
+    /**
+     * This is Change Chargeback Status Event Data case.
+     * @param changeChargebackStatusEventData ChangeChargebackStatusEventData value for changeChargebackStatusEventData.
+     * @return The ChangeChargebackStatusEventDataCase object.
+     */
+    public static InvoiceEventEventData fromChangeChargebackStatusEventData(
+            ChangeChargebackStatusEventData changeChargebackStatusEventData) {
+        return changeChargebackStatusEventData == null ? null : new ChangeChargebackStatusEventDataCase(changeChargebackStatusEventData);
+    }
+
+    /**
      * Method to match from the provided any-of cases.
      * @param <R> The type to return after applying callback.
      * @param cases The any-of type cases callback.
@@ -155,6 +218,18 @@ public abstract class InvoiceEventEventData {
         R voidInvoiceEventData(VoidInvoiceEventData voidInvoiceEventData);
 
         R voidRemainderEventData(VoidRemainderEventData voidRemainderEventData);
+
+        R invoice(Invoice invoice);
+
+        R changeInvoiceStatusEventData(ChangeInvoiceStatusEventData changeInvoiceStatusEventData);
+
+        R failedPaymentEventData(FailedPaymentEventData failedPaymentEventData);
+
+        R debitNote(DebitNote debitNote);
+
+        R creditNote(CreditNote creditNote);
+
+        R changeChargebackStatusEventData(ChangeChargebackStatusEventData changeChargebackStatusEventData);
     }
 
     /**
@@ -437,6 +512,192 @@ public abstract class InvoiceEventEventData {
     }
 
     /**
+     * This is a implementation class for InvoiceCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "Invoice")
+    private static class InvoiceCase extends InvoiceEventEventData {
+
+        @JsonValue
+        private Invoice invoice;
+
+        InvoiceCase(Invoice invoice) {
+            this.invoice = invoice;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.invoice(this.invoice);
+        }
+
+        @JsonCreator
+        private InvoiceCase(JsonNode jsonNode) throws IOException {
+            this.invoice = ApiHelper.deserialize(jsonNode,
+                Invoice.class);
+        }
+
+        @Override
+        public String toString() {
+            return invoice.toString();
+        }
+    }
+
+    /**
+     * This is a implementation class for ChangeInvoiceStatusEventDataCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "ChangeInvoiceStatusEventData")
+    private static class ChangeInvoiceStatusEventDataCase extends InvoiceEventEventData {
+
+        @JsonValue
+        private ChangeInvoiceStatusEventData changeInvoiceStatusEventData;
+
+        ChangeInvoiceStatusEventDataCase(ChangeInvoiceStatusEventData changeInvoiceStatusEventData) {
+            this.changeInvoiceStatusEventData = changeInvoiceStatusEventData;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.changeInvoiceStatusEventData(this.changeInvoiceStatusEventData);
+        }
+
+        @JsonCreator
+        private ChangeInvoiceStatusEventDataCase(JsonNode jsonNode) throws IOException {
+            this.changeInvoiceStatusEventData = ApiHelper.deserialize(jsonNode,
+                ChangeInvoiceStatusEventData.class);
+        }
+
+        @Override
+        public String toString() {
+            return changeInvoiceStatusEventData.toString();
+        }
+    }
+
+    /**
+     * This is a implementation class for FailedPaymentEventDataCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "FailedPaymentEventData")
+    private static class FailedPaymentEventDataCase extends InvoiceEventEventData {
+
+        @JsonValue
+        private FailedPaymentEventData failedPaymentEventData;
+
+        FailedPaymentEventDataCase(FailedPaymentEventData failedPaymentEventData) {
+            this.failedPaymentEventData = failedPaymentEventData;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.failedPaymentEventData(this.failedPaymentEventData);
+        }
+
+        @JsonCreator
+        private FailedPaymentEventDataCase(JsonNode jsonNode) throws IOException {
+            this.failedPaymentEventData = ApiHelper.deserialize(jsonNode,
+                FailedPaymentEventData.class);
+        }
+
+        @Override
+        public String toString() {
+            return failedPaymentEventData.toString();
+        }
+    }
+
+    /**
+     * This is a implementation class for DebitNoteCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "DebitNote")
+    private static class DebitNoteCase extends InvoiceEventEventData {
+
+        @JsonValue
+        private DebitNote debitNote;
+
+        DebitNoteCase(DebitNote debitNote) {
+            this.debitNote = debitNote;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.debitNote(this.debitNote);
+        }
+
+        @JsonCreator
+        private DebitNoteCase(JsonNode jsonNode) throws IOException {
+            this.debitNote = ApiHelper.deserialize(jsonNode,
+                DebitNote.class);
+        }
+
+        @Override
+        public String toString() {
+            return debitNote.toString();
+        }
+    }
+
+    /**
+     * This is a implementation class for CreditNoteCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "CreditNote")
+    private static class CreditNoteCase extends InvoiceEventEventData {
+
+        @JsonValue
+        private CreditNote creditNote;
+
+        CreditNoteCase(CreditNote creditNote) {
+            this.creditNote = creditNote;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.creditNote(this.creditNote);
+        }
+
+        @JsonCreator
+        private CreditNoteCase(JsonNode jsonNode) throws IOException {
+            this.creditNote = ApiHelper.deserialize(jsonNode,
+                CreditNote.class);
+        }
+
+        @Override
+        public String toString() {
+            return creditNote.toString();
+        }
+    }
+
+    /**
+     * This is a implementation class for ChangeChargebackStatusEventDataCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "ChangeChargebackStatusEventData")
+    private static class ChangeChargebackStatusEventDataCase extends InvoiceEventEventData {
+
+        @JsonValue
+        private ChangeChargebackStatusEventData changeChargebackStatusEventData;
+
+        ChangeChargebackStatusEventDataCase(ChangeChargebackStatusEventData changeChargebackStatusEventData) {
+            this.changeChargebackStatusEventData = changeChargebackStatusEventData;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.changeChargebackStatusEventData(this.changeChargebackStatusEventData);
+        }
+
+        @JsonCreator
+        private ChangeChargebackStatusEventDataCase(JsonNode jsonNode) throws IOException {
+            this.changeChargebackStatusEventData = ApiHelper.deserialize(jsonNode,
+                ChangeChargebackStatusEventData.class);
+        }
+
+        @Override
+        public String toString() {
+            return changeChargebackStatusEventData.toString();
+        }
+    }
+
+    /**
      * This is a custom deserializer class for InvoiceEventEventData.
      */
     protected static class InvoiceEventEventDataDeserializer
@@ -452,7 +713,10 @@ public abstract class InvoiceEventEventData {
                     ChangeInvoiceCollectionMethodEventDataCase.class,
                     IssueInvoiceEventDataCase.class, RefundInvoiceEventDataCase.class,
                     RemovePaymentEventDataCase.class, VoidInvoiceEventDataCase.class,
-                    VoidRemainderEventDataCase.class), false);
+                    VoidRemainderEventDataCase.class, InvoiceCase.class,
+                    ChangeInvoiceStatusEventDataCase.class, FailedPaymentEventDataCase.class,
+                    DebitNoteCase.class, CreditNoteCase.class,
+                    ChangeChargebackStatusEventDataCase.class), false);
         }
     }
 

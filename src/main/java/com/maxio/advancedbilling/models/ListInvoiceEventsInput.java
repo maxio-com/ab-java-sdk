@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class ListInvoiceEventsInput {
     private String sinceDate;
-    private Integer sinceId;
+    private Long sinceId;
     private Integer page;
     private Integer perPage;
     private String invoiceUid;
@@ -34,7 +34,7 @@ public class ListInvoiceEventsInput {
     /**
      * Initialization constructor.
      * @param  sinceDate  String value for sinceDate.
-     * @param  sinceId  Integer value for sinceId.
+     * @param  sinceId  Long value for sinceId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  invoiceUid  String value for invoiceUid.
@@ -43,7 +43,7 @@ public class ListInvoiceEventsInput {
      */
     public ListInvoiceEventsInput(
             String sinceDate,
-            Integer sinceId,
+            Long sinceId,
             Integer page,
             Integer perPage,
             String invoiceUid,
@@ -88,11 +88,11 @@ public class ListInvoiceEventsInput {
      * The ID of the event from which you want to start the search(ID is not included. e.g. if ID is
      * set to 2, then all events with ID 3 and more will be shown) This parameter is not used if
      * since_date is defined.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
     @JsonGetter("since_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getSinceId() {
+    public Long getSinceId() {
         return sinceId;
     }
 
@@ -101,10 +101,10 @@ public class ListInvoiceEventsInput {
      * The ID of the event from which you want to start the search(ID is not included. e.g. if ID is
      * set to 2, then all events with ID 3 and more will be shown) This parameter is not used if
      * since_date is defined.
-     * @param sinceId Value for Integer
+     * @param sinceId Value for Long
      */
     @JsonSetter("since_id")
-    public void setSinceId(Integer sinceId) {
+    public void setSinceId(Long sinceId) {
         this.sinceId = sinceId;
     }
 
@@ -261,7 +261,7 @@ public class ListInvoiceEventsInput {
      */
     public static class Builder {
         private String sinceDate;
-        private Integer sinceId;
+        private Long sinceId;
         private Integer page = 1;
         private Integer perPage = 100;
         private String invoiceUid;
@@ -282,10 +282,10 @@ public class ListInvoiceEventsInput {
 
         /**
          * Setter for sinceId.
-         * @param  sinceId  Integer value for sinceId.
+         * @param  sinceId  Long value for sinceId.
          * @return Builder
          */
-        public Builder sinceId(Integer sinceId) {
+        public Builder sinceId(Long sinceId) {
             this.sinceId = sinceId;
             return this;
         }
