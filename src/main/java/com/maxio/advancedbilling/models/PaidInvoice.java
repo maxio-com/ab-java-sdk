@@ -69,7 +69,7 @@ public class PaidInvoice
     /**
      * Getter for Status.
      * The current status of the invoice. See [Invoice
-     * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
+     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -82,7 +82,7 @@ public class PaidInvoice
     /**
      * Setter for Status.
      * The current status of the invoice. See [Invoice
-     * Statuses](https://chargify.zendesk.com/hc/en-us/articles/4407737494171#line-item-breakdowns)
+     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
      * for more.
      * @param status Value for InvoiceStatus
      */

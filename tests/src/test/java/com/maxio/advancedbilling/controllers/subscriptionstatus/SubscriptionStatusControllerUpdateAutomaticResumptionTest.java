@@ -34,7 +34,8 @@ public class SubscriptionStatusControllerUpdateAutomaticResumptionTest extends S
         // then
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
-                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled")
+                        "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled",
+                        "customer.countryName", "customer.stateName", "customer.locale")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);

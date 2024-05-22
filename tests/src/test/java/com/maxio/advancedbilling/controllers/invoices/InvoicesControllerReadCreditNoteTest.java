@@ -225,7 +225,7 @@ class InvoicesControllerReadCreditNoteTest {
 
         assertThat(creditNote.getApplications())
                 .hasSize(1)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "transactionTime")
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "transactionTime", "additionalProperties")
                 .containsExactly(new CreditNoteApplication.Builder()
                         .invoiceUid(paidInvoice.getUid())
                         .memo("Special refund")

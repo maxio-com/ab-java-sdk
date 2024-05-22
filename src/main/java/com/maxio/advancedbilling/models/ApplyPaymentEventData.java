@@ -24,6 +24,7 @@ import java.time.ZonedDateTime;
  */
 public class ApplyPaymentEventData
         extends BaseModel {
+    private InvoiceConsolidationLevel consolidationLevel;
     private String memo;
     private String originalAmount;
     private String appliedAmount;
@@ -43,6 +44,7 @@ public class ApplyPaymentEventData
 
     /**
      * Initialization constructor.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
      * @param  memo  String value for memo.
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
@@ -55,6 +57,7 @@ public class ApplyPaymentEventData
      * @param  external  Boolean value for external.
      */
     public ApplyPaymentEventData(
+            InvoiceConsolidationLevel consolidationLevel,
             String memo,
             String originalAmount,
             String appliedAmount,
@@ -65,6 +68,7 @@ public class ApplyPaymentEventData
             String remainingPrepaymentAmount,
             Boolean prepayment,
             Boolean external) {
+        this.consolidationLevel = consolidationLevel;
         this.memo = memo;
         this.originalAmount = originalAmount;
         this.appliedAmount = appliedAmount;
@@ -79,6 +83,7 @@ public class ApplyPaymentEventData
 
     /**
      * Initialization constructor.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
      * @param  memo  String value for memo.
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
@@ -91,11 +96,13 @@ public class ApplyPaymentEventData
      * @param  external  Boolean value for external.
      */
 
-    protected ApplyPaymentEventData(String memo, String originalAmount, String appliedAmount,
-            ZonedDateTime transactionTime, InvoiceEventPayment paymentMethod, Integer transactionId,
+    protected ApplyPaymentEventData(InvoiceConsolidationLevel consolidationLevel, String memo,
+            String originalAmount, String appliedAmount, ZonedDateTime transactionTime,
+            InvoiceEventPayment paymentMethod, Integer transactionId,
             OptionalNullable<Integer> parentInvoiceNumber,
             OptionalNullable<String> remainingPrepaymentAmount, Boolean prepayment,
             Boolean external) {
+        this.consolidationLevel = consolidationLevel;
         this.memo = memo;
         this.originalAmount = originalAmount;
         this.appliedAmount = appliedAmount;
@@ -110,6 +117,7 @@ public class ApplyPaymentEventData
 
     /**
      * Initialization constructor.
+     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
      * @param  memo  String value for memo.
      * @param  originalAmount  String value for originalAmount.
      * @param  appliedAmount  String value for appliedAmount.
@@ -118,15 +126,35 @@ public class ApplyPaymentEventData
      */
     @JsonCreator
     protected ApplyPaymentEventData(
+            @JsonProperty("consolidation_level") InvoiceConsolidationLevel consolidationLevel,
             @JsonProperty("memo") String memo,
             @JsonProperty("original_amount") String originalAmount,
             @JsonProperty("applied_amount") String appliedAmount,
             @JsonProperty("transaction_time") ZonedDateTime transactionTime,
             @JsonProperty("payment_method") InvoiceEventPayment paymentMethod) {
-        this(memo, originalAmount, appliedAmount, transactionTime, paymentMethod, null,
-                OptionalNullable.of(null), OptionalNullable.of(null), null, null);
+        this(consolidationLevel, memo, originalAmount, appliedAmount, transactionTime,
+                paymentMethod, null, OptionalNullable.of(null), OptionalNullable.of(null), null,
+                null);
         unsetParentInvoiceNumber();
         unsetRemainingPrepaymentAmount();
+    }
+
+    /**
+     * Getter for ConsolidationLevel.
+     * @return Returns the InvoiceConsolidationLevel
+     */
+    @JsonGetter("consolidation_level")
+    public InvoiceConsolidationLevel getConsolidationLevel() {
+        return consolidationLevel;
+    }
+
+    /**
+     * Setter for ConsolidationLevel.
+     * @param consolidationLevel Value for InvoiceConsolidationLevel
+     */
+    @JsonSetter("consolidation_level")
+    public void setConsolidationLevel(InvoiceConsolidationLevel consolidationLevel) {
+        this.consolidationLevel = consolidationLevel;
     }
 
     /**
@@ -378,12 +406,13 @@ public class ApplyPaymentEventData
      */
     @Override
     public String toString() {
-        return "ApplyPaymentEventData [" + "memo=" + memo + ", originalAmount=" + originalAmount
-                + ", appliedAmount=" + appliedAmount + ", transactionTime=" + transactionTime
-                + ", paymentMethod=" + paymentMethod + ", transactionId=" + transactionId
-                + ", parentInvoiceNumber=" + parentInvoiceNumber + ", remainingPrepaymentAmount="
-                + remainingPrepaymentAmount + ", prepayment=" + prepayment + ", external="
-                + external + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "ApplyPaymentEventData [" + "consolidationLevel=" + consolidationLevel + ", memo="
+                + memo + ", originalAmount=" + originalAmount + ", appliedAmount=" + appliedAmount
+                + ", transactionTime=" + transactionTime + ", paymentMethod=" + paymentMethod
+                + ", transactionId=" + transactionId + ", parentInvoiceNumber="
+                + parentInvoiceNumber + ", remainingPrepaymentAmount=" + remainingPrepaymentAmount
+                + ", prepayment=" + prepayment + ", external=" + external
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -392,8 +421,8 @@ public class ApplyPaymentEventData
      * @return a new {@link ApplyPaymentEventData.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(memo, originalAmount, appliedAmount, transactionTime,
-                paymentMethod)
+        Builder builder = new Builder(consolidationLevel, memo, originalAmount, appliedAmount,
+                transactionTime, paymentMethod)
                 .transactionId(getTransactionId())
                 .prepayment(getPrepayment())
                 .external(getExternal());
@@ -406,6 +435,7 @@ public class ApplyPaymentEventData
      * Class to build instances of {@link ApplyPaymentEventData}.
      */
     public static class Builder {
+        private InvoiceConsolidationLevel consolidationLevel;
         private String memo;
         private String originalAmount;
         private String appliedAmount;
@@ -425,19 +455,32 @@ public class ApplyPaymentEventData
 
         /**
          * Initialization constructor.
+         * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
          * @param  memo  String value for memo.
          * @param  originalAmount  String value for originalAmount.
          * @param  appliedAmount  String value for appliedAmount.
          * @param  transactionTime  ZonedDateTime value for transactionTime.
          * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
          */
-        public Builder(String memo, String originalAmount, String appliedAmount,
-                ZonedDateTime transactionTime, InvoiceEventPayment paymentMethod) {
+        public Builder(InvoiceConsolidationLevel consolidationLevel, String memo,
+                String originalAmount, String appliedAmount, ZonedDateTime transactionTime,
+                InvoiceEventPayment paymentMethod) {
+            this.consolidationLevel = consolidationLevel;
             this.memo = memo;
             this.originalAmount = originalAmount;
             this.appliedAmount = appliedAmount;
             this.transactionTime = transactionTime;
             this.paymentMethod = paymentMethod;
+        }
+
+        /**
+         * Setter for consolidationLevel.
+         * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
+         * @return Builder
+         */
+        public Builder consolidationLevel(InvoiceConsolidationLevel consolidationLevel) {
+            this.consolidationLevel = consolidationLevel;
+            return this;
         }
 
         /**
@@ -563,9 +606,9 @@ public class ApplyPaymentEventData
          * @return {@link ApplyPaymentEventData}
          */
         public ApplyPaymentEventData build() {
-            return new ApplyPaymentEventData(memo, originalAmount, appliedAmount, transactionTime,
-                    paymentMethod, transactionId, parentInvoiceNumber, remainingPrepaymentAmount,
-                    prepayment, external);
+            return new ApplyPaymentEventData(consolidationLevel, memo, originalAmount,
+                    appliedAmount, transactionTime, paymentMethod, transactionId,
+                    parentInvoiceNumber, remainingPrepaymentAmount, prepayment, external);
         }
     }
 }

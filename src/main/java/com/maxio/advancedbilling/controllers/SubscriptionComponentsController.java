@@ -147,6 +147,8 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value(input.getStartDatetime()).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value(ListSubscriptionComponentsInclude.toValue(input.getInclude())).isRequired(false))
+                        .queryParam(param -> param.key("in_use")
+                                .value(input.getInUse()).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))

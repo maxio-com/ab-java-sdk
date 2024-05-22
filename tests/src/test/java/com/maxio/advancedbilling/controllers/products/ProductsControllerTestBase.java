@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
+import com.maxio.advancedbilling.utils.TestSetup;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -22,13 +23,7 @@ abstract class ProductsControllerTestBase {
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
-        ProductFamiliesController productFamiliesController = TestClient.createClient()
-                .getProductFamiliesController();
-
-        productFamily = productFamiliesController.createProductFamily(new CreateProductFamilyRequest(
-                        new CreateProductFamily("Test Product Family "
-                                + RandomStringUtils.randomAlphanumeric(5), null)))
-                .getProductFamily();
+        productFamily = new TestSetup().createProductFamily();
     }
 
     protected Product createProduct() throws IOException, ApiException {
