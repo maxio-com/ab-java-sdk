@@ -48,7 +48,7 @@ public class Subscription
     private OptionalNullable<String> couponCode;
     private OptionalNullable<String> snapDay;
     private CollectionMethod paymentCollectionMethod;
-    private Customer customer;
+    private Customer1 customer;
     private Product product;
     private CreditCardPaymentProfile creditCard;
     private OptionalNullable<NestedSubscriptionGroup> group;
@@ -89,7 +89,6 @@ public class Subscription
      * Default constructor.
      */
     public Subscription() {
-        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -120,7 +119,7 @@ public class Subscription
      * @param  couponCode  String value for couponCode.
      * @param  snapDay  String value for snapDay.
      * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
-     * @param  customer  Customer value for customer.
+     * @param  customer  Customer1 value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  CreditCardPaymentProfile value for creditCard.
      * @param  group  NestedSubscriptionGroup value for group.
@@ -185,7 +184,7 @@ public class Subscription
             String couponCode,
             String snapDay,
             CollectionMethod paymentCollectionMethod,
-            Customer customer,
+            Customer1 customer,
             Product product,
             CreditCardPaymentProfile creditCard,
             NestedSubscriptionGroup group,
@@ -314,7 +313,7 @@ public class Subscription
      * @param  couponCode  String value for couponCode.
      * @param  snapDay  String value for snapDay.
      * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
-     * @param  customer  Customer value for customer.
+     * @param  customer  Customer1 value for customer.
      * @param  product  Product value for product.
      * @param  creditCard  CreditCardPaymentProfile value for creditCard.
      * @param  group  NestedSubscriptionGroup value for group.
@@ -369,7 +368,7 @@ public class Subscription
             Integer signupPaymentId, String signupRevenue,
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
             OptionalNullable<String> snapDay, CollectionMethod paymentCollectionMethod,
-            Customer customer, Product product, CreditCardPaymentProfile creditCard,
+            Customer1 customer, Product product, CreditCardPaymentProfile creditCard,
             OptionalNullable<NestedSubscriptionGroup> group, BankAccountPaymentProfile bankAccount,
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
             OptionalNullable<Integer> nextProductId, OptionalNullable<String> nextProductHandle,
@@ -1405,20 +1404,20 @@ public class Subscription
 
     /**
      * Getter for Customer.
-     * @return Returns the Customer
+     * @return Returns the Customer1
      */
     @JsonGetter("customer")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Customer getCustomer() {
+    public Customer1 getCustomer() {
         return customer;
     }
 
     /**
      * Setter for Customer.
-     * @param customer Value for Customer
+     * @param customer Value for Customer1
      */
     @JsonSetter("customer")
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Customer1 customer) {
         this.customer = customer;
     }
 
@@ -2700,8 +2699,8 @@ public class Subscription
         private OptionalNullable<ZonedDateTime> delayedCancelAt;
         private OptionalNullable<String> couponCode;
         private OptionalNullable<String> snapDay;
-        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
-        private Customer customer;
+        private CollectionMethod paymentCollectionMethod;
+        private Customer1 customer;
         private Product product;
         private CreditCardPaymentProfile creditCard;
         private OptionalNullable<NestedSubscriptionGroup> group;
@@ -3128,10 +3127,10 @@ public class Subscription
 
         /**
          * Setter for customer.
-         * @param  customer  Customer value for customer.
+         * @param  customer  Customer1 value for customer.
          * @return Builder
          */
-        public Builder customer(Customer customer) {
+        public Builder customer(Customer1 customer) {
             this.customer = customer;
             return this;
         }

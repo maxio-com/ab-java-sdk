@@ -31,7 +31,6 @@ public class SubscriptionGroup
      * Default constructor.
      */
     public SubscriptionGroup() {
-        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -191,7 +190,7 @@ public class SubscriptionGroup
     public static class Builder {
         private Integer customerId;
         private SubscriptionGroupPaymentProfile paymentProfile;
-        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod;
         private List<Integer> subscriptionIds;
         private ZonedDateTime createdAt;
 

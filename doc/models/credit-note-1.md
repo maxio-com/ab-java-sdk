@@ -21,7 +21,7 @@
 | `Currency` | `String` | Optional | The ISO 4217 currency code (3 character string) representing the currency of the credit note amount fields. | String getCurrency() | setCurrency(String currency) |
 | `Memo` | `String` | Optional | The memo printed on credit note, which is a description of the reason for the credit. | String getMemo() | setMemo(String memo) |
 | `Seller` | [`Seller`](../../doc/models/seller.md) | Optional | - | Seller getSeller() | setSeller(Seller seller) |
-| `Customer` | [`Customer1`](../../doc/models/customer-1.md) | Optional | - | Customer1 getCustomer() | setCustomer(Customer1 customer) |
+| `Customer` | [`Customer`](../../doc/models/customer.md) | Optional | - | Customer getCustomer() | setCustomer(Customer customer) |
 | `BillingAddress` | [`BillingAddress`](../../doc/models/billing-address.md) | Optional | - | BillingAddress getBillingAddress() | setBillingAddress(BillingAddress billingAddress) |
 | `ShippingAddress` | [`ShippingAddress`](../../doc/models/shipping-address.md) | Optional | - | ShippingAddress getShippingAddress() | setShippingAddress(ShippingAddress shippingAddress) |
 | `SubtotalAmount` | `String` | Optional | Subtotal of the credit note, which is the sum of all line items before discounts or taxes. Note that this is a positive amount representing the credit back to the customer. | String getSubtotalAmount() | setSubtotalAmount(String subtotalAmount) |

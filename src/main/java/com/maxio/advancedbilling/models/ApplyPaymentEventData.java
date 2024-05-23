@@ -6,10 +6,8 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -113,30 +111,6 @@ public class ApplyPaymentEventData
         this.remainingPrepaymentAmount = remainingPrepaymentAmount;
         this.prepayment = prepayment;
         this.external = external;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  consolidationLevel  InvoiceConsolidationLevel value for consolidationLevel.
-     * @param  memo  String value for memo.
-     * @param  originalAmount  String value for originalAmount.
-     * @param  appliedAmount  String value for appliedAmount.
-     * @param  transactionTime  ZonedDateTime value for transactionTime.
-     * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
-     */
-    @JsonCreator
-    protected ApplyPaymentEventData(
-            @JsonProperty("consolidation_level") InvoiceConsolidationLevel consolidationLevel,
-            @JsonProperty("memo") String memo,
-            @JsonProperty("original_amount") String originalAmount,
-            @JsonProperty("applied_amount") String appliedAmount,
-            @JsonProperty("transaction_time") ZonedDateTime transactionTime,
-            @JsonProperty("payment_method") InvoiceEventPayment paymentMethod) {
-        this(consolidationLevel, memo, originalAmount, appliedAmount, transactionTime,
-                paymentMethod, null, OptionalNullable.of(null), OptionalNullable.of(null), null,
-                null);
-        unsetParentInvoiceNumber();
-        unsetRemainingPrepaymentAmount();
     }
 
     /**

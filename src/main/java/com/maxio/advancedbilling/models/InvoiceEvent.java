@@ -8,50 +8,59 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.InvoiceEventEventData;
 import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
  * This is a model class for InvoiceEvent type.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "event_type",
+        defaultImpl = InvoiceEvent.class,
+        visible = true)
+@JsonInclude(Include.ALWAYS)
 public class InvoiceEvent
         extends BaseModel {
     private Long id;
-    private InvoiceEventType eventType;
-    private InvoiceEventEventData eventData;
     private ZonedDateTime timestamp;
-    private Invoice invoice;
+    private Invoice1 invoice;
+    private String eventType;
+    private ApplyCreditNoteEventData1 eventData;
 
     /**
      * Default constructor.
      */
     public InvoiceEvent() {
+        setEventType("Invoice Event");
     }
 
     /**
      * Initialization constructor.
      * @param  id  Long value for id.
-     * @param  eventType  InvoiceEventType value for eventType.
-     * @param  eventData  InvoiceEventEventData value for eventData.
      * @param  timestamp  ZonedDateTime value for timestamp.
-     * @param  invoice  Invoice value for invoice.
+     * @param  invoice  Invoice1 value for invoice.
+     * @param  eventType  String value for eventType.
+     * @param  eventData  ApplyCreditNoteEventData1 value for eventData.
      */
     public InvoiceEvent(
             Long id,
-            InvoiceEventType eventType,
-            InvoiceEventEventData eventData,
             ZonedDateTime timestamp,
-            Invoice invoice) {
+            Invoice1 invoice,
+            String eventType,
+            ApplyCreditNoteEventData1 eventData) {
         this.id = id;
-        this.eventType = eventType;
-        this.eventData = eventData;
         this.timestamp = timestamp;
         this.invoice = invoice;
+        this.eventType = eventType;
+        this.eventData = eventData;
     }
 
     /**
@@ -71,50 +80,6 @@ public class InvoiceEvent
     @JsonSetter("id")
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * Getter for EventType.
-     * Invoice Event Type
-     * @return Returns the InvoiceEventType
-     */
-    @JsonGetter("event_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public InvoiceEventType getEventType() {
-        return eventType;
-    }
-
-    /**
-     * Setter for EventType.
-     * Invoice Event Type
-     * @param eventType Value for InvoiceEventType
-     */
-    @JsonSetter("event_type")
-    public void setEventType(InvoiceEventType eventType) {
-        this.eventType = eventType;
-    }
-
-    /**
-     * Getter for EventData.
-     * The event data is the data that, when combined with the command, results in the output
-     * invoice found in the invoice field.
-     * @return Returns the InvoiceEventEventData
-     */
-    @JsonGetter("event_data")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public InvoiceEventEventData getEventData() {
-        return eventData;
-    }
-
-    /**
-     * Setter for EventData.
-     * The event data is the data that, when combined with the command, results in the output
-     * invoice found in the invoice field.
-     * @param eventData Value for InvoiceEventEventData
-     */
-    @JsonSetter("event_data")
-    public void setEventData(InvoiceEventEventData eventData) {
-        this.eventData = eventData;
     }
 
     /**
@@ -140,21 +105,61 @@ public class InvoiceEvent
 
     /**
      * Getter for Invoice.
-     * @return Returns the Invoice
+     * @return Returns the Invoice1
      */
     @JsonGetter("invoice")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Invoice getInvoice() {
+    public Invoice1 getInvoice() {
         return invoice;
     }
 
     /**
      * Setter for Invoice.
-     * @param invoice Value for Invoice
+     * @param invoice Value for Invoice1
      */
     @JsonSetter("invoice")
-    public void setInvoice(Invoice invoice) {
+    public void setInvoice(Invoice1 invoice) {
         this.invoice = invoice;
+    }
+
+    /**
+     * Getter for EventType.
+     * @return Returns the String
+     */
+    @JsonGetter("event_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getEventType() {
+        return eventType;
+    }
+
+    /**
+     * Setter for EventType.
+     * @param eventType Value for String
+     */
+    @JsonSetter("event_type")
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    /**
+     * Getter for EventData.
+     * Example schema for an `apply_credit_note` event
+     * @return Returns the ApplyCreditNoteEventData1
+     */
+    @JsonGetter("event_data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ApplyCreditNoteEventData1 getEventData() {
+        return eventData;
+    }
+
+    /**
+     * Setter for EventData.
+     * Example schema for an `apply_credit_note` event
+     * @param eventData Value for ApplyCreditNoteEventData1
+     */
+    @JsonSetter("event_data")
+    public void setEventData(ApplyCreditNoteEventData1 eventData) {
+        this.eventData = eventData;
     }
 
     /**
@@ -163,8 +168,8 @@ public class InvoiceEvent
      */
     @Override
     public String toString() {
-        return "InvoiceEvent [" + "id=" + id + ", eventType=" + eventType + ", eventData="
-                + eventData + ", timestamp=" + timestamp + ", invoice=" + invoice
+        return "InvoiceEvent [" + "id=" + id + ", timestamp=" + timestamp + ", invoice=" + invoice
+                + ", eventType=" + eventType + ", eventData=" + eventData
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
@@ -176,10 +181,10 @@ public class InvoiceEvent
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .id(getId())
-                .eventType(getEventType())
-                .eventData(getEventData())
                 .timestamp(getTimestamp())
-                .invoice(getInvoice());
+                .invoice(getInvoice())
+                .eventType(getEventType())
+                .eventData(getEventData());
         return builder;
     }
 
@@ -188,10 +193,10 @@ public class InvoiceEvent
      */
     public static class Builder {
         private Long id;
-        private InvoiceEventType eventType;
-        private InvoiceEventEventData eventData;
         private ZonedDateTime timestamp;
-        private Invoice invoice;
+        private Invoice1 invoice;
+        private String eventType = "Invoice Event";
+        private ApplyCreditNoteEventData1 eventData;
 
 
 
@@ -202,26 +207,6 @@ public class InvoiceEvent
          */
         public Builder id(Long id) {
             this.id = id;
-            return this;
-        }
-
-        /**
-         * Setter for eventType.
-         * @param  eventType  InvoiceEventType value for eventType.
-         * @return Builder
-         */
-        public Builder eventType(InvoiceEventType eventType) {
-            this.eventType = eventType;
-            return this;
-        }
-
-        /**
-         * Setter for eventData.
-         * @param  eventData  InvoiceEventEventData value for eventData.
-         * @return Builder
-         */
-        public Builder eventData(InvoiceEventEventData eventData) {
-            this.eventData = eventData;
             return this;
         }
 
@@ -237,11 +222,31 @@ public class InvoiceEvent
 
         /**
          * Setter for invoice.
-         * @param  invoice  Invoice value for invoice.
+         * @param  invoice  Invoice1 value for invoice.
          * @return Builder
          */
-        public Builder invoice(Invoice invoice) {
+        public Builder invoice(Invoice1 invoice) {
             this.invoice = invoice;
+            return this;
+        }
+
+        /**
+         * Setter for eventType.
+         * @param  eventType  String value for eventType.
+         * @return Builder
+         */
+        public Builder eventType(String eventType) {
+            this.eventType = eventType;
+            return this;
+        }
+
+        /**
+         * Setter for eventData.
+         * @param  eventData  ApplyCreditNoteEventData1 value for eventData.
+         * @return Builder
+         */
+        public Builder eventData(ApplyCreditNoteEventData1 eventData) {
+            this.eventData = eventData;
             return this;
         }
 
@@ -250,7 +255,7 @@ public class InvoiceEvent
          * @return {@link InvoiceEvent}
          */
         public InvoiceEvent build() {
-            return new InvoiceEvent(id, eventType, eventData, timestamp, invoice);
+            return new InvoiceEvent(id, timestamp, invoice, eventType, eventData);
         }
     }
 }

@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 
@@ -37,13 +35,12 @@ public class IssueInvoiceEventData
      * @param  dueAmount  String value for dueAmount.
      * @param  totalAmount  String value for totalAmount.
      */
-    @JsonCreator
     public IssueInvoiceEventData(
-            @JsonProperty("consolidation_level") InvoiceConsolidationLevel consolidationLevel,
-            @JsonProperty("from_status") InvoiceStatus fromStatus,
-            @JsonProperty("to_status") InvoiceStatus toStatus,
-            @JsonProperty("due_amount") String dueAmount,
-            @JsonProperty("total_amount") String totalAmount) {
+            InvoiceConsolidationLevel consolidationLevel,
+            InvoiceStatus fromStatus,
+            InvoiceStatus toStatus,
+            String dueAmount,
+            String totalAmount) {
         this.consolidationLevel = consolidationLevel;
         this.fromStatus = fromStatus;
         this.toStatus = toStatus;

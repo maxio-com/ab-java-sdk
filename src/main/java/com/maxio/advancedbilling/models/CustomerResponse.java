@@ -15,7 +15,7 @@ import io.apimatic.core.types.BaseModel;
  */
 public class CustomerResponse
         extends BaseModel {
-    private Customer customer;
+    private Customer1 customer;
 
     /**
      * Default constructor.
@@ -25,28 +25,28 @@ public class CustomerResponse
 
     /**
      * Initialization constructor.
-     * @param  customer  Customer value for customer.
+     * @param  customer  Customer1 value for customer.
      */
     public CustomerResponse(
-            Customer customer) {
+            Customer1 customer) {
         this.customer = customer;
     }
 
     /**
      * Getter for Customer.
-     * @return Returns the Customer
+     * @return Returns the Customer1
      */
     @JsonGetter("customer")
-    public Customer getCustomer() {
+    public Customer1 getCustomer() {
         return customer;
     }
 
     /**
      * Setter for Customer.
-     * @param customer Value for Customer
+     * @param customer Value for Customer1
      */
     @JsonSetter("customer")
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Customer1 customer) {
         this.customer = customer;
     }
 
@@ -74,7 +74,7 @@ public class CustomerResponse
      * Class to build instances of {@link CustomerResponse}.
      */
     public static class Builder {
-        private Customer customer;
+        private Customer1 customer;
 
         /**
          * Initialization constructor.
@@ -84,18 +84,18 @@ public class CustomerResponse
 
         /**
          * Initialization constructor.
-         * @param  customer  Customer value for customer.
+         * @param  customer  Customer1 value for customer.
          */
-        public Builder(Customer customer) {
+        public Builder(Customer1 customer) {
             this.customer = customer;
         }
 
         /**
          * Setter for customer.
-         * @param  customer  Customer value for customer.
+         * @param  customer  Customer1 value for customer.
          * @return Builder
          */
-        public Builder customer(Customer customer) {
+        public Builder customer(Customer1 customer) {
             this.customer = customer;
             return this;
         }

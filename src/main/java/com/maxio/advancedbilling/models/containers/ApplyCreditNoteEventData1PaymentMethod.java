@@ -28,15 +28,15 @@ import java.util.Arrays;
 /**
  * This is a container class for any-of types.
  */
-@JsonDeserialize(using = InvoiceEventDataPaymentMethod.InvoiceEventDataPaymentMethodDeserializer.class)
-public abstract class InvoiceEventDataPaymentMethod {
+@JsonDeserialize(using = ApplyCreditNoteEventData1PaymentMethod.ApplyCreditNoteEventData1PaymentMethodDeserializer.class)
+public abstract class ApplyCreditNoteEventData1PaymentMethod {
     
     /**
      * This is Payment Method Apple Pay case.
      * @param paymentMethodApplePay PaymentMethodApplePay value for paymentMethodApplePay.
      * @return The PaymentMethodApplePayCase object.
      */
-    public static InvoiceEventDataPaymentMethod fromPaymentMethodApplePay(
+    public static ApplyCreditNoteEventData1PaymentMethod fromPaymentMethodApplePay(
             PaymentMethodApplePay paymentMethodApplePay) {
         return paymentMethodApplePay == null ? null : new PaymentMethodApplePayCase(paymentMethodApplePay);
     }
@@ -46,7 +46,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      * @param paymentMethodBankAccount PaymentMethodBankAccount value for paymentMethodBankAccount.
      * @return The PaymentMethodBankAccountCase object.
      */
-    public static InvoiceEventDataPaymentMethod fromPaymentMethodBankAccount(
+    public static ApplyCreditNoteEventData1PaymentMethod fromPaymentMethodBankAccount(
             PaymentMethodBankAccount paymentMethodBankAccount) {
         return paymentMethodBankAccount == null ? null : new PaymentMethodBankAccountCase(paymentMethodBankAccount);
     }
@@ -56,7 +56,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      * @param paymentMethodCreditCard PaymentMethodCreditCard value for paymentMethodCreditCard.
      * @return The PaymentMethodCreditCardCase object.
      */
-    public static InvoiceEventDataPaymentMethod fromPaymentMethodCreditCard(
+    public static ApplyCreditNoteEventData1PaymentMethod fromPaymentMethodCreditCard(
             PaymentMethodCreditCard paymentMethodCreditCard) {
         return paymentMethodCreditCard == null ? null : new PaymentMethodCreditCardCase(paymentMethodCreditCard);
     }
@@ -66,7 +66,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      * @param paymentMethodExternal PaymentMethodExternal value for paymentMethodExternal.
      * @return The PaymentMethodExternalCase object.
      */
-    public static InvoiceEventDataPaymentMethod fromPaymentMethodExternal(
+    public static ApplyCreditNoteEventData1PaymentMethod fromPaymentMethodExternal(
             PaymentMethodExternal paymentMethodExternal) {
         return paymentMethodExternal == null ? null : new PaymentMethodExternalCase(paymentMethodExternal);
     }
@@ -76,7 +76,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      * @param paymentMethodPaypal PaymentMethodPaypal value for paymentMethodPaypal.
      * @return The PaymentMethodPaypalCase object.
      */
-    public static InvoiceEventDataPaymentMethod fromPaymentMethodPaypal(
+    public static ApplyCreditNoteEventData1PaymentMethod fromPaymentMethodPaypal(
             PaymentMethodPaypal paymentMethodPaypal) {
         return paymentMethodPaypal == null ? null : new PaymentMethodPaypalCase(paymentMethodPaypal);
     }
@@ -110,7 +110,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "PaymentMethodApplePay")
-    private static class PaymentMethodApplePayCase extends InvoiceEventDataPaymentMethod {
+    private static class PaymentMethodApplePayCase extends ApplyCreditNoteEventData1PaymentMethod {
 
         @JsonValue
         private PaymentMethodApplePay paymentMethodApplePay;
@@ -141,7 +141,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "PaymentMethodBankAccount")
-    private static class PaymentMethodBankAccountCase extends InvoiceEventDataPaymentMethod {
+    private static class PaymentMethodBankAccountCase extends ApplyCreditNoteEventData1PaymentMethod {
 
         @JsonValue
         private PaymentMethodBankAccount paymentMethodBankAccount;
@@ -172,7 +172,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "PaymentMethodCreditCard")
-    private static class PaymentMethodCreditCardCase extends InvoiceEventDataPaymentMethod {
+    private static class PaymentMethodCreditCardCase extends ApplyCreditNoteEventData1PaymentMethod {
 
         @JsonValue
         private PaymentMethodCreditCard paymentMethodCreditCard;
@@ -203,7 +203,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "PaymentMethodExternal")
-    private static class PaymentMethodExternalCase extends InvoiceEventDataPaymentMethod {
+    private static class PaymentMethodExternalCase extends ApplyCreditNoteEventData1PaymentMethod {
 
         @JsonValue
         private PaymentMethodExternal paymentMethodExternal;
@@ -234,7 +234,7 @@ public abstract class InvoiceEventDataPaymentMethod {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "PaymentMethodPaypal")
-    private static class PaymentMethodPaypalCase extends InvoiceEventDataPaymentMethod {
+    private static class PaymentMethodPaypalCase extends ApplyCreditNoteEventData1PaymentMethod {
 
         @JsonValue
         private PaymentMethodPaypal paymentMethodPaypal;
@@ -261,13 +261,13 @@ public abstract class InvoiceEventDataPaymentMethod {
     }
 
     /**
-     * This is a custom deserializer class for InvoiceEventDataPaymentMethod.
+     * This is a custom deserializer class for ApplyCreditNoteEventData1PaymentMethod.
      */
-    protected static class InvoiceEventDataPaymentMethodDeserializer
-            extends JsonDeserializer<InvoiceEventDataPaymentMethod> {
+    protected static class ApplyCreditNoteEventData1PaymentMethodDeserializer
+            extends JsonDeserializer<ApplyCreditNoteEventData1PaymentMethod> {
 
         @Override
-        public InvoiceEventDataPaymentMethod deserialize(JsonParser jp, DeserializationContext ctxt)
+        public ApplyCreditNoteEventData1PaymentMethod deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

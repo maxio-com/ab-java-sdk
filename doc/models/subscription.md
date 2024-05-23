@@ -34,8 +34,8 @@
 | `DelayedCancelAt` | `ZonedDateTime` | Optional | Timestamp for when the subscription is currently set to cancel. | ZonedDateTime getDelayedCancelAt() | setDelayedCancelAt(ZonedDateTime delayedCancelAt) |
 | `CouponCode` | `String` | Optional | (deprecated) The coupon code of the single coupon currently applied to the subscription. See coupon_codes instead as subscriptions can now have more than one coupon. | String getCouponCode() | setCouponCode(String couponCode) |
 | `SnapDay` | `String` | Optional | The day of the month that the subscription will charge according to calendar billing rules, if used. | String getSnapDay() | setSnapDay(String snapDay) |
-| `PaymentCollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`.<br>**Default**: `CollectionMethod.AUTOMATIC` | CollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) |
-| `Customer` | [`Customer`](../../doc/models/customer.md) | Optional | - | Customer getCustomer() | setCustomer(Customer customer) |
+| `PaymentCollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`. | CollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) |
+| `Customer` | [`Customer1`](../../doc/models/customer-1.md) | Optional | - | Customer1 getCustomer() | setCustomer(Customer1 customer) |
 | `Product` | [`Product`](../../doc/models/product.md) | Optional | - | Product getProduct() | setProduct(Product product) |
 | `CreditCard` | [`CreditCardPaymentProfile`](../../doc/models/credit-card-payment-profile.md) | Optional | - | CreditCardPaymentProfile getCreditCard() | setCreditCard(CreditCardPaymentProfile creditCard) |
 | `Group` | [`NestedSubscriptionGroup`](../../doc/models/nested-subscription-group.md) | Optional | - | NestedSubscriptionGroup getGroup() | setGroup(NestedSubscriptionGroup group) |
@@ -76,7 +76,6 @@
 
 ```json
 {
-  "payment_collection_method": "automatic",
   "credit_card": {
     "id": 10088716,
     "first_name": "Test",

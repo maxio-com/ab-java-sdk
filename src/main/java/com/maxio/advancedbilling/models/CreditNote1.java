@@ -33,7 +33,7 @@ public class CreditNote1
     private String currency;
     private String memo;
     private Seller seller;
-    private Customer1 customer;
+    private Customer customer;
     private BillingAddress billingAddress;
     private ShippingAddress shippingAddress;
     private String subtotalAmount;
@@ -69,7 +69,7 @@ public class CreditNote1
      * @param  currency  String value for currency.
      * @param  memo  String value for memo.
      * @param  seller  Seller value for seller.
-     * @param  customer  Customer1 value for customer.
+     * @param  customer  Customer value for customer.
      * @param  billingAddress  BillingAddress value for billingAddress.
      * @param  shippingAddress  ShippingAddress value for shippingAddress.
      * @param  subtotalAmount  String value for subtotalAmount.
@@ -98,7 +98,7 @@ public class CreditNote1
             String currency,
             String memo,
             Seller seller,
-            Customer1 customer,
+            Customer customer,
             BillingAddress billingAddress,
             ShippingAddress shippingAddress,
             String subtotalAmount,
@@ -418,20 +418,20 @@ public class CreditNote1
 
     /**
      * Getter for Customer.
-     * @return Returns the Customer1
+     * @return Returns the Customer
      */
     @JsonGetter("customer")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Customer1 getCustomer() {
+    public Customer getCustomer() {
         return customer;
     }
 
     /**
      * Setter for Customer.
-     * @param customer Value for Customer1
+     * @param customer Value for Customer
      */
     @JsonSetter("customer")
-    public void setCustomer(Customer1 customer) {
+    public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
@@ -810,7 +810,7 @@ public class CreditNote1
         private String currency;
         private String memo;
         private Seller seller;
-        private Customer1 customer;
+        private Customer customer;
         private BillingAddress billingAddress;
         private ShippingAddress shippingAddress;
         private String subtotalAmount;
@@ -950,10 +950,10 @@ public class CreditNote1
 
         /**
          * Setter for customer.
-         * @param  customer  Customer1 value for customer.
+         * @param  customer  Customer value for customer.
          * @return Builder
          */
-        public Builder customer(Customer1 customer) {
+        public Builder customer(Customer customer) {
             this.customer = customer;
             return this;
         }

@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `SubscriptionGroup` | [`SubscriptionGroupSignupSuccessData`](../../doc/models/subscription-group-signup-success-data.md) | Required | - | SubscriptionGroupSignupSuccessData getSubscriptionGroup() | setSubscriptionGroup(SubscriptionGroupSignupSuccessData subscriptionGroup) |
-| `Customer` | [`Customer`](../../doc/models/customer.md) | Required | - | Customer getCustomer() | setCustomer(Customer customer) |
+| `Customer` | [`Customer1`](../../doc/models/customer-1.md) | Required | - | Customer1 getCustomer() | setCustomer(Customer1 customer) |
 
 ## Example (as JSON)
 

@@ -18,7 +18,7 @@ import io.apimatic.core.types.BaseModel;
 public class SubscriptionGroupSignupSuccess
         extends BaseModel {
     private SubscriptionGroupSignupSuccessData subscriptionGroup;
-    private Customer customer;
+    private Customer1 customer;
 
     /**
      * Default constructor.
@@ -29,12 +29,12 @@ public class SubscriptionGroupSignupSuccess
     /**
      * Initialization constructor.
      * @param  subscriptionGroup  SubscriptionGroupSignupSuccessData value for subscriptionGroup.
-     * @param  customer  Customer value for customer.
+     * @param  customer  Customer1 value for customer.
      */
     @JsonCreator
     public SubscriptionGroupSignupSuccess(
             @JsonProperty("subscription_group") SubscriptionGroupSignupSuccessData subscriptionGroup,
-            @JsonProperty("customer") Customer customer) {
+            @JsonProperty("customer") Customer1 customer) {
         this.subscriptionGroup = subscriptionGroup;
         this.customer = customer;
     }
@@ -59,19 +59,19 @@ public class SubscriptionGroupSignupSuccess
 
     /**
      * Getter for Customer.
-     * @return Returns the Customer
+     * @return Returns the Customer1
      */
     @JsonGetter("customer")
-    public Customer getCustomer() {
+    public Customer1 getCustomer() {
         return customer;
     }
 
     /**
      * Setter for Customer.
-     * @param customer Value for Customer
+     * @param customer Value for Customer1
      */
     @JsonSetter("customer")
-    public void setCustomer(Customer customer) {
+    public void setCustomer(Customer1 customer) {
         this.customer = customer;
     }
 
@@ -101,7 +101,7 @@ public class SubscriptionGroupSignupSuccess
      */
     public static class Builder {
         private SubscriptionGroupSignupSuccessData subscriptionGroup;
-        private Customer customer;
+        private Customer1 customer;
 
         /**
          * Initialization constructor.
@@ -113,9 +113,9 @@ public class SubscriptionGroupSignupSuccess
          * Initialization constructor.
          * @param  subscriptionGroup  SubscriptionGroupSignupSuccessData value for
          *         subscriptionGroup.
-         * @param  customer  Customer value for customer.
+         * @param  customer  Customer1 value for customer.
          */
-        public Builder(SubscriptionGroupSignupSuccessData subscriptionGroup, Customer customer) {
+        public Builder(SubscriptionGroupSignupSuccessData subscriptionGroup, Customer1 customer) {
             this.subscriptionGroup = subscriptionGroup;
             this.customer = customer;
         }
@@ -133,10 +133,10 @@ public class SubscriptionGroupSignupSuccess
 
         /**
          * Setter for customer.
-         * @param  customer  Customer value for customer.
+         * @param  customer  Customer1 value for customer.
          * @return Builder
          */
-        public Builder customer(Customer customer) {
+        public Builder customer(Customer1 customer) {
             this.customer = customer;
             return this;
         }

@@ -27,11 +27,10 @@
 | `ComponentId` | `Integer` | Optional | The ID of the component being billed. Will be `nil` for non-component charges. | Integer getComponentId() | setComponentId(Integer componentId) |
 | `PricePointId` | `Integer` | Optional | The price point ID of the component being billed. Will be `nil` for non-component charges. | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
 | `Hide` | `Boolean` | Optional | - | Boolean getHide() | setHide(Boolean hide) |
-| `ComponentCostData` | [`InvoiceLineItemComponentCostData`](../../doc/models/invoice-line-item-component-cost-data.md) | Optional | - | InvoiceLineItemComponentCostData getComponentCostData() | setComponentCostData(InvoiceLineItemComponentCostData componentCostData) |
+| `ComponentCostData` | [`ComponentCostData1`](../../doc/models/component-cost-data-1.md) | Optional | - | ComponentCostData1 getComponentCostData() | setComponentCostData(ComponentCostData1 componentCostData) |
 | `ProductPricePointId` | `Integer` | Optional | The price point ID of the line item's product | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
 | `CustomItem` | `Boolean` | Optional | - | Boolean getCustomItem() | setCustomItem(Boolean customItem) |
 | `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
-| `BillingScheduleItemId` | `Integer` | Optional | - | Integer getBillingScheduleItemId() | setBillingScheduleItemId(Integer billingScheduleItemId) |
 
 ## Example (as JSON)
 

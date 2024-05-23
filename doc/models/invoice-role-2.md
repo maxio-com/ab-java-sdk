@@ -1,11 +1,11 @@
 
-# Invoice Role 1
+# Invoice Role 2
 
 The role of the credit note (e.g. 'general')
 
 ## Enumeration
 
-`InvoiceRole1`
+`InvoiceRole2`
 
 ## Fields
 

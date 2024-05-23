@@ -14,9 +14,9 @@ import java.util.TreeMap;
 
 
 /**
- * InvoiceRole1 to be used.
+ * InvoiceRole2 to be used.
  */
-public enum InvoiceRole1 {
+public enum InvoiceRole2 {
     UNSET,
 
     SIGNUP,
@@ -38,7 +38,7 @@ public enum InvoiceRole1 {
     BACKPORTBALANCERECONCILIATION;
 
 
-    private static TreeMap<String, InvoiceRole1> valueMap = new TreeMap<>();
+    private static TreeMap<String, InvoiceRole2> valueMap = new TreeMap<>();
     private String value;
 
     static {
@@ -72,8 +72,8 @@ public enum InvoiceRole1 {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static InvoiceRole1 constructFromString(String toConvert) throws IOException {
-        InvoiceRole1 enumValue = fromString(toConvert);
+    public static InvoiceRole2 constructFromString(String toConvert) throws IOException {
+        InvoiceRole2 enumValue = fromString(toConvert);
         if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
@@ -85,7 +85,7 @@ public enum InvoiceRole1 {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static InvoiceRole1 fromString(String toConvert) {
+    public static InvoiceRole2 fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -107,16 +107,16 @@ public enum InvoiceRole1 {
     }
 
     /**
-     * Convert list of InvoiceRole1 values to list of string values.
-     * @param toConvert The list of InvoiceRole1 values to convert.
+     * Convert list of InvoiceRole2 values to list of string values.
+     * @param toConvert The list of InvoiceRole2 values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<InvoiceRole1> toConvert) {
+    public static List<String> toValue(List<InvoiceRole2> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (InvoiceRole1 enumValue : toConvert) {
+        for (InvoiceRole2 enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

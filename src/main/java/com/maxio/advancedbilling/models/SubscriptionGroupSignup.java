@@ -30,7 +30,6 @@ public class SubscriptionGroupSignup
      * Default constructor.
      */
     public SubscriptionGroupSignup() {
-        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -260,7 +259,7 @@ public class SubscriptionGroupSignup
         private Integer paymentProfileId;
         private Integer payerId;
         private String payerReference;
-        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod;
         private PayerAttributes payerAttributes;
         private SubscriptionGroupCreditCard creditCardAttributes;
         private SubscriptionGroupBankAccount bankAccountAttributes;

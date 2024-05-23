@@ -64,7 +64,6 @@ public class ProformaInvoice
      * Default constructor.
      */
     public ProformaInvoice() {
-        collectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -1150,7 +1149,7 @@ public class ProformaInvoice
         private ZonedDateTime createdAt;
         private LocalDate deliveryDate;
         private ProformaInvoiceStatus status;
-        private CollectionMethod collectionMethod = CollectionMethod.AUTOMATIC;
+        private CollectionMethod collectionMethod;
         private String paymentInstructions;
         private String currency;
         private InvoiceConsolidationLevel consolidationLevel;
