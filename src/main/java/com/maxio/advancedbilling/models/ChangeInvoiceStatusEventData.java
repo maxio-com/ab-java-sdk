@@ -6,10 +6,8 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 
@@ -49,18 +47,6 @@ public class ChangeInvoiceStatusEventData
         this.fromStatus = fromStatus;
         this.toStatus = toStatus;
         this.consolidationLevel = consolidationLevel;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  fromStatus  InvoiceStatus value for fromStatus.
-     * @param  toStatus  InvoiceStatus value for toStatus.
-     */
-    @JsonCreator
-    protected ChangeInvoiceStatusEventData(
-            @JsonProperty("from_status") InvoiceStatus fromStatus,
-            @JsonProperty("to_status") InvoiceStatus toStatus) {
-        this(fromStatus, toStatus, null, null, null);
     }
 
     /**

@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 
@@ -31,10 +29,9 @@ public class ChangeInvoiceCollectionMethodEventData
      * @param  fromCollectionMethod  String value for fromCollectionMethod.
      * @param  toCollectionMethod  String value for toCollectionMethod.
      */
-    @JsonCreator
     public ChangeInvoiceCollectionMethodEventData(
-            @JsonProperty("from_collection_method") String fromCollectionMethod,
-            @JsonProperty("to_collection_method") String toCollectionMethod) {
+            String fromCollectionMethod,
+            String toCollectionMethod) {
         this.fromCollectionMethod = fromCollectionMethod;
         this.toCollectionMethod = toCollectionMethod;
     }

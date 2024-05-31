@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -43,14 +41,13 @@ public class VoidInvoiceEventData
      * @param  isAdvanceInvoice  boolean value for isAdvanceInvoice.
      * @param  reason  String value for reason.
      */
-    @JsonCreator
     public VoidInvoiceEventData(
-            @JsonProperty("credit_note_attributes") CreditNote creditNoteAttributes,
-            @JsonProperty("memo") String memo,
-            @JsonProperty("applied_amount") String appliedAmount,
-            @JsonProperty("transaction_time") ZonedDateTime transactionTime,
-            @JsonProperty("is_advance_invoice") boolean isAdvanceInvoice,
-            @JsonProperty("reason") String reason) {
+            CreditNote creditNoteAttributes,
+            String memo,
+            String appliedAmount,
+            ZonedDateTime transactionTime,
+            boolean isAdvanceInvoice,
+            String reason) {
         this.creditNoteAttributes = creditNoteAttributes;
         this.memo = memo;
         this.appliedAmount = appliedAmount;

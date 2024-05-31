@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -39,12 +37,11 @@ public class VoidRemainderEventData
      * @param  appliedAmount  String value for appliedAmount.
      * @param  transactionTime  ZonedDateTime value for transactionTime.
      */
-    @JsonCreator
     public VoidRemainderEventData(
-            @JsonProperty("credit_note_attributes") CreditNote creditNoteAttributes,
-            @JsonProperty("memo") String memo,
-            @JsonProperty("applied_amount") String appliedAmount,
-            @JsonProperty("transaction_time") ZonedDateTime transactionTime) {
+            CreditNote creditNoteAttributes,
+            String memo,
+            String appliedAmount,
+            ZonedDateTime transactionTime) {
         this.creditNoteAttributes = creditNoteAttributes;
         this.memo = memo;
         this.appliedAmount = appliedAmount;

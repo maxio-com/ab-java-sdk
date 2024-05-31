@@ -6,10 +6,8 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
@@ -70,24 +68,6 @@ public class FailedPaymentEventData
         this.memo = memo;
         this.paymentMethod = paymentMethod;
         this.transactionId = transactionId;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  amountInCents  int value for amountInCents.
-     * @param  appliedAmount  int value for appliedAmount.
-     * @param  paymentMethod  InvoicePaymentMethodType value for paymentMethod.
-     * @param  transactionId  int value for transactionId.
-     */
-    @JsonCreator
-    protected FailedPaymentEventData(
-            @JsonProperty("amount_in_cents") int amountInCents,
-            @JsonProperty("applied_amount") int appliedAmount,
-            @JsonProperty("payment_method") InvoicePaymentMethodType paymentMethod,
-            @JsonProperty("transaction_id") int transactionId) {
-        this(amountInCents, appliedAmount, paymentMethod, transactionId,
-                OptionalNullable.of(null));
-        unsetMemo();
     }
 
     /**

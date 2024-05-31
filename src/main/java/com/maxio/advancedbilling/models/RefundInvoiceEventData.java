@@ -6,10 +6,8 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -69,27 +67,6 @@ public class RefundInvoiceEventData
         this.refundAmount = refundAmount;
         this.refundId = refundId;
         this.transactionTime = transactionTime;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  applyCredit  boolean value for applyCredit.
-     * @param  creditNoteAttributes  CreditNote value for creditNoteAttributes.
-     * @param  paymentId  int value for paymentId.
-     * @param  refundAmount  String value for refundAmount.
-     * @param  refundId  int value for refundId.
-     * @param  transactionTime  ZonedDateTime value for transactionTime.
-     */
-    @JsonCreator
-    protected RefundInvoiceEventData(
-            @JsonProperty("apply_credit") boolean applyCredit,
-            @JsonProperty("credit_note_attributes") CreditNote creditNoteAttributes,
-            @JsonProperty("payment_id") int paymentId,
-            @JsonProperty("refund_amount") String refundAmount,
-            @JsonProperty("refund_id") int refundId,
-            @JsonProperty("transaction_time") ZonedDateTime transactionTime) {
-        this(applyCredit, creditNoteAttributes, paymentId, refundAmount, refundId, transactionTime,
-                null, null, null);
     }
 
     /**

@@ -6,10 +6,8 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -105,26 +103,6 @@ public class ApplyCreditNoteEventData
         this.role = role;
         this.consolidatedInvoice = consolidatedInvoice;
         this.appliedCreditNotes = appliedCreditNotes;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  uid  String value for uid.
-     * @param  creditNoteNumber  String value for creditNoteNumber.
-     * @param  creditNoteUid  String value for creditNoteUid.
-     * @param  originalAmount  String value for originalAmount.
-     * @param  appliedAmount  String value for appliedAmount.
-     */
-    @JsonCreator
-    protected ApplyCreditNoteEventData(
-            @JsonProperty("uid") String uid,
-            @JsonProperty("credit_note_number") String creditNoteNumber,
-            @JsonProperty("credit_note_uid") String creditNoteUid,
-            @JsonProperty("original_amount") String originalAmount,
-            @JsonProperty("applied_amount") String appliedAmount) {
-        this(uid, creditNoteNumber, creditNoteUid, originalAmount, appliedAmount, null,
-                OptionalNullable.of(null), null, null, null);
-        unsetMemo();
     }
 
     /**

@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Events` | [`List<InvoiceEvent>`](../../doc/models/invoice-event.md) | Optional | - | List<InvoiceEvent> getEvents() | setEvents(List<InvoiceEvent> events) |
+| `Events` | [`List<InvoiceEvent>`](../../doc/models/containers/invoice-event.md) | Optional | - | List<InvoiceEvent> getEvents() | setEvents(List<InvoiceEvent> events) |
 | `Page` | `Integer` | Optional | - | Integer getPage() | setPage(Integer page) |
 | `PerPage` | `Integer` | Optional | - | Integer getPerPage() | setPerPage(Integer perPage) |
 | `TotalPages` | `Integer` | Optional | - | Integer getTotalPages() | setTotalPages(Integer totalPages) |
@@ -20,17 +20,25 @@
 {
   "events": [
     {
-      "id": 68,
-      "event_type": "create_debit_note",
+      "event_type": "apply_credit_note",
+      "id": 214,
+      "timestamp": "2016-03-13T12:52:32.123Z",
+      "invoice": {
+        "id": 166,
+        "uid": "uid6",
+        "site_id": 92,
+        "customer_id": 204,
+        "subscription_id": 20
+      },
       "event_data": {
-        "uid": "uid2",
-        "credit_note_number": "credit_note_number4",
-        "credit_note_uid": "credit_note_uid4",
-        "original_amount": "original_amount6",
-        "applied_amount": "applied_amount6",
+        "uid": "uid6",
+        "credit_note_number": "credit_note_number0",
+        "credit_note_uid": "credit_note_uid0",
+        "original_amount": "original_amount0",
+        "applied_amount": "applied_amount2",
         "transaction_time": "2016-03-13T12:52:32.123Z",
-        "memo": "memo6",
-        "role": "role4",
+        "memo": "memo0",
+        "role": "role0",
         "consolidated_invoice": false,
         "applied_credit_notes": [
           {
@@ -40,16 +48,12 @@
           {
             "uid": "uid4",
             "number": "number8"
+          },
+          {
+            "uid": "uid4",
+            "number": "number8"
           }
         ]
-      },
-      "timestamp": "2016-03-13T12:52:32.123Z",
-      "invoice": {
-        "id": 166,
-        "uid": "uid6",
-        "site_id": 92,
-        "customer_id": 204,
-        "subscription_id": 20
       }
     }
   ],

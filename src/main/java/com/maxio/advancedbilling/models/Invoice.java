@@ -80,7 +80,6 @@ public class Invoice
      * Default constructor.
      */
     public Invoice() {
-        collectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -1718,7 +1717,7 @@ public class Invoice
         private InvoiceStatus status;
         private InvoiceRole role;
         private OptionalNullable<Integer> parentInvoiceId;
-        private CollectionMethod collectionMethod = CollectionMethod.AUTOMATIC;
+        private CollectionMethod collectionMethod;
         private String paymentInstructions;
         private String currency;
         private InvoiceConsolidationLevel consolidationLevel;
