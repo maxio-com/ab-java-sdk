@@ -4,12 +4,16 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.models.ApplyCreditNoteEventData;
-import com.maxio.advancedbilling.models.ApplyDebitNoteEventData;
+import com.maxio.advancedbilling.models.ApplyCreditNoteEvent;
+import com.maxio.advancedbilling.models.ApplyDebitNoteEvent;
+import com.maxio.advancedbilling.models.ApplyPaymentEvent;
 import com.maxio.advancedbilling.models.ApplyPaymentEventData;
-import com.maxio.advancedbilling.models.ChangeChargebackStatusEventData;
-import com.maxio.advancedbilling.models.ChangeInvoiceCollectionMethodEventData;
-import com.maxio.advancedbilling.models.ChangeInvoiceStatusEventData;
+import com.maxio.advancedbilling.models.BackportInvoiceEvent;
+import com.maxio.advancedbilling.models.ChangeChargebackStatusEvent;
+import com.maxio.advancedbilling.models.ChangeInvoiceCollectionMethodEvent;
+import com.maxio.advancedbilling.models.ChangeInvoiceStatusEvent;
+import com.maxio.advancedbilling.models.CreateCreditNoteEvent;
+import com.maxio.advancedbilling.models.CreateDebitNoteEvent;
 import com.maxio.advancedbilling.models.CreateInvoiceCoupon;
 import com.maxio.advancedbilling.models.CreateInvoiceItem;
 import com.maxio.advancedbilling.models.CreateInvoicePayment;
@@ -18,11 +22,15 @@ import com.maxio.advancedbilling.models.CreateInvoiceStatus;
 import com.maxio.advancedbilling.models.CreditNote;
 import com.maxio.advancedbilling.models.CreditNoteStatus;
 import com.maxio.advancedbilling.models.Customer;
-import com.maxio.advancedbilling.models.DebitNote;
-import com.maxio.advancedbilling.models.FailedPaymentEventData;
+import com.maxio.advancedbilling.models.FailedPaymentEvent;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
-import com.maxio.advancedbilling.models.InvoiceEvent;
+import com.maxio.advancedbilling.models.IssueInvoiceEvent;
+import com.maxio.advancedbilling.models.RefundInvoiceEvent;
+import com.maxio.advancedbilling.models.RemovePaymentEvent;
+import com.maxio.advancedbilling.models.VoidInvoiceEvent;
+import com.maxio.advancedbilling.models.VoidRemainderEvent;
+import com.maxio.advancedbilling.models.containers.InvoiceEvent;
 import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
 import com.maxio.advancedbilling.models.InvoiceEventType;
 import com.maxio.advancedbilling.models.InvoicePayment;
@@ -42,17 +50,14 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.RefundInvoice;
 import com.maxio.advancedbilling.models.RefundInvoiceEventData;
 import com.maxio.advancedbilling.models.RefundInvoiceRequest;
-import com.maxio.advancedbilling.models.RemovePaymentEventData;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.VoidInvoice;
-import com.maxio.advancedbilling.models.VoidInvoiceEventData;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import com.maxio.advancedbilling.models.VoidRemainderEventData;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductId;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
 import com.maxio.advancedbilling.models.containers.CreateInvoicePaymentAmount;
-import com.maxio.advancedbilling.models.containers.InvoiceEventEventData;
 import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
 import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
 import com.maxio.advancedbilling.utils.TestSetup;
@@ -171,9 +176,15 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(response.getPerPage()).isEqualTo(10);
 
         // --- IssueInvoiceEvent ----
-        InvoiceEvent issueInvoiceEvent = response.getEvents().get(0);
-        assertBasicEvent(issueInvoiceEvent, InvoiceEventType.ISSUE_INVOICE, expectedInvoice);
-        IssueInvoiceEventData issueInvoiceEventData = assertCastable(issueInvoiceEvent.getEventData(), IssueInvoiceEventData.class);
+        InvoiceEvent event1 = response.getEvents().get(0);
+        IssueInvoiceEvent issueInvoiceEvent = assertCastable(event1, IssueInvoiceEvent.class);
+
+        assertThat(issueInvoiceEvent.getId()).isNotNull();
+        assertThat(issueInvoiceEvent.getEventType()).isEqualTo(InvoiceEventType.ISSUE_INVOICE);
+        assertThat(issueInvoiceEvent.getTimestamp()).isNotNull();
+        assertInvoiceInEvent(issueInvoiceEvent.getInvoice(), expectedInvoice);
+
+        IssueInvoiceEventData issueInvoiceEventData = issueInvoiceEvent.getEventData();
         assertThat(issueInvoiceEventData.getConsolidationLevel()).isEqualTo(InvoiceConsolidationLevel.NONE);
         assertThat(issueInvoiceEventData.getFromStatus()).isEqualTo(InvoiceStatus.DRAFT);
         assertThat(issueInvoiceEventData.getToStatus()).isEqualTo(InvoiceStatus.OPEN);
@@ -195,9 +206,15 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(invoiceSnapshot.getRefunds()).isEmpty();
 
         // --- ApplyPaymentEvent ----
-        InvoiceEvent applyPaymentEvent = response.getEvents().get(1);
-        assertBasicEvent(applyPaymentEvent, InvoiceEventType.APPLY_PAYMENT, expectedInvoice);
-        ApplyPaymentEventData applyPaymentEventData = assertCastable(applyPaymentEvent.getEventData(), ApplyPaymentEventData.class);
+        InvoiceEvent event2 = response.getEvents().get(1);
+        ApplyPaymentEvent applyPaymentEvent = assertCastable(event2, ApplyPaymentEvent.class);
+
+        assertThat(applyPaymentEvent.getId()).isNotNull();
+        assertThat(applyPaymentEvent.getEventType()).isEqualTo(InvoiceEventType.APPLY_PAYMENT);
+        assertThat(applyPaymentEvent.getTimestamp()).isNotNull();
+        assertInvoiceInEvent(applyPaymentEvent.getInvoice(), expectedInvoice);
+
+        ApplyPaymentEventData applyPaymentEventData = applyPaymentEvent.getEventData();
         assertThat(applyPaymentEventData.getMemo()).isNull();
         assertThat(applyPaymentEventData.getOriginalAmount()).isEqualTo("10.0");
         assertThat(applyPaymentEventData.getAppliedAmount()).isEqualTo("10.0");
@@ -224,9 +241,15 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(invoiceSnapshot.getRefunds()).isEmpty();
 
         // --- RefundInvoiceEvent ----
-        InvoiceEvent refundInvoiceEvent = response.getEvents().get(2);
-        assertBasicEvent(refundInvoiceEvent, InvoiceEventType.REFUND_INVOICE, expectedInvoice);
-        RefundInvoiceEventData refundInvoiceEventData = assertCastable(refundInvoiceEvent.getEventData(), RefundInvoiceEventData.class);
+        InvoiceEvent event3 = response.getEvents().get(2);
+        RefundInvoiceEvent refundInvoiceEvent = assertCastable(event3, RefundInvoiceEvent.class);
+
+        assertThat(refundInvoiceEvent.getId()).isNotNull();
+        assertThat(refundInvoiceEvent.getEventType()).isEqualTo(InvoiceEventType.REFUND_INVOICE);
+        assertThat(refundInvoiceEvent.getTimestamp()).isNotNull();
+        assertInvoiceInEvent(refundInvoiceEvent.getInvoice(), expectedInvoice);
+
+        RefundInvoiceEventData refundInvoiceEventData = refundInvoiceEvent.getEventData();
         assertThat(refundInvoiceEventData.getApplyCredit()).isTrue();
         assertThat(refundInvoiceEventData.getConsolidationLevel()).isEqualTo(InvoiceConsolidationLevel.NONE);
         assertThat(refundInvoiceEventData.getMemo()).isEqualTo("Refund");
@@ -266,9 +289,16 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(creditNoteAttributes.getOriginInvoices().get(0).getUid()).isEqualTo(expectedInvoice.getUid());
 
         // --- VoidRemainderEvent ----
-        InvoiceEvent voidRemainderEvent = response.getEvents().get(3);
-        assertBasicEvent(voidRemainderEvent, InvoiceEventType.VOID_REMAINDER, expectedInvoice);
-        VoidRemainderEventData voidRemainderEventData = assertCastable(voidRemainderEvent.getEventData(), VoidRemainderEventData.class);
+        InvoiceEvent event4 = response.getEvents().get(3);
+        VoidRemainderEvent voidRemainderEvent = assertCastable(event4, VoidRemainderEvent.class);
+
+        assertThat(voidRemainderEvent.getId()).isNotNull();
+        assertThat(voidRemainderEvent.getEventType()).isEqualTo(InvoiceEventType.VOID_REMAINDER);
+        assertThat(voidRemainderEvent.getTimestamp()).isNotNull();
+        assertInvoiceInEvent(voidRemainderEvent.getInvoice(), expectedInvoice);
+
+        VoidRemainderEventData voidRemainderEventData = voidRemainderEvent.getEventData();
+
         assertThat(voidRemainderEventData.getMemo()).startsWith("Credit for remainder of partially-paid, voided invoice");
         assertThat(voidRemainderEventData.getAppliedAmount()).isEqualTo("1231.5");
         assertThat(voidRemainderEventData.getTransactionTime()).isNotNull();
@@ -361,8 +391,10 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(response.getPage()).isEqualTo(1);
         assertThat(response.getEvents()).hasSize(2);
 
-        assertThat(response.getEvents().get(0).getEventType()).isEqualTo(InvoiceEventType.ISSUE_INVOICE);
-        assertThat(response.getEvents().get(1).getEventType()).isEqualTo(InvoiceEventType.REFUND_INVOICE);
+        IssueInvoiceEvent issueInvoiceEvent =  assertCastable(response.getEvents().get(0), IssueInvoiceEvent.class);
+        assertThat(issueInvoiceEvent.getEventType()).isEqualTo(InvoiceEventType.ISSUE_INVOICE);
+        RefundInvoiceEvent refundInvoiceEvent =  assertCastable(response.getEvents().get(1), RefundInvoiceEvent.class);
+        assertThat(refundInvoiceEvent.getEventType()).isEqualTo(InvoiceEventType.REFUND_INVOICE);
     }
 
     @Test
@@ -374,11 +406,7 @@ public class InvoicesControllerListInvoiceEventsTest {
         );
     }
 
-    void assertBasicEvent(InvoiceEvent event, InvoiceEventType expectedType, Invoice invoice) {
-        assertThat(event.getId()).isNotNull();
-        assertThat(event.getEventType()).isEqualTo(expectedType);
-        assertThat(event.getTimestamp()).isNotNull();
-        Invoice eventInvoice = event.getInvoice();
+    void assertInvoiceInEvent(Invoice eventInvoice, Invoice invoice) {
         assertThat(eventInvoice.getAdditionalProperties()).satisfies(additionalProperties -> {
             assertThat(additionalProperties.get("statement_id")).isNull();
             assertThat(additionalProperties.get("legacy_invoice_number")).isNull();
@@ -403,89 +431,89 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(eventInvoice.getUpdatedAt()).isNotNull();
     }
 
-    private <T> T assertCastable(InvoiceEventEventData eventData, Class<? extends T> clazz) {
-        return eventData.match(new EventDataExtractor<T>(clazz));
+    private <T> T assertCastable(InvoiceEvent eventData, Class<? extends T> clazz) {
+        return eventData.match(new EventExtractor<T>(clazz));
     }
 
     private <T> T assertCastable(InvoiceEventPayment paymentMethod, Class<? extends T> clazz) {
         return paymentMethod.match(new PaymentMethodExtractor<T>(clazz));
     }
 
-    private record EventDataExtractor<R>(Class<? extends R> clazz) implements InvoiceEventEventData.Cases<R> {
+    private record EventExtractor<R>(Class<? extends R> clazz) implements InvoiceEvent.Cases<R> {
 
         @Override
-        public R applyCreditNoteEventData(ApplyCreditNoteEventData applyCreditNoteEventData) {
-            return cast(applyCreditNoteEventData);
+        public R applyCreditNoteEvent(ApplyCreditNoteEvent applyCreditNoteEvent) {
+            return cast(applyCreditNoteEvent);
         }
 
         @Override
-        public R applyDebitNoteEventData(ApplyDebitNoteEventData applyDebitNoteEventData) {
-            return cast(applyDebitNoteEventData);
+        public R applyDebitNoteEvent(ApplyDebitNoteEvent applyDebitNoteEvent) {
+            return cast(applyDebitNoteEvent);
         }
 
         @Override
-        public R applyPaymentEventData(ApplyPaymentEventData applyPaymentEventData) {
-            return cast(applyPaymentEventData);
+        public R applyPaymentEvent(ApplyPaymentEvent applyPaymentEvent) {
+            return cast(applyPaymentEvent);
         }
 
         @Override
-        public R changeInvoiceCollectionMethodEventData(ChangeInvoiceCollectionMethodEventData changeInvoiceCollectionMethodEventData) {
-            return cast(changeInvoiceCollectionMethodEventData);
+        public R backportInvoiceEvent(BackportInvoiceEvent backportInvoiceEvent) {
+            return cast(backportInvoiceEvent);
         }
 
         @Override
-        public R issueInvoiceEventData(IssueInvoiceEventData issueInvoiceEventData) {
-            return cast(issueInvoiceEventData);
+        public R changeChargebackStatusEvent(ChangeChargebackStatusEvent changeChargebackStatusEvent) {
+            return cast(changeChargebackStatusEvent);
         }
 
         @Override
-        public R refundInvoiceEventData(RefundInvoiceEventData refundInvoiceEventData) {
-            return cast(refundInvoiceEventData);
+        public R changeInvoiceCollectionMethodEvent(ChangeInvoiceCollectionMethodEvent changeInvoiceCollectionMethodEvent) {
+            return cast(changeInvoiceCollectionMethodEvent);
         }
 
         @Override
-        public R removePaymentEventData(RemovePaymentEventData removePaymentEventData) {
-            return cast(removePaymentEventData);
+        public R changeInvoiceStatusEvent(ChangeInvoiceStatusEvent changeInvoiceStatusEvent) {
+            return cast(changeInvoiceStatusEvent);
         }
 
         @Override
-        public R voidInvoiceEventData(VoidInvoiceEventData voidInvoiceEventData) {
-            return cast(voidInvoiceEventData);
+        public R createCreditNoteEvent(CreateCreditNoteEvent createCreditNoteEvent) {
+            return cast(createCreditNoteEvent);
         }
 
         @Override
-        public R voidRemainderEventData(VoidRemainderEventData voidRemainderEventData) {
-            return cast(voidRemainderEventData);
+        public R createDebitNoteEvent(CreateDebitNoteEvent createDebitNoteEvent) {
+            return cast(createDebitNoteEvent);
         }
 
         @Override
-        public R invoice(Invoice invoice) {
-            return cast(invoice);
+        public R failedPaymentEvent(FailedPaymentEvent failedPaymentEvent) {
+            return cast(failedPaymentEvent);
         }
 
         @Override
-        public R changeInvoiceStatusEventData(ChangeInvoiceStatusEventData changeInvoiceStatusEventData) {
-            return cast(changeInvoiceStatusEventData);
+        public R issueInvoiceEvent(IssueInvoiceEvent issueInvoiceEvent) {
+            return cast(issueInvoiceEvent);
         }
 
         @Override
-        public R failedPaymentEventData(FailedPaymentEventData failedPaymentEventData) {
-            return cast(failedPaymentEventData);
+        public R refundInvoiceEvent(RefundInvoiceEvent refundInvoiceEvent) {
+            return cast(refundInvoiceEvent);
         }
 
         @Override
-        public R debitNote(DebitNote debitNote) {
-            return cast(debitNote);
+        public R removePaymentEvent(RemovePaymentEvent removePaymentEvent) {
+            return cast(removePaymentEvent);
         }
 
         @Override
-        public R creditNote(CreditNote creditNote) {
-            return cast(creditNote);
+        public R voidInvoiceEvent(VoidInvoiceEvent voidInvoiceEvent) {
+            return cast(voidInvoiceEvent);
         }
 
         @Override
-        public R changeChargebackStatusEventData(ChangeChargebackStatusEventData changeChargebackStatusEventData) {
-            return cast(changeChargebackStatusEventData);
+        public R voidRemainderEvent(VoidRemainderEvent voidRemainderEvent) {
+            return cast(voidRemainderEvent);
         }
 
         private R cast(Object o) {
