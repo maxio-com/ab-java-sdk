@@ -6,10 +6,8 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -79,25 +77,6 @@ public class ApplyDebitNoteEventData
         this.appliedAmount = appliedAmount;
         this.memo = memo;
         this.transactionTime = transactionTime;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  debitNoteNumber  String value for debitNoteNumber.
-     * @param  debitNoteUid  String value for debitNoteUid.
-     * @param  originalAmount  String value for originalAmount.
-     * @param  appliedAmount  String value for appliedAmount.
-     */
-    @JsonCreator
-    protected ApplyDebitNoteEventData(
-            @JsonProperty("debit_note_number") String debitNoteNumber,
-            @JsonProperty("debit_note_uid") String debitNoteUid,
-            @JsonProperty("original_amount") String originalAmount,
-            @JsonProperty("applied_amount") String appliedAmount) {
-        this(debitNoteNumber, debitNoteUid, originalAmount, appliedAmount,
-                OptionalNullable.of(null), OptionalNullable.of(null));
-        unsetMemo();
-        unsetTransactionTime();
     }
 
     /**

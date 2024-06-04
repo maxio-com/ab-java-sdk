@@ -78,7 +78,6 @@ public class CreateSubscription
      * Default constructor.
      */
     public CreateSubscription() {
-        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
         dunningCommunicationDelayEnabled = OptionalNullable.of(false);
         skipBillingManifestTaxes = false;
     }
@@ -1675,7 +1674,7 @@ public class CreateSubscription
         private SubscriptionCustomPrice customPrice;
         private String couponCode;
         private List<String> couponCodes;
-        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod;
         private String receivesInvoiceEmails;
         private String netTerms;
         private Integer customerId;

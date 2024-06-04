@@ -89,7 +89,6 @@ public class Subscription
      * Default constructor.
      */
     public Subscription() {
-        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -2700,7 +2699,7 @@ public class Subscription
         private OptionalNullable<ZonedDateTime> delayedCancelAt;
         private OptionalNullable<String> couponCode;
         private OptionalNullable<String> snapDay;
-        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod;
         private Customer customer;
         private Product product;
         private CreditCardPaymentProfile creditCard;

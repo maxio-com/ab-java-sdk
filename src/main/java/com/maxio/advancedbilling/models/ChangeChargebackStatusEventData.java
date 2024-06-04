@@ -6,9 +6,7 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 
@@ -29,9 +27,8 @@ public class ChangeChargebackStatusEventData
      * Initialization constructor.
      * @param  chargebackStatus  ChargebackStatus value for chargebackStatus.
      */
-    @JsonCreator
     public ChangeChargebackStatusEventData(
-            @JsonProperty("chargeback_status") ChargebackStatus chargebackStatus) {
+            ChargebackStatus chargebackStatus) {
         this.chargebackStatus = chargebackStatus;
     }
 

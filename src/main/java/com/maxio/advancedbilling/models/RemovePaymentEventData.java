@@ -6,10 +6,8 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -62,27 +60,6 @@ public class RemovePaymentEventData
         this.transactionTime = transactionTime;
         this.paymentMethod = paymentMethod;
         this.prepayment = prepayment;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  transactionId  int value for transactionId.
-     * @param  memo  String value for memo.
-     * @param  appliedAmount  String value for appliedAmount.
-     * @param  transactionTime  ZonedDateTime value for transactionTime.
-     * @param  paymentMethod  InvoiceEventPayment value for paymentMethod.
-     * @param  prepayment  boolean value for prepayment.
-     */
-    @JsonCreator
-    protected RemovePaymentEventData(
-            @JsonProperty("transaction_id") int transactionId,
-            @JsonProperty("memo") String memo,
-            @JsonProperty("applied_amount") String appliedAmount,
-            @JsonProperty("transaction_time") ZonedDateTime transactionTime,
-            @JsonProperty("payment_method") InvoiceEventPayment paymentMethod,
-            @JsonProperty("prepayment") boolean prepayment) {
-        this(transactionId, memo, appliedAmount, transactionTime, paymentMethod, prepayment,
-                null);
     }
 
     /**

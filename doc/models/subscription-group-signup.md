@@ -12,7 +12,7 @@
 | `PaymentProfileId` | `Integer` | Optional | - | Integer getPaymentProfileId() | setPaymentProfileId(Integer paymentProfileId) |
 | `PayerId` | `Integer` | Optional | - | Integer getPayerId() | setPayerId(Integer payerId) |
 | `PayerReference` | `String` | Optional | - | String getPayerReference() | setPayerReference(String payerReference) |
-| `PaymentCollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`.<br>**Default**: `CollectionMethod.AUTOMATIC` | CollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) |
+| `PaymentCollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`. | CollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) |
 | `PayerAttributes` | [`PayerAttributes`](../../doc/models/payer-attributes.md) | Optional | - | PayerAttributes getPayerAttributes() | setPayerAttributes(PayerAttributes payerAttributes) |
 | `CreditCardAttributes` | [`SubscriptionGroupCreditCard`](../../doc/models/subscription-group-credit-card.md) | Optional | - | SubscriptionGroupCreditCard getCreditCardAttributes() | setCreditCardAttributes(SubscriptionGroupCreditCard creditCardAttributes) |
 | `BankAccountAttributes` | [`SubscriptionGroupBankAccount`](../../doc/models/subscription-group-bank-account.md) | Optional | - | SubscriptionGroupBankAccount getBankAccountAttributes() | setBankAccountAttributes(SubscriptionGroupBankAccount bankAccountAttributes) |
@@ -22,7 +22,6 @@
 
 ```json
 {
-  "payment_collection_method": "automatic",
   "subscriptions": [
     {
       "metafields": {
@@ -39,6 +38,7 @@
   "payment_profile_id": 42,
   "payer_id": 64,
   "payer_reference": "payer_reference8",
+  "payment_collection_method": "automatic",
   "payer_attributes": {
     "first_name": "first_name2",
     "last_name": "last_name0",

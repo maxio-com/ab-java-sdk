@@ -37,7 +37,6 @@ public class SubscriptionGroupSignupResponse
      * Default constructor.
      */
     public SubscriptionGroupSignupResponse() {
-        paymentCollectionMethod = CollectionMethod.AUTOMATIC;
     }
 
     /**
@@ -436,7 +435,7 @@ public class SubscriptionGroupSignupResponse
         private SubscriptionState state;
         private Boolean cancelAtEndOfPeriod;
         private List<SubscriptionGroupItem> subscriptions;
-        private CollectionMethod paymentCollectionMethod = CollectionMethod.AUTOMATIC;
+        private CollectionMethod paymentCollectionMethod;
 
 
 
