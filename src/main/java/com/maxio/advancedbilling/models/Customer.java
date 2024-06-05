@@ -325,7 +325,9 @@ public class Customer
 
     /**
      * Internal Getter for Organization.
-     * The organization of the customer
+     * The organization of the customer. If no value, `null` or empty string is provided,
+     * `organization` will be populated with the customer's first and last name, separated with a
+     * space.
      * @return Returns the Internal String
      */
     @JsonGetter("organization")
@@ -337,7 +339,9 @@ public class Customer
 
     /**
      * Getter for Organization.
-     * The organization of the customer
+     * The organization of the customer. If no value, `null` or empty string is provided,
+     * `organization` will be populated with the customer's first and last name, separated with a
+     * space.
      * @return Returns the String
      */
     public String getOrganization() {
@@ -346,7 +350,9 @@ public class Customer
 
     /**
      * Setter for Organization.
-     * The organization of the customer
+     * The organization of the customer. If no value, `null` or empty string is provided,
+     * `organization` will be populated with the customer's first and last name, separated with a
+     * space.
      * @param organization Value for String
      */
     @JsonSetter("organization")
@@ -356,7 +362,9 @@ public class Customer
 
     /**
      * UnSetter for Organization.
-     * The organization of the customer
+     * The organization of the customer. If no value, `null` or empty string is provided,
+     * `organization` will be populated with the customer's first and last name, separated with a
+     * space.
      */
     public void unsetOrganization() {
         organization = null;

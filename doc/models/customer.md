@@ -13,7 +13,7 @@
 | `LastName` | `String` | Optional | The last name of the customer | String getLastName() | setLastName(String lastName) |
 | `Email` | `String` | Optional | The email address of the customer | String getEmail() | setEmail(String email) |
 | `CcEmails` | `String` | Optional | A comma-separated list of emails that should be cc’d on all customer communications (i.e. “joe@example.com, sue@example.com”) | String getCcEmails() | setCcEmails(String ccEmails) |
-| `Organization` | `String` | Optional | The organization of the customer | String getOrganization() | setOrganization(String organization) |
+| `Organization` | `String` | Optional | The organization of the customer. If no value, `null` or empty string is provided, `organization` will be populated with the customer's first and last name, separated with a space. | String getOrganization() | setOrganization(String organization) |
 | `Reference` | `String` | Optional | The unique identifier used within your own application for this customer | String getReference() | setReference(String reference) |
 | `Id` | `Integer` | Optional | The customer ID in Chargify | Integer getId() | setId(Integer id) |
 | `CreatedAt` | `ZonedDateTime` | Optional | The timestamp in which the customer object was created in Chargify | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
