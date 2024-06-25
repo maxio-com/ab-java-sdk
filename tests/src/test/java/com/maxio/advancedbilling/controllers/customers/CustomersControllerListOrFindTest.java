@@ -10,10 +10,14 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerResponse;
 import com.maxio.advancedbilling.models.ListCustomersInput;
 import com.maxio.advancedbilling.models.SortingDirection;
+import com.maxio.advancedbilling.utils.TestTeardown;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,12 +26,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CustomersControllerListOrFindTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomersControllerListOrFindTest.class);
 
     private static final CustomersController CUSTOMERS_CONTROLLER = TestClient.createClient().getCustomersController();
     private static final Customer[] TEST_CUSTOMERS = new Customer[10];
 
     @BeforeAll
     static void beforeAll() throws IOException, ApiException {
+        List<CustomerResponse> existingCustomers = CUSTOMERS_CONTROLLER.listCustomers(new ListCustomersInput.Builder()
+                .build());
+
+        if (!existingCustomers.isEmpty()) {
+            LOGGER.warn("Found orphaned customers {}. Deleting.", existingCustomers);
+        }
+
+        TestTeardown testTeardown = new TestTeardown();
+        for (CustomerResponse response : existingCustomers) {
+            testTeardown.deleteCustomer(response.getCustomer());
+        }
+
         for (int i = 0; i < TEST_CUSTOMERS.length; i++) {
             TEST_CUSTOMERS[i] = CUSTOMERS_CONTROLLER
                     .createCustomer(new CreateCustomerRequest(new CreateCustomer.Builder()
@@ -39,6 +56,18 @@ class CustomersControllerListOrFindTest {
                             .build())
                     )
                     .getCustomer();
+        }
+    }
+
+    @AfterAll
+    static void afterAll() {
+        TestTeardown testTeardown = new TestTeardown();
+        for (Customer customer : TEST_CUSTOMERS) {
+            try {
+                testTeardown.deleteCustomer(customer);
+            } catch (Exception ex) {
+                LOGGER.error("Error when deleting customer", ex);
+            }
         }
     }
 
