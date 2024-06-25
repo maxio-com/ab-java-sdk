@@ -111,7 +111,7 @@ class CustomersControllerListSubscriptionsTest {
 
         Product product = productsController
                 .createProduct(
-                        productFamily.getId(),
+                        String.valueOf(productFamily.getId()),
                         new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
                                 .name("Test Product " + randomNumeric(10))
                                 .handle("test-product-" + randomNumeric(10))

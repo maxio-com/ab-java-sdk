@@ -51,7 +51,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
                 )
         );
 
-        componentPricePoint2CurrencyPrices = COMPONENTS_CONTROLLER
+        componentPricePoint2CurrencyPrices = COMPONENTS__PRICE_POINT_CONTROLLER
                 .createCurrencyPrices(componentPricePoint2.getId(), createCurrencyPricesRequest)
                 .getCurrencyPrices();
     }
@@ -59,7 +59,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
     @Test
     void shouldListPricePointsWithCurrencyPrices() throws IOException, ApiException {
         // when
-        ComponentPricePointsResponse response = COMPONENTS_CONTROLLER.listComponentPricePoints(
+        ComponentPricePointsResponse response = COMPONENTS__PRICE_POINT_CONTROLLER.listComponentPricePoints(
                 new ListComponentPricePointsInput.Builder()
                         .componentId(component.getId())
                         .currencyPrices(true)
@@ -124,7 +124,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
     @Test
     void shouldListPricePointsWithPagination() throws IOException, ApiException {
         // when-then
-        ComponentPricePointsResponse responsePage1 = COMPONENTS_CONTROLLER.listComponentPricePoints(
+        ComponentPricePointsResponse responsePage1 = COMPONENTS__PRICE_POINT_CONTROLLER.listComponentPricePoints(
                 new ListComponentPricePointsInput.Builder()
                         .componentId(component.getId())
                         .page(1)
@@ -137,7 +137,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
         assertThat(responsePage1.getMeta().getTotalPages()).isEqualTo(2);
         assertThat(responsePage1.getMeta().getPerPage()).isEqualTo(2);
 
-        ComponentPricePointsResponse responsePage2 = COMPONENTS_CONTROLLER.listComponentPricePoints(
+        ComponentPricePointsResponse responsePage2 = COMPONENTS__PRICE_POINT_CONTROLLER.listComponentPricePoints(
                 new ListComponentPricePointsInput.Builder()
                         .componentId(component.getId())
                         .page(2)
@@ -154,7 +154,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
     @Test
     void shouldListPricePointsWithTypeFilters() throws IOException, ApiException {
         // when-then
-        ComponentPricePointsResponse defaultPricePoints = COMPONENTS_CONTROLLER.listComponentPricePoints(
+        ComponentPricePointsResponse defaultPricePoints = COMPONENTS__PRICE_POINT_CONTROLLER.listComponentPricePoints(
                 new ListComponentPricePointsInput.Builder()
                         .componentId(component.getId())
                         .filterType(List.of(PricePointType.ENUM_DEFAULT))
@@ -163,7 +163,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
         assertThat(defaultPricePoints.getPricePoints().size()).isEqualTo(1);
         assertThat(defaultPricePoints.getPricePoints().get(0).getType()).isEqualTo(PricePointType.ENUM_DEFAULT);
 
-        ComponentPricePointsResponse catalogPricePoints = COMPONENTS_CONTROLLER.listComponentPricePoints(
+        ComponentPricePointsResponse catalogPricePoints = COMPONENTS__PRICE_POINT_CONTROLLER.listComponentPricePoints(
                 new ListComponentPricePointsInput.Builder()
                         .componentId(component.getId())
                         .filterType(List.of(PricePointType.CATALOG))
@@ -176,7 +176,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
 
     @Test
     void shouldNotListPricePointsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
                 .listComponentPricePoints(new ListComponentPricePointsInput()));
     }
 

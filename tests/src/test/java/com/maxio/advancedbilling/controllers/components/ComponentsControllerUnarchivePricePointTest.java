@@ -4,6 +4,8 @@ import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
+import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointComponentId;
+import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointPricePointId;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -29,9 +31,12 @@ public class ComponentsControllerUnarchivePricePointTest extends ComponentsContr
         ComponentPricePoint componentPricePoint = TEST_SETUP.createComponentPricePoint(component.getId());
 
         // when
-        COMPONENTS_CONTROLLER
-                .archiveComponentPricePoint(component.getId(), componentPricePoint.getId());
-        ComponentPricePoint unarchivedPricePoint = COMPONENTS_CONTROLLER
+        COMPONENTS__PRICE_POINT_CONTROLLER
+                .archiveComponentPricePoint(
+                        ArchiveComponentPricePointComponentId.fromNumber(component.getId()),
+                        ArchiveComponentPricePointPricePointId.fromNumber(componentPricePoint.getId())
+                );
+        ComponentPricePoint unarchivedPricePoint = COMPONENTS__PRICE_POINT_CONTROLLER
                 .unarchiveComponentPricePoint(component.getId(), componentPricePoint.getId())
                 .getPricePoint();
 
@@ -52,26 +57,26 @@ public class ComponentsControllerUnarchivePricePointTest extends ComponentsContr
         // when-then
         CommonAssertions
                 .assertUnprocessableEntity(ApiException.class,
-                        () -> COMPONENTS_CONTROLLER.unarchiveComponentPricePoint(component.getId(),
+                        () -> COMPONENTS__PRICE_POINT_CONTROLLER.unarchiveComponentPricePoint(component.getId(),
                                 componentPricePoint.getId()));
     }
 
     @Test
     void shouldNotUnarchivePricePointWhenComponentDoesNotExist() {
         // when - then
-        assertNotFound(() -> COMPONENTS_CONTROLLER
+        assertNotFound(() -> COMPONENTS__PRICE_POINT_CONTROLLER
                 .unarchiveComponentPricePoint(123, component.getDefaultPricePointId()));
     }
 
     @Test
     void shouldNotUnarchiveNonExistentPricePoints() {
         // when - then
-        assertNotFound(() -> COMPONENTS_CONTROLLER.unarchiveComponentPricePoint(component.getId(), 123));
+        assertNotFound(() -> COMPONENTS__PRICE_POINT_CONTROLLER.unarchiveComponentPricePoint(component.getId(), 123));
     }
 
     @Test
     void shouldNotArchivePricePointWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
                 .unarchiveComponentPricePoint(component.getId(), component.getDefaultPricePointId()));
     }
 

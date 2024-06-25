@@ -10,6 +10,8 @@ import com.maxio.advancedbilling.models.ListAllComponentPricePointsInput;
 import com.maxio.advancedbilling.models.ListComponentsPricePointsInclude;
 import com.maxio.advancedbilling.models.ListPricePointsFilter;
 import com.maxio.advancedbilling.models.SortingDirection;
+import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointComponentId;
+import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointPricePointId;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +43,10 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
         component1_PricePoint1 = TEST_SETUP.createComponentPricePoint(component.getId(), b -> b.useSiteExchangeRate(true));
         component1_PricePoint2 = TEST_SETUP.createComponentPricePoint(component.getId(), b -> b.useSiteExchangeRate(false));
         component1_PricePoint3_Archived = TEST_SETUP.createComponentPricePoint(component.getId());
-        COMPONENTS_CONTROLLER.archiveComponentPricePoint(component.getId(), component1_PricePoint3_Archived.getId());
+        COMPONENTS__PRICE_POINT_CONTROLLER.archiveComponentPricePoint(
+                ArchiveComponentPricePointComponentId.fromNumber(component.getId()),
+                ArchiveComponentPricePointPricePointId.fromNumber(component1_PricePoint3_Archived.getId())
+        );
 
         component2_PricePoint1 = TEST_SETUP.createComponentPricePoint(component2.getId());
         component2_PricePoint2 = TEST_SETUP.createComponentPricePoint(component2.getId());
@@ -50,19 +55,18 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
     @Test
     void shouldListPricePointsWithCurrencyPrices() throws IOException, ApiException {
         // when
-        Map<Integer, ComponentPricePoint> componentPricePointMap = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
-                new ListAllComponentPricePointsInput.Builder()
-                        .filter(
-                                new ListPricePointsFilter.Builder()
-                                        .ids(List.of(component1_PricePoint1.getId(), component1_PricePoint2.getId()))
-                                        .build()
-                        )
-                        .include(ListComponentsPricePointsInclude.CURRENCY_PRICES)
-                        .build())
+        Map<Integer, ComponentPricePoint> componentPricePointMap = COMPONENTS__PRICE_POINT_CONTROLLER.listAllComponentPricePoints(
+                        new ListAllComponentPricePointsInput.Builder()
+                                .filter(
+                                        new ListPricePointsFilter.Builder()
+                                                .ids(List.of(component1_PricePoint1.getId(), component1_PricePoint2.getId()))
+                                                .build()
+                                )
+                                .include(ListComponentsPricePointsInclude.CURRENCY_PRICES)
+                                .build())
                 .getPricePoints()
                 .stream()
                 .collect(Collectors.toMap(ComponentPricePoint::getId, Function.identity()));
-
 
         // then
         assertThat(componentPricePointMap.size()).isEqualTo(2);
@@ -91,7 +95,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
     @Test
     void shouldListArchivedPricePoints() throws IOException, ApiException {
         // when
-        List<ComponentPricePoint> componentPricePoints = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
+        List<ComponentPricePoint> componentPricePoints = COMPONENTS__PRICE_POINT_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
                                 .filter(
                                         new ListPricePointsFilter.Builder()
@@ -119,7 +123,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
                 component2_PricePoint1.getId(), component2_PricePoint2.getId());
 
         // when
-        List<ComponentPricePoint> responsePage1 = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
+        List<ComponentPricePoint> responsePage1 = COMPONENTS__PRICE_POINT_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
                                 .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(1)
@@ -132,7 +136,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
                 .usingRecursiveFieldByFieldElementComparator()
                 .containsExactlyInAnyOrder(component1_PricePoint1, component1_PricePoint2);
 
-        List<ComponentPricePoint> responsePage2 = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
+        List<ComponentPricePoint> responsePage2 = COMPONENTS__PRICE_POINT_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
                                 .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(2)
@@ -145,7 +149,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
                 .usingRecursiveFieldByFieldElementComparator()
                 .containsExactlyInAnyOrder(component2_PricePoint1, component2_PricePoint2);
 
-        List<ComponentPricePoint> responsePage3 = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
+        List<ComponentPricePoint> responsePage3 = COMPONENTS__PRICE_POINT_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
                                 .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(3)
@@ -155,7 +159,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
 
         assertThat(responsePage3).isEmpty();
 
-        List<ComponentPricePoint> responsePageDesc = COMPONENTS_CONTROLLER.listAllComponentPricePoints(
+        List<ComponentPricePoint> responsePageDesc = COMPONENTS__PRICE_POINT_CONTROLLER.listAllComponentPricePoints(
                         new ListAllComponentPricePointsInput.Builder()
                                 .filter(new ListPricePointsFilter.Builder().ids(allIds).build())
                                 .page(1)
@@ -172,7 +176,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
 
     @Test
     void shouldNotListComponentsPricePointsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
                 .listAllComponentPricePoints(new ListAllComponentPricePointsInput()));
     }
 

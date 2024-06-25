@@ -4,6 +4,8 @@ import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
+import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointComponentId;
+import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointPricePointId;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -30,9 +32,10 @@ public class ComponentsControllerArchivePricePointTest extends ComponentsControl
         ComponentPricePoint componentPricePoint = TEST_SETUP.createComponentPricePoint(component.getId());
 
         // when
-        ComponentPricePoint archivedPricePoint = COMPONENTS_CONTROLLER
-                .archiveComponentPricePoint(component.getId(), componentPricePoint.getId())
-                .getPricePoint();
+        ComponentPricePoint archivedPricePoint = COMPONENTS__PRICE_POINT_CONTROLLER.archiveComponentPricePoint(
+                ArchiveComponentPricePointComponentId.fromNumber(component.getId()),
+                ArchiveComponentPricePointPricePointId.fromNumber(componentPricePoint.getId())
+        ).getPricePoint();
 
         // then
         assertThat(archivedPricePoint.getArchivedAt()).isNotNull();
@@ -48,20 +51,28 @@ public class ComponentsControllerArchivePricePointTest extends ComponentsControl
     void shouldNotArchiveSamePricePointTwice() throws IOException, ApiException {
         // given
         ComponentPricePoint componentPricePoint = TEST_SETUP.createComponentPricePoint(component.getId());
-        COMPONENTS_CONTROLLER.archiveComponentPricePoint(component.getId(), componentPricePoint.getId());
+        COMPONENTS__PRICE_POINT_CONTROLLER.archiveComponentPricePoint(
+                ArchiveComponentPricePointComponentId.fromNumber(component.getId()),
+                ArchiveComponentPricePointPricePointId.fromNumber(componentPricePoint.getId())
+        );
 
         // when-then
         CommonAssertions
-                .assertThatErrorListResponse(() -> COMPONENTS_CONTROLLER.archiveComponentPricePoint(component.getId(),
-                                componentPricePoint.getId()))
+                .assertThatErrorListResponse(() -> COMPONENTS__PRICE_POINT_CONTROLLER.archiveComponentPricePoint(
+                        ArchiveComponentPricePointComponentId.fromNumber(component.getId()),
+                        ArchiveComponentPricePointPricePointId.fromNumber(componentPricePoint.getId()))
+                )
                 .isUnprocessableEntity()
                 .hasErrors("Price point is already archived.");
     }
 
     @Test
     void shouldNotArchivePricePointWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
-                .archiveComponentPricePoint(component.getId(), component.getDefaultPricePointId()));
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+                .archiveComponentPricePoint(
+                        ArchiveComponentPricePointComponentId.fromNumber(component.getId()),
+                        ArchiveComponentPricePointPricePointId.fromNumber(component.getDefaultPricePointId()))
+        );
     }
 
 }

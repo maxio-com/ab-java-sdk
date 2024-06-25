@@ -32,7 +32,7 @@ abstract class ProductsControllerTestBase {
 
     protected static Product createProductWithHandle(String handle) throws IOException, ApiException {
         return productsController
-                .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
+                .createProduct(String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(
                         new CreateOrUpdateProduct.Builder()
                                 .name("Initial Sample product-" + RandomStringUtils.randomAlphanumeric(5))
                                 .handle(handle)
