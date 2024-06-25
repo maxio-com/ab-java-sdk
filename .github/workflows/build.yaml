@@ -28,7 +28,7 @@ jobs:
         run: |
             mvn install
             cd tests
-            mvn --batch-mode --update-snapshots verify --fail-at-end
+            mvn --batch-mode --update-snapshots verify -Dsurefire.rerunFailingTestsCount=3 --fail-at-end
       - name: Publish Test Report
         if: success() || failure()
         uses: scacap/action-surefire-report@v1

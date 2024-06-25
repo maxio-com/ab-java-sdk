@@ -41,15 +41,15 @@ public final class ProductsController extends BaseController {
      * Documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405561405709) +
      * [Changing a Subscription's
      * Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404225334669-Product-Changes-Migrations).
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the product belongs
+     * @param  productFamilyId  Required parameter: Either the product family's id or its handle
+     *         prefixed with `handle:`
      * @param  body  Optional parameter: Example:
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ProductResponse createProduct(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateOrUpdateProductRequest body) throws ApiException, IOException {
         return prepareCreateProductRequest(productFamilyId, body).execute();
     }
@@ -58,7 +58,7 @@ public final class ProductsController extends BaseController {
      * Builds the ApiCall object for createProduct.
      */
     private ApiCall<ProductResponse, ApiException> prepareCreateProductRequest(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateOrUpdateProductRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -67,7 +67,7 @@ public final class ProductsController extends BaseController {
                         .path("/product_families/{product_family_id}/products.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))

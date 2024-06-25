@@ -10,6 +10,8 @@ import com.maxio.advancedbilling.models.PricingScheme;
 import com.maxio.advancedbilling.models.UpdateComponentPricePoint;
 import com.maxio.advancedbilling.models.UpdateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.UpdatePrice;
+import com.maxio.advancedbilling.models.containers.UpdateComponentPricePointComponentId;
+import com.maxio.advancedbilling.models.containers.UpdateComponentPricePointPricePointId;
 import com.maxio.advancedbilling.models.containers.UpdatePriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.UpdatePriceUnitPrice;
 import org.junit.jupiter.api.BeforeAll;
@@ -70,8 +72,10 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
                 .build();
 
         // when
-        ComponentPricePoint updatedPricePoint = COMPONENTS_CONTROLLER
-                .updateComponentPricePoint(component.getId(), componentPricePoint.getId(),
+        ComponentPricePoint updatedPricePoint = COMPONENTS__PRICE_POINT_CONTROLLER
+                .updateComponentPricePoint(
+                        UpdateComponentPricePointComponentId.fromNumber(component.getId()),
+                        UpdateComponentPricePointPricePointId.fromNumber(componentPricePoint.getId()),
                         new UpdateComponentPricePointRequest(updateComponentPricePoint)
                 )
                 .getPricePoint();
@@ -114,7 +118,11 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
         // when - then
         assertUnprocessableEntity(
                 ErrorArrayMapResponseException.class,
-                () -> COMPONENTS_CONTROLLER.updateComponentPricePoint(component2.getId(), component2.getDefaultPricePointId(), request),
+                () -> COMPONENTS__PRICE_POINT_CONTROLLER.updateComponentPricePoint(
+                        UpdateComponentPricePointComponentId.fromNumber(component2.getId()),
+                        UpdateComponentPricePointPricePointId.fromNumber(component2.getDefaultPricePointId()),
+                        request
+                ),
                 e -> assertThat(e.getErrors()).containsExactlyInAnyOrderEntriesOf(expectedErrors)
         );
     }
@@ -145,20 +153,26 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
     void shouldNotUpdatePricePointWhenComponentAndPricePointDontExist() {
         assertUnprocessableEntity(
                 ErrorArrayMapResponseException.class,
-                () -> COMPONENTS_CONTROLLER.updateComponentPricePoint(123, 123,
+                () -> COMPONENTS__PRICE_POINT_CONTROLLER.updateComponentPricePoint(
+                        UpdateComponentPricePointComponentId.fromNumber(123),
+                        UpdateComponentPricePointPricePointId.fromNumber(123),
                         new UpdateComponentPricePointRequest(new UpdateComponentPricePoint.Builder().name("abc").build())),
                 e -> assertThat(e.getErrors()).containsExactlyEntriesOf(
                         Map.of("base", List.of(
                                 "component must be a valid component",
                                 "price_point must be a valid price_point")
-                )
-        ));
+                        )
+                ));
     }
 
     @Test
     void shouldNotUpdateComponentPricePointWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
-                .updateComponentPricePoint(component.getId(), component.getDefaultPricePointId(), new UpdateComponentPricePointRequest()));
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+                .updateComponentPricePoint(
+                        UpdateComponentPricePointComponentId.fromNumber(component.getId()),
+                        UpdateComponentPricePointPricePointId.fromNumber(component.getDefaultPricePointId()),
+                        new UpdateComponentPricePointRequest())
+        );
     }
 
 }

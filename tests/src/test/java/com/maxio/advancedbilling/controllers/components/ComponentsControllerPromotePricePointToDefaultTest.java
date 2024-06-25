@@ -31,7 +31,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
         ComponentPricePoint catalogPricePoint = createCatalogPricePoint(component.getId());
 
         // when
-        Component componentWithUpdatedPricePoint = COMPONENTS_CONTROLLER
+        Component componentWithUpdatedPricePoint = COMPONENTS__PRICE_POINT_CONTROLLER
                 .promoteComponentPricePointToDefault(
                         component.getId(),
                         catalogPricePoint.getId()
@@ -59,7 +59,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
         Component component = createQuantityBasedComponent();
 
         // when - then
-        new ApiExceptionAssert(() -> COMPONENTS_CONTROLLER.promoteComponentPricePointToDefault(component.getId(), 3))
+        new ApiExceptionAssert(() -> COMPONENTS__PRICE_POINT_CONTROLLER.promoteComponentPricePointToDefault(component.getId(), 3))
                 .isUnprocessableEntity();
     }
 
@@ -70,7 +70,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
         ComponentPricePoint catalogPricePoint = createCatalogPricePoint(component.getId());
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
                 .promoteComponentPricePointToDefault(component.getId(), catalogPricePoint.getId())
         );
     }
@@ -91,7 +91,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
                 )
                 .build();
 
-        return COMPONENTS_CONTROLLER
+        return COMPONENTS__PRICE_POINT_CONTROLLER
                 .createComponentPricePoint(componentId,
                         new CreateComponentPricePointRequest(
                                 CreateComponentPricePointRequestPricePoint

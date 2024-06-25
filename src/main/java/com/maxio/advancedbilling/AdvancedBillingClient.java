@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.authentication.BasicAuthModel;
 import com.maxio.advancedbilling.controllers.APIExportsController;
 import com.maxio.advancedbilling.controllers.AdvanceInvoiceController;
 import com.maxio.advancedbilling.controllers.BillingPortalController;
+import com.maxio.advancedbilling.controllers.ComponentPricePointsController;
 import com.maxio.advancedbilling.controllers.ComponentsController;
 import com.maxio.advancedbilling.controllers.CouponsController;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
@@ -67,6 +68,7 @@ public final class AdvancedBillingClient implements Configuration {
     private BillingPortalController billingPortal;
     private CouponsController coupons;
     private ComponentsController components;
+    private ComponentPricePointsController componentPricePoints;
     private CustomersController customers;
     private CustomFieldsController customFields;
     private EventsController events;
@@ -96,7 +98,7 @@ public final class AdvancedBillingClient implements Configuration {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "AB SDK Java:3.0.0 on OS {os-info}";
+    private static String userAgent = "AB SDK Java:4.0.0 on OS {os-info}";
 
     /**
      * Current API environment.
@@ -163,6 +165,7 @@ public final class AdvancedBillingClient implements Configuration {
         billingPortal = new BillingPortalController(globalConfig);
         coupons = new CouponsController(globalConfig);
         components = new ComponentsController(globalConfig);
+        componentPricePoints = new ComponentPricePointsController(globalConfig);
         customers = new CustomersController(globalConfig);
         customFields = new CustomFieldsController(globalConfig);
         events = new EventsController(globalConfig);
@@ -237,6 +240,14 @@ public final class AdvancedBillingClient implements Configuration {
      */
     public ComponentsController getComponentsController() {
         return components;
+    }
+
+    /**
+     * Get the instance of ComponentPricePointsController.
+     * @return componentPricePoints
+     */
+    public ComponentPricePointsController getComponentPricePointsController() {
+        return componentPricePoints;
     }
 
     /**

@@ -28,7 +28,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
         ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
-                .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
+                .createProduct(String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(
                         new CreateOrUpdateProduct.Builder()
                                 .name("Sample product")
                                 .handle(handle)
@@ -100,7 +100,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
         ZonedDateTime timestamp = ZonedDateTime.now().minusSeconds(5);
         String handle = "washington-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase();
         Product product = productsController
-                .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(
+                .createProduct(String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(
                         new CreateOrUpdateProduct.Builder()
                                 .name("Sample product full")
                                 .handle(handle)
@@ -183,12 +183,12 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 .interval(1)
                 .intervalUnit(IntervalUnit.MONTH)
                 .build();
-        productsController.createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(createOrUpdateProduct));
+        productsController.createProduct(String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(createOrUpdateProduct));
 
         // then
         CommonAssertions
                 .assertThatErrorListResponse(() -> productsController
-                        .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(createOrUpdateProduct))
+                        .createProduct(String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(createOrUpdateProduct))
                 )
                 .isUnprocessableEntity()
                 .hasErrors("API Handle: must be unique - '%s' has been taken by another Product in this Site.".formatted(handle));
@@ -200,7 +200,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
         // when - then
         CommonAssertions
                 .assertThatErrorListResponse(() -> productsController.createProduct(
-                        productFamily.getId(), new CreateOrUpdateProductRequest(createProduct))
+                        String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(createProduct))
                 )
                 .isUnprocessableEntity()
                 .hasErrors(errorMessages);
@@ -254,7 +254,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
 
         // when - then
         new ApiExceptionAssert<>(() -> productsController
-                .createProduct(999999, new CreateOrUpdateProductRequest(createOrUpdateProduct)))
+                .createProduct("999999", new CreateOrUpdateProductRequest(createOrUpdateProduct)))
                 .hasErrorCode(403)
                 .hasMessageStartingWithHttpNotOk();
     }

@@ -27,7 +27,7 @@ Use this method to create a product within your Chargify site.
 
 ```java
 ProductResponse createProduct(
-    final int productFamilyId,
+    final String productFamilyId,
     final CreateOrUpdateProductRequest body)
 ```
 
@@ -35,7 +35,7 @@ ProductResponse createProduct(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the product belongs |
+| `productFamilyId` | `String` | Template, Required | Either the product family's id or its handle prefixed with `handle:` |
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -45,7 +45,7 @@ ProductResponse createProduct(
 ## Example Usage
 
 ```java
-int productFamilyId = 140;
+String productFamilyId = "product_family_id4";
 CreateOrUpdateProductRequest body = new CreateOrUpdateProductRequest.Builder(
     new CreateOrUpdateProduct.Builder(
         "Gold Plan",

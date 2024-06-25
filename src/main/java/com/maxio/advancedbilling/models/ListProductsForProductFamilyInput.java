@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * This is a model class for ListProductsForProductFamilyInput type.
  */
 public class ListProductsForProductFamilyInput {
-    private int productFamilyId;
+    private String productFamilyId;
     private Integer page;
     private Integer perPage;
     private BasicDateField dateField;
@@ -36,7 +36,7 @@ public class ListProductsForProductFamilyInput {
 
     /**
      * Initialization constructor.
-     * @param  productFamilyId  int value for productFamilyId.
+     * @param  productFamilyId  String value for productFamilyId.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  dateField  BasicDateField value for dateField.
@@ -49,7 +49,7 @@ public class ListProductsForProductFamilyInput {
      * @param  include  ListProductsInclude value for include.
      */
     public ListProductsForProductFamilyInput(
-            int productFamilyId,
+            String productFamilyId,
             Integer page,
             Integer perPage,
             BasicDateField dateField,
@@ -75,21 +75,21 @@ public class ListProductsForProductFamilyInput {
 
     /**
      * Getter for ProductFamilyId.
-     * The Chargify id of the product family to which the product belongs
-     * @return Returns the int
+     * Either the product family's id or its handle prefixed with `handle:`
+     * @return Returns the String
      */
     @JsonGetter("product_family_id")
-    public int getProductFamilyId() {
+    public String getProductFamilyId() {
         return productFamilyId;
     }
 
     /**
      * Setter for ProductFamilyId.
-     * The Chargify id of the product family to which the product belongs
-     * @param productFamilyId Value for int
+     * Either the product family's id or its handle prefixed with `handle:`
+     * @param productFamilyId Value for String
      */
     @JsonSetter("product_family_id")
-    public void setProductFamilyId(int productFamilyId) {
+    public void setProductFamilyId(String productFamilyId) {
         this.productFamilyId = productFamilyId;
     }
 
@@ -374,7 +374,7 @@ public class ListProductsForProductFamilyInput {
      * Class to build instances of {@link ListProductsForProductFamilyInput}.
      */
     public static class Builder {
-        private int productFamilyId;
+        private String productFamilyId;
         private Integer page = 1;
         private Integer perPage = 20;
         private BasicDateField dateField;
@@ -394,18 +394,18 @@ public class ListProductsForProductFamilyInput {
 
         /**
          * Initialization constructor.
-         * @param  productFamilyId  int value for productFamilyId.
+         * @param  productFamilyId  String value for productFamilyId.
          */
-        public Builder(int productFamilyId) {
+        public Builder(String productFamilyId) {
             this.productFamilyId = productFamilyId;
         }
 
         /**
          * Setter for productFamilyId.
-         * @param  productFamilyId  int value for productFamilyId.
+         * @param  productFamilyId  String value for productFamilyId.
          * @return Builder
          */
-        public Builder productFamilyId(int productFamilyId) {
+        public Builder productFamilyId(String productFamilyId) {
             this.productFamilyId = productFamilyId;
             return this;
         }

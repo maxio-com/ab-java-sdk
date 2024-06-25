@@ -157,7 +157,7 @@ public class SubscriptionsControllerUpdateTest {
         PricePointType pricePointType2 = subscriptionComponent2.getPricePointType();
         assertThat(pricePointType2).isEqualTo(PricePointType.ENUM_DEFAULT);
 
-        ComponentPricePointsResponse customPricePoint1 = CLIENT.getComponentsController().listComponentPricePoints(new ListComponentPricePointsInput.Builder()
+        ComponentPricePointsResponse customPricePoint1 = CLIENT.getComponentPricePointsController().listComponentPricePoints(new ListComponentPricePointsInput.Builder()
                 .filterType(List.of(PricePointType.CUSTOM)).componentId(component1.getId()).build());
         assertThat(customPricePoint1.getPricePoints())
                 .isNotNull()
@@ -184,7 +184,7 @@ public class SubscriptionsControllerUpdateTest {
                                 .build()
                 );
 
-        ComponentPricePointsResponse customPricePoint2 = CLIENT.getComponentsController().listComponentPricePoints(new ListComponentPricePointsInput.Builder()
+        ComponentPricePointsResponse customPricePoint2 = CLIENT.getComponentPricePointsController().listComponentPricePoints(new ListComponentPricePointsInput.Builder()
                 .filterType(List.of(PricePointType.CUSTOM)).componentId(component2.getId()).build());
         assertThat(customPricePoint2.getPricePoints())
                 .isNotNull()

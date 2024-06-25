@@ -57,7 +57,7 @@ abstract class ProductPricePointsBaseTest {
     protected static Product createProduct() throws IOException, ApiException {
         return PRODUCTS_CONTROLLER
                 .createProduct(
-                        productFamily.getId(),
+                        String.valueOf(productFamily.getId()),
                         new CreateOrUpdateProductRequest(new CreateOrUpdateProduct.Builder()
                                 .name("product-name-%s".formatted(randomNumeric(10)))
                                 .handle("product-handle-%s".formatted(randomNumeric(10)))

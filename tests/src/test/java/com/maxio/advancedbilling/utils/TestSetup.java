@@ -118,7 +118,7 @@ public class TestSetup {
         customizer.accept(builder);
 
         return advancedBillingClient.getProductsController()
-                .createProduct(productFamily.getId(), new CreateOrUpdateProductRequest(builder.build()))
+                .createProduct(String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(builder.build()))
                 .getProduct();
     }
 
@@ -276,7 +276,7 @@ public class TestSetup {
                 );
         customizer.accept(builder);
 
-        return advancedBillingClient.getComponentsController()
+        return advancedBillingClient.getComponentPricePointsController()
                 .createComponentPricePoint(componentId, new CreateComponentPricePointRequest(
                         CreateComponentPricePointRequestPricePoint.fromCreateComponentPricePoint(builder.build()))
                 ).getPricePoint();
@@ -365,7 +365,7 @@ public class TestSetup {
                 )
                 .build();
 
-        return advancedBillingClient.getComponentsController()
+        return advancedBillingClient.getComponentPricePointsController()
                 .createComponentPricePoint(componentId,
                         new CreateComponentPricePointRequest(
                                 CreateComponentPricePointRequestPricePoint
