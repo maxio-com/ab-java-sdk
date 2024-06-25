@@ -41,6 +41,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | `getBillingPortalController()` | Provides access to BillingPortal controller. | `BillingPortalController` |
 | `getCouponsController()` | Provides access to Coupons controller. | `CouponsController` |
 | `getComponentsController()` | Provides access to Components controller. | `ComponentsController` |
+| `getComponentPricePointsController()` | Provides access to ComponentPricePoints controller. | `ComponentPricePointsController` |
 | `getCustomersController()` | Provides access to Customers controller. | `CustomersController` |
 | `getCustomFieldsController()` | Provides access to CustomFields controller. | `CustomFieldsController` |
 | `getEventsController()` | Provides access to Events controller. | `EventsController` |

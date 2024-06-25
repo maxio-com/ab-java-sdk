@@ -151,9 +151,11 @@ public final class ProductPricePointsController extends BaseController {
      * Use this endpoint to update a product price point. Note: Custom product price points are not
      * able to be updated.
      * @param  productId  Required parameter: The id or handle of the product. When using the
-     *         handle, it must be prefixed with `handle:`
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-product-handle` for a string handle.
      * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
-     *         handle, it must be prefixed with `handle:`
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-product-price-point-handle` for a string handle.
      * @param  body  Optional parameter: Example:
      * @return    Returns the ProductPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -200,11 +202,14 @@ public final class ProductPricePointsController extends BaseController {
     }
 
     /**
-     * Use this endpoint to retrieve details for a specific product price point.
+     * Use this endpoint to retrieve details for a specific product price point. You can achieve
+     * this by using either the product price point ID or handle.
      * @param  productId  Required parameter: The id or handle of the product. When using the
-     *         handle, it must be prefixed with `handle:`
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-product-handle` for a string handle.
      * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
-     *         handle, it must be prefixed with `handle:`
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-product-price-point-handle` for a string handle.
      * @param  currencyPrices  Optional parameter: When fetching a product's price points, if you
      *         have defined multiple currencies at the site level, you can optionally pass the
      *         ?currency_prices=true query param to include an array of currency price data in the
@@ -257,9 +262,11 @@ public final class ProductPricePointsController extends BaseController {
     /**
      * Use this endpoint to archive a product price point.
      * @param  productId  Required parameter: The id or handle of the product. When using the
-     *         handle, it must be prefixed with `handle:`
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-product-handle` for a string handle.
      * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
-     *         handle, it must be prefixed with `handle:`
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-product-price-point-handle` for a string handle.
      * @return    Returns the ProductPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

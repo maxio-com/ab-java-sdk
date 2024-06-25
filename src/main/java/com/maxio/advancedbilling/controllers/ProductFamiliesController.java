@@ -79,7 +79,7 @@ public final class ProductFamiliesController extends BaseController {
                                 .value(input.getIncludeArchived()).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
-                        .templateParam(param -> param.key("product_family_id").value(input.getProductFamilyId()).isRequired(false)
+                        .templateParam(param -> param.key("product_family_id").value(input.getProductFamilyId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
