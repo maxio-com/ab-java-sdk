@@ -87,9 +87,9 @@ public class SubscriptionPreview
     }
 
     /**
-     * Builds a new {@link SubscriptionPreview.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link SubscriptionPreview.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

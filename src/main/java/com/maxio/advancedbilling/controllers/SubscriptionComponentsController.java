@@ -16,6 +16,7 @@ import com.maxio.advancedbilling.exceptions.ComponentPricePointErrorException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.SubscriptionComponentAllocationErrorException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
+import com.maxio.advancedbilling.models.ActivateEventBasedComponent;
 import com.maxio.advancedbilling.models.AllocateComponents;
 import com.maxio.advancedbilling.models.AllocationPreviewResponse;
 import com.maxio.advancedbilling.models.AllocationResponse;
@@ -814,13 +815,15 @@ public final class SubscriptionComponentsController extends BaseController {
      * be billed for event-based component usage at renewal.*.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  componentId  Required parameter: The Chargify id of the component
+     * @param  body  Optional parameter: Example:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void activateEventBasedComponent(
             final int subscriptionId,
-            final int componentId) throws ApiException, IOException {
-        prepareActivateEventBasedComponentRequest(subscriptionId, componentId).execute();
+            final int componentId,
+            final ActivateEventBasedComponent body) throws ApiException, IOException {
+        prepareActivateEventBasedComponentRequest(subscriptionId, componentId, body).execute();
     }
 
     /**
@@ -828,16 +831,21 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareActivateEventBasedComponentRequest(
             final int subscriptionId,
-            final int componentId) throws IOException {
+            final int componentId,
+            final ActivateEventBasedComponent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/activate.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
                         .arraySerializationFormat(ArraySerializationFormat.CSV)

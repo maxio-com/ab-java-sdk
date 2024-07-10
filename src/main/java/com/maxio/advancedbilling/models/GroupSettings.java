@@ -105,9 +105,9 @@ public class GroupSettings
     }
 
     /**
-     * Builds a new {@link GroupSettings.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link GroupSettings.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(target)

@@ -109,9 +109,9 @@ public class RefundSuccess
     }
 
     /**
-     * Builds a new {@link RefundSuccess.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RefundSuccess.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(refundId, gatewayTransactionId, productId);

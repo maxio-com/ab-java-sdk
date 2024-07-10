@@ -38,9 +38,9 @@ public class BasicAuthModel {
     }
 
     /**
-     * Builds a new {@link BasicAuthModel.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current auth model.
-     * @return a new {@link BasicAuthModel.Builder} object.
+     * @return a new {@link Builder} object.
      */
     public Builder toBuilder() {
         return new Builder(getUsername(), getPassword());

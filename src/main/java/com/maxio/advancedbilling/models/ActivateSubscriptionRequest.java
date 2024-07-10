@@ -106,9 +106,9 @@ public class ActivateSubscriptionRequest
     }
 
     /**
-     * Builds a new {@link ActivateSubscriptionRequest.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ActivateSubscriptionRequest.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder();

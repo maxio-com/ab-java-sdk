@@ -1300,7 +1300,8 @@ Use this endpoint to activate an event-based component for a single subscription
 ```java
 Void activateEventBasedComponent(
     final int subscriptionId,
-    final int componentId)
+    final int componentId,
+    final ActivateEventBasedComponent body)
 ```
 
 ## Parameters
@@ -1309,6 +1310,7 @@ Void activateEventBasedComponent(
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
 | `componentId` | `int` | Template, Required | The Chargify id of the component |
+| `body` | [`ActivateEventBasedComponent`](../../doc/models/activate-event-based-component.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -1319,9 +1321,33 @@ Void activateEventBasedComponent(
 ```java
 int subscriptionId = 222;
 int componentId = 222;
+ActivateEventBasedComponent body = new ActivateEventBasedComponent.Builder()
+    .pricePointId(1)
+    .billingSchedule(new BillingSchedule.Builder()
+        .initialBillingAt(DateTimeHelper.fromSimpleDate("2022-01-01"))
+        .build())
+    .customPrice(new ComponentCustomPrice.Builder(
+        Arrays.asList(
+            new Price.Builder(
+                PriceStartingQuantity.fromNumber(
+                    1
+                ),
+                PriceUnitPrice.fromString(
+                    "5.0"
+                )
+            )
+            .build()
+        )
+    )
+    .taxIncluded(false)
+    .pricingScheme(PricingScheme.PER_UNIT)
+    .interval(30)
+    .intervalUnit(IntervalUnit.DAY)
+    .build())
+    .build();
 
 try {
-    subscriptionComponentsController.activateEventBasedComponent(subscriptionId, componentId);
+    subscriptionComponentsController.activateEventBasedComponent(subscriptionId, componentId, body);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {

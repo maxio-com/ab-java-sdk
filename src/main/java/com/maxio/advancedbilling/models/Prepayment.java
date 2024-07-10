@@ -275,9 +275,9 @@ public class Prepayment
     }
 
     /**
-     * Builds a new {@link Prepayment.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link Prepayment.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id, subscriptionId, amountInCents, remainingAmountInCents,

@@ -164,9 +164,9 @@ public class NetTerms
     }
 
     /**
-     * Builds a new {@link NetTerms.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link NetTerms.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

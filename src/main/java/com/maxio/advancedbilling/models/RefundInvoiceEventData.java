@@ -279,9 +279,9 @@ public class RefundInvoiceEventData
     }
 
     /**
-     * Builds a new {@link RefundInvoiceEventData.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RefundInvoiceEventData.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(applyCredit, creditNoteAttributes, paymentId, refundAmount,

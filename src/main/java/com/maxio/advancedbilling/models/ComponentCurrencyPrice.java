@@ -180,9 +180,9 @@ public class ComponentCurrencyPrice
     }
 
     /**
-     * Builds a new {@link ComponentCurrencyPrice.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ComponentCurrencyPrice.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

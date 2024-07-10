@@ -182,9 +182,9 @@ public class SubscriptionComponentSubscription
     }
 
     /**
-     * Builds a new {@link SubscriptionComponentSubscription.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link SubscriptionComponentSubscription.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

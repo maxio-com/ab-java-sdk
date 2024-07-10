@@ -117,9 +117,9 @@ public class RecordPaymentResponse
     }
 
     /**
-     * Builds a new {@link RecordPaymentResponse.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RecordPaymentResponse.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

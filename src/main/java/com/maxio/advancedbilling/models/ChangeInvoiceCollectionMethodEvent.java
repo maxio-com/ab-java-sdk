@@ -162,9 +162,9 @@ public class ChangeInvoiceCollectionMethodEvent
     }
 
     /**
-     * Builds a new {@link ChangeInvoiceCollectionMethodEvent.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ChangeInvoiceCollectionMethodEvent.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id, timestamp, invoice, eventType, eventData);

@@ -65,9 +65,9 @@ public class ProformaError
     }
 
     /**
-     * Builds a new {@link ProformaError.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ProformaError.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

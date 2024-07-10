@@ -117,7 +117,7 @@ public class CreateMetafield
 
     /**
      * Getter for Enum.
-     * Only applicable when input_type is radio or dropdown
+     * Only applicable when input_type is radio or dropdown. Empty strings will not be submitted.
      * @return Returns the List of String
      */
     @JsonGetter("enum")
@@ -128,7 +128,7 @@ public class CreateMetafield
 
     /**
      * Setter for Enum.
-     * Only applicable when input_type is radio or dropdown
+     * Only applicable when input_type is radio or dropdown. Empty strings will not be submitted.
      * @param mEnum Value for List of String
      */
     @JsonSetter("enum")
@@ -148,9 +148,9 @@ public class CreateMetafield
     }
 
     /**
-     * Builds a new {@link CreateMetafield.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link CreateMetafield.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

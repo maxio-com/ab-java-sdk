@@ -161,9 +161,9 @@ public class UpdatePrice
     }
 
     /**
-     * Builds a new {@link UpdatePrice.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link UpdatePrice.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

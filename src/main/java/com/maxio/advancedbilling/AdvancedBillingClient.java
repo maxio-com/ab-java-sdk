@@ -98,7 +98,7 @@ public final class AdvancedBillingClient implements Configuration {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "AB SDK Java:4.0.0 on OS {os-info}";
+    private static String userAgent = "AB SDK Java:1.0.0 on OS {os-info}";
 
     /**
      * Current API environment.
@@ -593,9 +593,9 @@ public final class AdvancedBillingClient implements Configuration {
     }
 
     /**
-     * Builds a new {@link AdvancedBillingClient.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current client.
-     * @return a new {@link AdvancedBillingClient.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder newBuilder() {
         Builder builder = new Builder();

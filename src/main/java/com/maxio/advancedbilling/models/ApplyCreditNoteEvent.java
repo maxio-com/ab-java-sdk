@@ -162,9 +162,9 @@ public class ApplyCreditNoteEvent
     }
 
     /**
-     * Builds a new {@link ApplyCreditNoteEvent.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ApplyCreditNoteEvent.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id, timestamp, invoice, eventType, eventData);

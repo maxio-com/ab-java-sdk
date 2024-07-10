@@ -111,9 +111,9 @@ public class SendInvoiceRequest
     }
 
     /**
-     * Builds a new {@link SendInvoiceRequest.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link SendInvoiceRequest.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

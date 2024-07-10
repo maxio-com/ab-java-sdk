@@ -62,9 +62,9 @@ public class CouponCurrencyRequest
     }
 
     /**
-     * Builds a new {@link CouponCurrencyRequest.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link CouponCurrencyRequest.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(currencyPrices);

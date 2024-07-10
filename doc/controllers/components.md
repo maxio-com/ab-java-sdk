@@ -36,7 +36,7 @@ For more information on components, please see our documentation [here](https://
 
 ```java
 ComponentResponse createMeteredComponent(
-    final int productFamilyId,
+    final String productFamilyId,
     final CreateMeteredComponent body)
 ```
 
@@ -44,7 +44,7 @@ ComponentResponse createMeteredComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `productFamilyId` | `String` | Template, Required | Either the product family's id or its handle prefixed with `handle:` |
 | `body` | [`CreateMeteredComponent`](../../doc/models/create-metered-component.md) | Body, Optional | - |
 
 ## Response Type
@@ -54,7 +54,7 @@ ComponentResponse createMeteredComponent(
 ## Example Usage
 
 ```java
-int productFamilyId = 140;
+String productFamilyId = "product_family_id4";
 CreateMeteredComponent body = new CreateMeteredComponent.Builder(
     new MeteredComponent.Builder(
         "Text messages",
@@ -165,7 +165,7 @@ For more information on components, please see our documentation [here](https://
 
 ```java
 ComponentResponse createQuantityBasedComponent(
-    final int productFamilyId,
+    final String productFamilyId,
     final CreateQuantityBasedComponent body)
 ```
 
@@ -173,7 +173,7 @@ ComponentResponse createQuantityBasedComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `productFamilyId` | `String` | Template, Required | Either the product family's id or its handle prefixed with `handle:` |
 | `body` | [`CreateQuantityBasedComponent`](../../doc/models/create-quantity-based-component.md) | Body, Optional | - |
 
 ## Response Type
@@ -183,7 +183,7 @@ ComponentResponse createQuantityBasedComponent(
 ## Example Usage
 
 ```java
-int productFamilyId = 140;
+String productFamilyId = "product_family_id4";
 CreateQuantityBasedComponent body = new CreateQuantityBasedComponent.Builder(
     new QuantityBasedComponent.Builder(
         "Quantity Based Component",
@@ -282,7 +282,7 @@ For more information on components, please see our documentation [here](https://
 
 ```java
 ComponentResponse createOnOffComponent(
-    final int productFamilyId,
+    final String productFamilyId,
     final CreateOnOffComponent body)
 ```
 
@@ -290,7 +290,7 @@ ComponentResponse createOnOffComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `productFamilyId` | `String` | Template, Required | Either the product family's id or its handle prefixed with `handle:` |
 | `body` | [`CreateOnOffComponent`](../../doc/models/create-on-off-component.md) | Body, Optional | - |
 
 ## Response Type
@@ -300,7 +300,7 @@ ComponentResponse createOnOffComponent(
 ## Example Usage
 
 ```java
-int productFamilyId = 140;
+String productFamilyId = "product_family_id4";
 CreateOnOffComponent body = new CreateOnOffComponent.Builder(
     new OnOffComponent.Builder(
         "Annual Support Services"
@@ -392,7 +392,7 @@ For more information on components, please see our documentation [here](https://
 
 ```java
 ComponentResponse createPrepaidUsageComponent(
-    final int productFamilyId,
+    final String productFamilyId,
     final CreatePrepaidComponent body)
 ```
 
@@ -400,7 +400,7 @@ ComponentResponse createPrepaidUsageComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `productFamilyId` | `String` | Template, Required | Either the product family's id or its handle prefixed with `handle:` |
 | `body` | [`CreatePrepaidComponent`](../../doc/models/create-prepaid-component.md) | Body, Optional | - |
 
 ## Response Type
@@ -410,7 +410,7 @@ ComponentResponse createPrepaidUsageComponent(
 ## Example Usage
 
 ```java
-int productFamilyId = 140;
+String productFamilyId = "product_family_id4";
 CreatePrepaidComponent body = new CreatePrepaidComponent.Builder(
     new PrepaidUsageComponent.Builder(
         "Minutes"
@@ -547,7 +547,7 @@ For more information on components, please see our documentation [here](https://
 
 ```java
 ComponentResponse createEventBasedComponent(
-    final int productFamilyId,
+    final String productFamilyId,
     final CreateEBBComponent body)
 ```
 
@@ -555,7 +555,7 @@ ComponentResponse createEventBasedComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Chargify id of the product family to which the component belongs |
+| `productFamilyId` | `String` | Template, Required | Either the product family's id or its handle prefixed with `handle:` |
 | `body` | [`CreateEBBComponent`](../../doc/models/create-ebb-component.md) | Body, Optional | - |
 
 ## Response Type
@@ -565,7 +565,7 @@ ComponentResponse createEventBasedComponent(
 ## Example Usage
 
 ```java
-int productFamilyId = 140;
+String productFamilyId = "product_family_id4";
 CreateEBBComponent body = new CreateEBBComponent.Builder(
     new EBBComponent.Builder(
         "Component Name",

@@ -212,9 +212,9 @@ public class RefundConsolidatedInvoice
     }
 
     /**
-     * Builds a new {@link RefundConsolidatedInvoice.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link RefundConsolidatedInvoice.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(memo, paymentId, segmentUids)

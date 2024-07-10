@@ -140,10 +140,10 @@ public class HttpClientConfiguration implements ReadonlyHttpClientConfiguration 
     }
 
     /**
-     * Builds a new {@link HttpClientConfiguration.Builder} object. Creates the instance with the
+     * Builds a new {@link Builder} object. Creates the instance with the
      * current state.
      * 
-     * @return a new {@link HttpClientConfiguration.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder newBuilder() {
         return new Builder()

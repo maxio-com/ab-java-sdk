@@ -100,9 +100,9 @@ public class ListProductsFilter
     }
 
     /**
-     * Builds a new {@link ListProductsFilter.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ListProductsFilter.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()

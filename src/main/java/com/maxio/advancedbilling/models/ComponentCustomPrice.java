@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class ComponentCustomPrice
         extends BaseModel {
+    private Boolean taxIncluded;
     private PricingScheme pricingScheme;
     private Integer interval;
     private IntervalUnit intervalUnit;
@@ -30,20 +31,44 @@ public class ComponentCustomPrice
 
     /**
      * Initialization constructor.
+     * @param  prices  List of Price value for prices.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
-     * @param  prices  List of Price value for prices.
      */
     public ComponentCustomPrice(
+            List<Price> prices,
+            Boolean taxIncluded,
             PricingScheme pricingScheme,
             Integer interval,
-            IntervalUnit intervalUnit,
-            List<Price> prices) {
+            IntervalUnit intervalUnit) {
+        this.taxIncluded = taxIncluded;
         this.pricingScheme = pricingScheme;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.prices = prices;
+    }
+
+    /**
+     * Getter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
     }
 
     /**
@@ -121,7 +146,6 @@ public class ComponentCustomPrice
      * @return Returns the List of Price
      */
     @JsonGetter("prices")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Price> getPrices() {
         return prices;
     }
@@ -142,22 +166,22 @@ public class ComponentCustomPrice
      */
     @Override
     public String toString() {
-        return "ComponentCustomPrice [" + "pricingScheme=" + pricingScheme + ", interval="
-                + interval + ", intervalUnit=" + intervalUnit + ", prices=" + prices
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "ComponentCustomPrice [" + "prices=" + prices + ", taxIncluded=" + taxIncluded
+                + ", pricingScheme=" + pricingScheme + ", interval=" + interval + ", intervalUnit="
+                + intervalUnit + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
-     * Builds a new {@link ComponentCustomPrice.Builder} object.
+     * Builds a new {@link Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ComponentCustomPrice.Builder} object
+     * @return a new {@link Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
+        Builder builder = new Builder(prices)
+                .taxIncluded(getTaxIncluded())
                 .pricingScheme(getPricingScheme())
                 .interval(getInterval())
-                .intervalUnit(getIntervalUnit())
-                .prices(getPrices());
+                .intervalUnit(getIntervalUnit());
         return builder;
     }
 
@@ -165,12 +189,45 @@ public class ComponentCustomPrice
      * Class to build instances of {@link ComponentCustomPrice}.
      */
     public static class Builder {
+        private List<Price> prices;
+        private Boolean taxIncluded;
         private PricingScheme pricingScheme;
         private Integer interval;
         private IntervalUnit intervalUnit;
-        private List<Price> prices;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  prices  List of Price value for prices.
+         */
+        public Builder(List<Price> prices) {
+            this.prices = prices;
+        }
+
+        /**
+         * Setter for prices.
+         * @param  prices  List of Price value for prices.
+         * @return Builder
+         */
+        public Builder prices(List<Price> prices) {
+            this.prices = prices;
+            return this;
+        }
+
+        /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
+            return this;
+        }
 
         /**
          * Setter for pricingScheme.
@@ -203,21 +260,12 @@ public class ComponentCustomPrice
         }
 
         /**
-         * Setter for prices.
-         * @param  prices  List of Price value for prices.
-         * @return Builder
-         */
-        public Builder prices(List<Price> prices) {
-            this.prices = prices;
-            return this;
-        }
-
-        /**
          * Builds a new {@link ComponentCustomPrice} object using the set fields.
          * @return {@link ComponentCustomPrice}
          */
         public ComponentCustomPrice build() {
-            return new ComponentCustomPrice(pricingScheme, interval, intervalUnit, prices);
+            return new ComponentCustomPrice(prices, taxIncluded, pricingScheme, interval,
+                    intervalUnit);
         }
     }
 }
