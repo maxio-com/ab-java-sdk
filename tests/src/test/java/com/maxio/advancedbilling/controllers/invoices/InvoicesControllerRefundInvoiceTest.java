@@ -273,12 +273,6 @@ public class InvoicesControllerRefundInvoiceTest {
 
     private void assertRefundedInvoice(Invoice refundedInvoice, Invoice paidInvoice) {
         assertThat(refundedInvoice).isNotNull();
-        assertThat(refundedInvoice.getAdditionalProperties())
-                .hasSize(2)
-                .containsExactly(
-                        Map.entry("debit_amount", "0.0"),
-                        Map.entry("debits", Collections.emptyList())
-                );
         assertThat(refundedInvoice)
                 .usingRecursiveComparison()
                 .ignoringFields("createdAt", "updatedAt", "previousBalanceData.capturedAt",

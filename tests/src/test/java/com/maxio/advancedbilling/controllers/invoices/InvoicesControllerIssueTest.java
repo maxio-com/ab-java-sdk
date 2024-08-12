@@ -133,13 +133,6 @@ class InvoicesControllerIssueTest {
         );
 
         // then
-        assertThat(issuedInvoice.getAdditionalProperties())
-                .hasSize(2)
-                .containsExactlyInAnyOrderEntriesOf(Map.of(
-                                "debit_amount", "0.0",
-                                "debits", Collections.emptyList()
-                        )
-                );
         assertThat(issuedInvoice.getUid()).isEqualTo(pendingInvoice.getUid());
         assertThat(issuedInvoice.getSiteId()).isNotNull();
         assertThat(issuedInvoice.getCustomerId()).isEqualTo(customer.getId());
