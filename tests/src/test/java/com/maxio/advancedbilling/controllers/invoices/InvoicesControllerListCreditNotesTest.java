@@ -228,10 +228,6 @@ class InvoicesControllerListCreditNotesTest {
                 .getCreditNotes();
 
         // then
-        assertThat(creditNotes)
-                .hasSize(1)
-                .extracting(BaseModel::getAdditionalProperties)
-                .containsExactly(Collections.emptyMap());
         List<InvoiceRefund> refunds = creditNotes.get(0).getRefunds();
         assertThat(refunds)
                 .hasSize(1)

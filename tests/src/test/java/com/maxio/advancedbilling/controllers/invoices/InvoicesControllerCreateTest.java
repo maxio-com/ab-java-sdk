@@ -294,7 +294,7 @@ public class InvoicesControllerCreateTest {
                                 .build(),
                         new InvoiceDiscount.Builder()
                                 .code("MY_CUSTOM_CODE")
-                                .description("Coupon: MY_CUSTOM_CODE - Super coupon with 8.5 amount.")
+                                .description("Super coupon with 8.5 amount.")
                                 .discountAmount("8.5")
                                 .discountType(InvoiceDiscountType.FLAT_AMOUNT)
                                 .eligibleAmount("150.0")

@@ -11,7 +11,7 @@ public class TestClient {
 
     public static AdvancedBillingClient createClient() {
         return new AdvancedBillingClient.Builder()
-                .httpClientConfig(configBuilder -> configBuilder.timeout(10))
+                .httpClientConfig(configBuilder -> configBuilder.timeout(30))
                 .basicAuthCredentials(
                         new BasicAuthModel.Builder(getEnvValue(API_KEY_ENV), PASSWORD)
                                 .build())

@@ -25,10 +25,11 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           DOMAIN: ${{ secrets.DOMAIN }}
           SUBDOMAIN: ${{ secrets.SUBDOMAIN }}
+          SITE_ID: ${{ secrets.SITE_ID }}
         run: |
             mvn install
             cd tests
-            mvn --batch-mode --update-snapshots verify -Dsurefire.rerunFailingTestsCount=3 --fail-at-end
+            mvn --batch-mode --update-snapshots verify --fail-at-end
       - name: Publish Test Report
         if: success() || failure()
         uses: scacap/action-surefire-report@v1

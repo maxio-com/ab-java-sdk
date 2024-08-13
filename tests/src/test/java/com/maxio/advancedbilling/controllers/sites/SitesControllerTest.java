@@ -28,7 +28,7 @@ class SitesControllerTest {
         assertThat(site.getName()).isEqualTo("Java SDK");
         assertThat(site.getSubdomain()).isEqualTo("java-sdk");
         assertThat(site.getCurrency()).isEqualTo("USD");
-        assertThat(site.getSellerId()).isEqualTo(56887);
+        assertThat(site.getSellerId()).isEqualTo(58665);
         assertThat(site.getNonPrimaryCurrencies()).containsExactlyInAnyOrder("EUR");
         assertThat(site.getRelationshipInvoicingEnabled()).isTrue();
         assertThat(site.getCustomerHierarchyEnabled()).isFalse();
