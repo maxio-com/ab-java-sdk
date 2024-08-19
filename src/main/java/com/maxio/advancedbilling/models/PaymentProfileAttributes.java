@@ -22,7 +22,7 @@ public class PaymentProfileAttributes
         extends BaseModel {
     private String chargifyToken;
     private Integer id;
-    private String paymentType;
+    private PaymentType paymentType;
     private String firstName;
     private String lastName;
     private String maskedCardNumber;
@@ -36,7 +36,7 @@ public class PaymentProfileAttributes
     private String billingState;
     private String billingCountry;
     private String billingZip;
-    private CurrentVault currentVault;
+    private AllVaults currentVault;
     private String vaultToken;
     private String customerVaultToken;
     private Integer customerId;
@@ -56,7 +56,7 @@ public class PaymentProfileAttributes
      * Initialization constructor.
      * @param  chargifyToken  String value for chargifyToken.
      * @param  id  Integer value for id.
-     * @param  paymentType  String value for paymentType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
      * @param  maskedCardNumber  String value for maskedCardNumber.
@@ -70,7 +70,7 @@ public class PaymentProfileAttributes
      * @param  billingState  String value for billingState.
      * @param  billingCountry  String value for billingCountry.
      * @param  billingZip  String value for billingZip.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  AllVaults value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  customerId  Integer value for customerId.
@@ -83,7 +83,7 @@ public class PaymentProfileAttributes
     public PaymentProfileAttributes(
             String chargifyToken,
             Integer id,
-            String paymentType,
+            PaymentType paymentType,
             String firstName,
             String lastName,
             String maskedCardNumber,
@@ -97,7 +97,7 @@ public class PaymentProfileAttributes
             String billingState,
             String billingCountry,
             String billingZip,
-            CurrentVault currentVault,
+            AllVaults currentVault,
             String vaultToken,
             String customerVaultToken,
             Integer customerId,
@@ -137,7 +137,7 @@ public class PaymentProfileAttributes
      * Initialization constructor.
      * @param  chargifyToken  String value for chargifyToken.
      * @param  id  Integer value for id.
-     * @param  paymentType  String value for paymentType.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
      * @param  maskedCardNumber  String value for maskedCardNumber.
@@ -151,7 +151,7 @@ public class PaymentProfileAttributes
      * @param  billingState  String value for billingState.
      * @param  billingCountry  String value for billingCountry.
      * @param  billingZip  String value for billingZip.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  AllVaults value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  customerId  Integer value for customerId.
@@ -162,12 +162,12 @@ public class PaymentProfileAttributes
      * @param  lastFour  String value for lastFour.
      */
 
-    protected PaymentProfileAttributes(String chargifyToken, Integer id, String paymentType,
+    protected PaymentProfileAttributes(String chargifyToken, Integer id, PaymentType paymentType,
             String firstName, String lastName, String maskedCardNumber, String fullNumber,
             CardType cardType, PaymentProfileAttributesExpirationMonth expirationMonth,
             PaymentProfileAttributesExpirationYear expirationYear, String billingAddress,
             OptionalNullable<String> billingAddress2, String billingCity, String billingState,
-            String billingCountry, String billingZip, CurrentVault currentVault, String vaultToken,
+            String billingCountry, String billingZip, AllVaults currentVault, String vaultToken,
             String customerVaultToken, Integer customerId, String paypalEmail,
             String paymentMethodNonce, String gatewayHandle, String cvv, String lastFour) {
         this.chargifyToken = chargifyToken;
@@ -199,7 +199,7 @@ public class PaymentProfileAttributes
 
     /**
      * Getter for ChargifyToken.
-     * (Optional) Token received after sending billing informations using chargify.js. This token
+     * (Optional) Token received after sending billing information using chargify.js. This token
      * must be passed as a sole attribute of `payment_profile_attributes` (i.e.
      * tok_9g6hw85pnpt6knmskpwp4ttt)
      * @return Returns the String
@@ -212,7 +212,7 @@ public class PaymentProfileAttributes
 
     /**
      * Setter for ChargifyToken.
-     * (Optional) Token received after sending billing informations using chargify.js. This token
+     * (Optional) Token received after sending billing information using chargify.js. This token
      * must be passed as a sole attribute of `payment_profile_attributes` (i.e.
      * tok_9g6hw85pnpt6knmskpwp4ttt)
      * @param chargifyToken Value for String
@@ -243,20 +243,20 @@ public class PaymentProfileAttributes
 
     /**
      * Getter for PaymentType.
-     * @return Returns the String
+     * @return Returns the PaymentType
      */
     @JsonGetter("payment_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPaymentType() {
+    public PaymentType getPaymentType() {
         return paymentType;
     }
 
     /**
      * Setter for PaymentType.
-     * @param paymentType Value for String
+     * @param paymentType Value for PaymentType
      */
     @JsonSetter("payment_type")
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
 
@@ -593,11 +593,11 @@ public class PaymentProfileAttributes
      * Getter for CurrentVault.
      * (Optional, used only for Subscription Import) The vault that stores the payment profile with
      * the provided vault_token.
-     * @return Returns the CurrentVault
+     * @return Returns the AllVaults
      */
     @JsonGetter("current_vault")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CurrentVault getCurrentVault() {
+    public AllVaults getCurrentVault() {
         return currentVault;
     }
 
@@ -605,10 +605,10 @@ public class PaymentProfileAttributes
      * Setter for CurrentVault.
      * (Optional, used only for Subscription Import) The vault that stores the payment profile with
      * the provided vault_token.
-     * @param currentVault Value for CurrentVault
+     * @param currentVault Value for AllVaults
      */
     @JsonSetter("current_vault")
-    public void setCurrentVault(CurrentVault currentVault) {
+    public void setCurrentVault(AllVaults currentVault) {
         this.currentVault = currentVault;
     }
 
@@ -866,7 +866,7 @@ public class PaymentProfileAttributes
     public static class Builder {
         private String chargifyToken;
         private Integer id;
-        private String paymentType;
+        private PaymentType paymentType;
         private String firstName;
         private String lastName;
         private String maskedCardNumber;
@@ -880,7 +880,7 @@ public class PaymentProfileAttributes
         private String billingState;
         private String billingCountry;
         private String billingZip;
-        private CurrentVault currentVault;
+        private AllVaults currentVault;
         private String vaultToken;
         private String customerVaultToken;
         private Integer customerId;
@@ -914,10 +914,10 @@ public class PaymentProfileAttributes
 
         /**
          * Setter for paymentType.
-         * @param  paymentType  String value for paymentType.
+         * @param  paymentType  PaymentType value for paymentType.
          * @return Builder
          */
-        public Builder paymentType(String paymentType) {
+        public Builder paymentType(PaymentType paymentType) {
             this.paymentType = paymentType;
             return this;
         }
@@ -1064,10 +1064,10 @@ public class PaymentProfileAttributes
 
         /**
          * Setter for currentVault.
-         * @param  currentVault  CurrentVault value for currentVault.
+         * @param  currentVault  AllVaults value for currentVault.
          * @return Builder
          */
-        public Builder currentVault(CurrentVault currentVault) {
+        public Builder currentVault(AllVaults currentVault) {
             this.currentVault = currentVault;
             return this;
         }

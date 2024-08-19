@@ -9,7 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ResentInvitation type.
@@ -20,6 +24,8 @@ public class ResentInvitation
     private String lastAcceptedAt;
     private String sendInviteLinkText;
     private Integer uninvitedCount;
+    private ZonedDateTime lastInviteSentAt;
+    private ZonedDateTime lastInviteAcceptedAt;
 
     /**
      * Default constructor.
@@ -33,16 +39,22 @@ public class ResentInvitation
      * @param  lastAcceptedAt  String value for lastAcceptedAt.
      * @param  sendInviteLinkText  String value for sendInviteLinkText.
      * @param  uninvitedCount  Integer value for uninvitedCount.
+     * @param  lastInviteSentAt  ZonedDateTime value for lastInviteSentAt.
+     * @param  lastInviteAcceptedAt  ZonedDateTime value for lastInviteAcceptedAt.
      */
     public ResentInvitation(
             String lastSentAt,
             String lastAcceptedAt,
             String sendInviteLinkText,
-            Integer uninvitedCount) {
+            Integer uninvitedCount,
+            ZonedDateTime lastInviteSentAt,
+            ZonedDateTime lastInviteAcceptedAt) {
         this.lastSentAt = lastSentAt;
         this.lastAcceptedAt = lastAcceptedAt;
         this.sendInviteLinkText = sendInviteLinkText;
         this.uninvitedCount = uninvitedCount;
+        this.lastInviteSentAt = lastInviteSentAt;
+        this.lastInviteAcceptedAt = lastInviteAcceptedAt;
     }
 
     /**
@@ -122,6 +134,48 @@ public class ResentInvitation
     }
 
     /**
+     * Getter for LastInviteSentAt.
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("last_invite_sent_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getLastInviteSentAt() {
+        return lastInviteSentAt;
+    }
+
+    /**
+     * Setter for LastInviteSentAt.
+     * @param lastInviteSentAt Value for ZonedDateTime
+     */
+    @JsonSetter("last_invite_sent_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setLastInviteSentAt(ZonedDateTime lastInviteSentAt) {
+        this.lastInviteSentAt = lastInviteSentAt;
+    }
+
+    /**
+     * Getter for LastInviteAcceptedAt.
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("last_invite_accepted_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getLastInviteAcceptedAt() {
+        return lastInviteAcceptedAt;
+    }
+
+    /**
+     * Setter for LastInviteAcceptedAt.
+     * @param lastInviteAcceptedAt Value for ZonedDateTime
+     */
+    @JsonSetter("last_invite_accepted_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setLastInviteAcceptedAt(ZonedDateTime lastInviteAcceptedAt) {
+        this.lastInviteAcceptedAt = lastInviteAcceptedAt;
+    }
+
+    /**
      * Converts this ResentInvitation into string format.
      * @return String representation of this class
      */
@@ -129,7 +183,8 @@ public class ResentInvitation
     public String toString() {
         return "ResentInvitation [" + "lastSentAt=" + lastSentAt + ", lastAcceptedAt="
                 + lastAcceptedAt + ", sendInviteLinkText=" + sendInviteLinkText
-                + ", uninvitedCount=" + uninvitedCount + ", additionalProperties="
+                + ", uninvitedCount=" + uninvitedCount + ", lastInviteSentAt=" + lastInviteSentAt
+                + ", lastInviteAcceptedAt=" + lastInviteAcceptedAt + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -143,7 +198,9 @@ public class ResentInvitation
                 .lastSentAt(getLastSentAt())
                 .lastAcceptedAt(getLastAcceptedAt())
                 .sendInviteLinkText(getSendInviteLinkText())
-                .uninvitedCount(getUninvitedCount());
+                .uninvitedCount(getUninvitedCount())
+                .lastInviteSentAt(getLastInviteSentAt())
+                .lastInviteAcceptedAt(getLastInviteAcceptedAt());
         return builder;
     }
 
@@ -155,6 +212,8 @@ public class ResentInvitation
         private String lastAcceptedAt;
         private String sendInviteLinkText;
         private Integer uninvitedCount;
+        private ZonedDateTime lastInviteSentAt;
+        private ZonedDateTime lastInviteAcceptedAt;
 
 
 
@@ -199,12 +258,32 @@ public class ResentInvitation
         }
 
         /**
+         * Setter for lastInviteSentAt.
+         * @param  lastInviteSentAt  ZonedDateTime value for lastInviteSentAt.
+         * @return Builder
+         */
+        public Builder lastInviteSentAt(ZonedDateTime lastInviteSentAt) {
+            this.lastInviteSentAt = lastInviteSentAt;
+            return this;
+        }
+
+        /**
+         * Setter for lastInviteAcceptedAt.
+         * @param  lastInviteAcceptedAt  ZonedDateTime value for lastInviteAcceptedAt.
+         * @return Builder
+         */
+        public Builder lastInviteAcceptedAt(ZonedDateTime lastInviteAcceptedAt) {
+            this.lastInviteAcceptedAt = lastInviteAcceptedAt;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ResentInvitation} object using the set fields.
          * @return {@link ResentInvitation}
          */
         public ResentInvitation build() {
             return new ResentInvitation(lastSentAt, lastAcceptedAt, sendInviteLinkText,
-                    uninvitedCount);
+                    uninvitedCount, lastInviteSentAt, lastInviteAcceptedAt);
         }
     }
 }

@@ -51,7 +51,7 @@ public class ListCouponsForProductFamilyInput {
 
     /**
      * Getter for ProductFamilyId.
-     * The Chargify id of the product family to which the coupon belongs
+     * The Advanced Billing id of the product family to which the coupon belongs
      * @return Returns the int
      */
     @JsonGetter("product_family_id")
@@ -61,7 +61,7 @@ public class ListCouponsForProductFamilyInput {
 
     /**
      * Setter for ProductFamilyId.
-     * The Chargify id of the product family to which the coupon belongs
+     * The Advanced Billing id of the product family to which the coupon belongs
      * @param productFamilyId Value for int
      */
     @JsonSetter("product_family_id")

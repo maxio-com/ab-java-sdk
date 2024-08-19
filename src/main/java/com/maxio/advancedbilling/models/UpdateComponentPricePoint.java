@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class UpdateComponentPricePoint
     private Boolean useSiteExchangeRate;
     private Boolean taxIncluded;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
     private List<UpdatePrice> prices;
 
     /**
@@ -52,6 +54,31 @@ public class UpdateComponentPricePoint
             Integer interval,
             IntervalUnit intervalUnit,
             List<UpdatePrice> prices) {
+        this.name = name;
+        this.handle = handle;
+        this.pricingScheme = pricingScheme;
+        this.useSiteExchangeRate = useSiteExchangeRate;
+        this.taxIncluded = taxIncluded;
+        this.interval = interval;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.prices = prices;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  prices  List of UpdatePrice value for prices.
+     */
+
+    protected UpdateComponentPricePoint(String name, String handle, PricingScheme pricingScheme,
+            Boolean useSiteExchangeRate, Boolean taxIncluded, Integer interval,
+            OptionalNullable<IntervalUnit> intervalUnit, List<UpdatePrice> prices) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
@@ -195,15 +222,26 @@ public class UpdateComponentPricePoint
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component price point, either month or day.
      * This property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -214,7 +252,16 @@ public class UpdateComponentPricePoint
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -262,8 +309,8 @@ public class UpdateComponentPricePoint
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .taxIncluded(getTaxIncluded())
                 .interval(getInterval())
-                .intervalUnit(getIntervalUnit())
                 .prices(getPrices());
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -277,7 +324,7 @@ public class UpdateComponentPricePoint
         private Boolean useSiteExchangeRate;
         private Boolean taxIncluded;
         private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<IntervalUnit> intervalUnit;
         private List<UpdatePrice> prices;
 
 
@@ -348,7 +395,16 @@ public class UpdateComponentPricePoint
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 

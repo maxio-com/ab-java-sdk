@@ -51,26 +51,25 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Full documentation on how subscriptions operate within Chargify can be located under the
-     * following topics: + [Subscriptions
-     * Reference](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405577172749-Subscription-Introduction)
+     * Full documentation on how subscriptions operate within Advanced Billing can be located under
+     * the following topics: + [Subscriptions
+     * Reference](https://maxio.zendesk.com/hc/en-us/articles/24251526991757-Subscription-Overview)
      * + [Subscriptions
-     * Actions](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405510556557-Actions) +
-     * [Subscription
-     * Cancellation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405510556557-Actions#initiate-cancellation)
+     * Actions](https://maxio.zendesk.com/hc/en-us/articles/24251983024653-Subscription-Actions-Overview)
      * + [Subscription
-     * Reactivation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404559291021-Reactivating-and-Resuming)
+     * Cancellation](https://maxio.zendesk.com/hc/en-us/articles/24251957778829-Cancel-Subscriptions)
      * + [Subscription
-     * Import](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404863655821-Imports) When
-     * creating a subscription, you must specify a product and a customer. Credit card details may
-     * be required, depending on the options for the Product being subscribed ([see Product
-     * Options](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405246782221#payment-method-settings)).
-     * The product may be specified by `product_id` or by `product_handle` (API Handle). In similar
+     * Reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming)
+     * + [Subscription Import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Imports)
+     * When creating a subscription, you must specify a product and a customer. Credit card details
+     * may be required, depending on the options for the Product being subscribed ([see Product
+     * Options](https://maxio.zendesk.com/hc/en-us/articles/24261076617869-Product-Editing)). The
+     * product may be specified by `product_id` or by `product_handle` (API Handle). In similar
      * fashion, to pass a particular product price point, you may either use
      * `product_price_point_handle` or `product_price_point_id`. An existing customer may be
-     * specified by a `customer_id` (ID within Chargify) or a `customer_reference` (unique value
-     * within your app that you have shared with Chargify via the reference attribute on a
-     * customer). You may also pass in an existing payment profile for that customer with
+     * specified by a `customer_id` (ID within Advanced Billing) or a `customer_reference` (unique
+     * value within your app that you have shared with Advanced Billing via the reference attribute
+     * on a customer). You may also pass in an existing payment profile for that customer with
      * `payment_profile_id`. A new customer may be created by providing `customer_attributes`.
      * Credit card details may be required, depending on the options for the product being
      * subscribed. The product can be specified by `product_id` or by `product_handle` (API Handle).
@@ -79,45 +78,44 @@ public final class SubscriptionsController extends BaseController {
      * when you read the subscription after creation, we return the profile details under
      * `credit_card` or `bank_account`. ## Taxable Subscriptions If your intent is to charge your
      * subscribers tax via [Avalara
-     * Taxes](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405275711885-Avalara-VAT-Tax) or
-     * [Custom
-     * Taxes](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405069041549-Custom-Taxes),
-     * there are a few considerations to be made regarding collecting subscription data. For
-     * subscribers to be eligible to be taxed, the following information for the `customer` object
-     * or `payment_profile` object must by supplied: + A subscription to a [taxable
-     * product](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405246782221-Product-Editing#tax-settings)
+     * Taxes](https://maxio.zendesk.com/hc/en-us/articles/24287043035661-Avalara-VAT-Tax) or [Custom
+     * Taxes](https://maxio.zendesk.com/hc/en-us/articles/24287044212749-Custom-Taxes), there are a
+     * few considerations to be made regarding collecting subscription data. For subscribers to be
+     * eligible to be taxed, the following information for the `customer` object or
+     * `payment_profile` object must by supplied: + A subscription to a [taxable
+     * product](https://maxio.zendesk.com/hc/en-us/articles/24261076617869-Product-Editing#tax-settings)
      * + [Full valid billing or shipping
-     * address](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405356114317#full-address-required-for-taxable-subscriptions)
+     * address](https://maxio.zendesk.com/hc/en-us/articles/24287008131853-Advanced-Billing-Managed-Sales-Tax#full-address-required-for-taxable-subscriptions)
      * to identify the tax locale + The portion of the address that houses the [state
-     * information](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405356114317#required-state-format-for-taxable-subscriptions)
+     * information](https://maxio.zendesk.com/hc/en-us/articles/24287008131853-Advanced-Billing-Managed-Sales-Tax#required-state-format-for-taxable-subscriptions)
      * of either adddress must adhere to the ISO standard of a 2-3 character limit/format. + The
      * portion of the address that houses the [country
-     * information](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405356114317#required-country-format-for-taxable-subscriptions)
+     * information](https://maxio.zendesk.com/hc/en-us/articles/24287008131853-Advanced-Billing-Managed-Sales-Tax#required-country-format-for-taxable-subscriptions)
      * must adhere to the ISO standard of a 2 character limit/format. ## Subscription Request
      * Examples The subscription examples below will be split into two sections. The first section,
      * "Subscription Customization", will focus on passing different information with a
      * subscription, such as components, calendar billing, and custom fields. These examples will
      * presume you are using a secure `chargify_token` generated by Chargify.js. The second section,
-     * "Passing Payment Information", will focus on passing payment information into Chargify.
-     * Please be aware that &lt;b&gt;collecting and sending Chargify raw card details requires PCI
-     * compliance on your end&lt;/b&gt;; these examples are provided as guidance. If your business is not
-     * PCI compliant, we recommend using Chargify.js to collect credit cards or bank accounts. #
-     * Subscription Customization ## With Components Different components require slightly different
-     * data. For example, quantity-based and on/off components accept `allocated_quantity`, while
-     * metered components accept `unit_balance`. When creating a subscription with a component, a
-     * `price_point_id` can be passed in along with the `component_id` to specify which price point
-     * to use. If not passed in, the default price point will be used. Note: if an invalid
-     * `price_point_id` is used, the subscription will still proceed but will use the component's
-     * default price point. Components and their price points may be added by ID or by handle. See
-     * the example request body labeled "Components By Handle (Quantity-Based)"; the format will be
-     * the same for other component types. ## With Coupon(s) Pass an array of `coupon_codes`. See
-     * the example request body "With Coupon". ## With Manual Invoice Collection The `invoice`
-     * collection method works only on legacy Statement Architecture. On Relationship Invoicing
-     * Architecture use the `remittance` collection method. ## Prepaid Subscription A prepaid
-     * subscription can be created with the usual subscription creation parameters, specifying
-     * `prepaid` as the `payment_collection_method` and including a nested `prepaid_configuration`.
-     * After a prepaid subscription has been created, additional funds can be manually added to the
-     * prepayment account through the [Create Prepayment
+     * "Passing Payment Information", will focus on passing payment information into Advanced
+     * Billing. Please be aware that &lt;b&gt;collecting and sending Advanced Billing raw card details
+     * requires PCI compliance on your end&lt;/b&gt;; these examples are provided as guidance. If your
+     * business is not PCI compliant, we recommend using Chargify.js to collect credit cards or bank
+     * accounts. # Subscription Customization ## With Components Different components require
+     * slightly different data. For example, quantity-based and on/off components accept
+     * `allocated_quantity`, while metered components accept `unit_balance`. When creating a
+     * subscription with a component, a `price_point_id` can be passed in along with the
+     * `component_id` to specify which price point to use. If not passed in, the default price point
+     * will be used. Note: if an invalid `price_point_id` is used, the subscription will still
+     * proceed but will use the component's default price point. Components and their price points
+     * may be added by ID or by handle. See the example request body labeled "Components By Handle
+     * (Quantity-Based)"; the format will be the same for other component types. ## With Coupon(s)
+     * Pass an array of `coupon_codes`. See the example request body "With Coupon". ## With Manual
+     * Invoice Collection The `invoice` collection method works only on legacy Statement
+     * Architecture. On Relationship Invoicing Architecture use the `remittance` collection method.
+     * ## Prepaid Subscription A prepaid subscription can be created with the usual subscription
+     * creation parameters, specifying `prepaid` as the `payment_collection_method` and including a
+     * nested `prepaid_configuration`. After a prepaid subscription has been created, additional
+     * funds can be manually added to the prepayment account through the [Create Prepayment
      * Endpoint](https://developers.chargify.com/docs/api-docs/7ec482de77ba7-create-prepayment).
      * Prepaid subscriptions do not work on legacy Statement Architecture. ## With Metafields
      * Metafields can either attach to subscriptions or customers. Metafields are popuplated with
@@ -129,7 +127,7 @@ public final class SubscriptionsController extends BaseController {
      * `custom_price` object within the component object. Custom prices and price points can exist
      * in harmony on a subscription. # Passing Payment Information ## Subscription with Chargify.js
      * token The `chargify_token` can be obtained using
-     * [chargify.js](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDI0-overview).
+     * [Chargify.js](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDI0-overview).
      * The token represents payment profile attributes that were provided by the customer in their
      * browser and stored at the payment gateway. The `payment_type` attribute may either be
      * `credit_card` or `bank_account`, depending on the type of payment method being added. If a
@@ -140,7 +138,7 @@ public final class SubscriptionsController extends BaseController {
      * "tok_cwhvpfcnbtgkd8nfkzf9dnjn", "payment_type": "credit_card" } } } ``` ## Subscription with
      * vault token If you already have a customer and card stored in your payment gateway, you may
      * create a subscription with a `vault_token`. Providing the last_four, card type and expiration
-     * date will allow the card to be displayed properly in the Chargify UI. ```json {
+     * date will allow the card to be displayed properly in the Advanced Billing UI. ```json {
      * "subscription": { "product_handle": "pro-plan", "customer_attributes": { "first_name": "Joe",
      * "last_name": "Smith", "email": "j.smith{@literal @}example.com" }, "credit_card_attributes": {
      * first_name: "Joe, last_name: "Smith", card_type: "visa", expiration_month: "05",
@@ -176,7 +174,7 @@ public final class SubscriptionsController extends BaseController {
      * GoCardless, please view the following two resources: + [Payment Profiles via API for
      * GoCardless](https://developers.chargify.com/docs/api-docs/1f10a4f170405-create-payment-profile#gocardless)
      * + [Full documentation on
-     * GoCardless](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404501889677) + [Using
+     * GoCardless](https://maxio.zendesk.com/hc/en-us/articles/24176159136909-GoCardless) + [Using
      * Chargify.js with GoCardless - minimal
      * example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDIy-examples#minimal-example-with-direct-debit-gocardless-gateway)
      * + [Using Chargify.js with GoCardless - full
@@ -197,7 +195,7 @@ public final class SubscriptionsController extends BaseController {
      * Profiles via API for Stripe SEPA Direct
      * Debit](https://developers.chargify.com/docs/api-docs/1f10a4f170405-create-payment-profile#sepa-direct-debit)
      * + [Full documentation on Stripe Direct
-     * Debit](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405050826765-Stripe-SEPA-and-BECS-Direct-Debit)
+     * Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-SEPA-and-BECS-Direct-Debit)
      * + [Using Chargify.js with Stripe SEPA or BECS Direct Debit - minimal
      * example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDIy-examples#minimal-example-with-sepa-or-becs-direct-debit-stripe-gateway)
      * + [Using Chargify.js with Stripe SEPA Direct Debit - full
@@ -209,7 +207,7 @@ public final class SubscriptionsController extends BaseController {
      * more information on Stripe Direct Debit, please view the following two resources: + [Payment
      * Profiles via API for Stripe BECS Direct Debit]($e/Payment%20Profiles/createPaymentProfile) +
      * [Full documentation on Stripe Direct
-     * Debit](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405050826765-Stripe-SEPA-and-BECS-Direct-Debit)
+     * Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-SEPA-and-BECS-Direct-Debit)
      * + [Using Chargify.js with Stripe SEPA, BECS or BACS Direct Debit - minimal
      * example](page:development-tools/chargify-js/examples#minimal-example-with-sepa-becs-or-bacs-direct-debit-stripe-gateway)
      * + [Using Chargify.js with Stripe BECS Direct Debit - full
@@ -221,7 +219,7 @@ public final class SubscriptionsController extends BaseController {
      * using Stripe BACS Direct Debit For more information on Stripe Direct Debit, please view the
      * following two resources: + [Payment Profiles via API for Stripe BACS Direct
      * Debit]($e/Payment%20Profiles/createPaymentProfile) + [Full documentation on Stripe Direct
-     * Debit](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405050826765-Stripe-SEPA-and-BECS-Direct-Debit)
+     * Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-SEPA-and-BECS-Direct-Debit)
      * + [Using Chargify.js with Stripe SEPA, BECS or BACS Direct Debit - minimal
      * example](page:development-tools/chargify-js/examples#minimal-example-with-sepa-becs-or-bacs-direct-debit-stripe-gateway)
      * + [Using Chargify.js with Stripe BACS Direct Debit - full
@@ -234,7 +232,7 @@ public final class SubscriptionsController extends BaseController {
      * "billing_country": "GB" } } } ``` ## 3D Secure - Stripe It may happen that a payment needs 3D
      * Secure Authentication when the subscription is created; this is referred to in our help docs
      * as a [post-authentication
-     * flow](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405177432077#psd2-flows-pre-authentication-and-post-authentication).
+     * flow](https://maxio.zendesk.com/hc/en-us/articles/24176278996493-Testing-Implementing-3D-Secure#psd2-flows-pre-authentication-and-post-authentication).
      * The server returns `422 Unprocessable Entity` in this case with the following response:
      * ```json { "errors": [ "Your card was declined. This transaction requires 3D secure
      * authentication." ], "gateway_payment_id": "pi_1F0aGoJ2UDb3Q4av7zU3sHPh", "description": "This
@@ -261,7 +259,7 @@ public final class SubscriptionsController extends BaseController {
      * `https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com`
      * ## 3D Secure - Checkout It may happen that a payment needs 3D Secure Authentication when the
      * subscription is created; this is referred to in our help docs as a [post-authentication
-     * flow](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405177432077#psd2-flows-pre-authentication-and-post-authentication).
+     * flow](https://maxio.zendesk.com/hc/en-us/articles/24176278996493-Testing-Implementing-3D-Secure#psd2-flows-pre-authentication-and-post-authentication).
      * The server returns `422 Unprocessable Entity` in this case with the following response:
      * ```json { "errors": [ "Your card was declined. This transaction requires 3D secure
      * authentication." ], "gateway_payment_id": "pay_6gjofv7dlyrkpizlolsuspvtiu", "description":
@@ -300,60 +298,60 @@ public final class SubscriptionsController extends BaseController {
      * can use the applied "msg" param in the `redirect_url` to determine whether it was successful
      * or not ## Subscriptions Import Subscriptions can be “imported” via the API to handle the
      * following scenarios: + You already have existing subscriptions with specific start and
-     * renewal dates that you would like to import to Chargify + You already have credit cards
-     * stored in your provider’s vault and you would like to create subscriptions using those tokens
-     * Before importing, you should have already set up your products to match your offerings. Then,
-     * you can create Subscriptions via the API just like you normally would, but using a few
-     * special attributes. Full documentation on how import Subscriptions using the **import tool**
-     * in the Chargify UI can be located
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404863655821#imports-0-0). ###
-     * Important Notices and Disclaimers regarding Imports Before performing a bulk import of
-     * subscriptions via the API, we suggest reading the [Subscriptions
-     * Import](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404863655821#important-notices-and-disclaimers)
-     * instructions to understand the repurcussions of a large import. ### Subscription Input
-     * Attributes The following _additional_ attributes to the subscription input attributes make
-     * imports possible: `next_billing_at`, `previous_billing_at`, and `import_mrr`. ### Current
-     * Vault If you are using a Legacy gateway such as "eWAY Rapid (Legacy)" or "Stripe (Legacy)"
-     * then please contact Support for further instructions on subscription imports. ### Braintree
-     * Blue (Braintree v2) Imports Braintree Blue is Braintree’s newer (version 2) API. For this
-     * gateway, please provide the `vault_token` parameter with the value from Braintree’s “Customer
-     * ID” rather than the “Payment Profile Token”. At this time we do not use `current_vault_token`
-     * with the Braintree Blue gateway, and we only support a single payment profile per Braintree
-     * Customer. When importing PayPal type payment profiles, please set `payment_type` to
-     * `paypal_account`. ### Stripe ACH Imports If the bank account has already been verified,
-     * currently you will need to create the customer, create the payment profile in Chargify -
-     * setting verified=true, then create a subscription using the customer_id and
-     * payment_profile_id. ### Webhooks During Import If no `next_billing_at` is provided, webhooks
-     * will be fired as normal. If you do set a future `next_billing_at`, only a subset of the
-     * webhooks are fired when the subscription is created. Keep reading for more information as to
-     * what webhooks will be fired under which scenarios. #### Successful creation with Billing Date
-     * Scenario: If `next_billing_at` provided + `signup_success` + `billing_date_change` ####
-     * Successful creation without Billing Date Scenario: If no `next_billing_at` provided +
-     * `signup_success` + `payment_success` #### Unsuccessful creation Scenario: If card can’t be
-     * charged, and no `next_billing_at` provided + signup_failure #### Webhooks fired when
-     * next_billing_at is reached: + `renewal_success or renewal_failure` + `payment_success or
-     * payment_failure` ### Date and Time Formats We will attempt to parse any string you send as
-     * the value of next_billing_at in to a date or time. For best results, use a known format like
-     * described in “Date and Time Specification” of RFC 2822 or ISO 8601 . The following are all
-     * equivalent and will work as input to `next_billing_at`: ``` Aug 06 2030 11:34:00 -0400 Aug 06
-     * 2030 11:34 -0400 2030-08-06T11:34:00-04:00 8/6/2030 11:34:00 EDT 8/6/2030 8:34:00 PDT
-     * 2030-08-06T15:34:00Z ``` You may also pass just a date, in which case we will assume the time
-     * to be noon ``` 2010-08-06 ``` ## Subscription Hierarchies &amp; WhoPays When subscription groups
-     * were first added to our Relationship Invoicing architecture, to group together invoices for
-     * related subscriptions and allow for complex customer hierarchies and WhoPays scenarios, they
-     * were designed to consist of a primary and a collection of group members. The primary would
-     * control many aspects of the group, such as when the consolidated invoice is generated. As of
-     * today, groups still function this way. In the future, the concept of a "primary" will be
-     * removed in order to offer more flexibility into group management and reduce confusion
-     * concerning what actions must be done on a primary level, rather than a member level. We have
-     * introduced a two scheme system as a bridge between these two group organizations. Scheme 1,
-     * which is relevant to all subscription groups today, marks the group as being "ruled" by a
-     * primary. When reading a subscription via API, they will return a top-level attribute called
-     * `group`, which will denote which scheme is being used. At this time, the `scheme` attribute
-     * will always be 1. ### Subscription in a Customer Hierarchy For sites making use of the
-     * [Relationship
-     * Billing](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices)
-     * and [Customer Hierarchy](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404900384141)
+     * renewal dates that you would like to import to Advanced Billing + You already have credit
+     * cards stored in your provider’s vault and you would like to create subscriptions using those
+     * tokens Before importing, you should have already set up your products to match your
+     * offerings. Then, you can create Subscriptions via the API just like you normally would, but
+     * using a few special attributes. Full documentation on how import Subscriptions using the
+     * **import tool** in the Advanced Billing UI can be located
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Imports). ### Important
+     * Notices and Disclaimers regarding Imports Before performing a bulk import of subscriptions
+     * via the API, we suggest reading the [Subscriptions
+     * Import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Imports) instructions to
+     * understand the repurcussions of a large import. ### Subscription Input Attributes The
+     * following _additional_ attributes to the subscription input attributes make imports possible:
+     * `next_billing_at`, `previous_billing_at`, and `import_mrr`. ### Current Vault If you are
+     * using a Legacy gateway such as "eWAY Rapid (Legacy)" or "Stripe (Legacy)" then please contact
+     * Support for further instructions on subscription imports. ### Braintree Blue (Braintree v2)
+     * Imports Braintree Blue is Braintree’s newer (version 2) API. For this gateway, please provide
+     * the `vault_token` parameter with the value from Braintree’s “Customer ID” rather than the
+     * “Payment Profile Token”. At this time we do not use `current_vault_token` with the Braintree
+     * Blue gateway, and we only support a single payment profile per Braintree Customer. When
+     * importing PayPal type payment profiles, please set `payment_type` to `paypal_account`. ###
+     * Stripe ACH Imports If the bank account has already been verified, currently you will need to
+     * create the customer, create the payment profile in Advanced Billing - setting verified=true,
+     * then create a subscription using the customer_id and payment_profile_id. ### Webhooks During
+     * Import If no `next_billing_at` is provided, webhooks will be fired as normal. If you do set a
+     * future `next_billing_at`, only a subset of the webhooks are fired when the subscription is
+     * created. Keep reading for more information as to what webhooks will be fired under which
+     * scenarios. #### Successful creation with Billing Date Scenario: If `next_billing_at` provided
+     * + `signup_success` + `billing_date_change` #### Successful creation without Billing Date
+     * Scenario: If no `next_billing_at` provided + `signup_success` + `payment_success` ####
+     * Unsuccessful creation Scenario: If card can’t be charged, and no `next_billing_at` provided +
+     * signup_failure #### Webhooks fired when next_billing_at is reached: + `renewal_success or
+     * renewal_failure` + `payment_success or payment_failure` ### Date and Time Formats We will
+     * attempt to parse any string you send as the value of next_billing_at in to a date or time.
+     * For best results, use a known format like described in “Date and Time Specification” of RFC
+     * 2822 or ISO 8601 . The following are all equivalent and will work as input to
+     * `next_billing_at`: ``` Aug 06 2030 11:34:00 -0400 Aug 06 2030 11:34 -0400
+     * 2030-08-06T11:34:00-04:00 8/6/2030 11:34:00 EDT 8/6/2030 8:34:00 PDT 2030-08-06T15:34:00Z ```
+     * You may also pass just a date, in which case we will assume the time to be noon ```
+     * 2010-08-06 ``` ## Subscription Hierarchies &amp; WhoPays When subscription groups were first
+     * added to our Relationship Invoicing architecture, to group together invoices for related
+     * subscriptions and allow for complex customer hierarchies and WhoPays scenarios, they were
+     * designed to consist of a primary and a collection of group members. The primary would control
+     * many aspects of the group, such as when the consolidated invoice is generated. As of today,
+     * groups still function this way. In the future, the concept of a "primary" will be removed in
+     * order to offer more flexibility into group management and reduce confusion concerning what
+     * actions must be done on a primary level, rather than a member level. We have introduced a two
+     * scheme system as a bridge between these two group organizations. Scheme 1, which is relevant
+     * to all subscription groups today, marks the group as being "ruled" by a primary. When reading
+     * a subscription via API, they will return a top-level attribute called `group`, which will
+     * denote which scheme is being used. At this time, the `scheme` attribute will always be 1. ###
+     * Subscription in a Customer Hierarchy For sites making use of the [Relationship
+     * Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview)
+     * and [Customer
+     * Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays)
      * features, it is possible to create subscriptions within a customer hierarchy. This can be
      * achieved through the API by passing group parameters in the **Create Subscription** request.
      * + The `group` parameters are optional and consist of the required `target` and optional
@@ -379,18 +377,18 @@ public final class SubscriptionsController extends BaseController {
      * parameter can also be specified so that the new subscription charges are prorated based on
      * the billing period of the default subscription group in the customer hierarchy also. ###
      * Subscription in a Subscription Group For sites making use of [Relationship
-     * Billing](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices)
+     * Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview)
      * it may be desireable to create a subscription as part of a [subscription
-     * group](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405577356173) in order to rely
-     * on [invoice
-     * consolidation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404980119949). This can
-     * be achieved through the API by passing group parameters in the Create Subscription request.
-     * The `group` parameters are optional and consist of the required `target` and optional
-     * `billing` parameters. The `target` parameters specify an existing subscription with which the
-     * newly created subscription should be grouped. If the target subscription is already part of a
-     * group, the new subscription will become a member of the group as well. If the target
-     * subscription is not part of a group, a new group will be created and both the target and the
-     * new subscription will become part of the group with the target as the group's primary
+     * group](https://maxio.zendesk.com/hc/en-us/articles/24252172565005-Subscription-Groups-Overview)
+     * in order to rely on [invoice
+     * consolidation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
+     * This can be achieved through the API by passing group parameters in the Create Subscription
+     * request. The `group` parameters are optional and consist of the required `target` and
+     * optional `billing` parameters. The `target` parameters specify an existing subscription with
+     * which the newly created subscription should be grouped. If the target subscription is already
+     * part of a group, the new subscription will become a member of the group as well. If the
+     * target subscription is not part of a group, a new group will be created and both the target
+     * and the new subscription will become part of the group with the target as the group's primary
      * subscription. The optional `billing` parameters specify how some aspects of the billing for
      * the new subscription should be handled. Rather than capturing payment immediately, the
      * `accrue` parameter can be included so that the new subscription charges accrue until the next
@@ -672,20 +670,21 @@ public final class SubscriptionsController extends BaseController {
      * This API endpoint allows you to set certain subscription fields that are usually managed for
      * you automatically. Some of the fields can be set via the normal Subscriptions Update API, but
      * others can only be set using this endpoint. This endpoint is provided for cases where you
-     * need to “align” Chargify data with data that happened in your system, perhaps before you
-     * started using Chargify. For example, you may choose to import your historical subscription
-     * data, and would like the activation and cancellation dates in Chargify to match your existing
-     * historical dates. Chargify does not backfill historical events (i.e. from the Events API),
-     * but some static data can be changed via this API. Why are some fields only settable from this
-     * endpoint, and not the normal subscription create and update endpoints? Because we want users
-     * of this endpoint to be aware that these fields are usually managed by Chargify, and using
-     * this API means **you are stepping out on your own.** Changing these fields will not affect
-     * any other attributes. For example, adding an expiration date will not affect the next
-     * assessment date on the subscription. If you regularly need to override the
-     * current_period_starts_at for new subscriptions, this can also be accomplished by setting both
-     * `previous_billing_at` and `next_billing_at` at subscription creation. See the documentation
-     * on [Importing Subscriptions](./b3A6MTQxMDgzODg-create-subscription#subscriptions-import) for
-     * more information. ## Limitations When passing `current_period_starts_at` some validations are
+     * need to “align” Advanced Billing data with data that happened in your system, perhaps before
+     * you started using Advanced Billing. For example, you may choose to import your historical
+     * subscription data, and would like the activation and cancellation dates in Advanced Billing
+     * to match your existing historical dates. Advanced Billing does not backfill historical events
+     * (i.e. from the Events API), but some static data can be changed via this API. Why are some
+     * fields only settable from this endpoint, and not the normal subscription create and update
+     * endpoints? Because we want users of this endpoint to be aware that these fields are usually
+     * managed by Advanced Billing, and using this API means **you are stepping out on your own.**
+     * Changing these fields will not affect any other attributes. For example, adding an expiration
+     * date will not affect the next assessment date on the subscription. If you regularly need to
+     * override the current_period_starts_at for new subscriptions, this can also be accomplished by
+     * setting both `previous_billing_at` and `next_billing_at` at subscription creation. See the
+     * documentation on [Importing
+     * Subscriptions](./b3A6MTQxMDgzODg-create-subscription#subscriptions-import) for more
+     * information. ## Limitations When passing `current_period_starts_at` some validations are
      * made: 1. The subscription needs to be unbilled (no statements or invoices). 2. The value
      * passed must be a valid date/time. We recommend using the iso 8601 format. 3. The value passed
      * must be before the current date/time. If unpermitted parameters are sent, a 400 HTTP response
@@ -866,21 +865,21 @@ public final class SubscriptionsController extends BaseController {
      * The Chargify API allows you to preview a subscription by POSTing the same JSON or XML as for
      * a subscription creation. The "Next Billing" amount and "Next Billing" date are represented in
      * each Subscriber's Summary. For more information, please see our documentation
-     * [here](https://chargify.zendesk.com/hc/en-us/articles/4407884887835#next-billing). ## Side
-     * effects A subscription will not be created by sending a POST to this endpoint. It is meant to
-     * serve as a prediction. ## Taxable Subscriptions This endpoint will preview taxes applicable
-     * to a purchase. In order for taxes to be previewed, the following conditions must be met: +
-     * Taxes must be configured on the subscription + The preview must be for the purchase of a
-     * taxable product or component, or combination of the two. + The subscription payload must
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
+     * ## Side effects A subscription will not be created by sending a POST to this endpoint. It is
+     * meant to serve as a prediction. ## Taxable Subscriptions This endpoint will preview taxes
+     * applicable to a purchase. In order for taxes to be previewed, the following conditions must
+     * be met: + Taxes must be configured on the subscription + The preview must be for the purchase
+     * of a taxable product or component, or combination of the two. + The subscription payload must
      * contain a full billing or shipping address in order to calculate tax For more information
      * about creating taxable previews, please see our documentation guide on how to create [taxable
-     * subscriptions.](https://chargify.zendesk.com/hc/en-us/articles/4407904217755#creating-taxable-subscriptions)
-     * You do **not** need to include a card number to generate tax information when you are
-     * previewing a subscription. However, please note that when you actually want to create the
-     * subscription, you must include the credit card information if you want the billing address to
-     * be stored in Chargify. The billing address and the credit card information are stored
-     * together within the payment profile object. Also, you may not send a billing address to
-     * Chargify without payment profile information, as the address is stored on the card. You can
+     * subscriptions.](https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes) You do
+     * **not** need to include a card number to generate tax information when you are previewing a
+     * subscription. However, please note that when you actually want to create the subscription,
+     * you must include the credit card information if you want the billing address to be stored in
+     * Advanced Billing. The billing address and the credit card information are stored together
+     * within the payment profile object. Also, you may not send a billing address to Advanced
+     * Billing without payment profile information, as the address is stored on the card. You can
      * pass shipping and billing addresses and still decide not to calculate taxes. To do that, pass
      * `skip_billing_manifest_taxes: true` attribute. ## Non-taxable Subscriptions If you'd like to
      * calculate subscriptions that do not include tax, please feel free to leave off the billing
@@ -926,7 +925,7 @@ public final class SubscriptionsController extends BaseController {
      * An existing subscription can accommodate multiple discounts/coupon codes. This is only
      * applicable if each coupon is stackable. For more information on stackable coupons, we
      * recommend reviewing our [coupon
-     * documentation.](https://chargify.zendesk.com/hc/en-us/articles/4407755909531#stackable-coupons)
+     * documentation.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#stackability-rules)
      * ## Query Parameters vs Request Body Parameters Passing in a coupon code as a query parameter
      * will add the code to the subscription, completely replacing all existing coupon codes on the
      * subscription. For this reason, using this query parameter on this endpoint has been
@@ -987,7 +986,7 @@ public final class SubscriptionsController extends BaseController {
     /**
      * Use this endpoint to remove a coupon from an existing subscription. For more information on
      * the expected behaviour of removing a coupon from a subscription, please see our documentation
-     * [here.](https://chargify.zendesk.com/hc/en-us/articles/4407896488987#removing-a-coupon).
+     * [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  couponCode  Optional parameter: The coupon code
      * @return    Returns the String response from the API call
@@ -1031,28 +1030,29 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Chargify offers the ability to activate awaiting signup and trialing subscriptions. This
-     * feature is only available on the Relationship Invoicing architecture. Subscriptions in a
+     * Advanced Billing offers the ability to activate awaiting signup and trialing subscriptions.
+     * This feature is only available on the Relationship Invoicing architecture. Subscriptions in a
      * group may not be activated immediately. For details on how the activation works, and how to
      * activate subscriptions through the application, see [activation](#). The `revert_on_failure`
      * parameter controls the behavior upon activation failure. - If set to `true` and something
-     * goes wrong i.e. payment fails, then Chargify will not change the subscription's state. The
-     * subscription’s billing period will also remain the same. - If set to `false` and something
-     * goes wrong i.e. payment fails, then Chargify will continue through with the activation and
-     * enter an end of life state. For trialing subscriptions, that will either be trial ended (if
-     * the trial is no obligation), past due (if the trial has an obligation), or canceled (if the
-     * site has no dunning strategy, or has a strategy that says to cancel immediately). For
-     * awaiting signup subscriptions, that will always be canceled. The default activation failure
-     * behavior can be configured per activation attempt, or you may set a default value under
-     * Config &gt; Settings &gt; Subscription Activation Settings. ## Activation Scenarios ### Activate
-     * Awaiting Signup subscription - Given you have a product without trial - Given you have a site
-     * without dunning strategy ```mermaid flowchart LR AS[Awaiting Signup] --&gt; A{Activate} A
-     * --&gt;|Success| Active A --&gt;|Failure| ROF{revert_on_failure} ROF --&gt;|true| AS ROF --&gt;|false|
-     * Canceled ``` - Given you have a product with trial - Given you have a site with dunning
-     * strategy ```mermaid flowchart LR AS[Awaiting Signup] --&gt; A{Activate} A --&gt;|Success| Trialing
-     * A --&gt;|Failure| ROF{revert_on_failure} ROF --&gt;|true| AS ROF --&gt;|false| PD[Past Due] ``` ###
-     * Activate Trialing subscription You can read more about the behavior of trialing subscriptions
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404494617357#trialing-subscriptions-0-0).
+     * goes wrong i.e. payment fails, then Advanced Billing will not change the subscription's
+     * state. The subscription’s billing period will also remain the same. - If set to `false` and
+     * something goes wrong i.e. payment fails, then Advanced Billing will continue through with the
+     * activation and enter an end of life state. For trialing subscriptions, that will either be
+     * trial ended (if the trial is no obligation), past due (if the trial has an obligation), or
+     * canceled (if the site has no dunning strategy, or has a strategy that says to cancel
+     * immediately). For awaiting signup subscriptions, that will always be canceled. The default
+     * activation failure behavior can be configured per activation attempt, or you may set a
+     * default value under Config &gt; Settings &gt; Subscription Activation Settings. ## Activation
+     * Scenarios ### Activate Awaiting Signup subscription - Given you have a product without trial
+     * - Given you have a site without dunning strategy ```mermaid flowchart LR AS[Awaiting Signup]
+     * --&gt; A{Activate} A --&gt;|Success| Active A --&gt;|Failure| ROF{revert_on_failure} ROF --&gt;|true| AS
+     * ROF --&gt;|false| Canceled ``` - Given you have a product with trial - Given you have a site
+     * with dunning strategy ```mermaid flowchart LR AS[Awaiting Signup] --&gt; A{Activate} A
+     * --&gt;|Success| Trialing A --&gt;|Failure| ROF{revert_on_failure} ROF --&gt;|true| AS ROF --&gt;|false|
+     * PD[Past Due] ``` ### Activate Trialing subscription You can read more about the behavior of
+     * trialing subscriptions
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions).
      * When the `revert_on_failure` parameter is set to `true`, the subscription's state will remain
      * as Trialing, we will void the invoice from activation and return any prepayments and credits
      * applied to the invoice back to the subscription.

@@ -14,27 +14,19 @@ import java.util.TreeMap;
 
 
 /**
- * ExtendedIntervalUnit to be used.
+ * ApplePayVault to be used.
  */
-public enum ExtendedIntervalUnit {
-    DAY,
-
-    MONTH,
-
-    NEVER;
+public enum ApplePayVault {
+    BRAINTREE_BLUE;
 
 
-    private static TreeMap<String, ExtendedIntervalUnit> valueMap = new TreeMap<>();
+    private static TreeMap<String, ApplePayVault> valueMap = new TreeMap<>();
     private String value;
 
     static {
-        DAY.value = "day";
-        MONTH.value = "month";
-        NEVER.value = "never";
+        BRAINTREE_BLUE.value = "braintree_blue";
 
-        valueMap.put("day", DAY);
-        valueMap.put("month", MONTH);
-        valueMap.put("never", NEVER);
+        valueMap.put("braintree_blue", BRAINTREE_BLUE);
     }
 
     /**
@@ -44,8 +36,8 @@ public enum ExtendedIntervalUnit {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static ExtendedIntervalUnit constructFromString(String toConvert) throws IOException {
-        ExtendedIntervalUnit enumValue = fromString(toConvert);
+    public static ApplePayVault constructFromString(String toConvert) throws IOException {
+        ApplePayVault enumValue = fromString(toConvert);
         if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
@@ -57,7 +49,7 @@ public enum ExtendedIntervalUnit {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static ExtendedIntervalUnit fromString(String toConvert) {
+    public static ApplePayVault fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -79,16 +71,16 @@ public enum ExtendedIntervalUnit {
     }
 
     /**
-     * Convert list of ExtendedIntervalUnit values to list of string values.
-     * @param toConvert The list of ExtendedIntervalUnit values to convert.
+     * Convert list of ApplePayVault values to list of string values.
+     * @param toConvert The list of ApplePayVault values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<ExtendedIntervalUnit> toConvert) {
+    public static List<String> toValue(List<ApplePayVault> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (ExtendedIntervalUnit enumValue : toConvert) {
+        for (ApplePayVault enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

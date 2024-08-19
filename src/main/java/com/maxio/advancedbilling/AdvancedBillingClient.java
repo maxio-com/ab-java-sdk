@@ -98,7 +98,7 @@ public final class AdvancedBillingClient implements Configuration {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "AB SDK Java:4.0.0 on OS {os-info}";
+    private static String userAgent = "AB SDK Java:5.0.0 on OS {os-info}";
 
     /**
      * Current API environment.
@@ -106,12 +106,12 @@ public final class AdvancedBillingClient implements Configuration {
     private final Environment environment;
 
     /**
-     * The subdomain for your Chargify site.
+     * The subdomain for your Advanced Billing site.
      */
     private final String subdomain;
 
     /**
-     * The Chargify server domain.
+     * The Advanced Billing server domain.
      */
     private final String domain;
 
@@ -467,7 +467,7 @@ public final class AdvancedBillingClient implements Configuration {
     }
 
     /**
-     * The subdomain for your Chargify site.
+     * The subdomain for your Advanced Billing site.
      * @return subdomain
      */
     public String getSubdomain() {
@@ -475,7 +475,7 @@ public final class AdvancedBillingClient implements Configuration {
     }
 
     /**
-     * The Chargify server domain.
+     * The Advanced Billing server domain.
      * @return domain
      */
     public String getDomain() {
@@ -644,7 +644,7 @@ public final class AdvancedBillingClient implements Configuration {
         }
 
         /**
-         * The subdomain for your Chargify site.
+         * The subdomain for your Advanced Billing site.
          * @param subdomain The subdomain for client.
          * @return Builder
          */
@@ -654,7 +654,7 @@ public final class AdvancedBillingClient implements Configuration {
         }
 
         /**
-         * The Chargify server domain.
+         * The Advanced Billing server domain.
          * @param domain The domain for client.
          * @return Builder
          */

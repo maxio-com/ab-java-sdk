@@ -36,15 +36,15 @@ public final class OffersController extends BaseController {
     }
 
     /**
-     * Create an offer within your Chargify site by sending a POST request. ## Documentation Offers
-     * allow you to package complicated combinations of products, components and coupons into a
-     * convenient package which can then be subscribed to just like products. Once an offer is
+     * Create an offer within your Advanced Billing site by sending a POST request. ## Documentation
+     * Offers allow you to package complicated combinations of products, components and coupons into
+     * a convenient package which can then be subscribed to just like products. Once an offer is
      * defined it can be used as an alternative to the product when creating subscriptions. Full
-     * documentation on how to use offers in the Chargify UI can be located
-     * [here](https://chargify.zendesk.com/hc/en-us/articles/4407753852059). ## Using a Product
-     * Price Point You can optionally pass in a `product_price_point_id` that corresponds with the
-     * `product_id` and the offer will use that price point. If a `product_price_point_id` is not
-     * passed in, the product's default price point will be used.
+     * documentation on how to use offers in the Advanced Billing UI can be located
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261295098637-Offers-Overview). ## Using
+     * a Product Price Point You can optionally pass in a `product_price_point_id` that corresponds
+     * with the `product_id` and the offer will use that price point. If a `product_price_point_id`
+     * is not passed in, the product's default price point will be used.
      * @param  body  Optional parameter: Example:
      * @return    Returns the OfferResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CreateOrUpdateProduct type.
@@ -26,10 +28,10 @@ public class CreateOrUpdateProduct
     private IntervalUnit intervalUnit;
     private Long trialPriceInCents;
     private Integer trialInterval;
-    private IntervalUnit trialIntervalUnit;
+    private OptionalNullable<IntervalUnit> trialIntervalUnit;
     private String trialType;
     private Integer expirationInterval;
-    private IntervalUnit expirationIntervalUnit;
+    private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Boolean autoCreateSignupPage;
     private String taxCode;
 
@@ -54,7 +56,7 @@ public class CreateOrUpdateProduct
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
      * @param  trialType  String value for trialType.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
      * @param  taxCode  String value for taxCode.
      */
@@ -72,9 +74,54 @@ public class CreateOrUpdateProduct
             IntervalUnit trialIntervalUnit,
             String trialType,
             Integer expirationInterval,
-            IntervalUnit expirationIntervalUnit,
+            ExpirationIntervalUnit expirationIntervalUnit,
             Boolean autoCreateSignupPage,
             String taxCode) {
+        this.name = name;
+        this.handle = handle;
+        this.description = description;
+        this.accountingCode = accountingCode;
+        this.requireCreditCard = requireCreditCard;
+        this.priceInCents = priceInCents;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
+        this.trialPriceInCents = trialPriceInCents;
+        this.trialInterval = trialInterval;
+        this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
+        this.trialType = trialType;
+        this.expirationInterval = expirationInterval;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+        this.autoCreateSignupPage = autoCreateSignupPage;
+        this.taxCode = taxCode;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  description  String value for description.
+     * @param  priceInCents  long value for priceInCents.
+     * @param  interval  int value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  handle  String value for handle.
+     * @param  accountingCode  String value for accountingCode.
+     * @param  requireCreditCard  Boolean value for requireCreditCard.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
+     * @param  trialInterval  Integer value for trialInterval.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
+     * @param  trialType  String value for trialType.
+     * @param  expirationInterval  Integer value for expirationInterval.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
+     * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
+     * @param  taxCode  String value for taxCode.
+     */
+
+    protected CreateOrUpdateProduct(String name, String description, long priceInCents,
+            int interval, IntervalUnit intervalUnit, String handle, String accountingCode,
+            Boolean requireCreditCard, Long trialPriceInCents, Integer trialInterval,
+            OptionalNullable<IntervalUnit> trialIntervalUnit, String trialType,
+            Integer expirationInterval,
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
+            Boolean autoCreateSignupPage, String taxCode) {
         this.name = name;
         this.handle = handle;
         this.description = description;
@@ -305,14 +352,24 @@ public class CreateOrUpdateProduct
     }
 
     /**
+     * Internal Getter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("trial_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetTrialIntervalUnit() {
+        return this.trialIntervalUnit;
+    }
+
+    /**
      * Getter for TrialIntervalUnit.
      * A string representing the trial interval unit for this product, either month or day
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("trial_interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getTrialIntervalUnit() {
-        return trialIntervalUnit;
+        return OptionalNullable.getFrom(trialIntervalUnit);
     }
 
     /**
@@ -322,7 +379,15 @@ public class CreateOrUpdateProduct
      */
     @JsonSetter("trial_interval_unit")
     public void setTrialIntervalUnit(IntervalUnit trialIntervalUnit) {
-        this.trialIntervalUnit = trialIntervalUnit;
+        this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
+    }
+
+    /**
+     * UnSetter for TrialIntervalUnit.
+     * A string representing the trial interval unit for this product, either month or day
+     */
+    public void unsetTrialIntervalUnit() {
+        trialIntervalUnit = null;
     }
 
     /**
@@ -368,24 +433,46 @@ public class CreateOrUpdateProduct
     }
 
     /**
-     * Getter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product, either month or day
-     * @return Returns the IntervalUnit
+     * Internal Getter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product, either month, day or
+     * never
+     * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IntervalUnit getExpirationIntervalUnit() {
-        return expirationIntervalUnit;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
+        return this.expirationIntervalUnit;
+    }
+
+    /**
+     * Getter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product, either month, day or
+     * never
+     * @return Returns the ExpirationIntervalUnit
+     */
+    public ExpirationIntervalUnit getExpirationIntervalUnit() {
+        return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product, either month or day
-     * @param expirationIntervalUnit Value for IntervalUnit
+     * A string representing the expiration interval unit for this product, either month, day or
+     * never
+     * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-        this.expirationIntervalUnit = expirationIntervalUnit;
+    public void setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+    }
+
+    /**
+     * UnSetter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product, either month, day or
+     * never
+     */
+    public void unsetExpirationIntervalUnit() {
+        expirationIntervalUnit = null;
     }
 
     /**
@@ -461,12 +548,12 @@ public class CreateOrUpdateProduct
                 .requireCreditCard(getRequireCreditCard())
                 .trialPriceInCents(getTrialPriceInCents())
                 .trialInterval(getTrialInterval())
-                .trialIntervalUnit(getTrialIntervalUnit())
                 .trialType(getTrialType())
                 .expirationInterval(getExpirationInterval())
-                .expirationIntervalUnit(getExpirationIntervalUnit())
                 .autoCreateSignupPage(getAutoCreateSignupPage())
                 .taxCode(getTaxCode());
+        builder.trialIntervalUnit = internalGetTrialIntervalUnit();
+        builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
 
@@ -484,10 +571,10 @@ public class CreateOrUpdateProduct
         private Boolean requireCreditCard;
         private Long trialPriceInCents;
         private Integer trialInterval;
-        private IntervalUnit trialIntervalUnit;
+        private OptionalNullable<IntervalUnit> trialIntervalUnit;
         private String trialType;
         private Integer expirationInterval;
-        private IntervalUnit expirationIntervalUnit;
+        private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Boolean autoCreateSignupPage;
         private String taxCode;
 
@@ -620,7 +707,16 @@ public class CreateOrUpdateProduct
          * @return Builder
          */
         public Builder trialIntervalUnit(IntervalUnit trialIntervalUnit) {
-            this.trialIntervalUnit = trialIntervalUnit;
+            this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetTrialIntervalUnit() {
+            trialIntervalUnit = null;
             return this;
         }
 
@@ -646,11 +742,20 @@ public class CreateOrUpdateProduct
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-            this.expirationIntervalUnit = expirationIntervalUnit;
+        public Builder expirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+            this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetExpirationIntervalUnit() {
+            expirationIntervalUnit = null;
             return this;
         }
 

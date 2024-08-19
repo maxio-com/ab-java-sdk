@@ -302,7 +302,7 @@ public final class InvoicesController extends BaseController {
      * Subscription's Prepayment account balance. ## Create a Payment from the Subscription's
      * Service Credit Account In order to apply a service credit to an invoice, specify the `type`
      * as `service_credit`, and also the `amount`: ``` { "type": "service_credit", "payment": {
-     * "amount": 10.00 } } ``` Note that Chargify will attempt to fully pay the invoice's
+     * "amount": 10.00 } } ``` Note that Advanced Billing will attempt to fully pay the invoice's
      * `due_amount` from the Subscription's Service Credit account. At this time, partial payments
      * from a Service Credit Account are only allowed for consolidated invoices (subscription
      * groups). Therefore, for normal invoices the Service Credit account balance must be greater

@@ -21,7 +21,7 @@
 | `InitialChargeInCents` | `Long` | Optional | The product price point initial charge, in integer cents | Long getInitialChargeInCents() | setInitialChargeInCents(Long initialChargeInCents) |
 | `InitialChargeAfterTrial` | `Boolean` | Optional | - | Boolean getInitialChargeAfterTrial() | setInitialChargeAfterTrial(Boolean initialChargeAfterTrial) |
 | `ExpirationInterval` | `Integer` | Optional | The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an expiration_interval_unit of day would mean this product price point would expire after 30 days. | Integer getExpirationInterval() | setExpirationInterval(Integer expirationInterval) |
-| `ExpirationIntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the expiration interval unit for this product price point, either month or day | IntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) |
+| `ExpirationIntervalUnit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | A string representing the expiration interval unit for this product price point, either month, day or never | ExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) |
 | `UseSiteExchangeRate` | `Boolean` | Optional | Whether or not to use the site's exchange rate or define your own pricing when your site has multiple currencies defined.<br>**Default**: `true` | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 
 ## Example (as JSON)

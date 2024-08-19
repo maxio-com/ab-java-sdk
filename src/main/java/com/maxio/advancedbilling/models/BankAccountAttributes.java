@@ -276,7 +276,8 @@ public class BankAccountAttributes
 
     /**
      * Getter for CurrentVault.
-     * The vault that stores the payment profile with the provided vault_token.
+     * The vault that stores the payment profile with the provided vault_token. Use `bogus` for
+     * testing.
      * @return Returns the BankAccountVault
      */
     @JsonGetter("current_vault")
@@ -287,7 +288,8 @@ public class BankAccountAttributes
 
     /**
      * Setter for CurrentVault.
-     * The vault that stores the payment profile with the provided vault_token.
+     * The vault that stores the payment profile with the provided vault_token. Use `bogus` for
+     * testing.
      * @param currentVault Value for BankAccountVault
      */
     @JsonSetter("current_vault")

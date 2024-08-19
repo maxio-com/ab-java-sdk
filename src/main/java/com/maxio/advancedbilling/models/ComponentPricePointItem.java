@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public class ComponentPricePointItem
     private String handle;
     private PricingScheme pricingScheme;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
     private List<Price> prices;
 
     /**
@@ -46,6 +48,26 @@ public class ComponentPricePointItem
             Integer interval,
             IntervalUnit intervalUnit,
             List<Price> prices) {
+        this.name = name;
+        this.handle = handle;
+        this.pricingScheme = pricingScheme;
+        this.interval = interval;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.prices = prices;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  prices  List of Price value for prices.
+     */
+
+    protected ComponentPricePointItem(String name, String handle, PricingScheme pricingScheme,
+            Integer interval, OptionalNullable<IntervalUnit> intervalUnit, List<Price> prices) {
         this.name = name;
         this.handle = handle;
         this.pricingScheme = pricingScheme;
@@ -143,15 +165,26 @@ public class ComponentPricePointItem
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component price point, either month or day.
      * This property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -162,7 +195,16 @@ public class ComponentPricePointItem
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -207,8 +249,8 @@ public class ComponentPricePointItem
                 .handle(getHandle())
                 .pricingScheme(getPricingScheme())
                 .interval(getInterval())
-                .intervalUnit(getIntervalUnit())
                 .prices(getPrices());
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -220,7 +262,7 @@ public class ComponentPricePointItem
         private String handle;
         private PricingScheme pricingScheme;
         private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<IntervalUnit> intervalUnit;
         private List<Price> prices;
 
 
@@ -271,7 +313,16 @@ public class ComponentPricePointItem
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 

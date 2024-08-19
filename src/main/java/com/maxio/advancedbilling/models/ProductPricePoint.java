@@ -36,7 +36,7 @@ public class ProductPricePoint
     private OptionalNullable<Long> initialChargeInCents;
     private OptionalNullable<Boolean> initialChargeAfterTrial;
     private OptionalNullable<Integer> expirationInterval;
-    private OptionalNullable<IntervalUnit> expirationIntervalUnit;
+    private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Integer productId;
     private OptionalNullable<ZonedDateTime> archivedAt;
     private ZonedDateTime createdAt;
@@ -69,7 +69,7 @@ public class ProductPricePoint
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  productId  Integer value for productId.
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  createdAt  ZonedDateTime value for createdAt.
@@ -95,7 +95,7 @@ public class ProductPricePoint
             Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
             Integer expirationInterval,
-            IntervalUnit expirationIntervalUnit,
+            ExpirationIntervalUnit expirationIntervalUnit,
             Integer productId,
             ZonedDateTime archivedAt,
             ZonedDateTime createdAt,
@@ -147,7 +147,7 @@ public class ProductPricePoint
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  productId  Integer value for productId.
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  createdAt  ZonedDateTime value for createdAt.
@@ -167,7 +167,7 @@ public class ProductPricePoint
             OptionalNullable<Long> initialChargeInCents,
             OptionalNullable<Boolean> initialChargeAfterTrial,
             OptionalNullable<Integer> expirationInterval,
-            OptionalNullable<IntervalUnit> expirationIntervalUnit, Integer productId,
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit, Integer productId,
             OptionalNullable<ZonedDateTime> archivedAt, ZonedDateTime createdAt,
             ZonedDateTime updatedAt, Boolean useSiteExchangeRate, PricePointType type,
             Boolean taxIncluded, OptionalNullable<Integer> subscriptionId,
@@ -648,42 +648,42 @@ public class ProductPricePoint
 
     /**
      * Internal Getter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product price point, either month
-     * or day
-     * @return Returns the Internal IntervalUnit
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
+     * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<IntervalUnit> internalGetExpirationIntervalUnit() {
+    protected OptionalNullable<ExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
         return this.expirationIntervalUnit;
     }
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product price point, either month
-     * or day
-     * @return Returns the IntervalUnit
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
+     * @return Returns the ExpirationIntervalUnit
      */
-    public IntervalUnit getExpirationIntervalUnit() {
+    public ExpirationIntervalUnit getExpirationIntervalUnit() {
         return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product price point, either month
-     * or day
-     * @param expirationIntervalUnit Value for IntervalUnit
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
+     * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
+    public void setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
         this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
     }
 
     /**
      * UnSetter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product price point, either month
-     * or day
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
      */
     public void unsetExpirationIntervalUnit() {
         expirationIntervalUnit = null;
@@ -999,7 +999,7 @@ public class ProductPricePoint
         private OptionalNullable<Long> initialChargeInCents;
         private OptionalNullable<Boolean> initialChargeAfterTrial;
         private OptionalNullable<Integer> expirationInterval;
-        private OptionalNullable<IntervalUnit> expirationIntervalUnit;
+        private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Integer productId;
         private OptionalNullable<ZonedDateTime> archivedAt;
         private ZonedDateTime createdAt;
@@ -1226,10 +1226,10 @@ public class ProductPricePoint
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
+        public Builder expirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
             this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
             return this;
         }

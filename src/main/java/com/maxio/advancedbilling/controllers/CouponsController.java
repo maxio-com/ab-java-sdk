@@ -44,20 +44,21 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * ## Coupons Documentation Coupons can be administered in the Chargify application or created
-     * via API. Please view our section on [creating
-     * coupons](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404742830733) for more
-     * information. Additionally, for documentation on how to apply a coupon to a subscription
-     * within the Chargify UI, please see our documentation
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404761012877). ## Create Coupon
-     * This request will create a coupon, based on the provided information. When creating a coupon,
-     * you must specify a product family using the `product_family_id`. If no `product_family_id` is
-     * passed, the first product family available is used. You will also need to formulate your URL
-     * to cite the Product Family ID in your request. You can restrict a coupon to only apply to
-     * specific products / components by optionally passing in hashes of `restricted_products`
-     * and/or `restricted_components` in the format: `{ "&lt;product/component_id&gt;": boolean_value }`.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the coupon belongs
+     * ## Coupons Documentation Coupons can be administered in the Advanced Billing application or
+     * created via API. Please view our section on [creating
+     * coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creating-Editing-Deleting-Coupons)
+     * for more information. Additionally, for documentation on how to apply a coupon to a
+     * subscription within the Advanced Billing UI, please see our documentation
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
+     * ## Create Coupon This request will create a coupon, based on the provided information. When
+     * creating a coupon, you must specify a product family using the `product_family_id`. If no
+     * `product_family_id` is passed, the first product family available is used. You will also need
+     * to formulate your URL to cite the Product Family ID in your request. You can restrict a
+     * coupon to only apply to specific products / components by optionally passing in hashes of
+     * `restricted_products` and/or `restricted_components` in the format: `{
+     * "&lt;product/component_id&gt;": boolean_value }`.
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the coupon belongs
      * @param  body  Optional parameter: Example:
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -156,8 +157,8 @@ public final class CouponsController extends BaseController {
      * is returned. If you have more than one product family and if the coupon you are trying to
      * find does not belong to the default product family in your site, then you will need to
      * specify (either in the url or as a query string param) the product family id.
-     * @param  productFamilyId  Optional parameter: The Chargify id of the product family to which
-     *         the coupon belongs
+     * @param  productFamilyId  Optional parameter: The Advanced Billing id of the product family to
+     *         which the coupon belongs
      * @param  code  Optional parameter: The code of the coupon
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -199,16 +200,16 @@ public final class CouponsController extends BaseController {
 
     /**
      * You can retrieve the Coupon via the API with the Show method. You must identify the Coupon in
-     * this call by the ID parameter that Chargify assigns. If instead you would like to find a
-     * Coupon using a Coupon code, see the Coupon Find method. When fetching a coupon, if you have
-     * defined multiple currencies at the site level, you can optionally pass the
+     * this call by the ID parameter that Advanced Billing assigns. If instead you would like to
+     * find a Coupon using a Coupon code, see the Coupon Find method. When fetching a coupon, if you
+     * have defined multiple currencies at the site level, you can optionally pass the
      * `?currency_prices=true` query param to include an array of currency price data in the
      * response. If the coupon is set to `use_site_exchange_rate: true`, it will return pricing
      * based on the current exchange rate. If the flag is set to false, it will return all of the
      * defined prices for each currency.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the coupon belongs
-     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the coupon belongs
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -252,9 +253,9 @@ public final class CouponsController extends BaseController {
      * endpoint. You can restrict a coupon to only apply to specific products / components by
      * optionally passing in hashes of `restricted_products` and/or `restricted_components` in the
      * format: `{ "&lt;product/component_id&gt;": boolean_value }`.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the coupon belongs
-     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the coupon belongs
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @param  body  Optional parameter: Example:
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -304,9 +305,9 @@ public final class CouponsController extends BaseController {
      * You can archive a Coupon via the API with the archive method. Archiving makes that Coupon
      * unavailable for future use, but allows it to remain attached and functional on existing
      * Subscriptions that are using it. The `archived_at` date and time will be assigned.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the coupon belongs
-     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the coupon belongs
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -394,9 +395,9 @@ public final class CouponsController extends BaseController {
     /**
      * This request will provide details about the coupon usage as an array of data hashes, one per
      * product.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the coupon belongs
-     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the coupon belongs
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @return    Returns the List of CouponUsage response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -452,8 +453,8 @@ public final class CouponsController extends BaseController {
      * https://&lt;subdomain&gt;.chargify.com/coupons/validate.&lt;format&gt;?code=&lt;coupon_code&gt;&amp;product_family_id=&lt;id&gt;
      * ```.
      * @param  code  Required parameter: The code of the coupon
-     * @param  productFamilyId  Optional parameter: The Chargify id of the product family to which
-     *         the coupon belongs
+     * @param  productFamilyId  Optional parameter: The Advanced Billing id of the product family to
+     *         which the coupon belongs
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -502,7 +503,7 @@ public final class CouponsController extends BaseController {
      * percentage. Currency pricing for coupons must mirror the setup of the primary coupon pricing
      * - if the primary coupon is percentage based, you will not be able to define pricing in
      * non-primary currencies.
-     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @param  body  Optional parameter: Example:
      * @return    Returns the CouponCurrencyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -552,17 +553,18 @@ public final class CouponsController extends BaseController {
      * to attach it to using the coupon_id. Valid coupon subcodes are all capital letters, contain
      * only letters and numbers, and do not have any spaces. Lowercase letters will be capitalized
      * before the subcode is created. ## Coupon Subcodes Documentation Full documentation on how to
-     * create coupon subcodes in the Chargify UI can be located
-     * [here](https://chargify.zendesk.com/hc/en-us/articles/4407755909531#coupon-codes).
+     * create coupon subcodes in the Advanced Billing UI can be located
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes).
      * Additionally, for documentation on how to apply a coupon to a Subscription within the
-     * Chargify UI, please see our documentation
-     * [here](https://chargify.zendesk.com/hc/en-us/articles/4407884887835#coupon). ## Create Coupon
-     * Subcode This request allows you to create specific subcodes underneath an existing coupon
-     * code. *Note*: If you are using any of the allowed special characters ("%", "{@literal @}", "+", "-",
-     * "_", and "."), you must encode them for use in the URL. % to %25 {@literal @} to %40 + to %2B - to %2D _
-     * to %5F . to %2E So, if the coupon subcode is `20%OFF`, the URL to delete this coupon subcode
-     * would be: `https://&lt;subdomain&gt;.chargify.com/coupons/567/codes/20%25OFF.&lt;format&gt;`.
-     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * Advanced Billing UI, please see our documentation
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
+     * ## Create Coupon Subcode This request allows you to create specific subcodes underneath an
+     * existing coupon code. *Note*: If you are using any of the allowed special characters ("%",
+     * "{@literal @}", "+", "-", "_", and "."), you must encode them for use in the URL. % to %25 {@literal @} to %40 + to
+     * %2B - to %2D _ to %5F . to %2E So, if the coupon subcode is `20%OFF`, the URL to delete this
+     * coupon subcode would be:
+     * `https://&lt;subdomain&gt;.chargify.com/coupons/567/codes/20%25OFF.&lt;format&gt;`.
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @param  body  Optional parameter: Example:
      * @return    Returns the CouponSubcodesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -651,7 +653,7 @@ public final class CouponsController extends BaseController {
      * that Coupon will be deleted first, and replaced with the list of subcodes sent to this
      * endpoint. The response will contain: + The created subcodes, + Subcodes that were not created
      * because they already exist, + Any subcodes not created because they are invalid.
-     * @param  couponId  Required parameter: The Chargify id of the coupon
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @param  body  Optional parameter: Example:
      * @return    Returns the CouponSubcodesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -702,8 +704,8 @@ public final class CouponsController extends BaseController {
      * %25 | | {@literal @} | %40 | | + | %2B | | – | %2D | | _ | %5F | | . | %2E | ## Percent Encoding Example
      * Or if the coupon subcode is 20%OFF, the URL to delete this coupon subcode would be:
      * {@literal @}https://&lt;subdomain&gt;.chargify.com/coupons/567/codes/20%25OFF.&lt;format&gt;.
-     * @param  couponId  Required parameter: The Chargify id of the coupon to which the subcode
-     *         belongs
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon to which the
+     *         subcode belongs
      * @param  subcode  Required parameter: The subcode of the coupon
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

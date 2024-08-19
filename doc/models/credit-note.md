@@ -35,7 +35,7 @@
 | `Taxes` | [`List<InvoiceTax>`](../../doc/models/invoice-tax.md) | Optional | - | List<InvoiceTax> getTaxes() | setTaxes(List<InvoiceTax> taxes) |
 | `Applications` | [`List<CreditNoteApplication>`](../../doc/models/credit-note-application.md) | Optional | - | List<CreditNoteApplication> getApplications() | setApplications(List<CreditNoteApplication> applications) |
 | `Refunds` | [`List<InvoiceRefund>`](../../doc/models/invoice-refund.md) | Optional | - | List<InvoiceRefund> getRefunds() | setRefunds(List<InvoiceRefund> refunds) |
-| `OriginInvoices` | [`List<OriginInvoice>`](../../doc/models/origin-invoice.md) | Optional | An array of origin invoices for the credit note. Learn more about [Origin Invoice from our docs](https://chargify.zendesk.com/hc/en-us/articles/4407753036699#origin-invoices) | List<OriginInvoice> getOriginInvoices() | setOriginInvoices(List<OriginInvoice> originInvoices) |
+| `OriginInvoices` | [`List<OriginInvoice>`](../../doc/models/origin-invoice.md) | Optional | An array of origin invoices for the credit note. Learn more about [Origin Invoice from our docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices) | List<OriginInvoice> getOriginInvoices() | setOriginInvoices(List<OriginInvoice> originInvoices) |
 
 ## Example (as JSON)
 

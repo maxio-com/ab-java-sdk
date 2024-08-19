@@ -38,7 +38,7 @@ public class PrepaidUsageComponent
     private Boolean rolloverPrepaidRemainder;
     private Boolean renewPrepaidAllocation;
     private Double expirationInterval;
-    private IntervalUnit expirationIntervalUnit;
+    private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Boolean displayOnHostedPage;
     private Boolean allowFractionalQuantities;
     private List<Integer> publicSignupPageIds;
@@ -69,7 +69,7 @@ public class PrepaidUsageComponent
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  expirationInterval  Double value for expirationInterval.
-     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
@@ -93,7 +93,7 @@ public class PrepaidUsageComponent
             Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation,
             Double expirationInterval,
-            IntervalUnit expirationIntervalUnit,
+            ExpirationIntervalUnit expirationIntervalUnit,
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
             List<Integer> publicSignupPageIds) {
@@ -115,7 +115,7 @@ public class PrepaidUsageComponent
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
         this.expirationInterval = expirationInterval;
-        this.expirationIntervalUnit = expirationIntervalUnit;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
@@ -141,7 +141,7 @@ public class PrepaidUsageComponent
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  expirationInterval  Double value for expirationInterval.
-     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
@@ -155,8 +155,9 @@ public class PrepaidUsageComponent
             String taxCode, Boolean hideDateRangeOnInvoice, String priceInCents,
             OveragePricing overagePricing, Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation, Double expirationInterval,
-            IntervalUnit expirationIntervalUnit, Boolean displayOnHostedPage,
-            Boolean allowFractionalQuantities, List<Integer> publicSignupPageIds) {
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
+            Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
+            List<Integer> publicSignupPageIds) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -323,7 +324,7 @@ public class PrepaidUsageComponent
     /**
      * Getter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#general-price-bracket-rules)
+     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @return Returns the List of Price
      */
@@ -336,7 +337,7 @@ public class PrepaidUsageComponent
     /**
      * Setter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#general-price-bracket-rules)
+     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @param prices Value for List of Price
      */
@@ -635,22 +636,38 @@ public class PrepaidUsageComponent
     }
 
     /**
-     * Getter for ExpirationIntervalUnit.
-     * @return Returns the IntervalUnit
+     * Internal Getter for ExpirationIntervalUnit.
+     * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IntervalUnit getExpirationIntervalUnit() {
-        return expirationIntervalUnit;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
+        return this.expirationIntervalUnit;
+    }
+
+    /**
+     * Getter for ExpirationIntervalUnit.
+     * @return Returns the ExpirationIntervalUnit
+     */
+    public ExpirationIntervalUnit getExpirationIntervalUnit() {
+        return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * @param expirationIntervalUnit Value for IntervalUnit
+     * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-        this.expirationIntervalUnit = expirationIntervalUnit;
+    public void setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+    }
+
+    /**
+     * UnSetter for ExpirationIntervalUnit.
+     */
+    public void unsetExpirationIntervalUnit() {
+        expirationIntervalUnit = null;
     }
 
     /**
@@ -753,12 +770,12 @@ public class PrepaidUsageComponent
                 .rolloverPrepaidRemainder(getRolloverPrepaidRemainder())
                 .renewPrepaidAllocation(getRenewPrepaidAllocation())
                 .expirationInterval(getExpirationInterval())
-                .expirationIntervalUnit(getExpirationIntervalUnit())
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .publicSignupPageIds(getPublicSignupPageIds());
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
+        builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
 
@@ -784,7 +801,7 @@ public class PrepaidUsageComponent
         private Boolean rolloverPrepaidRemainder;
         private Boolean renewPrepaidAllocation;
         private Double expirationInterval;
-        private IntervalUnit expirationIntervalUnit;
+        private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Boolean displayOnHostedPage;
         private Boolean allowFractionalQuantities;
         private List<Integer> publicSignupPageIds;
@@ -1003,11 +1020,20 @@ public class PrepaidUsageComponent
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-            this.expirationIntervalUnit = expirationIntervalUnit;
+        public Builder expirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+            this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetExpirationIntervalUnit() {
+            expirationIntervalUnit = null;
             return this;
         }
 

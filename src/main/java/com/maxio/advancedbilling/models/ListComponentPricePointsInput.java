@@ -52,7 +52,7 @@ public class ListComponentPricePointsInput {
 
     /**
      * Getter for ComponentId.
-     * The Chargify id of the component
+     * The Advanced Billing id of the component
      * @return Returns the int
      */
     @JsonGetter("component_id")
@@ -62,7 +62,7 @@ public class ListComponentPricePointsInput {
 
     /**
      * Setter for ComponentId.
-     * The Chargify id of the component
+     * The Advanced Billing id of the component
      * @param componentId Value for int
      */
     @JsonSetter("component_id")

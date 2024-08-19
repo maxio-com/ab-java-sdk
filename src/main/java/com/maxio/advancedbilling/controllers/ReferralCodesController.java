@@ -35,10 +35,10 @@ public final class ReferralCodesController extends BaseController {
      * Use this method to determine if the referral code is valid and applicable within your Site.
      * This method is useful for validating referral codes that are entered by a customer. ##
      * Referrals Documentation Full documentation on how to use the referrals feature in the
-     * Chargify UI can be located
-     * [here](https://chargify.zendesk.com/hc/en-us/articles/4407802831643). ## Server Response If
-     * the referral code is valid the status code will be `200` and the referral code will be
-     * returned. If the referral code is invalid, a `404` response will be returned.
+     * Advanced Billing UI can be located
+     * [here](https://maxio.zendesk.com/hc/en-us/sections/24286965611405-Referrals). ## Server
+     * Response If the referral code is valid the status code will be `200` and the referral code
+     * will be returned. If the referral code is invalid, a `404` response will be returned.
      * @param  code  Required parameter: The referral code you are trying to validate
      * @return    Returns the ReferralValidationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

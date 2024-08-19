@@ -55,12 +55,12 @@ public final class ComponentPricePointsController extends BaseController {
      * Sets a new default price point for the component. This new default will apply to all new
      * subscriptions going forward - existing subscriptions will remain on their current price
      * point. See [Price Points
-     * Documentation](https://chargify.zendesk.com/hc/en-us/articles/4407755865883#price-points) for
-     * more information on price points and moving subscriptions between price points. Note: Custom
-     * price points are not able to be set as the default for a component.
-     * @param  componentId  Required parameter: The Chargify id of the component to which the price
-     *         point belongs
-     * @param  pricePointId  Required parameter: The Chargify id of the price point
+     * Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-Price-Points-Components)
+     * for more information on price points and moving subscriptions between price points. Note:
+     * Custom price points are not able to be set as the default for a component.
+     * @param  componentId  Required parameter: The Advanced Billing id of the component to which
+     *         the price point belongs
+     * @param  pricePointId  Required parameter: The Advanced Billing id of the price point
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -102,7 +102,7 @@ public final class ComponentPricePointsController extends BaseController {
 
     /**
      * This endpoint can be used to create a new price point for an existing component.
-     * @param  componentId  Required parameter: The Chargify id of the component
+     * @param  componentId  Required parameter: The Advanced Billing id of the component
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -197,8 +197,8 @@ public final class ComponentPricePointsController extends BaseController {
 
     /**
      * Use this endpoint to create multiple component price points in one request.
-     * @param  componentId  Required parameter: The Chargify id of the component for which you want
-     *         to fetch price points.
+     * @param  componentId  Required parameter: The Advanced Billing id of the component for which
+     *         you want to fetch price points.
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -399,9 +399,9 @@ public final class ComponentPricePointsController extends BaseController {
 
     /**
      * Use this endpoint to unarchive a component price point.
-     * @param  componentId  Required parameter: The Chargify id of the component to which the price
-     *         point belongs
-     * @param  pricePointId  Required parameter: The Chargify id of the price point
+     * @param  componentId  Required parameter: The Advanced Billing id of the component to which
+     *         the price point belongs
+     * @param  pricePointId  Required parameter: The Advanced Billing id of the price point
      * @return    Returns the ComponentPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -446,7 +446,7 @@ public final class ComponentPricePointsController extends BaseController {
      * structure of your primary pricing. For each price level defined on the component price point,
      * there should be a matching price level created in the given currency. Note: Currency Prices
      * are not able to be created for custom price points.
-     * @param  pricePointId  Required parameter: The Chargify id of the price point
+     * @param  pricePointId  Required parameter: The Advanced Billing id of the price point
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentCurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -495,7 +495,7 @@ public final class ComponentPricePointsController extends BaseController {
      * This endpoint allows you to update currency prices for a given currency that has been defined
      * on the site level in your settings. Note: Currency Prices are not able to be updated for
      * custom price points.
-     * @param  pricePointId  Required parameter: The Chargify id of the price point
+     * @param  pricePointId  Required parameter: The Advanced Billing id of the price point
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentCurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

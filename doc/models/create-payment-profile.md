@@ -25,7 +25,7 @@
 | `BillingState` | `String` | Optional | The credit card or bank account billing address state (i.e. MA). This value is merely passed through to the payment gateway. This must conform to the [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for tax locale purposes. | String getBillingState() | setBillingState(String billingState) |
 | `BillingCountry` | `String` | Optional | The credit card or bank account billing address country, required in [ISO_3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is merely passed through to the payment gateway. Some gateways require country codes in a specific format. Please check your gateway’s documentation. If creating an ACH subscription, only US is supported at this time. | String getBillingCountry() | setBillingCountry(String billingCountry) |
 | `BillingZip` | `String` | Optional | The credit card or bank account billing address zip code (i.e. 12345). This value is merely passed through to the payment gateway. | String getBillingZip() | setBillingZip(String billingZip) |
-| `CurrentVault` | [`CurrentVault`](../../doc/models/current-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. | CurrentVault getCurrentVault() | setCurrentVault(CurrentVault currentVault) |
+| `CurrentVault` | [`AllVaults`](../../doc/models/all-vaults.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. | AllVaults getCurrentVault() | setCurrentVault(AllVaults currentVault) |
 | `VaultToken` | `String` | Optional | The “token” provided by your vault storage for an already stored payment profile | String getVaultToken() | setVaultToken(String vaultToken) |
 | `CustomerVaultToken` | `String` | Optional | (only for Authorize.Net CIM storage or Square) The customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
 | `CustomerId` | `Integer` | Optional | (Required when creating a new payment profile) The Chargify customer id. | Integer getCustomerId() | setCustomerId(Integer customerId) |
@@ -49,7 +49,7 @@
   "chargify_token": "tok_9g6hw85pnpt6knmskpwp4ttt",
   "full_number": "5424000000000015",
   "id": 76,
-  "payment_type": "paypal_account",
+  "payment_type": "credit_card",
   "first_name": "first_name8",
   "last_name": "last_name6"
 }

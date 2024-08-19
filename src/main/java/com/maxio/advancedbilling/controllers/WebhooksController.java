@@ -45,16 +45,17 @@ public final class WebhooksController extends BaseController {
      * ## Webhooks Intro The Webhooks API allows you to view a list of all webhooks and to
      * selectively resend individual or groups of webhooks. Webhooks will be sent on endpoints
      * specified by you. Endpoints can be added via API or Web UI. There is also an option to enable
-     * / disable webhooks via API request. We recommend that you review Chargify's webhook
+     * / disable webhooks via API request. We recommend that you review Advanced Billing's webhook
      * documentation located in our help site. The following resources will help guide you on how to
-     * use webhooks in Chargify, in addition to these webhook endpoints: + [Adding/editing new
-     * webhooks](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404448450317#configure-webhook-url)
+     * use webhooks in Advanced Billing, in addition to these webhook endpoints: + [Adding/editing
+     * new
+     * webhooks](https://maxio.zendesk.com/hc/en-us/articles/24286723085197-Webhooks#configure-webhook-url)
      * + [Webhooks introduction and delivery
-     * information](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405568068365#webhooks-introduction-0-0)
-     * + [Main webhook
-     * overview](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405357509645-Webhooks-Reference#webhooks-reference-0-0)
-     * + [Available webhooks and
-     * payloads](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405357509645-Webhooks-Reference#events)
+     * information](https://maxio.zendesk.com/hc/en-us/articles/24266143173901-Webhooks-Overview) +
+     * [Main webhook
+     * reference](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-Reference) +
+     * [Available webhooks and
+     * payloads](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-Reference#events)
      * ## List Webhooks for a Site This method allows you to fetch data about webhooks. You can pass
      * query parameters if you want to filter webhooks.
      * @param  input  ListWebhooksInput object containing request parameters
@@ -188,7 +189,7 @@ public final class WebhooksController extends BaseController {
     /**
      * The Chargify API allows you to create an endpoint and assign a list of webhooks subscriptions
      * (events) to it. You can check available events here. [Event
-     * keys](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405357509645-Webhooks-Reference#example-payloads).
+     * keys](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-Reference#events).
      * @param  body  Optional parameter: Example:
      * @return    Returns the EndpointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -266,13 +267,13 @@ public final class WebhooksController extends BaseController {
      * You can update an Endpoint via the API with a PUT request to the resource endpoint. You can
      * change the `url` of your endpoint which consumes webhooks or list of `webhook_subscriptions`.
      * Check available [Event
-     * keys](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404448450317-Webhooks#configure-webhook-url).
+     * keys](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-Reference#events).
      * Always send a complete list of events which you want subscribe/watch. Sending an PUT request
      * for existing endpoint with empty list of `webhook_subscriptions` will end with unsubscribe
      * from all events. If you want unsubscribe from specific event, just send a list of
      * `webhook_subscriptions` without the specific event key.
-     * @param  endpointId  Required parameter: The Chargify id for the endpoint that should be
-     *         updated
+     * @param  endpointId  Required parameter: The Advanced Billing id for the endpoint that should
+     *         be updated
      * @param  body  Optional parameter: Example:
      * @return    Returns the EndpointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

@@ -201,7 +201,7 @@ public class ListWebhooksInput {
 
     /**
      * Getter for Subscription.
-     * The Chargify id of a subscription you'd like to filter for
+     * The Advanced Billing id of a subscription you'd like to filter for
      * @return Returns the Integer
      */
     @JsonGetter("subscription")
@@ -212,7 +212,7 @@ public class ListWebhooksInput {
 
     /**
      * Setter for Subscription.
-     * The Chargify id of a subscription you'd like to filter for
+     * The Advanced Billing id of a subscription you'd like to filter for
      * @param subscription Value for Integer
      */
     @JsonSetter("subscription")

@@ -68,7 +68,7 @@ public class ListCreditNotesInput {
 
     /**
      * Getter for SubscriptionId.
-     * The subscription's Chargify id
+     * The subscription's Advanced Billing id
      * @return Returns the Integer
      */
     @JsonGetter("subscription_id")
@@ -79,7 +79,7 @@ public class ListCreditNotesInput {
 
     /**
      * Setter for SubscriptionId.
-     * The subscription's Chargify id
+     * The subscription's Advanced Billing id
      * @param subscriptionId Value for Integer
      */
     @JsonSetter("subscription_id")

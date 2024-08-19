@@ -71,7 +71,7 @@ public class ListComponentsForProductFamilyInput {
 
     /**
      * Getter for ProductFamilyId.
-     * The Chargify id of the product family
+     * The Advanced Billing id of the product family
      * @return Returns the int
      */
     @JsonGetter("product_family_id")
@@ -81,7 +81,7 @@ public class ListComponentsForProductFamilyInput {
 
     /**
      * Setter for ProductFamilyId.
-     * The Chargify id of the product family
+     * The Advanced Billing id of the product family
      * @param productFamilyId Value for int
      */
     @JsonSetter("product_family_id")

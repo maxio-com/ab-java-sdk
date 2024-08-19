@@ -94,7 +94,7 @@ public class ChangeInvoiceStatusEventData
     /**
      * Getter for FromStatus.
      * The status of the invoice before any changes occurred. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -106,7 +106,7 @@ public class ChangeInvoiceStatusEventData
     /**
      * Setter for FromStatus.
      * The status of the invoice before any changes occurred. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @param fromStatus Value for InvoiceStatus
      */
@@ -118,7 +118,7 @@ public class ChangeInvoiceStatusEventData
     /**
      * Getter for ToStatus.
      * The updated status of the invoice after changes have been made. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -130,7 +130,7 @@ public class ChangeInvoiceStatusEventData
     /**
      * Setter for ToStatus.
      * The updated status of the invoice after changes have been made. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @param toStatus Value for InvoiceStatus
      */

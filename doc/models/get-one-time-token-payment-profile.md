@@ -17,7 +17,7 @@
 | `ExpirationMonth` | `double` | Required | - | double getExpirationMonth() | setExpirationMonth(double expirationMonth) |
 | `ExpirationYear` | `double` | Required | - | double getExpirationYear() | setExpirationYear(double expirationYear) |
 | `CustomerId` | `String` | Optional | - | String getCustomerId() | setCustomerId(String customerId) |
-| `CurrentVault` | [`CurrentVault`](../../doc/models/current-vault.md) | Required | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. | CurrentVault getCurrentVault() | setCurrentVault(CurrentVault currentVault) |
+| `CurrentVault` | [`CreditCardVault`](../../doc/models/credit-card-vault.md) | Required | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. | CreditCardVault getCurrentVault() | setCurrentVault(CreditCardVault currentVault) |
 | `VaultToken` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getVaultToken() | setVaultToken(String vaultToken) |
 | `BillingAddress` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getBillingAddress() | setBillingAddress(String billingAddress) |
 | `BillingAddress2` | `String` | Optional | - | String getBillingAddress2() | setBillingAddress2(String billingAddress2) |
@@ -43,7 +43,7 @@
   "expiration_month": 187.78,
   "expiration_year": 164.44,
   "customer_id": "customer_id0",
-  "current_vault": "firstdata",
+  "current_vault": "braintree_blue",
   "vault_token": "vault_token4",
   "billing_address": "billing_address4",
   "billing_address_2": "billing_address_24",

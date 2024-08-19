@@ -12,4 +12,5 @@
 | `CreditCard` |
 | `BankAccount` |
 | `PaypalAccount` |
+| `ApplePay` |
 

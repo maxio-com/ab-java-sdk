@@ -38,7 +38,7 @@ public class Allocation
     private String pricePointName;
     private String pricePointHandle;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
     private Integer previousPricePointId;
     private Boolean accrueCharge;
     private Boolean initiateDunning;
@@ -124,7 +124,7 @@ public class Allocation
         this.pricePointName = pricePointName;
         this.pricePointHandle = pricePointHandle;
         this.interval = interval;
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
         this.previousPricePointId = previousPricePointId;
         this.accrueCharge = accrueCharge;
         this.initiateDunning = initiateDunning;
@@ -171,8 +171,9 @@ public class Allocation
             OptionalNullable<String> memo, ZonedDateTime timestamp, ZonedDateTime createdAt,
             String prorationUpgradeScheme, String prorationDowngradeScheme, Integer pricePointId,
             String pricePointName, String pricePointHandle, Integer interval,
-            IntervalUnit intervalUnit, Integer previousPricePointId, Boolean accrueCharge,
-            Boolean initiateDunning, OptionalNullable<CreditType> upgradeCharge,
+            OptionalNullable<IntervalUnit> intervalUnit, Integer previousPricePointId,
+            Boolean accrueCharge, Boolean initiateDunning,
+            OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
             OptionalNullable<PaymentForAllocation> payment, ZonedDateTime expiresAt,
             Long usedQuantity, Long chargeId) {
@@ -575,15 +576,26 @@ public class Allocation
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component price point, either month or day.
      * This property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -594,7 +606,16 @@ public class Allocation
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -883,7 +904,6 @@ public class Allocation
                 .pricePointName(getPricePointName())
                 .pricePointHandle(getPricePointHandle())
                 .interval(getInterval())
-                .intervalUnit(getIntervalUnit())
                 .previousPricePointId(getPreviousPricePointId())
                 .accrueCharge(getAccrueCharge())
                 .initiateDunning(getInitiateDunning())
@@ -892,6 +912,7 @@ public class Allocation
                 .chargeId(getChargeId());
         builder.componentHandle = internalGetComponentHandle();
         builder.memo = internalGetMemo();
+        builder.intervalUnit = internalGetIntervalUnit();
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
         builder.payment = internalGetPayment();
@@ -917,7 +938,7 @@ public class Allocation
         private String pricePointName;
         private String pricePointHandle;
         private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<IntervalUnit> intervalUnit;
         private Integer previousPricePointId;
         private Boolean accrueCharge;
         private Boolean initiateDunning;
@@ -1104,7 +1125,16 @@ public class Allocation
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 

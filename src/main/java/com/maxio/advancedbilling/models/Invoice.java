@@ -75,6 +75,7 @@ public class Invoice
     private InvoiceDisplaySettings displaySettings;
     private String publicUrl;
     private InvoicePreviousBalance previousBalanceData;
+    private LocalDate publicUrlExpiresOn;
 
     /**
      * Default constructor.
@@ -136,6 +137,7 @@ public class Invoice
      * @param  displaySettings  InvoiceDisplaySettings value for displaySettings.
      * @param  publicUrl  String value for publicUrl.
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
+     * @param  publicUrlExpiresOn  LocalDate value for publicUrlExpiresOn.
      */
     public Invoice(
             Long id,
@@ -189,7 +191,8 @@ public class Invoice
             List<InvoiceCustomField> customFields,
             InvoiceDisplaySettings displaySettings,
             String publicUrl,
-            InvoicePreviousBalance previousBalanceData) {
+            InvoicePreviousBalance previousBalanceData,
+            LocalDate publicUrlExpiresOn) {
         this.id = id;
         this.uid = uid;
         this.siteId = siteId;
@@ -242,6 +245,7 @@ public class Invoice
         this.displaySettings = displaySettings;
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
+        this.publicUrlExpiresOn = publicUrlExpiresOn;
     }
 
     /**
@@ -298,6 +302,7 @@ public class Invoice
      * @param  displaySettings  InvoiceDisplaySettings value for displaySettings.
      * @param  publicUrl  String value for publicUrl.
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
+     * @param  publicUrlExpiresOn  LocalDate value for publicUrlExpiresOn.
      */
 
     protected Invoice(Long id, String uid, Integer siteId, Integer customerId,
@@ -319,7 +324,7 @@ public class Invoice
             List<InvoiceTax> taxes, List<InvoiceCredit> credits, List<InvoiceRefund> refunds,
             List<InvoicePayment> payments, List<InvoiceCustomField> customFields,
             InvoiceDisplaySettings displaySettings, String publicUrl,
-            InvoicePreviousBalance previousBalanceData) {
+            InvoicePreviousBalance previousBalanceData, LocalDate publicUrlExpiresOn) {
         this.id = id;
         this.uid = uid;
         this.siteId = siteId;
@@ -372,6 +377,7 @@ public class Invoice
         this.displaySettings = displaySettings;
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
+        this.publicUrlExpiresOn = publicUrlExpiresOn;
     }
 
     /**
@@ -685,7 +691,7 @@ public class Invoice
     /**
      * Getter for Status.
      * The current status of the invoice. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -698,7 +704,7 @@ public class Invoice
     /**
      * Setter for Status.
      * The current status of the invoice. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @param status Value for InvoiceStatus
      */
@@ -842,7 +848,7 @@ public class Invoice
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
      * @return Returns the InvoiceConsolidationLevel
      */
     @JsonGetter("consolidation_level")
@@ -859,7 +865,7 @@ public class Invoice
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
      * @param consolidationLevel Value for InvoiceConsolidationLevel
      */
     @JsonSetter("consolidation_level")
@@ -1604,6 +1610,29 @@ public class Invoice
     }
 
     /**
+     * Getter for PublicUrlExpiresOn.
+     * The format is `"YYYY-MM-DD"`.
+     * @return Returns the LocalDate
+     */
+    @JsonGetter("public_url_expires_on")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getPublicUrlExpiresOn() {
+        return publicUrlExpiresOn;
+    }
+
+    /**
+     * Setter for PublicUrlExpiresOn.
+     * The format is `"YYYY-MM-DD"`.
+     * @param publicUrlExpiresOn Value for LocalDate
+     */
+    @JsonSetter("public_url_expires_on")
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPublicUrlExpiresOn(LocalDate publicUrlExpiresOn) {
+        this.publicUrlExpiresOn = publicUrlExpiresOn;
+    }
+
+    /**
      * Converts this Invoice into string format.
      * @return String representation of this class
      */
@@ -1631,8 +1660,8 @@ public class Invoice
                 + lineItems + ", discounts=" + discounts + ", taxes=" + taxes + ", credits="
                 + credits + ", refunds=" + refunds + ", payments=" + payments + ", customFields="
                 + customFields + ", displaySettings=" + displaySettings + ", publicUrl=" + publicUrl
-                + ", previousBalanceData=" + previousBalanceData + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", previousBalanceData=" + previousBalanceData + ", publicUrlExpiresOn="
+                + publicUrlExpiresOn + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1687,7 +1716,8 @@ public class Invoice
                 .customFields(getCustomFields())
                 .displaySettings(getDisplaySettings())
                 .publicUrl(getPublicUrl())
-                .previousBalanceData(getPreviousBalanceData());
+                .previousBalanceData(getPreviousBalanceData())
+                .publicUrlExpiresOn(getPublicUrlExpiresOn());
         builder.paidDate = internalGetPaidDate();
         builder.parentInvoiceId = internalGetParentInvoiceId();
         builder.parentInvoiceUid = internalGetParentInvoiceUid();
@@ -1753,6 +1783,7 @@ public class Invoice
         private InvoiceDisplaySettings displaySettings;
         private String publicUrl;
         private InvoicePreviousBalance previousBalanceData;
+        private LocalDate publicUrlExpiresOn;
 
 
 
@@ -2331,6 +2362,16 @@ public class Invoice
         }
 
         /**
+         * Setter for publicUrlExpiresOn.
+         * @param  publicUrlExpiresOn  LocalDate value for publicUrlExpiresOn.
+         * @return Builder
+         */
+        public Builder publicUrlExpiresOn(LocalDate publicUrlExpiresOn) {
+            this.publicUrlExpiresOn = publicUrlExpiresOn;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Invoice} object using the set fields.
          * @return {@link Invoice}
          */
@@ -2344,7 +2385,7 @@ public class Invoice
                     subtotalAmount, discountAmount, taxAmount, totalAmount, creditAmount,
                     refundAmount, paidAmount, dueAmount, lineItems, discounts, taxes, credits,
                     refunds, payments, customFields, displaySettings, publicUrl,
-                    previousBalanceData);
+                    previousBalanceData, publicUrlExpiresOn);
         }
     }
 }

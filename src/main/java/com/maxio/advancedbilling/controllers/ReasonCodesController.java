@@ -40,11 +40,11 @@ public final class ReasonCodesController extends BaseController {
     /**
      * # Reason Codes Intro ReasonCodes are a way to gain a high level view of why your customers
      * are cancelling the subcription to your product or service. Add a set of churn reason codes to
-     * be displayed in-app and/or the Chargify Billing Portal. As your subscribers decide to cancel
+     * be displayed in-app and/or the Maxio Billing Portal. As your subscribers decide to cancel
      * their subscription, learn why they decided to cancel. ## Reason Code Documentation Full
-     * documentation on how Reason Codes operate within Chargify can be located under the following
-     * links. [Churn Reason
-     * Codes](https://chargify.zendesk.com/hc/en-us/articles/4407896775579#churn-reason-codes) ##
+     * documentation on how Reason Codes operate within Advanced Billing can be located under the
+     * following links. [Churn Reason
+     * Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Reason-Codes) ##
      * Create Reason Code This method gives a merchant the option to create a reason codes for a
      * given Site.
      * @param  body  Optional parameter: Example:
@@ -131,7 +131,7 @@ public final class ReasonCodesController extends BaseController {
     /**
      * This method gives a merchant the option to retrieve a list of a particular code for a given
      * Site by providing the unique numerical ID of the code.
-     * @param  reasonCodeId  Required parameter: The Chargify id of the reason code
+     * @param  reasonCodeId  Required parameter: The Advanced Billing id of the reason code
      * @return    Returns the ReasonCodeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -171,7 +171,7 @@ public final class ReasonCodesController extends BaseController {
 
     /**
      * This method gives a merchant the option to update an existing reason code for a given site.
-     * @param  reasonCodeId  Required parameter: The Chargify id of the reason code
+     * @param  reasonCodeId  Required parameter: The Advanced Billing id of the reason code
      * @param  body  Optional parameter: Example:
      * @return    Returns the ReasonCodeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -219,7 +219,7 @@ public final class ReasonCodesController extends BaseController {
     /**
      * This method gives a merchant the option to delete one reason code from the Churn Reason
      * Codes. This code will be immediately removed. This action is not reversable.
-     * @param  reasonCodeId  Required parameter: The Chargify id of the reason code
+     * @param  reasonCodeId  Required parameter: The Advanced Billing id of the reason code
      * @return    Returns the ReasonCodesJsonResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

@@ -45,8 +45,8 @@ public final class SalesCommissionsController extends BaseController {
      * [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
      * Access to the Sales Commission API endpoints is available to users with financial access,
      * where the seller has the Advanced Analytics component enabled. For further information on
-     * getting access to Advanced Analytics please contact Chargify support. &gt; Note: The request is
-     * at seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
+     * getting access to Advanced Analytics please contact Maxio support. &gt; Note: The request is at
+     * seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
      * @param  input  ListSalesCommissionSettingsInput object containing request parameters
      * @return    Returns the List of SaleRepSettings response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -101,8 +101,8 @@ public final class SalesCommissionsController extends BaseController {
      * [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
      * Access to the Sales Commission API endpoints is available to users with financial access,
      * where the seller has the Advanced Analytics component enabled. For further information on
-     * getting access to Advanced Analytics please contact Chargify support. &gt; Note: The request is
-     * at seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
+     * getting access to Advanced Analytics please contact Maxio support. &gt; Note: The request is at
+     * seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
      * @param  input  ListSalesRepsInput object containing request parameters
      * @return    Returns the List of ListSaleRepItem response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -158,10 +158,10 @@ public final class SalesCommissionsController extends BaseController {
      * [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
      * Access to the Sales Commission API endpoints is available to users with financial access,
      * where the seller has the Advanced Analytics component enabled. For further information on
-     * getting access to Advanced Analytics please contact Chargify support. &gt; Note: The request is
-     * at seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
+     * getting access to Advanced Analytics please contact Maxio support. &gt; Note: The request is at
+     * seller level, it means `&lt;&lt;subdomain&gt;&gt;` variable will be replaced by `app`.
      * @param  sellerId  Required parameter: The Chargify id of your seller account
-     * @param  salesRepId  Required parameter: The Chargify id of sales rep.
+     * @param  salesRepId  Required parameter: The Advanced Billing id of sales rep.
      * @param  authorization  Optional parameter: For authorization use user API key. See details
      *         [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
      * @param  liveMode  Optional parameter: This parameter indicates if records should be fetched

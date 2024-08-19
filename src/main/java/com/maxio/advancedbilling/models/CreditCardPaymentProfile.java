@@ -28,7 +28,7 @@ public class CreditCardPaymentProfile
     private Integer expirationMonth;
     private Integer expirationYear;
     private Integer customerId;
-    private CurrentVault currentVault;
+    private CreditCardVault currentVault;
     private OptionalNullable<String> vaultToken;
     private OptionalNullable<String> billingAddress;
     private OptionalNullable<String> billingCity;
@@ -47,19 +47,21 @@ public class CreditCardPaymentProfile
      * Default constructor.
      */
     public CreditCardPaymentProfile() {
+        paymentType = PaymentType.CREDIT_CARD;
     }
 
     /**
      * Initialization constructor.
-     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
      * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  Integer value for expirationMonth.
      * @param  expirationYear  Integer value for expirationYear.
      * @param  customerId  Integer value for customerId.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  CreditCardVault value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
@@ -68,22 +70,22 @@ public class CreditCardPaymentProfile
      * @param  billingCountry  String value for billingCountry.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
-     * @param  paymentType  PaymentType value for paymentType.
      * @param  disabled  Boolean value for disabled.
      * @param  chargifyToken  String value for chargifyToken.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      */
     public CreditCardPaymentProfile(
-            String maskedCardNumber,
+            PaymentType paymentType,
             Integer id,
             String firstName,
             String lastName,
+            String maskedCardNumber,
             CardType cardType,
             Integer expirationMonth,
             Integer expirationYear,
             Integer customerId,
-            CurrentVault currentVault,
+            CreditCardVault currentVault,
             String vaultToken,
             String billingAddress,
             String billingCity,
@@ -92,7 +94,6 @@ public class CreditCardPaymentProfile
             String billingCountry,
             String customerVaultToken,
             String billingAddress2,
-            PaymentType paymentType,
             Boolean disabled,
             String chargifyToken,
             Integer siteGatewaySettingId,
@@ -123,15 +124,16 @@ public class CreditCardPaymentProfile
 
     /**
      * Initialization constructor.
-     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
      * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  Integer value for expirationMonth.
      * @param  expirationYear  Integer value for expirationYear.
      * @param  customerId  Integer value for customerId.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  CreditCardVault value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
@@ -140,21 +142,20 @@ public class CreditCardPaymentProfile
      * @param  billingCountry  String value for billingCountry.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
-     * @param  paymentType  PaymentType value for paymentType.
      * @param  disabled  Boolean value for disabled.
      * @param  chargifyToken  String value for chargifyToken.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      */
 
-    protected CreditCardPaymentProfile(String maskedCardNumber, Integer id, String firstName,
-            String lastName, CardType cardType, Integer expirationMonth, Integer expirationYear,
-            Integer customerId, CurrentVault currentVault, OptionalNullable<String> vaultToken,
-            OptionalNullable<String> billingAddress, OptionalNullable<String> billingCity,
-            OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
-            OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
-            OptionalNullable<String> billingAddress2, PaymentType paymentType, Boolean disabled,
-            String chargifyToken, OptionalNullable<Integer> siteGatewaySettingId,
+    protected CreditCardPaymentProfile(PaymentType paymentType, Integer id, String firstName,
+            String lastName, String maskedCardNumber, CardType cardType, Integer expirationMonth,
+            Integer expirationYear, Integer customerId, CreditCardVault currentVault,
+            OptionalNullable<String> vaultToken, OptionalNullable<String> billingAddress,
+            OptionalNullable<String> billingCity, OptionalNullable<String> billingState,
+            OptionalNullable<String> billingZip, OptionalNullable<String> billingCountry,
+            OptionalNullable<String> customerVaultToken, OptionalNullable<String> billingAddress2,
+            Boolean disabled, String chargifyToken, OptionalNullable<Integer> siteGatewaySettingId,
             OptionalNullable<String> gatewayHandle) {
         this.id = id;
         this.firstName = firstName;
@@ -182,15 +183,15 @@ public class CreditCardPaymentProfile
 
     /**
      * Initialization constructor.
-     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  paymentType  PaymentType value for paymentType.
      */
     @JsonCreator
     protected CreditCardPaymentProfile(
-            @JsonProperty("masked_card_number") String maskedCardNumber) {
-        this(maskedCardNumber, null, null, null, null, null, null, null, null,
+            @JsonProperty("payment_type") PaymentType paymentType) {
+        this(paymentType, null, null, null, null, null, null, null, null, null,
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
-                OptionalNullable.of(null), OptionalNullable.of(null), null, null, null,
+                OptionalNullable.of(null), OptionalNullable.of(null), null, null,
                 OptionalNullable.of(null), OptionalNullable.of(null));
         unsetVaultToken();
         unsetBillingAddress();
@@ -278,6 +279,7 @@ public class CreditCardPaymentProfile
      * @return Returns the String
      */
     @JsonGetter("masked_card_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedCardNumber() {
         return maskedCardNumber;
     }
@@ -381,11 +383,11 @@ public class CreditCardPaymentProfile
      * Getter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @return Returns the CurrentVault
+     * @return Returns the CreditCardVault
      */
     @JsonGetter("current_vault")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CurrentVault getCurrentVault() {
+    public CreditCardVault getCurrentVault() {
         return currentVault;
     }
 
@@ -393,10 +395,10 @@ public class CreditCardPaymentProfile
      * Setter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @param currentVault Value for CurrentVault
+     * @param currentVault Value for CreditCardVault
      */
     @JsonSetter("current_vault")
-    public void setCurrentVault(CurrentVault currentVault) {
+    public void setCurrentVault(CreditCardVault currentVault) {
         this.currentVault = currentVault;
     }
 
@@ -721,7 +723,6 @@ public class CreditCardPaymentProfile
      * @return Returns the PaymentType
      */
     @JsonGetter("payment_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public PaymentType getPaymentType() {
         return paymentType;
     }
@@ -859,17 +860,18 @@ public class CreditCardPaymentProfile
      */
     @Override
     public String toString() {
-        return "CreditCardPaymentProfile [" + "maskedCardNumber=" + maskedCardNumber + ", id=" + id
-                + ", firstName=" + firstName + ", lastName=" + lastName + ", cardType=" + cardType
-                + ", expirationMonth=" + expirationMonth + ", expirationYear=" + expirationYear
-                + ", customerId=" + customerId + ", currentVault=" + currentVault + ", vaultToken="
-                + vaultToken + ", billingAddress=" + billingAddress + ", billingCity=" + billingCity
+        return "CreditCardPaymentProfile [" + "paymentType=" + paymentType + ", id=" + id
+                + ", firstName=" + firstName + ", lastName=" + lastName + ", maskedCardNumber="
+                + maskedCardNumber + ", cardType=" + cardType + ", expirationMonth="
+                + expirationMonth + ", expirationYear=" + expirationYear + ", customerId="
+                + customerId + ", currentVault=" + currentVault + ", vaultToken=" + vaultToken
+                + ", billingAddress=" + billingAddress + ", billingCity=" + billingCity
                 + ", billingState=" + billingState + ", billingZip=" + billingZip
                 + ", billingCountry=" + billingCountry + ", customerVaultToken="
-                + customerVaultToken + ", billingAddress2=" + billingAddress2 + ", paymentType="
-                + paymentType + ", disabled=" + disabled + ", chargifyToken=" + chargifyToken
-                + ", siteGatewaySettingId=" + siteGatewaySettingId + ", gatewayHandle="
-                + gatewayHandle + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + customerVaultToken + ", billingAddress2=" + billingAddress2 + ", disabled="
+                + disabled + ", chargifyToken=" + chargifyToken + ", siteGatewaySettingId="
+                + siteGatewaySettingId + ", gatewayHandle=" + gatewayHandle
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -878,16 +880,16 @@ public class CreditCardPaymentProfile
      * @return a new {@link CreditCardPaymentProfile.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(maskedCardNumber)
+        Builder builder = new Builder(paymentType)
                 .id(getId())
                 .firstName(getFirstName())
                 .lastName(getLastName())
+                .maskedCardNumber(getMaskedCardNumber())
                 .cardType(getCardType())
                 .expirationMonth(getExpirationMonth())
                 .expirationYear(getExpirationYear())
                 .customerId(getCustomerId())
                 .currentVault(getCurrentVault())
-                .paymentType(getPaymentType())
                 .disabled(getDisabled())
                 .chargifyToken(getChargifyToken());
         builder.vaultToken = internalGetVaultToken();
@@ -907,15 +909,16 @@ public class CreditCardPaymentProfile
      * Class to build instances of {@link CreditCardPaymentProfile}.
      */
     public static class Builder {
-        private String maskedCardNumber;
+        private PaymentType paymentType = PaymentType.CREDIT_CARD;
         private Integer id;
         private String firstName;
         private String lastName;
+        private String maskedCardNumber;
         private CardType cardType;
         private Integer expirationMonth;
         private Integer expirationYear;
         private Integer customerId;
-        private CurrentVault currentVault;
+        private CreditCardVault currentVault;
         private OptionalNullable<String> vaultToken;
         private OptionalNullable<String> billingAddress;
         private OptionalNullable<String> billingCity;
@@ -924,7 +927,6 @@ public class CreditCardPaymentProfile
         private OptionalNullable<String> billingCountry;
         private OptionalNullable<String> customerVaultToken;
         private OptionalNullable<String> billingAddress2;
-        private PaymentType paymentType;
         private Boolean disabled;
         private String chargifyToken;
         private OptionalNullable<Integer> siteGatewaySettingId;
@@ -938,19 +940,19 @@ public class CreditCardPaymentProfile
 
         /**
          * Initialization constructor.
-         * @param  maskedCardNumber  String value for maskedCardNumber.
+         * @param  paymentType  PaymentType value for paymentType.
          */
-        public Builder(String maskedCardNumber) {
-            this.maskedCardNumber = maskedCardNumber;
+        public Builder(PaymentType paymentType) {
+            this.paymentType = paymentType;
         }
 
         /**
-         * Setter for maskedCardNumber.
-         * @param  maskedCardNumber  String value for maskedCardNumber.
+         * Setter for paymentType.
+         * @param  paymentType  PaymentType value for paymentType.
          * @return Builder
          */
-        public Builder maskedCardNumber(String maskedCardNumber) {
-            this.maskedCardNumber = maskedCardNumber;
+        public Builder paymentType(PaymentType paymentType) {
+            this.paymentType = paymentType;
             return this;
         }
 
@@ -981,6 +983,16 @@ public class CreditCardPaymentProfile
          */
         public Builder lastName(String lastName) {
             this.lastName = lastName;
+            return this;
+        }
+
+        /**
+         * Setter for maskedCardNumber.
+         * @param  maskedCardNumber  String value for maskedCardNumber.
+         * @return Builder
+         */
+        public Builder maskedCardNumber(String maskedCardNumber) {
+            this.maskedCardNumber = maskedCardNumber;
             return this;
         }
 
@@ -1026,10 +1038,10 @@ public class CreditCardPaymentProfile
 
         /**
          * Setter for currentVault.
-         * @param  currentVault  CurrentVault value for currentVault.
+         * @param  currentVault  CreditCardVault value for currentVault.
          * @return Builder
          */
-        public Builder currentVault(CurrentVault currentVault) {
+        public Builder currentVault(CreditCardVault currentVault) {
             this.currentVault = currentVault;
             return this;
         }
@@ -1187,16 +1199,6 @@ public class CreditCardPaymentProfile
         }
 
         /**
-         * Setter for paymentType.
-         * @param  paymentType  PaymentType value for paymentType.
-         * @return Builder
-         */
-        public Builder paymentType(PaymentType paymentType) {
-            this.paymentType = paymentType;
-            return this;
-        }
-
-        /**
          * Setter for disabled.
          * @param  disabled  Boolean value for disabled.
          * @return Builder
@@ -1259,10 +1261,10 @@ public class CreditCardPaymentProfile
          * @return {@link CreditCardPaymentProfile}
          */
         public CreditCardPaymentProfile build() {
-            return new CreditCardPaymentProfile(maskedCardNumber, id, firstName, lastName, cardType,
-                    expirationMonth, expirationYear, customerId, currentVault, vaultToken,
-                    billingAddress, billingCity, billingState, billingZip, billingCountry,
-                    customerVaultToken, billingAddress2, paymentType, disabled, chargifyToken,
+            return new CreditCardPaymentProfile(paymentType, id, firstName, lastName,
+                    maskedCardNumber, cardType, expirationMonth, expirationYear, customerId,
+                    currentVault, vaultToken, billingAddress, billingCity, billingState, billingZip,
+                    billingCountry, customerVaultToken, billingAddress2, disabled, chargifyToken,
                     siteGatewaySettingId, gatewayHandle);
         }
     }

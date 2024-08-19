@@ -55,7 +55,7 @@ public final class ProductPricePointsController extends BaseController {
 
     /**
      * [Product Price Point
-     * Documentation](https://chargify.zendesk.com/hc/en-us/articles/4407755824155).
+     * Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261111947789-Product-Price-Points).
      * @param  productId  Required parameter: The id or handle of the product. When using the
      *         handle, it must be prefixed with `handle:`
      * @param  body  Optional parameter: Example:
@@ -310,9 +310,9 @@ public final class ProductPricePointsController extends BaseController {
 
     /**
      * Use this endpoint to unarchive an archived product price point.
-     * @param  productId  Required parameter: The Chargify id of the product to which the price
-     *         point belongs
-     * @param  pricePointId  Required parameter: The Chargify id of the product price point
+     * @param  productId  Required parameter: The Advanced Billing id of the product to which the
+     *         price point belongs
+     * @param  pricePointId  Required parameter: The Advanced Billing id of the product price point
      * @return    Returns the ProductPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -354,9 +354,9 @@ public final class ProductPricePointsController extends BaseController {
     /**
      * Use this endpoint to make a product price point the default for the product. Note: Custom
      * product price points are not able to be set as the default for a product.
-     * @param  productId  Required parameter: The Chargify id of the product to which the price
-     *         point belongs
-     * @param  pricePointId  Required parameter: The Chargify id of the product price point
+     * @param  productId  Required parameter: The Advanced Billing id of the product to which the
+     *         price point belongs
+     * @param  pricePointId  Required parameter: The Advanced Billing id of the product price point
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -397,8 +397,8 @@ public final class ProductPricePointsController extends BaseController {
 
     /**
      * Use this endpoint to create multiple product price points in one request.
-     * @param  productId  Required parameter: The Chargify id of the product to which the price
-     *         points belong
+     * @param  productId  Required parameter: The Advanced Billing id of the product to which the
+     *         price points belong
      * @param  body  Optional parameter: Example:
      * @return    Returns the BulkCreateProductPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -449,7 +449,8 @@ public final class ProductPricePointsController extends BaseController {
      * structure of your primary pricing. If the product price point defines a trial and/or setup
      * fee, each currency must also define a trial and/or setup fee. Note: Currency Prices are not
      * able to be created for custom product price points.
-     * @param  productPricePointId  Required parameter: The Chargify id of the product price point
+     * @param  productPricePointId  Required parameter: The Advanced Billing id of the product price
+     *         point
      * @param  body  Optional parameter: Example:
      * @return    Returns the CurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -500,7 +501,8 @@ public final class ProductPricePointsController extends BaseController {
      * structure of your primary pricing. If the product price point defines a trial and/or setup
      * fee, each currency must also define a trial and/or setup fee. Note: Currency Prices are not
      * able to be updated for custom product price points.
-     * @param  productPricePointId  Required parameter: The Chargify id of the product price point
+     * @param  productPricePointId  Required parameter: The Advanced Billing id of the product price
+     *         point
      * @param  body  Optional parameter: Example:
      * @return    Returns the CurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

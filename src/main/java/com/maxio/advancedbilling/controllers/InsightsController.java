@@ -124,14 +124,14 @@ public final class InsightsController extends BaseController {
     /**
      * This endpoint returns your site's MRR movements. ## Understanding MRR movements This endpoint
      * will aid in accessing your site's [MRR
-     * Report](https://chargify.zendesk.com/hc/en-us/articles/4407838249627) data. Whenever a
-     * subscription event occurs that causes your site's MRR to change (such as a signup or
-     * upgrade), we record an MRR movement. These records are accessible via the MRR Movements
+     * Report](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-Analytics) data.
+     * Whenever a subscription event occurs that causes your site's MRR to change (such as a signup
+     * or upgrade), we record an MRR movement. These records are accessible via the MRR Movements
      * endpoint. Each MRR Movement belongs to a subscription and contains a timestamp, category, and
      * an amount. `line_items` represent the subscription's product configuration at the time of the
      * movement. ### Plan &amp; Usage Breakouts In the MRR Report UI, we support a setting to [include
      * or
-     * exclude](https://chargify.zendesk.com/hc/en-us/articles/4407838249627#displaying-component-based-metered-usage-in-mrr)
+     * exclude](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-Analytics#displaying-component-based-metered-usage-in-mrr)
      * usage revenue. In the MRR APIs, responses include `plan` and `usage` breakouts. Plan includes
      * revenue from: * Products * Quantity-Based Components * On/Off Components Usage includes
      * revenue from: * Metered Components * Prepaid Usage Components.
