@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.models.CreateProductFamily;
 import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.CreateProductPricePoint;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
+import com.maxio.advancedbilling.models.ExpirationIntervalUnit;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.ListAllProductPricePointsInput;
 import com.maxio.advancedbilling.models.ListPricePointsFilter;
@@ -101,7 +102,7 @@ abstract class ProductPricePointsBaseTest {
                 .initialChargeInCents(120000L)
                 .initialChargeAfterTrial(false)
                 .expirationInterval(12)
-                .expirationIntervalUnit(IntervalUnit.MONTH);
+                .expirationIntervalUnit(ExpirationIntervalUnit.MONTH);
     }
 
     // when archiving default price point, {"errors":["Cannot archive the default price point."]} is returned

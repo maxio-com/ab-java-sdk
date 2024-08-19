@@ -18,7 +18,7 @@ import com.maxio.advancedbilling.models.CreateSubscription;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
 import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
-import com.maxio.advancedbilling.models.CurrentVault;
+import com.maxio.advancedbilling.models.CreditCardVault;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.GroupSettings;
 import com.maxio.advancedbilling.models.GroupTarget;
@@ -159,7 +159,7 @@ public class SubscriptionsControllerCreateTest {
         assertThat(creditCard.getCardType()).isEqualTo(CardType.VISA);
         assertThat(creditCard.getExpirationMonth()).isEqualTo(5);
         assertThat(creditCard.getExpirationYear()).isEqualTo(2050);
-        assertThat(creditCard.getCurrentVault()).isEqualTo(CurrentVault.BOGUS);
+        assertThat(creditCard.getCurrentVault()).isEqualTo(CreditCardVault.BOGUS);
         assertThat(creditCard.getVaultToken()).isNotEmpty();
         assertThat(creditCard.getBillingAddress()).isEqualTo("My Billing Address");
         assertThat(creditCard.getBillingCity()).isEqualTo("New York");

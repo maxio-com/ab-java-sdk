@@ -11,7 +11,7 @@ import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreateAllocationRequest;
 import com.maxio.advancedbilling.models.Customer;
-import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.ExpirationIntervalUnit;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionComponentAllocationErrorItem;
@@ -51,7 +51,7 @@ class SubscriptionComponentsUpdatePrepaidAllocationExpirationDateTest {
         customer = TEST_SETUP.createCustomer();
         prepaidComponent = TEST_SETUP.createPrepaidComponent(productFamily, customizer -> customizer
                 .rolloverPrepaidRemainder(true)
-                .expirationIntervalUnit(IntervalUnit.DAY)
+                .expirationIntervalUnit(ExpirationIntervalUnit.DAY)
                 .expirationInterval(10.0)
         );
         subscription = TEST_SETUP.createSubscription(customer, TEST_SETUP.createProduct(productFamily));
