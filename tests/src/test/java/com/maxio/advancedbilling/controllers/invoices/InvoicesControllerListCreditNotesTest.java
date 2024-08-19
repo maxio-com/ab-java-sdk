@@ -246,6 +246,7 @@ class InvoicesControllerListCreditNotesTest {
                         .gatewayTransactionId(null)
                         .gatewayUsed("bogus")
                         .gatewayHandle(null)
+                        .achLateReject(false)
                         .build()
                 );
     }
