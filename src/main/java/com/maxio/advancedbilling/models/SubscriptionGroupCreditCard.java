@@ -24,7 +24,7 @@ public class SubscriptionGroupCreditCard
     private SubscriptionGroupCreditCardExpirationYear expirationYear;
     private String chargifyToken;
     private String vaultToken;
-    private CurrentVault currentVault;
+    private CreditCardVault currentVault;
     private String gatewayHandle;
     private String firstName;
     private String lastName;
@@ -54,7 +54,7 @@ public class SubscriptionGroupCreditCard
      * @param  expirationYear  SubscriptionGroupCreditCardExpirationYear value for expirationYear.
      * @param  chargifyToken  String value for chargifyToken.
      * @param  vaultToken  String value for vaultToken.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  CreditCardVault value for currentVault.
      * @param  gatewayHandle  String value for gatewayHandle.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
@@ -76,7 +76,7 @@ public class SubscriptionGroupCreditCard
             SubscriptionGroupCreditCardExpirationYear expirationYear,
             String chargifyToken,
             String vaultToken,
-            CurrentVault currentVault,
+            CreditCardVault currentVault,
             String gatewayHandle,
             String firstName,
             String lastName,
@@ -212,11 +212,11 @@ public class SubscriptionGroupCreditCard
      * Getter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @return Returns the CurrentVault
+     * @return Returns the CreditCardVault
      */
     @JsonGetter("current_vault")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CurrentVault getCurrentVault() {
+    public CreditCardVault getCurrentVault() {
         return currentVault;
     }
 
@@ -224,10 +224,10 @@ public class SubscriptionGroupCreditCard
      * Setter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @param currentVault Value for CurrentVault
+     * @param currentVault Value for CreditCardVault
      */
     @JsonSetter("current_vault")
-    public void setCurrentVault(CurrentVault currentVault) {
+    public void setCurrentVault(CreditCardVault currentVault) {
         this.currentVault = currentVault;
     }
 
@@ -556,7 +556,7 @@ public class SubscriptionGroupCreditCard
         private SubscriptionGroupCreditCardExpirationYear expirationYear;
         private String chargifyToken;
         private String vaultToken;
-        private CurrentVault currentVault;
+        private CreditCardVault currentVault;
         private String gatewayHandle;
         private String firstName;
         private String lastName;
@@ -629,10 +629,10 @@ public class SubscriptionGroupCreditCard
 
         /**
          * Setter for currentVault.
-         * @param  currentVault  CurrentVault value for currentVault.
+         * @param  currentVault  CreditCardVault value for currentVault.
          * @return Builder
          */
-        public Builder currentVault(CurrentVault currentVault) {
+        public Builder currentVault(CreditCardVault currentVault) {
             this.currentVault = currentVault;
             return this;
         }

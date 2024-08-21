@@ -4,6 +4,7 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ProductPricePointErrorResponseException;
 import com.maxio.advancedbilling.models.CreateProductPricePoint;
 import com.maxio.advancedbilling.models.CreateProductPricePointRequest;
+import com.maxio.advancedbilling.models.ExpirationIntervalUnit;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.PricePointType;
 import com.maxio.advancedbilling.models.Product;
@@ -57,7 +58,7 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                 () -> assertThat(productPricePoint.getInitialChargeInCents()).isEqualTo(120000),
                 () -> assertThat(productPricePoint.getInitialChargeAfterTrial()).isFalse(),
                 () -> assertThat(productPricePoint.getExpirationInterval()).isEqualTo(12),
-                () -> assertThat(productPricePoint.getExpirationIntervalUnit()).isEqualTo(IntervalUnit.MONTH),
+                () -> assertThat(productPricePoint.getExpirationIntervalUnit()).isEqualTo(ExpirationIntervalUnit.MONTH),
                 () -> assertThat(productPricePoint.getProductId()).isEqualTo(product.getId()),
                 () -> assertThat(productPricePoint.getArchivedAt()).isNull(),
                 () -> assertThat(productPricePoint.getCreatedAt()).isNotNull(),

@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `InvoiceId` | `String` | Optional | The uid of the paid invoice | String getInvoiceId() | setInvoiceId(String invoiceId) |
-| `Status` | [`InvoiceStatus`](../../doc/models/invoice-status.md) | Optional | The current status of the invoice. See [Invoice Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statuses) for more. | InvoiceStatus getStatus() | setStatus(InvoiceStatus status) |
+| `Status` | [`InvoiceStatus`](../../doc/models/invoice-status.md) | Optional | The current status of the invoice. See [Invoice Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses) for more. | InvoiceStatus getStatus() | setStatus(InvoiceStatus status) |
 | `DueAmount` | `String` | Optional | The remaining due amount on the invoice | String getDueAmount() | setDueAmount(String dueAmount) |
 | `PaidAmount` | `String` | Optional | The total amount paid on this invoice (including any prior payments) | String getPaidAmount() | setPaidAmount(String paidAmount) |
 

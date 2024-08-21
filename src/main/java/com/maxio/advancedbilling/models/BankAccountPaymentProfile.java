@@ -47,13 +47,14 @@ public class BankAccountPaymentProfile
      * Default constructor.
      */
     public BankAccountPaymentProfile() {
+        paymentType = PaymentType.BANK_ACCOUNT;
         verified = false;
     }
 
     /**
      * Initialization constructor.
-     * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
      * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
@@ -68,16 +69,16 @@ public class BankAccountPaymentProfile
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
+     * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
      * @param  bankAccountType  BankAccountType value for bankAccountType.
      * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
-     * @param  paymentType  PaymentType value for paymentType.
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      */
     public BankAccountPaymentProfile(
-            String maskedBankRoutingNumber,
             String maskedBankAccountNumber,
+            PaymentType paymentType,
             Integer id,
             String firstName,
             String lastName,
@@ -92,9 +93,9 @@ public class BankAccountPaymentProfile
             String customerVaultToken,
             String billingAddress2,
             String bankName,
+            String maskedBankRoutingNumber,
             BankAccountType bankAccountType,
             BankAccountHolderType bankAccountHolderType,
-            PaymentType paymentType,
             Boolean verified,
             Integer siteGatewaySettingId,
             String gatewayHandle) {
@@ -124,8 +125,8 @@ public class BankAccountPaymentProfile
 
     /**
      * Initialization constructor.
-     * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
      * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
+     * @param  paymentType  PaymentType value for paymentType.
      * @param  id  Integer value for id.
      * @param  firstName  String value for firstName.
      * @param  lastName  String value for lastName.
@@ -140,23 +141,23 @@ public class BankAccountPaymentProfile
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
+     * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
      * @param  bankAccountType  BankAccountType value for bankAccountType.
      * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
-     * @param  paymentType  PaymentType value for paymentType.
      * @param  verified  Boolean value for verified.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      */
 
-    protected BankAccountPaymentProfile(String maskedBankRoutingNumber,
-            String maskedBankAccountNumber, Integer id, String firstName, String lastName,
-            Integer customerId, BankAccountVault currentVault, String vaultToken,
+    protected BankAccountPaymentProfile(String maskedBankAccountNumber, PaymentType paymentType,
+            Integer id, String firstName, String lastName, Integer customerId,
+            BankAccountVault currentVault, String vaultToken,
             OptionalNullable<String> billingAddress, OptionalNullable<String> billingCity,
             OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
             OptionalNullable<String> billingAddress2, String bankName,
-            BankAccountType bankAccountType, BankAccountHolderType bankAccountHolderType,
-            PaymentType paymentType, Boolean verified,
+            String maskedBankRoutingNumber, BankAccountType bankAccountType,
+            BankAccountHolderType bankAccountHolderType, Boolean verified,
             OptionalNullable<Integer> siteGatewaySettingId,
             OptionalNullable<String> gatewayHandle) {
         this.id = id;
@@ -185,14 +186,14 @@ public class BankAccountPaymentProfile
 
     /**
      * Initialization constructor.
-     * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
      * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
+     * @param  paymentType  PaymentType value for paymentType.
      */
     @JsonCreator
     protected BankAccountPaymentProfile(
-            @JsonProperty("masked_bank_routing_number") String maskedBankRoutingNumber,
-            @JsonProperty("masked_bank_account_number") String maskedBankAccountNumber) {
-        this(maskedBankRoutingNumber, maskedBankAccountNumber, null, null, null, null, null, null,
+            @JsonProperty("masked_bank_account_number") String maskedBankAccountNumber,
+            @JsonProperty("payment_type") PaymentType paymentType) {
+        this(maskedBankAccountNumber, paymentType, null, null, null, null, null, null,
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), null, null, null, null, null, OptionalNullable.of(null),
@@ -298,7 +299,8 @@ public class BankAccountPaymentProfile
 
     /**
      * Getter for CurrentVault.
-     * The vault that stores the payment profile with the provided vault_token.
+     * The vault that stores the payment profile with the provided vault_token. Use `bogus` for
+     * testing.
      * @return Returns the BankAccountVault
      */
     @JsonGetter("current_vault")
@@ -309,7 +311,8 @@ public class BankAccountPaymentProfile
 
     /**
      * Setter for CurrentVault.
-     * The vault that stores the payment profile with the provided vault_token.
+     * The vault that stores the payment profile with the provided vault_token. Use `bogus` for
+     * testing.
      * @param currentVault Value for BankAccountVault
      */
     @JsonSetter("current_vault")
@@ -643,6 +646,7 @@ public class BankAccountPaymentProfile
      * @return Returns the String
      */
     @JsonGetter("masked_bank_routing_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMaskedBankRoutingNumber() {
         return maskedBankRoutingNumber;
     }
@@ -727,7 +731,6 @@ public class BankAccountPaymentProfile
      * @return Returns the PaymentType
      */
     @JsonGetter("payment_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public PaymentType getPaymentType() {
         return paymentType;
     }
@@ -840,16 +843,16 @@ public class BankAccountPaymentProfile
      */
     @Override
     public String toString() {
-        return "BankAccountPaymentProfile [" + "maskedBankRoutingNumber=" + maskedBankRoutingNumber
-                + ", maskedBankAccountNumber=" + maskedBankAccountNumber + ", id=" + id
-                + ", firstName=" + firstName + ", lastName=" + lastName + ", customerId="
-                + customerId + ", currentVault=" + currentVault + ", vaultToken=" + vaultToken
-                + ", billingAddress=" + billingAddress + ", billingCity=" + billingCity
-                + ", billingState=" + billingState + ", billingZip=" + billingZip
-                + ", billingCountry=" + billingCountry + ", customerVaultToken="
-                + customerVaultToken + ", billingAddress2=" + billingAddress2 + ", bankName="
-                + bankName + ", bankAccountType=" + bankAccountType + ", bankAccountHolderType="
-                + bankAccountHolderType + ", paymentType=" + paymentType + ", verified=" + verified
+        return "BankAccountPaymentProfile [" + "maskedBankAccountNumber=" + maskedBankAccountNumber
+                + ", paymentType=" + paymentType + ", id=" + id + ", firstName=" + firstName
+                + ", lastName=" + lastName + ", customerId=" + customerId + ", currentVault="
+                + currentVault + ", vaultToken=" + vaultToken + ", billingAddress=" + billingAddress
+                + ", billingCity=" + billingCity + ", billingState=" + billingState
+                + ", billingZip=" + billingZip + ", billingCountry=" + billingCountry
+                + ", customerVaultToken=" + customerVaultToken + ", billingAddress2="
+                + billingAddress2 + ", bankName=" + bankName + ", maskedBankRoutingNumber="
+                + maskedBankRoutingNumber + ", bankAccountType=" + bankAccountType
+                + ", bankAccountHolderType=" + bankAccountHolderType + ", verified=" + verified
                 + ", siteGatewaySettingId=" + siteGatewaySettingId + ", gatewayHandle="
                 + gatewayHandle + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
@@ -860,7 +863,7 @@ public class BankAccountPaymentProfile
      * @return a new {@link BankAccountPaymentProfile.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(maskedBankRoutingNumber, maskedBankAccountNumber)
+        Builder builder = new Builder(maskedBankAccountNumber, paymentType)
                 .id(getId())
                 .firstName(getFirstName())
                 .lastName(getLastName())
@@ -868,9 +871,9 @@ public class BankAccountPaymentProfile
                 .currentVault(getCurrentVault())
                 .vaultToken(getVaultToken())
                 .bankName(getBankName())
+                .maskedBankRoutingNumber(getMaskedBankRoutingNumber())
                 .bankAccountType(getBankAccountType())
                 .bankAccountHolderType(getBankAccountHolderType())
-                .paymentType(getPaymentType())
                 .verified(getVerified());
         builder.billingAddress = internalGetBillingAddress();
         builder.billingCity = internalGetBillingCity();
@@ -888,8 +891,8 @@ public class BankAccountPaymentProfile
      * Class to build instances of {@link BankAccountPaymentProfile}.
      */
     public static class Builder {
-        private String maskedBankRoutingNumber;
         private String maskedBankAccountNumber;
+        private PaymentType paymentType = PaymentType.BANK_ACCOUNT;
         private Integer id;
         private String firstName;
         private String lastName;
@@ -904,9 +907,9 @@ public class BankAccountPaymentProfile
         private OptionalNullable<String> customerVaultToken;
         private OptionalNullable<String> billingAddress2;
         private String bankName;
+        private String maskedBankRoutingNumber;
         private BankAccountType bankAccountType;
         private BankAccountHolderType bankAccountHolderType;
-        private PaymentType paymentType;
         private Boolean verified = false;
         private OptionalNullable<Integer> siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
@@ -919,22 +922,12 @@ public class BankAccountPaymentProfile
 
         /**
          * Initialization constructor.
-         * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
          * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
+         * @param  paymentType  PaymentType value for paymentType.
          */
-        public Builder(String maskedBankRoutingNumber, String maskedBankAccountNumber) {
-            this.maskedBankRoutingNumber = maskedBankRoutingNumber;
+        public Builder(String maskedBankAccountNumber, PaymentType paymentType) {
             this.maskedBankAccountNumber = maskedBankAccountNumber;
-        }
-
-        /**
-         * Setter for maskedBankRoutingNumber.
-         * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
-         * @return Builder
-         */
-        public Builder maskedBankRoutingNumber(String maskedBankRoutingNumber) {
-            this.maskedBankRoutingNumber = maskedBankRoutingNumber;
-            return this;
+            this.paymentType = paymentType;
         }
 
         /**
@@ -944,6 +937,16 @@ public class BankAccountPaymentProfile
          */
         public Builder maskedBankAccountNumber(String maskedBankAccountNumber) {
             this.maskedBankAccountNumber = maskedBankAccountNumber;
+            return this;
+        }
+
+        /**
+         * Setter for paymentType.
+         * @param  paymentType  PaymentType value for paymentType.
+         * @return Builder
+         */
+        public Builder paymentType(PaymentType paymentType) {
+            this.paymentType = paymentType;
             return this;
         }
 
@@ -1151,6 +1154,16 @@ public class BankAccountPaymentProfile
         }
 
         /**
+         * Setter for maskedBankRoutingNumber.
+         * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
+         * @return Builder
+         */
+        public Builder maskedBankRoutingNumber(String maskedBankRoutingNumber) {
+            this.maskedBankRoutingNumber = maskedBankRoutingNumber;
+            return this;
+        }
+
+        /**
          * Setter for bankAccountType.
          * @param  bankAccountType  BankAccountType value for bankAccountType.
          * @return Builder
@@ -1167,16 +1180,6 @@ public class BankAccountPaymentProfile
          */
         public Builder bankAccountHolderType(BankAccountHolderType bankAccountHolderType) {
             this.bankAccountHolderType = bankAccountHolderType;
-            return this;
-        }
-
-        /**
-         * Setter for paymentType.
-         * @param  paymentType  PaymentType value for paymentType.
-         * @return Builder
-         */
-        public Builder paymentType(PaymentType paymentType) {
-            this.paymentType = paymentType;
             return this;
         }
 
@@ -1233,11 +1236,11 @@ public class BankAccountPaymentProfile
          * @return {@link BankAccountPaymentProfile}
          */
         public BankAccountPaymentProfile build() {
-            return new BankAccountPaymentProfile(maskedBankRoutingNumber, maskedBankAccountNumber,
-                    id, firstName, lastName, customerId, currentVault, vaultToken, billingAddress,
+            return new BankAccountPaymentProfile(maskedBankAccountNumber, paymentType, id,
+                    firstName, lastName, customerId, currentVault, vaultToken, billingAddress,
                     billingCity, billingState, billingZip, billingCountry, customerVaultToken,
-                    billingAddress2, bankName, bankAccountType, bankAccountHolderType, paymentType,
-                    verified, siteGatewaySettingId, gatewayHandle);
+                    billingAddress2, bankName, maskedBankRoutingNumber, bankAccountType,
+                    bankAccountHolderType, verified, siteGatewaySettingId, gatewayHandle);
         }
     }
 }

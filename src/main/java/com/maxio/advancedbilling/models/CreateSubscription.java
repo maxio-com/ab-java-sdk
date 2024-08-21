@@ -622,7 +622,7 @@ public class CreateSubscription
      * Getter for NextBillingAt.
      * (Optional) Set this attribute to a future date/time to sync imported subscriptions to your
      * existing renewal schedule. See the notes on “Date/Time Format” in our [subscription import
-     * documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404863655821#date-format).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
      * If you provide a next_billing_at timestamp that is in the future, no trial or initial charges
      * will be applied when you create the subscription. In fact, no payment will be captured at
      * all. The first payment will be captured, according to the prices defined by the product, near
@@ -643,7 +643,7 @@ public class CreateSubscription
      * Setter for NextBillingAt.
      * (Optional) Set this attribute to a future date/time to sync imported subscriptions to your
      * existing renewal schedule. See the notes on “Date/Time Format” in our [subscription import
-     * documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404863655821#date-format).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
      * If you provide a next_billing_at timestamp that is in the future, no trial or initial charges
      * will be applied when you create the subscription. In fact, no payment will be captured at
      * all. The first payment will be captured, according to the prices defined by the product, near
@@ -664,7 +664,7 @@ public class CreateSubscription
      * (Optional) Set this attribute to a future date/time to create a subscription in the "Awaiting
      * Signup" state, rather than "Active" or "Trialing". See the notes on “Date/Time Format” in our
      * [subscription import
-     * documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404863655821#date-format).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
      * In the "Awaiting Signup" state, a subscription behaves like any other. It can be canceled,
      * allocated to, had its billing date changed. etc. When the initial_billing_at date hits, the
      * subscription will transition to the expected state. If the product has a trial, the
@@ -686,7 +686,7 @@ public class CreateSubscription
      * (Optional) Set this attribute to a future date/time to create a subscription in the "Awaiting
      * Signup" state, rather than "Active" or "Trialing". See the notes on “Date/Time Format” in our
      * [subscription import
-     * documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404863655821#date-format).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
      * In the "Awaiting Signup" state, a subscription behaves like any other. It can be canceled,
      * allocated to, had its billing date changed. etc. When the initial_billing_at date hits, the
      * subscription will transition to the expected state. If the product has a trial, the
@@ -883,8 +883,8 @@ public class CreateSubscription
     /**
      * Getter for Components.
      * (Optional) An array of component ids and quantities to be added to the subscription. See
-     * [Components](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677) for more
-     * information.
+     * [Components](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview)
+     * for more information.
      * @return Returns the List of CreateSubscriptionComponent
      */
     @JsonGetter("components")
@@ -896,8 +896,8 @@ public class CreateSubscription
     /**
      * Setter for Components.
      * (Optional) An array of component ids and quantities to be added to the subscription. See
-     * [Components](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677) for more
-     * information.
+     * [Components](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview)
+     * for more information.
      * @param components Value for List of CreateSubscriptionComponent
      */
     @JsonSetter("components")
@@ -994,7 +994,7 @@ public class CreateSubscription
     /**
      * Getter for Ref.
      * A valid referral code. (optional, see
-     * [Referrals](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405420204045-Referrals-Reference#how-to-obtain-referral-codes)
+     * [Referrals](https://maxio.zendesk.com/hc/en-us/articles/24286981223693-Referrals-Reference#how-to-obtain-referral-codes)
      * for more details). If supplied, must be valid, or else subscription creation will fail.
      * @return Returns the String
      */
@@ -1007,7 +1007,7 @@ public class CreateSubscription
     /**
      * Setter for Ref.
      * A valid referral code. (optional, see
-     * [Referrals](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405420204045-Referrals-Reference#how-to-obtain-referral-codes)
+     * [Referrals](https://maxio.zendesk.com/hc/en-us/articles/24286981223693-Referrals-Reference#how-to-obtain-referral-codes)
      * for more details). If supplied, must be valid, or else subscription creation will fail.
      * @param ref Value for String
      */

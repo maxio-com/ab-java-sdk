@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class CreateComponentPricePoint
     private Boolean useSiteExchangeRate;
     private Boolean taxIncluded;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
 
     /**
      * Default constructor.
@@ -62,6 +64,31 @@ public class CreateComponentPricePoint
         this.useSiteExchangeRate = useSiteExchangeRate;
         this.taxIncluded = taxIncluded;
         this.interval = interval;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  prices  List of Price value for prices.
+     * @param  handle  String value for handle.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     */
+
+    protected CreateComponentPricePoint(String name, PricingScheme pricingScheme,
+            List<Price> prices, String handle, Boolean useSiteExchangeRate, Boolean taxIncluded,
+            Integer interval, OptionalNullable<IntervalUnit> intervalUnit) {
+        this.name = name;
+        this.handle = handle;
+        this.pricingScheme = pricingScheme;
+        this.prices = prices;
+        this.useSiteExchangeRate = useSiteExchangeRate;
+        this.taxIncluded = taxIncluded;
+        this.interval = interval;
         this.intervalUnit = intervalUnit;
     }
 
@@ -76,7 +103,8 @@ public class CreateComponentPricePoint
             @JsonProperty("name") String name,
             @JsonProperty("pricing_scheme") PricingScheme pricingScheme,
             @JsonProperty("prices") List<Price> prices) {
-        this(name, pricingScheme, prices, null, null, null, null, null);
+        this(name, pricingScheme, prices, null, null, null, null, OptionalNullable.of(null));
+        unsetIntervalUnit();
     }
 
     /**
@@ -228,15 +256,26 @@ public class CreateComponentPricePoint
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this price point, either month or day. This
+     * property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this price point, either month or day. This
      * property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -247,7 +286,16 @@ public class CreateComponentPricePoint
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this price point, either month or day. This
+     * property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -273,8 +321,8 @@ public class CreateComponentPricePoint
                 .handle(getHandle())
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .taxIncluded(getTaxIncluded())
-                .interval(getInterval())
-                .intervalUnit(getIntervalUnit());
+                .interval(getInterval());
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -289,7 +337,7 @@ public class CreateComponentPricePoint
         private Boolean useSiteExchangeRate = true;
         private Boolean taxIncluded;
         private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<IntervalUnit> intervalUnit;
 
         /**
          * Initialization constructor.
@@ -385,7 +433,16 @@ public class CreateComponentPricePoint
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 

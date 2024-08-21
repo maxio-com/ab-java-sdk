@@ -48,6 +48,7 @@ public class Customer
     private OptionalNullable<Integer> parentId;
     private OptionalNullable<String> locale;
     private OptionalNullable<String> defaultSubscriptionGroupUid;
+    private OptionalNullable<String> salesforceId;
 
     /**
      * Default constructor.
@@ -84,6 +85,7 @@ public class Customer
      * @param  parentId  Integer value for parentId.
      * @param  locale  String value for locale.
      * @param  defaultSubscriptionGroupUid  String value for defaultSubscriptionGroupUid.
+     * @param  salesforceId  String value for salesforceId.
      */
     public Customer(
             String firstName,
@@ -112,7 +114,8 @@ public class Customer
             String vatNumber,
             Integer parentId,
             String locale,
-            String defaultSubscriptionGroupUid) {
+            String defaultSubscriptionGroupUid,
+            String salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -140,6 +143,7 @@ public class Customer
         this.parentId = OptionalNullable.of(parentId);
         this.locale = OptionalNullable.of(locale);
         this.defaultSubscriptionGroupUid = OptionalNullable.of(defaultSubscriptionGroupUid);
+        this.salesforceId = OptionalNullable.of(salesforceId);
     }
 
     /**
@@ -171,6 +175,7 @@ public class Customer
      * @param  parentId  Integer value for parentId.
      * @param  locale  String value for locale.
      * @param  defaultSubscriptionGroupUid  String value for defaultSubscriptionGroupUid.
+     * @param  salesforceId  String value for salesforceId.
      */
 
     protected Customer(String firstName, String lastName, String email,
@@ -186,8 +191,8 @@ public class Customer
             OptionalNullable<ZonedDateTime> portalInviteLastSentAt,
             OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt, Boolean taxExempt,
             OptionalNullable<String> vatNumber, OptionalNullable<Integer> parentId,
-            OptionalNullable<String> locale,
-            OptionalNullable<String> defaultSubscriptionGroupUid) {
+            OptionalNullable<String> locale, OptionalNullable<String> defaultSubscriptionGroupUid,
+            OptionalNullable<String> salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -215,6 +220,7 @@ public class Customer
         this.parentId = parentId;
         this.locale = locale;
         this.defaultSubscriptionGroupUid = defaultSubscriptionGroupUid;
+        this.salesforceId = salesforceId;
     }
 
     /**
@@ -1178,6 +1184,45 @@ public class Customer
     }
 
     /**
+     * Internal Getter for SalesforceId.
+     * The Salesforce ID for the customer
+     * @return Returns the Internal String
+     */
+    @JsonGetter("salesforce_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSalesforceId() {
+        return this.salesforceId;
+    }
+
+    /**
+     * Getter for SalesforceId.
+     * The Salesforce ID for the customer
+     * @return Returns the String
+     */
+    public String getSalesforceId() {
+        return OptionalNullable.getFrom(salesforceId);
+    }
+
+    /**
+     * Setter for SalesforceId.
+     * The Salesforce ID for the customer
+     * @param salesforceId Value for String
+     */
+    @JsonSetter("salesforce_id")
+    public void setSalesforceId(String salesforceId) {
+        this.salesforceId = OptionalNullable.of(salesforceId);
+    }
+
+    /**
+     * UnSetter for SalesforceId.
+     * The Salesforce ID for the customer
+     */
+    public void unsetSalesforceId() {
+        salesforceId = null;
+    }
+
+    /**
      * Converts this Customer into string format.
      * @return String representation of this class
      */
@@ -1194,7 +1239,8 @@ public class Customer
                 + ", portalInviteLastAcceptedAt=" + portalInviteLastAcceptedAt + ", taxExempt="
                 + taxExempt + ", vatNumber=" + vatNumber + ", parentId=" + parentId + ", locale="
                 + locale + ", defaultSubscriptionGroupUid=" + defaultSubscriptionGroupUid
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", salesforceId=" + salesforceId + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1231,6 +1277,7 @@ public class Customer
         builder.parentId = internalGetParentId();
         builder.locale = internalGetLocale();
         builder.defaultSubscriptionGroupUid = internalGetDefaultSubscriptionGroupUid();
+        builder.salesforceId = internalGetSalesforceId();
         return builder;
     }
 
@@ -1265,6 +1312,7 @@ public class Customer
         private OptionalNullable<Integer> parentId;
         private OptionalNullable<String> locale;
         private OptionalNullable<String> defaultSubscriptionGroupUid;
+        private OptionalNullable<String> salesforceId;
 
 
 
@@ -1719,6 +1767,25 @@ public class Customer
         }
 
         /**
+         * Setter for salesforceId.
+         * @param  salesforceId  String value for salesforceId.
+         * @return Builder
+         */
+        public Builder salesforceId(String salesforceId) {
+            this.salesforceId = OptionalNullable.of(salesforceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for salesforceId.
+         * @return Builder
+         */
+        public Builder unsetSalesforceId() {
+            salesforceId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Customer} object using the set fields.
          * @return {@link Customer}
          */
@@ -1727,7 +1794,7 @@ public class Customer
                     createdAt, updatedAt, address, address2, city, state, stateName, zip, country,
                     countryName, phone, verified, portalCustomerCreatedAt, portalInviteLastSentAt,
                     portalInviteLastAcceptedAt, taxExempt, vatNumber, parentId, locale,
-                    defaultSubscriptionGroupUid);
+                    defaultSubscriptionGroupUid, salesforceId);
         }
     }
 }

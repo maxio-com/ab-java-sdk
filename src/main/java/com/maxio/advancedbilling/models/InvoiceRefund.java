@@ -26,6 +26,7 @@ public class InvoiceRefund
     private OptionalNullable<String> gatewayTransactionId;
     private String gatewayUsed;
     private OptionalNullable<String> gatewayHandle;
+    private OptionalNullable<Boolean> achLateReject;
 
     /**
      * Default constructor.
@@ -43,6 +44,7 @@ public class InvoiceRefund
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
      * @param  gatewayUsed  String value for gatewayUsed.
      * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  achLateReject  Boolean value for achLateReject.
      */
     public InvoiceRefund(
             Integer transactionId,
@@ -52,7 +54,8 @@ public class InvoiceRefund
             String appliedAmount,
             String gatewayTransactionId,
             String gatewayUsed,
-            String gatewayHandle) {
+            String gatewayHandle,
+            Boolean achLateReject) {
         this.transactionId = transactionId;
         this.paymentId = paymentId;
         this.memo = memo;
@@ -61,6 +64,7 @@ public class InvoiceRefund
         this.gatewayTransactionId = OptionalNullable.of(gatewayTransactionId);
         this.gatewayUsed = gatewayUsed;
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
+        this.achLateReject = OptionalNullable.of(achLateReject);
     }
 
     /**
@@ -73,12 +77,13 @@ public class InvoiceRefund
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
      * @param  gatewayUsed  String value for gatewayUsed.
      * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  achLateReject  Boolean value for achLateReject.
      */
 
     protected InvoiceRefund(Integer transactionId, Integer paymentId, String memo,
             String originalAmount, String appliedAmount,
             OptionalNullable<String> gatewayTransactionId, String gatewayUsed,
-            OptionalNullable<String> gatewayHandle) {
+            OptionalNullable<String> gatewayHandle, OptionalNullable<Boolean> achLateReject) {
         this.transactionId = transactionId;
         this.paymentId = paymentId;
         this.memo = memo;
@@ -87,6 +92,7 @@ public class InvoiceRefund
         this.gatewayTransactionId = gatewayTransactionId;
         this.gatewayUsed = gatewayUsed;
         this.gatewayHandle = gatewayHandle;
+        this.achLateReject = achLateReject;
     }
 
     /**
@@ -278,6 +284,41 @@ public class InvoiceRefund
     }
 
     /**
+     * Internal Getter for AchLateReject.
+     * @return Returns the Internal Boolean
+     */
+    @JsonGetter("ach_late_reject")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Boolean> internalGetAchLateReject() {
+        return this.achLateReject;
+    }
+
+    /**
+     * Getter for AchLateReject.
+     * @return Returns the Boolean
+     */
+    public Boolean getAchLateReject() {
+        return OptionalNullable.getFrom(achLateReject);
+    }
+
+    /**
+     * Setter for AchLateReject.
+     * @param achLateReject Value for Boolean
+     */
+    @JsonSetter("ach_late_reject")
+    public void setAchLateReject(Boolean achLateReject) {
+        this.achLateReject = OptionalNullable.of(achLateReject);
+    }
+
+    /**
+     * UnSetter for AchLateReject.
+     */
+    public void unsetAchLateReject() {
+        achLateReject = null;
+    }
+
+    /**
      * Converts this InvoiceRefund into string format.
      * @return String representation of this class
      */
@@ -287,7 +328,8 @@ public class InvoiceRefund
                 + ", memo=" + memo + ", originalAmount=" + originalAmount + ", appliedAmount="
                 + appliedAmount + ", gatewayTransactionId=" + gatewayTransactionId
                 + ", gatewayUsed=" + gatewayUsed + ", gatewayHandle=" + gatewayHandle
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", achLateReject=" + achLateReject + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -305,6 +347,7 @@ public class InvoiceRefund
                 .gatewayUsed(getGatewayUsed());
         builder.gatewayTransactionId = internalGetGatewayTransactionId();
         builder.gatewayHandle = internalGetGatewayHandle();
+        builder.achLateReject = internalGetAchLateReject();
         return builder;
     }
 
@@ -320,6 +363,7 @@ public class InvoiceRefund
         private OptionalNullable<String> gatewayTransactionId;
         private String gatewayUsed;
         private OptionalNullable<String> gatewayHandle;
+        private OptionalNullable<Boolean> achLateReject;
 
 
 
@@ -422,12 +466,31 @@ public class InvoiceRefund
         }
 
         /**
+         * Setter for achLateReject.
+         * @param  achLateReject  Boolean value for achLateReject.
+         * @return Builder
+         */
+        public Builder achLateReject(Boolean achLateReject) {
+            this.achLateReject = OptionalNullable.of(achLateReject);
+            return this;
+        }
+
+        /**
+         * UnSetter for achLateReject.
+         * @return Builder
+         */
+        public Builder unsetAchLateReject() {
+            achLateReject = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceRefund} object using the set fields.
          * @return {@link InvoiceRefund}
          */
         public InvoiceRefund build() {
             return new InvoiceRefund(transactionId, paymentId, memo, originalAmount, appliedAmount,
-                    gatewayTransactionId, gatewayUsed, gatewayHandle);
+                    gatewayTransactionId, gatewayUsed, gatewayHandle, achLateReject);
         }
     }
 }

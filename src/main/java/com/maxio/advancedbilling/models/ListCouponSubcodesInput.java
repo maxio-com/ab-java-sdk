@@ -43,7 +43,7 @@ public class ListCouponSubcodesInput {
 
     /**
      * Getter for CouponId.
-     * The Chargify id of the coupon
+     * The Advanced Billing id of the coupon
      * @return Returns the int
      */
     @JsonGetter("coupon_id")
@@ -53,7 +53,7 @@ public class ListCouponSubcodesInput {
 
     /**
      * Setter for CouponId.
-     * The Chargify id of the coupon
+     * The Advanced Billing id of the coupon
      * @param couponId Value for int
      */
     @JsonSetter("coupon_id")

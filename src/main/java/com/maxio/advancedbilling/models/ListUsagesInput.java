@@ -88,7 +88,8 @@ public class ListUsagesInput {
 
     /**
      * Getter for ComponentId.
-     * Either the Chargify id for the component or the component's handle prefixed by `handle:`
+     * Either the Advanced Billing id for the component or the component's handle prefixed by
+     * `handle:`
      * @return Returns the ListUsagesInputComponentId
      */
     @JsonGetter("component_id")
@@ -98,7 +99,8 @@ public class ListUsagesInput {
 
     /**
      * Setter for ComponentId.
-     * Either the Chargify id for the component or the component's handle prefixed by `handle:`
+     * Either the Advanced Billing id for the component or the component's handle prefixed by
+     * `handle:`
      * @param componentId Value for ListUsagesInputComponentId
      */
     @JsonSetter("component_id")

@@ -21,13 +21,13 @@ public interface Configuration {
     Environment getEnvironment();
 
     /**
-     * The subdomain for your Chargify site.
+     * The subdomain for your Advanced Billing site.
      * @return a copy of subdomain
      */
     String getSubdomain();
 
     /**
-     * The Chargify server domain.
+     * The Advanced Billing server domain.
      * @return a copy of domain
      */
     String getDomain();

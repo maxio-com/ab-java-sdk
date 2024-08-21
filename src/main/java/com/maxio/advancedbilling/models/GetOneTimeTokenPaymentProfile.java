@@ -26,7 +26,7 @@ public class GetOneTimeTokenPaymentProfile
     private double expirationMonth;
     private double expirationYear;
     private OptionalNullable<String> customerId;
-    private CurrentVault currentVault;
+    private CreditCardVault currentVault;
     private String vaultToken;
     private String billingAddress;
     private String billingAddress2;
@@ -54,7 +54,7 @@ public class GetOneTimeTokenPaymentProfile
      * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  double value for expirationMonth.
      * @param  expirationYear  double value for expirationYear.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  CreditCardVault value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
@@ -77,7 +77,7 @@ public class GetOneTimeTokenPaymentProfile
             CardType cardType,
             double expirationMonth,
             double expirationYear,
-            CurrentVault currentVault,
+            CreditCardVault currentVault,
             String vaultToken,
             String billingAddress,
             String billingCity,
@@ -123,7 +123,7 @@ public class GetOneTimeTokenPaymentProfile
      * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  double value for expirationMonth.
      * @param  expirationYear  double value for expirationYear.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  CreditCardVault value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
@@ -142,7 +142,7 @@ public class GetOneTimeTokenPaymentProfile
 
     protected GetOneTimeTokenPaymentProfile(String firstName, String lastName,
             String maskedCardNumber, CardType cardType, double expirationMonth,
-            double expirationYear, CurrentVault currentVault, String vaultToken,
+            double expirationYear, CreditCardVault currentVault, String vaultToken,
             String billingAddress, String billingCity, String billingCountry, String billingState,
             String billingZip, String paymentType, boolean disabled, int siteGatewaySettingId,
             OptionalNullable<String> id, OptionalNullable<String> customerId,
@@ -355,10 +355,10 @@ public class GetOneTimeTokenPaymentProfile
      * Getter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @return Returns the CurrentVault
+     * @return Returns the CreditCardVault
      */
     @JsonGetter("current_vault")
-    public CurrentVault getCurrentVault() {
+    public CreditCardVault getCurrentVault() {
         return currentVault;
     }
 
@@ -366,10 +366,10 @@ public class GetOneTimeTokenPaymentProfile
      * Setter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @param currentVault Value for CurrentVault
+     * @param currentVault Value for CreditCardVault
      */
     @JsonSetter("current_vault")
-    public void setCurrentVault(CurrentVault currentVault) {
+    public void setCurrentVault(CreditCardVault currentVault) {
         this.currentVault = currentVault;
     }
 
@@ -671,7 +671,7 @@ public class GetOneTimeTokenPaymentProfile
         private CardType cardType;
         private double expirationMonth;
         private double expirationYear;
-        private CurrentVault currentVault;
+        private CreditCardVault currentVault;
         private String vaultToken;
         private String billingAddress;
         private String billingCity;
@@ -701,7 +701,7 @@ public class GetOneTimeTokenPaymentProfile
          * @param  cardType  CardType value for cardType.
          * @param  expirationMonth  double value for expirationMonth.
          * @param  expirationYear  double value for expirationYear.
-         * @param  currentVault  CurrentVault value for currentVault.
+         * @param  currentVault  CreditCardVault value for currentVault.
          * @param  vaultToken  String value for vaultToken.
          * @param  billingAddress  String value for billingAddress.
          * @param  billingCity  String value for billingCity.
@@ -714,7 +714,7 @@ public class GetOneTimeTokenPaymentProfile
          */
         public Builder(String firstName, String lastName, String maskedCardNumber,
                 CardType cardType, double expirationMonth, double expirationYear,
-                CurrentVault currentVault, String vaultToken, String billingAddress,
+                CreditCardVault currentVault, String vaultToken, String billingAddress,
                 String billingCity, String billingCountry, String billingState, String billingZip,
                 String paymentType, boolean disabled, int siteGatewaySettingId) {
             this.firstName = firstName;
@@ -797,10 +797,10 @@ public class GetOneTimeTokenPaymentProfile
 
         /**
          * Setter for currentVault.
-         * @param  currentVault  CurrentVault value for currentVault.
+         * @param  currentVault  CreditCardVault value for currentVault.
          * @return Builder
          */
-        public Builder currentVault(CurrentVault currentVault) {
+        public Builder currentVault(CreditCardVault currentVault) {
             this.currentVault = currentVault;
             return this;
         }

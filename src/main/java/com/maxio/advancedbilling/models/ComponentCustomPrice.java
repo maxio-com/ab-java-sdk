@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.util.List;
 
 /**
@@ -17,9 +19,10 @@ import java.util.List;
  */
 public class ComponentCustomPrice
         extends BaseModel {
+    private Boolean taxIncluded;
     private PricingScheme pricingScheme;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
     private List<Price> prices;
 
     /**
@@ -30,20 +33,63 @@ public class ComponentCustomPrice
 
     /**
      * Initialization constructor.
+     * @param  prices  List of Price value for prices.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
-     * @param  prices  List of Price value for prices.
      */
     public ComponentCustomPrice(
+            List<Price> prices,
+            Boolean taxIncluded,
             PricingScheme pricingScheme,
             Integer interval,
-            IntervalUnit intervalUnit,
-            List<Price> prices) {
+            IntervalUnit intervalUnit) {
+        this.taxIncluded = taxIncluded;
+        this.pricingScheme = pricingScheme;
+        this.interval = interval;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.prices = prices;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  prices  List of Price value for prices.
+     * @param  taxIncluded  Boolean value for taxIncluded.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  interval  Integer value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     */
+
+    protected ComponentCustomPrice(List<Price> prices, Boolean taxIncluded,
+            PricingScheme pricingScheme, Integer interval,
+            OptionalNullable<IntervalUnit> intervalUnit) {
+        this.taxIncluded = taxIncluded;
         this.pricingScheme = pricingScheme;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.prices = prices;
+    }
+
+    /**
+     * Getter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether or not the price point includes tax
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
     }
 
     /**
@@ -93,15 +139,26 @@ public class ComponentCustomPrice
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component price point, either month or day.
      * This property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -112,7 +169,16 @@ public class ComponentCustomPrice
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -121,7 +187,6 @@ public class ComponentCustomPrice
      * @return Returns the List of Price
      */
     @JsonGetter("prices")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public List<Price> getPrices() {
         return prices;
     }
@@ -142,9 +207,9 @@ public class ComponentCustomPrice
      */
     @Override
     public String toString() {
-        return "ComponentCustomPrice [" + "pricingScheme=" + pricingScheme + ", interval="
-                + interval + ", intervalUnit=" + intervalUnit + ", prices=" + prices
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "ComponentCustomPrice [" + "prices=" + prices + ", taxIncluded=" + taxIncluded
+                + ", pricingScheme=" + pricingScheme + ", interval=" + interval + ", intervalUnit="
+                + intervalUnit + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -153,11 +218,11 @@ public class ComponentCustomPrice
      * @return a new {@link ComponentCustomPrice.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
+        Builder builder = new Builder(prices)
+                .taxIncluded(getTaxIncluded())
                 .pricingScheme(getPricingScheme())
-                .interval(getInterval())
-                .intervalUnit(getIntervalUnit())
-                .prices(getPrices());
+                .interval(getInterval());
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -165,12 +230,45 @@ public class ComponentCustomPrice
      * Class to build instances of {@link ComponentCustomPrice}.
      */
     public static class Builder {
+        private List<Price> prices;
+        private Boolean taxIncluded;
         private PricingScheme pricingScheme;
         private Integer interval;
-        private IntervalUnit intervalUnit;
-        private List<Price> prices;
+        private OptionalNullable<IntervalUnit> intervalUnit;
 
+        /**
+         * Initialization constructor.
+         */
+        public Builder() {
+        }
 
+        /**
+         * Initialization constructor.
+         * @param  prices  List of Price value for prices.
+         */
+        public Builder(List<Price> prices) {
+            this.prices = prices;
+        }
+
+        /**
+         * Setter for prices.
+         * @param  prices  List of Price value for prices.
+         * @return Builder
+         */
+        public Builder prices(List<Price> prices) {
+            this.prices = prices;
+            return this;
+        }
+
+        /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
+            return this;
+        }
 
         /**
          * Setter for pricingScheme.
@@ -198,17 +296,16 @@ public class ComponentCustomPrice
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
             return this;
         }
 
         /**
-         * Setter for prices.
-         * @param  prices  List of Price value for prices.
+         * UnSetter for intervalUnit.
          * @return Builder
          */
-        public Builder prices(List<Price> prices) {
-            this.prices = prices;
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 
@@ -217,7 +314,8 @@ public class ComponentCustomPrice
          * @return {@link ComponentCustomPrice}
          */
         public ComponentCustomPrice build() {
-            return new ComponentCustomPrice(pricingScheme, interval, intervalUnit, prices);
+            return new ComponentCustomPrice(prices, taxIncluded, pricingScheme, interval,
+                    intervalUnit);
         }
     }
 }

@@ -37,10 +37,10 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * Use this method to create a product within your Chargify site. + [Products
-     * Documentation](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405561405709) +
-     * [Changing a Subscription's
-     * Product](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404225334669-Product-Changes-Migrations).
+     * Use this method to create a product within your Advanced Billing site. + [Products
+     * Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
+     * + [Changing a Subscription's
+     * Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
      * @param  body  Optional parameter: Example:
@@ -89,8 +89,8 @@ public final class ProductsController extends BaseController {
 
     /**
      * This endpoint allows you to read the current details of a product that you've created in
-     * Chargify.
-     * @param  productId  Required parameter: The Chargify id of the product
+     * Advanced Billing.
+     * @param  productId  Required parameter: The Advanced Billing id of the product
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -131,7 +131,7 @@ public final class ProductsController extends BaseController {
      * URLs and Parameters ### Product Price Point Updating a product using this endpoint will
      * create a new price point and set it as the default price point for this product. If you
      * should like to update an existing product price point, that must be done separately.
-     * @param  productId  Required parameter: The Chargify id of the product
+     * @param  productId  Required parameter: The Advanced Billing id of the product
      * @param  body  Optional parameter: Example:
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -181,7 +181,7 @@ public final class ProductsController extends BaseController {
      * will be unffected; their subscription/purchase will continue to be charged monthly. This will
      * restrict the option to chose the product for purchase via the Billing Portal, as well as
      * disable Public Signup Pages for the product.
-     * @param  productId  Required parameter: The Chargify id of the product
+     * @param  productId  Required parameter: The Advanced Billing id of the product
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

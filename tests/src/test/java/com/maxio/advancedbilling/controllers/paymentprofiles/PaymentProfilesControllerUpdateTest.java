@@ -8,7 +8,7 @@ import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CreatePaymentProfile;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
-import com.maxio.advancedbilling.models.CurrentVault;
+import com.maxio.advancedbilling.models.CreditCardVault;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.UpdatePaymentProfile;
@@ -86,7 +86,7 @@ class PaymentProfilesControllerUpdateTest {
         assertThat(updatedPaymentProfile.getExpirationMonth()).isEqualTo(createdPaymentProfile.getExpirationMonth());
         assertThat(updatedPaymentProfile.getExpirationYear()).isEqualTo(createdPaymentProfile.getExpirationYear());
         assertThat(updatedPaymentProfile.getCustomerId()).isEqualTo(customer.getId());
-        assertThat(updatedPaymentProfile.getCurrentVault()).isEqualTo(CurrentVault.BOGUS);
+        assertThat(updatedPaymentProfile.getCurrentVault()).isEqualTo(CreditCardVault.BOGUS);
         assertThat(updatedPaymentProfile.getVaultToken()).isEqualTo(createdPaymentProfile.getVaultToken());
         assertThat(updatedPaymentProfile.getBillingAddress()).isEqualTo("789 Juniper Court");
         assertThat(updatedPaymentProfile.getBillingCity()).isEqualTo("Boulder");

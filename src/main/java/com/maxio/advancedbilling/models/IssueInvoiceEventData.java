@@ -56,7 +56,7 @@ public class IssueInvoiceEventData
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
      * @return Returns the InvoiceConsolidationLevel
      */
     @JsonGetter("consolidation_level")
@@ -72,7 +72,7 @@ public class IssueInvoiceEventData
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
      * @param consolidationLevel Value for InvoiceConsolidationLevel
      */
     @JsonSetter("consolidation_level")
@@ -83,7 +83,7 @@ public class IssueInvoiceEventData
     /**
      * Getter for FromStatus.
      * The status of the invoice before event occurrence. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -95,7 +95,7 @@ public class IssueInvoiceEventData
     /**
      * Setter for FromStatus.
      * The status of the invoice before event occurrence. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @param fromStatus Value for InvoiceStatus
      */
@@ -107,7 +107,7 @@ public class IssueInvoiceEventData
     /**
      * Getter for ToStatus.
      * The status of the invoice after event occurrence. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @return Returns the InvoiceStatus
      */
@@ -119,7 +119,7 @@ public class IssueInvoiceEventData
     /**
      * Setter for ToStatus.
      * The status of the invoice after event occurrence. See [Invoice
-     * Statuses](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405078794253-Introduction-to-Invoices#invoice-statusess)
+     * Statuses](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview#invoice-statuses)
      * for more.
      * @param toStatus Value for InvoiceStatus
      */

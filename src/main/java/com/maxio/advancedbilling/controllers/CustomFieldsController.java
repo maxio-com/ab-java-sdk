@@ -46,17 +46,18 @@ public final class CustomFieldsController extends BaseController {
     }
 
     /**
-     * ## Custom Fields: Metafield Intro **Chargify refers to Custom Fields in the API documentation
-     * as metafields and metadata.** Within the Chargify UI, metadata and metafields are grouped
-     * together under the umbrella of "Custom Fields." All of our UI-based documentation that
-     * references custom fields will not cite the terminology metafields or metadata. + **Metafield
-     * is the custom field** + **Metadata is the data populating the custom field.** Chargify
-     * Metafields are used to add meaningful attributes to subscription and customer resources. Full
-     * documentation on how to create Custom Fields in the Chargify UI can be located
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405332553613-Custom-Fields-Reference).
-     * For additional documentation on how to record data within custom fields, please see our
+     * ## Custom Fields: Metafield Intro **Advanced Billing refers to Custom Fields in the API
+     * documentation as metafields and metadata.** Within the Advanced Billing UI, metadata and
+     * metafields are grouped together under the umbrella of "Custom Fields." All of our UI-based
+     * documentation that references custom fields will not cite the terminology metafields or
+     * metadata. + **Metafield is the custom field** + **Metadata is the data populating the custom
+     * field.** Advanced Billing Metafields are used to add meaningful attributes to subscription
+     * and customer resources. Full documentation on how to create Custom Fields in the Advanced
+     * Billing UI can be located
+     * [here](https://maxio.zendesk.com/hc/en-us/sections/24266118312589-Custom-Fields). For
+     * additional documentation on how to record data within custom fields, please see our
      * subscription-based documentation
-     * [here.](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404434903181-Subscription-Summary#custom-fields)
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24251701302925-Subscription-Summary-Custom-Fields-Tab).
      * Metafield are the place where you will set up your resource to accept additional data. It is
      * scoped to the site instead of a specific customer or subscription. Think of it as the key,
      * and Metadata as the value on every record. ## Create Metafields Use this endpoint to create
@@ -254,27 +255,28 @@ public final class CustomFieldsController extends BaseController {
     }
 
     /**
-     * ## Custom Fields: Metadata Intro **Chargify refers to Custom Fields in the API documentation
-     * as metafields and metadata.** Within the Chargify UI, metadata and metafields are grouped
-     * together under the umbrella of "Custom Fields." All of our UI-based documentation that
-     * references custom fields will not cite the terminology metafields or metadata. + **Metafield
-     * is the custom field** + **Metadata is the data populating the custom field.** Chargify
-     * Metafields are used to add meaningful attributes to subscription and customer resources. Full
-     * documentation on how to create Custom Fields in the Chargify UI can be located
-     * [here](https://chargify.zendesk.com/hc/en-us/articles/4407659856411). For additional
-     * documentation on how to record data within custom fields, please see our subscription-based
-     * documentation
-     * [here.](https://chargify.zendesk.com/hc/en-us/articles/4407884887835#custom-fields) Metadata
-     * is associated to a customer or subscription, and corresponds to a Metafield. When creating a
-     * new metadata object for a given record, **if the metafield is not present it will be
-     * created**. ## Metadata limits Metadata values are limited to 2kB in size. Additonally, there
-     * are limits on the number of unique metafields available per resource. ## Create Metadata This
-     * method will create a metafield for the site on the fly if it does not already exist, and
-     * populate the metadata value. ### Subscription or Customer Resource Please pay special
-     * attention to the resource you use when creating metadata.
+     * ## Custom Fields: Metadata Intro **Advanced Billing refers to Custom Fields in the API
+     * documentation as metafields and metadata.** Within the Advanced Billing UI, metadata and
+     * metafields are grouped together under the umbrella of "Custom Fields." All of our UI-based
+     * documentation that references custom fields will not cite the terminology metafields or
+     * metadata. + **Metafield is the custom field** + **Metadata is the data populating the custom
+     * field.** Advanced Billing Metafields are used to add meaningful attributes to subscription
+     * and customer resources. Full documentation on how to create Custom Fields in the Advanced
+     * Billing UI can be located
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24266164865677-Custom-Fields-Overview).
+     * For additional documentation on how to record data within custom fields, please see our
+     * subscription-based documentation
+     * [here.](https://maxio.zendesk.com/hc/en-us/articles/24251701302925-Subscription-Summary-Custom-Fields-Tab)
+     * Metadata is associated to a customer or subscription, and corresponds to a Metafield. When
+     * creating a new metadata object for a given record, **if the metafield is not present it will
+     * be created**. ## Metadata limits Metadata values are limited to 2kB in size. Additonally,
+     * there are limits on the number of unique metafields available per resource. ## Create
+     * Metadata This method will create a metafield for the site on the fly if it does not already
+     * exist, and populate the metadata value. ### Subscription or Customer Resource Please pay
+     * special attention to the resource you use when creating metadata.
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
-     * @param  resourceId  Required parameter: The Chargify id of the customer or the subscription
-     *         for which the metadata applies
+     * @param  resourceId  Required parameter: The Advanced Billing id of the customer or the
+     *         subscription for which the metadata applies
      * @param  body  Optional parameter: Example:
      * @return    Returns the List of Metadata response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -373,8 +375,8 @@ public final class CustomFieldsController extends BaseController {
      * This method allows you to update the existing metadata associated with a subscription or
      * customer.
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
-     * @param  resourceId  Required parameter: The Chargify id of the customer or the subscription
-     *         for which the metadata applies
+     * @param  resourceId  Required parameter: The Advanced Billing id of the customer or the
+     *         subscription for which the metadata applies
      * @param  body  Optional parameter: Example:
      * @return    Returns the List of Metadata response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -434,8 +436,8 @@ public final class CustomFieldsController extends BaseController {
      * response `true`. ## Unsuccessful Response When a failed response is encountered, you will
      * receive a `404` response and the plain text response of `true`.
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
-     * @param  resourceId  Required parameter: The Chargify id of the customer or the subscription
-     *         for which the metadata applies
+     * @param  resourceId  Required parameter: The Advanced Billing id of the customer or the
+     *         subscription for which the metadata applies
      * @param  name  Optional parameter: Name of field to be removed.
      * @param  names  Optional parameter: Names of fields to be removed. Use in query:
      *         `names[]=field1&amp;names[]=my-field&amp;names[]=another-field`.

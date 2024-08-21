@@ -8,7 +8,7 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.PaymentProfileResponsePaymentProfile;
+import com.maxio.advancedbilling.models.containers.PaymentProfile;
 import io.apimatic.core.types.BaseModel;
 
 /**
@@ -16,7 +16,7 @@ import io.apimatic.core.types.BaseModel;
  */
 public class PaymentProfileResponse
         extends BaseModel {
-    private PaymentProfileResponsePaymentProfile paymentProfile;
+    private PaymentProfile paymentProfile;
 
     /**
      * Default constructor.
@@ -26,28 +26,28 @@ public class PaymentProfileResponse
 
     /**
      * Initialization constructor.
-     * @param  paymentProfile  PaymentProfileResponsePaymentProfile value for paymentProfile.
+     * @param  paymentProfile  PaymentProfile value for paymentProfile.
      */
     public PaymentProfileResponse(
-            PaymentProfileResponsePaymentProfile paymentProfile) {
+            PaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
     /**
      * Getter for PaymentProfile.
-     * @return Returns the PaymentProfileResponsePaymentProfile
+     * @return Returns the PaymentProfile
      */
     @JsonGetter("payment_profile")
-    public PaymentProfileResponsePaymentProfile getPaymentProfile() {
+    public PaymentProfile getPaymentProfile() {
         return paymentProfile;
     }
 
     /**
      * Setter for PaymentProfile.
-     * @param paymentProfile Value for PaymentProfileResponsePaymentProfile
+     * @param paymentProfile Value for PaymentProfile
      */
     @JsonSetter("payment_profile")
-    public void setPaymentProfile(PaymentProfileResponsePaymentProfile paymentProfile) {
+    public void setPaymentProfile(PaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
@@ -75,7 +75,7 @@ public class PaymentProfileResponse
      * Class to build instances of {@link PaymentProfileResponse}.
      */
     public static class Builder {
-        private PaymentProfileResponsePaymentProfile paymentProfile;
+        private PaymentProfile paymentProfile;
 
         /**
          * Initialization constructor.
@@ -85,18 +85,18 @@ public class PaymentProfileResponse
 
         /**
          * Initialization constructor.
-         * @param  paymentProfile  PaymentProfileResponsePaymentProfile value for paymentProfile.
+         * @param  paymentProfile  PaymentProfile value for paymentProfile.
          */
-        public Builder(PaymentProfileResponsePaymentProfile paymentProfile) {
+        public Builder(PaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
         }
 
         /**
          * Setter for paymentProfile.
-         * @param  paymentProfile  PaymentProfileResponsePaymentProfile value for paymentProfile.
+         * @param  paymentProfile  PaymentProfile value for paymentProfile.
          * @return Builder
          */
-        public Builder paymentProfile(PaymentProfileResponsePaymentProfile paymentProfile) {
+        public Builder paymentProfile(PaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
             return this;
         }

@@ -9,7 +9,9 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CreateProductPricePoint type.
@@ -28,7 +30,7 @@ public class CreateProductPricePoint
     private Long initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private Integer expirationInterval;
-    private IntervalUnit expirationIntervalUnit;
+    private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Boolean useSiteExchangeRate;
 
     /**
@@ -52,7 +54,7 @@ public class CreateProductPricePoint
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
-     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      */
     public CreateProductPricePoint(
@@ -68,7 +70,47 @@ public class CreateProductPricePoint
             Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
             Integer expirationInterval,
-            IntervalUnit expirationIntervalUnit,
+            ExpirationIntervalUnit expirationIntervalUnit,
+            Boolean useSiteExchangeRate) {
+        this.name = name;
+        this.handle = handle;
+        this.priceInCents = priceInCents;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
+        this.trialPriceInCents = trialPriceInCents;
+        this.trialInterval = trialInterval;
+        this.trialIntervalUnit = trialIntervalUnit;
+        this.trialType = trialType;
+        this.initialChargeInCents = initialChargeInCents;
+        this.initialChargeAfterTrial = initialChargeAfterTrial;
+        this.expirationInterval = expirationInterval;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+        this.useSiteExchangeRate = useSiteExchangeRate;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  name  String value for name.
+     * @param  priceInCents  long value for priceInCents.
+     * @param  interval  int value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  handle  String value for handle.
+     * @param  trialPriceInCents  Long value for trialPriceInCents.
+     * @param  trialInterval  Integer value for trialInterval.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
+     * @param  trialType  String value for trialType.
+     * @param  initialChargeInCents  Long value for initialChargeInCents.
+     * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
+     * @param  expirationInterval  Integer value for expirationInterval.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
+     * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     */
+
+    protected CreateProductPricePoint(String name, long priceInCents, int interval,
+            IntervalUnit intervalUnit, String handle, Long trialPriceInCents, Integer trialInterval,
+            IntervalUnit trialIntervalUnit, String trialType, Long initialChargeInCents,
+            Boolean initialChargeAfterTrial, Integer expirationInterval,
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
             Boolean useSiteExchangeRate) {
         this.name = name;
         this.handle = handle;
@@ -341,26 +383,46 @@ public class CreateProductPricePoint
     }
 
     /**
-     * Getter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product price point, either month
-     * or day
-     * @return Returns the IntervalUnit
+     * Internal Getter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
+     * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IntervalUnit getExpirationIntervalUnit() {
-        return expirationIntervalUnit;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
+        return this.expirationIntervalUnit;
+    }
+
+    /**
+     * Getter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
+     * @return Returns the ExpirationIntervalUnit
+     */
+    public ExpirationIntervalUnit getExpirationIntervalUnit() {
+        return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this product price point, either month
-     * or day
-     * @param expirationIntervalUnit Value for IntervalUnit
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
+     * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-        this.expirationIntervalUnit = expirationIntervalUnit;
+    public void setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+    }
+
+    /**
+     * UnSetter for ExpirationIntervalUnit.
+     * A string representing the expiration interval unit for this product price point, either
+     * month, day or never
+     */
+    public void unsetExpirationIntervalUnit() {
+        expirationIntervalUnit = null;
     }
 
     /**
@@ -417,8 +479,8 @@ public class CreateProductPricePoint
                 .initialChargeInCents(getInitialChargeInCents())
                 .initialChargeAfterTrial(getInitialChargeAfterTrial())
                 .expirationInterval(getExpirationInterval())
-                .expirationIntervalUnit(getExpirationIntervalUnit())
                 .useSiteExchangeRate(getUseSiteExchangeRate());
+        builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
 
@@ -438,7 +500,7 @@ public class CreateProductPricePoint
         private Long initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private Integer expirationInterval;
-        private IntervalUnit expirationIntervalUnit;
+        private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Boolean useSiteExchangeRate = true;
 
         /**
@@ -583,11 +645,20 @@ public class CreateProductPricePoint
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-            this.expirationIntervalUnit = expirationIntervalUnit;
+        public Builder expirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+            this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetExpirationIntervalUnit() {
+            expirationIntervalUnit = null;
             return this;
         }
 

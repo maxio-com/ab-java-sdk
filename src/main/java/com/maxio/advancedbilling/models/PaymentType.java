@@ -21,7 +21,9 @@ public enum PaymentType {
 
     BANK_ACCOUNT,
 
-    PAYPAL_ACCOUNT;
+    PAYPAL_ACCOUNT,
+
+    APPLE_PAY;
 
 
     private static TreeMap<String, PaymentType> valueMap = new TreeMap<>();
@@ -31,10 +33,12 @@ public enum PaymentType {
         CREDIT_CARD.value = "credit_card";
         BANK_ACCOUNT.value = "bank_account";
         PAYPAL_ACCOUNT.value = "paypal_account";
+        APPLE_PAY.value = "apple_pay";
 
         valueMap.put("credit_card", CREDIT_CARD);
         valueMap.put("bank_account", BANK_ACCOUNT);
         valueMap.put("paypal_account", PAYPAL_ACCOUNT);
+        valueMap.put("apple_pay", APPLE_PAY);
     }
 
     /**

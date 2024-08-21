@@ -12,7 +12,7 @@ import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CreatePaymentProfile;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
-import com.maxio.advancedbilling.models.CurrentVault;
+import com.maxio.advancedbilling.models.CreditCardVault;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.ListPaymentProfilesInput;
 import com.maxio.advancedbilling.models.PaymentType;
@@ -102,7 +102,7 @@ class PaymentProfilesControllerListTest {
                     assertThat(creditCardPaymentProfile.getExpirationMonth()).isNotNull();
                     assertThat(creditCardPaymentProfile.getExpirationYear()).isNotNull();
                     assertThat(creditCardPaymentProfile.getCustomerId()).isEqualTo(customerWithCreditCardPaymentProfiles.getId());
-                    assertThat(creditCardPaymentProfile.getCurrentVault()).isEqualTo(CurrentVault.BOGUS);
+                    assertThat(creditCardPaymentProfile.getCurrentVault()).isEqualTo(CreditCardVault.BOGUS);
                     assertThat(creditCardPaymentProfile.getVaultToken()).isNotNull();
                     assertThat(creditCardPaymentProfile.getBillingAddress()).isNull();
                     assertThat(creditCardPaymentProfile.getBillingCity()).isNull();

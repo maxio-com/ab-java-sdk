@@ -54,7 +54,7 @@ public class SubscriptionComponent
     private List<HistoricUsage> historicUsages;
     private Boolean displayOnHostedPage;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
 
     /**
      * Default constructor.
@@ -162,7 +162,7 @@ public class SubscriptionComponent
         this.historicUsages = historicUsages;
         this.displayOnHostedPage = displayOnHostedPage;
         this.interval = interval;
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
     }
 
     /**
@@ -217,7 +217,7 @@ public class SubscriptionComponent
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> description,
             Boolean allowFractionalQuantities, SubscriptionComponentSubscription subscription,
             List<HistoricUsage> historicUsages, Boolean displayOnHostedPage, Integer interval,
-            IntervalUnit intervalUnit) {
+            OptionalNullable<IntervalUnit> intervalUnit) {
         this.id = id;
         this.name = name;
         this.kind = kind;
@@ -1055,15 +1055,26 @@ public class SubscriptionComponent
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component price point, either month or day.
      * This property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -1074,7 +1085,16 @@ public class SubscriptionComponent
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component price point, either month or day.
+     * This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -1127,8 +1147,7 @@ public class SubscriptionComponent
                 .subscription(getSubscription())
                 .historicUsages(getHistoricUsages())
                 .displayOnHostedPage(getDisplayOnHostedPage())
-                .interval(getInterval())
-                .intervalUnit(getIntervalUnit());
+                .interval(getInterval());
         builder.pricingScheme = internalGetPricingScheme();
         builder.componentHandle = internalGetComponentHandle();
         builder.upgradeCharge = internalGetUpgradeCharge();
@@ -1140,6 +1159,7 @@ public class SubscriptionComponent
         builder.pricePointName = internalGetPricePointName();
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.description = internalGetDescription();
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -1178,7 +1198,7 @@ public class SubscriptionComponent
         private List<HistoricUsage> historicUsages;
         private Boolean displayOnHostedPage;
         private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<IntervalUnit> intervalUnit;
 
 
 
@@ -1599,7 +1619,16 @@ public class SubscriptionComponent
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 

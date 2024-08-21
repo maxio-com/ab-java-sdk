@@ -17,32 +17,44 @@ import java.util.TreeMap;
  * BankAccountVault to be used.
  */
 public enum BankAccountVault {
-    BOGUS,
-
     AUTHORIZENET,
 
-    STRIPE_CONNECT,
+    BLUE_SNAP,
 
-    BRAINTREE_BLUE,
+    BOGUS,
 
-    GOCARDLESS;
+    FORTE,
+
+    GOCARDLESS,
+
+    MAXIO_PAYMENTS,
+
+    MAXP,
+
+    STRIPE_CONNECT;
 
 
     private static TreeMap<String, BankAccountVault> valueMap = new TreeMap<>();
     private String value;
 
     static {
-        BOGUS.value = "bogus";
         AUTHORIZENET.value = "authorizenet";
-        STRIPE_CONNECT.value = "stripe_connect";
-        BRAINTREE_BLUE.value = "braintree_blue";
+        BLUE_SNAP.value = "blue_snap";
+        BOGUS.value = "bogus";
+        FORTE.value = "forte";
         GOCARDLESS.value = "gocardless";
+        MAXIO_PAYMENTS.value = "maxio_payments";
+        MAXP.value = "maxp";
+        STRIPE_CONNECT.value = "stripe_connect";
 
-        valueMap.put("bogus", BOGUS);
         valueMap.put("authorizenet", AUTHORIZENET);
-        valueMap.put("stripe_connect", STRIPE_CONNECT);
-        valueMap.put("braintree_blue", BRAINTREE_BLUE);
+        valueMap.put("blue_snap", BLUE_SNAP);
+        valueMap.put("bogus", BOGUS);
+        valueMap.put("forte", FORTE);
         valueMap.put("gocardless", GOCARDLESS);
+        valueMap.put("maxio_payments", MAXIO_PAYMENTS);
+        valueMap.put("maxp", MAXP);
+        valueMap.put("stripe_connect", STRIPE_CONNECT);
     }
 
     /**

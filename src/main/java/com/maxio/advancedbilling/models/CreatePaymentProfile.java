@@ -36,7 +36,7 @@ public class CreatePaymentProfile
     private String billingState;
     private String billingCountry;
     private String billingZip;
-    private CurrentVault currentVault;
+    private AllVaults currentVault;
     private String vaultToken;
     private String customerVaultToken;
     private Integer customerId;
@@ -77,7 +77,7 @@ public class CreatePaymentProfile
      * @param  billingState  String value for billingState.
      * @param  billingCountry  String value for billingCountry.
      * @param  billingZip  String value for billingZip.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  AllVaults value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  customerId  Integer value for customerId.
@@ -111,7 +111,7 @@ public class CreatePaymentProfile
             String billingState,
             String billingCountry,
             String billingZip,
-            CurrentVault currentVault,
+            AllVaults currentVault,
             String vaultToken,
             String customerVaultToken,
             Integer customerId,
@@ -179,7 +179,7 @@ public class CreatePaymentProfile
      * @param  billingState  String value for billingState.
      * @param  billingCountry  String value for billingCountry.
      * @param  billingZip  String value for billingZip.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  AllVaults value for currentVault.
      * @param  vaultToken  String value for vaultToken.
      * @param  customerVaultToken  String value for customerVaultToken.
      * @param  customerId  Integer value for customerId.
@@ -202,7 +202,7 @@ public class CreatePaymentProfile
             CardType cardType, CreatePaymentProfileExpirationMonth expirationMonth,
             CreatePaymentProfileExpirationYear expirationYear, String billingAddress,
             OptionalNullable<String> billingAddress2, String billingCity, String billingState,
-            String billingCountry, String billingZip, CurrentVault currentVault, String vaultToken,
+            String billingCountry, String billingZip, AllVaults currentVault, String vaultToken,
             String customerVaultToken, Integer customerId, String paypalEmail,
             String paymentMethodNonce, String gatewayHandle, String cvv, String bankName,
             String bankIban, String bankRoutingNumber, String bankAccountNumber,
@@ -622,11 +622,11 @@ public class CreatePaymentProfile
      * Getter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @return Returns the CurrentVault
+     * @return Returns the AllVaults
      */
     @JsonGetter("current_vault")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CurrentVault getCurrentVault() {
+    public AllVaults getCurrentVault() {
         return currentVault;
     }
 
@@ -634,10 +634,10 @@ public class CreatePaymentProfile
      * Setter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @param currentVault Value for CurrentVault
+     * @param currentVault Value for AllVaults
      */
     @JsonSetter("current_vault")
-    public void setCurrentVault(CurrentVault currentVault) {
+    public void setCurrentVault(AllVaults currentVault) {
         this.currentVault = currentVault;
     }
 
@@ -1074,7 +1074,7 @@ public class CreatePaymentProfile
         private String billingState;
         private String billingCountry;
         private String billingZip;
-        private CurrentVault currentVault;
+        private AllVaults currentVault;
         private String vaultToken;
         private String customerVaultToken;
         private Integer customerId;
@@ -1264,10 +1264,10 @@ public class CreatePaymentProfile
 
         /**
          * Setter for currentVault.
-         * @param  currentVault  CurrentVault value for currentVault.
+         * @param  currentVault  AllVaults value for currentVault.
          * @return Builder
          */
-        public Builder currentVault(CurrentVault currentVault) {
+        public Builder currentVault(AllVaults currentVault) {
             this.currentVault = currentVault;
             return this;
         }

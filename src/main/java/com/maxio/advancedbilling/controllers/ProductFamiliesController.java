@@ -99,10 +99,10 @@ public final class ProductFamiliesController extends BaseController {
     }
 
     /**
-     * This method will create a Product Family within your Chargify site. Create a Product Family
-     * to act as a container for your products, components and coupons. Full documentation on how
-     * Product Families operate within the Chargify UI can be located
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405369633421).
+     * This method will create a Product Family within your Advanced Billing site. Create a Product
+     * Family to act as a container for your products, components and coupons. Full documentation on
+     * how Product Families operate within the Advanced Billing UI can be located
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-Families).
      * @param  body  Optional parameter: Example:
      * @return    Returns the ProductFamilyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -193,7 +193,7 @@ public final class ProductFamiliesController extends BaseController {
      * This method allows to retrieve a Product Family via the `product_family_id`. The response
      * will contain a Product Family object. The product family can be specified either with the id
      * number, or with the `handle:my-family` format.
-     * @param  id  Required parameter: The Chargify id of the product family
+     * @param  id  Required parameter: The Advanced Billing id of the product family
      * @return    Returns the ProductFamilyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

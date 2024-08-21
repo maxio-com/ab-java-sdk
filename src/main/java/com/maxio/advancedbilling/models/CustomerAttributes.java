@@ -37,6 +37,7 @@ public class CustomerAttributes
     private String vatNumber;
     private Map<String, String> metafields;
     private OptionalNullable<Integer> parentId;
+    private OptionalNullable<String> salesforceId;
 
     /**
      * Default constructor.
@@ -64,6 +65,7 @@ public class CustomerAttributes
      * @param  vatNumber  String value for vatNumber.
      * @param  metafields  Map of String, value for metafields.
      * @param  parentId  Integer value for parentId.
+     * @param  salesforceId  String value for salesforceId.
      */
     public CustomerAttributes(
             String firstName,
@@ -83,7 +85,8 @@ public class CustomerAttributes
             Boolean taxExempt,
             String vatNumber,
             Map<String, String> metafields,
-            Integer parentId) {
+            Integer parentId,
+            String salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -102,6 +105,7 @@ public class CustomerAttributes
         this.vatNumber = vatNumber;
         this.metafields = metafields;
         this.parentId = OptionalNullable.of(parentId);
+        this.salesforceId = OptionalNullable.of(salesforceId);
     }
 
     /**
@@ -124,13 +128,15 @@ public class CustomerAttributes
      * @param  vatNumber  String value for vatNumber.
      * @param  metafields  Map of String, value for metafields.
      * @param  parentId  Integer value for parentId.
+     * @param  salesforceId  String value for salesforceId.
      */
 
     protected CustomerAttributes(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address,
             OptionalNullable<String> address2, String city, String state, String zip,
             String country, String phone, Boolean verified, Boolean taxExempt, String vatNumber,
-            Map<String, String> metafields, OptionalNullable<Integer> parentId) {
+            Map<String, String> metafields, OptionalNullable<Integer> parentId,
+            OptionalNullable<String> salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -149,6 +155,7 @@ public class CustomerAttributes
         this.vatNumber = vatNumber;
         this.metafields = metafields;
         this.parentId = parentId;
+        this.salesforceId = salesforceId;
     }
 
     /**
@@ -584,6 +591,45 @@ public class CustomerAttributes
     }
 
     /**
+     * Internal Getter for SalesforceId.
+     * (Optional) The Salesforce ID of the customer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("salesforce_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSalesforceId() {
+        return this.salesforceId;
+    }
+
+    /**
+     * Getter for SalesforceId.
+     * (Optional) The Salesforce ID of the customer.
+     * @return Returns the String
+     */
+    public String getSalesforceId() {
+        return OptionalNullable.getFrom(salesforceId);
+    }
+
+    /**
+     * Setter for SalesforceId.
+     * (Optional) The Salesforce ID of the customer.
+     * @param salesforceId Value for String
+     */
+    @JsonSetter("salesforce_id")
+    public void setSalesforceId(String salesforceId) {
+        this.salesforceId = OptionalNullable.of(salesforceId);
+    }
+
+    /**
+     * UnSetter for SalesforceId.
+     * (Optional) The Salesforce ID of the customer.
+     */
+    public void unsetSalesforceId() {
+        salesforceId = null;
+    }
+
+    /**
      * Converts this CustomerAttributes into string format.
      * @return String representation of this class
      */
@@ -595,7 +641,8 @@ public class CustomerAttributes
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", verified=" + verified + ", taxExempt=" + taxExempt
                 + ", vatNumber=" + vatNumber + ", metafields=" + metafields + ", parentId="
-                + parentId + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + parentId + ", salesforceId=" + salesforceId + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -623,6 +670,7 @@ public class CustomerAttributes
                 .metafields(getMetafields());
         builder.address2 = internalGetAddress2();
         builder.parentId = internalGetParentId();
+        builder.salesforceId = internalGetSalesforceId();
         return builder;
     }
 
@@ -648,6 +696,7 @@ public class CustomerAttributes
         private String vatNumber;
         private Map<String, String> metafields;
         private OptionalNullable<Integer> parentId;
+        private OptionalNullable<String> salesforceId;
 
 
 
@@ -850,13 +899,32 @@ public class CustomerAttributes
         }
 
         /**
+         * Setter for salesforceId.
+         * @param  salesforceId  String value for salesforceId.
+         * @return Builder
+         */
+        public Builder salesforceId(String salesforceId) {
+            this.salesforceId = OptionalNullable.of(salesforceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for salesforceId.
+         * @return Builder
+         */
+        public Builder unsetSalesforceId() {
+            salesforceId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CustomerAttributes} object using the set fields.
          * @return {@link CustomerAttributes}
          */
         public CustomerAttributes build() {
             return new CustomerAttributes(firstName, lastName, email, ccEmails, organization,
                     reference, address, address2, city, state, zip, country, phone, verified,
-                    taxExempt, vatNumber, metafields, parentId);
+                    taxExempt, vatNumber, metafields, parentId, salesforceId);
         }
     }
 }

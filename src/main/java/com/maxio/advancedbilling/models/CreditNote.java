@@ -725,7 +725,7 @@ public class CreditNote
     /**
      * Getter for OriginInvoices.
      * An array of origin invoices for the credit note. Learn more about [Origin Invoice from our
-     * docs](https://chargify.zendesk.com/hc/en-us/articles/4407753036699#origin-invoices)
+     * docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices)
      * @return Returns the List of OriginInvoice
      */
     @JsonGetter("origin_invoices")
@@ -737,7 +737,7 @@ public class CreditNote
     /**
      * Setter for OriginInvoices.
      * An array of origin invoices for the credit note. Learn more about [Origin Invoice from our
-     * docs](https://chargify.zendesk.com/hc/en-us/articles/4407753036699#origin-invoices)
+     * docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices)
      * @param originInvoices Value for List of OriginInvoice
      */
     @JsonSetter("origin_invoices")

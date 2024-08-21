@@ -582,7 +582,7 @@ public class ProformaInvoice
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
      * @return Returns the InvoiceConsolidationLevel
      */
     @JsonGetter("consolidation_level")
@@ -599,7 +599,7 @@ public class ProformaInvoice
      * A consolidated invoice, whose contents are composed of invoice segments. "Parent" invoices do
      * not have lines of their own, but they have subtotals and totals which aggregate the member
      * invoice segments. See also the [invoice consolidation
-     * documentation](https://chargify.zendesk.com/hc/en-us/articles/4407746391835).
+     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24252269909389-Invoice-Consolidation).
      * @param consolidationLevel Value for InvoiceConsolidationLevel
      */
     @JsonSetter("consolidation_level")

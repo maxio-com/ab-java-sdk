@@ -67,7 +67,7 @@ public class ListMetadataInput {
 
     /**
      * Getter for ResourceId.
-     * The Chargify id of the customer or the subscription for which the metadata applies
+     * The Advanced Billing id of the customer or the subscription for which the metadata applies
      * @return Returns the int
      */
     @JsonGetter("resource_id")
@@ -77,7 +77,7 @@ public class ListMetadataInput {
 
     /**
      * Setter for ResourceId.
-     * The Chargify id of the customer or the subscription for which the metadata applies
+     * The Advanced Billing id of the customer or the subscription for which the metadata applies
      * @param resourceId Value for int
      */
     @JsonSetter("resource_id")

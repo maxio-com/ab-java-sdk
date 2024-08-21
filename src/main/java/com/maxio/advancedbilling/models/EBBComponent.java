@@ -36,7 +36,7 @@ public class EBBComponent
     private String priceInCents;
     private int eventBasedBillingMetricId;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
 
     /**
      * Default constructor.
@@ -98,7 +98,7 @@ public class EBBComponent
         this.priceInCents = priceInCents;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
     }
 
     /**
@@ -127,7 +127,7 @@ public class EBBComponent
             List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             EBBComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
-            String priceInCents, Integer interval, IntervalUnit intervalUnit) {
+            String priceInCents, Integer interval, OptionalNullable<IntervalUnit> intervalUnit) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -552,15 +552,26 @@ public class EBBComponent
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component's default price point, either
      * month or day. This property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -571,7 +582,16 @@ public class EBBComponent
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -606,10 +626,10 @@ public class EBBComponent
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
                 .priceInCents(getPriceInCents())
-                .interval(getInterval())
-                .intervalUnit(getIntervalUnit());
+                .interval(getInterval());
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.downgradeCredit = internalGetDowngradeCredit();
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -633,7 +653,7 @@ public class EBBComponent
         private Boolean hideDateRangeOnInvoice;
         private String priceInCents;
         private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<IntervalUnit> intervalUnit;
 
         /**
          * Initialization constructor.
@@ -840,7 +860,16 @@ public class EBBComponent
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 

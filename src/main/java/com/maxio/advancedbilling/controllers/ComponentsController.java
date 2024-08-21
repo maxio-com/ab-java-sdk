@@ -52,16 +52,16 @@ public final class ComponentsController extends BaseController {
      * reset to zero at the start of every billing period. If you want to bill for a quantity of
      * something that does not change unless you change it, then you want quantity components,
      * instead. For more information on components, please see our documentation
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+     * @param  productFamilyId  Required parameter: Either the product family's id or its handle
+     *         prefixed with `handle:`
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ComponentResponse createMeteredComponent(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateMeteredComponent body) throws ApiException, IOException {
         return prepareCreateMeteredComponentRequest(productFamilyId, body).execute();
     }
@@ -70,7 +70,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for createMeteredComponent.
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateMeteredComponentRequest(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateMeteredComponent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -79,7 +79,7 @@ public final class ComponentsController extends BaseController {
                         .path("/product_families/{product_family_id}/metered_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -114,16 +114,16 @@ public final class ComponentsController extends BaseController {
      * your customer a one-time fee for onboarding or other services. The allocated quantity for
      * one-time quantity-based components immediately gets reset back to zero after the allocation
      * is made. For more information on components, please see our documentation
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+     * @param  productFamilyId  Required parameter: Either the product family's id or its handle
+     *         prefixed with `handle:`
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ComponentResponse createQuantityBasedComponent(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateQuantityBasedComponent body) throws ApiException, IOException {
         return prepareCreateQuantityBasedComponentRequest(productFamilyId, body).execute();
     }
@@ -132,7 +132,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for createQuantityBasedComponent.
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateQuantityBasedComponentRequest(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateQuantityBasedComponent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -141,7 +141,7 @@ public final class ComponentsController extends BaseController {
                         .path("/product_families/{product_family_id}/quantity_based_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -170,16 +170,16 @@ public final class ComponentsController extends BaseController {
      * subscription. On/off components are used for any flat fee, recurring add on (think $99/month
      * for tech support or a flat add on shipping fee). For more information on components, please
      * see our documentation
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+     * @param  productFamilyId  Required parameter: Either the product family's id or its handle
+     *         prefixed with `handle:`
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ComponentResponse createOnOffComponent(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateOnOffComponent body) throws ApiException, IOException {
         return prepareCreateOnOffComponentRequest(productFamilyId, body).execute();
     }
@@ -188,7 +188,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for createOnOffComponent.
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateOnOffComponentRequest(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateOnOffComponent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -197,7 +197,7 @@ public final class ComponentsController extends BaseController {
                         .path("/product_families/{product_family_id}/on_off_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -228,16 +228,17 @@ public final class ComponentsController extends BaseController {
      * while metered components charge at the end of the period for the amount of units used,
      * prepaid components are charged for at the time of purchase, and we subsequently keep track of
      * the usage against the amount purchased. For more information on components, please see our
-     * documentation [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
+     * documentation
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+     * @param  productFamilyId  Required parameter: Either the product family's id or its handle
+     *         prefixed with `handle:`
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ComponentResponse createPrepaidUsageComponent(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreatePrepaidComponent body) throws ApiException, IOException {
         return prepareCreatePrepaidUsageComponentRequest(productFamilyId, body).execute();
     }
@@ -246,7 +247,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for createPrepaidUsageComponent.
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreatePrepaidUsageComponentRequest(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreatePrepaidComponent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -255,7 +256,7 @@ public final class ComponentsController extends BaseController {
                         .path("/product_families/{product_family_id}/prepaid_usage_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -288,16 +289,16 @@ public final class ComponentsController extends BaseController {
      * billed each period for each subscription. So, instead of reporting usage directly for each
      * component (as you would with metered components), the usage is derived from analysis of your
      * events. For more information on components, please see our documentation
-     * [here](https://maxio-chargify.zendesk.com/hc/en-us/articles/5405020625677).
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
+     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
+     * @param  productFamilyId  Required parameter: Either the product family's id or its handle
+     *         prefixed with `handle:`
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ComponentResponse createEventBasedComponent(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateEBBComponent body) throws ApiException, IOException {
         return prepareCreateEventBasedComponentRequest(productFamilyId, body).execute();
     }
@@ -306,7 +307,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for createEventBasedComponent.
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateEventBasedComponentRequest(
-            final int productFamilyId,
+            final String productFamilyId,
             final CreateEBBComponent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
@@ -315,7 +316,7 @@ public final class ComponentsController extends BaseController {
                         .path("/product_families/{product_family_id}/event_based_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
+                        .templateParam(param -> param.key("product_family_id").value(productFamilyId)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
                                 .value("application/json").isRequired(false))
@@ -381,10 +382,10 @@ public final class ComponentsController extends BaseController {
      * This request will return information regarding a component from a specific product family.
      * You may read the component by either the component's id or handle. When using the handle, it
      * must be prefixed with `handle:`.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
-     * @param  componentId  Required parameter: Either the Chargify id of the component or the
-     *         handle for the component prefixed with `handle:`
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the component belongs
+     * @param  componentId  Required parameter: Either the Advanced Billing id of the component or
+     *         the handle for the component prefixed with `handle:`
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -427,10 +428,10 @@ public final class ComponentsController extends BaseController {
      * This request will update a component from a specific product family. You may read the
      * component by either the component's id or handle. When using the handle, it must be prefixed
      * with `handle:`.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
-     * @param  componentId  Required parameter: Either the Chargify id of the component or the
-     *         handle for the component prefixed with `handle:`
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the component belongs
+     * @param  componentId  Required parameter: Either the Advanced Billing id of the component or
+     *         the handle for the component prefixed with `handle:`
      * @param  body  Optional parameter: Example:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -483,10 +484,10 @@ public final class ComponentsController extends BaseController {
     /**
      * Sending a DELETE request to this endpoint will archive the component. All current subscribers
      * will be unffected; their subscription/purchase will continue to be charged as usual.
-     * @param  productFamilyId  Required parameter: The Chargify id of the product family to which
-     *         the component belongs
-     * @param  componentId  Required parameter: Either the Chargify id of the component or the
-     *         handle for the component prefixed with `handle:`
+     * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
+     *         which the component belongs
+     * @param  componentId  Required parameter: Either the Advanced Billing id of the component or
+     *         the handle for the component prefixed with `handle:`
      * @return    Returns the Component response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

@@ -30,6 +30,9 @@ public class InvoiceTax
     private Integer transactionId;
     private List<InvoiceTaxBreakout> lineItemBreakouts;
     private List<InvoiceTaxComponentBreakout> taxComponentBreakouts;
+    private Boolean euVat;
+    private String type;
+    private String taxExemptAmount;
 
     /**
      * Default constructor.
@@ -51,6 +54,9 @@ public class InvoiceTax
      * @param  lineItemBreakouts  List of InvoiceTaxBreakout value for lineItemBreakouts.
      * @param  taxComponentBreakouts  List of InvoiceTaxComponentBreakout value for
      *         taxComponentBreakouts.
+     * @param  euVat  Boolean value for euVat.
+     * @param  type  String value for type.
+     * @param  taxExemptAmount  String value for taxExemptAmount.
      */
     public InvoiceTax(
             String uid,
@@ -63,7 +69,10 @@ public class InvoiceTax
             String taxAmount,
             Integer transactionId,
             List<InvoiceTaxBreakout> lineItemBreakouts,
-            List<InvoiceTaxComponentBreakout> taxComponentBreakouts) {
+            List<InvoiceTaxComponentBreakout> taxComponentBreakouts,
+            Boolean euVat,
+            String type,
+            String taxExemptAmount) {
         this.uid = uid;
         this.title = title;
         this.description = OptionalNullable.of(description);
@@ -75,6 +84,9 @@ public class InvoiceTax
         this.transactionId = transactionId;
         this.lineItemBreakouts = lineItemBreakouts;
         this.taxComponentBreakouts = taxComponentBreakouts;
+        this.euVat = euVat;
+        this.type = type;
+        this.taxExemptAmount = taxExemptAmount;
     }
 
     /**
@@ -91,13 +103,17 @@ public class InvoiceTax
      * @param  lineItemBreakouts  List of InvoiceTaxBreakout value for lineItemBreakouts.
      * @param  taxComponentBreakouts  List of InvoiceTaxComponentBreakout value for
      *         taxComponentBreakouts.
+     * @param  euVat  Boolean value for euVat.
+     * @param  type  String value for type.
+     * @param  taxExemptAmount  String value for taxExemptAmount.
      */
 
     protected InvoiceTax(String uid, String title, OptionalNullable<String> description,
             ProformaInvoiceTaxSourceType sourceType, Integer sourceId, String percentage,
             String taxableAmount, String taxAmount, Integer transactionId,
             List<InvoiceTaxBreakout> lineItemBreakouts,
-            List<InvoiceTaxComponentBreakout> taxComponentBreakouts) {
+            List<InvoiceTaxComponentBreakout> taxComponentBreakouts, Boolean euVat, String type,
+            String taxExemptAmount) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -109,6 +125,9 @@ public class InvoiceTax
         this.transactionId = transactionId;
         this.lineItemBreakouts = lineItemBreakouts;
         this.taxComponentBreakouts = taxComponentBreakouts;
+        this.euVat = euVat;
+        this.type = type;
+        this.taxExemptAmount = taxExemptAmount;
     }
 
     /**
@@ -337,6 +356,63 @@ public class InvoiceTax
     }
 
     /**
+     * Getter for EuVat.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("eu_vat")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getEuVat() {
+        return euVat;
+    }
+
+    /**
+     * Setter for EuVat.
+     * @param euVat Value for Boolean
+     */
+    @JsonSetter("eu_vat")
+    public void setEuVat(Boolean euVat) {
+        this.euVat = euVat;
+    }
+
+    /**
+     * Getter for Type.
+     * @return Returns the String
+     */
+    @JsonGetter("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Setter for Type.
+     * @param type Value for String
+     */
+    @JsonSetter("type")
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * Getter for TaxExemptAmount.
+     * @return Returns the String
+     */
+    @JsonGetter("tax_exempt_amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getTaxExemptAmount() {
+        return taxExemptAmount;
+    }
+
+    /**
+     * Setter for TaxExemptAmount.
+     * @param taxExemptAmount Value for String
+     */
+    @JsonSetter("tax_exempt_amount")
+    public void setTaxExemptAmount(String taxExemptAmount) {
+        this.taxExemptAmount = taxExemptAmount;
+    }
+
+    /**
      * Converts this InvoiceTax into string format.
      * @return String representation of this class
      */
@@ -346,8 +422,9 @@ public class InvoiceTax
                 + ", sourceType=" + sourceType + ", sourceId=" + sourceId + ", percentage="
                 + percentage + ", taxableAmount=" + taxableAmount + ", taxAmount=" + taxAmount
                 + ", transactionId=" + transactionId + ", lineItemBreakouts=" + lineItemBreakouts
-                + ", taxComponentBreakouts=" + taxComponentBreakouts + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", taxComponentBreakouts=" + taxComponentBreakouts + ", euVat=" + euVat
+                + ", type=" + type + ", taxExemptAmount=" + taxExemptAmount
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -366,7 +443,10 @@ public class InvoiceTax
                 .taxAmount(getTaxAmount())
                 .transactionId(getTransactionId())
                 .lineItemBreakouts(getLineItemBreakouts())
-                .taxComponentBreakouts(getTaxComponentBreakouts());
+                .taxComponentBreakouts(getTaxComponentBreakouts())
+                .euVat(getEuVat())
+                .type(getType())
+                .taxExemptAmount(getTaxExemptAmount());
         builder.description = internalGetDescription();
         return builder;
     }
@@ -386,6 +466,9 @@ public class InvoiceTax
         private Integer transactionId;
         private List<InvoiceTaxBreakout> lineItemBreakouts;
         private List<InvoiceTaxComponentBreakout> taxComponentBreakouts;
+        private Boolean euVat;
+        private String type;
+        private String taxExemptAmount;
 
 
 
@@ -511,13 +594,43 @@ public class InvoiceTax
         }
 
         /**
+         * Setter for euVat.
+         * @param  euVat  Boolean value for euVat.
+         * @return Builder
+         */
+        public Builder euVat(Boolean euVat) {
+            this.euVat = euVat;
+            return this;
+        }
+
+        /**
+         * Setter for type.
+         * @param  type  String value for type.
+         * @return Builder
+         */
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        /**
+         * Setter for taxExemptAmount.
+         * @param  taxExemptAmount  String value for taxExemptAmount.
+         * @return Builder
+         */
+        public Builder taxExemptAmount(String taxExemptAmount) {
+            this.taxExemptAmount = taxExemptAmount;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceTax} object using the set fields.
          * @return {@link InvoiceTax}
          */
         public InvoiceTax build() {
             return new InvoiceTax(uid, title, description, sourceType, sourceId, percentage,
                     taxableAmount, taxAmount, transactionId, lineItemBreakouts,
-                    taxComponentBreakouts);
+                    taxComponentBreakouts, euVat, type, taxExemptAmount);
         }
     }
 }

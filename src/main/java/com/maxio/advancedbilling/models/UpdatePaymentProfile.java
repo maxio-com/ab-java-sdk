@@ -24,7 +24,7 @@ public class UpdatePaymentProfile
     private CardType cardType;
     private String expirationMonth;
     private String expirationYear;
-    private CurrentVault currentVault;
+    private AllVaults currentVault;
     private String billingAddress;
     private String billingCity;
     private String billingState;
@@ -46,7 +46,7 @@ public class UpdatePaymentProfile
      * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  String value for expirationMonth.
      * @param  expirationYear  String value for expirationYear.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  AllVaults value for currentVault.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
      * @param  billingState  String value for billingState.
@@ -61,7 +61,7 @@ public class UpdatePaymentProfile
             CardType cardType,
             String expirationMonth,
             String expirationYear,
-            CurrentVault currentVault,
+            AllVaults currentVault,
             String billingAddress,
             String billingCity,
             String billingState,
@@ -91,7 +91,7 @@ public class UpdatePaymentProfile
      * @param  cardType  CardType value for cardType.
      * @param  expirationMonth  String value for expirationMonth.
      * @param  expirationYear  String value for expirationYear.
-     * @param  currentVault  CurrentVault value for currentVault.
+     * @param  currentVault  AllVaults value for currentVault.
      * @param  billingAddress  String value for billingAddress.
      * @param  billingCity  String value for billingCity.
      * @param  billingState  String value for billingState.
@@ -102,9 +102,8 @@ public class UpdatePaymentProfile
 
     protected UpdatePaymentProfile(String firstName, String lastName, String fullNumber,
             CardType cardType, String expirationMonth, String expirationYear,
-            CurrentVault currentVault, String billingAddress, String billingCity,
-            String billingState, String billingZip, String billingCountry,
-            OptionalNullable<String> billingAddress2) {
+            AllVaults currentVault, String billingAddress, String billingCity, String billingState,
+            String billingZip, String billingCountry, OptionalNullable<String> billingAddress2) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullNumber = fullNumber;
@@ -254,11 +253,11 @@ public class UpdatePaymentProfile
      * Getter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @return Returns the CurrentVault
+     * @return Returns the AllVaults
      */
     @JsonGetter("current_vault")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CurrentVault getCurrentVault() {
+    public AllVaults getCurrentVault() {
         return currentVault;
     }
 
@@ -266,10 +265,10 @@ public class UpdatePaymentProfile
      * Setter for CurrentVault.
      * The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for
      * testing.
-     * @param currentVault Value for CurrentVault
+     * @param currentVault Value for AllVaults
      */
     @JsonSetter("current_vault")
-    public void setCurrentVault(CurrentVault currentVault) {
+    public void setCurrentVault(AllVaults currentVault) {
         this.currentVault = currentVault;
     }
 
@@ -485,7 +484,7 @@ public class UpdatePaymentProfile
         private CardType cardType;
         private String expirationMonth;
         private String expirationYear;
-        private CurrentVault currentVault;
+        private AllVaults currentVault;
         private String billingAddress;
         private String billingCity;
         private String billingState;
@@ -557,10 +556,10 @@ public class UpdatePaymentProfile
 
         /**
          * Setter for currentVault.
-         * @param  currentVault  CurrentVault value for currentVault.
+         * @param  currentVault  AllVaults value for currentVault.
          * @return Builder
          */
-        public Builder currentVault(CurrentVault currentVault) {
+        public Builder currentVault(AllVaults currentVault) {
             this.currentVault = currentVault;
             return this;
         }

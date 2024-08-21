@@ -152,7 +152,7 @@ public class TestSetup {
         String handle = componentName.toLowerCase().replace(" ", "-") + randomNumeric(10);
         return advancedBillingClient.getComponentsController()
                 .createMeteredComponent(
-                        productFamily.getId(),
+                        String.valueOf(productFamily.getId()),
                         new CreateMeteredComponent(new MeteredComponent.Builder()
                                 .name(componentName)
                                 .handle(handle)
@@ -183,7 +183,7 @@ public class TestSetup {
 
         return advancedBillingClient.getComponentsController()
                 .createQuantityBasedComponent(
-                        productFamilyId,
+                        String.valueOf(productFamilyId),
                         new CreateQuantityBasedComponent(quantityBasedComponentBuilder.build())
                 )
                 .getComponent();
@@ -205,7 +205,7 @@ public class TestSetup {
 
         return advancedBillingClient.getComponentsController()
                 .createOnOffComponent(
-                        productFamilyId,
+                        String.valueOf(productFamilyId),
                         new CreateOnOffComponent(onOffComponentBuilder.build())
                 )
                 .getComponent();
@@ -245,7 +245,8 @@ public class TestSetup {
 
         return advancedBillingClient
                 .getComponentsController()
-                .createPrepaidUsageComponent(productFamily.getId(), new CreatePrepaidComponent(builder.build()))
+                .createPrepaidUsageComponent(String.valueOf(productFamily.getId()),
+                        new CreatePrepaidComponent(builder.build()))
                 .getComponent();
     }
 

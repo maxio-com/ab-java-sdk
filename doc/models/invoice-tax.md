@@ -20,6 +20,9 @@
 | `TransactionId` | `Integer` | Optional | - | Integer getTransactionId() | setTransactionId(Integer transactionId) |
 | `LineItemBreakouts` | [`List<InvoiceTaxBreakout>`](../../doc/models/invoice-tax-breakout.md) | Optional | - | List<InvoiceTaxBreakout> getLineItemBreakouts() | setLineItemBreakouts(List<InvoiceTaxBreakout> lineItemBreakouts) |
 | `TaxComponentBreakouts` | [`List<InvoiceTaxComponentBreakout>`](../../doc/models/invoice-tax-component-breakout.md) | Optional | - | List<InvoiceTaxComponentBreakout> getTaxComponentBreakouts() | setTaxComponentBreakouts(List<InvoiceTaxComponentBreakout> taxComponentBreakouts) |
+| `EuVat` | `Boolean` | Optional | - | Boolean getEuVat() | setEuVat(Boolean euVat) |
+| `Type` | `String` | Optional | - | String getType() | setType(String type) |
+| `TaxExemptAmount` | `String` | Optional | - | String getTaxExemptAmount() | setTaxExemptAmount(String taxExemptAmount) |
 
 ## Example (as JSON)
 

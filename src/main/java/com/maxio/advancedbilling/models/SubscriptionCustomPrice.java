@@ -9,6 +9,7 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceExpirationInterval;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInitialChargeInCents;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInterval;
@@ -16,6 +17,7 @@ import com.maxio.advancedbilling.models.containers.SubscriptionCustomPricePriceI
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialInterval;
 import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialPriceInCents;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for SubscriptionCustomPrice type.
@@ -33,7 +35,7 @@ public class SubscriptionCustomPrice
     private SubscriptionCustomPriceInitialChargeInCents initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private SubscriptionCustomPriceExpirationInterval expirationInterval;
-    private IntervalUnit expirationIntervalUnit;
+    private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Boolean taxIncluded;
 
     /**
@@ -58,7 +60,7 @@ public class SubscriptionCustomPrice
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  SubscriptionCustomPriceExpirationInterval value for
      *         expirationInterval.
-     * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  taxIncluded  Boolean value for taxIncluded.
      */
     public SubscriptionCustomPrice(
@@ -73,7 +75,51 @@ public class SubscriptionCustomPrice
             SubscriptionCustomPriceInitialChargeInCents initialChargeInCents,
             Boolean initialChargeAfterTrial,
             SubscriptionCustomPriceExpirationInterval expirationInterval,
-            IntervalUnit expirationIntervalUnit,
+            ExpirationIntervalUnit expirationIntervalUnit,
+            Boolean taxIncluded) {
+        this.name = name;
+        this.handle = handle;
+        this.priceInCents = priceInCents;
+        this.interval = interval;
+        this.intervalUnit = intervalUnit;
+        this.trialPriceInCents = trialPriceInCents;
+        this.trialInterval = trialInterval;
+        this.trialIntervalUnit = trialIntervalUnit;
+        this.initialChargeInCents = initialChargeInCents;
+        this.initialChargeAfterTrial = initialChargeAfterTrial;
+        this.expirationInterval = expirationInterval;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+        this.taxIncluded = taxIncluded;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  priceInCents  SubscriptionCustomPricePriceInCents value for priceInCents.
+     * @param  interval  SubscriptionCustomPriceInterval value for interval.
+     * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  name  String value for name.
+     * @param  handle  String value for handle.
+     * @param  trialPriceInCents  SubscriptionCustomPriceTrialPriceInCents value for
+     *         trialPriceInCents.
+     * @param  trialInterval  SubscriptionCustomPriceTrialInterval value for trialInterval.
+     * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
+     * @param  initialChargeInCents  SubscriptionCustomPriceInitialChargeInCents value for
+     *         initialChargeInCents.
+     * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
+     * @param  expirationInterval  SubscriptionCustomPriceExpirationInterval value for
+     *         expirationInterval.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
+     * @param  taxIncluded  Boolean value for taxIncluded.
+     */
+
+    protected SubscriptionCustomPrice(SubscriptionCustomPricePriceInCents priceInCents,
+            SubscriptionCustomPriceInterval interval, IntervalUnit intervalUnit, String name,
+            String handle, SubscriptionCustomPriceTrialPriceInCents trialPriceInCents,
+            SubscriptionCustomPriceTrialInterval trialInterval, IntervalUnit trialIntervalUnit,
+            SubscriptionCustomPriceInitialChargeInCents initialChargeInCents,
+            Boolean initialChargeAfterTrial,
+            SubscriptionCustomPriceExpirationInterval expirationInterval,
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
             Boolean taxIncluded) {
         this.name = name;
         this.handle = handle;
@@ -319,24 +365,42 @@ public class SubscriptionCustomPrice
     }
 
     /**
-     * Getter for ExpirationIntervalUnit.
+     * Internal Getter for ExpirationIntervalUnit.
      * (Optional)
-     * @return Returns the IntervalUnit
+     * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public IntervalUnit getExpirationIntervalUnit() {
-        return expirationIntervalUnit;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
+        return this.expirationIntervalUnit;
+    }
+
+    /**
+     * Getter for ExpirationIntervalUnit.
+     * (Optional)
+     * @return Returns the ExpirationIntervalUnit
+     */
+    public ExpirationIntervalUnit getExpirationIntervalUnit() {
+        return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
      * (Optional)
-     * @param expirationIntervalUnit Value for IntervalUnit
+     * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-        this.expirationIntervalUnit = expirationIntervalUnit;
+    public void setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+    }
+
+    /**
+     * UnSetter for ExpirationIntervalUnit.
+     * (Optional)
+     */
+    public void unsetExpirationIntervalUnit() {
+        expirationIntervalUnit = null;
     }
 
     /**
@@ -391,8 +455,8 @@ public class SubscriptionCustomPrice
                 .initialChargeInCents(getInitialChargeInCents())
                 .initialChargeAfterTrial(getInitialChargeAfterTrial())
                 .expirationInterval(getExpirationInterval())
-                .expirationIntervalUnit(getExpirationIntervalUnit())
                 .taxIncluded(getTaxIncluded());
+        builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
 
@@ -411,7 +475,7 @@ public class SubscriptionCustomPrice
         private SubscriptionCustomPriceInitialChargeInCents initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private SubscriptionCustomPriceExpirationInterval expirationInterval;
-        private IntervalUnit expirationIntervalUnit;
+        private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Boolean taxIncluded;
 
         /**
@@ -551,11 +615,20 @@ public class SubscriptionCustomPrice
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  IntervalUnit value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(IntervalUnit expirationIntervalUnit) {
-            this.expirationIntervalUnit = expirationIntervalUnit;
+        public Builder expirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+            this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetExpirationIntervalUnit() {
+            expirationIntervalUnit = null;
             return this;
         }
 

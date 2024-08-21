@@ -55,7 +55,7 @@ public class Component
     private OptionalNullable<String> accountingCode;
     private Integer eventBasedBillingMetricId;
     private Integer interval;
-    private IntervalUnit intervalUnit;
+    private OptionalNullable<IntervalUnit> intervalUnit;
 
     /**
      * Default constructor.
@@ -168,7 +168,7 @@ public class Component
         this.accountingCode = OptionalNullable.of(accountingCode);
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
     }
 
     /**
@@ -225,7 +225,8 @@ public class Component
             Boolean hideDateRangeOnInvoice, Boolean allowFractionalQuantities,
             OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
-            Integer eventBasedBillingMetricId, Integer interval, IntervalUnit intervalUnit) {
+            Integer eventBasedBillingMetricId, Integer interval,
+            OptionalNullable<IntervalUnit> intervalUnit) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -1273,15 +1274,26 @@ public class Component
     }
 
     /**
+     * Internal Getter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     * @return Returns the Internal IntervalUnit
+     */
+    @JsonGetter("interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<IntervalUnit> internalGetIntervalUnit() {
+        return this.intervalUnit;
+    }
+
+    /**
      * Getter for IntervalUnit.
      * A string representing the interval unit for this component's default price point, either
      * month or day. This property is only available for sites with Multifrequency enabled.
      * @return Returns the IntervalUnit
      */
-    @JsonGetter("interval_unit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public IntervalUnit getIntervalUnit() {
-        return intervalUnit;
+        return OptionalNullable.getFrom(intervalUnit);
     }
 
     /**
@@ -1292,7 +1304,16 @@ public class Component
      */
     @JsonSetter("interval_unit")
     public void setIntervalUnit(IntervalUnit intervalUnit) {
-        this.intervalUnit = intervalUnit;
+        this.intervalUnit = OptionalNullable.of(intervalUnit);
+    }
+
+    /**
+     * UnSetter for IntervalUnit.
+     * A string representing the interval unit for this component's default price point, either
+     * month or day. This property is only available for sites with Multifrequency enabled.
+     */
+    public void unsetIntervalUnit() {
+        intervalUnit = null;
     }
 
     /**
@@ -1343,8 +1364,7 @@ public class Component
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .eventBasedBillingMetricId(getEventBasedBillingMetricId())
-                .interval(getInterval())
-                .intervalUnit(getIntervalUnit());
+                .interval(getInterval());
         builder.handle = internalGetHandle();
         builder.pricingScheme = internalGetPricingScheme();
         builder.unitPrice = internalGetUnitPrice();
@@ -1361,6 +1381,7 @@ public class Component
         builder.itemCategory = internalGetItemCategory();
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.accountingCode = internalGetAccountingCode();
+        builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
 
@@ -1401,7 +1422,7 @@ public class Component
         private OptionalNullable<String> accountingCode;
         private Integer eventBasedBillingMetricId;
         private Integer interval;
-        private IntervalUnit intervalUnit;
+        private OptionalNullable<IntervalUnit> intervalUnit;
 
 
 
@@ -1885,7 +1906,16 @@ public class Component
          * @return Builder
          */
         public Builder intervalUnit(IntervalUnit intervalUnit) {
-            this.intervalUnit = intervalUnit;
+            this.intervalUnit = OptionalNullable.of(intervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for intervalUnit.
+         * @return Builder
+         */
+        public Builder unsetIntervalUnit() {
+            intervalUnit = null;
             return this;
         }
 

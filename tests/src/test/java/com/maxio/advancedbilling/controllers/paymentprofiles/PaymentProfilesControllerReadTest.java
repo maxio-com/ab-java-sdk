@@ -12,7 +12,7 @@ import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.CreatePaymentProfile;
 import com.maxio.advancedbilling.models.CreatePaymentProfileRequest;
 import com.maxio.advancedbilling.models.CreditCardPaymentProfile;
-import com.maxio.advancedbilling.models.CurrentVault;
+import com.maxio.advancedbilling.models.CreditCardVault;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.PaymentType;
 import com.maxio.advancedbilling.models.containers.CreatePaymentProfileExpirationMonth;
@@ -91,7 +91,7 @@ class PaymentProfilesControllerReadTest {
                         .expirationMonth(creditCardPaymentProfile.getExpirationMonth())
                         .expirationYear(creditCardPaymentProfile.getExpirationYear())
                         .customerId(customer.getId())
-                        .currentVault(CurrentVault.BOGUS)
+                        .currentVault(CreditCardVault.BOGUS)
                         .vaultToken(creditCardPaymentProfile.getVaultToken())
                         .billingAddress(null)
                         .billingCity(null)
