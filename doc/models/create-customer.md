@@ -27,6 +27,7 @@
 | `TaxExempt` | `Boolean` | Optional | - | Boolean getTaxExempt() | setTaxExempt(Boolean taxExempt) |
 | `TaxExemptReason` | `String` | Optional | - | String getTaxExemptReason() | setTaxExemptReason(String taxExemptReason) |
 | `ParentId` | `Integer` | Optional | The parent ID in Chargify if applicable. Parent is another Customer object. | Integer getParentId() | setParentId(Integer parentId) |
+| `SalesforceId` | `String` | Optional | The Salesforce ID of the customer | String getSalesforceId() | setSalesforceId(String salesforceId) |
 
 ## Example (as JSON)
 

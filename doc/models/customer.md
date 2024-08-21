@@ -36,6 +36,7 @@
 | `ParentId` | `Integer` | Optional | The parent ID in Chargify if applicable. Parent is another Customer object. | Integer getParentId() | setParentId(Integer parentId) |
 | `Locale` | `String` | Optional | The locale for the customer to identify language-region | String getLocale() | setLocale(String locale) |
 | `DefaultSubscriptionGroupUid` | `String` | Optional | - | String getDefaultSubscriptionGroupUid() | setDefaultSubscriptionGroupUid(String defaultSubscriptionGroupUid) |
+| `SalesforceId` | `String` | Optional | The Salesforce ID for the customer | String getSalesforceId() | setSalesforceId(String salesforceId) |
 
 ## Example (as JSON)
 

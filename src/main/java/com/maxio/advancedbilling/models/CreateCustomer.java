@@ -36,6 +36,7 @@ public class CreateCustomer
     private Boolean taxExempt;
     private String taxExemptReason;
     private OptionalNullable<Integer> parentId;
+    private OptionalNullable<String> salesforceId;
 
     /**
      * Default constructor.
@@ -63,6 +64,7 @@ public class CreateCustomer
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
+     * @param  salesforceId  String value for salesforceId.
      */
     public CreateCustomer(
             String firstName,
@@ -82,7 +84,8 @@ public class CreateCustomer
             String vatNumber,
             Boolean taxExempt,
             String taxExemptReason,
-            Integer parentId) {
+            Integer parentId,
+            String salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -101,6 +104,7 @@ public class CreateCustomer
         this.taxExempt = taxExempt;
         this.taxExemptReason = taxExemptReason;
         this.parentId = OptionalNullable.of(parentId);
+        this.salesforceId = OptionalNullable.of(salesforceId);
     }
 
     /**
@@ -123,12 +127,14 @@ public class CreateCustomer
      * @param  taxExempt  Boolean value for taxExempt.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
+     * @param  salesforceId  String value for salesforceId.
      */
 
     protected CreateCustomer(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address, String address2, String city,
             String state, String zip, String country, String phone, String locale, String vatNumber,
-            Boolean taxExempt, String taxExemptReason, OptionalNullable<Integer> parentId) {
+            Boolean taxExempt, String taxExemptReason, OptionalNullable<Integer> parentId,
+            OptionalNullable<String> salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -147,6 +153,7 @@ public class CreateCustomer
         this.taxExempt = taxExempt;
         this.taxExemptReason = taxExemptReason;
         this.parentId = parentId;
+        this.salesforceId = salesforceId;
     }
 
     /**
@@ -511,6 +518,45 @@ public class CreateCustomer
     }
 
     /**
+     * Internal Getter for SalesforceId.
+     * The Salesforce ID of the customer
+     * @return Returns the Internal String
+     */
+    @JsonGetter("salesforce_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSalesforceId() {
+        return this.salesforceId;
+    }
+
+    /**
+     * Getter for SalesforceId.
+     * The Salesforce ID of the customer
+     * @return Returns the String
+     */
+    public String getSalesforceId() {
+        return OptionalNullable.getFrom(salesforceId);
+    }
+
+    /**
+     * Setter for SalesforceId.
+     * The Salesforce ID of the customer
+     * @param salesforceId Value for String
+     */
+    @JsonSetter("salesforce_id")
+    public void setSalesforceId(String salesforceId) {
+        this.salesforceId = OptionalNullable.of(salesforceId);
+    }
+
+    /**
+     * UnSetter for SalesforceId.
+     * The Salesforce ID of the customer
+     */
+    public void unsetSalesforceId() {
+        salesforceId = null;
+    }
+
+    /**
      * Converts this CreateCustomer into string format.
      * @return String representation of this class
      */
@@ -522,8 +568,8 @@ public class CreateCustomer
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
                 + ", taxExempt=" + taxExempt + ", taxExemptReason=" + taxExemptReason
-                + ", parentId=" + parentId + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + ", parentId=" + parentId + ", salesforceId=" + salesforceId
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -548,6 +594,7 @@ public class CreateCustomer
                 .taxExempt(getTaxExempt())
                 .taxExemptReason(getTaxExemptReason());
         builder.parentId = internalGetParentId();
+        builder.salesforceId = internalGetSalesforceId();
         return builder;
     }
 
@@ -573,6 +620,7 @@ public class CreateCustomer
         private Boolean taxExempt;
         private String taxExemptReason;
         private OptionalNullable<Integer> parentId;
+        private OptionalNullable<String> salesforceId;
 
         /**
          * Initialization constructor.
@@ -782,13 +830,32 @@ public class CreateCustomer
         }
 
         /**
+         * Setter for salesforceId.
+         * @param  salesforceId  String value for salesforceId.
+         * @return Builder
+         */
+        public Builder salesforceId(String salesforceId) {
+            this.salesforceId = OptionalNullable.of(salesforceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for salesforceId.
+         * @return Builder
+         */
+        public Builder unsetSalesforceId() {
+            salesforceId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateCustomer} object using the set fields.
          * @return {@link CreateCustomer}
          */
         public CreateCustomer build() {
             return new CreateCustomer(firstName, lastName, email, ccEmails, organization, reference,
                     address, address2, city, state, zip, country, phone, locale, vatNumber,
-                    taxExempt, taxExemptReason, parentId);
+                    taxExempt, taxExemptReason, parentId, salesforceId);
         }
     }
 }

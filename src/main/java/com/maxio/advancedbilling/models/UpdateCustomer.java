@@ -37,6 +37,7 @@ public class UpdateCustomer
     private String taxExemptReason;
     private OptionalNullable<Integer> parentId;
     private OptionalNullable<Boolean> verified;
+    private OptionalNullable<String> salesforceId;
 
     /**
      * Default constructor.
@@ -65,6 +66,7 @@ public class UpdateCustomer
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
      * @param  verified  Boolean value for verified.
+     * @param  salesforceId  String value for salesforceId.
      */
     public UpdateCustomer(
             String firstName,
@@ -85,7 +87,8 @@ public class UpdateCustomer
             Boolean taxExempt,
             String taxExemptReason,
             Integer parentId,
-            Boolean verified) {
+            Boolean verified,
+            String salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -105,6 +108,7 @@ public class UpdateCustomer
         this.taxExemptReason = taxExemptReason;
         this.parentId = OptionalNullable.of(parentId);
         this.verified = OptionalNullable.of(verified);
+        this.salesforceId = OptionalNullable.of(salesforceId);
     }
 
     /**
@@ -128,13 +132,14 @@ public class UpdateCustomer
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
      * @param  verified  Boolean value for verified.
+     * @param  salesforceId  String value for salesforceId.
      */
 
     protected UpdateCustomer(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address, String address2, String city,
             String state, String zip, String country, String phone, String locale, String vatNumber,
             Boolean taxExempt, String taxExemptReason, OptionalNullable<Integer> parentId,
-            OptionalNullable<Boolean> verified) {
+            OptionalNullable<Boolean> verified, OptionalNullable<String> salesforceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -154,6 +159,7 @@ public class UpdateCustomer
         this.taxExemptReason = taxExemptReason;
         this.parentId = parentId;
         this.verified = verified;
+        this.salesforceId = salesforceId;
     }
 
     /**
@@ -560,6 +566,45 @@ public class UpdateCustomer
     }
 
     /**
+     * Internal Getter for SalesforceId.
+     * The Salesforce ID of the customer
+     * @return Returns the Internal String
+     */
+    @JsonGetter("salesforce_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetSalesforceId() {
+        return this.salesforceId;
+    }
+
+    /**
+     * Getter for SalesforceId.
+     * The Salesforce ID of the customer
+     * @return Returns the String
+     */
+    public String getSalesforceId() {
+        return OptionalNullable.getFrom(salesforceId);
+    }
+
+    /**
+     * Setter for SalesforceId.
+     * The Salesforce ID of the customer
+     * @param salesforceId Value for String
+     */
+    @JsonSetter("salesforce_id")
+    public void setSalesforceId(String salesforceId) {
+        this.salesforceId = OptionalNullable.of(salesforceId);
+    }
+
+    /**
+     * UnSetter for SalesforceId.
+     * The Salesforce ID of the customer
+     */
+    public void unsetSalesforceId() {
+        salesforceId = null;
+    }
+
+    /**
      * Converts this UpdateCustomer into string format.
      * @return String representation of this class
      */
@@ -571,8 +616,8 @@ public class UpdateCustomer
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
                 + ", taxExempt=" + taxExempt + ", taxExemptReason=" + taxExemptReason
-                + ", parentId=" + parentId + ", verified=" + verified + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", parentId=" + parentId + ", verified=" + verified + ", salesforceId="
+                + salesforceId + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -601,6 +646,7 @@ public class UpdateCustomer
                 .taxExemptReason(getTaxExemptReason());
         builder.parentId = internalGetParentId();
         builder.verified = internalGetVerified();
+        builder.salesforceId = internalGetSalesforceId();
         return builder;
     }
 
@@ -627,6 +673,7 @@ public class UpdateCustomer
         private String taxExemptReason;
         private OptionalNullable<Integer> parentId;
         private OptionalNullable<Boolean> verified;
+        private OptionalNullable<String> salesforceId;
 
 
 
@@ -839,13 +886,32 @@ public class UpdateCustomer
         }
 
         /**
+         * Setter for salesforceId.
+         * @param  salesforceId  String value for salesforceId.
+         * @return Builder
+         */
+        public Builder salesforceId(String salesforceId) {
+            this.salesforceId = OptionalNullable.of(salesforceId);
+            return this;
+        }
+
+        /**
+         * UnSetter for salesforceId.
+         * @return Builder
+         */
+        public Builder unsetSalesforceId() {
+            salesforceId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link UpdateCustomer} object using the set fields.
          * @return {@link UpdateCustomer}
          */
         public UpdateCustomer build() {
             return new UpdateCustomer(firstName, lastName, email, ccEmails, organization, reference,
                     address, address2, city, state, zip, country, phone, locale, vatNumber,
-                    taxExempt, taxExemptReason, parentId, verified);
+                    taxExempt, taxExemptReason, parentId, verified, salesforceId);
         }
     }
 }
