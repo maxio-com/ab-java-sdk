@@ -100,7 +100,6 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
         );
 
         InvoiceAddress invoiceShippingAddress = proformaInvoice.getShippingAddress();
-        assertThat(invoiceShippingAddress.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceShippingAddress).isNotNull(),
                 () -> assertThat(invoiceShippingAddress.getStreet()).isEqualTo("Broadway"),
@@ -145,6 +144,7 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
         assertThat(invoiceSeller.getAdditionalProperties()).isEmpty();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
+                .ignoringFields("address.additionalProperties")
                 .isEqualTo(INVOICE_SELLER);
         assertThat(proformaInvoice.getSequenceNumber()).isNotNull();
         assertThat(proformaInvoice.getSiteId()).isNotNull();

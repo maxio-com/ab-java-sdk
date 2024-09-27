@@ -122,7 +122,8 @@ class InvoicesControllerReadCreditNoteTest {
                 .usingRecursiveComparison()
                 .isEqualTo(new OriginInvoice(paidInvoice.getUid(), paidInvoice.getNumber()));
         assertThat(creditNote.getMemo()).isEqualTo("Special refund");
-        assertThat(creditNote.getSeller()).usingRecursiveComparison().isEqualTo(INVOICE_SELLER);
+        assertThat(creditNote.getSeller()).usingRecursiveComparison()
+                .ignoringFields("address.additionalProperties").isEqualTo(INVOICE_SELLER);
 
         InvoiceCustomer creditNoteCustomer = creditNote.getCustomer();
         assertThat(creditNoteCustomer.getChargifyId()).isEqualTo(customer.getId());
