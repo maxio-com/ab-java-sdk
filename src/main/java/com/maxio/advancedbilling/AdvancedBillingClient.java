@@ -40,6 +40,7 @@ import com.maxio.advancedbilling.controllers.SubscriptionProductsController;
 import com.maxio.advancedbilling.controllers.SubscriptionStatusController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.controllers.WebhooksController;
+import com.maxio.advancedbilling.http.client.HttpCallback;
 import com.maxio.advancedbilling.http.client.HttpClientConfiguration;
 import com.maxio.advancedbilling.http.client.ReadonlyHttpClientConfiguration;
 import io.apimatic.core.GlobalConfiguration;
@@ -98,7 +99,7 @@ public final class AdvancedBillingClient implements Configuration {
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "AB SDK Java:5.0.0 on OS {os-info}";
+    private static String userAgent = "AB SDK Java:5.1.0 on OS {os-info}";
 
     /**
      * Current API environment.
@@ -140,14 +141,20 @@ public final class AdvancedBillingClient implements Configuration {
      */
     private Map<String, Authentication> authentications = new HashMap<String, Authentication>();
 
+    /**
+     * Callback to be called before and after the HTTP call for an endpoint is made.
+     */
+    private final HttpCallback httpCallback;
+
     private AdvancedBillingClient(Environment environment, String subdomain, String domain,
             HttpClient httpClient, ReadonlyHttpClientConfiguration httpClientConfig,
-            BasicAuthModel basicAuthModel) {
+            BasicAuthModel basicAuthModel, HttpCallback httpCallback) {
         this.environment = environment;
         this.subdomain = subdomain;
         this.domain = domain;
         this.httpClient = httpClient;
         this.httpClientConfig = httpClientConfig;
+        this.httpCallback = httpCallback;
 
         this.basicAuthModel = basicAuthModel;
 
@@ -158,6 +165,7 @@ public final class AdvancedBillingClient implements Configuration {
                 .httpClient(httpClient).baseUri(server -> getBaseUri(server))
                 .compatibilityFactory(compatibilityFactory)
                 .authentication(this.authentications)
+                .callback(httpCallback)
                 .userAgent(userAgent)
                 .build();
         aPIExports = new APIExportsController(globalConfig);
@@ -605,6 +613,7 @@ public final class AdvancedBillingClient implements Configuration {
         builder.httpClient = getHttpClient();
         builder.basicAuthCredentials(getBasicAuthModel()
                 .toBuilder().build());
+        builder.httpCallback = httpCallback;
         builder.httpClientConfig(() -> ((HttpClientConfiguration) httpClientConfig).newBuilder());
         return builder;
     }
@@ -619,6 +628,7 @@ public final class AdvancedBillingClient implements Configuration {
         private String domain = "chargify.com";
         private HttpClient httpClient;
         private BasicAuthModel basicAuthModel = new BasicAuthModel.Builder("", "").build();
+        private HttpCallback httpCallback = null;
         private HttpClientConfiguration.Builder httpClientConfigBuilder =
                 new HttpClientConfiguration.Builder();
 
@@ -677,6 +687,16 @@ public final class AdvancedBillingClient implements Configuration {
         }
 
         /**
+         * HttpCallback.
+         * @param httpCallback Callback to be called before and after the HTTP call.
+         * @return Builder
+         */
+        public Builder httpCallback(HttpCallback httpCallback) {
+            this.httpCallback = httpCallback;
+            return this;
+        }
+
+        /**
          * Setter for the Builder of httpClientConfiguration, takes in an operation to be performed
          * on the builder instance of HTTP client configuration.
          * 
@@ -709,7 +729,7 @@ public final class AdvancedBillingClient implements Configuration {
             httpClient = new OkClient(httpClientConfig.getConfiguration(), compatibilityFactory);
 
             return new AdvancedBillingClient(environment, subdomain, domain, httpClient,
-                    httpClientConfig, basicAuthModel);
+                    httpClientConfig, basicAuthModel, httpCallback);
         }
     }
 }

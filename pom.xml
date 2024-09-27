@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.maxio</groupId>
   <artifactId>advanced-billing-sdk</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.0</version>
   <packaging>jar</packaging>
   <name>Advanced Billing SDK</name>
   <description>Ultimate billing and pricing flexibility for B2B SaaS.
@@ -141,6 +141,18 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>com.maxio.advancedbilling</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
     </plugins>
   </build>

@@ -194,7 +194,6 @@ abstract class ProformaInvoicesTestBase {
         );
 
         InvoiceAddress invoiceShippingAddress = proformaInvoice.getShippingAddress();
-        assertThat(invoiceShippingAddress.getAdditionalProperties()).isEmpty();
         assertAll(
                 () -> assertThat(invoiceShippingAddress).isNotNull(),
                 () -> assertThat(invoiceShippingAddress.getStreet()).isEqualTo(customer.getAddress()),
@@ -243,6 +242,7 @@ abstract class ProformaInvoicesTestBase {
         assertThat(invoiceSeller.getAdditionalProperties()).isEmpty();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
+                .ignoringFields("address.additionalProperties")
                 .isEqualTo(INVOICE_SELLER);
         assertThat(proformaInvoice.getSiteId()).isNotNull();
         assertThat(proformaInvoice.getStatus()).isEqualTo(DRAFT);

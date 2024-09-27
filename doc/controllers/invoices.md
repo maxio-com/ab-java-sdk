@@ -110,23 +110,23 @@ ListInvoicesResponse listInvoices(
 | `status` | [`InvoiceStatus`](../../doc/models/invoice-status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
 | `subscriptionId` | `Integer` | Query, Optional | The subscription's ID. |
 | `subscriptionGroupUid` | `String` | Query, Optional | The UID of the subscription group you want to fetch consolidated invoices for. This will return a paginated list of consolidated invoices for the specified group. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices. |
-| `lineItems` | `Boolean` | Query, Optional | Include line items data |
-| `discounts` | `Boolean` | Query, Optional | Include discounts data |
-| `taxes` | `Boolean` | Query, Optional | Include taxes data |
-| `credits` | `Boolean` | Query, Optional | Include credits data |
-| `payments` | `Boolean` | Query, Optional | Include payments data |
-| `customFields` | `Boolean` | Query, Optional | Include custom fields data |
-| `refunds` | `Boolean` | Query, Optional | Include refunds data |
-| `dateField` | [`InvoiceDateField`](../../doc/models/invoice-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`. |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br>**Default**: `Direction.DESC` |
+| `lineItems` | `Boolean` | Query, Optional | Include line items data<br>**Default**: `false` |
+| `discounts` | `Boolean` | Query, Optional | Include discounts data<br>**Default**: `false` |
+| `taxes` | `Boolean` | Query, Optional | Include taxes data<br>**Default**: `false` |
+| `credits` | `Boolean` | Query, Optional | Include credits data<br>**Default**: `false` |
+| `payments` | `Boolean` | Query, Optional | Include payments data<br>**Default**: `false` |
+| `customFields` | `Boolean` | Query, Optional | Include custom fields data<br>**Default**: `false` |
+| `refunds` | `Boolean` | Query, Optional | Include refunds data<br>**Default**: `false` |
+| `dateField` | [`InvoiceDateField`](../../doc/models/invoice-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`.<br>**Default**: `InvoiceDateField.DUE_DATE` |
 | `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Allowed to be used only along with date_field set to created_at or updated_at. |
 | `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Allowed to be used only along with date_field set to created_at or updated_at. |
 | `customerIds` | `List<Integer>` | Query, Optional | Allows fetching invoices with matching customer id based on provided values. Use in query `customer_ids=1,2,3`. |
 | `number` | `List<String>` | Query, Optional | Allows fetching invoices with matching invoice number based on provided values. Use in query `number=1234,1235`. |
 | `productIds` | `List<Integer>` | Query, Optional | Allows fetching invoices with matching line items product ids based on provided values. Use in query `product_ids=23,34`. |
-| `sort` | [`InvoiceSortField`](../../doc/models/invoice-sort-field.md) | Query, Optional | Allows specification of the order of the returned list. Use in query `sort=total_amount`. |
+| `sort` | [`InvoiceSortField`](../../doc/models/invoice-sort-field.md) | Query, Optional | Allows specification of the order of the returned list. Use in query `sort=total_amount`.<br>**Default**: `InvoiceSortField.NUMBER` |
 
 ## Response Type
 
@@ -641,8 +641,8 @@ ListInvoiceEventsResponse listInvoiceEvents(
 |  --- | --- | --- | --- |
 | `sinceDate` | `String` | Query, Optional | The timestamp in a format `YYYY-MM-DD T HH:MM:SS Z`, or `YYYY-MM-DD`(in this case, it returns data from the beginning of the day). of the event from which you want to start the search. All the events before the `since_date` timestamp are not returned in the response. |
 | `sinceId` | `Long` | Query, Optional | The ID of the event from which you want to start the search(ID is not included. e.g. if ID is set to 2, then all events with ID 3 and more will be shown) This parameter is not used if since_date is defined. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100. The maximum allowed values is 200; any per_page value over 200 will be changed to 200. |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>**Default**: `100` |
 | `invoiceUid` | `String` | Query, Optional | Providing an invoice_uid allows for scoping of the invoice events to a single invoice or credit note. |
 | `withChangeInvoiceStatus` | `String` | Query, Optional | Use this parameter if you want to fetch also invoice events with change_invoice_status type. |
 | `eventTypes` | [`List<InvoiceEventType>`](../../doc/models/invoice-event-type.md) | Query, Optional | Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: `event_types=void_invoice,void_remainder`. |
@@ -1280,13 +1280,13 @@ ListCreditNotesResponse listCreditNotes(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `Integer` | Query, Optional | The subscription's Advanced Billing id |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `lineItems` | `Boolean` | Query, Optional | Include line items data |
-| `discounts` | `Boolean` | Query, Optional | Include discounts data |
-| `taxes` | `Boolean` | Query, Optional | Include taxes data |
-| `refunds` | `Boolean` | Query, Optional | Include refunds data |
-| `applications` | `Boolean` | Query, Optional | Include applications data |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `lineItems` | `Boolean` | Query, Optional | Include line items data<br>**Default**: `false` |
+| `discounts` | `Boolean` | Query, Optional | Include discounts data<br>**Default**: `false` |
+| `taxes` | `Boolean` | Query, Optional | Include taxes data<br>**Default**: `false` |
+| `refunds` | `Boolean` | Query, Optional | Include refunds data<br>**Default**: `false` |
+| `applications` | `Boolean` | Query, Optional | Include applications data<br>**Default**: `false` |
 
 ## Response Type
 
@@ -2160,9 +2160,9 @@ ConsolidatedInvoice listConsolidatedInvoiceSegments(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `invoiceUid` | `String` | Template, Required | The unique identifier of the consolidated invoice |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`. |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`. |
-| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Sort direction of the returned segments. |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Sort direction of the returned segments.<br>**Default**: `Direction.ASC` |
 
 ## Response Type
 

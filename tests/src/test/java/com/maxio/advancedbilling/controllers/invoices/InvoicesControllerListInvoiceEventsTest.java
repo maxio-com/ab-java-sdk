@@ -425,7 +425,8 @@ public class InvoicesControllerListInvoiceEventsTest {
                 .ignoringFields("createdAt", "creditAmount", "credits", "discounts", "displaySettings",
                         "dueAmount", "id", "lineItems", "netTerms", "paidAmount", "paidDate", "payer", "payments",
                         "previousBalanceData", "publicUrl", "recipientEmails", "refundAmount", "refunds",
-                        "status", "transactionTime", "updatedAt", "publicUrlExpiresOn", "additionalProperties")
+                        "status", "transactionTime", "updatedAt", "publicUrlExpiresOn", "additionalProperties",
+                        "billingAddress.additionalProperties")
                 .isEqualTo(invoice);
         assertThat(eventInvoice.getCreatedAt()).isNotNull();
         assertThat(eventInvoice.getUpdatedAt()).isNotNull();

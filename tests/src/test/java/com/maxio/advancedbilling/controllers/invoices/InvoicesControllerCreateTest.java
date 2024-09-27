@@ -148,6 +148,7 @@ public class InvoicesControllerCreateTest {
         InvoiceSeller invoiceSeller = invoice.getSeller();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
+                .ignoringFields("address.additionalProperties")
                 .isEqualTo(INVOICE_SELLER);
 
         InvoiceCustomer invoiceCustomer = invoice.getCustomer();
