@@ -35,6 +35,7 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
+      <name>Repository Snapshot Server</name>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
