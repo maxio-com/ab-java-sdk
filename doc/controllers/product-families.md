@@ -54,6 +54,13 @@ ListProductsForProductFamilyInput listProductsForProductFamilyInput = new ListPr
 .page(2)
 .perPage(50)
 .dateField(BasicDateField.UPDATED_AT)
+.filter(new ListProductsFilter.Builder()
+        .ids(Arrays.asList(
+            1,
+            2,
+            3
+        ))
+        .build())
 .include(ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT)
 .build();
 

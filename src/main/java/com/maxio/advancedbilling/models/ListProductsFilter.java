@@ -10,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
+import java.util.List;
 
 /**
  * This is a model class for ListProductsFilter type.
  */
 public class ListProductsFilter
         extends BaseModel {
+    private List<Integer> ids;
     private PrepaidProductPricePointFilter prepaidProductPricePoint;
     private Boolean useSiteExchangeRate;
 
@@ -27,15 +29,41 @@ public class ListProductsFilter
 
     /**
      * Initialization constructor.
+     * @param  ids  List of Integer value for ids.
      * @param  prepaidProductPricePoint  PrepaidProductPricePointFilter value for
      *         prepaidProductPricePoint.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      */
     public ListProductsFilter(
+            List<Integer> ids,
             PrepaidProductPricePointFilter prepaidProductPricePoint,
             Boolean useSiteExchangeRate) {
+        this.ids = ids;
         this.prepaidProductPricePoint = prepaidProductPricePoint;
         this.useSiteExchangeRate = useSiteExchangeRate;
+    }
+
+    /**
+     * Getter for Ids.
+     * Allows fetching products with matching id based on provided values. Use in query
+     * `filter[ids]=1,2,3`.
+     * @return Returns the List of Integer
+     */
+    @JsonGetter("ids")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<Integer> getIds() {
+        return ids;
+    }
+
+    /**
+     * Setter for Ids.
+     * Allows fetching products with matching id based on provided values. Use in query
+     * `filter[ids]=1,2,3`.
+     * @param ids Value for List of Integer
+     */
+    @JsonSetter("ids")
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
     }
 
     /**
@@ -94,9 +122,9 @@ public class ListProductsFilter
      */
     @Override
     public String toString() {
-        return "ListProductsFilter [" + "prepaidProductPricePoint=" + prepaidProductPricePoint
-                + ", useSiteExchangeRate=" + useSiteExchangeRate + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "ListProductsFilter [" + "ids=" + ids + ", prepaidProductPricePoint="
+                + prepaidProductPricePoint + ", useSiteExchangeRate=" + useSiteExchangeRate
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -106,6 +134,7 @@ public class ListProductsFilter
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .ids(getIds())
                 .prepaidProductPricePoint(getPrepaidProductPricePoint())
                 .useSiteExchangeRate(getUseSiteExchangeRate());
         return builder;
@@ -115,10 +144,21 @@ public class ListProductsFilter
      * Class to build instances of {@link ListProductsFilter}.
      */
     public static class Builder {
+        private List<Integer> ids;
         private PrepaidProductPricePointFilter prepaidProductPricePoint;
         private Boolean useSiteExchangeRate;
 
 
+
+        /**
+         * Setter for ids.
+         * @param  ids  List of Integer value for ids.
+         * @return Builder
+         */
+        public Builder ids(List<Integer> ids) {
+            this.ids = ids;
+            return this;
+        }
 
         /**
          * Setter for prepaidProductPricePoint.
@@ -147,7 +187,7 @@ public class ListProductsFilter
          * @return {@link ListProductsFilter}
          */
         public ListProductsFilter build() {
-            return new ListProductsFilter(prepaidProductPricePoint, useSiteExchangeRate);
+            return new ListProductsFilter(ids, prepaidProductPricePoint, useSiteExchangeRate);
         }
     }
 }

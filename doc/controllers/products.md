@@ -527,6 +527,13 @@ List<ProductResponse> listProducts(
 ```java
 ListProductsInput listProductsInput = new ListProductsInput.Builder()
     .dateField(BasicDateField.UPDATED_AT)
+    .filter(new ListProductsFilter.Builder()
+        .ids(Arrays.asList(
+            1,
+            2,
+            3
+        ))
+        .build())
     .page(2)
     .perPage(50)
     .includeArchived(true)
