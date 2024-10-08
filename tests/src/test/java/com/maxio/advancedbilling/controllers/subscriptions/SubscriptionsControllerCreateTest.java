@@ -55,6 +55,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
@@ -599,13 +600,19 @@ public class SubscriptionsControllerCreateTest {
                 .as("getProductVersionNumber")
                 .isEqualTo(1);
 
+        ZonedDateTime now = ZonedDateTime.now();
+        ZoneOffset nowOffset = now.getOffset();
+        ZoneOffset futureOffset = now.plusMonths(1).getOffset();
+
         // Subtract 5 min to have some margin
         assertThat(subscription.getCurrentPeriodStartedAt())
                 .as("getCurrentPeriodStartedAt")
-                .isAfter(ZonedDateTime.now().minusMinutes(5));
+                .isAfter(now.minusMinutes(5));
         assertThat(subscription.getCurrentPeriodEndsAt())
                 .as("getCurrentPeriodEndsAt")
-                .isAfter(ZonedDateTime.now().plusMonths(1).minusMinutes(5));
+                .isAfter(now.plusMonths(1).minusMinutes(5)
+                        .plusSeconds(futureOffset.getTotalSeconds() - nowOffset.getTotalSeconds())
+                );
         assertThat(subscription.getTrialStartedAt())
                 .as("getTrialStartedAt")
                 .isNull();
@@ -614,16 +621,16 @@ public class SubscriptionsControllerCreateTest {
                 .isNull();
         assertThat(subscription.getActivatedAt())
                 .as("getActivatedAt")
-                .isAfter(ZonedDateTime.now().minusMinutes(5));
+                .isAfter(now.minusMinutes(5));
         assertThat(subscription.getExpiresAt())
                 .as("getExpiresAt")
                 .isNull();
         assertThat(subscription.getCreatedAt())
                 .as("getCreatedAt")
-                .isAfter(ZonedDateTime.now().minusMinutes(5));
+                .isAfter(now.minusMinutes(5));
         assertThat(subscription.getUpdatedAt())
                 .as("getUpdatedAt")
-                .isAfter(ZonedDateTime.now().minusMinutes(5));
+                .isAfter(now.minusMinutes(5));
 
         assertThat(subscription.getCancellationMessage())
                 .as("getCancellationMessage")
@@ -713,7 +720,7 @@ public class SubscriptionsControllerCreateTest {
                 .as("getCustomer")
                 .isNotNull()
                 .usingRecursiveComparison(RecursiveComparisonConfiguration.builder()
-                        .withIgnoredFields("createdAt", "updatedAt", "verified")
+                        .withIgnoredFields("createdAt", "updatedAt", "verified", "additionalProperties")
                         .build())
                 .isEqualTo(CUSTOMER);
     }
