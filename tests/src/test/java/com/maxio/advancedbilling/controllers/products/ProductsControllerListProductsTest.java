@@ -64,6 +64,22 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
     }
 
     @Test
+    void shouldListProductsFilteringByIds() throws IOException, ApiException {
+        // when
+        List<Product> productList = productsController.listProducts(
+                new ListProductsInput.Builder().filter(
+                        new ListProductsFilter.Builder()
+                                .ids(List.of(savedProducts.get(0).getId(), savedProducts.get(2).getId()))
+                                .build()
+                ).build()
+        ).stream().map(ProductResponse::getProduct).toList();
+
+        // then
+        assertThat(productList).usingRecursiveFieldByFieldElementComparatorIgnoringFields("updatedAt")
+                .isEqualTo(List.of(savedProducts.get(0), savedProducts.get(2)));
+    }
+
+    @Test
     void shouldListProductsFilteringByStartDate() throws IOException, ApiException {
         // given
         LocalDate startDateFilterIncludeElements = savedProducts.get(0).getCreatedAt().toLocalDate();
@@ -101,7 +117,6 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
         assertThat(productList1.stream().map(ProductResponse::getProduct).toList())
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("updatedAt").isEqualTo(savedProducts);
         assertThat(productList2).isEmpty();
-
     }
 
     @Test
