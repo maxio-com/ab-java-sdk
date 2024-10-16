@@ -17,6 +17,9 @@ jobs:
           ISSUE_BODY="${{ github.event.issue.body }}"
           ISSUE_URL="${{ github.event.issue.html_url }}"
           ISSUE_USER="${{ github.event.issue.user.login }}"
+          
+          JIRA_EPIC_KEY="DE-1012"
+          
           JIRA_PAYLOAD=$(cat <<EOF
           {
             "fields": {
@@ -27,7 +30,10 @@ jobs:
                "description": "GitHub issue created by ${ISSUE_USER}:\n\n${ISSUE_BODY}\n\nLink: ${ISSUE_URL}",
                "issuetype": {
                   "name": "Defect"
-               }
+               },
+               "labels": ["github_issue"],
+               "components": [{"name": "SDK"}],
+               "parent": {"key": "${JIRA_EPIC_KEY}"}
             }
           }
           EOF
