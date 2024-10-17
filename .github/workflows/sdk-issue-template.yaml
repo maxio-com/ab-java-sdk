@@ -1,0 +1,44 @@
+name: Create Jira Task Template
+
+on:
+  workflow_call:
+    inputs:
+      sdk-name:
+        required: true
+        type: string
+
+jobs:
+  create-jira-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Jira Task
+        run: |
+          ISSUE_TITLE="${{ github.event.issue.title }}"
+          ISSUE_BODY="${{ github.event.issue.body }}"
+          ISSUE_URL="${{ github.event.issue.html_url }}"
+          ISSUE_USER="${{ github.event.issue.user.login }}"
+          
+          JIRA_EPIC_KEY="DE-1012"
+          
+          JIRA_PAYLOAD=$(cat <<EOF
+          {
+            "fields": {
+               "project": {
+                  "key": "DE"
+               },
+               "summary": "[${{ inputs.sdk-name }}] ${ISSUE_TITLE}",
+               "description": "GitHub issue created by ${ISSUE_USER}:\n\n${ISSUE_BODY}\n\nLink: ${ISSUE_URL}",
+               "issuetype": {
+                  "name": "Defect"
+               },
+               "labels": ["github_issue"],
+               "components": [{"name": "SDK"}],
+               "parent": {"key": "${JIRA_EPIC_KEY}"}
+            }
+          }
+          EOF
+          )
+
+          curl -X POST -H "Content-Type: application/json" \
+          --user "${{ secrets.ATLASSIAN_TOKEN }}" "${{ secrets.ATLASSIAN_URL }}/rest/api/2/issue" \
+          --data "${JIRA_PAYLOAD}" 

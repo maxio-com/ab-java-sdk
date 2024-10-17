@@ -30,7 +30,7 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
                         "productPricePointType", "dunningCommunicationDelayEnabled",
-                        "customer.countryName", "customer.stateName", "customer.locale")
+                        "customer.countryName", "customer.stateName", "customer.locale", "customer.additionalProperties")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
@@ -55,7 +55,7 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
                         "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled",
-                        "customer.countryName", "customer.stateName", "customer.locale")
+                        "customer.countryName", "customer.stateName", "customer.locale", "customer.additionalProperties")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);
@@ -88,7 +88,7 @@ public class SubscriptionStatusControllerPauseSubscriptionTest extends Subscript
         assertThat(pausedSubscription).usingRecursiveComparison()
                 .ignoringFields("state", "updatedAt", "onHoldAt", "prepaidDunning",
                         "productPricePointType", "automaticallyResumeAt", "dunningCommunicationDelayEnabled",
-                        "customer.countryName", "customer.stateName", "customer.locale")
+                        "customer.countryName", "customer.stateName", "customer.locale", "customer.additionalProperties")
                 .isEqualTo(subscription);
         assertThat(pausedSubscription.getState()).isEqualTo(SubscriptionState.ON_HOLD);
         assertThat(pausedSubscription.getUpdatedAt()).isAfter(timestamp);

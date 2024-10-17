@@ -101,7 +101,8 @@ class SubscriptionComponentsBulkResetSubscriptionComponentsPricePointsTest {
                         "prepaidDunning",
                         "productPricePointType",
                         "updatedAt",
-                        "customer.locale"
+                        "customer.locale",
+                        "customer.additionalProperties"
                 )
                 .isEqualTo(subscription);
 

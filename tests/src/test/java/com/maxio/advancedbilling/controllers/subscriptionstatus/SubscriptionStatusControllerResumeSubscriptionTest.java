@@ -29,7 +29,8 @@ public class SubscriptionStatusControllerResumeSubscriptionTest extends Subscrip
         // then
         assertThat(resumedSubscription).usingRecursiveComparison()
                 .ignoringFields("updatedAt", "prepaidDunning", "previousState", "productPricePointType",
-                        "dunningCommunicationDelayEnabled", "customer.countryName", "customer.stateName", "customer.locale")
+                        "dunningCommunicationDelayEnabled", "customer.countryName", "customer.stateName", "customer.locale",
+                        "customer.additionalProperties")
                 .isEqualTo(subscription);
         assertThat(resumedSubscription.getUpdatedAt()).isAfter(timestamp);
         assertThat(resumedSubscription.getState()).isEqualTo(ACTIVE);

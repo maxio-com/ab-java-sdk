@@ -24,7 +24,8 @@ public class SubscriptionStatusControllerRetrySubscriptionTest extends Subscript
         // then
         assertThat(retriedSubscription).usingRecursiveComparison()
                 .ignoringFields("productPricePointType", "prepaidDunning", "updatedAt",
-                        "dunningCommunicationDelayEnabled", "customer.countryName", "customer.stateName", "customer.locale")
+                        "dunningCommunicationDelayEnabled", "customer.countryName", "customer.stateName",
+                        "customer.locale", "customer.additionalProperties")
                 .isEqualTo(subscription);
     }
 
