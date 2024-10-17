@@ -49,6 +49,8 @@ public class Customer
     private OptionalNullable<String> locale;
     private OptionalNullable<String> defaultSubscriptionGroupUid;
     private OptionalNullable<String> salesforceId;
+    private OptionalNullable<String> taxExemptReason;
+    private OptionalNullable<Integer> defaultAutoRenewalProfileId;
 
     /**
      * Default constructor.
@@ -86,6 +88,8 @@ public class Customer
      * @param  locale  String value for locale.
      * @param  defaultSubscriptionGroupUid  String value for defaultSubscriptionGroupUid.
      * @param  salesforceId  String value for salesforceId.
+     * @param  taxExemptReason  String value for taxExemptReason.
+     * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
      */
     public Customer(
             String firstName,
@@ -115,7 +119,9 @@ public class Customer
             Integer parentId,
             String locale,
             String defaultSubscriptionGroupUid,
-            String salesforceId) {
+            String salesforceId,
+            String taxExemptReason,
+            Integer defaultAutoRenewalProfileId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -144,6 +150,8 @@ public class Customer
         this.locale = OptionalNullable.of(locale);
         this.defaultSubscriptionGroupUid = OptionalNullable.of(defaultSubscriptionGroupUid);
         this.salesforceId = OptionalNullable.of(salesforceId);
+        this.taxExemptReason = OptionalNullable.of(taxExemptReason);
+        this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
     }
 
     /**
@@ -176,6 +184,8 @@ public class Customer
      * @param  locale  String value for locale.
      * @param  defaultSubscriptionGroupUid  String value for defaultSubscriptionGroupUid.
      * @param  salesforceId  String value for salesforceId.
+     * @param  taxExemptReason  String value for taxExemptReason.
+     * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
      */
 
     protected Customer(String firstName, String lastName, String email,
@@ -192,7 +202,8 @@ public class Customer
             OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt, Boolean taxExempt,
             OptionalNullable<String> vatNumber, OptionalNullable<Integer> parentId,
             OptionalNullable<String> locale, OptionalNullable<String> defaultSubscriptionGroupUid,
-            OptionalNullable<String> salesforceId) {
+            OptionalNullable<String> salesforceId, OptionalNullable<String> taxExemptReason,
+            OptionalNullable<Integer> defaultAutoRenewalProfileId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -221,6 +232,8 @@ public class Customer
         this.locale = locale;
         this.defaultSubscriptionGroupUid = defaultSubscriptionGroupUid;
         this.salesforceId = salesforceId;
+        this.taxExemptReason = taxExemptReason;
+        this.defaultAutoRenewalProfileId = defaultAutoRenewalProfileId;
     }
 
     /**
@@ -835,8 +848,7 @@ public class Customer
 
     /**
      * Internal Getter for Verified.
-     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
-     * gateway
+     * Is the customer verified to use ACH as a payment method.
      * @return Returns the Internal Boolean
      */
     @JsonGetter("verified")
@@ -848,8 +860,7 @@ public class Customer
 
     /**
      * Getter for Verified.
-     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
-     * gateway
+     * Is the customer verified to use ACH as a payment method.
      * @return Returns the Boolean
      */
     public Boolean getVerified() {
@@ -858,8 +869,7 @@ public class Customer
 
     /**
      * Setter for Verified.
-     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
-     * gateway
+     * Is the customer verified to use ACH as a payment method.
      * @param verified Value for Boolean
      */
     @JsonSetter("verified")
@@ -869,8 +879,7 @@ public class Customer
 
     /**
      * UnSetter for Verified.
-     * Is the customer verified to use ACH as a payment method. Available only on Authorize.Net
-     * gateway
+     * Is the customer verified to use ACH as a payment method.
      */
     public void unsetVerified() {
         verified = null;
@@ -1223,6 +1232,84 @@ public class Customer
     }
 
     /**
+     * Internal Getter for TaxExemptReason.
+     * The Tax Exemption Reason Code for the customer
+     * @return Returns the Internal String
+     */
+    @JsonGetter("tax_exempt_reason")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetTaxExemptReason() {
+        return this.taxExemptReason;
+    }
+
+    /**
+     * Getter for TaxExemptReason.
+     * The Tax Exemption Reason Code for the customer
+     * @return Returns the String
+     */
+    public String getTaxExemptReason() {
+        return OptionalNullable.getFrom(taxExemptReason);
+    }
+
+    /**
+     * Setter for TaxExemptReason.
+     * The Tax Exemption Reason Code for the customer
+     * @param taxExemptReason Value for String
+     */
+    @JsonSetter("tax_exempt_reason")
+    public void setTaxExemptReason(String taxExemptReason) {
+        this.taxExemptReason = OptionalNullable.of(taxExemptReason);
+    }
+
+    /**
+     * UnSetter for TaxExemptReason.
+     * The Tax Exemption Reason Code for the customer
+     */
+    public void unsetTaxExemptReason() {
+        taxExemptReason = null;
+    }
+
+    /**
+     * Internal Getter for DefaultAutoRenewalProfileId.
+     * The default auto-renewal profile ID for the customer
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("default_auto_renewal_profile_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetDefaultAutoRenewalProfileId() {
+        return this.defaultAutoRenewalProfileId;
+    }
+
+    /**
+     * Getter for DefaultAutoRenewalProfileId.
+     * The default auto-renewal profile ID for the customer
+     * @return Returns the Integer
+     */
+    public Integer getDefaultAutoRenewalProfileId() {
+        return OptionalNullable.getFrom(defaultAutoRenewalProfileId);
+    }
+
+    /**
+     * Setter for DefaultAutoRenewalProfileId.
+     * The default auto-renewal profile ID for the customer
+     * @param defaultAutoRenewalProfileId Value for Integer
+     */
+    @JsonSetter("default_auto_renewal_profile_id")
+    public void setDefaultAutoRenewalProfileId(Integer defaultAutoRenewalProfileId) {
+        this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
+    }
+
+    /**
+     * UnSetter for DefaultAutoRenewalProfileId.
+     * The default auto-renewal profile ID for the customer
+     */
+    public void unsetDefaultAutoRenewalProfileId() {
+        defaultAutoRenewalProfileId = null;
+    }
+
+    /**
      * Converts this Customer into string format.
      * @return String representation of this class
      */
@@ -1239,8 +1326,9 @@ public class Customer
                 + ", portalInviteLastAcceptedAt=" + portalInviteLastAcceptedAt + ", taxExempt="
                 + taxExempt + ", vatNumber=" + vatNumber + ", parentId=" + parentId + ", locale="
                 + locale + ", defaultSubscriptionGroupUid=" + defaultSubscriptionGroupUid
-                + ", salesforceId=" + salesforceId + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", salesforceId=" + salesforceId + ", taxExemptReason=" + taxExemptReason
+                + ", defaultAutoRenewalProfileId=" + defaultAutoRenewalProfileId
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1278,6 +1366,8 @@ public class Customer
         builder.locale = internalGetLocale();
         builder.defaultSubscriptionGroupUid = internalGetDefaultSubscriptionGroupUid();
         builder.salesforceId = internalGetSalesforceId();
+        builder.taxExemptReason = internalGetTaxExemptReason();
+        builder.defaultAutoRenewalProfileId = internalGetDefaultAutoRenewalProfileId();
         return builder;
     }
 
@@ -1313,6 +1403,8 @@ public class Customer
         private OptionalNullable<String> locale;
         private OptionalNullable<String> defaultSubscriptionGroupUid;
         private OptionalNullable<String> salesforceId;
+        private OptionalNullable<String> taxExemptReason;
+        private OptionalNullable<Integer> defaultAutoRenewalProfileId;
 
 
 
@@ -1786,6 +1878,44 @@ public class Customer
         }
 
         /**
+         * Setter for taxExemptReason.
+         * @param  taxExemptReason  String value for taxExemptReason.
+         * @return Builder
+         */
+        public Builder taxExemptReason(String taxExemptReason) {
+            this.taxExemptReason = OptionalNullable.of(taxExemptReason);
+            return this;
+        }
+
+        /**
+         * UnSetter for taxExemptReason.
+         * @return Builder
+         */
+        public Builder unsetTaxExemptReason() {
+            taxExemptReason = null;
+            return this;
+        }
+
+        /**
+         * Setter for defaultAutoRenewalProfileId.
+         * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
+         * @return Builder
+         */
+        public Builder defaultAutoRenewalProfileId(Integer defaultAutoRenewalProfileId) {
+            this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
+            return this;
+        }
+
+        /**
+         * UnSetter for defaultAutoRenewalProfileId.
+         * @return Builder
+         */
+        public Builder unsetDefaultAutoRenewalProfileId() {
+            defaultAutoRenewalProfileId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Customer} object using the set fields.
          * @return {@link Customer}
          */
@@ -1794,7 +1924,8 @@ public class Customer
                     createdAt, updatedAt, address, address2, city, state, stateName, zip, country,
                     countryName, phone, verified, portalCustomerCreatedAt, portalInviteLastSentAt,
                     portalInviteLastAcceptedAt, taxExempt, vatNumber, parentId, locale,
-                    defaultSubscriptionGroupUid, salesforceId);
+                    defaultSubscriptionGroupUid, salesforceId, taxExemptReason,
+                    defaultAutoRenewalProfileId);
         }
     }
 }

@@ -19,6 +19,8 @@
 | `GatewayHandle` | `String` | Optional | - | String getGatewayHandle() | setGatewayHandle(String gatewayHandle) |
 | `GatewayUsed` | `String` | Optional | - | String getGatewayUsed() | setGatewayUsed(String gatewayUsed) |
 | `GatewayTransactionId` | `String` | Optional | The transaction ID for the payment as returned from the payment gateway | String getGatewayTransactionId() | setGatewayTransactionId(String gatewayTransactionId) |
+| `ReceivedOn` | `LocalDate` | Optional | Date reflecting when the payment was received from a customer. Must be in the past. Applicable only to<br>`external` payments. | LocalDate getReceivedOn() | setReceivedOn(LocalDate receivedOn) |
+| `Uid` | `String` | Optional | - | String getUid() | setUid(String uid) |
 
 ## Example (as JSON)
 

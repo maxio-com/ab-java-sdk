@@ -41,6 +41,8 @@ public class UpdateSubscription
     private List<UpdateSubscriptionComponent> components;
     private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
     private OptionalNullable<String> dunningCommunicationDelayTimeZone;
+    private Integer productPricePointId;
+    private String productPricePointHandle;
 
     /**
      * Default constructor.
@@ -68,6 +70,8 @@ public class UpdateSubscription
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
      * @param  dunningCommunicationDelayTimeZone  String value for
      *         dunningCommunicationDelayTimeZone.
+     * @param  productPricePointId  Integer value for productPricePointId.
+     * @param  productPricePointHandle  String value for productPricePointHandle.
      */
     public UpdateSubscription(
             CreditCardAttributes creditCardAttributes,
@@ -86,7 +90,9 @@ public class UpdateSubscription
             SubscriptionCustomPrice customPrice,
             List<UpdateSubscriptionComponent> components,
             Boolean dunningCommunicationDelayEnabled,
-            String dunningCommunicationDelayTimeZone) {
+            String dunningCommunicationDelayTimeZone,
+            Integer productPricePointId,
+            String productPricePointHandle) {
         this.creditCardAttributes = creditCardAttributes;
         this.productHandle = productHandle;
         this.productId = productId;
@@ -106,6 +112,8 @@ public class UpdateSubscription
                 OptionalNullable.of(dunningCommunicationDelayEnabled);
         this.dunningCommunicationDelayTimeZone =
                 OptionalNullable.of(dunningCommunicationDelayTimeZone);
+        this.productPricePointId = productPricePointId;
+        this.productPricePointHandle = productPricePointHandle;
     }
 
     /**
@@ -128,6 +136,8 @@ public class UpdateSubscription
      * @param  dunningCommunicationDelayEnabled  Boolean value for dunningCommunicationDelayEnabled.
      * @param  dunningCommunicationDelayTimeZone  String value for
      *         dunningCommunicationDelayTimeZone.
+     * @param  productPricePointId  Integer value for productPricePointId.
+     * @param  productPricePointHandle  String value for productPricePointHandle.
      */
 
     protected UpdateSubscription(CreditCardAttributes creditCardAttributes, String productHandle,
@@ -138,7 +148,8 @@ public class UpdateSubscription
             Integer storedCredentialTransactionId, String reference,
             SubscriptionCustomPrice customPrice, List<UpdateSubscriptionComponent> components,
             OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
-            OptionalNullable<String> dunningCommunicationDelayTimeZone) {
+            OptionalNullable<String> dunningCommunicationDelayTimeZone, Integer productPricePointId,
+            String productPricePointHandle) {
         this.creditCardAttributes = creditCardAttributes;
         this.productHandle = productHandle;
         this.productId = productId;
@@ -156,6 +167,8 @@ public class UpdateSubscription
         this.components = components;
         this.dunningCommunicationDelayEnabled = dunningCommunicationDelayEnabled;
         this.dunningCommunicationDelayTimeZone = dunningCommunicationDelayTimeZone;
+        this.productPricePointId = productPricePointId;
+        this.productPricePointHandle = productPricePointHandle;
     }
 
     /**
@@ -548,6 +561,48 @@ public class UpdateSubscription
     }
 
     /**
+     * Getter for ProductPricePointId.
+     * Set to change the current product's price point.
+     * @return Returns the Integer
+     */
+    @JsonGetter("product_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getProductPricePointId() {
+        return productPricePointId;
+    }
+
+    /**
+     * Setter for ProductPricePointId.
+     * Set to change the current product's price point.
+     * @param productPricePointId Value for Integer
+     */
+    @JsonSetter("product_price_point_id")
+    public void setProductPricePointId(Integer productPricePointId) {
+        this.productPricePointId = productPricePointId;
+    }
+
+    /**
+     * Getter for ProductPricePointHandle.
+     * Set to change the current product's price point.
+     * @return Returns the String
+     */
+    @JsonGetter("product_price_point_handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getProductPricePointHandle() {
+        return productPricePointHandle;
+    }
+
+    /**
+     * Setter for ProductPricePointHandle.
+     * Set to change the current product's price point.
+     * @param productPricePointHandle Value for String
+     */
+    @JsonSetter("product_price_point_handle")
+    public void setProductPricePointHandle(String productPricePointHandle) {
+        this.productPricePointHandle = productPricePointHandle;
+    }
+
+    /**
      * Converts this UpdateSubscription into string format.
      * @return String representation of this class
      */
@@ -564,7 +619,8 @@ public class UpdateSubscription
                 + ", reference=" + reference + ", customPrice=" + customPrice + ", components="
                 + components + ", dunningCommunicationDelayEnabled="
                 + dunningCommunicationDelayEnabled + ", dunningCommunicationDelayTimeZone="
-                + dunningCommunicationDelayTimeZone + ", additionalProperties="
+                + dunningCommunicationDelayTimeZone + ", productPricePointId=" + productPricePointId
+                + ", productPricePointHandle=" + productPricePointHandle + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -589,7 +645,9 @@ public class UpdateSubscription
                 .storedCredentialTransactionId(getStoredCredentialTransactionId())
                 .reference(getReference())
                 .customPrice(getCustomPrice())
-                .components(getComponents());
+                .components(getComponents())
+                .productPricePointId(getProductPricePointId())
+                .productPricePointHandle(getProductPricePointHandle());
         builder.dunningCommunicationDelayEnabled = internalGetDunningCommunicationDelayEnabled();
         builder.dunningCommunicationDelayTimeZone = internalGetDunningCommunicationDelayTimeZone();
         return builder;
@@ -616,6 +674,8 @@ public class UpdateSubscription
         private List<UpdateSubscriptionComponent> components;
         private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
+        private Integer productPricePointId;
+        private String productPricePointHandle;
 
 
 
@@ -814,6 +874,26 @@ public class UpdateSubscription
         }
 
         /**
+         * Setter for productPricePointId.
+         * @param  productPricePointId  Integer value for productPricePointId.
+         * @return Builder
+         */
+        public Builder productPricePointId(Integer productPricePointId) {
+            this.productPricePointId = productPricePointId;
+            return this;
+        }
+
+        /**
+         * Setter for productPricePointHandle.
+         * @param  productPricePointHandle  String value for productPricePointHandle.
+         * @return Builder
+         */
+        public Builder productPricePointHandle(String productPricePointHandle) {
+            this.productPricePointHandle = productPricePointHandle;
+            return this;
+        }
+
+        /**
          * Builds a new {@link UpdateSubscription} object using the set fields.
          * @return {@link UpdateSubscription}
          */
@@ -822,7 +902,8 @@ public class UpdateSubscription
                     productChangeDelayed, nextProductId, nextProductPricePointId, snapDay,
                     nextBillingAt, paymentCollectionMethod, receivesInvoiceEmails, netTerms,
                     storedCredentialTransactionId, reference, customPrice, components,
-                    dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone);
+                    dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone,
+                    productPricePointId, productPricePointHandle);
         }
     }
 }

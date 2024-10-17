@@ -27,7 +27,7 @@
 | `Country` | `String` | Optional | The customer shipping address country | String getCountry() | setCountry(String country) |
 | `CountryName` | `String` | Optional | The customer's full name of country | String getCountryName() | setCountryName(String countryName) |
 | `Phone` | `String` | Optional | The phone number of the customer | String getPhone() | setPhone(String phone) |
-| `Verified` | `Boolean` | Optional | Is the customer verified to use ACH as a payment method. Available only on Authorize.Net gateway | Boolean getVerified() | setVerified(Boolean verified) |
+| `Verified` | `Boolean` | Optional | Is the customer verified to use ACH as a payment method. | Boolean getVerified() | setVerified(Boolean verified) |
 | `PortalCustomerCreatedAt` | `ZonedDateTime` | Optional | The timestamp of when the Billing Portal entry was created at for the customer | ZonedDateTime getPortalCustomerCreatedAt() | setPortalCustomerCreatedAt(ZonedDateTime portalCustomerCreatedAt) |
 | `PortalInviteLastSentAt` | `ZonedDateTime` | Optional | The timestamp of when the Billing Portal invite was last sent at | ZonedDateTime getPortalInviteLastSentAt() | setPortalInviteLastSentAt(ZonedDateTime portalInviteLastSentAt) |
 | `PortalInviteLastAcceptedAt` | `ZonedDateTime` | Optional | The timestamp of when the Billing Portal invite was last accepted | ZonedDateTime getPortalInviteLastAcceptedAt() | setPortalInviteLastAcceptedAt(ZonedDateTime portalInviteLastAcceptedAt) |
@@ -37,6 +37,8 @@
 | `Locale` | `String` | Optional | The locale for the customer to identify language-region | String getLocale() | setLocale(String locale) |
 | `DefaultSubscriptionGroupUid` | `String` | Optional | - | String getDefaultSubscriptionGroupUid() | setDefaultSubscriptionGroupUid(String defaultSubscriptionGroupUid) |
 | `SalesforceId` | `String` | Optional | The Salesforce ID for the customer | String getSalesforceId() | setSalesforceId(String salesforceId) |
+| `TaxExemptReason` | `String` | Optional | The Tax Exemption Reason Code for the customer | String getTaxExemptReason() | setTaxExemptReason(String taxExemptReason) |
+| `DefaultAutoRenewalProfileId` | `Integer` | Optional | The default auto-renewal profile ID for the customer | Integer getDefaultAutoRenewalProfileId() | setDefaultAutoRenewalProfileId(Integer defaultAutoRenewalProfileId) |
 
 ## Example (as JSON)
 

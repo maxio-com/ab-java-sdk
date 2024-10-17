@@ -9,8 +9,12 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.CreateInvoicePaymentAmount;
 import io.apimatic.core.types.BaseModel;
+import java.time.LocalDate;
 
 /**
  * This is a model class for CreateInvoicePayment type.
@@ -22,6 +26,7 @@ public class CreateInvoicePayment
     private InvoicePaymentMethodType method;
     private String details;
     private Integer paymentProfileId;
+    private LocalDate receivedOn;
 
     /**
      * Default constructor.
@@ -36,18 +41,21 @@ public class CreateInvoicePayment
      * @param  method  InvoicePaymentMethodType value for method.
      * @param  details  String value for details.
      * @param  paymentProfileId  Integer value for paymentProfileId.
+     * @param  receivedOn  LocalDate value for receivedOn.
      */
     public CreateInvoicePayment(
             CreateInvoicePaymentAmount amount,
             String memo,
             InvoicePaymentMethodType method,
             String details,
-            Integer paymentProfileId) {
+            Integer paymentProfileId,
+            LocalDate receivedOn) {
         this.amount = amount;
         this.memo = memo;
         this.method = method;
         this.details = details;
         this.paymentProfileId = paymentProfileId;
+        this.receivedOn = receivedOn;
     }
 
     /**
@@ -73,7 +81,7 @@ public class CreateInvoicePayment
 
     /**
      * Getter for Memo.
-     * A description to be attached to the payment.
+     * A description to be attached to the payment. Applicable only to `external` payments.
      * @return Returns the String
      */
     @JsonGetter("memo")
@@ -84,7 +92,7 @@ public class CreateInvoicePayment
 
     /**
      * Setter for Memo.
-     * A description to be attached to the payment.
+     * A description to be attached to the payment. Applicable only to `external` payments.
      * @param memo Value for String
      */
     @JsonSetter("memo")
@@ -115,7 +123,8 @@ public class CreateInvoicePayment
 
     /**
      * Getter for Details.
-     * Additional information related to the payment method (eg. Check #)
+     * Additional information related to the payment method (eg. Check #). Applicable only to
+     * `external` payments.
      * @return Returns the String
      */
     @JsonGetter("details")
@@ -126,7 +135,8 @@ public class CreateInvoicePayment
 
     /**
      * Setter for Details.
-     * Additional information related to the payment method (eg. Check #)
+     * Additional information related to the payment method (eg. Check #). Applicable only to
+     * `external` payments.
      * @param details Value for String
      */
     @JsonSetter("details")
@@ -156,6 +166,31 @@ public class CreateInvoicePayment
     }
 
     /**
+     * Getter for ReceivedOn.
+     * Date reflecting when the payment was received from a customer. Must be in the past.
+     * Applicable only to `external` payments.
+     * @return Returns the LocalDate
+     */
+    @JsonGetter("received_on")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getReceivedOn() {
+        return receivedOn;
+    }
+
+    /**
+     * Setter for ReceivedOn.
+     * Date reflecting when the payment was received from a customer. Must be in the past.
+     * Applicable only to `external` payments.
+     * @param receivedOn Value for LocalDate
+     */
+    @JsonSetter("received_on")
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setReceivedOn(LocalDate receivedOn) {
+        this.receivedOn = receivedOn;
+    }
+
+    /**
      * Converts this CreateInvoicePayment into string format.
      * @return String representation of this class
      */
@@ -163,7 +198,8 @@ public class CreateInvoicePayment
     public String toString() {
         return "CreateInvoicePayment [" + "amount=" + amount + ", memo=" + memo + ", method="
                 + method + ", details=" + details + ", paymentProfileId=" + paymentProfileId
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", receivedOn=" + receivedOn + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -177,7 +213,8 @@ public class CreateInvoicePayment
                 .memo(getMemo())
                 .method(getMethod())
                 .details(getDetails())
-                .paymentProfileId(getPaymentProfileId());
+                .paymentProfileId(getPaymentProfileId())
+                .receivedOn(getReceivedOn());
         return builder;
     }
 
@@ -190,6 +227,7 @@ public class CreateInvoicePayment
         private InvoicePaymentMethodType method;
         private String details;
         private Integer paymentProfileId;
+        private LocalDate receivedOn;
 
 
 
@@ -244,11 +282,22 @@ public class CreateInvoicePayment
         }
 
         /**
+         * Setter for receivedOn.
+         * @param  receivedOn  LocalDate value for receivedOn.
+         * @return Builder
+         */
+        public Builder receivedOn(LocalDate receivedOn) {
+            this.receivedOn = receivedOn;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateInvoicePayment} object using the set fields.
          * @return {@link CreateInvoicePayment}
          */
         public CreateInvoicePayment build() {
-            return new CreateInvoicePayment(amount, memo, method, details, paymentProfileId);
+            return new CreateInvoicePayment(amount, memo, method, details, paymentProfileId,
+                    receivedOn);
         }
     }
 }

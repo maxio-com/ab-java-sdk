@@ -38,6 +38,7 @@ public class CustomerAttributes
     private Map<String, String> metafields;
     private OptionalNullable<Integer> parentId;
     private OptionalNullable<String> salesforceId;
+    private OptionalNullable<Integer> defaultAutoRenewalProfileId;
 
     /**
      * Default constructor.
@@ -66,6 +67,7 @@ public class CustomerAttributes
      * @param  metafields  Map of String, value for metafields.
      * @param  parentId  Integer value for parentId.
      * @param  salesforceId  String value for salesforceId.
+     * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
      */
     public CustomerAttributes(
             String firstName,
@@ -86,7 +88,8 @@ public class CustomerAttributes
             String vatNumber,
             Map<String, String> metafields,
             Integer parentId,
-            String salesforceId) {
+            String salesforceId,
+            Integer defaultAutoRenewalProfileId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -106,6 +109,7 @@ public class CustomerAttributes
         this.metafields = metafields;
         this.parentId = OptionalNullable.of(parentId);
         this.salesforceId = OptionalNullable.of(salesforceId);
+        this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
     }
 
     /**
@@ -129,6 +133,7 @@ public class CustomerAttributes
      * @param  metafields  Map of String, value for metafields.
      * @param  parentId  Integer value for parentId.
      * @param  salesforceId  String value for salesforceId.
+     * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
      */
 
     protected CustomerAttributes(String firstName, String lastName, String email, String ccEmails,
@@ -136,7 +141,8 @@ public class CustomerAttributes
             OptionalNullable<String> address2, String city, String state, String zip,
             String country, String phone, Boolean verified, Boolean taxExempt, String vatNumber,
             Map<String, String> metafields, OptionalNullable<Integer> parentId,
-            OptionalNullable<String> salesforceId) {
+            OptionalNullable<String> salesforceId,
+            OptionalNullable<Integer> defaultAutoRenewalProfileId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -156,6 +162,7 @@ public class CustomerAttributes
         this.metafields = metafields;
         this.parentId = parentId;
         this.salesforceId = salesforceId;
+        this.defaultAutoRenewalProfileId = defaultAutoRenewalProfileId;
     }
 
     /**
@@ -630,6 +637,45 @@ public class CustomerAttributes
     }
 
     /**
+     * Internal Getter for DefaultAutoRenewalProfileId.
+     * (Optional) The default auto-renewal profile ID for the customer
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("default_auto_renewal_profile_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetDefaultAutoRenewalProfileId() {
+        return this.defaultAutoRenewalProfileId;
+    }
+
+    /**
+     * Getter for DefaultAutoRenewalProfileId.
+     * (Optional) The default auto-renewal profile ID for the customer
+     * @return Returns the Integer
+     */
+    public Integer getDefaultAutoRenewalProfileId() {
+        return OptionalNullable.getFrom(defaultAutoRenewalProfileId);
+    }
+
+    /**
+     * Setter for DefaultAutoRenewalProfileId.
+     * (Optional) The default auto-renewal profile ID for the customer
+     * @param defaultAutoRenewalProfileId Value for Integer
+     */
+    @JsonSetter("default_auto_renewal_profile_id")
+    public void setDefaultAutoRenewalProfileId(Integer defaultAutoRenewalProfileId) {
+        this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
+    }
+
+    /**
+     * UnSetter for DefaultAutoRenewalProfileId.
+     * (Optional) The default auto-renewal profile ID for the customer
+     */
+    public void unsetDefaultAutoRenewalProfileId() {
+        defaultAutoRenewalProfileId = null;
+    }
+
+    /**
      * Converts this CustomerAttributes into string format.
      * @return String representation of this class
      */
@@ -641,7 +687,8 @@ public class CustomerAttributes
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", verified=" + verified + ", taxExempt=" + taxExempt
                 + ", vatNumber=" + vatNumber + ", metafields=" + metafields + ", parentId="
-                + parentId + ", salesforceId=" + salesforceId + ", additionalProperties="
+                + parentId + ", salesforceId=" + salesforceId + ", defaultAutoRenewalProfileId="
+                + defaultAutoRenewalProfileId + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -671,6 +718,7 @@ public class CustomerAttributes
         builder.address2 = internalGetAddress2();
         builder.parentId = internalGetParentId();
         builder.salesforceId = internalGetSalesforceId();
+        builder.defaultAutoRenewalProfileId = internalGetDefaultAutoRenewalProfileId();
         return builder;
     }
 
@@ -697,6 +745,7 @@ public class CustomerAttributes
         private Map<String, String> metafields;
         private OptionalNullable<Integer> parentId;
         private OptionalNullable<String> salesforceId;
+        private OptionalNullable<Integer> defaultAutoRenewalProfileId;
 
 
 
@@ -918,13 +967,33 @@ public class CustomerAttributes
         }
 
         /**
+         * Setter for defaultAutoRenewalProfileId.
+         * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
+         * @return Builder
+         */
+        public Builder defaultAutoRenewalProfileId(Integer defaultAutoRenewalProfileId) {
+            this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
+            return this;
+        }
+
+        /**
+         * UnSetter for defaultAutoRenewalProfileId.
+         * @return Builder
+         */
+        public Builder unsetDefaultAutoRenewalProfileId() {
+            defaultAutoRenewalProfileId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CustomerAttributes} object using the set fields.
          * @return {@link CustomerAttributes}
          */
         public CustomerAttributes build() {
             return new CustomerAttributes(firstName, lastName, email, ccEmails, organization,
                     reference, address, address2, city, state, zip, country, phone, verified,
-                    taxExempt, vatNumber, metafields, parentId, salesforceId);
+                    taxExempt, vatNumber, metafields, parentId, salesforceId,
+                    defaultAutoRenewalProfileId);
         }
     }
 }

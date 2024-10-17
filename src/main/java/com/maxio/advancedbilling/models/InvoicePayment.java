@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 /**
@@ -31,6 +32,8 @@ public class InvoicePayment
     private OptionalNullable<String> gatewayHandle;
     private String gatewayUsed;
     private OptionalNullable<String> gatewayTransactionId;
+    private OptionalNullable<LocalDate> receivedOn;
+    private String uid;
 
     /**
      * Default constructor.
@@ -50,6 +53,8 @@ public class InvoicePayment
      * @param  gatewayHandle  String value for gatewayHandle.
      * @param  gatewayUsed  String value for gatewayUsed.
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
+     * @param  receivedOn  LocalDate value for receivedOn.
+     * @param  uid  String value for uid.
      */
     public InvoicePayment(
             ZonedDateTime transactionTime,
@@ -61,7 +66,9 @@ public class InvoicePayment
             Boolean prepayment,
             String gatewayHandle,
             String gatewayUsed,
-            String gatewayTransactionId) {
+            String gatewayTransactionId,
+            LocalDate receivedOn,
+            String uid) {
         this.transactionTime = transactionTime;
         this.memo = memo;
         this.originalAmount = originalAmount;
@@ -72,6 +79,8 @@ public class InvoicePayment
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
         this.gatewayUsed = gatewayUsed;
         this.gatewayTransactionId = OptionalNullable.of(gatewayTransactionId);
+        this.receivedOn = OptionalNullable.of(receivedOn);
+        this.uid = uid;
     }
 
     /**
@@ -86,12 +95,15 @@ public class InvoicePayment
      * @param  gatewayHandle  String value for gatewayHandle.
      * @param  gatewayUsed  String value for gatewayUsed.
      * @param  gatewayTransactionId  String value for gatewayTransactionId.
+     * @param  receivedOn  LocalDate value for receivedOn.
+     * @param  uid  String value for uid.
      */
 
     protected InvoicePayment(ZonedDateTime transactionTime, String memo, String originalAmount,
             String appliedAmount, InvoicePaymentMethod paymentMethod, Integer transactionId,
             Boolean prepayment, OptionalNullable<String> gatewayHandle, String gatewayUsed,
-            OptionalNullable<String> gatewayTransactionId) {
+            OptionalNullable<String> gatewayTransactionId, OptionalNullable<LocalDate> receivedOn,
+            String uid) {
         this.transactionTime = transactionTime;
         this.memo = memo;
         this.originalAmount = originalAmount;
@@ -102,6 +114,8 @@ public class InvoicePayment
         this.gatewayHandle = gatewayHandle;
         this.gatewayUsed = gatewayUsed;
         this.gatewayTransactionId = gatewayTransactionId;
+        this.receivedOn = receivedOn;
+        this.uid = uid;
     }
 
     /**
@@ -333,6 +347,69 @@ public class InvoicePayment
     }
 
     /**
+     * Internal Getter for ReceivedOn.
+     * Date reflecting when the payment was received from a customer. Must be in the past.
+     * Applicable only to `external` payments.
+     * @return Returns the Internal LocalDate
+     */
+    @JsonGetter("received_on")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.SimpleDateSerializer.class)
+    protected OptionalNullable<LocalDate> internalGetReceivedOn() {
+        return this.receivedOn;
+    }
+
+    /**
+     * Getter for ReceivedOn.
+     * Date reflecting when the payment was received from a customer. Must be in the past.
+     * Applicable only to `external` payments.
+     * @return Returns the LocalDate
+     */
+    public LocalDate getReceivedOn() {
+        return OptionalNullable.getFrom(receivedOn);
+    }
+
+    /**
+     * Setter for ReceivedOn.
+     * Date reflecting when the payment was received from a customer. Must be in the past.
+     * Applicable only to `external` payments.
+     * @param receivedOn Value for LocalDate
+     */
+    @JsonSetter("received_on")
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setReceivedOn(LocalDate receivedOn) {
+        this.receivedOn = OptionalNullable.of(receivedOn);
+    }
+
+    /**
+     * UnSetter for ReceivedOn.
+     * Date reflecting when the payment was received from a customer. Must be in the past.
+     * Applicable only to `external` payments.
+     */
+    public void unsetReceivedOn() {
+        receivedOn = null;
+    }
+
+    /**
+     * Getter for Uid.
+     * @return Returns the String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getUid() {
+        return uid;
+    }
+
+    /**
+     * Setter for Uid.
+     * @param uid Value for String
+     */
+    @JsonSetter("uid")
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    /**
      * Converts this InvoicePayment into string format.
      * @return String representation of this class
      */
@@ -343,7 +420,8 @@ public class InvoicePayment
                 + ", paymentMethod=" + paymentMethod + ", transactionId=" + transactionId
                 + ", prepayment=" + prepayment + ", gatewayHandle=" + gatewayHandle
                 + ", gatewayUsed=" + gatewayUsed + ", gatewayTransactionId=" + gatewayTransactionId
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", receivedOn=" + receivedOn + ", uid=" + uid + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -360,9 +438,11 @@ public class InvoicePayment
                 .paymentMethod(getPaymentMethod())
                 .transactionId(getTransactionId())
                 .prepayment(getPrepayment())
-                .gatewayUsed(getGatewayUsed());
+                .gatewayUsed(getGatewayUsed())
+                .uid(getUid());
         builder.gatewayHandle = internalGetGatewayHandle();
         builder.gatewayTransactionId = internalGetGatewayTransactionId();
+        builder.receivedOn = internalGetReceivedOn();
         return builder;
     }
 
@@ -380,6 +460,8 @@ public class InvoicePayment
         private OptionalNullable<String> gatewayHandle;
         private String gatewayUsed;
         private OptionalNullable<String> gatewayTransactionId;
+        private OptionalNullable<LocalDate> receivedOn;
+        private String uid;
 
 
 
@@ -502,13 +584,42 @@ public class InvoicePayment
         }
 
         /**
+         * Setter for receivedOn.
+         * @param  receivedOn  LocalDate value for receivedOn.
+         * @return Builder
+         */
+        public Builder receivedOn(LocalDate receivedOn) {
+            this.receivedOn = OptionalNullable.of(receivedOn);
+            return this;
+        }
+
+        /**
+         * UnSetter for receivedOn.
+         * @return Builder
+         */
+        public Builder unsetReceivedOn() {
+            receivedOn = null;
+            return this;
+        }
+
+        /**
+         * Setter for uid.
+         * @param  uid  String value for uid.
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoicePayment} object using the set fields.
          * @return {@link InvoicePayment}
          */
         public InvoicePayment build() {
             return new InvoicePayment(transactionTime, memo, originalAmount, appliedAmount,
                     paymentMethod, transactionId, prepayment, gatewayHandle, gatewayUsed,
-                    gatewayTransactionId);
+                    gatewayTransactionId, receivedOn, uid);
         }
     }
 }
