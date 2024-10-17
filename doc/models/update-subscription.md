@@ -26,6 +26,8 @@
 | `Components` | [`List<UpdateSubscriptionComponent>`](../../doc/models/update-subscription-component.md) | Optional | (Optional) An array of component ids and custom prices to be added to the subscription. | List<UpdateSubscriptionComponent> getComponents() | setComponents(List<UpdateSubscriptionComponent> components) |
 | `DunningCommunicationDelayEnabled` | `Boolean` | Optional | Enable Communication Delay feature, making sure no communication (email or SMS) is sent to the Customer between 9PM and 8AM in time zone set by the `dunning_communication_delay_time_zone` attribute. | Boolean getDunningCommunicationDelayEnabled() | setDunningCommunicationDelayEnabled(Boolean dunningCommunicationDelayEnabled) |
 | `DunningCommunicationDelayTimeZone` | `String` | Optional | Time zone for the Dunning Communication Delay feature. | String getDunningCommunicationDelayTimeZone() | setDunningCommunicationDelayTimeZone(String dunningCommunicationDelayTimeZone) |
+| `ProductPricePointId` | `Integer` | Optional | Set to change the current product's price point. | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
+| `ProductPricePointHandle` | `String` | Optional | Set to change the current product's price point. | String getProductPricePointHandle() | setProductPricePointHandle(String productPricePointHandle) |
 
 ## Example (as JSON)
 

@@ -28,6 +28,7 @@
 | `Metafields` | `Map<String, String>` | Optional | (Optional) A set of key/value pairs representing custom fields and their values. Metafields will be created “on-the-fly” in your site for a given key, if they have not been created yet. | Map<String, String> getMetafields() | setMetafields(Map<String, String> metafields) |
 | `ParentId` | `Integer` | Optional | The parent ID in Chargify if applicable. Parent is another Customer object. | Integer getParentId() | setParentId(Integer parentId) |
 | `SalesforceId` | `String` | Optional | (Optional) The Salesforce ID of the customer. | String getSalesforceId() | setSalesforceId(String salesforceId) |
+| `DefaultAutoRenewalProfileId` | `Integer` | Optional | (Optional) The default auto-renewal profile ID for the customer | Integer getDefaultAutoRenewalProfileId() | setDefaultAutoRenewalProfileId(Integer defaultAutoRenewalProfileId) |
 
 ## Example (as JSON)
 

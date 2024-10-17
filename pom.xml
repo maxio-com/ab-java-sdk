@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.maxio</groupId>
   <artifactId>advanced-billing-sdk</artifactId>
-  <version>5.1.0</version>
+  <version>5.2.0</version>
   <packaging>jar</packaging>
   <name>Advanced Billing SDK</name>
   <description>Ultimate billing and pricing flexibility for B2B SaaS.
@@ -35,6 +35,7 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
+      <name>Repository Snapshot Server</name>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
