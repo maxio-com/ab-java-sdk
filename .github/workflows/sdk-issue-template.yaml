@@ -13,35 +13,40 @@ jobs:
     env:
       ISSUE_TITLE: "${{ github.event.issue.title }}"
       ISSUE_BODY: "${{ github.event.issue.body }}"
+      ISSUE_URL: "${{ github.event.issue.html_url }}"
+      ISSUE_USER: "${{ github.event.issue.user.login }}"
     steps:
       - name: Create Jira Task
         run: |
-          ISSUE_TITLE=$(echo "$ISSUE_TITLE" | sed 's/"/\\"/g')
-          ISSUE_BODY=$(echo "$ISSUE_BODY" | sed 's/"/\\"/g')
-          ISSUE_URL="${{ github.event.issue.html_url }}"
-          ISSUE_USER="${{ github.event.issue.user.login }}"
+          JIRA_PAYLOAD=$(jq -n \
+            --arg project_key "DE" \
+            --arg jira_epic_key "DE-1012" \
+            --arg summary "[${{ inputs.sdk-name }}] ${ISSUE_TITLE}" \
+            --arg description "GitHub issue created by ${ISSUE_USER}:
           
-          JIRA_EPIC_KEY="DE-1012"
+            ${ISSUE_BODY}
           
-          JIRA_PAYLOAD=$(cat <<EOF
-          {
-            "fields": {
-               "project": {
-                  "key": "DE"
-               },
-               "summary": "[${{ inputs.sdk-name }}] ${ISSUE_TITLE}",
-               "description": "GitHub issue created by ${ISSUE_USER}:\n\n${ISSUE_BODY}\n\nLink: ${ISSUE_URL}",
-               "issuetype": {
-                  "name": "Defect"
-               },
-               "labels": ["github_issue"],
-               "components": [{"name": "SDK"}],
-               "parent": {"key": "${JIRA_EPIC_KEY}"}
-            }
-          }
-          EOF
-          )
+            Link: ${ISSUE_URL}" \
+            '{
+              fields: {
+                project: { key: $project_key },
+                summary: $summary,
+                description: $description,
+                issuetype: { name: "Defect" },
+                labels: ["github_issue"],
+                components: [ { name: "SDK" } ],
+                parent: { key: $jira_epic_key }
+              }
+            }')
 
-          curl -X POST -H "Content-Type: application/json" \
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" -X POST -H "Content-Type: application/json" \
           --user "${{ secrets.ATLASSIAN_TOKEN }}" "${{ secrets.ATLASSIAN_URL }}/rest/api/2/issue" \
-          --data "${JIRA_PAYLOAD}" 
+          --data "${JIRA_PAYLOAD}")
+
+           if [ "$RESPONSE" -ne 201 ]; then
+            echo "Error: Failed to create Jira issue. HTTP response code: $RESPONSE"
+            echo "Response Body: $(jq . response.json)"
+            exit 1
+          else
+            echo "Jira issue created successfully!"
+          fi
