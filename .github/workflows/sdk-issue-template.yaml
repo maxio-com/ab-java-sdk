@@ -10,11 +10,12 @@ on:
 jobs:
   create-jira-task:
     runs-on: ubuntu-latest
+    env:
+      ISSUE_TITLE: "${{ github.event.issue.title }}"
+      ISSUE_BODY: "${{ github.event.issue.body }}"
     steps:
       - name: Create Jira Task
         run: |
-          ISSUE_TITLE="${{ github.event.issue.title }}"
-          ISSUE_BODY="${{ github.event.issue.body }}"
           ISSUE_URL="${{ github.event.issue.html_url }}"
           ISSUE_USER="${{ github.event.issue.user.login }}"
           
