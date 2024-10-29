@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Create Jira Task
         run: |
+          ISSUE_TITLE=$(echo "$ISSUE_TITLE" | sed 's/"/\\"/g')
+          ISSUE_BODY=$(echo "$ISSUE_BODY" | sed 's/"/\\"/g')
           ISSUE_URL="${{ github.event.issue.html_url }}"
           ISSUE_USER="${{ github.event.issue.user.login }}"
           
