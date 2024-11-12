@@ -39,7 +39,7 @@ public class UpdateSubscription
     private String reference;
     private SubscriptionCustomPrice customPrice;
     private List<UpdateSubscriptionComponent> components;
-    private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
+    private Boolean dunningCommunicationDelayEnabled;
     private OptionalNullable<String> dunningCommunicationDelayTimeZone;
     private Integer productPricePointId;
     private String productPricePointHandle;
@@ -108,8 +108,7 @@ public class UpdateSubscription
         this.reference = reference;
         this.customPrice = customPrice;
         this.components = components;
-        this.dunningCommunicationDelayEnabled =
-                OptionalNullable.of(dunningCommunicationDelayEnabled);
+        this.dunningCommunicationDelayEnabled = dunningCommunicationDelayEnabled;
         this.dunningCommunicationDelayTimeZone =
                 OptionalNullable.of(dunningCommunicationDelayTimeZone);
         this.productPricePointId = productPricePointId;
@@ -147,7 +146,7 @@ public class UpdateSubscription
             Boolean receivesInvoiceEmails, UpdateSubscriptionNetTerms netTerms,
             Integer storedCredentialTransactionId, String reference,
             SubscriptionCustomPrice customPrice, List<UpdateSubscriptionComponent> components,
-            OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
+            Boolean dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone, Integer productPricePointId,
             String productPricePointHandle) {
         this.creditCardAttributes = creditCardAttributes;
@@ -475,28 +474,16 @@ public class UpdateSubscription
     }
 
     /**
-     * Internal Getter for DunningCommunicationDelayEnabled.
-     * Enable Communication Delay feature, making sure no communication (email or SMS) is sent to
-     * the Customer between 9PM and 8AM in time zone set by the
-     * `dunning_communication_delay_time_zone` attribute.
-     * @return Returns the Internal Boolean
-     */
-    @JsonGetter("dunning_communication_delay_enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Boolean> internalGetDunningCommunicationDelayEnabled() {
-        return this.dunningCommunicationDelayEnabled;
-    }
-
-    /**
      * Getter for DunningCommunicationDelayEnabled.
      * Enable Communication Delay feature, making sure no communication (email or SMS) is sent to
      * the Customer between 9PM and 8AM in time zone set by the
      * `dunning_communication_delay_time_zone` attribute.
      * @return Returns the Boolean
      */
+    @JsonGetter("dunning_communication_delay_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getDunningCommunicationDelayEnabled() {
-        return OptionalNullable.getFrom(dunningCommunicationDelayEnabled);
+        return dunningCommunicationDelayEnabled;
     }
 
     /**
@@ -508,17 +495,7 @@ public class UpdateSubscription
      */
     @JsonSetter("dunning_communication_delay_enabled")
     public void setDunningCommunicationDelayEnabled(Boolean dunningCommunicationDelayEnabled) {
-        this.dunningCommunicationDelayEnabled = OptionalNullable.of(dunningCommunicationDelayEnabled);
-    }
-
-    /**
-     * UnSetter for DunningCommunicationDelayEnabled.
-     * Enable Communication Delay feature, making sure no communication (email or SMS) is sent to
-     * the Customer between 9PM and 8AM in time zone set by the
-     * `dunning_communication_delay_time_zone` attribute.
-     */
-    public void unsetDunningCommunicationDelayEnabled() {
-        dunningCommunicationDelayEnabled = null;
+        this.dunningCommunicationDelayEnabled = dunningCommunicationDelayEnabled;
     }
 
     /**
@@ -646,9 +623,9 @@ public class UpdateSubscription
                 .reference(getReference())
                 .customPrice(getCustomPrice())
                 .components(getComponents())
+                .dunningCommunicationDelayEnabled(getDunningCommunicationDelayEnabled())
                 .productPricePointId(getProductPricePointId())
                 .productPricePointHandle(getProductPricePointHandle());
-        builder.dunningCommunicationDelayEnabled = internalGetDunningCommunicationDelayEnabled();
         builder.dunningCommunicationDelayTimeZone = internalGetDunningCommunicationDelayTimeZone();
         return builder;
     }
@@ -672,7 +649,7 @@ public class UpdateSubscription
         private String reference;
         private SubscriptionCustomPrice customPrice;
         private List<UpdateSubscriptionComponent> components;
-        private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
+        private Boolean dunningCommunicationDelayEnabled;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
         private Integer productPricePointId;
         private String productPricePointHandle;
@@ -837,17 +814,7 @@ public class UpdateSubscription
          */
         public Builder dunningCommunicationDelayEnabled(
                 Boolean dunningCommunicationDelayEnabled) {
-            this.dunningCommunicationDelayEnabled =
-                    OptionalNullable.of(dunningCommunicationDelayEnabled);
-            return this;
-        }
-
-        /**
-         * UnSetter for dunningCommunicationDelayEnabled.
-         * @return Builder
-         */
-        public Builder unsetDunningCommunicationDelayEnabled() {
-            dunningCommunicationDelayEnabled = null;
+            this.dunningCommunicationDelayEnabled = dunningCommunicationDelayEnabled;
             return this;
         }
 

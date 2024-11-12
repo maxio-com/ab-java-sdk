@@ -70,7 +70,7 @@ public class CreateSubscription
     private ZonedDateTime activatedAt;
     private AgreementAcceptance agreementAcceptance;
     private ACHAgreement achAgreement;
-    private OptionalNullable<Boolean> dunningCommunicationDelayEnabled;
+    private Boolean dunningCommunicationDelayEnabled;
     private OptionalNullable<String> dunningCommunicationDelayTimeZone;
     private Boolean skipBillingManifestTaxes;
 
@@ -78,7 +78,7 @@ public class CreateSubscription
      * Default constructor.
      */
     public CreateSubscription() {
-        dunningCommunicationDelayEnabled = OptionalNullable.of(false);
+        dunningCommunicationDelayEnabled = false;
         skipBillingManifestTaxes = false;
     }
 
@@ -233,8 +233,7 @@ public class CreateSubscription
         this.activatedAt = activatedAt;
         this.agreementAcceptance = agreementAcceptance;
         this.achAgreement = achAgreement;
-        this.dunningCommunicationDelayEnabled =
-                OptionalNullable.of(dunningCommunicationDelayEnabled);
+        this.dunningCommunicationDelayEnabled = dunningCommunicationDelayEnabled;
         this.dunningCommunicationDelayTimeZone =
                 OptionalNullable.of(dunningCommunicationDelayTimeZone);
         this.skipBillingManifestTaxes = skipBillingManifestTaxes;
@@ -315,7 +314,7 @@ public class CreateSubscription
             CreateSubscriptionOfferId offerId, UpsertPrepaidConfiguration prepaidConfiguration,
             ZonedDateTime previousBillingAt, Boolean importMrr, ZonedDateTime canceledAt,
             ZonedDateTime activatedAt, AgreementAcceptance agreementAcceptance,
-            ACHAgreement achAgreement, OptionalNullable<Boolean> dunningCommunicationDelayEnabled,
+            ACHAgreement achAgreement, Boolean dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone,
             Boolean skipBillingManifestTaxes) {
         this.productHandle = productHandle;
@@ -1458,28 +1457,16 @@ public class CreateSubscription
     }
 
     /**
-     * Internal Getter for DunningCommunicationDelayEnabled.
-     * Enable Communication Delay feature, making sure no communication (email or SMS) is sent to
-     * the Customer between 9PM and 8AM in time zone set by the
-     * `dunning_communication_delay_time_zone` attribute.
-     * @return Returns the Internal Boolean
-     */
-    @JsonGetter("dunning_communication_delay_enabled")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Boolean> internalGetDunningCommunicationDelayEnabled() {
-        return this.dunningCommunicationDelayEnabled;
-    }
-
-    /**
      * Getter for DunningCommunicationDelayEnabled.
      * Enable Communication Delay feature, making sure no communication (email or SMS) is sent to
      * the Customer between 9PM and 8AM in time zone set by the
      * `dunning_communication_delay_time_zone` attribute.
      * @return Returns the Boolean
      */
+    @JsonGetter("dunning_communication_delay_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Boolean getDunningCommunicationDelayEnabled() {
-        return OptionalNullable.getFrom(dunningCommunicationDelayEnabled);
+        return dunningCommunicationDelayEnabled;
     }
 
     /**
@@ -1491,17 +1478,7 @@ public class CreateSubscription
      */
     @JsonSetter("dunning_communication_delay_enabled")
     public void setDunningCommunicationDelayEnabled(Boolean dunningCommunicationDelayEnabled) {
-        this.dunningCommunicationDelayEnabled = OptionalNullable.of(dunningCommunicationDelayEnabled);
-    }
-
-    /**
-     * UnSetter for DunningCommunicationDelayEnabled.
-     * Enable Communication Delay feature, making sure no communication (email or SMS) is sent to
-     * the Customer between 9PM and 8AM in time zone set by the
-     * `dunning_communication_delay_time_zone` attribute.
-     */
-    public void unsetDunningCommunicationDelayEnabled() {
-        dunningCommunicationDelayEnabled = null;
+        this.dunningCommunicationDelayEnabled = dunningCommunicationDelayEnabled;
     }
 
     /**
@@ -1657,8 +1634,8 @@ public class CreateSubscription
                 .activatedAt(getActivatedAt())
                 .agreementAcceptance(getAgreementAcceptance())
                 .achAgreement(getAchAgreement())
+                .dunningCommunicationDelayEnabled(getDunningCommunicationDelayEnabled())
                 .skipBillingManifestTaxes(getSkipBillingManifestTaxes());
-        builder.dunningCommunicationDelayEnabled = internalGetDunningCommunicationDelayEnabled();
         builder.dunningCommunicationDelayTimeZone = internalGetDunningCommunicationDelayTimeZone();
         return builder;
     }
@@ -1713,8 +1690,7 @@ public class CreateSubscription
         private ZonedDateTime activatedAt;
         private AgreementAcceptance agreementAcceptance;
         private ACHAgreement achAgreement;
-        private OptionalNullable<Boolean> dunningCommunicationDelayEnabled =
-                OptionalNullable.of(false);
+        private Boolean dunningCommunicationDelayEnabled = false;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
         private Boolean skipBillingManifestTaxes = false;
 
@@ -2192,17 +2168,7 @@ public class CreateSubscription
          */
         public Builder dunningCommunicationDelayEnabled(
                 Boolean dunningCommunicationDelayEnabled) {
-            this.dunningCommunicationDelayEnabled =
-                    OptionalNullable.of(dunningCommunicationDelayEnabled);
-            return this;
-        }
-
-        /**
-         * UnSetter for dunningCommunicationDelayEnabled.
-         * @return Builder
-         */
-        public Builder unsetDunningCommunicationDelayEnabled() {
-            dunningCommunicationDelayEnabled = null;
+            this.dunningCommunicationDelayEnabled = dunningCommunicationDelayEnabled;
             return this;
         }
 

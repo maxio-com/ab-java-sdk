@@ -76,8 +76,14 @@ public final class SubscriptionsController extends BaseController {
      * If you are creating a subscription with a payment profile, the attribute to send will be
      * `credit_card_attributes` or `bank_account_attributes` for ACH and Direct Debit. That said,
      * when you read the subscription after creation, we return the profile details under
-     * `credit_card` or `bank_account`. ## Taxable Subscriptions If your intent is to charge your
-     * subscribers tax via [Avalara
+     * `credit_card` or `bank_account`. ## Bulk creation of subscriptions Bulk creation of
+     * subscriptions is currently not supported. For scenarios where multiple subscriptions must be
+     * added, particularly when assigning to the same subscription group, it is essential to switch
+     * to a single-threaded approach. To avoid data conflicts or inaccuracies, incorporate a sleep
+     * interval between requests. While this single-threaded approach may impact performance, it
+     * ensures data consistency and accuracy in cases where concurrent creation attempts could
+     * otherwise lead to issues with subscription alignment and integrity. ## Taxable Subscriptions
+     * If your intent is to charge your subscribers tax via [Avalara
      * Taxes](https://maxio.zendesk.com/hc/en-us/articles/24287043035661-Avalara-VAT-Tax) or [Custom
      * Taxes](https://maxio.zendesk.com/hc/en-us/articles/24287044212749-Custom-Taxes), there are a
      * few considerations to be made regarding collecting subscription data. For subscribers to be
