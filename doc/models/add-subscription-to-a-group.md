@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `Group` | [`AddSubscriptionToAGroupGroup`](../../doc/models/containers/add-subscription-to-a-group-group.md) | Optional | This is a container for one-of cases. | AddSubscriptionToAGroupGroup getGroup() | setGroup(AddSubscriptionToAGroupGroup group) |
+| `Group` | [`GroupSettings`](../../doc/models/group-settings.md) | Optional | - | GroupSettings getGroup() | setGroup(GroupSettings group) |
 
 ## Example (as JSON)
 
