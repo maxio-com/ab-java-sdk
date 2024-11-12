@@ -9,7 +9,6 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.AddSubscriptionToAGroupGroup;
 import io.apimatic.core.types.BaseModel;
 
 /**
@@ -17,7 +16,7 @@ import io.apimatic.core.types.BaseModel;
  */
 public class AddSubscriptionToAGroup
         extends BaseModel {
-    private AddSubscriptionToAGroupGroup group;
+    private GroupSettings group;
 
     /**
      * Default constructor.
@@ -27,29 +26,29 @@ public class AddSubscriptionToAGroup
 
     /**
      * Initialization constructor.
-     * @param  group  AddSubscriptionToAGroupGroup value for group.
+     * @param  group  GroupSettings value for group.
      */
     public AddSubscriptionToAGroup(
-            AddSubscriptionToAGroupGroup group) {
+            GroupSettings group) {
         this.group = group;
     }
 
     /**
      * Getter for Group.
-     * @return Returns the AddSubscriptionToAGroupGroup
+     * @return Returns the GroupSettings
      */
     @JsonGetter("group")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public AddSubscriptionToAGroupGroup getGroup() {
+    public GroupSettings getGroup() {
         return group;
     }
 
     /**
      * Setter for Group.
-     * @param group Value for AddSubscriptionToAGroupGroup
+     * @param group Value for GroupSettings
      */
     @JsonSetter("group")
-    public void setGroup(AddSubscriptionToAGroupGroup group) {
+    public void setGroup(GroupSettings group) {
         this.group = group;
     }
 
@@ -78,16 +77,16 @@ public class AddSubscriptionToAGroup
      * Class to build instances of {@link AddSubscriptionToAGroup}.
      */
     public static class Builder {
-        private AddSubscriptionToAGroupGroup group;
+        private GroupSettings group;
 
 
 
         /**
          * Setter for group.
-         * @param  group  AddSubscriptionToAGroupGroup value for group.
+         * @param  group  GroupSettings value for group.
          * @return Builder
          */
-        public Builder group(AddSubscriptionToAGroupGroup group) {
+        public Builder group(GroupSettings group) {
             this.group = group;
             return this;
         }
