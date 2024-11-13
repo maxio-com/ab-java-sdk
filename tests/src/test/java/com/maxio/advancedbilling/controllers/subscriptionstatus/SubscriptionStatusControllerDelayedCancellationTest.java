@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -92,9 +93,10 @@ public class SubscriptionStatusControllerDelayedCancellationTest extends Subscri
                 .cancelSubscription(subscriptionForErrors.getId(), null);
 
         // then
-        new ApiExceptionAssert(() -> subscriptionStatusController.initiateDelayedCancellation(subscriptionForErrors.getId(), null))
-                .hasErrorCode(422)
-                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[The subscription is already canceled]}'.");
+        assertThatErrorListResponse(() -> subscriptionStatusController
+                .initiateDelayedCancellation(subscriptionForErrors.getId(), null))
+                .isUnprocessableEntity()
+                .hasErrors("The subscription is already canceled");
     }
 
     @Test

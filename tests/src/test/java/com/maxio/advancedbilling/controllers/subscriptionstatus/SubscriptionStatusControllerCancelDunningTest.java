@@ -8,11 +8,11 @@ import com.maxio.advancedbilling.models.CreateAllocationRequest;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionState;
 import com.maxio.advancedbilling.utils.TestSetup;
-import com.maxio.advancedbilling.utils.assertions.ApiExceptionAssert;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,7 +49,7 @@ public class SubscriptionStatusControllerCancelDunningTest extends SubscriptionS
         assertThat(subscriptionAfterDunningCancelled).usingRecursiveComparison()
                 .ignoringFields("customer", "dunningCommunicationDelayEnabled", "paymentType",
                         "prepaidDunning", "previousState", "productPricePointType", "updatedAt",
-                        "balanceInCents", "creditCard")
+                        "balanceInCents", "creditCard", "signupPaymentId")
                 .isEqualTo(subscription);
         assertThat(subscriptionAfterDunningCancelled.getState()).isEqualTo(SubscriptionState.ACTIVE);
         assertThat(subscriptionAfterDunningCancelled.getPreviousState()).isEqualTo(SubscriptionState.PAST_DUE);
@@ -65,9 +65,9 @@ public class SubscriptionStatusControllerCancelDunningTest extends SubscriptionS
         Subscription subscription = createSubscription();
 
         // when - then
-        new ApiExceptionAssert(() -> subscriptionStatusController.cancelDunning(subscription.getId()))
-                .hasErrorCode(422)
-                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[This subscription is not eligible to have its dunning canceled.]}'.");
+        assertThatErrorListResponse(() -> subscriptionStatusController.cancelDunning(subscription.getId()))
+                .isUnprocessableEntity()
+                .hasErrors("This subscription is not eligible to have its dunning canceled.");
     }
 
     @Test
