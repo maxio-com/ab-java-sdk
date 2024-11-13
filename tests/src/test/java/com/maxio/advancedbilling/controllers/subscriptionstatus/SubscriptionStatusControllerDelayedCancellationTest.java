@@ -6,7 +6,6 @@ import com.maxio.advancedbilling.models.CancellationOptions;
 import com.maxio.advancedbilling.models.CancellationRequest;
 import com.maxio.advancedbilling.models.DelayedCancellationResponse;
 import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.utils.assertions.ApiExceptionAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -81,9 +80,10 @@ public class SubscriptionStatusControllerDelayedCancellationTest extends Subscri
         );
 
         // when - then
-        new ApiExceptionAssert(() -> subscriptionStatusController.initiateDelayedCancellation(subscriptionForErrors.getId(), cancellationRequest))
-                .hasErrorCode(422)
-                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[reason_code size cannot be greater than 255,cancellation_message size cannot be greater than 65535]}'.");
+        assertThatErrorListResponse(() -> subscriptionStatusController
+                .initiateDelayedCancellation(subscriptionForErrors.getId(), cancellationRequest))
+                .isUnprocessableEntity()
+                .hasErrors("reason_code size cannot be greater than 255", "cancellation_message size cannot be greater than 65535");
     }
 
     @Test
