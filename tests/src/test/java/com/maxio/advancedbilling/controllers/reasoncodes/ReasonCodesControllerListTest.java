@@ -24,13 +24,10 @@ public class ReasonCodesControllerListTest {
     private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClient.createClient().getReasonCodesController();
     private static final List<ReasonCodeResponse> EXISTING_CODES = new ArrayList<>();
 
-    @AfterEach
-    void deleteReasonCodes() throws IOException, ApiException {
-        new TestTeardown().deleteReasonCodes();
-    }
-
     @BeforeEach
     void createReasonCodes() throws IOException, ApiException {
+        new TestTeardown().deleteReasonCodes();
+        EXISTING_CODES.clear();
         for (int i = 0; i < 10; ++i) {
             ReasonCodeResponse response = REASON_CODES_CONTROLLER.createReasonCode(
                     new CreateReasonCodeRequest(
@@ -38,6 +35,11 @@ public class ReasonCodesControllerListTest {
                     ));
             EXISTING_CODES.add(response);
         }
+    }
+
+    @AfterEach
+    void deleteReasonCodes() throws IOException, ApiException {
+        new TestTeardown().deleteReasonCodes();
     }
 
     @Test
