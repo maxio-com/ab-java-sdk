@@ -122,6 +122,22 @@ public class SubscriptionGroupsControllerAddRemoveTest {
         }
 
         @Test
+        void shouldThrowExceptionIfTargetSubscriptionDoesNotExist() throws IOException, ApiException {
+            // given
+            Subscription newSubscription = new TestSetup().createSubscription(customer, product);
+
+            // when - then
+            assertThatErrorListResponse(() -> SUBSCRIPTION_GROUPS_CONTROLLER.addSubscriptionToGroup(newSubscription.getId(),
+                    new AddSubscriptionToAGroup(
+                            new GroupSettings.Builder()
+                                    .target(new GroupTarget(GroupTargetType.SUBSCRIPTION, 1))
+                                    .build())))
+                    .hasErrorCode(422)
+                    .hasMessage("HTTP Response Not OK. Status code: 422. Response: " +
+                            "'{errors:{group:[{type:invalid,message:Target ID was invalid or missing for the group.}]}}'.");
+        }
+
+        @Test
         void shouldReturn404IfSubscriptionNotFound() {
             // when - then
             assertNotFound(() -> SUBSCRIPTION_GROUPS_CONTROLLER.addSubscriptionToGroup(1,
