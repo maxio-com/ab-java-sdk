@@ -12,23 +12,23 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 
 /**
- * This is a model class for ReasonCodesJsonResponse type.
+ * This is a model class for OkResponse type.
  */
-public class ReasonCodesJsonResponse
+public class OkResponse
         extends BaseModel {
     private String ok;
 
     /**
      * Default constructor.
      */
-    public ReasonCodesJsonResponse() {
+    public OkResponse() {
     }
 
     /**
      * Initialization constructor.
      * @param  ok  String value for ok.
      */
-    public ReasonCodesJsonResponse(
+    public OkResponse(
             String ok) {
         this.ok = ok;
     }
@@ -53,19 +53,19 @@ public class ReasonCodesJsonResponse
     }
 
     /**
-     * Converts this ReasonCodesJsonResponse into string format.
+     * Converts this OkResponse into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ReasonCodesJsonResponse [" + "ok=" + ok + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "OkResponse [" + "ok=" + ok + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**
-     * Builds a new {@link ReasonCodesJsonResponse.Builder} object.
+     * Builds a new {@link OkResponse.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ReasonCodesJsonResponse.Builder} object
+     * @return a new {@link OkResponse.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -74,7 +74,7 @@ public class ReasonCodesJsonResponse
     }
 
     /**
-     * Class to build instances of {@link ReasonCodesJsonResponse}.
+     * Class to build instances of {@link OkResponse}.
      */
     public static class Builder {
         private String ok;
@@ -92,11 +92,11 @@ public class ReasonCodesJsonResponse
         }
 
         /**
-         * Builds a new {@link ReasonCodesJsonResponse} object using the set fields.
-         * @return {@link ReasonCodesJsonResponse}
+         * Builds a new {@link OkResponse} object using the set fields.
+         * @return {@link OkResponse}
          */
-        public ReasonCodesJsonResponse build() {
-            return new ReasonCodesJsonResponse(ok);
+        public OkResponse build() {
+            return new OkResponse(ok);
         }
     }
 }
