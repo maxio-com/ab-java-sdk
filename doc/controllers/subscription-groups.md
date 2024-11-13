@@ -583,21 +583,19 @@ SubscriptionGroupResponse addSubscriptionToGroup(
 ```java
 int subscriptionId = 222;
 AddSubscriptionToAGroup body = new AddSubscriptionToAGroup.Builder()
-    .group(AddSubscriptionToAGroupGroup.fromGroupSettings(
-        new GroupSettings.Builder(
-            new GroupTarget.Builder(
-                GroupTargetType.SUBSCRIPTION
-            )
-            .id(32987)
-            .build()
+    .group(new GroupSettings.Builder(
+        new GroupTarget.Builder(
+            GroupTargetType.SUBSCRIPTION
         )
-        .billing(new GroupBilling.Builder()
-                .accrue(true)
-                .alignDate(true)
-                .prorate(true)
-                .build())
+        .id(32987)
         .build()
-    ))
+    )
+    .billing(new GroupBilling.Builder()
+            .accrue(true)
+            .alignDate(true)
+            .prorate(true)
+            .build())
+    .build())
     .build();
 
 try {

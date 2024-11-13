@@ -6,6 +6,7 @@ import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.ListComponentsInput;
 import com.maxio.advancedbilling.models.ListMetafieldsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsInput;
@@ -63,7 +64,18 @@ public class TestTeardown {
 
     public void deleteSubscriptionGroup(SubscriptionGroupSignupResponse groupSignup) throws IOException, ApiException {
         if (groupSignup != null) {
-            deleteSubscriptionGroup(groupSignup.getPrimarySubscriptionId(), groupSignup.getSubscriptionIds(), groupSignup.getCustomerId());
+            FullSubscriptionGroupResponse refreshedGroup;
+            try {
+                refreshedGroup = advancedBillingClient.getSubscriptionGroupsController()
+                        .findSubscriptionGroup(groupSignup.getPrimarySubscriptionId().toString());
+            } catch (ApiException ex) {
+                // already deleted
+                if (ex.getResponseCode() == 404) {
+                    return;
+                }
+                throw ex;
+            }
+            deleteSubscriptionGroup(groupSignup.getPrimarySubscriptionId(), refreshedGroup.getSubscriptionIds(), groupSignup.getCustomerId());
         }
     }
 

@@ -444,6 +444,9 @@ public final class SubscriptionStatusController extends BaseController {
                         .localErrorCase("404",
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -525,6 +528,9 @@ public final class SubscriptionStatusController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
