@@ -8,32 +8,35 @@ import com.maxio.advancedbilling.models.CreateReasonCodeRequest;
 import com.maxio.advancedbilling.models.ReasonCode;
 import com.maxio.advancedbilling.utils.TestFixtures;
 import com.maxio.advancedbilling.utils.TestTeardown;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
 
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ReasonCodesControllerCreateTest {
+public class ReasonCodesControllerReadTest {
     private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClient.createClient().getReasonCodesController();
 
-    @AfterAll
-    static void deleteReasonCodes() throws IOException, ApiException {
+    @AfterEach
+    void deleteReasonCodes() throws IOException, ApiException {
         new TestTeardown().deleteReasonCodes();
     }
 
     @Test
-    void shouldCreateReasonCode() throws IOException, ApiException {
-        // when
-        ReasonCode response = REASON_CODES_CONTROLLER.createReasonCode(new CreateReasonCodeRequest(new CreateReasonCode(
+    void shouldReadReasonCode() throws IOException, ApiException {
+        // given
+        ReasonCode createResponse = REASON_CODES_CONTROLLER.createReasonCode(new CreateReasonCodeRequest(new CreateReasonCode(
                 "NOT_INTERESTED", "I'm not interested in this product.", 1
         ))).getReasonCode();
 
         // when
+        ReasonCode response = REASON_CODES_CONTROLLER.readReasonCode(createResponse.getId()).getReasonCode();
+
+        // then
         assertThat(response.getId()).isNotNull();
         assertThat(response.getSiteId()).isEqualTo(TestFixtures.SITE_ID);
         assertThat(response.getCode()).isEqualTo("NOT_INTERESTED");
@@ -52,35 +55,20 @@ public class ReasonCodesControllerCreateTest {
     }
 
     @Test
-    void shouldThrowExceptionIfPropertyIsMissing() {
+    void shouldThrowExceptionIfCodeDoesNotExist() {
         // when - then
-        assertThatErrorListResponse(() -> REASON_CODES_CONTROLLER.createReasonCode(
-                new CreateReasonCodeRequest(new CreateReasonCode())))
-                .hasErrorCode(422)
-                .hasErrors("Code: cannot be blank.", "Description: cannot be blank.")
-                .hasMessage("HTTP Response Not OK. Status code: 422. " +
-                        "Response: '{errors:[Code: cannot be blank.,Description: cannot be blank.]}'.");
+        assertNotFound(() -> REASON_CODES_CONTROLLER.readReasonCode(1));
     }
 
     @Test
-    void shouldThrowExceptionIfCodeExists() throws IOException, ApiException {
+    void shouldThrowExceptionOnInvalidCredentials() throws IOException, ApiException {
         // given
-        CreateReasonCodeRequest request = new CreateReasonCodeRequest(new CreateReasonCode("existing", "existing", 1));
-        assertThat(REASON_CODES_CONTROLLER.createReasonCode(request).getReasonCode()).isNotNull();
+        ReasonCode createResponse = REASON_CODES_CONTROLLER.createReasonCode(new CreateReasonCodeRequest(new CreateReasonCode(
+                "NOT_INTERESTED", "I'm not interested in this product.", 1
+        ))).getReasonCode();
 
-        // when - then
-        assertThatErrorListResponse(() -> REASON_CODES_CONTROLLER.createReasonCode(request))
-                .hasErrorCode(422)
-                .hasErrors("Code: This code is already in use.")
-                .hasMessage("HTTP Response Not OK. Status code: 422. " +
-                        "Response: '{errors:[Code: This code is already in use.]}'.");
-    }
-
-    @Test
-    void shouldThrowExceptionOnInvalidCredentials() {
         // when - then
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getReasonCodesController()
-                .createReasonCode(new CreateReasonCodeRequest(new CreateReasonCode("code", "desc", 1)))
-        );
+                .readReasonCode(createResponse.getId()));
     }
 }
