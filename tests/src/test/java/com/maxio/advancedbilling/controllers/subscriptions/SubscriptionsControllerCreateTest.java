@@ -654,7 +654,7 @@ public class SubscriptionsControllerCreateTest {
 
         assertThat(subscription.getReferralCode())
                 .as("getReferralCode")
-                .isNull();
+                .isNotNull();
         assertThat(subscription.getNextProductId())
                 .as("getNextProductId")
                 .isNull();
@@ -729,7 +729,7 @@ public class SubscriptionsControllerCreateTest {
         return bool == null || !bool;
     }
 
-    private static void assertBalancesWithDefaultPricePoint(Subscription subscription) {
+    private void assertBalancesWithDefaultPricePoint(Subscription subscription) {
         assertThat(subscription.getBalanceInCents()).isEqualTo(0L);
         assertThat(subscription.getTotalRevenueInCents()).isEqualTo(0L);
         assertThat(subscription.getProductPriceInCents()).isEqualTo(0L);

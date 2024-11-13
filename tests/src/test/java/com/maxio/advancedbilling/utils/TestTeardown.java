@@ -9,10 +9,12 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.ListComponentsInput;
 import com.maxio.advancedbilling.models.ListMetafieldsInput;
+import com.maxio.advancedbilling.models.ListReasonCodesInput;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsItem;
 import com.maxio.advancedbilling.models.ListSubscriptionsInput;
 import com.maxio.advancedbilling.models.Metafield;
+import com.maxio.advancedbilling.models.ReasonCodeResponse;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
@@ -141,6 +143,18 @@ public class TestTeardown {
                     metafields = listMetafields(resourceType);
                 }
             }
+        }
+    }
+
+    public void deleteReasonCodes() throws IOException, ApiException {
+        ListReasonCodesInput page = new ListReasonCodesInput(1, 200);
+        List<ReasonCodeResponse> reasonCodes = advancedBillingClient.getReasonCodesController()
+                .listReasonCodes(page);
+        while (!reasonCodes.isEmpty()) {
+            for (ReasonCodeResponse code : reasonCodes) {
+                advancedBillingClient.getReasonCodesController().deleteReasonCode(code.getReasonCode().getId());
+            }
+            reasonCodes = advancedBillingClient.getReasonCodesController().listReasonCodes(page);
         }
     }
 
