@@ -14,8 +14,8 @@ import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CreateReasonCodeRequest;
 import com.maxio.advancedbilling.models.ListReasonCodesInput;
+import com.maxio.advancedbilling.models.OkResponse;
 import com.maxio.advancedbilling.models.ReasonCodeResponse;
-import com.maxio.advancedbilling.models.ReasonCodesJsonResponse;
 import com.maxio.advancedbilling.models.UpdateReasonCodeRequest;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
@@ -124,6 +124,9 @@ public final class ReasonCodesController extends BaseController {
                                 response -> ApiHelper.deserializeArray(response,
                                         ReasonCodeResponse[].class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -220,11 +223,11 @@ public final class ReasonCodesController extends BaseController {
      * This method gives a merchant the option to delete one reason code from the Churn Reason
      * Codes. This code will be immediately removed. This action is not reversable.
      * @param  reasonCodeId  Required parameter: The Advanced Billing id of the reason code
-     * @return    Returns the ReasonCodesJsonResponse response from the API call
+     * @return    Returns the OkResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ReasonCodesJsonResponse deleteReasonCode(
+    public OkResponse deleteReasonCode(
             final int reasonCodeId) throws ApiException, IOException {
         return prepareDeleteReasonCodeRequest(reasonCodeId).execute();
     }
@@ -232,9 +235,9 @@ public final class ReasonCodesController extends BaseController {
     /**
      * Builds the ApiCall object for deleteReasonCode.
      */
-    private ApiCall<ReasonCodesJsonResponse, ApiException> prepareDeleteReasonCodeRequest(
+    private ApiCall<OkResponse, ApiException> prepareDeleteReasonCodeRequest(
             final int reasonCodeId) throws IOException {
-        return new ApiCall.Builder<ReasonCodesJsonResponse, ApiException>()
+        return new ApiCall.Builder<OkResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -248,7 +251,7 @@ public final class ReasonCodesController extends BaseController {
                         .httpMethod(HttpMethod.DELETE))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ReasonCodesJsonResponse.class))
+                                response -> ApiHelper.deserialize(response, OkResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
                                  ErrorCase.setTemplate("Not Found:'{$response.body}'",

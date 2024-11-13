@@ -158,6 +158,12 @@ try {
 ]
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
 
 # Read Reason Code
 
@@ -247,7 +253,7 @@ try {
 This method gives a merchant the option to delete one reason code from the Churn Reason Codes. This code will be immediately removed. This action is not reversable.
 
 ```java
-ReasonCodesJsonResponse deleteReasonCode(
+OkResponse deleteReasonCode(
     final int reasonCodeId)
 ```
 
@@ -259,7 +265,7 @@ ReasonCodesJsonResponse deleteReasonCode(
 
 ## Response Type
 
-[`ReasonCodesJsonResponse`](../../doc/models/reason-codes-json-response.md)
+[`OkResponse`](../../doc/models/ok-response.md)
 
 ## Example Usage
 
@@ -267,7 +273,7 @@ ReasonCodesJsonResponse deleteReasonCode(
 int reasonCodeId = 32;
 
 try {
-    ReasonCodesJsonResponse result = reasonCodesController.deleteReasonCode(reasonCodeId);
+    OkResponse result = reasonCodesController.deleteReasonCode(reasonCodeId);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
