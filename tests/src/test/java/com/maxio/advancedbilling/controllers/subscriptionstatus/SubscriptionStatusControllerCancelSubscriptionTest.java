@@ -72,12 +72,12 @@ public class SubscriptionStatusControllerCancelSubscriptionTest extends Subscrip
     }
 
     @Test
-    void shouldNotRetryNonExistentSubscription() {
+    void shouldNotCancelNonExistentSubscription() {
         assertNotFound(() -> subscriptionStatusController.cancelSubscription(99999999, null));
     }
 
     @Test
-    void shouldNotCancelAlreadyCanceledSubscriptionExceedingMessagesLimits() throws IOException, ApiException {
+    void shouldNotCancelSubscriptionExceedingMessagesLimits() throws IOException, ApiException {
         // given
         Subscription subscription = createSubscription();
 
