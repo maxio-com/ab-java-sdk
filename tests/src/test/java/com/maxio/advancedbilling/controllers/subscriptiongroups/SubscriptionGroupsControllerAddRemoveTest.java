@@ -70,7 +70,7 @@ public class SubscriptionGroupsControllerAddRemoveTest {
     }
 
     private Integer getSecondarySubscriptionId(SubscriptionGroupSignupResponse signupResponse) {
-        ArrayList<Integer> subscriptionIds = new ArrayList<>(signupResponse.getSubscriptionIds());
+        List<Integer> subscriptionIds = new ArrayList<>(signupResponse.getSubscriptionIds());
         subscriptionIds.remove(signupResponse.getPrimarySubscriptionId());
         return subscriptionIds.get(0);
     }

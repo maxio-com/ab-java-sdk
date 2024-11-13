@@ -66,6 +66,7 @@ public class SubscriptionGroupsControllerFindTest {
         groupSignup = new TestSetup().signupWithSubscriptionGroup(product, meteredComponent);
         Integer primarySubscriptionId = groupSignup.getPrimarySubscriptionId();
         List<Integer> secondarySubscriptionIds = new ArrayList<>(groupSignup.getSubscriptionIds());
+        secondarySubscriptionIds.remove(primarySubscriptionId);
         Integer secondarySubscriptionId = secondarySubscriptionIds.get(0);
         Customer groupCustomer = CLIENT.getCustomersController().readCustomer(groupSignup.getCustomerId()).getCustomer();
 
