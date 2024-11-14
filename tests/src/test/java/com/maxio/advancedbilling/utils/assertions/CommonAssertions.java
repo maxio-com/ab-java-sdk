@@ -54,6 +54,14 @@ public class CommonAssertions {
                 .isEqualTo(404);
     }
 
+    public static void assertNotFound(ThrowableAssert.ThrowingCallable throwingCallable, String message) {
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(throwingCallable)
+                .withMessage(message)
+                .extracting(ApiException::getResponseCode)
+                .isEqualTo(404);
+    }
+
     public static <E extends ApiException> void assertUnprocessableEntity(Class<E> exceptionClass,
                                                                           ThrowableAssert.ThrowingCallable throwingCallable,
                                                                           ThrowingConsumer<? super E> additionalRequirements) {
