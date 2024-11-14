@@ -6,7 +6,6 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateReasonCode;
 import com.maxio.advancedbilling.models.CreateReasonCodeRequest;
 import com.maxio.advancedbilling.models.ReasonCode;
-import com.maxio.advancedbilling.models.ReasonCodeResponse;
 import com.maxio.advancedbilling.models.UpdateReasonCode;
 import com.maxio.advancedbilling.models.UpdateReasonCodeRequest;
 import com.maxio.advancedbilling.utils.TestFixtures;
@@ -72,12 +71,32 @@ public class ReasonCodesControllerUpdateTest {
 
         // when - then
         ReasonCode response = REASON_CODES_CONTROLLER.updateReasonCode(createResponse.getId(), new UpdateReasonCodeRequest(
-                new UpdateReasonCode(null, "new desc", null)))
+                        new UpdateReasonCode(null, "new desc", null)))
                 .getReasonCode();
 
         assertThat(response.getCode()).isEqualTo("NOT_INTERESTED");
         assertThat(response.getDescription()).isEqualTo("new desc");
         assertThat(response.getPosition()).isEqualTo(1);
+    }
+
+    @Test
+    void shouldThrowExceptionIfCodeExists() throws IOException, ApiException {
+        // given
+        REASON_CODES_CONTROLLER.createReasonCode(new CreateReasonCodeRequest(new CreateReasonCode(
+                "NOT_INTERESTED", "I'm not interested in this product.", 1
+        )));
+
+        ReasonCode code = REASON_CODES_CONTROLLER.createReasonCode(new CreateReasonCodeRequest(new CreateReasonCode(
+                "NOT_INTERESTED_2", "I'm not interested in this product.", 1
+        ))).getReasonCode();
+
+        // when - then
+        assertThatErrorListResponse(() -> REASON_CODES_CONTROLLER.updateReasonCode(code.getId(),
+                new UpdateReasonCodeRequest(new UpdateReasonCode("NOT_INTERESTED", "desc", 1))))
+                .hasErrorCode(422)
+                .hasErrors("Code: This code is already in use.")
+                .hasMessage("HTTP Response Not OK. Status code: 422. " +
+                        "Response: '{errors:[Code: This code is already in use.]}'.");
     }
 
     @Test
