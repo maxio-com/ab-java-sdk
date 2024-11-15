@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = CreateOrUpdatePercentageCouponPercentage.CreateOrUpdatePercentageCouponPercentageDeserializer.class)
-public abstract class CreateOrUpdatePercentageCouponPercentage {
+@JsonDeserialize(using = CouponPayloadPercentage.CouponPayloadPercentageDeserializer.class)
+public abstract class CouponPayloadPercentage {
     
     /**
      * This is String case.
      * @param string String value for string.
      * @return The StringCase object.
      */
-    public static CreateOrUpdatePercentageCouponPercentage fromString(String string) {
+    public static CouponPayloadPercentage fromString(String string) {
         return string == null ? null : new StringCase(string);
     }
 
@@ -41,7 +41,7 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
      * @param precision double value for precision.
      * @return The PrecisionCase object.
      */
-    public static CreateOrUpdatePercentageCouponPercentage fromPrecision(double precision) {
+    public static CouponPayloadPercentage fromPrecision(double precision) {
         return new PrecisionCase(precision);
     }
 
@@ -69,7 +69,7 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorStringCase
     @TypeCombinatorCase(type = "String")
-    private static class StringCase extends CreateOrUpdatePercentageCouponPercentage {
+    private static class StringCase extends CouponPayloadPercentage {
 
         @JsonValue
         private String string;
@@ -103,7 +103,7 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "double")
-    private static class PrecisionCase extends CreateOrUpdatePercentageCouponPercentage {
+    private static class PrecisionCase extends CouponPayloadPercentage {
 
         @JsonValue
         private double precision;
@@ -133,13 +133,13 @@ public abstract class CreateOrUpdatePercentageCouponPercentage {
     }
 
     /**
-     * This is a custom deserializer class for CreateOrUpdatePercentageCouponPercentage.
+     * This is a custom deserializer class for CouponPayloadPercentage.
      */
-    protected static class CreateOrUpdatePercentageCouponPercentageDeserializer
-            extends JsonDeserializer<CreateOrUpdatePercentageCouponPercentage> {
+    protected static class CouponPayloadPercentageDeserializer
+            extends JsonDeserializer<CouponPayloadPercentage> {
 
         @Override
-        public CreateOrUpdatePercentageCouponPercentage deserialize(JsonParser jp, DeserializationContext ctxt)
+        public CouponPayloadPercentage deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

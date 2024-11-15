@@ -153,6 +153,10 @@ public class CreateInvoiceCoupon
 
     /**
      * Getter for CompoundingStrategy.
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
      * @return Returns the CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
@@ -163,6 +167,10 @@ public class CreateInvoiceCoupon
 
     /**
      * Setter for CompoundingStrategy.
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
      * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")

@@ -38,15 +38,15 @@ Additionally, for documentation on how to apply a coupon to a subscription withi
 
 This request will create a coupon, based on the provided information.
 
-When creating a coupon, you must specify a product family using the `product_family_id`. If no `product_family_id` is passed, the first product family available is used. You will also need to formulate your URL to cite the Product Family ID in your request.
+You can create either a flat amount coupon, by specyfing `amount_in_cents`, or percentage coupon by specyfing `percentage`.
 
-You can restrict a coupon to only apply to specific products / components by optionally passing in hashes of `restricted_products` and/or `restricted_components` in the format:
-`{ "<product/component_id>": boolean_value }`
+You can restrict a coupon to only apply to specific products / components by optionally passing in `restricted_products` and/or `restricted_components` objects in the format:
+`{ "<product_id/component_id>": boolean_value }`
 
 ```java
 CouponResponse createCoupon(
     final int productFamilyId,
-    final CreateOrUpdateCoupon body)
+    final CouponRequest body)
 ```
 
 ## Parameters
@@ -54,7 +54,7 @@ CouponResponse createCoupon(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `productFamilyId` | `int` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs |
-| `body` | [`CreateOrUpdateCoupon`](../../doc/models/create-or-update-coupon.md) | Body, Optional | - |
+| `body` | [`CouponRequest`](../../doc/models/coupon-request.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -64,26 +64,23 @@ CouponResponse createCoupon(
 
 ```java
 int productFamilyId = 140;
-CreateOrUpdateCoupon body = new CreateOrUpdateCoupon.Builder()
-    .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
-        new CreateOrUpdatePercentageCoupon.Builder(
-            "15% off",
-            "15OFF",
-            CreateOrUpdatePercentageCouponPercentage.fromPrecision(
-                15D
-            )
-        )
+CouponRequest body = new CouponRequest.Builder()
+    .coupon(new CouponPayload.Builder()
+        .name("15% off")
+        .code("15OFF")
         .description("15% off for life")
+        .percentage(CouponPayloadPercentage.fromPrecision(
+            15D
+        ))
         .allowNegativeBalance(false)
         .recurring(false)
-        .endDate(DateTimeHelper.fromRfc8601DateTime("2012-08-29T12:00:00-04:00"))
+        .endDate(DateTimeHelper.fromSimpleDate("2012-08-29"))
         .productFamilyId("2")
         .stackable(true)
         .compoundingStrategy(CompoundingStrategy.COMPOUND)
         .excludeMidPeriodAllocations(true)
         .applyOnCancelAtEndOfPeriod(true)
-        .build()
-    ))
+        .build())
     .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
         put("1", true);
     }})
@@ -272,7 +269,8 @@ If you have more than one product family and if the coupon you are trying to fin
 ```java
 CouponResponse findCoupon(
     final Integer productFamilyId,
-    final String code)
+    final String code,
+    final Boolean currencyPrices)
 ```
 
 ## Parameters
@@ -281,6 +279,7 @@ CouponResponse findCoupon(
 |  --- | --- | --- | --- |
 | `productFamilyId` | `Integer` | Query, Optional | The Advanced Billing id of the product family to which the coupon belongs |
 | `code` | `String` | Query, Optional | The code of the coupon |
+| `currencyPrices` | `Boolean` | Query, Optional | When fetching coupons, if you have defined multiple currencies at the site level, you can optionally pass the `?currency_prices=true` query param to include an array of currency price data in the response. |
 
 ## Response Type
 
@@ -289,8 +288,10 @@ CouponResponse findCoupon(
 ## Example Usage
 
 ```java
+Boolean currencyPrices = true;
+
 try {
-    CouponResponse result = couponsController.findCoupon(null, null);
+    CouponResponse result = couponsController.findCoupon(null, null, currencyPrices);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -312,7 +313,8 @@ If the coupon is set to `use_site_exchange_rate: true`, it will return pricing b
 ```java
 CouponResponse readCoupon(
     final int productFamilyId,
-    final int couponId)
+    final int couponId,
+    final Boolean currencyPrices)
 ```
 
 ## Parameters
@@ -321,6 +323,7 @@ CouponResponse readCoupon(
 |  --- | --- | --- | --- |
 | `productFamilyId` | `int` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs |
 | `couponId` | `int` | Template, Required | The Advanced Billing id of the coupon |
+| `currencyPrices` | `Boolean` | Query, Optional | When fetching coupons, if you have defined multiple currencies at the site level, you can optionally pass the `?currency_prices=true` query param to include an array of currency price data in the response. |
 
 ## Response Type
 
@@ -331,9 +334,10 @@ CouponResponse readCoupon(
 ```java
 int productFamilyId = 140;
 int couponId = 162;
+Boolean currencyPrices = true;
 
 try {
-    CouponResponse result = couponsController.readCoupon(productFamilyId, couponId);
+    CouponResponse result = couponsController.readCoupon(productFamilyId, couponId, currencyPrices);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -385,7 +389,7 @@ You can restrict a coupon to only apply to specific products / components by opt
 CouponResponse updateCoupon(
     final int productFamilyId,
     final int couponId,
-    final CreateOrUpdateCoupon body)
+    final CouponRequest body)
 ```
 
 ## Parameters
@@ -394,7 +398,7 @@ CouponResponse updateCoupon(
 |  --- | --- | --- | --- |
 | `productFamilyId` | `int` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs |
 | `couponId` | `int` | Template, Required | The Advanced Billing id of the coupon |
-| `body` | [`CreateOrUpdateCoupon`](../../doc/models/create-or-update-coupon.md) | Body, Optional | - |
+| `body` | [`CouponRequest`](../../doc/models/coupon-request.md) | Body, Optional | - |
 
 ## Response Type
 
@@ -405,24 +409,21 @@ CouponResponse updateCoupon(
 ```java
 int productFamilyId = 140;
 int couponId = 162;
-CreateOrUpdateCoupon body = new CreateOrUpdateCoupon.Builder()
-    .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
-        new CreateOrUpdatePercentageCoupon.Builder(
-            "15% off",
-            "15OFF",
-            CreateOrUpdatePercentageCouponPercentage.fromPrecision(
-                15D
-            )
-        )
+CouponRequest body = new CouponRequest.Builder()
+    .coupon(new CouponPayload.Builder()
+        .name("15% off")
+        .code("15OFF")
         .description("15% off for life")
+        .percentage(CouponPayloadPercentage.fromPrecision(
+            15D
+        ))
         .allowNegativeBalance(false)
         .recurring(false)
-        .endDate(DateTimeHelper.fromRfc8601DateTime("2012-08-29T12:00:00-04:00"))
+        .endDate(DateTimeHelper.fromSimpleDate("2012-08-29"))
         .productFamilyId("2")
         .stackable(true)
         .compoundingStrategy(CompoundingStrategy.COMPOUND)
-        .build()
-    ))
+        .build())
     .restrictedProducts(new LinkedHashMap<String, Boolean>() {{
         put("1", true);
     }})
@@ -470,6 +471,12 @@ try {
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Archive Coupon

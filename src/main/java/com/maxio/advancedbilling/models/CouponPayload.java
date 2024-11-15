@@ -6,30 +6,29 @@
 
 package com.maxio.advancedbilling.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
+import com.maxio.advancedbilling.models.containers.CouponPayloadPercentage;
 import io.apimatic.core.types.BaseModel;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
 /**
- * This is a model class for CreateOrUpdatePercentageCoupon type.
+ * This is a model class for CouponPayload type.
  */
-public class CreateOrUpdatePercentageCoupon
+public class CouponPayload
         extends BaseModel {
     private String name;
     private String code;
     private String description;
-    private CreateOrUpdatePercentageCouponPercentage percentage;
+    private CouponPayloadPercentage percentage;
+    private Long amountInCents;
     private Boolean allowNegativeBalance;
     private Boolean recurring;
-    private ZonedDateTime endDate;
+    private LocalDate endDate;
     private String productFamilyId;
     private Boolean stackable;
     private CompoundingStrategy compoundingStrategy;
@@ -40,18 +39,19 @@ public class CreateOrUpdatePercentageCoupon
     /**
      * Default constructor.
      */
-    public CreateOrUpdatePercentageCoupon() {
+    public CouponPayload() {
     }
 
     /**
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  code  String value for code.
-     * @param  percentage  CreateOrUpdatePercentageCouponPercentage value for percentage.
      * @param  description  String value for description.
+     * @param  percentage  CouponPayloadPercentage value for percentage.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  allowNegativeBalance  Boolean value for allowNegativeBalance.
      * @param  recurring  Boolean value for recurring.
-     * @param  endDate  ZonedDateTime value for endDate.
+     * @param  endDate  LocalDate value for endDate.
      * @param  productFamilyId  String value for productFamilyId.
      * @param  stackable  Boolean value for stackable.
      * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
@@ -59,14 +59,15 @@ public class CreateOrUpdatePercentageCoupon
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
      * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
      */
-    public CreateOrUpdatePercentageCoupon(
+    public CouponPayload(
             String name,
             String code,
-            CreateOrUpdatePercentageCouponPercentage percentage,
             String description,
+            CouponPayloadPercentage percentage,
+            Long amountInCents,
             Boolean allowNegativeBalance,
             Boolean recurring,
-            ZonedDateTime endDate,
+            LocalDate endDate,
             String productFamilyId,
             Boolean stackable,
             CompoundingStrategy compoundingStrategy,
@@ -77,6 +78,7 @@ public class CreateOrUpdatePercentageCoupon
         this.code = code;
         this.description = description;
         this.percentage = percentage;
+        this.amountInCents = amountInCents;
         this.allowNegativeBalance = allowNegativeBalance;
         this.recurring = recurring;
         this.endDate = endDate;
@@ -89,32 +91,21 @@ public class CreateOrUpdatePercentageCoupon
     }
 
     /**
-     * Initialization constructor.
-     * @param  name  String value for name.
-     * @param  code  String value for code.
-     * @param  percentage  CreateOrUpdatePercentageCouponPercentage value for percentage.
-     */
-    @JsonCreator
-    protected CreateOrUpdatePercentageCoupon(
-            @JsonProperty("name") String name,
-            @JsonProperty("code") String code,
-            @JsonProperty("percentage") CreateOrUpdatePercentageCouponPercentage percentage) {
-        this(name, code, percentage, null, null, null, null, null, null, null, null, null, null);
-    }
-
-    /**
      * Getter for Name.
-     * the name of the coupon
+     * Required when creating a new coupon. This name is not displayed to customers and is limited
+     * to 255 characters.
      * @return Returns the String
      */
     @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
         return name;
     }
 
     /**
      * Setter for Name.
-     * the name of the coupon
+     * Required when creating a new coupon. This name is not displayed to customers and is limited
+     * to 255 characters.
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -124,19 +115,22 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Getter for Code.
-     * may contain uppercase alphanumeric characters and these special characters (which allow for
-     * email addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
+     * Required when creating a new coupon. The code is limited to 255 characters. May contain
+     * uppercase alphanumeric characters and these special characters (which allow for email
+     * addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
      * @return Returns the String
      */
     @JsonGetter("code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getCode() {
         return code;
     }
 
     /**
      * Setter for Code.
-     * may contain uppercase alphanumeric characters and these special characters (which allow for
-     * email addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
+     * Required when creating a new coupon. The code is limited to 255 characters. May contain
+     * uppercase alphanumeric characters and these special characters (which allow for email
+     * addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
      * @param code Value for String
      */
     @JsonSetter("code")
@@ -146,6 +140,8 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Getter for Description.
+     * Required when creating a new coupon. A description of the coupon that can be displayed to
+     * customers in transactions and on statements. The description is limited to 255 characters.
      * @return Returns the String
      */
     @JsonGetter("description")
@@ -156,6 +152,8 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Setter for Description.
+     * Required when creating a new coupon. A description of the coupon that can be displayed to
+     * customers in transactions and on statements. The description is limited to 255 characters.
      * @param description Value for String
      */
     @JsonSetter("description")
@@ -165,24 +163,54 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Getter for Percentage.
-     * @return Returns the CreateOrUpdatePercentageCouponPercentage
+     * Required when creating a new percentage coupon. Can't be used together with amount_in_cents.
+     * Percentage discount
+     * @return Returns the CouponPayloadPercentage
      */
     @JsonGetter("percentage")
-    public CreateOrUpdatePercentageCouponPercentage getPercentage() {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CouponPayloadPercentage getPercentage() {
         return percentage;
     }
 
     /**
      * Setter for Percentage.
-     * @param percentage Value for CreateOrUpdatePercentageCouponPercentage
+     * Required when creating a new percentage coupon. Can't be used together with amount_in_cents.
+     * Percentage discount
+     * @param percentage Value for CouponPayloadPercentage
      */
     @JsonSetter("percentage")
-    public void setPercentage(CreateOrUpdatePercentageCouponPercentage percentage) {
+    public void setPercentage(CouponPayloadPercentage percentage) {
         this.percentage = percentage;
     }
 
     /**
+     * Getter for AmountInCents.
+     * Required when creating a new flat amount coupon. Can't be used together with percentage. Flat
+     * USD discount
+     * @return Returns the Long
+     */
+    @JsonGetter("amount_in_cents")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long getAmountInCents() {
+        return amountInCents;
+    }
+
+    /**
+     * Setter for AmountInCents.
+     * Required when creating a new flat amount coupon. Can't be used together with percentage. Flat
+     * USD discount
+     * @param amountInCents Value for Long
+     */
+    @JsonSetter("amount_in_cents")
+    public void setAmountInCents(Long amountInCents) {
+        this.amountInCents = amountInCents;
+    }
+
+    /**
      * Getter for AllowNegativeBalance.
+     * If set to true, discount is not limited (credits will carry forward to next billing). Can't
+     * be used together with restrictions.
      * @return Returns the Boolean
      */
     @JsonGetter("allow_negative_balance")
@@ -193,6 +221,8 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Setter for AllowNegativeBalance.
+     * If set to true, discount is not limited (credits will carry forward to next billing). Can't
+     * be used together with restrictions.
      * @param allowNegativeBalance Value for Boolean
      */
     @JsonSetter("allow_negative_balance")
@@ -221,22 +251,26 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Getter for EndDate.
-     * @return Returns the ZonedDateTime
+     * After the end of the given day, this coupon code will be invalid for new signups. Recurring
+     * discounts started before this date will continue to recur even after this date.
+     * @return Returns the LocalDate
      */
     @JsonGetter("end_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
-    public ZonedDateTime getEndDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getEndDate() {
         return endDate;
     }
 
     /**
      * Setter for EndDate.
-     * @param endDate Value for ZonedDateTime
+     * After the end of the given day, this coupon code will be invalid for new signups. Recurring
+     * discounts started before this date will continue to recur even after this date.
+     * @param endDate Value for LocalDate
      */
     @JsonSetter("end_date")
-    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
-    public void setEndDate(ZonedDateTime endDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -261,6 +295,7 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Getter for Stackable.
+     * A stackable coupon can be combined with other coupons on a Subscription.
      * @return Returns the Boolean
      */
     @JsonGetter("stackable")
@@ -271,6 +306,7 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Setter for Stackable.
+     * A stackable coupon can be combined with other coupons on a Subscription.
      * @param stackable Value for Boolean
      */
     @JsonSetter("stackable")
@@ -280,6 +316,10 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Getter for CompoundingStrategy.
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
      * @return Returns the CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
@@ -290,6 +330,10 @@ public class CreateOrUpdatePercentageCoupon
 
     /**
      * Setter for CompoundingStrategy.
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
      * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")
@@ -355,13 +399,13 @@ public class CreateOrUpdatePercentageCoupon
     }
 
     /**
-     * Converts this CreateOrUpdatePercentageCoupon into string format.
+     * Converts this CouponPayload into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "CreateOrUpdatePercentageCoupon [" + "name=" + name + ", code=" + code
-                + ", percentage=" + percentage + ", description=" + description
+        return "CouponPayload [" + "name=" + name + ", code=" + code + ", description="
+                + description + ", percentage=" + percentage + ", amountInCents=" + amountInCents
                 + ", allowNegativeBalance=" + allowNegativeBalance + ", recurring=" + recurring
                 + ", endDate=" + endDate + ", productFamilyId=" + productFamilyId + ", stackable="
                 + stackable + ", compoundingStrategy=" + compoundingStrategy
@@ -372,13 +416,17 @@ public class CreateOrUpdatePercentageCoupon
     }
 
     /**
-     * Builds a new {@link CreateOrUpdatePercentageCoupon.Builder} object.
+     * Builds a new {@link CouponPayload.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link CreateOrUpdatePercentageCoupon.Builder} object
+     * @return a new {@link CouponPayload.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name, code, percentage)
+        Builder builder = new Builder()
+                .name(getName())
+                .code(getCode())
                 .description(getDescription())
+                .percentage(getPercentage())
+                .amountInCents(getAmountInCents())
                 .allowNegativeBalance(getAllowNegativeBalance())
                 .recurring(getRecurring())
                 .endDate(getEndDate())
@@ -392,16 +440,17 @@ public class CreateOrUpdatePercentageCoupon
     }
 
     /**
-     * Class to build instances of {@link CreateOrUpdatePercentageCoupon}.
+     * Class to build instances of {@link CouponPayload}.
      */
     public static class Builder {
         private String name;
         private String code;
-        private CreateOrUpdatePercentageCouponPercentage percentage;
         private String description;
+        private CouponPayloadPercentage percentage;
+        private Long amountInCents;
         private Boolean allowNegativeBalance;
         private Boolean recurring;
-        private ZonedDateTime endDate;
+        private LocalDate endDate;
         private String productFamilyId;
         private Boolean stackable;
         private CompoundingStrategy compoundingStrategy;
@@ -409,24 +458,7 @@ public class CreateOrUpdatePercentageCoupon
         private Boolean applyOnCancelAtEndOfPeriod;
         private Boolean applyOnSubscriptionExpiration;
 
-        /**
-         * Initialization constructor.
-         */
-        public Builder() {
-        }
 
-        /**
-         * Initialization constructor.
-         * @param  name  String value for name.
-         * @param  code  String value for code.
-         * @param  percentage  CreateOrUpdatePercentageCouponPercentage value for percentage.
-         */
-        public Builder(String name, String code,
-                CreateOrUpdatePercentageCouponPercentage percentage) {
-            this.name = name;
-            this.code = code;
-            this.percentage = percentage;
-        }
 
         /**
          * Setter for name.
@@ -449,22 +481,32 @@ public class CreateOrUpdatePercentageCoupon
         }
 
         /**
-         * Setter for percentage.
-         * @param  percentage  CreateOrUpdatePercentageCouponPercentage value for percentage.
-         * @return Builder
-         */
-        public Builder percentage(CreateOrUpdatePercentageCouponPercentage percentage) {
-            this.percentage = percentage;
-            return this;
-        }
-
-        /**
          * Setter for description.
          * @param  description  String value for description.
          * @return Builder
          */
         public Builder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        /**
+         * Setter for percentage.
+         * @param  percentage  CouponPayloadPercentage value for percentage.
+         * @return Builder
+         */
+        public Builder percentage(CouponPayloadPercentage percentage) {
+            this.percentage = percentage;
+            return this;
+        }
+
+        /**
+         * Setter for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
+         * @return Builder
+         */
+        public Builder amountInCents(Long amountInCents) {
+            this.amountInCents = amountInCents;
             return this;
         }
 
@@ -490,10 +532,10 @@ public class CreateOrUpdatePercentageCoupon
 
         /**
          * Setter for endDate.
-         * @param  endDate  ZonedDateTime value for endDate.
+         * @param  endDate  LocalDate value for endDate.
          * @return Builder
          */
-        public Builder endDate(ZonedDateTime endDate) {
+        public Builder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }
@@ -559,11 +601,11 @@ public class CreateOrUpdatePercentageCoupon
         }
 
         /**
-         * Builds a new {@link CreateOrUpdatePercentageCoupon} object using the set fields.
-         * @return {@link CreateOrUpdatePercentageCoupon}
+         * Builds a new {@link CouponPayload} object using the set fields.
+         * @return {@link CouponPayload}
          */
-        public CreateOrUpdatePercentageCoupon build() {
-            return new CreateOrUpdatePercentageCoupon(name, code, percentage, description,
+        public CouponPayload build() {
+            return new CouponPayload(name, code, description, percentage, amountInCents,
                     allowNegativeBalance, recurring, endDate, productFamilyId, stackable,
                     compoundingStrategy, excludeMidPeriodAllocations, applyOnCancelAtEndOfPeriod,
                     applyOnSubscriptionExpiration);
