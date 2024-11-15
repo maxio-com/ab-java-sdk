@@ -28,6 +28,7 @@ public class CouponsControllerListTest extends CouponsControllerTestBase {
 
     @BeforeAll
     static void setupResources() throws IOException, ApiException, InterruptedException {
+        Thread.sleep(2000);
         testStart = ZonedDateTime.now();
         Thread.sleep(2000);
 
