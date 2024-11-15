@@ -43,7 +43,7 @@ public class Coupon
     private OptionalNullable<ZonedDateTime> archivedAt;
     private OptionalNullable<String> conversionLimit;
     private Boolean stackable;
-    private OptionalNullable<CompoundingStrategy1> compoundingStrategy;
+    private OptionalNullable<CompoundingStrategy> compoundingStrategy;
     private Boolean useSiteExchangeRate;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
@@ -83,7 +83,7 @@ public class Coupon
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
-     * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
@@ -116,7 +116,7 @@ public class Coupon
             ZonedDateTime archivedAt,
             String conversionLimit,
             Boolean stackable,
-            CompoundingStrategy1 compoundingStrategy,
+            CompoundingStrategy compoundingStrategy,
             Boolean useSiteExchangeRate,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
@@ -182,7 +182,7 @@ public class Coupon
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
-     * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
@@ -204,7 +204,7 @@ public class Coupon
             OptionalNullable<String> durationIntervalUnit,
             OptionalNullable<String> durationIntervalSpan, Boolean allowNegativeBalance,
             OptionalNullable<ZonedDateTime> archivedAt, OptionalNullable<String> conversionLimit,
-            Boolean stackable, OptionalNullable<CompoundingStrategy1> compoundingStrategy,
+            Boolean stackable, OptionalNullable<CompoundingStrategy> compoundingStrategy,
             Boolean useSiteExchangeRate, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             DiscountType discountType, Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod, Boolean applyOnSubscriptionExpiration,
@@ -839,12 +839,12 @@ public class Coupon
      * calculated against the remaining price, after prior discounts have been calculated. For
      * `full-price`, Percentage-based discounts will always be calculated against the original item
      * price, before other discounts are applied.
-     * @return Returns the Internal CompoundingStrategy1
+     * @return Returns the Internal CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CompoundingStrategy1> internalGetCompoundingStrategy() {
+    protected OptionalNullable<CompoundingStrategy> internalGetCompoundingStrategy() {
         return this.compoundingStrategy;
     }
 
@@ -854,9 +854,9 @@ public class Coupon
      * calculated against the remaining price, after prior discounts have been calculated. For
      * `full-price`, Percentage-based discounts will always be calculated against the original item
      * price, before other discounts are applied.
-     * @return Returns the CompoundingStrategy1
+     * @return Returns the CompoundingStrategy
      */
-    public CompoundingStrategy1 getCompoundingStrategy() {
+    public CompoundingStrategy getCompoundingStrategy() {
         return OptionalNullable.getFrom(compoundingStrategy);
     }
 
@@ -866,10 +866,10 @@ public class Coupon
      * calculated against the remaining price, after prior discounts have been calculated. For
      * `full-price`, Percentage-based discounts will always be calculated against the original item
      * price, before other discounts are applied.
-     * @param compoundingStrategy Value for CompoundingStrategy1
+     * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
+    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
         this.compoundingStrategy = OptionalNullable.of(compoundingStrategy);
     }
 
@@ -1153,7 +1153,7 @@ public class Coupon
         private OptionalNullable<ZonedDateTime> archivedAt;
         private OptionalNullable<String> conversionLimit;
         private Boolean stackable;
-        private OptionalNullable<CompoundingStrategy1> compoundingStrategy;
+        private OptionalNullable<CompoundingStrategy> compoundingStrategy;
         private Boolean useSiteExchangeRate;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
@@ -1477,10 +1477,10 @@ public class Coupon
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
+        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
             this.compoundingStrategy = OptionalNullable.of(compoundingStrategy);
             return this;
         }
