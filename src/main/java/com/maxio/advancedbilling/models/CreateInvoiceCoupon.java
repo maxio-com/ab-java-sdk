@@ -24,7 +24,7 @@ public class CreateInvoiceCoupon
     private CreateInvoiceCouponAmount amount;
     private String description;
     private CreateInvoiceCouponProductFamilyId productFamilyId;
-    private CompoundingStrategy1 compoundingStrategy;
+    private CompoundingStrategy compoundingStrategy;
 
     /**
      * Default constructor.
@@ -39,7 +39,7 @@ public class CreateInvoiceCoupon
      * @param  amount  CreateInvoiceCouponAmount value for amount.
      * @param  description  String value for description.
      * @param  productFamilyId  CreateInvoiceCouponProductFamilyId value for productFamilyId.
-     * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
      */
     public CreateInvoiceCoupon(
             String code,
@@ -47,7 +47,7 @@ public class CreateInvoiceCoupon
             CreateInvoiceCouponAmount amount,
             String description,
             CreateInvoiceCouponProductFamilyId productFamilyId,
-            CompoundingStrategy1 compoundingStrategy) {
+            CompoundingStrategy compoundingStrategy) {
         this.code = code;
         this.percentage = percentage;
         this.amount = amount;
@@ -153,20 +153,28 @@ public class CreateInvoiceCoupon
 
     /**
      * Getter for CompoundingStrategy.
-     * @return Returns the CompoundingStrategy1
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
+     * @return Returns the CompoundingStrategy
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CompoundingStrategy1 getCompoundingStrategy() {
+    public CompoundingStrategy getCompoundingStrategy() {
         return compoundingStrategy;
     }
 
     /**
      * Setter for CompoundingStrategy.
-     * @param compoundingStrategy Value for CompoundingStrategy1
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
+     * @param compoundingStrategy Value for CompoundingStrategy
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
+    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
         this.compoundingStrategy = compoundingStrategy;
     }
 
@@ -207,7 +215,7 @@ public class CreateInvoiceCoupon
         private CreateInvoiceCouponAmount amount;
         private String description;
         private CreateInvoiceCouponProductFamilyId productFamilyId;
-        private CompoundingStrategy1 compoundingStrategy;
+        private CompoundingStrategy compoundingStrategy;
 
 
 
@@ -263,10 +271,10 @@ public class CreateInvoiceCoupon
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
+        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
             this.compoundingStrategy = compoundingStrategy;
             return this;
         }
