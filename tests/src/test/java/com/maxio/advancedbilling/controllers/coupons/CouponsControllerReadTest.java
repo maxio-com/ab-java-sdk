@@ -5,15 +5,15 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CompoundingStrategy;
 import com.maxio.advancedbilling.models.Coupon;
-import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
-import com.maxio.advancedbilling.models.CreateOrUpdateFlatAmountCoupon;
+import com.maxio.advancedbilling.models.CouponPayload;
+import com.maxio.advancedbilling.models.CouponRequest;
+import com.maxio.advancedbilling.models.DiscountType;
 import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.Map;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
@@ -35,14 +35,14 @@ public class CouponsControllerReadTest extends CouponsControllerTestBase {
     @Test
     void shouldReadCoupon() throws IOException, ApiException {
         // given
-        CreateOrUpdateFlatAmountCoupon flatAmountCoupon = new CreateOrUpdateFlatAmountCoupon.Builder()
+        CouponPayload flatAmountCoupon = new CouponPayload.Builder()
                 .name("coupon" + randomNumeric(10))
-                .amountInCents(1234)
+                .amountInCents(1234L)
                 .description("description" + randomNumeric(20))
                 .code("coupon%@+-_." + randomNumeric(10))
                 .allowNegativeBalance(true)
                 .recurring(true)
-                .endDate(ZonedDateTime.now().plusDays(35).plusHours(13))
+                .endDate(LocalDate.now().plusDays(35))
                 .stackable(true)
                 .compoundingStrategy(CompoundingStrategy.COMPOUND)
                 .excludeMidPeriodAllocations(true)
@@ -50,8 +50,6 @@ public class CouponsControllerReadTest extends CouponsControllerTestBase {
                 .applyOnSubscriptionExpiration(true)
                 .build();
 
-        CreateOrUpdateCouponCoupon createCouponRequest = CreateOrUpdateCouponCoupon
-                .fromCreateOrUpdateFlatAmountCoupon(flatAmountCoupon);
         Map<String, Boolean> restrictedProducts = Map.of(
                 String.valueOf(product.getId()), true
         );
@@ -61,29 +59,35 @@ public class CouponsControllerReadTest extends CouponsControllerTestBase {
 
         // when
         Coupon coupon = COUPONS_CONTROLLER
-                .createCoupon(productFamilyId, new CreateOrUpdateCoupon(
-                        createCouponRequest, restrictedProducts, restrictedComponents
+                .createCoupon(productFamilyId, new CouponRequest(
+                        flatAmountCoupon, restrictedProducts, restrictedComponents
                 )).getCoupon();
-        Coupon couponRead = COUPONS_CONTROLLER.readCoupon(productFamilyId, coupon.getId()).getCoupon();
+        Coupon couponRead = COUPONS_CONTROLLER.readCoupon(productFamilyId, coupon.getId(), null).getCoupon();
+        Coupon couponReadWithCurrencyPrices = COUPONS_CONTROLLER.readCoupon(productFamilyId, coupon.getId(), true).getCoupon();
 
         // then
-        assertResponseCoupon(flatAmountCoupon, coupon);
+        assertResponseCoupon(flatAmountCoupon, coupon, DiscountType.AMOUNT);
         assertRestrictions(coupon, product, component);
         assertThat(couponRead).usingRecursiveComparison().isEqualTo(coupon);
+        assertThat(couponRead.getCurrencyPrices()).isNull();
+
+        assertThat(couponReadWithCurrencyPrices).usingRecursiveComparison()
+                .ignoringFields("currencyPrices").isEqualTo(coupon);
+        assertCurrencyPrices(couponReadWithCurrencyPrices.getCurrencyPrices(), coupon.getId());
     }
 
     @Test
     void shouldNotReadNonExistentCoupon() {
-        assertNotFound(() -> COUPONS_CONTROLLER.readCoupon(productFamilyId, 123));
+        assertNotFound(() -> COUPONS_CONTROLLER.readCoupon(productFamilyId, 123, null));
     }
 
     @Test
     void shouldNotReadCouponWhenProvidingInvalidCredentials() throws IOException, ApiException {
-        Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCreateOrUpdateCouponRequest())
+        Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest())
                 .getCoupon();
 
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
-                .getCouponsController().readCoupon(productFamilyId, coupon.getId())
+                .getCouponsController().readCoupon(productFamilyId, coupon.getId(), null)
         );
     }
 

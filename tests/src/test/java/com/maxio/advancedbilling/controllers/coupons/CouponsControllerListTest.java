@@ -34,13 +34,13 @@ public class CouponsControllerListTest extends CouponsControllerTestBase {
         productFamily2 = TEST_SETUP.createProductFamily();
         productFamily3 = TEST_SETUP.createProductFamily();
         for (int i=0; i<4; i++) {
-            coupons.add(COUPONS_CONTROLLER.createCoupon(productFamilyId, validCreateOrUpdateCouponRequest()).getCoupon());
+            coupons.add(COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest()).getCoupon());
         }
         for (int i=0; i<3; i++) {
-            coupons.add(COUPONS_CONTROLLER.createCoupon(productFamily2.getId(), validCreateOrUpdateCouponRequest()).getCoupon());
+            coupons.add(COUPONS_CONTROLLER.createCoupon(productFamily2.getId(), validCouponRequest()).getCoupon());
         }
         for (int i=0; i<3; i++) {
-            coupons.add(COUPONS_CONTROLLER.createCoupon(productFamily3.getId(), validCreateOrUpdateCouponRequest()).getCoupon());
+            coupons.add(COUPONS_CONTROLLER.createCoupon(productFamily3.getId(), validCouponRequest()).getCoupon());
         }
     }
 
@@ -162,8 +162,11 @@ public class CouponsControllerListTest extends CouponsControllerTestBase {
                 .stream().map(CouponResponse::getCoupon).toList();
 
         assertThat(listedCoupons).hasSize(10);
-        assertThat(listedCoupons).usingRecursiveFieldByFieldElementComparator()
+        assertThat(listedCoupons).usingRecursiveFieldByFieldElementComparatorIgnoringFields("currencyPrices")
                 .containsExactlyInAnyOrderElementsOf(coupons);
+        for (Coupon coupon: listedCoupons) {
+            assertCurrencyPrices(coupon.getCurrencyPrices(), coupon.getId());
+        }
     }
 
     @Test

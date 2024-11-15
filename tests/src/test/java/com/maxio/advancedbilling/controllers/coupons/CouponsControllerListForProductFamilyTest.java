@@ -32,10 +32,10 @@ public class CouponsControllerListForProductFamilyTest extends CouponsController
         testStart = ZonedDateTime.now();
         productFamily2 = TEST_SETUP.createProductFamily();
         for (int i=0; i<3; i++) {
-            coupons1.add(COUPONS_CONTROLLER.createCoupon(productFamilyId, validCreateOrUpdateCouponRequest()).getCoupon());
+            coupons1.add(COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest()).getCoupon());
         }
         for (int i=0; i<3; i++) {
-            coupons2.add(COUPONS_CONTROLLER.createCoupon(productFamily2.getId(), validCreateOrUpdateCouponRequest()).getCoupon());
+            coupons2.add(COUPONS_CONTROLLER.createCoupon(productFamily2.getId(), validCouponRequest()).getCoupon());
         }
     }
 
@@ -173,9 +173,12 @@ public class CouponsControllerListForProductFamilyTest extends CouponsController
                 )
                 .stream().map(CouponResponse::getCoupon).toList();
 
-        assertThat(listedCoupons).hasSize(10);
-        assertThat(listedCoupons).usingRecursiveFieldByFieldElementComparator()
+        assertThat(listedCoupons).hasSize(3);
+        assertThat(listedCoupons).usingRecursiveFieldByFieldElementComparatorIgnoringFields("currencyPrices")
                 .containsExactlyInAnyOrderElementsOf(coupons1);
+        for (Coupon coupon: listedCoupons) {
+            assertCurrencyPrices(coupon.getCurrencyPrices(), coupon.getId());
+        }
     }
 
     @Test

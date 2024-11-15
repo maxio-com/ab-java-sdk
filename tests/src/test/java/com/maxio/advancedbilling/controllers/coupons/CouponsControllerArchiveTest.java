@@ -18,11 +18,11 @@ public class CouponsControllerArchiveTest extends CouponsControllerTestBase {
     void shouldArchiveCoupon() throws IOException, ApiException {
         // given
         Coupon coupon = COUPONS_CONTROLLER
-                .createCoupon(productFamilyId, validCreateOrUpdateCouponRequest()).getCoupon();
+                .createCoupon(productFamilyId, validCouponRequest()).getCoupon();
 
         // when
         Coupon archiveCouponResponse = COUPONS_CONTROLLER.archiveCoupon(productFamilyId, coupon.getId()).getCoupon();
-        Coupon couponRead = COUPONS_CONTROLLER.readCoupon(productFamilyId, coupon.getId()).getCoupon();
+        Coupon couponRead = COUPONS_CONTROLLER.readCoupon(productFamilyId, coupon.getId(), null).getCoupon();
 
         // then
         assertThat(archiveCouponResponse.getArchivedAt()).isNotNull();
@@ -35,7 +35,7 @@ public class CouponsControllerArchiveTest extends CouponsControllerTestBase {
 
     @Test
     void shouldNotArchiveCouponUsingWrongProductFamilyId() throws IOException, ApiException {
-        Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCreateOrUpdateCouponRequest())
+        Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest())
                 .getCoupon();
         ProductFamily productFamily2 = TEST_SETUP.createProductFamily();
 
@@ -49,7 +49,7 @@ public class CouponsControllerArchiveTest extends CouponsControllerTestBase {
 
     @Test
     void shouldNotArchiveCouponWhenProvidingInvalidCredentials() throws IOException, ApiException {
-        Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCreateOrUpdateCouponRequest())
+        Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest())
                 .getCoupon();
 
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()

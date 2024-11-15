@@ -5,18 +5,17 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CompoundingStrategy;
 import com.maxio.advancedbilling.models.Coupon;
-import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
-import com.maxio.advancedbilling.models.CreateOrUpdateFlatAmountCoupon;
-import com.maxio.advancedbilling.models.CreateOrUpdatePercentageCoupon;
+import com.maxio.advancedbilling.models.CouponPayload;
+import com.maxio.advancedbilling.models.CouponRequest;
+import com.maxio.advancedbilling.models.DiscountType;
 import com.maxio.advancedbilling.models.Product;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
+import com.maxio.advancedbilling.models.containers.CouponPayloadPercentage;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.Map;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
@@ -41,14 +40,14 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
     @Test
     void shouldCreateFlatAmountCoupon() throws IOException, ApiException {
         // given
-        CreateOrUpdateFlatAmountCoupon flatAmountCoupon = new CreateOrUpdateFlatAmountCoupon.Builder()
+        CouponPayload flatAmountCoupon = new CouponPayload.Builder()
                 .name("coupon" + randomNumeric(10))
-                .amountInCents(1234)
+                .amountInCents(1234L)
                 .description("description" + randomNumeric(20))
                 .code("coupon%@+-_." + randomNumeric(10))
                 .allowNegativeBalance(true)
                 .recurring(true)
-                .endDate(ZonedDateTime.now().plusDays(35).plusHours(13))
+                .endDate(LocalDate.now().plusDays(35))
                 .stackable(true)
                 .compoundingStrategy(CompoundingStrategy.COMPOUND)
                 .excludeMidPeriodAllocations(true)
@@ -56,8 +55,6 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
                 .applyOnSubscriptionExpiration(true)
                 .build();
 
-        CreateOrUpdateCouponCoupon createCouponRequest = CreateOrUpdateCouponCoupon
-                .fromCreateOrUpdateFlatAmountCoupon(flatAmountCoupon);
         Map<String, Boolean> restrictedProducts = Map.of(
                 String.valueOf(product1.getId()), true,
                 String.valueOf(product2.getId()), false,
@@ -71,26 +68,26 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
 
         // when
         Coupon coupon = COUPONS_CONTROLLER
-                .createCoupon(productFamilyId, new CreateOrUpdateCoupon(
-                        createCouponRequest, restrictedProducts, restrictedComponents
+                .createCoupon(productFamilyId, new CouponRequest(
+                        flatAmountCoupon, restrictedProducts, restrictedComponents
                 )).getCoupon();
 
         // then
-        assertResponseCoupon(flatAmountCoupon, coupon);
+        assertResponseCoupon(flatAmountCoupon, coupon, DiscountType.AMOUNT);
         assertRestrictions(coupon, product1, component1);
     }
 
     @Test
     void shouldCreatePercentageCoupon() throws IOException, ApiException {
         // given
-        CreateOrUpdatePercentageCoupon percentageCoupon = new CreateOrUpdatePercentageCoupon.Builder()
+        CouponPayload percentageCoupon = new CouponPayload.Builder()
                 .name("coupon" + randomNumeric(10))
-                .percentage(CreateOrUpdatePercentageCouponPercentage.fromPrecision(15.2))
+                .percentage(CouponPayloadPercentage.fromPrecision(15.2))
                 .description("description" + randomNumeric(20))
                 .code("coupon%@+-_." + randomNumeric(10))
                 .allowNegativeBalance(true)
                 .recurring(true)
-                .endDate(ZonedDateTime.now().plusDays(35).plusHours(13))
+                .endDate(LocalDate.now().plusDays(35))
                 .stackable(true)
                 .compoundingStrategy(CompoundingStrategy.FULLPRICE)
                 .excludeMidPeriodAllocations(true)
@@ -98,8 +95,6 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
                 .applyOnSubscriptionExpiration(true)
                 .build();
 
-        CreateOrUpdateCouponCoupon createCouponRequest = CreateOrUpdateCouponCoupon
-                .fromCreateOrUpdatePercentageCoupon(percentageCoupon);
         Map<String, Boolean> restrictedProducts = Map.of(
                 String.valueOf(product1.getId()), true,
                 String.valueOf(product2.getId()), false,
@@ -113,12 +108,12 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
 
         // when
         Coupon coupon = COUPONS_CONTROLLER
-                .createCoupon(productFamilyId, new CreateOrUpdateCoupon(
-                        createCouponRequest, restrictedProducts, restrictedComponents
+                .createCoupon(productFamilyId, new CouponRequest(
+                        percentageCoupon, restrictedProducts, restrictedComponents
                 )).getCoupon();
 
         // then
-        assertResponseCoupon(percentageCoupon, coupon, "15.2");
+        assertResponseCoupon(percentageCoupon, coupon, DiscountType.PERCENT, "15.2");
         assertRestrictions(coupon, product1, component1);
     }
 
@@ -127,16 +122,14 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
         CommonAssertions
                 .assertThatErrorListResponse(() -> COUPONS_CONTROLLER.createCoupon(
                         productFamilyId,
-                        new CreateOrUpdateCoupon(
-                                CreateOrUpdateCouponCoupon.fromCreateOrUpdateFlatAmountCoupon(
-                                        new CreateOrUpdateFlatAmountCoupon.Builder()
-                                                .name("coupon" + randomNumeric(10))
-                                                .amountInCents(-10)
-                                                .description("description" + randomNumeric(20))
-                                                .code("coupon%@+-_." + randomNumeric(10))
-                                                .endDate(ZonedDateTime.now().minusDays(35))
-                                                .build()
-                                ), null, null
+                        new CouponRequest(
+                                new CouponPayload.Builder()
+                                        .name("coupon" + randomNumeric(10))
+                                        .amountInCents(-10L)
+                                        .description("description" + randomNumeric(20))
+                                        .code("coupon%@+-_." + randomNumeric(10))
+                                        .endDate(LocalDate.now().minusDays(35))
+                                        .build(), null, null
                         )
                 ))
                 .isUnprocessableEntity()
@@ -144,24 +137,42 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
     }
 
     @Test
+    void shouldReturn422WhenBothPercentAndAmountInCentsSet() {
+        CommonAssertions
+                .assertThatErrorListResponse(() -> COUPONS_CONTROLLER.createCoupon(
+                        productFamilyId,
+                        new CouponRequest(
+                                new CouponPayload.Builder()
+                                        .name("coupon" + randomNumeric(10))
+                                        .amountInCents(10L)
+                                        .percentage(CouponPayloadPercentage.fromPrecision(5d))
+                                        .description("description" + randomNumeric(20))
+                                        .code("coupon%@+-_." + randomNumeric(10))
+                                        .build(), null, null
+                        )
+                ))
+                .isUnprocessableEntity()
+                .hasErrors("Either a Discount Percentage or Amount must be specified, but not both",
+                        "Cannot create prices for a percentage-based coupon.");
+    }
+
+    @Test
     void shouldReturn422WhenCreatingPercentageCouponWithInvalidDataAndExistingCode() throws IOException, ApiException {
         Coupon existingCoupon = COUPONS_CONTROLLER.createCoupon(
                 productFamilyId,
-                validCreateOrUpdateCouponRequest()
+                validCouponRequest()
         ).getCoupon();
 
         CommonAssertions
                 .assertThatErrorListResponse(() -> COUPONS_CONTROLLER.createCoupon(
                         productFamilyId,
-                        new CreateOrUpdateCoupon(
-                                CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
-                                        new CreateOrUpdatePercentageCoupon.Builder()
-                                                .name("coupon" + randomNumeric(10))
-                                                .percentage(CreateOrUpdatePercentageCouponPercentage.fromPrecision(105))
-                                                .description("description" + randomNumeric(20))
-                                                .code(existingCoupon.getCode())
-                                                .build()
-                                ), null, null
+                        new CouponRequest(
+                                new CouponPayload.Builder()
+                                        .name("coupon" + randomNumeric(10))
+                                        .percentage(CouponPayloadPercentage.fromPrecision(105))
+                                        .description("description" + randomNumeric(20))
+                                        .code(existingCoupon.getCode())
+                                        .build(), null, null
                         )
                 ))
                 .isUnprocessableEntity()
@@ -170,13 +181,13 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
 
     @Test
     void shouldNotCreateCouponForNonExistentProductFamily() {
-        assertNotFound(() -> COUPONS_CONTROLLER.createCoupon(99999999, validCreateOrUpdateCouponRequest()));
+        assertNotFound(() -> COUPONS_CONTROLLER.createCoupon(99999999, validCouponRequest()));
     }
 
     @Test
     void shouldNotCreateCouponWhenProvidingInvalidCredentials() {
         assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
-                .getCouponsController().createCoupon(productFamilyId, validCreateOrUpdateCouponRequest())
+                .getCouponsController().createCoupon(productFamilyId, validCouponRequest())
         );
     }
 
