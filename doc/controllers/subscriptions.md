@@ -1451,6 +1451,12 @@ try {
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
+
 
 # Purge Subscription
 
@@ -1465,7 +1471,7 @@ If you need to remove subscriptions from a live site, please contact support to 
 The query params will be: `?ack={customer_id}&cascade[]=customer&cascade[]=payment_profile`
 
 ```java
-Void purgeSubscription(
+SubscriptionResponse purgeSubscription(
     final int subscriptionId,
     final int ack,
     final List<SubscriptionPurgeType> cascade)
@@ -1481,7 +1487,7 @@ Void purgeSubscription(
 
 ## Response Type
 
-`void`
+[`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
 ## Example Usage
 
@@ -1494,13 +1500,20 @@ List<SubscriptionPurgeType> cascade = Arrays.asList(
 );
 
 try {
-    subscriptionsController.purgeSubscription(subscriptionId, ack, cascade);
+    SubscriptionResponse result = subscriptionsController.purgeSubscription(subscriptionId, ack, cascade);
+    System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {
     e.printStackTrace();
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad Request | [`SubscriptionResponseErrorException`](../../doc/models/subscription-response-error-exception.md) |
 
 
 # Update Prepaid Subscription Configuration
@@ -1561,6 +1574,12 @@ try {
   }
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Preview Subscription

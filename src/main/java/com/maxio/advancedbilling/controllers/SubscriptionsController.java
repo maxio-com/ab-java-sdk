@@ -16,6 +16,7 @@ import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.exceptions.SubscriptionAddCouponErrorException;
 import com.maxio.advancedbilling.exceptions.SubscriptionRemoveCouponErrorsException;
+import com.maxio.advancedbilling.exceptions.SubscriptionResponseErrorException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.ActivateSubscriptionRequest;
 import com.maxio.advancedbilling.models.AddCouponsRequest;
@@ -769,6 +770,9 @@ public final class SubscriptionsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
                         .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -785,24 +789,25 @@ public final class SubscriptionsController extends BaseController {
      * @param  ack  Required parameter: id of the customer.
      * @param  cascade  Optional parameter: Options are "customer" or "payment_profile". Use in
      *         query: `cascade[]=customer&amp;cascade[]=payment_profile`.
+     * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public void purgeSubscription(
+    public SubscriptionResponse purgeSubscription(
             final int subscriptionId,
             final int ack,
             final List<SubscriptionPurgeType> cascade) throws ApiException, IOException {
-        preparePurgeSubscriptionRequest(subscriptionId, ack, cascade).execute();
+        return preparePurgeSubscriptionRequest(subscriptionId, ack, cascade).execute();
     }
 
     /**
      * Builds the ApiCall object for purgeSubscription.
      */
-    private ApiCall<Void, ApiException> preparePurgeSubscriptionRequest(
+    private ApiCall<SubscriptionResponse, ApiException> preparePurgeSubscriptionRequest(
             final int subscriptionId,
             final int ack,
             final List<SubscriptionPurgeType> cascade) throws IOException {
-        return new ApiCall.Builder<Void, ApiException>()
+        return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
@@ -813,12 +818,18 @@ public final class SubscriptionsController extends BaseController {
                                 .value(SubscriptionPurgeType.toValue(cascade)).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
                         .arraySerializationFormat(ArraySerializationFormat.CSV)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, SubscriptionResponse.class))
                         .nullify404(false)
+                        .localErrorCase("400",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new SubscriptionResponseErrorException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -863,6 +874,9 @@ public final class SubscriptionsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, PrepaidConfigurationResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
