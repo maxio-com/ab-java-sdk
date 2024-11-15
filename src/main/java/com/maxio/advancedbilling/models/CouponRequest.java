@@ -9,33 +9,32 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
 import io.apimatic.core.types.BaseModel;
 import java.util.Map;
 
 /**
- * This is a model class for CreateOrUpdateCoupon type.
+ * This is a model class for CouponRequest type.
  */
-public class CreateOrUpdateCoupon
+public class CouponRequest
         extends BaseModel {
-    private CreateOrUpdateCouponCoupon coupon;
+    private CouponPayload coupon;
     private Map<String, Boolean> restrictedProducts;
     private Map<String, Boolean> restrictedComponents;
 
     /**
      * Default constructor.
      */
-    public CreateOrUpdateCoupon() {
+    public CouponRequest() {
     }
 
     /**
      * Initialization constructor.
-     * @param  coupon  CreateOrUpdateCouponCoupon value for coupon.
+     * @param  coupon  CouponPayload value for coupon.
      * @param  restrictedProducts  Map of String, value for restrictedProducts.
      * @param  restrictedComponents  Map of String, value for restrictedComponents.
      */
-    public CreateOrUpdateCoupon(
-            CreateOrUpdateCouponCoupon coupon,
+    public CouponRequest(
+            CouponPayload coupon,
             Map<String, Boolean> restrictedProducts,
             Map<String, Boolean> restrictedComponents) {
         this.coupon = coupon;
@@ -45,20 +44,20 @@ public class CreateOrUpdateCoupon
 
     /**
      * Getter for Coupon.
-     * @return Returns the CreateOrUpdateCouponCoupon
+     * @return Returns the CouponPayload
      */
     @JsonGetter("coupon")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CreateOrUpdateCouponCoupon getCoupon() {
+    public CouponPayload getCoupon() {
         return coupon;
     }
 
     /**
      * Setter for Coupon.
-     * @param coupon Value for CreateOrUpdateCouponCoupon
+     * @param coupon Value for CouponPayload
      */
     @JsonSetter("coupon")
-    public void setCoupon(CreateOrUpdateCouponCoupon coupon) {
+    public void setCoupon(CouponPayload coupon) {
         this.coupon = coupon;
     }
 
@@ -109,20 +108,20 @@ public class CreateOrUpdateCoupon
     }
 
     /**
-     * Converts this CreateOrUpdateCoupon into string format.
+     * Converts this CouponRequest into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "CreateOrUpdateCoupon [" + "coupon=" + coupon + ", restrictedProducts="
-                + restrictedProducts + ", restrictedComponents=" + restrictedComponents
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "CouponRequest [" + "coupon=" + coupon + ", restrictedProducts=" + restrictedProducts
+                + ", restrictedComponents=" + restrictedComponents + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
-     * Builds a new {@link CreateOrUpdateCoupon.Builder} object.
+     * Builds a new {@link CouponRequest.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link CreateOrUpdateCoupon.Builder} object
+     * @return a new {@link CouponRequest.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -133,10 +132,10 @@ public class CreateOrUpdateCoupon
     }
 
     /**
-     * Class to build instances of {@link CreateOrUpdateCoupon}.
+     * Class to build instances of {@link CouponRequest}.
      */
     public static class Builder {
-        private CreateOrUpdateCouponCoupon coupon;
+        private CouponPayload coupon;
         private Map<String, Boolean> restrictedProducts;
         private Map<String, Boolean> restrictedComponents;
 
@@ -144,10 +143,10 @@ public class CreateOrUpdateCoupon
 
         /**
          * Setter for coupon.
-         * @param  coupon  CreateOrUpdateCouponCoupon value for coupon.
+         * @param  coupon  CouponPayload value for coupon.
          * @return Builder
          */
-        public Builder coupon(CreateOrUpdateCouponCoupon coupon) {
+        public Builder coupon(CouponPayload coupon) {
             this.coupon = coupon;
             return this;
         }
@@ -173,11 +172,11 @@ public class CreateOrUpdateCoupon
         }
 
         /**
-         * Builds a new {@link CreateOrUpdateCoupon} object using the set fields.
-         * @return {@link CreateOrUpdateCoupon}
+         * Builds a new {@link CouponRequest} object using the set fields.
+         * @return {@link CouponRequest}
          */
-        public CreateOrUpdateCoupon build() {
-            return new CreateOrUpdateCoupon(coupon, restrictedProducts, restrictedComponents);
+        public CouponRequest build() {
+            return new CouponRequest(coupon, restrictedProducts, restrictedComponents);
         }
     }
 }

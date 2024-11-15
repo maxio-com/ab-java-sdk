@@ -14,7 +14,7 @@
 | `Amount` | [`CreateInvoiceCouponAmount`](../../doc/models/containers/create-invoice-coupon-amount.md) | Optional | This is a container for one-of cases. | CreateInvoiceCouponAmount getAmount() | setAmount(CreateInvoiceCouponAmount amount) |
 | `Description` | `String` | Optional | **Constraints**: *Maximum Length*: `255` | String getDescription() | setDescription(String description) |
 | `ProductFamilyId` | [`CreateInvoiceCouponProductFamilyId`](../../doc/models/containers/create-invoice-coupon-product-family-id.md) | Optional | This is a container for one-of cases. | CreateInvoiceCouponProductFamilyId getProductFamilyId() | setProductFamilyId(CreateInvoiceCouponProductFamilyId productFamilyId) |
-| `CompoundingStrategy` | [`CompoundingStrategy`](../../doc/models/compounding-strategy.md) | Optional | - | CompoundingStrategy getCompoundingStrategy() | setCompoundingStrategy(CompoundingStrategy compoundingStrategy) |
+| `CompoundingStrategy` | [`CompoundingStrategy1`](../../doc/models/compounding-strategy-1.md) | Optional | - | CompoundingStrategy1 getCompoundingStrategy() | setCompoundingStrategy(CompoundingStrategy1 compoundingStrategy) |
 
 ## Example (as JSON)
 

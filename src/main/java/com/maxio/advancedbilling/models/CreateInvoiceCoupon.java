@@ -24,7 +24,7 @@ public class CreateInvoiceCoupon
     private CreateInvoiceCouponAmount amount;
     private String description;
     private CreateInvoiceCouponProductFamilyId productFamilyId;
-    private CompoundingStrategy compoundingStrategy;
+    private CompoundingStrategy1 compoundingStrategy;
 
     /**
      * Default constructor.
@@ -39,7 +39,7 @@ public class CreateInvoiceCoupon
      * @param  amount  CreateInvoiceCouponAmount value for amount.
      * @param  description  String value for description.
      * @param  productFamilyId  CreateInvoiceCouponProductFamilyId value for productFamilyId.
-     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
      */
     public CreateInvoiceCoupon(
             String code,
@@ -47,7 +47,7 @@ public class CreateInvoiceCoupon
             CreateInvoiceCouponAmount amount,
             String description,
             CreateInvoiceCouponProductFamilyId productFamilyId,
-            CompoundingStrategy compoundingStrategy) {
+            CompoundingStrategy1 compoundingStrategy) {
         this.code = code;
         this.percentage = percentage;
         this.amount = amount;
@@ -153,20 +153,20 @@ public class CreateInvoiceCoupon
 
     /**
      * Getter for CompoundingStrategy.
-     * @return Returns the CompoundingStrategy
+     * @return Returns the CompoundingStrategy1
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public CompoundingStrategy getCompoundingStrategy() {
+    public CompoundingStrategy1 getCompoundingStrategy() {
         return compoundingStrategy;
     }
 
     /**
      * Setter for CompoundingStrategy.
-     * @param compoundingStrategy Value for CompoundingStrategy
+     * @param compoundingStrategy Value for CompoundingStrategy1
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
+    public void setCompoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
         this.compoundingStrategy = compoundingStrategy;
     }
 
@@ -207,7 +207,7 @@ public class CreateInvoiceCoupon
         private CreateInvoiceCouponAmount amount;
         private String description;
         private CreateInvoiceCouponProductFamilyId productFamilyId;
-        private CompoundingStrategy compoundingStrategy;
+        private CompoundingStrategy1 compoundingStrategy;
 
 
 
@@ -263,10 +263,10 @@ public class CreateInvoiceCoupon
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
+        public Builder compoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
             this.compoundingStrategy = compoundingStrategy;
             return this;
         }
