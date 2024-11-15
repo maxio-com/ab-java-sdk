@@ -18,6 +18,7 @@ import com.maxio.advancedbilling.models.ReasonCodeResponse;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,19 +31,29 @@ public class TestTeardown {
     private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
 
     public void deleteCustomer(Customer customer) throws IOException, ApiException {
+        deleteCustomer(customer, true);
+    }
+
+    public void deleteCustomer(Customer customer, boolean failWhenNoExists) throws IOException, ApiException {
         if (customer == null) {
             return;
         }
-        List<SubscriptionResponse> subscriptions = advancedBillingClient.getCustomersController().listCustomerSubscriptions(customer.getId());
-        for (SubscriptionResponse subscription : subscriptions) {
-            LOGGER.info("Purging subscription: {}", subscription.getSubscription().getId());
-            advancedBillingClient.getSubscriptionsController()
-                    .purgeSubscription(subscription.getSubscription().getId(), customer.getId(), null);
-            LOGGER.info("Subscription purged successfully: {}", subscription.getSubscription().getId());
+        try {
+            List<SubscriptionResponse> subscriptions = advancedBillingClient.getCustomersController().listCustomerSubscriptions(customer.getId());
+            for (SubscriptionResponse subscription : subscriptions) {
+                LOGGER.info("Purging subscription: {}", subscription.getSubscription().getId());
+                advancedBillingClient.getSubscriptionsController()
+                        .purgeSubscription(subscription.getSubscription().getId(), customer.getId(), null);
+                LOGGER.info("Subscription purged successfully: {}", subscription.getSubscription().getId());
+            }
+            LOGGER.info("Deleting customer: {}", customer.getId());
+            advancedBillingClient.getCustomersController().deleteCustomer(customer.getId());
+            LOGGER.info("Customer deleted: {}", customer.getId());
+        } catch (ApiException | IOException e) {
+            if (failWhenNoExists) {
+                Assertions.fail(e.getMessage(), e);
+            }
         }
-        LOGGER.info("Deleting customer: {}", customer.getId());
-        advancedBillingClient.getCustomersController().deleteCustomer(customer.getId());
-        LOGGER.info("Customer deleted: {}", customer.getId());
     }
 
     public void deleteSubscriptions() throws IOException, ApiException {
