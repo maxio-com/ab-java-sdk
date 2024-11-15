@@ -7,6 +7,8 @@ import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.Coupon;
+import com.maxio.advancedbilling.models.CouponPayload;
+import com.maxio.advancedbilling.models.CouponRequest;
 import com.maxio.advancedbilling.models.CreateComponentPricePoint;
 import com.maxio.advancedbilling.models.CreateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.CreateCustomer;
@@ -19,9 +21,6 @@ import com.maxio.advancedbilling.models.CreateInvoiceRequest;
 import com.maxio.advancedbilling.models.CreateInvoiceStatus;
 import com.maxio.advancedbilling.models.CreateMeteredComponent;
 import com.maxio.advancedbilling.models.CreateOnOffComponent;
-import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
-import com.maxio.advancedbilling.models.CreateOrUpdateFlatAmountCoupon;
-import com.maxio.advancedbilling.models.CreateOrUpdatePercentageCoupon;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
 import com.maxio.advancedbilling.models.CreatePrepaidComponent;
@@ -54,12 +53,11 @@ import com.maxio.advancedbilling.models.SubscriptionGroupSignupComponent;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupItem;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupRequest;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
+import com.maxio.advancedbilling.models.containers.CouponPayloadPercentage;
 import com.maxio.advancedbilling.models.containers.CreateComponentPricePointRequestPricePoint;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductId;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdateCouponCoupon;
-import com.maxio.advancedbilling.models.containers.CreateOrUpdatePercentageCouponPercentage;
 import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
 import com.maxio.advancedbilling.models.containers.MeteredComponentUnitPrice;
 import com.maxio.advancedbilling.models.containers.OnOffComponentUnitPrice;
@@ -315,16 +313,16 @@ public class TestSetup {
 
     public Coupon createAmountCoupon(ProductFamily productFamily, long amountInCents, boolean stackable) throws IOException, ApiException {
         return advancedBillingClient.getCouponsController()
-                .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
-                        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdateFlatAmountCoupon(
-                                new CreateOrUpdateFlatAmountCoupon.Builder()
+                .createCoupon(productFamily.getId(), new CouponRequest.Builder()
+                        .coupon(
+                                new CouponPayload.Builder()
                                         .name("Amount Discount " + randomNumeric(10))
                                         .code("AMOUNT_DISCOUNT_" + randomNumeric(10))
                                         .description("Huuuuge amount discount: " + amountInCents)
                                         .amountInCents(amountInCents)
                                         .stackable(stackable)
                                         .build()
-                        ))
+                        )
                         .build())
                 .getCoupon();
     }
@@ -335,16 +333,16 @@ public class TestSetup {
 
     public Coupon createPercentageCoupon(ProductFamily productFamily, String percentage, boolean stackable) throws IOException, ApiException {
         return advancedBillingClient.getCouponsController()
-                .createCoupon(productFamily.getId(), new CreateOrUpdateCoupon.Builder()
-                        .coupon(CreateOrUpdateCouponCoupon.fromCreateOrUpdatePercentageCoupon(
-                                new CreateOrUpdatePercentageCoupon.Builder()
+                .createCoupon(productFamily.getId(), new CouponRequest.Builder()
+                        .coupon(
+                                new CouponPayload.Builder()
                                         .name("Percentage Discount " + randomNumeric(10))
                                         .code("PERCENTAGE_DISCOUNT_" + randomNumeric(10))
                                         .description("Huuuuge percentage discount: " + percentage)
-                                        .percentage(CreateOrUpdatePercentageCouponPercentage.fromString(percentage))
+                                        .percentage(CouponPayloadPercentage.fromString(percentage))
                                         .stackable(stackable)
                                         .build()
-                        ))
+                        )
                         .build())
                 .getCoupon();
     }
