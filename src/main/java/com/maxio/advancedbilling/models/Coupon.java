@@ -27,7 +27,7 @@ public class Coupon
     private String code;
     private String description;
     private OptionalNullable<Double> amount;
-    private OptionalNullable<Integer> amountInCents;
+    private OptionalNullable<Long> amountInCents;
     private Integer productFamilyId;
     private OptionalNullable<String> productFamilyName;
     private ZonedDateTime startDate;
@@ -67,7 +67,7 @@ public class Coupon
      * @param  code  String value for code.
      * @param  description  String value for description.
      * @param  amount  Double value for amount.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
      * @param  startDate  ZonedDateTime value for startDate.
@@ -100,7 +100,7 @@ public class Coupon
             String code,
             String description,
             Double amount,
-            Integer amountInCents,
+            Long amountInCents,
             Integer productFamilyId,
             String productFamilyName,
             ZonedDateTime startDate,
@@ -166,7 +166,7 @@ public class Coupon
      * @param  code  String value for code.
      * @param  description  String value for description.
      * @param  amount  Double value for amount.
-     * @param  amountInCents  Integer value for amountInCents.
+     * @param  amountInCents  Long value for amountInCents.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
      * @param  startDate  ZonedDateTime value for startDate.
@@ -195,7 +195,7 @@ public class Coupon
      */
 
     protected Coupon(Integer id, String name, String code, String description,
-            OptionalNullable<Double> amount, OptionalNullable<Integer> amountInCents,
+            OptionalNullable<Double> amount, OptionalNullable<Long> amountInCents,
             Integer productFamilyId, OptionalNullable<String> productFamilyName,
             ZonedDateTime startDate, OptionalNullable<ZonedDateTime> endDate,
             OptionalNullable<String> percentage, Boolean recurring, RecurringScheme recurringScheme,
@@ -355,29 +355,29 @@ public class Coupon
 
     /**
      * Internal Getter for AmountInCents.
-     * @return Returns the Internal Integer
+     * @return Returns the Internal Long
      */
     @JsonGetter("amount_in_cents")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<Integer> internalGetAmountInCents() {
+    protected OptionalNullable<Long> internalGetAmountInCents() {
         return this.amountInCents;
     }
 
     /**
      * Getter for AmountInCents.
-     * @return Returns the Integer
+     * @return Returns the Long
      */
-    public Integer getAmountInCents() {
+    public Long getAmountInCents() {
         return OptionalNullable.getFrom(amountInCents);
     }
 
     /**
      * Setter for AmountInCents.
-     * @param amountInCents Value for Integer
+     * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")
-    public void setAmountInCents(Integer amountInCents) {
+    public void setAmountInCents(Long amountInCents) {
         this.amountInCents = OptionalNullable.of(amountInCents);
     }
 
@@ -1137,7 +1137,7 @@ public class Coupon
         private String code;
         private String description;
         private OptionalNullable<Double> amount;
-        private OptionalNullable<Integer> amountInCents;
+        private OptionalNullable<Long> amountInCents;
         private Integer productFamilyId;
         private OptionalNullable<String> productFamilyName;
         private ZonedDateTime startDate;
@@ -1227,10 +1227,10 @@ public class Coupon
 
         /**
          * Setter for amountInCents.
-         * @param  amountInCents  Integer value for amountInCents.
+         * @param  amountInCents  Long value for amountInCents.
          * @return Builder
          */
-        public Builder amountInCents(Integer amountInCents) {
+        public Builder amountInCents(Long amountInCents) {
             this.amountInCents = OptionalNullable.of(amountInCents);
             return this;
         }
