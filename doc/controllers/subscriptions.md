@@ -1579,7 +1579,7 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
-| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+| 422 | Unprocessable Entity (WebDAV) | [`PrepaidConfigurationErrorResponseException`](../../doc/models/prepaid-configuration-error-response-exception.md) |
 
 
 # Preview Subscription
