@@ -9,16 +9,18 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CouponCurrency type.
  */
 public class CouponCurrency
         extends BaseModel {
-    private Integer id;
+    private OptionalNullable<Integer> id;
     private String currency;
-    private Integer price;
+    private OptionalNullable<Double> price;
     private Integer couponId;
 
     /**
@@ -31,14 +33,30 @@ public class CouponCurrency
      * Initialization constructor.
      * @param  id  Integer value for id.
      * @param  currency  String value for currency.
-     * @param  price  Integer value for price.
+     * @param  price  Double value for price.
      * @param  couponId  Integer value for couponId.
      */
     public CouponCurrency(
             Integer id,
             String currency,
-            Integer price,
+            Double price,
             Integer couponId) {
+        this.id = OptionalNullable.of(id);
+        this.currency = currency;
+        this.price = OptionalNullable.of(price);
+        this.couponId = couponId;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  id  Integer value for id.
+     * @param  currency  String value for currency.
+     * @param  price  Double value for price.
+     * @param  couponId  Integer value for couponId.
+     */
+
+    protected CouponCurrency(OptionalNullable<Integer> id, String currency,
+            OptionalNullable<Double> price, Integer couponId) {
         this.id = id;
         this.currency = currency;
         this.price = price;
@@ -46,13 +64,22 @@ public class CouponCurrency
     }
 
     /**
-     * Getter for Id.
-     * @return Returns the Integer
+     * Internal Getter for Id.
+     * @return Returns the Internal Integer
      */
     @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for Id.
+     * @return Returns the Integer
+     */
     public Integer getId() {
-        return id;
+        return OptionalNullable.getFrom(id);
     }
 
     /**
@@ -61,7 +88,14 @@ public class CouponCurrency
      */
     @JsonSetter("id")
     public void setId(Integer id) {
-        this.id = id;
+        this.id = OptionalNullable.of(id);
+    }
+
+    /**
+     * UnSetter for Id.
+     */
+    public void unsetId() {
+        id = null;
     }
 
     /**
@@ -84,22 +118,38 @@ public class CouponCurrency
     }
 
     /**
-     * Getter for Price.
-     * @return Returns the Integer
+     * Internal Getter for Price.
+     * @return Returns the Internal Double
      */
     @JsonGetter("price")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getPrice() {
-        return price;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Double> internalGetPrice() {
+        return this.price;
+    }
+
+    /**
+     * Getter for Price.
+     * @return Returns the Double
+     */
+    public Double getPrice() {
+        return OptionalNullable.getFrom(price);
     }
 
     /**
      * Setter for Price.
-     * @param price Value for Integer
+     * @param price Value for Double
      */
     @JsonSetter("price")
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setPrice(Double price) {
+        this.price = OptionalNullable.of(price);
+    }
+
+    /**
+     * UnSetter for Price.
+     */
+    public void unsetPrice() {
+        price = null;
     }
 
     /**
@@ -139,10 +189,10 @@ public class CouponCurrency
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .id(getId())
                 .currency(getCurrency())
-                .price(getPrice())
                 .couponId(getCouponId());
+        builder.id = internalGetId();
+        builder.price = internalGetPrice();
         return builder;
     }
 
@@ -150,9 +200,9 @@ public class CouponCurrency
      * Class to build instances of {@link CouponCurrency}.
      */
     public static class Builder {
-        private Integer id;
+        private OptionalNullable<Integer> id;
         private String currency;
-        private Integer price;
+        private OptionalNullable<Double> price;
         private Integer couponId;
 
 
@@ -163,7 +213,16 @@ public class CouponCurrency
          * @return Builder
          */
         public Builder id(Integer id) {
-            this.id = id;
+            this.id = OptionalNullable.of(id);
+            return this;
+        }
+
+        /**
+         * UnSetter for id.
+         * @return Builder
+         */
+        public Builder unsetId() {
+            id = null;
             return this;
         }
 
@@ -179,11 +238,20 @@ public class CouponCurrency
 
         /**
          * Setter for price.
-         * @param  price  Integer value for price.
+         * @param  price  Double value for price.
          * @return Builder
          */
-        public Builder price(Integer price) {
-            this.price = price;
+        public Builder price(Double price) {
+            this.price = OptionalNullable.of(price);
+            return this;
+        }
+
+        /**
+         * UnSetter for price.
+         * @return Builder
+         */
+        public Builder unsetPrice() {
+            price = null;
             return this;
         }
 

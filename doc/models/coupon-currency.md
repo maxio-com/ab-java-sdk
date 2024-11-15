@@ -11,7 +11,7 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
-| `Price` | `Integer` | Optional | - | Integer getPrice() | setPrice(Integer price) |
+| `Price` | `Double` | Optional | - | Double getPrice() | setPrice(Double price) |
 | `CouponId` | `Integer` | Optional | - | Integer getCouponId() | setCouponId(Integer couponId) |
 
 ## Example (as JSON)
@@ -20,7 +20,7 @@
 {
   "id": 228,
   "currency": "currency8",
-  "price": 100,
+  "price": 169.96,
   "coupon_id": 210
 }
 ```

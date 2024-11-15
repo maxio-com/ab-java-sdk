@@ -14,7 +14,7 @@
 | `Code` | `String` | Optional | - | String getCode() | setCode(String code) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
 | `Amount` | `Double` | Optional | - | Double getAmount() | setAmount(Double amount) |
-| `AmountInCents` | `Integer` | Optional | - | Integer getAmountInCents() | setAmountInCents(Integer amountInCents) |
+| `AmountInCents` | `Long` | Optional | - | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `ProductFamilyId` | `Integer` | Optional | - | Integer getProductFamilyId() | setProductFamilyId(Integer productFamilyId) |
 | `ProductFamilyName` | `String` | Optional | - | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
 | `StartDate` | `ZonedDateTime` | Optional | - | ZonedDateTime getStartDate() | setStartDate(ZonedDateTime startDate) |
