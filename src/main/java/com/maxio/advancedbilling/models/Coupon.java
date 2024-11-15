@@ -43,7 +43,7 @@ public class Coupon
     private OptionalNullable<ZonedDateTime> archivedAt;
     private OptionalNullable<String> conversionLimit;
     private Boolean stackable;
-    private OptionalNullable<CompoundingStrategy> compoundingStrategy;
+    private OptionalNullable<CompoundingStrategy1> compoundingStrategy;
     private Boolean useSiteExchangeRate;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
@@ -52,6 +52,7 @@ public class Coupon
     private Boolean applyOnCancelAtEndOfPeriod;
     private Boolean applyOnSubscriptionExpiration;
     private List<CouponRestriction> couponRestrictions;
+    private List<CouponCurrency> currencyPrices;
 
     /**
      * Default constructor.
@@ -82,7 +83,7 @@ public class Coupon
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
-     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
@@ -91,6 +92,7 @@ public class Coupon
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
      * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
      * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
+     * @param  currencyPrices  List of CouponCurrency value for currencyPrices.
      */
     public Coupon(
             Integer id,
@@ -114,7 +116,7 @@ public class Coupon
             ZonedDateTime archivedAt,
             String conversionLimit,
             Boolean stackable,
-            CompoundingStrategy compoundingStrategy,
+            CompoundingStrategy1 compoundingStrategy,
             Boolean useSiteExchangeRate,
             ZonedDateTime createdAt,
             ZonedDateTime updatedAt,
@@ -122,7 +124,8 @@ public class Coupon
             Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod,
             Boolean applyOnSubscriptionExpiration,
-            List<CouponRestriction> couponRestrictions) {
+            List<CouponRestriction> couponRestrictions,
+            List<CouponCurrency> currencyPrices) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -153,6 +156,7 @@ public class Coupon
         this.applyOnCancelAtEndOfPeriod = applyOnCancelAtEndOfPeriod;
         this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
         this.couponRestrictions = couponRestrictions;
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -178,7 +182,7 @@ public class Coupon
      * @param  archivedAt  ZonedDateTime value for archivedAt.
      * @param  conversionLimit  String value for conversionLimit.
      * @param  stackable  Boolean value for stackable.
-     * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
+     * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
@@ -187,6 +191,7 @@ public class Coupon
      * @param  applyOnCancelAtEndOfPeriod  Boolean value for applyOnCancelAtEndOfPeriod.
      * @param  applyOnSubscriptionExpiration  Boolean value for applyOnSubscriptionExpiration.
      * @param  couponRestrictions  List of CouponRestriction value for couponRestrictions.
+     * @param  currencyPrices  List of CouponCurrency value for currencyPrices.
      */
 
     protected Coupon(Integer id, String name, String code, String description,
@@ -199,11 +204,11 @@ public class Coupon
             OptionalNullable<String> durationIntervalUnit,
             OptionalNullable<String> durationIntervalSpan, Boolean allowNegativeBalance,
             OptionalNullable<ZonedDateTime> archivedAt, OptionalNullable<String> conversionLimit,
-            Boolean stackable, OptionalNullable<CompoundingStrategy> compoundingStrategy,
+            Boolean stackable, OptionalNullable<CompoundingStrategy1> compoundingStrategy,
             Boolean useSiteExchangeRate, ZonedDateTime createdAt, ZonedDateTime updatedAt,
             DiscountType discountType, Boolean excludeMidPeriodAllocations,
             Boolean applyOnCancelAtEndOfPeriod, Boolean applyOnSubscriptionExpiration,
-            List<CouponRestriction> couponRestrictions) {
+            List<CouponRestriction> couponRestrictions, List<CouponCurrency> currencyPrices) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -234,6 +239,7 @@ public class Coupon
         this.applyOnCancelAtEndOfPeriod = applyOnCancelAtEndOfPeriod;
         this.applyOnSubscriptionExpiration = applyOnSubscriptionExpiration;
         this.couponRestrictions = couponRestrictions;
+        this.currencyPrices = currencyPrices;
     }
 
     /**
@@ -459,6 +465,8 @@ public class Coupon
 
     /**
      * Internal Getter for EndDate.
+     * After the given time, this coupon code will be invalid for new signups. Recurring discounts
+     * started before this date will continue to recur even after this date.
      * @return Returns the Internal ZonedDateTime
      */
     @JsonGetter("end_date")
@@ -470,6 +478,8 @@ public class Coupon
 
     /**
      * Getter for EndDate.
+     * After the given time, this coupon code will be invalid for new signups. Recurring discounts
+     * started before this date will continue to recur even after this date.
      * @return Returns the ZonedDateTime
      */
     public ZonedDateTime getEndDate() {
@@ -478,6 +488,8 @@ public class Coupon
 
     /**
      * Setter for EndDate.
+     * After the given time, this coupon code will be invalid for new signups. Recurring discounts
+     * started before this date will continue to recur even after this date.
      * @param endDate Value for ZonedDateTime
      */
     @JsonSetter("end_date")
@@ -488,6 +500,8 @@ public class Coupon
 
     /**
      * UnSetter for EndDate.
+     * After the given time, this coupon code will be invalid for new signups. Recurring discounts
+     * started before this date will continue to recur even after this date.
      */
     public void unsetEndDate() {
         endDate = null;
@@ -708,6 +722,7 @@ public class Coupon
 
     /**
      * Getter for AllowNegativeBalance.
+     * If set to true, discount is not limited (credits will carry forward to next billing).
      * @return Returns the Boolean
      */
     @JsonGetter("allow_negative_balance")
@@ -718,6 +733,7 @@ public class Coupon
 
     /**
      * Setter for AllowNegativeBalance.
+     * If set to true, discount is not limited (credits will carry forward to next billing).
      * @param allowNegativeBalance Value for Boolean
      */
     @JsonSetter("allow_negative_balance")
@@ -798,6 +814,7 @@ public class Coupon
 
     /**
      * Getter for Stackable.
+     * A stackable coupon can be combined with other coupons on a Subscription.
      * @return Returns the Boolean
      */
     @JsonGetter("stackable")
@@ -808,6 +825,7 @@ public class Coupon
 
     /**
      * Setter for Stackable.
+     * A stackable coupon can be combined with other coupons on a Subscription.
      * @param stackable Value for Boolean
      */
     @JsonSetter("stackable")
@@ -817,34 +835,50 @@ public class Coupon
 
     /**
      * Internal Getter for CompoundingStrategy.
-     * @return Returns the Internal CompoundingStrategy
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
+     * @return Returns the Internal CompoundingStrategy1
      */
     @JsonGetter("compounding_strategy")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CompoundingStrategy> internalGetCompoundingStrategy() {
+    protected OptionalNullable<CompoundingStrategy1> internalGetCompoundingStrategy() {
         return this.compoundingStrategy;
     }
 
     /**
      * Getter for CompoundingStrategy.
-     * @return Returns the CompoundingStrategy
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
+     * @return Returns the CompoundingStrategy1
      */
-    public CompoundingStrategy getCompoundingStrategy() {
+    public CompoundingStrategy1 getCompoundingStrategy() {
         return OptionalNullable.getFrom(compoundingStrategy);
     }
 
     /**
      * Setter for CompoundingStrategy.
-     * @param compoundingStrategy Value for CompoundingStrategy
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
+     * @param compoundingStrategy Value for CompoundingStrategy1
      */
     @JsonSetter("compounding_strategy")
-    public void setCompoundingStrategy(CompoundingStrategy compoundingStrategy) {
+    public void setCompoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
         this.compoundingStrategy = OptionalNullable.of(compoundingStrategy);
     }
 
     /**
      * UnSetter for CompoundingStrategy.
+     * Applicable only to stackable coupons. For `compound`, Percentage-based discounts will be
+     * calculated against the remaining price, after prior discounts have been calculated. For
+     * `full-price`, Percentage-based discounts will always be calculated against the original item
+     * price, before other discounts are applied.
      */
     public void unsetCompoundingStrategy() {
         compoundingStrategy = null;
@@ -1007,6 +1041,27 @@ public class Coupon
     }
 
     /**
+     * Getter for CurrencyPrices.
+     * Returned in read, find, and list endpoints if the query parameter is provided.
+     * @return Returns the List of CouponCurrency
+     */
+    @JsonGetter("currency_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<CouponCurrency> getCurrencyPrices() {
+        return currencyPrices;
+    }
+
+    /**
+     * Setter for CurrencyPrices.
+     * Returned in read, find, and list endpoints if the query parameter is provided.
+     * @param currencyPrices Value for List of CouponCurrency
+     */
+    @JsonSetter("currency_prices")
+    public void setCurrencyPrices(List<CouponCurrency> currencyPrices) {
+        this.currencyPrices = currencyPrices;
+    }
+
+    /**
      * Converts this Coupon into string format.
      * @return String representation of this class
      */
@@ -1028,7 +1083,8 @@ public class Coupon
                 + excludeMidPeriodAllocations + ", applyOnCancelAtEndOfPeriod="
                 + applyOnCancelAtEndOfPeriod + ", applyOnSubscriptionExpiration="
                 + applyOnSubscriptionExpiration + ", couponRestrictions=" + couponRestrictions
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", currencyPrices=" + currencyPrices + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1055,7 +1111,8 @@ public class Coupon
                 .excludeMidPeriodAllocations(getExcludeMidPeriodAllocations())
                 .applyOnCancelAtEndOfPeriod(getApplyOnCancelAtEndOfPeriod())
                 .applyOnSubscriptionExpiration(getApplyOnSubscriptionExpiration())
-                .couponRestrictions(getCouponRestrictions());
+                .couponRestrictions(getCouponRestrictions())
+                .currencyPrices(getCurrencyPrices());
         builder.amount = internalGetAmount();
         builder.amountInCents = internalGetAmountInCents();
         builder.productFamilyName = internalGetProductFamilyName();
@@ -1096,7 +1153,7 @@ public class Coupon
         private OptionalNullable<ZonedDateTime> archivedAt;
         private OptionalNullable<String> conversionLimit;
         private Boolean stackable;
-        private OptionalNullable<CompoundingStrategy> compoundingStrategy;
+        private OptionalNullable<CompoundingStrategy1> compoundingStrategy;
         private Boolean useSiteExchangeRate;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
@@ -1105,6 +1162,7 @@ public class Coupon
         private Boolean applyOnCancelAtEndOfPeriod;
         private Boolean applyOnSubscriptionExpiration;
         private List<CouponRestriction> couponRestrictions;
+        private List<CouponCurrency> currencyPrices;
 
 
 
@@ -1419,10 +1477,10 @@ public class Coupon
 
         /**
          * Setter for compoundingStrategy.
-         * @param  compoundingStrategy  CompoundingStrategy value for compoundingStrategy.
+         * @param  compoundingStrategy  CompoundingStrategy1 value for compoundingStrategy.
          * @return Builder
          */
-        public Builder compoundingStrategy(CompoundingStrategy compoundingStrategy) {
+        public Builder compoundingStrategy(CompoundingStrategy1 compoundingStrategy) {
             this.compoundingStrategy = OptionalNullable.of(compoundingStrategy);
             return this;
         }
@@ -1517,6 +1575,16 @@ public class Coupon
         }
 
         /**
+         * Setter for currencyPrices.
+         * @param  currencyPrices  List of CouponCurrency value for currencyPrices.
+         * @return Builder
+         */
+        public Builder currencyPrices(List<CouponCurrency> currencyPrices) {
+            this.currencyPrices = currencyPrices;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Coupon} object using the set fields.
          * @return {@link Coupon}
          */
@@ -1527,7 +1595,7 @@ public class Coupon
                     durationIntervalSpan, allowNegativeBalance, archivedAt, conversionLimit,
                     stackable, compoundingStrategy, useSiteExchangeRate, createdAt, updatedAt,
                     discountType, excludeMidPeriodAllocations, applyOnCancelAtEndOfPeriod,
-                    applyOnSubscriptionExpiration, couponRestrictions);
+                    applyOnSubscriptionExpiration, couponRestrictions, currencyPrices);
         }
     }
 }
