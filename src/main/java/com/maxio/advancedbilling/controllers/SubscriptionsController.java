@@ -13,7 +13,6 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
-import com.maxio.advancedbilling.exceptions.PrepaidConfigurationErrorResponseException;
 import com.maxio.advancedbilling.exceptions.SingleErrorResponseException;
 import com.maxio.advancedbilling.exceptions.SubscriptionAddCouponErrorException;
 import com.maxio.advancedbilling.exceptions.SubscriptionRemoveCouponErrorsException;
@@ -822,7 +821,7 @@ public final class SubscriptionsController extends BaseController {
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
-                        .arraySerializationFormat(ArraySerializationFormat.CSV)
+                        .arraySerializationFormat(ArraySerializationFormat.UNINDEXED)
                         .httpMethod(HttpMethod.POST))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
@@ -877,7 +876,7 @@ public final class SubscriptionsController extends BaseController {
                         .nullify404(false)
                         .localErrorCase("422",
                                  ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new PrepaidConfigurationErrorResponseException(reason, context)))
+                                (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
