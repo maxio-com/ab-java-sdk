@@ -1,5 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
+import com.maxio.advancedbilling.TestClient;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.models.Component;
@@ -29,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -143,4 +146,21 @@ public class ComponentsControllerCreateCurrencyPricesTest extends ComponentsCont
                 )
         );
     }
+
+    @Test
+    void shouldNotCreateCurrencyPriceForNonExistentPricePoint() {
+        assertNotFound(() -> COMPONENTS__PRICE_POINT_CONTROLLER.createCurrencyPrices(
+                123,
+                new CreateCurrencyPricesRequest(List.of())
+        ));
+    }
+
+    @Test
+    void shouldNotCreateCurrencyPricesWhenProvidingInvalidCredentials() {
+        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+                .getComponentPricePointsController().createCurrencyPrices(productFamilyId,
+                        new CreateCurrencyPricesRequest(List.of()))
+        );
+    }
+
 }
