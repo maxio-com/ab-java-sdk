@@ -15,11 +15,11 @@ import com.maxio.advancedbilling.exceptions.SingleStringErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CouponCurrencyRequest;
 import com.maxio.advancedbilling.models.CouponCurrencyResponse;
+import com.maxio.advancedbilling.models.CouponRequest;
 import com.maxio.advancedbilling.models.CouponResponse;
 import com.maxio.advancedbilling.models.CouponSubcodes;
 import com.maxio.advancedbilling.models.CouponSubcodesResponse;
 import com.maxio.advancedbilling.models.CouponUsage;
-import com.maxio.advancedbilling.models.CreateOrUpdateCoupon;
 import com.maxio.advancedbilling.models.ListCouponSubcodesInput;
 import com.maxio.advancedbilling.models.ListCouponsForProductFamilyInput;
 import com.maxio.advancedbilling.models.ListCouponsInput;
@@ -50,13 +50,11 @@ public final class CouponsController extends BaseController {
      * for more information. Additionally, for documentation on how to apply a coupon to a
      * subscription within the Advanced Billing UI, please see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
-     * ## Create Coupon This request will create a coupon, based on the provided information. When
-     * creating a coupon, you must specify a product family using the `product_family_id`. If no
-     * `product_family_id` is passed, the first product family available is used. You will also need
-     * to formulate your URL to cite the Product Family ID in your request. You can restrict a
-     * coupon to only apply to specific products / components by optionally passing in hashes of
-     * `restricted_products` and/or `restricted_components` in the format: `{
-     * "&lt;product/component_id&gt;": boolean_value }`.
+     * ## Create Coupon This request will create a coupon, based on the provided information. You
+     * can create either a flat amount coupon, by specyfing `amount_in_cents`, or percentage coupon
+     * by specyfing `percentage`. You can restrict a coupon to only apply to specific products /
+     * components by optionally passing in `restricted_products` and/or `restricted_components`
+     * objects in the format: `{ "&lt;product_id/component_id&gt;": boolean_value }`.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  body  Optional parameter: Example:
@@ -66,7 +64,7 @@ public final class CouponsController extends BaseController {
      */
     public CouponResponse createCoupon(
             final int productFamilyId,
-            final CreateOrUpdateCoupon body) throws ApiException, IOException {
+            final CouponRequest body) throws ApiException, IOException {
         return prepareCreateCouponRequest(productFamilyId, body).execute();
     }
 
@@ -75,7 +73,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponResponse, ApiException> prepareCreateCouponRequest(
             final int productFamilyId,
-            final CreateOrUpdateCoupon body) throws JsonProcessingException, IOException {
+            final CouponRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -160,14 +158,19 @@ public final class CouponsController extends BaseController {
      * @param  productFamilyId  Optional parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  code  Optional parameter: The code of the coupon
+     * @param  currencyPrices  Optional parameter: When fetching coupons, if you have defined
+     *         multiple currencies at the site level, you can optionally pass the
+     *         `?currency_prices=true` query param to include an array of currency price data in the
+     *         response.
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CouponResponse findCoupon(
             final Integer productFamilyId,
-            final String code) throws ApiException, IOException {
-        return prepareFindCouponRequest(productFamilyId, code).execute();
+            final String code,
+            final Boolean currencyPrices) throws ApiException, IOException {
+        return prepareFindCouponRequest(productFamilyId, code, currencyPrices).execute();
     }
 
     /**
@@ -175,7 +178,8 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponResponse, ApiException> prepareFindCouponRequest(
             final Integer productFamilyId,
-            final String code) throws IOException {
+            final String code,
+            final Boolean currencyPrices) throws IOException {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -185,6 +189,8 @@ public final class CouponsController extends BaseController {
                                 .value(productFamilyId).isRequired(false))
                         .queryParam(param -> param.key("code")
                                 .value(code).isRequired(false))
+                        .queryParam(param -> param.key("currency_prices")
+                                .value(currencyPrices).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
@@ -210,14 +216,19 @@ public final class CouponsController extends BaseController {
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
+     * @param  currencyPrices  Optional parameter: When fetching coupons, if you have defined
+     *         multiple currencies at the site level, you can optionally pass the
+     *         `?currency_prices=true` query param to include an array of currency price data in the
+     *         response.
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public CouponResponse readCoupon(
             final int productFamilyId,
-            final int couponId) throws ApiException, IOException {
-        return prepareReadCouponRequest(productFamilyId, couponId).execute();
+            final int couponId,
+            final Boolean currencyPrices) throws ApiException, IOException {
+        return prepareReadCouponRequest(productFamilyId, couponId, currencyPrices).execute();
     }
 
     /**
@@ -225,12 +236,15 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponResponse, ApiException> prepareReadCouponRequest(
             final int productFamilyId,
-            final int couponId) throws IOException {
+            final int couponId,
+            final Boolean currencyPrices) throws IOException {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/product_families/{product_family_id}/coupons/{coupon_id}.json")
+                        .queryParam(param -> param.key("currency_prices")
+                                .value(currencyPrices).isRequired(false))
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("coupon_id").value(couponId).isRequired(false)
@@ -264,7 +278,7 @@ public final class CouponsController extends BaseController {
     public CouponResponse updateCoupon(
             final int productFamilyId,
             final int couponId,
-            final CreateOrUpdateCoupon body) throws ApiException, IOException {
+            final CouponRequest body) throws ApiException, IOException {
         return prepareUpdateCouponRequest(productFamilyId, couponId, body).execute();
     }
 
@@ -274,7 +288,7 @@ public final class CouponsController extends BaseController {
     private ApiCall<CouponResponse, ApiException> prepareUpdateCouponRequest(
             final int productFamilyId,
             final int couponId,
-            final CreateOrUpdateCoupon body) throws JsonProcessingException, IOException {
+            final CouponRequest body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -297,6 +311,9 @@ public final class CouponsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CouponResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

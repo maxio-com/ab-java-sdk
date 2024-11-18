@@ -6,12 +6,15 @@ import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.ListComponentsInput;
 import com.maxio.advancedbilling.models.ListMetafieldsInput;
+import com.maxio.advancedbilling.models.ListReasonCodesInput;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupsItem;
 import com.maxio.advancedbilling.models.ListSubscriptionsInput;
 import com.maxio.advancedbilling.models.Metafield;
+import com.maxio.advancedbilling.models.ReasonCodeResponse;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
@@ -63,7 +66,18 @@ public class TestTeardown {
 
     public void deleteSubscriptionGroup(SubscriptionGroupSignupResponse groupSignup) throws IOException, ApiException {
         if (groupSignup != null) {
-            deleteSubscriptionGroup(groupSignup.getPrimarySubscriptionId(), groupSignup.getSubscriptionIds(), groupSignup.getCustomerId());
+            FullSubscriptionGroupResponse refreshedGroup;
+            try {
+                refreshedGroup = advancedBillingClient.getSubscriptionGroupsController()
+                        .findSubscriptionGroup(groupSignup.getPrimarySubscriptionId().toString());
+            } catch (ApiException ex) {
+                // already deleted
+                if (ex.getResponseCode() == 404) {
+                    return;
+                }
+                throw ex;
+            }
+            deleteSubscriptionGroup(groupSignup.getPrimarySubscriptionId(), refreshedGroup.getSubscriptionIds(), groupSignup.getCustomerId());
         }
     }
 
@@ -129,6 +143,18 @@ public class TestTeardown {
                     metafields = listMetafields(resourceType);
                 }
             }
+        }
+    }
+
+    public void deleteReasonCodes() throws IOException, ApiException {
+        ListReasonCodesInput page = new ListReasonCodesInput(1, 200);
+        List<ReasonCodeResponse> reasonCodes = advancedBillingClient.getReasonCodesController()
+                .listReasonCodes(page);
+        while (!reasonCodes.isEmpty()) {
+            for (ReasonCodeResponse code : reasonCodes) {
+                advancedBillingClient.getReasonCodesController().deleteReasonCode(code.getReasonCode().getId());
+            }
+            reasonCodes = advancedBillingClient.getReasonCodesController().listReasonCodes(page);
         }
     }
 

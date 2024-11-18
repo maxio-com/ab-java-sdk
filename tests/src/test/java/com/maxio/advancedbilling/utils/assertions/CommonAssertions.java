@@ -42,14 +42,22 @@ public class CommonAssertions {
         return new ErrorStringMapResponseAssert(throwingCallable);
     }
 
-    public interface ThrowingRunnable {
-        void run() throws Exception;
+    public static <V> SubscriptionGroupUpdateErrorAssert assertSubscriptionGroupUpdateErrors(Callable<V> throwingCallable) {
+        return new SubscriptionGroupUpdateErrorAssert(throwingCallable);
     }
 
     public static void assertNotFound(ThrowableAssert.ThrowingCallable throwingCallable) {
         assertThatExceptionOfType(ApiException.class)
                 .isThrownBy(throwingCallable)
                 .withMessageStartingWith("Not Found")
+                .extracting(ApiException::getResponseCode)
+                .isEqualTo(404);
+    }
+
+    public static void assertNotFound(ThrowableAssert.ThrowingCallable throwingCallable, String message) {
+        assertThatExceptionOfType(ApiException.class)
+                .isThrownBy(throwingCallable)
+                .withMessage(message)
                 .extracting(ApiException::getResponseCode)
                 .isEqualTo(404);
     }
@@ -69,7 +77,7 @@ public class CommonAssertions {
     }
 
     public static <E extends ApiException> ThrowableAssertAlternative<E> assertUnprocessableEntity(Class<E> exceptionClass,
-                                                                                                    ThrowableAssert.ThrowingCallable throwingCallable) {
+                                                                                                   ThrowableAssert.ThrowingCallable throwingCallable) {
         return assertThatExceptionOfType(exceptionClass)
                 .isThrownBy(throwingCallable)
                 .withMessageStartingWith("HTTP Response Not OK")
@@ -82,5 +90,9 @@ public class CommonAssertions {
                 .withMessageStartingWith("HTTP Response Not OK")
                 .returns(401, ApiException::getResponseCode)
                 .returns("HTTP Basic: Access denied.", ex -> ex.getHttpContext().getResponse().getBody().strip());
+    }
+
+    public interface ThrowingRunnable {
+        void run() throws Exception;
     }
 }

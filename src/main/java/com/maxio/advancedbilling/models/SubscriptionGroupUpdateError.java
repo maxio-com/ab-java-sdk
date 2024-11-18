@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class SubscriptionGroupUpdateError
         extends BaseModel {
-    private List<SubscriptionGroupMemberError> members;
+    private List<String> members;
 
     /**
      * Default constructor.
@@ -27,29 +27,29 @@ public class SubscriptionGroupUpdateError
 
     /**
      * Initialization constructor.
-     * @param  members  List of SubscriptionGroupMemberError value for members.
+     * @param  members  List of String value for members.
      */
     public SubscriptionGroupUpdateError(
-            List<SubscriptionGroupMemberError> members) {
+            List<String> members) {
         this.members = members;
     }
 
     /**
      * Getter for Members.
-     * @return Returns the List of SubscriptionGroupMemberError
+     * @return Returns the List of String
      */
     @JsonGetter("members")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<SubscriptionGroupMemberError> getMembers() {
+    public List<String> getMembers() {
         return members;
     }
 
     /**
      * Setter for Members.
-     * @param members Value for List of SubscriptionGroupMemberError
+     * @param members Value for List of String
      */
     @JsonSetter("members")
-    public void setMembers(List<SubscriptionGroupMemberError> members) {
+    public void setMembers(List<String> members) {
         this.members = members;
     }
 
@@ -78,16 +78,16 @@ public class SubscriptionGroupUpdateError
      * Class to build instances of {@link SubscriptionGroupUpdateError}.
      */
     public static class Builder {
-        private List<SubscriptionGroupMemberError> members;
+        private List<String> members;
 
 
 
         /**
          * Setter for members.
-         * @param  members  List of SubscriptionGroupMemberError value for members.
+         * @param  members  List of String value for members.
          * @return Builder
          */
-        public Builder members(List<SubscriptionGroupMemberError> members) {
+        public Builder members(List<String> members) {
             this.members = members;
             return this;
         }

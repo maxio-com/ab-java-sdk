@@ -1,7 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
 import com.maxio.advancedbilling.TestClient;
-import com.maxio.advancedbilling.controllers.ProductsController;
 import com.maxio.advancedbilling.controllers.SubscriptionStatusController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -28,7 +27,6 @@ abstract class SubscriptionStatusControllerTestBase {
     protected static int productId;
     protected static Product product;
     protected static Customer customer;
-    protected static Subscription subscription;
 
     @BeforeAll
     static void setup() throws IOException, ApiException {
@@ -40,7 +38,7 @@ abstract class SubscriptionStatusControllerTestBase {
         customer = testSetup.createCustomer();
     }
 
-    Subscription createSubscription() throws IOException, ApiException {
+    static Subscription createSubscription() throws IOException, ApiException {
         return subscriptionsController.createSubscription(
                 new CreateSubscriptionRequest(
                         new CreateSubscription.Builder()
