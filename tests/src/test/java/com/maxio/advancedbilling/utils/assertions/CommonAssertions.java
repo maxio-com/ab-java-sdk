@@ -46,6 +46,10 @@ public class CommonAssertions {
         return new SubscriptionGroupUpdateErrorAssert(throwingCallable);
     }
 
+    public static <V> SubscriptionResponseErrorAssert assertSubscriptionResponseError(Callable<V> throwingCallable) {
+        return new SubscriptionResponseErrorAssert(throwingCallable);
+    }
+
     public static void assertNotFound(ThrowableAssert.ThrowingCallable throwingCallable) {
         assertThatExceptionOfType(ApiException.class)
                 .isThrownBy(throwingCallable)
