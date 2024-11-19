@@ -33,16 +33,23 @@ public class TestTeardown {
         if (customer == null) {
             return;
         }
-        List<SubscriptionResponse> subscriptions = advancedBillingClient.getCustomersController().listCustomerSubscriptions(customer.getId());
-        for (SubscriptionResponse subscription : subscriptions) {
-            LOGGER.info("Purging subscription: {}", subscription.getSubscription().getId());
-            advancedBillingClient.getSubscriptionsController()
-                    .purgeSubscription(subscription.getSubscription().getId(), customer.getId(), null);
-            LOGGER.info("Subscription purged successfully: {}", subscription.getSubscription().getId());
+        try {
+            List<SubscriptionResponse> subscriptions = advancedBillingClient.getCustomersController().listCustomerSubscriptions(customer.getId());
+            for (SubscriptionResponse subscription : subscriptions) {
+                LOGGER.info("Purging subscription: {}", subscription.getSubscription().getId());
+                advancedBillingClient.getSubscriptionsController()
+                        .purgeSubscription(subscription.getSubscription().getId(), customer.getId(), null);
+                LOGGER.info("Subscription purged successfully: {}", subscription.getSubscription().getId());
+            }
+            LOGGER.info("Deleting customer: {}", customer.getId());
+            advancedBillingClient.getCustomersController().deleteCustomer(customer.getId());
+            LOGGER.info("Customer deleted: {}", customer.getId());
+        } catch (ApiException e) {
+            if (404 == e.getResponseCode()) {
+                return;
+            }
+            throw e;
         }
-        LOGGER.info("Deleting customer: {}", customer.getId());
-        advancedBillingClient.getCustomersController().deleteCustomer(customer.getId());
-        LOGGER.info("Customer deleted: {}", customer.getId());
     }
 
     public void deleteSubscriptions() throws IOException, ApiException {
