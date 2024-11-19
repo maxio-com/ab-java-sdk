@@ -18,7 +18,6 @@ import com.maxio.advancedbilling.models.ReasonCodeResponse;
 import com.maxio.advancedbilling.models.ResourceType;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.SubscriptionResponse;
-import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,10 +30,6 @@ public class TestTeardown {
     private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
 
     public void deleteCustomer(Customer customer) throws IOException, ApiException {
-        deleteCustomer(customer, true);
-    }
-
-    public void deleteCustomer(Customer customer, boolean failWhenNoExists) throws IOException, ApiException {
         if (customer == null) {
             return;
         }
@@ -49,10 +44,11 @@ public class TestTeardown {
             LOGGER.info("Deleting customer: {}", customer.getId());
             advancedBillingClient.getCustomersController().deleteCustomer(customer.getId());
             LOGGER.info("Customer deleted: {}", customer.getId());
-        } catch (ApiException | IOException e) {
-            if (failWhenNoExists) {
-                Assertions.fail(e.getMessage(), e);
+        } catch (ApiException e) {
+            if (404 == e.getResponseCode()) {
+                return;
             }
+            throw e;
         }
     }
 

@@ -13,7 +13,6 @@ import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionPurgeType;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
-import com.maxio.advancedbilling.utils.assertions.ApiExceptionAssert;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,6 +27,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertSubscriptionResponseError;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,7 +64,7 @@ public class SubscriptionsControllerPurgeTest {
 
     @AfterEach
     void afterEach() throws IOException, ApiException {
-        TEST_TEARDOWN.deleteCustomer(customer, false);
+        TEST_TEARDOWN.deleteCustomer(customer);
     }
 
     @Test
@@ -126,17 +126,14 @@ public class SubscriptionsControllerPurgeTest {
         Subscription subscription = TEST_SETUP.createSubscription(customer, product);
 
         // when - then
-        new ApiExceptionAssert(() -> SUBSCRIPTIONS_CONTROLLER
+        assertSubscriptionResponseError(() -> SUBSCRIPTIONS_CONTROLLER
                 .purgeSubscription(
                         subscription.getId(),
                         customerWithoutSubscription.getId(),  // not the subscription owner
                         emptyList()
-                )
-        )
-                .isBadRequest()
-                .hasMessageStartingWithHttpNotOk();
-        // not asserting the whole message because it contains the entire subscription's string representation
-        // instead of some specific error
+                ))
+                .hasErrorCode(400)
+                .isEqualTo(subscription);
     }
 
     @Test
