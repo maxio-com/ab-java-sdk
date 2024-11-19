@@ -8,16 +8,6 @@ import com.maxio.advancedbilling.models.ComponentCurrencyPrice;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.CreateCurrencyPrice;
 import com.maxio.advancedbilling.models.CreateCurrencyPricesRequest;
-import com.maxio.advancedbilling.models.CurrencyPrice;
-import com.maxio.advancedbilling.models.PricePointType;
-import com.maxio.advancedbilling.models.PricingScheme;
-import com.maxio.advancedbilling.models.UpdateComponentPricePoint;
-import com.maxio.advancedbilling.models.UpdateComponentPricePointRequest;
-import com.maxio.advancedbilling.models.UpdatePrice;
-import com.maxio.advancedbilling.models.containers.UpdateComponentPricePointComponentId;
-import com.maxio.advancedbilling.models.containers.UpdateComponentPricePointPricePointId;
-import com.maxio.advancedbilling.models.containers.UpdatePriceStartingQuantity;
-import com.maxio.advancedbilling.models.containers.UpdatePriceUnitPrice;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +15,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -150,7 +139,7 @@ public class ComponentsControllerCreateCurrencyPricesTest extends ComponentsCont
     @Test
     void shouldNotCreateCurrencyPriceForNonExistentPricePoint() {
         assertNotFound(() -> COMPONENTS__PRICE_POINT_CONTROLLER.createCurrencyPrices(
-                123,
+                99999,
                 new CreateCurrencyPricesRequest(List.of())
         ));
     }

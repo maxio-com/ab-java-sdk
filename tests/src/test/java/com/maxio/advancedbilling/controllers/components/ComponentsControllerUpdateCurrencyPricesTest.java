@@ -9,7 +9,6 @@ import com.maxio.advancedbilling.models.CreateCurrencyPrice;
 import com.maxio.advancedbilling.models.CreateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.UpdateCurrencyPrice;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,21 +19,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerUpdateCurrencyPricesTest extends ComponentsControllerTestBase {
-
-    private static Component component;
-
-    @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
-        component = createQuantityBasedComponent();
-    }
 
     @Test
     void shouldCreateComponentPricePointCurrencyPrices() throws IOException, ApiException {
@@ -76,7 +66,7 @@ public class ComponentsControllerUpdateCurrencyPricesTest extends ComponentsCont
         List<UpdateCurrencyPrice> updateCurrencyPrices = currencyPricesIds.stream()
                 .map(id ->
                         new UpdateCurrencyPrice.Builder()
-                                .price(random.nextInt(10, 1000))
+                                .price(random.nextDouble(10, 1000))
                                 .id(id)
                                 .build()
                 )
@@ -100,14 +90,17 @@ public class ComponentsControllerUpdateCurrencyPricesTest extends ComponentsCont
             ComponentCurrencyPrice updatedPrice = idsToPrice.get(updatePriceRequest.getId());
 
             assertThat(updatedPrice.getCurrency()).isEqualTo(oldCurrencyPrice.getCurrency());
-            BigDecimal expected = BigDecimal.valueOf(updatePriceRequest.getPrice());
-                    .setScale(2, RoundingMode.HALF_UP).toString();
-//            if (expectedPriceString.endsWith(".00")) {
-//                expectedPriceString = expectedPriceString.substring(0, expectedPriceString.length() - 1);
-//            }
-            assertThat(updatedPrice.getPrice()).isEqualTo(expectedPriceString);
-            assertThat(updatedPrice.getFormattedPrice()).isEqualTo(
-                    oldCurrencyPrice.getFormattedPrice().charAt(0) + expectedPriceString);
+            String price = BigDecimal.valueOf(updatePriceRequest.getPrice())
+                    .setScale(11, RoundingMode.HALF_UP).stripTrailingZeros()
+                    .toString();
+            assertThat(updatedPrice.getPrice()).isEqualTo(price);
+            String expectedFormattedPrice = "";
+            if (updatedPrice.getCurrency().equals("USD")) {
+                expectedFormattedPrice = "$" + price;
+            } else if (updatedPrice.getCurrency().equals("EUR")) {
+                expectedFormattedPrice = "€" + price.replace('.', ',');
+            }
+            assertThat(updatedPrice.getFormattedPrice()).isEqualTo(expectedFormattedPrice);
             assertThat(updatedPrice.getPriceId()).isEqualTo(oldCurrencyPrice.getPriceId());
             assertThat(updatedPrice.getPricePointId()).isEqualTo(componentPricePoint.getId());
             assertThat(updatedPrice.getAdditionalProperties()).isEmpty();
