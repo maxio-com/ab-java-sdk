@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ComponentsControllerUpdateCurrencyPricesTest extends ComponentsControllerTestBase {
 
     @Test
-    void shouldCreateComponentPricePointCurrencyPrices() throws IOException, ApiException {
+    void shouldUpdateComponentPricePointCurrencyPrices() throws IOException, ApiException {
         // given
         Component component = createQuantityBasedComponent();
         ComponentPricePoint componentPricePoint = TEST_SETUP.createComponentPricePoint(component.getId());
@@ -43,14 +43,14 @@ public class ComponentsControllerUpdateCurrencyPricesTest extends ComponentsCont
                                 .build(),
                         new CreateCurrencyPrice.Builder()
                                 .currency("EUR")
-                                .price(11d)
+                                .price(11.0)
                                 .priceId(price2UsdId)
                                 .build()
                 )
         );
 
         // create new currency prices
-         COMPONENTS__PRICE_POINT_CONTROLLER
+        COMPONENTS__PRICE_POINT_CONTROLLER
                 .createCurrencyPrices(componentPricePoint.getId(), createCurrencyPricesRequest);
 
         // get ids of created currency prices
@@ -84,7 +84,7 @@ public class ComponentsControllerUpdateCurrencyPricesTest extends ComponentsCont
                 Collectors.toMap(ComponentCurrencyPrice::getId, Function.identity())
         );
 
-        for (int i=0; i<currencyPricesWithIds.size(); i++) {
+        for (int i = 0; i < currencyPricesWithIds.size(); i++) {
             ComponentCurrencyPrice oldCurrencyPrice = currencyPricesWithIds.get(i);
             UpdateCurrencyPrice updatePriceRequest = updateCurrencyPrices.get(i);
             ComponentCurrencyPrice updatedPrice = idsToPrice.get(updatePriceRequest.getId());

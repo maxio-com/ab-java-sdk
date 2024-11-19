@@ -50,7 +50,7 @@ public class ComponentsControllerCreateCurrencyPricesTest extends ComponentsCont
                                 .build(),
                         new CreateCurrencyPrice.Builder()
                                 .currency("EUR")
-                                .price(11d)
+                                .price(11.0)
                                 .priceId(price2Id)
                                 .build()
                 )
