@@ -802,12 +802,12 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
     Arrays.asList(
         new UpdateCurrencyPrice.Builder(
             200,
-            15
+            15D
         )
         .build(),
         new UpdateCurrencyPrice.Builder(
             201,
-            5
+            5D
         )
         .build()
     )

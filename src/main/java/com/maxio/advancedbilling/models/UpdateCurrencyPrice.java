@@ -16,7 +16,7 @@ import io.apimatic.core.types.BaseModel;
 public class UpdateCurrencyPrice
         extends BaseModel {
     private int id;
-    private int price;
+    private double price;
 
     /**
      * Default constructor.
@@ -27,11 +27,11 @@ public class UpdateCurrencyPrice
     /**
      * Initialization constructor.
      * @param  id  int value for id.
-     * @param  price  int value for price.
+     * @param  price  double value for price.
      */
     public UpdateCurrencyPrice(
             int id,
-            int price) {
+            double price) {
         this.id = id;
         this.price = price;
     }
@@ -59,20 +59,20 @@ public class UpdateCurrencyPrice
     /**
      * Getter for Price.
      * New price for the given currency
-     * @return Returns the int
+     * @return Returns the double
      */
     @JsonGetter("price")
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
     /**
      * Setter for Price.
      * New price for the given currency
-     * @param price Value for int
+     * @param price Value for double
      */
     @JsonSetter("price")
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -101,7 +101,7 @@ public class UpdateCurrencyPrice
      */
     public static class Builder {
         private int id;
-        private int price;
+        private double price;
 
         /**
          * Initialization constructor.
@@ -112,9 +112,9 @@ public class UpdateCurrencyPrice
         /**
          * Initialization constructor.
          * @param  id  int value for id.
-         * @param  price  int value for price.
+         * @param  price  double value for price.
          */
-        public Builder(int id, int price) {
+        public Builder(int id, double price) {
             this.id = id;
             this.price = price;
         }
@@ -131,10 +131,10 @@ public class UpdateCurrencyPrice
 
         /**
          * Setter for price.
-         * @param  price  int value for price.
+         * @param  price  double value for price.
          * @return Builder
          */
-        public Builder price(int price) {
+        public Builder price(double price) {
             this.price = price;
             return this;
         }
