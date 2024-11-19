@@ -508,7 +508,8 @@ Use this endpoint to retrieve details for a specific component price point. You 
 ```java
 ComponentPricePointResponse readComponentPricePoint(
     final ReadComponentPricePointComponentId componentId,
-    final ReadComponentPricePointPricePointId pricePointId)
+    final ReadComponentPricePointPricePointId pricePointId,
+    final Boolean currencyPrices)
 ```
 
 ## Parameters
@@ -517,6 +518,7 @@ ComponentPricePointResponse readComponentPricePoint(
 |  --- | --- | --- | --- |
 | `componentId` | [`ReadComponentPricePointComponentId`](../../doc/models/containers/read-component-price-point-component-id.md) | Template, Required | This is a container for one-of cases. |
 | `pricePointId` | [`ReadComponentPricePointPricePointId`](../../doc/models/containers/read-component-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
+| `currencyPrices` | `Boolean` | Query, Optional | Include an array of currency price data |
 
 ## Response Type
 
@@ -533,7 +535,7 @@ ReadComponentPricePointPricePointId pricePointId = ReadComponentPricePointPriceP
 );
 
 try {
-    ComponentPricePointResponse result = componentPricePointsController.readComponentPricePoint(componentId, pricePointId);
+    ComponentPricePointResponse result = componentPricePointsController.readComponentPricePoint(componentId, pricePointId, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -807,12 +809,12 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
     Arrays.asList(
         new UpdateCurrencyPrice.Builder(
             100,
-            51
+            51D
         )
         .build(),
         new UpdateCurrencyPrice.Builder(
             101,
-            41
+            41D
         )
         .build()
     )
