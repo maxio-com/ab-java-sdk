@@ -10,14 +10,14 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `int` | Required | ID of the currency price record being updated | int getId() | setId(int id) |
-| `Price` | `int` | Required | New price for the given currency | int getPrice() | setPrice(int price) |
+| `Price` | `double` | Required | New price for the given currency | double getPrice() | setPrice(double price) |
 
 ## Example (as JSON)
 
 ```json
 {
   "id": 146,
-  "price": 18
+  "price": 71.86
 }
 ```
 

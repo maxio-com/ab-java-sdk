@@ -309,14 +309,17 @@ public final class ComponentPricePointsController extends BaseController {
      * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
      *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
      *         `handle:example-price_point-handle` for a string handle.
+     * @param  currencyPrices  Optional parameter: Include an array of currency price data
      * @return    Returns the ComponentPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public ComponentPricePointResponse readComponentPricePoint(
             final ReadComponentPricePointComponentId componentId,
-            final ReadComponentPricePointPricePointId pricePointId) throws ApiException, IOException {
-        return prepareReadComponentPricePointRequest(componentId, pricePointId).execute();
+            final ReadComponentPricePointPricePointId pricePointId,
+            final Boolean currencyPrices) throws ApiException, IOException {
+        return prepareReadComponentPricePointRequest(componentId, pricePointId,
+                currencyPrices).execute();
     }
 
     /**
@@ -324,12 +327,15 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentPricePointResponse, ApiException> prepareReadComponentPricePointRequest(
             final ReadComponentPricePointComponentId componentId,
-            final ReadComponentPricePointPricePointId pricePointId) throws IOException {
+            final ReadComponentPricePointPricePointId pricePointId,
+            final Boolean currencyPrices) throws IOException {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.ENUM_DEFAULT.value())
                         .path("/components/{component_id}/price_points/{price_point_id}.json")
+                        .queryParam(param -> param.key("currency_prices")
+                                .value(currencyPrices).isRequired(false))
                         .templateParam(param -> param.key("component_id").value(componentId)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("price_point_id").value(pricePointId)
