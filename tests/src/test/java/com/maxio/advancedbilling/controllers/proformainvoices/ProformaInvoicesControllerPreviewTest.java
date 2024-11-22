@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.proformainvoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Customer;
@@ -47,7 +47,7 @@ public class ProformaInvoicesControllerPreviewTest extends ProformaInvoicesTestB
     @Test
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
-        CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
+        CommonAssertions.assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getProformaInvoicesController()
                 .previewProformaInvoice(123)
         );
     }

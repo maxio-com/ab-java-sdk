@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionComponentsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ComponentAllocationErrorException;
@@ -42,7 +42,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
-            TestClient.createClient().getSubscriptionComponentsController();
+            TestClientProvider.getClient().getSubscriptionComponentsController();
     private static final boolean ALLOW_FRACTIONAL_QUANTITIES = false;
 
     private static Component quantityBasedComponent;
@@ -163,7 +163,7 @@ public class SubscriptionComponentsControllerPreviewAllocationsTest {
     @Test
     void shouldNotPreviewAllocationsWhenProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .previewAllocations(subscription.getId(), null));
     }
 

@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentCurrencyPrice;
@@ -117,7 +117,7 @@ public class ComponentsControllerUpdateCurrencyPricesTest extends ComponentsCont
 
     @Test
     void shouldNotUpdateCurrencyPricesWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getComponentPricePointsController().updateCurrencyPrices(productFamilyId,
                         new UpdateCurrencyPricesRequest(List.of(new UpdateCurrencyPrice())))
         );

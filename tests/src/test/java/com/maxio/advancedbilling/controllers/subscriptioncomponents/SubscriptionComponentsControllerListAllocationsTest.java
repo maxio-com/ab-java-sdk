@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionComponentsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AllocateComponents;
@@ -29,7 +29,7 @@ public class SubscriptionComponentsControllerListAllocationsTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
-            TestClient.createClient().getSubscriptionComponentsController();
+            TestClientProvider.getClient().getSubscriptionComponentsController();
 
     private static Component quantityBasedComponent;
     private static CreateAllocation createAllocation1;
@@ -115,7 +115,7 @@ public class SubscriptionComponentsControllerListAllocationsTest {
     @Test
     void shouldNotListAllocationsWhenProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getSubscriptionComponentsController()
                 .listAllocations(subscription.getId(), quantityBasedComponent.getId(), 1));
     }

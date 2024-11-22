@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionStatusController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -20,8 +20,8 @@ import java.io.IOException;
 
 abstract class SubscriptionStatusControllerTestBase {
 
-    protected static final SubscriptionsController subscriptionsController = TestClient.createClient().getSubscriptionsController();
-    protected static final SubscriptionStatusController subscriptionStatusController = TestClient.createClient().getSubscriptionStatusController();
+    protected static final SubscriptionsController subscriptionsController = TestClientProvider.getClient().getSubscriptionsController();
+    protected static final SubscriptionStatusController subscriptionStatusController = TestClientProvider.getClient().getSubscriptionStatusController();
 
     protected static int productFamilyId;
     protected static int productId;

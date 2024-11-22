@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.utils;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ComponentResponse;
@@ -27,7 +27,7 @@ import java.util.List;
 public class TestTeardown {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestTeardown.class);
 
-    private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
+    private final AdvancedBillingClient advancedBillingClient = TestClientProvider.getClient();
 
     public void deleteCustomer(Customer customer) throws IOException, ApiException {
         if (customer == null) {

@@ -1,6 +1,7 @@
 package com.maxio.advancedbilling.controllers.coupons;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CompoundingStrategy;
@@ -86,7 +87,7 @@ public class CouponsControllerReadTest extends CouponsControllerTestBase {
         Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest())
                 .getCoupon();
 
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getCouponsController().readCoupon(productFamilyId, coupon.getId(), null)
         );
     }

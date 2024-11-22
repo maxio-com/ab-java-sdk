@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.proformainvoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AllocateComponents;
@@ -57,7 +57,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
             .getProformaInvoicesController();
     private static Customer customer;
@@ -304,7 +304,7 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
+                () -> TestClientProvider.createInvalidCredentialsClient().getProformaInvoicesController()
                         .listProformaInvoices(new ListProformaInvoicesInput())
         );
     }

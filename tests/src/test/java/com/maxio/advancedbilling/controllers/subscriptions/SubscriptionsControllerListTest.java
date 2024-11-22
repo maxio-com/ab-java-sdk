@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptions;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CancellationOptions;
@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SubscriptionsControllerListTest {
     private static final String[] IGNORED_FIELDS = {"createdAt", "updatedAt", "cancelledAt"};
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
     private static final List<Subscription> ALL_SUBSCRIPTIONS = new ArrayList<>();
     private static final ZonedDateTime FIRST_NEXT_BILLING_AT = currentDayMidnight()

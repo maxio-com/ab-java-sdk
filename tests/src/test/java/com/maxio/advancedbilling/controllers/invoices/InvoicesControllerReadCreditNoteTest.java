@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Coupon;
@@ -267,7 +267,7 @@ class InvoicesControllerReadCreditNoteTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController().readCreditNote("inv_8hr3546xp4h8n")
+                () -> TestClientProvider.createInvalidCredentialsClient().getInvoicesController().readCreditNote("inv_8hr3546xp4h8n")
         );
     }
 }

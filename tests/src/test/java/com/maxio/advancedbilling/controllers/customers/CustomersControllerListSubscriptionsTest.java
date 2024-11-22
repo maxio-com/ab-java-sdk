@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.customers;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomersController;
 import com.maxio.advancedbilling.controllers.PaymentProfilesController;
 import com.maxio.advancedbilling.controllers.ProductFamiliesController;
@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CustomersControllerListSubscriptionsTest {
 
-    public final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
+    public final AdvancedBillingClient advancedBillingClient = TestClientProvider.getClient();
 
     private final CustomersController customersController = advancedBillingClient.getCustomersController();
     private final PaymentProfilesController paymentProfilesController = advancedBillingClient.getPaymentProfilesController();

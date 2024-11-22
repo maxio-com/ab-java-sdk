@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.products;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ProductPricePointsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateProductPricePoint;
@@ -38,7 +38,7 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
 
         // setup new price point for one product in order to test filtering by use_site_exchange_rate
         Product productWithChangedPricePoint = createProductWithHandle("list-products-5");
-        ProductPricePointsController productPricePointsController = TestClient.createClient().getProductPricePointsController();
+        ProductPricePointsController productPricePointsController = TestClientProvider.getClient().getProductPricePointsController();
         CreateProductPricePointRequest createProductPricePointRequest = new CreateProductPricePointRequest(
                 new CreateProductPricePoint.Builder().useSiteExchangeRate(false).interval(1).intervalUnit(IntervalUnit.MONTH)
                         .priceInCents(22).name("Price point to promote").build()

@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.productpricepoints;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ProductPricePointsController;
 import com.maxio.advancedbilling.controllers.ProductsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 abstract class ProductPricePointsBaseTest {
 
-    protected static final AdvancedBillingClient ADVANCED_BILLING_CLIENT = TestClient.createClient();
+    protected static final AdvancedBillingClient ADVANCED_BILLING_CLIENT = TestClientProvider.getClient();
     protected static final ProductsController PRODUCTS_CONTROLLER = ADVANCED_BILLING_CLIENT.getProductsController();
     protected static final ProductPricePointsController PRODUCT_PRICE_POINTS_CONTROLLER = ADVANCED_BILLING_CLIENT.getProductPricePointsController();
 

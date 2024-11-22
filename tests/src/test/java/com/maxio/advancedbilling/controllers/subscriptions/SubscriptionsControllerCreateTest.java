@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptions;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -66,7 +66,7 @@ import static org.assertj.core.api.Assertions.tuple;
 
 public class SubscriptionsControllerCreateTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
 
     private static ProductFamily PRODUCT_FAMILY;

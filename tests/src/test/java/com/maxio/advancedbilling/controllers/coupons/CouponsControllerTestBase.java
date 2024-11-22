@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.coupons;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CouponsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CouponsControllerTestBase {
 
-    protected static final CouponsController COUPONS_CONTROLLER = TestClient.createClient().getCouponsController();
+    protected static final CouponsController COUPONS_CONTROLLER = TestClientProvider.getClient().getCouponsController();
     protected static ProductFamily productFamily;
     protected static int productFamilyId;
     protected static final TestSetup TEST_SETUP = new TestSetup();

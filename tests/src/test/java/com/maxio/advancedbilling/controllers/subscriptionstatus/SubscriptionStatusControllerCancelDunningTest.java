@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreateAllocationRequest;
@@ -21,7 +21,7 @@ public class SubscriptionStatusControllerCancelDunningTest extends SubscriptionS
     @Test
     void shouldCancelDunning() throws IOException, ApiException {
         // given
-        AdvancedBillingClient client = TestClient.createClient();
+        AdvancedBillingClient client = TestClientProvider.getClient();
         Subscription subscription = createSubscription();
         int componentId = new TestSetup().createQuantityBasedComponent(productFamilyId).getId();
 
@@ -74,7 +74,8 @@ public class SubscriptionStatusControllerCancelDunningTest extends SubscriptionS
     void shouldNotCancelDunningProvidingInvalidCredentials() throws IOException, ApiException {
         Subscription subscription = createSubscription();
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionStatusController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
+                .getSubscriptionStatusController()
                 .cancelDunning(subscription.getId()));
     }
 

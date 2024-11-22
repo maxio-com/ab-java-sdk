@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.coupons;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CompoundingStrategy;
@@ -206,7 +206,7 @@ public class CouponsControllerUpdateCouponTest extends CouponsControllerTestBase
                 validCouponRequest()
         ).getCoupon();
         String offerName = "test-offer-" + randomNumeric(10);
-        TestClient.createClient().getOffersController().createOffer(
+        TestClientProvider.getClient().getOffersController().createOffer(
                 new CreateOfferRequest(
                         new CreateOffer.Builder()
                                 .name(offerName)
@@ -282,7 +282,7 @@ public class CouponsControllerUpdateCouponTest extends CouponsControllerTestBase
         Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest())
                 .getCoupon();
 
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getCouponsController().updateCoupon(productFamilyId, coupon.getId(), validCouponRequest())
         );
     }

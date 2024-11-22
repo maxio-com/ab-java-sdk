@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.customers;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomersController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BasicDateField;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class CustomersControllerListOrFindTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomersControllerListOrFindTest.class);
 
-    private static final CustomersController CUSTOMERS_CONTROLLER = TestClient.createClient().getCustomersController();
+    private static final CustomersController CUSTOMERS_CONTROLLER = TestClientProvider.getClient().getCustomersController();
     private static final Customer[] TEST_CUSTOMERS = new Customer[10];
 
     @BeforeAll

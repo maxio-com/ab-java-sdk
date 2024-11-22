@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptiongroups;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.SubscriptionGroupSignupErrorResponseException;
@@ -57,7 +57,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SubscriptionGroupsControllerSignupTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final SubscriptionGroupsController SUBSCRIPTION_GROUPS_CONTROLLER =
             CLIENT.getSubscriptionGroupsController();
     private static SubscriptionGroupSignupResponse groupSignup;
@@ -396,7 +396,7 @@ public class SubscriptionGroupsControllerSignupTest {
 
     @Test
     void shouldNotSignupGroupWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionGroupsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionGroupsController()
                 .signupWithSubscriptionGroup(null));
     }
 

@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptiongroups;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AddSubscriptionToAGroup;
@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SubscriptionGroupsControllerAddRemoveTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final SubscriptionGroupsController SUBSCRIPTION_GROUPS_CONTROLLER = CLIENT.getSubscriptionGroupsController();
     private static SubscriptionGroupSignupResponse groupSignup;
     private static Product product;
@@ -155,7 +155,7 @@ public class SubscriptionGroupsControllerAddRemoveTest {
             Subscription newSubscription = new TestSetup().createSubscription(customer, product);
 
             // when - then
-            assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionGroupsController()
+            assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionGroupsController()
                     .addSubscriptionToGroup(1, new AddSubscriptionToAGroup(
                             new GroupSettings(
                                     new GroupTarget(GroupTargetType.SUBSCRIPTION, newSubscription.getId()), null
@@ -220,7 +220,7 @@ public class SubscriptionGroupsControllerAddRemoveTest {
             Integer secondarySubscriptionId = getSecondarySubscriptionId(groupSignup);
 
             // when - then
-            assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionGroupsController()
+            assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionGroupsController()
                     .removeSubscriptionFromGroup(secondarySubscriptionId));
         }
     }

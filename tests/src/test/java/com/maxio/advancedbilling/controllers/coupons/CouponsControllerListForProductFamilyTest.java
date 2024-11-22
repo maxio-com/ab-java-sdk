@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.coupons;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.Coupon;
@@ -192,7 +192,7 @@ public class CouponsControllerListForProductFamilyTest extends CouponsController
 
     @Test
     void shouldNotListCouponsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getCouponsController().listCouponsForProductFamily(new ListCouponsForProductFamilyInput())
         );
     }

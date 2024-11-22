@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Invoice;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 class InvoicesControllerUtils {
-    static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     static Invoice getPaidInvoiceForCustomer(Integer customerId) throws ApiException, IOException {

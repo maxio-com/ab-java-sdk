@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Component;
@@ -136,7 +136,7 @@ public class ComponentsControllerUpdateTest extends ComponentsControllerTestBase
         Component component = createQuantityBasedComponent();
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentsController()
                 .updateComponent(String.valueOf(component.getId()), new UpdateComponentRequest()));
     }
 

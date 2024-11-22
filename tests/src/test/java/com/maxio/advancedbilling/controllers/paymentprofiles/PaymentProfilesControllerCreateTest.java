@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.paymentprofiles;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.PaymentProfilesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CardType;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class PaymentProfilesControllerCreateTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final PaymentProfilesController PAYMENT_PROFILES_CONTROLLER = CLIENT.getPaymentProfilesController();
 
     private static Customer customer;
@@ -122,7 +122,7 @@ class PaymentProfilesControllerCreateTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getPaymentProfilesController()
+                () -> TestClientProvider.createInvalidCredentialsClient().getPaymentProfilesController()
                         .createPaymentProfile(new CreatePaymentProfileRequest())
         );
     }

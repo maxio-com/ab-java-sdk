@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.products;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ProductFamiliesController;
 import com.maxio.advancedbilling.controllers.ProductsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -18,7 +18,7 @@ import org.junit.jupiter.api.BeforeAll;
 import java.io.IOException;
 
 abstract class ProductsControllerTestBase {
-    protected static final ProductsController productsController = TestClient.createClient().getProductsController();
+    protected static final ProductsController productsController = TestClientProvider.getClient().getProductsController();
     protected static ProductFamily productFamily;
 
     @BeforeAll

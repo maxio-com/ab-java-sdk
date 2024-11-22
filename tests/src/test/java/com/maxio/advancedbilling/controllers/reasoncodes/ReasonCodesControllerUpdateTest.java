@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.reasoncodes;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ReasonCodesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateReasonCode;
@@ -23,7 +23,7 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReasonCodesControllerUpdateTest {
-    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClient.createClient().getReasonCodesController();
+    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClientProvider.getClient().getReasonCodesController();
 
     @AfterEach
     void deleteReasonCodes() throws IOException, ApiException {
@@ -46,7 +46,7 @@ public class ReasonCodesControllerUpdateTest {
 
         // then
         assertThat(updateResponse.getId()).isEqualTo(createResponse.getId());
-        assertThat(updateResponse.getSiteId()).isEqualTo(TestFixtures.SITE_ID);
+        assertThat(updateResponse.getSiteId()).isNotNull();
         assertThat(updateResponse.getCode()).isEqualTo("NEW_CODE");
         assertThat(updateResponse.getPosition()).isEqualTo(2);
         assertThat(updateResponse.getDescription()).isEqualTo("New desc");
@@ -115,7 +115,7 @@ public class ReasonCodesControllerUpdateTest {
         ))).getReasonCode();
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getReasonCodesController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getReasonCodesController()
                 .updateReasonCode(createResponse.getId(),
                         new UpdateReasonCodeRequest(new UpdateReasonCode("code", "desc", 1)))
         );

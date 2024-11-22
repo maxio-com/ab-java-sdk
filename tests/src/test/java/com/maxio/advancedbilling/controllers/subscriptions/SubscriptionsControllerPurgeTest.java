@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptions;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomersController;
 import com.maxio.advancedbilling.controllers.PaymentProfilesController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class SubscriptionsControllerPurgeTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final TestTeardown TEST_TEARDOWN = new TestTeardown();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
     private static final CustomersController CUSTOMERS_CONTROLLER = CLIENT.getCustomersController();
     private static final PaymentProfilesController PAYMENT_PROFILES_CONTROLLER = CLIENT.getPaymentProfilesController();
@@ -142,7 +142,7 @@ public class SubscriptionsControllerPurgeTest {
         Subscription subscription = TEST_SETUP.createSubscription(customer, product, customizer -> customizer.reference("sub-ref"));
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getSubscriptionsController()
                 .purgeSubscription(subscription.getId(), customer.getId(), emptyList())
         );

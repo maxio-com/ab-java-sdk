@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.paymentprofiles;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.PaymentProfilesController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PaymentProfilesControllerDeleteUnusedPaymentProfileTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final PaymentProfilesController PAYMENT_PROFILES_CONTROLLER = CLIENT.getPaymentProfilesController();
     private static final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
 
@@ -129,7 +129,7 @@ class PaymentProfilesControllerDeleteUnusedPaymentProfileTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient()
+                () -> TestClientProvider.createInvalidCredentialsClient()
                         .getPaymentProfilesController()
                         .deleteUnusedPaymentProfile(123)
         );

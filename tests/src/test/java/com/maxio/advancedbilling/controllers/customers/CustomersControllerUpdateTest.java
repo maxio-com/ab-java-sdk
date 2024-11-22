@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.customers;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomersController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.CustomerErrorResponseException;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CustomersControllerUpdateTest {
 
-    private final CustomersController customersController = TestClient.createClient().getCustomersController();
+    private final CustomersController customersController = TestClientProvider.getClient().getCustomersController();
 
     private Integer customerId;
 

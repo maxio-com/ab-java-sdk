@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.CustomerChangesPreviewResponse;
@@ -114,7 +114,7 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
     @Test
     void shouldThrowUnauthorizedForInvalidCredentials() {
         // when then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getInvoicesController()
                 .previewCustomerInformationChanges("uid")
         );

@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ComponentPricePointsController;
 import com.maxio.advancedbilling.controllers.ComponentsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -13,8 +13,8 @@ import java.io.IOException;
 
 public class ComponentsControllerTestBase {
 
-    protected static final ComponentsController COMPONENTS_CONTROLLER = TestClient.createClient().getComponentsController();
-    protected static final ComponentPricePointsController COMPONENTS__PRICE_POINT_CONTROLLER = TestClient.createClient().getComponentPricePointsController();
+    protected static final ComponentsController COMPONENTS_CONTROLLER = TestClientProvider.getClient().getComponentsController();
+    protected static final ComponentPricePointsController COMPONENTS__PRICE_POINT_CONTROLLER = TestClientProvider.getClient().getComponentPricePointsController();
     protected static ProductFamily productFamily;
     protected static int productFamilyId;
     protected static final TestSetup TEST_SETUP = new TestSetup();

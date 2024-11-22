@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.reasoncodes;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ReasonCodesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateReasonCode;
@@ -18,7 +18,7 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReasonCodesControllerDeleteTest {
-    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClient.createClient().getReasonCodesController();
+    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClientProvider.getClient().getReasonCodesController();
 
     @AfterAll
     static void deleteReasonCodes() throws IOException, ApiException {
@@ -52,7 +52,7 @@ public class ReasonCodesControllerDeleteTest {
     @Test
     void shouldThrowExceptionOnInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getReasonCodesController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getReasonCodesController()
                 .deleteReasonCode(1));
     }
 }

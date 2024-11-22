@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerRefundInvoiceTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     private static Product product;

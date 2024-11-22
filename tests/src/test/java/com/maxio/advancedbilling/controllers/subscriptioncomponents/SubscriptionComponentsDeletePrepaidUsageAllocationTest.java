@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.controllers.SubscriptionComponentsController;
 import com.maxio.advancedbilling.controllers.SubscriptionInvoiceAccountController;
@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SubscriptionComponentsDeletePrepaidUsageAllocationTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient ADVANCED_BILLING_CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient ADVANCED_BILLING_CLIENT = TestClientProvider.getClient();
 
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER = ADVANCED_BILLING_CLIENT
             .getSubscriptionComponentsController();
@@ -170,7 +170,7 @@ class SubscriptionComponentsDeletePrepaidUsageAllocationTest {
     @Test
     void shouldNotBulkResetWhenProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .deletePrepaidUsageAllocation(
                         subscription.getId(),
                         prepaidComponent.getId(),

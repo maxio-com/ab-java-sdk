@@ -4,7 +4,7 @@ import com.maxio.advancedbilling.models.InvoiceAddress;
 import com.maxio.advancedbilling.models.InvoiceSeller;
 
 public class TestFixtures {
-    private static final Integer DEFAULT_SITE_ID = 87346;
+    private static final Integer DEFAULT_SITE_ID = 88350;
     public static final Integer SITE_ID = getIntOrDefault("SITE_ID", DEFAULT_SITE_ID);
     private static final Integer DEFAULT_SELLER_ID = 58665;
     public static final Integer SELLER_ID = getIntOrDefault("SELLER_ID", DEFAULT_SELLER_ID);

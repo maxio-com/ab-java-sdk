@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateInvoicePaymentApplication;
 import com.maxio.advancedbilling.models.CreateMultiInvoicePayment;
@@ -248,7 +248,7 @@ class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController()
+                () -> TestClientProvider.createInvalidCredentialsClient().getInvoicesController()
                         .recordPaymentForMultipleInvoices(new CreateMultiInvoicePaymentRequest())
         );
     }

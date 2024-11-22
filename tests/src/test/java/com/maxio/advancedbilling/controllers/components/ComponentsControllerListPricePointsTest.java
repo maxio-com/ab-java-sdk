@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentCurrencyPrice;
@@ -176,7 +176,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
 
     @Test
     void shouldNotListPricePointsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentPricePointsController()
                 .listComponentPricePoints(new ListComponentPricePointsInput()));
     }
 
