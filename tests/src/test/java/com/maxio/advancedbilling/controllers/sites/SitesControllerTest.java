@@ -11,13 +11,11 @@ import com.maxio.advancedbilling.models.TaxConfiguration;
 import com.maxio.advancedbilling.models.TaxConfigurationKind;
 import com.maxio.advancedbilling.models.TaxDestinationAddress;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.ResourceLock;
 
 import static com.maxio.advancedbilling.utils.TestFixtures.SELLER_ID;
 import static com.maxio.advancedbilling.utils.TestFixtures.SITE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ResourceLock("preconfigured-site")
 class SitesControllerTest {
     private final SitesController sitesController = TestClientProvider.getPreconfiguredSiteClient()
             .getSitesController();

@@ -48,17 +48,17 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class BaseCustomerInformationTest {
-    protected static final TestSetup TEST_SETUP = new TestSetup();
+    protected final TestSetup TEST_SETUP = new TestSetup();
 
-    protected static Product product;
-    protected static Customer customer;
-    protected static Subscription subscription;
-    protected static Component quantityBasedComponent;
-    protected static Map<String, Metadata> subscriptionMetadata;
-    protected static Map<String, Metadata> customerMetadata;
+    protected Product product;
+    protected Customer customer;
+    protected Subscription subscription;
+    protected Component quantityBasedComponent;
+    protected Map<String, Metadata> subscriptionMetadata;
+    protected Map<String, Metadata> customerMetadata;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(125000));
         customer = TEST_SETUP.createCustomer();
@@ -100,7 +100,7 @@ public abstract class BaseCustomerInformationTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 

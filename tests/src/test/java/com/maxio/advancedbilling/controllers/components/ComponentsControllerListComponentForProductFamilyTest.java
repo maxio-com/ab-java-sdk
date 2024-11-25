@@ -17,9 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerListComponentForProductFamilyTest extends ComponentsControllerTestBase {
 
-    // TODO
     @BeforeAll
-    static void removeActiveComponents() throws IOException, ApiException {
+    void removeActiveComponents() throws IOException, ApiException {
         new TestTeardown().archiveComponents();
     }
 

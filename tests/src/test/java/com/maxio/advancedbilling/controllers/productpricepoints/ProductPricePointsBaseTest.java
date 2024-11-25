@@ -36,14 +36,14 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 abstract class ProductPricePointsBaseTest {
 
-    protected static final AdvancedBillingClient ADVANCED_BILLING_CLIENT = TestClientProvider.getClient();
-    protected static final ProductsController PRODUCTS_CONTROLLER = ADVANCED_BILLING_CLIENT.getProductsController();
-    protected static final ProductPricePointsController PRODUCT_PRICE_POINTS_CONTROLLER = ADVANCED_BILLING_CLIENT.getProductPricePointsController();
+    protected final AdvancedBillingClient ADVANCED_BILLING_CLIENT = TestClientProvider.getClient();
+    protected final ProductsController PRODUCTS_CONTROLLER = ADVANCED_BILLING_CLIENT.getProductsController();
+    protected final ProductPricePointsController PRODUCT_PRICE_POINTS_CONTROLLER = ADVANCED_BILLING_CLIENT.getProductPricePointsController();
 
-    protected static ProductFamily productFamily;
+    protected ProductFamily productFamily;
 
     @BeforeAll
-    static void setupProductFamily() throws IOException, ApiException {
+    void setupProductFamily() throws IOException, ApiException {
         productFamily = ADVANCED_BILLING_CLIENT
                 .getProductFamiliesController()
                 .createProductFamily(new CreateProductFamilyRequest.Builder(
@@ -55,7 +55,7 @@ abstract class ProductPricePointsBaseTest {
                 .getProductFamily();
     }
 
-    protected static Product createProduct() throws IOException, ApiException {
+    protected Product createProduct() throws IOException, ApiException {
         return PRODUCTS_CONTROLLER
                 .createProduct(
                         String.valueOf(productFamily.getId()),
@@ -70,12 +70,12 @@ abstract class ProductPricePointsBaseTest {
                 .getProduct();
     }
 
-    protected static ProductPricePointResponse createProductPricePoint(int productId, CreateProductPricePoint createProductPricePoint)
+    protected ProductPricePointResponse createProductPricePoint(int productId, CreateProductPricePoint createProductPricePoint)
             throws IOException, ApiException {
         return createProductPricePointWithDelay(0, productId, createProductPricePoint);
     }
 
-    protected static ProductPricePointResponse createProductPricePointWithDelay(long delayInMillis, int productId,
+    protected ProductPricePointResponse createProductPricePointWithDelay(long delayInMillis, int productId,
                                                                                 CreateProductPricePoint createProductPricePoint)
             throws IOException, ApiException {
         try {
@@ -90,7 +90,7 @@ abstract class ProductPricePointsBaseTest {
         );
     }
 
-    protected static CreateProductPricePoint.Builder defaultBuilder() {
+    protected CreateProductPricePoint.Builder defaultBuilder() {
         return new CreateProductPricePoint.Builder()
                 .priceInCents(100L)
                 .interval(2)
@@ -107,7 +107,7 @@ abstract class ProductPricePointsBaseTest {
 
     // when archiving default price point, {"errors":["Cannot archive the default price point."]} is returned
     // when archiving custom price point, {"errors":["The custom product price point cannot be archived."]} is returned
-    protected static void archiveAllSiteCatalogPricePoints() throws IOException, ApiException {
+    protected void archiveAllSiteCatalogPricePoints() throws IOException, ApiException {
         List<ProductPricePoint> siteCatalogPricePoints = listAllSiteCatalogPricePointsPerPage200();
         while (!siteCatalogPricePoints.isEmpty()) {
             for (ProductPricePoint pricePoint : siteCatalogPricePoints) {
@@ -120,7 +120,7 @@ abstract class ProductPricePointsBaseTest {
         }
     }
 
-    protected static void archiveAllSiteProducts() throws IOException, ApiException {
+    protected void archiveAllSiteProducts() throws IOException, ApiException {
         List<ProductResponse> productResponses = listAllSiteProductsPerPage200();
         while (!productResponses.isEmpty()) {
             for (ProductResponse p : productResponses) {
@@ -130,13 +130,13 @@ abstract class ProductPricePointsBaseTest {
         }
     }
 
-    private static List<ProductResponse> listAllSiteProductsPerPage200() throws IOException, ApiException {
+    private List<ProductResponse> listAllSiteProductsPerPage200() throws IOException, ApiException {
         return PRODUCTS_CONTROLLER.listProducts(
                 new ListProductsInput.Builder().perPage(200).build()
         );
     }
 
-    private static List<ProductPricePoint> listAllSiteCatalogPricePointsPerPage200() throws IOException, ApiException {
+    private List<ProductPricePoint> listAllSiteCatalogPricePointsPerPage200() throws IOException, ApiException {
         return PRODUCT_PRICE_POINTS_CONTROLLER
                 .listAllProductPricePoints(new ListAllProductPricePointsInput.Builder()
                         .filter(new ListPricePointsFilter.Builder()

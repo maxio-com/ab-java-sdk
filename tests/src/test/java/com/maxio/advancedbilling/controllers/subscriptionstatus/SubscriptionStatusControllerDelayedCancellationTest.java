@@ -19,10 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubscriptionStatusControllerDelayedCancellationTest extends SubscriptionStatusControllerTestBase {
 
-    private static Subscription subscriptionForErrors;
+    private Subscription subscriptionForErrors;
 
     @BeforeAll
-    static void beforeAll() throws IOException, ApiException {
+    void beforeAll() throws IOException, ApiException {
         subscriptionForErrors = createSubscription();
     }
 

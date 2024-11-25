@@ -1,28 +1,27 @@
 package com.maxio.advancedbilling.controllers.products;
 
 import com.maxio.advancedbilling.TestClientProvider;
-import com.maxio.advancedbilling.controllers.ProductFamiliesController;
 import com.maxio.advancedbilling.controllers.ProductsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateOrUpdateProduct;
 import com.maxio.advancedbilling.models.CreateOrUpdateProductRequest;
-import com.maxio.advancedbilling.models.CreateProductFamily;
-import com.maxio.advancedbilling.models.CreateProductFamilyRequest;
 import com.maxio.advancedbilling.models.IntervalUnit;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.utils.TestSetup;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 
 import java.io.IOException;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ProductsControllerTestBase {
-    protected static final ProductsController productsController = TestClientProvider.getClient().getProductsController();
-    protected static ProductFamily productFamily;
+    protected final ProductsController productsController = TestClientProvider.getClient().getProductsController();
+    protected ProductFamily productFamily;
 
     @BeforeAll
-    static void setup() throws IOException, ApiException {
+    void setup() throws IOException, ApiException {
         productFamily = new TestSetup().createProductFamily();
     }
 
@@ -30,7 +29,7 @@ abstract class ProductsControllerTestBase {
         return createProductWithHandle("initial_handle-" + RandomStringUtils.randomAlphanumeric(5).toLowerCase());
     }
 
-    protected static Product createProductWithHandle(String handle) throws IOException, ApiException {
+    protected Product createProductWithHandle(String handle) throws IOException, ApiException {
         return productsController
                 .createProduct(String.valueOf(productFamily.getId()), new CreateOrUpdateProductRequest(
                         new CreateOrUpdateProduct.Builder()

@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerUnarchivePricePointTest extends ComponentsControllerTestBase {
 
-    private static Component component;
+    private Component component;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
     }
 

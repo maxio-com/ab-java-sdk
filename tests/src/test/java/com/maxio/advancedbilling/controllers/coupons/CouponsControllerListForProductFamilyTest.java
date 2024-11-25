@@ -22,13 +22,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CouponsControllerListForProductFamilyTest extends CouponsControllerTestBase {
 
-    protected static ProductFamily productFamily2;
-    protected static List<Coupon> coupons1 = new ArrayList<>();
-    protected static List<Coupon> coupons2 = new ArrayList<>();
-    protected static ZonedDateTime testStart;
+    protected ProductFamily productFamily2;
+    protected List<Coupon> coupons1 = new ArrayList<>();
+    protected List<Coupon> coupons2 = new ArrayList<>();
+    protected ZonedDateTime testStart;
 
     @BeforeAll
-    static void setupResources() throws IOException, ApiException {
+    void setupResources() throws IOException, ApiException {
         testStart = ZonedDateTime.now();
         productFamily2 = TEST_SETUP.createProductFamily();
         for (int i=0; i<3; i++) {

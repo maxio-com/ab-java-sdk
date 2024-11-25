@@ -28,13 +28,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest {
 
-    private static Product product;
-    private static ProductPricePoint archivedProductPricePoint;
+    private Product product;
+    private ProductPricePoint archivedProductPricePoint;
 
-    private static final List<ProductPricePoint> PRODUCT_PRICE_POINTS_OF_TYPE_CATALOG = new LinkedList<>();
+    private final List<ProductPricePoint> PRODUCT_PRICE_POINTS_OF_TYPE_CATALOG = new LinkedList<>();
 
     @BeforeAll
-    static void beforeAll() throws IOException, ApiException {
+    void beforeAll() throws IOException, ApiException {
         archiveAllSiteProducts();
         archiveAllSiteCatalogPricePoints();
 

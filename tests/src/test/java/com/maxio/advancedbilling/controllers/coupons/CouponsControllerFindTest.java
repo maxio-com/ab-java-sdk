@@ -24,11 +24,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CouponsControllerFindTest extends CouponsControllerTestBase {
 
-    protected static Product product;
-    protected static Component component;
+    protected Product product;
+    protected Component component;
 
     @BeforeAll
-    static void setupResources() throws IOException, ApiException {
+    void setupResources() throws IOException, ApiException {
         product = TEST_SETUP.createProduct(productFamily);
         component = TEST_SETUP.createQuantityBasedComponent(productFamilyId);
     }

@@ -33,11 +33,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerUpdatePricePointTest extends ComponentsControllerTestBase {
 
-    private static Component component;
-    private static Component component2;
+    private Component component;
+    private Component component2;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
         component2 = createQuantityBasedComponent();
     }
@@ -127,7 +127,7 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
         );
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenUpdatingComponentPricePointWithInvalidData() {
+    private Stream<Arguments> argsForShouldReturn422WhenUpdatingComponentPricePointWithInvalidData() {
         return Stream.of(
                 Arguments.of(
                         new UpdateComponentPricePointRequest(

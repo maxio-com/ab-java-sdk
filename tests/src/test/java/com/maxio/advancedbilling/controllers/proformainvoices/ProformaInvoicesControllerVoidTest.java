@@ -20,15 +20,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProformaInvoicesControllerVoidTest extends ProformaInvoicesTestBase {
 
-    private static Customer customer;
+    private Customer customer;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         customer = TEST_SETUP.createCustomer();
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 

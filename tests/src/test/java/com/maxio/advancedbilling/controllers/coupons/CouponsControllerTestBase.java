@@ -25,17 +25,17 @@ import java.util.List;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CouponsControllerTestBase {
+public abstract class CouponsControllerTestBase {
 
-    protected static final CouponsController COUPONS_CONTROLLER = TestClientProvider.getClient().getCouponsController();
-    protected static ProductFamily productFamily;
-    protected static int productFamilyId;
-    protected static final TestSetup TEST_SETUP = new TestSetup();
+    protected final CouponsController COUPONS_CONTROLLER = TestClientProvider.getClient().getCouponsController();
+    protected ProductFamily productFamily;
+    protected int productFamilyId;
+    protected final TestSetup TEST_SETUP = new TestSetup();
 
     // if child classes are using @BeforeAll and this product family, they have to be named differently,
     // so it get executed after this one
     @BeforeAll
-    static void setup() throws IOException, ApiException {
+    void setup() throws IOException, ApiException {
         productFamily = TEST_SETUP.createProductFamily();
         productFamilyId = productFamily.getId();
     }
@@ -126,7 +126,7 @@ public class CouponsControllerTestBase {
         assertThat(price.getPrice()).isPositive();
     }
 
-    static CouponRequest validCouponRequest() {
+    CouponRequest validCouponRequest() {
         return new CouponRequest(
                 new CouponPayload.Builder()
                         .name("coupon" + randomNumeric(10))

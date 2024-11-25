@@ -24,13 +24,13 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase {
 
-    protected static Product product1;
-    protected static Product product2;
-    protected static Component component1;
-    protected static Component component2;
+    protected Product product1;
+    protected Product product2;
+    protected Component component1;
+    protected Component component2;
 
     @BeforeAll
-    static void setupResources() throws IOException, ApiException {
+    void setupResources() throws IOException, ApiException {
         product1 = TEST_SETUP.createProduct(productFamily);
         product2 = TEST_SETUP.createProduct(productFamily);
         component1 = TEST_SETUP.createQuantityBasedComponent(productFamilyId);

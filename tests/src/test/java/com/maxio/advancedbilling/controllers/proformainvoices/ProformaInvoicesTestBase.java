@@ -50,9 +50,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 abstract class ProformaInvoicesTestBase {
 
-    protected static final TestSetup TEST_SETUP = new TestSetup();
-    protected static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    protected static final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
+    protected final TestSetup TEST_SETUP = new TestSetup();
+    protected final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    protected final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
             .getProformaInvoicesController();
 
     protected final Product product;

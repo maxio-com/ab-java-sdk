@@ -26,10 +26,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerCreateCurrencyPricesTest extends ComponentsControllerTestBase {
 
-    private static Component component;
+    private Component component;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
     }
 
@@ -94,7 +94,7 @@ public class ComponentsControllerCreateCurrencyPricesTest extends ComponentsCont
         );
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenCreatingCurrencyPricesWithInvalidData() {
+    private Stream<Arguments> argsForShouldReturn422WhenCreatingCurrencyPricesWithInvalidData() {
         int priceId = component.getPrices().get(0).getId();
         return Stream.of(
                 Arguments.of(

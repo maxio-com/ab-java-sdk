@@ -25,13 +25,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerListPricePointsTest extends ComponentsControllerTestBase {
 
-    private static Component component;
-    private static ComponentPricePoint componentPricePoint1;
-    private static ComponentPricePoint componentPricePoint2;
-    private static List<ComponentCurrencyPrice> componentPricePoint2CurrencyPrices;
+    private Component component;
+    private ComponentPricePoint componentPricePoint1;
+    private ComponentPricePoint componentPricePoint2;
+    private List<ComponentCurrencyPrice> componentPricePoint2CurrencyPrices;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
         componentPricePoint1 = TEST_SETUP.createComponentPricePoint(component.getId(), b -> b.useSiteExchangeRate(true));
         componentPricePoint2 = TEST_SETUP.createComponentPricePoint(component.getId(), b -> b.useSiteExchangeRate(false));

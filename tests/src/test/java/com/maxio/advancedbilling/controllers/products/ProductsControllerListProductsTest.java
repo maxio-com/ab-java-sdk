@@ -26,10 +26,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProductsControllerListProductsTest extends ProductsControllerTestBase {
 
-    static List<Product> savedProducts = new ArrayList<>();
+    List<Product> savedProducts = new ArrayList<>();
 
     @BeforeAll
-    static void setupProducts() throws IOException, ApiException {
+    void setupProducts() throws IOException, ApiException {
         archiveAllSiteProducts();
 
         for (int i=0; i < 4; i++) {
@@ -257,7 +257,7 @@ public class ProductsControllerListProductsTest extends ProductsControllerTestBa
         assertThat(listProductsPage4).isEmpty();
     }
 
-    private static void archiveAllSiteProducts() throws IOException, ApiException {
+    private void archiveAllSiteProducts() throws IOException, ApiException {
         List<ProductResponse> productResponses = productsController.listProducts(
                 new ListProductsInput.Builder().perPage(200).build()
         );

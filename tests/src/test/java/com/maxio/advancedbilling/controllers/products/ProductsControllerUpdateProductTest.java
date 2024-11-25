@@ -129,7 +129,7 @@ public class ProductsControllerUpdateProductTest extends ProductsControllerTestB
                 .hasErrors(errorMessages);
     }
 
-    private static Stream<Arguments> argsForShouldNotUpdateProductWithBlankBasicParameters() {
+    private Stream<Arguments> argsForShouldNotUpdateProductWithBlankBasicParameters() {
         CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder().name("test-name").handle("product-handle-test")
                 .description("test description").priceInCents(11).interval(1).intervalUnit(IntervalUnit.MONTH).build();
         return Stream.of(

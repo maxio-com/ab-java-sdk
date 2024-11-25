@@ -23,10 +23,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductPricePointsControllerBulkCreateTest extends ProductPricePointsBaseTest {
 
-    private static Product product;
+    private Product product;
 
     @BeforeAll
-    static void beforeAll() throws IOException, ApiException {
+    void beforeAll() throws IOException, ApiException {
         product = createProduct();
     }
 
