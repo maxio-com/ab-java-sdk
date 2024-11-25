@@ -1,6 +1,8 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.AdvancedBillingClient;
+import com.maxio.advancedbilling.TestClientProvider;
+import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Coupon;
@@ -42,22 +44,23 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.INVOICES_CONTROLLER;
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForSubscription;
 import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InvoicesControllerReadCreditNoteTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
+    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
 
-    private static Product product;
-    private static Component quantityBasedComponent;
-    private static Customer customer;
-    private static Subscription subscription;
-    private static Coupon coupon;
+    private Product product;
+    private Component quantityBasedComponent;
+    private Customer customer;
+    private Subscription subscription;
+    private Coupon coupon;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
         customer = TEST_SETUP.createCustomer();
@@ -75,7 +78,7 @@ class InvoicesControllerReadCreditNoteTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
@@ -83,7 +86,7 @@ class InvoicesControllerReadCreditNoteTest {
     void shouldReadCreditNotes() throws IOException, ApiException, InterruptedException {
         // given
         Integer subscriptionId = subscription.getId();
-        Invoice paidInvoice = getPaidInvoiceForSubscription(subscriptionId);
+        Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForSubscription(subscriptionId);
 
         InvoicePayment payment = paidInvoice.getPayments().get(0);
         // refund a part of the payment
@@ -267,7 +270,7 @@ class InvoicesControllerReadCreditNoteTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController().readCreditNote("inv_8hr3546xp4h8n")
+                () -> TestClientProvider.createInvalidCredentialsClient().getInvoicesController().readCreditNote("inv_8hr3546xp4h8n")
         );
     }
 }

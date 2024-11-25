@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.referralcodes;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ReferralCodesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Customer;
@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ReferralCodesControllerValidateTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final ReferralCodesController REFERRAL_CODES_CONTROLLER = CLIENT.getReferralCodesController();
     private static Product product;
     private static Customer customer;
@@ -56,7 +56,7 @@ public class ReferralCodesControllerValidateTest {
         assertThat(response.getCode()).isEqualTo(subscription.getReferralCode());
         assertThat(response.getSubscriptionId()).isEqualTo(subscription.getId());
         assertThat(response.getId()).isNotNull();
-        assertThat(response.getSiteId()).isEqualTo(TestFixtures.SITE_ID);
+        assertThat(response.getSiteId()).isNotNull();
     }
 
     @Test
@@ -72,7 +72,7 @@ public class ReferralCodesControllerValidateTest {
         assertThat(subscription.getReferralCode()).isNotBlank();
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getReferralCodesController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getReferralCodesController()
                 .validateReferralCode(subscription.getReferralCode()));
     }
 }

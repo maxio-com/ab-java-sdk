@@ -81,7 +81,7 @@ class ProductPricePointsControllerUpdateCurrencyPricesTest extends ProductPriceP
         );
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenRequestBodyIsMissingOrRequiredFieldsAreNotProvided()
+    private Stream<Arguments> argsForShouldReturn422WhenRequestBodyIsMissingOrRequiredFieldsAreNotProvided()
             throws IOException, ApiException {
         Product product = createProduct();
 

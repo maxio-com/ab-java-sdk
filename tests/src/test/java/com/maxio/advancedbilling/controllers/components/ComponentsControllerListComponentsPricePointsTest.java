@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.Component;
@@ -27,16 +27,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerListComponentsPricePointsTest extends ComponentsControllerTestBase {
 
-    private static Component component;
-    private static Component component2;
-    private static ComponentPricePoint component1_PricePoint1;
-    private static ComponentPricePoint component1_PricePoint2;
-    private static ComponentPricePoint component1_PricePoint3_Archived;
-    private static ComponentPricePoint component2_PricePoint1;
-    private static ComponentPricePoint component2_PricePoint2;
+    private Component component;
+    private Component component2;
+    private ComponentPricePoint component1_PricePoint1;
+    private ComponentPricePoint component1_PricePoint2;
+    private ComponentPricePoint component1_PricePoint3_Archived;
+    private ComponentPricePoint component2_PricePoint1;
+    private ComponentPricePoint component2_PricePoint2;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
         component2 = createQuantityBasedComponent();
 
@@ -176,7 +176,7 @@ public class ComponentsControllerListComponentsPricePointsTest extends Component
 
     @Test
     void shouldNotListComponentsPricePointsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentPricePointsController()
                 .listAllComponentPricePoints(new ListAllComponentPricePointsInput()));
     }
 

@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.reasoncodes;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ReasonCodesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateReasonCode;
@@ -19,7 +19,7 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReasonCodesControllerReadTest {
-    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClient.createClient().getReasonCodesController();
+    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClientProvider.getClient().getReasonCodesController();
 
     @AfterEach
     void deleteReasonCodes() throws IOException, ApiException {
@@ -38,7 +38,7 @@ public class ReasonCodesControllerReadTest {
 
         // then
         assertThat(response.getId()).isNotNull();
-        assertThat(response.getSiteId()).isEqualTo(TestFixtures.SITE_ID);
+        assertThat(response.getSiteId()).isNotNull();
         assertThat(response.getCode()).isEqualTo("NOT_INTERESTED");
         assertThat(response.getPosition()).isEqualTo(1);
         assertThat(response.getDescription()).isEqualTo("I'm not interested in this product.");
@@ -68,7 +68,7 @@ public class ReasonCodesControllerReadTest {
         ))).getReasonCode();
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getReasonCodesController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getReasonCodesController()
                 .readReasonCode(createResponse.getId()));
     }
 }

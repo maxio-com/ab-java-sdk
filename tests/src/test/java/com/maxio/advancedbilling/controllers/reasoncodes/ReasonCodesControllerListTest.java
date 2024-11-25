@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.reasoncodes;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ReasonCodesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateReasonCode;
@@ -21,7 +21,7 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReasonCodesControllerListTest {
-    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClient.createClient().getReasonCodesController();
+    private static final ReasonCodesController REASON_CODES_CONTROLLER = TestClientProvider.getClient().getReasonCodesController();
     private static final List<ReasonCodeResponse> EXISTING_CODES = new ArrayList<>();
 
     @BeforeEach
@@ -103,7 +103,7 @@ public class ReasonCodesControllerListTest {
     @Test
     void shouldThrowExceptionOnInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getReasonCodesController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getReasonCodesController()
                 .listReasonCodes(new ListReasonCodesInput()));
     }
 }

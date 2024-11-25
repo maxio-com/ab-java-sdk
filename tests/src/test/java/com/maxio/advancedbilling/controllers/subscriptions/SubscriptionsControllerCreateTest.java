@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptions;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -65,23 +65,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 public class SubscriptionsControllerCreateTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
-    private static final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
+    private final TestSetup TEST_SETUP = new TestSetup();
+    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    private final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
 
-    private static ProductFamily PRODUCT_FAMILY;
-    private static Product PRODUCT;
-    private static Customer CUSTOMER;
+    private ProductFamily PRODUCT_FAMILY;
+    private Product PRODUCT;
+    private Customer CUSTOMER;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         PRODUCT_FAMILY = TEST_SETUP.createProductFamily();
         PRODUCT = TEST_SETUP.createProduct(PRODUCT_FAMILY);
         CUSTOMER = TEST_SETUP.createCustomer();
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(CUSTOMER);
     }
 

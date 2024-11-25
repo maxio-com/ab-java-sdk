@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.customfields;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateMetafield;
@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CustomFieldsControllerUpdateMetafieldTest {
 
     private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
-            TestClient.createClient().getCustomFieldsController();
+            TestClientProvider.getClient().getCustomFieldsController();
 
     @AfterAll
     static void teardown() throws IOException, ApiException {
@@ -253,7 +253,7 @@ public class CustomFieldsControllerUpdateMetafieldTest {
 
     @Test
     void shouldNotUpdateMetafieldsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getCustomFieldsController()
                 .updateMetafield(ResourceType.SUBSCRIPTIONS, null));
     }
 

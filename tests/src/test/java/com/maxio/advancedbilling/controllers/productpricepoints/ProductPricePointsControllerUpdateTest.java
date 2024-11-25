@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductPricePointsControllerUpdateTest extends ProductPricePointsBaseTest {
@@ -96,7 +95,7 @@ class ProductPricePointsControllerUpdateTest extends ProductPricePointsBaseTest 
         );
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenRequestBodyIsMissingOrEmpty() {
+    private Stream<Arguments> argsForShouldReturn422WhenRequestBodyIsMissingOrEmpty() {
         return Stream.of(
                 Arguments.of(new UpdateProductPricePointRequest(null)),
                 Arguments.of(new UpdateProductPricePointRequest(new UpdateProductPricePoint()))

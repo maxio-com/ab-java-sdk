@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.customfields;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateMetafield;
@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CustomFieldsControllerListMetafieldsTest {
 
     private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
-            TestClient.createClient().getCustomFieldsController();
+            TestClientProvider.getClient().getCustomFieldsController();
 
     private static final Metafield radioMetafield = new Metafield.Builder()
             .name("metafield-" + randomNumeric(10))
@@ -181,7 +181,7 @@ public class CustomFieldsControllerListMetafieldsTest {
 
     @Test
     void shouldNotListMetafieldsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getCustomFieldsController()
                 .listMetafields(new ListMetafieldsInput.Builder().resourceType(ResourceType.SUBSCRIPTIONS).build()));
     }
 

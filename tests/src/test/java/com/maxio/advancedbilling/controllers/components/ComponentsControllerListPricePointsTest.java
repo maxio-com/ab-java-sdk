@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentCurrencyPrice;
@@ -25,13 +25,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerListPricePointsTest extends ComponentsControllerTestBase {
 
-    private static Component component;
-    private static ComponentPricePoint componentPricePoint1;
-    private static ComponentPricePoint componentPricePoint2;
-    private static List<ComponentCurrencyPrice> componentPricePoint2CurrencyPrices;
+    private Component component;
+    private ComponentPricePoint componentPricePoint1;
+    private ComponentPricePoint componentPricePoint2;
+    private List<ComponentCurrencyPrice> componentPricePoint2CurrencyPrices;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
         componentPricePoint1 = TEST_SETUP.createComponentPricePoint(component.getId(), b -> b.useSiteExchangeRate(true));
         componentPricePoint2 = TEST_SETUP.createComponentPricePoint(component.getId(), b -> b.useSiteExchangeRate(false));
@@ -176,7 +176,7 @@ public class ComponentsControllerListPricePointsTest extends ComponentsControlle
 
     @Test
     void shouldNotListPricePointsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentPricePointsController()
                 .listComponentPricePoints(new ListComponentPricePointsInput()));
     }
 

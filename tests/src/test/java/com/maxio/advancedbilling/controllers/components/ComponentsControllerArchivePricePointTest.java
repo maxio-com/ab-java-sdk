@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerArchivePricePointTest extends ComponentsControllerTestBase {
 
-    private static Component component;
+    private Component component;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
     }
 
@@ -68,7 +68,7 @@ public class ComponentsControllerArchivePricePointTest extends ComponentsControl
 
     @Test
     void shouldNotArchivePricePointWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentPricePointsController()
                 .archiveComponentPricePoint(
                         ArchiveComponentPricePointComponentId.fromNumber(component.getId()),
                         ArchiveComponentPricePointPricePointId.fromNumber(component.getDefaultPricePointId()))

@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionComponentsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.SubscriptionComponentAllocationErrorException;
@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SubscriptionComponentsUpdatePrepaidAllocationExpirationDateTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
-            TestClient.createClient().getSubscriptionComponentsController();
+            TestClientProvider.getClient().getSubscriptionComponentsController();
 
     private static Component prepaidComponent;
     private static Allocation allocation;
@@ -183,7 +183,7 @@ class SubscriptionComponentsUpdatePrepaidAllocationExpirationDateTest {
     @Test
     void shouldNotBulkResetWhenProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .updatePrepaidUsageAllocationExpirationDate(
                         subscription.getId(),
                         prepaidComponent.getId(),

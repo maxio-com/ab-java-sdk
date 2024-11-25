@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.customfields;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateMetadata;
@@ -32,7 +32,7 @@ public class CustomFieldsControllerListMetadataTest {
 
     private static CustomFieldsTestsUtils.Resources resources;
     private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
-            TestClient.createClient().getCustomFieldsController();
+            TestClientProvider.getClient().getCustomFieldsController();
     private static Customer customer2;
 
     private static List<Metadata> customerMetadata;
@@ -184,7 +184,7 @@ public class CustomFieldsControllerListMetadataTest {
 
     @Test
     void shouldNotListMetadataWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getCustomFieldsController()
                 .listMetadata(new ListMetadataInput(ResourceType.SUBSCRIPTIONS, 1, 1, 1)));
     }
 

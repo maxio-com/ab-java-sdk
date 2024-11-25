@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.utils;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CardType;
 import com.maxio.advancedbilling.models.Component;
@@ -88,7 +88,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 public class TestSetup {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestSetup.class);
 
-    private final AdvancedBillingClient advancedBillingClient = TestClient.createClient();
+    private final AdvancedBillingClient advancedBillingClient = TestClientProvider.getClient();
 
     public ProductFamily createProductFamily() throws IOException, ApiException {
         return advancedBillingClient.getProductFamiliesController()

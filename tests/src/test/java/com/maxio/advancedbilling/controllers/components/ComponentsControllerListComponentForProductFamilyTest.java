@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ComponentResponse;
 import com.maxio.advancedbilling.models.ListComponentsForProductFamilyInput;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ComponentsControllerListComponentForProductFamilyTest extends ComponentsControllerTestBase {
 
     @BeforeAll
-    static void removeActiveComponents() throws IOException, ApiException {
+    void removeActiveComponents() throws IOException, ApiException {
         new TestTeardown().archiveComponents();
     }
 
@@ -52,7 +52,7 @@ public class ComponentsControllerListComponentForProductFamilyTest extends Compo
 
     @Test
     void shouldNotListComponentsForProductFamilyWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentsController()
                 .listComponentsForProductFamily(new ListComponentsForProductFamilyInput.Builder()
                         .productFamilyId(4)
                         .build()));

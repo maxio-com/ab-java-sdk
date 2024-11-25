@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.subscriptioninvoiceaccount;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionInvoiceAccountController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AccountBalance;
@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SubscriptionInvoiceAccountReadAccountBalancesTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final SubscriptionInvoiceAccountController SUBSCRIPTION_INVOICE_ACCOUNT_CONTROLLER =
             CLIENT.getSubscriptionInvoiceAccountController();
 
@@ -213,7 +213,7 @@ class SubscriptionInvoiceAccountReadAccountBalancesTest {
     @Test
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getSubscriptionInvoiceAccountController()
                 .readAccountBalances(123)
         );

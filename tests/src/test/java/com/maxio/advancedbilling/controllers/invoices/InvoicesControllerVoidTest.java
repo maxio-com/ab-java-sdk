@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateInvoiceCoupon;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InvoicesControllerVoidTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     private static Product product;
@@ -124,7 +124,7 @@ class InvoicesControllerVoidTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController()
+                () -> TestClientProvider.createInvalidCredentialsClient().getInvoicesController()
                         .voidInvoice(openInvoice.getUid(), new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice")))
         );
     }

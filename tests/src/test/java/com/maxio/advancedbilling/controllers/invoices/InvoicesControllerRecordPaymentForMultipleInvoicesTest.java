@@ -1,6 +1,8 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.AdvancedBillingClient;
+import com.maxio.advancedbilling.TestClientProvider;
+import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CreateInvoicePaymentApplication;
 import com.maxio.advancedbilling.models.CreateMultiInvoicePayment;
@@ -30,12 +32,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.CLIENT;
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.INVOICES_CONTROLLER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
+    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     private static Product product;
     private static Customer customer;
@@ -248,7 +250,7 @@ class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController()
+                () -> TestClientProvider.createInvalidCredentialsClient().getInvoicesController()
                         .recordPaymentForMultipleInvoices(new CreateMultiInvoicePaymentRequest())
         );
     }

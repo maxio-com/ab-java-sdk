@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.models.Component;
@@ -33,11 +33,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ComponentsControllerUpdatePricePointTest extends ComponentsControllerTestBase {
 
-    private static Component component;
-    private static Component component2;
+    private Component component;
+    private Component component2;
 
     @BeforeAll
-    static void setupComponent() throws IOException, ApiException {
+    void setupComponent() throws IOException, ApiException {
         component = createQuantityBasedComponent();
         component2 = createQuantityBasedComponent();
     }
@@ -127,7 +127,7 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
         );
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenUpdatingComponentPricePointWithInvalidData() {
+    private Stream<Arguments> argsForShouldReturn422WhenUpdatingComponentPricePointWithInvalidData() {
         return Stream.of(
                 Arguments.of(
                         new UpdateComponentPricePointRequest(
@@ -167,7 +167,7 @@ public class ComponentsControllerUpdatePricePointTest extends ComponentsControll
 
     @Test
     void shouldNotUpdateComponentPricePointWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentPricePointsController()
                 .updateComponentPricePoint(
                         UpdateComponentPricePointComponentId.fromNumber(component.getId()),
                         UpdateComponentPricePointPricePointId.fromNumber(component.getDefaultPricePointId()),

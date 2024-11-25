@@ -1,6 +1,8 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.AdvancedBillingClient;
+import com.maxio.advancedbilling.TestClientProvider;
+import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CollectionMethod;
 import com.maxio.advancedbilling.models.CreateInvoicePayment;
@@ -54,15 +56,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.CLIENT;
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.INVOICES_CONTROLLER;
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForSubscription;
 import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InvoicesControllerRecordPaymentForInvoiceTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
+    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
 
     private static ProductFamily productFamily;
     private static Product product;
@@ -72,7 +74,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
     private static CreditCardPaymentProfile creditCardPaymentProfile;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
         customer = TEST_SETUP.createCustomer();
@@ -370,7 +372,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
                 .hasErrors(expectedErrors);
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenRequestBodyIsIncorrect() throws IOException, ApiException {
+    private Stream<Arguments> argsForShouldReturn422WhenRequestBodyIsIncorrect() throws IOException, ApiException {
         return Stream.of(
                 Arguments.arguments(
                         openInvoice.getUid(),
@@ -398,7 +400,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
                         new String[]{"Amount must be greater than prepayment account balance."}
                 ),
                 Arguments.arguments(
-                        getPaidInvoiceForSubscription(subscription.getId()).getUid(),
+                        invoicesControllerUtils.getPaidInvoiceForSubscription(subscription.getId()).getUid(),
                         new CreateInvoicePaymentRequest.Builder()
                                 .payment(new CreateInvoicePayment.Builder()
                                         .amount(CreateInvoicePaymentAmount.fromString("10.50"))
@@ -424,7 +426,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
         CommonAssertions.assertUnauthorized(
-                () -> TestClient.createInvalidCredentialsClient().getInvoicesController()
+                () -> TestClientProvider.createInvalidCredentialsClient().getInvoicesController()
                         .recordPaymentForInvoice(openInvoice.getUid(), new CreateInvoicePaymentRequest())
         );
     }

@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
@@ -154,7 +154,7 @@ public class SubscriptionStatusControllerPreviewRenewalTest extends Subscription
         Subscription subscription = createSubscription();
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionStatusController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionStatusController()
                 .previewRenewal(subscription.getId(),
                         new RenewalPreviewRequest()));
     }

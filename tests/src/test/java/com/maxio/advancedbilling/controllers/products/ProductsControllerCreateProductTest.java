@@ -206,7 +206,7 @@ public class ProductsControllerCreateProductTest extends ProductsControllerTestB
                 .hasErrors(errorMessages);
     }
 
-    private static Stream<Arguments> argsForShouldNotCreateProductWhenBasicParametersAreBlank() {
+    private Stream<Arguments> argsForShouldNotCreateProductWhenBasicParametersAreBlank() {
         CreateOrUpdateProduct productTemplate = new CreateOrUpdateProduct.Builder()
                 .name("test-name")
                 .handle("product-handle-test")

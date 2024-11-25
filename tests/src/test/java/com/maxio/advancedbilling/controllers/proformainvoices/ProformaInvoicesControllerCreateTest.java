@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.proformainvoices;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -13,15 +13,15 @@ import java.io.IOException;
 
 public class ProformaInvoicesControllerCreateTest extends ProformaInvoicesTestBase {
 
-    private static Customer customer;
+    private Customer customer;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         customer = TEST_SETUP.createCustomer();
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
@@ -45,7 +45,7 @@ public class ProformaInvoicesControllerCreateTest extends ProformaInvoicesTestBa
     @Test
     void shouldReturn401WhenProvidingInvalidCredentials() {
         // when - then
-        CommonAssertions.assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getProformaInvoicesController()
+        CommonAssertions.assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getProformaInvoicesController()
                 .createProformaInvoice(123)
         );
     }

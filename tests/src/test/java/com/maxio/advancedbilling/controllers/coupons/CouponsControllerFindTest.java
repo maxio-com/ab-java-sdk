@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.coupons;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CompoundingStrategy;
@@ -24,11 +24,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CouponsControllerFindTest extends CouponsControllerTestBase {
 
-    protected static Product product;
-    protected static Component component;
+    protected Product product;
+    protected Component component;
 
     @BeforeAll
-    static void setupResources() throws IOException, ApiException {
+    void setupResources() throws IOException, ApiException {
         product = TEST_SETUP.createProduct(productFamily);
         component = TEST_SETUP.createQuantityBasedComponent(productFamilyId);
     }
@@ -96,7 +96,7 @@ public class CouponsControllerFindTest extends CouponsControllerTestBase {
         Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest())
                 .getCoupon();
 
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getCouponsController().findCoupon(productFamilyId, coupon.getCode(), null)
         );
     }

@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.sites;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SitesController;
 import com.maxio.advancedbilling.models.AllocationSettings;
 import com.maxio.advancedbilling.models.CreditType;
@@ -17,7 +17,8 @@ import static com.maxio.advancedbilling.utils.TestFixtures.SITE_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SitesControllerTest {
-    private final SitesController sitesController = TestClient.createClient().getSitesController();
+    private final SitesController sitesController = TestClientProvider.getPreconfiguredSiteClient()
+            .getSitesController();
 
     @Test
     void shouldReadSite() throws Exception {
@@ -26,8 +27,8 @@ class SitesControllerTest {
 
         // then
         assertThat(site.getId()).isEqualTo(SITE_ID);
-        assertThat(site.getName()).isEqualTo("Java SDK");
-        assertThat(site.getSubdomain()).isEqualTo("java-sdk");
+        assertThat(site.getName()).isEqualTo("Java SDK Preconfigured");
+        assertThat(site.getSubdomain()).isEqualTo("java-sdk-preconfigured");
         assertThat(site.getCurrency()).isEqualTo("USD");
         assertThat(site.getSellerId()).isEqualTo(SELLER_ID);
         assertThat(site.getNonPrimaryCurrencies()).containsExactlyInAnyOrder("EUR");

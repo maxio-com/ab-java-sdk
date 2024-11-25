@@ -22,10 +22,12 @@ jobs:
         id: build
         shell: bash
         env:
-          API_KEY: ${{ secrets.API_KEY }}
           DOMAIN: ${{ secrets.DOMAIN }}
-          SUBDOMAIN: ${{ secrets.SUBDOMAIN }}
+          SUBDOMAINS: ${{ secrets.SUBDOMAINS }}
+          API_KEYS: ${{ secrets.API_KEYS }}
           SITE_ID: ${{ secrets.SITE_ID }}
+          PRECONFIGURED_SUBDOMAIN: ${{ secrets.PRECONFIGURED_SUBDOMAIN }}
+          PRECONFIGURED_API_KEY: ${{ secrets.PRECONFIGURED_API_KEY }}
         run: |
             mvn install
             cd tests

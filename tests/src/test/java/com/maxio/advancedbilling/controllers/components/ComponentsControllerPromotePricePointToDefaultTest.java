@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
@@ -70,7 +70,7 @@ public class ComponentsControllerPromotePricePointToDefaultTest extends Componen
         ComponentPricePoint catalogPricePoint = createCatalogPricePoint(component.getId());
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentPricePointsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentPricePointsController()
                 .promoteComponentPricePointToDefault(component.getId(), catalogPricePoint.getId())
         );
     }

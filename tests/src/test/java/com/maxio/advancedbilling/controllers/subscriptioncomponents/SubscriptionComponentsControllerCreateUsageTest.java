@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptioncomponents;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionComponentsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
@@ -29,7 +29,7 @@ public class SubscriptionComponentsControllerCreateUsageTest {
 
     private static final TestSetup TEST_SETUP = new TestSetup();
     private static final SubscriptionComponentsController SUBSCRIPTION_COMPONENTS_CONTROLLER =
-            TestClient.createClient().getSubscriptionComponentsController();
+            TestClientProvider.getClient().getSubscriptionComponentsController();
 
     private static ProductFamily productFamily;
     private static Component meteredComponent;
@@ -89,7 +89,7 @@ public class SubscriptionComponentsControllerCreateUsageTest {
     void shouldNotCreateUsageForArchivedQuantityBasedComponent() throws IOException, ApiException {
         // given
         Component quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        TestClient.createClient().getComponentsController().archiveComponent(
+        TestClientProvider.getClient().getComponentsController().archiveComponent(
                 productFamily.getId(),
                 String.valueOf(quantityBasedComponent.getId())
         );
@@ -123,7 +123,7 @@ public class SubscriptionComponentsControllerCreateUsageTest {
     @Test
     void shouldNotCreateUsageWhenProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionComponentsController()
                 .createUsage(subscription.getId(), CreateUsageComponentId.fromNumber(meteredComponent.getId()), null));
     }
 

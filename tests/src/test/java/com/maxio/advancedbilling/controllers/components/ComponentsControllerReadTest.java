@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.components;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,7 @@ public class ComponentsControllerReadTest extends ComponentsControllerTestBase {
         Component component = createQuantityBasedComponent();
 
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getComponentsController()
                 .readComponent(productFamilyId, String.valueOf(component.getId())));
     }
 

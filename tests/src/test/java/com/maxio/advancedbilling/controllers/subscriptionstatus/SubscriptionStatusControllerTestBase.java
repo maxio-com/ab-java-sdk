@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.SubscriptionStatusController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -20,16 +20,16 @@ import java.io.IOException;
 
 abstract class SubscriptionStatusControllerTestBase {
 
-    protected static final SubscriptionsController subscriptionsController = TestClient.createClient().getSubscriptionsController();
-    protected static final SubscriptionStatusController subscriptionStatusController = TestClient.createClient().getSubscriptionStatusController();
+    protected final SubscriptionsController subscriptionsController = TestClientProvider.getClient().getSubscriptionsController();
+    protected final SubscriptionStatusController subscriptionStatusController = TestClientProvider.getClient().getSubscriptionStatusController();
 
-    protected static int productFamilyId;
-    protected static int productId;
-    protected static Product product;
-    protected static Customer customer;
+    protected int productFamilyId;
+    protected int productId;
+    protected Product product;
+    protected Customer customer;
 
     @BeforeAll
-    static void setup() throws IOException, ApiException {
+    void setup() throws IOException, ApiException {
         TestSetup testSetup = new TestSetup();
         ProductFamily productFamily = testSetup.createProductFamily();
         productFamilyId = productFamily.getId();
@@ -38,7 +38,7 @@ abstract class SubscriptionStatusControllerTestBase {
         customer = testSetup.createCustomer();
     }
 
-    static Subscription createSubscription() throws IOException, ApiException {
+    Subscription createSubscription() throws IOException, ApiException {
         return subscriptionsController.createSubscription(
                 new CreateSubscriptionRequest(
                         new CreateSubscription.Builder()

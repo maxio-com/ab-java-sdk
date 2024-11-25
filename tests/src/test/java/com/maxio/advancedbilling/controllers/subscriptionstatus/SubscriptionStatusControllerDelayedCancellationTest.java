@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.CancellationOptions;
 import com.maxio.advancedbilling.models.CancellationRequest;
@@ -19,10 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubscriptionStatusControllerDelayedCancellationTest extends SubscriptionStatusControllerTestBase {
 
-    private static Subscription subscriptionForErrors;
+    private Subscription subscriptionForErrors;
 
     @BeforeAll
-    static void beforeAll() throws IOException, ApiException {
+    void beforeAll() throws IOException, ApiException {
         subscriptionForErrors = createSubscription();
     }
 
@@ -102,7 +102,7 @@ public class SubscriptionStatusControllerDelayedCancellationTest extends Subscri
     @Test
     void shouldNotCancelSubscriptionProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionStatusController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionStatusController()
                 .initiateDelayedCancellation(subscriptionForErrors.getId(), null));
     }
 

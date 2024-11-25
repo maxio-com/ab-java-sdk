@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.ApplyCreditNoteEvent;
@@ -69,13 +69,12 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
-import static com.maxio.advancedbilling.utils.TestFixtures.SITE_ID;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerListInvoiceEventsTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClient.createClient();
+    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
 
     private static Product product;
@@ -262,7 +261,7 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(refundInvoiceEventData.getCreditNoteAttributes()).isNotNull();
         CreditNote creditNoteAttributes = refundInvoiceEventData.getCreditNoteAttributes();
         assertThat(creditNoteAttributes.getUid()).isNotNull();
-        assertThat(creditNoteAttributes.getSiteId()).isEqualTo(SITE_ID);
+        assertThat(creditNoteAttributes.getSiteId()).isNotNull();
         assertThat(creditNoteAttributes.getCustomerId()).isEqualTo(customer.getId());
         assertThat(creditNoteAttributes.getSubscriptionId()).isEqualTo(subscription.getId());
         assertThat(creditNoteAttributes.getNumber()).isNotNull();
@@ -306,7 +305,7 @@ public class InvoicesControllerListInvoiceEventsTest {
 
         creditNoteAttributes = voidRemainderEventData.getCreditNoteAttributes();
         assertThat(creditNoteAttributes.getUid()).isNotNull();
-        assertThat(creditNoteAttributes.getSiteId()).isEqualTo(SITE_ID);
+        assertThat(creditNoteAttributes.getSiteId()).isNotNull();
         assertThat(creditNoteAttributes.getCustomerId()).isEqualTo(customer.getId());
         assertThat(creditNoteAttributes.getSubscriptionId()).isEqualTo(subscription.getId());
         assertThat(creditNoteAttributes.getNumber()).isNotNull();
@@ -400,7 +399,7 @@ public class InvoicesControllerListInvoiceEventsTest {
     @Test
     void shouldThrowUnauthorizedForInvalidCredentials() {
         // when then
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getInvoicesController()
                 .listInvoiceEvents(new ListInvoiceEventsInput())
         );

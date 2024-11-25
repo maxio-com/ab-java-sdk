@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.customfields;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.CustomFieldsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BasicDateField;
@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CustomFieldsControllerListMetadataForResourceTypeTest {
 
     private static final CustomFieldsController CUSTOM_FIELDS_CONTROLLER =
-            TestClient.createClient().getCustomFieldsController();
+            TestClientProvider.getClient().getCustomFieldsController();
     private static Customer customer;
     private static Customer customer2;
 
@@ -230,7 +230,7 @@ public class CustomFieldsControllerListMetadataForResourceTypeTest {
 
     @Test
     void shouldNotListMetadataWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getCustomFieldsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getCustomFieldsController()
                 .listMetadataForResourceType(
                         new ListMetadataForResourceTypeInput.Builder().resourceType(ResourceType.CUSTOMERS).build())
         );

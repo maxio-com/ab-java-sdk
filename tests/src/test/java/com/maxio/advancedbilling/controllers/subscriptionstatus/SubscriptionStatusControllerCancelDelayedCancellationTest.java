@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.subscriptionstatus;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.DelayedCancellationResponse;
 import com.maxio.advancedbilling.models.Subscription;
@@ -51,7 +51,7 @@ public class SubscriptionStatusControllerCancelDelayedCancellationTest extends S
     @Test
     void shouldNotCancelDelayedCancellationProvidingInvalidCredentials() throws IOException, ApiException {
         Subscription subscription = createSubscription();
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient().getSubscriptionStatusController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionStatusController()
                 .cancelDelayedCancellation(subscription.getId()));
     }
 

@@ -1,7 +1,7 @@
 package com.maxio.advancedbilling.controllers.proformainvoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.ProformaInvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.AllocateComponents;
@@ -50,9 +50,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 abstract class ProformaInvoicesTestBase {
 
-    protected static final TestSetup TEST_SETUP = new TestSetup();
-    protected static final AdvancedBillingClient CLIENT = TestClient.createClient();
-    protected static final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
+    protected final TestSetup TEST_SETUP = new TestSetup();
+    protected final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    protected final ProformaInvoicesController PROFORMA_INVOICES_CONTROLLER = CLIENT
             .getProformaInvoicesController();
 
     protected final Product product;

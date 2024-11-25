@@ -1,6 +1,6 @@
 package com.maxio.advancedbilling.controllers.coupons;
 
-import com.maxio.advancedbilling.TestClient;
+import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.BasicDateField;
 import com.maxio.advancedbilling.models.Coupon;
@@ -21,13 +21,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CouponsControllerListTest extends CouponsControllerTestBase {
 
-    protected static ProductFamily productFamily2;
-    protected static ProductFamily productFamily3;
-    protected static List<Coupon> coupons = new ArrayList<>();
-    protected static ZonedDateTime testStart;
+    protected ProductFamily productFamily2;
+    protected ProductFamily productFamily3;
+    protected List<Coupon> coupons = new ArrayList<>();
+    protected ZonedDateTime testStart;
 
     @BeforeAll
-    static void setupResources() throws IOException, ApiException, InterruptedException {
+    void setupResources() throws IOException, ApiException, InterruptedException {
         Thread.sleep(2000);
         testStart = ZonedDateTime.now();
         Thread.sleep(2000);
@@ -172,7 +172,7 @@ public class CouponsControllerListTest extends CouponsControllerTestBase {
 
     @Test
     void shouldNotListCouponsWhenProvidingInvalidCredentials() {
-        assertUnauthorized(() -> TestClient.createInvalidCredentialsClient()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient()
                 .getCouponsController().listCoupons(new ListCouponsInput())
         );
     }
