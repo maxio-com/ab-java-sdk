@@ -4,8 +4,7 @@ import com.maxio.advancedbilling.authentication.BasicAuthModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestClientProvider {
 
@@ -15,30 +14,27 @@ public class TestClientProvider {
     private static final String PRECONFIGURED_SITE_SUBDOMAIN_ENV = "PRECONFIGURED_SUBDOMAIN";
     private static final String PRECONFIGURED_API_KEY_ENV = "PRECONFIGURED_API_KEY";
     private static final String PASSWORD = "X";
+    private static final AtomicInteger nextIndex = new AtomicInteger(0);
 
-    private static final ConcurrentHashMap<String, AdvancedBillingClient> clients = new ConcurrentHashMap<>();
-    private static final ConcurrentLinkedDeque<AdvancedBillingClient> availableClients = new ConcurrentLinkedDeque<>();
+    private static final ArrayList<AdvancedBillingClient> clients;
     static {
         String[] subdomains = getEnvValue(SUBDOMAINS_ENV).split(",");
         String[] apiKeys = getEnvValue(API_KEYS_ENV).split(",");
         if (subdomains.length != apiKeys.length) {
             throw new RuntimeException("Subdomains and API keys lengths do not match");
         }
+        clients = new ArrayList<>(subdomains.length);
         for (int i = 0; i < subdomains.length; i++) {
-            availableClients.add(createClient(subdomains[i], apiKeys[i]));
+            clients.add(createClient(subdomains[i], apiKeys[i]));
         }
     }
 
     public static AdvancedBillingClient getClient() {
-        if (clients.containsKey(Thread.currentThread().getName())) {
-            return clients.get(Thread.currentThread().getName());
-        }
-        AdvancedBillingClient testClient = availableClients.pollFirst();
-        if (testClient == null) {
+        try {
+            return clients.get(threadIndex.get());
+        } catch (IndexOutOfBoundsException e) {
             throw new RuntimeException("No available client for thread.");
         }
-        clients.put(Thread.currentThread().getName(), testClient);
-        return testClient;
     }
 
     public static AdvancedBillingClient getPreconfiguredSiteClient() {
@@ -58,7 +54,7 @@ public class TestClientProvider {
     }
 
     public static List<AdvancedBillingClient> getAllClients() {
-        return new ArrayList<>(clients.values());
+        return clients;
     }
 
     public static String getEnvValue(String key) {
@@ -80,5 +76,7 @@ public class TestClientProvider {
                 .domain(getEnvValue(DOMAIN_ENV))
                 .build();
     }
+
+    private static final ThreadLocal<Integer> threadIndex = ThreadLocal.withInitial(nextIndex::getAndIncrement);
 
 }
