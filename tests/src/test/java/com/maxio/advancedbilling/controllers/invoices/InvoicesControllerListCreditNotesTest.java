@@ -1,6 +1,8 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
+import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClientProvider;
+import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.Coupon;
@@ -32,26 +34,26 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.INVOICES_CONTROLLER;
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForSubscription;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InvoicesControllerListCreditNotesTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
+    private final TestSetup TEST_SETUP = new TestSetup();
+    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
 
-    private static Product product;
-    private static Component quantityBasedComponent;
-    private static Customer customer;
-    private static Integer subscriptionId;
-    private static Coupon coupon;
-    private static Invoice paidInvoice;
+    private Product product;
+    private Component quantityBasedComponent;
+    private Customer customer;
+    private Integer subscriptionId;
+    private Coupon coupon;
+    private Invoice paidInvoice;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException, InterruptedException {
+    void setUp() throws IOException, ApiException, InterruptedException {
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
         customer = TEST_SETUP.createCustomer();
@@ -67,7 +69,7 @@ class InvoicesControllerListCreditNotesTest {
                 .components(subscriptionComponents)
         );
         subscriptionId = subscription.getId();
-        paidInvoice = getPaidInvoiceForSubscription(subscriptionId);
+        paidInvoice = invoicesControllerUtils.getPaidInvoiceForSubscription(subscriptionId);
         // refund a part of the payment
         INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundInvoice(
@@ -82,7 +84,7 @@ class InvoicesControllerListCreditNotesTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 

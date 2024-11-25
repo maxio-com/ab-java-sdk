@@ -65,23 +65,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 public class SubscriptionsControllerCreateTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
+    private final TestSetup TEST_SETUP = new TestSetup();
+    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    private final SubscriptionsController SUBSCRIPTIONS_CONTROLLER = CLIENT.getSubscriptionsController();
 
-    private static ProductFamily PRODUCT_FAMILY;
-    private static Product PRODUCT;
-    private static Customer CUSTOMER;
+    private ProductFamily PRODUCT_FAMILY;
+    private Product PRODUCT;
+    private Customer CUSTOMER;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         PRODUCT_FAMILY = TEST_SETUP.createProductFamily();
         PRODUCT = TEST_SETUP.createProduct(PRODUCT_FAMILY);
         CUSTOMER = TEST_SETUP.createCustomer();
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(CUSTOMER);
     }
 

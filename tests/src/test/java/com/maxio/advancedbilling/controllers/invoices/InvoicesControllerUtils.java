@@ -1,8 +1,6 @@
 package com.maxio.advancedbilling.controllers.invoices;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
-import com.maxio.advancedbilling.TestClientProvider;
-import com.maxio.advancedbilling.controllers.InvoicesController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceStatus;
@@ -13,22 +11,25 @@ import java.util.List;
 import java.util.function.Consumer;
 
 class InvoicesControllerUtils {
-    static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client;
 
-    static Invoice getPaidInvoiceForCustomer(Integer customerId) throws ApiException, IOException {
+    public InvoicesControllerUtils(AdvancedBillingClient client) {
+        this.client = client;
+    }
+
+    Invoice getPaidInvoiceForCustomer(Integer customerId) throws ApiException, IOException {
         return listInvoices(b -> b.customerIds(List.of(customerId))
                 .status(InvoiceStatus.PAID))
                 .get(0);
     }
 
-    static Invoice getPaidInvoiceForSubscription(Integer subscriptionId) throws ApiException, IOException {
+    Invoice getPaidInvoiceForSubscription(Integer subscriptionId) throws ApiException, IOException {
         return listInvoices(b -> b.subscriptionId(subscriptionId)
                 .status(InvoiceStatus.PAID))
                 .get(0);
     }
 
-    private static List<Invoice> listInvoices(Consumer<ListInvoicesInput.Builder> customizer) throws ApiException, IOException {
+    private List<Invoice> listInvoices(Consumer<ListInvoicesInput.Builder> customizer) throws ApiException, IOException {
         ListInvoicesInput.Builder builder = new ListInvoicesInput.Builder()
                 .lineItems(true)
                 .discounts(true)
@@ -39,7 +40,7 @@ class InvoicesControllerUtils {
                 .refunds(true);
         customizer.accept(builder);
 
-        return INVOICES_CONTROLLER
+        return client.getInvoicesController()
                 .listInvoices(builder.build())
                 .getInvoices();
     }

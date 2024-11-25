@@ -33,29 +33,26 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForCustomer;
-import static com.maxio.advancedbilling.controllers.invoices.InvoicesControllerUtils.getPaidInvoiceForSubscription;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerRefundInvoiceTest {
     private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
+    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
 
-    private static Product product;
-    private static Component meteredComponent;
-    private static Customer customer;
-    private static Subscription subscription;
-    private static Coupon coupon;
-    private static SubscriptionGroupSignupResponse groupSignup;
+    private Product product;
+    private Component meteredComponent;
+    private Customer customer;
+    private Subscription subscription;
+    private Coupon coupon;
+    private SubscriptionGroupSignupResponse groupSignup;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
+    void setUp() throws IOException, ApiException {
         ProductFamily productFamily = TEST_SETUP.createProductFamily();
         product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
         customer = TEST_SETUP.createCustomer();
@@ -81,7 +78,7 @@ public class InvoicesControllerRefundInvoiceTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
@@ -89,7 +86,7 @@ public class InvoicesControllerRefundInvoiceTest {
     void shouldRefundInvoice() throws IOException, ApiException {
         // given
         Integer subscriptionId = subscription.getId();
-        Invoice paidInvoice = getPaidInvoiceForSubscription(subscriptionId);
+        Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForSubscription(subscriptionId);
 
         InvoicePayment payment = paidInvoice.getPayments().get(0);
 
@@ -126,7 +123,7 @@ public class InvoicesControllerRefundInvoiceTest {
         // given
         groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
 
-        Invoice paidInvoice = getPaidInvoiceForCustomer(groupSignup.getCustomerId());
+        Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
         InvoicePayment payment = paidInvoice.getPayments().get(0);
 
@@ -171,7 +168,7 @@ public class InvoicesControllerRefundInvoiceTest {
         // given
         groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
 
-        Invoice paidInvoice = getPaidInvoiceForCustomer(groupSignup.getCustomerId());
+        Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
         Invoice primarySegment = INVOICES_CONTROLLER
                 .listInvoices(new ListInvoicesInput.Builder()
@@ -215,7 +212,7 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldThrowExceptionIfAmountIsInvalid() throws IOException, ApiException {
         // given
-        Invoice paidInvoice = getPaidInvoiceForSubscription(subscription.getId());
+        Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForSubscription(subscription.getId());
 
         InvoicePayment payment = paidInvoice.getPayments().get(0);
 
@@ -237,7 +234,7 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldThrowExceptionIfPaymentDoesNotExist() throws IOException, ApiException {
         // given
-        Invoice paidInvoice = getPaidInvoiceForSubscription(subscription.getId());
+        Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForSubscription(subscription.getId());
 
         // when
         assertThatErrorListResponse(() -> INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
