@@ -10,11 +10,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.ListSubscriptionNotesInput;
 import com.maxio.advancedbilling.models.SubscriptionNoteResponse;
 import com.maxio.advancedbilling.models.UpdateSubscriptionNoteRequest;
 import io.apimatic.core.ApiCall;
+import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
 import io.apimatic.coreinterfaces.http.request.ArraySerializationFormat;
 import java.io.IOException;
@@ -77,6 +79,9 @@ public final class SubscriptionNotesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionNoteResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -120,6 +125,9 @@ public final class SubscriptionNotesController extends BaseController {
                                 response -> ApiHelper.deserializeArray(response,
                                         SubscriptionNoteResponse[].class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -212,6 +220,9 @@ public final class SubscriptionNotesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, SubscriptionNoteResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
