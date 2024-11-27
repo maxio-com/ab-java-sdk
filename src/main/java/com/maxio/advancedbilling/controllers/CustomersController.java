@@ -78,7 +78,7 @@ public final class CustomersController extends BaseController {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/customers.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -126,7 +126,7 @@ public final class CustomersController extends BaseController {
         return new ApiCall.Builder<List<CustomerResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/customers.json")
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
@@ -181,7 +181,7 @@ public final class CustomersController extends BaseController {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/customers/{id}.json")
                         .templateParam(param -> param.key("id").value(id).isRequired(false)
                                 .shouldEncode(true))
@@ -221,7 +221,7 @@ public final class CustomersController extends BaseController {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/customers/{id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -267,7 +267,7 @@ public final class CustomersController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/customers/{id}.json")
                         .templateParam(param -> param.key("id").value(id).isRequired(false)
                                 .shouldEncode(true))
@@ -302,7 +302,7 @@ public final class CustomersController extends BaseController {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/customers/lookup.json")
                         .queryParam(param -> param.key("reference")
                                 .value(reference))
@@ -339,7 +339,7 @@ public final class CustomersController extends BaseController {
         return new ApiCall.Builder<List<SubscriptionResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/customers/{customer_id}/subscriptions.json")
                         .templateParam(param -> param.key("customer_id").value(customerId).isRequired(false)
                                 .shouldEncode(true))

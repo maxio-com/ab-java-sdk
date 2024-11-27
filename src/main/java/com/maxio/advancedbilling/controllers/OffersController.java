@@ -63,7 +63,7 @@ public final class OffersController extends BaseController {
         return new ApiCall.Builder<OfferResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/offers.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -105,7 +105,7 @@ public final class OffersController extends BaseController {
         return new ApiCall.Builder<ListOffersResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/offers.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -147,7 +147,7 @@ public final class OffersController extends BaseController {
         return new ApiCall.Builder<OfferResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/offers/{offer_id}.json")
                         .templateParam(param -> param.key("offer_id").value(offerId).isRequired(false)
                                 .shouldEncode(true))
@@ -183,7 +183,7 @@ public final class OffersController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/offers/{offer_id}/archive.json")
                         .templateParam(param -> param.key("offer_id").value(offerId).isRequired(false)
                                 .shouldEncode(true))
@@ -217,7 +217,7 @@ public final class OffersController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/offers/{offer_id}/unarchive.json")
                         .templateParam(param -> param.key("offer_id").value(offerId).isRequired(false)
                                 .shouldEncode(true))

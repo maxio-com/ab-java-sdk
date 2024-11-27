@@ -77,7 +77,7 @@ public final class BillingPortalController extends BaseController {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/portal/customers/{customer_id}/enable.json")
                         .queryParam(param -> param.key("auto_invite")
                                 .value((autoInvite != null) ? autoInvite.value() : null).isRequired(false))
@@ -126,7 +126,7 @@ public final class BillingPortalController extends BaseController {
         return new ApiCall.Builder<PortalManagementLink, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/portal/customers/{customer_id}/management_link.json")
                         .templateParam(param -> param.key("customer_id").value(customerId).isRequired(false)
                                 .shouldEncode(true))
@@ -176,7 +176,7 @@ public final class BillingPortalController extends BaseController {
         return new ApiCall.Builder<ResentInvitation, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/portal/customers/{customer_id}/invitations/invite.json")
                         .templateParam(param -> param.key("customer_id").value(customerId).isRequired(false)
                                 .shouldEncode(true))
@@ -221,7 +221,7 @@ public final class BillingPortalController extends BaseController {
         return new ApiCall.Builder<RevokedInvitation, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/portal/customers/{customer_id}/invitations/revoke.json")
                         .templateParam(param -> param.key("customer_id").value(customerId).isRequired(false)
                                 .shouldEncode(true))

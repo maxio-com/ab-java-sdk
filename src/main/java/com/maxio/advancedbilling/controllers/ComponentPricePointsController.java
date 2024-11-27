@@ -81,7 +81,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/default.json")
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -123,7 +123,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -170,7 +170,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points.json")
                         .queryParam(param -> param.key("currency_prices")
                                 .value(input.getCurrencyPrices()).isRequired(false))
@@ -219,7 +219,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/bulk.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -274,7 +274,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -332,7 +332,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}.json")
                         .queryParam(param -> param.key("currency_prices")
                                 .value(currencyPrices).isRequired(false))
@@ -381,7 +381,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}.json")
                         .templateParam(param -> param.key("component_id").value(componentId)
                                 .shouldEncode(true))
@@ -427,7 +427,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/unarchive.json")
                         .templateParam(param -> param.key("component_id").value(componentId).isRequired(false)
                                 .shouldEncode(true))
@@ -473,7 +473,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentCurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/price_points/{price_point_id}/currency_prices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -522,7 +522,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ComponentCurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/price_points/{price_point_id}/currency_prices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -566,7 +566,7 @@ public final class ComponentPricePointsController extends BaseController {
         return new ApiCall.Builder<ListComponentsPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components_price_points.json")
                         .queryParam(param -> param.key("include")
                                 .value((input.getInclude() != null) ? input.getInclude().value() : null).isRequired(false))
