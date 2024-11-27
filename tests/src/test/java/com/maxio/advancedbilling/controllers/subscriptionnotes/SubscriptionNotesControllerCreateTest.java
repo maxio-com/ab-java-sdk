@@ -104,7 +104,7 @@ public class SubscriptionNotesControllerCreateTest {
         assertThatErrorListResponse(() -> subscriptionNotesController
                 .createSubscriptionNote(subscription.getId(), createNoteBody("", true)))
                 .hasErrors("Body: cannot be blank.")
-                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[Body: cannot be blank.]}'")
+                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[Body: cannot be blank.]}'.")
                 .hasErrorCode(422);
     }
 

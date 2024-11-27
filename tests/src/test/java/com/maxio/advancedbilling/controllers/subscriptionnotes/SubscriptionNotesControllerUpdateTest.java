@@ -89,7 +89,7 @@ public class SubscriptionNotesControllerUpdateTest {
         assertThatErrorListResponse(() -> subscriptionNotesController
                 .updateSubscriptionNote(subscription.getId(), subscriptionNote.getId(), createNoteBody("", true)))
                 .hasErrors("Body: cannot be blank.")
-                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[Body: cannot be blank.]}'")
+                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[Body: cannot be blank.]}'.")
                 .hasErrorCode(422);
     }
 
@@ -103,7 +103,7 @@ public class SubscriptionNotesControllerUpdateTest {
         assertThatErrorListResponse(() -> subscriptionNotesController
                 .updateSubscriptionNote(subscription.getId(), subscriptionNote.getId(), createNoteBody(newNote, true)))
                 .hasErrors("Body: to do.")
-                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[Body: to do.]}'")
+                .hasMessage("HTTP Response Not OK. Status code: 422. Response: '{errors:[Body: to do.]}'.")
                 .hasErrorCode(422);
     }
 
