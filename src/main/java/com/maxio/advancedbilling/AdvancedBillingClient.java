@@ -554,7 +554,7 @@ public final class AdvancedBillingClient implements Configuration {
      * @return Processed base URI
      */
     public String getBaseUri() {
-        return getBaseUri(Server.ENUM_DEFAULT);
+        return getBaseUri(Server.PRODUCTION);
     }
 
 
@@ -577,13 +577,11 @@ public final class AdvancedBillingClient implements Configuration {
      */
     private static String environmentMapper(Environment environment, Server server) {
         if (environment.equals(Environment.PRODUCTION)) {
-            if (server.equals(Server.ENUM_DEFAULT)) {
+            if (server.equals(Server.PRODUCTION)) {
                 return "https://{subdomain}.{domain}";
             }
-        }
-        if (environment.equals(Environment.ENVIRONMENT2)) {
-            if (server.equals(Server.ENUM_DEFAULT)) {
-                return "https://events.chargify.com";
+            if (server.equals(Server.EBB)) {
+                return "https://events.{domain}/{subdomain}";
             }
         }
         return "https://{subdomain}.{domain}";

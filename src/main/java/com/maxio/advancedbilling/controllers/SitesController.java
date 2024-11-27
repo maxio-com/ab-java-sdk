@@ -58,7 +58,7 @@ public final class SitesController extends BaseController {
         return new ApiCall.Builder<SiteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/site.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -99,7 +99,7 @@ public final class SitesController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/sites/clear_data.json")
                         .queryParam(param -> param.key("cleanup_scope")
                                 .value((cleanupScope != null) ? cleanupScope.value() : "all").isRequired(false))
@@ -133,7 +133,7 @@ public final class SitesController extends BaseController {
         return new ApiCall.Builder<ListPublicKeysResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/chargify_js_keys.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))

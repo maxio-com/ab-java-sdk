@@ -80,7 +80,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<SubscriptionComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -124,7 +124,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<List<SubscriptionComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components.json")
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
@@ -192,7 +192,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<BulkComponentsPricePointAssignment, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/price_points.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -238,7 +238,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/price_points/reset.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -322,7 +322,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<AllocationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -386,7 +386,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<List<AllocationResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations.json")
                         .queryParam(param -> param.key("page")
                                 .value((page != null) ? page : 1).isRequired(false))
@@ -442,7 +442,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<List<AllocationResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/allocations.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -501,7 +501,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<AllocationPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/allocations/preview.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -563,7 +563,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -630,7 +630,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}/allocations/{allocation_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -718,7 +718,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<UsageResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}/usages.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -772,7 +772,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<List<UsageResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/components/{component_id}/usages.json")
                         .queryParam(param -> param.key("since_id")
                                 .value(input.getSinceId()).isRequired(false))
@@ -837,7 +837,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/activate.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -881,7 +881,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/event_based_billing/subscriptions/{subscription_id}/components/{component_id}/deactivate.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -908,7 +908,6 @@ public final class SubscriptionComponentsController extends BaseController {
      * the standard Chargify API endpoints in that the URL subdomain will be `events` and your site
      * subdomain will be included in the URL path. For example:* ```
      * https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle ```.
-     * @param  subdomain  Required parameter: Your site's subdomain
      * @param  apiHandle  Required parameter: Identifies the Stream for which the event should be
      *         published.
      * @param  storeUid  Optional parameter: If you've attached your own Keen project as an Advanced
@@ -918,32 +917,28 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void recordEvent(
-            final String subdomain,
             final String apiHandle,
             final String storeUid,
             final EBBEvent body) throws ApiException, IOException {
-        prepareRecordEventRequest(subdomain, apiHandle, storeUid, body).execute();
+        prepareRecordEventRequest(apiHandle, storeUid, body).execute();
     }
 
     /**
      * Builds the ApiCall object for recordEvent.
      */
     private ApiCall<Void, ApiException> prepareRecordEventRequest(
-            final String subdomain,
             final String apiHandle,
             final String storeUid,
             final EBBEvent body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
-                        .path("/{subdomain}/events/{api_handle}.json")
+                        .server(Server.EBB.value())
+                        .path("/events/{api_handle}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .queryParam(param -> param.key("store_uid")
                                 .value(storeUid).isRequired(false))
-                        .templateParam(param -> param.key("subdomain").value(subdomain)
-                                .shouldEncode(true))
                         .templateParam(param -> param.key("api_handle").value(apiHandle)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
@@ -963,7 +958,6 @@ public final class SubscriptionComponentsController extends BaseController {
      * standard Chargify API endpoints in that the subdomain will be `events` and your site
      * subdomain will be included in the URL path.* A maximum of 1000 events can be published in a
      * single request. A 422 will be returned if this limit is exceeded.
-     * @param  subdomain  Required parameter: Your site's subdomain
      * @param  apiHandle  Required parameter: Identifies the Stream for which the events should be
      *         published.
      * @param  storeUid  Optional parameter: If you've attached your own Keen project as an Advanced
@@ -973,32 +967,28 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public void bulkRecordEvents(
-            final String subdomain,
             final String apiHandle,
             final String storeUid,
             final List<EBBEvent> body) throws ApiException, IOException {
-        prepareBulkRecordEventsRequest(subdomain, apiHandle, storeUid, body).execute();
+        prepareBulkRecordEventsRequest(apiHandle, storeUid, body).execute();
     }
 
     /**
      * Builds the ApiCall object for bulkRecordEvents.
      */
     private ApiCall<Void, ApiException> prepareBulkRecordEventsRequest(
-            final String subdomain,
             final String apiHandle,
             final String storeUid,
             final List<EBBEvent> body) throws JsonProcessingException, IOException {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
-                        .path("/{subdomain}/events/{api_handle}/bulk.json")
+                        .server(Server.EBB.value())
+                        .path("/events/{api_handle}/bulk.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
                         .queryParam(param -> param.key("store_uid")
                                 .value(storeUid).isRequired(false))
-                        .templateParam(param -> param.key("subdomain").value(subdomain)
-                                .shouldEncode(true))
                         .templateParam(param -> param.key("api_handle").value(apiHandle)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("Content-Type")
@@ -1033,7 +1023,7 @@ public final class SubscriptionComponentsController extends BaseController {
         return new ApiCall.Builder<ListSubscriptionComponentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions_components.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))

@@ -65,7 +65,7 @@ public final class ReasonCodesController extends BaseController {
         return new ApiCall.Builder<ReasonCodeResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/reason_codes.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -108,7 +108,7 @@ public final class ReasonCodesController extends BaseController {
         return new ApiCall.Builder<List<ReasonCodeResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/reason_codes.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -152,7 +152,7 @@ public final class ReasonCodesController extends BaseController {
         return new ApiCall.Builder<ReasonCodeResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/reason_codes/{reason_code_id}.json")
                         .templateParam(param -> param.key("reason_code_id").value(reasonCodeId).isRequired(false)
                                 .shouldEncode(true))
@@ -195,7 +195,7 @@ public final class ReasonCodesController extends BaseController {
         return new ApiCall.Builder<ReasonCodeResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/reason_codes/{reason_code_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -243,7 +243,7 @@ public final class ReasonCodesController extends BaseController {
         return new ApiCall.Builder<OkResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/reason_codes/{reason_code_id}.json")
                         .templateParam(param -> param.key("reason_code_id").value(reasonCodeId).isRequired(false)
                                 .shouldEncode(true))

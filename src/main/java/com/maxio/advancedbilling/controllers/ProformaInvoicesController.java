@@ -67,7 +67,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/proforma_invoices.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -107,7 +107,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<ListProformaInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/proforma_invoices.json")
                         .queryParam(param -> param.key("line_items")
                                 .value(input.getLineItems()).isRequired(false))
@@ -160,7 +160,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/proforma_invoices/{proforma_invoice_uid}.json")
                         .templateParam(param -> param.key("proforma_invoice_uid").value(proformaInvoiceUid)
                                 .shouldEncode(true))
@@ -205,7 +205,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/proforma_invoices.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -248,7 +248,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<ListProformaInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/proforma_invoices.json")
                         .queryParam(param -> param.key("start_date")
                                 .value(input.getStartDate()).isRequired(false))
@@ -317,7 +317,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/proforma_invoices/{proforma_invoice_uid}/void.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -375,7 +375,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/proforma_invoices/preview.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -427,7 +427,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/proforma_invoices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -484,7 +484,7 @@ public final class ProformaInvoicesController extends BaseController {
         return new ApiCall.Builder<SignupProformaPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/proforma_invoices/preview.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))

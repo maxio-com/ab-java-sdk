@@ -78,7 +78,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -122,7 +122,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ListProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -178,7 +178,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points/{price_point_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -238,7 +238,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points/{price_point_id}.json")
                         .queryParam(param -> param.key("currency_prices")
                                 .value(currencyPrices).isRequired(false))
@@ -286,7 +286,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points/{price_point_id}.json")
                         .templateParam(param -> param.key("product_id").value(productId)
                                 .shouldEncode(true))
@@ -332,7 +332,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points/{price_point_id}/unarchive.json")
                         .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
                                 .shouldEncode(true))
@@ -376,7 +376,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points/{price_point_id}/default.json")
                         .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
                                 .shouldEncode(true))
@@ -419,7 +419,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<BulkCreateProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}/price_points/bulk.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -471,7 +471,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_price_points/{product_price_point_id}/currency_prices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -523,7 +523,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_price_points/{product_price_point_id}/currency_prices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -567,7 +567,7 @@ public final class ProductPricePointsController extends BaseController {
         return new ApiCall.Builder<ListProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products_price_points.json")
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))

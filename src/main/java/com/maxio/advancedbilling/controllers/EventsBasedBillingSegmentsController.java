@@ -70,7 +70,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
         return new ApiCall.Builder<SegmentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/segments.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -123,7 +123,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
         return new ApiCall.Builder<ListSegmentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/segments.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -186,7 +186,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
         return new ApiCall.Builder<SegmentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/segments/{id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -244,7 +244,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/segments/{id}.json")
                         .templateParam(param -> param.key("component_id").value(componentId)
                                 .shouldEncode(true))
@@ -300,7 +300,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
         return new ApiCall.Builder<ListSegmentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/segments/bulk.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -361,7 +361,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
         return new ApiCall.Builder<ListSegmentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}/price_points/{price_point_id}/segments/bulk.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))

@@ -202,7 +202,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/payment_profiles.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -249,7 +249,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<List<PaymentProfileResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/payment_profiles.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -301,7 +301,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/payment_profiles/{payment_profile_id}.json")
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
@@ -365,7 +365,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/payment_profiles/{payment_profile_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -412,7 +412,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/payment_profiles/{payment_profile_id}.json")
                         .templateParam(param -> param.key("payment_profile_id").value(paymentProfileId).isRequired(false)
                                 .shouldEncode(true))
@@ -460,7 +460,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -500,7 +500,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<BankAccountResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/bank_accounts/{bank_account_id}/verification.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -551,7 +551,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/payment_profiles/{payment_profile_id}.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -593,7 +593,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/payment_profiles/{payment_profile_id}/change_payment_profile.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -646,7 +646,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/payment_profiles/{payment_profile_id}/change_payment_profile.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -692,7 +692,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<GetOneTimeTokenRequest, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/one_time_tokens/{chargify_token}.json")
                         .templateParam(param -> param.key("chargify_token").value(chargifyToken)
                                 .shouldEncode(true))
@@ -741,7 +741,7 @@ public final class PaymentProfilesController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/request_payment_profiles_update.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))

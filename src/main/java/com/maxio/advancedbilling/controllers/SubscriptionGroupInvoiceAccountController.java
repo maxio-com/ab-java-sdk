@@ -64,7 +64,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
         return new ApiCall.Builder<SubscriptionGroupPrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/prepayments.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -108,7 +108,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
         return new ApiCall.Builder<ListSubscriptionGroupPrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/prepayments.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -159,7 +159,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
         return new ApiCall.Builder<ServiceCreditResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/service_credits.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -207,7 +207,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
         return new ApiCall.Builder<ServiceCredit, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/service_credit_deductions.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))

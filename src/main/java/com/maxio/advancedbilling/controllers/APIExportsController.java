@@ -60,7 +60,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<List<ProformaInvoice>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/proforma_invoices/{batch_id}/rows.json")
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
@@ -107,7 +107,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<List<Invoice>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/invoices/{batch_id}/rows.json")
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
@@ -154,7 +154,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<List<Subscription>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/subscriptions/{batch_id}/rows.json")
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
@@ -197,7 +197,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/proforma_invoices.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -235,7 +235,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/invoices.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -273,7 +273,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/subscriptions.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -311,7 +311,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/proforma_invoices/{batch_id}.json")
                         .templateParam(param -> param.key("batch_id").value(batchId)
                                 .shouldEncode(true))
@@ -351,7 +351,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/invoices/{batch_id}.json")
                         .templateParam(param -> param.key("batch_id").value(batchId)
                                 .shouldEncode(true))
@@ -391,7 +391,7 @@ public final class APIExportsController extends BaseController {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/api_exports/subscriptions/{batch_id}.json")
                         .templateParam(param -> param.key("batch_id").value(batchId)
                                 .shouldEncode(true))

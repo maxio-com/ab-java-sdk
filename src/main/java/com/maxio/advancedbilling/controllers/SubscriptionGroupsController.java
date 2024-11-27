@@ -74,7 +74,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<SubscriptionGroupSignupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/signup.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -116,7 +116,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -162,7 +162,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<ListSubscriptionGroupsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -210,7 +210,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<FullSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}.json")
                         .queryParam(param -> param.key("include")
                                 .value(SubscriptionGroupInclude.toValue(include)).isRequired(false))
@@ -255,7 +255,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -299,7 +299,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<DeleteSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -341,7 +341,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<FullSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/lookup.json")
                         .queryParam(param -> param.key("subscription_id")
                                 .value(subscriptionId))
@@ -405,7 +405,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/group.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -449,7 +449,7 @@ public final class SubscriptionGroupsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/group.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))

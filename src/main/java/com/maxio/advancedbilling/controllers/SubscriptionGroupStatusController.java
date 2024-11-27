@@ -61,7 +61,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/cancel.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -104,7 +104,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/delayed_cancel.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -142,7 +142,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/delayed_cancel.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -205,7 +205,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
         return new ApiCall.Builder<ReactivateSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscription_groups/{uid}/reactivate.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))

@@ -77,7 +77,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/coupons.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -123,7 +123,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<List<CouponResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/coupons.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -183,7 +183,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons/find.json")
                         .queryParam(param -> param.key("product_family_id")
                                 .value(productFamilyId).isRequired(false))
@@ -241,7 +241,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/coupons/{coupon_id}.json")
                         .queryParam(param -> param.key("currency_prices")
                                 .value(currencyPrices).isRequired(false))
@@ -292,7 +292,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/coupons/{coupon_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -344,7 +344,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/coupons/{coupon_id}.json")
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
@@ -385,7 +385,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<List<CouponResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -434,7 +434,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<List<CouponUsage>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/coupons/{coupon_id}/usage.json")
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
@@ -491,7 +491,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons/validate.json")
                         .queryParam(param -> param.key("code")
                                 .value(code))
@@ -541,7 +541,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponCurrencyResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons/{coupon_id}/currency_prices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -602,7 +602,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponSubcodesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons/{coupon_id}/codes.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -643,7 +643,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponSubcodes, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons/{coupon_id}/codes.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -691,7 +691,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<CouponSubcodesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons/{coupon_id}/codes.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -742,7 +742,7 @@ public final class CouponsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/coupons/{coupon_id}/codes/{subcode}.json")
                         .templateParam(param -> param.key("coupon_id").value(couponId).isRequired(false)
                                 .shouldEncode(true))

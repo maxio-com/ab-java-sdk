@@ -57,7 +57,7 @@ public final class ProductFamiliesController extends BaseController {
         return new ApiCall.Builder<List<ProductResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/products.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -121,7 +121,7 @@ public final class ProductFamiliesController extends BaseController {
         return new ApiCall.Builder<ProductFamilyResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -163,7 +163,7 @@ public final class ProductFamiliesController extends BaseController {
         return new ApiCall.Builder<List<ProductFamilyResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families.json")
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
@@ -211,7 +211,7 @@ public final class ProductFamiliesController extends BaseController {
         return new ApiCall.Builder<ProductFamilyResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{id}.json")
                         .templateParam(param -> param.key("id").value(id).isRequired(false)
                                 .shouldEncode(true))

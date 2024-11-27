@@ -17,16 +17,20 @@ import java.util.TreeMap;
  * Server to be used.
  */
 public enum Server {
-    ENUM_DEFAULT;
+    PRODUCTION,
+
+    EBB;
 
 
     private static TreeMap<String, Server> valueMap = new TreeMap<>();
     private String value;
 
     static {
-        ENUM_DEFAULT.value = "default";
+        PRODUCTION.value = "production";
+        EBB.value = "ebb";
 
-        valueMap.put("default", ENUM_DEFAULT);
+        valueMap.put("production", PRODUCTION);
+        valueMap.put("ebb", EBB);
     }
 
     /**

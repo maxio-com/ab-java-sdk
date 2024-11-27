@@ -57,7 +57,7 @@ public final class ReferralCodesController extends BaseController {
         return new ApiCall.Builder<ReferralValidationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/referral_codes/validate.json")
                         .queryParam(param -> param.key("code")
                                 .value(code))

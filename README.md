@@ -71,17 +71,6 @@ AdvancedBillingClient client = new AdvancedBillingClient.Builder()
     .build();
 ```
 
-## Environments
-
-The SDK can be configured to use a different environment for making API calls. Available environments are:
-
-### Fields
-
-| Name | Description |
-|  --- | --- |
-| production | **Default** Production server |
-| environment2 | Production server |
-
 ## Authorization
 
 This API uses the following authentication schemes.

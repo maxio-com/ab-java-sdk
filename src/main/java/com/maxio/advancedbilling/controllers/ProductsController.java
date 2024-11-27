@@ -63,7 +63,7 @@ public final class ProductsController extends BaseController {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/products.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -108,7 +108,7 @@ public final class ProductsController extends BaseController {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}.json")
                         .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
                                 .shouldEncode(true))
@@ -152,7 +152,7 @@ public final class ProductsController extends BaseController {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -199,7 +199,7 @@ public final class ProductsController extends BaseController {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/{product_id}.json")
                         .templateParam(param -> param.key("product_id").value(productId).isRequired(false)
                                 .shouldEncode(true))
@@ -239,7 +239,7 @@ public final class ProductsController extends BaseController {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products/handle/{api_handle}.json")
                         .templateParam(param -> param.key("api_handle").value(apiHandle)
                                 .shouldEncode(true))
@@ -276,7 +276,7 @@ public final class ProductsController extends BaseController {
         return new ApiCall.Builder<List<ProductResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/products.json")
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
