@@ -76,7 +76,7 @@ public final class WebhooksController extends BaseController {
         return new ApiCall.Builder<List<WebhookResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/webhooks.json")
                         .queryParam(param -> param.key("status")
                                 .value((input.getStatus() != null) ? input.getStatus().value() : null).isRequired(false))
@@ -126,7 +126,7 @@ public final class WebhooksController extends BaseController {
         return new ApiCall.Builder<EnableWebhooksResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/webhooks/settings.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -167,7 +167,7 @@ public final class WebhooksController extends BaseController {
         return new ApiCall.Builder<ReplayWebhooksResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/webhooks/replay.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -208,7 +208,7 @@ public final class WebhooksController extends BaseController {
         return new ApiCall.Builder<EndpointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/endpoints.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -247,7 +247,7 @@ public final class WebhooksController extends BaseController {
         return new ApiCall.Builder<List<Endpoint>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/endpoints.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -294,7 +294,7 @@ public final class WebhooksController extends BaseController {
         return new ApiCall.Builder<EndpointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/endpoints/{endpoint_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))

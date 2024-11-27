@@ -1417,7 +1417,6 @@ https://events.chargify.com/my-site-subdomain/events/my-stream-api-handle
 
 ```java
 Void recordEvent(
-    final String subdomain,
     final String apiHandle,
     final String storeUid,
     final EBBEvent body)
@@ -1427,10 +1426,13 @@ Void recordEvent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subdomain` | `String` | Template, Required | Your site's subdomain |
 | `apiHandle` | `String` | Template, Required | Identifies the Stream for which the event should be published. |
 | `storeUid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
 | `body` | [`EBBEvent`](../../doc/models/ebb-event.md) | Body, Optional | - |
+
+## Server
+
+`Server.EBB`
 
 ## Response Type
 
@@ -1439,7 +1441,6 @@ Void recordEvent(
 ## Example Usage
 
 ```java
-String subdomain = "subdomain4";
 String apiHandle = "api_handle6";
 EBBEvent body = new EBBEvent.Builder()
     .chargify(new ChargifyEBB.Builder()
@@ -1449,7 +1450,7 @@ EBBEvent body = new EBBEvent.Builder()
     .build();
 
 try {
-    subscriptionComponentsController.recordEvent(subdomain, apiHandle, null, body);
+    subscriptionComponentsController.recordEvent(apiHandle, null, body);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {
@@ -1468,7 +1469,6 @@ A maximum of 1000 events can be published in a single request. A 422 will be ret
 
 ```java
 Void bulkRecordEvents(
-    final String subdomain,
     final String apiHandle,
     final String storeUid,
     final List<EBBEvent> body)
@@ -1478,10 +1478,13 @@ Void bulkRecordEvents(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subdomain` | `String` | Template, Required | Your site's subdomain |
 | `apiHandle` | `String` | Template, Required | Identifies the Stream for which the events should be published. |
 | `storeUid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
 | `body` | [`List<EBBEvent>`](../../doc/models/ebb-event.md) | Body, Optional | - |
+
+## Server
+
+`Server.EBB`
 
 ## Response Type
 
@@ -1490,7 +1493,6 @@ Void bulkRecordEvents(
 ## Example Usage
 
 ```java
-String subdomain = "subdomain4";
 String apiHandle = "api_handle6";
 List<EBBEvent> body = Arrays.asList(
     new EBBEvent.Builder()
@@ -1502,7 +1504,7 @@ List<EBBEvent> body = Arrays.asList(
 );
 
 try {
-    subscriptionComponentsController.bulkRecordEvents(subdomain, apiHandle, null, body);
+    subscriptionComponentsController.bulkRecordEvents(apiHandle, null, body);
 } catch (ApiException e) {
     e.printStackTrace();
 } catch (IOException e) {

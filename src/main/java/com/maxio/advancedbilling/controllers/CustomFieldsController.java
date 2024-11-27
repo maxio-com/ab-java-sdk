@@ -91,7 +91,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<List<Metafield>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/metafields.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -137,7 +137,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<ListMetafieldsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/metafields.json")
                         .queryParam(param -> param.key("name")
                                 .value(input.getName()).isRequired(false))
@@ -186,7 +186,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<List<Metafield>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/metafields.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -235,7 +235,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/metafields.json")
                         .queryParam(param -> param.key("name")
                                 .value(name).isRequired(false))
@@ -299,7 +299,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -348,7 +348,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -399,7 +399,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -463,7 +463,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/{resource_id}/metadata.json")
                         .queryParam(param -> param.key("name")
                                 .value(name).isRequired(false))
@@ -511,7 +511,7 @@ public final class CustomFieldsController extends BaseController {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/{resource_type}/metadata.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))

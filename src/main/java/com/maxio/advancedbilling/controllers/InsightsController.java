@@ -59,7 +59,7 @@ public final class InsightsController extends BaseController {
         return new ApiCall.Builder<SiteSummary, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/stats.json")
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
@@ -102,7 +102,7 @@ public final class InsightsController extends BaseController {
         return new ApiCall.Builder<MRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/mrr.json")
                         .queryParam(param -> param.key("at_time")
                                 .value(DateTimeHelper.toRfc8601DateTime(atTime)).isRequired(false))
@@ -156,7 +156,7 @@ public final class InsightsController extends BaseController {
         return new ApiCall.Builder<ListMRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/mrr_movements.json")
                         .queryParam(param -> param.key("subscription_id")
                                 .value(input.getSubscriptionId()).isRequired(false))
@@ -203,7 +203,7 @@ public final class InsightsController extends BaseController {
         return new ApiCall.Builder<SubscriptionMRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions_mrr.json")
                         .queryParam(param -> param.key("filter")
                                 .value(input.getFilter()).isRequired(false))

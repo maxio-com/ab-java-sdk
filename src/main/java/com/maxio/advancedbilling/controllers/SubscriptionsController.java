@@ -449,7 +449,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -496,7 +496,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<List<SubscriptionResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -604,7 +604,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -654,7 +654,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}.json")
                         .queryParam(param -> param.key("include")
                                 .value(SubscriptionInclude.toValue(include)).isRequired(false))
@@ -716,7 +716,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/override.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -757,7 +757,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/lookup.json")
                         .queryParam(param -> param.key("reference")
                                 .value(reference).isRequired(false))
@@ -810,7 +810,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/purge.json")
                         .queryParam(param -> param.key("ack")
                                 .value(ack).isRequired(false))
@@ -857,7 +857,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<PrepaidConfigurationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/prepaid_configurations.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -922,7 +922,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/preview.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -977,7 +977,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/add_coupon.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -1028,7 +1028,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<String, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/remove_coupon.json")
                         .queryParam(param -> param.key("coupon_code")
                                 .value(couponCode).isRequired(false))
@@ -1097,7 +1097,7 @@ public final class SubscriptionsController extends BaseController {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/activate.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))

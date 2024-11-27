@@ -65,7 +65,7 @@ public final class SalesCommissionsController extends BaseController {
         return new ApiCall.Builder<List<SaleRepSettings>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/sellers/{seller_id}/sales_commission_settings.json")
                         .queryParam(param -> param.key("live_mode")
                                 .value(input.getLiveMode()).isRequired(false))
@@ -121,7 +121,7 @@ public final class SalesCommissionsController extends BaseController {
         return new ApiCall.Builder<List<ListSaleRepItem>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/sellers/{seller_id}/sales_reps.json")
                         .queryParam(param -> param.key("live_mode")
                                 .value(input.getLiveMode()).isRequired(false))
@@ -202,7 +202,7 @@ public final class SalesCommissionsController extends BaseController {
         return new ApiCall.Builder<SaleRep, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/sellers/{seller_id}/sales_reps/{sales_rep_id}.json")
                         .queryParam(param -> param.key("live_mode")
                                 .value(liveMode).isRequired(false))

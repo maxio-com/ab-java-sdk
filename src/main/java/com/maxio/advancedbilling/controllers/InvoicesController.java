@@ -82,7 +82,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/refunds.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -129,7 +129,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<ListInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices.json")
                         .queryParam(param -> param.key("start_date")
                                 .value(input.getStartDate()).isRequired(false))
@@ -214,7 +214,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -259,7 +259,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<ListInvoiceEventsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/events.json")
                         .queryParam(param -> param.key("since_date")
                                 .value(input.getSinceDate()).isRequired(false))
@@ -329,7 +329,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/payments.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -380,7 +380,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<MultiInvoicePaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/payments.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -425,7 +425,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<ListCreditNotesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/credit_notes.json")
                         .queryParam(param -> param.key("subscription_id")
                                 .value(input.getSubscriptionId()).isRequired(false))
@@ -476,7 +476,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<CreditNote, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/credit_notes/{uid}.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -520,7 +520,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<RecordPaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/payments.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -576,7 +576,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/reopen.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -625,7 +625,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/void.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -673,7 +673,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<ConsolidatedInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{invoice_uid}/segments.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -786,7 +786,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<InvoiceResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/invoices.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -843,7 +843,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/deliveries.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -889,7 +889,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<CustomerChangesPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/customer_information/preview.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -937,7 +937,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/customer_information.json")
                         .templateParam(param -> param.key("uid").value(uid)
                                 .shouldEncode(true))
@@ -1002,7 +1002,7 @@ public final class InvoicesController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/invoices/{uid}/issue.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))

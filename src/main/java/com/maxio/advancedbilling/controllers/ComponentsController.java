@@ -75,7 +75,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/metered_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -137,7 +137,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/quantity_based_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -193,7 +193,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/on_off_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -252,7 +252,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/prepaid_usage_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -312,7 +312,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/event_based_components.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -361,7 +361,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/lookup.json")
                         .queryParam(param -> param.key("handle")
                                 .value(handle))
@@ -405,7 +405,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/components/{component_id}.json")
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
@@ -455,7 +455,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/components/{component_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -507,7 +507,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<Component, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/components/{component_id}.json")
                         .templateParam(param -> param.key("product_family_id").value(productFamilyId).isRequired(false)
                                 .shouldEncode(true))
@@ -549,7 +549,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<List<ComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components.json")
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
@@ -607,7 +607,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/components/{component_id}.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -651,7 +651,7 @@ public final class ComponentsController extends BaseController {
         return new ApiCall.Builder<List<ComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/product_families/{product_family_id}/components.json")
                         .queryParam(param -> param.key("include_archived")
                                 .value(input.getIncludeArchived()).isRequired(false))

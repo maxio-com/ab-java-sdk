@@ -27,7 +27,9 @@ public enum InvoiceStatus {
 
     VOIDED,
 
-    CANCELED;
+    CANCELED,
+
+    PROCESSING;
 
 
     private static TreeMap<String, InvoiceStatus> valueMap = new TreeMap<>();
@@ -40,6 +42,7 @@ public enum InvoiceStatus {
         PENDING.value = "pending";
         VOIDED.value = "voided";
         CANCELED.value = "canceled";
+        PROCESSING.value = "processing";
 
         valueMap.put("draft", DRAFT);
         valueMap.put("open", OPEN);
@@ -47,6 +50,7 @@ public enum InvoiceStatus {
         valueMap.put("pending", PENDING);
         valueMap.put("voided", VOIDED);
         valueMap.put("canceled", CANCELED);
+        valueMap.put("processing", PROCESSING);
     }
 
     /**

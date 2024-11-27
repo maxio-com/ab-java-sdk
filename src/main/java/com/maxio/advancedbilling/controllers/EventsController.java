@@ -77,7 +77,7 @@ public final class EventsController extends BaseController {
         return new ApiCall.Builder<List<EventResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/events.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -136,7 +136,7 @@ public final class EventsController extends BaseController {
         return new ApiCall.Builder<List<EventResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/events.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
@@ -186,7 +186,7 @@ public final class EventsController extends BaseController {
         return new ApiCall.Builder<CountResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/events/count.json")
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))

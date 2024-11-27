@@ -67,7 +67,7 @@ public final class AdvanceInvoiceController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/advance_invoice/issue.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
@@ -116,7 +116,7 @@ public final class AdvanceInvoiceController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/advance_invoice.json")
                         .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
                                 .shouldEncode(true))
@@ -163,7 +163,7 @@ public final class AdvanceInvoiceController extends BaseController {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.ENUM_DEFAULT.value())
+                        .server(Server.PRODUCTION.value())
                         .path("/subscriptions/{subscription_id}/advance_invoice/void.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
