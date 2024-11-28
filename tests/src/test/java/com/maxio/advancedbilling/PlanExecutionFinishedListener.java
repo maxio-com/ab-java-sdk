@@ -25,10 +25,10 @@ public class PlanExecutionFinishedListener implements TestExecutionListener {
             try {
                 client.getSitesController().clearSite(CleanupScope.ALL);
                 LOGGER.info(() -> "testPlanExecutionFinished | Successfully cleared site data %s"
-                        .formatted(client.getSubdomain()));
+                        .formatted(client.getSite()));
             } catch (ApiException | IOException e) {
                 LOGGER.error(e, () -> "testPlanExecutionFinished | Failed to clear site data %s"
-                        .formatted(client.getSubdomain()));
+                        .formatted(client.getSite()));
             }
         }
     }
