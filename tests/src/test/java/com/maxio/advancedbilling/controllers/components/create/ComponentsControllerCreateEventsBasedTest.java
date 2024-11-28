@@ -230,7 +230,7 @@ public class ComponentsControllerCreateEventsBasedTest {
     @Test
     void shouldNotCreateComponentWhenProvidingInvalidCredentials() {
         // when - then
-        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient(client.getSubdomain()).getComponentsController()
+        assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient(client.getSite()).getComponentsController()
                 .createEventBasedComponent(String.valueOf(PRECONFIGURED_PRODUCT_FAMILY_ID), new CreateEBBComponent()));
     }
 }
