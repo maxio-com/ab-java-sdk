@@ -48,9 +48,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `"subdomain"` |
-| `domain` | `String` | The Advanced Billing server domain.<br>*Default*: `"chargify.com"` |
-| `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
+| `site` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `"subdomain"` |
+| `environment` | `Environment` | The API environment. <br> **Default: `Environment.US`** |
 | `httpClientConfig` | [`Consumer<HttpClientConfiguration.Builder>`](https://www.github.com/maxio-com/ab-java-sdk/tree/5.2.1/doc/http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
 | `basicAuthCredentials` | [`BasicAuthCredentials`](https://www.github.com/maxio-com/ab-java-sdk/tree/5.2.1/doc/auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
 
@@ -65,11 +64,21 @@ AdvancedBillingClient client = new AdvancedBillingClient.Builder()
             "BasicAuthPassword"
         )
         .build())
-    .environment(Environment.PRODUCTION)
-    .subdomain("subdomain")
-    .domain("chargify.com")
+    .environment(Environment.US)
+    .site("subdomain")
     .build();
 ```
+
+## Environments
+
+The SDK can be configured to use a different environment for making API calls. Available environments are:
+
+### Fields
+
+| Name | Description |
+|  --- | --- |
+| US | **Default** Default Advanced Billing environment hosted in US. Valid for the majority of our customers. |
+| EU | Advanced Billing environment hosted in EU. Use only when you requested EU hosting for your AB account. |
 
 ## Authorization
 

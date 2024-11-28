@@ -5,9 +5,8 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `subdomain` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `"subdomain"` |
-| `domain` | `String` | The Advanced Billing server domain.<br>*Default*: `"chargify.com"` |
-| `environment` | `Environment` | The API environment. <br> **Default: `Environment.PRODUCTION`** |
+| `site` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `"subdomain"` |
+| `environment` | `Environment` | The API environment. <br> **Default: `Environment.US`** |
 | `httpClientConfig` | [`Consumer<HttpClientConfiguration.Builder>`](http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
 | `basicAuthCredentials` | [`BasicAuthCredentials`](auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
 
@@ -22,9 +21,8 @@ AdvancedBillingClient client = new AdvancedBillingClient.Builder()
             "BasicAuthPassword"
         )
         .build())
-    .environment(Environment.PRODUCTION)
-    .subdomain("subdomain")
-    .domain("chargify.com")
+    .environment(Environment.US)
+    .site("subdomain")
     .build();
 ```
 
@@ -75,8 +73,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 |  --- | --- | --- |
 | `shutdown()` | Shutdown the underlying HttpClient instance. | `void` |
 | `getEnvironment()` | Current API environment. | `Environment` |
-| `getSubdomain()` | The subdomain for your Advanced Billing site. | `String` |
-| `getDomain()` | The Advanced Billing server domain. | `String` |
+| `getSite()` | The subdomain for your Advanced Billing site. | `String` |
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
 | `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) |
 | `getBasicAuthCredentials()` | The credentials to use with BasicAuth. | [`BasicAuthCredentials`](auth/basic-authentication.md) |

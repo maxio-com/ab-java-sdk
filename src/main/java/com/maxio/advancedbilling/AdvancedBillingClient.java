@@ -109,12 +109,7 @@ public final class AdvancedBillingClient implements Configuration {
     /**
      * The subdomain for your Advanced Billing site.
      */
-    private final String subdomain;
-
-    /**
-     * The Advanced Billing server domain.
-     */
-    private final String domain;
+    private final String site;
 
     /**
      * The HTTP Client instance to use for making HTTP requests.
@@ -146,12 +141,11 @@ public final class AdvancedBillingClient implements Configuration {
      */
     private final HttpCallback httpCallback;
 
-    private AdvancedBillingClient(Environment environment, String subdomain, String domain,
-            HttpClient httpClient, ReadonlyHttpClientConfiguration httpClientConfig,
-            BasicAuthModel basicAuthModel, HttpCallback httpCallback) {
+    private AdvancedBillingClient(Environment environment, String site, HttpClient httpClient,
+            ReadonlyHttpClientConfiguration httpClientConfig, BasicAuthModel basicAuthModel,
+            HttpCallback httpCallback) {
         this.environment = environment;
-        this.subdomain = subdomain;
-        this.domain = domain;
+        this.site = site;
         this.httpClient = httpClient;
         this.httpClientConfig = httpClientConfig;
         this.httpCallback = httpCallback;
@@ -476,18 +470,10 @@ public final class AdvancedBillingClient implements Configuration {
 
     /**
      * The subdomain for your Advanced Billing site.
-     * @return subdomain
+     * @return site
      */
-    public String getSubdomain() {
-        return subdomain;
-    }
-
-    /**
-     * The Advanced Billing server domain.
-     * @return domain
-     */
-    public String getDomain() {
-        return domain;
+    public String getSite() {
+        return site;
     }
 
     /**
@@ -540,10 +526,8 @@ public final class AdvancedBillingClient implements Configuration {
      */
     public String getBaseUri(Server server) {
         Map<String, SimpleEntry<Object, Boolean>> parameters = new HashMap<>();
-        parameters.put("subdomain",
-                new SimpleEntry<Object, Boolean>(this.subdomain, false));
-        parameters.put("domain",
-                new SimpleEntry<Object, Boolean>(this.domain, false));
+        parameters.put("site",
+                new SimpleEntry<Object, Boolean>(this.site, false));
         StringBuilder baseUrl = new StringBuilder(environmentMapper(environment, server));
         ApiHelper.appendUrlWithTemplateParameters(baseUrl, parameters);
         return baseUrl.toString();
@@ -576,15 +560,23 @@ public final class AdvancedBillingClient implements Configuration {
      * @return base URL
      */
     private static String environmentMapper(Environment environment, Server server) {
-        if (environment.equals(Environment.PRODUCTION)) {
+        if (environment.equals(Environment.US)) {
             if (server.equals(Server.PRODUCTION)) {
-                return "https://{subdomain}.{domain}";
+                return "https://{site}.chargify.com";
             }
             if (server.equals(Server.EBB)) {
-                return "https://events.{domain}/{subdomain}";
+                return "https://events.chargify.com/{site}";
             }
         }
-        return "https://{subdomain}.{domain}";
+        if (environment.equals(Environment.EU)) {
+            if (server.equals(Server.PRODUCTION)) {
+                return "https://{site}.ebilling.maxio.com";
+            }
+            if (server.equals(Server.EBB)) {
+                return "https://events.chargify.com/{site}";
+            }
+        }
+        return "https://{site}.chargify.com";
     }
 
     /**
@@ -593,9 +585,9 @@ public final class AdvancedBillingClient implements Configuration {
      */
     @Override
     public String toString() {
-        return "AdvancedBillingClient [" + "environment=" + environment + ", subdomain=" + subdomain
-                + ", domain=" + domain + ", httpClientConfig=" + httpClientConfig
-                + ", authentications=" + authentications + "]";
+        return "AdvancedBillingClient [" + "environment=" + environment + ", site=" + site
+                + ", httpClientConfig=" + httpClientConfig + ", authentications=" + authentications
+                + "]";
     }
 
     /**
@@ -606,8 +598,7 @@ public final class AdvancedBillingClient implements Configuration {
     public Builder newBuilder() {
         Builder builder = new Builder();
         builder.environment = getEnvironment();
-        builder.subdomain = getSubdomain();
-        builder.domain = getDomain();
+        builder.site = getSite();
         builder.httpClient = getHttpClient();
         builder.basicAuthCredentials(getBasicAuthModel()
                 .toBuilder().build());
@@ -621,9 +612,8 @@ public final class AdvancedBillingClient implements Configuration {
      */
     public static class Builder {
 
-        private Environment environment = Environment.PRODUCTION;
-        private String subdomain = "subdomain";
-        private String domain = "chargify.com";
+        private Environment environment = Environment.US;
+        private String site = "subdomain";
         private HttpClient httpClient;
         private BasicAuthModel basicAuthModel = new BasicAuthModel.Builder("", "").build();
         private HttpCallback httpCallback = null;
@@ -653,21 +643,11 @@ public final class AdvancedBillingClient implements Configuration {
 
         /**
          * The subdomain for your Advanced Billing site.
-         * @param subdomain The subdomain for client.
+         * @param site The site for client.
          * @return Builder
          */
-        public Builder subdomain(String subdomain) {
-            this.subdomain = subdomain;
-            return this;
-        }
-
-        /**
-         * The Advanced Billing server domain.
-         * @param domain The domain for client.
-         * @return Builder
-         */
-        public Builder domain(String domain) {
-            this.domain = domain;
+        public Builder site(String site) {
+            this.site = site;
             return this;
         }
 
@@ -726,8 +706,8 @@ public final class AdvancedBillingClient implements Configuration {
             HttpClientConfiguration httpClientConfig = httpClientConfigBuilder.build();
             httpClient = new OkClient(httpClientConfig.getConfiguration(), compatibilityFactory);
 
-            return new AdvancedBillingClient(environment, subdomain, domain, httpClient,
-                    httpClientConfig, basicAuthModel, httpCallback);
+            return new AdvancedBillingClient(environment, site, httpClient, httpClientConfig,
+                    basicAuthModel, httpCallback);
         }
     }
 }
