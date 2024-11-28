@@ -42,7 +42,10 @@ public class TestClientProvider {
     }
 
     public static AdvancedBillingClient createInvalidCredentialsClient() {
-        String subdomain = getClient().getSubdomain();
+        return createInvalidCredentialsClient(getClient().getSubdomain());
+    }
+
+    public static AdvancedBillingClient createInvalidCredentialsClient(String subdomain) {
         return new AdvancedBillingClient.Builder()
                 .httpClientConfig(configBuilder -> configBuilder.timeout(10))
                 .basicAuthCredentials(new BasicAuthModel.Builder("123", "abc")
