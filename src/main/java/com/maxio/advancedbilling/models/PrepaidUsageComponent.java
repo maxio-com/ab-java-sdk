@@ -29,11 +29,10 @@ public class PrepaidUsageComponent
     private List<Price> prices;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
-    private List<PrepaidComponentPricePoint> pricePoints;
+    private List<CreatePrepaidUsageComponentPricePoint> pricePoints;
     private PrepaidUsageComponentUnitPrice unitPrice;
     private String taxCode;
     private Boolean hideDateRangeOnInvoice;
-    private String priceInCents;
     private OveragePricing overagePricing;
     private Boolean rolloverPrepaidRemainder;
     private Boolean renewPrepaidAllocation;
@@ -53,19 +52,18 @@ public class PrepaidUsageComponent
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  unitName  String value for unitName.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  overagePricing  OveragePricing value for overagePricing.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
-     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  pricePoints  List of PrepaidComponentPricePoint value for pricePoints.
+     * @param  pricePoints  List of CreatePrepaidUsageComponentPricePoint value for pricePoints.
      * @param  unitPrice  PrepaidUsageComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
-     * @param  overagePricing  OveragePricing value for overagePricing.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  expirationInterval  Double value for expirationInterval.
@@ -77,19 +75,18 @@ public class PrepaidUsageComponent
     public PrepaidUsageComponent(
             String name,
             String unitName,
+            PricingScheme pricingScheme,
+            OveragePricing overagePricing,
             String description,
             String handle,
             Boolean taxable,
-            PricingScheme pricingScheme,
             List<Price> prices,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
-            List<PrepaidComponentPricePoint> pricePoints,
+            List<CreatePrepaidUsageComponentPricePoint> pricePoints,
             PrepaidUsageComponentUnitPrice unitPrice,
             String taxCode,
             Boolean hideDateRangeOnInvoice,
-            String priceInCents,
-            OveragePricing overagePricing,
             Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation,
             Double expirationInterval,
@@ -110,7 +107,6 @@ public class PrepaidUsageComponent
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.overagePricing = overagePricing;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
@@ -125,19 +121,18 @@ public class PrepaidUsageComponent
      * Initialization constructor.
      * @param  name  String value for name.
      * @param  unitName  String value for unitName.
+     * @param  pricingScheme  PricingScheme value for pricingScheme.
+     * @param  overagePricing  OveragePricing value for overagePricing.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
-     * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  prices  List of Price value for prices.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  pricePoints  List of PrepaidComponentPricePoint value for pricePoints.
+     * @param  pricePoints  List of CreatePrepaidUsageComponentPricePoint value for pricePoints.
      * @param  unitPrice  PrepaidUsageComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
-     * @param  overagePricing  OveragePricing value for overagePricing.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  expirationInterval  Double value for expirationInterval.
@@ -147,13 +142,13 @@ public class PrepaidUsageComponent
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
      */
 
-    protected PrepaidUsageComponent(String name, String unitName, String description, String handle,
-            Boolean taxable, PricingScheme pricingScheme, List<Price> prices,
-            OptionalNullable<CreditType> upgradeCharge,
+    protected PrepaidUsageComponent(String name, String unitName, PricingScheme pricingScheme,
+            OveragePricing overagePricing, String description, String handle, Boolean taxable,
+            List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit,
-            List<PrepaidComponentPricePoint> pricePoints, PrepaidUsageComponentUnitPrice unitPrice,
-            String taxCode, Boolean hideDateRangeOnInvoice, String priceInCents,
-            OveragePricing overagePricing, Boolean rolloverPrepaidRemainder,
+            List<CreatePrepaidUsageComponentPricePoint> pricePoints,
+            PrepaidUsageComponentUnitPrice unitPrice, String taxCode,
+            Boolean hideDateRangeOnInvoice, Boolean rolloverPrepaidRemainder,
             Boolean renewPrepaidAllocation, Double expirationInterval,
             OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
             Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
@@ -171,7 +166,6 @@ public class PrepaidUsageComponent
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.overagePricing = overagePricing;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
@@ -212,7 +206,6 @@ public class PrepaidUsageComponent
      * @return Returns the String
      */
     @JsonGetter("unit_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getUnitName() {
         return unitName;
     }
@@ -304,7 +297,6 @@ public class PrepaidUsageComponent
      * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public PricingScheme getPricingScheme() {
         return pricingScheme;
     }
@@ -434,20 +426,20 @@ public class PrepaidUsageComponent
 
     /**
      * Getter for PricePoints.
-     * @return Returns the List of PrepaidComponentPricePoint
+     * @return Returns the List of CreatePrepaidUsageComponentPricePoint
      */
     @JsonGetter("price_points")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<PrepaidComponentPricePoint> getPricePoints() {
+    public List<CreatePrepaidUsageComponentPricePoint> getPricePoints() {
         return pricePoints;
     }
 
     /**
      * Setter for PricePoints.
-     * @param pricePoints Value for List of PrepaidComponentPricePoint
+     * @param pricePoints Value for List of CreatePrepaidUsageComponentPricePoint
      */
     @JsonSetter("price_points")
-    public void setPricePoints(List<PrepaidComponentPricePoint> pricePoints) {
+    public void setPricePoints(List<CreatePrepaidUsageComponentPricePoint> pricePoints) {
         this.pricePoints = pricePoints;
     }
 
@@ -527,32 +519,10 @@ public class PrepaidUsageComponent
     }
 
     /**
-     * Getter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @return Returns the String
-     */
-    @JsonGetter("price_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPriceInCents() {
-        return priceInCents;
-    }
-
-    /**
-     * Setter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @param priceInCents Value for String
-     */
-    @JsonSetter("price_in_cents")
-    public void setPriceInCents(String priceInCents) {
-        this.priceInCents = priceInCents;
-    }
-
-    /**
      * Getter for OveragePricing.
      * @return Returns the OveragePricing
      */
     @JsonGetter("overage_pricing")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OveragePricing getOveragePricing() {
         return overagePricing;
     }
@@ -734,12 +704,11 @@ public class PrepaidUsageComponent
     @Override
     public String toString() {
         return "PrepaidUsageComponent [" + "name=" + name + ", unitName=" + unitName
+                + ", pricingScheme=" + pricingScheme + ", overagePricing=" + overagePricing
                 + ", description=" + description + ", handle=" + handle + ", taxable=" + taxable
-                + ", pricingScheme=" + pricingScheme + ", prices=" + prices + ", upgradeCharge="
-                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", pricePoints="
-                + pricePoints + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode
-                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", priceInCents="
-                + priceInCents + ", overagePricing=" + overagePricing
+                + ", prices=" + prices + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit="
+                + downgradeCredit + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
+                + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
                 + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder
                 + ", renewPrepaidAllocation=" + renewPrepaidAllocation + ", expirationInterval="
                 + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
@@ -754,19 +723,15 @@ public class PrepaidUsageComponent
      * @return a new {@link PrepaidUsageComponent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name)
-                .unitName(getUnitName())
+        Builder builder = new Builder(name, unitName, pricingScheme, overagePricing)
                 .description(getDescription())
                 .handle(getHandle())
                 .taxable(getTaxable())
-                .pricingScheme(getPricingScheme())
                 .prices(getPrices())
                 .pricePoints(getPricePoints())
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
-                .priceInCents(getPriceInCents())
-                .overagePricing(getOveragePricing())
                 .rolloverPrepaidRemainder(getRolloverPrepaidRemainder())
                 .renewPrepaidAllocation(getRenewPrepaidAllocation())
                 .expirationInterval(getExpirationInterval())
@@ -785,19 +750,18 @@ public class PrepaidUsageComponent
     public static class Builder {
         private String name;
         private String unitName;
+        private PricingScheme pricingScheme;
+        private OveragePricing overagePricing;
         private String description;
         private String handle;
         private Boolean taxable;
-        private PricingScheme pricingScheme;
         private List<Price> prices;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
-        private List<PrepaidComponentPricePoint> pricePoints;
+        private List<CreatePrepaidUsageComponentPricePoint> pricePoints;
         private PrepaidUsageComponentUnitPrice unitPrice;
         private String taxCode;
         private Boolean hideDateRangeOnInvoice;
-        private String priceInCents;
-        private OveragePricing overagePricing;
         private Boolean rolloverPrepaidRemainder;
         private Boolean renewPrepaidAllocation;
         private Double expirationInterval;
@@ -815,9 +779,16 @@ public class PrepaidUsageComponent
         /**
          * Initialization constructor.
          * @param  name  String value for name.
+         * @param  unitName  String value for unitName.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
+         * @param  overagePricing  OveragePricing value for overagePricing.
          */
-        public Builder(String name) {
+        public Builder(String name, String unitName, PricingScheme pricingScheme,
+                OveragePricing overagePricing) {
             this.name = name;
+            this.unitName = unitName;
+            this.pricingScheme = pricingScheme;
+            this.overagePricing = overagePricing;
         }
 
         /**
@@ -837,6 +808,26 @@ public class PrepaidUsageComponent
          */
         public Builder unitName(String unitName) {
             this.unitName = unitName;
+            return this;
+        }
+
+        /**
+         * Setter for pricingScheme.
+         * @param  pricingScheme  PricingScheme value for pricingScheme.
+         * @return Builder
+         */
+        public Builder pricingScheme(PricingScheme pricingScheme) {
+            this.pricingScheme = pricingScheme;
+            return this;
+        }
+
+        /**
+         * Setter for overagePricing.
+         * @param  overagePricing  OveragePricing value for overagePricing.
+         * @return Builder
+         */
+        public Builder overagePricing(OveragePricing overagePricing) {
+            this.overagePricing = overagePricing;
             return this;
         }
 
@@ -867,16 +858,6 @@ public class PrepaidUsageComponent
          */
         public Builder taxable(Boolean taxable) {
             this.taxable = taxable;
-            return this;
-        }
-
-        /**
-         * Setter for pricingScheme.
-         * @param  pricingScheme  PricingScheme value for pricingScheme.
-         * @return Builder
-         */
-        public Builder pricingScheme(PricingScheme pricingScheme) {
-            this.pricingScheme = pricingScheme;
             return this;
         }
 
@@ -930,10 +911,10 @@ public class PrepaidUsageComponent
 
         /**
          * Setter for pricePoints.
-         * @param  pricePoints  List of PrepaidComponentPricePoint value for pricePoints.
+         * @param  pricePoints  List of CreatePrepaidUsageComponentPricePoint value for pricePoints.
          * @return Builder
          */
-        public Builder pricePoints(List<PrepaidComponentPricePoint> pricePoints) {
+        public Builder pricePoints(List<CreatePrepaidUsageComponentPricePoint> pricePoints) {
             this.pricePoints = pricePoints;
             return this;
         }
@@ -965,26 +946,6 @@ public class PrepaidUsageComponent
          */
         public Builder hideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) {
             this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-            return this;
-        }
-
-        /**
-         * Setter for priceInCents.
-         * @param  priceInCents  String value for priceInCents.
-         * @return Builder
-         */
-        public Builder priceInCents(String priceInCents) {
-            this.priceInCents = priceInCents;
-            return this;
-        }
-
-        /**
-         * Setter for overagePricing.
-         * @param  overagePricing  OveragePricing value for overagePricing.
-         * @return Builder
-         */
-        public Builder overagePricing(OveragePricing overagePricing) {
-            this.overagePricing = overagePricing;
             return this;
         }
 
@@ -1072,9 +1033,9 @@ public class PrepaidUsageComponent
          * @return {@link PrepaidUsageComponent}
          */
         public PrepaidUsageComponent build() {
-            return new PrepaidUsageComponent(name, unitName, description, handle, taxable,
-                    pricingScheme, prices, upgradeCharge, downgradeCredit, pricePoints, unitPrice,
-                    taxCode, hideDateRangeOnInvoice, priceInCents, overagePricing,
+            return new PrepaidUsageComponent(name, unitName, pricingScheme, overagePricing,
+                    description, handle, taxable, prices, upgradeCharge, downgradeCredit,
+                    pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice,
                     rolloverPrepaidRemainder, renewPrepaidAllocation, expirationInterval,
                     expirationIntervalUnit, displayOnHostedPage, allowFractionalQuantities,
                     publicSignupPageIds);

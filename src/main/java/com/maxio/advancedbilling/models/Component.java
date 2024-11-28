@@ -665,8 +665,7 @@ public class Component
 
     /**
      * Internal Getter for OveragePrices.
-     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
-     * will be empty.
+     * Applicable only to prepaid usage components. An array of overage price brackets.
      * @return Returns the Internal List of ComponentPrice
      */
     @JsonGetter("overage_prices")
@@ -678,8 +677,7 @@ public class Component
 
     /**
      * Getter for OveragePrices.
-     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
-     * will be empty.
+     * Applicable only to prepaid usage components. An array of overage price brackets.
      * @return Returns the List of ComponentPrice
      */
     public List<ComponentPrice> getOveragePrices() {
@@ -688,8 +686,7 @@ public class Component
 
     /**
      * Setter for OveragePrices.
-     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
-     * will be empty.
+     * Applicable only to prepaid usage components. An array of overage price brackets.
      * @param overagePrices Value for List of ComponentPrice
      */
     @JsonSetter("overage_prices")
@@ -699,8 +696,7 @@ public class Component
 
     /**
      * UnSetter for OveragePrices.
-     * An array of price brackets. If the component uses the ‘per_unit’ pricing scheme, this array
-     * will be empty.
+     * Applicable only to prepaid usage components. An array of overage price brackets.
      */
     public void unsetOveragePrices() {
         overagePrices = null;

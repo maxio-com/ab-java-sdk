@@ -27,13 +27,10 @@ public class MeteredComponent
     private Boolean taxable;
     private PricingScheme pricingScheme;
     private List<Price> prices;
-    private OptionalNullable<CreditType> upgradeCharge;
-    private OptionalNullable<CreditType> downgradeCredit;
     private List<ComponentPricePointItem> pricePoints;
     private MeteredComponentUnitPrice unitPrice;
     private String taxCode;
     private Boolean hideDateRangeOnInvoice;
-    private String priceInCents;
     private Boolean displayOnHostedPage;
     private Boolean allowFractionalQuantities;
     private List<Integer> publicSignupPageIds;
@@ -55,13 +52,10 @@ public class MeteredComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
-     * @param  upgradeCharge  CreditType value for upgradeCharge.
-     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
      * @param  unitPrice  MeteredComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
@@ -76,13 +70,10 @@ public class MeteredComponent
             String handle,
             Boolean taxable,
             List<Price> prices,
-            CreditType upgradeCharge,
-            CreditType downgradeCredit,
             List<ComponentPricePointItem> pricePoints,
             MeteredComponentUnitPrice unitPrice,
             String taxCode,
             Boolean hideDateRangeOnInvoice,
-            String priceInCents,
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
             List<Integer> publicSignupPageIds,
@@ -95,13 +86,10 @@ public class MeteredComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
-        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
-        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
@@ -118,13 +106,10 @@ public class MeteredComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
-     * @param  upgradeCharge  CreditType value for upgradeCharge.
-     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
      * @param  unitPrice  MeteredComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
@@ -134,11 +119,9 @@ public class MeteredComponent
 
     protected MeteredComponent(String name, String unitName, PricingScheme pricingScheme,
             String description, String handle, Boolean taxable, List<Price> prices,
-            OptionalNullable<CreditType> upgradeCharge,
-            OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
-            MeteredComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
-            String priceInCents, Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
-            List<Integer> publicSignupPageIds, Integer interval,
+            List<ComponentPricePointItem> pricePoints, MeteredComponentUnitPrice unitPrice,
+            String taxCode, Boolean hideDateRangeOnInvoice, Boolean displayOnHostedPage,
+            Boolean allowFractionalQuantities, List<Integer> publicSignupPageIds, Integer interval,
             OptionalNullable<IntervalUnit> intervalUnit) {
         this.name = name;
         this.unitName = unitName;
@@ -147,13 +130,10 @@ public class MeteredComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
-        this.upgradeCharge = upgradeCharge;
-        this.downgradeCredit = downgradeCredit;
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
@@ -324,92 +304,6 @@ public class MeteredComponent
     }
 
     /**
-     * Internal Getter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the Internal CreditType
-     */
-    @JsonGetter("upgrade_charge")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CreditType> internalGetUpgradeCharge() {
-        return this.upgradeCharge;
-    }
-
-    /**
-     * Getter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the CreditType
-     */
-    public CreditType getUpgradeCharge() {
-        return OptionalNullable.getFrom(upgradeCharge);
-    }
-
-    /**
-     * Setter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @param upgradeCharge Value for CreditType
-     */
-    @JsonSetter("upgrade_charge")
-    public void setUpgradeCharge(CreditType upgradeCharge) {
-        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
-    }
-
-    /**
-     * UnSetter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     */
-    public void unsetUpgradeCharge() {
-        upgradeCharge = null;
-    }
-
-    /**
-     * Internal Getter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the Internal CreditType
-     */
-    @JsonGetter("downgrade_credit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CreditType> internalGetDowngradeCredit() {
-        return this.downgradeCredit;
-    }
-
-    /**
-     * Getter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the CreditType
-     */
-    public CreditType getDowngradeCredit() {
-        return OptionalNullable.getFrom(downgradeCredit);
-    }
-
-    /**
-     * Setter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @param downgradeCredit Value for CreditType
-     */
-    @JsonSetter("downgrade_credit")
-    public void setDowngradeCredit(CreditType downgradeCredit) {
-        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
-    }
-
-    /**
-     * UnSetter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     */
-    public void unsetDowngradeCredit() {
-        downgradeCredit = null;
-    }
-
-    /**
      * Getter for PricePoints.
      * @return Returns the List of ComponentPricePointItem
      */
@@ -501,27 +395,6 @@ public class MeteredComponent
     @JsonSetter("hide_date_range_on_invoice")
     public void setHideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) {
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-    }
-
-    /**
-     * Getter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @return Returns the String
-     */
-    @JsonGetter("price_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPriceInCents() {
-        return priceInCents;
-    }
-
-    /**
-     * Setter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @param priceInCents Value for String
-     */
-    @JsonSetter("price_in_cents")
-    public void setPriceInCents(String priceInCents) {
-        this.priceInCents = priceInCents;
     }
 
     /**
@@ -657,14 +530,13 @@ public class MeteredComponent
     public String toString() {
         return "MeteredComponent [" + "name=" + name + ", unitName=" + unitName + ", pricingScheme="
                 + pricingScheme + ", description=" + description + ", handle=" + handle
-                + ", taxable=" + taxable + ", prices=" + prices + ", upgradeCharge=" + upgradeCharge
-                + ", downgradeCredit=" + downgradeCredit + ", pricePoints=" + pricePoints
+                + ", taxable=" + taxable + ", prices=" + prices + ", pricePoints=" + pricePoints
                 + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice="
-                + hideDateRangeOnInvoice + ", priceInCents=" + priceInCents
-                + ", displayOnHostedPage=" + displayOnHostedPage + ", allowFractionalQuantities="
-                + allowFractionalQuantities + ", publicSignupPageIds=" + publicSignupPageIds
-                + ", interval=" + interval + ", intervalUnit=" + intervalUnit
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + hideDateRangeOnInvoice + ", displayOnHostedPage=" + displayOnHostedPage
+                + ", allowFractionalQuantities=" + allowFractionalQuantities
+                + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
+                + ", intervalUnit=" + intervalUnit + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -682,13 +554,10 @@ public class MeteredComponent
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
-                .priceInCents(getPriceInCents())
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .publicSignupPageIds(getPublicSignupPageIds())
                 .interval(getInterval());
-        builder.upgradeCharge = internalGetUpgradeCharge();
-        builder.downgradeCredit = internalGetDowngradeCredit();
         builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
@@ -704,13 +573,10 @@ public class MeteredComponent
         private String handle;
         private Boolean taxable;
         private List<Price> prices;
-        private OptionalNullable<CreditType> upgradeCharge;
-        private OptionalNullable<CreditType> downgradeCredit;
         private List<ComponentPricePointItem> pricePoints;
         private MeteredComponentUnitPrice unitPrice;
         private String taxCode;
         private Boolean hideDateRangeOnInvoice;
-        private String priceInCents;
         private Boolean displayOnHostedPage;
         private Boolean allowFractionalQuantities;
         private List<Integer> publicSignupPageIds;
@@ -806,44 +672,6 @@ public class MeteredComponent
         }
 
         /**
-         * Setter for upgradeCharge.
-         * @param  upgradeCharge  CreditType value for upgradeCharge.
-         * @return Builder
-         */
-        public Builder upgradeCharge(CreditType upgradeCharge) {
-            this.upgradeCharge = OptionalNullable.of(upgradeCharge);
-            return this;
-        }
-
-        /**
-         * UnSetter for upgradeCharge.
-         * @return Builder
-         */
-        public Builder unsetUpgradeCharge() {
-            upgradeCharge = null;
-            return this;
-        }
-
-        /**
-         * Setter for downgradeCredit.
-         * @param  downgradeCredit  CreditType value for downgradeCredit.
-         * @return Builder
-         */
-        public Builder downgradeCredit(CreditType downgradeCredit) {
-            this.downgradeCredit = OptionalNullable.of(downgradeCredit);
-            return this;
-        }
-
-        /**
-         * UnSetter for downgradeCredit.
-         * @return Builder
-         */
-        public Builder unsetDowngradeCredit() {
-            downgradeCredit = null;
-            return this;
-        }
-
-        /**
          * Setter for pricePoints.
          * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
          * @return Builder
@@ -880,16 +708,6 @@ public class MeteredComponent
          */
         public Builder hideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) {
             this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-            return this;
-        }
-
-        /**
-         * Setter for priceInCents.
-         * @param  priceInCents  String value for priceInCents.
-         * @return Builder
-         */
-        public Builder priceInCents(String priceInCents) {
-            this.priceInCents = priceInCents;
             return this;
         }
 
@@ -958,9 +776,9 @@ public class MeteredComponent
          */
         public MeteredComponent build() {
             return new MeteredComponent(name, unitName, pricingScheme, description, handle, taxable,
-                    prices, upgradeCharge, downgradeCredit, pricePoints, unitPrice, taxCode,
-                    hideDateRangeOnInvoice, priceInCents, displayOnHostedPage,
-                    allowFractionalQuantities, publicSignupPageIds, interval, intervalUnit);
+                    prices, pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice,
+                    displayOnHostedPage, allowFractionalQuantities, publicSignupPageIds, interval,
+                    intervalUnit);
         }
     }
 }

@@ -39,6 +39,12 @@ public class ComponentPricePoint
     private OptionalNullable<Integer> interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
     private List<ComponentCurrencyPrice> currencyPrices;
+    private List<ComponentPrice> overagePrices;
+    private PricingScheme overagePricingScheme;
+    private Boolean renewPrepaidAllocation;
+    private Boolean rolloverPrepaidRemainder;
+    private Boolean expirationInterval;
+    private Boolean expirationIntervalUnit;
 
     /**
      * Default constructor.
@@ -65,6 +71,12 @@ public class ComponentPricePoint
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
+     * @param  overagePrices  List of ComponentPrice value for overagePrices.
+     * @param  overagePricingScheme  PricingScheme value for overagePricingScheme.
+     * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
+     * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
+     * @param  expirationInterval  Boolean value for expirationInterval.
+     * @param  expirationIntervalUnit  Boolean value for expirationIntervalUnit.
      */
     public ComponentPricePoint(
             Integer id,
@@ -83,7 +95,13 @@ public class ComponentPricePoint
             Boolean taxIncluded,
             Integer interval,
             IntervalUnit intervalUnit,
-            List<ComponentCurrencyPrice> currencyPrices) {
+            List<ComponentCurrencyPrice> currencyPrices,
+            List<ComponentPrice> overagePrices,
+            PricingScheme overagePricingScheme,
+            Boolean renewPrepaidAllocation,
+            Boolean rolloverPrepaidRemainder,
+            Boolean expirationInterval,
+            Boolean expirationIntervalUnit) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -101,6 +119,12 @@ public class ComponentPricePoint
         this.interval = OptionalNullable.of(interval);
         this.intervalUnit = OptionalNullable.of(intervalUnit);
         this.currencyPrices = currencyPrices;
+        this.overagePrices = overagePrices;
+        this.overagePricingScheme = overagePricingScheme;
+        this.renewPrepaidAllocation = renewPrepaidAllocation;
+        this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
+        this.expirationInterval = expirationInterval;
+        this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
     /**
@@ -122,6 +146,12 @@ public class ComponentPricePoint
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      * @param  currencyPrices  List of ComponentCurrencyPrice value for currencyPrices.
+     * @param  overagePrices  List of ComponentPrice value for overagePrices.
+     * @param  overagePricingScheme  PricingScheme value for overagePricingScheme.
+     * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
+     * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
+     * @param  expirationInterval  Boolean value for expirationInterval.
+     * @param  expirationIntervalUnit  Boolean value for expirationIntervalUnit.
      */
 
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
@@ -130,7 +160,10 @@ public class ComponentPricePoint
             ZonedDateTime updatedAt, List<ComponentPrice> prices, Boolean useSiteExchangeRate,
             Integer subscriptionId, Boolean taxIncluded, OptionalNullable<Integer> interval,
             OptionalNullable<IntervalUnit> intervalUnit,
-            List<ComponentCurrencyPrice> currencyPrices) {
+            List<ComponentCurrencyPrice> currencyPrices, List<ComponentPrice> overagePrices,
+            PricingScheme overagePricingScheme, Boolean renewPrepaidAllocation,
+            Boolean rolloverPrepaidRemainder, Boolean expirationInterval,
+            Boolean expirationIntervalUnit) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -148,6 +181,12 @@ public class ComponentPricePoint
         this.interval = interval;
         this.intervalUnit = intervalUnit;
         this.currencyPrices = currencyPrices;
+        this.overagePrices = overagePrices;
+        this.overagePricingScheme = overagePricingScheme;
+        this.renewPrepaidAllocation = renewPrepaidAllocation;
+        this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
+        this.expirationInterval = expirationInterval;
+        this.expirationIntervalUnit = expirationIntervalUnit;
     }
 
     /**
@@ -595,6 +634,140 @@ public class ComponentPricePoint
     }
 
     /**
+     * Getter for OveragePrices.
+     * Applicable only to prepaid usage components. An array of overage price brackets.
+     * @return Returns the List of ComponentPrice
+     */
+    @JsonGetter("overage_prices")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<ComponentPrice> getOveragePrices() {
+        return overagePrices;
+    }
+
+    /**
+     * Setter for OveragePrices.
+     * Applicable only to prepaid usage components. An array of overage price brackets.
+     * @param overagePrices Value for List of ComponentPrice
+     */
+    @JsonSetter("overage_prices")
+    public void setOveragePrices(List<ComponentPrice> overagePrices) {
+        this.overagePrices = overagePrices;
+    }
+
+    /**
+     * Getter for OveragePricingScheme.
+     * Applicable only to prepaid usage components. Pricing scheme for overage pricing.
+     * @return Returns the PricingScheme
+     */
+    @JsonGetter("overage_pricing_scheme")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PricingScheme getOveragePricingScheme() {
+        return overagePricingScheme;
+    }
+
+    /**
+     * Setter for OveragePricingScheme.
+     * Applicable only to prepaid usage components. Pricing scheme for overage pricing.
+     * @param overagePricingScheme Value for PricingScheme
+     */
+    @JsonSetter("overage_pricing_scheme")
+    public void setOveragePricingScheme(PricingScheme overagePricingScheme) {
+        this.overagePricingScheme = overagePricingScheme;
+    }
+
+    /**
+     * Getter for RenewPrepaidAllocation.
+     * Applicable only to prepaid usage components. Boolean which controls whether or not the
+     * allocated quantity should be renewed at the beginning of each period.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("renew_prepaid_allocation")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getRenewPrepaidAllocation() {
+        return renewPrepaidAllocation;
+    }
+
+    /**
+     * Setter for RenewPrepaidAllocation.
+     * Applicable only to prepaid usage components. Boolean which controls whether or not the
+     * allocated quantity should be renewed at the beginning of each period.
+     * @param renewPrepaidAllocation Value for Boolean
+     */
+    @JsonSetter("renew_prepaid_allocation")
+    public void setRenewPrepaidAllocation(Boolean renewPrepaidAllocation) {
+        this.renewPrepaidAllocation = renewPrepaidAllocation;
+    }
+
+    /**
+     * Getter for RolloverPrepaidRemainder.
+     * Applicable only to prepaid usage components. Boolean which controls whether or not remaining
+     * units should be rolled over to the next period.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("rollover_prepaid_remainder")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getRolloverPrepaidRemainder() {
+        return rolloverPrepaidRemainder;
+    }
+
+    /**
+     * Setter for RolloverPrepaidRemainder.
+     * Applicable only to prepaid usage components. Boolean which controls whether or not remaining
+     * units should be rolled over to the next period.
+     * @param rolloverPrepaidRemainder Value for Boolean
+     */
+    @JsonSetter("rollover_prepaid_remainder")
+    public void setRolloverPrepaidRemainder(Boolean rolloverPrepaidRemainder) {
+        this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
+    }
+
+    /**
+     * Getter for ExpirationInterval.
+     * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. The
+     * number of `expiration_interval_unit`s after which rollover amounts should expire.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("expiration_interval")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getExpirationInterval() {
+        return expirationInterval;
+    }
+
+    /**
+     * Setter for ExpirationInterval.
+     * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. The
+     * number of `expiration_interval_unit`s after which rollover amounts should expire.
+     * @param expirationInterval Value for Boolean
+     */
+    @JsonSetter("expiration_interval")
+    public void setExpirationInterval(Boolean expirationInterval) {
+        this.expirationInterval = expirationInterval;
+    }
+
+    /**
+     * Getter for ExpirationIntervalUnit.
+     * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. A
+     * string representing the expiration interval unit for this component, either month or day.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("expiration_interval_unit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getExpirationIntervalUnit() {
+        return expirationIntervalUnit;
+    }
+
+    /**
+     * Setter for ExpirationIntervalUnit.
+     * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. A
+     * string representing the expiration interval unit for this component, either month or day.
+     * @param expirationIntervalUnit Value for Boolean
+     */
+    @JsonSetter("expiration_interval_unit")
+    public void setExpirationIntervalUnit(Boolean expirationIntervalUnit) {
+        this.expirationIntervalUnit = expirationIntervalUnit;
+    }
+
+    /**
      * Converts this ComponentPricePoint into string format.
      * @return String representation of this class
      */
@@ -607,6 +780,10 @@ public class ComponentPricePoint
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", subscriptionId="
                 + subscriptionId + ", taxIncluded=" + taxIncluded + ", interval=" + interval
                 + ", intervalUnit=" + intervalUnit + ", currencyPrices=" + currencyPrices
+                + ", overagePrices=" + overagePrices + ", overagePricingScheme="
+                + overagePricingScheme + ", renewPrepaidAllocation=" + renewPrepaidAllocation
+                + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder + ", expirationInterval="
+                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
@@ -629,7 +806,13 @@ public class ComponentPricePoint
                 .useSiteExchangeRate(getUseSiteExchangeRate())
                 .subscriptionId(getSubscriptionId())
                 .taxIncluded(getTaxIncluded())
-                .currencyPrices(getCurrencyPrices());
+                .currencyPrices(getCurrencyPrices())
+                .overagePrices(getOveragePrices())
+                .overagePricingScheme(getOveragePricingScheme())
+                .renewPrepaidAllocation(getRenewPrepaidAllocation())
+                .rolloverPrepaidRemainder(getRolloverPrepaidRemainder())
+                .expirationInterval(getExpirationInterval())
+                .expirationIntervalUnit(getExpirationIntervalUnit());
         builder.handle = internalGetHandle();
         builder.archivedAt = internalGetArchivedAt();
         builder.interval = internalGetInterval();
@@ -658,6 +841,12 @@ public class ComponentPricePoint
         private OptionalNullable<Integer> interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
         private List<ComponentCurrencyPrice> currencyPrices;
+        private List<ComponentPrice> overagePrices;
+        private PricingScheme overagePricingScheme;
+        private Boolean renewPrepaidAllocation;
+        private Boolean rolloverPrepaidRemainder;
+        private Boolean expirationInterval;
+        private Boolean expirationIntervalUnit;
 
 
 
@@ -868,13 +1057,75 @@ public class ComponentPricePoint
         }
 
         /**
+         * Setter for overagePrices.
+         * @param  overagePrices  List of ComponentPrice value for overagePrices.
+         * @return Builder
+         */
+        public Builder overagePrices(List<ComponentPrice> overagePrices) {
+            this.overagePrices = overagePrices;
+            return this;
+        }
+
+        /**
+         * Setter for overagePricingScheme.
+         * @param  overagePricingScheme  PricingScheme value for overagePricingScheme.
+         * @return Builder
+         */
+        public Builder overagePricingScheme(PricingScheme overagePricingScheme) {
+            this.overagePricingScheme = overagePricingScheme;
+            return this;
+        }
+
+        /**
+         * Setter for renewPrepaidAllocation.
+         * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
+         * @return Builder
+         */
+        public Builder renewPrepaidAllocation(Boolean renewPrepaidAllocation) {
+            this.renewPrepaidAllocation = renewPrepaidAllocation;
+            return this;
+        }
+
+        /**
+         * Setter for rolloverPrepaidRemainder.
+         * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
+         * @return Builder
+         */
+        public Builder rolloverPrepaidRemainder(Boolean rolloverPrepaidRemainder) {
+            this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
+            return this;
+        }
+
+        /**
+         * Setter for expirationInterval.
+         * @param  expirationInterval  Boolean value for expirationInterval.
+         * @return Builder
+         */
+        public Builder expirationInterval(Boolean expirationInterval) {
+            this.expirationInterval = expirationInterval;
+            return this;
+        }
+
+        /**
+         * Setter for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  Boolean value for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder expirationIntervalUnit(Boolean expirationIntervalUnit) {
+            this.expirationIntervalUnit = expirationIntervalUnit;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ComponentPricePoint} object using the set fields.
          * @return {@link ComponentPricePoint}
          */
         public ComponentPricePoint build() {
             return new ComponentPricePoint(id, type, mDefault, name, pricingScheme, componentId,
                     handle, archivedAt, createdAt, updatedAt, prices, useSiteExchangeRate,
-                    subscriptionId, taxIncluded, interval, intervalUnit, currencyPrices);
+                    subscriptionId, taxIncluded, interval, intervalUnit, currencyPrices,
+                    overagePrices, overagePricingScheme, renewPrepaidAllocation,
+                    rolloverPrepaidRemainder, expirationInterval, expirationIntervalUnit);
         }
     }
 }

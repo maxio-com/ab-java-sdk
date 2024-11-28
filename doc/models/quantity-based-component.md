@@ -22,7 +22,6 @@
 | `UnitPrice` | [`QuantityBasedComponentUnitPrice`](../../doc/models/containers/quantity-based-component-unit-price.md) | Optional | This is a container for one-of cases. | QuantityBasedComponentUnitPrice getUnitPrice() | setUnitPrice(QuantityBasedComponentUnitPrice unitPrice) |
 | `TaxCode` | `String` | Optional | A string representing the tax code related to the component type. This is especially important when using the Avalara service to tax based on locale. This attribute has a max length of 10 characters. | String getTaxCode() | setTaxCode(String taxCode) |
 | `HideDateRangeOnInvoice` | `Boolean` | Optional | (Only available on Relationship Invoicing sites) Boolean flag describing if the service date range should show for the component on generated invoices. | Boolean getHideDateRangeOnInvoice() | setHideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) |
-| `PriceInCents` | `String` | Optional | deprecated May 2011 - use unit_price instead | String getPriceInCents() | setPriceInCents(String priceInCents) |
 | `Recurring` | `Boolean` | Optional | - | Boolean getRecurring() | setRecurring(Boolean recurring) |
 | `DisplayOnHostedPage` | `Boolean` | Optional | - | Boolean getDisplayOnHostedPage() | setDisplayOnHostedPage(Boolean displayOnHostedPage) |
 | `AllowFractionalQuantities` | `Boolean` | Optional | - | Boolean getAllowFractionalQuantities() | setAllowFractionalQuantities(Boolean allowFractionalQuantities) |
