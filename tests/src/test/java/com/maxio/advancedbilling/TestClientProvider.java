@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestClientProvider {
 
-    private static final String DOMAIN_ENV = "DOMAIN";
     private static final String SUBDOMAINS_ENV = "SUBDOMAINS";
     private static final String API_KEYS_ENV = "API_KEYS";
     private static final String PRECONFIGURED_SITE_SUBDOMAIN_ENV = "PRECONFIGURED_SUBDOMAIN";
@@ -42,7 +41,7 @@ public class TestClientProvider {
     }
 
     public static AdvancedBillingClient createInvalidCredentialsClient() {
-        return createInvalidCredentialsClient(getClient().getSubdomain());
+        return createInvalidCredentialsClient(getClient().getSite());
     }
 
     public static AdvancedBillingClient createInvalidCredentialsClient(String subdomain) {
@@ -50,9 +49,7 @@ public class TestClientProvider {
                 .httpClientConfig(configBuilder -> configBuilder.timeout(10))
                 .basicAuthCredentials(new BasicAuthModel.Builder("123", "abc")
                         .build())
-                .environment(Environment.PRODUCTION)
-                .subdomain(subdomain)
-                .domain(getEnvValue(DOMAIN_ENV))
+                .site(subdomain)
                 .build();
     }
 
@@ -74,9 +71,7 @@ public class TestClientProvider {
                 .basicAuthCredentials(
                         new BasicAuthModel.Builder(apiKey, PASSWORD)
                                 .build())
-                .environment(Environment.PRODUCTION)
-                .subdomain(subdomain)
-                .domain(getEnvValue(DOMAIN_ENV))
+                .site(subdomain)
                 .build();
     }
 
