@@ -22,7 +22,6 @@ jobs:
         id: build
         shell: bash
         env:
-          DOMAIN: ${{ secrets.DOMAIN }}
           SUBDOMAINS: ${{ secrets.SUBDOMAINS }}
           API_KEYS: ${{ secrets.API_KEYS }}
           SITE_ID: ${{ secrets.SITE_ID }}

@@ -22,15 +22,9 @@ public interface Configuration {
 
     /**
      * The subdomain for your Advanced Billing site.
-     * @return a copy of subdomain
+     * @return a copy of site
      */
-    String getSubdomain();
-
-    /**
-     * The Advanced Billing server domain.
-     * @return a copy of domain
-     */
-    String getDomain();
+    String getSite();
 
     /**
      * Http Client Configuration instance.

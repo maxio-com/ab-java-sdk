@@ -17,16 +17,26 @@ import java.util.TreeMap;
  * Environment to be used.
  */
 public enum Environment {
-    PRODUCTION;
+    /**
+     * Default Advanced Billing environment hosted in US. Valid for the majority of our customers.
+     */
+    US,
+
+    /**
+     * Advanced Billing environment hosted in EU. Use only when you requested EU hosting for your AB account.
+     */
+    EU;
 
 
     private static TreeMap<String, Environment> valueMap = new TreeMap<>();
     private String value;
 
     static {
-        PRODUCTION.value = "production";
+        US.value = "US";
+        EU.value = "EU";
 
-        valueMap.put("production", PRODUCTION);
+        valueMap.put("US", US);
+        valueMap.put("EU", EU);
     }
 
     /**
