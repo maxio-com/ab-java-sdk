@@ -44,7 +44,7 @@ public class ComponentPricePoint
     private Boolean renewPrepaidAllocation;
     private Boolean rolloverPrepaidRemainder;
     private Boolean expirationInterval;
-    private Boolean expirationIntervalUnit;
+    private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
 
     /**
      * Default constructor.
@@ -76,7 +76,7 @@ public class ComponentPricePoint
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Boolean value for expirationInterval.
-     * @param  expirationIntervalUnit  Boolean value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      */
     public ComponentPricePoint(
             Integer id,
@@ -101,7 +101,7 @@ public class ComponentPricePoint
             Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder,
             Boolean expirationInterval,
-            Boolean expirationIntervalUnit) {
+            ExpirationIntervalUnit expirationIntervalUnit) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -124,7 +124,7 @@ public class ComponentPricePoint
         this.renewPrepaidAllocation = renewPrepaidAllocation;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
         this.expirationInterval = expirationInterval;
-        this.expirationIntervalUnit = expirationIntervalUnit;
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
     }
 
     /**
@@ -151,7 +151,7 @@ public class ComponentPricePoint
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Boolean value for expirationInterval.
-     * @param  expirationIntervalUnit  Boolean value for expirationIntervalUnit.
+     * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      */
 
     protected ComponentPricePoint(Integer id, PricePointType type, Boolean mDefault, String name,
@@ -163,7 +163,7 @@ public class ComponentPricePoint
             List<ComponentCurrencyPrice> currencyPrices, List<ComponentPrice> overagePrices,
             PricingScheme overagePricingScheme, Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder, Boolean expirationInterval,
-            Boolean expirationIntervalUnit) {
+            OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit) {
         this.id = id;
         this.type = type;
         this.mDefault = mDefault;
@@ -745,26 +745,46 @@ public class ComponentPricePoint
     }
 
     /**
-     * Getter for ExpirationIntervalUnit.
+     * Internal Getter for ExpirationIntervalUnit.
      * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. A
      * string representing the expiration interval unit for this component, either month or day.
-     * @return Returns the Boolean
+     * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getExpirationIntervalUnit() {
-        return expirationIntervalUnit;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<ExpirationIntervalUnit> internalGetExpirationIntervalUnit() {
+        return this.expirationIntervalUnit;
+    }
+
+    /**
+     * Getter for ExpirationIntervalUnit.
+     * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. A
+     * string representing the expiration interval unit for this component, either month or day.
+     * @return Returns the ExpirationIntervalUnit
+     */
+    public ExpirationIntervalUnit getExpirationIntervalUnit() {
+        return OptionalNullable.getFrom(expirationIntervalUnit);
     }
 
     /**
      * Setter for ExpirationIntervalUnit.
      * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. A
      * string representing the expiration interval unit for this component, either month or day.
-     * @param expirationIntervalUnit Value for Boolean
+     * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
-    public void setExpirationIntervalUnit(Boolean expirationIntervalUnit) {
-        this.expirationIntervalUnit = expirationIntervalUnit;
+    public void setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+        this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+    }
+
+    /**
+     * UnSetter for ExpirationIntervalUnit.
+     * Applicable only to prepaid usage components where rollover_prepaid_remainder is true. A
+     * string representing the expiration interval unit for this component, either month or day.
+     */
+    public void unsetExpirationIntervalUnit() {
+        expirationIntervalUnit = null;
     }
 
     /**
@@ -811,12 +831,12 @@ public class ComponentPricePoint
                 .overagePricingScheme(getOveragePricingScheme())
                 .renewPrepaidAllocation(getRenewPrepaidAllocation())
                 .rolloverPrepaidRemainder(getRolloverPrepaidRemainder())
-                .expirationInterval(getExpirationInterval())
-                .expirationIntervalUnit(getExpirationIntervalUnit());
+                .expirationInterval(getExpirationInterval());
         builder.handle = internalGetHandle();
         builder.archivedAt = internalGetArchivedAt();
         builder.interval = internalGetInterval();
         builder.intervalUnit = internalGetIntervalUnit();
+        builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
 
@@ -846,7 +866,7 @@ public class ComponentPricePoint
         private Boolean renewPrepaidAllocation;
         private Boolean rolloverPrepaidRemainder;
         private Boolean expirationInterval;
-        private Boolean expirationIntervalUnit;
+        private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
 
 
 
@@ -1108,11 +1128,20 @@ public class ComponentPricePoint
 
         /**
          * Setter for expirationIntervalUnit.
-         * @param  expirationIntervalUnit  Boolean value for expirationIntervalUnit.
+         * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
          * @return Builder
          */
-        public Builder expirationIntervalUnit(Boolean expirationIntervalUnit) {
-            this.expirationIntervalUnit = expirationIntervalUnit;
+        public Builder expirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) {
+            this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
+            return this;
+        }
+
+        /**
+         * UnSetter for expirationIntervalUnit.
+         * @return Builder
+         */
+        public Builder unsetExpirationIntervalUnit() {
+            expirationIntervalUnit = null;
             return this;
         }
 
