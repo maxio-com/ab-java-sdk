@@ -33,7 +33,6 @@ public class QuantityBasedComponent
     private QuantityBasedComponentUnitPrice unitPrice;
     private String taxCode;
     private Boolean hideDateRangeOnInvoice;
-    private String priceInCents;
     private Boolean recurring;
     private Boolean displayOnHostedPage;
     private Boolean allowFractionalQuantities;
@@ -62,7 +61,6 @@ public class QuantityBasedComponent
      * @param  unitPrice  QuantityBasedComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  recurring  Boolean value for recurring.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
@@ -84,7 +82,6 @@ public class QuantityBasedComponent
             QuantityBasedComponentUnitPrice unitPrice,
             String taxCode,
             Boolean hideDateRangeOnInvoice,
-            String priceInCents,
             Boolean recurring,
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
@@ -104,7 +101,6 @@ public class QuantityBasedComponent
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.recurring = recurring;
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
@@ -128,7 +124,6 @@ public class QuantityBasedComponent
      * @param  unitPrice  QuantityBasedComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  recurring  Boolean value for recurring.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
@@ -142,9 +137,8 @@ public class QuantityBasedComponent
             OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
             QuantityBasedComponentUnitPrice unitPrice, String taxCode,
-            Boolean hideDateRangeOnInvoice, String priceInCents, Boolean recurring,
-            Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
-            List<Integer> publicSignupPageIds, Integer interval,
+            Boolean hideDateRangeOnInvoice, Boolean recurring, Boolean displayOnHostedPage,
+            Boolean allowFractionalQuantities, List<Integer> publicSignupPageIds, Integer interval,
             OptionalNullable<IntervalUnit> intervalUnit) {
         this.name = name;
         this.unitName = unitName;
@@ -159,7 +153,6 @@ public class QuantityBasedComponent
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.recurring = recurring;
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
@@ -511,27 +504,6 @@ public class QuantityBasedComponent
     }
 
     /**
-     * Getter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @return Returns the String
-     */
-    @JsonGetter("price_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPriceInCents() {
-        return priceInCents;
-    }
-
-    /**
-     * Setter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @param priceInCents Value for String
-     */
-    @JsonSetter("price_in_cents")
-    public void setPriceInCents(String priceInCents) {
-        this.priceInCents = priceInCents;
-    }
-
-    /**
      * Getter for Recurring.
      * @return Returns the Boolean
      */
@@ -686,12 +658,11 @@ public class QuantityBasedComponent
                 + handle + ", taxable=" + taxable + ", prices=" + prices + ", upgradeCharge="
                 + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", pricePoints="
                 + pricePoints + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode
-                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", priceInCents="
-                + priceInCents + ", recurring=" + recurring + ", displayOnHostedPage="
-                + displayOnHostedPage + ", allowFractionalQuantities=" + allowFractionalQuantities
-                + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
-                + ", intervalUnit=" + intervalUnit + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", recurring=" + recurring
+                + ", displayOnHostedPage=" + displayOnHostedPage + ", allowFractionalQuantities="
+                + allowFractionalQuantities + ", publicSignupPageIds=" + publicSignupPageIds
+                + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -709,7 +680,6 @@ public class QuantityBasedComponent
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
-                .priceInCents(getPriceInCents())
                 .recurring(getRecurring())
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
@@ -738,7 +708,6 @@ public class QuantityBasedComponent
         private QuantityBasedComponentUnitPrice unitPrice;
         private String taxCode;
         private Boolean hideDateRangeOnInvoice;
-        private String priceInCents;
         private Boolean recurring;
         private Boolean displayOnHostedPage;
         private Boolean allowFractionalQuantities;
@@ -913,16 +882,6 @@ public class QuantityBasedComponent
         }
 
         /**
-         * Setter for priceInCents.
-         * @param  priceInCents  String value for priceInCents.
-         * @return Builder
-         */
-        public Builder priceInCents(String priceInCents) {
-            this.priceInCents = priceInCents;
-            return this;
-        }
-
-        /**
          * Setter for recurring.
          * @param  recurring  Boolean value for recurring.
          * @return Builder
@@ -998,7 +957,7 @@ public class QuantityBasedComponent
         public QuantityBasedComponent build() {
             return new QuantityBasedComponent(name, unitName, pricingScheme, description, handle,
                     taxable, prices, upgradeCharge, downgradeCredit, pricePoints, unitPrice,
-                    taxCode, hideDateRangeOnInvoice, priceInCents, recurring, displayOnHostedPage,
+                    taxCode, hideDateRangeOnInvoice, recurring, displayOnHostedPage,
                     allowFractionalQuantities, publicSignupPageIds, interval, intervalUnit);
         }
     }

@@ -246,8 +246,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * Getter for RolloverPrepaidRemainder.
-     * Boolean which controls whether or not remaining units should be rolled over to the next
-     * period
+     * (only for prepaid usage components) Boolean which controls whether or not remaining units
+     * should be rolled over to the next period
      * @return Returns the Boolean
      */
     @JsonGetter("rollover_prepaid_remainder")
@@ -258,8 +258,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * Setter for RolloverPrepaidRemainder.
-     * Boolean which controls whether or not remaining units should be rolled over to the next
-     * period
+     * (only for prepaid usage components) Boolean which controls whether or not remaining units
+     * should be rolled over to the next period
      * @param rolloverPrepaidRemainder Value for Boolean
      */
     @JsonSetter("rollover_prepaid_remainder")
@@ -269,8 +269,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * Getter for RenewPrepaidAllocation.
-     * Boolean which controls whether or not the allocated quantity should be renewed at the
-     * beginning of each period
+     * (only for prepaid usage components) Boolean which controls whether or not the allocated
+     * quantity should be renewed at the beginning of each period
      * @return Returns the Boolean
      */
     @JsonGetter("renew_prepaid_allocation")
@@ -281,8 +281,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * Setter for RenewPrepaidAllocation.
-     * Boolean which controls whether or not the allocated quantity should be renewed at the
-     * beginning of each period
+     * (only for prepaid usage components) Boolean which controls whether or not the allocated
+     * quantity should be renewed at the beginning of each period
      * @param renewPrepaidAllocation Value for Boolean
      */
     @JsonSetter("renew_prepaid_allocation")
@@ -315,7 +315,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * Internal Getter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this component, either month or day
+     * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
+     * representing the expiration interval unit for this component, either month or day
      * @return Returns the Internal ExpirationIntervalUnit
      */
     @JsonGetter("expiration_interval_unit")
@@ -327,7 +328,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * Getter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this component, either month or day
+     * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
+     * representing the expiration interval unit for this component, either month or day
      * @return Returns the ExpirationIntervalUnit
      */
     public ExpirationIntervalUnit getExpirationIntervalUnit() {
@@ -336,7 +338,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * Setter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this component, either month or day
+     * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
+     * representing the expiration interval unit for this component, either month or day
      * @param expirationIntervalUnit Value for ExpirationIntervalUnit
      */
     @JsonSetter("expiration_interval_unit")
@@ -346,7 +349,8 @@ public class CreatePrepaidUsageComponentPricePoint
 
     /**
      * UnSetter for ExpirationIntervalUnit.
-     * A string representing the expiration interval unit for this component, either month or day
+     * (only for prepaid usage components where rollover_prepaid_remainder is true) A string
+     * representing the expiration interval unit for this component, either month or day
      */
     public void unsetExpirationIntervalUnit() {
         expirationIntervalUnit = null;

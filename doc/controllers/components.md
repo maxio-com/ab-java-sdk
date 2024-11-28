@@ -303,21 +303,13 @@ ComponentResponse createOnOffComponent(
 String productFamilyId = "product_family_id4";
 CreateOnOffComponent body = new CreateOnOffComponent.Builder(
     new OnOffComponent.Builder(
-        "Annual Support Services"
+        "Annual Support Services",
+        OnOffComponentUnitPrice.fromString(
+            "100.00"
+        )
     )
     .description("Prepay for support services")
     .taxable(true)
-    .prices(Arrays.asList(
-            new Price.Builder(
-                PriceStartingQuantity.fromString(
-                    "0"
-                ),
-                PriceUnitPrice.fromString(
-                    "100.00"
-                )
-            )
-            .build()
-        ))
     .displayOnHostedPage(true)
     .publicSignupPageIds(Arrays.asList(
             320495
@@ -413,14 +405,10 @@ ComponentResponse createPrepaidUsageComponent(
 String productFamilyId = "product_family_id4";
 CreatePrepaidComponent body = new CreatePrepaidComponent.Builder(
     new PrepaidUsageComponent.Builder(
-        "Minutes"
-    )
-    .unitName("minutes")
-    .pricingScheme(PricingScheme.PER_UNIT)
-    .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(
-            2D
-        ))
-    .overagePricing(new OveragePricing.Builder(
+        "Minutes",
+        "minutes",
+        PricingScheme.PER_UNIT,
+        new OveragePricing.Builder(
             PricingScheme.STAIRSTEP
         )
         .prices(Arrays.asList(
@@ -446,7 +434,11 @@ CreatePrepaidComponent body = new CreatePrepaidComponent.Builder(
                 )
                 .build()
             ))
-        .build())
+        .build()
+    )
+    .unitPrice(PrepaidUsageComponentUnitPrice.fromPrecision(
+            2D
+        ))
     .rolloverPrepaidRemainder(true)
     .renewPrepaidAllocation(true)
     .expirationInterval(15D)

@@ -24,14 +24,12 @@ public class OnOffComponent
     private String description;
     private String handle;
     private Boolean taxable;
-    private List<Price> prices;
     private OptionalNullable<CreditType> upgradeCharge;
     private OptionalNullable<CreditType> downgradeCredit;
     private List<ComponentPricePointItem> pricePoints;
     private OnOffComponentUnitPrice unitPrice;
     private String taxCode;
     private Boolean hideDateRangeOnInvoice;
-    private String priceInCents;
     private Boolean displayOnHostedPage;
     private Boolean allowFractionalQuantities;
     private List<Integer> publicSignupPageIds;
@@ -47,17 +45,15 @@ public class OnOffComponent
     /**
      * Initialization constructor.
      * @param  name  String value for name.
+     * @param  unitPrice  OnOffComponentUnitPrice value for unitPrice.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
-     * @param  prices  List of Price value for prices.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
-     * @param  unitPrice  OnOffComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
@@ -66,17 +62,15 @@ public class OnOffComponent
      */
     public OnOffComponent(
             String name,
+            OnOffComponentUnitPrice unitPrice,
             String description,
             String handle,
             Boolean taxable,
-            List<Price> prices,
             CreditType upgradeCharge,
             CreditType downgradeCredit,
             List<ComponentPricePointItem> pricePoints,
-            OnOffComponentUnitPrice unitPrice,
             String taxCode,
             Boolean hideDateRangeOnInvoice,
-            String priceInCents,
             Boolean displayOnHostedPage,
             Boolean allowFractionalQuantities,
             List<Integer> publicSignupPageIds,
@@ -86,14 +80,12 @@ public class OnOffComponent
         this.description = description;
         this.handle = handle;
         this.taxable = taxable;
-        this.prices = prices;
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
@@ -104,17 +96,15 @@ public class OnOffComponent
     /**
      * Initialization constructor.
      * @param  name  String value for name.
+     * @param  unitPrice  OnOffComponentUnitPrice value for unitPrice.
      * @param  description  String value for description.
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
-     * @param  prices  List of Price value for prices.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
-     * @param  unitPrice  OnOffComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  allowFractionalQuantities  Boolean value for allowFractionalQuantities.
      * @param  publicSignupPageIds  List of Integer value for publicSignupPageIds.
@@ -122,25 +112,22 @@ public class OnOffComponent
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
-    protected OnOffComponent(String name, String description, String handle, Boolean taxable,
-            List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
+    protected OnOffComponent(String name, OnOffComponentUnitPrice unitPrice, String description,
+            String handle, Boolean taxable, OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
-            OnOffComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
-            String priceInCents, Boolean displayOnHostedPage, Boolean allowFractionalQuantities,
-            List<Integer> publicSignupPageIds, Integer interval,
+            String taxCode, Boolean hideDateRangeOnInvoice, Boolean displayOnHostedPage,
+            Boolean allowFractionalQuantities, List<Integer> publicSignupPageIds, Integer interval,
             OptionalNullable<IntervalUnit> intervalUnit) {
         this.name = name;
         this.description = description;
         this.handle = handle;
         this.taxable = taxable;
-        this.prices = prices;
         this.upgradeCharge = upgradeCharge;
         this.downgradeCredit = downgradeCredit;
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.displayOnHostedPage = displayOnHostedPage;
         this.allowFractionalQuantities = allowFractionalQuantities;
         this.publicSignupPageIds = publicSignupPageIds;
@@ -235,31 +222,6 @@ public class OnOffComponent
     @JsonSetter("taxable")
     public void setTaxable(Boolean taxable) {
         this.taxable = taxable;
-    }
-
-    /**
-     * Getter for Prices.
-     * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-Price-Points-Components)
-     * for an overview of how price brackets work for different pricing schemes.
-     * @return Returns the List of Price
-     */
-    @JsonGetter("prices")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<Price> getPrices() {
-        return prices;
-    }
-
-    /**
-     * Setter for Prices.
-     * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261191737101-Price-Points-Components)
-     * for an overview of how price brackets work for different pricing schemes.
-     * @param prices Value for List of Price
-     */
-    @JsonSetter("prices")
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
     }
 
     /**
@@ -369,24 +331,19 @@ public class OnOffComponent
 
     /**
      * Getter for UnitPrice.
-     * The amount the customer will be charged per unit when the pricing scheme is “per_unit”. For
-     * On/Off Components, this is the amount that the customer will be charged when they turn the
-     * component on for the subscription. The price can contain up to 8 decimal places. i.e. 1.00 or
-     * 0.0012 or 0.00000065
+     * This is the amount that the customer will be charged when they turn the component on for the
+     * subscription. The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
      * @return Returns the OnOffComponentUnitPrice
      */
     @JsonGetter("unit_price")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public OnOffComponentUnitPrice getUnitPrice() {
         return unitPrice;
     }
 
     /**
      * Setter for UnitPrice.
-     * The amount the customer will be charged per unit when the pricing scheme is “per_unit”. For
-     * On/Off Components, this is the amount that the customer will be charged when they turn the
-     * component on for the subscription. The price can contain up to 8 decimal places. i.e. 1.00 or
-     * 0.0012 or 0.00000065
+     * This is the amount that the customer will be charged when they turn the component on for the
+     * subscription. The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
      * @param unitPrice Value for OnOffComponentUnitPrice
      */
     @JsonSetter("unit_price")
@@ -440,27 +397,6 @@ public class OnOffComponent
     @JsonSetter("hide_date_range_on_invoice")
     public void setHideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) {
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-    }
-
-    /**
-     * Getter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @return Returns the String
-     */
-    @JsonGetter("price_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPriceInCents() {
-        return priceInCents;
-    }
-
-    /**
-     * Setter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @param priceInCents Value for String
-     */
-    @JsonSetter("price_in_cents")
-    public void setPriceInCents(String priceInCents) {
-        this.priceInCents = priceInCents;
     }
 
     /**
@@ -594,12 +530,11 @@ public class OnOffComponent
      */
     @Override
     public String toString() {
-        return "OnOffComponent [" + "name=" + name + ", description=" + description + ", handle="
-                + handle + ", taxable=" + taxable + ", prices=" + prices + ", upgradeCharge="
+        return "OnOffComponent [" + "name=" + name + ", unitPrice=" + unitPrice + ", description="
+                + description + ", handle=" + handle + ", taxable=" + taxable + ", upgradeCharge="
                 + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", pricePoints="
-                + pricePoints + ", unitPrice=" + unitPrice + ", taxCode=" + taxCode
-                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice + ", priceInCents="
-                + priceInCents + ", displayOnHostedPage=" + displayOnHostedPage
+                + pricePoints + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice="
+                + hideDateRangeOnInvoice + ", displayOnHostedPage=" + displayOnHostedPage
                 + ", allowFractionalQuantities=" + allowFractionalQuantities
                 + ", publicSignupPageIds=" + publicSignupPageIds + ", interval=" + interval
                 + ", intervalUnit=" + intervalUnit + ", additionalProperties="
@@ -612,16 +547,13 @@ public class OnOffComponent
      * @return a new {@link OnOffComponent.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(name)
+        Builder builder = new Builder(name, unitPrice)
                 .description(getDescription())
                 .handle(getHandle())
                 .taxable(getTaxable())
-                .prices(getPrices())
                 .pricePoints(getPricePoints())
-                .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
-                .priceInCents(getPriceInCents())
                 .displayOnHostedPage(getDisplayOnHostedPage())
                 .allowFractionalQuantities(getAllowFractionalQuantities())
                 .publicSignupPageIds(getPublicSignupPageIds())
@@ -637,17 +569,15 @@ public class OnOffComponent
      */
     public static class Builder {
         private String name;
+        private OnOffComponentUnitPrice unitPrice;
         private String description;
         private String handle;
         private Boolean taxable;
-        private List<Price> prices;
         private OptionalNullable<CreditType> upgradeCharge;
         private OptionalNullable<CreditType> downgradeCredit;
         private List<ComponentPricePointItem> pricePoints;
-        private OnOffComponentUnitPrice unitPrice;
         private String taxCode;
         private Boolean hideDateRangeOnInvoice;
-        private String priceInCents;
         private Boolean displayOnHostedPage;
         private Boolean allowFractionalQuantities;
         private List<Integer> publicSignupPageIds;
@@ -663,9 +593,11 @@ public class OnOffComponent
         /**
          * Initialization constructor.
          * @param  name  String value for name.
+         * @param  unitPrice  OnOffComponentUnitPrice value for unitPrice.
          */
-        public Builder(String name) {
+        public Builder(String name, OnOffComponentUnitPrice unitPrice) {
             this.name = name;
+            this.unitPrice = unitPrice;
         }
 
         /**
@@ -675,6 +607,16 @@ public class OnOffComponent
          */
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        /**
+         * Setter for unitPrice.
+         * @param  unitPrice  OnOffComponentUnitPrice value for unitPrice.
+         * @return Builder
+         */
+        public Builder unitPrice(OnOffComponentUnitPrice unitPrice) {
+            this.unitPrice = unitPrice;
             return this;
         }
 
@@ -705,16 +647,6 @@ public class OnOffComponent
          */
         public Builder taxable(Boolean taxable) {
             this.taxable = taxable;
-            return this;
-        }
-
-        /**
-         * Setter for prices.
-         * @param  prices  List of Price value for prices.
-         * @return Builder
-         */
-        public Builder prices(List<Price> prices) {
-            this.prices = prices;
             return this;
         }
 
@@ -767,16 +699,6 @@ public class OnOffComponent
         }
 
         /**
-         * Setter for unitPrice.
-         * @param  unitPrice  OnOffComponentUnitPrice value for unitPrice.
-         * @return Builder
-         */
-        public Builder unitPrice(OnOffComponentUnitPrice unitPrice) {
-            this.unitPrice = unitPrice;
-            return this;
-        }
-
-        /**
          * Setter for taxCode.
          * @param  taxCode  String value for taxCode.
          * @return Builder
@@ -793,16 +715,6 @@ public class OnOffComponent
          */
         public Builder hideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) {
             this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-            return this;
-        }
-
-        /**
-         * Setter for priceInCents.
-         * @param  priceInCents  String value for priceInCents.
-         * @return Builder
-         */
-        public Builder priceInCents(String priceInCents) {
-            this.priceInCents = priceInCents;
             return this;
         }
 
@@ -870,10 +782,10 @@ public class OnOffComponent
          * @return {@link OnOffComponent}
          */
         public OnOffComponent build() {
-            return new OnOffComponent(name, description, handle, taxable, prices, upgradeCharge,
-                    downgradeCredit, pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice,
-                    priceInCents, displayOnHostedPage, allowFractionalQuantities,
-                    publicSignupPageIds, interval, intervalUnit);
+            return new OnOffComponent(name, unitPrice, description, handle, taxable, upgradeCharge,
+                    downgradeCredit, pricePoints, taxCode, hideDateRangeOnInvoice,
+                    displayOnHostedPage, allowFractionalQuantities, publicSignupPageIds, interval,
+                    intervalUnit);
         }
     }
 }

@@ -27,13 +27,10 @@ public class EBBComponent
     private Boolean taxable;
     private PricingScheme pricingScheme;
     private List<Price> prices;
-    private OptionalNullable<CreditType> upgradeCharge;
-    private OptionalNullable<CreditType> downgradeCredit;
     private List<ComponentPricePointItem> pricePoints;
     private EBBComponentUnitPrice unitPrice;
     private String taxCode;
     private Boolean hideDateRangeOnInvoice;
-    private String priceInCents;
     private int eventBasedBillingMetricId;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
@@ -54,13 +51,10 @@ public class EBBComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
-     * @param  upgradeCharge  CreditType value for upgradeCharge.
-     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
      * @param  unitPrice  EBBComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
@@ -73,13 +67,10 @@ public class EBBComponent
             String handle,
             Boolean taxable,
             List<Price> prices,
-            CreditType upgradeCharge,
-            CreditType downgradeCredit,
             List<ComponentPricePointItem> pricePoints,
             EBBComponentUnitPrice unitPrice,
             String taxCode,
             Boolean hideDateRangeOnInvoice,
-            String priceInCents,
             Integer interval,
             IntervalUnit intervalUnit) {
         this.name = name;
@@ -89,13 +80,10 @@ public class EBBComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
-        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
-        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
@@ -111,23 +99,19 @@ public class EBBComponent
      * @param  handle  String value for handle.
      * @param  taxable  Boolean value for taxable.
      * @param  prices  List of Price value for prices.
-     * @param  upgradeCharge  CreditType value for upgradeCharge.
-     * @param  downgradeCredit  CreditType value for downgradeCredit.
      * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
      * @param  unitPrice  EBBComponentUnitPrice value for unitPrice.
      * @param  taxCode  String value for taxCode.
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
-     * @param  priceInCents  String value for priceInCents.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
      */
 
     protected EBBComponent(String name, String unitName, PricingScheme pricingScheme,
             int eventBasedBillingMetricId, String description, String handle, Boolean taxable,
-            List<Price> prices, OptionalNullable<CreditType> upgradeCharge,
-            OptionalNullable<CreditType> downgradeCredit, List<ComponentPricePointItem> pricePoints,
+            List<Price> prices, List<ComponentPricePointItem> pricePoints,
             EBBComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
-            String priceInCents, Integer interval, OptionalNullable<IntervalUnit> intervalUnit) {
+            Integer interval, OptionalNullable<IntervalUnit> intervalUnit) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -135,13 +119,10 @@ public class EBBComponent
         this.taxable = taxable;
         this.pricingScheme = pricingScheme;
         this.prices = prices;
-        this.upgradeCharge = upgradeCharge;
-        this.downgradeCredit = downgradeCredit;
         this.pricePoints = pricePoints;
         this.unitPrice = unitPrice;
         this.taxCode = taxCode;
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-        this.priceInCents = priceInCents;
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
@@ -287,7 +268,7 @@ public class EBBComponent
     /**
      * Getter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://help.chargify.com/products/product-components.html#general-price-bracket-rules)
+     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @return Returns the List of Price
      */
@@ -300,99 +281,13 @@ public class EBBComponent
     /**
      * Setter for Prices.
      * (Not required for ‘per_unit’ pricing schemes) One or more price brackets. See [Price Bracket
-     * Rules](https://help.chargify.com/products/product-components.html#general-price-bracket-rules)
+     * Rules](https://maxio.zendesk.com/hc/en-us/articles/24261149166733-Component-Pricing-Schemes#price-bracket-rules)
      * for an overview of how price brackets work for different pricing schemes.
      * @param prices Value for List of Price
      */
     @JsonSetter("prices")
     public void setPrices(List<Price> prices) {
         this.prices = prices;
-    }
-
-    /**
-     * Internal Getter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the Internal CreditType
-     */
-    @JsonGetter("upgrade_charge")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CreditType> internalGetUpgradeCharge() {
-        return this.upgradeCharge;
-    }
-
-    /**
-     * Getter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the CreditType
-     */
-    public CreditType getUpgradeCharge() {
-        return OptionalNullable.getFrom(upgradeCharge);
-    }
-
-    /**
-     * Setter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @param upgradeCharge Value for CreditType
-     */
-    @JsonSetter("upgrade_charge")
-    public void setUpgradeCharge(CreditType upgradeCharge) {
-        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
-    }
-
-    /**
-     * UnSetter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     */
-    public void unsetUpgradeCharge() {
-        upgradeCharge = null;
-    }
-
-    /**
-     * Internal Getter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the Internal CreditType
-     */
-    @JsonGetter("downgrade_credit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CreditType> internalGetDowngradeCredit() {
-        return this.downgradeCredit;
-    }
-
-    /**
-     * Getter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the CreditType
-     */
-    public CreditType getDowngradeCredit() {
-        return OptionalNullable.getFrom(downgradeCredit);
-    }
-
-    /**
-     * Setter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @param downgradeCredit Value for CreditType
-     */
-    @JsonSetter("downgrade_credit")
-    public void setDowngradeCredit(CreditType downgradeCredit) {
-        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
-    }
-
-    /**
-     * UnSetter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     */
-    public void unsetDowngradeCredit() {
-        downgradeCredit = null;
     }
 
     /**
@@ -483,27 +378,6 @@ public class EBBComponent
     @JsonSetter("hide_date_range_on_invoice")
     public void setHideDateRangeOnInvoice(Boolean hideDateRangeOnInvoice) {
         this.hideDateRangeOnInvoice = hideDateRangeOnInvoice;
-    }
-
-    /**
-     * Getter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @return Returns the String
-     */
-    @JsonGetter("price_in_cents")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getPriceInCents() {
-        return priceInCents;
-    }
-
-    /**
-     * Setter for PriceInCents.
-     * deprecated May 2011 - use unit_price instead
-     * @param priceInCents Value for String
-     */
-    @JsonSetter("price_in_cents")
-    public void setPriceInCents(String priceInCents) {
-        this.priceInCents = priceInCents;
     }
 
     /**
@@ -603,11 +477,10 @@ public class EBBComponent
         return "EBBComponent [" + "name=" + name + ", unitName=" + unitName + ", pricingScheme="
                 + pricingScheme + ", eventBasedBillingMetricId=" + eventBasedBillingMetricId
                 + ", description=" + description + ", handle=" + handle + ", taxable=" + taxable
-                + ", prices=" + prices + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit="
-                + downgradeCredit + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
+                + ", prices=" + prices + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
                 + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
-                + ", priceInCents=" + priceInCents + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", interval=" + interval + ", intervalUnit=" + intervalUnit
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -625,10 +498,7 @@ public class EBBComponent
                 .unitPrice(getUnitPrice())
                 .taxCode(getTaxCode())
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
-                .priceInCents(getPriceInCents())
                 .interval(getInterval());
-        builder.upgradeCharge = internalGetUpgradeCharge();
-        builder.downgradeCredit = internalGetDowngradeCredit();
         builder.intervalUnit = internalGetIntervalUnit();
         return builder;
     }
@@ -645,13 +515,10 @@ public class EBBComponent
         private String handle;
         private Boolean taxable;
         private List<Price> prices;
-        private OptionalNullable<CreditType> upgradeCharge;
-        private OptionalNullable<CreditType> downgradeCredit;
         private List<ComponentPricePointItem> pricePoints;
         private EBBComponentUnitPrice unitPrice;
         private String taxCode;
         private Boolean hideDateRangeOnInvoice;
-        private String priceInCents;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
 
@@ -757,44 +624,6 @@ public class EBBComponent
         }
 
         /**
-         * Setter for upgradeCharge.
-         * @param  upgradeCharge  CreditType value for upgradeCharge.
-         * @return Builder
-         */
-        public Builder upgradeCharge(CreditType upgradeCharge) {
-            this.upgradeCharge = OptionalNullable.of(upgradeCharge);
-            return this;
-        }
-
-        /**
-         * UnSetter for upgradeCharge.
-         * @return Builder
-         */
-        public Builder unsetUpgradeCharge() {
-            upgradeCharge = null;
-            return this;
-        }
-
-        /**
-         * Setter for downgradeCredit.
-         * @param  downgradeCredit  CreditType value for downgradeCredit.
-         * @return Builder
-         */
-        public Builder downgradeCredit(CreditType downgradeCredit) {
-            this.downgradeCredit = OptionalNullable.of(downgradeCredit);
-            return this;
-        }
-
-        /**
-         * UnSetter for downgradeCredit.
-         * @return Builder
-         */
-        public Builder unsetDowngradeCredit() {
-            downgradeCredit = null;
-            return this;
-        }
-
-        /**
          * Setter for pricePoints.
          * @param  pricePoints  List of ComponentPricePointItem value for pricePoints.
          * @return Builder
@@ -835,16 +664,6 @@ public class EBBComponent
         }
 
         /**
-         * Setter for priceInCents.
-         * @param  priceInCents  String value for priceInCents.
-         * @return Builder
-         */
-        public Builder priceInCents(String priceInCents) {
-            this.priceInCents = priceInCents;
-            return this;
-        }
-
-        /**
          * Setter for interval.
          * @param  interval  Integer value for interval.
          * @return Builder
@@ -879,9 +698,8 @@ public class EBBComponent
          */
         public EBBComponent build() {
             return new EBBComponent(name, unitName, pricingScheme, eventBasedBillingMetricId,
-                    description, handle, taxable, prices, upgradeCharge, downgradeCredit,
-                    pricePoints, unitPrice, taxCode, hideDateRangeOnInvoice, priceInCents, interval,
-                    intervalUnit);
+                    description, handle, taxable, prices, pricePoints, unitPrice, taxCode,
+                    hideDateRangeOnInvoice, interval, intervalUnit);
         }
     }
 }
