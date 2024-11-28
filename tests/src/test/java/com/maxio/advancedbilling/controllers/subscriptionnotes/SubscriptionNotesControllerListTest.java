@@ -19,6 +19,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.RequestUtils.createNoteBody;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
@@ -84,6 +87,10 @@ public class SubscriptionNotesControllerListTest {
                 .hasSize(2);
         assertThat(bigPage)
                 .hasSize(8);
+        Set<Integer> notedIds = Stream.concat(page1.stream(), page2.stream())
+                .map(n -> n.getNote().getId())
+                .collect(Collectors.toSet());
+        assertThat(notedIds).hasSize(4);
     }
 
     @Test
