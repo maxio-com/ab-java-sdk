@@ -159,7 +159,6 @@ public class OffersControllerCreateTest {
     @Test
     void shouldCreateOfferWithoutItems() throws ApiException, IOException {
         // given
-        ZonedDateTime before = ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         String handle = "test-handle-no-items-" + randomAlphabetic(10).toLowerCase();
         String name = "test offer no items " + randomAlphabetic(10).toLowerCase();
 
