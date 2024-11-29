@@ -20,6 +20,8 @@ public class CurrencyPrice
     private String currency;
     private Double price;
     private String formattedPrice;
+    private Integer priceId;
+    private Integer pricePointId;
     private Integer productPricePointId;
     private CurrencyPriceRole role;
 
@@ -35,6 +37,8 @@ public class CurrencyPrice
      * @param  currency  String value for currency.
      * @param  price  Double value for price.
      * @param  formattedPrice  String value for formattedPrice.
+     * @param  priceId  Integer value for priceId.
+     * @param  pricePointId  Integer value for pricePointId.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  role  CurrencyPriceRole value for role.
      */
@@ -43,12 +47,16 @@ public class CurrencyPrice
             String currency,
             Double price,
             String formattedPrice,
+            Integer priceId,
+            Integer pricePointId,
             Integer productPricePointId,
             CurrencyPriceRole role) {
         this.id = id;
         this.currency = currency;
         this.price = price;
         this.formattedPrice = formattedPrice;
+        this.priceId = priceId;
+        this.pricePointId = pricePointId;
         this.productPricePointId = productPricePointId;
         this.role = role;
     }
@@ -130,6 +138,44 @@ public class CurrencyPrice
     }
 
     /**
+     * Getter for PriceId.
+     * @return Returns the Integer
+     */
+    @JsonGetter("price_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getPriceId() {
+        return priceId;
+    }
+
+    /**
+     * Setter for PriceId.
+     * @param priceId Value for Integer
+     */
+    @JsonSetter("price_id")
+    public void setPriceId(Integer priceId) {
+        this.priceId = priceId;
+    }
+
+    /**
+     * Getter for PricePointId.
+     * @return Returns the Integer
+     */
+    @JsonGetter("price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getPricePointId() {
+        return pricePointId;
+    }
+
+    /**
+     * Setter for PricePointId.
+     * @param pricePointId Value for Integer
+     */
+    @JsonSetter("price_point_id")
+    public void setPricePointId(Integer pricePointId) {
+        this.pricePointId = pricePointId;
+    }
+
+    /**
      * Getter for ProductPricePointId.
      * @return Returns the Integer
      */
@@ -176,9 +222,9 @@ public class CurrencyPrice
     @Override
     public String toString() {
         return "CurrencyPrice [" + "id=" + id + ", currency=" + currency + ", price=" + price
-                + ", formattedPrice=" + formattedPrice + ", productPricePointId="
-                + productPricePointId + ", role=" + role + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", formattedPrice=" + formattedPrice + ", priceId=" + priceId + ", pricePointId="
+                + pricePointId + ", productPricePointId=" + productPricePointId + ", role=" + role
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -192,6 +238,8 @@ public class CurrencyPrice
                 .currency(getCurrency())
                 .price(getPrice())
                 .formattedPrice(getFormattedPrice())
+                .priceId(getPriceId())
+                .pricePointId(getPricePointId())
                 .productPricePointId(getProductPricePointId())
                 .role(getRole());
         return builder;
@@ -205,6 +253,8 @@ public class CurrencyPrice
         private String currency;
         private Double price;
         private String formattedPrice;
+        private Integer priceId;
+        private Integer pricePointId;
         private Integer productPricePointId;
         private CurrencyPriceRole role;
 
@@ -251,6 +301,26 @@ public class CurrencyPrice
         }
 
         /**
+         * Setter for priceId.
+         * @param  priceId  Integer value for priceId.
+         * @return Builder
+         */
+        public Builder priceId(Integer priceId) {
+            this.priceId = priceId;
+            return this;
+        }
+
+        /**
+         * Setter for pricePointId.
+         * @param  pricePointId  Integer value for pricePointId.
+         * @return Builder
+         */
+        public Builder pricePointId(Integer pricePointId) {
+            this.pricePointId = pricePointId;
+            return this;
+        }
+
+        /**
          * Setter for productPricePointId.
          * @param  productPricePointId  Integer value for productPricePointId.
          * @return Builder
@@ -275,8 +345,8 @@ public class CurrencyPrice
          * @return {@link CurrencyPrice}
          */
         public CurrencyPrice build() {
-            return new CurrencyPrice(id, currency, price, formattedPrice, productPricePointId,
-                    role);
+            return new CurrencyPrice(id, currency, price, formattedPrice, priceId, pricePointId,
+                    productPricePointId, role);
         }
     }
 }
