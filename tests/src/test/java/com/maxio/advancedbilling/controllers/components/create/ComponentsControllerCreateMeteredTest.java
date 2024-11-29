@@ -3,7 +3,6 @@ package com.maxio.advancedbilling.controllers.components.create;
 import com.maxio.advancedbilling.TestClientProvider;
 import com.maxio.advancedbilling.controllers.components.ComponentsControllerTestBase;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKind;
 import com.maxio.advancedbilling.models.ComponentPrice;
@@ -25,8 +24,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
-import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -160,16 +159,15 @@ public class ComponentsControllerCreateMeteredTest extends ComponentsControllerT
                 .build();
 
         // when - then
-        assertUnprocessableEntity(
-                ErrorListResponseException.class,
+        assertThatErrorListResponse(
                 () -> COMPONENTS_CONTROLLER.createMeteredComponent(String.valueOf(productFamilyId),
-                        new CreateMeteredComponent(meteredComponent)),
-                e -> assertThat(e.getErrors()).containsExactlyInAnyOrder(
+                        new CreateMeteredComponent(meteredComponent)))
+                .hasErrors(
                         "Name: cannot be blank.",
                         "Handle must start with a letter or number and may only contain lowercase letters, numbers, or the characters ':', '-', or '_'.",
                         "Unit name: cannot be blank.",
-                        "At least 1 price bracket must be defined")
-        );
+                        "At least 1 price bracket must be defined"
+                ).isUnprocessableEntity();
     }
 
     @Test
@@ -186,14 +184,13 @@ public class ComponentsControllerCreateMeteredTest extends ComponentsControllerT
                 new CreateMeteredComponent(createComponent));
 
         // when - then
-        assertUnprocessableEntity(
-                ErrorListResponseException.class,
+        assertThatErrorListResponse(
                 () -> COMPONENTS_CONTROLLER.createMeteredComponent(String.valueOf(productFamilyId),
-                        new CreateMeteredComponent(createComponent)),
-                e -> assertThat(e.getErrors()).containsExactlyInAnyOrder(
+                        new CreateMeteredComponent(createComponent)))
+                .hasErrors(
                         "Handle must be unique within a Site.",
-                        "Name: must be unique - that value has been taken.")
-        );
+                        "Name: must be unique - that value has been taken."
+                ).isUnprocessableEntity();
     }
 
     @Test

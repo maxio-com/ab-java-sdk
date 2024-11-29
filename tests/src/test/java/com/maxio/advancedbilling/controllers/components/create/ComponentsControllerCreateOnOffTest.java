@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
+import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnprocessableEntity;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
@@ -170,14 +171,13 @@ public class ComponentsControllerCreateOnOffTest extends ComponentsControllerTes
                 new CreateOnOffComponent(createComponent));
 
         // when - then
-        assertUnprocessableEntity(
-                ErrorListResponseException.class,
+        assertThatErrorListResponse(
                 () -> COMPONENTS_CONTROLLER.createOnOffComponent(String.valueOf(productFamilyId),
-                        new CreateOnOffComponent(createComponent)),
-                e -> assertThat(e.getErrors()).containsExactlyInAnyOrder(
+                        new CreateOnOffComponent(createComponent)))
+                .hasErrors(
                         "Handle must be unique within a Site.",
-                        "Name: must be unique - that value has been taken.")
-        );
+                        "Name: must be unique - that value has been taken."
+                ).isUnprocessableEntity();
     }
 
     @Test
