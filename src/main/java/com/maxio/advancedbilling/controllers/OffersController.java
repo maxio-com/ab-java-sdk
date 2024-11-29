@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
+import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CreateOfferRequest;
 import com.maxio.advancedbilling.models.ListOffersInput;
@@ -122,6 +123,9 @@ public final class OffersController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListOffersResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
