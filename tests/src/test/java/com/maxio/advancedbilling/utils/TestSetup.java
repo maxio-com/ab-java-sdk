@@ -88,7 +88,19 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 public class TestSetup {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestSetup.class);
 
-    private final AdvancedBillingClient advancedBillingClient = TestClientProvider.getClient();
+    private final AdvancedBillingClient advancedBillingClient;
+
+    public TestSetup() {
+        this.advancedBillingClient = TestClientProvider.getClient();
+    }
+
+    public TestSetup(AdvancedBillingClient advancedBillingClient) {
+        this.advancedBillingClient = advancedBillingClient;
+    }
+
+    public static TestSetup withPreconfiguredSite() {
+        return new TestSetup(TestClientProvider.getPreconfiguredSiteClient());
+    }
 
     public ProductFamily createProductFamily() throws IOException, ApiException {
         return advancedBillingClient.getProductFamiliesController()
