@@ -140,6 +140,9 @@ public final class ComponentPricePointsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ComponentPricePointResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorArrayMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
@@ -236,6 +239,9 @@ public final class ComponentPricePointsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ComponentPricePointsResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
