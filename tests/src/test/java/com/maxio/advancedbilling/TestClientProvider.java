@@ -67,7 +67,7 @@ public class TestClientProvider {
 
     private static AdvancedBillingClient createClient(String subdomain, String apiKey) {
         return new AdvancedBillingClient.Builder()
-                .httpClientConfig(configBuilder -> configBuilder.timeout(30))
+                .httpClientConfig(configBuilder -> configBuilder.timeout(45))
                 .basicAuthCredentials(
                         new BasicAuthModel.Builder(apiKey, PASSWORD)
                                 .build())
