@@ -5,7 +5,6 @@ import com.maxio.advancedbilling.controllers.components.ComponentsControllerTest
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKind;
-import com.maxio.advancedbilling.models.ComponentPrice;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.CreatePrepaidComponent;
 import com.maxio.advancedbilling.models.CreatePrepaidUsageComponentPricePoint;
@@ -26,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static com.maxio.advancedbilling.controllers.components.ComponentPricePointsAssertions.assertPrices;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
@@ -137,15 +137,10 @@ public class ComponentsControllerCreatePrepaidTest extends ComponentsControllerT
         assertThat(component.getUseSiteExchangeRate()).isNull();
         assertThat(component.getItemCategory()).isNull();
         assertThat(component.getAccountingCode()).isNull();
-        assertThat(component.getOveragePrices()).hasSize(1);
-        assertThat(component.getOveragePrices().get(0).getId()).isNotNull();
-        assertThat(component.getOveragePrices().get(0).getComponentId()).isEqualTo(component.getId());
-        assertThat(component.getOveragePrices().get(0).getStartingQuantity()).isEqualTo(1);
-        assertThat(component.getOveragePrices().get(0).getEndingQuantity()).isNull();
-        assertThat(component.getOveragePrices().get(0).getUnitPrice()).isEqualTo(overagePrice);
-        assertThat(component.getOveragePrices().get(0).getFormattedUnitPrice()).isEqualTo("$" + overagePrice);
-        assertThat(component.getOveragePrices().get(0).getPricePointId()).isEqualTo(component.getDefaultPricePointId());
-        assertThat(component.getOveragePrices().get(0).getSegmentId()).isNull();
+        assertPrices(prepaidUsageComponent.getOveragePricing().getPrices(), component.getOveragePrices(),
+                List.of(overagePrice),
+                List.of("$" + overagePrice), component.getId(),
+                component.getDefaultPricePointId());
 
         assertThat(pricePoints).hasSize(2);
         CreatePrepaidUsageComponentPricePoint expectedPricePoint = prepaidUsageComponent.getPricePoints().get(0);
@@ -160,24 +155,10 @@ public class ComponentsControllerCreatePrepaidTest extends ComponentsControllerT
         assertThat(pricePoint.getPricingScheme()).isEqualTo(PricingScheme.STAIRSTEP);
 
         assertThat(pricePoint.getPrices()).hasSize(2);
-        ComponentPrice componentPrice1 = pricePoint.getPrices().get(0);
-        assertThat(componentPrice1.getId()).isNotNull();
-        assertThat(componentPrice1.getComponentId()).isEqualTo(component.getId());
-        assertThat(componentPrice1.getStartingQuantity()).isEqualTo(0);
-        assertThat(componentPrice1.getEndingQuantity()).isEqualTo(11);
-        assertThat(componentPrice1.getUnitPrice()).isEqualTo(String.valueOf(catalogPricePointPrice1));
-        assertThat(componentPrice1.getPricePointId()).isEqualTo(pricePoint.getId());
-        assertThat(componentPrice1.getFormattedUnitPrice()).isEqualTo("$5.00");
-        assertThat(componentPrice1.getSegmentId()).isNull();
-        ComponentPrice componentPrice2 = pricePoint.getPrices().get(1);
-        assertThat(componentPrice2.getId()).isNotNull();
-        assertThat(componentPrice2.getComponentId()).isEqualTo(component.getId());
-        assertThat(componentPrice2.getStartingQuantity()).isEqualTo(12);
-        assertThat(componentPrice2.getEndingQuantity()).isNull();
-        assertThat(componentPrice2.getUnitPrice()).isEqualTo(String.valueOf(catalogPricePointPrice2));
-        assertThat(componentPrice2.getPricePointId()).isEqualTo(pricePoint.getId());
-        assertThat(componentPrice2.getFormattedUnitPrice()).isEqualTo("$4.52323");
-        assertThat(componentPrice2.getSegmentId()).isNull();
+        assertPrices(prepaidUsageComponent.getPricePoints().get(0).getPrices(), pricePoint.getPrices(),
+                List.of(String.valueOf(catalogPricePointPrice1), String.valueOf(catalogPricePointPrice2)),
+                List.of("$5.00", "$4.52323"), component.getId(),
+                pricePoint.getId());
 
         assertThat(pricePoint.getCreatedAt()).isNotNull();
         assertThat(pricePoint.getUpdatedAt()).isNotNull();
@@ -194,15 +175,11 @@ public class ComponentsControllerCreatePrepaidTest extends ComponentsControllerT
         assertThat(pricePoint.getRolloverPrepaidRemainder()).isFalse();
         assertThat(pricePoint.getExpirationInterval()).isNull();
         assertThat(pricePoint.getExpirationIntervalUnit()).isNull();
-        assertThat(pricePoint.getOveragePrices()).hasSize(1);
-        assertThat(pricePoint.getOveragePrices().get(0).getId()).isNotNull();
-        assertThat(pricePoint.getOveragePrices().get(0).getComponentId()).isEqualTo(component.getId());
-        assertThat(pricePoint.getOveragePrices().get(0).getStartingQuantity()).isEqualTo(1);
-        assertThat(pricePoint.getOveragePrices().get(0).getEndingQuantity()).isNull();
-        assertThat(pricePoint.getOveragePrices().get(0).getUnitPrice()).isEqualTo(catalogPricePointOveragePrice);
-        assertThat(pricePoint.getOveragePrices().get(0).getFormattedUnitPrice()).isEqualTo("$" + catalogPricePointOveragePrice);
-        assertThat(pricePoint.getOveragePrices().get(0).getPricePointId()).isEqualTo(pricePoint.getId());
-        assertThat(pricePoint.getOveragePrices().get(0).getSegmentId()).isNull();
+        assertPrices(prepaidUsageComponent.getPricePoints().get(0).getOveragePricing().getPrices(),
+                pricePoint.getOveragePrices(),
+                List.of(catalogPricePointOveragePrice),
+                List.of("$" + catalogPricePointOveragePrice), component.getId(),
+                pricePoint.getId());
     }
 
     @Test
