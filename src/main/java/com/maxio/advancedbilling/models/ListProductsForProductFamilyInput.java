@@ -9,6 +9,11 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ListProductsForProductFamilyInput type.
@@ -19,10 +24,10 @@ public class ListProductsForProductFamilyInput {
     private Integer perPage;
     private BasicDateField dateField;
     private ListProductsFilter filter;
-    private String startDate;
-    private String endDate;
-    private String startDatetime;
-    private String endDatetime;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private ZonedDateTime startDatetime;
+    private ZonedDateTime endDatetime;
     private Boolean includeArchived;
     private ListProductsInclude include;
 
@@ -41,10 +46,10 @@ public class ListProductsForProductFamilyInput {
      * @param  perPage  Integer value for perPage.
      * @param  dateField  BasicDateField value for dateField.
      * @param  filter  ListProductsFilter value for filter.
-     * @param  startDate  String value for startDate.
-     * @param  endDate  String value for endDate.
-     * @param  startDatetime  String value for startDatetime.
-     * @param  endDatetime  String value for endDatetime.
+     * @param  startDate  LocalDate value for startDate.
+     * @param  endDate  LocalDate value for endDate.
+     * @param  startDatetime  ZonedDateTime value for startDatetime.
+     * @param  endDatetime  ZonedDateTime value for endDatetime.
      * @param  includeArchived  Boolean value for includeArchived.
      * @param  include  ListProductsInclude value for include.
      */
@@ -54,10 +59,10 @@ public class ListProductsForProductFamilyInput {
             Integer perPage,
             BasicDateField dateField,
             ListProductsFilter filter,
-            String startDate,
-            String endDate,
-            String startDatetime,
-            String endDatetime,
+            LocalDate startDate,
+            LocalDate endDate,
+            ZonedDateTime startDatetime,
+            ZonedDateTime endDatetime,
             Boolean includeArchived,
             ListProductsInclude include) {
         this.productFamilyId = productFamilyId;
@@ -196,11 +201,12 @@ public class ListProductsForProductFamilyInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with
      * a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("start_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -209,10 +215,11 @@ public class ListProductsForProductFamilyInput {
      * The start date (format YYYY-MM-DD) with which to filter the date_field. Returns products with
      * a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date
      * specified.
-     * @param startDate Value for String
+     * @param startDate Value for LocalDate
      */
     @JsonSetter("start_date")
-    public void setStartDate(String startDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -220,11 +227,12 @@ public class ListProductsForProductFamilyInput {
      * Getter for EndDate.
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a
      * timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.
-     * @return Returns the String
+     * @return Returns the LocalDate
      */
     @JsonGetter("end_date")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDate() {
+    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -232,10 +240,11 @@ public class ListProductsForProductFamilyInput {
      * Setter for EndDate.
      * The end date (format YYYY-MM-DD) with which to filter the date_field. Returns products with a
      * timestamp up to and including 11:59:59PM in your site’s time zone on the date specified.
-     * @param endDate Value for String
+     * @param endDate Value for LocalDate
      */
     @JsonSetter("end_date")
-    public void setEndDate(String endDate) {
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -245,11 +254,12 @@ public class ListProductsForProductFamilyInput {
      * Returns products with a timestamp at or after exact time provided in query. You can specify
      * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
      * will be used instead of start_date.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("start_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getStartDatetime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getStartDatetime() {
         return startDatetime;
     }
 
@@ -259,10 +269,11 @@ public class ListProductsForProductFamilyInput {
      * Returns products with a timestamp at or after exact time provided in query. You can specify
      * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
      * will be used instead of start_date.
-     * @param startDatetime Value for String
+     * @param startDatetime Value for ZonedDateTime
      */
     @JsonSetter("start_datetime")
-    public void setStartDatetime(String startDatetime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setStartDatetime(ZonedDateTime startDatetime) {
         this.startDatetime = startDatetime;
     }
 
@@ -272,11 +283,12 @@ public class ListProductsForProductFamilyInput {
      * Returns products with a timestamp at or before exact time provided in query. You can specify
      * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
      * will be used instead of end_date.
-     * @return Returns the String
+     * @return Returns the ZonedDateTime
      */
     @JsonGetter("end_datetime")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getEndDatetime() {
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getEndDatetime() {
         return endDatetime;
     }
 
@@ -286,10 +298,11 @@ public class ListProductsForProductFamilyInput {
      * Returns products with a timestamp at or before exact time provided in query. You can specify
      * timezone in query - otherwise your site's time zone will be used. If provided, this parameter
      * will be used instead of end_date.
-     * @param endDatetime Value for String
+     * @param endDatetime Value for ZonedDateTime
      */
     @JsonSetter("end_datetime")
-    public void setEndDatetime(String endDatetime) {
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setEndDatetime(ZonedDateTime endDatetime) {
         this.endDatetime = endDatetime;
     }
 
@@ -379,10 +392,10 @@ public class ListProductsForProductFamilyInput {
         private Integer perPage = 20;
         private BasicDateField dateField;
         private ListProductsFilter filter;
-        private String startDate;
-        private String endDate;
-        private String startDatetime;
-        private String endDatetime;
+        private LocalDate startDate;
+        private LocalDate endDate;
+        private ZonedDateTime startDatetime;
+        private ZonedDateTime endDatetime;
         private Boolean includeArchived;
         private ListProductsInclude include;
 
@@ -452,40 +465,40 @@ public class ListProductsForProductFamilyInput {
 
         /**
          * Setter for startDate.
-         * @param  startDate  String value for startDate.
+         * @param  startDate  LocalDate value for startDate.
          * @return Builder
          */
-        public Builder startDate(String startDate) {
+        public Builder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
         /**
          * Setter for endDate.
-         * @param  endDate  String value for endDate.
+         * @param  endDate  LocalDate value for endDate.
          * @return Builder
          */
-        public Builder endDate(String endDate) {
+        public Builder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }
 
         /**
          * Setter for startDatetime.
-         * @param  startDatetime  String value for startDatetime.
+         * @param  startDatetime  ZonedDateTime value for startDatetime.
          * @return Builder
          */
-        public Builder startDatetime(String startDatetime) {
+        public Builder startDatetime(ZonedDateTime startDatetime) {
             this.startDatetime = startDatetime;
             return this;
         }
 
         /**
          * Setter for endDatetime.
-         * @param  endDatetime  String value for endDatetime.
+         * @param  endDatetime  ZonedDateTime value for endDatetime.
          * @return Builder
          */
-        public Builder endDatetime(String endDatetime) {
+        public Builder endDatetime(ZonedDateTime endDatetime) {
             this.endDatetime = endDatetime;
             return this;
         }
