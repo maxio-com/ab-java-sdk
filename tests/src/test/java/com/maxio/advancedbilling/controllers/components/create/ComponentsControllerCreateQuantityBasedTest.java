@@ -5,7 +5,6 @@ import com.maxio.advancedbilling.controllers.components.ComponentsControllerTest
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKind;
-import com.maxio.advancedbilling.models.ComponentPrice;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.ComponentPricePointItem;
 import com.maxio.advancedbilling.models.CreateQuantityBasedComponent;
@@ -24,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static com.maxio.advancedbilling.controllers.components.ComponentPricePointsAssertions.assertPrices;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
@@ -125,24 +125,10 @@ public class ComponentsControllerCreateQuantityBasedTest extends ComponentsContr
         assertThat(pricePoint.getPricingScheme()).isEqualTo(PricingScheme.VOLUME);
 
         assertThat(pricePoint.getPrices()).hasSize(2);
-        ComponentPrice componentPrice1 = pricePoint.getPrices().get(0);
-        assertThat(componentPrice1.getId()).isNotNull();
-        assertThat(componentPrice1.getComponentId()).isEqualTo(component.getId());
-        assertThat(componentPrice1.getStartingQuantity()).isEqualTo(0);
-        assertThat(componentPrice1.getEndingQuantity()).isEqualTo(5);
-        assertThat(componentPrice1.getUnitPrice()).isEqualTo(String.valueOf(catalogPricePointPrice1));
-        assertThat(componentPrice1.getPricePointId()).isEqualTo(pricePoint.getId());
-        assertThat(componentPrice1.getFormattedUnitPrice()).isEqualTo("$103.00");
-        assertThat(componentPrice1.getSegmentId()).isNull();
-        ComponentPrice componentPrice2 = pricePoint.getPrices().get(1);
-        assertThat(componentPrice2.getId()).isNotNull();
-        assertThat(componentPrice2.getComponentId()).isEqualTo(component.getId());
-        assertThat(componentPrice2.getStartingQuantity()).isEqualTo(6);
-        assertThat(componentPrice2.getEndingQuantity()).isNull();
-        assertThat(componentPrice2.getUnitPrice()).isEqualTo(String.valueOf(catalogPricePointPrice2));
-        assertThat(componentPrice2.getPricePointId()).isEqualTo(pricePoint.getId());
-        assertThat(componentPrice2.getFormattedUnitPrice()).isEqualTo("$1.523");
-        assertThat(componentPrice2.getSegmentId()).isNull();
+        assertPrices(quantityBasedComponent.getPricePoints().get(0).getPrices(), pricePoint.getPrices(),
+                List.of(String.valueOf(catalogPricePointPrice1), String.valueOf(catalogPricePointPrice2)),
+                List.of("$103.00", "$1.523"), component.getId(),
+                pricePoint.getId());
 
         assertThat(pricePoint.getCreatedAt()).isNotNull();
         assertThat(pricePoint.getUpdatedAt()).isNotNull();

@@ -33,4 +33,8 @@ public abstract class ComponentsControllerTestBase {
         return TEST_SETUP.createMeteredComponent(productFamily, unitPrice);
     }
 
+    protected Component createPrepaidUsageComponent(double unitPrice) throws IOException, ApiException {
+        return TEST_SETUP.createPrepaidComponent(productFamily, unitPrice);
+    }
+
 }

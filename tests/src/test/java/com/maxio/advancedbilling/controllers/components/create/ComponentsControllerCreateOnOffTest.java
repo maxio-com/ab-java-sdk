@@ -6,7 +6,6 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.ComponentKind;
-import com.maxio.advancedbilling.models.ComponentPrice;
 import com.maxio.advancedbilling.models.ComponentPricePoint;
 import com.maxio.advancedbilling.models.ComponentPricePointItem;
 import com.maxio.advancedbilling.models.CreateOnOffComponent;
@@ -25,6 +24,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.maxio.advancedbilling.controllers.components.ComponentPricePointsAssertions.assertPrices;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertNotFound;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertThatErrorListResponse;
 import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assertUnauthorized;
@@ -118,15 +118,10 @@ public class ComponentsControllerCreateOnOffTest extends ComponentsControllerTes
         assertThat(pricePoint.getPricingScheme()).isEqualTo(PricingScheme.PER_UNIT);
 
         assertThat(pricePoint.getPrices()).hasSize(1);
-        ComponentPrice componentPrice = pricePoint.getPrices().get(0);
-        assertThat(componentPrice.getId()).isNotNull();
-        assertThat(componentPrice.getComponentId()).isEqualTo(component.getId());
-        assertThat(componentPrice.getStartingQuantity()).isEqualTo(1);
-        assertThat(componentPrice.getEndingQuantity()).isNull();
-        assertThat(componentPrice.getUnitPrice()).isEqualTo(String.valueOf(price2));
-        assertThat(componentPrice.getPricePointId()).isEqualTo(pricePoint.getId());
-        assertThat(componentPrice.getFormattedUnitPrice()).isEqualTo("$11.30");
-        assertThat(componentPrice.getSegmentId()).isNull();
+        assertPrices(onOffComponent.getPricePoints().get(0).getPrices(), pricePoint.getPrices(),
+                List.of(String.valueOf(price2)),
+                List.of("$11.30"), component.getId(),
+                pricePoint.getId());
 
         assertThat(pricePoint.getCreatedAt()).isNotNull();
         assertThat(pricePoint.getUpdatedAt()).isNotNull();
