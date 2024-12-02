@@ -83,6 +83,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 public class TestSetup {
@@ -105,7 +106,8 @@ public class TestSetup {
     public ProductFamily createProductFamily() throws IOException, ApiException {
         return advancedBillingClient.getProductFamiliesController()
                 .createProductFamily(new CreateProductFamilyRequest(
-                        new CreateProductFamily.Builder().name("Test Product Family " + randomNumeric(10)).build())
+                        new CreateProductFamily.Builder().name("Test Product Family " + randomNumeric(10))
+                                .handle("test-product-family-" + randomAlphanumeric(20).toLowerCase()).build())
                 )
                 .getProductFamily();
     }
