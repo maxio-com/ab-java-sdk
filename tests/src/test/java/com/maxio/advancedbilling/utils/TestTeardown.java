@@ -108,6 +108,11 @@ public class TestTeardown {
 
     public void deleteSubscriptionGroup(Integer primarySubscriptionId, List<Integer> subscriptionsIds,
                                         Integer customerId) throws IOException, ApiException {
+        deleteSubscriptionGroup(primarySubscriptionId, subscriptionsIds, customerId, false);
+    }
+
+    public void deleteSubscriptionGroup(Integer primarySubscriptionId, List<Integer> subscriptionsIds,
+                                        Integer customerId, boolean deleteCustomer) throws IOException, ApiException {
         SubscriptionGroupsController subscriptionGroupsController = advancedBillingClient.getSubscriptionGroupsController();
 
         for (Integer subscriptionId : subscriptionsIds) {
@@ -117,7 +122,9 @@ public class TestTeardown {
         }
 
         subscriptionGroupsController.removeSubscriptionFromGroup(primarySubscriptionId);
-        deleteCustomer(new Customer.Builder().id(customerId).build());
+        if (deleteCustomer) {
+            deleteCustomer(new Customer.Builder().id(customerId).build());
+        }
     }
 
     public void archiveComponents() throws IOException, ApiException {
