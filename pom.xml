@@ -52,7 +52,7 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core</artifactId>
-      <version>[0.6.4, 0.7)</version>
+      <version>[0.6.6, 0.7)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>

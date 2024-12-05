@@ -872,6 +872,12 @@ try {
 }
 ```
 
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorStringMapResponseException`](../../doc/models/error-string-map-response-exception.md) |
+
 
 # Create Coupon Subcodes
 
