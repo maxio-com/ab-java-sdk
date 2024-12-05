@@ -326,7 +326,7 @@ public class ProductFamiliesControllerListProductsTest {
                 .containsAll(existingProducts.subList(0, 5))
                 .doesNotContainAnyElementsOf(existingProducts.subList(8, 10));
 
-        ArrayList<ProductResponse> expected = new ArrayList<>(existingProducts);
+        List<ProductResponse> expected = new ArrayList<>(existingProducts);
         // 2 and 8 product was modified after creation
         expected.remove(8);
         expected.remove(2);
