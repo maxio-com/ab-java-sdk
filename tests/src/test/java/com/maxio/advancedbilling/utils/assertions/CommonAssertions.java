@@ -34,6 +34,13 @@ public class CommonAssertions {
         });
     }
 
+    public static SingleStringErrorResponseAssert assertThatSingleStringErrorResponse(ThrowingRunnable throwingRunnable) {
+        return new SingleStringErrorResponseAssert((Callable<Void>) () -> {
+            throwingRunnable.run();
+            return null;
+        });
+    }
+
     public static <V> ErrorArrayMapResponseAssert assertThatErrorArrayMapResponse(Callable<V> throwingCallable) {
         return new ErrorArrayMapResponseAssert(throwingCallable);
     }
