@@ -189,7 +189,8 @@ public class CreateComponentPricePoint
     /**
      * Getter for UseSiteExchangeRate.
      * Whether to use the site level exchange rate or define your own prices for each currency if
-     * you have multiple currencies defined on the site.
+     * you have multiple currencies defined on the site. Setting not supported when creating price
+     * points in bulk.
      * @return Returns the Boolean
      */
     @JsonGetter("use_site_exchange_rate")
@@ -201,7 +202,8 @@ public class CreateComponentPricePoint
     /**
      * Setter for UseSiteExchangeRate.
      * Whether to use the site level exchange rate or define your own prices for each currency if
-     * you have multiple currencies defined on the site.
+     * you have multiple currencies defined on the site. Setting not supported when creating price
+     * points in bulk.
      * @param useSiteExchangeRate Value for Boolean
      */
     @JsonSetter("use_site_exchange_rate")
@@ -211,7 +213,8 @@ public class CreateComponentPricePoint
 
     /**
      * Getter for TaxIncluded.
-     * Whether or not the price point includes tax
+     * Whether or not the price point includes tax. Setting not supported when creating price points
+     * in bulk.
      * @return Returns the Boolean
      */
     @JsonGetter("tax_included")
@@ -222,7 +225,8 @@ public class CreateComponentPricePoint
 
     /**
      * Setter for TaxIncluded.
-     * Whether or not the price point includes tax
+     * Whether or not the price point includes tax. Setting not supported when creating price points
+     * in bulk.
      * @param taxIncluded Value for Boolean
      */
     @JsonSetter("tax_included")

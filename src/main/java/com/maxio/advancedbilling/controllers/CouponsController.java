@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
+import com.maxio.advancedbilling.exceptions.ErrorStringMapResponseException;
 import com.maxio.advancedbilling.exceptions.SingleStringErrorResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CouponCurrencyRequest;
@@ -558,6 +559,9 @@ public final class CouponsController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, CouponCurrencyResponse.class))
                         .nullify404(false)
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorStringMapResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }

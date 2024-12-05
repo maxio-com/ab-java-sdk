@@ -8,6 +8,7 @@ package com.maxio.advancedbilling.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
@@ -68,13 +69,13 @@ public final class ProductFamiliesController extends BaseController {
                         .queryParam(param -> param.key("filter")
                                 .value(input.getFilter()).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(input.getStartDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getStartDate())).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(input.getEndDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getEndDate())).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(input.getStartDatetime()).isRequired(false))
+                                .value(DateTimeHelper.toRfc8601DateTime(input.getStartDatetime())).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(input.getEndDatetime()).isRequired(false))
+                                .value(DateTimeHelper.toRfc8601DateTime(input.getEndDatetime())).isRequired(false))
                         .queryParam(param -> param.key("include_archived")
                                 .value(input.getIncludeArchived()).isRequired(false))
                         .queryParam(param -> param.key("include")
@@ -168,13 +169,13 @@ public final class ProductFamiliesController extends BaseController {
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
-                                .value(input.getStartDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getStartDate())).isRequired(false))
                         .queryParam(param -> param.key("end_date")
-                                .value(input.getEndDate()).isRequired(false))
+                                .value(DateTimeHelper.toSimpleDate(input.getEndDate())).isRequired(false))
                         .queryParam(param -> param.key("start_datetime")
-                                .value(input.getStartDatetime()).isRequired(false))
+                                .value(DateTimeHelper.toRfc8601DateTime(input.getStartDatetime())).isRequired(false))
                         .queryParam(param -> param.key("end_datetime")
-                                .value(input.getEndDatetime()).isRequired(false))
+                                .value(DateTimeHelper.toRfc8601DateTime(input.getEndDatetime())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
