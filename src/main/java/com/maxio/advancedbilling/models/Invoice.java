@@ -62,6 +62,7 @@ public class Invoice
     private String taxAmount;
     private String totalAmount;
     private String creditAmount;
+    private String debitAmount;
     private String refundAmount;
     private String paidAmount;
     private String dueAmount;
@@ -69,10 +70,12 @@ public class Invoice
     private List<InvoiceDiscount> discounts;
     private List<InvoiceTax> taxes;
     private List<InvoiceCredit> credits;
+    private List<InvoiceDebit> debits;
     private List<InvoiceRefund> refunds;
     private List<InvoicePayment> payments;
     private List<InvoiceCustomField> customFields;
     private InvoiceDisplaySettings displaySettings;
+    private InvoiceAvataxDetails avataxDetails;
     private String publicUrl;
     private InvoicePreviousBalance previousBalanceData;
     private LocalDate publicUrlExpiresOn;
@@ -124,6 +127,7 @@ public class Invoice
      * @param  taxAmount  String value for taxAmount.
      * @param  totalAmount  String value for totalAmount.
      * @param  creditAmount  String value for creditAmount.
+     * @param  debitAmount  String value for debitAmount.
      * @param  refundAmount  String value for refundAmount.
      * @param  paidAmount  String value for paidAmount.
      * @param  dueAmount  String value for dueAmount.
@@ -131,10 +135,12 @@ public class Invoice
      * @param  discounts  List of InvoiceDiscount value for discounts.
      * @param  taxes  List of InvoiceTax value for taxes.
      * @param  credits  List of InvoiceCredit value for credits.
+     * @param  debits  List of InvoiceDebit value for debits.
      * @param  refunds  List of InvoiceRefund value for refunds.
      * @param  payments  List of InvoicePayment value for payments.
      * @param  customFields  List of InvoiceCustomField value for customFields.
      * @param  displaySettings  InvoiceDisplaySettings value for displaySettings.
+     * @param  avataxDetails  InvoiceAvataxDetails value for avataxDetails.
      * @param  publicUrl  String value for publicUrl.
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      * @param  publicUrlExpiresOn  LocalDate value for publicUrlExpiresOn.
@@ -179,6 +185,7 @@ public class Invoice
             String taxAmount,
             String totalAmount,
             String creditAmount,
+            String debitAmount,
             String refundAmount,
             String paidAmount,
             String dueAmount,
@@ -186,10 +193,12 @@ public class Invoice
             List<InvoiceDiscount> discounts,
             List<InvoiceTax> taxes,
             List<InvoiceCredit> credits,
+            List<InvoiceDebit> debits,
             List<InvoiceRefund> refunds,
             List<InvoicePayment> payments,
             List<InvoiceCustomField> customFields,
             InvoiceDisplaySettings displaySettings,
+            InvoiceAvataxDetails avataxDetails,
             String publicUrl,
             InvoicePreviousBalance previousBalanceData,
             LocalDate publicUrlExpiresOn) {
@@ -232,6 +241,7 @@ public class Invoice
         this.taxAmount = taxAmount;
         this.totalAmount = totalAmount;
         this.creditAmount = creditAmount;
+        this.debitAmount = debitAmount;
         this.refundAmount = refundAmount;
         this.paidAmount = paidAmount;
         this.dueAmount = dueAmount;
@@ -239,10 +249,12 @@ public class Invoice
         this.discounts = discounts;
         this.taxes = taxes;
         this.credits = credits;
+        this.debits = debits;
         this.refunds = refunds;
         this.payments = payments;
         this.customFields = customFields;
         this.displaySettings = displaySettings;
+        this.avataxDetails = avataxDetails;
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
         this.publicUrlExpiresOn = publicUrlExpiresOn;
@@ -289,6 +301,7 @@ public class Invoice
      * @param  taxAmount  String value for taxAmount.
      * @param  totalAmount  String value for totalAmount.
      * @param  creditAmount  String value for creditAmount.
+     * @param  debitAmount  String value for debitAmount.
      * @param  refundAmount  String value for refundAmount.
      * @param  paidAmount  String value for paidAmount.
      * @param  dueAmount  String value for dueAmount.
@@ -296,10 +309,12 @@ public class Invoice
      * @param  discounts  List of InvoiceDiscount value for discounts.
      * @param  taxes  List of InvoiceTax value for taxes.
      * @param  credits  List of InvoiceCredit value for credits.
+     * @param  debits  List of InvoiceDebit value for debits.
      * @param  refunds  List of InvoiceRefund value for refunds.
      * @param  payments  List of InvoicePayment value for payments.
      * @param  customFields  List of InvoiceCustomField value for customFields.
      * @param  displaySettings  InvoiceDisplaySettings value for displaySettings.
+     * @param  avataxDetails  InvoiceAvataxDetails value for avataxDetails.
      * @param  publicUrl  String value for publicUrl.
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      * @param  publicUrlExpiresOn  LocalDate value for publicUrlExpiresOn.
@@ -319,11 +334,12 @@ public class Invoice
             InvoicePayer payer, List<String> recipientEmails, Integer netTerms, String memo,
             InvoiceAddress billingAddress, InvoiceAddress shippingAddress, String subtotalAmount,
             String discountAmount, String taxAmount, String totalAmount, String creditAmount,
-            String refundAmount, String paidAmount, String dueAmount,
+            String debitAmount, String refundAmount, String paidAmount, String dueAmount,
             List<InvoiceLineItem> lineItems, List<InvoiceDiscount> discounts,
-            List<InvoiceTax> taxes, List<InvoiceCredit> credits, List<InvoiceRefund> refunds,
-            List<InvoicePayment> payments, List<InvoiceCustomField> customFields,
-            InvoiceDisplaySettings displaySettings, String publicUrl,
+            List<InvoiceTax> taxes, List<InvoiceCredit> credits, List<InvoiceDebit> debits,
+            List<InvoiceRefund> refunds, List<InvoicePayment> payments,
+            List<InvoiceCustomField> customFields, InvoiceDisplaySettings displaySettings,
+            InvoiceAvataxDetails avataxDetails, String publicUrl,
             InvoicePreviousBalance previousBalanceData, LocalDate publicUrlExpiresOn) {
         this.id = id;
         this.uid = uid;
@@ -364,6 +380,7 @@ public class Invoice
         this.taxAmount = taxAmount;
         this.totalAmount = totalAmount;
         this.creditAmount = creditAmount;
+        this.debitAmount = debitAmount;
         this.refundAmount = refundAmount;
         this.paidAmount = paidAmount;
         this.dueAmount = dueAmount;
@@ -371,10 +388,12 @@ public class Invoice
         this.discounts = discounts;
         this.taxes = taxes;
         this.credits = credits;
+        this.debits = debits;
         this.refunds = refunds;
         this.payments = payments;
         this.customFields = customFields;
         this.displaySettings = displaySettings;
+        this.avataxDetails = avataxDetails;
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
         this.publicUrlExpiresOn = publicUrlExpiresOn;
@@ -1355,6 +1374,25 @@ public class Invoice
     }
 
     /**
+     * Getter for DebitAmount.
+     * @return Returns the String
+     */
+    @JsonGetter("debit_amount")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getDebitAmount() {
+        return debitAmount;
+    }
+
+    /**
+     * Setter for DebitAmount.
+     * @param debitAmount Value for String
+     */
+    @JsonSetter("debit_amount")
+    public void setDebitAmount(String debitAmount) {
+        this.debitAmount = debitAmount;
+    }
+
+    /**
      * Getter for RefundAmount.
      * @return Returns the String
      */
@@ -1494,6 +1532,25 @@ public class Invoice
     }
 
     /**
+     * Getter for Debits.
+     * @return Returns the List of InvoiceDebit
+     */
+    @JsonGetter("debits")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<InvoiceDebit> getDebits() {
+        return debits;
+    }
+
+    /**
+     * Setter for Debits.
+     * @param debits Value for List of InvoiceDebit
+     */
+    @JsonSetter("debits")
+    public void setDebits(List<InvoiceDebit> debits) {
+        this.debits = debits;
+    }
+
+    /**
      * Getter for Refunds.
      * @return Returns the List of InvoiceRefund
      */
@@ -1567,6 +1624,25 @@ public class Invoice
     @JsonSetter("display_settings")
     public void setDisplaySettings(InvoiceDisplaySettings displaySettings) {
         this.displaySettings = displaySettings;
+    }
+
+    /**
+     * Getter for AvataxDetails.
+     * @return Returns the InvoiceAvataxDetails
+     */
+    @JsonGetter("avatax_details")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public InvoiceAvataxDetails getAvataxDetails() {
+        return avataxDetails;
+    }
+
+    /**
+     * Setter for AvataxDetails.
+     * @param avataxDetails Value for InvoiceAvataxDetails
+     */
+    @JsonSetter("avatax_details")
+    public void setAvataxDetails(InvoiceAvataxDetails avataxDetails) {
+        this.avataxDetails = avataxDetails;
     }
 
     /**
@@ -1655,11 +1731,12 @@ public class Invoice
                 + memo + ", billingAddress=" + billingAddress + ", shippingAddress="
                 + shippingAddress + ", subtotalAmount=" + subtotalAmount + ", discountAmount="
                 + discountAmount + ", taxAmount=" + taxAmount + ", totalAmount=" + totalAmount
-                + ", creditAmount=" + creditAmount + ", refundAmount=" + refundAmount
-                + ", paidAmount=" + paidAmount + ", dueAmount=" + dueAmount + ", lineItems="
-                + lineItems + ", discounts=" + discounts + ", taxes=" + taxes + ", credits="
-                + credits + ", refunds=" + refunds + ", payments=" + payments + ", customFields="
-                + customFields + ", displaySettings=" + displaySettings + ", publicUrl=" + publicUrl
+                + ", creditAmount=" + creditAmount + ", debitAmount=" + debitAmount
+                + ", refundAmount=" + refundAmount + ", paidAmount=" + paidAmount + ", dueAmount="
+                + dueAmount + ", lineItems=" + lineItems + ", discounts=" + discounts + ", taxes="
+                + taxes + ", credits=" + credits + ", debits=" + debits + ", refunds=" + refunds
+                + ", payments=" + payments + ", customFields=" + customFields + ", displaySettings="
+                + displaySettings + ", avataxDetails=" + avataxDetails + ", publicUrl=" + publicUrl
                 + ", previousBalanceData=" + previousBalanceData + ", publicUrlExpiresOn="
                 + publicUrlExpiresOn + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
@@ -1704,6 +1781,7 @@ public class Invoice
                 .taxAmount(getTaxAmount())
                 .totalAmount(getTotalAmount())
                 .creditAmount(getCreditAmount())
+                .debitAmount(getDebitAmount())
                 .refundAmount(getRefundAmount())
                 .paidAmount(getPaidAmount())
                 .dueAmount(getDueAmount())
@@ -1711,10 +1789,12 @@ public class Invoice
                 .discounts(getDiscounts())
                 .taxes(getTaxes())
                 .credits(getCredits())
+                .debits(getDebits())
                 .refunds(getRefunds())
                 .payments(getPayments())
                 .customFields(getCustomFields())
                 .displaySettings(getDisplaySettings())
+                .avataxDetails(getAvataxDetails())
                 .publicUrl(getPublicUrl())
                 .previousBalanceData(getPreviousBalanceData())
                 .publicUrlExpiresOn(getPublicUrlExpiresOn());
@@ -1770,6 +1850,7 @@ public class Invoice
         private String taxAmount;
         private String totalAmount;
         private String creditAmount;
+        private String debitAmount;
         private String refundAmount;
         private String paidAmount;
         private String dueAmount;
@@ -1777,10 +1858,12 @@ public class Invoice
         private List<InvoiceDiscount> discounts;
         private List<InvoiceTax> taxes;
         private List<InvoiceCredit> credits;
+        private List<InvoiceDebit> debits;
         private List<InvoiceRefund> refunds;
         private List<InvoicePayment> payments;
         private List<InvoiceCustomField> customFields;
         private InvoiceDisplaySettings displaySettings;
+        private InvoiceAvataxDetails avataxDetails;
         private String publicUrl;
         private InvoicePreviousBalance previousBalanceData;
         private LocalDate publicUrlExpiresOn;
@@ -2232,6 +2315,16 @@ public class Invoice
         }
 
         /**
+         * Setter for debitAmount.
+         * @param  debitAmount  String value for debitAmount.
+         * @return Builder
+         */
+        public Builder debitAmount(String debitAmount) {
+            this.debitAmount = debitAmount;
+            return this;
+        }
+
+        /**
          * Setter for refundAmount.
          * @param  refundAmount  String value for refundAmount.
          * @return Builder
@@ -2302,6 +2395,16 @@ public class Invoice
         }
 
         /**
+         * Setter for debits.
+         * @param  debits  List of InvoiceDebit value for debits.
+         * @return Builder
+         */
+        public Builder debits(List<InvoiceDebit> debits) {
+            this.debits = debits;
+            return this;
+        }
+
+        /**
          * Setter for refunds.
          * @param  refunds  List of InvoiceRefund value for refunds.
          * @return Builder
@@ -2338,6 +2441,16 @@ public class Invoice
          */
         public Builder displaySettings(InvoiceDisplaySettings displaySettings) {
             this.displaySettings = displaySettings;
+            return this;
+        }
+
+        /**
+         * Setter for avataxDetails.
+         * @param  avataxDetails  InvoiceAvataxDetails value for avataxDetails.
+         * @return Builder
+         */
+        public Builder avataxDetails(InvoiceAvataxDetails avataxDetails) {
+            this.avataxDetails = avataxDetails;
             return this;
         }
 
@@ -2383,9 +2496,9 @@ public class Invoice
                     groupPrimarySubscriptionId, productName, productFamilyName, seller, customer,
                     payer, recipientEmails, netTerms, memo, billingAddress, shippingAddress,
                     subtotalAmount, discountAmount, taxAmount, totalAmount, creditAmount,
-                    refundAmount, paidAmount, dueAmount, lineItems, discounts, taxes, credits,
-                    refunds, payments, customFields, displaySettings, publicUrl,
-                    previousBalanceData, publicUrlExpiresOn);
+                    debitAmount, refundAmount, paidAmount, dueAmount, lineItems, discounts, taxes,
+                    credits, debits, refunds, payments, customFields, displaySettings,
+                    avataxDetails, publicUrl, previousBalanceData, publicUrlExpiresOn);
         }
     }
 }

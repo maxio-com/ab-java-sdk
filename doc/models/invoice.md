@@ -48,6 +48,7 @@
 | `TaxAmount` | `String` | Optional | Total tax on the invoice. | String getTaxAmount() | setTaxAmount(String taxAmount) |
 | `TotalAmount` | `String` | Optional | The invoice total, which is `subtotal_amount - discount_amount + tax_amount`.' | String getTotalAmount() | setTotalAmount(String totalAmount) |
 | `CreditAmount` | `String` | Optional | The amount of credit (from credit notes) applied to this invoice.<br><br>Credits offset the amount due from the customer. | String getCreditAmount() | setCreditAmount(String creditAmount) |
+| `DebitAmount` | `String` | Optional | - | String getDebitAmount() | setDebitAmount(String debitAmount) |
 | `RefundAmount` | `String` | Optional | - | String getRefundAmount() | setRefundAmount(String refundAmount) |
 | `PaidAmount` | `String` | Optional | The amount paid on the invoice by the customer. | String getPaidAmount() | setPaidAmount(String paidAmount) |
 | `DueAmount` | `String` | Optional | Amount due on the invoice, which is `total_amount - credit_amount - paid_amount`. | String getDueAmount() | setDueAmount(String dueAmount) |
@@ -55,10 +56,12 @@
 | `Discounts` | [`List<InvoiceDiscount>`](../../doc/models/invoice-discount.md) | Optional | - | List<InvoiceDiscount> getDiscounts() | setDiscounts(List<InvoiceDiscount> discounts) |
 | `Taxes` | [`List<InvoiceTax>`](../../doc/models/invoice-tax.md) | Optional | - | List<InvoiceTax> getTaxes() | setTaxes(List<InvoiceTax> taxes) |
 | `Credits` | [`List<InvoiceCredit>`](../../doc/models/invoice-credit.md) | Optional | - | List<InvoiceCredit> getCredits() | setCredits(List<InvoiceCredit> credits) |
+| `Debits` | [`List<InvoiceDebit>`](../../doc/models/invoice-debit.md) | Optional | - | List<InvoiceDebit> getDebits() | setDebits(List<InvoiceDebit> debits) |
 | `Refunds` | [`List<InvoiceRefund>`](../../doc/models/invoice-refund.md) | Optional | - | List<InvoiceRefund> getRefunds() | setRefunds(List<InvoiceRefund> refunds) |
 | `Payments` | [`List<InvoicePayment>`](../../doc/models/invoice-payment.md) | Optional | - | List<InvoicePayment> getPayments() | setPayments(List<InvoicePayment> payments) |
 | `CustomFields` | [`List<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Optional | - | List<InvoiceCustomField> getCustomFields() | setCustomFields(List<InvoiceCustomField> customFields) |
 | `DisplaySettings` | [`InvoiceDisplaySettings`](../../doc/models/invoice-display-settings.md) | Optional | - | InvoiceDisplaySettings getDisplaySettings() | setDisplaySettings(InvoiceDisplaySettings displaySettings) |
+| `AvataxDetails` | [`InvoiceAvataxDetails`](../../doc/models/invoice-avatax-details.md) | Optional | - | InvoiceAvataxDetails getAvataxDetails() | setAvataxDetails(InvoiceAvataxDetails avataxDetails) |
 | `PublicUrl` | `String` | Optional | The public URL of the invoice | String getPublicUrl() | setPublicUrl(String publicUrl) |
 | `PreviousBalanceData` | [`InvoicePreviousBalance`](../../doc/models/invoice-previous-balance.md) | Optional | - | InvoicePreviousBalance getPreviousBalanceData() | setPreviousBalanceData(InvoicePreviousBalance previousBalanceData) |
 | `PublicUrlExpiresOn` | `LocalDate` | Optional | The format is `"YYYY-MM-DD"`. | LocalDate getPublicUrlExpiresOn() | setPublicUrlExpiresOn(LocalDate publicUrlExpiresOn) |

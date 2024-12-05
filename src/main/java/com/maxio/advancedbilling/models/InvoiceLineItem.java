@@ -38,6 +38,7 @@ public class InvoiceLineItem
     private OptionalNullable<Integer> productVersion;
     private OptionalNullable<Integer> componentId;
     private OptionalNullable<Integer> pricePointId;
+    private OptionalNullable<Integer> billingScheduleItemId;
     private Boolean hide;
     private OptionalNullable<InvoiceLineItemComponentCostData> componentCostData;
     private OptionalNullable<Integer> productPricePointId;
@@ -69,6 +70,7 @@ public class InvoiceLineItem
      * @param  productVersion  Integer value for productVersion.
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
      * @param  hide  Boolean value for hide.
      * @param  componentCostData  InvoiceLineItemComponentCostData value for componentCostData.
      * @param  productPricePointId  Integer value for productPricePointId.
@@ -93,6 +95,7 @@ public class InvoiceLineItem
             Integer productVersion,
             Integer componentId,
             Integer pricePointId,
+            Integer billingScheduleItemId,
             Boolean hide,
             InvoiceLineItemComponentCostData componentCostData,
             Integer productPricePointId,
@@ -115,6 +118,7 @@ public class InvoiceLineItem
         this.productVersion = OptionalNullable.of(productVersion);
         this.componentId = OptionalNullable.of(componentId);
         this.pricePointId = OptionalNullable.of(pricePointId);
+        this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
         this.hide = hide;
         this.componentCostData = OptionalNullable.of(componentCostData);
         this.productPricePointId = OptionalNullable.of(productPricePointId);
@@ -141,6 +145,7 @@ public class InvoiceLineItem
      * @param  productVersion  Integer value for productVersion.
      * @param  componentId  Integer value for componentId.
      * @param  pricePointId  Integer value for pricePointId.
+     * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
      * @param  hide  Boolean value for hide.
      * @param  componentCostData  InvoiceLineItemComponentCostData value for componentCostData.
      * @param  productPricePointId  Integer value for productPricePointId.
@@ -153,8 +158,8 @@ public class InvoiceLineItem
             String totalAmount, Boolean tieredUnitPrice, LocalDate periodRangeStart,
             LocalDate periodRangeEnd, Integer transactionId, OptionalNullable<Integer> productId,
             OptionalNullable<Integer> productVersion, OptionalNullable<Integer> componentId,
-            OptionalNullable<Integer> pricePointId, Boolean hide,
-            OptionalNullable<InvoiceLineItemComponentCostData> componentCostData,
+            OptionalNullable<Integer> pricePointId, OptionalNullable<Integer> billingScheduleItemId,
+            Boolean hide, OptionalNullable<InvoiceLineItemComponentCostData> componentCostData,
             OptionalNullable<Integer> productPricePointId, Boolean customItem, String kind) {
         this.uid = uid;
         this.title = title;
@@ -173,6 +178,7 @@ public class InvoiceLineItem
         this.productVersion = productVersion;
         this.componentId = componentId;
         this.pricePointId = pricePointId;
+        this.billingScheduleItemId = billingScheduleItemId;
         this.hide = hide;
         this.componentCostData = componentCostData;
         this.productPricePointId = productPricePointId;
@@ -672,6 +678,41 @@ public class InvoiceLineItem
     }
 
     /**
+     * Internal Getter for BillingScheduleItemId.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("billing_schedule_item_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBillingScheduleItemId() {
+        return this.billingScheduleItemId;
+    }
+
+    /**
+     * Getter for BillingScheduleItemId.
+     * @return Returns the Integer
+     */
+    public Integer getBillingScheduleItemId() {
+        return OptionalNullable.getFrom(billingScheduleItemId);
+    }
+
+    /**
+     * Setter for BillingScheduleItemId.
+     * @param billingScheduleItemId Value for Integer
+     */
+    @JsonSetter("billing_schedule_item_id")
+    public void setBillingScheduleItemId(Integer billingScheduleItemId) {
+        this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
+    }
+
+    /**
+     * UnSetter for BillingScheduleItemId.
+     */
+    public void unsetBillingScheduleItemId() {
+        billingScheduleItemId = null;
+    }
+
+    /**
      * Getter for Hide.
      * @return Returns the Boolean
      */
@@ -815,7 +856,8 @@ public class InvoiceLineItem
                 + tieredUnitPrice + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd="
                 + periodRangeEnd + ", transactionId=" + transactionId + ", productId=" + productId
                 + ", productVersion=" + productVersion + ", componentId=" + componentId
-                + ", pricePointId=" + pricePointId + ", hide=" + hide + ", componentCostData="
+                + ", pricePointId=" + pricePointId + ", billingScheduleItemId="
+                + billingScheduleItemId + ", hide=" + hide + ", componentCostData="
                 + componentCostData + ", productPricePointId=" + productPricePointId
                 + ", customItem=" + customItem + ", kind=" + kind + ", additionalProperties="
                 + getAdditionalProperties() + "]";
@@ -848,6 +890,7 @@ public class InvoiceLineItem
         builder.productVersion = internalGetProductVersion();
         builder.componentId = internalGetComponentId();
         builder.pricePointId = internalGetPricePointId();
+        builder.billingScheduleItemId = internalGetBillingScheduleItemId();
         builder.componentCostData = internalGetComponentCostData();
         builder.productPricePointId = internalGetProductPricePointId();
         return builder;
@@ -874,6 +917,7 @@ public class InvoiceLineItem
         private OptionalNullable<Integer> productVersion;
         private OptionalNullable<Integer> componentId;
         private OptionalNullable<Integer> pricePointId;
+        private OptionalNullable<Integer> billingScheduleItemId;
         private Boolean hide;
         private OptionalNullable<InvoiceLineItemComponentCostData> componentCostData;
         private OptionalNullable<Integer> productPricePointId;
@@ -1089,6 +1133,25 @@ public class InvoiceLineItem
         }
 
         /**
+         * Setter for billingScheduleItemId.
+         * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
+         * @return Builder
+         */
+        public Builder billingScheduleItemId(Integer billingScheduleItemId) {
+            this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
+            return this;
+        }
+
+        /**
+         * UnSetter for billingScheduleItemId.
+         * @return Builder
+         */
+        public Builder unsetBillingScheduleItemId() {
+            billingScheduleItemId = null;
+            return this;
+        }
+
+        /**
          * Setter for hide.
          * @param  hide  Boolean value for hide.
          * @return Builder
@@ -1164,7 +1227,8 @@ public class InvoiceLineItem
             return new InvoiceLineItem(uid, title, description, quantity, unitPrice, subtotalAmount,
                     discountAmount, taxAmount, totalAmount, tieredUnitPrice, periodRangeStart,
                     periodRangeEnd, transactionId, productId, productVersion, componentId,
-                    pricePointId, hide, componentCostData, productPricePointId, customItem, kind);
+                    pricePointId, billingScheduleItemId, hide, componentCostData,
+                    productPricePointId, customItem, kind);
         }
     }
 }
