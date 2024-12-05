@@ -30,7 +30,7 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
         Invoice openInvoice = createOpenInvoice(subscription);
 
         // when
-        CustomerChangesPreviewResponse preview = INVOICES_CONTROLLER.previewCustomerInformationChanges(openInvoice.getUid());
+        CustomerChangesPreviewResponse preview = invoicesController.previewCustomerInformationChanges(openInvoice.getUid());
 
         // then
         assertThat(preview).isNotNull();
@@ -50,7 +50,7 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
         Invoice openInvoice = testData.openInvoice();
 
         // when
-        CustomerChangesPreviewResponse preview = INVOICES_CONTROLLER.previewCustomerInformationChanges(openInvoice.getUid());
+        CustomerChangesPreviewResponse preview = invoicesController.previewCustomerInformationChanges(openInvoice.getUid());
 
         // then
         assertThat(preview).isNotNull();
@@ -94,9 +94,9 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
     @Test
     void shouldThrowExceptionIfInvoiceIsNotOpen() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
+        Subscription subscription = testSetup.createSubscription(customer, product);
 
-        Invoice paidInvoice = INVOICES_CONTROLLER.listInvoices(
+        Invoice paidInvoice = invoicesController.listInvoices(
                         new ListInvoicesInput.Builder()
                                 .status(InvoiceStatus.PAID)
                                 .subscriptionId(subscription.getId())
@@ -105,7 +105,7 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
                 .get(0);
 
         // when then
-        assertThatErrorListResponse(() -> INVOICES_CONTROLLER.previewCustomerInformationChanges(paidInvoice.getUid()))
+        assertThatErrorListResponse(() -> invoicesController.previewCustomerInformationChanges(paidInvoice.getUid()))
                 .hasErrors("Invoice must have an open status")
                 .isUnprocessableEntity();
     }
@@ -122,7 +122,7 @@ public class InvoicesControllerPreviewCustomerInformationChangesTest extends Bas
     @Test
     void shouldThrowNotFoundIfInvoiceDoesNotExist() {
         // when then
-        assertNotFound(() -> INVOICES_CONTROLLER.previewCustomerInformationChanges("uid_not_found"));
+        assertNotFound(() -> invoicesController.previewCustomerInformationChanges("uid_not_found"));
     }
 
     private void assertPayerData(InvoicePayerChange payer, Customer customer) {

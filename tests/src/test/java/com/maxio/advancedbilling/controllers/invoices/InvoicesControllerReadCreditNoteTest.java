@@ -48,10 +48,10 @@ import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InvoicesControllerReadCreditNoteTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
-    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(client);
 
     private Product product;
     private Component quantityBasedComponent;
@@ -61,17 +61,17 @@ class InvoicesControllerReadCreditNoteTest {
 
     @BeforeAll
     void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        quantityBasedComponent = testSetup.createQuantityBasedComponent(productFamily.getId());
+        coupon = testSetup.createAmountCoupon(productFamily, 1250, true);
         List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                 new CreateSubscriptionComponent.Builder()
                         .componentId(CreateSubscriptionComponentComponentId.fromNumber(quantityBasedComponent.getId()))
                         .allocatedQuantity(CreateSubscriptionComponentAllocatedQuantity.fromNumber(50))
                         .build());
-        subscription = TEST_SETUP.createSubscription(customer, product, s -> s
+        subscription = testSetup.createSubscription(customer, product, s -> s
                 .couponCode(coupon.getCode())
                 .components(subscriptionComponents)
         );
@@ -90,7 +90,7 @@ class InvoicesControllerReadCreditNoteTest {
 
         InvoicePayment payment = paidInvoice.getPayments().get(0);
         // refund a part of the payment
-        INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
+        invoicesController.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundInvoice(
                         new RefundInvoice.Builder()
                                 .memo("Special refund")
@@ -100,13 +100,13 @@ class InvoicesControllerReadCreditNoteTest {
                                 .build()
                 )));
         TimeUnit.SECONDS.sleep(1);
-        List<CreditNote> creditNotes = INVOICES_CONTROLLER
+        List<CreditNote> creditNotes = invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder().subscriptionId(subscriptionId).build())
                 .getCreditNotes();
         assertThat(creditNotes).hasSize(1);
 
         // when
-        CreditNote creditNote = INVOICES_CONTROLLER.readCreditNote(creditNotes.get(0).getUid());
+        CreditNote creditNote = invoicesController.readCreditNote(creditNotes.get(0).getUid());
 
         // then
         assertThat(creditNote.getUid()).isNotNull();
@@ -263,7 +263,7 @@ class InvoicesControllerReadCreditNoteTest {
     @Test
     void shouldReturn404ForNotExistentInvoice() {
         // when - then
-        CommonAssertions.assertNotFound(() -> INVOICES_CONTROLLER.readCreditNote("not-existent-uid"));
+        CommonAssertions.assertNotFound(() -> invoicesController.readCreditNote("not-existent-uid"));
     }
 
     @Test

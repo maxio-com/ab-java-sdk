@@ -25,18 +25,13 @@ import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.FailedPaymentEvent;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
-import com.maxio.advancedbilling.models.IssueInvoiceEvent;
-import com.maxio.advancedbilling.models.RefundInvoiceEvent;
-import com.maxio.advancedbilling.models.RemovePaymentEvent;
-import com.maxio.advancedbilling.models.VoidInvoiceEvent;
-import com.maxio.advancedbilling.models.VoidRemainderEvent;
-import com.maxio.advancedbilling.models.containers.InvoiceEvent;
 import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
 import com.maxio.advancedbilling.models.InvoiceEventType;
 import com.maxio.advancedbilling.models.InvoicePayment;
 import com.maxio.advancedbilling.models.InvoicePaymentMethodType;
 import com.maxio.advancedbilling.models.InvoicePaymentType;
 import com.maxio.advancedbilling.models.InvoiceStatus;
+import com.maxio.advancedbilling.models.IssueInvoiceEvent;
 import com.maxio.advancedbilling.models.IssueInvoiceEventData;
 import com.maxio.advancedbilling.models.ListInvoiceEventsInput;
 import com.maxio.advancedbilling.models.ListInvoiceEventsResponse;
@@ -48,16 +43,21 @@ import com.maxio.advancedbilling.models.PaymentMethodPaypal;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.RefundInvoice;
+import com.maxio.advancedbilling.models.RefundInvoiceEvent;
 import com.maxio.advancedbilling.models.RefundInvoiceEventData;
 import com.maxio.advancedbilling.models.RefundInvoiceRequest;
+import com.maxio.advancedbilling.models.RemovePaymentEvent;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.VoidInvoice;
+import com.maxio.advancedbilling.models.VoidInvoiceEvent;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
+import com.maxio.advancedbilling.models.VoidRemainderEvent;
 import com.maxio.advancedbilling.models.VoidRemainderEventData;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductId;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
 import com.maxio.advancedbilling.models.containers.CreateInvoicePaymentAmount;
+import com.maxio.advancedbilling.models.containers.InvoiceEvent;
 import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
 import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
 import com.maxio.advancedbilling.utils.TestSetup;
@@ -73,23 +73,23 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerListInvoiceEventsTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static Product product;
-    private static Customer customer;
-    private static Subscription subscription;
-    private static Invoice expectedInvoice;
+    private Product product;
+    private Customer customer;
+    private Subscription subscription;
+    private Invoice expectedInvoice;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(125000));
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
+    void setUp() throws IOException, ApiException {
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(125000));
+        customer = testSetup.createCustomer();
+        subscription = testSetup.createSubscription(customer, product);
 
-        expectedInvoice = TEST_SETUP.createInvoice(
+        expectedInvoice = testSetup.createInvoice(
                 subscription.getId(),
                 b -> b
                         .status(CreateInvoiceStatus.OPEN)
@@ -109,7 +109,7 @@ public class InvoicesControllerListInvoiceEventsTest {
                         .build()
         );
 
-        expectedInvoice = INVOICES_CONTROLLER.recordPaymentForInvoice(expectedInvoice.getUid(), new CreateInvoicePaymentRequest.Builder()
+        expectedInvoice = invoicesController.recordPaymentForInvoice(expectedInvoice.getUid(), new CreateInvoicePaymentRequest.Builder()
                 .type(InvoicePaymentType.EXTERNAL)
                 .payment(new CreateInvoicePayment.Builder()
                         .method(InvoicePaymentMethodType.MONEY_ORDER)
@@ -119,7 +119,7 @@ public class InvoicesControllerListInvoiceEventsTest {
 
         InvoicePayment payment = expectedInvoice.getPayments().get(0);
 
-        expectedInvoice = INVOICES_CONTROLLER.refundInvoice(expectedInvoice.getUid(), new RefundInvoiceRequest(
+        expectedInvoice = invoicesController.refundInvoice(expectedInvoice.getUid(), new RefundInvoiceRequest(
                 RefundInvoiceRequestRefund.fromRefundInvoice(new RefundInvoice.Builder()
                         .applyCredit(true)
                         .paymentId(payment.getTransactionId())
@@ -128,8 +128,8 @@ public class InvoicesControllerListInvoiceEventsTest {
                         .voidInvoice(false)
                         .build()))
         );
-        expectedInvoice = INVOICES_CONTROLLER.voidInvoice(expectedInvoice.getUid(), new VoidInvoiceRequest(new VoidInvoice("Test")));
-        expectedInvoice = INVOICES_CONTROLLER.readInvoice(expectedInvoice.getUid());
+        expectedInvoice = invoicesController.voidInvoice(expectedInvoice.getUid(), new VoidInvoiceRequest(new VoidInvoice("Test")));
+        expectedInvoice = invoicesController.readInvoice(expectedInvoice.getUid());
 
         try {
             // sometimes some events are missing
@@ -140,14 +140,14 @@ public class InvoicesControllerListInvoiceEventsTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
     @Test
     void shouldReturnEmptyListIfInvoiceDoesNotExist() throws IOException, ApiException {
         // when
-        ListInvoiceEventsResponse response = INVOICES_CONTROLLER.listInvoiceEvents(new ListInvoiceEventsInput.Builder()
+        ListInvoiceEventsResponse response = invoicesController.listInvoiceEvents(new ListInvoiceEventsInput.Builder()
                 .invoiceUid("uid_123445")
                 .perPage(10)
                 .build());
@@ -162,7 +162,7 @@ public class InvoicesControllerListInvoiceEventsTest {
     @Test
     void shouldReturnInvoiceEventsForExistingInvoice() throws IOException, ApiException {
         // when
-        ListInvoiceEventsResponse response = INVOICES_CONTROLLER.listInvoiceEvents(
+        ListInvoiceEventsResponse response = invoicesController.listInvoiceEvents(
                 new ListInvoiceEventsInput.Builder()
                         .invoiceUid(expectedInvoice.getUid())
                         .perPage(10)
@@ -335,21 +335,21 @@ public class InvoicesControllerListInvoiceEventsTest {
     @Test
     void shouldReturnInvoiceEventsWithPaging() throws IOException, ApiException {
         // when
-        ListInvoiceEventsResponse page1 = INVOICES_CONTROLLER.listInvoiceEvents(
+        ListInvoiceEventsResponse page1 = invoicesController.listInvoiceEvents(
                 new ListInvoiceEventsInput.Builder()
                         .invoiceUid(expectedInvoice.getUid())
                         .perPage(2)
                         .page(1)
                         .build());
 
-        ListInvoiceEventsResponse page2 = INVOICES_CONTROLLER.listInvoiceEvents(
+        ListInvoiceEventsResponse page2 = invoicesController.listInvoiceEvents(
                 new ListInvoiceEventsInput.Builder()
                         .invoiceUid(expectedInvoice.getUid())
                         .perPage(2)
                         .page(2)
                         .build());
 
-        ListInvoiceEventsResponse page3 = INVOICES_CONTROLLER.listInvoiceEvents(
+        ListInvoiceEventsResponse page3 = invoicesController.listInvoiceEvents(
                 new ListInvoiceEventsInput.Builder()
                         .invoiceUid(expectedInvoice.getUid())
                         .perPage(2)
@@ -376,7 +376,7 @@ public class InvoicesControllerListInvoiceEventsTest {
     @Test
     void shouldReturnInvoiceEventsFilteredByType() throws IOException, ApiException {
         // when
-        ListInvoiceEventsResponse response = INVOICES_CONTROLLER.listInvoiceEvents(
+        ListInvoiceEventsResponse response = invoicesController.listInvoiceEvents(
                 new ListInvoiceEventsInput.Builder()
                         .invoiceUid(expectedInvoice.getUid())
                         .eventTypes(List.of(InvoiceEventType.REFUND_INVOICE, InvoiceEventType.ISSUE_INVOICE))
@@ -390,9 +390,9 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(response.getPage()).isEqualTo(1);
         assertThat(response.getEvents()).hasSize(2);
 
-        IssueInvoiceEvent issueInvoiceEvent =  assertCastable(response.getEvents().get(0), IssueInvoiceEvent.class);
+        IssueInvoiceEvent issueInvoiceEvent = assertCastable(response.getEvents().get(0), IssueInvoiceEvent.class);
         assertThat(issueInvoiceEvent.getEventType()).isEqualTo(InvoiceEventType.ISSUE_INVOICE);
-        RefundInvoiceEvent refundInvoiceEvent =  assertCastable(response.getEvents().get(1), RefundInvoiceEvent.class);
+        RefundInvoiceEvent refundInvoiceEvent = assertCastable(response.getEvents().get(1), RefundInvoiceEvent.class);
         assertThat(refundInvoiceEvent.getEventType()).isEqualTo(InvoiceEventType.REFUND_INVOICE);
     }
 
@@ -407,17 +407,22 @@ public class InvoicesControllerListInvoiceEventsTest {
 
     void assertInvoiceInEvent(Invoice eventInvoice, Invoice invoice) {
         assertThat(eventInvoice.getAdditionalProperties()).satisfies(additionalProperties -> {
+            assertThat(additionalProperties.size()).isEqualTo(15);
             assertThat(additionalProperties.get("statement_id")).isNull();
             assertThat(additionalProperties.get("legacy_invoice_number")).isNull();
             assertThat(additionalProperties.get("backported_at")).isNull();
             assertThat(additionalProperties.get("subscription_group_customer_ids")).isNull();
-            assertThat(additionalProperties.get("debit_amount")).isEqualTo("0.0");
-            assertThat(additionalProperties.get("debits")).usingRecursiveComparison().isEqualTo(List.of());
             assertThat(additionalProperties.get("tax_exempt_amount")).isEqualTo("0.0");
             assertThat(additionalProperties.get("status_changed_at")).isNotNull();
             assertThat(additionalProperties.get("prepaid_usage_details")).isNull();
             assertThat(additionalProperties.get("invoice_account_details")).isNull();
             assertThat(additionalProperties.get("external_connected_data")).isNull();
+            assertThat(additionalProperties.get("owner_id")).isNull();
+            assertThat(additionalProperties.get("owner_type")).isNull();
+            assertThat(additionalProperties.get("core_id")).isNull();
+            assertThat(additionalProperties.get("core_invoice_number")).isNull();
+            assertThat(additionalProperties.get("maxio_metadata")).isNull();
+            assertThat(additionalProperties.get("core_po_number")).isNull();
         });
         assertThat(eventInvoice)
                 .usingRecursiveComparison()
