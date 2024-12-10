@@ -46,7 +46,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
@@ -54,32 +53,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InvoicesControllerIssueTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static Product product;
-    private static Component quantityBasedComponent;
-    private static Subscription subscription;
-    private static Customer customer;
-    private static Invoice openInvoice;
-    private static Invoice paidInvoice;
+    private Product product;
+    private Component quantityBasedComponent;
+    private Subscription subscription;
+    private Customer customer;
+    private Invoice openInvoice;
+    private Invoice paidInvoice;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(
+    void setUp() throws IOException, ApiException {
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        quantityBasedComponent = testSetup.createQuantityBasedComponent(
                 productFamily.getId(),
                 b -> b.allowFractionalQuantities(true)
         );
-        subscription = TEST_SETUP.createSubscription(customer, product);
-        paidInvoice = INVOICES_CONTROLLER
+        subscription = testSetup.createSubscription(customer, product);
+        paidInvoice = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder().subscriptionId(subscription.getId()).build())
                 .getInvoices()
                 .get(0);
-        openInvoice = TEST_SETUP.createInvoice(
+        openInvoice = testSetup.createInvoice(
                 subscription.getId(),
                 b -> b
                         .status(CreateInvoiceStatus.OPEN)
@@ -101,7 +100,7 @@ class InvoicesControllerIssueTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
@@ -115,19 +114,19 @@ class InvoicesControllerIssueTest {
                 .build();
 
         // this creates an invoice in the "PENDING" status
-        CLIENT.getSubscriptionComponentsController().allocateComponent(
+        client.getSubscriptionComponentsController().allocateComponent(
                 subscription.getId(),
                 quantityBasedComponent.getId(),
                 new CreateAllocationRequest(createAllocation)
         );
 
-        Invoice pendingInvoice = INVOICES_CONTROLLER
+        Invoice pendingInvoice = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder().status(InvoiceStatus.PENDING).build())
                 .getInvoices()
                 .get(0);
 
         // when
-        Invoice issuedInvoice = INVOICES_CONTROLLER.issueInvoice(
+        Invoice issuedInvoice = invoicesController.issueInvoice(
                 pendingInvoice.getUid(),
                 new IssueInvoiceRequest(FailedPaymentAction.LEAVE_OPEN_INVOICE)
         );
@@ -211,7 +210,7 @@ class InvoicesControllerIssueTest {
         assertThat(lineItems)
                 .hasSize(1)
                 .extracting(BaseModel::getAdditionalProperties)
-                .containsExactly(Collections.singletonMap("billing_schedule_item_id", null));
+                .containsExactly(Collections.emptyMap());
         assertThat(lineItems)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "description", "additionalProperties")
                 .containsExactly(
@@ -264,12 +263,12 @@ class InvoicesControllerIssueTest {
     void shouldReturn422WhenIssuingInvoiceWithIncorrectStatus(String invoiceUid) {
         // when - then
         CommonAssertions
-                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER.issueInvoice(invoiceUid, new IssueInvoiceRequest()))
+                .assertThatErrorListResponse(() -> invoicesController.issueInvoice(invoiceUid, new IssueInvoiceRequest()))
                 .isUnprocessableEntity()
                 .hasErrors("Invoice must have 'pending' status");
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenIssuingInvoiceWithIncorrectStatus() {
+    private Stream<Arguments> argsForShouldReturn422WhenIssuingInvoiceWithIncorrectStatus() {
         return Stream.of(
                 Arguments.arguments(paidInvoice.getUid()),
                 Arguments.arguments(openInvoice.getUid())
@@ -280,7 +279,7 @@ class InvoicesControllerIssueTest {
     void shouldReturn404WhenIssuingNotExistentInvoice() {
         // when - then
         CommonAssertions.assertNotFound(
-                () -> INVOICES_CONTROLLER.issueInvoice("123", new IssueInvoiceRequest(FailedPaymentAction.LEAVE_OPEN_INVOICE))
+                () -> invoicesController.issueInvoice("123", new IssueInvoiceRequest(FailedPaymentAction.LEAVE_OPEN_INVOICE))
         );
     }
 

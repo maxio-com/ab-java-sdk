@@ -35,34 +35,34 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static Product product;
-    private static Customer customer;
+    private Product product;
+    private Customer customer;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
+    void setUp() throws IOException, ApiException {
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
     @Test
     void shouldRecordFullPaymentForMultipleInvoices() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice1 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        Invoice openInvoice2 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice1 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        Invoice openInvoice2 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
 
         // when
-        MultiInvoicePayment multiInvoicePayment = CLIENT.getInvoicesController()
+        MultiInvoicePayment multiInvoicePayment = client.getInvoicesController()
                 .recordPaymentForMultipleInvoices(
                         new CreateMultiInvoicePaymentRequest(new CreateMultiInvoicePayment.Builder(
                                 CreateMultiInvoicePaymentAmount.fromString("100.0"),
@@ -96,7 +96,7 @@ class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
                                 .build()
                 );
 
-        assertThat(INVOICES_CONTROLLER
+        assertThat(invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .subscriptionId(subscription.getId())
                         .build()
@@ -112,12 +112,12 @@ class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
     @Test
     void shouldRecordPartialPaymentForMultipleInvoices() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice1 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        Invoice openInvoice2 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice1 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        Invoice openInvoice2 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
 
         // when
-        MultiInvoicePayment multiInvoicePayment = CLIENT.getInvoicesController()
+        MultiInvoicePayment multiInvoicePayment = client.getInvoicesController()
                 .recordPaymentForMultipleInvoices(
                         new CreateMultiInvoicePaymentRequest(new CreateMultiInvoicePayment.Builder(
                                 CreateMultiInvoicePaymentAmount.fromString("6.0"),
@@ -151,7 +151,7 @@ class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
                                 .build()
                 );
 
-        assertThat(INVOICES_CONTROLLER
+        assertThat(invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .subscriptionId(subscription.getId())
                         .status(InvoiceStatus.OPEN)
@@ -172,7 +172,7 @@ class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
                                                            String[] expectedErrors) {
         // when - then
         CommonAssertions
-                .assertThatErrorListResponse(() -> CLIENT.getInvoicesController()
+                .assertThatErrorListResponse(() -> client.getInvoicesController()
                         .recordPaymentForMultipleInvoices(
                                 new CreateMultiInvoicePaymentRequest(new CreateMultiInvoicePayment
                                         .Builder(createMultiInvoicePaymentAmount, applications)
@@ -187,11 +187,11 @@ class InvoicesControllerRecordPaymentForMultipleInvoicesTest {
                 .hasErrors(expectedErrors);
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenProvidedRequestBodyIsIncorrect() throws IOException, ApiException {
+    private Stream<Arguments> argsForShouldReturn422WhenProvidedRequestBodyIsIncorrect() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice1 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        Invoice openInvoice2 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice1 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        Invoice openInvoice2 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
 
         return Stream.of(
                 Arguments.arguments(

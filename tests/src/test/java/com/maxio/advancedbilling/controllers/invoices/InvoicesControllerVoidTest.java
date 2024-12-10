@@ -19,6 +19,7 @@ import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceCouponAmount;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductId;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
+import com.maxio.advancedbilling.models.containers.CreateInvoiceItemUnitPrice;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
@@ -33,25 +34,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InvoicesControllerVoidTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static Product product;
-    private static Customer customer;
-    private static Invoice openInvoice;
-    private static Invoice paidInvoice;
+    private Product product;
+    private Customer customer;
+    private Invoice openInvoice;
+    private Invoice paidInvoice;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        product = TEST_SETUP.createProduct(TEST_SETUP.createProductFamily(), b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        paidInvoice = INVOICES_CONTROLLER
+    void setUp() throws IOException, ApiException {
+        product = testSetup.createProduct(testSetup.createProductFamily(), b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        paidInvoice = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder().subscriptionId(subscription.getId()).build())
                 .getInvoices()
                 .get(0);
-        openInvoice = TEST_SETUP.createInvoice(
+        openInvoice = testSetup.createInvoice(
                 subscription.getId(),
                 b -> b
                         .status(CreateInvoiceStatus.OPEN)
@@ -59,6 +60,7 @@ class InvoicesControllerVoidTest {
                                 new CreateInvoiceItem.Builder()
                                         .productId(CreateInvoiceItemProductId.fromNumber(product.getId()))
                                         .quantity(CreateInvoiceItemQuantity.fromString("1"))
+                                        .unitPrice(CreateInvoiceItemUnitPrice.fromString("150.0"))
                                         .build()
                         ))
                         .coupons(List.of(
@@ -73,14 +75,14 @@ class InvoicesControllerVoidTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
     @Test
     void shouldVoidOpenInvoice() throws IOException, ApiException {
         // when
-        Invoice voidedInvoice = INVOICES_CONTROLLER.voidInvoice(
+        Invoice voidedInvoice = invoicesController.voidInvoice(
                 openInvoice.getUid(),
                 new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice"))
         );
@@ -106,7 +108,7 @@ class InvoicesControllerVoidTest {
     void shouldReturn422WhenVoidingPaidInvoice() {
         // when - then
         CommonAssertions
-                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER
+                .assertThatErrorListResponse(() -> invoicesController
                         .voidInvoice(paidInvoice.getUid(), new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice"))))
                 .isUnprocessableEntity()
                 .hasErrors("Invoice status must be 'open', 'canceled', 'processing' or 'pending' and non-consolidated to be voided.");
@@ -115,7 +117,7 @@ class InvoicesControllerVoidTest {
     @Test
     void shouldReturn404WhenVoidingNotExistentInvoice() {
         // when - then
-        CommonAssertions.assertNotFound(() -> INVOICES_CONTROLLER
+        CommonAssertions.assertNotFound(() -> invoicesController
                 .voidInvoice("123", new VoidInvoiceRequest(new VoidInvoice("Duplicate invoice")))
         );
     }
