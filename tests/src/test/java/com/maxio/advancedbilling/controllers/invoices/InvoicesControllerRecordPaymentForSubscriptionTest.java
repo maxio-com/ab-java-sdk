@@ -32,34 +32,34 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InvoicesControllerRecordPaymentForSubscriptionTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static Product product;
-    private static Customer customer;
+    private Product product;
+    private Customer customer;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
+    void setUp() throws IOException, ApiException {
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
     @Test
     void shouldRecordPaymentForSubscriptionWithNoRemainder() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice1 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        Invoice openInvoice2 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice1 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        Invoice openInvoice2 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
 
         // when
-        RecordPaymentResponse paymentResponse = INVOICES_CONTROLLER.recordPaymentForSubscription(
+        RecordPaymentResponse paymentResponse = invoicesController.recordPaymentForSubscription(
                 subscription.getId(),
                 new RecordPaymentRequest(new CreatePayment.Builder()
                         .amount("8.00")
@@ -94,12 +94,12 @@ class InvoicesControllerRecordPaymentForSubscriptionTest {
     @Test
     void shouldRecordPaymentForSubscriptionWithPrepaymentRemainder() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice1 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        Invoice openInvoice2 = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice1 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        Invoice openInvoice2 = testSetup.createOpenInvoice(subscription.getId(), product.getId());
 
         // when
-        RecordPaymentResponse paymentResponse = INVOICES_CONTROLLER.recordPaymentForSubscription(
+        RecordPaymentResponse paymentResponse = invoicesController.recordPaymentForSubscription(
                 subscription.getId(),
                 new RecordPaymentRequest(new CreatePayment.Builder()
                         .amount("100.00")
@@ -143,16 +143,16 @@ class InvoicesControllerRecordPaymentForSubscriptionTest {
     void shouldReturn422WhenProvidedRequestBodyIsIncorrect(int subscriptionId, RecordPaymentRequest request, String[] expectedErrors) {
         // when - then
         CommonAssertions
-                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER.recordPaymentForSubscription(subscriptionId, request))
+                .assertThatErrorListResponse(() -> invoicesController.recordPaymentForSubscription(subscriptionId, request))
                 .isUnprocessableEntity()
                 .hasErrors(expectedErrors);
     }
 
-    private static Stream<Arguments> argsForShouldReturn422WhenProvidedRequestBodyIsIncorrect() throws IOException, ApiException {
+    private Stream<Arguments> argsForShouldReturn422WhenProvidedRequestBodyIsIncorrect() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        testSetup.createOpenInvoice(subscription.getId(), product.getId());
 
         return Stream.of(
                 Arguments.arguments(
@@ -181,7 +181,7 @@ class InvoicesControllerRecordPaymentForSubscriptionTest {
     @Test
     void shouldReturn404ForNotExistentSubscription() {
         // when - then
-        CommonAssertions.assertNotFound(() -> INVOICES_CONTROLLER
+        CommonAssertions.assertNotFound(() -> invoicesController
                 .recordPaymentForSubscription(123, new RecordPaymentRequest())
         );
     }

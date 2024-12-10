@@ -48,25 +48,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class InvoicesControllerReadInvoiceTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static ProductFamily productFamily;
-    private static Product product;
-    private static Component meteredComponent;
-    private static Customer customer;
-    private static Subscription subscription;
-    private static Coupon coupon;
+    private ProductFamily productFamily;
+    private Product product;
+    private Component meteredComponent;
+    private Customer customer;
+    private Subscription subscription;
+    private Coupon coupon;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 13.05);
-        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1010, true);
+    void setUp() throws IOException, ApiException {
+        productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        meteredComponent = testSetup.createMeteredComponent(productFamily, 13.05);
+        coupon = testSetup.createAmountCoupon(productFamily, 1010, true);
 
-        customer = TEST_SETUP.createCustomer();
+        customer = testSetup.createCustomer();
 
         List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                 new CreateSubscriptionComponent.Builder()
@@ -74,20 +74,20 @@ public class InvoicesControllerReadInvoiceTest {
                         .unitBalance(10)
                         .build());
 
-        subscription = TEST_SETUP.createSubscription(customer, product, s -> s
+        subscription = testSetup.createSubscription(customer, product, s -> s
                 .couponCode(coupon.getCode())
                 .components(subscriptionComponents));
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
     @Test
     void shouldReadInvoice() throws IOException, ApiException {
         // given
-        String invoiceUid = INVOICES_CONTROLLER
+        String invoiceUid = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .subscriptionId(subscription.getId())
                         .build())
@@ -96,7 +96,7 @@ public class InvoicesControllerReadInvoiceTest {
                 .getUid();
 
         // when
-        Invoice invoice = INVOICES_CONTROLLER.readInvoice(invoiceUid);
+        Invoice invoice = invoicesController.readInvoice(invoiceUid);
 
         // then
         assertAll(() -> {
@@ -280,6 +280,6 @@ public class InvoicesControllerReadInvoiceTest {
     @Test
     void shouldThrowNotFoundIfInvoiceDoesNotExist() {
         // when then
-        assertNotFound(() -> INVOICES_CONTROLLER.readInvoice("uid_12345"));
+        assertNotFound(() -> invoicesController.readInvoice("uid_12345"));
     }
 }

@@ -61,45 +61,45 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class InvoicesControllerRecordPaymentForInvoiceTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
-    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(client);
 
-    private static ProductFamily productFamily;
-    private static Product product;
-    private static Customer customer;
-    private static Subscription subscription;
-    private static Invoice openInvoice;
-    private static CreditCardPaymentProfile creditCardPaymentProfile;
+    private ProductFamily productFamily;
+    private Product product;
+    private Customer customer;
+    private Subscription subscription;
+    private Invoice openInvoice;
+    private CreditCardPaymentProfile creditCardPaymentProfile;
 
     @BeforeAll
     void setUp() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
-        creditCardPaymentProfile = CLIENT.getPaymentProfilesController()
+        productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        subscription = testSetup.createSubscription(customer, product);
+        creditCardPaymentProfile = client.getPaymentProfilesController()
                 .listPaymentProfiles(new ListPaymentProfilesInput.Builder().customerId(customer.getId()).build())
                 .get(0)
                 .getPaymentProfile()
                 .match(new PaymentProfileResponsePaymentProfileGetter<>());
-        openInvoice = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        openInvoice = testSetup.createOpenInvoice(subscription.getId(), product.getId());
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
     @Test
     void shouldRecordPaymentUsingExistingPaymentProfile() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice = testSetup.createOpenInvoice(subscription.getId(), product.getId());
 
         // when
-        Invoice invoice = INVOICES_CONTROLLER.recordPaymentForInvoice(
+        Invoice invoice = invoicesController.recordPaymentForInvoice(
                 openInvoice.getUid(),
                 new CreateInvoicePaymentRequest(
                         new CreateInvoicePayment.Builder()
@@ -264,9 +264,9 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
     @Test
     void shouldRecordPaymentUsingSubscriptionPrepaymentAccount() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        CLIENT.getSubscriptionInvoiceAccountController()
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice = testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        client.getSubscriptionInvoiceAccountController()
                 .createPrepayment(
                         subscription.getId(),
                         new CreatePrepaymentRequest(new CreatePrepayment.Builder()
@@ -279,7 +279,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
                 );
 
         // when
-        Invoice invoice = INVOICES_CONTROLLER.recordPaymentForInvoice(
+        Invoice invoice = invoicesController.recordPaymentForInvoice(
                 openInvoice.getUid(),
                 new CreateInvoicePaymentRequest(
                         new CreateInvoicePayment.Builder().amount(CreateInvoicePaymentAmount.fromString("4.00")).build(),
@@ -311,7 +311,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
         assertThat(payment.getGatewayUsed()).isNull();
         assertThat(payment.getGatewayTransactionId()).isNull();
 
-        List<Prepayment> prepayments = CLIENT.getSubscriptionInvoiceAccountController()
+        List<Prepayment> prepayments = client.getSubscriptionInvoiceAccountController()
                 .listPrepayments(new ListPrepaymentsInput.Builder().subscriptionId(subscription.getId()).build())
                 .getPrepayments();
         assertThat(prepayments)
@@ -324,9 +324,9 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
     @Test
     void shouldRecordPaymentUsingSubscriptionServiceCreditAccount() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        Invoice openInvoice = TEST_SETUP.createOpenInvoice(subscription.getId(), product.getId());
-        CLIENT.getSubscriptionInvoiceAccountController()
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        Invoice openInvoice = testSetup.createOpenInvoice(subscription.getId(), product.getId());
+        client.getSubscriptionInvoiceAccountController()
                 .issueServiceCredit(
                         subscription.getId(),
                         new IssueServiceCreditRequest(
@@ -338,7 +338,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
                 );
 
         // when
-        Invoice invoice = INVOICES_CONTROLLER.recordPaymentForInvoice(
+        Invoice invoice = invoicesController.recordPaymentForInvoice(
                 openInvoice.getUid(),
                 new CreateInvoicePaymentRequest(
                         new CreateInvoicePayment.Builder().amount(CreateInvoicePaymentAmount.fromString("4.00")).build(),
@@ -367,7 +367,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
     void shouldReturn422WhenRequestBodyIsIncorrect(String invoiceUid, CreateInvoicePaymentRequest request, String[] expectedErrors) {
         // when - then
         CommonAssertions
-                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER.recordPaymentForInvoice(invoiceUid, request))
+                .assertThatErrorListResponse(() -> invoicesController.recordPaymentForInvoice(invoiceUid, request))
                 .isUnprocessableEntity()
                 .hasErrors(expectedErrors);
     }
@@ -417,7 +417,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
     @Test
     void shouldReturn404ForNotExistentInvoice() {
         // when - then
-        CommonAssertions.assertNotFound(() -> INVOICES_CONTROLLER
+        CommonAssertions.assertNotFound(() -> invoicesController
                 .recordPaymentForInvoice("not-existent-invoice-uid", new CreateInvoicePaymentRequest())
         );
     }

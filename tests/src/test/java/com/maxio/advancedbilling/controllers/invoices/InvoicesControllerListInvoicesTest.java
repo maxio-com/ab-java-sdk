@@ -57,29 +57,29 @@ import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerListInvoicesTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static ProductFamily productFamily;
-    private static Product product;
-    private static Product otherProduct;
-    private static Component meteredComponent;
-    private static final List<Customer> customers = new ArrayList<>();
-    private static final List<Subscription> subscriptions = new ArrayList<>();
-    private static Coupon coupon;
+    private ProductFamily productFamily;
+    private Product product;
+    private Product otherProduct;
+    private Component meteredComponent;
+    private final List<Customer> customers = new ArrayList<>();
+    private final List<Subscription> subscriptions = new ArrayList<>();
+    private Coupon coupon;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        otherProduct = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(100));
+    void setUp() throws IOException, ApiException {
+        productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        otherProduct = testSetup.createProduct(productFamily, b -> b.priceInCents(100));
 
-        meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
-        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
+        meteredComponent = testSetup.createMeteredComponent(productFamily, 11.5);
+        coupon = testSetup.createAmountCoupon(productFamily, 1250, true);
 
         for (int i = 0; i < 10; ++i) {
-            Customer customer = TEST_SETUP.createCustomer();
+            Customer customer = testSetup.createCustomer();
 
             List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                     new CreateSubscriptionComponent.Builder()
@@ -87,7 +87,7 @@ public class InvoicesControllerListInvoicesTest {
                             .unitBalance(10 + i)
                             .build());
 
-            Subscription subscription = TEST_SETUP.createSubscription(customer, product, s -> s
+            Subscription subscription = testSetup.createSubscription(customer, product, s -> s
                     .couponCode(coupon.getCode())
                     .components(subscriptionComponents)
             );
@@ -95,7 +95,7 @@ public class InvoicesControllerListInvoicesTest {
             subscriptions.add(subscription);
         }
 
-        INVOICES_CONTROLLER.createInvoice(subscriptions.get(0).getId(), new CreateInvoiceRequest(
+        invoicesController.createInvoice(subscriptions.get(0).getId(), new CreateInvoiceRequest(
                 new CreateInvoice.Builder()
                         .paymentInstructions("Custom payment instructions")
                         .memo("Custom memo")
@@ -117,7 +117,7 @@ public class InvoicesControllerListInvoicesTest {
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         TestTeardown testTeardown = new TestTeardown();
         for (Customer customer : customers) {
             testTeardown.deleteCustomer(customer);
@@ -127,7 +127,7 @@ public class InvoicesControllerListInvoicesTest {
     @Test
     void shouldListAllInvoices() throws IOException, ApiException {
         // when
-        List<Invoice> invoices = INVOICES_CONTROLLER
+        List<Invoice> invoices = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .productIds(List.of(product.getId(), otherProduct.getId()))
                         .build())
@@ -178,7 +178,7 @@ public class InvoicesControllerListInvoicesTest {
         Subscription subscription = subscriptions.get(1);
 
         // when
-        List<Invoice> invoices = INVOICES_CONTROLLER
+        List<Invoice> invoices = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .subscriptionId(subscription.getId())
                         .lineItems(true)
@@ -359,7 +359,7 @@ public class InvoicesControllerListInvoicesTest {
     }
 
     private List<Invoice> listSortedByNumberWithPaging(int page) throws ApiException, IOException {
-        return INVOICES_CONTROLLER
+        return invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .perPage(5)
                         .page(page)

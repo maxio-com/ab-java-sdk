@@ -55,29 +55,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class InvoicesControllerCreateTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static ProductFamily productFamily;
-    private static Product product;
-    private static Component meteredComponent;
-    private static Customer customer;
-    private static Subscription subscription;
-    private static Coupon coupon;
+    private ProductFamily productFamily;
+    private Product product;
+    private Component meteredComponent;
+    private Customer customer;
+    private Subscription subscription;
+    private Coupon coupon;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
-        meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
-        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
+    void setUp() throws IOException, ApiException {
+        productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        subscription = testSetup.createSubscription(customer, product);
+        meteredComponent = testSetup.createMeteredComponent(productFamily, 11.5);
+        coupon = testSetup.createAmountCoupon(productFamily, 1250, true);
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
@@ -85,7 +85,7 @@ public class InvoicesControllerCreateTest {
     @Test
     void shouldCreateInvoice() throws IOException, ApiException {
         // when
-        Invoice invoice = TEST_SETUP.createInvoice(
+        Invoice invoice = testSetup.createInvoice(
                 subscription.getId(),
                 b -> b
                         .status(CreateInvoiceStatus.OPEN)
@@ -204,9 +204,9 @@ public class InvoicesControllerCreateTest {
                 .hasSize(3)
                 .extracting(BaseModel::getAdditionalProperties)
                 .containsExactlyInAnyOrder(
-                        Collections.singletonMap("billing_schedule_item_id", null),
-                        Collections.singletonMap("billing_schedule_item_id", null),
-                        Collections.singletonMap("billing_schedule_item_id", null)
+                        Collections.emptyMap(),
+                        Collections.emptyMap(),
+                        Collections.emptyMap()
                 );
         assertThat(lineItems)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "additionalProperties")
@@ -220,7 +220,6 @@ public class InvoicesControllerCreateTest {
                                 .discountAmount("12.5")
                                 .taxAmount("0.0")
                                 .totalAmount("0.0")
-                                .kind("delay_capture")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now())
                                 .periodRangeEnd(LocalDate.now())
@@ -228,8 +227,10 @@ public class InvoicesControllerCreateTest {
                                 .productVersion(null)
                                 .componentId(null)
                                 .pricePointId(null)
+                                .billingScheduleItemId(null)
                                 .productPricePointId(null)
                                 .customItem(false)
+                                .kind("delay_capture")
                                 .build(),
                         new InvoiceLineItem.Builder()
                                 .title("Custom line")
@@ -240,7 +241,6 @@ public class InvoicesControllerCreateTest {
                                 .discountAmount("8.5")
                                 .taxAmount("0.0")
                                 .totalAmount("14.0")
-                                .kind("delay_capture")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now())
                                 .periodRangeEnd(LocalDate.now())
@@ -248,8 +248,10 @@ public class InvoicesControllerCreateTest {
                                 .productVersion(null)
                                 .componentId(null)
                                 .pricePointId(null)
+                                .billingScheduleItemId(null)
                                 .productPricePointId(null)
                                 .customItem(true)
+                                .kind("delay_capture")
                                 .build(),
                         new InvoiceLineItem.Builder()
                                 .title(meteredComponent.getName())
@@ -260,7 +262,6 @@ public class InvoicesControllerCreateTest {
                                 .discountAmount("0.0")
                                 .taxAmount("0.0")
                                 .totalAmount("115.0")
-                                .kind("delay_capture")
                                 .tieredUnitPrice(false)
                                 .periodRangeStart(LocalDate.now())
                                 .periodRangeEnd(LocalDate.now())
@@ -268,8 +269,10 @@ public class InvoicesControllerCreateTest {
                                 .productVersion(null)
                                 .componentId(meteredComponent.getId())
                                 .pricePointId(meteredComponent.getDefaultPricePointId())
+                                .billingScheduleItemId(null)
                                 .productPricePointId(null)
                                 .customItem(false)
+                                .kind("delay_capture")
                                 .build()
                 );
 
@@ -329,7 +332,7 @@ public class InvoicesControllerCreateTest {
     void shouldReturn404WhenCreatingInvoiceForNonExistentSubscription() {
         // when - then
         CommonAssertions.assertNotFound(
-                () -> INVOICES_CONTROLLER.createInvoice(123, new CreateInvoiceRequest())
+                () -> invoicesController.createInvoice(123, new CreateInvoiceRequest())
         );
     }
 

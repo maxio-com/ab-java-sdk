@@ -40,10 +40,10 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InvoicesControllerListCreditNotesTest {
-    private final TestSetup TEST_SETUP = new TestSetup();
-    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
-    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(client);
 
     private Product product;
     private Component quantityBasedComponent;
@@ -54,24 +54,24 @@ class InvoicesControllerListCreditNotesTest {
 
     @BeforeAll
     void setUp() throws IOException, ApiException, InterruptedException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        quantityBasedComponent = testSetup.createQuantityBasedComponent(productFamily.getId());
+        coupon = testSetup.createAmountCoupon(productFamily, 1250, true);
         List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                 new CreateSubscriptionComponent.Builder()
                         .componentId(CreateSubscriptionComponentComponentId.fromNumber(quantityBasedComponent.getId()))
                         .allocatedQuantity(CreateSubscriptionComponentAllocatedQuantity.fromNumber(50))
                         .build());
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product, s -> s
+        Subscription subscription = testSetup.createSubscription(customer, product, s -> s
                 .couponCode(coupon.getCode())
                 .components(subscriptionComponents)
         );
         subscriptionId = subscription.getId();
         paidInvoice = invoicesControllerUtils.getPaidInvoiceForSubscription(subscriptionId);
         // refund a part of the payment
-        INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
+        invoicesController.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundInvoice(
                         new RefundInvoice.Builder()
                                 .memo("Special refund")
@@ -91,7 +91,7 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnDefaultListOfCreditNotesExcludingAdditionalResponseArrays() throws IOException, ApiException {
         // when
-        List<CreditNote> creditNotes = INVOICES_CONTROLLER
+        List<CreditNote> creditNotes = invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder().subscriptionId(subscriptionId).build())
                 .getCreditNotes();
 
@@ -107,7 +107,7 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnListOfCreditNotesWithAdditionalApplicationsData() throws IOException, ApiException {
         // when
-        List<CreditNote> creditNotes = INVOICES_CONTROLLER
+        List<CreditNote> creditNotes = invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder()
                         .subscriptionId(subscriptionId)
                         .applications(true)
@@ -132,7 +132,7 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnListOfCreditNotesWithAdditionalDiscountsData() throws IOException, ApiException {
         // when
-        List<CreditNote> creditNotes = INVOICES_CONTROLLER
+        List<CreditNote> creditNotes = invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder()
                         .subscriptionId(subscriptionId)
                         .discounts(true)
@@ -163,7 +163,7 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnListOfCreditNotesWithAdditionalLineItemsData() throws IOException, ApiException {
         // when
-        List<CreditNote> creditNotes = INVOICES_CONTROLLER
+        List<CreditNote> creditNotes = invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder()
                         .subscriptionId(subscriptionId)
                         .lineItems(true)
@@ -221,7 +221,7 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnListOfCreditNotesWithAdditionalRefundsData() throws IOException, ApiException {
         // when
-        List<CreditNote> creditNotes = INVOICES_CONTROLLER
+        List<CreditNote> creditNotes = invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder()
                         .subscriptionId(subscriptionId)
                         .refunds(true)
@@ -256,7 +256,7 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnListOfCreditNotesWithAdditionalTaxesData() throws IOException, ApiException {
         // when
-        List<CreditNote> creditNotes = INVOICES_CONTROLLER
+        List<CreditNote> creditNotes = invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder()
                         .subscriptionId(subscriptionId)
                         .taxes(true)
@@ -272,7 +272,7 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnEmptyListWhenExceedingPagination() throws IOException, ApiException {
         // when - then
-        assertThat(INVOICES_CONTROLLER.listCreditNotes(new ListCreditNotesInput.Builder()
+        assertThat(invoicesController.listCreditNotes(new ListCreditNotesInput.Builder()
                 .page(2)
                 .build()
         ).getCreditNotes()).isEmpty();
@@ -281,10 +281,10 @@ class InvoicesControllerListCreditNotesTest {
     @Test
     void shouldReturnEmptyListWhenThereAreNoCredits() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
+        Subscription subscription = testSetup.createSubscription(customer, product);
 
         // when - then
-        assertThat(INVOICES_CONTROLLER
+        assertThat(invoicesController
                 .listCreditNotes(new ListCreditNotesInput.Builder().subscriptionId(subscription.getId()).build())
                 .getCreditNotes()
         ).isEmpty();
