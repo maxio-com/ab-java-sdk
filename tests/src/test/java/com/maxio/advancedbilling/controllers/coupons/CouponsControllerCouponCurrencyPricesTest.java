@@ -30,7 +30,6 @@ public class CouponsControllerCouponCurrencyPricesTest extends CouponsController
     @Test
     void shouldCreateAndUpdateCouponCurrencyPrices() throws IOException, ApiException {
         // when
-        Coupon coupon = COUPONS_CONTROLLER.createCoupon(productFamilyId, validCouponRequest()).getCoupon();
         List<CouponCurrency> currencyPrices = COUPONS_CONTROLLER
                 .createOrUpdateCouponCurrencyPrices(coupon.getId(), new CouponCurrencyRequest(
                                 List.of(
