@@ -22,7 +22,7 @@
 ```json
 {
   "id": 40,
-  "key": "subscription_group_signup_failure",
+  "key": "invoice_issued",
   "message": "message8",
   "subscription_id": 150,
   "customer_id": 78,

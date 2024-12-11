@@ -372,7 +372,7 @@ For more information on Stripe Direct Debit, please view the following two resou
 
 For more information on Stripe Direct Debit, please view the following two resources:
 
-+ [Payment Profiles via API for Stripe BECS Direct Debit]($e/Payment%20Profiles/createPaymentProfile)
++ [Payment Profiles via API for Stripe BECS Direct Debit](../../doc/controllers/payment-profiles.md#create-payment-profile)
 
 + [Full documentation on Stripe Direct Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-SEPA-and-BECS-Direct-Debit)
 
@@ -403,7 +403,7 @@ For more information on Stripe Direct Debit, please view the following two resou
 
 For more information on Stripe Direct Debit, please view the following two resources:
 
-+ [Payment Profiles via API for Stripe BACS Direct Debit]($e/Payment%20Profiles/createPaymentProfile)
++ [Payment Profiles via API for Stripe BACS Direct Debit](../../doc/controllers/payment-profiles.md#create-payment-profile)
 
 + [Full documentation on Stripe Direct Debit](https://maxio.zendesk.com/hc/en-us/articles/24176170430093-Stripe-SEPA-and-BECS-Direct-Debit)
 
