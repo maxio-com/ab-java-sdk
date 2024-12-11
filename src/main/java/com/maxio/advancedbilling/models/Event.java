@@ -21,7 +21,7 @@ import java.time.ZonedDateTime;
 public class Event
         extends BaseModel {
     private long id;
-    private String key;
+    private EventKey key;
     private String message;
     private Integer subscriptionId;
     private Integer customerId;
@@ -37,7 +37,7 @@ public class Event
     /**
      * Initialization constructor.
      * @param  id  long value for id.
-     * @param  key  String value for key.
+     * @param  key  EventKey value for key.
      * @param  message  String value for message.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  customerId  Integer value for customerId.
@@ -46,7 +46,7 @@ public class Event
      */
     public Event(
             long id,
-            String key,
+            EventKey key,
             String message,
             Integer subscriptionId,
             Integer customerId,
@@ -81,19 +81,19 @@ public class Event
 
     /**
      * Getter for Key.
-     * @return Returns the String
+     * @return Returns the EventKey
      */
     @JsonGetter("key")
-    public String getKey() {
+    public EventKey getKey() {
         return key;
     }
 
     /**
      * Setter for Key.
-     * @param key Value for String
+     * @param key Value for EventKey
      */
     @JsonSetter("key")
-    public void setKey(String key) {
+    public void setKey(EventKey key) {
         this.key = key;
     }
 
@@ -173,6 +173,32 @@ public class Event
 
     /**
      * Getter for EventSpecificData.
+     * The schema varies based on the event key. The key-to-event data mapping is as follows: *
+     * `subscription_product_change` - SubscriptionProductChange * `subscription_state_change` -
+     * SubscriptionStateChange * `signup_success`, `delayed_signup_creation_success`,
+     * `payment_success`, `payment_failure`, `renewal_success`, `renewal_failure`,
+     * `chargeback_lost`, `chargeback_accepted`, `chargeback_closed` - PaymentRelatedEvents *
+     * `refund_success` - RefundSuccess * `component_allocation_change` - ComponentAllocationChange
+     * * `metered_usage` - MeteredUsage * `prepaid_usage` - PrepaidUsage * `dunning_step_reached` -
+     * DunningStepReached * `invoice_issued` - InvoiceIssued * `pending_cancellation_change` -
+     * PendingCancellationChange * `prepaid_subscription_balance_changed` -
+     * PrepaidSubscriptionBalanceChanged * `subscription_group_signup_success` and
+     * `subscription_group_signup_failure` - SubscriptionGroupSignupEventData *
+     * `proforma_invoice_issued` - ProformaInvoiceIssued *
+     * `subscription_prepayment_account_balance_changed` - PrepaymentAccountBalanceChanged *
+     * `payment_collection_method_changed` - PaymentCollectionMethodChanged *
+     * `subscription_service_credit_account_balance_changed` - CreditAccountBalanceChanged *
+     * `item_price_point_changed` - ItemPricePointChanged * `custom_field_value_change` -
+     * CustomFieldValueChange * The rest, that is `delayed_signup_creation_failure`,
+     * `billing_date_change`, `expiration_date_change`, `expiring_card`, `customer_update`,
+     * `customer_create`, `customer_delete`, `upgrade_downgrade_success`,
+     * `upgrade_downgrade_failure`, `statement_closed`, `statement_settled`,
+     * `subscription_card_update`, `subscription_group_card_update`,
+     * `subscription_bank_account_update`, `refund_failure`, `upcoming_renewal_notice`,
+     * `trial_end_notice`, `direct_debit_payment_paid_out`, `direct_debit_payment_rejected`,
+     * `direct_debit_payment_pending`, `pending_payment_created`, `pending_payment_failed`,
+     * `pending_payment_completed` don't have event_specific_data defined, they map to `null`
+     * instead.
      * @return Returns the EventEventSpecificData
      */
     @JsonGetter("event_specific_data")
@@ -182,6 +208,32 @@ public class Event
 
     /**
      * Setter for EventSpecificData.
+     * The schema varies based on the event key. The key-to-event data mapping is as follows: *
+     * `subscription_product_change` - SubscriptionProductChange * `subscription_state_change` -
+     * SubscriptionStateChange * `signup_success`, `delayed_signup_creation_success`,
+     * `payment_success`, `payment_failure`, `renewal_success`, `renewal_failure`,
+     * `chargeback_lost`, `chargeback_accepted`, `chargeback_closed` - PaymentRelatedEvents *
+     * `refund_success` - RefundSuccess * `component_allocation_change` - ComponentAllocationChange
+     * * `metered_usage` - MeteredUsage * `prepaid_usage` - PrepaidUsage * `dunning_step_reached` -
+     * DunningStepReached * `invoice_issued` - InvoiceIssued * `pending_cancellation_change` -
+     * PendingCancellationChange * `prepaid_subscription_balance_changed` -
+     * PrepaidSubscriptionBalanceChanged * `subscription_group_signup_success` and
+     * `subscription_group_signup_failure` - SubscriptionGroupSignupEventData *
+     * `proforma_invoice_issued` - ProformaInvoiceIssued *
+     * `subscription_prepayment_account_balance_changed` - PrepaymentAccountBalanceChanged *
+     * `payment_collection_method_changed` - PaymentCollectionMethodChanged *
+     * `subscription_service_credit_account_balance_changed` - CreditAccountBalanceChanged *
+     * `item_price_point_changed` - ItemPricePointChanged * `custom_field_value_change` -
+     * CustomFieldValueChange * The rest, that is `delayed_signup_creation_failure`,
+     * `billing_date_change`, `expiration_date_change`, `expiring_card`, `customer_update`,
+     * `customer_create`, `customer_delete`, `upgrade_downgrade_success`,
+     * `upgrade_downgrade_failure`, `statement_closed`, `statement_settled`,
+     * `subscription_card_update`, `subscription_group_card_update`,
+     * `subscription_bank_account_update`, `refund_failure`, `upcoming_renewal_notice`,
+     * `trial_end_notice`, `direct_debit_payment_paid_out`, `direct_debit_payment_rejected`,
+     * `direct_debit_payment_pending`, `pending_payment_created`, `pending_payment_failed`,
+     * `pending_payment_completed` don't have event_specific_data defined, they map to `null`
+     * instead.
      * @param eventSpecificData Value for EventEventSpecificData
      */
     @JsonSetter("event_specific_data")
@@ -217,7 +269,7 @@ public class Event
      */
     public static class Builder {
         private long id;
-        private String key;
+        private EventKey key;
         private String message;
         private Integer subscriptionId;
         private Integer customerId;
@@ -233,14 +285,14 @@ public class Event
         /**
          * Initialization constructor.
          * @param  id  long value for id.
-         * @param  key  String value for key.
+         * @param  key  EventKey value for key.
          * @param  message  String value for message.
          * @param  subscriptionId  Integer value for subscriptionId.
          * @param  customerId  Integer value for customerId.
          * @param  createdAt  ZonedDateTime value for createdAt.
          * @param  eventSpecificData  EventEventSpecificData value for eventSpecificData.
          */
-        public Builder(long id, String key, String message, Integer subscriptionId,
+        public Builder(long id, EventKey key, String message, Integer subscriptionId,
                 Integer customerId, ZonedDateTime createdAt,
                 EventEventSpecificData eventSpecificData) {
             this.id = id;
@@ -264,10 +316,10 @@ public class Event
 
         /**
          * Setter for key.
-         * @param  key  String value for key.
+         * @param  key  EventKey value for key.
          * @return Builder
          */
-        public Builder key(String key) {
+        public Builder key(EventKey key) {
             this.key = key;
             return this;
         }

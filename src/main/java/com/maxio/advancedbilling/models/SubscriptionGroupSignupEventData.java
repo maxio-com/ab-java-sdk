@@ -13,27 +13,27 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import io.apimatic.core.types.BaseModel;
 
 /**
- * This is a model class for SubscriptionGroupSignupSuccess type.
+ * This is a model class for SubscriptionGroupSignupEventData type.
  */
-public class SubscriptionGroupSignupSuccess
+public class SubscriptionGroupSignupEventData
         extends BaseModel {
-    private SubscriptionGroupSignupSuccessData subscriptionGroup;
+    private SubscriptionGroupSignupFailureData subscriptionGroup;
     private Customer customer;
 
     /**
      * Default constructor.
      */
-    public SubscriptionGroupSignupSuccess() {
+    public SubscriptionGroupSignupEventData() {
     }
 
     /**
      * Initialization constructor.
-     * @param  subscriptionGroup  SubscriptionGroupSignupSuccessData value for subscriptionGroup.
+     * @param  subscriptionGroup  SubscriptionGroupSignupFailureData value for subscriptionGroup.
      * @param  customer  Customer value for customer.
      */
     @JsonCreator
-    public SubscriptionGroupSignupSuccess(
-            @JsonProperty("subscription_group") SubscriptionGroupSignupSuccessData subscriptionGroup,
+    public SubscriptionGroupSignupEventData(
+            @JsonProperty("subscription_group") SubscriptionGroupSignupFailureData subscriptionGroup,
             @JsonProperty("customer") Customer customer) {
         this.subscriptionGroup = subscriptionGroup;
         this.customer = customer;
@@ -41,19 +41,19 @@ public class SubscriptionGroupSignupSuccess
 
     /**
      * Getter for SubscriptionGroup.
-     * @return Returns the SubscriptionGroupSignupSuccessData
+     * @return Returns the SubscriptionGroupSignupFailureData
      */
     @JsonGetter("subscription_group")
-    public SubscriptionGroupSignupSuccessData getSubscriptionGroup() {
+    public SubscriptionGroupSignupFailureData getSubscriptionGroup() {
         return subscriptionGroup;
     }
 
     /**
      * Setter for SubscriptionGroup.
-     * @param subscriptionGroup Value for SubscriptionGroupSignupSuccessData
+     * @param subscriptionGroup Value for SubscriptionGroupSignupFailureData
      */
     @JsonSetter("subscription_group")
-    public void setSubscriptionGroup(SubscriptionGroupSignupSuccessData subscriptionGroup) {
+    public void setSubscriptionGroup(SubscriptionGroupSignupFailureData subscriptionGroup) {
         this.subscriptionGroup = subscriptionGroup;
     }
 
@@ -76,20 +76,20 @@ public class SubscriptionGroupSignupSuccess
     }
 
     /**
-     * Converts this SubscriptionGroupSignupSuccess into string format.
+     * Converts this SubscriptionGroupSignupEventData into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "SubscriptionGroupSignupSuccess [" + "subscriptionGroup=" + subscriptionGroup
+        return "SubscriptionGroupSignupEventData [" + "subscriptionGroup=" + subscriptionGroup
                 + ", customer=" + customer + ", additionalProperties=" + getAdditionalProperties()
                 + "]";
     }
 
     /**
-     * Builds a new {@link SubscriptionGroupSignupSuccess.Builder} object.
+     * Builds a new {@link SubscriptionGroupSignupEventData.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link SubscriptionGroupSignupSuccess.Builder} object
+     * @return a new {@link SubscriptionGroupSignupEventData.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(subscriptionGroup, customer);
@@ -97,10 +97,10 @@ public class SubscriptionGroupSignupSuccess
     }
 
     /**
-     * Class to build instances of {@link SubscriptionGroupSignupSuccess}.
+     * Class to build instances of {@link SubscriptionGroupSignupEventData}.
      */
     public static class Builder {
-        private SubscriptionGroupSignupSuccessData subscriptionGroup;
+        private SubscriptionGroupSignupFailureData subscriptionGroup;
         private Customer customer;
 
         /**
@@ -111,22 +111,22 @@ public class SubscriptionGroupSignupSuccess
 
         /**
          * Initialization constructor.
-         * @param  subscriptionGroup  SubscriptionGroupSignupSuccessData value for
+         * @param  subscriptionGroup  SubscriptionGroupSignupFailureData value for
          *         subscriptionGroup.
          * @param  customer  Customer value for customer.
          */
-        public Builder(SubscriptionGroupSignupSuccessData subscriptionGroup, Customer customer) {
+        public Builder(SubscriptionGroupSignupFailureData subscriptionGroup, Customer customer) {
             this.subscriptionGroup = subscriptionGroup;
             this.customer = customer;
         }
 
         /**
          * Setter for subscriptionGroup.
-         * @param  subscriptionGroup  SubscriptionGroupSignupSuccessData value for
+         * @param  subscriptionGroup  SubscriptionGroupSignupFailureData value for
          *         subscriptionGroup.
          * @return Builder
          */
-        public Builder subscriptionGroup(SubscriptionGroupSignupSuccessData subscriptionGroup) {
+        public Builder subscriptionGroup(SubscriptionGroupSignupFailureData subscriptionGroup) {
             this.subscriptionGroup = subscriptionGroup;
             return this;
         }
@@ -142,11 +142,11 @@ public class SubscriptionGroupSignupSuccess
         }
 
         /**
-         * Builds a new {@link SubscriptionGroupSignupSuccess} object using the set fields.
-         * @return {@link SubscriptionGroupSignupSuccess}
+         * Builds a new {@link SubscriptionGroupSignupEventData} object using the set fields.
+         * @return {@link SubscriptionGroupSignupEventData}
          */
-        public SubscriptionGroupSignupSuccess build() {
-            return new SubscriptionGroupSignupSuccess(subscriptionGroup, customer);
+        public SubscriptionGroupSignupEventData build() {
+            return new SubscriptionGroupSignupEventData(subscriptionGroup, customer);
         }
     }
 }

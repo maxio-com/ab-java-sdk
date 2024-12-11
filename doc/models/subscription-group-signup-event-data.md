@@ -1,16 +1,16 @@
 
-# Subscription Group Signup Failure
+# Subscription Group Signup Event Data
 
 ## Structure
 
-`SubscriptionGroupSignupFailure`
+`SubscriptionGroupSignupEventData`
 
 ## Fields
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `SubscriptionGroup` | [`SubscriptionGroupSignupFailureData`](../../doc/models/subscription-group-signup-failure-data.md) | Required | - | SubscriptionGroupSignupFailureData getSubscriptionGroup() | setSubscriptionGroup(SubscriptionGroupSignupFailureData subscriptionGroup) |
-| `Customer` | `String` | Required | - | String getCustomer() | setCustomer(String customer) |
+| `Customer` | [`Customer`](../../doc/models/customer.md) | Required | - | Customer getCustomer() | setCustomer(Customer customer) |
 
 ## Example (as JSON)
 
@@ -29,7 +29,13 @@
       "organization": "organization6"
     }
   },
-  "customer": "customer8"
+  "customer": {
+    "first_name": "first_name0",
+    "last_name": "last_name8",
+    "email": "email6",
+    "cc_emails": "cc_emails0",
+    "organization": "organization6"
+  }
 }
 ```
 
