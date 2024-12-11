@@ -30,7 +30,7 @@ public class InvoicesControllerUpdateCustomerInformationChangesTest extends Base
         Invoice invoiceBeforeUpdate = testData.openInvoice();
 
         // when
-        Invoice invoiceAfterUpdate = INVOICES_CONTROLLER.updateCustomerInformation(invoiceBeforeUpdate.getUid());
+        Invoice invoiceAfterUpdate = invoicesController.updateCustomerInformation(invoiceBeforeUpdate.getUid());
 
         // then
         assertThat(invoiceAfterUpdate).isNotNull();
@@ -65,9 +65,9 @@ public class InvoicesControllerUpdateCustomerInformationChangesTest extends Base
     @Test
     void shouldThrowExceptionIfInvoiceIsNotOpen() throws IOException, ApiException {
         // given
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
+        Subscription subscription = testSetup.createSubscription(customer, product);
 
-        Invoice paidInvoice = INVOICES_CONTROLLER.listInvoices(
+        Invoice paidInvoice = invoicesController.listInvoices(
                         new ListInvoicesInput.Builder()
                                 .status(InvoiceStatus.PAID)
                                 .subscriptionId(subscription.getId())
@@ -76,7 +76,7 @@ public class InvoicesControllerUpdateCustomerInformationChangesTest extends Base
                 .get(0);
 
         // when then
-        assertThatErrorListResponse(() -> INVOICES_CONTROLLER.updateCustomerInformation(paidInvoice.getUid()))
+        assertThatErrorListResponse(() -> invoicesController.updateCustomerInformation(paidInvoice.getUid()))
                 .hasErrors("Invoice must have an open status")
                 .isUnprocessableEntity();
     }
@@ -93,7 +93,7 @@ public class InvoicesControllerUpdateCustomerInformationChangesTest extends Base
     @Test
     void shouldThrowNotFoundIfInvoiceDoesNotExist() {
         // when then
-        assertNotFound(() -> INVOICES_CONTROLLER.updateCustomerInformation("uid_not_found"));
+        assertNotFound(() -> invoicesController.updateCustomerInformation("uid_not_found"));
     }
 
     private void assertCustomer(InvoiceCustomer invoiceCustomer, Customer customer) {

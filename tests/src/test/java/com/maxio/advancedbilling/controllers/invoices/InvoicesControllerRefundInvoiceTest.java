@@ -39,10 +39,10 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerRefundInvoiceTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
-    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(CLIENT);
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup();
+    private final InvoicesController invoicesController = client.getInvoicesController();
+    private final InvoicesControllerUtils invoicesControllerUtils = new InvoicesControllerUtils(client);
 
     private Product product;
     private Component meteredComponent;
@@ -53,17 +53,17 @@ public class InvoicesControllerRefundInvoiceTest {
 
     @BeforeAll
     void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
-        coupon = TEST_SETUP.createAmountCoupon(productFamily, 1250, true);
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        meteredComponent = testSetup.createMeteredComponent(productFamily, 11.5);
+        coupon = testSetup.createAmountCoupon(productFamily, 1250, true);
         List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                 new CreateSubscriptionComponent.Builder()
                         .componentId(CreateSubscriptionComponentComponentId.fromNumber(meteredComponent.getId()))
                         .unitBalance(100)
                         .build());
-        subscription = TEST_SETUP.createSubscription(customer, product, s -> s
+        subscription = testSetup.createSubscription(customer, product, s -> s
                 .couponCode(coupon.getCode())
                 .components(subscriptionComponents)
         );
@@ -91,7 +91,7 @@ public class InvoicesControllerRefundInvoiceTest {
         InvoicePayment payment = paidInvoice.getPayments().get(0);
 
         // when
-        Invoice refundedInvoice = INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
+        Invoice refundedInvoice = invoicesController.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundInvoice(
                         new RefundInvoice.Builder()
                                 .memo("Special refund")
@@ -121,14 +121,14 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldRefundConsolidatedInvoice() throws IOException, ApiException {
         // given
-        groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
+        groupSignup = testSetup.signupWithSubscriptionGroup(product, meteredComponent);
 
         Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
         InvoicePayment payment = paidInvoice.getPayments().get(0);
 
         // when
-        Invoice refundedInvoice = INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
+        Invoice refundedInvoice = invoicesController.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundConsolidatedInvoice(
                         new RefundConsolidatedInvoice.Builder()
                                 .memo("Special refund memo")
@@ -166,11 +166,11 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldRefundSpecificSegmentOfConsolidatedInvoice() throws IOException, ApiException {
         // given
-        groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
+        groupSignup = testSetup.signupWithSubscriptionGroup(product, meteredComponent);
 
         Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForCustomer(groupSignup.getCustomerId());
 
-        Invoice primarySegment = INVOICES_CONTROLLER
+        Invoice primarySegment = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .subscriptionId(groupSignup.getPrimarySubscriptionId())
                         .status(InvoiceStatus.PAID)
@@ -181,7 +181,7 @@ public class InvoicesControllerRefundInvoiceTest {
         InvoicePayment payment = paidInvoice.getPayments().get(0);
 
         // when
-        Invoice refundedInvoice = INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
+        Invoice refundedInvoice = invoicesController.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundConsolidatedInvoice(
                         new RefundConsolidatedInvoice.Builder()
                                 .memo("Refund primary segment")
@@ -217,7 +217,7 @@ public class InvoicesControllerRefundInvoiceTest {
         InvoicePayment payment = paidInvoice.getPayments().get(0);
 
         // when
-        assertThatErrorListResponse(() -> INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
+        assertThatErrorListResponse(() -> invoicesController.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundInvoice(
                         new RefundInvoice.Builder()
                                 .memo("Special refund")
@@ -237,7 +237,7 @@ public class InvoicesControllerRefundInvoiceTest {
         Invoice paidInvoice = invoicesControllerUtils.getPaidInvoiceForSubscription(subscription.getId());
 
         // when
-        assertThatErrorListResponse(() -> INVOICES_CONTROLLER.refundInvoice(paidInvoice.getUid(),
+        assertThatErrorListResponse(() -> invoicesController.refundInvoice(paidInvoice.getUid(),
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundInvoice(
                         new RefundInvoice.Builder()
                                 .memo("Special refund")
@@ -254,7 +254,7 @@ public class InvoicesControllerRefundInvoiceTest {
     @Test
     void shouldThrowExceptionIfInvoiceDoesNotExist() {
         // when
-        assertThatErrorListResponse(() -> INVOICES_CONTROLLER.refundInvoice("uid_1234455",
+        assertThatErrorListResponse(() -> invoicesController.refundInvoice("uid_1234455",
                 new RefundInvoiceRequest(RefundInvoiceRequestRefund.fromRefundInvoice(
                         new RefundInvoice.Builder()
                                 .memo("Special refund")
@@ -273,7 +273,7 @@ public class InvoicesControllerRefundInvoiceTest {
         assertThat(refundedInvoice)
                 .usingRecursiveComparison()
                 .ignoringFields("createdAt", "updatedAt", "previousBalanceData.capturedAt",
-                        "payments.transactionTime", "creditAmount", "refundAmount", "credits", "refunds", "additionalProperties")
+                        "payments.transactionTime", "creditAmount", "refundAmount", "credits", "debits", "refunds", "additionalProperties")
                 .isEqualTo(paidInvoice);
     }
 

@@ -49,9 +49,9 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class BaseCustomerInformationTest {
-    protected final TestSetup TEST_SETUP = new TestSetup();
-    protected final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    protected final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    protected final AdvancedBillingClient client = TestClientProvider.getClient();
+    protected final TestSetup testSetup = new TestSetup(client);
+    protected final InvoicesController invoicesController = client.getInvoicesController();
 
     protected Product product;
     protected Customer customer;
@@ -62,11 +62,11 @@ public abstract class BaseCustomerInformationTest {
 
     @BeforeAll
     void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(125000));
-        customer = TEST_SETUP.createCustomer();
-        quantityBasedComponent = TEST_SETUP.createQuantityBasedComponent(productFamily.getId());
-        CLIENT.getCustomFieldsController().createMetafields(ResourceType.CUSTOMERS, new CreateMetafieldsRequest(
+        ProductFamily productFamily = testSetup.createProductFamily();
+        product = testSetup.createProduct(productFamily, b -> b.priceInCents(125000));
+        customer = testSetup.createCustomer();
+        quantityBasedComponent = testSetup.createQuantityBasedComponent(productFamily.getId());
+        client.getCustomFieldsController().createMetafields(ResourceType.CUSTOMERS, new CreateMetafieldsRequest(
                 CreateMetafieldsRequestMetafields.fromListOfCreateMetafield(List.of(
                         new CreateMetafield.Builder()
                                 .inputType(MetafieldInput.TEXT)
@@ -83,7 +83,7 @@ public abstract class BaseCustomerInformationTest {
                                         .build())
                                 .build()
                 ))));
-        CLIENT.getCustomFieldsController().createMetafields(ResourceType.SUBSCRIPTIONS, new CreateMetafieldsRequest(
+        client.getCustomFieldsController().createMetafields(ResourceType.SUBSCRIPTIONS, new CreateMetafieldsRequest(
                 CreateMetafieldsRequestMetafields.fromListOfCreateMetafield(List.of(
                         new CreateMetafield.Builder()
                                 .inputType(MetafieldInput.TEXT)
@@ -110,11 +110,11 @@ public abstract class BaseCustomerInformationTest {
     protected TestData setupCustomerDataChangedScenario() throws IOException, ApiException {
         subscription = createTestSubscription();
 
-        CLIENT.getCustomFieldsController()
+        client.getCustomFieldsController()
                 .createMetadata(ResourceType.CUSTOMERS, customer.getId(), new CreateMetadataRequest(
                         List.of(new CreateMetadata("CustomerField1", "value1"))
                 ));
-        CLIENT.getCustomFieldsController()
+        client.getCustomFieldsController()
                 .createMetadata(ResourceType.SUBSCRIPTIONS, subscription.getId(), new CreateMetadataRequest(
                         List.of(new CreateMetadata("SubscriptionField1", "value1"))
                 ));
@@ -123,18 +123,18 @@ public abstract class BaseCustomerInformationTest {
 
         Customer updatedCustomer = updateCustomerData();
 
-        CLIENT.getCustomFieldsController()
+        client.getCustomFieldsController()
                 .updateMetadata(ResourceType.CUSTOMERS, customer.getId(), new UpdateMetadataRequest(
                         new UpdateMetadata("CustomerField1", "CustomerField1", "newValue1")
                 ));
-        CLIENT.getCustomFieldsController()
+        client.getCustomFieldsController()
                 .createMetadata(ResourceType.SUBSCRIPTIONS, subscription.getId(), new CreateMetadataRequest(
                         List.of(new CreateMetadata("SubscriptionField2", "value2"))
                 ));
-        CLIENT.getCustomFieldsController()
+        client.getCustomFieldsController()
                 .deleteMetadata(ResourceType.SUBSCRIPTIONS, subscription.getId(), "SubscriptionField1", List.of());
 
-        subscriptionMetadata = CLIENT.getCustomFieldsController()
+        subscriptionMetadata = client.getCustomFieldsController()
                 .listMetadataForResourceType(new ListMetadataForResourceTypeInput.Builder()
                         .resourceIds(List.of(subscription.getId()))
                         .resourceType(ResourceType.SUBSCRIPTIONS)
@@ -144,7 +144,7 @@ public abstract class BaseCustomerInformationTest {
                 .stream()
                 .collect(Collectors.toMap(Metadata::getName, Function.identity()));
 
-        customerMetadata = CLIENT.getCustomFieldsController()
+        customerMetadata = client.getCustomFieldsController()
                 .listMetadataForResourceType(new ListMetadataForResourceTypeInput.Builder()
                         .resourceIds(List.of(customer.getId()))
                         .resourceType(ResourceType.CUSTOMERS)
@@ -164,12 +164,12 @@ public abstract class BaseCustomerInformationTest {
                         .unitBalance(10)
                         .build());
 
-        return TEST_SETUP.createSubscription(customer, product, s -> s
+        return testSetup.createSubscription(customer, product, s -> s
                 .components(subscriptionComponents));
     }
 
     protected Invoice createOpenInvoice(Subscription subscription) throws ApiException, IOException {
-        CLIENT.getSubscriptionComponentsController()
+        client.getSubscriptionComponentsController()
                 .allocateComponent(subscription.getId(), quantityBasedComponent.getId(), new CreateAllocationRequest(
                         new CreateAllocation.Builder()
                                 .memo("Allocate metered for invoice")
@@ -178,7 +178,7 @@ public abstract class BaseCustomerInformationTest {
                                 .build())
                 );
 
-        Invoice pendingInvoice = INVOICES_CONTROLLER.listInvoices(
+        Invoice pendingInvoice = invoicesController.listInvoices(
                         new ListInvoicesInput.Builder()
                                 .status(InvoiceStatus.PENDING)
                                 .subscriptionId(subscription.getId())
@@ -186,12 +186,12 @@ public abstract class BaseCustomerInformationTest {
                 .getInvoices()
                 .get(0);
 
-        INVOICES_CONTROLLER.issueInvoice(pendingInvoice.getUid(), new IssueInvoiceRequest());
-        return INVOICES_CONTROLLER.readInvoice(pendingInvoice.getUid());
+        invoicesController.issueInvoice(pendingInvoice.getUid(), new IssueInvoiceRequest());
+        return invoicesController.readInvoice(pendingInvoice.getUid());
     }
 
     protected Customer updateCustomerData() throws ApiException, IOException {
-        return CLIENT.getCustomersController().updateCustomer(customer.getId(), new UpdateCustomerRequest(new UpdateCustomer.Builder()
+        return client.getCustomersController().updateCustomer(customer.getId(), new UpdateCustomerRequest(new UpdateCustomer.Builder()
                         .firstName("New First Name")
                         .lastName("New Last Name")
                         .email("new@email.com")

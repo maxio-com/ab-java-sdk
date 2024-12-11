@@ -23,33 +23,33 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
 class InvoicesControllerSendTest {
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static Customer customer;
-    private static Invoice paidInvoice;
+    private Customer customer;
+    private Invoice paidInvoice;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        Product product = TEST_SETUP.createProduct(TEST_SETUP.createProductFamily(), b -> b.priceInCents(1250));
-        customer = TEST_SETUP.createCustomer();
-        Subscription subscription = TEST_SETUP.createSubscription(customer, product);
-        paidInvoice = INVOICES_CONTROLLER
+    void setUp() throws IOException, ApiException {
+        Product product = testSetup.createProduct(testSetup.createProductFamily(), b -> b.priceInCents(1250));
+        customer = testSetup.createCustomer();
+        Subscription subscription = testSetup.createSubscription(customer, product);
+        paidInvoice = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder().subscriptionId(subscription.getId()).build())
                 .getInvoices()
                 .get(0);
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         new TestTeardown().deleteCustomer(customer);
     }
 
     @Test
     void shouldSendInvoice() {
         // when - then
-        assertThatNoException().isThrownBy(() -> INVOICES_CONTROLLER.sendInvoice(
+        assertThatNoException().isThrownBy(() -> invoicesController.sendInvoice(
                         paidInvoice.getUid(),
                         new SendInvoiceRequest.Builder()
                                 .recipientEmails(List.of("recepient1@maxio.com", "recepient2@maxio.com"))
@@ -64,10 +64,10 @@ class InvoicesControllerSendTest {
     void shouldReturn422WhenSendingInvalidEmailNotExistentInvoice() {
         // when - then
         CommonAssertions
-                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER.sendInvoice(paidInvoice.getUid(), new SendInvoiceRequest.Builder()
+                .assertThatErrorListResponse(() -> invoicesController.sendInvoice(paidInvoice.getUid(), new SendInvoiceRequest.Builder()
                         .recipientEmails(List.of("invalidemail"))
-                        .ccRecipientEmails(List.of("user1@example.com","user1@example.com","user1@example.com",
-                                "user1@example.com","user1@example.com","user1@example.com"))
+                        .ccRecipientEmails(List.of("user1@example.com", "user1@example.com", "user1@example.com",
+                                "user1@example.com", "user1@example.com", "user1@example.com"))
                         .build()))
                 .isUnprocessableEntity()
                 .hasErrors("recipient_emails: must be a valid email address", "cc_recipient_emails: You can have 5 recipients at most");
@@ -77,7 +77,7 @@ class InvoicesControllerSendTest {
     void shouldReturn422WhenSendingNotExistentInvoice() {
         // when - then
         CommonAssertions
-                .assertThatErrorListResponse(() -> INVOICES_CONTROLLER.sendInvoice("123", new SendInvoiceRequest()))
+                .assertThatErrorListResponse(() -> invoicesController.sendInvoice("123", new SendInvoiceRequest()))
                 .isUnprocessableEntity()
                 .hasErrors("invoice: Unable to enqueue invoice for email delivery");
     }

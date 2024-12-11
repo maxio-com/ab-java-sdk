@@ -32,29 +32,28 @@ import static com.maxio.advancedbilling.utils.assertions.CommonAssertions.assert
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class InvoicesControllerListInvoiceSegmentsTest {
+    private final AdvancedBillingClient client = TestClientProvider.getClient();
+    private final TestSetup testSetup = new TestSetup(client);
+    private final InvoicesController invoicesController = client.getInvoicesController();
 
-    private static final TestSetup TEST_SETUP = new TestSetup();
-    private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
-    private static final InvoicesController INVOICES_CONTROLLER = CLIENT.getInvoicesController();
-
-    private static SubscriptionGroupSignupResponse groupSignup;
-    private static Customer customer;
-    private static Subscription subscription;
+    private SubscriptionGroupSignupResponse groupSignup;
+    private Customer customer;
+    private Subscription subscription;
 
     @BeforeAll
-    static void setUp() throws IOException, ApiException {
-        ProductFamily productFamily = TEST_SETUP.createProductFamily();
-        Product product = TEST_SETUP.createProduct(productFamily, b -> b.priceInCents(1250));
-        Component meteredComponent = TEST_SETUP.createMeteredComponent(productFamily, 11.5);
+    void setUp() throws IOException, ApiException {
+        ProductFamily productFamily = testSetup.createProductFamily();
+        Product product = testSetup.createProduct(productFamily, b -> b.priceInCents(1250));
+        Component meteredComponent = testSetup.createMeteredComponent(productFamily, 11.5);
 
-        customer = TEST_SETUP.createCustomer();
-        subscription = TEST_SETUP.createSubscription(customer, product);
+        customer = testSetup.createCustomer();
+        subscription = testSetup.createSubscription(customer, product);
 
-        groupSignup = TEST_SETUP.signupWithSubscriptionGroup(product, meteredComponent);
+        groupSignup = testSetup.signupWithSubscriptionGroup(product, meteredComponent);
     }
 
     @AfterAll
-    static void teardown() throws IOException, ApiException {
+    void teardown() throws IOException, ApiException {
         TestTeardown testTeardown = new TestTeardown();
         testTeardown.deleteCustomer(customer);
         testTeardown.deleteSubscriptionGroup(groupSignup);
@@ -64,10 +63,10 @@ public class InvoicesControllerListInvoiceSegmentsTest {
     void shouldListInvoiceSegmentsForConsolidatedInvoice() throws IOException, ApiException {
         // given
         // Invoice segments returned on the index will only include totals, not detailed breakdowns for line_items,
-        // discounts, taxes, credits, payments, or custom_fields
-        String[] IGNORED_FIELDS = {"credits", "customFields", "discounts", "lineItems", "payments", "refunds", "taxes", "updatedAt", "createdAt", "additionalProperties"};
+        // discounts, taxes, credits, debits, payments, or custom_fields
+        String[] IGNORED_FIELDS = {"credits", "debits", "customFields", "discounts", "lineItems", "payments", "refunds", "taxes", "updatedAt", "createdAt", "additionalProperties"};
 
-        Invoice subscriptionGroupInvoice = INVOICES_CONTROLLER
+        Invoice subscriptionGroupInvoice = invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .customerIds(List.of(groupSignup.getCustomerId()))
                         .status(InvoiceStatus.PAID)
@@ -79,7 +78,7 @@ public class InvoicesControllerListInvoiceSegmentsTest {
         String uid2 = getInvoiceUid(groupSignup.getSubscriptionIds().get(1));
 
         // when
-        ConsolidatedInvoice consolidatedInvoice = INVOICES_CONTROLLER.listConsolidatedInvoiceSegments(
+        ConsolidatedInvoice consolidatedInvoice = invoicesController.listConsolidatedInvoiceSegments(
                 new ListConsolidatedInvoiceSegmentsInput.Builder()
                         .perPage(10)
                         .invoiceUid(subscriptionGroupInvoice.getUid())
@@ -96,19 +95,19 @@ public class InvoicesControllerListInvoiceSegmentsTest {
         assertThat(segment1)
                 .usingRecursiveComparison()
                 .ignoringFields(IGNORED_FIELDS)
-                .isEqualTo(INVOICES_CONTROLLER.readInvoice(uid1));
+                .isEqualTo(invoicesController.readInvoice(uid1));
 
         Invoice segment2 = subscriptionIdToInvoice.get(groupSignup.getSubscriptionIds().get(1));
         assertThat(segment2)
                 .usingRecursiveComparison()
                 .ignoringFields(IGNORED_FIELDS)
-                .isEqualTo(INVOICES_CONTROLLER.readInvoice(uid2));
+                .isEqualTo(invoicesController.readInvoice(uid2));
     }
 
     @Test
     void shouldReturnEmptyListForNonConsolidatedInvoice() throws IOException, ApiException {
         // when
-        ConsolidatedInvoice response = INVOICES_CONTROLLER.listConsolidatedInvoiceSegments(
+        ConsolidatedInvoice response = invoicesController.listConsolidatedInvoiceSegments(
                 new ListConsolidatedInvoiceSegmentsInput.Builder()
                         .invoiceUid(getInvoiceUid(subscription.getId()))
                         .build());
@@ -130,12 +129,12 @@ public class InvoicesControllerListInvoiceSegmentsTest {
     @Test
     void shouldThrowNotFoundIfInvoiceDoesNotExist() {
         // when then
-        assertNotFound(() -> INVOICES_CONTROLLER.listConsolidatedInvoiceSegments(
+        assertNotFound(() -> invoicesController.listConsolidatedInvoiceSegments(
                 new ListConsolidatedInvoiceSegmentsInput.Builder().invoiceUid("uid").build()));
     }
 
     private String getInvoiceUid(int subscriptionId) throws ApiException, IOException {
-        return INVOICES_CONTROLLER
+        return invoicesController
                 .listInvoices(new ListInvoicesInput.Builder()
                         .subscriptionId(subscriptionId)
                         .build())
