@@ -197,7 +197,22 @@ public class Event
      * `subscription_bank_account_update`, `refund_failure`, `upcoming_renewal_notice`,
      * `trial_end_notice`, `direct_debit_payment_paid_out`, `direct_debit_payment_rejected`,
      * `direct_debit_payment_pending`, `pending_payment_created`, `pending_payment_failed`,
-     * `pending_payment_completed` don't have event_specific_data defined, they map to `null`
+     * `pending_payment_completed`, don't have event_specific_data defined,
+     * `renewal_success_recreated`, `renewal_failure_recreated`, `payment_success_recreated`,
+     * `payment_failure_recreated`, `subscription_deletion`,
+     * `subscription_group_bank_account_update`, `subscription_paypal_account_update`,
+     * `subscription_group_paypal_account_update`, `subscription_customer_change`,
+     * `account_transaction_changed`, `go_cardless_payment_paid_out`,
+     * `go_cardless_payment_rejected`, `go_cardless_payment_pending`,
+     * `stripe_direct_debit_payment_paid_out`, `stripe_direct_debit_payment_rejected`,
+     * `stripe_direct_debit_payment_pending`, `maxio_payments_direct_debit_payment_paid_out`,
+     * `maxio_payments_direct_debit_payment_rejected`,
+     * `maxio_payments_direct_debit_payment_pending`, `invoice_in_collections_canceled`,
+     * `subscription_added_to_group`, `subscription_removed_from_group`, `chargeback_opened`,
+     * `chargeback_lost`, `chargeback_accepted`, `chargeback_closed`, `chargeback_won`,
+     * `payment_collection_method_changed`, `component_billing_date_changed`,
+     * `subscription_term_renewal_scheduled`, `subscription_term_renewal_pending`,
+     * `subscription_term_renewal_activated`, `subscription_term_renewal_removed` they map to `null`
      * instead.
      * @return Returns the EventEventSpecificData
      */
@@ -232,7 +247,22 @@ public class Event
      * `subscription_bank_account_update`, `refund_failure`, `upcoming_renewal_notice`,
      * `trial_end_notice`, `direct_debit_payment_paid_out`, `direct_debit_payment_rejected`,
      * `direct_debit_payment_pending`, `pending_payment_created`, `pending_payment_failed`,
-     * `pending_payment_completed` don't have event_specific_data defined, they map to `null`
+     * `pending_payment_completed`, don't have event_specific_data defined,
+     * `renewal_success_recreated`, `renewal_failure_recreated`, `payment_success_recreated`,
+     * `payment_failure_recreated`, `subscription_deletion`,
+     * `subscription_group_bank_account_update`, `subscription_paypal_account_update`,
+     * `subscription_group_paypal_account_update`, `subscription_customer_change`,
+     * `account_transaction_changed`, `go_cardless_payment_paid_out`,
+     * `go_cardless_payment_rejected`, `go_cardless_payment_pending`,
+     * `stripe_direct_debit_payment_paid_out`, `stripe_direct_debit_payment_rejected`,
+     * `stripe_direct_debit_payment_pending`, `maxio_payments_direct_debit_payment_paid_out`,
+     * `maxio_payments_direct_debit_payment_rejected`,
+     * `maxio_payments_direct_debit_payment_pending`, `invoice_in_collections_canceled`,
+     * `subscription_added_to_group`, `subscription_removed_from_group`, `chargeback_opened`,
+     * `chargeback_lost`, `chargeback_accepted`, `chargeback_closed`, `chargeback_won`,
+     * `payment_collection_method_changed`, `component_billing_date_changed`,
+     * `subscription_term_renewal_scheduled`, `subscription_term_renewal_pending`,
+     * `subscription_term_renewal_activated`, `subscription_term_renewal_removed` they map to `null`
      * instead.
      * @param eventSpecificData Value for EventEventSpecificData
      */

@@ -109,7 +109,73 @@ public enum EventKey {
 
     CUSTOM_FIELD_VALUE_CHANGE,
 
-    ITEM_PRICE_POINT_CHANGED;
+    ITEM_PRICE_POINT_CHANGED,
+
+    RENEWAL_SUCCESS_RECREATED,
+
+    RENEWAL_FAILURE_RECREATED,
+
+    PAYMENT_SUCCESS_RECREATED,
+
+    PAYMENT_FAILURE_RECREATED,
+
+    SUBSCRIPTION_DELETION,
+
+    SUBSCRIPTION_GROUP_BANK_ACCOUNT_UPDATE,
+
+    SUBSCRIPTION_PAYPAL_ACCOUNT_UPDATE,
+
+    SUBSCRIPTION_GROUP_PAYPAL_ACCOUNT_UPDATE,
+
+    SUBSCRIPTION_CUSTOMER_CHANGE,
+
+    ACCOUNT_TRANSACTION_CHANGED,
+
+    GO_CARDLESS_PAYMENT_PAID_OUT,
+
+    GO_CARDLESS_PAYMENT_REJECTED,
+
+    GO_CARDLESS_PAYMENT_PENDING,
+
+    STRIPE_DIRECT_DEBIT_PAYMENT_PAID_OUT,
+
+    STRIPE_DIRECT_DEBIT_PAYMENT_REJECTED,
+
+    STRIPE_DIRECT_DEBIT_PAYMENT_PENDING,
+
+    MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PAID_OUT,
+
+    MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_REJECTED,
+
+    MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PENDING,
+
+    INVOICE_IN_COLLECTIONS_CANCELED,
+
+    SUBSCRIPTION_ADDED_TO_GROUP,
+
+    SUBSCRIPTION_REMOVED_FROM_GROUP,
+
+    CHARGEBACK_OPENED,
+
+    CHARGEBACK_LOST,
+
+    CHARGEBACK_ACCEPTED,
+
+    CHARGEBACK_CLOSED,
+
+    CHARGEBACK_WON,
+
+    PAYMENT_COLLECTION_METHOD_CHANGED,
+
+    COMPONENT_BILLING_DATE_CHANGED,
+
+    SUBSCRIPTION_TERM_RENEWAL_SCHEDULED,
+
+    SUBSCRIPTION_TERM_RENEWAL_PENDING,
+
+    SUBSCRIPTION_TERM_RENEWAL_ACTIVATED,
+
+    SUBSCRIPTION_TERM_RENEWAL_REMOVED;
 
 
     private static TreeMap<String, EventKey> valueMap = new TreeMap<>();
@@ -163,6 +229,39 @@ public enum EventKey {
         SUBSCRIPTION_SERVICE_CREDIT_ACCOUNT_BALANCE_CHANGED.value = "subscription_service_credit_account_balance_changed";
         CUSTOM_FIELD_VALUE_CHANGE.value = "custom_field_value_change";
         ITEM_PRICE_POINT_CHANGED.value = "item_price_point_changed";
+        RENEWAL_SUCCESS_RECREATED.value = "renewal_success_recreated";
+        RENEWAL_FAILURE_RECREATED.value = "renewal_failure_recreated";
+        PAYMENT_SUCCESS_RECREATED.value = "payment_success_recreated";
+        PAYMENT_FAILURE_RECREATED.value = "payment_failure_recreated";
+        SUBSCRIPTION_DELETION.value = "subscription_deletion";
+        SUBSCRIPTION_GROUP_BANK_ACCOUNT_UPDATE.value = "subscription_group_bank_account_update";
+        SUBSCRIPTION_PAYPAL_ACCOUNT_UPDATE.value = "subscription_paypal_account_update";
+        SUBSCRIPTION_GROUP_PAYPAL_ACCOUNT_UPDATE.value = "subscription_group_paypal_account_update";
+        SUBSCRIPTION_CUSTOMER_CHANGE.value = "subscription_customer_change";
+        ACCOUNT_TRANSACTION_CHANGED.value = "account_transaction_changed";
+        GO_CARDLESS_PAYMENT_PAID_OUT.value = "go_cardless_payment_paid_out";
+        GO_CARDLESS_PAYMENT_REJECTED.value = "go_cardless_payment_rejected";
+        GO_CARDLESS_PAYMENT_PENDING.value = "go_cardless_payment_pending";
+        STRIPE_DIRECT_DEBIT_PAYMENT_PAID_OUT.value = "stripe_direct_debit_payment_paid_out";
+        STRIPE_DIRECT_DEBIT_PAYMENT_REJECTED.value = "stripe_direct_debit_payment_rejected";
+        STRIPE_DIRECT_DEBIT_PAYMENT_PENDING.value = "stripe_direct_debit_payment_pending";
+        MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PAID_OUT.value = "maxio_payments_direct_debit_payment_paid_out";
+        MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_REJECTED.value = "maxio_payments_direct_debit_payment_rejected";
+        MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PENDING.value = "maxio_payments_direct_debit_payment_pending";
+        INVOICE_IN_COLLECTIONS_CANCELED.value = "invoice_in_collections_canceled";
+        SUBSCRIPTION_ADDED_TO_GROUP.value = "subscription_added_to_group";
+        SUBSCRIPTION_REMOVED_FROM_GROUP.value = "subscription_removed_from_group";
+        CHARGEBACK_OPENED.value = "chargeback_opened";
+        CHARGEBACK_LOST.value = "chargeback_lost";
+        CHARGEBACK_ACCEPTED.value = "chargeback_accepted";
+        CHARGEBACK_CLOSED.value = "chargeback_closed";
+        CHARGEBACK_WON.value = "chargeback_won";
+        PAYMENT_COLLECTION_METHOD_CHANGED.value = "payment_collection_method_changed";
+        COMPONENT_BILLING_DATE_CHANGED.value = "component_billing_date_changed";
+        SUBSCRIPTION_TERM_RENEWAL_SCHEDULED.value = "subscription_term_renewal_scheduled";
+        SUBSCRIPTION_TERM_RENEWAL_PENDING.value = "subscription_term_renewal_pending";
+        SUBSCRIPTION_TERM_RENEWAL_ACTIVATED.value = "subscription_term_renewal_activated";
+        SUBSCRIPTION_TERM_RENEWAL_REMOVED.value = "subscription_term_renewal_removed";
 
         valueMap.put("payment_success", PAYMENT_SUCCESS);
         valueMap.put("payment_failure", PAYMENT_FAILURE);
@@ -211,6 +310,39 @@ public enum EventKey {
         valueMap.put("subscription_service_credit_account_balance_changed", SUBSCRIPTION_SERVICE_CREDIT_ACCOUNT_BALANCE_CHANGED);
         valueMap.put("custom_field_value_change", CUSTOM_FIELD_VALUE_CHANGE);
         valueMap.put("item_price_point_changed", ITEM_PRICE_POINT_CHANGED);
+        valueMap.put("renewal_success_recreated", RENEWAL_SUCCESS_RECREATED);
+        valueMap.put("renewal_failure_recreated", RENEWAL_FAILURE_RECREATED);
+        valueMap.put("payment_success_recreated", PAYMENT_SUCCESS_RECREATED);
+        valueMap.put("payment_failure_recreated", PAYMENT_FAILURE_RECREATED);
+        valueMap.put("subscription_deletion", SUBSCRIPTION_DELETION);
+        valueMap.put("subscription_group_bank_account_update", SUBSCRIPTION_GROUP_BANK_ACCOUNT_UPDATE);
+        valueMap.put("subscription_paypal_account_update", SUBSCRIPTION_PAYPAL_ACCOUNT_UPDATE);
+        valueMap.put("subscription_group_paypal_account_update", SUBSCRIPTION_GROUP_PAYPAL_ACCOUNT_UPDATE);
+        valueMap.put("subscription_customer_change", SUBSCRIPTION_CUSTOMER_CHANGE);
+        valueMap.put("account_transaction_changed", ACCOUNT_TRANSACTION_CHANGED);
+        valueMap.put("go_cardless_payment_paid_out", GO_CARDLESS_PAYMENT_PAID_OUT);
+        valueMap.put("go_cardless_payment_rejected", GO_CARDLESS_PAYMENT_REJECTED);
+        valueMap.put("go_cardless_payment_pending", GO_CARDLESS_PAYMENT_PENDING);
+        valueMap.put("stripe_direct_debit_payment_paid_out", STRIPE_DIRECT_DEBIT_PAYMENT_PAID_OUT);
+        valueMap.put("stripe_direct_debit_payment_rejected", STRIPE_DIRECT_DEBIT_PAYMENT_REJECTED);
+        valueMap.put("stripe_direct_debit_payment_pending", STRIPE_DIRECT_DEBIT_PAYMENT_PENDING);
+        valueMap.put("maxio_payments_direct_debit_payment_paid_out", MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PAID_OUT);
+        valueMap.put("maxio_payments_direct_debit_payment_rejected", MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_REJECTED);
+        valueMap.put("maxio_payments_direct_debit_payment_pending", MAXIO_PAYMENTS_DIRECT_DEBIT_PAYMENT_PENDING);
+        valueMap.put("invoice_in_collections_canceled", INVOICE_IN_COLLECTIONS_CANCELED);
+        valueMap.put("subscription_added_to_group", SUBSCRIPTION_ADDED_TO_GROUP);
+        valueMap.put("subscription_removed_from_group", SUBSCRIPTION_REMOVED_FROM_GROUP);
+        valueMap.put("chargeback_opened", CHARGEBACK_OPENED);
+        valueMap.put("chargeback_lost", CHARGEBACK_LOST);
+        valueMap.put("chargeback_accepted", CHARGEBACK_ACCEPTED);
+        valueMap.put("chargeback_closed", CHARGEBACK_CLOSED);
+        valueMap.put("chargeback_won", CHARGEBACK_WON);
+        valueMap.put("payment_collection_method_changed", PAYMENT_COLLECTION_METHOD_CHANGED);
+        valueMap.put("component_billing_date_changed", COMPONENT_BILLING_DATE_CHANGED);
+        valueMap.put("subscription_term_renewal_scheduled", SUBSCRIPTION_TERM_RENEWAL_SCHEDULED);
+        valueMap.put("subscription_term_renewal_pending", SUBSCRIPTION_TERM_RENEWAL_PENDING);
+        valueMap.put("subscription_term_renewal_activated", SUBSCRIPTION_TERM_RENEWAL_ACTIVATED);
+        valueMap.put("subscription_term_renewal_removed", SUBSCRIPTION_TERM_RENEWAL_REMOVED);
     }
 
     /**

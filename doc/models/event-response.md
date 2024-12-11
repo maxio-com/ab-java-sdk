@@ -17,7 +17,7 @@
 {
   "event": {
     "id": 242,
-    "key": "custom_field_value_change",
+    "key": "subscription_state_change",
     "message": "message0",
     "subscription_id": 96,
     "customer_id": 24,
