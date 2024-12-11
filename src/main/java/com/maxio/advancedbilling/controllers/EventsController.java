@@ -48,9 +48,12 @@ public final class EventsController extends BaseController {
      * `payment_failure_recreated` + `payment_success_recreated` + `renewal_failure_recreated` +
      * `renewal_success_recreated` + `zferral_revenue_post_failure` - (Specific to the deprecated
      * Zferral integration) + `zferral_revenue_post_success` - (Specific to the deprecated Zferral
-     * integration) ## Event Specific Data Event Specific Data Each event type has its own
-     * `event_specific_data` specified. Here’s an example event for the
-     * `subscription_product_change` event: ``` { "event": { "id": 351, "key":
+     * integration) ## Event Key The event type is identified by the key property. You can check
+     * supported keys [here]($m/Event%20Key). ## Event Specific Data Different event types may
+     * include additional data in `event_specific_data` property. While some events share the same
+     * schema for `event_specific_data`, others may not include it at all. For precise mappings from
+     * key to event_specific_data, refer to [Event]($m/Event). ### Example Here’s an example event
+     * for the `subscription_product_change` event: ``` { "event": { "id": 351, "key":
      * "subscription_product_change", "message": "Product changed on Marky Mark's subscription from
      * 'Basic' to 'Pro'", "subscription_id": 205, "event_specific_data": { "new_product_id": 3,
      * "previous_product_id": 2 }, "created_at": "2012-01-30T10:43:31-05:00" } } ``` Here’s an
@@ -116,8 +119,12 @@ public final class EventsController extends BaseController {
     }
 
     /**
-     * The following request will return a list of events for a subscription. Each event type has
-     * its own `event_specific_data` specified.
+     * The following request will return a list of events for a subscription. ## Event Key The event
+     * type is identified by the key property. You can check supported keys [here]($m/Event%20Key).
+     * ## Event Specific Data Different event types may include additional data in
+     * `event_specific_data` property. While some events share the same schema for
+     * `event_specific_data`, others may not include it at all. For precise mappings from key to
+     * event_specific_data, refer to [Event]($m/Event).
      * @param  input  ListSubscriptionEventsInput object containing request parameters
      * @return    Returns the List of EventResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

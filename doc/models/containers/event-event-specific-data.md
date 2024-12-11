@@ -21,8 +21,7 @@
 | [`PendingCancellationChange`](../../../doc/models/pending-cancellation-change.md) | EventEventSpecificData.fromPendingCancellationChange(PendingCancellationChange pendingCancellationChange) |
 | [`PrepaidSubscriptionBalanceChanged`](../../../doc/models/prepaid-subscription-balance-changed.md) | EventEventSpecificData.fromPrepaidSubscriptionBalanceChanged(PrepaidSubscriptionBalanceChanged prepaidSubscriptionBalanceChanged) |
 | [`ProformaInvoiceIssued`](../../../doc/models/proforma-invoice-issued.md) | EventEventSpecificData.fromProformaInvoiceIssued(ProformaInvoiceIssued proformaInvoiceIssued) |
-| [`SubscriptionGroupSignupSuccess`](../../../doc/models/subscription-group-signup-success.md) | EventEventSpecificData.fromSubscriptionGroupSignupSuccess(SubscriptionGroupSignupSuccess subscriptionGroupSignupSuccess) |
-| [`SubscriptionGroupSignupFailure`](../../../doc/models/subscription-group-signup-failure.md) | EventEventSpecificData.fromSubscriptionGroupSignupFailure(SubscriptionGroupSignupFailure subscriptionGroupSignupFailure) |
+| [`SubscriptionGroupSignupEventData`](../../../doc/models/subscription-group-signup-event-data.md) | EventEventSpecificData.fromSubscriptionGroupSignupEventData(SubscriptionGroupSignupEventData subscriptionGroupSignupEventData) |
 | [`CreditAccountBalanceChanged`](../../../doc/models/credit-account-balance-changed.md) | EventEventSpecificData.fromCreditAccountBalanceChanged(CreditAccountBalanceChanged creditAccountBalanceChanged) |
 | [`PrepaymentAccountBalanceChanged`](../../../doc/models/prepayment-account-balance-changed.md) | EventEventSpecificData.fromPrepaymentAccountBalanceChanged(PrepaymentAccountBalanceChanged prepaymentAccountBalanceChanged) |
 | [`PaymentCollectionMethodChanged`](../../../doc/models/payment-collection-method-changed.md) | EventEventSpecificData.fromPaymentCollectionMethodChanged(PaymentCollectionMethodChanged paymentCollectionMethodChanged) |
