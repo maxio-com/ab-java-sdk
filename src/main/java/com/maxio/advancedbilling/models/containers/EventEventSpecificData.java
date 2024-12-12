@@ -31,8 +31,7 @@ import com.maxio.advancedbilling.models.PrepaidUsage;
 import com.maxio.advancedbilling.models.PrepaymentAccountBalanceChanged;
 import com.maxio.advancedbilling.models.ProformaInvoiceIssued;
 import com.maxio.advancedbilling.models.RefundSuccess;
-import com.maxio.advancedbilling.models.SubscriptionGroupSignupFailure;
-import com.maxio.advancedbilling.models.SubscriptionGroupSignupSuccess;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupEventData;
 import com.maxio.advancedbilling.models.SubscriptionProductChange;
 import com.maxio.advancedbilling.models.SubscriptionStateChange;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
@@ -162,23 +161,13 @@ public abstract class EventEventSpecificData {
     }
 
     /**
-     * This is Subscription Group Signup Success case.
-     * @param subscriptionGroupSignupSuccess SubscriptionGroupSignupSuccess value for subscriptionGroupSignupSuccess.
-     * @return The SubscriptionGroupSignupSuccessCase object.
+     * This is Subscription Group Signup Event Data case.
+     * @param subscriptionGroupSignupEventData SubscriptionGroupSignupEventData value for subscriptionGroupSignupEventData.
+     * @return The SubscriptionGroupSignupEventDataCase object.
      */
-    public static EventEventSpecificData fromSubscriptionGroupSignupSuccess(
-            SubscriptionGroupSignupSuccess subscriptionGroupSignupSuccess) {
-        return subscriptionGroupSignupSuccess == null ? null : new SubscriptionGroupSignupSuccessCase(subscriptionGroupSignupSuccess);
-    }
-
-    /**
-     * This is Subscription Group Signup Failure case.
-     * @param subscriptionGroupSignupFailure SubscriptionGroupSignupFailure value for subscriptionGroupSignupFailure.
-     * @return The SubscriptionGroupSignupFailureCase object.
-     */
-    public static EventEventSpecificData fromSubscriptionGroupSignupFailure(
-            SubscriptionGroupSignupFailure subscriptionGroupSignupFailure) {
-        return subscriptionGroupSignupFailure == null ? null : new SubscriptionGroupSignupFailureCase(subscriptionGroupSignupFailure);
+    public static EventEventSpecificData fromSubscriptionGroupSignupEventData(
+            SubscriptionGroupSignupEventData subscriptionGroupSignupEventData) {
+        return subscriptionGroupSignupEventData == null ? null : new SubscriptionGroupSignupEventDataCase(subscriptionGroupSignupEventData);
     }
 
     /**
@@ -268,9 +257,7 @@ public abstract class EventEventSpecificData {
 
         R proformaInvoiceIssued(ProformaInvoiceIssued proformaInvoiceIssued);
 
-        R subscriptionGroupSignupSuccess(SubscriptionGroupSignupSuccess subscriptionGroupSignupSuccess);
-
-        R subscriptionGroupSignupFailure(SubscriptionGroupSignupFailure subscriptionGroupSignupFailure);
+        R subscriptionGroupSignupEventData(SubscriptionGroupSignupEventData subscriptionGroupSignupEventData);
 
         R creditAccountBalanceChanged(CreditAccountBalanceChanged creditAccountBalanceChanged);
 
@@ -656,64 +643,33 @@ public abstract class EventEventSpecificData {
     }
 
     /**
-     * This is a implementation class for SubscriptionGroupSignupSuccessCase.
+     * This is a implementation class for SubscriptionGroupSignupEventDataCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SubscriptionGroupSignupSuccess")
-    private static class SubscriptionGroupSignupSuccessCase extends EventEventSpecificData {
+    @TypeCombinatorCase(type = "SubscriptionGroupSignupEventData")
+    private static class SubscriptionGroupSignupEventDataCase extends EventEventSpecificData {
 
         @JsonValue
-        private SubscriptionGroupSignupSuccess subscriptionGroupSignupSuccess;
+        private SubscriptionGroupSignupEventData subscriptionGroupSignupEventData;
 
-        SubscriptionGroupSignupSuccessCase(SubscriptionGroupSignupSuccess subscriptionGroupSignupSuccess) {
-            this.subscriptionGroupSignupSuccess = subscriptionGroupSignupSuccess;
+        SubscriptionGroupSignupEventDataCase(SubscriptionGroupSignupEventData subscriptionGroupSignupEventData) {
+            this.subscriptionGroupSignupEventData = subscriptionGroupSignupEventData;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.subscriptionGroupSignupSuccess(this.subscriptionGroupSignupSuccess);
+            return cases.subscriptionGroupSignupEventData(this.subscriptionGroupSignupEventData);
         }
 
         @JsonCreator
-        private SubscriptionGroupSignupSuccessCase(JsonNode jsonNode) throws IOException {
-            this.subscriptionGroupSignupSuccess = ApiHelper.deserialize(jsonNode,
-                SubscriptionGroupSignupSuccess.class);
+        private SubscriptionGroupSignupEventDataCase(JsonNode jsonNode) throws IOException {
+            this.subscriptionGroupSignupEventData = ApiHelper.deserialize(jsonNode,
+                SubscriptionGroupSignupEventData.class);
         }
 
         @Override
         public String toString() {
-            return subscriptionGroupSignupSuccess.toString();
-        }
-    }
-
-    /**
-     * This is a implementation class for SubscriptionGroupSignupFailureCase.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SubscriptionGroupSignupFailure")
-    private static class SubscriptionGroupSignupFailureCase extends EventEventSpecificData {
-
-        @JsonValue
-        private SubscriptionGroupSignupFailure subscriptionGroupSignupFailure;
-
-        SubscriptionGroupSignupFailureCase(SubscriptionGroupSignupFailure subscriptionGroupSignupFailure) {
-            this.subscriptionGroupSignupFailure = subscriptionGroupSignupFailure;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.subscriptionGroupSignupFailure(this.subscriptionGroupSignupFailure);
-        }
-
-        @JsonCreator
-        private SubscriptionGroupSignupFailureCase(JsonNode jsonNode) throws IOException {
-            this.subscriptionGroupSignupFailure = ApiHelper.deserialize(jsonNode,
-                SubscriptionGroupSignupFailure.class);
-        }
-
-        @Override
-        public String toString() {
-            return subscriptionGroupSignupFailure.toString();
+            return subscriptionGroupSignupEventData.toString();
         }
     }
 
@@ -889,8 +845,8 @@ public abstract class EventEventSpecificData {
                     MeteredUsageCase.class, PrepaidUsageCase.class, DunningStepReachedCase.class,
                     InvoiceIssuedCase.class, PendingCancellationChangeCase.class,
                     PrepaidSubscriptionBalanceChangedCase.class, ProformaInvoiceIssuedCase.class,
-                    SubscriptionGroupSignupSuccessCase.class,
-                    SubscriptionGroupSignupFailureCase.class, CreditAccountBalanceChangedCase.class,
+                    SubscriptionGroupSignupEventDataCase.class,
+                    CreditAccountBalanceChangedCase.class,
                     PrepaymentAccountBalanceChangedCase.class,
                     PaymentCollectionMethodChangedCase.class, ItemPricePointChangedCase.class,
                     CustomFieldValueChangeCase.class), true);

@@ -21,6 +21,7 @@ public class ListProductPricePointsInput {
     private Integer perPage;
     private Boolean currencyPrices;
     private List<PricePointType> filterType;
+    private Boolean archived;
 
     /**
      * Default constructor.
@@ -37,18 +38,21 @@ public class ListProductPricePointsInput {
      * @param  perPage  Integer value for perPage.
      * @param  currencyPrices  Boolean value for currencyPrices.
      * @param  filterType  List of PricePointType value for filterType.
+     * @param  archived  Boolean value for archived.
      */
     public ListProductPricePointsInput(
             ListProductPricePointsInputProductId productId,
             Integer page,
             Integer perPage,
             Boolean currencyPrices,
-            List<PricePointType> filterType) {
+            List<PricePointType> filterType,
+            Boolean archived) {
         this.productId = productId;
         this.page = page;
         this.perPage = perPage;
         this.currencyPrices = currencyPrices;
         this.filterType = filterType;
+        this.archived = archived;
     }
 
     /**
@@ -174,6 +178,27 @@ public class ListProductPricePointsInput {
     }
 
     /**
+     * Getter for Archived.
+     * Set to include archived price points in the response.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("archived")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getArchived() {
+        return archived;
+    }
+
+    /**
+     * Setter for Archived.
+     * Set to include archived price points in the response.
+     * @param archived Value for Boolean
+     */
+    @JsonSetter("archived")
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
+    }
+
+    /**
      * Converts this ListProductPricePointsInput into string format.
      * @return String representation of this class
      */
@@ -181,7 +206,7 @@ public class ListProductPricePointsInput {
     public String toString() {
         return "ListProductPricePointsInput [" + "productId=" + productId + ", page=" + page
                 + ", perPage=" + perPage + ", currencyPrices=" + currencyPrices + ", filterType="
-                + filterType + "]";
+                + filterType + ", archived=" + archived + "]";
     }
 
     /**
@@ -194,7 +219,8 @@ public class ListProductPricePointsInput {
                 .page(getPage())
                 .perPage(getPerPage())
                 .currencyPrices(getCurrencyPrices())
-                .filterType(getFilterType());
+                .filterType(getFilterType())
+                .archived(getArchived());
         return builder;
     }
 
@@ -207,6 +233,7 @@ public class ListProductPricePointsInput {
         private Integer perPage = 10;
         private Boolean currencyPrices;
         private List<PricePointType> filterType;
+        private Boolean archived;
 
         /**
          * Initialization constructor.
@@ -273,12 +300,22 @@ public class ListProductPricePointsInput {
         }
 
         /**
+         * Setter for archived.
+         * @param  archived  Boolean value for archived.
+         * @return Builder
+         */
+        public Builder archived(Boolean archived) {
+            this.archived = archived;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListProductPricePointsInput} object using the set fields.
          * @return {@link ListProductPricePointsInput}
          */
         public ListProductPricePointsInput build() {
             return new ListProductPricePointsInput(productId, page, perPage, currencyPrices,
-                    filterType);
+                    filterType, archived);
         }
     }
 }

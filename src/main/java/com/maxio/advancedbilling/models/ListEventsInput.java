@@ -20,7 +20,7 @@ public class ListEventsInput {
     private Long sinceId;
     private Long maxId;
     private Direction direction;
-    private List<EventType> filter;
+    private List<EventKey> filter;
     private ListEventsDateField dateField;
     private String startDate;
     private String endDate;
@@ -43,7 +43,7 @@ public class ListEventsInput {
      * @param  sinceId  Long value for sinceId.
      * @param  maxId  Long value for maxId.
      * @param  direction  Direction value for direction.
-     * @param  filter  List of EventType value for filter.
+     * @param  filter  List of EventKey value for filter.
      * @param  dateField  ListEventsDateField value for dateField.
      * @param  startDate  String value for startDate.
      * @param  endDate  String value for endDate.
@@ -56,7 +56,7 @@ public class ListEventsInput {
             Long sinceId,
             Long maxId,
             Direction direction,
-            List<EventType> filter,
+            List<EventKey> filter,
             ListEventsDateField dateField,
             String startDate,
             String endDate,
@@ -196,11 +196,11 @@ public class ListEventsInput {
      * Getter for Filter.
      * You can pass multiple event keys after comma. Use in query
      * `filter=signup_success,payment_success`.
-     * @return Returns the List of EventType
+     * @return Returns the List of EventKey
      */
     @JsonGetter("filter")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<EventType> getFilter() {
+    public List<EventKey> getFilter() {
         return filter;
     }
 
@@ -208,10 +208,10 @@ public class ListEventsInput {
      * Setter for Filter.
      * You can pass multiple event keys after comma. Use in query
      * `filter=signup_success,payment_success`.
-     * @param filter Value for List of EventType
+     * @param filter Value for List of EventKey
      */
     @JsonSetter("filter")
-    public void setFilter(List<EventType> filter) {
+    public void setFilter(List<EventKey> filter) {
         this.filter = filter;
     }
 
@@ -380,7 +380,7 @@ public class ListEventsInput {
         private Long sinceId;
         private Long maxId;
         private Direction direction = Direction.DESC;
-        private List<EventType> filter;
+        private List<EventKey> filter;
         private ListEventsDateField dateField;
         private String startDate;
         private String endDate;
@@ -441,10 +441,10 @@ public class ListEventsInput {
 
         /**
          * Setter for filter.
-         * @param  filter  List of EventType value for filter.
+         * @param  filter  List of EventKey value for filter.
          * @return Builder
          */
-        public Builder filter(List<EventType> filter) {
+        public Builder filter(List<EventKey> filter) {
             this.filter = filter;
             return this;
         }

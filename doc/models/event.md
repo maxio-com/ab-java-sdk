@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `long` | Required | - | long getId() | setId(long id) |
-| `Key` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getKey() | setKey(String key) |
+| `Key` | [`EventKey`](../../doc/models/event-key.md) | Required | - | EventKey getKey() | setKey(EventKey key) |
 | `Message` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getMessage() | setMessage(String message) |
 | `SubscriptionId` | `Integer` | Required | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `CustomerId` | `Integer` | Required | - | Integer getCustomerId() | setCustomerId(Integer customerId) |
@@ -22,7 +22,7 @@
 ```json
 {
   "id": 40,
-  "key": "key2",
+  "key": "invoice_issued",
   "message": "message8",
   "subscription_id": 150,
   "customer_id": 78,
