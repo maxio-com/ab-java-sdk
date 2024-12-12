@@ -132,6 +132,8 @@ public final class ProductPricePointsController extends BaseController {
                                 .value(input.getCurrencyPrices()).isRequired(false))
                         .queryParam(param -> param.key("filter[type]")
                                 .value(PricePointType.toValue(input.getFilterType())).isRequired(false))
+                        .queryParam(param -> param.key("archived")
+                                .value(input.getArchived()).isRequired(false))
                         .templateParam(param -> param.key("product_id").value(input.getProductId())
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
