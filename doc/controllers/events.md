@@ -100,7 +100,7 @@ List<EventResponse> listEvents(
 | `sinceId` | `Long` | Query, Optional | Returns events with an id greater than or equal to the one specified |
 | `maxId` | `Long` | Query, Optional | Returns events with an id less than or equal to the one specified |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
-| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `filter` | [`List<EventKey>`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 | `dateField` | [`ListEventsDateField`](../../doc/models/list-events-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. |
 | `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
 | `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
@@ -119,8 +119,8 @@ ListEventsInput listEventsInput = new ListEventsInput.Builder()
     .perPage(50)
     .direction(Direction.DESC)
     .filter(Arrays.asList(
-        EventType.CUSTOM_FIELD_VALUE_CHANGE,
-        EventType.PAYMENT_SUCCESS
+        EventKey.CUSTOM_FIELD_VALUE_CHANGE,
+        EventKey.PAYMENT_SUCCESS
     ))
     .dateField(ListEventsDateField.CREATED_AT)
     .build();
@@ -227,7 +227,7 @@ List<EventResponse> listSubscriptionEvents(
 | `sinceId` | `Long` | Query, Optional | Returns events with an id greater than or equal to the one specified |
 | `maxId` | `Long` | Query, Optional | Returns events with an id less than or equal to the one specified |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
-| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `filter` | [`List<EventKey>`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
@@ -243,8 +243,8 @@ ListSubscriptionEventsInput listSubscriptionEventsInput = new ListSubscriptionEv
 .perPage(50)
 .direction(Direction.DESC)
 .filter(Arrays.asList(
-        EventType.CUSTOM_FIELD_VALUE_CHANGE,
-        EventType.PAYMENT_SUCCESS
+        EventKey.CUSTOM_FIELD_VALUE_CHANGE,
+        EventKey.PAYMENT_SUCCESS
     ))
 .build();
 
@@ -320,7 +320,7 @@ CountResponse readEventsCount(
 | `sinceId` | `Long` | Query, Optional | Returns events with an id greater than or equal to the one specified |
 | `maxId` | `Long` | Query, Optional | Returns events with an id less than or equal to the one specified |
 | `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned events.<br>**Default**: `Direction.DESC` |
-| `filter` | [`List<EventType>`](../../doc/models/event-type.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
+| `filter` | [`List<EventKey>`](../../doc/models/event-key.md) | Query, Optional | You can pass multiple event keys after comma.<br>Use in query `filter=signup_success,payment_success`. |
 
 ## Response Type
 
@@ -334,8 +334,8 @@ ReadEventsCountInput readEventsCountInput = new ReadEventsCountInput.Builder()
     .perPage(50)
     .direction(Direction.DESC)
     .filter(Arrays.asList(
-        EventType.CUSTOM_FIELD_VALUE_CHANGE,
-        EventType.PAYMENT_SUCCESS
+        EventKey.CUSTOM_FIELD_VALUE_CHANGE,
+        EventKey.PAYMENT_SUCCESS
     ))
     .build();
 
