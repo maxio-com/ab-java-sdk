@@ -11,8 +11,8 @@ import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CountResponse;
+import com.maxio.advancedbilling.models.EventKey;
 import com.maxio.advancedbilling.models.EventResponse;
-import com.maxio.advancedbilling.models.EventType;
 import com.maxio.advancedbilling.models.ListEventsInput;
 import com.maxio.advancedbilling.models.ListSubscriptionEventsInput;
 import com.maxio.advancedbilling.models.ReadEventsCountInput;
@@ -93,7 +93,7 @@ public final class EventsController extends BaseController {
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("filter")
-                                .value(EventType.toValue(input.getFilter())).isRequired(false))
+                                .value(EventKey.toValue(input.getFilter())).isRequired(false))
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
@@ -156,7 +156,7 @@ public final class EventsController extends BaseController {
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("filter")
-                                .value(EventType.toValue(input.getFilter())).isRequired(false))
+                                .value(EventKey.toValue(input.getFilter())).isRequired(false))
                         .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
                                 .shouldEncode(true))
                         .headerParam(param -> param.key("accept").value("application/json"))
@@ -206,7 +206,7 @@ public final class EventsController extends BaseController {
                         .queryParam(param -> param.key("direction")
                                 .value((input.getDirection() != null) ? input.getDirection().value() : "desc").isRequired(false))
                         .queryParam(param -> param.key("filter")
-                                .value(EventType.toValue(input.getFilter())).isRequired(false))
+                                .value(EventKey.toValue(input.getFilter())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
                         .withAuth(auth -> auth
                                 .add("BasicAuth"))
