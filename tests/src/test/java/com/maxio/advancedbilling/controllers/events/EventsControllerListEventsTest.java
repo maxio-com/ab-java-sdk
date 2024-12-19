@@ -2,6 +2,7 @@ package com.maxio.advancedbilling.controllers.events;
 
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.TestClientProvider;
+import com.maxio.advancedbilling.controllers.EventsController;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateUsage;
@@ -47,22 +48,23 @@ public class EventsControllerListEventsTest {
 
     private final AdvancedBillingClient client = TestClientProvider.getClient();
     private final TestSetup testSetup = new TestSetup();
+    private final EventsController eventsController = client.getEventsController();
 
-    ProductFamily productFamily;
-    Product product;
-    Product product2;
-    Component component;
-    Customer customer;
-    Subscription subscription;
-    Customer updatedCustomer;
-    String customerFullName;
-    String updatedCustomerFullName;
-    long lastEventId = 1;
+    private ProductFamily productFamily;
+    private Product product;
+    private Product product2;
+    private Component component;
+    private Customer customer;
+    private Subscription subscription;
+    private Customer updatedCustomer;
+    private String customerFullName;
+    private String updatedCustomerFullName;
+    private long lastEventId = 1;
 
     @BeforeAll
     void setup() throws IOException, ApiException, InterruptedException {
         Thread.sleep(3000);
-        List<EventResponse> events = client.getEventsController().listEvents(new ListEventsInput.Builder()
+        List<EventResponse> events = eventsController.listEvents(new ListEventsInput.Builder()
                 .perPage(1)
                 .build()
         );
@@ -126,16 +128,14 @@ public class EventsControllerListEventsTest {
     @Test
     void shouldListEvents() throws IOException, ApiException {
         // given - when
-        List<EventResponse> events = client.getEventsController().listEvents(new ListEventsInput.Builder()
+        List<EventResponse> events = eventsController.listEvents(new ListEventsInput.Builder()
                 .sinceId(lastEventId)
                 .perPage(200)
                 .direction(Direction.DESC)
                 .build()
         );
         assertThat(events.size()).isBetween(13, 14);
-        if (events.size() > 13) {
-            events = events.subList(0, 13);
-        }
+        events = events.subList(0, 13);
 
         Map<EventKey, Event> eventsMap = events.stream()
                 .collect(Collectors.toMap(e -> e.getEvent().getKey(), EventResponse::getEvent));
@@ -266,7 +266,7 @@ public class EventsControllerListEventsTest {
 
     @Test
     void shouldListEventsWithFilter() throws IOException, ApiException {
-        List<EventResponse> events = client.getEventsController().listEvents(new ListEventsInput.Builder()
+        List<EventResponse> events = eventsController.listEvents(new ListEventsInput.Builder()
                 .sinceId(lastEventId)
                 .direction(Direction.DESC)
                 .filter(List.of(PAYMENT_SUCCESS, METERED_USAGE))

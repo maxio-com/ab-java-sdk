@@ -22,7 +22,6 @@ import com.maxio.advancedbilling.models.containers.EventEventSpecificData;
 
 public class EventSpecificDataGetter<R> implements EventEventSpecificData.Cases<R> {
 
-
     @Override
     public R subscriptionProductChange(SubscriptionProductChange subscriptionProductChange) {
         return (R) subscriptionProductChange;
