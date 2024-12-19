@@ -702,6 +702,7 @@ SubscriptionResponse createSubscription(
 CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
     new CreateSubscription.Builder()
         .productHandle("basic")
+        .paymentCollectionMethod(CollectionMethod.REMITTANCE)
         .customerAttributes(new CustomerAttributes.Builder()
             .firstName("Joe")
             .lastName("Blow")
@@ -715,24 +716,6 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
             .zip("02120")
             .country("US")
             .phone("(617) 111 - 0000")
-            .build())
-        .creditCardAttributes(new PaymentProfileAttributes.Builder()
-            .firstName("Joe")
-            .lastName("Smith")
-            .fullNumber("4111111111111111")
-            .cardType(CardType.VISA)
-            .expirationMonth(PaymentProfileAttributesExpirationMonth.fromString(
-                "1"
-            ))
-            .expirationYear(PaymentProfileAttributesExpirationYear.fromString(
-                "2021"
-            ))
-            .billingAddress("123 Mass Ave.")
-            .billingAddress2("billing_address_22")
-            .billingCity("Boston")
-            .billingState("MA")
-            .billingCountry("US")
-            .billingZip("02120")
             .build())
         .build()
 )
