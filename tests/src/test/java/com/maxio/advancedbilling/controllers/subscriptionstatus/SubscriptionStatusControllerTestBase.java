@@ -47,7 +47,7 @@ abstract class SubscriptionStatusControllerTestBase {
                                 .creditCardAttributes(
                                         new PaymentProfileAttributes.Builder()
                                                 .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(12))
-                                                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2024))
+                                                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
                                                 .fullNumber("1")
                                                 .build()
                                 )
