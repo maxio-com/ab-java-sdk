@@ -45,4 +45,14 @@ public class ProductPricePointErrorResponseException extends ApiException {
     private void setErrors(ProductPricePointErrors errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this ProductPricePointErrorResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ProductPricePointErrorResponseException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

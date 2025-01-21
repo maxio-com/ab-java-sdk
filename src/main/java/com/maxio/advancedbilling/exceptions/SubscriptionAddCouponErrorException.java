@@ -102,4 +102,15 @@ public class SubscriptionAddCouponErrorException extends ApiException {
     private void setSubscription(List<String> subscription) {
         this.subscription = subscription;
     }
+
+    /**
+     * Converts this SubscriptionAddCouponErrorException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionAddCouponErrorException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", codes=" + codes + ", couponCode=" + couponCode
+                + ", couponCodes=" + couponCodes + ", subscription=" + subscription + "]";
+    }
 }

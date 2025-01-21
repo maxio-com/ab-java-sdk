@@ -45,4 +45,14 @@ public class ErrorListResponseException extends ApiException {
     private void setErrors(List<String> errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this ErrorListResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ErrorListResponseException [" + "statusCode=" + getResponseCode() + ", message="
+                + getMessage() + ", errors=" + errors + "]";
+    }
 }

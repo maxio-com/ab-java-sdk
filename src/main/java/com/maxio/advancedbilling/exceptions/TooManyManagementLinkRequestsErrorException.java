@@ -45,4 +45,14 @@ public class TooManyManagementLinkRequestsErrorException extends ApiException {
     private void setErrors(TooManyManagementLinkRequests errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this TooManyManagementLinkRequestsErrorException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "TooManyManagementLinkRequestsErrorException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

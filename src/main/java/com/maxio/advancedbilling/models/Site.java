@@ -24,6 +24,7 @@ public class Site
     private Integer sellerId;
     private List<String> nonPrimaryCurrencies;
     private Boolean relationshipInvoicingEnabled;
+    private Boolean scheduleSubscriptionCancellationEnabled;
     private Boolean customerHierarchyEnabled;
     private Boolean whopaysEnabled;
     private String whopaysDefaultPayer;
@@ -49,6 +50,8 @@ public class Site
      * @param  sellerId  Integer value for sellerId.
      * @param  nonPrimaryCurrencies  List of String value for nonPrimaryCurrencies.
      * @param  relationshipInvoicingEnabled  Boolean value for relationshipInvoicingEnabled.
+     * @param  scheduleSubscriptionCancellationEnabled  Boolean value for
+     *         scheduleSubscriptionCancellationEnabled.
      * @param  customerHierarchyEnabled  Boolean value for customerHierarchyEnabled.
      * @param  whopaysEnabled  Boolean value for whopaysEnabled.
      * @param  whopaysDefaultPayer  String value for whopaysDefaultPayer.
@@ -67,6 +70,7 @@ public class Site
             Integer sellerId,
             List<String> nonPrimaryCurrencies,
             Boolean relationshipInvoicingEnabled,
+            Boolean scheduleSubscriptionCancellationEnabled,
             Boolean customerHierarchyEnabled,
             Boolean whopaysEnabled,
             String whopaysDefaultPayer,
@@ -83,6 +87,7 @@ public class Site
         this.sellerId = sellerId;
         this.nonPrimaryCurrencies = nonPrimaryCurrencies;
         this.relationshipInvoicingEnabled = relationshipInvoicingEnabled;
+        this.scheduleSubscriptionCancellationEnabled = scheduleSubscriptionCancellationEnabled;
         this.customerHierarchyEnabled = customerHierarchyEnabled;
         this.whopaysEnabled = whopaysEnabled;
         this.whopaysDefaultPayer = whopaysDefaultPayer;
@@ -225,6 +230,25 @@ public class Site
     @JsonSetter("relationship_invoicing_enabled")
     public void setRelationshipInvoicingEnabled(Boolean relationshipInvoicingEnabled) {
         this.relationshipInvoicingEnabled = relationshipInvoicingEnabled;
+    }
+
+    /**
+     * Getter for ScheduleSubscriptionCancellationEnabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("schedule_subscription_cancellation_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getScheduleSubscriptionCancellationEnabled() {
+        return scheduleSubscriptionCancellationEnabled;
+    }
+
+    /**
+     * Setter for ScheduleSubscriptionCancellationEnabled.
+     * @param scheduleSubscriptionCancellationEnabled Value for Boolean
+     */
+    @JsonSetter("schedule_subscription_cancellation_enabled")
+    public void setScheduleSubscriptionCancellationEnabled(Boolean scheduleSubscriptionCancellationEnabled) {
+        this.scheduleSubscriptionCancellationEnabled = scheduleSubscriptionCancellationEnabled;
     }
 
     /**
@@ -407,7 +431,8 @@ public class Site
         return "Site [" + "id=" + id + ", name=" + name + ", subdomain=" + subdomain + ", currency="
                 + currency + ", sellerId=" + sellerId + ", nonPrimaryCurrencies="
                 + nonPrimaryCurrencies + ", relationshipInvoicingEnabled="
-                + relationshipInvoicingEnabled + ", customerHierarchyEnabled="
+                + relationshipInvoicingEnabled + ", scheduleSubscriptionCancellationEnabled="
+                + scheduleSubscriptionCancellationEnabled + ", customerHierarchyEnabled="
                 + customerHierarchyEnabled + ", whopaysEnabled=" + whopaysEnabled
                 + ", whopaysDefaultPayer=" + whopaysDefaultPayer + ", allocationSettings="
                 + allocationSettings + ", defaultPaymentCollectionMethod="
@@ -430,6 +455,7 @@ public class Site
                 .sellerId(getSellerId())
                 .nonPrimaryCurrencies(getNonPrimaryCurrencies())
                 .relationshipInvoicingEnabled(getRelationshipInvoicingEnabled())
+                .scheduleSubscriptionCancellationEnabled(getScheduleSubscriptionCancellationEnabled())
                 .customerHierarchyEnabled(getCustomerHierarchyEnabled())
                 .whopaysEnabled(getWhopaysEnabled())
                 .whopaysDefaultPayer(getWhopaysDefaultPayer())
@@ -453,6 +479,7 @@ public class Site
         private Integer sellerId;
         private List<String> nonPrimaryCurrencies;
         private Boolean relationshipInvoicingEnabled;
+        private Boolean scheduleSubscriptionCancellationEnabled;
         private Boolean customerHierarchyEnabled;
         private Boolean whopaysEnabled;
         private String whopaysDefaultPayer;
@@ -532,6 +559,18 @@ public class Site
          */
         public Builder relationshipInvoicingEnabled(Boolean relationshipInvoicingEnabled) {
             this.relationshipInvoicingEnabled = relationshipInvoicingEnabled;
+            return this;
+        }
+
+        /**
+         * Setter for scheduleSubscriptionCancellationEnabled.
+         * @param  scheduleSubscriptionCancellationEnabled  Boolean value for
+         *         scheduleSubscriptionCancellationEnabled.
+         * @return Builder
+         */
+        public Builder scheduleSubscriptionCancellationEnabled(
+                Boolean scheduleSubscriptionCancellationEnabled) {
+            this.scheduleSubscriptionCancellationEnabled = scheduleSubscriptionCancellationEnabled;
             return this;
         }
 
@@ -631,9 +670,10 @@ public class Site
          */
         public Site build() {
             return new Site(id, name, subdomain, currency, sellerId, nonPrimaryCurrencies,
-                    relationshipInvoicingEnabled, customerHierarchyEnabled, whopaysEnabled,
-                    whopaysDefaultPayer, allocationSettings, defaultPaymentCollectionMethod,
-                    organizationAddress, taxConfiguration, netTerms, test);
+                    relationshipInvoicingEnabled, scheduleSubscriptionCancellationEnabled,
+                    customerHierarchyEnabled, whopaysEnabled, whopaysDefaultPayer,
+                    allocationSettings, defaultPaymentCollectionMethod, organizationAddress,
+                    taxConfiguration, netTerms, test);
         }
     }
 }

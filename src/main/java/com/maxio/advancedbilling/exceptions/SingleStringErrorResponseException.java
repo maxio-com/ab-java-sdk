@@ -44,4 +44,14 @@ public class SingleStringErrorResponseException extends ApiException {
     private void setErrors(String errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this SingleStringErrorResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SingleStringErrorResponseException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

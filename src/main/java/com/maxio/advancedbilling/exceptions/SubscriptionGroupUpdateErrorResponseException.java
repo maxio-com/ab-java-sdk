@@ -45,4 +45,14 @@ public class SubscriptionGroupUpdateErrorResponseException extends ApiException 
     private void setErrors(SubscriptionGroupUpdateError errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this SubscriptionGroupUpdateErrorResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionGroupUpdateErrorResponseException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

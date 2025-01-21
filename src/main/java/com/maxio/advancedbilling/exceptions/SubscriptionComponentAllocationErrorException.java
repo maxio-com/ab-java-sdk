@@ -46,4 +46,14 @@ public class SubscriptionComponentAllocationErrorException extends ApiException 
     private void setErrors(List<SubscriptionComponentAllocationErrorItem> errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this SubscriptionComponentAllocationErrorException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionComponentAllocationErrorException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }
