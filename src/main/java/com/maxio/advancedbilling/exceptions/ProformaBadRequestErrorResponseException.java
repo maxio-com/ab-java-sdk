@@ -45,4 +45,14 @@ public class ProformaBadRequestErrorResponseException extends ApiException {
     private void setErrors(ProformaError errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this ProformaBadRequestErrorResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ProformaBadRequestErrorResponseException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

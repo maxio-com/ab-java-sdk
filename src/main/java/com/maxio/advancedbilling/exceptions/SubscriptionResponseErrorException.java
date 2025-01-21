@@ -45,4 +45,14 @@ public class SubscriptionResponseErrorException extends ApiException {
     private void setSubscription(Subscription subscription) {
         this.subscription = subscription;
     }
+
+    /**
+     * Converts this SubscriptionResponseErrorException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionResponseErrorException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", subscription=" + subscription + "]";
+    }
 }

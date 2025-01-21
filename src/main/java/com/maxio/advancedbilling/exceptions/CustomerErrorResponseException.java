@@ -45,4 +45,14 @@ public class CustomerErrorResponseException extends ApiException {
     private void setErrors(CustomerErrorResponseErrors errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this CustomerErrorResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "CustomerErrorResponseException [" + "statusCode=" + getResponseCode() + ", message="
+                + getMessage() + ", errors=" + errors + "]";
+    }
 }

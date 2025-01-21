@@ -45,4 +45,14 @@ public class SubscriptionsMrrErrorResponseException extends ApiException {
     private void setErrors(AttributeError errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this SubscriptionsMrrErrorResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionsMrrErrorResponseException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

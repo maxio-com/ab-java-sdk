@@ -45,4 +45,14 @@ public class ErrorArrayMapResponseException extends ApiException {
     private void setErrors(Map<String, Object> errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this ErrorArrayMapResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ErrorArrayMapResponseException [" + "statusCode=" + getResponseCode() + ", message="
+                + getMessage() + ", errors=" + errors + "]";
+    }
 }

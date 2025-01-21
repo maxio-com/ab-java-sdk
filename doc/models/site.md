@@ -16,6 +16,7 @@
 | `SellerId` | `Integer` | Optional | - | Integer getSellerId() | setSellerId(Integer sellerId) |
 | `NonPrimaryCurrencies` | `List<String>` | Optional | - | List<String> getNonPrimaryCurrencies() | setNonPrimaryCurrencies(List<String> nonPrimaryCurrencies) |
 | `RelationshipInvoicingEnabled` | `Boolean` | Optional | - | Boolean getRelationshipInvoicingEnabled() | setRelationshipInvoicingEnabled(Boolean relationshipInvoicingEnabled) |
+| `ScheduleSubscriptionCancellationEnabled` | `Boolean` | Optional | - | Boolean getScheduleSubscriptionCancellationEnabled() | setScheduleSubscriptionCancellationEnabled(Boolean scheduleSubscriptionCancellationEnabled) |
 | `CustomerHierarchyEnabled` | `Boolean` | Optional | - | Boolean getCustomerHierarchyEnabled() | setCustomerHierarchyEnabled(Boolean customerHierarchyEnabled) |
 | `WhopaysEnabled` | `Boolean` | Optional | - | Boolean getWhopaysEnabled() | setWhopaysEnabled(Boolean whopaysEnabled) |
 | `WhopaysDefaultPayer` | `String` | Optional | - | String getWhopaysDefaultPayer() | setWhopaysDefaultPayer(String whopaysDefaultPayer) |

@@ -46,4 +46,14 @@ public class ComponentPricePointErrorException extends ApiException {
     private void setErrors(List<ComponentPricePointErrorItem> errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this ComponentPricePointErrorException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ComponentPricePointErrorException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

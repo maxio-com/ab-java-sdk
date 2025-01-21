@@ -45,4 +45,14 @@ public class SubscriptionRemoveCouponErrorsException extends ApiException {
     private void setSubscription(List<String> subscription) {
         this.subscription = subscription;
     }
+
+    /**
+     * Converts this SubscriptionRemoveCouponErrorsException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionRemoveCouponErrorsException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", subscription=" + subscription + "]";
+    }
 }

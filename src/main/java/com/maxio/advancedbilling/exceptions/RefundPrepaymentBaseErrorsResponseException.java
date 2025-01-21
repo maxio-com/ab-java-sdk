@@ -45,4 +45,14 @@ public class RefundPrepaymentBaseErrorsResponseException extends ApiException {
     private void setErrors(RefundPrepaymentBaseRefundError errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this RefundPrepaymentBaseErrorsResponseException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "RefundPrepaymentBaseErrorsResponseException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

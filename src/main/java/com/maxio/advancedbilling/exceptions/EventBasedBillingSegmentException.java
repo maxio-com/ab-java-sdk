@@ -45,4 +45,14 @@ public class EventBasedBillingSegmentException extends ApiException {
     private void setErrors(EventBasedBillingSegmentError errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this EventBasedBillingSegmentException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "EventBasedBillingSegmentException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }

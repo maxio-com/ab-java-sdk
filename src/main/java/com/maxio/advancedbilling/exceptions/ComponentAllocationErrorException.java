@@ -46,4 +46,14 @@ public class ComponentAllocationErrorException extends ApiException {
     private void setErrors(List<ComponentAllocationErrorItem> errors) {
         this.errors = errors;
     }
+
+    /**
+     * Converts this ComponentAllocationErrorException into string format.
+     * @return String representation of this class
+     */
+    @Override
+    public String toString() {
+        return "ComponentAllocationErrorException [" + "statusCode=" + getResponseCode()
+                + ", message=" + getMessage() + ", errors=" + errors + "]";
+    }
 }
