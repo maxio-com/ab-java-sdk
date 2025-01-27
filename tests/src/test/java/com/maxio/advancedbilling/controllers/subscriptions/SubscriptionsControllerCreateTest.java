@@ -55,6 +55,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -140,7 +141,7 @@ public class SubscriptionsControllerCreateTest {
                                         .cardType(CardType.VISA)
                                         .cvv("123")
                                         .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                         .build())
                                 .build()
                 )).getSubscription();
@@ -159,7 +160,7 @@ public class SubscriptionsControllerCreateTest {
         assertThat(creditCard.getMaskedCardNumber()).isEqualTo("XXXX-XXXX-XXXX-1111");
         assertThat(creditCard.getCardType()).isEqualTo(CardType.VISA);
         assertThat(creditCard.getExpirationMonth()).isEqualTo(5);
-        assertThat(creditCard.getExpirationYear()).isEqualTo(2050);
+        assertThat(creditCard.getExpirationYear()).isEqualTo(LocalDate.now().getYear() + 10);
         assertThat(creditCard.getCurrentVault()).isEqualTo(CreditCardVault.BOGUS);
         assertThat(creditCard.getVaultToken()).isNotEmpty();
         assertThat(creditCard.getBillingAddress()).isEqualTo("My Billing Address");
@@ -255,7 +256,7 @@ public class SubscriptionsControllerCreateTest {
                                         .cardType(CardType.VISA)
                                         .cvv("123")
                                         .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                         .build()
                                 )
                                 .customPrice(new SubscriptionCustomPrice.Builder()
@@ -319,7 +320,7 @@ public class SubscriptionsControllerCreateTest {
                                         .cardType(CardType.VISA)
                                         .cvv("123")
                                         .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                         .build()
                                 )
                                 .customPrice(new SubscriptionCustomPrice.Builder()
@@ -382,7 +383,7 @@ public class SubscriptionsControllerCreateTest {
                                         .cardType(CardType.VISA)
                                         .cvv("123")
                                         .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                         .build()
                                 )
                                 .customPrice(new SubscriptionCustomPrice.Builder()
@@ -479,7 +480,7 @@ public class SubscriptionsControllerCreateTest {
                                         .cardType(CardType.VISA)
                                         .cvv("123")
                                         .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                         .build()
                                 )
                                 .build()
@@ -550,7 +551,7 @@ public class SubscriptionsControllerCreateTest {
                                         .cardType(CardType.VISA)
                                         .cvv("123")
                                         .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                        .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                         .build()
                                 )
                                 .components(List.of(

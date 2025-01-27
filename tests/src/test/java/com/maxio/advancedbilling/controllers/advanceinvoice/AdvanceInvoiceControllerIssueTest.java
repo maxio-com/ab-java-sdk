@@ -70,7 +70,7 @@ class AdvanceInvoiceControllerIssueTest {
     @Test
     void shouldReturn201onIssueAdvanceInvoice() throws IOException, ApiException {
         // given
-        ZonedDateTime beforeDateTime = ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        ZonedDateTime beforeDateTime = ZonedDateTime.now().plusSeconds(5).truncatedTo(ChronoUnit.SECONDS);
         LocalDate beforeDate = LocalDate.now();
 
         // when
