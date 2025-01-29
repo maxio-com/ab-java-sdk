@@ -411,7 +411,7 @@ public class TestSetup {
                 .cardType(CardType.VISA)
                 .cvv("123")
                 .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050));
+                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10));
         paymentProfileCustomizer.accept(paymentProfileBuilder);
 
         CreateSubscription.Builder subscriptionBuilder = new CreateSubscription.Builder()

@@ -70,7 +70,7 @@ class AdvanceInvoiceControllerIssueTest {
     @Test
     void shouldReturn201onIssueAdvanceInvoice() throws IOException, ApiException {
         // given
-        ZonedDateTime beforeDateTime = ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+        ZonedDateTime beforeDateTime = ZonedDateTime.now().plusSeconds(5).truncatedTo(ChronoUnit.SECONDS);
         LocalDate beforeDate = LocalDate.now();
 
         // when
@@ -167,7 +167,7 @@ class AdvanceInvoiceControllerIssueTest {
                 () -> assertThat(invoiceLineItem.getTotalAmount()).isEqualTo("12.5"),
                 () -> assertThat(invoiceLineItem.getTieredUnitPrice()).isFalse(),
                 () -> assertThat(invoiceLineItem.getPeriodRangeStart()).isEqualTo(beforeDate.plusMonths(1)),
-                () -> assertThat(invoiceLineItem.getPeriodRangeEnd()).isEqualTo(beforeDate.plusMonths(2)),
+                () -> assertThat(invoiceLineItem.getPeriodRangeEnd()).isEqualTo(beforeDate.plusMonths(1).plusMonths(1)),
                 () -> assertThat(invoiceLineItem.getProductId()).isEqualTo(product.getId()),
                 () -> assertThat(invoiceLineItem.getProductVersion()).isEqualTo(product.getVersionNumber()),
                 () -> assertThat(invoiceLineItem.getProductPricePointId()).isEqualTo(product.getProductPricePointId()),

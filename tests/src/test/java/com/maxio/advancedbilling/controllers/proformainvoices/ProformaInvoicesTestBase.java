@@ -109,7 +109,7 @@ abstract class ProformaInvoicesTestBase {
                                 .cardType(CardType.VISA)
                                 .cvv("123")
                                 .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(5))
-                                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                 .build()
                 )
                 .build();

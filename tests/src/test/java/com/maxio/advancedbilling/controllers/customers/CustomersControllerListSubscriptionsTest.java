@@ -33,6 +33,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,7 +96,7 @@ class CustomersControllerListSubscriptionsTest {
                         .customerId(customerId)
                         .paymentType(PaymentType.CREDIT_CARD)
                         .expirationMonth(CreatePaymentProfileExpirationMonth.fromNumber(10))
-                        .expirationYear(CreatePaymentProfileExpirationYear.fromNumber(2025))
+                        .expirationYear(CreatePaymentProfileExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                         .fullNumber("5424000000000015")
                         .build())
                 )

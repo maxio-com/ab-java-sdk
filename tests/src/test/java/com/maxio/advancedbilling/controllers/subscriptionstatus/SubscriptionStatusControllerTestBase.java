@@ -17,6 +17,7 @@ import com.maxio.advancedbilling.utils.TestSetup;
 import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 abstract class SubscriptionStatusControllerTestBase {
 
@@ -47,7 +48,7 @@ abstract class SubscriptionStatusControllerTestBase {
                                 .creditCardAttributes(
                                         new PaymentProfileAttributes.Builder()
                                                 .expirationMonth(PaymentProfileAttributesExpirationMonth.fromNumber(12))
-                                                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(2050))
+                                                .expirationYear(PaymentProfileAttributesExpirationYear.fromNumber(LocalDate.now().getYear() + 10))
                                                 .fullNumber("1")
                                                 .build()
                                 )
