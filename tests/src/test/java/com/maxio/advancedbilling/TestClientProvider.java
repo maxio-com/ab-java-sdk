@@ -1,6 +1,7 @@
 package com.maxio.advancedbilling;
 
 import com.maxio.advancedbilling.authentication.BasicAuthModel;
+import okhttp3.OkHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,11 @@ public class TestClientProvider {
 
     private static AdvancedBillingClient createClient(String subdomain, String apiKey) {
         return new AdvancedBillingClient.Builder()
-                .httpClientConfig(configBuilder -> configBuilder.timeout(45))
+                .httpClientConfig(configBuilder -> configBuilder
+                        .timeout(45)
+                        .httpClientInstance(
+                                new OkHttpClient.Builder().retryOnConnectionFailure(true).build()
+                        ))
                 .basicAuthCredentials(
                         new BasicAuthModel.Builder(apiKey, PASSWORD)
                                 .build())
