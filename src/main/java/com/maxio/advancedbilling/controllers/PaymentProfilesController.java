@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -198,7 +197,7 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for createPaymentProfile.
      */
     private ApiCall<PaymentProfileResponse, ApiException> prepareCreatePaymentProfileRequest(
-            final CreatePaymentProfileRequest body) throws JsonProcessingException, IOException {
+            final CreatePaymentProfileRequest body) {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -245,7 +244,7 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for listPaymentProfiles.
      */
     private ApiCall<List<PaymentProfileResponse>, ApiException> prepareListPaymentProfilesRequest(
-            final ListPaymentProfilesInput input) throws IOException {
+            final ListPaymentProfilesInput input) {
         return new ApiCall.Builder<List<PaymentProfileResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -276,6 +275,7 @@ public final class PaymentProfilesController extends BaseController {
      * note that a different JSON object will be returned if the card method on file is a bank
      * account. ### Response for Bank Account Example response for Bank Account: ``` {
      * "payment_profile": { "id": 10089892, "first_name": "Chester", "last_name": "Tester",
+     * "created_at": "2025-01-01T00:00:00-05:00", "updated_at": "2025-01-01T00:00:00-05:00",
      * "customer_id": 14543792, "current_vault": "bogus", "vault_token": "0011223344",
      * "billing_address": "456 Juniper Court", "billing_city": "Boulder", "billing_state": "CO",
      * "billing_zip": "80302", "billing_country": "US", "customer_vault_token": null,
@@ -297,7 +297,7 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for readPaymentProfile.
      */
     private ApiCall<PaymentProfileResponse, ApiException> prepareReadPaymentProfileRequest(
-            final int paymentProfileId) throws IOException {
+            final int paymentProfileId) {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -345,7 +345,7 @@ public final class PaymentProfilesController extends BaseController {
      * Stripe, you may elect to manually trigger a retry for a past due subscription after a partial
      * update.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -361,7 +361,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<PaymentProfileResponse, ApiException> prepareUpdatePaymentProfileRequest(
             final int paymentProfileId,
-            final UpdatePaymentProfileRequest body) throws JsonProcessingException, IOException {
+            final UpdatePaymentProfileRequest body) {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -408,7 +408,7 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for deleteUnusedPaymentProfile.
      */
     private ApiCall<Void, ApiException> prepareDeleteUnusedPaymentProfileRequest(
-            final int paymentProfileId) throws IOException {
+            final int paymentProfileId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -456,7 +456,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteSubscriptionsPaymentProfileRequest(
             final int subscriptionId,
-            final int paymentProfileId) throws IOException {
+            final int paymentProfileId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -480,7 +480,7 @@ public final class PaymentProfilesController extends BaseController {
      * Submit the two small deposit amounts the customer received in their bank account in order to
      * verify the bank account. (Stripe only).
      * @param  bankAccountId  Required parameter: Identifier of the bank account in the system.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the BankAccountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -496,7 +496,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<BankAccountResponse, ApiException> prepareVerifyBankAccountRequest(
             final int bankAccountId,
-            final BankAccountVerificationRequest body) throws JsonProcessingException, IOException {
+            final BankAccountVerificationRequest body) {
         return new ApiCall.Builder<BankAccountResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -547,7 +547,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteSubscriptionGroupPaymentProfileRequest(
             final String uid,
-            final int paymentProfileId) throws IOException {
+            final int paymentProfileId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -589,7 +589,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<PaymentProfileResponse, ApiException> prepareChangeSubscriptionDefaultPaymentProfileRequest(
             final int subscriptionId,
-            final int paymentProfileId) throws IOException {
+            final int paymentProfileId) {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -642,7 +642,7 @@ public final class PaymentProfilesController extends BaseController {
      */
     private ApiCall<PaymentProfileResponse, ApiException> prepareChangeSubscriptionGroupDefaultPaymentProfileRequest(
             final String uid,
-            final int paymentProfileId) throws IOException {
+            final int paymentProfileId) {
         return new ApiCall.Builder<PaymentProfileResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -688,7 +688,7 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for readOneTimeToken.
      */
     private ApiCall<GetOneTimeTokenRequest, ApiException> prepareReadOneTimeTokenRequest(
-            final String chargifyToken) throws IOException {
+            final String chargifyToken) {
         return new ApiCall.Builder<GetOneTimeTokenRequest, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -737,7 +737,7 @@ public final class PaymentProfilesController extends BaseController {
      * Builds the ApiCall object for sendRequestUpdatePaymentEmail.
      */
     private ApiCall<Void, ApiException> prepareSendRequestUpdatePaymentEmailRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

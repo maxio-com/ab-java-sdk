@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
@@ -76,7 +75,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<SubscriptionComponentResponse, ApiException> prepareReadSubscriptionComponentRequest(
             final int subscriptionId,
-            final int componentId) throws IOException {
+            final int componentId) {
         return new ApiCall.Builder<SubscriptionComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -120,7 +119,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for listSubscriptionComponents.
      */
     private ApiCall<List<SubscriptionComponentResponse>, ApiException> prepareListSubscriptionComponentsRequest(
-            final ListSubscriptionComponentsInput input) throws IOException {
+            final ListSubscriptionComponentsInput input) {
         return new ApiCall.Builder<List<SubscriptionComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -171,7 +170,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * can take either a: 1. Price point id (integer) 2. Price point handle (string) 3. `"_default"`
      * string, which will reset the price point to the component's current default price point.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the BulkComponentsPricePointAssignment response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -188,7 +187,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<BulkComponentsPricePointAssignment, ApiException> prepareBulkUpdateSubscriptionComponentsPricePointsRequest(
             final int subscriptionId,
-            final BulkComponentsPricePointAssignment body) throws JsonProcessingException, IOException {
+            final BulkComponentsPricePointAssignment body) {
         return new ApiCall.Builder<BulkComponentsPricePointAssignment, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -234,7 +233,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for bulkResetSubscriptionComponentsPricePoints.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareBulkResetSubscriptionComponentsPricePointsRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -300,7 +299,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Changes to either may cause the prorated charge/credit to be wrong.**.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  componentId  Required parameter: The Advanced Billing id of the component
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the AllocationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -318,7 +317,7 @@ public final class SubscriptionComponentsController extends BaseController {
     private ApiCall<AllocationResponse, ApiException> prepareAllocateComponentRequest(
             final int subscriptionId,
             final int componentId,
-            final CreateAllocationRequest body) throws JsonProcessingException, IOException {
+            final CreateAllocationRequest body) {
         return new ApiCall.Builder<AllocationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -382,7 +381,7 @@ public final class SubscriptionComponentsController extends BaseController {
     private ApiCall<List<AllocationResponse>, ApiException> prepareListAllocationsRequest(
             final int subscriptionId,
             final int componentId,
-            final Integer page) throws IOException {
+            final Integer page) {
         return new ApiCall.Builder<List<AllocationResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -422,7 +421,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * `component_id` is required for each allocation. This endpoint only responds to JSON. It is
      * not available for XML.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the List of AllocationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -438,7 +437,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<List<AllocationResponse>, ApiException> prepareAllocateComponentsRequest(
             final int subscriptionId,
-            final AllocateComponents body) throws JsonProcessingException, IOException {
+            final AllocateComponents body) {
         return new ApiCall.Builder<List<AllocationResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -481,7 +480,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * within the `allocation_preview`, but at the `line_items` and `allocations` level
      * respectfully. See example below for Fine-Grained Component Control response.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the AllocationPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -497,7 +496,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<AllocationPreviewResponse, ApiException> preparePreviewAllocationsRequest(
             final int subscriptionId,
-            final PreviewAllocationsRequest body) throws JsonProcessingException, IOException {
+            final PreviewAllocationsRequest body) {
         return new ApiCall.Builder<AllocationPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -539,7 +538,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  componentId  Required parameter: The Advanced Billing id of the component
      * @param  allocationId  Required parameter: The Advanced Billing id of the allocation
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -559,7 +558,7 @@ public final class SubscriptionComponentsController extends BaseController {
             final int subscriptionId,
             final int componentId,
             final int allocationId,
-            final UpdateAllocationExpirationDate body) throws JsonProcessingException, IOException {
+            final UpdateAllocationExpirationDate body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -606,7 +605,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  componentId  Required parameter: The Advanced Billing id of the component
      * @param  allocationId  Required parameter: The Advanced Billing id of the allocation
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -626,7 +625,7 @@ public final class SubscriptionComponentsController extends BaseController {
             final int subscriptionId,
             final int componentId,
             final int allocationId,
-            final CreditSchemeRequest body) throws JsonProcessingException, IOException {
+            final CreditSchemeRequest body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -696,7 +695,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  componentId  Required parameter: Either the Advanced Billing id for the component or
      *         the component's handle prefixed by `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the UsageResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -714,7 +713,7 @@ public final class SubscriptionComponentsController extends BaseController {
     private ApiCall<UsageResponse, ApiException> prepareCreateUsageRequest(
             final int subscriptionId,
             final CreateUsageComponentId componentId,
-            final CreateUsageRequest body) throws JsonProcessingException, IOException {
+            final CreateUsageRequest body) {
         return new ApiCall.Builder<UsageResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -768,7 +767,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for listUsages.
      */
     private ApiCall<List<UsageResponse>, ApiException> prepareListUsagesRequest(
-            final ListUsagesInput input) throws IOException {
+            final ListUsagesInput input) {
         return new ApiCall.Builder<List<UsageResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -816,7 +815,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * be billed for event-based component usage at renewal.*.
      * @param  subscriptionId  Required parameter: The Advanced Billing id of the subscription
      * @param  componentId  Required parameter: The Advanced Billing id of the component
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -833,7 +832,7 @@ public final class SubscriptionComponentsController extends BaseController {
     private ApiCall<Void, ApiException> prepareActivateEventBasedComponentRequest(
             final int subscriptionId,
             final int componentId,
-            final ActivateEventBasedComponent body) throws JsonProcessingException, IOException {
+            final ActivateEventBasedComponent body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -877,7 +876,7 @@ public final class SubscriptionComponentsController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeactivateEventBasedComponentRequest(
             final int subscriptionId,
-            final int componentId) throws IOException {
+            final int componentId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -912,7 +911,7 @@ public final class SubscriptionComponentsController extends BaseController {
      *         published.
      * @param  storeUid  Optional parameter: If you've attached your own Keen project as an Advanced
      *         Billing event data-store, use this parameter to indicate the data-store.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -929,7 +928,7 @@ public final class SubscriptionComponentsController extends BaseController {
     private ApiCall<Void, ApiException> prepareRecordEventRequest(
             final String apiHandle,
             final String storeUid,
-            final EBBEvent body) throws JsonProcessingException, IOException {
+            final EBBEvent body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -962,7 +961,7 @@ public final class SubscriptionComponentsController extends BaseController {
      *         published.
      * @param  storeUid  Optional parameter: If you've attached your own Keen project as an Advanced
      *         Billing event data-store, use this parameter to indicate the data-store.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -979,7 +978,7 @@ public final class SubscriptionComponentsController extends BaseController {
     private ApiCall<Void, ApiException> prepareBulkRecordEventsRequest(
             final String apiHandle,
             final String storeUid,
-            final List<EBBEvent> body) throws JsonProcessingException, IOException {
+            final List<EBBEvent> body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -1019,7 +1018,7 @@ public final class SubscriptionComponentsController extends BaseController {
      * Builds the ApiCall object for listSubscriptionComponentsForSite.
      */
     private ApiCall<ListSubscriptionComponentsResponse, ApiException> prepareListSubscriptionComponentsForSiteRequest(
-            final ListSubscriptionComponentsForSiteInput input) throws IOException {
+            final ListSubscriptionComponentsForSiteInput input) {
         return new ApiCall.Builder<ListSubscriptionComponentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -44,7 +43,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      * endpoint requires a `amount`, `details`, `method`, and `memo`. On success, the prepayment
      * will be added to the group's prepayment balance.
      * @param  uid  Required parameter: The uid of the subscription group
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionGroupPrepaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -60,7 +59,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      */
     private ApiCall<SubscriptionGroupPrepaymentResponse, ApiException> prepareCreateSubscriptionGroupPrepaymentRequest(
             final String uid,
-            final SubscriptionGroupPrepaymentRequest body) throws JsonProcessingException, IOException {
+            final SubscriptionGroupPrepaymentRequest body) {
         return new ApiCall.Builder<SubscriptionGroupPrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -104,7 +103,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      * Builds the ApiCall object for listPrepaymentsForSubscriptionGroup.
      */
     private ApiCall<ListSubscriptionGroupPrepaymentResponse, ApiException> prepareListPrepaymentsForSubscriptionGroupRequest(
-            final ListPrepaymentsForSubscriptionGroupInput input) throws IOException {
+            final ListPrepaymentsForSubscriptionGroupInput input) {
         return new ApiCall.Builder<ListSubscriptionGroupPrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -139,7 +138,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      * added to the group in the amount specified in the request body. The credit will be applied to
      * group member invoices as they are generated.
      * @param  uid  Required parameter: The uid of the subscription group
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ServiceCreditResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -155,7 +154,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      */
     private ApiCall<ServiceCreditResponse, ApiException> prepareIssueSubscriptionGroupServiceCreditRequest(
             final String uid,
-            final IssueServiceCreditRequest body) throws JsonProcessingException, IOException {
+            final IssueServiceCreditRequest body) {
         return new ApiCall.Builder<ServiceCreditResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -187,7 +186,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      * Credit can be deducted for a subscription group identified by the group's `uid`. Credit will
      * be deducted from the group in the amount specified in the request body.
      * @param  uid  Required parameter: The uid of the subscription group
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ServiceCredit response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -203,7 +202,7 @@ public final class SubscriptionGroupInvoiceAccountController extends BaseControl
      */
     private ApiCall<ServiceCredit, ApiException> prepareDeductSubscriptionGroupServiceCreditRequest(
             final String uid,
-            final DeductServiceCreditRequest body) throws JsonProcessingException, IOException {
+            final DeductServiceCreditRequest body) {
         return new ApiCall.Builder<ServiceCredit, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

@@ -26,6 +26,8 @@
 | `SiteGatewaySettingId` | `Integer` | Optional | - | Integer getSiteGatewaySettingId() | setSiteGatewaySettingId(Integer siteGatewaySettingId) |
 | `GatewayHandle` | `String` | Optional | - | String getGatewayHandle() | setGatewayHandle(String gatewayHandle) |
 | `PaypalEmail` | `String` | Optional | - | String getPaypalEmail() | setPaypalEmail(String paypalEmail) |
+| `CreatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was created | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was last updated | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 
 ## Example (as JSON)
 

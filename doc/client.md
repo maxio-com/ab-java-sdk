@@ -5,14 +5,20 @@ The following parameters are configurable for the API Client:
 
 | Parameter | Type | Description |
 |  --- | --- | --- |
-| `site` | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `"subdomain"` |
-| `environment` | `Environment` | The API environment. <br> **Default: `Environment.US`** |
-| `httpClientConfig` | [`Consumer<HttpClientConfiguration.Builder>`](http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
-| `basicAuthCredentials` | [`BasicAuthCredentials`](auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
+| site | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `"subdomain"` |
+| environment | `Environment` | The API environment. <br> **Default: `Environment.US`** |
+| httpClientConfig | [`Consumer<HttpClientConfiguration.Builder>`](../doc/http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
+| basicAuthCredentials | [`BasicAuthCredentials`](auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
 
 The API client can be initialized as follows:
 
 ```java
+import com.maxio.advancedbilling.AdvancedBillingClient;
+import com.maxio.advancedbilling.Environment;
+import com.maxio.advancedbilling.authentication.BasicAuthModel;
+import com.maxio.advancedbilling.exceptions.ApiException;
+import java.io.IOException;
+
 AdvancedBillingClient client = new AdvancedBillingClient.Builder()
     .httpClientConfig(configBuilder -> configBuilder
             .timeout(0))
@@ -75,7 +81,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | `getEnvironment()` | Current API environment. | `Environment` |
 | `getSite()` | The subdomain for your Advanced Billing site. | `String` |
 | `getHttpClient()` | The HTTP Client instance to use for making HTTP requests. | `HttpClient` |
-| `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](http-client-configuration.md) |
+| `getHttpClientConfig()` | Http Client Configuration instance. | [`ReadonlyHttpClientConfiguration`](../doc/http-client-configuration.md) |
 | `getBasicAuthCredentials()` | The credentials to use with BasicAuth. | [`BasicAuthCredentials`](auth/basic-authentication.md) |
 | `getBaseUri(Server server)` | Get base URI by current environment | `String` |
 | `getBaseUri()` | Get base URI by current environment | `String` |

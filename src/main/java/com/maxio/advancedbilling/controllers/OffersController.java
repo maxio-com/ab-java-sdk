@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -46,7 +45,7 @@ public final class OffersController extends BaseController {
      * a Product Price Point You can optionally pass in a `product_price_point_id` that corresponds
      * with the `product_id` and the offer will use that price point. If a `product_price_point_id`
      * is not passed in, the product's default price point will be used.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the OfferResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -60,7 +59,7 @@ public final class OffersController extends BaseController {
      * Builds the ApiCall object for createOffer.
      */
     private ApiCall<OfferResponse, ApiException> prepareCreateOfferRequest(
-            final CreateOfferRequest body) throws JsonProcessingException, IOException {
+            final CreateOfferRequest body) {
         return new ApiCall.Builder<OfferResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -102,7 +101,7 @@ public final class OffersController extends BaseController {
      * Builds the ApiCall object for listOffers.
      */
     private ApiCall<ListOffersResponse, ApiException> prepareListOffersRequest(
-            final ListOffersInput input) throws IOException {
+            final ListOffersInput input) {
         return new ApiCall.Builder<ListOffersResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -147,7 +146,7 @@ public final class OffersController extends BaseController {
      * Builds the ApiCall object for readOffer.
      */
     private ApiCall<OfferResponse, ApiException> prepareReadOfferRequest(
-            final int offerId) throws IOException {
+            final int offerId) {
         return new ApiCall.Builder<OfferResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -183,7 +182,7 @@ public final class OffersController extends BaseController {
      * Builds the ApiCall object for archiveOffer.
      */
     private ApiCall<Void, ApiException> prepareArchiveOfferRequest(
-            final int offerId) throws IOException {
+            final int offerId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -217,7 +216,7 @@ public final class OffersController extends BaseController {
      * Builds the ApiCall object for unarchiveOffer.
      */
     private ApiCall<Void, ApiException> prepareUnarchiveOfferRequest(
-            final int offerId) throws IOException {
+            final int offerId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

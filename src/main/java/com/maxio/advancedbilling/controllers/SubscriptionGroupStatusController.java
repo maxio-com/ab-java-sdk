@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -42,7 +41,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
      * for any unbilled usage on metered or prepaid components, the `charge_unbilled_usage=true`
      * parameter must be included in the request.
      * @param  uid  Required parameter: The uid of the subscription group
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -57,7 +56,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareCancelSubscriptionsInGroupRequest(
             final String uid,
-            final CancelGroupedSubscriptionsRequest body) throws JsonProcessingException, IOException {
+            final CancelGroupedSubscriptionsRequest body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -100,7 +99,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
      * Builds the ApiCall object for initiateDelayedCancellationForGroup.
      */
     private ApiCall<Void, ApiException> prepareInitiateDelayedCancellationForGroupRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -138,7 +137,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
      * Builds the ApiCall object for cancelDelayedCancellationForGroup.
      */
     private ApiCall<Void, ApiException> prepareCancelDelayedCancellationForGroupRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -185,7 +184,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
      * partial one, spanning from the date of reactivation to the next corresponding calendar
      * renewal date.
      * @param  uid  Required parameter: The uid of the subscription group
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ReactivateSubscriptionGroupResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -201,7 +200,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
      */
     private ApiCall<ReactivateSubscriptionGroupResponse, ApiException> prepareReactivateSubscriptionGroupRequest(
             final String uid,
-            final ReactivateSubscriptionGroupRequest body) throws JsonProcessingException, IOException {
+            final ReactivateSubscriptionGroupRequest body) {
         return new ApiCall.Builder<ReactivateSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

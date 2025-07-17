@@ -31,6 +31,8 @@
 | `ChargifyToken` | `String` | Optional | Token received after sending billing information using chargify.js. This token will only be received if passed as a sole attribute of credit_card_attributes (i.e. tok_9g6hw85pnpt6knmskpwp4ttt) | String getChargifyToken() | setChargifyToken(String chargifyToken) |
 | `SiteGatewaySettingId` | `Integer` | Optional | - | Integer getSiteGatewaySettingId() | setSiteGatewaySettingId(Integer siteGatewaySettingId) |
 | `GatewayHandle` | `String` | Optional | An identifier of connected gateway. | String getGatewayHandle() | setGatewayHandle(String gatewayHandle) |
+| `CreatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was created | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
+| `UpdatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was last updated | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 
 ## Example (as JSON)
 

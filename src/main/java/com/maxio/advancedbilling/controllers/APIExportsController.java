@@ -56,7 +56,7 @@ public final class APIExportsController extends BaseController {
      * Builds the ApiCall object for listExportedProformaInvoices.
      */
     private ApiCall<List<ProformaInvoice>, ApiException> prepareListExportedProformaInvoicesRequest(
-            final ListExportedProformaInvoicesInput input) throws IOException {
+            final ListExportedProformaInvoicesInput input) {
         return new ApiCall.Builder<List<ProformaInvoice>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -103,7 +103,7 @@ public final class APIExportsController extends BaseController {
      * Builds the ApiCall object for listExportedInvoices.
      */
     private ApiCall<List<Invoice>, ApiException> prepareListExportedInvoicesRequest(
-            final ListExportedInvoicesInput input) throws IOException {
+            final ListExportedInvoicesInput input) {
         return new ApiCall.Builder<List<Invoice>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -150,7 +150,7 @@ public final class APIExportsController extends BaseController {
      * Builds the ApiCall object for listExportedSubscriptions.
      */
     private ApiCall<List<Subscription>, ApiException> prepareListExportedSubscriptionsRequest(
-            final ListExportedSubscriptionsInput input) throws IOException {
+            final ListExportedSubscriptionsInput input) {
         return new ApiCall.Builder<List<Subscription>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -193,7 +193,7 @@ public final class APIExportsController extends BaseController {
     /**
      * Builds the ApiCall object for exportProformaInvoices.
      */
-    private ApiCall<BatchJobResponse, ApiException> prepareExportProformaInvoicesRequest() throws IOException {
+    private ApiCall<BatchJobResponse, ApiException> prepareExportProformaInvoicesRequest() {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -231,7 +231,7 @@ public final class APIExportsController extends BaseController {
     /**
      * Builds the ApiCall object for exportInvoices.
      */
-    private ApiCall<BatchJobResponse, ApiException> prepareExportInvoicesRequest() throws IOException {
+    private ApiCall<BatchJobResponse, ApiException> prepareExportInvoicesRequest() {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -269,7 +269,7 @@ public final class APIExportsController extends BaseController {
     /**
      * Builds the ApiCall object for exportSubscriptions.
      */
-    private ApiCall<BatchJobResponse, ApiException> prepareExportSubscriptionsRequest() throws IOException {
+    private ApiCall<BatchJobResponse, ApiException> prepareExportSubscriptionsRequest() {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -307,7 +307,7 @@ public final class APIExportsController extends BaseController {
      * Builds the ApiCall object for readProformaInvoicesExport.
      */
     private ApiCall<BatchJobResponse, ApiException> prepareReadProformaInvoicesExportRequest(
-            final String batchId) throws IOException {
+            final String batchId) {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -347,7 +347,7 @@ public final class APIExportsController extends BaseController {
      * Builds the ApiCall object for readInvoicesExport.
      */
     private ApiCall<BatchJobResponse, ApiException> prepareReadInvoicesExportRequest(
-            final String batchId) throws IOException {
+            final String batchId) {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -387,7 +387,7 @@ public final class APIExportsController extends BaseController {
      * Builds the ApiCall object for readSubscriptionsExport.
      */
     private ApiCall<BatchJobResponse, ApiException> prepareReadSubscriptionsExportRequest(
-            final String batchId) throws IOException {
+            final String batchId) {
         return new ApiCall.Builder<BatchJobResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

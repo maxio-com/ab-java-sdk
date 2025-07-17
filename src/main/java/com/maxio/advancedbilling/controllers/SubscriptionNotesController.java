@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -42,7 +41,7 @@ public final class SubscriptionNotesController extends BaseController {
      * instead. Full documentation on how to use Notes in the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24251712214413-Subscription-Summary-Overview).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionNoteResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -58,7 +57,7 @@ public final class SubscriptionNotesController extends BaseController {
      */
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareCreateSubscriptionNoteRequest(
             final int subscriptionId,
-            final UpdateSubscriptionNoteRequest body) throws JsonProcessingException, IOException {
+            final UpdateSubscriptionNoteRequest body) {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -103,7 +102,7 @@ public final class SubscriptionNotesController extends BaseController {
      * Builds the ApiCall object for listSubscriptionNotes.
      */
     private ApiCall<List<SubscriptionNoteResponse>, ApiException> prepareListSubscriptionNotesRequest(
-            final ListSubscriptionNotesInput input) throws IOException {
+            final ListSubscriptionNotesInput input) {
         return new ApiCall.Builder<List<SubscriptionNoteResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -152,7 +151,7 @@ public final class SubscriptionNotesController extends BaseController {
      */
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareReadSubscriptionNoteRequest(
             final int subscriptionId,
-            final int noteId) throws IOException {
+            final int noteId) {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -179,7 +178,7 @@ public final class SubscriptionNotesController extends BaseController {
      * Use the following method to update a note for a Subscription.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  noteId  Required parameter: The Advanced Billing id of the note
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionNoteResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -197,7 +196,7 @@ public final class SubscriptionNotesController extends BaseController {
     private ApiCall<SubscriptionNoteResponse, ApiException> prepareUpdateSubscriptionNoteRequest(
             final int subscriptionId,
             final int noteId,
-            final UpdateSubscriptionNoteRequest body) throws JsonProcessingException, IOException {
+            final UpdateSubscriptionNoteRequest body) {
         return new ApiCall.Builder<SubscriptionNoteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -245,7 +244,7 @@ public final class SubscriptionNotesController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteSubscriptionNoteRequest(
             final int subscriptionId,
-            final int noteId) throws IOException {
+            final int noteId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

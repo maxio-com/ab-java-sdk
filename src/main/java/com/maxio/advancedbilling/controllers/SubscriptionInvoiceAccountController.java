@@ -6,10 +6,10 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
+import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.exceptions.RefundPrepaymentBaseErrorsResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.AccountBalances;
@@ -18,10 +18,12 @@ import com.maxio.advancedbilling.models.CreatePrepaymentResponse;
 import com.maxio.advancedbilling.models.DeductServiceCreditRequest;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
 import com.maxio.advancedbilling.models.ListPrepaymentsInput;
+import com.maxio.advancedbilling.models.ListServiceCreditsResponse;
 import com.maxio.advancedbilling.models.PrepaymentResponse;
 import com.maxio.advancedbilling.models.PrepaymentsResponse;
 import com.maxio.advancedbilling.models.RefundPrepaymentRequest;
 import com.maxio.advancedbilling.models.ServiceCredit;
+import com.maxio.advancedbilling.models.SortingDirection;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -58,7 +60,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Builds the ApiCall object for readAccountBalances.
      */
     private ApiCall<AccountBalances, ApiException> prepareReadAccountBalancesRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<AccountBalances, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -86,7 +88,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * applied to the prepayment account balance. This is especially useful for manual replenishment
      * of prepaid subscriptions. Please note that you **can't** pass `amount_in_cents`.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CreatePrepaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -102,7 +104,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      */
     private ApiCall<CreatePrepaymentResponse, ApiException> prepareCreatePrepaymentRequest(
             final int subscriptionId,
-            final CreatePrepaymentRequest body) throws JsonProcessingException, IOException {
+            final CreatePrepaymentRequest body) {
         return new ApiCall.Builder<CreatePrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -146,7 +148,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Builds the ApiCall object for listPrepayments.
      */
     private ApiCall<PrepaymentsResponse, ApiException> prepareListPrepaymentsRequest(
-            final ListPrepaymentsInput input) throws IOException {
+            final ListPrepaymentsInput input) {
         return new ApiCall.Builder<PrepaymentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -180,7 +182,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Credit will be added to the subscription in the amount specified in the request body. The
      * credit is subsequently applied to the next generated invoice.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ServiceCredit response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -196,7 +198,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      */
     private ApiCall<ServiceCredit, ApiException> prepareIssueServiceCreditRequest(
             final int subscriptionId,
-            final IssueServiceCreditRequest body) throws JsonProcessingException, IOException {
+            final IssueServiceCreditRequest body) {
         return new ApiCall.Builder<ServiceCredit, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -228,7 +230,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * Credit will be removed from the subscription in the amount specified in the request body. The
      * credit amount being deducted must be equal to or less than the current credit balance.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -243,7 +245,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeductServiceCreditRequest(
             final int subscriptionId,
-            final DeductServiceCreditRequest body) throws JsonProcessingException, IOException {
+            final DeductServiceCreditRequest body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -269,13 +271,79 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
     }
 
     /**
+     * This request will list a subscription's service credits.
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  page  Optional parameter: Result records are organized in pages. By default, the
+     *         first page of results is displayed. The page parameter specifies a page number of
+     *         results to fetch. You can start navigating through the pages to consume the results.
+     *         You do this by passing in a page parameter. Retrieve the next page by adding ?page=2
+     *         to the query string. If there are no results to return, then an empty result set will
+     *         be returned. Use in query `page=1`.
+     * @param  perPage  Optional parameter: This parameter indicates how many records to fetch in
+     *         each request. Default value is 20. The maximum allowed values is 200; any per_page
+     *         value over 200 will be changed to 200. Use in query `per_page=200`.
+     * @param  direction  Optional parameter: Controls the order in which results are returned. Use
+     *         in query `direction=asc`.
+     * @return    Returns the ListServiceCreditsResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ListServiceCreditsResponse listServiceCredits(
+            final int subscriptionId,
+            final Integer page,
+            final Integer perPage,
+            final SortingDirection direction) throws ApiException, IOException {
+        return prepareListServiceCreditsRequest(subscriptionId, page, perPage, direction).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for listServiceCredits.
+     */
+    private ApiCall<ListServiceCreditsResponse, ApiException> prepareListServiceCreditsRequest(
+            final int subscriptionId,
+            final Integer page,
+            final Integer perPage,
+            final SortingDirection direction) {
+        return new ApiCall.Builder<ListServiceCreditsResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.PRODUCTION.value())
+                        .path("/subscriptions/{subscription_id}/service_credits/list.json")
+                        .queryParam(param -> param.key("page")
+                                .value((page != null) ? page : 1).isRequired(false))
+                        .queryParam(param -> param.key("per_page")
+                                .value((perPage != null) ? perPage : 20).isRequired(false))
+                        .queryParam(param -> param.key("direction")
+                                .value((direction != null) ? direction.value() : null).isRequired(false))
+                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
+                        .httpMethod(HttpMethod.GET))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ListServiceCreditsResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
      * This endpoint will refund, completely or partially, a particular prepayment applied to a
      * subscription. The `prepayment_id` will be the account transaction ID of the original payment.
      * The prepayment must have some amount remaining in order to be refunded. The amount may be
      * passed either as a decimal, with `amount`, or an integer in cents, with `amount_in_cents`.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  prepaymentId  Required parameter: id of prepayment
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the PrepaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -293,7 +361,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
     private ApiCall<PrepaymentResponse, ApiException> prepareRefundPrepaymentRequest(
             final int subscriptionId,
             final long prepaymentId,
-            final RefundPrepaymentRequest body) throws JsonProcessingException, IOException {
+            final RefundPrepaymentRequest body) {
         return new ApiCall.Builder<PrepaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -91,7 +90,7 @@ public final class SubscriptionProductsController extends BaseController {
      * can use the applied "msg" param in the `redirect_url` to determine whether it was successful
      * or not.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -107,7 +106,7 @@ public final class SubscriptionProductsController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareMigrateSubscriptionProductRequest(
             final int subscriptionId,
-            final SubscriptionProductMigrationRequest body) throws JsonProcessingException, IOException {
+            final SubscriptionProductMigrationRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -142,7 +141,7 @@ public final class SubscriptionProductsController extends BaseController {
      * This will calculate the prorated adjustment, charge, payment and credit applied values
      * assuming the migration is done at that date in the future as opposed to right now.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionMigrationPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -158,7 +157,7 @@ public final class SubscriptionProductsController extends BaseController {
      */
     private ApiCall<SubscriptionMigrationPreviewResponse, ApiException> preparePreviewSubscriptionProductMigrationRequest(
             final int subscriptionId,
-            final SubscriptionMigrationPreviewRequest body) throws JsonProcessingException, IOException {
+            final SubscriptionMigrationPreviewRequest body) {
         return new ApiCall.Builder<SubscriptionMigrationPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

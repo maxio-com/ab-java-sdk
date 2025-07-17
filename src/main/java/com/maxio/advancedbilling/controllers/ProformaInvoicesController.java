@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -63,7 +62,7 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for createConsolidatedProformaInvoice.
      */
     private ApiCall<Void, ApiException> prepareCreateConsolidatedProformaInvoiceRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -103,7 +102,7 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for listSubscriptionGroupProformaInvoices.
      */
     private ApiCall<ListProformaInvoicesResponse, ApiException> prepareListSubscriptionGroupProformaInvoicesRequest(
-            final ListSubscriptionGroupProformaInvoicesInput input) throws IOException {
+            final ListSubscriptionGroupProformaInvoicesInput input) {
         return new ApiCall.Builder<ListProformaInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -156,7 +155,7 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for readProformaInvoice.
      */
     private ApiCall<ProformaInvoice, ApiException> prepareReadProformaInvoiceRequest(
-            final String proformaInvoiceUid) throws IOException {
+            final String proformaInvoiceUid) {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -201,7 +200,7 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for createProformaInvoice.
      */
     private ApiCall<ProformaInvoice, ApiException> prepareCreateProformaInvoiceRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -244,7 +243,7 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for listProformaInvoices.
      */
     private ApiCall<ListProformaInvoicesResponse, ApiException> prepareListProformaInvoicesRequest(
-            final ListProformaInvoicesInput input) throws IOException {
+            final ListProformaInvoicesInput input) {
         return new ApiCall.Builder<ListProformaInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -297,7 +296,7 @@ public final class ProformaInvoicesController extends BaseController {
      * message. A reason for the void operation is required to be included in the request body. If
      * one is not provided, the response will have HTTP status code 422 and an error message.
      * @param  proformaInvoiceUid  Required parameter: The uid of the proforma invoice
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -313,7 +312,7 @@ public final class ProformaInvoicesController extends BaseController {
      */
     private ApiCall<ProformaInvoice, ApiException> prepareVoidProformaInvoiceRequest(
             final String proformaInvoiceUid,
-            final VoidInvoiceRequest body) throws JsonProcessingException, IOException {
+            final VoidInvoiceRequest body) {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -371,7 +370,7 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for previewProformaInvoice.
      */
     private ApiCall<ProformaInvoice, ApiException> preparePreviewProformaInvoiceRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -409,7 +408,7 @@ public final class ProformaInvoicesController extends BaseController {
      * name, and email are the minimum requirements. We recommend associating the proforma invoice
      * with a customer_id to easily find their proforma invoices, since the subscription_id will
      * always be blank.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -423,7 +422,7 @@ public final class ProformaInvoicesController extends BaseController {
      * Builds the ApiCall object for createSignupProformaInvoice.
      */
     private ApiCall<ProformaInvoice, ApiException> prepareCreateSignupProformaInvoiceRequest(
-            final CreateSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final CreateSubscriptionRequest body) {
         return new ApiCall.Builder<ProformaInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -464,7 +463,7 @@ public final class ProformaInvoicesController extends BaseController {
      * requirements.
      * @param  include  Optional parameter: Choose to include a proforma invoice preview for the
      *         first renewal. Use in query `include=next_proforma_invoice`.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SignupProformaPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -480,7 +479,7 @@ public final class ProformaInvoicesController extends BaseController {
      */
     private ApiCall<SignupProformaPreviewResponse, ApiException> preparePreviewSignupProformaInvoiceRequest(
             final CreateSignupProformaPreviewInclude include,
-            final CreateSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final CreateSubscriptionRequest body) {
         return new ApiCall.Builder<SignupProformaPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

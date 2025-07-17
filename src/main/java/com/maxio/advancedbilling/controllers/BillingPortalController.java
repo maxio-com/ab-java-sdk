@@ -73,7 +73,7 @@ public final class BillingPortalController extends BaseController {
      */
     private ApiCall<CustomerResponse, ApiException> prepareEnableBillingPortalForCustomerRequest(
             final int customerId,
-            final AutoInvite autoInvite) throws IOException {
+            final AutoInvite autoInvite) {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -122,7 +122,7 @@ public final class BillingPortalController extends BaseController {
      * Builds the ApiCall object for readBillingPortalLink.
      */
     private ApiCall<PortalManagementLink, ApiException> prepareReadBillingPortalLinkRequest(
-            final int customerId) throws IOException {
+            final int customerId) {
         return new ApiCall.Builder<PortalManagementLink, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -172,7 +172,7 @@ public final class BillingPortalController extends BaseController {
      * Builds the ApiCall object for resendBillingPortalInvitation.
      */
     private ApiCall<ResentInvitation, ApiException> prepareResendBillingPortalInvitationRequest(
-            final int customerId) throws IOException {
+            final int customerId) {
         return new ApiCall.Builder<ResentInvitation, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -217,7 +217,7 @@ public final class BillingPortalController extends BaseController {
      * Builds the ApiCall object for revokeBillingPortalAccess.
      */
     private ApiCall<RevokedInvitation, ApiException> prepareRevokeBillingPortalAccessRequest(
-            final int customerId) throws IOException {
+            final int customerId) {
         return new ApiCall.Builder<RevokedInvitation, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

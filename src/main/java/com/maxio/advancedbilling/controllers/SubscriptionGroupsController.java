@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -56,7 +55,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * profile attached to the group. Only one of the `subscriptions` can have `"primary": true`
      * attribute set. When passing product to a subscription you can use either `product_id` or
      * `product_handle` or `offer_id`. You can also use `custom_price` instead.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionGroupSignupResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -70,7 +69,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for signupWithSubscriptionGroup.
      */
     private ApiCall<SubscriptionGroupSignupResponse, ApiException> prepareSignupWithSubscriptionGroupRequest(
-            final SubscriptionGroupSignupRequest body) throws JsonProcessingException, IOException {
+            final SubscriptionGroupSignupRequest body) {
         return new ApiCall.Builder<SubscriptionGroupSignupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -98,7 +97,7 @@ public final class SubscriptionGroupsController extends BaseController {
 
     /**
      * Creates a subscription group with given members.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionGroupResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -112,7 +111,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for createSubscriptionGroup.
      */
     private ApiCall<SubscriptionGroupResponse, ApiException> prepareCreateSubscriptionGroupRequest(
-            final CreateSubscriptionGroupRequest body) throws JsonProcessingException, IOException {
+            final CreateSubscriptionGroupRequest body) {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -158,7 +157,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for listSubscriptionGroups.
      */
     private ApiCall<ListSubscriptionGroupsResponse, ApiException> prepareListSubscriptionGroupsRequest(
-            final ListSubscriptionGroupsInput input) throws IOException {
+            final ListSubscriptionGroupsInput input) {
         return new ApiCall.Builder<ListSubscriptionGroupsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -206,7 +205,7 @@ public final class SubscriptionGroupsController extends BaseController {
      */
     private ApiCall<FullSubscriptionGroupResponse, ApiException> prepareReadSubscriptionGroupRequest(
             final String uid,
-            final List<SubscriptionGroupInclude> include) throws IOException {
+            final List<SubscriptionGroupInclude> include) {
         return new ApiCall.Builder<FullSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -235,7 +234,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * in the groups. Not including them will result in removing them from subscription group. To
      * clean up members, just leave the array empty.
      * @param  uid  Required parameter: The uid of the subscription group
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionGroupResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -251,7 +250,7 @@ public final class SubscriptionGroupsController extends BaseController {
      */
     private ApiCall<SubscriptionGroupResponse, ApiException> prepareUpdateSubscriptionGroupMembersRequest(
             final String uid,
-            final UpdateSubscriptionGroupRequest body) throws JsonProcessingException, IOException {
+            final UpdateSubscriptionGroupRequest body) {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -295,7 +294,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for deleteSubscriptionGroup.
      */
     private ApiCall<DeleteSubscriptionGroupResponse, ApiException> prepareDeleteSubscriptionGroupRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<DeleteSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -337,7 +336,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for findSubscriptionGroup.
      */
     private ApiCall<FullSubscriptionGroupResponse, ApiException> prepareFindSubscriptionGroupRequest(
-            final String subscriptionId) throws IOException {
+            final String subscriptionId) {
         return new ApiCall.Builder<FullSubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -385,7 +384,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Subscription
      * Group](https://developers.chargify.com/docs/api-docs/d571659cf0f24-create-subscription#subscription-in-a-subscription-group).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionGroupResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -401,7 +400,7 @@ public final class SubscriptionGroupsController extends BaseController {
      */
     private ApiCall<SubscriptionGroupResponse, ApiException> prepareAddSubscriptionToGroupRequest(
             final int subscriptionId,
-            final AddSubscriptionToAGroup body) throws JsonProcessingException, IOException {
+            final AddSubscriptionToAGroup body) {
         return new ApiCall.Builder<SubscriptionGroupResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -445,7 +444,7 @@ public final class SubscriptionGroupsController extends BaseController {
      * Builds the ApiCall object for removeSubscriptionFromGroup.
      */
     private ApiCall<Void, ApiException> prepareRemoveSubscriptionFromGroupRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

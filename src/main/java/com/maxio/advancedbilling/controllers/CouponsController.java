@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -58,7 +57,7 @@ public final class CouponsController extends BaseController {
      * objects in the format: `{ "&lt;product_id/component_id&gt;": boolean_value }`.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -74,7 +73,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponResponse, ApiException> prepareCreateCouponRequest(
             final int productFamilyId,
-            final CouponRequest body) throws JsonProcessingException, IOException {
+            final CouponRequest body) {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -120,7 +119,7 @@ public final class CouponsController extends BaseController {
      * Builds the ApiCall object for listCouponsForProductFamily.
      */
     private ApiCall<List<CouponResponse>, ApiException> prepareListCouponsForProductFamilyRequest(
-            final ListCouponsForProductFamilyInput input) throws IOException {
+            final ListCouponsForProductFamilyInput input) {
         return new ApiCall.Builder<List<CouponResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -180,7 +179,7 @@ public final class CouponsController extends BaseController {
     private ApiCall<CouponResponse, ApiException> prepareFindCouponRequest(
             final Integer productFamilyId,
             final String code,
-            final Boolean currencyPrices) throws IOException {
+            final Boolean currencyPrices) {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -238,7 +237,7 @@ public final class CouponsController extends BaseController {
     private ApiCall<CouponResponse, ApiException> prepareReadCouponRequest(
             final int productFamilyId,
             final int couponId,
-            final Boolean currencyPrices) throws IOException {
+            final Boolean currencyPrices) {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -271,7 +270,7 @@ public final class CouponsController extends BaseController {
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -289,7 +288,7 @@ public final class CouponsController extends BaseController {
     private ApiCall<CouponResponse, ApiException> prepareUpdateCouponRequest(
             final int productFamilyId,
             final int couponId,
-            final CouponRequest body) throws JsonProcessingException, IOException {
+            final CouponRequest body) {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -341,7 +340,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponResponse, ApiException> prepareArchiveCouponRequest(
             final int productFamilyId,
-            final int couponId) throws IOException {
+            final int couponId) {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -382,7 +381,7 @@ public final class CouponsController extends BaseController {
      * Builds the ApiCall object for listCoupons.
      */
     private ApiCall<List<CouponResponse>, ApiException> prepareListCouponsRequest(
-            final ListCouponsInput input) throws IOException {
+            final ListCouponsInput input) {
         return new ApiCall.Builder<List<CouponResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -431,7 +430,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<List<CouponUsage>, ApiException> prepareReadCouponUsageRequest(
             final int productFamilyId,
-            final int couponId) throws IOException {
+            final int couponId) {
         return new ApiCall.Builder<List<CouponUsage>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -488,7 +487,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponResponse, ApiException> prepareValidateCouponRequest(
             final String code,
-            final Integer productFamilyId) throws IOException {
+            final Integer productFamilyId) {
         return new ApiCall.Builder<CouponResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -508,7 +507,7 @@ public final class CouponsController extends BaseController {
                                 response -> ApiHelper.deserialize(response, CouponResponse.class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found: '{$response.body}'",
                                 (reason, context) -> new SingleStringErrorResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
@@ -522,7 +521,7 @@ public final class CouponsController extends BaseController {
      * - if the primary coupon is percentage based, you will not be able to define pricing in
      * non-primary currencies.
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CouponCurrencyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -538,7 +537,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponCurrencyResponse, ApiException> prepareCreateOrUpdateCouponCurrencyPricesRequest(
             final int couponId,
-            final CouponCurrencyRequest body) throws JsonProcessingException, IOException {
+            final CouponCurrencyRequest body) {
         return new ApiCall.Builder<CouponCurrencyResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -586,7 +585,7 @@ public final class CouponsController extends BaseController {
      * coupon subcode would be:
      * `https://&lt;subdomain&gt;.chargify.com/coupons/567/codes/20%25OFF.&lt;format&gt;`.
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CouponSubcodesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -602,7 +601,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponSubcodesResponse, ApiException> prepareCreateCouponSubcodesRequest(
             final int couponId,
-            final CouponSubcodes body) throws JsonProcessingException, IOException {
+            final CouponSubcodes body) {
         return new ApiCall.Builder<CouponSubcodesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -643,7 +642,7 @@ public final class CouponsController extends BaseController {
      * Builds the ApiCall object for listCouponSubcodes.
      */
     private ApiCall<CouponSubcodes, ApiException> prepareListCouponSubcodesRequest(
-            final ListCouponSubcodesInput input) throws IOException {
+            final ListCouponSubcodesInput input) {
         return new ApiCall.Builder<CouponSubcodes, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -675,7 +674,7 @@ public final class CouponsController extends BaseController {
      * endpoint. The response will contain: + The created subcodes, + Subcodes that were not created
      * because they already exist, + Any subcodes not created because they are invalid.
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CouponSubcodesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -691,7 +690,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<CouponSubcodesResponse, ApiException> prepareUpdateCouponSubcodesRequest(
             final int couponId,
-            final CouponSubcodes body) throws JsonProcessingException, IOException {
+            final CouponSubcodes body) {
         return new ApiCall.Builder<CouponSubcodesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -742,7 +741,7 @@ public final class CouponsController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteCouponSubcodeRequest(
             final int couponId,
-            final String subcode) throws IOException {
+            final String subcode) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

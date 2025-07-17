@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.maxio</groupId>
   <artifactId>advanced-billing-sdk</artifactId>
-  <version>6.1.0</version>
+  <version>7.0.0</version>
   <packaging>jar</packaging>
   <name>Advanced Billing SDK</name>
   <description>Ultimate billing and pricing flexibility for B2B SaaS.
@@ -38,10 +38,6 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
       <name>Repository Snapshot Server</name>
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
   </distributionManagement>
   <dependencies>
     <dependency>
@@ -52,7 +48,7 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core</artifactId>
-      <version>[0.6.7, 0.7)</version>
+      <version>[0.6.12, 0.7)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>
@@ -167,14 +163,15 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
         <plugins>
           <!-- To release to Maven central -->
           <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.8</version>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>0.8.0</version>
             <extensions>true</extensions>
             <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              <publishingServerId>ossrh</publishingServerId>
+              <tokenAuth>true</tokenAuth>
+              <autoPublish>true</autoPublish>
+              <waitUntil>validated</waitUntil>
             </configuration>
           </plugin>
           <!-- To generate javadoc -->

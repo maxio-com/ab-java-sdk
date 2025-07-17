@@ -11,9 +11,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for PaypalPaymentProfile type.
@@ -37,6 +40,8 @@ public class PaypalPaymentProfile
     private OptionalNullable<Integer> siteGatewaySettingId;
     private OptionalNullable<String> gatewayHandle;
     private String paypalEmail;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
 
     /**
      * Default constructor.
@@ -64,6 +69,8 @@ public class PaypalPaymentProfile
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      * @param  paypalEmail  String value for paypalEmail.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
     public PaypalPaymentProfile(
             PaymentType paymentType,
@@ -82,7 +89,9 @@ public class PaypalPaymentProfile
             String billingAddress2,
             Integer siteGatewaySettingId,
             String gatewayHandle,
-            String paypalEmail) {
+            String paypalEmail,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -100,6 +109,8 @@ public class PaypalPaymentProfile
         this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
         this.paypalEmail = paypalEmail;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -121,6 +132,8 @@ public class PaypalPaymentProfile
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
      * @param  paypalEmail  String value for paypalEmail.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
 
     protected PaypalPaymentProfile(PaymentType paymentType, Integer id, String firstName,
@@ -130,7 +143,7 @@ public class PaypalPaymentProfile
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
             OptionalNullable<String> billingAddress2,
             OptionalNullable<Integer> siteGatewaySettingId, OptionalNullable<String> gatewayHandle,
-            String paypalEmail) {
+            String paypalEmail, ZonedDateTime createdAt, ZonedDateTime updatedAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -148,6 +161,8 @@ public class PaypalPaymentProfile
         this.siteGatewaySettingId = siteGatewaySettingId;
         this.gatewayHandle = gatewayHandle;
         this.paypalEmail = paypalEmail;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -160,7 +175,7 @@ public class PaypalPaymentProfile
         this(paymentType, null, null, null, null, null, null, OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
-                OptionalNullable.of(null), OptionalNullable.of(null), null);
+                OptionalNullable.of(null), OptionalNullable.of(null), null, null, null);
         unsetBillingAddress();
         unsetBillingCity();
         unsetBillingState();
@@ -675,6 +690,52 @@ public class PaypalPaymentProfile
     }
 
     /**
+     * Getter for CreatedAt.
+     * A timestamp indicating when this payment profile was created
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Setter for CreatedAt.
+     * A timestamp indicating when this payment profile was created
+     * @param createdAt Value for ZonedDateTime
+     */
+    @JsonSetter("created_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Getter for UpdatedAt.
+     * A timestamp indicating when this payment profile was last updated
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Setter for UpdatedAt.
+     * A timestamp indicating when this payment profile was last updated
+     * @param updatedAt Value for ZonedDateTime
+     */
+    @JsonSetter("updated_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
      * Converts this PaypalPaymentProfile into string format.
      * @return String representation of this class
      */
@@ -688,8 +749,9 @@ public class PaypalPaymentProfile
                 + ", billingCountry=" + billingCountry + ", customerVaultToken="
                 + customerVaultToken + ", billingAddress2=" + billingAddress2
                 + ", siteGatewaySettingId=" + siteGatewaySettingId + ", gatewayHandle="
-                + gatewayHandle + ", paypalEmail=" + paypalEmail + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + gatewayHandle + ", paypalEmail=" + paypalEmail + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + ", additionalProperties=" + getAdditionalProperties()
+                + "]";
     }
 
     /**
@@ -705,7 +767,9 @@ public class PaypalPaymentProfile
                 .customerId(getCustomerId())
                 .currentVault(getCurrentVault())
                 .vaultToken(getVaultToken())
-                .paypalEmail(getPaypalEmail());
+                .paypalEmail(getPaypalEmail())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         builder.billingAddress = internalGetBillingAddress();
         builder.billingCity = internalGetBillingCity();
         builder.billingState = internalGetBillingState();
@@ -739,6 +803,8 @@ public class PaypalPaymentProfile
         private OptionalNullable<Integer> siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
         private String paypalEmail;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
 
         /**
          * Initialization constructor.
@@ -1006,6 +1072,26 @@ public class PaypalPaymentProfile
         }
 
         /**
+         * Setter for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(ZonedDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * Setter for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
+         * @return Builder
+         */
+        public Builder updatedAt(ZonedDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        /**
          * Builds a new {@link PaypalPaymentProfile} object using the set fields.
          * @return {@link PaypalPaymentProfile}
          */
@@ -1013,7 +1099,7 @@ public class PaypalPaymentProfile
             return new PaypalPaymentProfile(paymentType, id, firstName, lastName, customerId,
                     currentVault, vaultToken, billingAddress, billingCity, billingState, billingZip,
                     billingCountry, customerVaultToken, billingAddress2, siteGatewaySettingId,
-                    gatewayHandle, paypalEmail);
+                    gatewayHandle, paypalEmail, createdAt, updatedAt);
         }
     }
 }

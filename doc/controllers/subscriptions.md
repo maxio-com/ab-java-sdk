@@ -164,42 +164,6 @@ If you already have a customer and card stored in your payment gateway, you may 
 }
 ```
 
-## Subscription with Credit Card
-
-```json
-"subscription": {
-    "product_handle": "basic",
-    "customer_attributes": {
-      "first_name": "Joe",
-      "last_name": "Blow",
-      "email": "joe@example.com",
-      "zip": "02120",
-      "state": "MA",
-      "reference": "XYZ",
-      "phone": "(617) 111 - 0000",
-      "organization": "Acme",
-      "country": "US",
-      "city": "Boston",
-      "address_2": null,
-      "address": "123 Mass Ave."
-    },
-    "credit_card_attributes": {
-      "last_name": "Smith",
-      "first_name": "Joe",
-      "full_number": "4111111111111111",
-      "expiration_year": "2021",
-      "expiration_month": "1",
-      "card_type": "visa",
-      "billing_zip": "02120",
-      "billing_state": "MA",
-      "billing_country": "US",
-      "billing_city": "Boston",
-      "billing_address_2": null,
-      "billing_address": "123 Mass Ave."
-    }
-}
-```
-
 ## Subscription with ACH as Payment Profile
 
 ```json
@@ -898,12 +862,13 @@ List<SubscriptionResponse> listSubscriptions(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br>**Default**: `1`<br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br>**Default**: `20`<br>**Constraints**: `<= 200` |
+| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
+| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
 | `state` | [`SubscriptionStateFilter`](../../doc/models/subscription-state-filter.md) | Query, Optional | The current state of the subscription |
 | `product` | `Integer` | Query, Optional | The product id of the subscription. (Note that the product handle cannot be used.) |
 | `productPricePointId` | `Integer` | Query, Optional | The ID of the product price point. If supplied, product is required |
 | `coupon` | `Integer` | Query, Optional | The numeric id of the coupon currently applied to the subscription. (This can be found in the URL when editing a coupon. Note that the coupon code cannot be used.) |
+| `couponCode` | `String` | Query, Optional | The coupon code currently applied to the subscription |
 | `dateField` | [`SubscriptionDateField`](../../doc/models/subscription-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search.  Allowed Values: , current_period_ends_at, current_period_starts_at, created_at, activated_at, canceled_at, expires_at, trial_started_at, trial_ended_at, updated_at |
 | `startDate` | `LocalDate` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2022-07-01`. |
 | `endDate` | `LocalDate` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2022-08-01`. |
@@ -911,7 +876,7 @@ List<SubscriptionResponse> listSubscriptions(
 | `endDatetime` | `ZonedDateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`. |
 | `metadata` | `Map<String, String>` | Query, Optional | The value of the metadata field specified in the parameter. Use in query `metadata[my-field]=value&metadata[other-field]=another_value`. |
 | `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `sort` | [`SubscriptionSort`](../../doc/models/subscription-sort.md) | Query, Optional | The attribute by which to sort<br>**Default**: `SubscriptionSort.SIGNUP_DATE` |
+| `sort` | [`SubscriptionSort`](../../doc/models/subscription-sort.md) | Query, Optional | The attribute by which to sort<br><br>**Default**: `SubscriptionSort.SIGNUP_DATE` |
 | `include` | [`List<SubscriptionListInclude>`](../../doc/models/subscription-list-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=self_service_page_token`. |
 
 ## Response Type
@@ -1012,12 +977,8 @@ SubscriptionResponse updateSubscription(
 int subscriptionId = 222;
 UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder(
     new UpdateSubscription.Builder()
-        .creditCardAttributes(new CreditCardAttributes.Builder()
-            .fullNumber("4111111111111111")
-            .expirationMonth("10")
-            .expirationYear("2030")
-            .build())
         .nextBillingAt(DateTimeHelper.fromRfc8601DateTime("2010-08-06T15:34:00Z"))
+        .paymentCollectionMethod("remittance")
         .build()
 )
 .build();
@@ -1569,11 +1530,11 @@ try {
 
 The Chargify API allows you to preview a subscription by POSTing the same JSON or XML as for a subscription creation.
 
-The "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary. For more information, please see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
+The "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary.
 
-## Side effects
+A subscription will not be created by utilizing this endpoint; it is meant to serve as a prediction.
 
-A subscription will not be created by sending a POST to this endpoint. It is meant to serve as a prediction.
+For more information, please see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
 
 ## Taxable Subscriptions
 

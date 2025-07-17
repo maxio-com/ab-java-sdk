@@ -61,7 +61,7 @@ public final class SalesCommissionsController extends BaseController {
      * Builds the ApiCall object for listSalesCommissionSettings.
      */
     private ApiCall<List<SaleRepSettings>, ApiException> prepareListSalesCommissionSettingsRequest(
-            final ListSalesCommissionSettingsInput input) throws IOException {
+            final ListSalesCommissionSettingsInput input) {
         return new ApiCall.Builder<List<SaleRepSettings>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -117,7 +117,7 @@ public final class SalesCommissionsController extends BaseController {
      * Builds the ApiCall object for listSalesReps.
      */
     private ApiCall<List<ListSaleRepItem>, ApiException> prepareListSalesRepsRequest(
-            final ListSalesRepsInput input) throws IOException {
+            final ListSalesRepsInput input) {
         return new ApiCall.Builder<List<ListSaleRepItem>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -198,7 +198,7 @@ public final class SalesCommissionsController extends BaseController {
             final String authorization,
             final Boolean liveMode,
             final Integer page,
-            final Integer perPage) throws IOException {
+            final Integer perPage) {
         return new ApiCall.Builder<SaleRep, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

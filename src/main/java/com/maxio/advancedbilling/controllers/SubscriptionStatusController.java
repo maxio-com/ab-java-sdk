@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -58,7 +57,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for retrySubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareRetrySubscriptionRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -86,7 +85,7 @@ public final class SubscriptionStatusController extends BaseController {
      * The DELETE action causes the cancellation of the Subscription. This means, the method sets
      * the Subscription state to "canceled".
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -102,7 +101,7 @@ public final class SubscriptionStatusController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareCancelSubscriptionRequest(
             final int subscriptionId,
-            final CancellationRequest body) throws JsonProcessingException, IOException {
+            final CancellationRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -156,7 +155,7 @@ public final class SubscriptionStatusController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareResumeSubscriptionRequest(
             final int subscriptionId,
-            final ResumptionCharge calendarBillingResumptionCharge) throws IOException {
+            final ResumptionCharge calendarBillingResumptionCharge) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -186,7 +185,7 @@ public final class SubscriptionStatusController extends BaseController {
      * This will place the subscription in the on_hold state and it will not renew. ## Limitations
      * You may not place a subscription on hold if the `next_billing` date is within 24 hours.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -202,7 +201,7 @@ public final class SubscriptionStatusController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> preparePauseSubscriptionRequest(
             final int subscriptionId,
-            final PauseRequest body) throws JsonProcessingException, IOException {
+            final PauseRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -237,7 +236,7 @@ public final class SubscriptionStatusController extends BaseController {
      * date Alternately, you can change the `automatically_resume_at` to `null` if you would like
      * the subscription to not have a resume date.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -253,7 +252,7 @@ public final class SubscriptionStatusController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareUpdateAutomaticSubscriptionResumptionRequest(
             final int subscriptionId,
-            final PauseRequest body) throws JsonProcessingException, IOException {
+            final PauseRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -353,7 +352,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Results + The subscription will transition to active + The next billing date should not have
      * changed + Any product-related charges should have been collected.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -369,7 +368,7 @@ public final class SubscriptionStatusController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareReactivateSubscriptionRequest(
             final int subscriptionId,
-            final ReactivateSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final ReactivateSubscriptionRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -404,7 +403,7 @@ public final class SubscriptionStatusController extends BaseController {
      * that you cannot set `cancel_at_end_of_period` at subscription creation, or if the
      * subscription is past due.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the DelayedCancellationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -420,7 +419,7 @@ public final class SubscriptionStatusController extends BaseController {
      */
     private ApiCall<DelayedCancellationResponse, ApiException> prepareInitiateDelayedCancellationRequest(
             final int subscriptionId,
-            final CancellationRequest body) throws JsonProcessingException, IOException {
+            final CancellationRequest body) {
         return new ApiCall.Builder<DelayedCancellationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -470,7 +469,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for cancelDelayedCancellation.
      */
     private ApiCall<DelayedCancellationResponse, ApiException> prepareCancelDelayedCancellationRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<DelayedCancellationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -511,7 +510,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Builds the ApiCall object for cancelDunning.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareCancelDunningRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -558,7 +557,7 @@ public final class SubscriptionStatusController extends BaseController {
      * this data from the endpoint without any side effects. Plain and simple, this will preview
      * data, not log any changes against a subscription.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the RenewalPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -574,7 +573,7 @@ public final class SubscriptionStatusController extends BaseController {
      */
     private ApiCall<RenewalPreviewResponse, ApiException> preparePreviewRenewalRequest(
             final int subscriptionId,
-            final RenewalPreviewRequest body) throws JsonProcessingException, IOException {
+            final RenewalPreviewRequest body) {
         return new ApiCall.Builder<RenewalPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

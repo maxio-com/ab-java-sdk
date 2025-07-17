@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -60,7 +59,7 @@ public final class CustomersController extends BaseController {
      * Billing allows you to attribute a language/region to your customer to deliver invoices in any
      * required language. For more: [Customer
      * Locale](https://maxio.zendesk.com/hc/en-us/articles/24286672013709-Customer-Locale).
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CustomerResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -74,7 +73,7 @@ public final class CustomersController extends BaseController {
      * Builds the ApiCall object for createCustomer.
      */
     private ApiCall<CustomerResponse, ApiException> prepareCreateCustomerRequest(
-            final CreateCustomerRequest body) throws JsonProcessingException, IOException {
+            final CreateCustomerRequest body) {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -122,7 +121,7 @@ public final class CustomersController extends BaseController {
      * Builds the ApiCall object for listCustomers.
      */
     private ApiCall<List<CustomerResponse>, ApiException> prepareListCustomersRequest(
-            final ListCustomersInput input) throws IOException {
+            final ListCustomersInput input) {
         return new ApiCall.Builder<List<CustomerResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -177,7 +176,7 @@ public final class CustomersController extends BaseController {
      * Builds the ApiCall object for readCustomer.
      */
     private ApiCall<CustomerResponse, ApiException> prepareReadCustomerRequest(
-            final int id) throws IOException {
+            final int id) {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -201,7 +200,7 @@ public final class CustomersController extends BaseController {
     /**
      * This method allows to update the Customer.
      * @param  id  Required parameter: The Advanced Billing id of the customer
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CustomerResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -217,7 +216,7 @@ public final class CustomersController extends BaseController {
      */
     private ApiCall<CustomerResponse, ApiException> prepareUpdateCustomerRequest(
             final int id,
-            final UpdateCustomerRequest body) throws JsonProcessingException, IOException {
+            final UpdateCustomerRequest body) {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -263,7 +262,7 @@ public final class CustomersController extends BaseController {
      * Builds the ApiCall object for deleteCustomer.
      */
     private ApiCall<Void, ApiException> prepareDeleteCustomerRequest(
-            final int id) throws IOException {
+            final int id) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -298,7 +297,7 @@ public final class CustomersController extends BaseController {
      * Builds the ApiCall object for readCustomerByReference.
      */
     private ApiCall<CustomerResponse, ApiException> prepareReadCustomerByReferenceRequest(
-            final String reference) throws IOException {
+            final String reference) {
         return new ApiCall.Builder<CustomerResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -335,7 +334,7 @@ public final class CustomersController extends BaseController {
      * Builds the ApiCall object for listCustomerSubscriptions.
      */
     private ApiCall<List<SubscriptionResponse>, ApiException> prepareListCustomerSubscriptionsRequest(
-            final int customerId) throws IOException {
+            final int customerId) {
         return new ApiCall.Builder<List<SubscriptionResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

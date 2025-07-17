@@ -31,7 +31,10 @@ public class UpdateSubscription
     private String nextProductId;
     private String nextProductPricePointId;
     private UpdateSubscriptionSnapDay snapDay;
+    private ZonedDateTime initialBillingAt;
+    private Boolean deferSignup;
     private ZonedDateTime nextBillingAt;
+    private ZonedDateTime expiresAt;
     private String paymentCollectionMethod;
     private Boolean receivesInvoiceEmails;
     private UpdateSubscriptionNetTerms netTerms;
@@ -48,6 +51,7 @@ public class UpdateSubscription
      * Default constructor.
      */
     public UpdateSubscription() {
+        deferSignup = false;
     }
 
     /**
@@ -59,7 +63,10 @@ public class UpdateSubscription
      * @param  nextProductId  String value for nextProductId.
      * @param  nextProductPricePointId  String value for nextProductPricePointId.
      * @param  snapDay  UpdateSubscriptionSnapDay value for snapDay.
+     * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
+     * @param  deferSignup  Boolean value for deferSignup.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
      * @param  netTerms  UpdateSubscriptionNetTerms value for netTerms.
@@ -81,7 +88,10 @@ public class UpdateSubscription
             String nextProductId,
             String nextProductPricePointId,
             UpdateSubscriptionSnapDay snapDay,
+            ZonedDateTime initialBillingAt,
+            Boolean deferSignup,
             ZonedDateTime nextBillingAt,
+            ZonedDateTime expiresAt,
             String paymentCollectionMethod,
             Boolean receivesInvoiceEmails,
             UpdateSubscriptionNetTerms netTerms,
@@ -100,7 +110,10 @@ public class UpdateSubscription
         this.nextProductId = nextProductId;
         this.nextProductPricePointId = nextProductPricePointId;
         this.snapDay = snapDay;
+        this.initialBillingAt = initialBillingAt;
+        this.deferSignup = deferSignup;
         this.nextBillingAt = nextBillingAt;
+        this.expiresAt = expiresAt;
         this.paymentCollectionMethod = paymentCollectionMethod;
         this.receivesInvoiceEmails = receivesInvoiceEmails;
         this.netTerms = netTerms;
@@ -124,7 +137,10 @@ public class UpdateSubscription
      * @param  nextProductId  String value for nextProductId.
      * @param  nextProductPricePointId  String value for nextProductPricePointId.
      * @param  snapDay  UpdateSubscriptionSnapDay value for snapDay.
+     * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
+     * @param  deferSignup  Boolean value for deferSignup.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
+     * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
      * @param  netTerms  UpdateSubscriptionNetTerms value for netTerms.
@@ -142,11 +158,11 @@ public class UpdateSubscription
     protected UpdateSubscription(CreditCardAttributes creditCardAttributes, String productHandle,
             Integer productId, Boolean productChangeDelayed, String nextProductId,
             String nextProductPricePointId, UpdateSubscriptionSnapDay snapDay,
-            ZonedDateTime nextBillingAt, String paymentCollectionMethod,
-            Boolean receivesInvoiceEmails, UpdateSubscriptionNetTerms netTerms,
-            Integer storedCredentialTransactionId, String reference,
-            SubscriptionCustomPrice customPrice, List<UpdateSubscriptionComponent> components,
-            Boolean dunningCommunicationDelayEnabled,
+            ZonedDateTime initialBillingAt, Boolean deferSignup, ZonedDateTime nextBillingAt,
+            ZonedDateTime expiresAt, String paymentCollectionMethod, Boolean receivesInvoiceEmails,
+            UpdateSubscriptionNetTerms netTerms, Integer storedCredentialTransactionId,
+            String reference, SubscriptionCustomPrice customPrice,
+            List<UpdateSubscriptionComponent> components, Boolean dunningCommunicationDelayEnabled,
             OptionalNullable<String> dunningCommunicationDelayTimeZone, Integer productPricePointId,
             String productPricePointHandle) {
         this.creditCardAttributes = creditCardAttributes;
@@ -156,7 +172,10 @@ public class UpdateSubscription
         this.nextProductId = nextProductId;
         this.nextProductPricePointId = nextProductPricePointId;
         this.snapDay = snapDay;
+        this.initialBillingAt = initialBillingAt;
+        this.deferSignup = deferSignup;
         this.nextBillingAt = nextBillingAt;
+        this.expiresAt = expiresAt;
         this.paymentCollectionMethod = paymentCollectionMethod;
         this.receivesInvoiceEmails = receivesInvoiceEmails;
         this.netTerms = netTerms;
@@ -314,6 +333,84 @@ public class UpdateSubscription
     }
 
     /**
+     * Getter for InitialBillingAt.
+     * (Optional) Set this attribute to a future date/time to update a subscription in the Awaiting
+     * Signup Date state, to Awaiting Signup. In the Awaiting Signup state, a subscription behaves
+     * like any other. It can be canceled, allocated to, or have its billing date changed. etc. When
+     * the `initial_billing_at` date hits, the subscription will transition to the expected state.
+     * If the product has a trial, the subscription will enter a trial, otherwise it will go active.
+     * Setup fees will be respected either before or after the trial, as configured on the price
+     * point. If the payment is due at the initial_billing_at and it fails the subscription will be
+     * immediately canceled. You can omit the initial_billing_at date to activate the subscription
+     * immediately. See the [subscription
+     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * documentation for more information about Date/Time formats.
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("initial_billing_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getInitialBillingAt() {
+        return initialBillingAt;
+    }
+
+    /**
+     * Setter for InitialBillingAt.
+     * (Optional) Set this attribute to a future date/time to update a subscription in the Awaiting
+     * Signup Date state, to Awaiting Signup. In the Awaiting Signup state, a subscription behaves
+     * like any other. It can be canceled, allocated to, or have its billing date changed. etc. When
+     * the `initial_billing_at` date hits, the subscription will transition to the expected state.
+     * If the product has a trial, the subscription will enter a trial, otherwise it will go active.
+     * Setup fees will be respected either before or after the trial, as configured on the price
+     * point. If the payment is due at the initial_billing_at and it fails the subscription will be
+     * immediately canceled. You can omit the initial_billing_at date to activate the subscription
+     * immediately. See the [subscription
+     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * documentation for more information about Date/Time formats.
+     * @param initialBillingAt Value for ZonedDateTime
+     */
+    @JsonSetter("initial_billing_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setInitialBillingAt(ZonedDateTime initialBillingAt) {
+        this.initialBillingAt = initialBillingAt;
+    }
+
+    /**
+     * Getter for DeferSignup.
+     * (Optional) Set this attribute to true to move the subscription from Awaiting Signup, to
+     * Awaiting Signup Date. Use this when you want to update a subscription that has an unknown
+     * initial billing date. When the first billing date is known, update a subscription to set the
+     * `initial_billing_at` date. The subscription moves to the awaiting signup with a scheduled
+     * initial billing date. You can omit the initial_billing_at date to activate the subscription
+     * immediately. See [Subscription
+     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * for more information.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("defer_signup")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getDeferSignup() {
+        return deferSignup;
+    }
+
+    /**
+     * Setter for DeferSignup.
+     * (Optional) Set this attribute to true to move the subscription from Awaiting Signup, to
+     * Awaiting Signup Date. Use this when you want to update a subscription that has an unknown
+     * initial billing date. When the first billing date is known, update a subscription to set the
+     * `initial_billing_at` date. The subscription moves to the awaiting signup with a scheduled
+     * initial billing date. You can omit the initial_billing_at date to activate the subscription
+     * immediately. See [Subscription
+     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * for more information.
+     * @param deferSignup Value for Boolean
+     */
+    @JsonSetter("defer_signup")
+    public void setDeferSignup(Boolean deferSignup) {
+        this.deferSignup = deferSignup;
+    }
+
+    /**
      * Getter for NextBillingAt.
      * @return Returns the ZonedDateTime
      */
@@ -332,6 +429,31 @@ public class UpdateSubscription
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setNextBillingAt(ZonedDateTime nextBillingAt) {
         this.nextBillingAt = nextBillingAt;
+    }
+
+    /**
+     * Getter for ExpiresAt.
+     * Timestamp giving the expiration date of this subscription (if any). You may manually change
+     * the expiration date at any point during a subscription period.
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    /**
+     * Setter for ExpiresAt.
+     * Timestamp giving the expiration date of this subscription (if any). You may manually change
+     * the expiration date at any point during a subscription period.
+     * @param expiresAt Value for ZonedDateTime
+     */
+    @JsonSetter("expires_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setExpiresAt(ZonedDateTime expiresAt) {
+        this.expiresAt = expiresAt;
     }
 
     /**
@@ -589,12 +711,13 @@ public class UpdateSubscription
                 + ", productHandle=" + productHandle + ", productId=" + productId
                 + ", productChangeDelayed=" + productChangeDelayed + ", nextProductId="
                 + nextProductId + ", nextProductPricePointId=" + nextProductPricePointId
-                + ", snapDay=" + snapDay + ", nextBillingAt=" + nextBillingAt
-                + ", paymentCollectionMethod=" + paymentCollectionMethod
-                + ", receivesInvoiceEmails=" + receivesInvoiceEmails + ", netTerms=" + netTerms
-                + ", storedCredentialTransactionId=" + storedCredentialTransactionId
-                + ", reference=" + reference + ", customPrice=" + customPrice + ", components="
-                + components + ", dunningCommunicationDelayEnabled="
+                + ", snapDay=" + snapDay + ", initialBillingAt=" + initialBillingAt
+                + ", deferSignup=" + deferSignup + ", nextBillingAt=" + nextBillingAt
+                + ", expiresAt=" + expiresAt + ", paymentCollectionMethod="
+                + paymentCollectionMethod + ", receivesInvoiceEmails=" + receivesInvoiceEmails
+                + ", netTerms=" + netTerms + ", storedCredentialTransactionId="
+                + storedCredentialTransactionId + ", reference=" + reference + ", customPrice="
+                + customPrice + ", components=" + components + ", dunningCommunicationDelayEnabled="
                 + dunningCommunicationDelayEnabled + ", dunningCommunicationDelayTimeZone="
                 + dunningCommunicationDelayTimeZone + ", productPricePointId=" + productPricePointId
                 + ", productPricePointHandle=" + productPricePointHandle + ", additionalProperties="
@@ -615,7 +738,10 @@ public class UpdateSubscription
                 .nextProductId(getNextProductId())
                 .nextProductPricePointId(getNextProductPricePointId())
                 .snapDay(getSnapDay())
+                .initialBillingAt(getInitialBillingAt())
+                .deferSignup(getDeferSignup())
                 .nextBillingAt(getNextBillingAt())
+                .expiresAt(getExpiresAt())
                 .paymentCollectionMethod(getPaymentCollectionMethod())
                 .receivesInvoiceEmails(getReceivesInvoiceEmails())
                 .netTerms(getNetTerms())
@@ -641,7 +767,10 @@ public class UpdateSubscription
         private String nextProductId;
         private String nextProductPricePointId;
         private UpdateSubscriptionSnapDay snapDay;
+        private ZonedDateTime initialBillingAt;
+        private Boolean deferSignup = false;
         private ZonedDateTime nextBillingAt;
+        private ZonedDateTime expiresAt;
         private String paymentCollectionMethod;
         private Boolean receivesInvoiceEmails;
         private UpdateSubscriptionNetTerms netTerms;
@@ -727,12 +856,42 @@ public class UpdateSubscription
         }
 
         /**
+         * Setter for initialBillingAt.
+         * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
+         * @return Builder
+         */
+        public Builder initialBillingAt(ZonedDateTime initialBillingAt) {
+            this.initialBillingAt = initialBillingAt;
+            return this;
+        }
+
+        /**
+         * Setter for deferSignup.
+         * @param  deferSignup  Boolean value for deferSignup.
+         * @return Builder
+         */
+        public Builder deferSignup(Boolean deferSignup) {
+            this.deferSignup = deferSignup;
+            return this;
+        }
+
+        /**
          * Setter for nextBillingAt.
          * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
          * @return Builder
          */
         public Builder nextBillingAt(ZonedDateTime nextBillingAt) {
             this.nextBillingAt = nextBillingAt;
+            return this;
+        }
+
+        /**
+         * Setter for expiresAt.
+         * @param  expiresAt  ZonedDateTime value for expiresAt.
+         * @return Builder
+         */
+        public Builder expiresAt(ZonedDateTime expiresAt) {
+            this.expiresAt = expiresAt;
             return this;
         }
 
@@ -867,7 +1026,8 @@ public class UpdateSubscription
         public UpdateSubscription build() {
             return new UpdateSubscription(creditCardAttributes, productHandle, productId,
                     productChangeDelayed, nextProductId, nextProductPricePointId, snapDay,
-                    nextBillingAt, paymentCollectionMethod, receivesInvoiceEmails, netTerms,
+                    initialBillingAt, deferSignup, nextBillingAt, expiresAt,
+                    paymentCollectionMethod, receivesInvoiceEmails, netTerms,
                     storedCredentialTransactionId, reference, customPrice, components,
                     dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone,
                     productPricePointId, productPricePointHandle);

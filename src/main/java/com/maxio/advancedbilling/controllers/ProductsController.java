@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
@@ -43,7 +42,7 @@ public final class ProductsController extends BaseController {
      * Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -59,7 +58,7 @@ public final class ProductsController extends BaseController {
      */
     private ApiCall<ProductResponse, ApiException> prepareCreateProductRequest(
             final String productFamilyId,
-            final CreateOrUpdateProductRequest body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateProductRequest body) {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -104,7 +103,7 @@ public final class ProductsController extends BaseController {
      * Builds the ApiCall object for readProduct.
      */
     private ApiCall<ProductResponse, ApiException> prepareReadProductRequest(
-            final int productId) throws IOException {
+            final int productId) {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -132,7 +131,7 @@ public final class ProductsController extends BaseController {
      * create a new price point and set it as the default price point for this product. If you
      * should like to update an existing product price point, that must be done separately.
      * @param  productId  Required parameter: The Advanced Billing id of the product
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -148,7 +147,7 @@ public final class ProductsController extends BaseController {
      */
     private ApiCall<ProductResponse, ApiException> prepareUpdateProductRequest(
             final int productId,
-            final CreateOrUpdateProductRequest body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateProductRequest body) {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -195,7 +194,7 @@ public final class ProductsController extends BaseController {
      * Builds the ApiCall object for archiveProduct.
      */
     private ApiCall<ProductResponse, ApiException> prepareArchiveProductRequest(
-            final int productId) throws IOException {
+            final int productId) {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -235,7 +234,7 @@ public final class ProductsController extends BaseController {
      * Builds the ApiCall object for readProductByHandle.
      */
     private ApiCall<ProductResponse, ApiException> prepareReadProductByHandleRequest(
-            final String apiHandle) throws IOException {
+            final String apiHandle) {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -272,7 +271,7 @@ public final class ProductsController extends BaseController {
      * Builds the ApiCall object for listProducts.
      */
     private ApiCall<List<ProductResponse>, ApiException> prepareListProductsRequest(
-            final ListProductsInput input) throws IOException {
+            final ListProductsInput input) {
         return new ApiCall.Builder<List<ProductResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -62,7 +61,7 @@ public final class InvoicesController extends BaseController {
      * segment, the refunded amount will be applied as 50% of each ($30.00 and $20.00 respectively).
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -78,7 +77,7 @@ public final class InvoicesController extends BaseController {
      */
     private ApiCall<Invoice, ApiException> prepareRefundInvoiceRequest(
             final String uid,
-            final RefundInvoiceRequest body) throws JsonProcessingException, IOException {
+            final RefundInvoiceRequest body) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -125,7 +124,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for listInvoices.
      */
     private ApiCall<ListInvoicesResponse, ApiException> prepareListInvoicesRequest(
-            final ListInvoicesInput input) throws IOException {
+            final ListInvoicesInput input) {
         return new ApiCall.Builder<ListInvoicesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -141,6 +140,8 @@ public final class InvoicesController extends BaseController {
                                 .value(input.getSubscriptionId()).isRequired(false))
                         .queryParam(param -> param.key("subscription_group_uid")
                                 .value(input.getSubscriptionGroupUid()).isRequired(false))
+                        .queryParam(param -> param.key("consolidation_level")
+                                .value(input.getConsolidationLevel()).isRequired(false))
                         .queryParam(param -> param.key("page")
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
@@ -210,7 +211,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for readInvoice.
      */
     private ApiCall<Invoice, ApiException> prepareReadInvoiceRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -255,7 +256,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for listInvoiceEvents.
      */
     private ApiCall<ListInvoiceEventsResponse, ApiException> prepareListInvoiceEventsRequest(
-            final ListInvoiceEventsInput input) throws IOException {
+            final ListInvoiceEventsInput input) {
         return new ApiCall.Builder<ListInvoiceEventsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -289,27 +290,11 @@ public final class InvoicesController extends BaseController {
     }
 
     /**
-     * This API call should be used when you want to record a payment of a given type against a
-     * specific invoice. If you would like to apply a payment across multiple invoices, you can use
-     * the Bulk Payment endpoint. ## Create a Payment from the existing payment profile In order to
-     * apply a payment to an invoice using an existing payment profile, specify `type` as `payment`,
-     * the amount less than the invoice total, and the customer's `payment_profile_id`. The ID of a
-     * payment profile might be retrieved via the Payment Profiles API endpoint. ``` { "type":
-     * "payment", "payment": { "amount": 10.00, "payment_profile_id": 123 } } ``` ## Create a
-     * Payment from the Subscription's Prepayment Account In order apply a prepayment to an invoice,
-     * specify the `type` as `prepayment`, and also the `amount`. ``` { "type": "prepayment",
-     * "payment": { "amount": 10.00 } } ``` Note that the `amount` must be less than or equal to the
-     * Subscription's Prepayment account balance. ## Create a Payment from the Subscription's
-     * Service Credit Account In order to apply a service credit to an invoice, specify the `type`
-     * as `service_credit`, and also the `amount`: ``` { "type": "service_credit", "payment": {
-     * "amount": 10.00 } } ``` Note that Advanced Billing will attempt to fully pay the invoice's
-     * `due_amount` from the Subscription's Service Credit account. At this time, partial payments
-     * from a Service Credit Account are only allowed for consolidated invoices (subscription
-     * groups). Therefore, for normal invoices the Service Credit account balance must be greater
-     * than or equal to the invoice's `due_amount`.
+     * Applies a payment of a given type against a specific invoice. If you would like to apply a
+     * payment across multiple invoices, you can use the Bulk Payment endpoint.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -325,7 +310,7 @@ public final class InvoicesController extends BaseController {
      */
     private ApiCall<Invoice, ApiException> prepareRecordPaymentForInvoiceRequest(
             final String uid,
-            final CreateInvoicePaymentRequest body) throws JsonProcessingException, IOException {
+            final CreateInvoicePaymentRequest body) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -362,7 +347,7 @@ public final class InvoicesController extends BaseController {
      * "invoice_uid": "inv_7bc6bwkct3lyt", "amount": "150.00" } ] } } ``` Note that the invoice
      * payment amounts must be greater than 0. Total amount must be greater or equal to invoices
      * payment amount sum.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the MultiInvoicePaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -376,7 +361,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for recordPaymentForMultipleInvoices.
      */
     private ApiCall<MultiInvoicePaymentResponse, ApiException> prepareRecordPaymentForMultipleInvoicesRequest(
-            final CreateMultiInvoicePaymentRequest body) throws JsonProcessingException, IOException {
+            final CreateMultiInvoicePaymentRequest body) {
         return new ApiCall.Builder<MultiInvoicePaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -421,7 +406,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for listCreditNotes.
      */
     private ApiCall<ListCreditNotesResponse, ApiException> prepareListCreditNotesRequest(
-            final ListCreditNotesInput input) throws IOException {
+            final ListCreditNotesInput input) {
         return new ApiCall.Builder<ListCreditNotesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -472,7 +457,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for readCreditNote.
      */
     private ApiCall<CreditNote, ApiException> prepareReadCreditNoteRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<CreditNote, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -500,7 +485,7 @@ public final class InvoicesController extends BaseController {
      * result in the creation of a prepayment on the Invoice Account. Only ungrouped or primary
      * subscriptions may be paid using the "bulk" payment request.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the RecordPaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -516,7 +501,7 @@ public final class InvoicesController extends BaseController {
      */
     private ApiCall<RecordPaymentResponse, ApiException> prepareRecordPaymentForSubscriptionRequest(
             final int subscriptionId,
-            final RecordPaymentRequest body) throws JsonProcessingException, IOException {
+            final RecordPaymentRequest body) {
         return new ApiCall.Builder<RecordPaymentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -572,7 +557,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for reopenInvoice.
      */
     private ApiCall<Invoice, ApiException> prepareReopenInvoiceRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -605,7 +590,7 @@ public final class InvoicesController extends BaseController {
      * invoice.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -621,7 +606,7 @@ public final class InvoicesController extends BaseController {
      */
     private ApiCall<Invoice, ApiException> prepareVoidInvoiceRequest(
             final String uid,
-            final VoidInvoiceRequest body) throws JsonProcessingException, IOException {
+            final VoidInvoiceRequest body) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -669,7 +654,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for listConsolidatedInvoiceSegments.
      */
     private ApiCall<ConsolidatedInvoice, ApiException> prepareListConsolidatedInvoiceSegmentsRequest(
-            final ListConsolidatedInvoiceSegmentsInput input) throws IOException {
+            final ListConsolidatedInvoiceSegmentsInput input) {
         return new ApiCall.Builder<ConsolidatedInvoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -766,7 +751,7 @@ public final class InvoicesController extends BaseController {
      * parameter. #### Status By default, invoices will be created with open status. Possible
      * alternative is `draft`.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the InvoiceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -782,7 +767,7 @@ public final class InvoicesController extends BaseController {
      */
     private ApiCall<InvoiceResponse, ApiException> prepareCreateInvoiceRequest(
             final int subscriptionId,
-            final CreateInvoiceRequest body) throws JsonProcessingException, IOException {
+            final CreateInvoiceRequest body) {
         return new ApiCall.Builder<InvoiceResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -824,7 +809,7 @@ public final class InvoicesController extends BaseController {
      * a 422 response will be returned.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
@@ -839,7 +824,7 @@ public final class InvoicesController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareSendInvoiceRequest(
             final String uid,
-            final SendInvoiceRequest body) throws JsonProcessingException, IOException {
+            final SendInvoiceRequest body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -885,7 +870,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for previewCustomerInformationChanges.
      */
     private ApiCall<CustomerChangesPreviewResponse, ApiException> preparePreviewCustomerInformationChangesRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<CustomerChangesPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -933,7 +918,7 @@ public final class InvoicesController extends BaseController {
      * Builds the ApiCall object for updateCustomerInformation.
      */
     private ApiCall<Invoice, ApiException> prepareUpdateCustomerInformationRequest(
-            final String uid) throws IOException {
+            final String uid) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -982,7 +967,7 @@ public final class InvoicesController extends BaseController {
      * "past_due" or "canceled" state (depending upon net terms and dunning settings).
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -998,7 +983,7 @@ public final class InvoicesController extends BaseController {
      */
     private ApiCall<Invoice, ApiException> prepareIssueInvoiceRequest(
             final String uid,
-            final IssueInvoiceRequest body) throws JsonProcessingException, IOException {
+            final IssueInvoiceRequest body) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

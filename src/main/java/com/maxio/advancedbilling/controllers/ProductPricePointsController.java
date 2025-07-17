@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -58,7 +57,7 @@ public final class ProductPricePointsController extends BaseController {
      * Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261111947789-Product-Price-Points).
      * @param  productId  Required parameter: The id or handle of the product. When using the
      *         handle, it must be prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ProductPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -74,7 +73,7 @@ public final class ProductPricePointsController extends BaseController {
      */
     private ApiCall<ProductPricePointResponse, ApiException> prepareCreateProductPricePointRequest(
             final CreateProductPricePointProductId productId,
-            final CreateProductPricePointRequest body) throws JsonProcessingException, IOException {
+            final CreateProductPricePointRequest body) {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -118,7 +117,7 @@ public final class ProductPricePointsController extends BaseController {
      * Builds the ApiCall object for listProductPricePoints.
      */
     private ApiCall<ListProductPricePointsResponse, ApiException> prepareListProductPricePointsRequest(
-            final ListProductPricePointsInput input) throws IOException {
+            final ListProductPricePointsInput input) {
         return new ApiCall.Builder<ListProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -158,7 +157,7 @@ public final class ProductPricePointsController extends BaseController {
      * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
      *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
      *         `handle:example-product-price-point-handle` for a string handle.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ProductPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -176,7 +175,7 @@ public final class ProductPricePointsController extends BaseController {
     private ApiCall<ProductPricePointResponse, ApiException> prepareUpdateProductPricePointRequest(
             final UpdateProductPricePointProductId productId,
             final UpdateProductPricePointPricePointId pricePointId,
-            final UpdateProductPricePointRequest body) throws JsonProcessingException, IOException {
+            final UpdateProductPricePointRequest body) {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -236,7 +235,7 @@ public final class ProductPricePointsController extends BaseController {
     private ApiCall<ProductPricePointResponse, ApiException> prepareReadProductPricePointRequest(
             final ReadProductPricePointProductId productId,
             final ReadProductPricePointPricePointId pricePointId,
-            final Boolean currencyPrices) throws IOException {
+            final Boolean currencyPrices) {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -284,7 +283,7 @@ public final class ProductPricePointsController extends BaseController {
      */
     private ApiCall<ProductPricePointResponse, ApiException> prepareArchiveProductPricePointRequest(
             final ArchiveProductPricePointProductId productId,
-            final ArchiveProductPricePointPricePointId pricePointId) throws IOException {
+            final ArchiveProductPricePointPricePointId pricePointId) {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -330,7 +329,7 @@ public final class ProductPricePointsController extends BaseController {
      */
     private ApiCall<ProductPricePointResponse, ApiException> prepareUnarchiveProductPricePointRequest(
             final int productId,
-            final int pricePointId) throws IOException {
+            final int pricePointId) {
         return new ApiCall.Builder<ProductPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -374,7 +373,7 @@ public final class ProductPricePointsController extends BaseController {
      */
     private ApiCall<ProductResponse, ApiException> preparePromoteProductPricePointToDefaultRequest(
             final int productId,
-            final int pricePointId) throws IOException {
+            final int pricePointId) {
         return new ApiCall.Builder<ProductResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -401,7 +400,7 @@ public final class ProductPricePointsController extends BaseController {
      * Use this endpoint to create multiple product price points in one request.
      * @param  productId  Required parameter: The Advanced Billing id of the product to which the
      *         price points belong
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the BulkCreateProductPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -417,7 +416,7 @@ public final class ProductPricePointsController extends BaseController {
      */
     private ApiCall<BulkCreateProductPricePointsResponse, ApiException> prepareBulkCreateProductPricePointsRequest(
             final int productId,
-            final BulkCreateProductPricePointsRequest body) throws JsonProcessingException, IOException {
+            final BulkCreateProductPricePointsRequest body) {
         return new ApiCall.Builder<BulkCreateProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -453,7 +452,7 @@ public final class ProductPricePointsController extends BaseController {
      * able to be created for custom product price points.
      * @param  productPricePointId  Required parameter: The Advanced Billing id of the product price
      *         point
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -469,7 +468,7 @@ public final class ProductPricePointsController extends BaseController {
      */
     private ApiCall<CurrencyPricesResponse, ApiException> prepareCreateProductCurrencyPricesRequest(
             final int productPricePointId,
-            final CreateProductCurrencyPricesRequest body) throws JsonProcessingException, IOException {
+            final CreateProductCurrencyPricesRequest body) {
         return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -505,7 +504,7 @@ public final class ProductPricePointsController extends BaseController {
      * able to be updated for custom product price points.
      * @param  productPricePointId  Required parameter: The Advanced Billing id of the product price
      *         point
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the CurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -521,7 +520,7 @@ public final class ProductPricePointsController extends BaseController {
      */
     private ApiCall<CurrencyPricesResponse, ApiException> prepareUpdateProductCurrencyPricesRequest(
             final int productPricePointId,
-            final UpdateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
+            final UpdateCurrencyPricesRequest body) {
         return new ApiCall.Builder<CurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -565,7 +564,7 @@ public final class ProductPricePointsController extends BaseController {
      * Builds the ApiCall object for listAllProductPricePoints.
      */
     private ApiCall<ListProductPricePointsResponse, ApiException> prepareListAllProductPricePointsRequest(
-            final ListAllProductPricePointsInput input) throws IOException {
+            final ListAllProductPricePointsInput input) {
         return new ApiCall.Builder<ListProductPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
