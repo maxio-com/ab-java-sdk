@@ -1,11 +1,14 @@
 name: Build & run E2E tests
+
 on:
+  workflow_dispatch:
   push:
     branches:
       - "main"
   pull_request:
     branches:
       - "main"
+
 jobs:
   test:
     runs-on: ubuntu-latest
