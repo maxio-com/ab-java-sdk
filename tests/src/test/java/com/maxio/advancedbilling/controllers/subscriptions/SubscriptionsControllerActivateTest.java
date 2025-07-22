@@ -72,7 +72,7 @@ class SubscriptionsControllerActivateTest {
                         .activateSubscription(activeSubscription.getId(), new ActivateSubscriptionRequest())
                 )
                 .isBadRequest()
-                .hasErrorMap(Map.of("base", List.of("Only trialing or awaiting signup subscriptions can be activated immediately.")));
+                .hasErrorMap(Map.of("base", List.of("Only trialing, awaiting signup or awaiting signup date subscriptions can be activated immediately.")));
     }
 
     @ParameterizedTest
