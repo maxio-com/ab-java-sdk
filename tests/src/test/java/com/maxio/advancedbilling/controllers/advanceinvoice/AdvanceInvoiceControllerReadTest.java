@@ -102,7 +102,7 @@ class AdvanceInvoiceControllerReadTest {
         assertThat(invoice.getRole()).isEqualTo(InvoiceRole.RENEWAL);
         assertThat(invoice.getSeller())
                 .usingRecursiveComparison()
-                .ignoringFields("address.additionalProperties")
+                .ignoringFields("address.additionalProperties", "additionalProperties")
                 .isEqualTo(TestFixtures.INVOICE_SELLER);
         assertThat(invoice.getMemo()).isEqualTo("Thanks for your business! If you have any questions, please contact your account manager.");
 

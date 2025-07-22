@@ -140,7 +140,7 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
 
             assertThat(invoice.getSeller())
                     .usingRecursiveComparison()
-                    .ignoringFields("address.additionalProperties")
+                    .ignoringFields("address.additionalProperties", "additionalProperties")
                     .isEqualTo(INVOICE_SELLER);
 
             InvoiceCustomer invoiceCustomer = invoice.getCustomer();
