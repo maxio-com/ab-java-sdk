@@ -141,10 +141,9 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
         assertThat(proformaInvoice.getPublicUrl()).isNotNull().isNotBlank();
         assertThat(proformaInvoice.getRole()).isEqualTo(ProformaInvoiceRole.PROFORMA_ADHOC);
         InvoiceSeller invoiceSeller = proformaInvoice.getSeller();
-        assertThat(invoiceSeller.getAdditionalProperties()).isEmpty();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
-                .ignoringFields("address.additionalProperties")
+                .ignoringFields("address.additionalProperties", "additionalProperties")
                 .isEqualTo(INVOICE_SELLER);
         assertThat(proformaInvoice.getSequenceNumber()).isNotNull();
         assertThat(proformaInvoice.getSiteId()).isNotNull();

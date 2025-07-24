@@ -11,9 +11,12 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
+import java.time.ZonedDateTime;
 
 /**
  * This is a model class for ApplePayPaymentProfile type.
@@ -36,6 +39,8 @@ public class ApplePayPaymentProfile
     private PaymentType paymentType;
     private OptionalNullable<Integer> siteGatewaySettingId;
     private OptionalNullable<String> gatewayHandle;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
 
     /**
      * Default constructor.
@@ -62,6 +67,8 @@ public class ApplePayPaymentProfile
      * @param  billingAddress2  String value for billingAddress2.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
     public ApplePayPaymentProfile(
             PaymentType paymentType,
@@ -79,7 +86,9 @@ public class ApplePayPaymentProfile
             String customerVaultToken,
             String billingAddress2,
             Integer siteGatewaySettingId,
-            String gatewayHandle) {
+            String gatewayHandle,
+            ZonedDateTime createdAt,
+            ZonedDateTime updatedAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -96,6 +105,8 @@ public class ApplePayPaymentProfile
         this.paymentType = paymentType;
         this.siteGatewaySettingId = OptionalNullable.of(siteGatewaySettingId);
         this.gatewayHandle = OptionalNullable.of(gatewayHandle);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -116,6 +127,8 @@ public class ApplePayPaymentProfile
      * @param  billingAddress2  String value for billingAddress2.
      * @param  siteGatewaySettingId  Integer value for siteGatewaySettingId.
      * @param  gatewayHandle  String value for gatewayHandle.
+     * @param  createdAt  ZonedDateTime value for createdAt.
+     * @param  updatedAt  ZonedDateTime value for updatedAt.
      */
 
     protected ApplePayPaymentProfile(PaymentType paymentType, Integer id, String firstName,
@@ -124,8 +137,8 @@ public class ApplePayPaymentProfile
             OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
             OptionalNullable<String> billingAddress2,
-            OptionalNullable<Integer> siteGatewaySettingId,
-            OptionalNullable<String> gatewayHandle) {
+            OptionalNullable<Integer> siteGatewaySettingId, OptionalNullable<String> gatewayHandle,
+            ZonedDateTime createdAt, ZonedDateTime updatedAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -142,6 +155,8 @@ public class ApplePayPaymentProfile
         this.paymentType = paymentType;
         this.siteGatewaySettingId = siteGatewaySettingId;
         this.gatewayHandle = gatewayHandle;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -154,7 +169,7 @@ public class ApplePayPaymentProfile
         this(paymentType, null, null, null, null, null, null, OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
-                OptionalNullable.of(null), OptionalNullable.of(null));
+                OptionalNullable.of(null), OptionalNullable.of(null), null, null);
         unsetBillingAddress();
         unsetBillingCity();
         unsetBillingState();
@@ -650,6 +665,52 @@ public class ApplePayPaymentProfile
     }
 
     /**
+     * Getter for CreatedAt.
+     * A timestamp indicating when this payment profile was created
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("created_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Setter for CreatedAt.
+     * A timestamp indicating when this payment profile was created
+     * @param createdAt Value for ZonedDateTime
+     */
+    @JsonSetter("created_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Getter for UpdatedAt.
+     * A timestamp indicating when this payment profile was last updated
+     * @return Returns the ZonedDateTime
+     */
+    @JsonGetter("updated_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = DateTimeHelper.Rfc8601DateTimeSerializer.class)
+    public ZonedDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Setter for UpdatedAt.
+     * A timestamp indicating when this payment profile was last updated
+     * @param updatedAt Value for ZonedDateTime
+     */
+    @JsonSetter("updated_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
      * Converts this ApplePayPaymentProfile into string format.
      * @return String representation of this class
      */
@@ -663,7 +724,8 @@ public class ApplePayPaymentProfile
                 + ", billingCountry=" + billingCountry + ", customerVaultToken="
                 + customerVaultToken + ", billingAddress2=" + billingAddress2
                 + ", siteGatewaySettingId=" + siteGatewaySettingId + ", gatewayHandle="
-                + gatewayHandle + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + gatewayHandle + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -678,7 +740,9 @@ public class ApplePayPaymentProfile
                 .lastName(getLastName())
                 .customerId(getCustomerId())
                 .currentVault(getCurrentVault())
-                .vaultToken(getVaultToken());
+                .vaultToken(getVaultToken())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt());
         builder.billingAddress = internalGetBillingAddress();
         builder.billingCity = internalGetBillingCity();
         builder.billingState = internalGetBillingState();
@@ -711,6 +775,8 @@ public class ApplePayPaymentProfile
         private OptionalNullable<String> billingAddress2;
         private OptionalNullable<Integer> siteGatewaySettingId;
         private OptionalNullable<String> gatewayHandle;
+        private ZonedDateTime createdAt;
+        private ZonedDateTime updatedAt;
 
         /**
          * Initialization constructor.
@@ -968,6 +1034,26 @@ public class ApplePayPaymentProfile
         }
 
         /**
+         * Setter for createdAt.
+         * @param  createdAt  ZonedDateTime value for createdAt.
+         * @return Builder
+         */
+        public Builder createdAt(ZonedDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        /**
+         * Setter for updatedAt.
+         * @param  updatedAt  ZonedDateTime value for updatedAt.
+         * @return Builder
+         */
+        public Builder updatedAt(ZonedDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ApplePayPaymentProfile} object using the set fields.
          * @return {@link ApplePayPaymentProfile}
          */
@@ -975,7 +1061,7 @@ public class ApplePayPaymentProfile
             return new ApplePayPaymentProfile(paymentType, id, firstName, lastName, customerId,
                     currentVault, vaultToken, billingAddress, billingCity, billingState, billingZip,
                     billingCountry, customerVaultToken, billingAddress2, siteGatewaySettingId,
-                    gatewayHandle);
+                    gatewayHandle, createdAt, updatedAt);
         }
     }
 }

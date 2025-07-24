@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
@@ -150,35 +149,27 @@ public final class SubscriptionsController extends BaseController {
      * "last_name": "Smith", "email": "j.smith{@literal @}example.com" }, "credit_card_attributes": {
      * first_name: "Joe, last_name: "Smith", card_type: "visa", expiration_month: "05",
      * expiration_year: "2025", last_four: "1234", vault_token: "12345abc", current_vault:
-     * "braintree_blue" } } ``` ## Subscription with Credit Card ```json "subscription": {
-     * "product_handle": "basic", "customer_attributes": { "first_name": "Joe", "last_name": "Blow",
-     * "email": "joe{@literal @}example.com", "zip": "02120", "state": "MA", "reference": "XYZ", "phone":
-     * "(617) 111 - 0000", "organization": "Acme", "country": "US", "city": "Boston", "address_2":
-     * null, "address": "123 Mass Ave." }, "credit_card_attributes": { "last_name": "Smith",
-     * "first_name": "Joe", "full_number": "4111111111111111", "expiration_year": "2021",
-     * "expiration_month": "1", "card_type": "visa", "billing_zip": "02120", "billing_state": "MA",
-     * "billing_country": "US", "billing_city": "Boston", "billing_address_2": null,
-     * "billing_address": "123 Mass Ave." } } ``` ## Subscription with ACH as Payment Profile
-     * ```json { "subscription": { "product_handle": "gold-product", "customer_attributes": {
-     * "first_name": "Joe", "last_name": "Blow", "email": "joe{@literal @}example.com", "zip": "02120",
-     * "state": "MA", "reference": "XYZ", "phone": "(617) 111 - 0000", "organization": "Acme",
-     * "country": "US", "city": "Boston", "address_2": null, "address": "123 Mass Ave." },
-     * "bank_account_attributes": { "bank_name": "Best Bank", "bank_routing_number": "021000089",
-     * "bank_account_number": "111111111111", "bank_account_type": "checking",
-     * "bank_account_holder_type": "business", "payment_type": "bank_account" } } } ``` ##
-     * Subscription with PayPal payment profile ### With the nonce from Braintree JS ```json {
-     * "subscription": { "product_handle":"test-product-b", "customer_attributes": {
-     * "first_name":"Amelia", "last_name":"Johnson", "email":"amelia{@literal @}example.com",
-     * "organization":"My Awesome Company" }, "payment_profile_attributes":{ "paypal_email":
-     * "amelia{@literal @}example.com", "current_vault": "braintree_blue", "payment_method_nonce":"abc123",
-     * "payment_type":"paypal_account" } } ``` ### With the Braintree Customer ID as the vault
-     * token: ```json { "subscription": { "product_handle":"test-product-b", "customer_attributes":
-     * { "first_name":"Amelia", "last_name":"Johnson", "email":"amelia{@literal @}example.com",
-     * "organization":"My Awesome Company" }, "payment_profile_attributes":{ "paypal_email":
-     * "amelia{@literal @}example.com", "current_vault": "braintree_blue", "vault_token":"58271347",
-     * "payment_type":"paypal_account" } } ``` ## Subscription using GoCardless Bank Number These
-     * examples creates a customer, bank account and mandate in GoCardless. For more information on
-     * GoCardless, please view the following two resources: + [Payment Profiles via API for
+     * "braintree_blue" } } ``` ## Subscription with ACH as Payment Profile ```json {
+     * "subscription": { "product_handle": "gold-product", "customer_attributes": { "first_name":
+     * "Joe", "last_name": "Blow", "email": "joe{@literal @}example.com", "zip": "02120", "state": "MA",
+     * "reference": "XYZ", "phone": "(617) 111 - 0000", "organization": "Acme", "country": "US",
+     * "city": "Boston", "address_2": null, "address": "123 Mass Ave." }, "bank_account_attributes":
+     * { "bank_name": "Best Bank", "bank_routing_number": "021000089", "bank_account_number":
+     * "111111111111", "bank_account_type": "checking", "bank_account_holder_type": "business",
+     * "payment_type": "bank_account" } } } ``` ## Subscription with PayPal payment profile ### With
+     * the nonce from Braintree JS ```json { "subscription": { "product_handle":"test-product-b",
+     * "customer_attributes": { "first_name":"Amelia", "last_name":"Johnson",
+     * "email":"amelia{@literal @}example.com", "organization":"My Awesome Company" },
+     * "payment_profile_attributes":{ "paypal_email": "amelia{@literal @}example.com", "current_vault":
+     * "braintree_blue", "payment_method_nonce":"abc123", "payment_type":"paypal_account" } } ```
+     * ### With the Braintree Customer ID as the vault token: ```json { "subscription": {
+     * "product_handle":"test-product-b", "customer_attributes": { "first_name":"Amelia",
+     * "last_name":"Johnson", "email":"amelia{@literal @}example.com", "organization":"My Awesome Company" },
+     * "payment_profile_attributes":{ "paypal_email": "amelia{@literal @}example.com", "current_vault":
+     * "braintree_blue", "vault_token":"58271347", "payment_type":"paypal_account" } } ``` ##
+     * Subscription using GoCardless Bank Number These examples creates a customer, bank account and
+     * mandate in GoCardless. For more information on GoCardless, please view the following two
+     * resources: + [Payment Profiles via API for
      * GoCardless](https://developers.chargify.com/docs/api-docs/1f10a4f170405-create-payment-profile#gocardless)
      * + [Full documentation on
      * GoCardless](https://maxio.zendesk.com/hc/en-us/articles/24176159136909-GoCardless) + [Using
@@ -431,7 +422,7 @@ public final class SubscriptionsController extends BaseController {
      * "bank_account" }, "ach_agreement": { "agreement_terms": "ACH agreement terms",
      * "authorizer_first_name": "Jane", "authorizer_last_name": "Doe", "ip_address": "1.2.3.4" } }
      * ```.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -445,7 +436,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for createSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareCreateSubscriptionRequest(
-            final CreateSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final CreateSubscriptionRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -492,7 +483,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for listSubscriptions.
      */
     private ApiCall<List<SubscriptionResponse>, ApiException> prepareListSubscriptionsRequest(
-            final ListSubscriptionsInput input) throws IOException {
+            final ListSubscriptionsInput input) {
         return new ApiCall.Builder<List<SubscriptionResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -510,6 +501,8 @@ public final class SubscriptionsController extends BaseController {
                                 .value(input.getProductPricePointId()).isRequired(false))
                         .queryParam(param -> param.key("coupon")
                                 .value(input.getCoupon()).isRequired(false))
+                        .queryParam(param -> param.key("coupon_code")
+                                .value(input.getCouponCode()).isRequired(false))
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
@@ -584,7 +577,7 @@ public final class SubscriptionsController extends BaseController {
      * `null.` Another way of looking at this is that you willl have to wait for the next billing
      * cycle to arrive before the `snap_date` will reset to `null`.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -600,7 +593,7 @@ public final class SubscriptionsController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareUpdateSubscriptionRequest(
             final int subscriptionId,
-            final UpdateSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final UpdateSubscriptionRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -650,7 +643,7 @@ public final class SubscriptionsController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareReadSubscriptionRequest(
             final int subscriptionId,
-            final List<SubscriptionInclude> include) throws IOException {
+            final List<SubscriptionInclude> include) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -712,7 +705,7 @@ public final class SubscriptionsController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareOverrideSubscriptionRequest(
             final int subscriptionId,
-            final OverrideSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final OverrideSubscriptionRequest body) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -753,7 +746,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for findSubscription.
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareFindSubscriptionRequest(
-            final String reference) throws IOException {
+            final String reference) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -806,7 +799,7 @@ public final class SubscriptionsController extends BaseController {
     private ApiCall<SubscriptionResponse, ApiException> preparePurgeSubscriptionRequest(
             final int subscriptionId,
             final int ack,
-            final List<SubscriptionPurgeType> cascade) throws IOException {
+            final List<SubscriptionPurgeType> cascade) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -837,7 +830,7 @@ public final class SubscriptionsController extends BaseController {
     /**
      * Use this endpoint to update a subscription's prepaid configuration.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the PrepaidConfigurationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -853,7 +846,7 @@ public final class SubscriptionsController extends BaseController {
      */
     private ApiCall<PrepaidConfigurationResponse, ApiException> prepareUpdatePrepaidSubscriptionConfigurationRequest(
             final int subscriptionId,
-            final UpsertPrepaidConfigurationRequest body) throws JsonProcessingException, IOException {
+            final UpsertPrepaidConfigurationRequest body) {
         return new ApiCall.Builder<PrepaidConfigurationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -884,15 +877,15 @@ public final class SubscriptionsController extends BaseController {
     /**
      * The Chargify API allows you to preview a subscription by POSTing the same JSON or XML as for
      * a subscription creation. The "Next Billing" amount and "Next Billing" date are represented in
-     * each Subscriber's Summary. For more information, please see our documentation
+     * each Subscriber's Summary. A subscription will not be created by utilizing this endpoint; it
+     * is meant to serve as a prediction. For more information, please see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
-     * ## Side effects A subscription will not be created by sending a POST to this endpoint. It is
-     * meant to serve as a prediction. ## Taxable Subscriptions This endpoint will preview taxes
-     * applicable to a purchase. In order for taxes to be previewed, the following conditions must
-     * be met: + Taxes must be configured on the subscription + The preview must be for the purchase
-     * of a taxable product or component, or combination of the two. + The subscription payload must
-     * contain a full billing or shipping address in order to calculate tax For more information
-     * about creating taxable previews, please see our documentation guide on how to create [taxable
+     * ## Taxable Subscriptions This endpoint will preview taxes applicable to a purchase. In order
+     * for taxes to be previewed, the following conditions must be met: + Taxes must be configured
+     * on the subscription + The preview must be for the purchase of a taxable product or component,
+     * or combination of the two. + The subscription payload must contain a full billing or shipping
+     * address in order to calculate tax For more information about creating taxable previews,
+     * please see our documentation guide on how to create [taxable
      * subscriptions.](https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes) You do
      * **not** need to include a card number to generate tax information when you are previewing a
      * subscription. However, please note that when you actually want to create the subscription,
@@ -904,7 +897,7 @@ public final class SubscriptionsController extends BaseController {
      * `skip_billing_manifest_taxes: true` attribute. ## Non-taxable Subscriptions If you'd like to
      * calculate subscriptions that do not include tax, please feel free to leave off the billing
      * information.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -918,7 +911,7 @@ public final class SubscriptionsController extends BaseController {
      * Builds the ApiCall object for previewSubscription.
      */
     private ApiCall<SubscriptionPreviewResponse, ApiException> preparePreviewSubscriptionRequest(
-            final CreateSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final CreateSubscriptionRequest body) {
         return new ApiCall.Builder<SubscriptionPreviewResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -955,7 +948,7 @@ public final class SubscriptionsController extends BaseController {
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  code  Optional parameter: A code for the coupon that would be applied to a
      *         subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -973,7 +966,7 @@ public final class SubscriptionsController extends BaseController {
     private ApiCall<SubscriptionResponse, ApiException> prepareApplyCouponsToSubscriptionRequest(
             final int subscriptionId,
             final String code,
-            final AddCouponsRequest body) throws JsonProcessingException, IOException {
+            final AddCouponsRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -1024,7 +1017,7 @@ public final class SubscriptionsController extends BaseController {
      */
     private ApiCall<String, ApiException> prepareRemoveCouponFromSubscriptionRequest(
             final int subscriptionId,
-            final String couponCode) throws IOException {
+            final String couponCode) {
         return new ApiCall.Builder<String, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -1077,7 +1070,7 @@ public final class SubscriptionsController extends BaseController {
      * as Trialing, we will void the invoice from activation and return any prepayments and credits
      * applied to the invoice back to the subscription.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -1093,7 +1086,7 @@ public final class SubscriptionsController extends BaseController {
      */
     private ApiCall<SubscriptionResponse, ApiException> prepareActivateSubscriptionRequest(
             final int subscriptionId,
-            final ActivateSubscriptionRequest body) throws JsonProcessingException, IOException {
+            final ActivateSubscriptionRequest body) {
         return new ApiCall.Builder<SubscriptionResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

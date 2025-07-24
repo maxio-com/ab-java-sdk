@@ -27,6 +27,7 @@ public class ListSubscriptionsInput {
     private Integer product;
     private Integer productPricePointId;
     private Integer coupon;
+    private String couponCode;
     private SubscriptionDateField dateField;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -54,6 +55,7 @@ public class ListSubscriptionsInput {
      * @param  product  Integer value for product.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  coupon  Integer value for coupon.
+     * @param  couponCode  String value for couponCode.
      * @param  dateField  SubscriptionDateField value for dateField.
      * @param  startDate  LocalDate value for startDate.
      * @param  endDate  LocalDate value for endDate.
@@ -71,6 +73,7 @@ public class ListSubscriptionsInput {
             Integer product,
             Integer productPricePointId,
             Integer coupon,
+            String couponCode,
             SubscriptionDateField dateField,
             LocalDate startDate,
             LocalDate endDate,
@@ -86,6 +89,7 @@ public class ListSubscriptionsInput {
         this.product = product;
         this.productPricePointId = productPricePointId;
         this.coupon = coupon;
+        this.couponCode = couponCode;
         this.dateField = dateField;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -235,6 +239,27 @@ public class ListSubscriptionsInput {
     @JsonSetter("coupon")
     public void setCoupon(Integer coupon) {
         this.coupon = coupon;
+    }
+
+    /**
+     * Getter for CouponCode.
+     * The coupon code currently applied to the subscription
+     * @return Returns the String
+     */
+    @JsonGetter("coupon_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    /**
+     * Setter for CouponCode.
+     * The coupon code currently applied to the subscription
+     * @param couponCode Value for String
+     */
+    @JsonSetter("coupon_code")
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
     }
 
     /**
@@ -472,10 +497,10 @@ public class ListSubscriptionsInput {
     public String toString() {
         return "ListSubscriptionsInput [" + "page=" + page + ", perPage=" + perPage + ", state="
                 + state + ", product=" + product + ", productPricePointId=" + productPricePointId
-                + ", coupon=" + coupon + ", dateField=" + dateField + ", startDate=" + startDate
-                + ", endDate=" + endDate + ", startDatetime=" + startDatetime + ", endDatetime="
-                + endDatetime + ", metadata=" + metadata + ", direction=" + direction + ", sort="
-                + sort + ", include=" + include + "]";
+                + ", coupon=" + coupon + ", couponCode=" + couponCode + ", dateField=" + dateField
+                + ", startDate=" + startDate + ", endDate=" + endDate + ", startDatetime="
+                + startDatetime + ", endDatetime=" + endDatetime + ", metadata=" + metadata
+                + ", direction=" + direction + ", sort=" + sort + ", include=" + include + "]";
     }
 
     /**
@@ -491,6 +516,7 @@ public class ListSubscriptionsInput {
                 .product(getProduct())
                 .productPricePointId(getProductPricePointId())
                 .coupon(getCoupon())
+                .couponCode(getCouponCode())
                 .dateField(getDateField())
                 .startDate(getStartDate())
                 .endDate(getEndDate())
@@ -513,6 +539,7 @@ public class ListSubscriptionsInput {
         private Integer product;
         private Integer productPricePointId;
         private Integer coupon;
+        private String couponCode;
         private SubscriptionDateField dateField;
         private LocalDate startDate;
         private LocalDate endDate;
@@ -582,6 +609,16 @@ public class ListSubscriptionsInput {
          */
         public Builder coupon(Integer coupon) {
             this.coupon = coupon;
+            return this;
+        }
+
+        /**
+         * Setter for couponCode.
+         * @param  couponCode  String value for couponCode.
+         * @return Builder
+         */
+        public Builder couponCode(String couponCode) {
+            this.couponCode = couponCode;
             return this;
         }
 
@@ -681,8 +718,8 @@ public class ListSubscriptionsInput {
          */
         public ListSubscriptionsInput build() {
             return new ListSubscriptionsInput(page, perPage, state, product, productPricePointId,
-                    coupon, dateField, startDate, endDate, startDatetime, endDatetime, metadata,
-                    direction, sort, include);
+                    coupon, couponCode, dateField, startDate, endDate, startDatetime, endDatetime,
+                    metadata, direction, sort, include);
         }
     }
 }

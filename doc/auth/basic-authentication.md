@@ -23,6 +23,9 @@ Documentation for accessing and setting credentials for BasicAuth.
 You must provide credentials in the client as shown in the following code snippet.
 
 ```java
+import com.maxio.advancedbilling.AdvancedBillingClient;
+import com.maxio.advancedbilling.authentication.BasicAuthModel;
+
 AdvancedBillingClient client = new AdvancedBillingClient.Builder()
     .basicAuthCredentials(new BasicAuthModel.Builder(
             "BasicAuthUserName",

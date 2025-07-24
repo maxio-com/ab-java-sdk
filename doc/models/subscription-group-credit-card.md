@@ -9,9 +9,6 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `FullNumber` | [`SubscriptionGroupCreditCardFullNumber`](../../doc/models/containers/subscription-group-credit-card-full-number.md) | Optional | This is a container for one-of cases. | SubscriptionGroupCreditCardFullNumber getFullNumber() | setFullNumber(SubscriptionGroupCreditCardFullNumber fullNumber) |
-| `ExpirationMonth` | [`SubscriptionGroupCreditCardExpirationMonth`](../../doc/models/containers/subscription-group-credit-card-expiration-month.md) | Optional | This is a container for one-of cases. | SubscriptionGroupCreditCardExpirationMonth getExpirationMonth() | setExpirationMonth(SubscriptionGroupCreditCardExpirationMonth expirationMonth) |
-| `ExpirationYear` | [`SubscriptionGroupCreditCardExpirationYear`](../../doc/models/containers/subscription-group-credit-card-expiration-year.md) | Optional | This is a container for one-of cases. | SubscriptionGroupCreditCardExpirationYear getExpirationYear() | setExpirationYear(SubscriptionGroupCreditCardExpirationYear expirationYear) |
 | `ChargifyToken` | `String` | Optional | - | String getChargifyToken() | setChargifyToken(String chargifyToken) |
 | `VaultToken` | `String` | Optional | - | String getVaultToken() | setVaultToken(String vaultToken) |
 | `CurrentVault` | [`CreditCardVault`](../../doc/models/credit-card-vault.md) | Optional | The vault that stores the payment profile with the provided `vault_token`. Use `bogus` for testing. | CreditCardVault getCurrentVault() | setCurrentVault(CreditCardVault currentVault) |
@@ -24,6 +21,9 @@
 | `BillingState` | `String` | Optional | - | String getBillingState() | setBillingState(String billingState) |
 | `BillingZip` | `String` | Optional | - | String getBillingZip() | setBillingZip(String billingZip) |
 | `BillingCountry` | `String` | Optional | - | String getBillingCountry() | setBillingCountry(String billingCountry) |
+| `FullNumber` | [`SubscriptionGroupCreditCardFullNumber`](../../doc/models/containers/subscription-group-credit-card-full-number.md) | Optional | This is a container for one-of cases. | SubscriptionGroupCreditCardFullNumber getFullNumber() | setFullNumber(SubscriptionGroupCreditCardFullNumber fullNumber) |
+| `ExpirationMonth` | [`SubscriptionGroupCreditCardExpirationMonth`](../../doc/models/containers/subscription-group-credit-card-expiration-month.md) | Optional | This is a container for one-of cases. | SubscriptionGroupCreditCardExpirationMonth getExpirationMonth() | setExpirationMonth(SubscriptionGroupCreditCardExpirationMonth expirationMonth) |
+| `ExpirationYear` | [`SubscriptionGroupCreditCardExpirationYear`](../../doc/models/containers/subscription-group-credit-card-expiration-year.md) | Optional | This is a container for one-of cases. | SubscriptionGroupCreditCardExpirationYear getExpirationYear() | setExpirationYear(SubscriptionGroupCreditCardExpirationYear expirationYear) |
 | `LastFour` | `String` | Optional | - | String getLastFour() | setLastFour(String lastFour) |
 | `CardType` | [`CardType`](../../doc/models/card-type.md) | Optional | The type of card used. | CardType getCardType() | setCardType(CardType cardType) |
 | `CustomerVaultToken` | `String` | Optional | - | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
@@ -34,11 +34,12 @@
 
 ```json
 {
-  "full_number": 4111111111111111,
   "chargify_token": "tok_592nf92ng0sjd4300p",
-  "expiration_month": "String1",
-  "expiration_year": "String5",
-  "vault_token": "vault_token6"
+  "full_number": 4111111111111111,
+  "vault_token": "vault_token6",
+  "current_vault": "braintree_blue",
+  "gateway_handle": "gateway_handle6",
+  "first_name": "first_name4"
 }
 ```
 

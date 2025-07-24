@@ -10,8 +10,8 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Coupon` | [`CouponPayload`](../../doc/models/coupon-payload.md) | Optional | - | CouponPayload getCoupon() | setCoupon(CouponPayload coupon) |
-| `RestrictedProducts` | `Map<String, Boolean>` | Optional | An object where the keys are product_ids and the values are booleans indicating if the coupon should be applicable to the product | Map<String, Boolean> getRestrictedProducts() | setRestrictedProducts(Map<String, Boolean> restrictedProducts) |
-| `RestrictedComponents` | `Map<String, Boolean>` | Optional | An object where the keys are component_ids and the values are booleans indicating if the coupon should be applicable to the component | Map<String, Boolean> getRestrictedComponents() | setRestrictedComponents(Map<String, Boolean> restrictedComponents) |
+| `RestrictedProducts` | `Map<String, Boolean>` | Optional | An object where the keys are product IDs or handles (prefixed with 'handle:'), and the values are booleans indicating if the coupon should be applicable to the product | Map<String, Boolean> getRestrictedProducts() | setRestrictedProducts(Map<String, Boolean> restrictedProducts) |
+| `RestrictedComponents` | `Map<String, Boolean>` | Optional | An object where the keys are component IDs or handles (prefixed with 'handle:'), and the values are booleans indicating if the coupon should be applicable to the component | Map<String, Boolean> getRestrictedComponents() | setRestrictedComponents(Map<String, Boolean> restrictedComponents) |
 
 ## Example (as JSON)
 

@@ -30,6 +30,7 @@ public class Component
     private OptionalNullable<String> unitPrice;
     private Integer productFamilyId;
     private String productFamilyName;
+    private String productFamilyHandle;
     private OptionalNullable<Long> pricePerUnitInCents;
     private ComponentKind kind;
     private Boolean archived;
@@ -73,6 +74,7 @@ public class Component
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
+     * @param  productFamilyHandle  String value for productFamilyHandle.
      * @param  pricePerUnitInCents  Long value for pricePerUnitInCents.
      * @param  kind  ComponentKind value for kind.
      * @param  archived  Boolean value for archived.
@@ -109,6 +111,7 @@ public class Component
             String unitPrice,
             Integer productFamilyId,
             String productFamilyName,
+            String productFamilyHandle,
             Long pricePerUnitInCents,
             ComponentKind kind,
             Boolean archived,
@@ -143,6 +146,7 @@ public class Component
         this.unitPrice = OptionalNullable.of(unitPrice);
         this.productFamilyId = productFamilyId;
         this.productFamilyName = productFamilyName;
+        this.productFamilyHandle = productFamilyHandle;
         this.pricePerUnitInCents = OptionalNullable.of(pricePerUnitInCents);
         this.kind = kind;
         this.archived = archived;
@@ -181,6 +185,7 @@ public class Component
      * @param  unitPrice  String value for unitPrice.
      * @param  productFamilyId  Integer value for productFamilyId.
      * @param  productFamilyName  String value for productFamilyName.
+     * @param  productFamilyHandle  String value for productFamilyHandle.
      * @param  pricePerUnitInCents  Long value for pricePerUnitInCents.
      * @param  kind  ComponentKind value for kind.
      * @param  archived  Boolean value for archived.
@@ -212,9 +217,9 @@ public class Component
     protected Component(Integer id, String name, OptionalNullable<String> handle,
             OptionalNullable<PricingScheme> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
-            OptionalNullable<Long> pricePerUnitInCents, ComponentKind kind, Boolean archived,
-            Boolean taxable, OptionalNullable<String> description,
-            OptionalNullable<Integer> defaultPricePointId,
+            String productFamilyHandle, OptionalNullable<Long> pricePerUnitInCents,
+            ComponentKind kind, Boolean archived, Boolean taxable,
+            OptionalNullable<String> description, OptionalNullable<Integer> defaultPricePointId,
             OptionalNullable<List<ComponentPrice>> overagePrices,
             OptionalNullable<List<ComponentPrice>> prices, Integer pricePointCount,
             OptionalNullable<String> pricePointsUrl, String defaultPricePointName,
@@ -235,6 +240,7 @@ public class Component
         this.unitPrice = unitPrice;
         this.productFamilyId = productFamilyId;
         this.productFamilyName = productFamilyName;
+        this.productFamilyHandle = productFamilyHandle;
         this.pricePerUnitInCents = pricePerUnitInCents;
         this.kind = kind;
         this.archived = archived;
@@ -485,6 +491,27 @@ public class Component
     @JsonSetter("product_family_name")
     public void setProductFamilyName(String productFamilyName) {
         this.productFamilyName = productFamilyName;
+    }
+
+    /**
+     * Getter for ProductFamilyHandle.
+     * The handle of the Product Family to which the Component belongs
+     * @return Returns the String
+     */
+    @JsonGetter("product_family_handle")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getProductFamilyHandle() {
+        return productFamilyHandle;
+    }
+
+    /**
+     * Setter for ProductFamilyHandle.
+     * The handle of the Product Family to which the Component belongs
+     * @param productFamilyHandle Value for String
+     */
+    @JsonSetter("product_family_handle")
+    public void setProductFamilyHandle(String productFamilyHandle) {
+        this.productFamilyHandle = productFamilyHandle;
     }
 
     /**
@@ -1321,9 +1348,10 @@ public class Component
         return "Component [" + "id=" + id + ", name=" + name + ", handle=" + handle
                 + ", pricingScheme=" + pricingScheme + ", unitName=" + unitName + ", unitPrice="
                 + unitPrice + ", productFamilyId=" + productFamilyId + ", productFamilyName="
-                + productFamilyName + ", pricePerUnitInCents=" + pricePerUnitInCents + ", kind="
-                + kind + ", archived=" + archived + ", taxable=" + taxable + ", description="
-                + description + ", defaultPricePointId=" + defaultPricePointId + ", overagePrices="
+                + productFamilyName + ", productFamilyHandle=" + productFamilyHandle
+                + ", pricePerUnitInCents=" + pricePerUnitInCents + ", kind=" + kind + ", archived="
+                + archived + ", taxable=" + taxable + ", description=" + description
+                + ", defaultPricePointId=" + defaultPricePointId + ", overagePrices="
                 + overagePrices + ", prices=" + prices + ", pricePointCount=" + pricePointCount
                 + ", pricePointsUrl=" + pricePointsUrl + ", defaultPricePointName="
                 + defaultPricePointName + ", taxCode=" + taxCode + ", recurring=" + recurring
@@ -1349,6 +1377,7 @@ public class Component
                 .unitName(getUnitName())
                 .productFamilyId(getProductFamilyId())
                 .productFamilyName(getProductFamilyName())
+                .productFamilyHandle(getProductFamilyHandle())
                 .kind(getKind())
                 .archived(getArchived())
                 .taxable(getTaxable())
@@ -1393,6 +1422,7 @@ public class Component
         private OptionalNullable<String> unitPrice;
         private Integer productFamilyId;
         private String productFamilyName;
+        private String productFamilyHandle;
         private OptionalNullable<Long> pricePerUnitInCents;
         private ComponentKind kind;
         private Boolean archived;
@@ -1526,6 +1556,16 @@ public class Component
          */
         public Builder productFamilyName(String productFamilyName) {
             this.productFamilyName = productFamilyName;
+            return this;
+        }
+
+        /**
+         * Setter for productFamilyHandle.
+         * @param  productFamilyHandle  String value for productFamilyHandle.
+         * @return Builder
+         */
+        public Builder productFamilyHandle(String productFamilyHandle) {
+            this.productFamilyHandle = productFamilyHandle;
             return this;
         }
 
@@ -1921,10 +1961,10 @@ public class Component
          */
         public Component build() {
             return new Component(id, name, handle, pricingScheme, unitName, unitPrice,
-                    productFamilyId, productFamilyName, pricePerUnitInCents, kind, archived,
-                    taxable, description, defaultPricePointId, overagePrices, prices,
-                    pricePointCount, pricePointsUrl, defaultPricePointName, taxCode, recurring,
-                    upgradeCharge, downgradeCredit, createdAt, updatedAt, archivedAt,
+                    productFamilyId, productFamilyName, productFamilyHandle, pricePerUnitInCents,
+                    kind, archived, taxable, description, defaultPricePointId, overagePrices,
+                    prices, pricePointCount, pricePointsUrl, defaultPricePointName, taxCode,
+                    recurring, upgradeCharge, downgradeCredit, createdAt, updatedAt, archivedAt,
                     hideDateRangeOnInvoice, allowFractionalQuantities, itemCategory,
                     useSiteExchangeRate, accountingCode, eventBasedBillingMetricId, interval,
                     intervalUnit);

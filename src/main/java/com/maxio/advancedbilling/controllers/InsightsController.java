@@ -42,7 +42,7 @@ public final class InsightsController extends BaseController {
      * The Stats API is a very basic view of some Site-level stats. This API call only answers with
      * JSON responses. An XML version is not provided. ## Stats Documentation There currently is not
      * a complimentary matching set of documentation that compliments this endpoint. However, each
-     * Site's dashboard will reflect the summary of information provided in the Stats reposnse. ```
+     * Site's dashboard will reflect the summary of information provided in the Stats response. ```
      * https://subdomain.chargify.com/dashboard ```.
      * @return    Returns the SiteSummary response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -55,7 +55,7 @@ public final class InsightsController extends BaseController {
     /**
      * Builds the ApiCall object for readSiteStats.
      */
-    private ApiCall<SiteSummary, ApiException> prepareReadSiteStatsRequest() throws IOException {
+    private ApiCall<SiteSummary, ApiException> prepareReadSiteStatsRequest() {
         return new ApiCall.Builder<SiteSummary, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -98,7 +98,7 @@ public final class InsightsController extends BaseController {
      */
     private ApiCall<MRRResponse, ApiException> prepareReadMrrRequest(
             final ZonedDateTime atTime,
-            final Integer subscriptionId) throws IOException {
+            final Integer subscriptionId) {
         return new ApiCall.Builder<MRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -152,7 +152,7 @@ public final class InsightsController extends BaseController {
      * Builds the ApiCall object for listMrrMovements.
      */
     private ApiCall<ListMRRResponse, ApiException> prepareListMrrMovementsRequest(
-            final ListMrrMovementsInput input) throws IOException {
+            final ListMrrMovementsInput input) {
         return new ApiCall.Builder<ListMRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -199,7 +199,7 @@ public final class InsightsController extends BaseController {
      * Builds the ApiCall object for listMrrPerSubscription.
      */
     private ApiCall<SubscriptionMRRResponse, ApiException> prepareListMrrPerSubscriptionRequest(
-            final ListMrrPerSubscriptionInput input) throws IOException {
+            final ListMrrPerSubscriptionInput input) {
         return new ApiCall.Builder<SubscriptionMRRResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

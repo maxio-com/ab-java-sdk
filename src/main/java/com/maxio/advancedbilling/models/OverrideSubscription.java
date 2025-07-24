@@ -132,7 +132,8 @@ public class OverrideSubscription
      * Getter for ExpiresAt.
      * Can be used to record an external expiration date. Chargify sets this field automatically
      * when a subscription expires (ceases billing) after a prescribed amount of time. Only ISO8601
-     * format is supported.
+     * format is supported. This field is not supported when Multi-frequency is enabled for the
+     * Site. To change the Term End of a Subscription, use the Update Subscription endpoint.
      * @return Returns the ZonedDateTime
      */
     @JsonGetter("expires_at")
@@ -146,7 +147,8 @@ public class OverrideSubscription
      * Setter for ExpiresAt.
      * Can be used to record an external expiration date. Chargify sets this field automatically
      * when a subscription expires (ceases billing) after a prescribed amount of time. Only ISO8601
-     * format is supported.
+     * format is supported. This field is not supported when Multi-frequency is enabled for the
+     * Site. To change the Term End of a Subscription, use the Update Subscription endpoint.
      * @param expiresAt Value for ZonedDateTime
      */
     @JsonSetter("expires_at")

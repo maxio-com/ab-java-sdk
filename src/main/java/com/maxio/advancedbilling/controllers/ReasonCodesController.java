@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -39,15 +38,15 @@ public final class ReasonCodesController extends BaseController {
 
     /**
      * # Reason Codes Intro ReasonCodes are a way to gain a high level view of why your customers
-     * are cancelling the subcription to your product or service. Add a set of churn reason codes to
-     * be displayed in-app and/or the Maxio Billing Portal. As your subscribers decide to cancel
+     * are cancelling the subscription to your product or service. Add a set of churn reason codes
+     * to be displayed in-app and/or the Maxio Billing Portal. As your subscribers decide to cancel
      * their subscription, learn why they decided to cancel. ## Reason Code Documentation Full
      * documentation on how Reason Codes operate within Advanced Billing can be located under the
      * following links. [Churn Reason
      * Codes](https://maxio.zendesk.com/hc/en-us/articles/24286647554701-Churn-Reason-Codes) ##
      * Create Reason Code This method gives a merchant the option to create a reason codes for a
      * given Site.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ReasonCodeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -61,7 +60,7 @@ public final class ReasonCodesController extends BaseController {
      * Builds the ApiCall object for createReasonCode.
      */
     private ApiCall<ReasonCodeResponse, ApiException> prepareCreateReasonCodeRequest(
-            final CreateReasonCodeRequest body) throws JsonProcessingException, IOException {
+            final CreateReasonCodeRequest body) {
         return new ApiCall.Builder<ReasonCodeResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -104,7 +103,7 @@ public final class ReasonCodesController extends BaseController {
      * Builds the ApiCall object for listReasonCodes.
      */
     private ApiCall<List<ReasonCodeResponse>, ApiException> prepareListReasonCodesRequest(
-            final ListReasonCodesInput input) throws IOException {
+            final ListReasonCodesInput input) {
         return new ApiCall.Builder<List<ReasonCodeResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -148,7 +147,7 @@ public final class ReasonCodesController extends BaseController {
      * Builds the ApiCall object for readReasonCode.
      */
     private ApiCall<ReasonCodeResponse, ApiException> prepareReadReasonCodeRequest(
-            final int reasonCodeId) throws IOException {
+            final int reasonCodeId) {
         return new ApiCall.Builder<ReasonCodeResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -175,7 +174,7 @@ public final class ReasonCodesController extends BaseController {
     /**
      * This method gives a merchant the option to update an existing reason code for a given site.
      * @param  reasonCodeId  Required parameter: The Advanced Billing id of the reason code
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ReasonCodeResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -191,7 +190,7 @@ public final class ReasonCodesController extends BaseController {
      */
     private ApiCall<ReasonCodeResponse, ApiException> prepareUpdateReasonCodeRequest(
             final int reasonCodeId,
-            final UpdateReasonCodeRequest body) throws JsonProcessingException, IOException {
+            final UpdateReasonCodeRequest body) {
         return new ApiCall.Builder<ReasonCodeResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -224,7 +223,7 @@ public final class ReasonCodesController extends BaseController {
 
     /**
      * This method gives a merchant the option to delete one reason code from the Churn Reason
-     * Codes. This code will be immediately removed. This action is not reversable.
+     * Codes. This code will be immediately removed. This action is not reversible.
      * @param  reasonCodeId  Required parameter: The Advanced Billing id of the reason code
      * @return    Returns the OkResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -239,7 +238,7 @@ public final class ReasonCodesController extends BaseController {
      * Builds the ApiCall object for deleteReasonCode.
      */
     private ApiCall<OkResponse, ApiException> prepareDeleteReasonCodeRequest(
-            final int reasonCodeId) throws IOException {
+            final int reasonCodeId) {
         return new ApiCall.Builder<OkResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

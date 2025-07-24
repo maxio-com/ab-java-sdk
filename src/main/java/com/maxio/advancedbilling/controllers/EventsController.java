@@ -76,7 +76,7 @@ public final class EventsController extends BaseController {
      * Builds the ApiCall object for listEvents.
      */
     private ApiCall<List<EventResponse>, ApiException> prepareListEventsRequest(
-            final ListEventsInput input) throws IOException {
+            final ListEventsInput input) {
         return new ApiCall.Builder<List<EventResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -139,7 +139,7 @@ public final class EventsController extends BaseController {
      * Builds the ApiCall object for listSubscriptionEvents.
      */
     private ApiCall<List<EventResponse>, ApiException> prepareListSubscriptionEventsRequest(
-            final ListSubscriptionEventsInput input) throws IOException {
+            final ListSubscriptionEventsInput input) {
         return new ApiCall.Builder<List<EventResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -189,7 +189,7 @@ public final class EventsController extends BaseController {
      * Builds the ApiCall object for readEventsCount.
      */
     private ApiCall<CountResponse, ApiException> prepareReadEventsCountRequest(
-            final ReadEventsCountInput input) throws IOException {
+            final ReadEventsCountInput input) {
         return new ApiCall.Builder<CountResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

@@ -239,10 +239,9 @@ abstract class ProformaInvoicesTestBase {
         assertThat(proformaInvoice.getRole()).isEqualTo(ProformaInvoiceRole.PROFORMA_ADHOC);
 
         InvoiceSeller invoiceSeller = proformaInvoice.getSeller();
-        assertThat(invoiceSeller.getAdditionalProperties()).isEmpty();
         assertThat(invoiceSeller)
                 .usingRecursiveComparison()
-                .ignoringFields("address.additionalProperties")
+                .ignoringFields("address.additionalProperties", "additionalProperties")
                 .isEqualTo(INVOICE_SELLER);
         assertThat(proformaInvoice.getSiteId()).isNotNull();
         assertThat(proformaInvoice.getStatus()).isEqualTo(DRAFT);

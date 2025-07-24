@@ -53,7 +53,7 @@ public final class ReferralCodesController extends BaseController {
      * Builds the ApiCall object for validateReferralCode.
      */
     private ApiCall<ReferralValidationResponse, ApiException> prepareValidateReferralCodeRequest(
-            final String code) throws IOException {
+            final String code) {
         return new ApiCall.Builder<ReferralValidationResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

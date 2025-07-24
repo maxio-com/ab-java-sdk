@@ -54,7 +54,7 @@ public final class SitesController extends BaseController {
     /**
      * Builds the ApiCall object for readSite.
      */
-    private ApiCall<SiteResponse, ApiException> prepareReadSiteRequest() throws IOException {
+    private ApiCall<SiteResponse, ApiException> prepareReadSiteRequest() {
         return new ApiCall.Builder<SiteResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -95,7 +95,7 @@ public final class SitesController extends BaseController {
      * Builds the ApiCall object for clearSite.
      */
     private ApiCall<Void, ApiException> prepareClearSiteRequest(
-            final CleanupScope cleanupScope) throws IOException {
+            final CleanupScope cleanupScope) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -129,7 +129,7 @@ public final class SitesController extends BaseController {
      * Builds the ApiCall object for listChargifyJsPublicKeys.
      */
     private ApiCall<ListPublicKeysResponse, ApiException> prepareListChargifyJsPublicKeysRequest(
-            final ListChargifyJsPublicKeysInput input) throws IOException {
+            final ListChargifyJsPublicKeysInput input) {
         return new ApiCall.Builder<ListPublicKeysResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

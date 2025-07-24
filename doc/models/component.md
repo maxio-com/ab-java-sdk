@@ -17,6 +17,7 @@
 | `UnitPrice` | `String` | Optional | The amount the customer will be charged per unit. This field is only populated for ‘per_unit’ pricing schemes, otherwise it may be null. | String getUnitPrice() | setUnitPrice(String unitPrice) |
 | `ProductFamilyId` | `Integer` | Optional | The id of the Product Family to which the Component belongs | Integer getProductFamilyId() | setProductFamilyId(Integer productFamilyId) |
 | `ProductFamilyName` | `String` | Optional | The name of the Product Family to which the Component belongs | String getProductFamilyName() | setProductFamilyName(String productFamilyName) |
+| `ProductFamilyHandle` | `String` | Optional | The handle of the Product Family to which the Component belongs | String getProductFamilyHandle() | setProductFamilyHandle(String productFamilyHandle) |
 | `PricePerUnitInCents` | `Long` | Optional | deprecated - use unit_price instead | Long getPricePerUnitInCents() | setPricePerUnitInCents(Long pricePerUnitInCents) |
 | `Kind` | [`ComponentKind`](../../doc/models/component-kind.md) | Optional | A handle for the component type | ComponentKind getKind() | setKind(ComponentKind kind) |
 | `Archived` | `Boolean` | Optional | Boolean flag describing whether a component is archived or not. | Boolean getArchived() | setArchived(Boolean archived) |

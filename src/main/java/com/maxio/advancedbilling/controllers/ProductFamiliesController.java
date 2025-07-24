@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
@@ -54,7 +53,7 @@ public final class ProductFamiliesController extends BaseController {
      * Builds the ApiCall object for listProductsForProductFamily.
      */
     private ApiCall<List<ProductResponse>, ApiException> prepareListProductsForProductFamilyRequest(
-            final ListProductsForProductFamilyInput input) throws IOException {
+            final ListProductsForProductFamilyInput input) {
         return new ApiCall.Builder<List<ProductResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -93,7 +92,7 @@ public final class ProductFamiliesController extends BaseController {
                                         ProductResponse[].class))
                         .nullify404(false)
                         .localErrorCase("404",
-                                 ErrorCase.setReason("Not Found",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
                                 (reason, context) -> new ApiException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
@@ -104,7 +103,7 @@ public final class ProductFamiliesController extends BaseController {
      * Family to act as a container for your products, components and coupons. Full documentation on
      * how Product Families operate within the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-Families).
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ProductFamilyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -118,7 +117,7 @@ public final class ProductFamiliesController extends BaseController {
      * Builds the ApiCall object for createProductFamily.
      */
     private ApiCall<ProductFamilyResponse, ApiException> prepareCreateProductFamilyRequest(
-            final CreateProductFamilyRequest body) throws JsonProcessingException, IOException {
+            final CreateProductFamilyRequest body) {
         return new ApiCall.Builder<ProductFamilyResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -160,7 +159,7 @@ public final class ProductFamiliesController extends BaseController {
      * Builds the ApiCall object for listProductFamilies.
      */
     private ApiCall<List<ProductFamilyResponse>, ApiException> prepareListProductFamiliesRequest(
-            final ListProductFamiliesInput input) throws IOException {
+            final ListProductFamiliesInput input) {
         return new ApiCall.Builder<List<ProductFamilyResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -208,7 +207,7 @@ public final class ProductFamiliesController extends BaseController {
      * Builds the ApiCall object for readProductFamily.
      */
     private ApiCall<ProductFamilyResponse, ApiException> prepareReadProductFamilyRequest(
-            final int id) throws IOException {
+            final int id) {
         return new ApiCall.Builder<ProductFamilyResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

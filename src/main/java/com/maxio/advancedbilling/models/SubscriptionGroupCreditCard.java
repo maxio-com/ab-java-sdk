@@ -19,9 +19,6 @@ import io.apimatic.core.types.BaseModel;
  */
 public class SubscriptionGroupCreditCard
         extends BaseModel {
-    private SubscriptionGroupCreditCardFullNumber fullNumber;
-    private SubscriptionGroupCreditCardExpirationMonth expirationMonth;
-    private SubscriptionGroupCreditCardExpirationYear expirationYear;
     private String chargifyToken;
     private String vaultToken;
     private CreditCardVault currentVault;
@@ -34,6 +31,9 @@ public class SubscriptionGroupCreditCard
     private String billingState;
     private String billingZip;
     private String billingCountry;
+    private SubscriptionGroupCreditCardFullNumber fullNumber;
+    private SubscriptionGroupCreditCardExpirationMonth expirationMonth;
+    private SubscriptionGroupCreditCardExpirationYear expirationYear;
     private String lastFour;
     private CardType cardType;
     private String customerVaultToken;
@@ -48,10 +48,6 @@ public class SubscriptionGroupCreditCard
 
     /**
      * Initialization constructor.
-     * @param  fullNumber  SubscriptionGroupCreditCardFullNumber value for fullNumber.
-     * @param  expirationMonth  SubscriptionGroupCreditCardExpirationMonth value for
-     *         expirationMonth.
-     * @param  expirationYear  SubscriptionGroupCreditCardExpirationYear value for expirationYear.
      * @param  chargifyToken  String value for chargifyToken.
      * @param  vaultToken  String value for vaultToken.
      * @param  currentVault  CreditCardVault value for currentVault.
@@ -64,6 +60,10 @@ public class SubscriptionGroupCreditCard
      * @param  billingState  String value for billingState.
      * @param  billingZip  String value for billingZip.
      * @param  billingCountry  String value for billingCountry.
+     * @param  fullNumber  SubscriptionGroupCreditCardFullNumber value for fullNumber.
+     * @param  expirationMonth  SubscriptionGroupCreditCardExpirationMonth value for
+     *         expirationMonth.
+     * @param  expirationYear  SubscriptionGroupCreditCardExpirationYear value for expirationYear.
      * @param  lastFour  String value for lastFour.
      * @param  cardType  CardType value for cardType.
      * @param  customerVaultToken  String value for customerVaultToken.
@@ -71,9 +71,6 @@ public class SubscriptionGroupCreditCard
      * @param  paymentType  String value for paymentType.
      */
     public SubscriptionGroupCreditCard(
-            SubscriptionGroupCreditCardFullNumber fullNumber,
-            SubscriptionGroupCreditCardExpirationMonth expirationMonth,
-            SubscriptionGroupCreditCardExpirationYear expirationYear,
             String chargifyToken,
             String vaultToken,
             CreditCardVault currentVault,
@@ -86,14 +83,14 @@ public class SubscriptionGroupCreditCard
             String billingState,
             String billingZip,
             String billingCountry,
+            SubscriptionGroupCreditCardFullNumber fullNumber,
+            SubscriptionGroupCreditCardExpirationMonth expirationMonth,
+            SubscriptionGroupCreditCardExpirationYear expirationYear,
             String lastFour,
             CardType cardType,
             String customerVaultToken,
             String cvv,
             String paymentType) {
-        this.fullNumber = fullNumber;
-        this.expirationMonth = expirationMonth;
-        this.expirationYear = expirationYear;
         this.chargifyToken = chargifyToken;
         this.vaultToken = vaultToken;
         this.currentVault = currentVault;
@@ -106,68 +103,14 @@ public class SubscriptionGroupCreditCard
         this.billingState = billingState;
         this.billingZip = billingZip;
         this.billingCountry = billingCountry;
+        this.fullNumber = fullNumber;
+        this.expirationMonth = expirationMonth;
+        this.expirationYear = expirationYear;
         this.lastFour = lastFour;
         this.cardType = cardType;
         this.customerVaultToken = customerVaultToken;
         this.cvv = cvv;
         this.paymentType = paymentType;
-    }
-
-    /**
-     * Getter for FullNumber.
-     * @return Returns the SubscriptionGroupCreditCardFullNumber
-     */
-    @JsonGetter("full_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionGroupCreditCardFullNumber getFullNumber() {
-        return fullNumber;
-    }
-
-    /**
-     * Setter for FullNumber.
-     * @param fullNumber Value for SubscriptionGroupCreditCardFullNumber
-     */
-    @JsonSetter("full_number")
-    public void setFullNumber(SubscriptionGroupCreditCardFullNumber fullNumber) {
-        this.fullNumber = fullNumber;
-    }
-
-    /**
-     * Getter for ExpirationMonth.
-     * @return Returns the SubscriptionGroupCreditCardExpirationMonth
-     */
-    @JsonGetter("expiration_month")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionGroupCreditCardExpirationMonth getExpirationMonth() {
-        return expirationMonth;
-    }
-
-    /**
-     * Setter for ExpirationMonth.
-     * @param expirationMonth Value for SubscriptionGroupCreditCardExpirationMonth
-     */
-    @JsonSetter("expiration_month")
-    public void setExpirationMonth(SubscriptionGroupCreditCardExpirationMonth expirationMonth) {
-        this.expirationMonth = expirationMonth;
-    }
-
-    /**
-     * Getter for ExpirationYear.
-     * @return Returns the SubscriptionGroupCreditCardExpirationYear
-     */
-    @JsonGetter("expiration_year")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionGroupCreditCardExpirationYear getExpirationYear() {
-        return expirationYear;
-    }
-
-    /**
-     * Setter for ExpirationYear.
-     * @param expirationYear Value for SubscriptionGroupCreditCardExpirationYear
-     */
-    @JsonSetter("expiration_year")
-    public void setExpirationYear(SubscriptionGroupCreditCardExpirationYear expirationYear) {
-        this.expirationYear = expirationYear;
     }
 
     /**
@@ -403,6 +346,63 @@ public class SubscriptionGroupCreditCard
     }
 
     /**
+     * Getter for FullNumber.
+     * @return Returns the SubscriptionGroupCreditCardFullNumber
+     */
+    @JsonGetter("full_number")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SubscriptionGroupCreditCardFullNumber getFullNumber() {
+        return fullNumber;
+    }
+
+    /**
+     * Setter for FullNumber.
+     * @param fullNumber Value for SubscriptionGroupCreditCardFullNumber
+     */
+    @JsonSetter("full_number")
+    public void setFullNumber(SubscriptionGroupCreditCardFullNumber fullNumber) {
+        this.fullNumber = fullNumber;
+    }
+
+    /**
+     * Getter for ExpirationMonth.
+     * @return Returns the SubscriptionGroupCreditCardExpirationMonth
+     */
+    @JsonGetter("expiration_month")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SubscriptionGroupCreditCardExpirationMonth getExpirationMonth() {
+        return expirationMonth;
+    }
+
+    /**
+     * Setter for ExpirationMonth.
+     * @param expirationMonth Value for SubscriptionGroupCreditCardExpirationMonth
+     */
+    @JsonSetter("expiration_month")
+    public void setExpirationMonth(SubscriptionGroupCreditCardExpirationMonth expirationMonth) {
+        this.expirationMonth = expirationMonth;
+    }
+
+    /**
+     * Getter for ExpirationYear.
+     * @return Returns the SubscriptionGroupCreditCardExpirationYear
+     */
+    @JsonGetter("expiration_year")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SubscriptionGroupCreditCardExpirationYear getExpirationYear() {
+        return expirationYear;
+    }
+
+    /**
+     * Setter for ExpirationYear.
+     * @param expirationYear Value for SubscriptionGroupCreditCardExpirationYear
+     */
+    @JsonSetter("expiration_year")
+    public void setExpirationYear(SubscriptionGroupCreditCardExpirationYear expirationYear) {
+        this.expirationYear = expirationYear;
+    }
+
+    /**
      * Getter for LastFour.
      * @return Returns the String
      */
@@ -505,13 +505,13 @@ public class SubscriptionGroupCreditCard
      */
     @Override
     public String toString() {
-        return "SubscriptionGroupCreditCard [" + "fullNumber=" + fullNumber + ", expirationMonth="
-                + expirationMonth + ", expirationYear=" + expirationYear + ", chargifyToken="
-                + chargifyToken + ", vaultToken=" + vaultToken + ", currentVault=" + currentVault
-                + ", gatewayHandle=" + gatewayHandle + ", firstName=" + firstName + ", lastName="
-                + lastName + ", billingAddress=" + billingAddress + ", billingAddress2="
-                + billingAddress2 + ", billingCity=" + billingCity + ", billingState="
-                + billingState + ", billingZip=" + billingZip + ", billingCountry=" + billingCountry
+        return "SubscriptionGroupCreditCard [" + "chargifyToken=" + chargifyToken + ", vaultToken="
+                + vaultToken + ", currentVault=" + currentVault + ", gatewayHandle=" + gatewayHandle
+                + ", firstName=" + firstName + ", lastName=" + lastName + ", billingAddress="
+                + billingAddress + ", billingAddress2=" + billingAddress2 + ", billingCity="
+                + billingCity + ", billingState=" + billingState + ", billingZip=" + billingZip
+                + ", billingCountry=" + billingCountry + ", fullNumber=" + fullNumber
+                + ", expirationMonth=" + expirationMonth + ", expirationYear=" + expirationYear
                 + ", lastFour=" + lastFour + ", cardType=" + cardType + ", customerVaultToken="
                 + customerVaultToken + ", cvv=" + cvv + ", paymentType=" + paymentType
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
@@ -524,9 +524,6 @@ public class SubscriptionGroupCreditCard
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
-                .fullNumber(getFullNumber())
-                .expirationMonth(getExpirationMonth())
-                .expirationYear(getExpirationYear())
                 .chargifyToken(getChargifyToken())
                 .vaultToken(getVaultToken())
                 .currentVault(getCurrentVault())
@@ -539,6 +536,9 @@ public class SubscriptionGroupCreditCard
                 .billingState(getBillingState())
                 .billingZip(getBillingZip())
                 .billingCountry(getBillingCountry())
+                .fullNumber(getFullNumber())
+                .expirationMonth(getExpirationMonth())
+                .expirationYear(getExpirationYear())
                 .lastFour(getLastFour())
                 .cardType(getCardType())
                 .customerVaultToken(getCustomerVaultToken())
@@ -551,9 +551,6 @@ public class SubscriptionGroupCreditCard
      * Class to build instances of {@link SubscriptionGroupCreditCard}.
      */
     public static class Builder {
-        private SubscriptionGroupCreditCardFullNumber fullNumber;
-        private SubscriptionGroupCreditCardExpirationMonth expirationMonth;
-        private SubscriptionGroupCreditCardExpirationYear expirationYear;
         private String chargifyToken;
         private String vaultToken;
         private CreditCardVault currentVault;
@@ -566,6 +563,9 @@ public class SubscriptionGroupCreditCard
         private String billingState;
         private String billingZip;
         private String billingCountry;
+        private SubscriptionGroupCreditCardFullNumber fullNumber;
+        private SubscriptionGroupCreditCardExpirationMonth expirationMonth;
+        private SubscriptionGroupCreditCardExpirationYear expirationYear;
         private String lastFour;
         private CardType cardType;
         private String customerVaultToken;
@@ -573,39 +573,6 @@ public class SubscriptionGroupCreditCard
         private String paymentType;
 
 
-
-        /**
-         * Setter for fullNumber.
-         * @param  fullNumber  SubscriptionGroupCreditCardFullNumber value for fullNumber.
-         * @return Builder
-         */
-        public Builder fullNumber(SubscriptionGroupCreditCardFullNumber fullNumber) {
-            this.fullNumber = fullNumber;
-            return this;
-        }
-
-        /**
-         * Setter for expirationMonth.
-         * @param  expirationMonth  SubscriptionGroupCreditCardExpirationMonth value for
-         *         expirationMonth.
-         * @return Builder
-         */
-        public Builder expirationMonth(
-                SubscriptionGroupCreditCardExpirationMonth expirationMonth) {
-            this.expirationMonth = expirationMonth;
-            return this;
-        }
-
-        /**
-         * Setter for expirationYear.
-         * @param  expirationYear  SubscriptionGroupCreditCardExpirationYear value for
-         *         expirationYear.
-         * @return Builder
-         */
-        public Builder expirationYear(SubscriptionGroupCreditCardExpirationYear expirationYear) {
-            this.expirationYear = expirationYear;
-            return this;
-        }
 
         /**
          * Setter for chargifyToken.
@@ -728,6 +695,39 @@ public class SubscriptionGroupCreditCard
         }
 
         /**
+         * Setter for fullNumber.
+         * @param  fullNumber  SubscriptionGroupCreditCardFullNumber value for fullNumber.
+         * @return Builder
+         */
+        public Builder fullNumber(SubscriptionGroupCreditCardFullNumber fullNumber) {
+            this.fullNumber = fullNumber;
+            return this;
+        }
+
+        /**
+         * Setter for expirationMonth.
+         * @param  expirationMonth  SubscriptionGroupCreditCardExpirationMonth value for
+         *         expirationMonth.
+         * @return Builder
+         */
+        public Builder expirationMonth(
+                SubscriptionGroupCreditCardExpirationMonth expirationMonth) {
+            this.expirationMonth = expirationMonth;
+            return this;
+        }
+
+        /**
+         * Setter for expirationYear.
+         * @param  expirationYear  SubscriptionGroupCreditCardExpirationYear value for
+         *         expirationYear.
+         * @return Builder
+         */
+        public Builder expirationYear(SubscriptionGroupCreditCardExpirationYear expirationYear) {
+            this.expirationYear = expirationYear;
+            return this;
+        }
+
+        /**
          * Setter for lastFour.
          * @param  lastFour  String value for lastFour.
          * @return Builder
@@ -782,10 +782,11 @@ public class SubscriptionGroupCreditCard
          * @return {@link SubscriptionGroupCreditCard}
          */
         public SubscriptionGroupCreditCard build() {
-            return new SubscriptionGroupCreditCard(fullNumber, expirationMonth, expirationYear,
-                    chargifyToken, vaultToken, currentVault, gatewayHandle, firstName, lastName,
-                    billingAddress, billingAddress2, billingCity, billingState, billingZip,
-                    billingCountry, lastFour, cardType, customerVaultToken, cvv, paymentType);
+            return new SubscriptionGroupCreditCard(chargifyToken, vaultToken, currentVault,
+                    gatewayHandle, firstName, lastName, billingAddress, billingAddress2,
+                    billingCity, billingState, billingZip, billingCountry, fullNumber,
+                    expirationMonth, expirationYear, lastFour, cardType, customerVaultToken, cvv,
+                    paymentType);
         }
     }
 }

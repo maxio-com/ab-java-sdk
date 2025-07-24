@@ -37,6 +37,7 @@ public class CreateSubscription
     private Integer customerId;
     private ZonedDateTime nextBillingAt;
     private ZonedDateTime initialBillingAt;
+    private Boolean deferSignup;
     private Integer storedCredentialTransactionId;
     private Integer salesRepId;
     private Integer paymentProfileId;
@@ -78,6 +79,7 @@ public class CreateSubscription
      * Default constructor.
      */
     public CreateSubscription() {
+        deferSignup = false;
         dunningCommunicationDelayEnabled = false;
         skipBillingManifestTaxes = false;
     }
@@ -97,6 +99,7 @@ public class CreateSubscription
      * @param  customerId  Integer value for customerId.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
      * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
+     * @param  deferSignup  Boolean value for deferSignup.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  salesRepId  Integer value for salesRepId.
      * @param  paymentProfileId  Integer value for paymentProfileId.
@@ -151,6 +154,7 @@ public class CreateSubscription
             Integer customerId,
             ZonedDateTime nextBillingAt,
             ZonedDateTime initialBillingAt,
+            Boolean deferSignup,
             Integer storedCredentialTransactionId,
             Integer salesRepId,
             Integer paymentProfileId,
@@ -200,6 +204,7 @@ public class CreateSubscription
         this.customerId = customerId;
         this.nextBillingAt = nextBillingAt;
         this.initialBillingAt = initialBillingAt;
+        this.deferSignup = deferSignup;
         this.storedCredentialTransactionId = storedCredentialTransactionId;
         this.salesRepId = salesRepId;
         this.paymentProfileId = paymentProfileId;
@@ -254,6 +259,7 @@ public class CreateSubscription
      * @param  customerId  Integer value for customerId.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
      * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
+     * @param  deferSignup  Boolean value for deferSignup.
      * @param  storedCredentialTransactionId  Integer value for storedCredentialTransactionId.
      * @param  salesRepId  Integer value for salesRepId.
      * @param  paymentProfileId  Integer value for paymentProfileId.
@@ -300,8 +306,8 @@ public class CreateSubscription
             SubscriptionCustomPrice customPrice, String couponCode, List<String> couponCodes,
             CollectionMethod paymentCollectionMethod, String receivesInvoiceEmails, String netTerms,
             Integer customerId, ZonedDateTime nextBillingAt, ZonedDateTime initialBillingAt,
-            Integer storedCredentialTransactionId, Integer salesRepId, Integer paymentProfileId,
-            String reference, CustomerAttributes customerAttributes,
+            Boolean deferSignup, Integer storedCredentialTransactionId, Integer salesRepId,
+            Integer paymentProfileId, String reference, CustomerAttributes customerAttributes,
             PaymentProfileAttributes paymentProfileAttributes,
             PaymentProfileAttributes creditCardAttributes,
             BankAccountAttributes bankAccountAttributes,
@@ -330,6 +336,7 @@ public class CreateSubscription
         this.customerId = customerId;
         this.nextBillingAt = nextBillingAt;
         this.initialBillingAt = initialBillingAt;
+        this.deferSignup = deferSignup;
         this.storedCredentialTransactionId = storedCredentialTransactionId;
         this.salesRepId = salesRepId;
         this.paymentProfileId = paymentProfileId;
@@ -660,17 +667,17 @@ public class CreateSubscription
 
     /**
      * Getter for InitialBillingAt.
-     * (Optional) Set this attribute to a future date/time to create a subscription in the "Awaiting
-     * Signup" state, rather than "Active" or "Trialing". See the notes on “Date/Time Format” in our
-     * [subscription import
-     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
-     * In the "Awaiting Signup" state, a subscription behaves like any other. It can be canceled,
-     * allocated to, had its billing date changed. etc. When the initial_billing_at date hits, the
-     * subscription will transition to the expected state. If the product has a trial, the
-     * subscription will enter a trial, otherwise it will go active. Setup fees will be respected
-     * either before or after the trial, as configured on the price point. If the payment is due at
-     * the initial_billing_at and it fails the subscription will be immediately canceled. See
-     * further notes in the section on Delayed Signups.
+     * (Optional) Set this attribute to a future date/time to create a subscription in the Awaiting
+     * Signup state, rather than Active or Trialing. You can omit the initial_billing_at date to
+     * activate the subscription immediately. In the Awaiting Signup state, a subscription behaves
+     * like any other. It can be canceled, allocated to, or have its billing date changed. etc. When
+     * the initial_billing_at date hits, the subscription will transition to the expected state. If
+     * the product has a trial, the subscription will enter a trial, otherwise it will go active.
+     * Setup fees will be respected either before or after the trial, as configured on the price
+     * point. If the payment is due at the initial_billing_at and it fails the subscription will be
+     * immediately canceled. See the [subscription
+     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * documentation for more information about Date/Time Formats.
      * @return Returns the ZonedDateTime
      */
     @JsonGetter("initial_billing_at")
@@ -682,23 +689,58 @@ public class CreateSubscription
 
     /**
      * Setter for InitialBillingAt.
-     * (Optional) Set this attribute to a future date/time to create a subscription in the "Awaiting
-     * Signup" state, rather than "Active" or "Trialing". See the notes on “Date/Time Format” in our
-     * [subscription import
-     * documentation](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format).
-     * In the "Awaiting Signup" state, a subscription behaves like any other. It can be canceled,
-     * allocated to, had its billing date changed. etc. When the initial_billing_at date hits, the
-     * subscription will transition to the expected state. If the product has a trial, the
-     * subscription will enter a trial, otherwise it will go active. Setup fees will be respected
-     * either before or after the trial, as configured on the price point. If the payment is due at
-     * the initial_billing_at and it fails the subscription will be immediately canceled. See
-     * further notes in the section on Delayed Signups.
+     * (Optional) Set this attribute to a future date/time to create a subscription in the Awaiting
+     * Signup state, rather than Active or Trialing. You can omit the initial_billing_at date to
+     * activate the subscription immediately. In the Awaiting Signup state, a subscription behaves
+     * like any other. It can be canceled, allocated to, or have its billing date changed. etc. When
+     * the initial_billing_at date hits, the subscription will transition to the expected state. If
+     * the product has a trial, the subscription will enter a trial, otherwise it will go active.
+     * Setup fees will be respected either before or after the trial, as configured on the price
+     * point. If the payment is due at the initial_billing_at and it fails the subscription will be
+     * immediately canceled. See the [subscription
+     * import](https://maxio.zendesk.com/hc/en-us/articles/24251489107213-Advanced-Billing-Subscription-Imports#date-format)
+     * documentation for more information about Date/Time Formats.
      * @param initialBillingAt Value for ZonedDateTime
      */
     @JsonSetter("initial_billing_at")
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setInitialBillingAt(ZonedDateTime initialBillingAt) {
         this.initialBillingAt = initialBillingAt;
+    }
+
+    /**
+     * Getter for DeferSignup.
+     * (Optional) Set this attribute to true to create the subscription in the Awaiting Signup Date
+     * state. Use this when you want to create a subscription that has an unknown first billing
+     * date. When the first billing date is known, update a subscription and set the
+     * `initial_billing_at` date. The subscription moves to the Awaiting Signup state with a
+     * scheduled initial billing date. You can omit the initial_billing_at date to activate the
+     * subscription immediately. See [Subscription
+     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * for more information.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("defer_signup")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getDeferSignup() {
+        return deferSignup;
+    }
+
+    /**
+     * Setter for DeferSignup.
+     * (Optional) Set this attribute to true to create the subscription in the Awaiting Signup Date
+     * state. Use this when you want to create a subscription that has an unknown first billing
+     * date. When the first billing date is known, update a subscription and set the
+     * `initial_billing_at` date. The subscription moves to the Awaiting Signup state with a
+     * scheduled initial billing date. You can omit the initial_billing_at date to activate the
+     * subscription immediately. See [Subscription
+     * States](https://maxio-chargify.zendesk.com/hc/en-us/articles/5404222005773-Subscription-States)
+     * for more information.
+     * @param deferSignup Value for Boolean
+     */
+    @JsonSetter("defer_signup")
+    public void setDeferSignup(Boolean deferSignup) {
+        this.deferSignup = deferSignup;
     }
 
     /**
@@ -778,7 +820,7 @@ public class CreateSubscription
 
     /**
      * Getter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription itself.
      * @return Returns the String
      */
     @JsonGetter("reference")
@@ -789,7 +831,7 @@ public class CreateSubscription
 
     /**
      * Setter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription itself.
      * @param reference Value for String
      */
     @JsonSetter("reference")
@@ -1251,7 +1293,7 @@ public class CreateSubscription
 
     /**
      * Getter for ProductChangeDelayed.
-     * (Optional, used only for Delayed Product Change When set to true, indicates that a changed
+     * (Optional) used only for Delayed Product Change When set to true, indicates that a changed
      * value for product_handle should schedule the product change to the next subscription renewal.
      * @return Returns the Boolean
      */
@@ -1263,7 +1305,7 @@ public class CreateSubscription
 
     /**
      * Setter for ProductChangeDelayed.
-     * (Optional, used only for Delayed Product Change When set to true, indicates that a changed
+     * (Optional) used only for Delayed Product Change When set to true, indicates that a changed
      * value for product_handle should schedule the product change to the next subscription renewal.
      * @param productChangeDelayed Value for Boolean
      */
@@ -1556,22 +1598,22 @@ public class CreateSubscription
                 + ", paymentCollectionMethod=" + paymentCollectionMethod
                 + ", receivesInvoiceEmails=" + receivesInvoiceEmails + ", netTerms=" + netTerms
                 + ", customerId=" + customerId + ", nextBillingAt=" + nextBillingAt
-                + ", initialBillingAt=" + initialBillingAt + ", storedCredentialTransactionId="
-                + storedCredentialTransactionId + ", salesRepId=" + salesRepId
-                + ", paymentProfileId=" + paymentProfileId + ", reference=" + reference
-                + ", customerAttributes=" + customerAttributes + ", paymentProfileAttributes="
-                + paymentProfileAttributes + ", creditCardAttributes=" + creditCardAttributes
-                + ", bankAccountAttributes=" + bankAccountAttributes + ", components=" + components
-                + ", calendarBilling=" + calendarBilling + ", metafields=" + metafields
-                + ", customerReference=" + customerReference + ", group=" + group + ", ref=" + ref
-                + ", cancellationMessage=" + cancellationMessage + ", cancellationMethod="
-                + cancellationMethod + ", currency=" + currency + ", expiresAt=" + expiresAt
-                + ", expirationTracksNextBillingChange=" + expirationTracksNextBillingChange
-                + ", agreementTerms=" + agreementTerms + ", authorizerFirstName="
-                + authorizerFirstName + ", authorizerLastName=" + authorizerLastName
-                + ", calendarBillingFirstCharge=" + calendarBillingFirstCharge + ", reasonCode="
-                + reasonCode + ", productChangeDelayed=" + productChangeDelayed + ", offerId="
-                + offerId + ", prepaidConfiguration=" + prepaidConfiguration
+                + ", initialBillingAt=" + initialBillingAt + ", deferSignup=" + deferSignup
+                + ", storedCredentialTransactionId=" + storedCredentialTransactionId
+                + ", salesRepId=" + salesRepId + ", paymentProfileId=" + paymentProfileId
+                + ", reference=" + reference + ", customerAttributes=" + customerAttributes
+                + ", paymentProfileAttributes=" + paymentProfileAttributes
+                + ", creditCardAttributes=" + creditCardAttributes + ", bankAccountAttributes="
+                + bankAccountAttributes + ", components=" + components + ", calendarBilling="
+                + calendarBilling + ", metafields=" + metafields + ", customerReference="
+                + customerReference + ", group=" + group + ", ref=" + ref + ", cancellationMessage="
+                + cancellationMessage + ", cancellationMethod=" + cancellationMethod + ", currency="
+                + currency + ", expiresAt=" + expiresAt + ", expirationTracksNextBillingChange="
+                + expirationTracksNextBillingChange + ", agreementTerms=" + agreementTerms
+                + ", authorizerFirstName=" + authorizerFirstName + ", authorizerLastName="
+                + authorizerLastName + ", calendarBillingFirstCharge=" + calendarBillingFirstCharge
+                + ", reasonCode=" + reasonCode + ", productChangeDelayed=" + productChangeDelayed
+                + ", offerId=" + offerId + ", prepaidConfiguration=" + prepaidConfiguration
                 + ", previousBillingAt=" + previousBillingAt + ", importMrr=" + importMrr
                 + ", canceledAt=" + canceledAt + ", activatedAt=" + activatedAt
                 + ", agreementAcceptance=" + agreementAcceptance + ", achAgreement=" + achAgreement
@@ -1601,6 +1643,7 @@ public class CreateSubscription
                 .customerId(getCustomerId())
                 .nextBillingAt(getNextBillingAt())
                 .initialBillingAt(getInitialBillingAt())
+                .deferSignup(getDeferSignup())
                 .storedCredentialTransactionId(getStoredCredentialTransactionId())
                 .salesRepId(getSalesRepId())
                 .paymentProfileId(getPaymentProfileId())
@@ -1657,6 +1700,7 @@ public class CreateSubscription
         private Integer customerId;
         private ZonedDateTime nextBillingAt;
         private ZonedDateTime initialBillingAt;
+        private Boolean deferSignup = false;
         private Integer storedCredentialTransactionId;
         private Integer salesRepId;
         private Integer paymentProfileId;
@@ -1823,6 +1867,16 @@ public class CreateSubscription
          */
         public Builder initialBillingAt(ZonedDateTime initialBillingAt) {
             this.initialBillingAt = initialBillingAt;
+            return this;
+        }
+
+        /**
+         * Setter for deferSignup.
+         * @param  deferSignup  Boolean value for deferSignup.
+         * @return Builder
+         */
+        public Builder deferSignup(Boolean deferSignup) {
+            this.deferSignup = deferSignup;
             return this;
         }
 
@@ -2212,16 +2266,17 @@ public class CreateSubscription
             return new CreateSubscription(productHandle, productId, productPricePointHandle,
                     productPricePointId, customPrice, couponCode, couponCodes,
                     paymentCollectionMethod, receivesInvoiceEmails, netTerms, customerId,
-                    nextBillingAt, initialBillingAt, storedCredentialTransactionId, salesRepId,
-                    paymentProfileId, reference, customerAttributes, paymentProfileAttributes,
-                    creditCardAttributes, bankAccountAttributes, components, calendarBilling,
-                    metafields, customerReference, group, ref, cancellationMessage,
-                    cancellationMethod, currency, expiresAt, expirationTracksNextBillingChange,
-                    agreementTerms, authorizerFirstName, authorizerLastName,
-                    calendarBillingFirstCharge, reasonCode, productChangeDelayed, offerId,
-                    prepaidConfiguration, previousBillingAt, importMrr, canceledAt, activatedAt,
-                    agreementAcceptance, achAgreement, dunningCommunicationDelayEnabled,
-                    dunningCommunicationDelayTimeZone, skipBillingManifestTaxes);
+                    nextBillingAt, initialBillingAt, deferSignup, storedCredentialTransactionId,
+                    salesRepId, paymentProfileId, reference, customerAttributes,
+                    paymentProfileAttributes, creditCardAttributes, bankAccountAttributes,
+                    components, calendarBilling, metafields, customerReference, group, ref,
+                    cancellationMessage, cancellationMethod, currency, expiresAt,
+                    expirationTracksNextBillingChange, agreementTerms, authorizerFirstName,
+                    authorizerLastName, calendarBillingFirstCharge, reasonCode,
+                    productChangeDelayed, offerId, prepaidConfiguration, previousBillingAt,
+                    importMrr, canceledAt, activatedAt, agreementAcceptance, achAgreement,
+                    dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone,
+                    skipBillingManifestTaxes);
         }
     }
 }

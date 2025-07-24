@@ -33,7 +33,7 @@ public class CouponsControllerValidateCouponTest extends CouponsControllerTestBa
         assertThatSingleStringErrorResponse(() -> COUPONS_CONTROLLER.validateCoupon("123", productFamilyId))
                 .hasErrorCode(404)
                 .hasErrorMessage("Coupon code could not be found.")
-                .hasMessage("Not Found");
+                .hasMessage("Not Found: '{errors:Coupon code could not be found.}'");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class CouponsControllerValidateCouponTest extends CouponsControllerTestBa
         assertThatSingleStringErrorResponse(() -> COUPONS_CONTROLLER.validateCoupon(coupon2.getCode(), productFamilyId))
                 .hasErrorCode(404)
                 .hasErrorMessage("That coupon is no longer active.")
-                .hasMessage("Not Found");
+                .hasMessage("Not Found: '{errors:That coupon is no longer active.}'");
     }
 
     @Test

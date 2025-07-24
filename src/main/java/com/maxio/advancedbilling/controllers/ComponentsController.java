@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -55,7 +54,7 @@ public final class ComponentsController extends BaseController {
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -71,7 +70,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateMeteredComponentRequest(
             final String productFamilyId,
-            final CreateMeteredComponent body) throws JsonProcessingException, IOException {
+            final CreateMeteredComponent body) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -117,7 +116,7 @@ public final class ComponentsController extends BaseController {
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -133,7 +132,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateQuantityBasedComponentRequest(
             final String productFamilyId,
-            final CreateQuantityBasedComponent body) throws JsonProcessingException, IOException {
+            final CreateQuantityBasedComponent body) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -173,7 +172,7 @@ public final class ComponentsController extends BaseController {
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -189,7 +188,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateOnOffComponentRequest(
             final String productFamilyId,
-            final CreateOnOffComponent body) throws JsonProcessingException, IOException {
+            final CreateOnOffComponent body) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -232,7 +231,7 @@ public final class ComponentsController extends BaseController {
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -248,7 +247,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreatePrepaidUsageComponentRequest(
             final String productFamilyId,
-            final CreatePrepaidComponent body) throws JsonProcessingException, IOException {
+            final CreatePrepaidComponent body) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -292,7 +291,7 @@ public final class ComponentsController extends BaseController {
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261141522189-Components-Overview).
      * @param  productFamilyId  Required parameter: Either the product family's id or its handle
      *         prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -308,7 +307,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> prepareCreateEventBasedComponentRequest(
             final String productFamilyId,
-            final CreateEBBComponent body) throws JsonProcessingException, IOException {
+            final CreateEBBComponent body) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -357,7 +356,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for findComponent.
      */
     private ApiCall<ComponentResponse, ApiException> prepareFindComponentRequest(
-            final String handle) throws IOException {
+            final String handle) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -401,7 +400,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> prepareReadComponentRequest(
             final int productFamilyId,
-            final String componentId) throws IOException {
+            final String componentId) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -432,7 +431,7 @@ public final class ComponentsController extends BaseController {
      *         which the component belongs
      * @param  componentId  Required parameter: Either the Advanced Billing id of the component or
      *         the handle for the component prefixed with `handle:`
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -451,7 +450,7 @@ public final class ComponentsController extends BaseController {
     private ApiCall<ComponentResponse, ApiException> prepareUpdateProductFamilyComponentRequest(
             final int productFamilyId,
             final String componentId,
-            final UpdateComponentRequest body) throws JsonProcessingException, IOException {
+            final UpdateComponentRequest body) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -503,7 +502,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<Component, ApiException> prepareArchiveComponentRequest(
             final int productFamilyId,
-            final String componentId) throws IOException {
+            final String componentId) {
         return new ApiCall.Builder<Component, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -545,7 +544,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for listComponents.
      */
     private ApiCall<List<ComponentResponse>, ApiException> prepareListComponentsRequest(
-            final ListComponentsInput input) throws IOException {
+            final ListComponentsInput input) {
         return new ApiCall.Builder<List<ComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -587,7 +586,7 @@ public final class ComponentsController extends BaseController {
      * This request will update a component. You may read the component by either the component's id
      * or handle. When using the handle, it must be prefixed with `handle:`.
      * @param  componentId  Required parameter: The id or handle of the component
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -603,7 +602,7 @@ public final class ComponentsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> prepareUpdateComponentRequest(
             final String componentId,
-            final UpdateComponentRequest body) throws JsonProcessingException, IOException {
+            final UpdateComponentRequest body) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -647,7 +646,7 @@ public final class ComponentsController extends BaseController {
      * Builds the ApiCall object for listComponentsForProductFamily.
      */
     private ApiCall<List<ComponentResponse>, ApiException> prepareListComponentsForProductFamilyRequest(
-            final ListComponentsForProductFamilyInput input) throws IOException {
+            final ListComponentsForProductFamilyInput input) {
         return new ApiCall.Builder<List<ComponentResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

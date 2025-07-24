@@ -20,6 +20,7 @@ public class ListInvoicesInput {
     private InvoiceStatus status;
     private Integer subscriptionId;
     private String subscriptionGroupUid;
+    private String consolidationLevel;
     private Integer page;
     private Integer perPage;
     private Direction direction;
@@ -63,6 +64,7 @@ public class ListInvoicesInput {
      * @param  status  InvoiceStatus value for status.
      * @param  subscriptionId  Integer value for subscriptionId.
      * @param  subscriptionGroupUid  String value for subscriptionGroupUid.
+     * @param  consolidationLevel  String value for consolidationLevel.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
      * @param  direction  Direction value for direction.
@@ -87,6 +89,7 @@ public class ListInvoicesInput {
             InvoiceStatus status,
             Integer subscriptionId,
             String subscriptionGroupUid,
+            String consolidationLevel,
             Integer page,
             Integer perPage,
             Direction direction,
@@ -109,6 +112,7 @@ public class ListInvoicesInput {
         this.status = status;
         this.subscriptionId = subscriptionId;
         this.subscriptionGroupUid = subscriptionGroupUid;
+        this.consolidationLevel = consolidationLevel;
         this.page = page;
         this.perPage = perPage;
         this.direction = direction;
@@ -239,6 +243,29 @@ public class ListInvoicesInput {
     @JsonSetter("subscription_group_uid")
     public void setSubscriptionGroupUid(String subscriptionGroupUid) {
         this.subscriptionGroupUid = subscriptionGroupUid;
+    }
+
+    /**
+     * Getter for ConsolidationLevel.
+     * The consolidation level of the invoice. Allowed Values: none, parent, child or
+     * comma-separated lists of thereof, e.g. none,parent.
+     * @return Returns the String
+     */
+    @JsonGetter("consolidation_level")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getConsolidationLevel() {
+        return consolidationLevel;
+    }
+
+    /**
+     * Setter for ConsolidationLevel.
+     * The consolidation level of the invoice. Allowed Values: none, parent, child or
+     * comma-separated lists of thereof, e.g. none,parent.
+     * @param consolidationLevel Value for String
+     */
+    @JsonSetter("consolidation_level")
+    public void setConsolidationLevel(String consolidationLevel) {
+        this.consolidationLevel = consolidationLevel;
     }
 
     /**
@@ -642,11 +669,12 @@ public class ListInvoicesInput {
     public String toString() {
         return "ListInvoicesInput [" + "startDate=" + startDate + ", endDate=" + endDate
                 + ", status=" + status + ", subscriptionId=" + subscriptionId
-                + ", subscriptionGroupUid=" + subscriptionGroupUid + ", page=" + page + ", perPage="
-                + perPage + ", direction=" + direction + ", lineItems=" + lineItems + ", discounts="
-                + discounts + ", taxes=" + taxes + ", credits=" + credits + ", payments=" + payments
-                + ", customFields=" + customFields + ", refunds=" + refunds + ", dateField="
-                + dateField + ", startDatetime=" + startDatetime + ", endDatetime=" + endDatetime
+                + ", subscriptionGroupUid=" + subscriptionGroupUid + ", consolidationLevel="
+                + consolidationLevel + ", page=" + page + ", perPage=" + perPage + ", direction="
+                + direction + ", lineItems=" + lineItems + ", discounts=" + discounts + ", taxes="
+                + taxes + ", credits=" + credits + ", payments=" + payments + ", customFields="
+                + customFields + ", refunds=" + refunds + ", dateField=" + dateField
+                + ", startDatetime=" + startDatetime + ", endDatetime=" + endDatetime
                 + ", customerIds=" + customerIds + ", number=" + number + ", productIds="
                 + productIds + ", sort=" + sort + "]";
     }
@@ -663,6 +691,7 @@ public class ListInvoicesInput {
                 .status(getStatus())
                 .subscriptionId(getSubscriptionId())
                 .subscriptionGroupUid(getSubscriptionGroupUid())
+                .consolidationLevel(getConsolidationLevel())
                 .page(getPage())
                 .perPage(getPerPage())
                 .direction(getDirection())
@@ -692,6 +721,7 @@ public class ListInvoicesInput {
         private InvoiceStatus status;
         private Integer subscriptionId;
         private String subscriptionGroupUid;
+        private String consolidationLevel;
         private Integer page = 1;
         private Integer perPage = 20;
         private Direction direction = Direction.DESC;
@@ -759,6 +789,16 @@ public class ListInvoicesInput {
          */
         public Builder subscriptionGroupUid(String subscriptionGroupUid) {
             this.subscriptionGroupUid = subscriptionGroupUid;
+            return this;
+        }
+
+        /**
+         * Setter for consolidationLevel.
+         * @param  consolidationLevel  String value for consolidationLevel.
+         * @return Builder
+         */
+        public Builder consolidationLevel(String consolidationLevel) {
+            this.consolidationLevel = consolidationLevel;
             return this;
         }
 
@@ -938,9 +978,9 @@ public class ListInvoicesInput {
          */
         public ListInvoicesInput build() {
             return new ListInvoicesInput(startDate, endDate, status, subscriptionId,
-                    subscriptionGroupUid, page, perPage, direction, lineItems, discounts, taxes,
-                    credits, payments, customFields, refunds, dateField, startDatetime, endDatetime,
-                    customerIds, number, productIds, sort);
+                    subscriptionGroupUid, consolidationLevel, page, perPage, direction, lineItems,
+                    discounts, taxes, credits, payments, customFields, refunds, dateField,
+                    startDatetime, endDatetime, customerIds, number, productIds, sort);
         }
     }
 }

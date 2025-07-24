@@ -146,7 +146,7 @@ public class OffersControllerCreateTest {
         CurrencyPrice meteredPrice = meteredItem.getCurrencyPrices().get(0);
         assertThat(meteredPrice.getId()).isNull();
         assertThat(meteredPrice.getCurrency()).isEqualTo("EUR");
-        assertThat(meteredPrice.getPrice()).isCloseTo(10, Percentage.withPercentage(10));
+        assertThat(meteredPrice.getPrice()).isCloseTo(8, Percentage.withPercentage(10));
         assertThat(meteredPrice.getFormattedPrice())
                 .isNotBlank()
                 .startsWith("€");

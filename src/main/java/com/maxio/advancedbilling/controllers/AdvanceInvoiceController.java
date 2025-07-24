@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -47,7 +46,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * endpoints for proforma invoices to preview this advance invoice before using this endpoint to
      * generate it.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -63,7 +62,7 @@ public final class AdvanceInvoiceController extends BaseController {
      */
     private ApiCall<Invoice, ApiException> prepareIssueAdvanceInvoiceRequest(
             final int subscriptionId,
-            final IssueAdvanceInvoiceRequest body) throws JsonProcessingException, IOException {
+            final IssueAdvanceInvoiceRequest body) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -112,7 +111,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * Builds the ApiCall object for readAdvanceInvoice.
      */
     private ApiCall<Invoice, ApiException> prepareReadAdvanceInvoiceRequest(
-            final int subscriptionId) throws IOException {
+            final int subscriptionId) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -143,7 +142,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * returned to the subscription. For a full overview of the impact of voiding, please [see our
      * help docs]($m/Invoice).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -159,7 +158,7 @@ public final class AdvanceInvoiceController extends BaseController {
      */
     private ApiCall<Invoice, ApiException> prepareVoidAdvanceInvoiceRequest(
             final int subscriptionId,
-            final VoidInvoiceRequest body) throws JsonProcessingException, IOException {
+            final VoidInvoiceRequest body) {
         return new ApiCall.Builder<Invoice, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

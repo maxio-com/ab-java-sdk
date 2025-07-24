@@ -401,7 +401,7 @@ SubscriptionResponse resumeSubscription(
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `calendarBillingResumptionCharge` | [`ResumptionCharge`](../../doc/models/resumption-charge.md) | Query, Optional | (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled<br>**Default**: `ResumptionCharge.PRORATED` |
+| `calendarBillingResumptionCharge` | [`ResumptionCharge`](../../doc/models/resumption-charge.md) | Query, Optional | (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled<br><br>**Default**: `ResumptionCharge.PRORATED` |
 
 ## Response Type
 
@@ -411,9 +411,9 @@ SubscriptionResponse resumeSubscription(
 
 ```java
 int subscriptionId = 222;
-Liquid error: Value cannot be null. (Parameter 'key')
+
 try {
-    SubscriptionResponse result = subscriptionStatusController.resumeSubscription(subscriptionId, Liquid error: Value cannot be null. (Parameter 'key'));
+    SubscriptionResponse result = subscriptionStatusController.resumeSubscription(subscriptionId, null);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();

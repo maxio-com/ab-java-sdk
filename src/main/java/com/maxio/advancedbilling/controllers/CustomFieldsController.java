@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.Server;
@@ -65,13 +64,13 @@ public final class CustomFieldsController extends BaseController {
      * is limited to 100 unique Metafields (i.e. keys, or names) per resource. This means you can
      * have 100 Metafields for Subscription and another 100 for Customer. ### Metafields
      * "On-the-Fly" It is possible to create Metafields “on the fly” when you create your Metadata –
-     * if a non-existant name is passed when creating Metadata, a Metafield for that key will be
+     * if a non-existent name is passed when creating Metadata, a Metafield for that key will be
      * automatically created. The Metafield API, however, gives you more control over your “keys”.
      * ### Metafield Scope Warning If configuring metafields in the Admin UI or via the API, be
      * careful sending updates to metafields with the scope attribute – **if a partial update is
      * sent it will overwrite the current configuration**.
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the List of Metafield response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -87,7 +86,7 @@ public final class CustomFieldsController extends BaseController {
      */
     private ApiCall<List<Metafield>, ApiException> prepareCreateMetafieldsRequest(
             final ResourceType resourceType,
-            final CreateMetafieldsRequest body) throws JsonProcessingException, IOException {
+            final CreateMetafieldsRequest body) {
         return new ApiCall.Builder<List<Metafield>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -133,7 +132,7 @@ public final class CustomFieldsController extends BaseController {
      * Builds the ApiCall object for listMetafields.
      */
     private ApiCall<ListMetafieldsResponse, ApiException> prepareListMetafieldsRequest(
-            final ListMetafieldsInput input) throws IOException {
+            final ListMetafieldsInput input) {
         return new ApiCall.Builder<ListMetafieldsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -166,7 +165,7 @@ public final class CustomFieldsController extends BaseController {
      * Use the following method to update metafields for your Site. Metafields can be populated with
      * metadata after the fact.
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the List of Metafield response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -182,7 +181,7 @@ public final class CustomFieldsController extends BaseController {
      */
     private ApiCall<List<Metafield>, ApiException> prepareUpdateMetafieldRequest(
             final ResourceType resourceType,
-            final UpdateMetafieldsRequest body) throws JsonProcessingException, IOException {
+            final UpdateMetafieldsRequest body) {
         return new ApiCall.Builder<List<Metafield>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -231,7 +230,7 @@ public final class CustomFieldsController extends BaseController {
      */
     private ApiCall<Void, ApiException> prepareDeleteMetafieldRequest(
             final ResourceType resourceType,
-            final String name) throws IOException {
+            final String name) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -277,7 +276,7 @@ public final class CustomFieldsController extends BaseController {
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
      * @param  resourceId  Required parameter: The Advanced Billing id of the customer or the
      *         subscription for which the metadata applies
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the List of Metadata response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -295,7 +294,7 @@ public final class CustomFieldsController extends BaseController {
     private ApiCall<List<Metadata>, ApiException> prepareCreateMetadataRequest(
             final ResourceType resourceType,
             final int resourceId,
-            final CreateMetadataRequest body) throws JsonProcessingException, IOException {
+            final CreateMetadataRequest body) {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -344,7 +343,7 @@ public final class CustomFieldsController extends BaseController {
      * Builds the ApiCall object for listMetadata.
      */
     private ApiCall<PaginatedMetadata, ApiException> prepareListMetadataRequest(
-            final ListMetadataInput input) throws IOException {
+            final ListMetadataInput input) {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -377,7 +376,7 @@ public final class CustomFieldsController extends BaseController {
      * @param  resourceType  Required parameter: the resource type to which the metafields belong
      * @param  resourceId  Required parameter: The Advanced Billing id of the customer or the
      *         subscription for which the metadata applies
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the List of Metadata response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -395,7 +394,7 @@ public final class CustomFieldsController extends BaseController {
     private ApiCall<List<Metadata>, ApiException> prepareUpdateMetadataRequest(
             final ResourceType resourceType,
             final int resourceId,
-            final UpdateMetadataRequest body) throws JsonProcessingException, IOException {
+            final UpdateMetadataRequest body) {
         return new ApiCall.Builder<List<Metadata>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -459,7 +458,7 @@ public final class CustomFieldsController extends BaseController {
             final ResourceType resourceType,
             final int resourceId,
             final String name,
-            final List<String> names) throws IOException {
+            final List<String> names) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -507,7 +506,7 @@ public final class CustomFieldsController extends BaseController {
      * Builds the ApiCall object for listMetadataForResourceType.
      */
     private ApiCall<PaginatedMetadata, ApiException> prepareListMetadataForResourceTypeRequest(
-            final ListMetadataForResourceTypeInput input) throws IOException {
+            final ListMetadataForResourceTypeInput input) {
         return new ApiCall.Builder<PaginatedMetadata, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

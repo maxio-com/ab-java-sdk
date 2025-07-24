@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -77,7 +76,7 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentResponse, ApiException> preparePromoteComponentPricePointToDefaultRequest(
             final int componentId,
-            final int pricePointId) throws IOException {
+            final int pricePointId) {
         return new ApiCall.Builder<ComponentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -103,7 +102,7 @@ public final class ComponentPricePointsController extends BaseController {
     /**
      * This endpoint can be used to create a new price point for an existing component.
      * @param  componentId  Required parameter: The Advanced Billing id of the component
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -119,7 +118,7 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentPricePointResponse, ApiException> prepareCreateComponentPricePointRequest(
             final int componentId,
-            final CreateComponentPricePointRequest body) throws JsonProcessingException, IOException {
+            final CreateComponentPricePointRequest body) {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -169,7 +168,7 @@ public final class ComponentPricePointsController extends BaseController {
      * Builds the ApiCall object for listComponentPricePoints.
      */
     private ApiCall<ComponentPricePointsResponse, ApiException> prepareListComponentPricePointsRequest(
-            final ListComponentPricePointsInput input) throws IOException {
+            final ListComponentPricePointsInput input) {
         return new ApiCall.Builder<ComponentPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -202,7 +201,7 @@ public final class ComponentPricePointsController extends BaseController {
      * Use this endpoint to create multiple component price points in one request.
      * @param  componentId  Required parameter: The Advanced Billing id of the component for which
      *         you want to fetch price points.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentPricePointsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -218,7 +217,7 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentPricePointsResponse, ApiException> prepareBulkCreateComponentPricePointsRequest(
             final String componentId,
-            final CreateComponentPricePointsRequest body) throws JsonProcessingException, IOException {
+            final CreateComponentPricePointsRequest body) {
         return new ApiCall.Builder<ComponentPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -258,7 +257,7 @@ public final class ComponentPricePointsController extends BaseController {
      * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
      *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
      *         `handle:example-price_point-handle` for a string handle.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentPricePointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -276,7 +275,7 @@ public final class ComponentPricePointsController extends BaseController {
     private ApiCall<ComponentPricePointResponse, ApiException> prepareUpdateComponentPricePointRequest(
             final UpdateComponentPricePointComponentId componentId,
             final UpdateComponentPricePointPricePointId pricePointId,
-            final UpdateComponentPricePointRequest body) throws JsonProcessingException, IOException {
+            final UpdateComponentPricePointRequest body) {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -334,7 +333,7 @@ public final class ComponentPricePointsController extends BaseController {
     private ApiCall<ComponentPricePointResponse, ApiException> prepareReadComponentPricePointRequest(
             final ReadComponentPricePointComponentId componentId,
             final ReadComponentPricePointPricePointId pricePointId,
-            final Boolean currencyPrices) throws IOException {
+            final Boolean currencyPrices) {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -383,7 +382,7 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentPricePointResponse, ApiException> prepareArchiveComponentPricePointRequest(
             final ArchiveComponentPricePointComponentId componentId,
-            final ArchiveComponentPricePointPricePointId pricePointId) throws IOException {
+            final ArchiveComponentPricePointPricePointId pricePointId) {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -429,7 +428,7 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentPricePointResponse, ApiException> prepareUnarchiveComponentPricePointRequest(
             final int componentId,
-            final int pricePointId) throws IOException {
+            final int pricePointId) {
         return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -459,7 +458,7 @@ public final class ComponentPricePointsController extends BaseController {
      * there should be a matching price level created in the given currency. Note: Currency Prices
      * are not able to be created for custom price points.
      * @param  pricePointId  Required parameter: The Advanced Billing id of the price point
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentCurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -475,7 +474,7 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentCurrencyPricesResponse, ApiException> prepareCreateCurrencyPricesRequest(
             final int pricePointId,
-            final CreateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
+            final CreateCurrencyPricesRequest body) {
         return new ApiCall.Builder<ComponentCurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -508,7 +507,7 @@ public final class ComponentPricePointsController extends BaseController {
      * on the site level in your settings. Note: Currency Prices are not able to be updated for
      * custom price points.
      * @param  pricePointId  Required parameter: The Advanced Billing id of the price point
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ComponentCurrencyPricesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -524,7 +523,7 @@ public final class ComponentPricePointsController extends BaseController {
      */
     private ApiCall<ComponentCurrencyPricesResponse, ApiException> prepareUpdateCurrencyPricesRequest(
             final int pricePointId,
-            final UpdateCurrencyPricesRequest body) throws JsonProcessingException, IOException {
+            final UpdateCurrencyPricesRequest body) {
         return new ApiCall.Builder<ComponentCurrencyPricesResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -568,7 +567,7 @@ public final class ComponentPricePointsController extends BaseController {
      * Builds the ApiCall object for listAllComponentPricePoints.
      */
     private ApiCall<ListComponentsPricePointsResponse, ApiException> prepareListAllComponentPricePointsRequest(
-            final ListAllComponentPricePointsInput input) throws IOException {
+            final ListAllComponentPricePointsInput input) {
         return new ApiCall.Builder<ListComponentsPricePointsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -48,7 +47,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * @param  componentId  Required parameter: ID or Handle for the Component
      * @param  pricePointId  Required parameter: ID or Handle for the Price Point belonging to the
      *         Component
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SegmentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -66,7 +65,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
     private ApiCall<SegmentResponse, ApiException> prepareCreateSegmentRequest(
             final String componentId,
             final String pricePointId,
-            final CreateSegmentRequest body) throws JsonProcessingException, IOException {
+            final CreateSegmentRequest body) {
         return new ApiCall.Builder<SegmentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -119,7 +118,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * Builds the ApiCall object for listSegmentsForPricePoint.
      */
     private ApiCall<ListSegmentsResponse, ApiException> prepareListSegmentsForPricePointRequest(
-            final ListSegmentsForPricePointInput input) throws IOException {
+            final ListSegmentsForPricePointInput input) {
         return new ApiCall.Builder<ListSegmentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -162,7 +161,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * @param  pricePointId  Required parameter: ID or Handle of the Price Point belonging to the
      *         Component
      * @param  id  Required parameter: The ID of the Segment
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the SegmentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -182,7 +181,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
             final String componentId,
             final String pricePointId,
             final double id,
-            final UpdateSegmentRequest body) throws JsonProcessingException, IOException {
+            final UpdateSegmentRequest body) {
         return new ApiCall.Builder<SegmentResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -240,7 +239,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
     private ApiCall<Void, ApiException> prepareDeleteSegmentRequest(
             final String componentId,
             final String pricePointId,
-            final double id) throws IOException {
+            final double id) {
         return new ApiCall.Builder<Void, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -278,7 +277,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * @param  componentId  Required parameter: ID or Handle for the Component
      * @param  pricePointId  Required parameter: ID or Handle for the Price Point belonging to the
      *         Component
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ListSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -296,7 +295,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
     private ApiCall<ListSegmentsResponse, ApiException> prepareBulkCreateSegmentsRequest(
             final String componentId,
             final String pricePointId,
-            final BulkCreateSegments body) throws JsonProcessingException, IOException {
+            final BulkCreateSegments body) {
         return new ApiCall.Builder<ListSegmentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -339,7 +338,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
      * @param  componentId  Required parameter: ID or Handle for the Component
      * @param  pricePointId  Required parameter: ID or Handle for the Price Point belonging to the
      *         Component
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ListSegmentsResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -357,7 +356,7 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
     private ApiCall<ListSegmentsResponse, ApiException> prepareBulkUpdateSegmentsRequest(
             final String componentId,
             final String pricePointId,
-            final BulkUpdateSegments body) throws JsonProcessingException, IOException {
+            final BulkUpdateSegments body) {
         return new ApiCall.Builder<ListSegmentsResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder

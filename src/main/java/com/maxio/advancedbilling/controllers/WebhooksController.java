@@ -6,7 +6,6 @@
 
 package com.maxio.advancedbilling.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.maxio.advancedbilling.ApiHelper;
 import com.maxio.advancedbilling.Server;
 import com.maxio.advancedbilling.exceptions.ApiException;
@@ -72,7 +71,7 @@ public final class WebhooksController extends BaseController {
      * Builds the ApiCall object for listWebhooks.
      */
     private ApiCall<List<WebhookResponse>, ApiException> prepareListWebhooksRequest(
-            final ListWebhooksInput input) throws IOException {
+            final ListWebhooksInput input) {
         return new ApiCall.Builder<List<WebhookResponse>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -108,7 +107,7 @@ public final class WebhooksController extends BaseController {
 
     /**
      * This method allows you to enable webhooks via API for your site.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the EnableWebhooksResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -122,7 +121,7 @@ public final class WebhooksController extends BaseController {
      * Builds the ApiCall object for enableWebhooks.
      */
     private ApiCall<EnableWebhooksResponse, ApiException> prepareEnableWebhooksRequest(
-            final EnableWebhooksRequest body) throws JsonProcessingException, IOException {
+            final EnableWebhooksRequest body) {
         return new ApiCall.Builder<EnableWebhooksResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -149,7 +148,7 @@ public final class WebhooksController extends BaseController {
      * Posting to the replay endpoint does not immediately resend the webhooks. They are added to a
      * queue and will be sent as soon as possible, depending on available system resources. You may
      * submit an array of up to 1000 webhook IDs to replay in the request.
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the ReplayWebhooksResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -163,7 +162,7 @@ public final class WebhooksController extends BaseController {
      * Builds the ApiCall object for replayWebhooks.
      */
     private ApiCall<ReplayWebhooksResponse, ApiException> prepareReplayWebhooksRequest(
-            final ReplayWebhooksRequest body) throws JsonProcessingException, IOException {
+            final ReplayWebhooksRequest body) {
         return new ApiCall.Builder<ReplayWebhooksResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -190,7 +189,7 @@ public final class WebhooksController extends BaseController {
      * The Chargify API allows you to create an endpoint and assign a list of webhooks subscriptions
      * (events) to it. You can check available events here. [Event
      * keys](https://maxio.zendesk.com/hc/en-us/articles/24266136649869-Webhooks-Reference#events).
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the EndpointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -204,7 +203,7 @@ public final class WebhooksController extends BaseController {
      * Builds the ApiCall object for createEndpoint.
      */
     private ApiCall<EndpointResponse, ApiException> prepareCreateEndpointRequest(
-            final CreateOrUpdateEndpointRequest body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateEndpointRequest body) {
         return new ApiCall.Builder<EndpointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -243,7 +242,7 @@ public final class WebhooksController extends BaseController {
     /**
      * Builds the ApiCall object for listEndpoints.
      */
-    private ApiCall<List<Endpoint>, ApiException> prepareListEndpointsRequest() throws IOException {
+    private ApiCall<List<Endpoint>, ApiException> prepareListEndpointsRequest() {
         return new ApiCall.Builder<List<Endpoint>, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
@@ -274,7 +273,7 @@ public final class WebhooksController extends BaseController {
      * `webhook_subscriptions` without the specific event key.
      * @param  endpointId  Required parameter: The Advanced Billing id for the endpoint that should
      *         be updated
-     * @param  body  Optional parameter: Example:
+     * @param  body  Optional parameter:
      * @return    Returns the EndpointResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -290,7 +289,7 @@ public final class WebhooksController extends BaseController {
      */
     private ApiCall<EndpointResponse, ApiException> prepareUpdateEndpointRequest(
             final int endpointId,
-            final CreateOrUpdateEndpointRequest body) throws JsonProcessingException, IOException {
+            final CreateOrUpdateEndpointRequest body) {
         return new ApiCall.Builder<EndpointResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
