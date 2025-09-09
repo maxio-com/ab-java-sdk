@@ -100,7 +100,7 @@ try {
 
 # Create Component Price Point
 
-This endpoint can be used to create a new price point for an existing component.
+Creates a price point for an existing component.
 
 ```java
 ComponentPricePointResponse createComponentPricePoint(
@@ -149,7 +149,9 @@ CreateComponentPricePointRequest body = new CreateComponentPricePointRequest.Bui
                         "4.00"
                     )
                 )
-                .endingQuantity(null)
+                .endingQuantity(PriceEndingQuantity.fromString(
+                        "200"
+                    ))
                 .build()
             )
         )
