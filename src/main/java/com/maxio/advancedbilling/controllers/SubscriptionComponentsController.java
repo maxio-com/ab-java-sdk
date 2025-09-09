@@ -35,6 +35,7 @@ import com.maxio.advancedbilling.models.SubscriptionResponse;
 import com.maxio.advancedbilling.models.UpdateAllocationExpirationDate;
 import com.maxio.advancedbilling.models.UsageResponse;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
+import com.maxio.advancedbilling.models.containers.CreateUsageSubscriptionIdOrReference;
 import io.apimatic.core.ApiCall;
 import io.apimatic.core.ErrorCase;
 import io.apimatic.core.GlobalConfiguration;
@@ -692,7 +693,12 @@ public final class SubscriptionComponentsController extends BaseController {
      * time? A. No. Usage should be reported as one API call per component on a single subscription.
      * For example, to record that a subscriber has sent both an SMS Message and an Email, send an
      * API call for each.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionIdOrReference  Required parameter: Either the Advanced Billing
+     *         subscription ID (integer) or the subscription reference (string). Important: In cases
+     *         where a numeric string value matches both an existing subscription ID and an existing
+     *         subscription reference, the system will prioritize the subscription ID lookup. For
+     *         example, if both subscription ID 123 and subscription reference "123" exist, passing
+     *         "123" will return the subscription with ID 123.
      * @param  componentId  Required parameter: Either the Advanced Billing id for the component or
      *         the component's handle prefixed by `handle:`
      * @param  body  Optional parameter:
@@ -701,27 +707,27 @@ public final class SubscriptionComponentsController extends BaseController {
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
     public UsageResponse createUsage(
-            final int subscriptionId,
+            final CreateUsageSubscriptionIdOrReference subscriptionIdOrReference,
             final CreateUsageComponentId componentId,
             final CreateUsageRequest body) throws ApiException, IOException {
-        return prepareCreateUsageRequest(subscriptionId, componentId, body).execute();
+        return prepareCreateUsageRequest(subscriptionIdOrReference, componentId, body).execute();
     }
 
     /**
      * Builds the ApiCall object for createUsage.
      */
     private ApiCall<UsageResponse, ApiException> prepareCreateUsageRequest(
-            final int subscriptionId,
+            final CreateUsageSubscriptionIdOrReference subscriptionIdOrReference,
             final CreateUsageComponentId componentId,
             final CreateUsageRequest body) {
         return new ApiCall.Builder<UsageResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.PRODUCTION.value())
-                        .path("/subscriptions/{subscription_id}/components/{component_id}/usages.json")
+                        .path("/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json")
                         .bodyParam(param -> param.value(body).isRequired(false))
                         .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("subscription_id").value(subscriptionId).isRequired(false)
+                        .templateParam(param -> param.key("subscription_id_or_reference").value(subscriptionIdOrReference)
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(componentId)
                                 .shouldEncode(true))
@@ -772,7 +778,7 @@ public final class SubscriptionComponentsController extends BaseController {
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.PRODUCTION.value())
-                        .path("/subscriptions/{subscription_id}/components/{component_id}/usages.json")
+                        .path("/subscriptions/{subscription_id_or_reference}/components/{component_id}/usages.json")
                         .queryParam(param -> param.key("since_id")
                                 .value(input.getSinceId()).isRequired(false))
                         .queryParam(param -> param.key("max_id")
@@ -785,7 +791,7 @@ public final class SubscriptionComponentsController extends BaseController {
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
-                        .templateParam(param -> param.key("subscription_id").value(input.getSubscriptionId()).isRequired(false)
+                        .templateParam(param -> param.key("subscription_id_or_reference").value(input.getSubscriptionIdOrReference())
                                 .shouldEncode(true))
                         .templateParam(param -> param.key("component_id").value(input.getComponentId())
                                 .shouldEncode(true))
