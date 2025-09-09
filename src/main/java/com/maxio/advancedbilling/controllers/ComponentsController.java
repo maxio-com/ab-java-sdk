@@ -378,9 +378,9 @@ public final class ComponentsController extends BaseController {
     }
 
     /**
-     * This request will return information regarding a component from a specific product family.
-     * You may read the component by either the component's id or handle. When using the handle, it
-     * must be prefixed with `handle:`.
+     * Returns information regarding a component from a specific product family. You can read the
+     * component by either the component's id or handle. When using the handle, it must be prefixed
+     * with `handle:`.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the component belongs
      * @param  componentId  Required parameter: Either the Advanced Billing id of the component or
