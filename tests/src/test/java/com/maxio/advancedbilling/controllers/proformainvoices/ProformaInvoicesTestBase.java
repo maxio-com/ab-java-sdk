@@ -29,12 +29,7 @@ import com.maxio.advancedbilling.models.ProformaInvoiceCredit;
 import com.maxio.advancedbilling.models.ProformaInvoiceRole;
 import com.maxio.advancedbilling.models.SignupProformaPreview;
 import com.maxio.advancedbilling.models.Subscription;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentAllocatedQuantity;
-import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
-import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
-import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
-import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationMonth;
-import com.maxio.advancedbilling.models.containers.PaymentProfileAttributesExpirationYear;
+import com.maxio.advancedbilling.models.containers.*;
 import com.maxio.advancedbilling.utils.TestSetup;
 
 import java.io.IOException;
@@ -134,7 +129,7 @@ abstract class ProformaInvoicesTestBase {
                                 )
                         )
                         .build());
-        CLIENT.getSubscriptionComponentsController().createUsage(subscription.getId(),
+        CLIENT.getSubscriptionComponentsController().createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(subscription.getId()),
                 CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(new CreateUsage.Builder()
                         .quantity(20.0)

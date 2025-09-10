@@ -28,6 +28,7 @@ import com.maxio.advancedbilling.models.UpdateCustomerRequest;
 import com.maxio.advancedbilling.models.UpdateSubscription;
 import com.maxio.advancedbilling.models.UpdateSubscriptionRequest;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
+import com.maxio.advancedbilling.models.containers.CreateUsageSubscriptionIdOrReference;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.matchers.EventSpecificDataGetter;
 import org.junit.jupiter.api.BeforeAll;
@@ -84,7 +85,7 @@ public class EventsControllerListEventsTest {
         subscription = testSetup.createSubscription(customer, product);
         // metered_usage
         client.getSubscriptionComponentsController().createUsage(
-                subscription.getId(),
+                CreateUsageSubscriptionIdOrReference.fromNumber(subscription.getId()),
                 CreateUsageComponentId.fromNumber(component.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
