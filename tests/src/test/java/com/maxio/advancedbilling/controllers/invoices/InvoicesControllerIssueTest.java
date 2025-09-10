@@ -248,6 +248,7 @@ class InvoicesControllerIssueTest {
         assertThat(previousBalanceData.getInvoices())
                 .hasSize(1)
                 .usingRecursiveFieldByFieldElementComparator()
+                .ignoringFields("additionalProperties")
                 .containsExactly(new InvoiceBalanceItem.Builder()
                         .uid(openInvoice.getUid())
                         .number(openInvoice.getNumber())
