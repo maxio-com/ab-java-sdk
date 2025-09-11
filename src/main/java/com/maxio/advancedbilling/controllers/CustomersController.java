@@ -160,8 +160,7 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * This method allows to retrieve the Customer properties by Advanced Billing-generated Customer
-     * ID.
+     * Retrieves the Customer properties by Advanced Billing-generated Customer ID.
      * @param  id  Required parameter: The Advanced Billing id of the customer
      * @return    Returns the CustomerResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

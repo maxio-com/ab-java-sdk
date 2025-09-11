@@ -1125,7 +1125,7 @@ A. No. Usage should be reported as one API call per component on a single subscr
 
 ```java
 UsageResponse createUsage(
-    final int subscriptionId,
+    final CreateUsageSubscriptionIdOrReference subscriptionIdOrReference,
     final CreateUsageComponentId componentId,
     final CreateUsageRequest body)
 ```
@@ -1134,7 +1134,7 @@ UsageResponse createUsage(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionIdOrReference` | [`CreateUsageSubscriptionIdOrReference`](../../doc/models/containers/create-usage-subscription-id-or-reference.md) | Template, Required | This is a container for one-of cases. |
 | `componentId` | [`CreateUsageComponentId`](../../doc/models/containers/create-usage-component-id.md) | Template, Required | This is a container for one-of cases. |
 | `body` | [`CreateUsageRequest`](../../doc/models/create-usage-request.md) | Body, Optional | - |
 
@@ -1145,7 +1145,9 @@ UsageResponse createUsage(
 ## Example Usage
 
 ```java
-int subscriptionId = 222;
+CreateUsageSubscriptionIdOrReference subscriptionIdOrReference = CreateUsageSubscriptionIdOrReference.fromNumber(
+    234
+);
 CreateUsageComponentId componentId = CreateUsageComponentId.fromNumber(
     144
 );
@@ -1159,7 +1161,7 @@ CreateUsageRequest body = new CreateUsageRequest.Builder(
 .build();
 
 try {
-    UsageResponse result = subscriptionComponentsController.createUsage(subscriptionId, componentId, body);
+    UsageResponse result = subscriptionComponentsController.createUsage(subscriptionIdOrReference, componentId, body);
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
@@ -1219,7 +1221,7 @@ List<UsageResponse> listUsages(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionIdOrReference` | [`ListUsagesInputSubscriptionIdOrReference`](../../doc/models/containers/list-usages-input-subscription-id-or-reference.md) | Template, Required | This is a container for one-of cases. |
 | `componentId` | [`ListUsagesInputComponentId`](../../doc/models/containers/list-usages-input-component-id.md) | Template, Required | This is a container for one-of cases. |
 | `sinceId` | `Long` | Query, Optional | Returns usages with an id greater than or equal to the one specified |
 | `maxId` | `Long` | Query, Optional | Returns usages with an id less than or equal to the one specified |
@@ -1236,7 +1238,9 @@ List<UsageResponse> listUsages(
 
 ```java
 ListUsagesInput listUsagesInput = new ListUsagesInput.Builder(
-    222,
+    ListUsagesInputSubscriptionIdOrReference.fromNumber(
+        234
+    ),
     ListUsagesInputComponentId.fromNumber(
         144
     )

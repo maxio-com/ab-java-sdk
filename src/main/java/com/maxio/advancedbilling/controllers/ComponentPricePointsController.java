@@ -100,7 +100,7 @@ public final class ComponentPricePointsController extends BaseController {
     }
 
     /**
-     * This endpoint can be used to create a new price point for an existing component.
+     * Creates a price point for an existing component.
      * @param  componentId  Required parameter: The Advanced Billing id of the component
      * @param  body  Optional parameter:
      * @return    Returns the ComponentPricePointResponse response from the API call

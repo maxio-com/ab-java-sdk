@@ -11,6 +11,7 @@ import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionState;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
+import com.maxio.advancedbilling.models.containers.CreateUsageSubscriptionIdOrReference;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -39,8 +40,8 @@ public class SubscriptionGroupStatusControllerCancelTest extends BaseSubscriptio
                         .build()
         );
 
-        subscriptionComponentsController.createUsage(group.getPrimarySubscription().getId(), componentId, usageRequest);
-        subscriptionComponentsController.createUsage(group.getMember(0).getId(), componentId, usageRequest);
+        subscriptionComponentsController.createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(group.getPrimarySubscription().getId()), componentId, usageRequest);
+        subscriptionComponentsController.createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(group.getMember(0).getId()), componentId, usageRequest);
 
         // when
         subscriptionGroupStatusController.cancelSubscriptionsInGroup(group.getSubscriptionGroup().getUid(),
@@ -80,8 +81,8 @@ public class SubscriptionGroupStatusControllerCancelTest extends BaseSubscriptio
                         .build()
         );
 
-        subscriptionComponentsController.createUsage(group.getPrimarySubscription().getId(), componentId, usageRequest);
-        subscriptionComponentsController.createUsage(group.getMember(0).getId(), componentId, usageRequest);
+        subscriptionComponentsController.createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(group.getPrimarySubscription().getId()), componentId, usageRequest);
+        subscriptionComponentsController.createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(group.getMember(0).getId()), componentId, usageRequest);
 
         // when
         subscriptionGroupStatusController.cancelSubscriptionsInGroup(group.getSubscriptionGroup().getUid(),

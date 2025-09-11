@@ -26,13 +26,17 @@ You must provide credentials in the client as shown in the following code snippe
 import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.authentication.BasicAuthModel;
 
-AdvancedBillingClient client = new AdvancedBillingClient.Builder()
-    .basicAuthCredentials(new BasicAuthModel.Builder(
-            "BasicAuthUserName",
-            "BasicAuthPassword"
-        )
-        .build())
-    .build();
+public class Program {
+    public static void main(String[] args) {
+        AdvancedBillingClient client = new AdvancedBillingClient.Builder()
+            .basicAuthCredentials(new BasicAuthModel.Builder(
+                    "BasicAuthUserName",
+                    "BasicAuthPassword"
+                )
+                .build())
+            .build();
+    }
+}
 ```
 
 

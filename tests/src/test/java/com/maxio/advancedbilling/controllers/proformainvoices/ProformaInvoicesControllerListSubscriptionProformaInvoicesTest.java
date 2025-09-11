@@ -37,6 +37,7 @@ import com.maxio.advancedbilling.models.VoidInvoice;
 import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import com.maxio.advancedbilling.models.containers.CreateMetafieldsRequestMetafields;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
+import com.maxio.advancedbilling.models.containers.CreateUsageSubscriptionIdOrReference;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -116,7 +117,7 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
                                 )
                         )
                         .build());
-        CLIENT.getSubscriptionComponentsController().createUsage(subscription.getId(),
+        CLIENT.getSubscriptionComponentsController().createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(subscription.getId()),
                 CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(new CreateUsage.Builder()
                         .quantity(20.0)

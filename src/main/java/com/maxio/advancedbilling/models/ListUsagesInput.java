@@ -13,13 +13,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import com.maxio.advancedbilling.models.containers.ListUsagesInputComponentId;
+import com.maxio.advancedbilling.models.containers.ListUsagesInputSubscriptionIdOrReference;
 import java.time.LocalDate;
 
 /**
  * This is a model class for ListUsagesInput type.
  */
 public class ListUsagesInput {
-    private int subscriptionId;
+    private ListUsagesInputSubscriptionIdOrReference subscriptionIdOrReference;
     private ListUsagesInputComponentId componentId;
     private Long sinceId;
     private Long maxId;
@@ -38,7 +39,8 @@ public class ListUsagesInput {
 
     /**
      * Initialization constructor.
-     * @param  subscriptionId  int value for subscriptionId.
+     * @param  subscriptionIdOrReference  ListUsagesInputSubscriptionIdOrReference value for
+     *         subscriptionIdOrReference.
      * @param  componentId  ListUsagesInputComponentId value for componentId.
      * @param  sinceId  Long value for sinceId.
      * @param  maxId  Long value for maxId.
@@ -48,7 +50,7 @@ public class ListUsagesInput {
      * @param  perPage  Integer value for perPage.
      */
     public ListUsagesInput(
-            int subscriptionId,
+            ListUsagesInputSubscriptionIdOrReference subscriptionIdOrReference,
             ListUsagesInputComponentId componentId,
             Long sinceId,
             Long maxId,
@@ -56,7 +58,7 @@ public class ListUsagesInput {
             LocalDate untilDate,
             Integer page,
             Integer perPage) {
-        this.subscriptionId = subscriptionId;
+        this.subscriptionIdOrReference = subscriptionIdOrReference;
         this.componentId = componentId;
         this.sinceId = sinceId;
         this.maxId = maxId;
@@ -67,23 +69,31 @@ public class ListUsagesInput {
     }
 
     /**
-     * Getter for SubscriptionId.
-     * The Chargify id of the subscription
-     * @return Returns the int
+     * Getter for SubscriptionIdOrReference.
+     * Either the Advanced Billing subscription ID (integer) or the subscription reference (string).
+     * Important: In cases where a numeric string value matches both an existing subscription ID and
+     * an existing subscription reference, the system will prioritize the subscription ID lookup.
+     * For example, if both subscription ID 123 and subscription reference "123" exist, passing
+     * "123" will return the subscription with ID 123.
+     * @return Returns the ListUsagesInputSubscriptionIdOrReference
      */
-    @JsonGetter("subscription_id")
-    public int getSubscriptionId() {
-        return subscriptionId;
+    @JsonGetter("subscription_id_or_reference")
+    public ListUsagesInputSubscriptionIdOrReference getSubscriptionIdOrReference() {
+        return subscriptionIdOrReference;
     }
 
     /**
-     * Setter for SubscriptionId.
-     * The Chargify id of the subscription
-     * @param subscriptionId Value for int
+     * Setter for SubscriptionIdOrReference.
+     * Either the Advanced Billing subscription ID (integer) or the subscription reference (string).
+     * Important: In cases where a numeric string value matches both an existing subscription ID and
+     * an existing subscription reference, the system will prioritize the subscription ID lookup.
+     * For example, if both subscription ID 123 and subscription reference "123" exist, passing
+     * "123" will return the subscription with ID 123.
+     * @param subscriptionIdOrReference Value for ListUsagesInputSubscriptionIdOrReference
      */
-    @JsonSetter("subscription_id")
-    public void setSubscriptionId(int subscriptionId) {
-        this.subscriptionId = subscriptionId;
+    @JsonSetter("subscription_id_or_reference")
+    public void setSubscriptionIdOrReference(ListUsagesInputSubscriptionIdOrReference subscriptionIdOrReference) {
+        this.subscriptionIdOrReference = subscriptionIdOrReference;
     }
 
     /**
@@ -260,10 +270,10 @@ public class ListUsagesInput {
      */
     @Override
     public String toString() {
-        return "ListUsagesInput [" + "subscriptionId=" + subscriptionId + ", componentId="
-                + componentId + ", sinceId=" + sinceId + ", maxId=" + maxId + ", sinceDate="
-                + sinceDate + ", untilDate=" + untilDate + ", page=" + page + ", perPage=" + perPage
-                + "]";
+        return "ListUsagesInput [" + "subscriptionIdOrReference=" + subscriptionIdOrReference
+                + ", componentId=" + componentId + ", sinceId=" + sinceId + ", maxId=" + maxId
+                + ", sinceDate=" + sinceDate + ", untilDate=" + untilDate + ", page=" + page
+                + ", perPage=" + perPage + "]";
     }
 
     /**
@@ -272,7 +282,7 @@ public class ListUsagesInput {
      * @return a new {@link ListUsagesInput.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder(subscriptionId, componentId)
+        Builder builder = new Builder(subscriptionIdOrReference, componentId)
                 .sinceId(getSinceId())
                 .maxId(getMaxId())
                 .sinceDate(getSinceDate())
@@ -286,7 +296,7 @@ public class ListUsagesInput {
      * Class to build instances of {@link ListUsagesInput}.
      */
     public static class Builder {
-        private int subscriptionId;
+        private ListUsagesInputSubscriptionIdOrReference subscriptionIdOrReference;
         private ListUsagesInputComponentId componentId;
         private Long sinceId;
         private Long maxId;
@@ -303,21 +313,25 @@ public class ListUsagesInput {
 
         /**
          * Initialization constructor.
-         * @param  subscriptionId  int value for subscriptionId.
+         * @param  subscriptionIdOrReference  ListUsagesInputSubscriptionIdOrReference value for
+         *         subscriptionIdOrReference.
          * @param  componentId  ListUsagesInputComponentId value for componentId.
          */
-        public Builder(int subscriptionId, ListUsagesInputComponentId componentId) {
-            this.subscriptionId = subscriptionId;
+        public Builder(ListUsagesInputSubscriptionIdOrReference subscriptionIdOrReference,
+                ListUsagesInputComponentId componentId) {
+            this.subscriptionIdOrReference = subscriptionIdOrReference;
             this.componentId = componentId;
         }
 
         /**
-         * Setter for subscriptionId.
-         * @param  subscriptionId  int value for subscriptionId.
+         * Setter for subscriptionIdOrReference.
+         * @param  subscriptionIdOrReference  ListUsagesInputSubscriptionIdOrReference value for
+         *         subscriptionIdOrReference.
          * @return Builder
          */
-        public Builder subscriptionId(int subscriptionId) {
-            this.subscriptionId = subscriptionId;
+        public Builder subscriptionIdOrReference(
+                ListUsagesInputSubscriptionIdOrReference subscriptionIdOrReference) {
+            this.subscriptionIdOrReference = subscriptionIdOrReference;
             return this;
         }
 
@@ -396,8 +410,8 @@ public class ListUsagesInput {
          * @return {@link ListUsagesInput}
          */
         public ListUsagesInput build() {
-            return new ListUsagesInput(subscriptionId, componentId, sinceId, maxId, sinceDate,
-                    untilDate, page, perPage);
+            return new ListUsagesInput(subscriptionIdOrReference, componentId, sinceId, maxId,
+                    sinceDate, untilDate, page, perPage);
         }
     }
 }

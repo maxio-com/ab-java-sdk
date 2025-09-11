@@ -14,7 +14,9 @@ import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.Usage;
 import com.maxio.advancedbilling.models.UsageResponse;
 import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
+import com.maxio.advancedbilling.models.containers.CreateUsageSubscriptionIdOrReference;
 import com.maxio.advancedbilling.models.containers.ListUsagesInputComponentId;
+import com.maxio.advancedbilling.models.containers.ListUsagesInputSubscriptionIdOrReference;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import org.junit.jupiter.api.AfterAll;
@@ -52,7 +54,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
         customer = TEST_SETUP.createCustomer();
         subscription = TEST_SETUP.createSubscription(customer, product);
 
-        usage1 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+        usage1 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(subscription.getId()),
                 CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
@@ -60,7 +62,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
                                 .memo("created usage")
                                 .build()
                 )).getUsage();
-        usage2 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+        usage2 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(subscription.getId()),
                 CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
@@ -68,7 +70,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
                                 .memo("created usage 2")
                                 .build()
                 )).getUsage();
-        usage3 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(subscription.getId(),
+        usage3 = SUBSCRIPTION_COMPONENTS_CONTROLLER.createUsage(CreateUsageSubscriptionIdOrReference.fromNumber(subscription.getId()),
                 CreateUsageComponentId.fromNumber(meteredComponent.getId()),
                 new CreateUsageRequest(
                         new CreateUsage.Builder()
@@ -87,7 +89,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     void shouldListUsages() throws IOException, ApiException {
         // when
         List<UsageResponse> usages = SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
-                .subscriptionId(subscription.getId())
+                .subscriptionIdOrReference(ListUsagesInputSubscriptionIdOrReference.fromNumber(subscription.getId()))
                 .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
                 .build()
         );
@@ -103,7 +105,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     void shouldReturnEmptyListWhenListingUsagesUsingTimeframeWithoutUsages() throws IOException, ApiException {
         // when
         List<UsageResponse> usages = SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
-                .subscriptionId(subscription.getId())
+                .subscriptionIdOrReference(ListUsagesInputSubscriptionIdOrReference.fromNumber(subscription.getId()))
                 .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
                         .sinceDate(LocalDate.parse("2022-10-25"))
                         .untilDate(LocalDate.parse("2022-11-23"))
@@ -118,7 +120,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     void shouldReturnUsagesBetweenIds() throws IOException, ApiException {
         // when
         List<UsageResponse> usages = SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
-                .subscriptionId(subscription.getId())
+                .subscriptionIdOrReference(ListUsagesInputSubscriptionIdOrReference.fromNumber(subscription.getId()))
                 .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
                 .sinceId(usage1.getId())
                 .maxId(usage2.getId())
@@ -134,7 +136,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     @Test
     void shouldNotListUsagesWhenSubscriptionDoesNotExist() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
-                .subscriptionId(123)
+                .subscriptionIdOrReference(ListUsagesInputSubscriptionIdOrReference.fromNumber(123))
                 .componentId(ListUsagesInputComponentId.fromNumber(meteredComponent.getId()))
                 .build()));
     }
@@ -142,7 +144,7 @@ public class SubscriptionComponentsControllerListUsagesTest {
     @Test
     void shouldNotListUsagesWhenComponentDoesNotExist() {
         assertNotFound(() -> SUBSCRIPTION_COMPONENTS_CONTROLLER.listUsages(new ListUsagesInput.Builder()
-                .subscriptionId(subscription.getId())
+                .subscriptionIdOrReference(ListUsagesInputSubscriptionIdOrReference.fromNumber(subscription.getId()))
                 .componentId(ListUsagesInputComponentId.fromNumber(123))
                 .build()));
     }
@@ -151,7 +153,12 @@ public class SubscriptionComponentsControllerListUsagesTest {
     void shouldNotCreateUsageWhenProvidingInvalidCredentials() {
         // when - then
         assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getSubscriptionComponentsController()
-                .createUsage(subscription.getId(), CreateUsageComponentId.fromNumber(meteredComponent.getId()), null));
+                .createUsage(
+                        CreateUsageSubscriptionIdOrReference.fromNumber(subscription.getId()),
+                        CreateUsageComponentId.fromNumber(meteredComponent.getId()),
+                        null
+                )
+        );
     }
 
 }

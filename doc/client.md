@@ -19,17 +19,22 @@ import com.maxio.advancedbilling.authentication.BasicAuthModel;
 import com.maxio.advancedbilling.exceptions.ApiException;
 import java.io.IOException;
 
-AdvancedBillingClient client = new AdvancedBillingClient.Builder()
-    .httpClientConfig(configBuilder -> configBuilder
-            .timeout(0))
-    .basicAuthCredentials(new BasicAuthModel.Builder(
-            "BasicAuthUserName",
-            "BasicAuthPassword"
-        )
-        .build())
-    .environment(Environment.US)
-    .site("subdomain")
-    .build();
+public class Program {
+    public static void main(String[] args) {
+        AdvancedBillingClient client = new AdvancedBillingClient.Builder()
+            .httpClientConfig(configBuilder -> configBuilder
+                    .timeout(0))
+            .basicAuthCredentials(new BasicAuthModel.Builder(
+                    "BasicAuthUserName",
+                    "BasicAuthPassword"
+                )
+                .build())
+            .environment(Environment.US)
+            .site("subdomain")
+            .build();
+
+    }
+}
 ```
 
 ## Maxio Advanced BillingClient Class
