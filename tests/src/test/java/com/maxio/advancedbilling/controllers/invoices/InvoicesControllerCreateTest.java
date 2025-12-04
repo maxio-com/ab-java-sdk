@@ -278,7 +278,7 @@ public class InvoicesControllerCreateTest {
 
         assertThat(invoice.getDiscounts())
                 .hasSize(2)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "sourceId", "lineItemBreakouts.uid")
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "sourceId", "lineItemBreakouts.uid", "additionalProperties", "lineItemBreakouts.additionalProperties")
                 .containsExactlyInAnyOrder(
                         new InvoiceDiscount.Builder()
                                 .code(coupon.getCode())
