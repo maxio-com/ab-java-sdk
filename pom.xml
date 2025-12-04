@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.maxio</groupId>
   <artifactId>advanced-billing-sdk</artifactId>
-  <version>7.0.1</version>
+  <version>8.0.0</version>
   <packaging>jar</packaging>
   <name>Advanced Billing SDK</name>
   <description>Ultimate billing and pricing flexibility for B2B SaaS.
@@ -43,12 +43,12 @@ Maxio integrates directly into your product, so you can seamlessly manage your p
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core-interfaces</artifactId>
-      <version>[0.3.3, 0.4)</version>
+      <version>[0.3.4, 0.4)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>
       <artifactId>core</artifactId>
-      <version>[0.6.13, 0.7)</version>
+      <version>[0.6.15, 0.7)</version>
     </dependency>
     <dependency>
       <groupId>io.apimatic</groupId>

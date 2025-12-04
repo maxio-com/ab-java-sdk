@@ -144,7 +144,9 @@ public class MetafieldScope
 
     /**
      * Getter for PublicShow.
-     * Include (1) or exclude (0) metafields from being viewable by your ecosystem.
+     * Include (1) or exclude (0) metafields used in [Embeddable
+     * Components](page:development-tools/embeddable-components/overview) from being viewable by
+     * your ecosystem.
      * @return Returns the IncludeOption
      */
     @JsonGetter("public_show")
@@ -155,7 +157,9 @@ public class MetafieldScope
 
     /**
      * Setter for PublicShow.
-     * Include (1) or exclude (0) metafields from being viewable by your ecosystem.
+     * Include (1) or exclude (0) metafields used in [Embeddable
+     * Components](page:development-tools/embeddable-components/overview) from being viewable by
+     * your ecosystem.
      * @param publicShow Value for IncludeOption
      */
     @JsonSetter("public_show")
@@ -165,7 +169,9 @@ public class MetafieldScope
 
     /**
      * Getter for PublicEdit.
-     * Include (1) or exclude (0) metafields from being edited by your ecosystem.
+     * Include (1) or exclude (0) metafields used in [Embeddable
+     * Components](page:development-tools/embeddable-components/overview) from being editable by
+     * your ecosystem.
      * @return Returns the IncludeOption
      */
     @JsonGetter("public_edit")
@@ -176,7 +182,9 @@ public class MetafieldScope
 
     /**
      * Setter for PublicEdit.
-     * Include (1) or exclude (0) metafields from being edited by your ecosystem.
+     * Include (1) or exclude (0) metafields used in [Embeddable
+     * Components](page:development-tools/embeddable-components/overview) from being editable by
+     * your ecosystem.
      * @param publicEdit Value for IncludeOption
      */
     @JsonSetter("public_edit")

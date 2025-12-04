@@ -86,7 +86,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * the `amount, memo, details, method`. When the `method` specified is `"credit_card_on_file"`,
      * the prepayment amount will be collected using the default credit card payment profile and
      * applied to the prepayment account balance. This is especially useful for manual replenishment
-     * of prepaid subscriptions. Please note that you **can't** pass `amount_in_cents`.
+     * of prepaid subscriptions. Note that passing `amount_in_cents` is now allowed.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter:
      * @return    Returns the CreatePrepaymentResponse response from the API call

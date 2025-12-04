@@ -47,7 +47,7 @@ List<WebhookResponse> listWebhooks(
 
 ```java
 ListWebhooksInput listWebhooksInput = new ListWebhooksInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(50)
     .build();
 

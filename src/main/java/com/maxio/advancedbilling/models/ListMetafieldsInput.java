@@ -51,7 +51,7 @@ public class ListMetafieldsInput {
 
     /**
      * Getter for ResourceType.
-     * the resource type to which the metafields belong
+     * The resource type to which the metafields belong.
      * @return Returns the ResourceType
      */
     @JsonGetter("resource_type")
@@ -61,7 +61,7 @@ public class ListMetafieldsInput {
 
     /**
      * Setter for ResourceType.
-     * the resource type to which the metafields belong
+     * The resource type to which the metafields belong.
      * @param resourceType Value for ResourceType
      */
     @JsonSetter("resource_type")
@@ -71,7 +71,7 @@ public class ListMetafieldsInput {
 
     /**
      * Getter for Name.
-     * filter by the name of the metafield
+     * Filter by the name of the metafield.
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -82,7 +82,7 @@ public class ListMetafieldsInput {
 
     /**
      * Setter for Name.
-     * filter by the name of the metafield
+     * Filter by the name of the metafield.
      * @param name Value for String
      */
     @JsonSetter("name")

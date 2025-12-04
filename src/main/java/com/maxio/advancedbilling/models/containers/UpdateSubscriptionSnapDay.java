@@ -28,21 +28,21 @@ import java.util.Arrays;
 public abstract class UpdateSubscriptionSnapDay {
     
     /**
-     * This is SnapDay case.
-     * @param snapDay SnapDay value for snapDay.
-     * @return The SnapDayCase object.
-     */
-    public static UpdateSubscriptionSnapDay fromSnapDay(SnapDay snapDay) {
-        return snapDay == null ? null : new SnapDayCase(snapDay);
-    }
-
-    /**
      * This is Number case.
      * @param number int value for number.
      * @return The NumberCase object.
      */
     public static UpdateSubscriptionSnapDay fromNumber(int number) {
         return new NumberCase(number);
+    }
+
+    /**
+     * This is SnapDay case.
+     * @param snapDay SnapDay value for snapDay.
+     * @return The SnapDayCase object.
+     */
+    public static UpdateSubscriptionSnapDay fromSnapDay(SnapDay snapDay) {
+        return snapDay == null ? null : new SnapDayCase(snapDay);
     }
 
     /**
@@ -58,43 +58,9 @@ public abstract class UpdateSubscriptionSnapDay {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R snapDay(SnapDay snapDay);
-
         R number(int number);
-    }
 
-    /**
-     * This is a implementation class for SnapDayCase.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SnapDay")
-    private static class SnapDayCase extends UpdateSubscriptionSnapDay {
-
-        @JsonValue
-        private SnapDay snapDay;
-
-        SnapDayCase(SnapDay snapDay) {
-            this.snapDay = snapDay;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.snapDay(this.snapDay);
-        }
-
-        @JsonCreator
-        private SnapDayCase(JsonNode jsonNode) throws IOException {
-            this.snapDay = 
-                SnapDay.fromString(ApiHelper.deserialize(jsonNode, String.class));
-            if (this.snapDay == null) {
-                throw new IllegalArgumentException();
-            }
-        }
-
-        @Override
-        public String toString() {
-            return snapDay.toString();
-        }
+        R snapDay(SnapDay snapDay);
     }
 
     /**
@@ -132,6 +98,40 @@ public abstract class UpdateSubscriptionSnapDay {
     }
 
     /**
+     * This is a implementation class for SnapDayCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "SnapDay")
+    private static class SnapDayCase extends UpdateSubscriptionSnapDay {
+
+        @JsonValue
+        private SnapDay snapDay;
+
+        SnapDayCase(SnapDay snapDay) {
+            this.snapDay = snapDay;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.snapDay(this.snapDay);
+        }
+
+        @JsonCreator
+        private SnapDayCase(JsonNode jsonNode) throws IOException {
+            this.snapDay = 
+                SnapDay.fromString(ApiHelper.deserialize(jsonNode, String.class));
+            if (this.snapDay == null) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        @Override
+        public String toString() {
+            return snapDay.toString();
+        }
+    }
+
+    /**
      * This is a custom deserializer class for UpdateSubscriptionSnapDay.
      */
     protected static class UpdateSubscriptionSnapDayDeserializer
@@ -142,8 +142,8 @@ public abstract class UpdateSubscriptionSnapDay {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(SnapDayCase.class,
-                    NumberCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(NumberCase.class,
+                    SnapDayCase.class), true);
         }
     }
 

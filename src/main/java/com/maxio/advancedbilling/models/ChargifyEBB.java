@@ -86,8 +86,8 @@ public class ChargifyEBB
 
     /**
      * Getter for Id.
-     * A unique ID set by Chargify. Please note that this field is reserved. If `chargify.id` is
-     * present in the request payload, it will be overwritten.
+     * A unique ID set by Chargify. This field is reserved. If `chargify.id` is present in the
+     * request payload, it will be overwritten.
      * @return Returns the String
      */
     @JsonGetter("id")
@@ -98,8 +98,8 @@ public class ChargifyEBB
 
     /**
      * Setter for Id.
-     * A unique ID set by Chargify. Please note that this field is reserved. If `chargify.id` is
-     * present in the request payload, it will be overwritten.
+     * A unique ID set by Chargify. This field is reserved. If `chargify.id` is present in the
+     * request payload, it will be overwritten.
      * @param id Value for String
      */
     @JsonSetter("id")
@@ -109,9 +109,8 @@ public class ChargifyEBB
 
     /**
      * Getter for CreatedAt.
-     * An ISO-8601 timestamp, set by Chargify at the time each event is recorded. Please note that
-     * this field is reserved. If `chargify.created_at` is present in the request payload, it will
-     * be overwritten.
+     * An ISO-8601 timestamp, set by Chargify at the time each event is recorded. This field is
+     * reserved. If `chargify.created_at` is present in the request payload, it will be overwritten.
      * @return Returns the ZonedDateTime
      */
     @JsonGetter("created_at")
@@ -123,9 +122,8 @@ public class ChargifyEBB
 
     /**
      * Setter for CreatedAt.
-     * An ISO-8601 timestamp, set by Chargify at the time each event is recorded. Please note that
-     * this field is reserved. If `chargify.created_at` is present in the request payload, it will
-     * be overwritten.
+     * An ISO-8601 timestamp, set by Chargify at the time each event is recorded. This field is
+     * reserved. If `chargify.created_at` is present in the request payload, it will be overwritten.
      * @param createdAt Value for ZonedDateTime
      */
     @JsonSetter("created_at")

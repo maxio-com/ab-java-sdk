@@ -30,6 +30,7 @@ public class ListCouponsFilter
     private List<Integer> ids;
     private List<String> codes;
     private Boolean useSiteExchangeRate;
+    private Boolean includeArchived;
 
     /**
      * Default constructor.
@@ -47,6 +48,7 @@ public class ListCouponsFilter
      * @param  ids  List of Integer value for ids.
      * @param  codes  List of String value for codes.
      * @param  useSiteExchangeRate  Boolean value for useSiteExchangeRate.
+     * @param  includeArchived  Boolean value for includeArchived.
      */
     public ListCouponsFilter(
             BasicDateField dateField,
@@ -56,7 +58,8 @@ public class ListCouponsFilter
             ZonedDateTime endDatetime,
             List<Integer> ids,
             List<String> codes,
-            Boolean useSiteExchangeRate) {
+            Boolean useSiteExchangeRate,
+            Boolean includeArchived) {
         this.dateField = dateField;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -65,6 +68,7 @@ public class ListCouponsFilter
         this.ids = ids;
         this.codes = codes;
         this.useSiteExchangeRate = useSiteExchangeRate;
+        this.includeArchived = includeArchived;
     }
 
     /**
@@ -254,8 +258,11 @@ public class ListCouponsFilter
 
     /**
      * Getter for UseSiteExchangeRate.
-     * Allows fetching coupons with matching use_site_exchange_rate based on provided value. Use in
-     * query `filter[use_site_exchange_rate]=true`.
+     * If true, restricts the list to coupons whose pricing is recalculated from the site’s current
+     * exchange rates, so their currency_prices array contains on-the-fly conversions rather than
+     * stored price records. If false, restricts the list to coupons that have manually defined
+     * amounts for each currency, ensuring the response includes the saved currency_prices entries
+     * instead of exchange-rate-derived values. Use in query `filter[use_site_exchange_rate]=true`.
      * @return Returns the Boolean
      */
     @JsonGetter("use_site_exchange_rate")
@@ -266,13 +273,37 @@ public class ListCouponsFilter
 
     /**
      * Setter for UseSiteExchangeRate.
-     * Allows fetching coupons with matching use_site_exchange_rate based on provided value. Use in
-     * query `filter[use_site_exchange_rate]=true`.
+     * If true, restricts the list to coupons whose pricing is recalculated from the site’s current
+     * exchange rates, so their currency_prices array contains on-the-fly conversions rather than
+     * stored price records. If false, restricts the list to coupons that have manually defined
+     * amounts for each currency, ensuring the response includes the saved currency_prices entries
+     * instead of exchange-rate-derived values. Use in query `filter[use_site_exchange_rate]=true`.
      * @param useSiteExchangeRate Value for Boolean
      */
     @JsonSetter("use_site_exchange_rate")
     public void setUseSiteExchangeRate(Boolean useSiteExchangeRate) {
         this.useSiteExchangeRate = useSiteExchangeRate;
+    }
+
+    /**
+     * Getter for IncludeArchived.
+     * Controls returning archived coupons.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("include_archived")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getIncludeArchived() {
+        return includeArchived;
+    }
+
+    /**
+     * Setter for IncludeArchived.
+     * Controls returning archived coupons.
+     * @param includeArchived Value for Boolean
+     */
+    @JsonSetter("include_archived")
+    public void setIncludeArchived(Boolean includeArchived) {
+        this.includeArchived = includeArchived;
     }
 
     /**
@@ -284,7 +315,8 @@ public class ListCouponsFilter
         return "ListCouponsFilter [" + "dateField=" + dateField + ", startDate=" + startDate
                 + ", endDate=" + endDate + ", startDatetime=" + startDatetime + ", endDatetime="
                 + endDatetime + ", ids=" + ids + ", codes=" + codes + ", useSiteExchangeRate="
-                + useSiteExchangeRate + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + useSiteExchangeRate + ", includeArchived=" + includeArchived
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -301,7 +333,8 @@ public class ListCouponsFilter
                 .endDatetime(getEndDatetime())
                 .ids(getIds())
                 .codes(getCodes())
-                .useSiteExchangeRate(getUseSiteExchangeRate());
+                .useSiteExchangeRate(getUseSiteExchangeRate())
+                .includeArchived(getIncludeArchived());
         return builder;
     }
 
@@ -317,6 +350,7 @@ public class ListCouponsFilter
         private List<Integer> ids;
         private List<String> codes;
         private Boolean useSiteExchangeRate;
+        private Boolean includeArchived;
 
 
 
@@ -401,12 +435,22 @@ public class ListCouponsFilter
         }
 
         /**
+         * Setter for includeArchived.
+         * @param  includeArchived  Boolean value for includeArchived.
+         * @return Builder
+         */
+        public Builder includeArchived(Boolean includeArchived) {
+            this.includeArchived = includeArchived;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ListCouponsFilter} object using the set fields.
          * @return {@link ListCouponsFilter}
          */
         public ListCouponsFilter build() {
             return new ListCouponsFilter(dateField, startDate, endDate, startDatetime, endDatetime,
-                    ids, codes, useSiteExchangeRate);
+                    ids, codes, useSiteExchangeRate, includeArchived);
         }
     }
 }

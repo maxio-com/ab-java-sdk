@@ -29,7 +29,7 @@ public class CreateOrUpdateProduct
     private Long trialPriceInCents;
     private Integer trialInterval;
     private OptionalNullable<IntervalUnit> trialIntervalUnit;
-    private String trialType;
+    private OptionalNullable<TrialType> trialType;
     private Integer expirationInterval;
     private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Boolean autoCreateSignupPage;
@@ -54,7 +54,7 @@ public class CreateOrUpdateProduct
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
-     * @param  trialType  String value for trialType.
+     * @param  trialType  TrialType value for trialType.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
@@ -72,7 +72,7 @@ public class CreateOrUpdateProduct
             Long trialPriceInCents,
             Integer trialInterval,
             IntervalUnit trialIntervalUnit,
-            String trialType,
+            TrialType trialType,
             Integer expirationInterval,
             ExpirationIntervalUnit expirationIntervalUnit,
             Boolean autoCreateSignupPage,
@@ -88,7 +88,7 @@ public class CreateOrUpdateProduct
         this.trialPriceInCents = trialPriceInCents;
         this.trialInterval = trialInterval;
         this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
-        this.trialType = trialType;
+        this.trialType = OptionalNullable.of(trialType);
         this.expirationInterval = expirationInterval;
         this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
         this.autoCreateSignupPage = autoCreateSignupPage;
@@ -108,7 +108,7 @@ public class CreateOrUpdateProduct
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
-     * @param  trialType  String value for trialType.
+     * @param  trialType  TrialType value for trialType.
      * @param  expirationInterval  Integer value for expirationInterval.
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
@@ -118,7 +118,7 @@ public class CreateOrUpdateProduct
     protected CreateOrUpdateProduct(String name, String description, long priceInCents,
             int interval, IntervalUnit intervalUnit, String handle, String accountingCode,
             Boolean requireCreditCard, Long trialPriceInCents, Integer trialInterval,
-            OptionalNullable<IntervalUnit> trialIntervalUnit, String trialType,
+            OptionalNullable<IntervalUnit> trialIntervalUnit, OptionalNullable<TrialType> trialType,
             Integer expirationInterval,
             OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
             Boolean autoCreateSignupPage, String taxCode) {
@@ -225,7 +225,7 @@ public class CreateOrUpdateProduct
     /**
      * Getter for RequireCreditCard.
      * Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup
-     * Page users, please read this attribute from under the signup page.
+     * Page users, read this attribute from under the signup page.
      * @return Returns the Boolean
      */
     @JsonGetter("require_credit_card")
@@ -237,7 +237,7 @@ public class CreateOrUpdateProduct
     /**
      * Setter for RequireCreditCard.
      * Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup
-     * Page users, please read this attribute from under the signup page.
+     * Page users, read this attribute from under the signup page.
      * @param requireCreditCard Value for Boolean
      */
     @JsonSetter("require_credit_card")
@@ -391,22 +391,58 @@ public class CreateOrUpdateProduct
     }
 
     /**
-     * Getter for TrialType.
-     * @return Returns the String
+     * Internal Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the Internal TrialType
      */
     @JsonGetter("trial_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTrialType() {
-        return trialType;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<TrialType> internalGetTrialType() {
+        return this.trialType;
+    }
+
+    /**
+     * Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the TrialType
+     */
+    public TrialType getTrialType() {
+        return OptionalNullable.getFrom(trialType);
     }
 
     /**
      * Setter for TrialType.
-     * @param trialType Value for String
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @param trialType Value for TrialType
      */
     @JsonSetter("trial_type")
-    public void setTrialType(String trialType) {
-        this.trialType = trialType;
+    public void setTrialType(TrialType trialType) {
+        this.trialType = OptionalNullable.of(trialType);
+    }
+
+    /**
+     * UnSetter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     */
+    public void unsetTrialType() {
+        trialType = null;
     }
 
     /**
@@ -497,8 +533,7 @@ public class CreateOrUpdateProduct
     /**
      * Getter for TaxCode.
      * A string representing the tax code related to the product type. This is especially important
-     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
-     * characters.
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      * @return Returns the String
      */
     @JsonGetter("tax_code")
@@ -510,8 +545,7 @@ public class CreateOrUpdateProduct
     /**
      * Setter for TaxCode.
      * A string representing the tax code related to the product type. This is especially important
-     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
-     * characters.
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      * @param taxCode Value for String
      */
     @JsonSetter("tax_code")
@@ -548,11 +582,11 @@ public class CreateOrUpdateProduct
                 .requireCreditCard(getRequireCreditCard())
                 .trialPriceInCents(getTrialPriceInCents())
                 .trialInterval(getTrialInterval())
-                .trialType(getTrialType())
                 .expirationInterval(getExpirationInterval())
                 .autoCreateSignupPage(getAutoCreateSignupPage())
                 .taxCode(getTaxCode());
         builder.trialIntervalUnit = internalGetTrialIntervalUnit();
+        builder.trialType = internalGetTrialType();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
@@ -572,7 +606,7 @@ public class CreateOrUpdateProduct
         private Long trialPriceInCents;
         private Integer trialInterval;
         private OptionalNullable<IntervalUnit> trialIntervalUnit;
-        private String trialType;
+        private OptionalNullable<TrialType> trialType;
         private Integer expirationInterval;
         private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Boolean autoCreateSignupPage;
@@ -722,11 +756,20 @@ public class CreateOrUpdateProduct
 
         /**
          * Setter for trialType.
-         * @param  trialType  String value for trialType.
+         * @param  trialType  TrialType value for trialType.
          * @return Builder
          */
-        public Builder trialType(String trialType) {
-            this.trialType = trialType;
+        public Builder trialType(TrialType trialType) {
+            this.trialType = OptionalNullable.of(trialType);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialType.
+         * @return Builder
+         */
+        public Builder unsetTrialType() {
+            trialType = null;
             return this;
         }
 

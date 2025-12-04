@@ -53,7 +53,7 @@ public final class BillingPortalController extends BaseController {
      * Billing. In order to prevent abuse &amp; overuse, we ask that you request a new URL only when
      * absolutely necessary. Management URLs are good for 65 days, so you should re-use a previously
      * generated one as much as possible. If you use the URL frequently (such as to display on your
-     * website), please **do not** make an API request to Advanced Billing every time.
+     * website), **do not** make an API request to Advanced Billing every time.
      * @param  customerId  Required parameter: The Chargify id of the customer
      * @param  autoInvite  Optional parameter: When set to 1, an Invitation email will be sent to
      *         the Customer. When set to 0, or not sent, an email will not be sent. Use in query:

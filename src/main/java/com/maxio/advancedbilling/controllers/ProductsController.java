@@ -36,7 +36,8 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * Use this method to create a product within your Advanced Billing site. + [Products
+     * Creates a product in your Advanced Billing site. See the following product docuemation for
+     * more information: + [Products
      * Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
      * + [Changing a Subscription's
      * Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations).
@@ -87,8 +88,7 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * This endpoint allows you to read the current details of a product that you've created in
-     * Advanced Billing.
+     * Reads the current details of a product.
      * @param  productId  Required parameter: The Advanced Billing id of the product
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -125,7 +125,7 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * Use this method to change aspects of an existing product. ### Input Attributes Update Notes +
+     * Updates aspects of an existing product. ### Input Attributes Update Notes +
      * `update_return_params` The parameters we will append to your `update_return_url`. See Return
      * URLs and Parameters ### Product Price Point Updating a product using this endpoint will
      * create a new price point and set it as the default price point for this product. If you
@@ -176,10 +176,9 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * Sending a DELETE request to this endpoint will archive the product. All current subscribers
-     * will be unffected; their subscription/purchase will continue to be charged monthly. This will
-     * restrict the option to chose the product for purchase via the Billing Portal, as well as
-     * disable Public Signup Pages for the product.
+     * Archives the product. All current subscribers will be unffected; their subscription/purchase
+     * will continue to be charged monthly. This will restrict the option to chose the product for
+     * purchase via the Billing Portal, as well as disable Public Signup Pages for the product.
      * @param  productId  Required parameter: The Advanced Billing id of the product
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -219,7 +218,7 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * This method allows to retrieve a Product object by its `api_handle`.
+     * Retrieves a Product object by its `api_handle`.
      * @param  apiHandle  Required parameter: The handle of the product
      * @return    Returns the ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

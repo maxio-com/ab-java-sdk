@@ -20,7 +20,9 @@ ProductsController productsController = client.getProductsController();
 
 # Create Product
 
-Use this method to create a product within your Advanced Billing site.
+Creates a product in your Advanced Billing site.
+
+See the following product docuemation for more information:
 
 + [Products Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
 + [Changing a Subscription's Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations)
@@ -131,7 +133,7 @@ try {
 
 # Read Product
 
-This endpoint allows you to read the current details of a product that you've created in Advanced Billing.
+Reads the current details of a product.
 
 ```java
 ProductResponse readProduct(
@@ -209,7 +211,7 @@ try {
 
 # Update Product
 
-Use this method to change aspects of an existing product.
+Updates aspects of an existing product.
 
 ### Input Attributes Update Notes
 
@@ -307,7 +309,7 @@ try {
 
 # Archive Product
 
-Sending a DELETE request to this endpoint will archive the product. All current subscribers will be unffected; their subscription/purchase will continue to be charged monthly.
+Archives the product. All current subscribers will be unffected; their subscription/purchase will continue to be charged monthly.
 
 This will restrict the option to chose the product for purchase via the Billing Portal, as well as disable Public Signup Pages for the product.
 
@@ -393,7 +395,7 @@ try {
 
 # Read Product by Handle
 
-This method allows to retrieve a Product object by its `api_handle`.
+Retrieves a Product object by its `api_handle`.
 
 ```java
 ProductResponse readProductByHandle(
@@ -534,7 +536,7 @@ ListProductsInput listProductsInput = new ListProductsInput.Builder()
             3
         ))
         .build())
-    .page(2)
+    .page(1)
     .perPage(50)
     .includeArchived(true)
     .include(ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT)

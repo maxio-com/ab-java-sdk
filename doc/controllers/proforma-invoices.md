@@ -174,7 +174,7 @@ try {
 
 This endpoint will create a proforma invoice and return it as a response. If the information becomes outdated, simply void the old proforma invoice and generate a new one.
 
-If you would like to preview the next billing amounts without generating a full proforma invoice, please use the renewal preview endpoint.
+If you would like to preview the next billing amounts without generating a full proforma invoice, use the renewal preview endpoint.
 
 ## Restrictions
 
@@ -254,7 +254,7 @@ ListProformaInvoicesResponse listProformaInvoices(
 ListProformaInvoicesInput listProformaInvoicesInput = new ListProformaInvoicesInput.Builder(
     222
 )
-.page(2)
+.page(1)
 .perPage(50)
 .direction(Direction.DESC)
 .lineItems(false)

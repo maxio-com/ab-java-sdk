@@ -40,7 +40,7 @@ public class ResumeOptions
     /**
      * Getter for RequireResume.
      * Chargify will only attempt to resume the subscription's billing period. If not resumable, the
-     * subscription will be left in it's current state.
+     * subscription will be left in its current state.
      * @return Returns the Boolean
      */
     @JsonGetter("require_resume")
@@ -52,7 +52,7 @@ public class ResumeOptions
     /**
      * Setter for RequireResume.
      * Chargify will only attempt to resume the subscription's billing period. If not resumable, the
-     * subscription will be left in it's current state.
+     * subscription will be left in its current state.
      * @param requireResume Value for Boolean
      */
     @JsonSetter("require_resume")

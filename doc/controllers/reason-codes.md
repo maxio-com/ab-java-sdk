@@ -104,7 +104,7 @@ List<ReasonCodeResponse> listReasonCodes(
 
 ```java
 ListReasonCodesInput listReasonCodesInput = new ListReasonCodesInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(50)
     .build();
 

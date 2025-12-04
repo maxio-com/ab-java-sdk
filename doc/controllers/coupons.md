@@ -30,9 +30,9 @@ CouponsController couponsController = client.getCouponsController();
 
 ## Coupons Documentation
 
-Coupons can be administered in the Advanced Billing application or created via API. Please view our section on [creating coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creating-Editing-Deleting-Coupons) for more information.
+Coupons can be administered in the Advanced Billing application or created via API. View our section on [creating coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creating-Editing-Deleting-Coupons) for more information.
 
-Additionally, for documentation on how to apply a coupon to a subscription within the Advanced Billing UI, please see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
+Additionally, for documentation on how to apply a coupon to a subscription within the Advanced Billing UI, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
 
 ## Create Coupon
 
@@ -111,8 +111,6 @@ try {
 
 List coupons for a specific Product Family in a Site.
 
-If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
-
 ```java
 List<CouponResponse> listCouponsForProductFamily(
     final ListCouponsForProductFamilyInput input)
@@ -138,7 +136,7 @@ List<CouponResponse> listCouponsForProductFamily(
 ListCouponsForProductFamilyInput listCouponsForProductFamilyInput = new ListCouponsForProductFamilyInput.Builder(
     140
 )
-.page(2)
+.page(1)
 .perPage(50)
 .filter(new ListCouponsFilter.Builder()
         .startDate(DateTimeHelper.fromSimpleDate("2011-12-17"))
@@ -552,8 +550,6 @@ try {
 
 You can retrieve a list of coupons.
 
-If the coupon is set to `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency.
-
 ```java
 List<CouponResponse> listCoupons(
     final ListCouponsInput input)
@@ -576,7 +572,7 @@ List<CouponResponse> listCoupons(
 
 ```java
 ListCouponsInput listCouponsInput = new ListCouponsInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(50)
     .filter(new ListCouponsFilter.Builder()
         .startDate(DateTimeHelper.fromSimpleDate("2011-12-17"))
@@ -669,8 +665,8 @@ List<CouponUsage> readCouponUsage(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs |
-| `couponId` | `int` | Template, Required | The Advanced Billing id of the coupon |
+| `productFamilyId` | `int` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs. |
+| `couponId` | `int` | Template, Required | The Advanced Billing id of the coupon. |
 
 ## Response Type
 
@@ -905,7 +901,7 @@ When creating a coupon subcode, you must specify a coupon to attach it to using 
 
 Full documentation on how to create coupon subcodes in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes).
 
-Additionally, for documentation on how to apply a coupon to a Subscription within the Advanced Billing UI, please see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
+Additionally, for documentation on how to apply a coupon to a Subscription within the Advanced Billing UI, see our documentation [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
 
 ## Create Coupon Subcode
 
@@ -1001,7 +997,7 @@ CouponSubcodes listCouponSubcodes(
 ListCouponSubcodesInput listCouponSubcodesInput = new ListCouponSubcodesInput.Builder(
     162
 )
-.page(2)
+.page(1)
 .perPage(50)
 .build();
 

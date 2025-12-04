@@ -25,7 +25,7 @@ ProductPricePointsController productPricePointsController = client.getProductPri
 
 # Create Product Price Point
 
-[Product Price Point Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261111947789-Product-Price-Points)
+Creates a Product Price Point. See the [Product Price Point](https://maxio.zendesk.com/hc/en-us/articles/24261111947789-Product-Price-Points) documentation for details.
 
 ```java
 ProductPricePointResponse createProductPricePoint(
@@ -61,7 +61,7 @@ CreateProductPricePointRequest body = new CreateProductPricePointRequest.Builder
     .trialPriceInCents(4900L)
     .trialInterval(1)
     .trialIntervalUnit(IntervalUnit.MONTH)
-    .trialType("payment_expected")
+    .trialType(TrialType.PAYMENT_EXPECTED)
     .initialChargeInCents(120000L)
     .initialChargeAfterTrial(false)
     .expirationInterval(12)
@@ -116,7 +116,7 @@ try {
 
 # List Product Price Points
 
-Use this endpoint to retrieve a list of product price points.
+Retrieves a list of product price points.
 
 ```java
 ListProductPricePointsResponse listProductPricePoints(
@@ -146,7 +146,7 @@ ListProductPricePointsInput listProductPricePointsInput = new ListProductPricePo
         124
     )
 )
-.page(2)
+.page(1)
 .perPage(10)
 .filterType(Liquid error: Value cannot be null. (Parameter 'key'))
 .build();
@@ -193,9 +193,9 @@ try {
 
 # Update Product Price Point
 
-Use this endpoint to update a product price point.
+Updates a product price point.
 
-Note: Custom product price points are not able to be updated.
+Note: Custom product price points cannot be updated.
 
 ```java
 ProductPricePointResponse updateProductPricePoint(
@@ -344,7 +344,7 @@ try {
 
 # Archive Product Price Point
 
-Use this endpoint to archive a product price point.
+Archives a product price point.
 
 ```java
 ProductPricePointResponse archiveProductPricePoint(
@@ -484,9 +484,9 @@ try {
 
 # Promote Product Price Point to Default
 
-Use this endpoint to make a product price point the default for the product.
+Sets a product price point as the default for the product.
 
-Note: Custom product price points are not able to be set as the default for a product.
+Note: Custom product price points cannot be set as the default for a product.
 
 ```java
 ProductResponse promoteProductPricePointToDefault(
@@ -577,7 +577,7 @@ try {
 
 # Bulk Create Product Price Points
 
-Use this endpoint to create multiple product price points in one request.
+Creates multiple product price points in one request.
 
 ```java
 BulkCreateProductPricePointsResponse bulkCreateProductPricePoints(
@@ -612,7 +612,7 @@ BulkCreateProductPricePointsRequest body = new BulkCreateProductPricePointsReque
         .trialPriceInCents(4900L)
         .trialInterval(1)
         .trialIntervalUnit(IntervalUnit.MONTH)
-        .trialType("payment_expected")
+        .trialType(TrialType.PAYMENT_EXPECTED)
         .initialChargeInCents(120000L)
         .initialChargeAfterTrial(false)
         .expirationInterval(12)
@@ -628,7 +628,7 @@ BulkCreateProductPricePointsRequest body = new BulkCreateProductPricePointsReque
         .trialPriceInCents(4900L)
         .trialInterval(1)
         .trialIntervalUnit(IntervalUnit.MONTH)
-        .trialType("payment_expected")
+        .trialType(TrialType.PAYMENT_EXPECTED)
         .initialChargeInCents(120000L)
         .initialChargeAfterTrial(false)
         .expirationInterval(12)
@@ -686,7 +686,7 @@ try {
 
 # Create Product Currency Prices
 
-This endpoint allows you to create currency prices for a given currency that has been defined on the site level in your settings.
+Creates currency prices for a given currency that has been defined on the site level in your settings.
 
 When creating currency prices, they need to mirror the structure of your primary pricing. If the product price point defines a trial and/or setup fee, each currency must also define a trial and/or setup fee.
 
@@ -773,11 +773,11 @@ try {
 
 # Update Product Currency Prices
 
-This endpoint allows you to update the `price`s of currency prices for a given currency that exists on the product price point.
+Updates the `price`s of currency prices for a given currency that exists on the product price point.
 
 When updating the pricing, it needs to mirror the structure of your primary pricing. If the product price point defines a trial and/or setup fee, each currency must also define a trial and/or setup fee.
 
-Note: Currency Prices are not able to be updated for custom product price points.
+Note: Currency Prices cannot be updated for custom product price points.
 
 ```java
 CurrencyPricesResponse updateProductCurrencyPrices(
@@ -894,7 +894,7 @@ ListAllProductPricePointsInput listAllProductPricePointsInput = new ListAllProdu
         ))
         .build())
     .include(ListProductsPricePointsInclude.CURRENCY_PRICES)
-    .page(2)
+    .page(1)
     .perPage(50)
     .build();
 

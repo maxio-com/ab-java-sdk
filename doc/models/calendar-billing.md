@@ -18,7 +18,7 @@
 
 ```json
 {
-  "snap_day": 210,
+  "snap_day": 28,
   "calendar_billing_first_charge": "prorated"
 }
 ```

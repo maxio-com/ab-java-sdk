@@ -81,7 +81,7 @@ public class ListMetadataForResourceTypeInput {
 
     /**
      * Getter for ResourceType.
-     * the resource type to which the metafields belong
+     * The resource type to which the metafields belong.
      * @return Returns the ResourceType
      */
     @JsonGetter("resource_type")
@@ -91,7 +91,7 @@ public class ListMetadataForResourceTypeInput {
 
     /**
      * Setter for ResourceType.
-     * the resource type to which the metafields belong
+     * The resource type to which the metafields belong.
      * @param resourceType Value for ResourceType
      */
     @JsonSetter("resource_type")

@@ -244,7 +244,7 @@ public class CreatePaymentProfile
 
     /**
      * Getter for ChargifyToken.
-     * Token received after sending billing informations using chargify.js.
+     * Token received after sending billing information using chargify.js.
      * @return Returns the String
      */
     @JsonGetter("chargify_token")
@@ -255,7 +255,7 @@ public class CreatePaymentProfile
 
     /**
      * Setter for ChargifyToken.
-     * Token received after sending billing informations using chargify.js.
+     * Token received after sending billing information using chargify.js.
      * @param chargifyToken Value for String
      */
     @JsonSetter("chargify_token")
@@ -571,8 +571,8 @@ public class CreatePaymentProfile
      * The credit card or bank account billing address country, required in [ISO_3166-1
      * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
-     * specific format. Please check your gateway’s documentation. If creating an ACH subscription,
-     * only US is supported at this time.
+     * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
+     * is supported at this time.
      * @return Returns the String
      */
     @JsonGetter("billing_country")
@@ -586,8 +586,8 @@ public class CreatePaymentProfile
      * The credit card or bank account billing address country, required in [ISO_3166-1
      * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
-     * specific format. Please check your gateway’s documentation. If creating an ACH subscription,
-     * only US is supported at this time.
+     * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
+     * is supported at this time.
      * @param billingCountry Value for String
      */
     @JsonSetter("billing_country")

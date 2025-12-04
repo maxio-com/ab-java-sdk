@@ -65,8 +65,8 @@ public class ActivateEventBasedComponent
     /**
      * Getter for BillingSchedule.
      * This attribute is particularly useful when you need to align billing events for different
-     * components on distinct schedules within a subscription. Please note this only works for site
-     * with Multifrequency enabled
+     * components on distinct schedules within a subscription. This only works for site with
+     * Multifrequency enabled.
      * @return Returns the BillingSchedule
      */
     @JsonGetter("billing_schedule")
@@ -78,8 +78,8 @@ public class ActivateEventBasedComponent
     /**
      * Setter for BillingSchedule.
      * This attribute is particularly useful when you need to align billing events for different
-     * components on distinct schedules within a subscription. Please note this only works for site
-     * with Multifrequency enabled
+     * components on distinct schedules within a subscription. This only works for site with
+     * Multifrequency enabled.
      * @param billingSchedule Value for BillingSchedule
      */
     @JsonSetter("billing_schedule")

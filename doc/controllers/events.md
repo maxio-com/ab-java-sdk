@@ -115,7 +115,7 @@ List<EventResponse> listEvents(
 
 ```java
 ListEventsInput listEventsInput = new ListEventsInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(50)
     .direction(Direction.DESC)
     .filter(Arrays.asList(
@@ -239,7 +239,7 @@ List<EventResponse> listSubscriptionEvents(
 ListSubscriptionEventsInput listSubscriptionEventsInput = new ListSubscriptionEventsInput.Builder(
     222
 )
-.page(2)
+.page(1)
 .perPage(50)
 .direction(Direction.DESC)
 .filter(Arrays.asList(
@@ -330,7 +330,7 @@ CountResponse readEventsCount(
 
 ```java
 ReadEventsCountInput readEventsCountInput = new ReadEventsCountInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(50)
     .direction(Direction.DESC)
     .filter(Arrays.asList(

@@ -98,7 +98,7 @@ ListSubscriptionGroupPrepaymentResponse listPrepaymentsForSubscriptionGroup(
 ListPrepaymentsForSubscriptionGroupInput listPrepaymentsForSubscriptionGroupInput = new ListPrepaymentsForSubscriptionGroupInput.Builder(
     "uid0"
 )
-.page(2)
+.page(1)
 .perPage(50)
 .filter(new ListPrepaymentsFilter.Builder()
         .dateField(ListPrepaymentDateField.CREATED_AT)

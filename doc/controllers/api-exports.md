@@ -51,7 +51,7 @@ ListExportedProformaInvoicesInput listExportedProformaInvoicesInput = new ListEx
     "batch_id8"
 )
 .perPage(100)
-.page(2)
+.page(1)
 .build();
 
 try {
@@ -101,7 +101,7 @@ ListExportedInvoicesInput listExportedInvoicesInput = new ListExportedInvoicesIn
     "batch_id8"
 )
 .perPage(100)
-.page(2)
+.page(1)
 .build();
 
 try {
@@ -151,7 +151,7 @@ ListExportedSubscriptionsInput listExportedSubscriptionsInput = new ListExported
     "batch_id8"
 )
 .perPage(100)
-.page(2)
+.page(1)
 .build();
 
 try {

@@ -539,8 +539,8 @@ public class PaymentProfileAttributes
      * or bank account billing address country, required in [ISO_3166-1
      * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
-     * specific format. Please check your gateway’s documentation. If creating an ACH subscription,
-     * only US is supported at this time.
+     * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
+     * is supported at this time.
      * @return Returns the String
      */
     @JsonGetter("billing_country")
@@ -555,8 +555,8 @@ public class PaymentProfileAttributes
      * or bank account billing address country, required in [ISO_3166-1
      * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
-     * specific format. Please check your gateway’s documentation. If creating an ACH subscription,
-     * only US is supported at this time.
+     * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
+     * is supported at this time.
      * @param billingCountry Value for String
      */
     @JsonSetter("billing_country")

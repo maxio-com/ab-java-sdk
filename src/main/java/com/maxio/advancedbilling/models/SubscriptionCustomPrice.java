@@ -32,6 +32,7 @@ public class SubscriptionCustomPrice
     private SubscriptionCustomPriceTrialPriceInCents trialPriceInCents;
     private SubscriptionCustomPriceTrialInterval trialInterval;
     private IntervalUnit trialIntervalUnit;
+    private OptionalNullable<TrialType> trialType;
     private SubscriptionCustomPriceInitialChargeInCents initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private SubscriptionCustomPriceExpirationInterval expirationInterval;
@@ -55,6 +56,7 @@ public class SubscriptionCustomPrice
      *         trialPriceInCents.
      * @param  trialInterval  SubscriptionCustomPriceTrialInterval value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
+     * @param  trialType  TrialType value for trialType.
      * @param  initialChargeInCents  SubscriptionCustomPriceInitialChargeInCents value for
      *         initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
@@ -72,6 +74,7 @@ public class SubscriptionCustomPrice
             SubscriptionCustomPriceTrialPriceInCents trialPriceInCents,
             SubscriptionCustomPriceTrialInterval trialInterval,
             IntervalUnit trialIntervalUnit,
+            TrialType trialType,
             SubscriptionCustomPriceInitialChargeInCents initialChargeInCents,
             Boolean initialChargeAfterTrial,
             SubscriptionCustomPriceExpirationInterval expirationInterval,
@@ -85,6 +88,7 @@ public class SubscriptionCustomPrice
         this.trialPriceInCents = trialPriceInCents;
         this.trialInterval = trialInterval;
         this.trialIntervalUnit = trialIntervalUnit;
+        this.trialType = OptionalNullable.of(trialType);
         this.initialChargeInCents = initialChargeInCents;
         this.initialChargeAfterTrial = initialChargeAfterTrial;
         this.expirationInterval = expirationInterval;
@@ -103,6 +107,7 @@ public class SubscriptionCustomPrice
      *         trialPriceInCents.
      * @param  trialInterval  SubscriptionCustomPriceTrialInterval value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
+     * @param  trialType  TrialType value for trialType.
      * @param  initialChargeInCents  SubscriptionCustomPriceInitialChargeInCents value for
      *         initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
@@ -116,6 +121,7 @@ public class SubscriptionCustomPrice
             SubscriptionCustomPriceInterval interval, IntervalUnit intervalUnit, String name,
             String handle, SubscriptionCustomPriceTrialPriceInCents trialPriceInCents,
             SubscriptionCustomPriceTrialInterval trialInterval, IntervalUnit trialIntervalUnit,
+            OptionalNullable<TrialType> trialType,
             SubscriptionCustomPriceInitialChargeInCents initialChargeInCents,
             Boolean initialChargeAfterTrial,
             SubscriptionCustomPriceExpirationInterval expirationInterval,
@@ -129,6 +135,7 @@ public class SubscriptionCustomPrice
         this.trialPriceInCents = trialPriceInCents;
         this.trialInterval = trialInterval;
         this.trialIntervalUnit = trialIntervalUnit;
+        this.trialType = trialType;
         this.initialChargeInCents = initialChargeInCents;
         this.initialChargeAfterTrial = initialChargeAfterTrial;
         this.expirationInterval = expirationInterval;
@@ -302,6 +309,61 @@ public class SubscriptionCustomPrice
     }
 
     /**
+     * Internal Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the Internal TrialType
+     */
+    @JsonGetter("trial_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<TrialType> internalGetTrialType() {
+        return this.trialType;
+    }
+
+    /**
+     * Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the TrialType
+     */
+    public TrialType getTrialType() {
+        return OptionalNullable.getFrom(trialType);
+    }
+
+    /**
+     * Setter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @param trialType Value for TrialType
+     */
+    @JsonSetter("trial_type")
+    public void setTrialType(TrialType trialType) {
+        this.trialType = OptionalNullable.of(trialType);
+    }
+
+    /**
+     * UnSetter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     */
+    public void unsetTrialType() {
+        trialType = null;
+    }
+
+    /**
      * Getter for InitialChargeInCents.
      * (Optional)
      * @return Returns the SubscriptionCustomPriceInitialChargeInCents
@@ -433,11 +495,12 @@ public class SubscriptionCustomPrice
         return "SubscriptionCustomPrice [" + "priceInCents=" + priceInCents + ", interval="
                 + interval + ", intervalUnit=" + intervalUnit + ", name=" + name + ", handle="
                 + handle + ", trialPriceInCents=" + trialPriceInCents + ", trialInterval="
-                + trialInterval + ", trialIntervalUnit=" + trialIntervalUnit
-                + ", initialChargeInCents=" + initialChargeInCents + ", initialChargeAfterTrial="
-                + initialChargeAfterTrial + ", expirationInterval=" + expirationInterval
-                + ", expirationIntervalUnit=" + expirationIntervalUnit + ", taxIncluded="
-                + taxIncluded + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + trialInterval + ", trialIntervalUnit=" + trialIntervalUnit + ", trialType="
+                + trialType + ", initialChargeInCents=" + initialChargeInCents
+                + ", initialChargeAfterTrial=" + initialChargeAfterTrial + ", expirationInterval="
+                + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
+                + ", taxIncluded=" + taxIncluded + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -456,6 +519,7 @@ public class SubscriptionCustomPrice
                 .initialChargeAfterTrial(getInitialChargeAfterTrial())
                 .expirationInterval(getExpirationInterval())
                 .taxIncluded(getTaxIncluded());
+        builder.trialType = internalGetTrialType();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
@@ -472,6 +536,7 @@ public class SubscriptionCustomPrice
         private SubscriptionCustomPriceTrialPriceInCents trialPriceInCents;
         private SubscriptionCustomPriceTrialInterval trialInterval;
         private IntervalUnit trialIntervalUnit;
+        private OptionalNullable<TrialType> trialType;
         private SubscriptionCustomPriceInitialChargeInCents initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private SubscriptionCustomPriceExpirationInterval expirationInterval;
@@ -580,6 +645,25 @@ public class SubscriptionCustomPrice
         }
 
         /**
+         * Setter for trialType.
+         * @param  trialType  TrialType value for trialType.
+         * @return Builder
+         */
+        public Builder trialType(TrialType trialType) {
+            this.trialType = OptionalNullable.of(trialType);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialType.
+         * @return Builder
+         */
+        public Builder unsetTrialType() {
+            trialType = null;
+            return this;
+        }
+
+        /**
          * Setter for initialChargeInCents.
          * @param  initialChargeInCents  SubscriptionCustomPriceInitialChargeInCents value for
          *         initialChargeInCents.
@@ -648,9 +732,9 @@ public class SubscriptionCustomPrice
          */
         public SubscriptionCustomPrice build() {
             return new SubscriptionCustomPrice(priceInCents, interval, intervalUnit, name, handle,
-                    trialPriceInCents, trialInterval, trialIntervalUnit, initialChargeInCents,
-                    initialChargeAfterTrial, expirationInterval, expirationIntervalUnit,
-                    taxIncluded);
+                    trialPriceInCents, trialInterval, trialIntervalUnit, trialType,
+                    initialChargeInCents, initialChargeAfterTrial, expirationInterval,
+                    expirationIntervalUnit, taxIncluded);
         }
     }
 }

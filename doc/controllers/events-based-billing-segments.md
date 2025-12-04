@@ -131,7 +131,7 @@ ListSegmentsForPricePointInput listSegmentsForPricePointInput = new ListSegments
     "component_id8",
     "price_point_id8"
 )
-.page(2)
+.page(1)
 .perPage(50)
 .filter(new ListSegmentsFilter.Builder()
         .segmentProperty1Value("EU")

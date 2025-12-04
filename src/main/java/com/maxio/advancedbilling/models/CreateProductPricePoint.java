@@ -26,7 +26,7 @@ public class CreateProductPricePoint
     private Long trialPriceInCents;
     private Integer trialInterval;
     private IntervalUnit trialIntervalUnit;
-    private String trialType;
+    private OptionalNullable<TrialType> trialType;
     private Long initialChargeInCents;
     private Boolean initialChargeAfterTrial;
     private Integer expirationInterval;
@@ -50,7 +50,7 @@ public class CreateProductPricePoint
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
-     * @param  trialType  String value for trialType.
+     * @param  trialType  TrialType value for trialType.
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
@@ -66,7 +66,7 @@ public class CreateProductPricePoint
             Long trialPriceInCents,
             Integer trialInterval,
             IntervalUnit trialIntervalUnit,
-            String trialType,
+            TrialType trialType,
             Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
             Integer expirationInterval,
@@ -80,7 +80,7 @@ public class CreateProductPricePoint
         this.trialPriceInCents = trialPriceInCents;
         this.trialInterval = trialInterval;
         this.trialIntervalUnit = trialIntervalUnit;
-        this.trialType = trialType;
+        this.trialType = OptionalNullable.of(trialType);
         this.initialChargeInCents = initialChargeInCents;
         this.initialChargeAfterTrial = initialChargeAfterTrial;
         this.expirationInterval = expirationInterval;
@@ -98,7 +98,7 @@ public class CreateProductPricePoint
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
-     * @param  trialType  String value for trialType.
+     * @param  trialType  TrialType value for trialType.
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
      * @param  expirationInterval  Integer value for expirationInterval.
@@ -108,8 +108,8 @@ public class CreateProductPricePoint
 
     protected CreateProductPricePoint(String name, long priceInCents, int interval,
             IntervalUnit intervalUnit, String handle, Long trialPriceInCents, Integer trialInterval,
-            IntervalUnit trialIntervalUnit, String trialType, Long initialChargeInCents,
-            Boolean initialChargeAfterTrial, Integer expirationInterval,
+            IntervalUnit trialIntervalUnit, OptionalNullable<TrialType> trialType,
+            Long initialChargeInCents, Boolean initialChargeAfterTrial, Integer expirationInterval,
             OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
             Boolean useSiteExchangeRate) {
         this.name = name;
@@ -299,22 +299,58 @@ public class CreateProductPricePoint
     }
 
     /**
-     * Getter for TrialType.
-     * @return Returns the String
+     * Internal Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the Internal TrialType
      */
     @JsonGetter("trial_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTrialType() {
-        return trialType;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<TrialType> internalGetTrialType() {
+        return this.trialType;
+    }
+
+    /**
+     * Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the TrialType
+     */
+    public TrialType getTrialType() {
+        return OptionalNullable.getFrom(trialType);
     }
 
     /**
      * Setter for TrialType.
-     * @param trialType Value for String
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @param trialType Value for TrialType
      */
     @JsonSetter("trial_type")
-    public void setTrialType(String trialType) {
-        this.trialType = trialType;
+    public void setTrialType(TrialType trialType) {
+        this.trialType = OptionalNullable.of(trialType);
+    }
+
+    /**
+     * UnSetter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     */
+    public void unsetTrialType() {
+        trialType = null;
     }
 
     /**
@@ -475,11 +511,11 @@ public class CreateProductPricePoint
                 .trialPriceInCents(getTrialPriceInCents())
                 .trialInterval(getTrialInterval())
                 .trialIntervalUnit(getTrialIntervalUnit())
-                .trialType(getTrialType())
                 .initialChargeInCents(getInitialChargeInCents())
                 .initialChargeAfterTrial(getInitialChargeAfterTrial())
                 .expirationInterval(getExpirationInterval())
                 .useSiteExchangeRate(getUseSiteExchangeRate());
+        builder.trialType = internalGetTrialType();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
     }
@@ -496,7 +532,7 @@ public class CreateProductPricePoint
         private Long trialPriceInCents;
         private Integer trialInterval;
         private IntervalUnit trialIntervalUnit;
-        private String trialType;
+        private OptionalNullable<TrialType> trialType;
         private Long initialChargeInCents;
         private Boolean initialChargeAfterTrial;
         private Integer expirationInterval;
@@ -605,11 +641,20 @@ public class CreateProductPricePoint
 
         /**
          * Setter for trialType.
-         * @param  trialType  String value for trialType.
+         * @param  trialType  TrialType value for trialType.
          * @return Builder
          */
-        public Builder trialType(String trialType) {
-            this.trialType = trialType;
+        public Builder trialType(TrialType trialType) {
+            this.trialType = OptionalNullable.of(trialType);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialType.
+         * @return Builder
+         */
+        public Builder unsetTrialType() {
+            trialType = null;
             return this;
         }
 

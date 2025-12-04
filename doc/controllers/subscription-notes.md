@@ -103,7 +103,7 @@ List<SubscriptionNoteResponse> listSubscriptionNotes(
 ListSubscriptionNotesInput listSubscriptionNotesInput = new ListSubscriptionNotesInput.Builder(
     222
 )
-.page(2)
+.page(1)
 .perPage(50)
 .build();
 

@@ -34,12 +34,12 @@ public final class SubscriptionGroupStatusController extends BaseController {
     }
 
     /**
-     * This endpoint will immediately cancel all subscriptions within the specified group. The group
-     * is identified by it's `uid` passed in the URL. To successfully cancel the group, the primary
-     * subscription must be on automatic billing. The group members as well must be on automatic
-     * billing or they must be prepaid. In order to cancel a subscription group while also charging
-     * for any unbilled usage on metered or prepaid components, the `charge_unbilled_usage=true`
-     * parameter must be included in the request.
+     * Cancels all subscriptions within the specified group immediately. The group is identified by
+     * the `uid` that is passed in the URL. To successfully cancel the group, the primary
+     * subscription must be on automatic billing. The group members must be on automatic billing or
+     * prepaid. To cancel a subscription group while also charging for any unbilled usage on metered
+     * or prepaid components, the `charge_unbilled_usage=true` parameter must be included in the
+     * request.
      * @param  uid  Required parameter: The uid of the subscription group
      * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
@@ -83,7 +83,7 @@ public final class SubscriptionGroupStatusController extends BaseController {
 
     /**
      * This endpoint will schedule all subscriptions within the specified group to be canceled at
-     * the end of their billing period. The group is identified by it's uid passed in the URL. All
+     * the end of their billing period. The group is identified by its uid passed in the URL. All
      * subscriptions in the group must be on automatic billing in order to successfully cancel them,
      * and the group must not be in a "past_due" state.
      * @param  uid  Required parameter: The uid of the subscription group

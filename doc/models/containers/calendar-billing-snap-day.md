@@ -10,5 +10,5 @@
 | Type | Factory Method |
 |  --- | --- |
 | `int` | CalendarBillingSnapDay.fromNumber(int number) |
-| `String` | CalendarBillingSnapDay.fromString(String string) |
+| [`SnapDay`](../../../doc/models/snap-day.md) | CalendarBillingSnapDay.fromSnapDay(SnapDay snapDay) |
 
