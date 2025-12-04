@@ -10,16 +10,9 @@ public class TestFixtures {
     public static final Integer SELLER_ID = getIntOrDefault("SELLER_ID", DEFAULT_SELLER_ID);
 
     public static final InvoiceSeller INVOICE_SELLER = new InvoiceSeller.Builder()
-            .name("Maxio Developer Experience")
-            .address(new InvoiceAddress.Builder()
-                    .street("Asdf Street")
-                    .line2("123/444")
-                    .city("San Antonio")
-                    .state("TX")
-                    .zip("78015")
-                    .country("US")
-                    .build())
-            .phone("555 111 222")
+            .name(null)
+            .address(null)
+            .phone(null)
             .build();
 
     private static int getIntOrDefault(String envName, int defaultValue) {

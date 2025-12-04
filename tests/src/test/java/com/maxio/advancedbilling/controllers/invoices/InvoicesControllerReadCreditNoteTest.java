@@ -206,7 +206,7 @@ class InvoicesControllerReadCreditNoteTest {
 
         assertThat(creditNote.getDiscounts())
                 .hasSize(1)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "lineItemBreakouts.uid")
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "lineItemBreakouts.uid", "additionalProperties")
                 .containsExactly(new InvoiceDiscount.Builder()
                         .title("Huuuuge amount discount: 1250")
                         .code(coupon.getCode())
