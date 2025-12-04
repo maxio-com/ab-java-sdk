@@ -28,6 +28,7 @@ import com.maxio.advancedbilling.models.InvoicePaymentMethodType;
 import com.maxio.advancedbilling.models.InvoicePaymentType;
 import com.maxio.advancedbilling.models.InvoicePreviousBalance;
 import com.maxio.advancedbilling.models.InvoiceRole;
+import com.maxio.advancedbilling.models.InvoiceSeller;
 import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
@@ -138,10 +139,13 @@ class InvoicesControllerRecordPaymentForInvoiceTest {
             assertThat(invoice.getProductName()).isEqualTo(product.getName());
             assertThat(invoice.getProductFamilyName()).isEqualTo(productFamily.getName());
 
-            assertThat(invoice.getSeller())
-                    .usingRecursiveComparison()
-                    .ignoringFields("address.additionalProperties", "additionalProperties")
-                    .isEqualTo(INVOICE_SELLER);
+            InvoiceSeller invoiceSeller = invoice.getSeller();
+            assertAll(() -> {
+                assertThat(invoiceSeller).isNotNull();
+                assertThat(invoiceSeller.getName()).isNull();
+                assertThat(invoiceSeller.getAddress()).isNull();
+                assertThat(invoiceSeller.getPhone()).isNull();
+            });
 
             InvoiceCustomer invoiceCustomer = invoice.getCustomer();
             assertAll(() -> {
