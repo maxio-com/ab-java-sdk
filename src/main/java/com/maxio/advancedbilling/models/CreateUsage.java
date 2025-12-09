@@ -20,6 +20,7 @@ public class CreateUsage
     private String pricePointId;
     private String memo;
     private BillingSchedule billingSchedule;
+    private ComponentCustomPrice customPrice;
 
     /**
      * Default constructor.
@@ -33,16 +34,19 @@ public class CreateUsage
      * @param  pricePointId  String value for pricePointId.
      * @param  memo  String value for memo.
      * @param  billingSchedule  BillingSchedule value for billingSchedule.
+     * @param  customPrice  ComponentCustomPrice value for customPrice.
      */
     public CreateUsage(
             Double quantity,
             String pricePointId,
             String memo,
-            BillingSchedule billingSchedule) {
+            BillingSchedule billingSchedule,
+            ComponentCustomPrice customPrice) {
         this.quantity = quantity;
         this.pricePointId = pricePointId;
         this.memo = memo;
         this.billingSchedule = billingSchedule;
+        this.customPrice = customPrice;
     }
 
     /**
@@ -107,8 +111,8 @@ public class CreateUsage
     /**
      * Getter for BillingSchedule.
      * This attribute is particularly useful when you need to align billing events for different
-     * components on distinct schedules within a subscription. Please note this only works for site
-     * with Multifrequency enabled
+     * components on distinct schedules within a subscription. This only works for site with
+     * Multifrequency enabled.
      * @return Returns the BillingSchedule
      */
     @JsonGetter("billing_schedule")
@@ -120,13 +124,36 @@ public class CreateUsage
     /**
      * Setter for BillingSchedule.
      * This attribute is particularly useful when you need to align billing events for different
-     * components on distinct schedules within a subscription. Please note this only works for site
-     * with Multifrequency enabled
+     * components on distinct schedules within a subscription. This only works for site with
+     * Multifrequency enabled.
      * @param billingSchedule Value for BillingSchedule
      */
     @JsonSetter("billing_schedule")
     public void setBillingSchedule(BillingSchedule billingSchedule) {
         this.billingSchedule = billingSchedule;
+    }
+
+    /**
+     * Getter for CustomPrice.
+     * Create or update custom pricing unique to the subscription. Used in place of
+     * `price_point_id`.
+     * @return Returns the ComponentCustomPrice
+     */
+    @JsonGetter("custom_price")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ComponentCustomPrice getCustomPrice() {
+        return customPrice;
+    }
+
+    /**
+     * Setter for CustomPrice.
+     * Create or update custom pricing unique to the subscription. Used in place of
+     * `price_point_id`.
+     * @param customPrice Value for ComponentCustomPrice
+     */
+    @JsonSetter("custom_price")
+    public void setCustomPrice(ComponentCustomPrice customPrice) {
+        this.customPrice = customPrice;
     }
 
     /**
@@ -136,8 +163,8 @@ public class CreateUsage
     @Override
     public String toString() {
         return "CreateUsage [" + "quantity=" + quantity + ", pricePointId=" + pricePointId
-                + ", memo=" + memo + ", billingSchedule=" + billingSchedule
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", memo=" + memo + ", billingSchedule=" + billingSchedule + ", customPrice="
+                + customPrice + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -150,7 +177,8 @@ public class CreateUsage
                 .quantity(getQuantity())
                 .pricePointId(getPricePointId())
                 .memo(getMemo())
-                .billingSchedule(getBillingSchedule());
+                .billingSchedule(getBillingSchedule())
+                .customPrice(getCustomPrice());
         return builder;
     }
 
@@ -162,6 +190,7 @@ public class CreateUsage
         private String pricePointId;
         private String memo;
         private BillingSchedule billingSchedule;
+        private ComponentCustomPrice customPrice;
 
 
 
@@ -206,11 +235,21 @@ public class CreateUsage
         }
 
         /**
+         * Setter for customPrice.
+         * @param  customPrice  ComponentCustomPrice value for customPrice.
+         * @return Builder
+         */
+        public Builder customPrice(ComponentCustomPrice customPrice) {
+            this.customPrice = customPrice;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateUsage} object using the set fields.
          * @return {@link CreateUsage}
          */
         public CreateUsage build() {
-            return new CreateUsage(quantity, pricePointId, memo, billingSchedule);
+            return new CreateUsage(quantity, pricePointId, memo, billingSchedule, customPrice);
         }
     }
 }

@@ -156,7 +156,7 @@ public class CreateInvoiceItem
     /**
      * Getter for Taxable.
      * Set to true to automatically calculate taxes. Site must be configured to use and calculate
-     * taxes. If using Avalara, a tax_code parameter must also be sent.
+     * taxes. If using AvaTax, a tax_code parameter must also be sent.
      * @return Returns the Boolean
      */
     @JsonGetter("taxable")
@@ -168,7 +168,7 @@ public class CreateInvoiceItem
     /**
      * Setter for Taxable.
      * Set to true to automatically calculate taxes. Site must be configured to use and calculate
-     * taxes. If using Avalara, a tax_code parameter must also be sent.
+     * taxes. If using AvaTax, a tax_code parameter must also be sent.
      * @param taxable Value for Boolean
      */
     @JsonSetter("taxable")
@@ -178,6 +178,8 @@ public class CreateInvoiceItem
 
     /**
      * Getter for TaxCode.
+     * A string representing the tax code related to the product type. This is especially important
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      * @return Returns the String
      */
     @JsonGetter("tax_code")
@@ -188,6 +190,8 @@ public class CreateInvoiceItem
 
     /**
      * Setter for TaxCode.
+     * A string representing the tax code related to the product type. This is especially important
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      * @param taxCode Value for String
      */
     @JsonSetter("tax_code")

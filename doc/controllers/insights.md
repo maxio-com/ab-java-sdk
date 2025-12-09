@@ -177,7 +177,7 @@ ListMRRResponse listMrrMovements(
 
 ```java
 ListMrrMovementsInput listMrrMovementsInput = new ListMrrMovementsInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(20)
     .build();
 
@@ -281,7 +281,7 @@ ListMrrPerSubscriptionInput listMrrPerSubscriptionInput = new ListMrrPerSubscrip
         ))
         .build())
     .atTime("at_time=2022-01-10T10:00:00-05:00")
-    .page(2)
+    .page(1)
     .perPage(50)
     .direction(Direction.DESC)
     .build();

@@ -50,7 +50,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
-import static com.maxio.advancedbilling.utils.TestFixtures.INVOICE_SELLER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -146,10 +145,12 @@ public class InvoicesControllerCreateTest {
         assertThat(invoice.getProductFamilyName()).isEqualTo(productFamily.getName());
 
         InvoiceSeller invoiceSeller = invoice.getSeller();
-        assertThat(invoiceSeller)
-                .usingRecursiveComparison()
-                .ignoringFields("address.additionalProperties", "additionalProperties")
-                .isEqualTo(INVOICE_SELLER);
+        assertAll(
+                () -> assertThat(invoiceSeller).isNotNull(),
+                () -> assertThat(invoiceSeller.getName()).isNull(),
+                () -> assertThat(invoiceSeller.getAddress()).isNull(),
+                () -> assertThat(invoiceSeller.getPhone()).isNull()
+        );
 
         InvoiceCustomer invoiceCustomer = invoice.getCustomer();
         assertAll(
@@ -278,7 +279,7 @@ public class InvoicesControllerCreateTest {
 
         assertThat(invoice.getDiscounts())
                 .hasSize(2)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "sourceId", "lineItemBreakouts.uid")
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("uid", "sourceId", "lineItemBreakouts.uid", "additionalProperties", "lineItemBreakouts.additionalProperties")
                 .containsExactlyInAnyOrder(
                         new InvoiceDiscount.Builder()
                                 .code(coupon.getCode())

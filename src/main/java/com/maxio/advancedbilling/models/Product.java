@@ -442,7 +442,7 @@ public class Product
     /**
      * Getter for RequestCreditCard.
      * Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup
-     * Page users, please read this attribute from under the signup page.
+     * Page users, read this attribute from under the signup page.
      * @return Returns the Boolean
      */
     @JsonGetter("request_credit_card")
@@ -454,7 +454,7 @@ public class Product
     /**
      * Setter for RequestCreditCard.
      * Deprecated value that can be ignored unless you have legacy hosted pages. For Public Signup
-     * Page users, please read this attribute from under the signup page.
+     * Page users, read this attribute from under the signup page.
      * @param requestCreditCard Value for Boolean
      */
     @JsonSetter("request_credit_card")
@@ -1211,8 +1211,7 @@ public class Product
     /**
      * Internal Getter for TaxCode.
      * A string representing the tax code related to the product type. This is especially important
-     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
-     * characters.
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      * @return Returns the Internal String
      */
     @JsonGetter("tax_code")
@@ -1225,8 +1224,7 @@ public class Product
     /**
      * Getter for TaxCode.
      * A string representing the tax code related to the product type. This is especially important
-     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
-     * characters.
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      * @return Returns the String
      */
     public String getTaxCode() {
@@ -1236,8 +1234,7 @@ public class Product
     /**
      * Setter for TaxCode.
      * A string representing the tax code related to the product type. This is especially important
-     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
-     * characters.
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      * @param taxCode Value for String
      */
     @JsonSetter("tax_code")
@@ -1248,8 +1245,7 @@ public class Product
     /**
      * UnSetter for TaxCode.
      * A string representing the tax code related to the product type. This is especially important
-     * when using the Avalara service to tax based on locale. This attribute has a max length of 10
-     * characters.
+     * when using AvaTax to tax based on locale. This attribute has a max length of 25 characters.
      */
     public void unsetTaxCode() {
         taxCode = null;

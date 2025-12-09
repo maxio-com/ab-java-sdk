@@ -53,7 +53,7 @@ class ProductPricePointsControllerCreateTest extends ProductPricePointsBaseTest 
                 () -> assertThat(productPricePoint.getTrialPriceInCents()).isEqualTo(4900),
                 () -> assertThat(productPricePoint.getTrialInterval()).isEqualTo(1),
                 () -> assertThat(productPricePoint.getTrialIntervalUnit()).isEqualTo(IntervalUnit.MONTH),
-                () -> assertThat(productPricePoint.getTrialType()).isEqualTo("payment_expected"),
+                () -> assertThat(productPricePoint.getTrialType()).asString().isEqualTo("payment_expected"),
                 () -> assertThat(productPricePoint.getIntroductoryOffer()).isFalse(),
                 () -> assertThat(productPricePoint.getInitialChargeInCents()).isEqualTo(120000),
                 () -> assertThat(productPricePoint.getInitialChargeAfterTrial()).isFalse(),

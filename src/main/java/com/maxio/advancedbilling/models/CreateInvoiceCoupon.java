@@ -20,6 +20,7 @@ import io.apimatic.core.types.BaseModel;
 public class CreateInvoiceCoupon
         extends BaseModel {
     private String code;
+    private String subcode;
     private CreateInvoiceCouponPercentage percentage;
     private CreateInvoiceCouponAmount amount;
     private String description;
@@ -35,6 +36,7 @@ public class CreateInvoiceCoupon
     /**
      * Initialization constructor.
      * @param  code  String value for code.
+     * @param  subcode  String value for subcode.
      * @param  percentage  CreateInvoiceCouponPercentage value for percentage.
      * @param  amount  CreateInvoiceCouponAmount value for amount.
      * @param  description  String value for description.
@@ -43,12 +45,14 @@ public class CreateInvoiceCoupon
      */
     public CreateInvoiceCoupon(
             String code,
+            String subcode,
             CreateInvoiceCouponPercentage percentage,
             CreateInvoiceCouponAmount amount,
             String description,
             CreateInvoiceCouponProductFamilyId productFamilyId,
             CompoundingStrategy compoundingStrategy) {
         this.code = code;
+        this.subcode = subcode;
         this.percentage = percentage;
         this.amount = amount;
         this.description = description;
@@ -73,6 +77,25 @@ public class CreateInvoiceCoupon
     @JsonSetter("code")
     public void setCode(String code) {
         this.code = code;
+    }
+
+    /**
+     * Getter for Subcode.
+     * @return Returns the String
+     */
+    @JsonGetter("subcode")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getSubcode() {
+        return subcode;
+    }
+
+    /**
+     * Setter for Subcode.
+     * @param subcode Value for String
+     */
+    @JsonSetter("subcode")
+    public void setSubcode(String subcode) {
+        this.subcode = subcode;
     }
 
     /**
@@ -184,10 +207,10 @@ public class CreateInvoiceCoupon
      */
     @Override
     public String toString() {
-        return "CreateInvoiceCoupon [" + "code=" + code + ", percentage=" + percentage + ", amount="
-                + amount + ", description=" + description + ", productFamilyId=" + productFamilyId
-                + ", compoundingStrategy=" + compoundingStrategy + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+        return "CreateInvoiceCoupon [" + "code=" + code + ", subcode=" + subcode + ", percentage="
+                + percentage + ", amount=" + amount + ", description=" + description
+                + ", productFamilyId=" + productFamilyId + ", compoundingStrategy="
+                + compoundingStrategy + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -198,6 +221,7 @@ public class CreateInvoiceCoupon
     public Builder toBuilder() {
         Builder builder = new Builder()
                 .code(getCode())
+                .subcode(getSubcode())
                 .percentage(getPercentage())
                 .amount(getAmount())
                 .description(getDescription())
@@ -211,6 +235,7 @@ public class CreateInvoiceCoupon
      */
     public static class Builder {
         private String code;
+        private String subcode;
         private CreateInvoiceCouponPercentage percentage;
         private CreateInvoiceCouponAmount amount;
         private String description;
@@ -226,6 +251,16 @@ public class CreateInvoiceCoupon
          */
         public Builder code(String code) {
             this.code = code;
+            return this;
+        }
+
+        /**
+         * Setter for subcode.
+         * @param  subcode  String value for subcode.
+         * @return Builder
+         */
+        public Builder subcode(String subcode) {
+            this.subcode = subcode;
             return this;
         }
 
@@ -284,8 +319,8 @@ public class CreateInvoiceCoupon
          * @return {@link CreateInvoiceCoupon}
          */
         public CreateInvoiceCoupon build() {
-            return new CreateInvoiceCoupon(code, percentage, amount, description, productFamilyId,
-                    compoundingStrategy);
+            return new CreateInvoiceCoupon(code, subcode, percentage, amount, description,
+                    productFamilyId, compoundingStrategy);
         }
     }
 }

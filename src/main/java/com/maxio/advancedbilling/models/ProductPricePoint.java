@@ -31,7 +31,7 @@ public class ProductPricePoint
     private OptionalNullable<Long> trialPriceInCents;
     private OptionalNullable<Integer> trialInterval;
     private OptionalNullable<IntervalUnit> trialIntervalUnit;
-    private String trialType;
+    private OptionalNullable<TrialType> trialType;
     private OptionalNullable<Boolean> introductoryOffer;
     private OptionalNullable<Long> initialChargeInCents;
     private OptionalNullable<Boolean> initialChargeAfterTrial;
@@ -64,7 +64,7 @@ public class ProductPricePoint
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
-     * @param  trialType  String value for trialType.
+     * @param  trialType  TrialType value for trialType.
      * @param  introductoryOffer  Boolean value for introductoryOffer.
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
@@ -90,7 +90,7 @@ public class ProductPricePoint
             Long trialPriceInCents,
             Integer trialInterval,
             IntervalUnit trialIntervalUnit,
-            String trialType,
+            TrialType trialType,
             Boolean introductoryOffer,
             Long initialChargeInCents,
             Boolean initialChargeAfterTrial,
@@ -114,7 +114,7 @@ public class ProductPricePoint
         this.trialPriceInCents = OptionalNullable.of(trialPriceInCents);
         this.trialInterval = OptionalNullable.of(trialInterval);
         this.trialIntervalUnit = OptionalNullable.of(trialIntervalUnit);
-        this.trialType = trialType;
+        this.trialType = OptionalNullable.of(trialType);
         this.introductoryOffer = OptionalNullable.of(introductoryOffer);
         this.initialChargeInCents = OptionalNullable.of(initialChargeInCents);
         this.initialChargeAfterTrial = OptionalNullable.of(initialChargeAfterTrial);
@@ -142,7 +142,7 @@ public class ProductPricePoint
      * @param  trialPriceInCents  Long value for trialPriceInCents.
      * @param  trialInterval  Integer value for trialInterval.
      * @param  trialIntervalUnit  IntervalUnit value for trialIntervalUnit.
-     * @param  trialType  String value for trialType.
+     * @param  trialType  TrialType value for trialType.
      * @param  introductoryOffer  Boolean value for introductoryOffer.
      * @param  initialChargeInCents  Long value for initialChargeInCents.
      * @param  initialChargeAfterTrial  Boolean value for initialChargeAfterTrial.
@@ -162,7 +162,7 @@ public class ProductPricePoint
     protected ProductPricePoint(Integer id, String name, OptionalNullable<String> handle,
             Long priceInCents, Integer interval, IntervalUnit intervalUnit,
             OptionalNullable<Long> trialPriceInCents, OptionalNullable<Integer> trialInterval,
-            OptionalNullable<IntervalUnit> trialIntervalUnit, String trialType,
+            OptionalNullable<IntervalUnit> trialIntervalUnit, OptionalNullable<TrialType> trialType,
             OptionalNullable<Boolean> introductoryOffer,
             OptionalNullable<Long> initialChargeInCents,
             OptionalNullable<Boolean> initialChargeAfterTrial,
@@ -468,22 +468,58 @@ public class ProductPricePoint
     }
 
     /**
-     * Getter for TrialType.
-     * @return Returns the String
+     * Internal Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the Internal TrialType
      */
     @JsonGetter("trial_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getTrialType() {
-        return trialType;
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<TrialType> internalGetTrialType() {
+        return this.trialType;
+    }
+
+    /**
+     * Getter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @return Returns the TrialType
+     */
+    public TrialType getTrialType() {
+        return OptionalNullable.getFrom(trialType);
     }
 
     /**
      * Setter for TrialType.
-     * @param trialType Value for String
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     * @param trialType Value for TrialType
      */
     @JsonSetter("trial_type")
-    public void setTrialType(String trialType) {
-        this.trialType = trialType;
+    public void setTrialType(TrialType trialType) {
+        this.trialType = OptionalNullable.of(trialType);
+    }
+
+    /**
+     * UnSetter for TrialType.
+     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
+     * not send any emails or statements. For `payment_expected`, the subscription transitions to a
+     * Past Due state. Maxio will send normal dunning emails and statements according to your other
+     * settings.
+     */
+    public void unsetTrialType() {
+        trialType = null;
     }
 
     /**
@@ -959,7 +995,6 @@ public class ProductPricePoint
                 .priceInCents(getPriceInCents())
                 .interval(getInterval())
                 .intervalUnit(getIntervalUnit())
-                .trialType(getTrialType())
                 .productId(getProductId())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
@@ -971,6 +1006,7 @@ public class ProductPricePoint
         builder.trialPriceInCents = internalGetTrialPriceInCents();
         builder.trialInterval = internalGetTrialInterval();
         builder.trialIntervalUnit = internalGetTrialIntervalUnit();
+        builder.trialType = internalGetTrialType();
         builder.introductoryOffer = internalGetIntroductoryOffer();
         builder.initialChargeInCents = internalGetInitialChargeInCents();
         builder.initialChargeAfterTrial = internalGetInitialChargeAfterTrial();
@@ -994,7 +1030,7 @@ public class ProductPricePoint
         private OptionalNullable<Long> trialPriceInCents;
         private OptionalNullable<Integer> trialInterval;
         private OptionalNullable<IntervalUnit> trialIntervalUnit;
-        private String trialType;
+        private OptionalNullable<TrialType> trialType;
         private OptionalNullable<Boolean> introductoryOffer;
         private OptionalNullable<Long> initialChargeInCents;
         private OptionalNullable<Boolean> initialChargeAfterTrial;
@@ -1140,11 +1176,20 @@ public class ProductPricePoint
 
         /**
          * Setter for trialType.
-         * @param  trialType  String value for trialType.
+         * @param  trialType  TrialType value for trialType.
          * @return Builder
          */
-        public Builder trialType(String trialType) {
-            this.trialType = trialType;
+        public Builder trialType(TrialType trialType) {
+            this.trialType = OptionalNullable.of(trialType);
+            return this;
+        }
+
+        /**
+         * UnSetter for trialType.
+         * @return Builder
+         */
+        public Builder unsetTrialType() {
+            trialType = null;
             return this;
         }
 

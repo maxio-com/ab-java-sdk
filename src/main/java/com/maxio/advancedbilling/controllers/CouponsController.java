@@ -45,10 +45,10 @@ public final class CouponsController extends BaseController {
 
     /**
      * ## Coupons Documentation Coupons can be administered in the Advanced Billing application or
-     * created via API. Please view our section on [creating
+     * created via API. View our section on [creating
      * coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creating-Editing-Deleting-Coupons)
      * for more information. Additionally, for documentation on how to apply a coupon to a
-     * subscription within the Advanced Billing UI, please see our documentation
+     * subscription within the Advanced Billing UI, see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
      * ## Create Coupon This request will create a coupon, based on the provided information. You
      * can create either a flat amount coupon, by specyfing `amount_in_cents`, or percentage coupon
@@ -102,9 +102,7 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * List coupons for a specific Product Family in a Site. If the coupon is set to
-     * `use_site_exchange_rate: true`, it will return pricing based on the current exchange rate. If
-     * the flag is set to false, it will return all of the defined prices for each currency.
+     * List coupons for a specific Product Family in a Site.
      * @param  input  ListCouponsForProductFamilyInput object containing request parameters
      * @return    Returns the List of CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -364,9 +362,7 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * You can retrieve a list of coupons. If the coupon is set to `use_site_exchange_rate: true`,
-     * it will return pricing based on the current exchange rate. If the flag is set to false, it
-     * will return all of the defined prices for each currency.
+     * You can retrieve a list of coupons.
      * @param  input  ListCouponsInput object containing request parameters
      * @return    Returns the List of CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -413,8 +409,8 @@ public final class CouponsController extends BaseController {
      * This request will provide details about the coupon usage as an array of data hashes, one per
      * product.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
-     *         which the coupon belongs
-     * @param  couponId  Required parameter: The Advanced Billing id of the coupon
+     *         which the coupon belongs.
+     * @param  couponId  Required parameter: The Advanced Billing id of the coupon.
      * @return    Returns the List of CouponUsage response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -576,7 +572,7 @@ public final class CouponsController extends BaseController {
      * create coupon subcodes in the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes).
      * Additionally, for documentation on how to apply a coupon to a Subscription within the
-     * Advanced Billing UI, please see our documentation
+     * Advanced Billing UI, see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
      * ## Create Coupon Subcode This request allows you to create specific subcodes underneath an
      * existing coupon code. *Note*: If you are using any of the allowed special characters ("%",

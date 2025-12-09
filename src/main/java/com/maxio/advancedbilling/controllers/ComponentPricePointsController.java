@@ -246,9 +246,9 @@ public final class ComponentPricePointsController extends BaseController {
     }
 
     /**
-     * When updating a price point, it's prices can be updated as well by creating new prices or
-     * editing / removing existing ones. Passing in a price bracket without an `id` will attempt to
-     * create a new price. Including an `id` will update the corresponding price, and including the
+     * When updating a price point, prices can be updated as well by creating new prices or editing
+     * / removing existing ones. Passing in a price bracket without an `id` will attempt to create a
+     * new price. Including an `id` will update the corresponding price, and including the
      * `_destroy` flag set to true along with the `id` will remove that price. Note: Custom price
      * points cannot be updated directly. They must be edited through the Subscription.
      * @param  componentId  Required parameter: The id or handle of the component. When using the

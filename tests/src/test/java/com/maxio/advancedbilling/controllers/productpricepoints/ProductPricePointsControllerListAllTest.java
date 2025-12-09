@@ -88,7 +88,7 @@ class ProductPricePointsControllerListAllTest extends ProductPricePointsBaseTest
                 () -> assertThat(defaultPricePoint.getTrialPriceInCents()).isNull(),
                 () -> assertThat(defaultPricePoint.getTrialInterval()).isNull(),
                 () -> assertThat(defaultPricePoint.getTrialIntervalUnit()).isNull(),
-                () -> assertThat(defaultPricePoint.getTrialType()).isEqualTo("payment_expected"),
+                () -> assertThat(defaultPricePoint.getTrialType()).asString().isEqualTo("payment_expected"),
                 () -> assertThat(defaultPricePoint.getIntroductoryOffer()).isNull(),
                 () -> assertThat(defaultPricePoint.getInitialChargeInCents()).isNull(),
                 () -> assertThat(defaultPricePoint.getInitialChargeAfterTrial()).isFalse(),

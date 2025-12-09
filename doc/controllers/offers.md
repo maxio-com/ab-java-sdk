@@ -156,7 +156,7 @@ ListOffersResponse listOffers(
 
 ```java
 ListOffersInput listOffersInput = new ListOffersInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(50)
     .includeArchived(true)
     .build();

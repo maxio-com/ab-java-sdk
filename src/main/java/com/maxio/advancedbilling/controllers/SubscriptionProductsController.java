@@ -47,11 +47,11 @@ public final class SubscriptionProductsController extends BaseController {
      * can be reactivated.) ## Migrations Documentation Full documentation on how to record
      * Migrations in the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24181589372429-Data-Migration-to-Advanced-Billing).
-     * ## Failed Migrations One of the most common ways that a migration can fail is when the
-     * attempt is made to migrate a subscription to it's current product. Please be aware of this
-     * issue! ## Migration 3D Secure - Stripe It may happen that a payment needs 3D Secure
-     * Authentication when the subscription is migrated to a new product; this is referred to in our
-     * help docs as a [post-authentication
+     * ## Failed Migrations Importaint note: One of the most common ways that a migration can fail
+     * is when the attempt is made to migrate a subscription to its current product. ## Migration 3D
+     * Secure - Stripe When a payment requires 3D Secure Authentication to adhear to Strong Customer
+     * Authentication (SCA) when the subscription is migrated to a new product, the request enters a
+     * [post-authentication
      * flow](https://maxio.zendesk.com/hc/en-us/articles/24176278996493-Testing-Implementing-3D-Secure#psd2-flows-pre-authentication-and-post-authentication).
      * The server returns `422 Unprocessable Entity` in this case with the following response:
      * ```json { "errors": [ "Your card was declined. This transaction requires 3D secure
@@ -78,8 +78,8 @@ public final class SubscriptionProductsController extends BaseController {
      * half contains a `redirect_url` and `callback_url`:
      * `https://mysite.chargify.com/3d-secure/pi_1FCm4RKDeye4C0XfbqquXRYm?one_time_token_id=128&amp;callback_url=https://localhost:4000&amp;redirect_url=https://yourpage.com`
      * ### Example Redirect Flow You may wish to redirect customers to different pages depending on
-     * whether their SCA was performed successfully. Here's an example flow to use as a reference:
-     * 1. Create a migration via API; it requires 3DS 2. You receive a `gateway_payment_id` in the
+     * whether SCA was performed successfully. Here's an example flow to use as a reference: 1.
+     * Create a migration via API; it requires 3DS 2. You receive a `gateway_payment_id` in the
      * `action_link` along other params in the response. 3. Use this `gateway_payment_id` to, for
      * example, connect with your internal resources or generate a session_id 4. Include 1 of those
      * attributes inside the `callback_url` and `redirect_url` to be aware which “session” this

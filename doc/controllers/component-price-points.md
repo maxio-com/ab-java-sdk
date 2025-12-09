@@ -214,7 +214,7 @@ ComponentPricePointsResponse listComponentPricePoints(
 ListComponentPricePointsInput listComponentPricePointsInput = new ListComponentPricePointsInput.Builder(
     222
 )
-.page(2)
+.page(1)
 .perPage(50)
 .filterType(Liquid error: Value cannot be null. (Parameter 'key'))
 .build();
@@ -435,7 +435,7 @@ try {
 
 # Update Component Price Point
 
-When updating a price point, it's prices can be updated as well by creating new prices or editing / removing existing ones.
+When updating a price point, prices can be updated as well by creating new prices or editing / removing existing ones.
 
 Passing in a price bracket without an `id` will attempt to create a new price.
 
@@ -899,7 +899,7 @@ ListComponentsPricePointsResponse listAllComponentPricePoints(
 ```java
 ListAllComponentPricePointsInput listAllComponentPricePointsInput = new ListAllComponentPricePointsInput.Builder()
     .include(ListComponentsPricePointsInclude.CURRENCY_PRICES)
-    .page(2)
+    .page(1)
     .perPage(50)
     .filter(new ListPricePointsFilter.Builder()
         .startDate(DateTimeHelper.fromSimpleDate("2011-12-17"))

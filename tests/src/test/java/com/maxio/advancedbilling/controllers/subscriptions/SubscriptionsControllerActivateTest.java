@@ -12,6 +12,7 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionState;
+import com.maxio.advancedbilling.models.TrialType;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
@@ -174,7 +175,7 @@ class SubscriptionsControllerActivateTest {
                 freeProduct,
                 "trialProductPricePoint",
                 pricePointCustomizer -> pricePointCustomizer
-                        .trialType("payment_expected")
+                        .trialType(TrialType.PAYMENT_EXPECTED)
                         .trialPriceInCents(500L)
                         .trialInterval(1)
                         .trialIntervalUnit(IntervalUnit.MONTH)

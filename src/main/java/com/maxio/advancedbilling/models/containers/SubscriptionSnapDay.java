@@ -24,15 +24,15 @@ import java.util.Arrays;
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = CalendarBillingSnapDay.CalendarBillingSnapDayDeserializer.class)
-public abstract class CalendarBillingSnapDay {
+@JsonDeserialize(using = SubscriptionSnapDay.SubscriptionSnapDayDeserializer.class)
+public abstract class SubscriptionSnapDay {
     
     /**
      * This is Number case.
      * @param number int value for number.
      * @return The NumberCase object.
      */
-    public static CalendarBillingSnapDay fromNumber(int number) {
+    public static SubscriptionSnapDay fromNumber(int number) {
         return new NumberCase(number);
     }
 
@@ -41,7 +41,7 @@ public abstract class CalendarBillingSnapDay {
      * @param snapDay SnapDay value for snapDay.
      * @return The SnapDayCase object.
      */
-    public static CalendarBillingSnapDay fromSnapDay(SnapDay snapDay) {
+    public static SubscriptionSnapDay fromSnapDay(SnapDay snapDay) {
         return snapDay == null ? null : new SnapDayCase(snapDay);
     }
 
@@ -68,7 +68,7 @@ public abstract class CalendarBillingSnapDay {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "int")
-    private static class NumberCase extends CalendarBillingSnapDay {
+    private static class NumberCase extends SubscriptionSnapDay {
 
         @JsonValue
         private int number;
@@ -102,7 +102,7 @@ public abstract class CalendarBillingSnapDay {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "SnapDay")
-    private static class SnapDayCase extends CalendarBillingSnapDay {
+    private static class SnapDayCase extends SubscriptionSnapDay {
 
         @JsonValue
         private SnapDay snapDay;
@@ -132,13 +132,13 @@ public abstract class CalendarBillingSnapDay {
     }
 
     /**
-     * This is a custom deserializer class for CalendarBillingSnapDay.
+     * This is a custom deserializer class for SubscriptionSnapDay.
      */
-    protected static class CalendarBillingSnapDayDeserializer
-            extends JsonDeserializer<CalendarBillingSnapDay> {
+    protected static class SubscriptionSnapDayDeserializer
+            extends JsonDeserializer<SubscriptionSnapDay> {
 
         @Override
-        public CalendarBillingSnapDay deserialize(JsonParser jp, DeserializationContext ctxt)
+        public SubscriptionSnapDay deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);

@@ -34,7 +34,6 @@ public class Component
     private OptionalNullable<Long> pricePerUnitInCents;
     private ComponentKind kind;
     private Boolean archived;
-    private Boolean taxable;
     private OptionalNullable<String> description;
     private OptionalNullable<Integer> defaultPricePointId;
     private OptionalNullable<List<ComponentPrice>> overagePrices;
@@ -42,6 +41,7 @@ public class Component
     private Integer pricePointCount;
     private OptionalNullable<String> pricePointsUrl;
     private String defaultPricePointName;
+    private Boolean taxable;
     private OptionalNullable<String> taxCode;
     private Boolean recurring;
     private OptionalNullable<CreditType> upgradeCharge;
@@ -78,7 +78,6 @@ public class Component
      * @param  pricePerUnitInCents  Long value for pricePerUnitInCents.
      * @param  kind  ComponentKind value for kind.
      * @param  archived  Boolean value for archived.
-     * @param  taxable  Boolean value for taxable.
      * @param  description  String value for description.
      * @param  defaultPricePointId  Integer value for defaultPricePointId.
      * @param  overagePrices  List of ComponentPrice value for overagePrices.
@@ -86,6 +85,7 @@ public class Component
      * @param  pricePointCount  Integer value for pricePointCount.
      * @param  pricePointsUrl  String value for pricePointsUrl.
      * @param  defaultPricePointName  String value for defaultPricePointName.
+     * @param  taxable  Boolean value for taxable.
      * @param  taxCode  String value for taxCode.
      * @param  recurring  Boolean value for recurring.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
@@ -115,7 +115,6 @@ public class Component
             Long pricePerUnitInCents,
             ComponentKind kind,
             Boolean archived,
-            Boolean taxable,
             String description,
             Integer defaultPricePointId,
             List<ComponentPrice> overagePrices,
@@ -123,6 +122,7 @@ public class Component
             Integer pricePointCount,
             String pricePointsUrl,
             String defaultPricePointName,
+            Boolean taxable,
             String taxCode,
             Boolean recurring,
             CreditType upgradeCharge,
@@ -150,7 +150,6 @@ public class Component
         this.pricePerUnitInCents = OptionalNullable.of(pricePerUnitInCents);
         this.kind = kind;
         this.archived = archived;
-        this.taxable = taxable;
         this.description = OptionalNullable.of(description);
         this.defaultPricePointId = OptionalNullable.of(defaultPricePointId);
         this.overagePrices = OptionalNullable.of(overagePrices);
@@ -158,6 +157,7 @@ public class Component
         this.pricePointCount = pricePointCount;
         this.pricePointsUrl = OptionalNullable.of(pricePointsUrl);
         this.defaultPricePointName = defaultPricePointName;
+        this.taxable = taxable;
         this.taxCode = OptionalNullable.of(taxCode);
         this.recurring = recurring;
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
@@ -189,7 +189,6 @@ public class Component
      * @param  pricePerUnitInCents  Long value for pricePerUnitInCents.
      * @param  kind  ComponentKind value for kind.
      * @param  archived  Boolean value for archived.
-     * @param  taxable  Boolean value for taxable.
      * @param  description  String value for description.
      * @param  defaultPricePointId  Integer value for defaultPricePointId.
      * @param  overagePrices  List of ComponentPrice value for overagePrices.
@@ -197,6 +196,7 @@ public class Component
      * @param  pricePointCount  Integer value for pricePointCount.
      * @param  pricePointsUrl  String value for pricePointsUrl.
      * @param  defaultPricePointName  String value for defaultPricePointName.
+     * @param  taxable  Boolean value for taxable.
      * @param  taxCode  String value for taxCode.
      * @param  recurring  Boolean value for recurring.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
@@ -218,11 +218,11 @@ public class Component
             OptionalNullable<PricingScheme> pricingScheme, String unitName,
             OptionalNullable<String> unitPrice, Integer productFamilyId, String productFamilyName,
             String productFamilyHandle, OptionalNullable<Long> pricePerUnitInCents,
-            ComponentKind kind, Boolean archived, Boolean taxable,
-            OptionalNullable<String> description, OptionalNullable<Integer> defaultPricePointId,
+            ComponentKind kind, Boolean archived, OptionalNullable<String> description,
+            OptionalNullable<Integer> defaultPricePointId,
             OptionalNullable<List<ComponentPrice>> overagePrices,
             OptionalNullable<List<ComponentPrice>> prices, Integer pricePointCount,
-            OptionalNullable<String> pricePointsUrl, String defaultPricePointName,
+            OptionalNullable<String> pricePointsUrl, String defaultPricePointName, Boolean taxable,
             OptionalNullable<String> taxCode, Boolean recurring,
             OptionalNullable<CreditType> upgradeCharge,
             OptionalNullable<CreditType> downgradeCredit, ZonedDateTime createdAt,
@@ -244,7 +244,6 @@ public class Component
         this.pricePerUnitInCents = pricePerUnitInCents;
         this.kind = kind;
         this.archived = archived;
-        this.taxable = taxable;
         this.description = description;
         this.defaultPricePointId = defaultPricePointId;
         this.overagePrices = overagePrices;
@@ -252,6 +251,7 @@ public class Component
         this.pricePointCount = pricePointCount;
         this.pricePointsUrl = pricePointsUrl;
         this.defaultPricePointName = defaultPricePointName;
+        this.taxable = taxable;
         this.taxCode = taxCode;
         this.recurring = recurring;
         this.upgradeCharge = upgradeCharge;
@@ -596,27 +596,6 @@ public class Component
     }
 
     /**
-     * Getter for Taxable.
-     * Boolean flag describing whether a component is taxable or not.
-     * @return Returns the Boolean
-     */
-    @JsonGetter("taxable")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Boolean getTaxable() {
-        return taxable;
-    }
-
-    /**
-     * Setter for Taxable.
-     * Boolean flag describing whether a component is taxable or not.
-     * @param taxable Value for Boolean
-     */
-    @JsonSetter("taxable")
-    public void setTaxable(Boolean taxable) {
-        this.taxable = taxable;
-    }
-
-    /**
      * Internal Getter for Description.
      * The description of the component.
      * @return Returns the Internal String
@@ -852,10 +831,31 @@ public class Component
     }
 
     /**
+     * Getter for Taxable.
+     * Boolean flag describing whether a component is taxable or not.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("taxable")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxable() {
+        return taxable;
+    }
+
+    /**
+     * Setter for Taxable.
+     * Boolean flag describing whether a component is taxable or not.
+     * @param taxable Value for Boolean
+     */
+    @JsonSetter("taxable")
+    public void setTaxable(Boolean taxable) {
+        this.taxable = taxable;
+    }
+
+    /**
      * Internal Getter for TaxCode.
      * A string representing the tax code related to the component type. This is especially
-     * important when using the Avalara service to tax based on locale. This attribute has a max
-     * length of 10 characters.
+     * important when using AvaTax to tax based on locale. This attribute has a max length of 25
+     * characters.
      * @return Returns the Internal String
      */
     @JsonGetter("tax_code")
@@ -868,8 +868,8 @@ public class Component
     /**
      * Getter for TaxCode.
      * A string representing the tax code related to the component type. This is especially
-     * important when using the Avalara service to tax based on locale. This attribute has a max
-     * length of 10 characters.
+     * important when using AvaTax to tax based on locale. This attribute has a max length of 25
+     * characters.
      * @return Returns the String
      */
     public String getTaxCode() {
@@ -879,8 +879,8 @@ public class Component
     /**
      * Setter for TaxCode.
      * A string representing the tax code related to the component type. This is especially
-     * important when using the Avalara service to tax based on locale. This attribute has a max
-     * length of 10 characters.
+     * important when using AvaTax to tax based on locale. This attribute has a max length of 25
+     * characters.
      * @param taxCode Value for String
      */
     @JsonSetter("tax_code")
@@ -891,8 +891,8 @@ public class Component
     /**
      * UnSetter for TaxCode.
      * A string representing the tax code related to the component type. This is especially
-     * important when using the Avalara service to tax based on locale. This attribute has a max
-     * length of 10 characters.
+     * important when using AvaTax to tax based on locale. This attribute has a max length of 25
+     * characters.
      */
     public void unsetTaxCode() {
         taxCode = null;
@@ -1350,14 +1350,14 @@ public class Component
                 + unitPrice + ", productFamilyId=" + productFamilyId + ", productFamilyName="
                 + productFamilyName + ", productFamilyHandle=" + productFamilyHandle
                 + ", pricePerUnitInCents=" + pricePerUnitInCents + ", kind=" + kind + ", archived="
-                + archived + ", taxable=" + taxable + ", description=" + description
-                + ", defaultPricePointId=" + defaultPricePointId + ", overagePrices="
-                + overagePrices + ", prices=" + prices + ", pricePointCount=" + pricePointCount
-                + ", pricePointsUrl=" + pricePointsUrl + ", defaultPricePointName="
-                + defaultPricePointName + ", taxCode=" + taxCode + ", recurring=" + recurring
-                + ", upgradeCharge=" + upgradeCharge + ", downgradeCredit=" + downgradeCredit
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", archivedAt="
-                + archivedAt + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
+                + archived + ", description=" + description + ", defaultPricePointId="
+                + defaultPricePointId + ", overagePrices=" + overagePrices + ", prices=" + prices
+                + ", pricePointCount=" + pricePointCount + ", pricePointsUrl=" + pricePointsUrl
+                + ", defaultPricePointName=" + defaultPricePointName + ", taxable=" + taxable
+                + ", taxCode=" + taxCode + ", recurring=" + recurring + ", upgradeCharge="
+                + upgradeCharge + ", downgradeCredit=" + downgradeCredit + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + ", archivedAt=" + archivedAt
+                + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
                 + ", allowFractionalQuantities=" + allowFractionalQuantities + ", itemCategory="
                 + itemCategory + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", accountingCode=" + accountingCode + ", eventBasedBillingMetricId="
@@ -1380,9 +1380,9 @@ public class Component
                 .productFamilyHandle(getProductFamilyHandle())
                 .kind(getKind())
                 .archived(getArchived())
-                .taxable(getTaxable())
                 .pricePointCount(getPricePointCount())
                 .defaultPricePointName(getDefaultPricePointName())
+                .taxable(getTaxable())
                 .recurring(getRecurring())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
@@ -1426,7 +1426,6 @@ public class Component
         private OptionalNullable<Long> pricePerUnitInCents;
         private ComponentKind kind;
         private Boolean archived;
-        private Boolean taxable;
         private OptionalNullable<String> description;
         private OptionalNullable<Integer> defaultPricePointId;
         private OptionalNullable<List<ComponentPrice>> overagePrices;
@@ -1434,6 +1433,7 @@ public class Component
         private Integer pricePointCount;
         private OptionalNullable<String> pricePointsUrl;
         private String defaultPricePointName;
+        private Boolean taxable;
         private OptionalNullable<String> taxCode;
         private Boolean recurring;
         private OptionalNullable<CreditType> upgradeCharge;
@@ -1609,16 +1609,6 @@ public class Component
         }
 
         /**
-         * Setter for taxable.
-         * @param  taxable  Boolean value for taxable.
-         * @return Builder
-         */
-        public Builder taxable(Boolean taxable) {
-            this.taxable = taxable;
-            return this;
-        }
-
-        /**
          * Setter for description.
          * @param  description  String value for description.
          * @return Builder
@@ -1730,6 +1720,16 @@ public class Component
          */
         public Builder defaultPricePointName(String defaultPricePointName) {
             this.defaultPricePointName = defaultPricePointName;
+            return this;
+        }
+
+        /**
+         * Setter for taxable.
+         * @param  taxable  Boolean value for taxable.
+         * @return Builder
+         */
+        public Builder taxable(Boolean taxable) {
+            this.taxable = taxable;
             return this;
         }
 
@@ -1962,8 +1962,8 @@ public class Component
         public Component build() {
             return new Component(id, name, handle, pricingScheme, unitName, unitPrice,
                     productFamilyId, productFamilyName, productFamilyHandle, pricePerUnitInCents,
-                    kind, archived, taxable, description, defaultPricePointId, overagePrices,
-                    prices, pricePointCount, pricePointsUrl, defaultPricePointName, taxCode,
+                    kind, archived, description, defaultPricePointId, overagePrices, prices,
+                    pricePointCount, pricePointsUrl, defaultPricePointName, taxable, taxCode,
                     recurring, upgradeCharge, downgradeCredit, createdAt, updatedAt, archivedAt,
                     hideDateRangeOnInvoice, allowFractionalQuantities, itemCategory,
                     useSiteExchangeRate, accountingCode, eventBasedBillingMetricId, interval,

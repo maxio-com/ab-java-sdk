@@ -38,7 +38,7 @@ public final class ProductFamiliesController extends BaseController {
     }
 
     /**
-     * This method allows to retrieve a list of Products belonging to a Product Family.
+     * Retrieves a list of Products belonging to a Product Family.
      * @param  input  ListProductsForProductFamilyInput object containing request parameters
      * @return    Returns the List of ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -99,9 +99,9 @@ public final class ProductFamiliesController extends BaseController {
     }
 
     /**
-     * This method will create a Product Family within your Advanced Billing site. Create a Product
-     * Family to act as a container for your products, components and coupons. Full documentation on
-     * how Product Families operate within the Advanced Billing UI can be located
+     * Creates a Product Family within your Advanced Billing site. Create a Product Family to act as
+     * a container for your products, components and coupons. Full documentation on how Product
+     * Families operate within the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-Families).
      * @param  body  Optional parameter:
      * @return    Returns the ProductFamilyResponse response from the API call
@@ -144,7 +144,7 @@ public final class ProductFamiliesController extends BaseController {
     }
 
     /**
-     * This method allows to retrieve a list of Product Families for a site.
+     * Retrieve a list of Product Families for a site.
      * @param  input  ListProductFamiliesInput object containing request parameters
      * @return    Returns the List of ProductFamilyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -190,9 +190,9 @@ public final class ProductFamiliesController extends BaseController {
     }
 
     /**
-     * This method allows to retrieve a Product Family via the `product_family_id`. The response
-     * will contain a Product Family object. The product family can be specified either with the id
-     * number, or with the `handle:my-family` format.
+     * Retrieves a Product Family via the `product_family_id`. The response will contain a Product
+     * Family object. The product family can be specified either with the id number, or with the
+     * `handle:my-family` format.
      * @param  id  Required parameter: The Advanced Billing id of the product family
      * @return    Returns the ProductFamilyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

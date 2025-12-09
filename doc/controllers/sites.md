@@ -167,7 +167,7 @@ ListPublicKeysResponse listChargifyJsPublicKeys(
 
 ```java
 ListChargifyJsPublicKeysInput listChargifyJsPublicKeysInput = new ListChargifyJsPublicKeysInput.Builder()
-    .page(2)
+    .page(1)
     .perPage(50)
     .build();
 

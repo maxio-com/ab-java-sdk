@@ -22,6 +22,7 @@ import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.ProductPricePoint;
 import com.maxio.advancedbilling.models.ProductPricePointResponse;
 import com.maxio.advancedbilling.models.ProductResponse;
+import com.maxio.advancedbilling.models.TrialType;
 import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointPricePointId;
 import com.maxio.advancedbilling.models.containers.ArchiveProductPricePointProductId;
 import com.maxio.advancedbilling.models.containers.CreateProductPricePointProductId;
@@ -98,7 +99,7 @@ abstract class ProductPricePointsBaseTest {
                 .trialPriceInCents(4900L)
                 .trialInterval(1)
                 .trialIntervalUnit(IntervalUnit.MONTH)
-                .trialType("payment_expected")
+                .trialType(TrialType.PAYMENT_EXPECTED)
                 .initialChargeInCents(120000L)
                 .initialChargeAfterTrial(false)
                 .expirationInterval(12)

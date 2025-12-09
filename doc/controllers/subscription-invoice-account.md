@@ -62,7 +62,7 @@ In order to specify a prepayment made against a subscription, specify the `amoun
 
 When the `method` specified is `"credit_card_on_file"`, the prepayment amount will be collected using the default credit card payment profile and applied to the prepayment account balance.  This is especially useful for manual replenishment of prepaid subscriptions.
 
-Please note that you **can't** pass `amount_in_cents`.
+Note that passing `amount_in_cents` is now allowed.
 
 ```java
 CreatePrepaymentResponse createPrepayment(
@@ -157,7 +157,7 @@ PrepaymentsResponse listPrepayments(
 ListPrepaymentsInput listPrepaymentsInput = new ListPrepaymentsInput.Builder(
     222
 )
-.page(2)
+.page(1)
 .perPage(50)
 .filter(new ListPrepaymentsFilter.Builder()
         .dateField(ListPrepaymentDateField.CREATED_AT)
@@ -349,7 +349,7 @@ ListServiceCreditsResponse listServiceCredits(
 
 ```java
 int subscriptionId = 222;
-Integer page = 2;
+Integer page = 1;
 Integer perPage = 50;
 
 try {

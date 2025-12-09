@@ -102,7 +102,8 @@ class SubscriptionComponentsBulkResetSubscriptionComponentsPricePointsTest {
                         "productPricePointType",
                         "updatedAt",
                         "customer.locale",
-                        "customer.additionalProperties"
+                        "customer.additionalProperties",
+                        "creditCard.additionalProperties"
                 )
                 .isEqualTo(subscription);
 

@@ -183,7 +183,7 @@ public final class SubscriptionStatusController extends BaseController {
 
     /**
      * This will place the subscription in the on_hold state and it will not renew. ## Limitations
-     * You may not place a subscription on hold if the `next_billing` date is within 24 hours.
+     * You may not place a subscription on hold if the `next_billing_at` date is within 24 hours.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
@@ -285,12 +285,12 @@ public final class SubscriptionStatusController extends BaseController {
      * details on how the reactivation works, and how to reactivate subscriptions through the
      * application, see
      * [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming).
-     * **Please note: The term "resume" is used also during another process in Advanced Billing.
-     * This occurs when an on-hold subscription is "resumed". This returns the subscription to an
-     * active state.** + The response returns the subscription object in the `active` or `trialing`
-     * state. + The `canceled_at` and `cancellation_message` fields do not have values. + The method
-     * works for "Canceled" or "Trial Ended" subscriptions. + It will not work for items not marked
-     * as "Canceled", "Unpaid", or "Trial Ended". ## Resume the current billing period for a
+     * **Note: The term "resume" is used also during another process in Advanced Billing. This
+     * occurs when an on-hold subscription is "resumed". This returns the subscription to an active
+     * state.** + The response returns the subscription object in the `active` or `trialing` state.
+     * + The `canceled_at` and `cancellation_message` fields do not have values. + The method works
+     * for "Canceled" or "Trial Ended" subscriptions. + It will not work for items not marked as
+     * "Canceled", "Unpaid", or "Trial Ended". ## Resume the current billing period for a
      * subscription A subscription is considered "resumable" if you are attempting to reactivate
      * within the billing period the subscription was canceled in. A resumed subscription's billing
      * date remains the same as before it was canceled. In other words, it does not start a new
@@ -539,7 +539,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Preview is an object representing a subscription’s next assessment. You can retrieve it to
      * see a snapshot of how much your customer will be charged on their next renewal. The "Next
      * Billing" amount and "Next Billing" date are already represented in the UI on each
-     * Subscriber's Summary. For more information, please see our documentation
+     * Subscriber's Summary. For more information, see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
      * ## Optional Component Fields This endpoint is particularly useful due to the fact that it
      * will return the computed billing amount for the base product and the components which are in
