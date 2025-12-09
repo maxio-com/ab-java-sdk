@@ -152,7 +152,7 @@ public class CouponsControllerCreateCouponTest extends CouponsControllerTestBase
                         )
                 ))
                 .isUnprocessableEntity()
-                .hasErrors("Either a Discount Percentage or Amount must be specified, but not both",
+                .hasErrors("Either a Discount Percentage or an Amount must be specified, but not both.",
                         "Cannot create prices for a percentage-based coupon.");
     }
 
