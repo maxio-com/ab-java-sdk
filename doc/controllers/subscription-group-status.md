@@ -49,9 +49,9 @@ CancelGroupedSubscriptionsRequest body = new CancelGroupedSubscriptionsRequest.B
 
 try {
     subscriptionGroupStatusController.cancelSubscriptionsInGroup(uid, body);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -91,9 +91,9 @@ String uid = "uid0";
 
 try {
     subscriptionGroupStatusController.initiateDelayedCancellationForGroup(uid);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -131,9 +131,9 @@ String uid = "uid0";
 
 try {
     subscriptionGroupStatusController.cancelDelayedCancellationForGroup(uid);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -195,9 +195,9 @@ ReactivateSubscriptionGroupRequest body = new ReactivateSubscriptionGroupRequest
 try {
     ReactivateSubscriptionGroupResponse result = subscriptionGroupStatusController.reactivateSubscriptionGroup(uid, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

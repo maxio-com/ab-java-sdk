@@ -11,10 +11,10 @@ The process used to cancel the subscription, if the subscription has been cancel
 
 | Name |
 |  --- |
-| `MerchantUi` |
-| `MerchantApi` |
-| `Dunning` |
-| `BillingPortal` |
-| `Unknown` |
-| `Imported` |
+| `MERCHANT_UI` |
+| `MERCHANT_API` |
+| `DUNNING` |
+| `BILLING_PORTAL` |
+| `UNKNOWN` |
+| `IMPORTED` |
 

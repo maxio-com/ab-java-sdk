@@ -11,11 +11,11 @@ A handle for the line item transaction type
 
 | Name |
 |  --- |
-| `Charge` |
-| `Credit` |
-| `Adjustment` |
-| `Payment` |
-| `Refund` |
-| `InfoTransaction` |
-| `PaymentAuthorization` |
+| `CHARGE` |
+| `CREDIT` |
+| `ADJUSTMENT` |
+| `PAYMENT` |
+| `REFUND` |
+| `INFO_TRANSACTION` |
+| `PAYMENT_AUTHORIZATION` |
 

@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `Prorated` |
-| `Immediate` |
-| `Delayed` |
+| `PRORATED` |
+| `IMMEDIATE` |
+| `DELAYED` |
 

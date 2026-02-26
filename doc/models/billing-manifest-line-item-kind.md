@@ -11,10 +11,10 @@ A handle for the billing manifest line item kind
 
 | Name |
 |  --- |
-| `Baseline` |
-| `Initial` |
-| `Trial` |
-| `Coupon` |
-| `Component` |
-| `Tax` |
+| `BASELINE` |
+| `INITIAL` |
+| `TRIAL` |
+| `COUPON` |
+| `COMPONENT` |
+| `TAX` |
 

@@ -85,9 +85,9 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
 try {
     SubscriptionResponse result = subscriptionsController.createSubscription(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -240,7 +240,7 @@ try {
 
 # List Subscriptions
 
-This method will return an array of subscriptions from a Site. Pay close attention to query string filters and pagination in order to control responses from the server.
+returns an array of subscriptions from a Site. Pay close attention to query string filters and pagination in order to control responses from the server.
 
 ## Search for a subscription
 
@@ -259,22 +259,7 @@ List<SubscriptionResponse> listSubscriptions(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `state` | [`SubscriptionStateFilter`](../../doc/models/subscription-state-filter.md) | Query, Optional | The current state of the subscription |
-| `product` | `Integer` | Query, Optional | The product id of the subscription. (Note that the product handle cannot be used.) |
-| `productPricePointId` | `Integer` | Query, Optional | The ID of the product price point. If supplied, product is required |
-| `coupon` | `Integer` | Query, Optional | The numeric id of the coupon currently applied to the subscription. (This can be found in the URL when editing a coupon. Note that the coupon code cannot be used.) |
-| `couponCode` | `String` | Query, Optional | The coupon code currently applied to the subscription |
-| `dateField` | [`SubscriptionDateField`](../../doc/models/subscription-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search.  Allowed Values: , current_period_ends_at, current_period_starts_at, created_at, activated_at, canceled_at, expires_at, trial_started_at, trial_ended_at, updated_at |
-| `startDate` | `LocalDate` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2022-07-01`. |
-| `endDate` | `LocalDate` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2022-08-01`. |
-| `startDatetime` | `ZonedDateTime` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
-| `endDatetime` | `ZonedDateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-08-01 10:00:05`. |
-| `metadata` | `Map<String, String>` | Query, Optional | The value of the metadata field specified in the parameter. Use in query `metadata[my-field]=value&metadata[other-field]=another_value`. |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `sort` | [`SubscriptionSort`](../../doc/models/subscription-sort.md) | Query, Optional | The attribute by which to sort<br><br>**Default**: `SubscriptionSort.SIGNUP_DATE` |
-| `include` | [`List<SubscriptionListInclude>`](../../doc/models/subscription-list-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=self_service_page_token`. |
+| `input` | [`ListSubscriptionsInput`](../../doc/models/list-subscriptions-input.md) | Required | Input structure for the method ListSubscriptions |
 
 ## Response Type
 
@@ -300,8 +285,6 @@ try {
     List<SubscriptionResponse> result = subscriptionsController.listSubscriptions(listSubscriptionsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -369,7 +352,7 @@ SubscriptionResponse updateSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`UpdateSubscriptionRequest`](../../doc/models/update-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -391,9 +374,9 @@ UpdateSubscriptionRequest body = new UpdateSubscriptionRequest.Builder(
 try {
     SubscriptionResponse result = subscriptionsController.updateSubscription(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -517,7 +500,7 @@ try {
 
 # Read Subscription
 
-Use this endpoint to find subscription details.
+Retrieves subscription details.
 
 ## Self-Service Page token
 
@@ -533,7 +516,7 @@ SubscriptionResponse readSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `include` | [`List<SubscriptionInclude>`](../../doc/models/subscription-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
 
 ## Response Type
@@ -553,8 +536,6 @@ try {
     SubscriptionResponse result = subscriptionsController.readSubscription(subscriptionId, include);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -731,7 +712,7 @@ Void overrideSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`OverrideSubscriptionRequest`](../../doc/models/override-subscription-request.md) | Body, Optional | Only these fields are available to be set. |
 
 ## Response Type
@@ -754,9 +735,9 @@ OverrideSubscriptionRequest body = new OverrideSubscriptionRequest.Builder(
 
 try {
     subscriptionsController.overrideSubscription(subscriptionId, body);
-} catch (ApiException e) {
+} catch (SingleErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -795,8 +776,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -830,7 +809,7 @@ SubscriptionResponse purgeSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `ack` | `int` | Query, Required | id of the customer. |
 | `cascade` | [`List<SubscriptionPurgeType>`](../../doc/models/subscription-purge-type.md) | Query, Optional | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
 
@@ -851,9 +830,9 @@ List<SubscriptionPurgeType> cascade = Arrays.asList(
 try {
     SubscriptionResponse result = subscriptionsController.purgeSubscription(subscriptionId, ack, cascade);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SubscriptionResponseErrorException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -879,7 +858,7 @@ PrepaidConfigurationResponse updatePrepaidSubscriptionConfiguration(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`UpsertPrepaidConfigurationRequest`](../../doc/models/upsert-prepaid-configuration-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -904,8 +883,6 @@ try {
     PrepaidConfigurationResponse result = subscriptionsController.updatePrepaidSubscriptionConfiguration(subscriptionId, body);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -988,8 +965,6 @@ try {
     SubscriptionPreviewResponse result = subscriptionsController.previewSubscription(body);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -1136,7 +1111,7 @@ SubscriptionResponse applyCouponsToSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `code` | `String` | Query, Optional | A code for the coupon that would be applied to a subscription |
 | `body` | [`AddCouponsRequest`](../../doc/models/add-coupons-request.md) | Body, Optional | - |
 
@@ -1158,9 +1133,9 @@ AddCouponsRequest body = new AddCouponsRequest.Builder()
 try {
     SubscriptionResponse result = subscriptionsController.applyCouponsToSubscription(subscriptionId, null, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SubscriptionAddCouponErrorException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1338,7 +1313,7 @@ String removeCouponFromSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `couponCode` | `String` | Query, Optional | The coupon code |
 
 ## Response Type
@@ -1353,9 +1328,9 @@ int subscriptionId = 222;
 try {
     String result = subscriptionsController.removeCouponFromSubscription(subscriptionId, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SubscriptionRemoveCouponErrorsException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1429,7 +1404,7 @@ SubscriptionResponse activateSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`ActivateSubscriptionRequest`](../../doc/models/activate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1443,9 +1418,9 @@ int subscriptionId = 222;
 try {
     SubscriptionResponse result = subscriptionsController.activateSubscription(subscriptionId, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

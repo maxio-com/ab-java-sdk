@@ -82,9 +82,9 @@ CreateMetafieldsRequest body = new CreateMetafieldsRequest.Builder(
 try {
     List<Metafield> result = customFieldsController.createMetafields(resourceType, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SingleErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -140,11 +140,7 @@ ListMetafieldsResponse listMetafields(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | The resource type to which the metafields belong. |
-| `name` | `String` | Query, Optional | Filter by the name of the metafield. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
+| `input` | [`ListMetafieldsInput`](../../doc/models/list-metafields-input.md) | Required | Input structure for the method ListMetafields |
 
 ## Response Type
 
@@ -164,8 +160,6 @@ try {
     ListMetafieldsResponse result = customFieldsController.listMetafields(listMetafieldsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -253,9 +247,9 @@ ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
 try {
     List<Metafield> result = customFieldsController.updateMetafield(resourceType, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SingleErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -296,8 +290,6 @@ ResourceType resourceType = ResourceType.SUBSCRIPTIONS;
 try {
     customFieldsController.deleteMetafield(resourceType, null);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -358,9 +350,9 @@ CreateMetadataRequest body = new CreateMetadataRequest.Builder(
 try {
     List<Metadata> result = customFieldsController.createMetadata(resourceType, resourceId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SingleErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -385,10 +377,7 @@ PaginatedMetadata listMetadata(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | The resource type to which the metafields belong. |
-| `resourceId` | `int` | Template, Required | The Advanced Billing id of the customer or the subscription for which the metadata applies |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
+| `input` | [`ListMetadataInput`](../../doc/models/list-metadata-input.md) | Required | Input structure for the method ListMetadata |
 
 ## Response Type
 
@@ -409,8 +398,6 @@ try {
     PaginatedMetadata result = customFieldsController.listMetadata(listMetadataInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -472,9 +459,9 @@ int resourceId = 60;
 try {
     List<Metadata> result = customFieldsController.updateMetadata(resourceType, resourceId, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SingleErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -520,8 +507,6 @@ try {
     customFieldsController.deleteMetadata(resourceType, resourceId, null, null);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -545,17 +530,7 @@ PaginatedMetadata listMetadataForResourceType(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `resourceType` | [`ResourceType`](../../doc/models/resource-type.md) | Template, Required | The resource type to which the metafields belong. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. |
-| `startDate` | `LocalDate` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| `endDate` | `LocalDate` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns metadata with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `startDatetime` | `ZonedDateTime` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns metadata with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `endDatetime` | `ZonedDateTime` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns metadata with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| `withDeleted` | `Boolean` | Query, Optional | Allow to fetch deleted metadata. |
-| `resourceIds` | `List<Integer>` | Query, Optional | Allow to fetch metadata for multiple records based on provided ids. Use in query: `resource_ids[]=122&resource_ids[]=123&resource_ids[]=124`.<br><br>**Constraints**: *Maximum Items*: `50` |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
+| `input` | [`ListMetadataForResourceTypeInput`](../../doc/models/list-metadata-for-resource-type-input.md) | Required | Input structure for the method ListMetadataForResourceType |
 
 ## Response Type
 
@@ -576,8 +551,6 @@ try {
     PaginatedMetadata result = customFieldsController.listMetadataForResourceType(listMetadataForResourceTypeInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

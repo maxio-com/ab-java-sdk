@@ -9,6 +9,6 @@
 
 | Name |
 |  --- |
-| `Component` |
-| `Product` |
+| `COMPONENT` |
+| `PRODUCT` |
 

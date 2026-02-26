@@ -43,7 +43,7 @@ SubscriptionResponse retrySubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -57,9 +57,9 @@ int subscriptionId = 222;
 try {
     SubscriptionResponse result = subscriptionStatusController.retrySubscription(subscriptionId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -209,7 +209,8 @@ try {
 
 # Cancel Subscription
 
-The DELETE action causes the cancellation of the Subscription. This means, the method sets the Subscription state to "canceled".
+Cancels the Subscription. The Delete method sets the Subscription state to `canceled`.
+To cancel the subscription immediately, omit any schedule parameters from the request. To use the schedule options, the Schedule Subscription Cancellation feature must be enabled on your site.
 
 ```java
 SubscriptionResponse cancelSubscription(
@@ -221,7 +222,7 @@ SubscriptionResponse cancelSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`CancellationRequest`](../../doc/models/cancellation-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -236,8 +237,6 @@ try {
     SubscriptionResponse result = subscriptionStatusController.cancelSubscription(subscriptionId, null);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -400,8 +399,8 @@ SubscriptionResponse resumeSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `calendarBillingResumptionCharge` | [`ResumptionCharge`](../../doc/models/resumption-charge.md) | Query, Optional | (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled<br><br>**Default**: `ResumptionCharge.PRORATED` |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
+| `calendarBillingResumptionCharge` | [`ResumptionCharge`](../../doc/models/resumption-charge.md) | Query, Optional | (For calendar billing subscriptions only) The way that the resumed subscription's charge should be handled.<br><br>**Default**: `ResumptionCharge.PRORATED` |
 
 ## Response Type
 
@@ -415,9 +414,9 @@ int subscriptionId = 222;
 try {
     SubscriptionResponse result = subscriptionStatusController.resumeSubscription(subscriptionId, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -556,7 +555,7 @@ SubscriptionResponse pauseSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
 
 ## Response Type
@@ -576,9 +575,9 @@ PauseRequest body = new PauseRequest.Builder()
 try {
     SubscriptionResponse result = subscriptionStatusController.pauseSubscription(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -719,7 +718,7 @@ SubscriptionResponse updateAutomaticSubscriptionResumption(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
 
 ## Response Type
@@ -739,9 +738,9 @@ PauseRequest body = new PauseRequest.Builder()
 try {
     SubscriptionResponse result = subscriptionStatusController.updateAutomaticSubscriptionResumption(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -875,7 +874,7 @@ try {
 
 # Reactivate Subscription
 
-Advanced Billing offers the ability to reactivate a previously canceled subscription. For details on how the reactivation works, and how to reactivate subscriptions through the application, see [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming).
+Reactivate a previously canceled subscription. For details on how the reactivation works, and how to reactivate subscriptions through the application, see [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming).
 
 **Note: The term "resume" is used also during another process in Advanced Billing. This occurs when an on-hold subscription is "resumed". This returns the subscription to an active state.**
 
@@ -895,6 +894,8 @@ Consider a subscription which was created on June 1st, and would renew on July 1
 If a reactivation with `resume: true` were attempted _before_ what would have been the next billing date of July 1st, then Advanced Billing would resume the subscription.
 
 If a reactivation with `resume: true` were attempted _after_ what would have been the next billing date of July 1st, then Advanced Billing would not resume the subscription, and instead it would be reactivated with a new billing period.
+
+If a reactivation with `resume: false`, or where 'resume" is omited were attempted, then Advanced Billing would reactivate the subscription with a new billing period regardless of whether or not resuming the previous billing period were possible.
 
 | Canceled | Reactivation | Resumable? |
 |---|---|---|
@@ -1044,7 +1045,7 @@ SubscriptionResponse reactivateSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`ReactivateSubscriptionRequest`](../../doc/models/reactivate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1071,9 +1072,9 @@ ReactivateSubscriptionRequest body = new ReactivateSubscriptionRequest.Builder()
 try {
     SubscriptionResponse result = subscriptionStatusController.reactivateSubscription(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1197,11 +1198,7 @@ try {
 
 # Initiate Delayed Cancellation
 
-Advanced Billing offers the ability to cancel a subscription at the end of the current billing period. This period is set by its current product.
-
-Requesting to cancel the subscription at the end of the period sets the `cancel_at_end_of_period` flag to true.
-
-Note that you cannot set `cancel_at_end_of_period` at subscription creation, or if the subscription is past due.
+Cancels a subscription at the end of the current billing period based on the subscription's current product. You cannot set `cancel_at_end_of_period` at subscription creation, or if the subscription is past due.
 
 ```java
 DelayedCancellationResponse initiateDelayedCancellation(
@@ -1213,7 +1210,7 @@ DelayedCancellationResponse initiateDelayedCancellation(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`CancellationRequest`](../../doc/models/cancellation-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1227,9 +1224,9 @@ int subscriptionId = 222;
 try {
     DelayedCancellationResponse result = subscriptionStatusController.initiateDelayedCancellation(subscriptionId, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1257,7 +1254,7 @@ DelayedCancellationResponse cancelDelayedCancellation(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -1272,8 +1269,6 @@ try {
     DelayedCancellationResponse result = subscriptionStatusController.cancelDelayedCancellation(subscriptionId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -1306,7 +1301,7 @@ SubscriptionResponse cancelDunning(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -1320,9 +1315,9 @@ int subscriptionId = 222;
 try {
     SubscriptionResponse result = subscriptionStatusController.cancelDunning(subscriptionId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1357,7 +1352,7 @@ Optionally, **you may provide your own custom quantities** for any component to 
 
 ## Subscription Side Effects
 
-You can request a `POST` to obtain this data from the endpoint without any side effects. Plain and simple, this will preview data, not log any changes against a subscription.
+You can request a `POST` to obtain this data from the endpoint without any side effects. This method allows you to preview data, but does not log any changes against a subscription.
 
 ```java
 RenewalPreviewResponse previewRenewal(
@@ -1369,7 +1364,7 @@ RenewalPreviewResponse previewRenewal(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`RenewalPreviewRequest`](../../doc/models/renewal-preview-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1412,9 +1407,9 @@ RenewalPreviewRequest body = new RenewalPreviewRequest.Builder()
 try {
     RenewalPreviewResponse result = subscriptionStatusController.previewRenewal(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

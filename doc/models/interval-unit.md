@@ -9,6 +9,6 @@
 
 | Name |
 |  --- |
-| `Day` |
-| `Month` |
+| `DAY` |
+| `MONTH` |
 

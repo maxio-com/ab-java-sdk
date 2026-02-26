@@ -11,11 +11,11 @@ The current status of the invoice. See [Invoice Statuses](https://maxio.zendesk.
 
 | Name |
 |  --- |
-| `Draft` |
-| `Open` |
-| `Paid` |
-| `Pending` |
-| `Voided` |
-| `Canceled` |
-| `Processing` |
+| `DRAFT` |
+| `OPEN` |
+| `PAID` |
+| `PENDING` |
+| `VOIDED` |
+| `CANCELED` |
+| `PROCESSING` |
 

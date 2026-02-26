@@ -170,7 +170,7 @@ public class AllocateComponents
     /**
      * Internal Getter for UpgradeCharge.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      * @return Returns the Internal CreditType
      */
     @JsonGetter("upgrade_charge")
@@ -183,7 +183,7 @@ public class AllocateComponents
     /**
      * Getter for UpgradeCharge.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      * @return Returns the CreditType
      */
     public CreditType getUpgradeCharge() {
@@ -193,7 +193,7 @@ public class AllocateComponents
     /**
      * Setter for UpgradeCharge.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      * @param upgradeCharge Value for CreditType
      */
     @JsonSetter("upgrade_charge")
@@ -204,7 +204,7 @@ public class AllocateComponents
     /**
      * UnSetter for UpgradeCharge.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      */
     public void unsetUpgradeCharge() {
         upgradeCharge = null;
@@ -213,7 +213,7 @@ public class AllocateComponents
     /**
      * Internal Getter for DowngradeCredit.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      * @return Returns the Internal CreditType
      */
     @JsonGetter("downgrade_credit")
@@ -226,7 +226,7 @@ public class AllocateComponents
     /**
      * Getter for DowngradeCredit.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      * @return Returns the CreditType
      */
     public CreditType getDowngradeCredit() {
@@ -236,7 +236,7 @@ public class AllocateComponents
     /**
      * Setter for DowngradeCredit.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      * @param downgradeCredit Value for CreditType
      */
     @JsonSetter("downgrade_credit")
@@ -247,7 +247,7 @@ public class AllocateComponents
     /**
      * UnSetter for DowngradeCredit.
      * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
+     * then site setting if one is not provided.
      */
     public void unsetDowngradeCredit() {
         downgradeCredit = null;

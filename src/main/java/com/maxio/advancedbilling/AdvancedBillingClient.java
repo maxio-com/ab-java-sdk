@@ -37,6 +37,7 @@ import com.maxio.advancedbilling.controllers.SubscriptionGroupsController;
 import com.maxio.advancedbilling.controllers.SubscriptionInvoiceAccountController;
 import com.maxio.advancedbilling.controllers.SubscriptionNotesController;
 import com.maxio.advancedbilling.controllers.SubscriptionProductsController;
+import com.maxio.advancedbilling.controllers.SubscriptionRenewalsController;
 import com.maxio.advancedbilling.controllers.SubscriptionStatusController;
 import com.maxio.advancedbilling.controllers.SubscriptionsController;
 import com.maxio.advancedbilling.controllers.WebhooksController;
@@ -94,12 +95,13 @@ public final class AdvancedBillingClient implements Configuration {
     private SubscriptionInvoiceAccountController subscriptionInvoiceAccount;
     private SubscriptionNotesController subscriptionNotes;
     private SubscriptionProductsController subscriptionProducts;
+    private SubscriptionRenewalsController subscriptionRenewals;
     private SubscriptionStatusController subscriptionStatus;
     private WebhooksController webhooks;
 
     private static final CompatibilityFactory compatibilityFactory = new CompatibilityFactoryImpl();
 
-    private static String userAgent = "AB SDK Java:8.0.0 on OS {os-info}";
+    private static String userAgent = "AB SDK Java:9.0.0 on OS {os-info}";
 
     /**
      * Current API environment.
@@ -193,6 +195,7 @@ public final class AdvancedBillingClient implements Configuration {
         subscriptionInvoiceAccount = new SubscriptionInvoiceAccountController(globalConfig);
         subscriptionNotes = new SubscriptionNotesController(globalConfig);
         subscriptionProducts = new SubscriptionProductsController(globalConfig);
+        subscriptionRenewals = new SubscriptionRenewalsController(globalConfig);
         subscriptionStatus = new SubscriptionStatusController(globalConfig);
         webhooks = new WebhooksController(globalConfig);
     }
@@ -442,6 +445,14 @@ public final class AdvancedBillingClient implements Configuration {
      */
     public SubscriptionProductsController getSubscriptionProductsController() {
         return subscriptionProducts;
+    }
+
+    /**
+     * Get the instance of SubscriptionRenewalsController.
+     * @return subscriptionRenewals
+     */
+    public SubscriptionRenewalsController getSubscriptionRenewalsController() {
+        return subscriptionRenewals;
     }
 
     /**

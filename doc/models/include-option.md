@@ -9,6 +9,6 @@
 
 | Name |
 |  --- |
-| `Exclude` |
-| `Include` |
+| `EXCLUDE` |
+| `INCLUDE` |
 

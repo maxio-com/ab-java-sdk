@@ -46,7 +46,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
     /**
      * Returns the `balance_in_cents` of the Subscription's Pending Discount, Service Credit, and
      * Prepayment accounts, as well as the sum of the Subscription's open, payable invoices.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the AccountBalances response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -87,7 +87,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * the prepayment amount will be collected using the default credit card payment profile and
      * applied to the prepayment account balance. This is especially useful for manual replenishment
      * of prepaid subscriptions. Note that passing `amount_in_cents` is now allowed.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the CreatePrepaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -181,7 +181,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
     /**
      * Credit will be added to the subscription in the amount specified in the request body. The
      * credit is subsequently applied to the next generated invoice.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the ServiceCredit response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -229,7 +229,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
     /**
      * Credit will be removed from the subscription in the amount specified in the request body. The
      * credit amount being deducted must be equal to or less than the current credit balance.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -272,7 +272,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
 
     /**
      * This request will list a subscription's service credits.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  page  Optional parameter: Result records are organized in pages. By default, the
      *         first page of results is displayed. The page parameter specifies a page number of
      *         results to fetch. You can start navigating through the pages to consume the results.
@@ -341,7 +341,7 @@ public final class SubscriptionInvoiceAccountController extends BaseController {
      * subscription. The `prepayment_id` will be the account transaction ID of the original payment.
      * The prepayment must have some amount remaining in order to be refunded. The amount may be
      * passed either as a decimal, with `amount`, or an integer in cents, with `amount_in_cents`.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  prepaymentId  Required parameter: id of prepayment
      * @param  body  Optional parameter:
      * @return    Returns the PrepaymentResponse response from the API call

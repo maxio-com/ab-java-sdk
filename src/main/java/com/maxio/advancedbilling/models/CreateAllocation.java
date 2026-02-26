@@ -20,16 +20,20 @@ import io.apimatic.core.types.OptionalNullable;
 public class CreateAllocation
         extends BaseModel {
     private double quantity;
+    private String decimalQuantity;
+    private Double previousQuantity;
+    private String decimalPreviousQuantity;
     private Integer componentId;
     private String memo;
     private String prorationDowngradeScheme;
     private String prorationUpgradeScheme;
+    private OptionalNullable<DowngradeCreditCreditType> downgradeCredit;
+    private OptionalNullable<UpgradeChargeCreditType> upgradeCharge;
     private Boolean accrueCharge;
-    private OptionalNullable<CreditType> downgradeCredit;
-    private OptionalNullable<CreditType> upgradeCharge;
     private Boolean initiateDunning;
     private OptionalNullable<CreateAllocationPricePointId> pricePointId;
     private BillingSchedule billingSchedule;
+    private ComponentCustomPrice customPrice;
 
     /**
      * Default constructor.
@@ -40,74 +44,95 @@ public class CreateAllocation
     /**
      * Initialization constructor.
      * @param  quantity  double value for quantity.
+     * @param  decimalQuantity  String value for decimalQuantity.
+     * @param  previousQuantity  Double value for previousQuantity.
+     * @param  decimalPreviousQuantity  String value for decimalPreviousQuantity.
      * @param  componentId  Integer value for componentId.
      * @param  memo  String value for memo.
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
+     * @param  downgradeCredit  DowngradeCreditCreditType value for downgradeCredit.
+     * @param  upgradeCharge  UpgradeChargeCreditType value for upgradeCharge.
      * @param  accrueCharge  Boolean value for accrueCharge.
-     * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
      * @param  billingSchedule  BillingSchedule value for billingSchedule.
+     * @param  customPrice  ComponentCustomPrice value for customPrice.
      */
     public CreateAllocation(
             double quantity,
+            String decimalQuantity,
+            Double previousQuantity,
+            String decimalPreviousQuantity,
             Integer componentId,
             String memo,
             String prorationDowngradeScheme,
             String prorationUpgradeScheme,
+            DowngradeCreditCreditType downgradeCredit,
+            UpgradeChargeCreditType upgradeCharge,
             Boolean accrueCharge,
-            CreditType downgradeCredit,
-            CreditType upgradeCharge,
             Boolean initiateDunning,
             CreateAllocationPricePointId pricePointId,
-            BillingSchedule billingSchedule) {
+            BillingSchedule billingSchedule,
+            ComponentCustomPrice customPrice) {
         this.quantity = quantity;
+        this.decimalQuantity = decimalQuantity;
+        this.previousQuantity = previousQuantity;
+        this.decimalPreviousQuantity = decimalPreviousQuantity;
         this.componentId = componentId;
         this.memo = memo;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.prorationUpgradeScheme = prorationUpgradeScheme;
-        this.accrueCharge = accrueCharge;
         this.downgradeCredit = OptionalNullable.of(downgradeCredit);
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+        this.accrueCharge = accrueCharge;
         this.initiateDunning = initiateDunning;
         this.pricePointId = OptionalNullable.of(pricePointId);
         this.billingSchedule = billingSchedule;
+        this.customPrice = customPrice;
     }
 
     /**
      * Initialization constructor.
      * @param  quantity  double value for quantity.
+     * @param  decimalQuantity  String value for decimalQuantity.
+     * @param  previousQuantity  Double value for previousQuantity.
+     * @param  decimalPreviousQuantity  String value for decimalPreviousQuantity.
      * @param  componentId  Integer value for componentId.
      * @param  memo  String value for memo.
      * @param  prorationDowngradeScheme  String value for prorationDowngradeScheme.
      * @param  prorationUpgradeScheme  String value for prorationUpgradeScheme.
+     * @param  downgradeCredit  DowngradeCreditCreditType value for downgradeCredit.
+     * @param  upgradeCharge  UpgradeChargeCreditType value for upgradeCharge.
      * @param  accrueCharge  Boolean value for accrueCharge.
-     * @param  downgradeCredit  CreditType value for downgradeCredit.
-     * @param  upgradeCharge  CreditType value for upgradeCharge.
      * @param  initiateDunning  Boolean value for initiateDunning.
      * @param  pricePointId  CreateAllocationPricePointId value for pricePointId.
      * @param  billingSchedule  BillingSchedule value for billingSchedule.
+     * @param  customPrice  ComponentCustomPrice value for customPrice.
      */
 
-    protected CreateAllocation(double quantity, Integer componentId, String memo,
-            String prorationDowngradeScheme, String prorationUpgradeScheme, Boolean accrueCharge,
-            OptionalNullable<CreditType> downgradeCredit,
-            OptionalNullable<CreditType> upgradeCharge, Boolean initiateDunning,
-            OptionalNullable<CreateAllocationPricePointId> pricePointId,
-            BillingSchedule billingSchedule) {
+    protected CreateAllocation(double quantity, String decimalQuantity, Double previousQuantity,
+            String decimalPreviousQuantity, Integer componentId, String memo,
+            String prorationDowngradeScheme, String prorationUpgradeScheme,
+            OptionalNullable<DowngradeCreditCreditType> downgradeCredit,
+            OptionalNullable<UpgradeChargeCreditType> upgradeCharge, Boolean accrueCharge,
+            Boolean initiateDunning, OptionalNullable<CreateAllocationPricePointId> pricePointId,
+            BillingSchedule billingSchedule, ComponentCustomPrice customPrice) {
         this.quantity = quantity;
+        this.decimalQuantity = decimalQuantity;
+        this.previousQuantity = previousQuantity;
+        this.decimalPreviousQuantity = decimalPreviousQuantity;
         this.componentId = componentId;
         this.memo = memo;
         this.prorationDowngradeScheme = prorationDowngradeScheme;
         this.prorationUpgradeScheme = prorationUpgradeScheme;
-        this.accrueCharge = accrueCharge;
         this.downgradeCredit = downgradeCredit;
         this.upgradeCharge = upgradeCharge;
+        this.accrueCharge = accrueCharge;
         this.initiateDunning = initiateDunning;
         this.pricePointId = pricePointId;
         this.billingSchedule = billingSchedule;
+        this.customPrice = customPrice;
     }
 
     /**
@@ -135,9 +160,78 @@ public class CreateAllocation
     }
 
     /**
+     * Getter for DecimalQuantity.
+     * Decimal representation of the allocated quantity. Only valid when decimal allocations are
+     * enabled for the component.
+     * @return Returns the String
+     */
+    @JsonGetter("decimal_quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getDecimalQuantity() {
+        return decimalQuantity;
+    }
+
+    /**
+     * Setter for DecimalQuantity.
+     * Decimal representation of the allocated quantity. Only valid when decimal allocations are
+     * enabled for the component.
+     * @param decimalQuantity Value for String
+     */
+    @JsonSetter("decimal_quantity")
+    public void setDecimalQuantity(String decimalQuantity) {
+        this.decimalQuantity = decimalQuantity;
+    }
+
+    /**
+     * Getter for PreviousQuantity.
+     * The quantity that was in effect before this allocation. Responses always include this value;
+     * it may be supplied on preview requests to ensure the expected change is evaluated.
+     * @return Returns the Double
+     */
+    @JsonGetter("previous_quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Double getPreviousQuantity() {
+        return previousQuantity;
+    }
+
+    /**
+     * Setter for PreviousQuantity.
+     * The quantity that was in effect before this allocation. Responses always include this value;
+     * it may be supplied on preview requests to ensure the expected change is evaluated.
+     * @param previousQuantity Value for Double
+     */
+    @JsonSetter("previous_quantity")
+    public void setPreviousQuantity(Double previousQuantity) {
+        this.previousQuantity = previousQuantity;
+    }
+
+    /**
+     * Getter for DecimalPreviousQuantity.
+     * Decimal representation of `previous_quantity`. Only valid when decimal allocations are
+     * enabled for the component.
+     * @return Returns the String
+     */
+    @JsonGetter("decimal_previous_quantity")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getDecimalPreviousQuantity() {
+        return decimalPreviousQuantity;
+    }
+
+    /**
+     * Setter for DecimalPreviousQuantity.
+     * Decimal representation of `previous_quantity`. Only valid when decimal allocations are
+     * enabled for the component.
+     * @param decimalPreviousQuantity Value for String
+     */
+    @JsonSetter("decimal_previous_quantity")
+    public void setDecimalPreviousQuantity(String decimalPreviousQuantity) {
+        this.decimalPreviousQuantity = decimalPreviousQuantity;
+    }
+
+    /**
      * Getter for ComponentId.
      * (required for the multiple allocations endpoint) The id associated with the component for
-     * which the allocation is being made
+     * which the allocation is being made.
      * @return Returns the Integer
      */
     @JsonGetter("component_id")
@@ -149,7 +243,7 @@ public class CreateAllocation
     /**
      * Setter for ComponentId.
      * (required for the multiple allocations endpoint) The id associated with the component for
-     * which the allocation is being made
+     * which the allocation is being made.
      * @param componentId Value for Integer
      */
     @JsonSetter("component_id")
@@ -159,7 +253,7 @@ public class CreateAllocation
 
     /**
      * Getter for Memo.
-     * A memo to record along with the allocation
+     * A memo to record along with the allocation.
      * @return Returns the String
      */
     @JsonGetter("memo")
@@ -170,7 +264,7 @@ public class CreateAllocation
 
     /**
      * Setter for Memo.
-     * A memo to record along with the allocation
+     * A memo to record along with the allocation.
      * @param memo Value for String
      */
     @JsonSetter("memo")
@@ -225,10 +319,114 @@ public class CreateAllocation
     }
 
     /**
+     * Internal Getter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A full price credit is added
+     * for the amount owed. `prorated` - A prorated credit is added for the amount owed. `none` - No
+     * charge is added.
+     * @return Returns the Internal DowngradeCreditCreditType
+     */
+    @JsonGetter("downgrade_credit")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<DowngradeCreditCreditType> internalGetDowngradeCredit() {
+        return this.downgradeCredit;
+    }
+
+    /**
+     * Getter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A full price credit is added
+     * for the amount owed. `prorated` - A prorated credit is added for the amount owed. `none` - No
+     * charge is added.
+     * @return Returns the DowngradeCreditCreditType
+     */
+    public DowngradeCreditCreditType getDowngradeCredit() {
+        return OptionalNullable.getFrom(downgradeCredit);
+    }
+
+    /**
+     * Setter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A full price credit is added
+     * for the amount owed. `prorated` - A prorated credit is added for the amount owed. `none` - No
+     * charge is added.
+     * @param downgradeCredit Value for DowngradeCreditCreditType
+     */
+    @JsonSetter("downgrade_credit")
+    public void setDowngradeCredit(DowngradeCreditCreditType downgradeCredit) {
+        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
+    }
+
+    /**
+     * UnSetter for DowngradeCredit.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A full price credit is added
+     * for the amount owed. `prorated` - A prorated credit is added for the amount owed. `none` - No
+     * charge is added.
+     */
+    public void unsetDowngradeCredit() {
+        downgradeCredit = null;
+    }
+
+    /**
+     * Internal Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A charge is added for the full
+     * price of the component. `prorated` - A charge is added for the prorated price of the
+     * component change. `none` - No charge is added.
+     * @return Returns the Internal UpgradeChargeCreditType
+     */
+    @JsonGetter("upgrade_charge")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<UpgradeChargeCreditType> internalGetUpgradeCharge() {
+        return this.upgradeCharge;
+    }
+
+    /**
+     * Getter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A charge is added for the full
+     * price of the component. `prorated` - A charge is added for the prorated price of the
+     * component change. `none` - No charge is added.
+     * @return Returns the UpgradeChargeCreditType
+     */
+    public UpgradeChargeCreditType getUpgradeCharge() {
+        return OptionalNullable.getFrom(upgradeCharge);
+    }
+
+    /**
+     * Setter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A charge is added for the full
+     * price of the component. `prorated` - A charge is added for the prorated price of the
+     * component change. `none` - No charge is added.
+     * @param upgradeCharge Value for UpgradeChargeCreditType
+     */
+    @JsonSetter("upgrade_charge")
+    public void setUpgradeCharge(UpgradeChargeCreditType upgradeCharge) {
+        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+    }
+
+    /**
+     * UnSetter for UpgradeCharge.
+     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
+     * then site setting if one is not provided. Values are: `full` - A charge is added for the full
+     * price of the component. `prorated` - A charge is added for the prorated price of the
+     * component change. `none` - No charge is added.
+     */
+    public void unsetUpgradeCharge() {
+        upgradeCharge = null;
+    }
+
+    /**
      * Getter for AccrueCharge.
-     * If the change in cost is an upgrade, this determines if the charge should accrue to the next
-     * renewal or if capture should be attempted immediately. Defaults to the site setting if one is
-     * not provided.
+     * "If the change in cost is an upgrade, this determines if the charge should accrue to the next
+     * renewal or if capture should be attempted immediately. `true` - Attempt to charge the
+     * customer at the next renewal. `false` - Attempt to charge the customer right away. If it
+     * fails, the charge will be accrued until the next renewal. Defaults to the site setting if
+     * unspecified in the request.
      * @return Returns the Boolean
      */
     @JsonGetter("accrue_charge")
@@ -239,100 +437,16 @@ public class CreateAllocation
 
     /**
      * Setter for AccrueCharge.
-     * If the change in cost is an upgrade, this determines if the charge should accrue to the next
-     * renewal or if capture should be attempted immediately. Defaults to the site setting if one is
-     * not provided.
+     * "If the change in cost is an upgrade, this determines if the charge should accrue to the next
+     * renewal or if capture should be attempted immediately. `true` - Attempt to charge the
+     * customer at the next renewal. `false` - Attempt to charge the customer right away. If it
+     * fails, the charge will be accrued until the next renewal. Defaults to the site setting if
+     * unspecified in the request.
      * @param accrueCharge Value for Boolean
      */
     @JsonSetter("accrue_charge")
     public void setAccrueCharge(Boolean accrueCharge) {
         this.accrueCharge = accrueCharge;
-    }
-
-    /**
-     * Internal Getter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the Internal CreditType
-     */
-    @JsonGetter("downgrade_credit")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CreditType> internalGetDowngradeCredit() {
-        return this.downgradeCredit;
-    }
-
-    /**
-     * Getter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the CreditType
-     */
-    public CreditType getDowngradeCredit() {
-        return OptionalNullable.getFrom(downgradeCredit);
-    }
-
-    /**
-     * Setter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @param downgradeCredit Value for CreditType
-     */
-    @JsonSetter("downgrade_credit")
-    public void setDowngradeCredit(CreditType downgradeCredit) {
-        this.downgradeCredit = OptionalNullable.of(downgradeCredit);
-    }
-
-    /**
-     * UnSetter for DowngradeCredit.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     */
-    public void unsetDowngradeCredit() {
-        downgradeCredit = null;
-    }
-
-    /**
-     * Internal Getter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the Internal CreditType
-     */
-    @JsonGetter("upgrade_charge")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CreditType> internalGetUpgradeCharge() {
-        return this.upgradeCharge;
-    }
-
-    /**
-     * Getter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @return Returns the CreditType
-     */
-    public CreditType getUpgradeCharge() {
-        return OptionalNullable.getFrom(upgradeCharge);
-    }
-
-    /**
-     * Setter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     * @param upgradeCharge Value for CreditType
-     */
-    @JsonSetter("upgrade_charge")
-    public void setUpgradeCharge(CreditType upgradeCharge) {
-        this.upgradeCharge = OptionalNullable.of(upgradeCharge);
-    }
-
-    /**
-     * UnSetter for UpgradeCharge.
-     * The type of credit to be created when upgrading/downgrading. Defaults to the component and
-     * then site setting if one is not provided. Available values: `full`, `prorated`, `none`.
-     */
-    public void unsetUpgradeCharge() {
-        upgradeCharge = null;
     }
 
     /**
@@ -429,17 +543,43 @@ public class CreateAllocation
     }
 
     /**
+     * Getter for CustomPrice.
+     * Create or update custom pricing unique to the subscription. Used in place of
+     * `price_point_id`.
+     * @return Returns the ComponentCustomPrice
+     */
+    @JsonGetter("custom_price")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ComponentCustomPrice getCustomPrice() {
+        return customPrice;
+    }
+
+    /**
+     * Setter for CustomPrice.
+     * Create or update custom pricing unique to the subscription. Used in place of
+     * `price_point_id`.
+     * @param customPrice Value for ComponentCustomPrice
+     */
+    @JsonSetter("custom_price")
+    public void setCustomPrice(ComponentCustomPrice customPrice) {
+        this.customPrice = customPrice;
+    }
+
+    /**
      * Converts this CreateAllocation into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "CreateAllocation [" + "quantity=" + quantity + ", componentId=" + componentId
-                + ", memo=" + memo + ", prorationDowngradeScheme=" + prorationDowngradeScheme
-                + ", prorationUpgradeScheme=" + prorationUpgradeScheme + ", accrueCharge="
-                + accrueCharge + ", downgradeCredit=" + downgradeCredit + ", upgradeCharge="
-                + upgradeCharge + ", initiateDunning=" + initiateDunning + ", pricePointId="
-                + pricePointId + ", billingSchedule=" + billingSchedule + ", additionalProperties="
+        return "CreateAllocation [" + "quantity=" + quantity + ", decimalQuantity="
+                + decimalQuantity + ", previousQuantity=" + previousQuantity
+                + ", decimalPreviousQuantity=" + decimalPreviousQuantity + ", componentId="
+                + componentId + ", memo=" + memo + ", prorationDowngradeScheme="
+                + prorationDowngradeScheme + ", prorationUpgradeScheme=" + prorationUpgradeScheme
+                + ", downgradeCredit=" + downgradeCredit + ", upgradeCharge=" + upgradeCharge
+                + ", accrueCharge=" + accrueCharge + ", initiateDunning=" + initiateDunning
+                + ", pricePointId=" + pricePointId + ", billingSchedule=" + billingSchedule
+                + ", customPrice=" + customPrice + ", additionalProperties="
                 + getAdditionalProperties() + "]";
     }
 
@@ -450,13 +590,17 @@ public class CreateAllocation
      */
     public Builder toBuilder() {
         Builder builder = new Builder(quantity)
+                .decimalQuantity(getDecimalQuantity())
+                .previousQuantity(getPreviousQuantity())
+                .decimalPreviousQuantity(getDecimalPreviousQuantity())
                 .componentId(getComponentId())
                 .memo(getMemo())
                 .prorationDowngradeScheme(getProrationDowngradeScheme())
                 .prorationUpgradeScheme(getProrationUpgradeScheme())
                 .accrueCharge(getAccrueCharge())
                 .initiateDunning(getInitiateDunning())
-                .billingSchedule(getBillingSchedule());
+                .billingSchedule(getBillingSchedule())
+                .customPrice(getCustomPrice());
         builder.downgradeCredit = internalGetDowngradeCredit();
         builder.upgradeCharge = internalGetUpgradeCharge();
         builder.pricePointId = internalGetPricePointId();
@@ -468,16 +612,20 @@ public class CreateAllocation
      */
     public static class Builder {
         private double quantity;
+        private String decimalQuantity;
+        private Double previousQuantity;
+        private String decimalPreviousQuantity;
         private Integer componentId;
         private String memo;
         private String prorationDowngradeScheme;
         private String prorationUpgradeScheme;
+        private OptionalNullable<DowngradeCreditCreditType> downgradeCredit;
+        private OptionalNullable<UpgradeChargeCreditType> upgradeCharge;
         private Boolean accrueCharge;
-        private OptionalNullable<CreditType> downgradeCredit;
-        private OptionalNullable<CreditType> upgradeCharge;
         private Boolean initiateDunning;
         private OptionalNullable<CreateAllocationPricePointId> pricePointId;
         private BillingSchedule billingSchedule;
+        private ComponentCustomPrice customPrice;
 
         /**
          * Initialization constructor.
@@ -500,6 +648,36 @@ public class CreateAllocation
          */
         public Builder quantity(double quantity) {
             this.quantity = quantity;
+            return this;
+        }
+
+        /**
+         * Setter for decimalQuantity.
+         * @param  decimalQuantity  String value for decimalQuantity.
+         * @return Builder
+         */
+        public Builder decimalQuantity(String decimalQuantity) {
+            this.decimalQuantity = decimalQuantity;
+            return this;
+        }
+
+        /**
+         * Setter for previousQuantity.
+         * @param  previousQuantity  Double value for previousQuantity.
+         * @return Builder
+         */
+        public Builder previousQuantity(Double previousQuantity) {
+            this.previousQuantity = previousQuantity;
+            return this;
+        }
+
+        /**
+         * Setter for decimalPreviousQuantity.
+         * @param  decimalPreviousQuantity  String value for decimalPreviousQuantity.
+         * @return Builder
+         */
+        public Builder decimalPreviousQuantity(String decimalPreviousQuantity) {
+            this.decimalPreviousQuantity = decimalPreviousQuantity;
             return this;
         }
 
@@ -544,21 +722,11 @@ public class CreateAllocation
         }
 
         /**
-         * Setter for accrueCharge.
-         * @param  accrueCharge  Boolean value for accrueCharge.
-         * @return Builder
-         */
-        public Builder accrueCharge(Boolean accrueCharge) {
-            this.accrueCharge = accrueCharge;
-            return this;
-        }
-
-        /**
          * Setter for downgradeCredit.
-         * @param  downgradeCredit  CreditType value for downgradeCredit.
+         * @param  downgradeCredit  DowngradeCreditCreditType value for downgradeCredit.
          * @return Builder
          */
-        public Builder downgradeCredit(CreditType downgradeCredit) {
+        public Builder downgradeCredit(DowngradeCreditCreditType downgradeCredit) {
             this.downgradeCredit = OptionalNullable.of(downgradeCredit);
             return this;
         }
@@ -574,10 +742,10 @@ public class CreateAllocation
 
         /**
          * Setter for upgradeCharge.
-         * @param  upgradeCharge  CreditType value for upgradeCharge.
+         * @param  upgradeCharge  UpgradeChargeCreditType value for upgradeCharge.
          * @return Builder
          */
-        public Builder upgradeCharge(CreditType upgradeCharge) {
+        public Builder upgradeCharge(UpgradeChargeCreditType upgradeCharge) {
             this.upgradeCharge = OptionalNullable.of(upgradeCharge);
             return this;
         }
@@ -588,6 +756,16 @@ public class CreateAllocation
          */
         public Builder unsetUpgradeCharge() {
             upgradeCharge = null;
+            return this;
+        }
+
+        /**
+         * Setter for accrueCharge.
+         * @param  accrueCharge  Boolean value for accrueCharge.
+         * @return Builder
+         */
+        public Builder accrueCharge(Boolean accrueCharge) {
+            this.accrueCharge = accrueCharge;
             return this;
         }
 
@@ -631,13 +809,24 @@ public class CreateAllocation
         }
 
         /**
+         * Setter for customPrice.
+         * @param  customPrice  ComponentCustomPrice value for customPrice.
+         * @return Builder
+         */
+        public Builder customPrice(ComponentCustomPrice customPrice) {
+            this.customPrice = customPrice;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateAllocation} object using the set fields.
          * @return {@link CreateAllocation}
          */
         public CreateAllocation build() {
-            return new CreateAllocation(quantity, componentId, memo, prorationDowngradeScheme,
-                    prorationUpgradeScheme, accrueCharge, downgradeCredit, upgradeCharge,
-                    initiateDunning, pricePointId, billingSchedule);
+            return new CreateAllocation(quantity, decimalQuantity, previousQuantity,
+                    decimalPreviousQuantity, componentId, memo, prorationDowngradeScheme,
+                    prorationUpgradeScheme, downgradeCredit, upgradeCharge, accrueCharge,
+                    initiateDunning, pricePointId, billingSchedule, customPrice);
         }
     }
 }

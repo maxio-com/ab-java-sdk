@@ -11,7 +11,7 @@ You may choose how to handle the reactivation charge for that subscription: 1) `
 
 | Name |
 |  --- |
-| `Prorated` |
-| `Immediate` |
-| `Delayed` |
+| `PRORATED` |
+| `IMMEDIATE` |
+| `DELAYED` |
 

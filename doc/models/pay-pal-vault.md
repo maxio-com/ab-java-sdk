@@ -11,8 +11,8 @@ The vault that stores the payment profile with the provided vault_token.
 
 | Name |
 |  --- |
-| `BraintreeBlue` |
-| `Paypal` |
-| `Moduslink` |
-| `PaypalComplete` |
+| `BRAINTREE_BLUE` |
+| `PAYPAL` |
+| `MODUSLINK` |
+| `PAYPAL_COMPLETE` |
 

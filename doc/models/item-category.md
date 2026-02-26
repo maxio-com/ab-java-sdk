@@ -11,11 +11,11 @@ One of the following: Business Software, Consumer Software, Digital Services, Ph
 
 | Name |
 |  --- |
-| `EnumBusinessSoftware` |
-| `EnumConsumerSoftware` |
-| `EnumDigitalServices` |
-| `EnumPhysicalGoods` |
-| `Other` |
+| `ENUM_BUSINESS_SOFTWARE` |
+| `ENUM_CONSUMER_SOFTWARE` |
+| `ENUM_DIGITAL_SERVICES` |
+| `ENUM_PHYSICAL_GOODS` |
+| `OTHER` |
 
 ## Example
 

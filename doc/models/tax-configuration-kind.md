@@ -9,8 +9,8 @@
 
 | Name |
 |  --- |
-| `Custom` |
-| `EnumManagedAvalara` |
-| `EnumLinkedAvalara` |
-| `EnumDigitalRiver` |
+| `CUSTOM` |
+| `ENUM_MANAGED_AVALARA` |
+| `ENUM_LINKED_AVALARA` |
+| `ENUM_DIGITAL_RIVER` |
 

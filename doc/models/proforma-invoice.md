@@ -45,6 +45,7 @@
 | `Payments` | [`List<ProformaInvoicePayment>`](../../doc/models/proforma-invoice-payment.md) | Optional | - | List<ProformaInvoicePayment> getPayments() | setPayments(List<ProformaInvoicePayment> payments) |
 | `CustomFields` | [`List<InvoiceCustomField>`](../../doc/models/invoice-custom-field.md) | Optional | - | List<InvoiceCustomField> getCustomFields() | setCustomFields(List<InvoiceCustomField> customFields) |
 | `PublicUrl` | `String` | Optional | - | String getPublicUrl() | setPublicUrl(String publicUrl) |
+| `AvailableActions` | [`AvailableActions`](../../doc/models/available-actions.md) | Optional | - | AvailableActions getAvailableActions() | setAvailableActions(AvailableActions availableActions) |
 
 ## Example (as JSON)
 

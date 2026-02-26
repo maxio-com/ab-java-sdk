@@ -39,7 +39,7 @@ SubscriptionNoteResponse createSubscriptionNote(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
@@ -62,9 +62,9 @@ UpdateSubscriptionNoteRequest body = new UpdateSubscriptionNoteRequest.Builder(
 try {
     SubscriptionNoteResponse result = subscriptionNotesController.createSubscriptionNote(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -89,9 +89,7 @@ List<SubscriptionNoteResponse> listSubscriptionNotes(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
+| `input` | [`ListSubscriptionNotesInput`](../../doc/models/list-subscription-notes-input.md) | Required | Input structure for the method ListSubscriptionNotes |
 
 ## Response Type
 
@@ -110,9 +108,9 @@ ListSubscriptionNotesInput listSubscriptionNotesInput = new ListSubscriptionNote
 try {
     List<SubscriptionNoteResponse> result = subscriptionNotesController.listSubscriptionNotes(listSubscriptionNotesInput);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -165,7 +163,7 @@ SubscriptionNoteResponse readSubscriptionNote(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `noteId` | `int` | Template, Required | The Advanced Billing id of the note |
 
 ## Response Type
@@ -182,8 +180,6 @@ try {
     SubscriptionNoteResponse result = subscriptionNotesController.readSubscriptionNote(subscriptionId, noteId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -219,7 +215,7 @@ SubscriptionNoteResponse updateSubscriptionNote(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `noteId` | `int` | Template, Required | The Advanced Billing id of the note |
 | `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
@@ -244,9 +240,9 @@ UpdateSubscriptionNoteRequest body = new UpdateSubscriptionNoteRequest.Builder(
 try {
     SubscriptionNoteResponse result = subscriptionNotesController.updateSubscriptionNote(subscriptionId, noteId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -260,7 +256,7 @@ try {
 
 # Delete Subscription Note
 
-Use the following method to delete a note for a Subscription.
+Deletes a note for a Subscription.
 
 ```java
 Void deleteSubscriptionNote(
@@ -272,7 +268,7 @@ Void deleteSubscriptionNote(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `noteId` | `int` | Template, Required | The Advanced Billing id of the note |
 
 ## Response Type
@@ -288,8 +284,6 @@ int noteId = 66;
 try {
     subscriptionNotesController.deleteSubscriptionNote(subscriptionId, noteId);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

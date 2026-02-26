@@ -1768,7 +1768,7 @@ public class Subscription
 
     /**
      * Internal Getter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      * @return Returns the Internal String
      */
     @JsonGetter("reason_code")
@@ -1780,7 +1780,7 @@ public class Subscription
 
     /**
      * Getter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      * @return Returns the String
      */
     public String getReasonCode() {
@@ -1789,7 +1789,7 @@ public class Subscription
 
     /**
      * Setter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      * @param reasonCode Value for String
      */
     @JsonSetter("reason_code")
@@ -1799,7 +1799,7 @@ public class Subscription
 
     /**
      * UnSetter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      */
     public void unsetReasonCode() {
         reasonCode = null;
@@ -2150,7 +2150,7 @@ public class Subscription
 
     /**
      * Internal Getter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      * @return Returns the Internal String
      */
     @JsonGetter("reference")
@@ -2162,7 +2162,7 @@ public class Subscription
 
     /**
      * Getter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      * @return Returns the String
      */
     public String getReference() {
@@ -2171,7 +2171,7 @@ public class Subscription
 
     /**
      * Setter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      * @param reference Value for String
      */
     @JsonSetter("reference")
@@ -2181,7 +2181,7 @@ public class Subscription
 
     /**
      * UnSetter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      */
     public void unsetReference() {
         reference = null;

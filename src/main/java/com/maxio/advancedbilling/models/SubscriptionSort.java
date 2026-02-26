@@ -27,7 +27,15 @@ public enum SubscriptionSort {
 
     UPDATED_AT,
 
-    CREATED_AT;
+    CREATED_AT,
+
+    TOTAL_PAYMENTS,
+
+    ID,
+
+    OPEN_BALANCE,
+
+    EXPIRES_AT;
 
 
     private static TreeMap<String, SubscriptionSort> valueMap = new TreeMap<>();
@@ -40,6 +48,10 @@ public enum SubscriptionSort {
         NEXT_ASSESSMENT.value = "next_assessment";
         UPDATED_AT.value = "updated_at";
         CREATED_AT.value = "created_at";
+        TOTAL_PAYMENTS.value = "total_payments";
+        ID.value = "id";
+        OPEN_BALANCE.value = "open_balance";
+        EXPIRES_AT.value = "expires_at";
 
         valueMap.put("signup_date", SIGNUP_DATE);
         valueMap.put("period_start", PERIOD_START);
@@ -47,6 +59,10 @@ public enum SubscriptionSort {
         valueMap.put("next_assessment", NEXT_ASSESSMENT);
         valueMap.put("updated_at", UPDATED_AT);
         valueMap.put("created_at", CREATED_AT);
+        valueMap.put("total_payments", TOTAL_PAYMENTS);
+        valueMap.put("id", ID);
+        valueMap.put("open_balance", OPEN_BALANCE);
+        valueMap.put("expires_at", EXPIRES_AT);
     }
 
     /**

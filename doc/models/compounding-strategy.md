@@ -11,6 +11,6 @@ Applicable only to stackable coupons. For `compound`, Percentage-based discounts
 
 | Name |
 |  --- |
-| `Compound` |
-| `Fullprice` |
+| `COMPOUND` |
+| `FULLPRICE` |
 

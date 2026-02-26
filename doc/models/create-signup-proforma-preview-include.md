@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `NextProformaInvoice` |
+| `NEXT_PROFORMA_INVOICE` |
 
 ## Example
 

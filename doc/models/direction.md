@@ -9,6 +9,6 @@
 
 | Name |
 |  --- |
-| `Asc` |
-| `Desc` |
+| `ASC` |
+| `DESC` |
 

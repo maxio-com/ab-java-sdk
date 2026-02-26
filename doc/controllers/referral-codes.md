@@ -44,9 +44,9 @@ String code = "code8";
 try {
     ReferralValidationResponse result = referralCodesController.validateReferralCode(code);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SingleStringErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

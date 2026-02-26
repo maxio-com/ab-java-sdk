@@ -32,7 +32,7 @@ Invoice issueAdvanceInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`IssueAdvanceInvoiceRequest`](../../doc/models/issue-advance-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -50,9 +50,9 @@ IssueAdvanceInvoiceRequest body = new IssueAdvanceInvoiceRequest.Builder()
 try {
     Invoice result = advanceInvoiceController.issueAdvanceInvoice(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -78,7 +78,7 @@ Invoice readAdvanceInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -93,8 +93,6 @@ try {
     Invoice result = advanceInvoiceController.readAdvanceInvoice(subscriptionId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -121,7 +119,7 @@ Invoice voidAdvanceInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`VoidInvoiceRequest`](../../doc/models/void-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -136,8 +134,6 @@ try {
     Invoice result = advanceInvoiceController.voidAdvanceInvoice(subscriptionId, null);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

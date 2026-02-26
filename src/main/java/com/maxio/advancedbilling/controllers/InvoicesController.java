@@ -484,7 +484,7 @@ public final class InvoicesController extends BaseController {
      * oldest, and so on until the amount of the payment is fully consumed. Excess payment will
      * result in the creation of a prepayment on the Invoice Account. Only ungrouped or primary
      * subscriptions may be paid using the "bulk" payment request.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the RecordPaymentResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -759,7 +759,7 @@ public final class InvoicesController extends BaseController {
      * custom memo can be sent with the `memo` parameter to override the site's default. Likewise,
      * custom payment instructions can be sent with the `payment_instrucions` parameter. #### Status
      * By default, invoices will be created with open status. Possible alternative is `draft`.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the InvoiceResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -808,13 +808,16 @@ public final class InvoicesController extends BaseController {
      * This endpoint allows for invoices to be programmatically delivered via email. This endpoint
      * supports the delivery of both ad-hoc and automatically generated invoices. Additionally, this
      * endpoint supports email delivery to direct recipients, carbon-copy (cc) recipients, and blind
-     * carbon-copy (bcc) recipients. If no recipient email addresses are specified in the request,
-     * then the subscription's default email configuration will be used. For example, if
-     * `recipient_emails` is left blank, then the invoice will be delivered to the subscription's
-     * customer email address. On success, a 204 no-content response will be returned. The response
-     * does not indicate that email(s) have been delivered, but instead indicates that emails have
-     * been successfully queued for delivery. If _any_ invalid or malformed email address is found
-     * in the request body, the entire request will be rejected and a 422 response will be returned.
+     * carbon-copy (bcc) recipients. **File Attachments**: You can attach files to invoice emails
+     * using `attachment_urls[]` parameter by providing URLs to the files you want to attach. When
+     * using attachments, the request must use `multipart/form-data` content type. Max 10 files,
+     * 10MB per file. If no recipient email addresses are specified in the request, then the
+     * subscription's default email configuration will be used. For example, if `recipient_emails`
+     * is left blank, then the invoice will be delivered to the subscription's customer email
+     * address. On success, a 204 no-content response will be returned. The response does not
+     * indicate that email(s) have been delivered, but instead indicates that emails have been
+     * successfully queued for delivery. If _any_ invalid or malformed email address is found in the
+     * request body, the entire request will be rejected and a 422 response will be returned.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
      * @param  body  Optional parameter:
@@ -954,25 +957,26 @@ public final class InvoicesController extends BaseController {
     }
 
     /**
-     * This endpoint allows you to issue an invoice that is in "pending" status. For example, you
-     * can issue an invoice that was created when allocating new quantity on a component and using
-     * "accrue charges" option. You cannot issue a pending child invoice that was created for a
-     * member subscription in a group. For Remittance subscriptions, the invoice will go into "open"
-     * status and payment won't be attempted. The value for `on_failed_payment` would be rejected if
-     * sent. Any prepayments or service credits that exist on subscription will be automatically
-     * applied. Additionally, if setting is on, an email will be sent for issued invoice. For
-     * Automatic subscriptions, prepayments and service credits will apply to the invoice and before
-     * payment is attempted. On successful payment, the invoice will go into "paid" status and email
-     * will be sent to the customer (if setting applies). When payment fails, the next event depends
-     * on the `on_failed_payment` value: - `leave_open_invoice` - prepayments and credits applied to
-     * invoice; invoice status set to "open"; email sent to the customer for the issued invoice (if
-     * setting applies); payment failure recorded in the invoice history. This is the default
-     * option. - `rollback_to_pending` - prepayments and credits not applied; invoice remains in
-     * "pending" status; no email sent to the customer; payment failure recorded in the invoice
-     * history. - `initiate_dunning` - prepayments and credits applied to the invoice; invoice
-     * status set to "open"; email sent to the customer for the issued invoice (if setting applies);
-     * payment failure recorded in the invoice history; subscription will most likely go into
-     * "past_due" or "canceled" state (depending upon net terms and dunning settings).
+     * This endpoint allows you to issue an invoice that is in "pending" or "draft" status. For
+     * example, you can issue an invoice that was created when allocating new quantity on a
+     * component and using "accrue charges" option. You cannot issue a pending child invoice that
+     * was created for a member subscription in a group. For Remittance subscriptions, the invoice
+     * will go into "open" status and payment won't be attempted. The value for `on_failed_payment`
+     * would be rejected if sent. Any prepayments or service credits that exist on subscription will
+     * be automatically applied. Additionally, if setting is on, an email will be sent for issued
+     * invoice. For Automatic subscriptions, prepayments and service credits will apply to the
+     * invoice and before payment is attempted. On successful payment, the invoice will go into
+     * "paid" status and email will be sent to the customer (if setting applies). When payment
+     * fails, the next event depends on the `on_failed_payment` value: - `leave_open_invoice` -
+     * prepayments and credits applied to invoice; invoice status set to "open"; email sent to the
+     * customer for the issued invoice (if setting applies); payment failure recorded in the invoice
+     * history. This is the default option. - `rollback_to_pending` - prepayments and credits not
+     * applied; invoice remains in "pending" status; no email sent to the customer; payment failure
+     * recorded in the invoice history. - `initiate_dunning` - prepayments and credits applied to
+     * the invoice; invoice status set to "open"; email sent to the customer for the issued invoice
+     * (if setting applies); payment failure recorded in the invoice history; subscription will most
+     * likely go into "past_due" or "canceled" state (depending upon net terms and dunning
+     * settings).
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
      * @param  body  Optional parameter:

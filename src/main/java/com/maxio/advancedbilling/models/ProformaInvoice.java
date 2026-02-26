@@ -59,6 +59,7 @@ public class ProformaInvoice
     private List<ProformaInvoicePayment> payments;
     private List<InvoiceCustomField> customFields;
     private OptionalNullable<String> publicUrl;
+    private AvailableActions availableActions;
 
     /**
      * Default constructor.
@@ -104,6 +105,7 @@ public class ProformaInvoice
      * @param  payments  List of ProformaInvoicePayment value for payments.
      * @param  customFields  List of InvoiceCustomField value for customFields.
      * @param  publicUrl  String value for publicUrl.
+     * @param  availableActions  AvailableActions value for availableActions.
      */
     public ProformaInvoice(
             String uid,
@@ -141,7 +143,8 @@ public class ProformaInvoice
             List<ProformaInvoiceCredit> credits,
             List<ProformaInvoicePayment> payments,
             List<InvoiceCustomField> customFields,
-            String publicUrl) {
+            String publicUrl,
+            AvailableActions availableActions) {
         this.uid = uid;
         this.siteId = siteId;
         this.customerId = OptionalNullable.of(customerId);
@@ -178,6 +181,7 @@ public class ProformaInvoice
         this.payments = payments;
         this.customFields = customFields;
         this.publicUrl = OptionalNullable.of(publicUrl);
+        this.availableActions = availableActions;
     }
 
     /**
@@ -218,6 +222,7 @@ public class ProformaInvoice
      * @param  payments  List of ProformaInvoicePayment value for payments.
      * @param  customFields  List of InvoiceCustomField value for customFields.
      * @param  publicUrl  String value for publicUrl.
+     * @param  availableActions  AvailableActions value for availableActions.
      */
 
     protected ProformaInvoice(String uid, Integer siteId, OptionalNullable<Integer> customerId,
@@ -233,7 +238,8 @@ public class ProformaInvoice
             String refundAmount, String dueAmount, List<InvoiceLineItem> lineItems,
             List<ProformaInvoiceDiscount> discounts, List<ProformaInvoiceTax> taxes,
             List<ProformaInvoiceCredit> credits, List<ProformaInvoicePayment> payments,
-            List<InvoiceCustomField> customFields, OptionalNullable<String> publicUrl) {
+            List<InvoiceCustomField> customFields, OptionalNullable<String> publicUrl,
+            AvailableActions availableActions) {
         this.uid = uid;
         this.siteId = siteId;
         this.customerId = customerId;
@@ -270,6 +276,7 @@ public class ProformaInvoice
         this.payments = payments;
         this.customFields = customFields;
         this.publicUrl = publicUrl;
+        this.availableActions = availableActions;
     }
 
     /**
@@ -1067,6 +1074,25 @@ public class ProformaInvoice
     }
 
     /**
+     * Getter for AvailableActions.
+     * @return Returns the AvailableActions
+     */
+    @JsonGetter("available_actions")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public AvailableActions getAvailableActions() {
+        return availableActions;
+    }
+
+    /**
+     * Setter for AvailableActions.
+     * @param availableActions Value for AvailableActions
+     */
+    @JsonSetter("available_actions")
+    public void setAvailableActions(AvailableActions availableActions) {
+        this.availableActions = availableActions;
+    }
+
+    /**
      * Converts this ProformaInvoice into string format.
      * @return String representation of this class
      */
@@ -1087,7 +1113,8 @@ public class ProformaInvoice
                 + ", dueAmount=" + dueAmount + ", lineItems=" + lineItems + ", discounts="
                 + discounts + ", taxes=" + taxes + ", credits=" + credits + ", payments=" + payments
                 + ", customFields=" + customFields + ", publicUrl=" + publicUrl
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", availableActions=" + availableActions + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1127,7 +1154,8 @@ public class ProformaInvoice
                 .taxes(getTaxes())
                 .credits(getCredits())
                 .payments(getPayments())
-                .customFields(getCustomFields());
+                .customFields(getCustomFields())
+                .availableActions(getAvailableActions());
         builder.customerId = internalGetCustomerId();
         builder.subscriptionId = internalGetSubscriptionId();
         builder.number = internalGetNumber();
@@ -1176,6 +1204,7 @@ public class ProformaInvoice
         private List<ProformaInvoicePayment> payments;
         private List<InvoiceCustomField> customFields;
         private OptionalNullable<String> publicUrl;
+        private AvailableActions availableActions;
 
 
 
@@ -1585,6 +1614,16 @@ public class ProformaInvoice
         }
 
         /**
+         * Setter for availableActions.
+         * @param  availableActions  AvailableActions value for availableActions.
+         * @return Builder
+         */
+        public Builder availableActions(AvailableActions availableActions) {
+            this.availableActions = availableActions;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ProformaInvoice} object using the set fields.
          * @return {@link ProformaInvoice}
          */
@@ -1595,7 +1634,7 @@ public class ProformaInvoice
                     productFamilyName, role, seller, customer, memo, billingAddress,
                     shippingAddress, subtotalAmount, discountAmount, taxAmount, totalAmount,
                     creditAmount, paidAmount, refundAmount, dueAmount, lineItems, discounts, taxes,
-                    credits, payments, customFields, publicUrl);
+                    credits, payments, customFields, publicUrl, availableActions);
         }
     }
 }

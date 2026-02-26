@@ -9,8 +9,8 @@
 
 | Name |
 |  --- |
-| `CreatedAt` |
-| `ApplicationAt` |
+| `CREATED_AT` |
+| `APPLICATION_AT` |
 
 ## Example
 

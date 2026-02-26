@@ -466,7 +466,8 @@ public class CreateSubscription
     /**
      * Getter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
-     * the subscription
+     * the subscription. A subscription can have up to 30 custom price points. Exceeding this limit
+     * will result in an API error.
      * @return Returns the SubscriptionCustomPrice
      */
     @JsonGetter("custom_price")
@@ -478,7 +479,8 @@ public class CreateSubscription
     /**
      * Setter for CustomPrice.
      * (Optional) Used in place of `product_price_point_id` to define a custom price point unique to
-     * the subscription
+     * the subscription. A subscription can have up to 30 custom price points. Exceeding this limit
+     * will result in an API error.
      * @param customPrice Value for SubscriptionCustomPrice
      */
     @JsonSetter("custom_price")

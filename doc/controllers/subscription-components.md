@@ -43,7 +43,7 @@ SubscriptionComponentResponse readSubscriptionComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `componentId` | `int` | Template, Required | The Advanced Billing id of the component. Alternatively, the component's handle prefixed by `handle:` |
 
 ## Response Type
@@ -60,8 +60,6 @@ try {
     SubscriptionComponentResponse result = subscriptionComponentsController.readSubscriptionComponent(subscriptionId, componentId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -109,19 +107,7 @@ List<SubscriptionComponentResponse> listSubscriptionComponents(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `dateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query `date_field=updated_at`. |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `filter` | [`ListSubscriptionComponentsFilter`](../../doc/models/list-subscription-components-filter.md) | Query, Optional | Filter to use for List Subscription Components operation |
-| `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. |
-| `pricePointIds` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
-| `productFamilyIds` | `List<Integer>` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
-| `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query `sort=updated_at`. |
-| `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `include` | [`List<ListSubscriptionComponentsInclude>`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
-| `inUse` | `Boolean` | Query, Optional | If in_use is set to true, it returns only components that are currently in use. However, if it's set to false or not provided, it returns all components connected with the subscription. |
+| `input` | [`ListSubscriptionComponentsInput`](../../doc/models/list-subscription-components-input.md) | Required | Input structure for the method ListSubscriptionComponents |
 
 ## Response Type
 
@@ -158,8 +144,6 @@ try {
     List<SubscriptionComponentResponse> result = subscriptionComponentsController.listSubscriptionComponents(listSubscriptionComponentsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -214,7 +198,7 @@ BulkComponentsPricePointAssignment bulkUpdateSubscriptionComponentsPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`BulkComponentsPricePointAssignment`](../../doc/models/bulk-components-price-point-assignment.md) | Body, Optional | - |
 
 ## Response Type
@@ -251,9 +235,9 @@ BulkComponentsPricePointAssignment body = new BulkComponentsPricePointAssignment
 try {
     BulkComponentsPricePointAssignment result = subscriptionComponentsController.bulkUpdateSubscriptionComponentsPricePoints(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ComponentPricePointErrorException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -297,7 +281,7 @@ SubscriptionResponse bulkResetSubscriptionComponentsPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -312,8 +296,6 @@ try {
     SubscriptionResponse result = subscriptionComponentsController.bulkResetSubscriptionComponentsPricePoints(subscriptionId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -421,41 +403,13 @@ try {
 
 # Allocate Component
 
-This endpoint creates a new allocation, setting the current allocated quantity for the Component and recording a memo.
+Creates an allocation, sets the current allocated quantity for the component, and records a memo. Allocations can only be updated for Quantity, On/Off, and Prepaid Components.
 
-**Notice**: Allocations can only be updated for Quantity, On/Off, and Prepaid Components.
+When creating an allocation via the API, you can pass the `upgrade_charge`, `downgrade_credit`, and `accrue_charge` to be applied.
 
-## Allocations Documentation
+> **Note:** These proration and accural fields are ignored for Prepaid Components since this component type always generate charges immediately without proration.
 
-Full documentation on how to record Allocations in the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview). It is focused on how allocations operate within the Advanced Billing UI.It goes into greater detail on how the user interface will react when recording allocations.
-
-This documentation also goes into greater detail on how proration is taken into consideration when applying component allocations.
-
-## Proration Schemes
-
-Changing the allocated quantity of a component mid-period can result in either a Charge or Credit being applied to the subscription. When creating an allocation via the API, you can pass the `upgrade_charge`, `downgrade_credit`, and `accrue_charge` to be applied.
-
-**Notice:** These proration and accural fields will be ignored for Prepaid Components since this component type always generate charges immediately without proration.
-
-For background information on prorated components and upgrade/downgrade schemes, see [Setting Component Allocations.](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration).
-See the tables below for valid values.
-
-| upgrade_charge | Definition                                                        |
-|----------------|-------------------------------------------------------------------|
-| `full`         | A charge is added for the full price of the component.            |
-| `prorated`     | A charge is added for the prorated price of the component change. |
-| `none`         | No charge is added.                                               |
-
-| downgrade_credit | Definition                                        |
-|------------------|---------------------------------------------------|
-| `full`           | A full price credit is added for the amount owed. |
-| `prorated`       | A prorated credit is added for the amount owed.   |
-| `none`           | No charge is added.                               |
-
-| accrue_charge | Definition                                                                                                 |
-|---------------|------------------------------------------------------------------------------------------------------------|
-| `true`        | Attempt to charge the customer at next renewal.                                                            |
-| `false`       | Attempt to charge the customer right away. If it fails, the charge will be accrued until the next renewal. |
+For information on prorated components and upgrade/downgrade schemes, see [Setting Component Allocations.](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration)
 
 ### Order of Resolution for upgrade_charge and downgrade_credit
 
@@ -469,7 +423,9 @@ See the tables below for valid values.
 1. Allocation API call top level (outside of the `allocations` array)
 2. [Site-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration#proration-schemes)
 
-**NOTE: Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.**
+> **Note:** Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.
+
+For more informaiton see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product Documentation.
 
 ```java
 AllocationResponse allocateComponent(
@@ -482,7 +438,7 @@ AllocationResponse allocateComponent(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `componentId` | `int` | Template, Required | The Advanced Billing id of the component |
 | `body` | [`CreateAllocationRequest`](../../doc/models/create-allocation-request.md) | Body, Optional | - |
 
@@ -497,9 +453,60 @@ int subscriptionId = 222;
 int componentId = 222;
 CreateAllocationRequest body = new CreateAllocationRequest.Builder(
     new CreateAllocation.Builder(
-        5D
+        10D
     )
-    .memo("Recoding component purchase of Acme Support")
+    .decimalQuantity("10.0")
+    .previousQuantity(5D)
+    .decimalPreviousQuantity("5.0")
+    .memo("Increase seats to 10")
+    .prorationDowngradeScheme("prorate")
+    .prorationUpgradeScheme("full-price-attempt-capture")
+    .downgradeCredit(DowngradeCreditCreditType.PRORATED)
+    .upgradeCharge(UpgradeChargeCreditType.FULL)
+    .accrueCharge(false)
+    .pricePointId(CreateAllocationPricePointId.fromNumber(
+            789
+        ))
+    .billingSchedule(new BillingSchedule.Builder()
+            .initialBillingAt(DateTimeHelper.fromSimpleDate("2025-02-28"))
+            .build())
+    .customPrice(new ComponentCustomPrice.Builder(
+            Arrays.asList(
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        1
+                    ),
+                    PriceUnitPrice.fromString(
+                        "49.00"
+                    )
+                )
+                .endingQuantity(PriceEndingQuantity.fromNumber(
+                        25
+                    ))
+                .build(),
+                new Price.Builder(
+                    PriceStartingQuantity.fromNumber(
+                        26
+                    ),
+                    PriceUnitPrice.fromString(
+                        "39.00"
+                    )
+                )
+                .endingQuantity(null)
+                .build()
+            )
+        )
+        .taxIncluded(false)
+        .pricingScheme(PricingScheme.PER_UNIT)
+        .interval(1)
+        .intervalUnit(IntervalUnit.MONTH)
+        .listPricePointId(4321)
+        .useDefaultListPrice(false)
+        .renewPrepaidAllocation(false)
+        .rolloverPrepaidRemainder(false)
+        .expirationInterval(150)
+        .expirationIntervalUnit(ExpirationIntervalUnit.NEVER)
+        .build())
     .build()
 )
 .build();
@@ -507,9 +514,9 @@ CreateAllocationRequest body = new CreateAllocationRequest.Builder(
 try {
     AllocationResponse result = subscriptionComponentsController.allocateComponent(subscriptionId, componentId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -557,21 +564,6 @@ This endpoint returns the 50 most recent Allocations, ordered by most recent fir
 
 When a subscription's on/off component has been toggled to on (`1`) or off (`0`), usage will be logged in this response.
 
-## Querying data via Advanced Billing gem
-
-You can also query the current quantity via the [official Advanced Billing Gem.](http://github.com/chargify/chargify_api_ares)
-
-```# First way
-component = Chargify::Subscription::Component.find(1, :params => {:subscription_id => 7})
-puts component.allocated_quantity
-# => 23
-
-# Second way
-component = Chargify::Subscription.find(7).component(1)
-puts component.allocated_quantity
-# => 23
-```
-
 ```java
 List<AllocationResponse> listAllocations(
     final int subscriptionId,
@@ -583,7 +575,7 @@ List<AllocationResponse> listAllocations(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `componentId` | `int` | Template, Required | The Advanced Billing id of the component |
 | `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
 
@@ -601,9 +593,9 @@ Integer page = 1;
 try {
     List<AllocationResponse> result = subscriptionComponentsController.listAllocations(subscriptionId, componentId, page);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -663,11 +655,25 @@ try {
 
 # Allocate Components
 
-Creates multiple allocations, setting the current allocated quantity for each of the components and recording a memo. The charges and/or credits that are created will be rolled up into a single total which is used to determine whether this is an upgrade or a downgrade. Be aware of the Order of Resolutions explained below in determining the proration scheme.
+Creates multiple allocations, sets the current allocated quantity for each of the components, and recording a memo.   A `component_id` is required for each allocation.
 
-A `component_id` is required for each allocation.
+The charges and/or credits that are created will be rolled up into a single total which is used to determine whether this is an upgrade or a downgrade.
 
-This endpoint only responds to JSON. It is not available for XML.
+### Order of Resolution for upgrade_charge and downgrade_credit
+
+1. Per allocation in API call (within a single allocation of the `allocations` array)
+2. [Component-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview)
+3. Allocation API call top level (outside of the `allocations` array)
+4. [Site-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration#proration-schemes)
+
+### Order of Resolution for accrue charge
+
+1. Allocation API call top level (outside of the `allocations` array)
+2. [Site-level default value](https://maxio.zendesk.com/hc/en-us/articles/24251906165133-Component-Allocations-Proration#proration-schemes)
+
+> **Note:** Proration uses the current price of the component as well as the current tax rates. Changes to either may cause the prorated charge/credit to be wrong.
+
+For more informaiton see the [Component Allocations](https://maxio.zendesk.com/hc/en-us/articles/24251883961485-Component-Allocations-Overview) product Documentation.
 
 ```java
 List<AllocationResponse> allocateComponents(
@@ -679,7 +685,7 @@ List<AllocationResponse> allocateComponents(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`AllocateComponents`](../../doc/models/allocate-components.md) | Body, Optional | - |
 
 ## Response Type
@@ -712,9 +718,9 @@ AllocateComponents body = new AllocateComponents.Builder()
 try {
     List<AllocationResponse> result = subscriptionComponentsController.allocateComponents(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -790,7 +796,7 @@ AllocationPreviewResponse previewAllocations(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`PreviewAllocationsRequest`](../../doc/models/preview-allocations-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -822,9 +828,9 @@ PreviewAllocationsRequest body = new PreviewAllocationsRequest.Builder(
 try {
     AllocationPreviewResponse result = subscriptionComponentsController.previewAllocations(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ComponentAllocationErrorException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -965,7 +971,7 @@ Void updatePrepaidUsageAllocationExpirationDate(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `componentId` | `int` | Template, Required | The Advanced Billing id of the component |
 | `allocationId` | `int` | Template, Required | The Advanced Billing id of the allocation |
 | `body` | [`UpdateAllocationExpirationDate`](../../doc/models/update-allocation-expiration-date.md) | Body, Optional | - |
@@ -988,9 +994,9 @@ UpdateAllocationExpirationDate body = new UpdateAllocationExpirationDate.Builder
 
 try {
     subscriptionComponentsController.updatePrepaidUsageAllocationExpirationDate(subscriptionId, componentId, allocationId, body);
-} catch (ApiException e) {
+} catch (SubscriptionComponentAllocationErrorException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1027,7 +1033,7 @@ Void deletePrepaidUsageAllocation(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `componentId` | `int` | Template, Required | The Advanced Billing id of the component |
 | `allocationId` | `int` | Template, Required | The Advanced Billing id of the allocation |
 | `body` | [`CreditSchemeRequest`](../../doc/models/credit-scheme-request.md) | Body, Optional | - |
@@ -1049,9 +1055,9 @@ CreditSchemeRequest body = new CreditSchemeRequest.Builder(
 
 try {
     subscriptionComponentsController.deletePrepaidUsageAllocation(subscriptionId, componentId, allocationId, body);
-} catch (ApiException e) {
+} catch (SubscriptionComponentAllocationErrorException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1158,9 +1164,9 @@ CreateUsageRequest body = new CreateUsageRequest.Builder(
 try {
     UsageResponse result = subscriptionComponentsController.createUsage(subscriptionIdOrReference, componentId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1216,14 +1222,7 @@ List<UsageResponse> listUsages(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionIdOrReference` | [`ListUsagesInputSubscriptionIdOrReference`](../../doc/models/containers/list-usages-input-subscription-id-or-reference.md) | Template, Required | This is a container for one-of cases. |
-| `componentId` | [`ListUsagesInputComponentId`](../../doc/models/containers/list-usages-input-component-id.md) | Template, Required | This is a container for one-of cases. |
-| `sinceId` | `Long` | Query, Optional | Returns usages with an id greater than or equal to the one specified |
-| `maxId` | `Long` | Query, Optional | Returns usages with an id less than or equal to the one specified |
-| `sinceDate` | `LocalDate` | Query, Optional | Returns usages with a created_at date greater than or equal to midnight (12:00 AM) on the date specified. |
-| `untilDate` | `LocalDate` | Query, Optional | Returns usages with a created_at date less than or equal to midnight (12:00 AM) on the date specified. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
+| `input` | [`ListUsagesInput`](../../doc/models/list-usages-input.md) | Required | Input structure for the method ListUsages |
 
 ## Response Type
 
@@ -1248,8 +1247,6 @@ try {
     List<UsageResponse> result = subscriptionComponentsController.listUsages(listUsagesInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -1350,8 +1347,6 @@ try {
     subscriptionComponentsController.activateEventBasedComponent(subscriptionId, componentId, body);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -1386,8 +1381,6 @@ int componentId = 222;
 try {
     subscriptionComponentsController.deactivateEventBasedComponent(subscriptionId, componentId);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -1453,8 +1446,6 @@ try {
     subscriptionComponentsController.recordEvent(apiHandle, null, body);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -1507,8 +1498,6 @@ try {
     subscriptionComponentsController.bulkRecordEvents(apiHandle, null, body);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -1526,20 +1515,7 @@ ListSubscriptionComponentsResponse listSubscriptionComponentsForSite(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `sort` | [`ListSubscriptionComponentsSort`](../../doc/models/list-subscription-components-sort.md) | Query, Optional | The attribute by which to sort. Use in query: `sort=updated_at`. |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `filter` | [`ListSubscriptionComponentsForSiteFilter`](../../doc/models/list-subscription-components-for-site-filter.md) | Query, Optional | Filter to use for List Subscription Components For Site operation |
-| `dateField` | [`SubscriptionListDateField`](../../doc/models/subscription-list-date-field.md) | Query, Optional | The type of filter you'd like to apply to your search. Use in query: `date_field=updated_at`. |
-| `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. Use in query `start_date=2011-12-15`. |
-| `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of start_date. Use in query `start_datetime=2022-07-01 09:00:05`. |
-| `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns components with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. Use in query `end_date=2011-12-16`. |
-| `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns components with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site''s time zone will be used. If provided, this parameter will be used instead of end_date. Use in query `end_datetime=2022-07-01 09:00:05`. |
-| `subscriptionIds` | `List<Integer>` | Query, Optional | Allows fetching components allocation with matching subscription id based on provided ids. Use in query `subscription_ids=1,2,3`.<br><br>**Constraints**: *Minimum Items*: `1`, *Maximum Items*: `200` |
-| `pricePointIds` | [`IncludeNotNull`](../../doc/models/include-not-null.md) | Query, Optional | Allows fetching components allocation only if price point id is present. Use in query `price_point_ids=not_null`. |
-| `productFamilyIds` | `List<Integer>` | Query, Optional | Allows fetching components allocation with matching product family id based on provided ids. Use in query `product_family_ids=1,2,3`. |
-| `include` | [`ListSubscriptionComponentsInclude`](../../doc/models/list-subscription-components-include.md) | Query, Optional | Allows including additional data in the response. Use in query `include=subscription,historic_usages`. |
+| `input` | [`ListSubscriptionComponentsForSiteInput`](../../doc/models/list-subscription-components-for-site-input.md) | Required | Input structure for the method ListSubscriptionComponentsForSite |
 
 ## Response Type
 
@@ -1577,8 +1553,6 @@ try {
     ListSubscriptionComponentsResponse result = subscriptionComponentsController.listSubscriptionComponentsForSite(listSubscriptionComponentsForSiteInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

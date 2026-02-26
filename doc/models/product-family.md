@@ -16,6 +16,7 @@
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
+| `ArchivedAt` | `ZonedDateTime` | Optional | Timestamp indicating when this product family was archived. `null` if the product family is not archived. | ZonedDateTime getArchivedAt() | setArchivedAt(ZonedDateTime archivedAt) |
 
 ## Example (as JSON)
 

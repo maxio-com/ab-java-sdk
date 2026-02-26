@@ -11,8 +11,8 @@ Current status of the debit note.
 
 | Name |
 |  --- |
-| `Open` |
-| `Applied` |
-| `Banished` |
-| `Paid` |
+| `OPEN` |
+| `APPLIED` |
+| `BANISHED` |
+| `PAID` |
 

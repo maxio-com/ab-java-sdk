@@ -113,11 +113,11 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * This method will return an array of subscriptions from a Site. Pay close attention to query
-     * string filters and pagination in order to control responses from the server. ## Search for a
-     * subscription Use the query strings below to search for a subscription using the criteria
-     * available. The return value will be an array. ## Self-Service Page token Self-Service Page
-     * token for the subscriptions is not returned by default. If this information is desired, the
+     * returns an array of subscriptions from a Site. Pay close attention to query string filters
+     * and pagination in order to control responses from the server. ## Search for a subscription
+     * Use the query strings below to search for a subscription using the criteria available. The
+     * return value will be an array. ## Self-Service Page token Self-Service Page token for the
+     * subscriptions is not returned by default. If this information is desired, the
      * include[]=self_service_page_token parameter must be provided with the request.
      * @param  input  ListSubscriptionsInput object containing request parameters
      * @return    Returns the List of SubscriptionResponse response from the API call
@@ -233,7 +233,7 @@ public final class SubscriptionsController extends BaseController {
      * the subscription data, it will still contain original `snap_day`. The `snap_day`will will
      * reset to 'null on the next billing cycle. This is because a product change is instantanous
      * and only affects the product associated with a subscription.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -279,10 +279,10 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Use this endpoint to find subscription details. ## Self-Service Page token Self-Service Page
-     * token for the subscription is not returned by default. If this information is desired, the
+     * Retrieves subscription details. ## Self-Service Page token Self-Service Page token for the
+     * subscription is not returned by default. If this information is desired, the
      * include[]=self_service_page_token parameter must be provided with the request.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  include  Optional parameter: Allows including additional data in the response. Use in
      *         query: `include[]=coupons&amp;include[]=self_service_page_token`.
      * @return    Returns the SubscriptionResponse response from the API call
@@ -346,7 +346,7 @@ public final class SubscriptionsController extends BaseController {
      * passed must be a valid date/time. We recommend using the iso 8601 format. 3. The value passed
      * must be before the current date/time. If unpermitted parameters are sent, a 400 HTTP response
      * is sent along with a string giving the reason for the problem.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter: Only these fields are available to be set.
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -435,7 +435,7 @@ public final class SubscriptionsController extends BaseController {
      * `?ack={customer_id}&amp;cascade[]=customer` If you need to remove subscriptions from a live site,
      * contact support to discuss your use case. ### Delete customer and payment profile The query
      * params will be: `?ack={customer_id}&amp;cascade[]=customer&amp;cascade[]=payment_profile`.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  ack  Required parameter: id of the customer.
      * @param  cascade  Optional parameter: Options are "customer" or "payment_profile". Use in
      *         query: `cascade[]=customer&amp;cascade[]=payment_profile`.
@@ -486,7 +486,7 @@ public final class SubscriptionsController extends BaseController {
 
     /**
      * Use this endpoint to update a subscription's prepaid configuration.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the PrepaidConfigurationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -601,7 +601,7 @@ public final class SubscriptionsController extends BaseController {
      * deprecated in favor of using the request body parameters as described below. When passing in
      * request body parameters, the list of coupon codes will simply be added to any existing list
      * of codes on the subscription.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  code  Optional parameter: A code for the coupon that would be applied to a
      *         subscription
      * @param  body  Optional parameter:
@@ -656,7 +656,7 @@ public final class SubscriptionsController extends BaseController {
      * Use this endpoint to remove a coupon from an existing subscription. For more information on
      * the expected behaviour of removing a coupon from a subscription, See our documentation
      * [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon).
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  couponCode  Optional parameter: The coupon code
      * @return    Returns the String response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -725,7 +725,7 @@ public final class SubscriptionsController extends BaseController {
      * When the `revert_on_failure` parameter is set to `true`, the subscription's state will remain
      * as Trialing, we will void the invoice from activation and return any prepayments and credits
      * applied to the invoice back to the subscription.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

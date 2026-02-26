@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class SubscriptionGroup
         extends BaseModel {
+    private String uid;
     private Integer customerId;
     private SubscriptionGroupPaymentProfile paymentProfile;
     private CollectionMethod paymentCollectionMethod;
@@ -35,6 +36,7 @@ public class SubscriptionGroup
 
     /**
      * Initialization constructor.
+     * @param  uid  String value for uid.
      * @param  customerId  Integer value for customerId.
      * @param  paymentProfile  SubscriptionGroupPaymentProfile value for paymentProfile.
      * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
@@ -42,16 +44,37 @@ public class SubscriptionGroup
      * @param  createdAt  ZonedDateTime value for createdAt.
      */
     public SubscriptionGroup(
+            String uid,
             Integer customerId,
             SubscriptionGroupPaymentProfile paymentProfile,
             CollectionMethod paymentCollectionMethod,
             List<Integer> subscriptionIds,
             ZonedDateTime createdAt) {
+        this.uid = uid;
         this.customerId = customerId;
         this.paymentProfile = paymentProfile;
         this.paymentCollectionMethod = paymentCollectionMethod;
         this.subscriptionIds = subscriptionIds;
         this.createdAt = createdAt;
+    }
+
+    /**
+     * Getter for Uid.
+     * @return Returns the String
+     */
+    @JsonGetter("uid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getUid() {
+        return uid;
+    }
+
+    /**
+     * Setter for Uid.
+     * @param uid Value for String
+     */
+    @JsonSetter("uid")
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     /**
@@ -163,10 +186,10 @@ public class SubscriptionGroup
      */
     @Override
     public String toString() {
-        return "SubscriptionGroup [" + "customerId=" + customerId + ", paymentProfile="
-                + paymentProfile + ", paymentCollectionMethod=" + paymentCollectionMethod
-                + ", subscriptionIds=" + subscriptionIds + ", createdAt=" + createdAt
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+        return "SubscriptionGroup [" + "uid=" + uid + ", customerId=" + customerId
+                + ", paymentProfile=" + paymentProfile + ", paymentCollectionMethod="
+                + paymentCollectionMethod + ", subscriptionIds=" + subscriptionIds + ", createdAt="
+                + createdAt + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -176,6 +199,7 @@ public class SubscriptionGroup
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .uid(getUid())
                 .customerId(getCustomerId())
                 .paymentProfile(getPaymentProfile())
                 .paymentCollectionMethod(getPaymentCollectionMethod())
@@ -188,6 +212,7 @@ public class SubscriptionGroup
      * Class to build instances of {@link SubscriptionGroup}.
      */
     public static class Builder {
+        private String uid;
         private Integer customerId;
         private SubscriptionGroupPaymentProfile paymentProfile;
         private CollectionMethod paymentCollectionMethod;
@@ -195,6 +220,16 @@ public class SubscriptionGroup
         private ZonedDateTime createdAt;
 
 
+
+        /**
+         * Setter for uid.
+         * @param  uid  String value for uid.
+         * @return Builder
+         */
+        public Builder uid(String uid) {
+            this.uid = uid;
+            return this;
+        }
 
         /**
          * Setter for customerId.
@@ -251,7 +286,7 @@ public class SubscriptionGroup
          * @return {@link SubscriptionGroup}
          */
         public SubscriptionGroup build() {
-            return new SubscriptionGroup(customerId, paymentProfile, paymentCollectionMethod,
+            return new SubscriptionGroup(uid, customerId, paymentProfile, paymentCollectionMethod,
                     subscriptionIds, createdAt);
         }
     }

@@ -66,9 +66,9 @@ CreateReasonCodeRequest body = new CreateReasonCodeRequest.Builder(
 try {
     ReasonCodeResponse result = reasonCodesController.createReasonCode(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -93,8 +93,7 @@ List<ReasonCodeResponse> listReasonCodes(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
+| `input` | [`ListReasonCodesInput`](../../doc/models/list-reason-codes-input.md) | Required | Input structure for the method ListReasonCodes |
 
 ## Response Type
 
@@ -111,9 +110,9 @@ ListReasonCodesInput listReasonCodesInput = new ListReasonCodesInput.Builder()
 try {
     List<ReasonCodeResponse> result = reasonCodesController.listReasonCodes(listReasonCodesInput);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -194,8 +193,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -234,9 +231,9 @@ int reasonCodeId = 32;
 try {
     ReasonCodeResponse result = reasonCodesController.updateReasonCode(reasonCodeId, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -277,8 +274,6 @@ try {
     OkResponse result = reasonCodesController.deleteReasonCode(reasonCodeId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

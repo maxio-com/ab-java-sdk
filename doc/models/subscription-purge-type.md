@@ -9,6 +9,6 @@
 
 | Name |
 |  --- |
-| `Customer` |
-| `PaymentProfile` |
+| `CUSTOMER` |
+| `PAYMENT_PROFILE` |
 

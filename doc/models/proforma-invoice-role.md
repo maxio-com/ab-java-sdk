@@ -11,8 +11,8 @@
 
 | Name |
 |  --- |
-| `Unset` |
-| `Proforma` |
-| `ProformaAdhoc` |
-| `ProformaAutomatic` |
+| `UNSET` |
+| `PROFORMA` |
+| `PROFORMA_ADHOC` |
+| `PROFORMA_AUTOMATIC` |
 

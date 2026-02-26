@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `Day` |
-| `Month` |
-| `Never` |
+| `DAY` |
+| `MONTH` |
+| `NEVER` |
 

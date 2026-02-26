@@ -19,7 +19,7 @@ See also the [invoice consolidation documentation](https://maxio.zendesk.com/hc/
 
 | Name |
 |  --- |
-| `None` |
-| `Child` |
-| `Parent` |
+| `NONE` |
+| `CHILD` |
+| `PARENT` |
 
