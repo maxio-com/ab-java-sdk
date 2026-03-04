@@ -425,7 +425,7 @@ public class InvoicesControllerListInvoiceEventsTest {
             assertThat(additionalProperties.get("core_po_number")).isNull();
             assertThat(additionalProperties.get("surcharges")).asList().isEmpty();
             assertThat(additionalProperties.get("surcharge_amount")).isEqualTo("0.0");
-            assertThat(additionalProperties.get("is_issuance_pending")).isNull();
+            assertThat(additionalProperties.get("is_issuance_pending")).isEqualTo(false);
         });
         assertThat(eventInvoice)
                 .usingRecursiveComparison()
