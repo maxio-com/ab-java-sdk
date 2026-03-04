@@ -407,7 +407,7 @@ public class InvoicesControllerListInvoiceEventsTest {
 
     void assertInvoiceInEvent(Invoice eventInvoice, Invoice invoice) {
         assertThat(eventInvoice.getAdditionalProperties()).satisfies(additionalProperties -> {
-            assertThat(additionalProperties.size()).isEqualTo(17);
+            assertThat(additionalProperties.size()).isEqualTo(20);
             assertThat(additionalProperties.get("statement_id")).isNull();
             assertThat(additionalProperties.get("legacy_invoice_number")).isNull();
             assertThat(additionalProperties.get("backported_at")).isNull();
@@ -423,6 +423,9 @@ public class InvoicesControllerListInvoiceEventsTest {
             assertThat(additionalProperties.get("core_invoice_number")).isNull();
             assertThat(additionalProperties.get("maxio_metadata")).isNull();
             assertThat(additionalProperties.get("core_po_number")).isNull();
+            assertThat(additionalProperties.get("surcharges")).isNull();
+            assertThat(additionalProperties.get("surcharge_amount")).isEqualTo("0.0");
+            assertThat(additionalProperties.get("is_issuance_pending")).isNull();
         });
         assertThat(eventInvoice)
                 .usingRecursiveComparison()
