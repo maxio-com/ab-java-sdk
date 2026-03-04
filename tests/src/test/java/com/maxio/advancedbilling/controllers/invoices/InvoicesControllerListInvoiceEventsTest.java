@@ -423,7 +423,7 @@ public class InvoicesControllerListInvoiceEventsTest {
             assertThat(additionalProperties.get("core_invoice_number")).isNull();
             assertThat(additionalProperties.get("maxio_metadata")).isNull();
             assertThat(additionalProperties.get("core_po_number")).isNull();
-            assertThat(additionalProperties.get("surcharges")).isNull();
+            assertThat(additionalProperties.get("surcharges")).asList().isEmpty();
             assertThat(additionalProperties.get("surcharge_amount")).isEqualTo("0.0");
             assertThat(additionalProperties.get("is_issuance_pending")).isNull();
         });
