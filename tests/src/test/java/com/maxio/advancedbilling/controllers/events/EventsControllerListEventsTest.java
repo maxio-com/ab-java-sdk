@@ -135,10 +135,6 @@ public class EventsControllerListEventsTest {
                 .direction(Direction.DESC)
                 .build()
         );
-        System.out.println("DEBUG total events: " + events.size());
-        for (EventResponse e : events) {
-            System.out.println("DEBUG event: key=" + e.getEvent().getKey() + " message=" + e.getEvent().getMessage());
-        }
         assertThat(events.size()).isBetween(13, 14);
         events = events.subList(0, 13);
 
