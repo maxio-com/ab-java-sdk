@@ -16,8 +16,8 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
-import com.maxio.advancedbilling.models.SnapDay;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
+import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorStringCase;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -28,21 +28,21 @@ import java.util.Arrays;
 public abstract class UpdateSubscriptionSnapDay {
     
     /**
+     * This is String case.
+     * @param string String value for string.
+     * @return The StringCase object.
+     */
+    public static UpdateSubscriptionSnapDay fromString(String string) {
+        return string == null ? null : new StringCase(string);
+    }
+
+    /**
      * This is Number case.
      * @param number int value for number.
      * @return The NumberCase object.
      */
     public static UpdateSubscriptionSnapDay fromNumber(int number) {
         return new NumberCase(number);
-    }
-
-    /**
-     * This is SnapDay case.
-     * @param snapDay SnapDay value for snapDay.
-     * @return The SnapDayCase object.
-     */
-    public static UpdateSubscriptionSnapDay fromSnapDay(SnapDay snapDay) {
-        return snapDay == null ? null : new SnapDayCase(snapDay);
     }
 
     /**
@@ -58,9 +58,44 @@ public abstract class UpdateSubscriptionSnapDay {
      * @param <R> The type to return after applying callback.
      */
     public interface Cases<R> {
-        R number(int number);
+        R string(String string);
 
-        R snapDay(SnapDay snapDay);
+        R number(int number);
+    }
+
+    /**
+     * This is a implementation class for StringCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorStringCase
+    @TypeCombinatorCase(type = "String")
+    private static class StringCase extends UpdateSubscriptionSnapDay {
+
+        @JsonValue
+        private String string;
+
+        StringCase(String string) {
+            this.string = string;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.string(this.string);
+        }
+
+        @JsonCreator
+        private StringCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isTextual()) {
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        @Override
+        public String toString() {
+            return string.toString();
+        }
     }
 
     /**
@@ -98,40 +133,6 @@ public abstract class UpdateSubscriptionSnapDay {
     }
 
     /**
-     * This is a implementation class for SnapDayCase.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SnapDay")
-    private static class SnapDayCase extends UpdateSubscriptionSnapDay {
-
-        @JsonValue
-        private SnapDay snapDay;
-
-        SnapDayCase(SnapDay snapDay) {
-            this.snapDay = snapDay;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.snapDay(this.snapDay);
-        }
-
-        @JsonCreator
-        private SnapDayCase(JsonNode jsonNode) throws IOException {
-            this.snapDay = 
-                SnapDay.fromString(ApiHelper.deserialize(jsonNode, String.class));
-            if (this.snapDay == null) {
-                throw new IllegalArgumentException();
-            }
-        }
-
-        @Override
-        public String toString() {
-            return snapDay.toString();
-        }
-    }
-
-    /**
      * This is a custom deserializer class for UpdateSubscriptionSnapDay.
      */
     protected static class UpdateSubscriptionSnapDayDeserializer
@@ -142,8 +143,8 @@ public abstract class UpdateSubscriptionSnapDay {
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
-            return ApiHelper.deserialize(node, Arrays.asList(NumberCase.class,
-                    SnapDayCase.class), true);
+            return ApiHelper.deserialize(node, Arrays.asList(StringCase.class,
+                    NumberCase.class), true);
         }
     }
 

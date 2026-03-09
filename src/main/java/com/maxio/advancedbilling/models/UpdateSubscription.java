@@ -30,7 +30,7 @@ public class UpdateSubscription
     private Boolean productChangeDelayed;
     private String nextProductId;
     private String nextProductPricePointId;
-    private OptionalNullable<UpdateSubscriptionSnapDay> snapDay;
+    private UpdateSubscriptionSnapDay snapDay;
     private ZonedDateTime initialBillingAt;
     private Boolean deferSignup;
     private ZonedDateTime nextBillingAt;
@@ -109,7 +109,7 @@ public class UpdateSubscription
         this.productChangeDelayed = productChangeDelayed;
         this.nextProductId = nextProductId;
         this.nextProductPricePointId = nextProductPricePointId;
-        this.snapDay = OptionalNullable.of(snapDay);
+        this.snapDay = snapDay;
         this.initialBillingAt = initialBillingAt;
         this.deferSignup = deferSignup;
         this.nextBillingAt = nextBillingAt;
@@ -157,7 +157,7 @@ public class UpdateSubscription
 
     protected UpdateSubscription(CreditCardAttributes creditCardAttributes, String productHandle,
             Integer productId, Boolean productChangeDelayed, String nextProductId,
-            String nextProductPricePointId, OptionalNullable<UpdateSubscriptionSnapDay> snapDay,
+            String nextProductPricePointId, UpdateSubscriptionSnapDay snapDay,
             ZonedDateTime initialBillingAt, Boolean deferSignup, ZonedDateTime nextBillingAt,
             ZonedDateTime expiresAt, String paymentCollectionMethod, Boolean receivesInvoiceEmails,
             UpdateSubscriptionNetTerms netTerms, Integer storedCredentialTransactionId,
@@ -310,46 +310,24 @@ public class UpdateSubscription
     }
 
     /**
-     * Internal Getter for SnapDay.
-     * Use for subscriptions with product eligible for calendar billing only. Value can be 1-28 or
-     * 'end'.
-     * @return Returns the Internal UpdateSubscriptionSnapDay
+     * Getter for SnapDay.
+     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
+     * @return Returns the UpdateSubscriptionSnapDay
      */
     @JsonGetter("snap_day")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<UpdateSubscriptionSnapDay> internalGetSnapDay() {
-        return this.snapDay;
-    }
-
-    /**
-     * Getter for SnapDay.
-     * Use for subscriptions with product eligible for calendar billing only. Value can be 1-28 or
-     * 'end'.
-     * @return Returns the UpdateSubscriptionSnapDay
-     */
     public UpdateSubscriptionSnapDay getSnapDay() {
-        return OptionalNullable.getFrom(snapDay);
+        return snapDay;
     }
 
     /**
      * Setter for SnapDay.
-     * Use for subscriptions with product eligible for calendar billing only. Value can be 1-28 or
-     * 'end'.
+     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
      * @param snapDay Value for UpdateSubscriptionSnapDay
      */
     @JsonSetter("snap_day")
     public void setSnapDay(UpdateSubscriptionSnapDay snapDay) {
-        this.snapDay = OptionalNullable.of(snapDay);
-    }
-
-    /**
-     * UnSetter for SnapDay.
-     * Use for subscriptions with product eligible for calendar billing only. Value can be 1-28 or
-     * 'end'.
-     */
-    public void unsetSnapDay() {
-        snapDay = null;
+        this.snapDay = snapDay;
     }
 
     /**
@@ -759,6 +737,7 @@ public class UpdateSubscription
                 .productChangeDelayed(getProductChangeDelayed())
                 .nextProductId(getNextProductId())
                 .nextProductPricePointId(getNextProductPricePointId())
+                .snapDay(getSnapDay())
                 .initialBillingAt(getInitialBillingAt())
                 .deferSignup(getDeferSignup())
                 .nextBillingAt(getNextBillingAt())
@@ -773,7 +752,6 @@ public class UpdateSubscription
                 .dunningCommunicationDelayEnabled(getDunningCommunicationDelayEnabled())
                 .productPricePointId(getProductPricePointId())
                 .productPricePointHandle(getProductPricePointHandle());
-        builder.snapDay = internalGetSnapDay();
         builder.dunningCommunicationDelayTimeZone = internalGetDunningCommunicationDelayTimeZone();
         return builder;
     }
@@ -788,7 +766,7 @@ public class UpdateSubscription
         private Boolean productChangeDelayed;
         private String nextProductId;
         private String nextProductPricePointId;
-        private OptionalNullable<UpdateSubscriptionSnapDay> snapDay;
+        private UpdateSubscriptionSnapDay snapDay;
         private ZonedDateTime initialBillingAt;
         private Boolean deferSignup = false;
         private ZonedDateTime nextBillingAt;
@@ -873,16 +851,7 @@ public class UpdateSubscription
          * @return Builder
          */
         public Builder snapDay(UpdateSubscriptionSnapDay snapDay) {
-            this.snapDay = OptionalNullable.of(snapDay);
-            return this;
-        }
-
-        /**
-         * UnSetter for snapDay.
-         * @return Builder
-         */
-        public Builder unsetSnapDay() {
-            snapDay = null;
+            this.snapDay = snapDay;
             return this;
         }
 
