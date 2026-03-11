@@ -181,61 +181,6 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * Allows for proforma invoices to be programmatically delivered via email. Supports email
-     * delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc)
-     * recipients. If `recipient_emails` is omitted, the system will fall back to the primary
-     * recipient derived from the invoice or subscription. At least one recipient must be present,
-     * either via the request body or via this default behavior, so an empty body may still succeed
-     * when defaults are available.
-     * @param  proformaInvoiceUid  Required parameter: The uid of the proforma invoice
-     * @param  body  Optional parameter:
-     * @return    Returns the ProformaInvoice response from the API call
-     * @throws    ApiException    Represents error response from the server.
-     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
-     */
-    public ProformaInvoice deliverProformaInvoice(
-            final String proformaInvoiceUid,
-            final DeliverProformaInvoiceRequest body) throws ApiException, IOException {
-        return prepareDeliverProformaInvoiceRequest(proformaInvoiceUid, body).execute();
-    }
-
-    /**
-     * Builds the ApiCall object for deliverProformaInvoice.
-     */
-    private ApiCall<ProformaInvoice, ApiException> prepareDeliverProformaInvoiceRequest(
-            final String proformaInvoiceUid,
-            final DeliverProformaInvoiceRequest body) {
-        return new ApiCall.Builder<ProformaInvoice, ApiException>()
-                .globalConfig(getGlobalConfiguration())
-                .requestBuilder(requestBuilder -> requestBuilder
-                        .server(Server.PRODUCTION.value())
-                        .path("/proforma_invoices/{proforma_invoice_uid}.json")
-                        .bodyParam(param -> param.value(body).isRequired(false))
-                        .bodySerializer(() ->  ApiHelper.serialize(body))
-                        .templateParam(param -> param.key("proforma_invoice_uid").value(proformaInvoiceUid)
-                                .shouldEncode(true))
-                        .headerParam(param -> param.key("Content-Type")
-                                .value("application/json").isRequired(false))
-                        .headerParam(param -> param.key("accept").value("application/json"))
-                        .withAuth(auth -> auth
-                                .add("BasicAuth"))
-                        .arraySerializationFormat(ArraySerializationFormat.CSV)
-                        .httpMethod(HttpMethod.POST))
-                .responseHandler(responseHandler -> responseHandler
-                        .deserializer(
-                                response -> ApiHelper.deserialize(response, ProformaInvoice.class))
-                        .nullify404(false)
-                        .localErrorCase("404",
-                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
-                                (reason, context) -> new ApiException(reason, context)))
-                        .localErrorCase("422",
-                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
-                                (reason, context) -> new ErrorListResponseException(reason, context)))
-                        .globalErrorCase(GLOBAL_ERROR_CASES))
-                .build();
-    }
-
-    /**
      * This endpoint will create a proforma invoice and return it as a response. If the information
      * becomes outdated, simply void the old proforma invoice and generate a new one. If you would
      * like to preview the next billing amounts without generating a full proforma invoice, use the
@@ -340,6 +285,61 @@ public final class ProformaInvoicesController extends BaseController {
                         .deserializer(
                                 response -> ApiHelper.deserialize(response, ListProformaInvoicesResponse.class))
                         .nullify404(false)
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
+     * Allows for proforma invoices to be programmatically delivered via email. Supports email
+     * delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc)
+     * recipients. If `recipient_emails` is omitted, the system will fall back to the primary
+     * recipient derived from the invoice or subscription. At least one recipient must be present,
+     * either via the request body or via this default behavior, so an empty body may still succeed
+     * when defaults are available.
+     * @param  proformaInvoiceUid  Required parameter: The uid of the proforma invoice
+     * @param  body  Optional parameter:
+     * @return    Returns the ProformaInvoice response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ProformaInvoice deliverProformaInvoice(
+            final String proformaInvoiceUid,
+            final DeliverProformaInvoiceRequest body) throws ApiException, IOException {
+        return prepareDeliverProformaInvoiceRequest(proformaInvoiceUid, body).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for deliverProformaInvoice.
+     */
+    private ApiCall<ProformaInvoice, ApiException> prepareDeliverProformaInvoiceRequest(
+            final String proformaInvoiceUid,
+            final DeliverProformaInvoiceRequest body) {
+        return new ApiCall.Builder<ProformaInvoice, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.PRODUCTION.value())
+                        .path("/proforma_invoices/{proforma_invoice_uid}/deliveries.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("proforma_invoice_uid").value(proformaInvoiceUid)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
     }
