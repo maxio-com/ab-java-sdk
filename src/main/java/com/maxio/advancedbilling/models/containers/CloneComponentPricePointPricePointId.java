@@ -16,33 +16,33 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
-import com.maxio.advancedbilling.models.SnapDay;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
+import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorStringCase;
 import java.io.IOException;
 import java.util.Arrays;
 
 /**
  * This is a container class for one-of types.
  */
-@JsonDeserialize(using = SubscriptionSnapDay.SubscriptionSnapDayDeserializer.class)
-public abstract class SubscriptionSnapDay {
+@JsonDeserialize(using = CloneComponentPricePointPricePointId.CloneComponentPricePointPricePointIdDeserializer.class)
+public abstract class CloneComponentPricePointPricePointId {
     
     /**
      * This is Number case.
      * @param number int value for number.
      * @return The NumberCase object.
      */
-    public static SubscriptionSnapDay fromNumber(int number) {
+    public static CloneComponentPricePointPricePointId fromNumber(int number) {
         return new NumberCase(number);
     }
 
     /**
-     * This is SnapDay case.
-     * @param snapDay SnapDay value for snapDay.
-     * @return The SnapDayCase object.
+     * This is String case.
+     * @param string String value for string.
+     * @return The StringCase object.
      */
-    public static SubscriptionSnapDay fromSnapDay(SnapDay snapDay) {
-        return snapDay == null ? null : new SnapDayCase(snapDay);
+    public static CloneComponentPricePointPricePointId fromString(String string) {
+        return string == null ? null : new StringCase(string);
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class SubscriptionSnapDay {
     public interface Cases<R> {
         R number(int number);
 
-        R snapDay(SnapDay snapDay);
+        R string(String string);
     }
 
     /**
@@ -68,7 +68,7 @@ public abstract class SubscriptionSnapDay {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "int")
-    private static class NumberCase extends SubscriptionSnapDay {
+    private static class NumberCase extends CloneComponentPricePointPricePointId {
 
         @JsonValue
         private int number;
@@ -98,52 +98,53 @@ public abstract class SubscriptionSnapDay {
     }
 
     /**
-     * This is a implementation class for SnapDayCase.
+     * This is a implementation class for StringCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SnapDay")
-    private static class SnapDayCase extends SubscriptionSnapDay {
+    @TypeCombinatorStringCase
+    @TypeCombinatorCase(type = "String")
+    private static class StringCase extends CloneComponentPricePointPricePointId {
 
         @JsonValue
-        private SnapDay snapDay;
+        private String string;
 
-        SnapDayCase(SnapDay snapDay) {
-            this.snapDay = snapDay;
+        StringCase(String string) {
+            this.string = string;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.snapDay(this.snapDay);
+            return cases.string(this.string);
         }
 
         @JsonCreator
-        private SnapDayCase(JsonNode jsonNode) throws IOException {
-            this.snapDay = 
-                SnapDay.fromString(ApiHelper.deserialize(jsonNode, String.class));
-            if (this.snapDay == null) {
+        private StringCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isTextual()) {
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
+            } else {
                 throw new IllegalArgumentException();
             }
         }
 
         @Override
         public String toString() {
-            return snapDay.toString();
+            return string.toString();
         }
     }
 
     /**
-     * This is a custom deserializer class for SubscriptionSnapDay.
+     * This is a custom deserializer class for CloneComponentPricePointPricePointId.
      */
-    protected static class SubscriptionSnapDayDeserializer
-            extends JsonDeserializer<SubscriptionSnapDay> {
+    protected static class CloneComponentPricePointPricePointIdDeserializer
+            extends JsonDeserializer<CloneComponentPricePointPricePointId> {
 
         @Override
-        public SubscriptionSnapDay deserialize(JsonParser jp, DeserializationContext ctxt)
+        public CloneComponentPricePointPricePointId deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(NumberCase.class,
-                    SnapDayCase.class), true);
+                    StringCase.class), true);
         }
     }
 

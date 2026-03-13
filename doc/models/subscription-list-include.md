@@ -9,5 +9,5 @@
 
 | Name |
 |  --- |
-| `SelfServicePageToken` |
+| `SELF_SERVICE_PAGE_TOKEN` |
 

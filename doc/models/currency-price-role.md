@@ -11,7 +11,7 @@ Role for the price.
 
 | Name |
 |  --- |
-| `Baseline` |
-| `Trial` |
-| `Initial` |
+| `BASELINE` |
+| `TRIAL` |
+| `INITIAL` |
 

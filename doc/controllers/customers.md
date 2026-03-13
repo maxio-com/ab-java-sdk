@@ -88,9 +88,9 @@ CreateCustomerRequest body = new CreateCustomerRequest.Builder(
 try {
     CustomerResponse result = customersController.createCustomer(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (CustomerErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -164,15 +164,7 @@ List<CustomerResponse> listCustomers(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Direction to sort customers by time of creation |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 50. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `50`<br><br>**Constraints**: `<= 200` |
-| `dateField` | [`BasicDateField`](../../doc/models/basic-date-field.md) | Query, Optional | The type of filter you would like to apply to your search.<br>Use in query: `date_field=created_at`. |
-| `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns subscriptions with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. |
-| `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns subscriptions with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. |
-| `q` | `String` | Query, Optional | A search query by which to filter customers (can be an email, an ID, a reference, organization) |
+| `input` | [`ListCustomersInput`](../../doc/models/list-customers-input.md) | Required | Input structure for the method ListCustomers |
 
 ## Response Type
 
@@ -191,8 +183,6 @@ try {
     List<CustomerResponse> result = customersController.listCustomers(listCustomersInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -311,8 +301,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -391,9 +379,9 @@ UpdateCustomerRequest body = new UpdateCustomerRequest.Builder(
 try {
     CustomerResponse result = customersController.updateCustomer(id, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (CustomerErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -465,8 +453,6 @@ try {
     customersController.deleteCustomer(id);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -500,8 +486,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -534,8 +518,6 @@ try {
     List<SubscriptionResponse> result = customersController.listCustomerSubscriptions(customerId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

@@ -45,7 +45,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * invoice exists, a new one will be generated. We recommend using either the create or preview
      * endpoints for proforma invoices to preview this advance invoice before using this endpoint to
      * generate it.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -97,7 +97,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * Once an advance invoice has been generated for a subscription's upcoming renewal, it can be
      * viewed through this endpoint. There can only be one advance invoice per subscription per
      * billing cycle.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -141,7 +141,7 @@ public final class AdvanceInvoiceController extends BaseController {
      * Voiding will cause any prepayments and credits that were applied to the invoice to be
      * returned to the subscription. For a full overview of the impact of voiding, [see our help
      * docs]($m/Invoice).
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.

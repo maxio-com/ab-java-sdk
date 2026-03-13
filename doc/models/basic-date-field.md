@@ -11,8 +11,8 @@ Allows to filter by `created_at` or `updated_at`.
 
 | Name |
 |  --- |
-| `UpdatedAt` |
-| `CreatedAt` |
+| `UPDATED_AT` |
+| `CREATED_AT` |
 
 ## Example
 

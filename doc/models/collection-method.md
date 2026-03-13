@@ -11,8 +11,8 @@ The type of payment collection to be used in the subscription. For legacy Statem
 
 | Name |
 |  --- |
-| `Automatic` |
-| `Remittance` |
-| `Prepaid` |
-| `Invoice` |
+| `AUTOMATIC` |
+| `REMITTANCE` |
+| `PREPAID` |
+| `INVOICE` |
 

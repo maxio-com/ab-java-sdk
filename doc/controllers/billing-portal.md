@@ -59,9 +59,9 @@ int customerId = 150;
 try {
     CustomerResponse result = billingPortalController.enableBillingPortalForCustomer(customerId, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -108,9 +108,11 @@ int customerId = 150;
 try {
     PortalManagementLink result = billingPortalController.readBillingPortalLink(customerId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (TooManyManagementLinkRequestsErrorException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -175,9 +177,9 @@ int customerId = 150;
 try {
     ResentInvitation result = billingPortalController.resendBillingPortalInvitation(customerId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -235,8 +237,6 @@ try {
     RevokedInvitation result = billingPortalController.revokeBillingPortalAccess(customerId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

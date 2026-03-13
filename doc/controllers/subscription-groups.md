@@ -77,9 +77,9 @@ SubscriptionGroupSignupRequest body = new SubscriptionGroupSignupRequest.Builder
 try {
     SubscriptionGroupSignupResponse result = subscriptionGroupsController.signupWithSubscriptionGroup(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SubscriptionGroupSignupErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -129,9 +129,9 @@ CreateSubscriptionGroupRequest body = new CreateSubscriptionGroupRequest.Builder
 try {
     SubscriptionGroupResponse result = subscriptionGroupsController.createSubscriptionGroup(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SubscriptionGroupCreateErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -141,6 +141,7 @@ try {
 ```json
 {
   "subscription_group": {
+    "uid": "grp_952mvqcnk53wq",
     "customer_id": 1,
     "payment_profile": {
       "id": 1,
@@ -182,9 +183,7 @@ ListSubscriptionGroupsResponse listSubscriptionGroups(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `include` | [`List<SubscriptionGroupsListInclude>`](../../doc/models/subscription-groups-list-include.md) | Query, Optional | A list of additional information to include in the response. The following values are supported:<br><br>- `account_balances`: Account balance information for the subscription groups. Use in query: `include[]=account_balances` |
+| `input` | [`ListSubscriptionGroupsInput`](../../doc/models/list-subscription-groups-input.md) | Required | Input structure for the method ListSubscriptionGroups |
 
 ## Response Type
 
@@ -205,8 +204,6 @@ try {
     ListSubscriptionGroupsResponse result = subscriptionGroupsController.listSubscriptionGroups(listSubscriptionGroupsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -287,8 +284,6 @@ try {
     FullSubscriptionGroupResponse result = subscriptionGroupsController.readSubscriptionGroup(uid, include);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -376,9 +371,9 @@ UpdateSubscriptionGroupRequest body = new UpdateSubscriptionGroupRequest.Builder
 try {
     SubscriptionGroupResponse result = subscriptionGroupsController.updateSubscriptionGroupMembers(uid, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SubscriptionGroupUpdateErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -413,8 +408,8 @@ try {
 
 # Delete Subscription Group
 
-Use this endpoint to delete subscription group.
-Only groups without members can be deleted
+Deletes a subscription group.
+Only groups without members can be deleted.
 
 ```java
 DeleteSubscriptionGroupResponse deleteSubscriptionGroup(
@@ -440,8 +435,6 @@ try {
     DeleteSubscriptionGroupResponse result = subscriptionGroupsController.deleteSubscriptionGroup(uid);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -492,8 +485,6 @@ try {
     FullSubscriptionGroupResponse result = subscriptionGroupsController.findSubscriptionGroup(subscriptionId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -573,7 +564,7 @@ SubscriptionGroupResponse addSubscriptionToGroup(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`AddSubscriptionToAGroup`](../../doc/models/add-subscription-to-a-group.md) | Body, Optional | - |
 
 ## Response Type
@@ -604,8 +595,6 @@ try {
     SubscriptionGroupResponse result = subscriptionGroupsController.addSubscriptionToGroup(subscriptionId, body);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -646,7 +635,7 @@ Void removeSubscriptionFromGroup(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -659,9 +648,9 @@ int subscriptionId = 222;
 
 try {
     subscriptionGroupsController.removeSubscriptionFromGroup(subscriptionId);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

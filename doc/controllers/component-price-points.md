@@ -14,6 +14,7 @@ ComponentPricePointsController componentPricePointsController = client.getCompon
 * [Create Component Price Point](../../doc/controllers/component-price-points.md#create-component-price-point)
 * [List Component Price Points](../../doc/controllers/component-price-points.md#list-component-price-points)
 * [Bulk Create Component Price Points](../../doc/controllers/component-price-points.md#bulk-create-component-price-points)
+* [Clone Component Price Point](../../doc/controllers/component-price-points.md#clone-component-price-point)
 * [Update Component Price Point](../../doc/controllers/component-price-points.md#update-component-price-point)
 * [Read Component Price Point](../../doc/controllers/component-price-points.md#read-component-price-point)
 * [Archive Component Price Point](../../doc/controllers/component-price-points.md#archive-component-price-point)
@@ -58,8 +59,6 @@ try {
     ComponentResponse result = componentPricePointsController.promoteComponentPricePointToDefault(componentId, pricePointId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -165,9 +164,9 @@ CreateComponentPricePointRequest body = new CreateComponentPricePointRequest.Bui
 try {
     ComponentPricePointResponse result = componentPricePointsController.createComponentPricePoint(componentId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -198,11 +197,7 @@ ComponentPricePointsResponse listComponentPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `componentId` | `int` | Template, Required | The Advanced Billing id of the component |
-| `currencyPrices` | `Boolean` | Query, Optional | Include an array of currency price data |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `filterType` | [`List<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
+| `input` | [`ListComponentPricePointsInput`](../../doc/models/list-component-price-points-input.md) | Required | Input structure for the method ListComponentPricePoints |
 
 ## Response Type
 
@@ -223,8 +218,6 @@ try {
     ComponentPricePointsResponse result = componentPricePointsController.listComponentPricePoints(listComponentPricePointsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -370,9 +363,9 @@ CreateComponentPricePointsRequest body = new CreateComponentPricePointsRequest.B
 try {
     ComponentPricePointsResponse result = componentPricePointsController.bulkCreateComponentPricePoints(componentId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -430,6 +423,144 @@ try {
 
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
+
+
+# Clone Component Price Point
+
+Clones a component price point. Custom price points (tied to a specific subscription) cannot be cloned. The following attributes are copied from the source price point:
+
+- Pricing scheme
+- All price tiers (with starting/ending quantities and unit prices)
+- Tax included setting
+- Currency prices (if definitive pricing is set)
+- Overage pricing (for prepaid usage components)
+- Interval settings (if multi-frequency is enabled)
+- Event-based billing segments (if applicable)
+
+```java
+ComponentPricePointCurrencyOverageResponse cloneComponentPricePoint(
+    final CloneComponentPricePointComponentId componentId,
+    final CloneComponentPricePointPricePointId pricePointId,
+    final CloneComponentPricePointRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `componentId` | [`CloneComponentPricePointComponentId`](../../doc/models/containers/clone-component-price-point-component-id.md) | Template, Required | This is a container for one-of cases. |
+| `pricePointId` | [`CloneComponentPricePointPricePointId`](../../doc/models/containers/clone-component-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
+| `body` | [`CloneComponentPricePointRequest`](../../doc/models/clone-component-price-point-request.md) | Body, Optional | - |
+
+## Response Type
+
+[`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
+
+## Example Usage
+
+```java
+CloneComponentPricePointComponentId componentId = CloneComponentPricePointComponentId.fromNumber(
+    144
+);
+CloneComponentPricePointPricePointId pricePointId = CloneComponentPricePointPricePointId.fromNumber(
+    188
+);
+CloneComponentPricePointRequest body = new CloneComponentPricePointRequest.Builder(
+    new CloneComponentPricePoint.Builder(
+        "Pro Usage Tiered Clone"
+    )
+    .build()
+)
+.build();
+
+try {
+    ComponentPricePointCurrencyOverageResponse result = componentPricePointsController.cloneComponentPricePoint(componentId, pricePointId, body);
+    System.out.println(result);
+} catch (ErrorListResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
+}
+```
+
+## Example Response *(as JSON)*
+
+```json
+{
+  "price_point": {
+    "id": 9012,
+    "name": "Pro Usage Tiered Clone",
+    "type": "catalog",
+    "pricing_scheme": "tiered",
+    "component_id": 1234,
+    "handle": "pro-usage-tiered-clone",
+    "archived_at": null,
+    "created_at": "2024-05-01T12:34:56-04:00",
+    "updated_at": "2024-05-01T12:34:56-04:00",
+    "use_site_exchange_rate": false,
+    "currency_prices": [
+      {
+        "id": 3001,
+        "currency": "EUR",
+        "price": "9.99",
+        "formatted_price": "€9.99",
+        "price_id": 4001,
+        "price_point_id": 9012
+      }
+    ],
+    "currency_overage_prices": [
+      {
+        "id": 3002,
+        "currency": "EUR",
+        "price": "2.50",
+        "formatted_price": "€2.50",
+        "price_id": 4002,
+        "price_point_id": 9012
+      }
+    ],
+    "renew_prepaid_allocation": true,
+    "rollover_prepaid_remainder": false,
+    "expiration_interval": 1,
+    "expiration_interval_unit": "month",
+    "overage_pricing_scheme": "tiered",
+    "subscription_id": 4321,
+    "prices": [
+      {
+        "id": 4001,
+        "component_id": 1234,
+        "starting_quantity": 1,
+        "ending_quantity": 100,
+        "unit_price": "9.99",
+        "price_point_id": 9012,
+        "formatted_unit_price": "$9.99",
+        "segment_id": null
+      }
+    ],
+    "overage_prices": [
+      {
+        "id": 4002,
+        "component_id": 1234,
+        "starting_quantity": 101,
+        "ending_quantity": null,
+        "unit_price": "2.50",
+        "price_point_id": 9012,
+        "formatted_unit_price": "$2.50",
+        "segment_id": null
+      }
+    ],
+    "tax_included": false,
+    "interval": 1,
+    "interval_unit": "month"
+  }
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
 | 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
@@ -503,9 +634,9 @@ UpdateComponentPricePointRequest body = new UpdateComponentPricePointRequest.Bui
 try {
     ComponentPricePointResponse result = componentPricePointsController.updateComponentPricePoint(componentId, pricePointId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -522,7 +653,7 @@ try {
 Use this endpoint to retrieve details for a specific component price point. You can achieve this by using either the component price point ID or handle.
 
 ```java
-ComponentPricePointResponse readComponentPricePoint(
+ComponentPricePointCurrencyOverageResponse readComponentPricePoint(
     final ReadComponentPricePointComponentId componentId,
     final ReadComponentPricePointPricePointId pricePointId,
     final Boolean currencyPrices)
@@ -538,7 +669,7 @@ ComponentPricePointResponse readComponentPricePoint(
 
 ## Response Type
 
-[`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
+[`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
 
 ## Example Usage
 
@@ -551,11 +682,9 @@ ReadComponentPricePointPricePointId pricePointId = ReadComponentPricePointPriceP
 );
 
 try {
-    ComponentPricePointResponse result = componentPricePointsController.readComponentPricePoint(componentId, pricePointId, null);
+    ComponentPricePointCurrencyOverageResponse result = componentPricePointsController.readComponentPricePoint(componentId, pricePointId, null);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -595,9 +724,9 @@ ArchiveComponentPricePointPricePointId pricePointId = ArchiveComponentPricePoint
 try {
     ComponentPricePointResponse result = componentPricePointsController.archiveComponentPricePoint(componentId, pricePointId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -674,8 +803,6 @@ try {
     ComponentPricePointResponse result = componentPricePointsController.unarchiveComponentPricePoint(componentId, pricePointId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -763,9 +890,9 @@ CreateCurrencyPricesRequest body = new CreateCurrencyPricesRequest.Builder(
 try {
     ComponentCurrencyPricesResponse result = componentPricePointsController.createCurrencyPrices(pricePointId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -840,9 +967,9 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
 try {
     ComponentCurrencyPricesResponse result = componentPricePointsController.updateCurrencyPrices(pricePointId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -884,11 +1011,7 @@ ListComponentsPricePointsResponse listAllComponentPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `include` | [`ListComponentsPricePointsInclude`](../../doc/models/list-components-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `filter` | [`ListPricePointsFilter`](../../doc/models/list-price-points-filter.md) | Query, Optional | Filter to use for List PricePoints operations |
+| `input` | [`ListAllComponentPricePointsInput`](../../doc/models/list-all-component-price-points-input.md) | Required | Input structure for the method ListAllComponentPricePoints |
 
 ## Response Type
 
@@ -922,9 +1045,9 @@ ListAllComponentPricePointsInput listAllComponentPricePointsInput = new ListAllC
 try {
     ListComponentsPricePointsResponse result = componentPricePointsController.listAllComponentPricePoints(listAllComponentPricePointsInput);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

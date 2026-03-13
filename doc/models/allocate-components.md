@@ -13,8 +13,8 @@
 | `ProrationDowngradeScheme` | `String` | Optional | - | String getProrationDowngradeScheme() | setProrationDowngradeScheme(String prorationDowngradeScheme) |
 | `Allocations` | [`List<CreateAllocation>`](../../doc/models/create-allocation.md) | Optional | - | List<CreateAllocation> getAllocations() | setAllocations(List<CreateAllocation> allocations) |
 | `AccrueCharge` | `Boolean` | Optional | - | Boolean getAccrueCharge() | setAccrueCharge(Boolean accrueCharge) |
-| `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
-| `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided.<br>Available values: `full`, `prorated`, `none`. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
+| `UpgradeCharge` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. | CreditType getUpgradeCharge() | setUpgradeCharge(CreditType upgradeCharge) |
+| `DowngradeCredit` | [`CreditType`](../../doc/models/credit-type.md) | Optional | The type of credit to be created when upgrading/downgrading. Defaults to the component and then site setting if one is not provided. | CreditType getDowngradeCredit() | setDowngradeCredit(CreditType downgradeCredit) |
 | `PaymentCollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | (Optional) If not passed, the allocation(s) will use the payment collection method on the subscription | CollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) |
 | `InitiateDunning` | `Boolean` | Optional | If true, if the immediate component payment fails, initiate dunning for the subscription.<br>Otherwise, leave the charges on the subscription to pay for at renewal. | Boolean getInitiateDunning() | setInitiateDunning(Boolean initiateDunning) |
 
@@ -27,19 +27,19 @@
   "allocations": [
     {
       "quantity": 26.48,
+      "decimal_quantity": "decimal_quantity8",
+      "previous_quantity": 55.5,
+      "decimal_previous_quantity": "decimal_previous_quantity2",
       "component_id": 242,
-      "memo": "memo6",
-      "proration_downgrade_scheme": "proration_downgrade_scheme0",
-      "proration_upgrade_scheme": "proration_upgrade_scheme2",
-      "accrue_charge": false
+      "memo": "memo6"
     },
     {
       "quantity": 26.48,
+      "decimal_quantity": "decimal_quantity8",
+      "previous_quantity": 55.5,
+      "decimal_previous_quantity": "decimal_previous_quantity2",
       "component_id": 242,
-      "memo": "memo6",
-      "proration_downgrade_scheme": "proration_downgrade_scheme0",
-      "proration_upgrade_scheme": "proration_upgrade_scheme2",
-      "accrue_charge": false
+      "memo": "memo6"
     }
   ],
   "accrue_charge": false,

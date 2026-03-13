@@ -12,6 +12,7 @@
 | `RecipientEmails` | `List<String>` | Optional | **Constraints**: *Maximum Items*: `5` | List<String> getRecipientEmails() | setRecipientEmails(List<String> recipientEmails) |
 | `CcRecipientEmails` | `List<String>` | Optional | **Constraints**: *Maximum Items*: `5` | List<String> getCcRecipientEmails() | setCcRecipientEmails(List<String> ccRecipientEmails) |
 | `BccRecipientEmails` | `List<String>` | Optional | **Constraints**: *Maximum Items*: `5` | List<String> getBccRecipientEmails() | setBccRecipientEmails(List<String> bccRecipientEmails) |
+| `AttachmentUrls` | `List<String>` | Optional | Array of URLs to files to attach to the invoice email. Max 10 files, 10MB each.<br><br>**Constraints**: *Maximum Items*: `10` | List<String> getAttachmentUrls() | setAttachmentUrls(List<String> attachmentUrls) |
 
 ## Example (as JSON)
 
@@ -27,6 +28,10 @@
   ],
   "bcc_recipient_emails": [
     "bcc_recipient_emails6"
+  ],
+  "attachment_urls": [
+    "attachment_urls0",
+    "attachment_urls1"
   ]
 }
 ```

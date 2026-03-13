@@ -9,14 +9,14 @@
 
 | Name |
 |  --- |
-| `Status` |
-| `TotalAmount` |
-| `DueAmount` |
-| `CreatedAt` |
-| `UpdatedAt` |
-| `IssueDate` |
-| `DueDate` |
-| `Number` |
+| `STATUS` |
+| `TOTAL_AMOUNT` |
+| `DUE_AMOUNT` |
+| `CREATED_AT` |
+| `UPDATED_AT` |
+| `ISSUE_DATE` |
+| `DUE_DATE` |
+| `NUMBER` |
 
 ## Example
 

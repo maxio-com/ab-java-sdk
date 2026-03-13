@@ -44,8 +44,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -99,8 +97,6 @@ try {
     MRRResponse result = insightsController.readMrr(null, null);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -164,10 +160,7 @@ ListMRRResponse listMrrMovements(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `Integer` | Query, Optional | optionally filter results by subscription |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 50; any per_page value over 50 will be changed to 50.<br>Use in query `per_page=20`.<br><br>**Default**: `10`<br><br>**Constraints**: `<= 50` |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
+| `input` | [`ListMrrMovementsInput`](../../doc/models/list-mrr-movements-input.md) | Required | Input structure for the method ListMrrMovements |
 
 ## Response Type
 
@@ -185,8 +178,6 @@ try {
     ListMRRResponse result = insightsController.listMrrMovements(listMrrMovementsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -259,11 +250,7 @@ SubscriptionMRRResponse listMrrPerSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `filter` | [`ListMrrFilter`](../../doc/models/list-mrr-filter.md) | Query, Optional | Filter to use for List MRR per subscription operation |
-| `atTime` | `String` | Query, Optional | Submit a timestamp in ISO8601 format to request MRR for a historic time. Use in query: `at_time=2022-01-10T10:00:00-05:00`. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Controls the order in which results are returned. Records are ordered by subscription_id in ascending order by default. Use in query `direction=desc`. |
+| `input` | [`ListMrrPerSubscriptionInput`](../../doc/models/list-mrr-per-subscription-input.md) | Required | Input structure for the method ListMrrPerSubscription |
 
 ## Response Type
 
@@ -289,9 +276,9 @@ ListMrrPerSubscriptionInput listMrrPerSubscriptionInput = new ListMrrPerSubscrip
 try {
     SubscriptionMRRResponse result = insightsController.listMrrPerSubscription(listMrrPerSubscriptionInput);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SubscriptionsMrrErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

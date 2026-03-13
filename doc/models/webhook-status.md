@@ -9,8 +9,8 @@
 
 | Name |
 |  --- |
-| `Successful` |
-| `Failed` |
-| `Pending` |
-| `Paused` |
+| `SUCCESSFUL` |
+| `FAILED` |
+| `PENDING` |
+| `PAUSED` |
 

@@ -28,6 +28,7 @@ public class ProductFamily
     private OptionalNullable<String> description;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
+    private OptionalNullable<ZonedDateTime> archivedAt;
 
     /**
      * Default constructor.
@@ -44,6 +45,7 @@ public class ProductFamily
      * @param  description  String value for description.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      */
     public ProductFamily(
             Integer id,
@@ -52,7 +54,8 @@ public class ProductFamily
             String accountingCode,
             String description,
             ZonedDateTime createdAt,
-            ZonedDateTime updatedAt) {
+            ZonedDateTime updatedAt,
+            ZonedDateTime archivedAt) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -60,6 +63,7 @@ public class ProductFamily
         this.description = OptionalNullable.of(description);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.archivedAt = OptionalNullable.of(archivedAt);
     }
 
     /**
@@ -71,11 +75,13 @@ public class ProductFamily
      * @param  description  String value for description.
      * @param  createdAt  ZonedDateTime value for createdAt.
      * @param  updatedAt  ZonedDateTime value for updatedAt.
+     * @param  archivedAt  ZonedDateTime value for archivedAt.
      */
 
     protected ProductFamily(Integer id, String name, String handle,
             OptionalNullable<String> accountingCode, OptionalNullable<String> description,
-            ZonedDateTime createdAt, ZonedDateTime updatedAt) {
+            ZonedDateTime createdAt, ZonedDateTime updatedAt,
+            OptionalNullable<ZonedDateTime> archivedAt) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -83,6 +89,7 @@ public class ProductFamily
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.archivedAt = archivedAt;
     }
 
     /**
@@ -255,6 +262,50 @@ public class ProductFamily
     }
 
     /**
+     * Internal Getter for ArchivedAt.
+     * Timestamp indicating when this product family was archived. `null` if the product family is
+     * not archived.
+     * @return Returns the Internal ZonedDateTime
+     */
+    @JsonGetter("archived_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.ZonedRfc8601DateTimeSerializer.class)
+    protected OptionalNullable<ZonedDateTime> internalGetArchivedAt() {
+        return this.archivedAt;
+    }
+
+    /**
+     * Getter for ArchivedAt.
+     * Timestamp indicating when this product family was archived. `null` if the product family is
+     * not archived.
+     * @return Returns the ZonedDateTime
+     */
+    public ZonedDateTime getArchivedAt() {
+        return OptionalNullable.getFrom(archivedAt);
+    }
+
+    /**
+     * Setter for ArchivedAt.
+     * Timestamp indicating when this product family was archived. `null` if the product family is
+     * not archived.
+     * @param archivedAt Value for ZonedDateTime
+     */
+    @JsonSetter("archived_at")
+    @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
+    public void setArchivedAt(ZonedDateTime archivedAt) {
+        this.archivedAt = OptionalNullable.of(archivedAt);
+    }
+
+    /**
+     * UnSetter for ArchivedAt.
+     * Timestamp indicating when this product family was archived. `null` if the product family is
+     * not archived.
+     */
+    public void unsetArchivedAt() {
+        archivedAt = null;
+    }
+
+    /**
      * Converts this ProductFamily into string format.
      * @return String representation of this class
      */
@@ -262,8 +313,8 @@ public class ProductFamily
     public String toString() {
         return "ProductFamily [" + "id=" + id + ", name=" + name + ", handle=" + handle
                 + ", accountingCode=" + accountingCode + ", description=" + description
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", archivedAt="
+                + archivedAt + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -280,6 +331,7 @@ public class ProductFamily
                 .updatedAt(getUpdatedAt());
         builder.accountingCode = internalGetAccountingCode();
         builder.description = internalGetDescription();
+        builder.archivedAt = internalGetArchivedAt();
         return builder;
     }
 
@@ -294,6 +346,7 @@ public class ProductFamily
         private OptionalNullable<String> description;
         private ZonedDateTime createdAt;
         private ZonedDateTime updatedAt;
+        private OptionalNullable<ZonedDateTime> archivedAt;
 
 
 
@@ -386,12 +439,31 @@ public class ProductFamily
         }
 
         /**
+         * Setter for archivedAt.
+         * @param  archivedAt  ZonedDateTime value for archivedAt.
+         * @return Builder
+         */
+        public Builder archivedAt(ZonedDateTime archivedAt) {
+            this.archivedAt = OptionalNullable.of(archivedAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for archivedAt.
+         * @return Builder
+         */
+        public Builder unsetArchivedAt() {
+            archivedAt = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link ProductFamily} object using the set fields.
          * @return {@link ProductFamily}
          */
         public ProductFamily build() {
             return new ProductFamily(id, name, handle, accountingCode, description, createdAt,
-                    updatedAt);
+                    updatedAt, archivedAt);
         }
     }
 }

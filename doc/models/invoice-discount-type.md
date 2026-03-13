@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `Percentage` |
-| `FlatAmount` |
-| `Rollover` |
+| `PERCENTAGE` |
+| `FLAT_AMOUNT` |
+| `ROLLOVER` |
 

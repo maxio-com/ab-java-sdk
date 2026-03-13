@@ -9,5 +9,5 @@
 
 | Name |
 |  --- |
-| `AccountBalances` |
+| `ACCOUNT_BALANCES` |
 

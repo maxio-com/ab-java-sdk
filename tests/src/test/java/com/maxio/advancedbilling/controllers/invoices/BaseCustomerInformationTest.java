@@ -12,7 +12,7 @@ import com.maxio.advancedbilling.models.CreateMetadataRequest;
 import com.maxio.advancedbilling.models.CreateMetafield;
 import com.maxio.advancedbilling.models.CreateMetafieldsRequest;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
-import com.maxio.advancedbilling.models.CreditType;
+import com.maxio.advancedbilling.models.UpgradeChargeCreditType;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.IncludeOption;
 import com.maxio.advancedbilling.models.Invoice;
@@ -174,7 +174,7 @@ public abstract class BaseCustomerInformationTest {
                         new CreateAllocation.Builder()
                                 .memo("Allocate metered for invoice")
                                 .quantity(100)
-                                .upgradeCharge(CreditType.FULL)
+                                .upgradeCharge(UpgradeChargeCreditType.FULL)
                                 .build())
                 );
 

@@ -9,6 +9,6 @@
 
 | Name |
 |  --- |
-| `NewestFirst` |
-| `OldestFirst` |
+| `NEWEST_FIRST` |
+| `OLDEST_FIRST` |
 

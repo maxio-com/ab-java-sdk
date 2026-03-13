@@ -73,9 +73,9 @@ CreateProductPricePointRequest body = new CreateProductPricePointRequest.Builder
 try {
     ProductPricePointResponse result = productPricePointsController.createProductPricePoint(productId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ProductPricePointErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -127,12 +127,7 @@ ListProductPricePointsResponse listProductPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productId` | [`ListProductPricePointsInputProductId`](../../doc/models/containers/list-product-price-points-input-product-id.md) | Template, Required | This is a container for one-of cases. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 10. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br><br>**Default**: `10`<br><br>**Constraints**: `<= 200` |
-| `currencyPrices` | `Boolean` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
-| `filterType` | [`List<PricePointType>`](../../doc/models/price-point-type.md) | Query, Optional | Use in query: `filter[type]=catalog,default`. |
-| `archived` | `Boolean` | Query, Optional | Set to include archived price points in the response. |
+| `input` | [`ListProductPricePointsInput`](../../doc/models/list-product-price-points-input.md) | Required | Input structure for the method ListProductPricePoints |
 
 ## Response Type
 
@@ -155,8 +150,6 @@ try {
     ListProductPricePointsResponse result = productPricePointsController.listProductPricePoints(listProductPricePointsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -238,8 +231,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -309,8 +300,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -376,9 +365,9 @@ ArchiveProductPricePointPricePointId pricePointId = ArchiveProductPricePointPric
 try {
     ProductPricePointResponse result = productPricePointsController.archiveProductPricePoint(productId, pricePointId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -449,8 +438,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -515,8 +502,6 @@ try {
     ProductResponse result = productPricePointsController.promoteProductPricePointToDefault(productId, pricePointId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -643,8 +628,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -740,9 +723,9 @@ CreateProductCurrencyPricesRequest body = new CreateProductCurrencyPricesRequest
 try {
     CurrencyPricesResponse result = productPricePointsController.createProductCurrencyPrices(productPricePointId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -819,9 +802,9 @@ UpdateCurrencyPricesRequest body = new UpdateCurrencyPricesRequest.Builder(
 try {
     CurrencyPricesResponse result = productPricePointsController.updateProductCurrencyPrices(productPricePointId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -863,11 +846,7 @@ ListProductPricePointsResponse listAllProductPricePoints(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `direction` | [`SortingDirection`](../../doc/models/sorting-direction.md) | Query, Optional | Controls the order in which results are returned.<br>Use in query `direction=asc`. |
-| `filter` | [`ListPricePointsFilter`](../../doc/models/list-price-points-filter.md) | Query, Optional | Filter to use for List PricePoints operations |
-| `include` | [`ListProductsPricePointsInclude`](../../doc/models/list-products-price-points-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include=currency_prices`. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
+| `input` | [`ListAllProductPricePointsInput`](../../doc/models/list-all-product-price-points-input.md) | Required | Input structure for the method ListAllProductPricePoints |
 
 ## Response Type
 
@@ -901,9 +880,9 @@ ListAllProductPricePointsInput listAllProductPricePointsInput = new ListAllProdu
 try {
     ListProductPricePointsResponse result = productPricePointsController.listAllProductPricePoints(listAllProductPricePointsInput);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

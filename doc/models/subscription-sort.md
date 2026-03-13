@@ -9,10 +9,14 @@
 
 | Name |
 |  --- |
-| `SignupDate` |
-| `PeriodStart` |
-| `PeriodEnd` |
-| `NextAssessment` |
-| `UpdatedAt` |
-| `CreatedAt` |
+| `SIGNUP_DATE` |
+| `PERIOD_START` |
+| `PERIOD_END` |
+| `NEXT_ASSESSMENT` |
+| `UPDATED_AT` |
+| `CREATED_AT` |
+| `TOTAL_PAYMENTS` |
+| `ID` |
+| `OPEN_BALANCE` |
+| `EXPIRES_AT` |
 

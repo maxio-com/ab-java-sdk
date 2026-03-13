@@ -83,7 +83,7 @@ SubscriptionResponse migrateSubscriptionProduct(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`SubscriptionProductMigrationRequest`](../../doc/models/subscription-product-migration-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -108,9 +108,9 @@ SubscriptionProductMigrationRequest body = new SubscriptionProductMigrationReque
 try {
     SubscriptionResponse result = subscriptionProductsController.migrateSubscriptionProduct(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -264,7 +264,7 @@ SubscriptionMigrationPreviewResponse previewSubscriptionProductMigration(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`SubscriptionMigrationPreviewRequest`](../../doc/models/subscription-migration-preview-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -288,9 +288,9 @@ SubscriptionMigrationPreviewRequest body = new SubscriptionMigrationPreviewReque
 try {
     SubscriptionMigrationPreviewResponse result = subscriptionProductsController.previewSubscriptionProductMigration(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

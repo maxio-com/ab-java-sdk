@@ -611,7 +611,7 @@ public class ComponentPricePoint
      * An array of currency pricing data is available when multiple currencies are defined for the
      * site. It varies based on the use_site_exchange_rate setting for the price point. This
      * parameter is present only in the response of read endpoints, after including the appropriate
-     * query parameter.
+     * query parameter. The clone endpoint always returns currency prices if they are present.
      * @return Returns the List of ComponentCurrencyPrice
      */
     @JsonGetter("currency_prices")
@@ -625,7 +625,7 @@ public class ComponentPricePoint
      * An array of currency pricing data is available when multiple currencies are defined for the
      * site. It varies based on the use_site_exchange_rate setting for the price point. This
      * parameter is present only in the response of read endpoints, after including the appropriate
-     * query parameter.
+     * query parameter. The clone endpoint always returns currency prices if they are present.
      * @param currencyPrices Value for List of ComponentCurrencyPrice
      */
     @JsonSetter("currency_prices")

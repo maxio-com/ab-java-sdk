@@ -134,9 +134,9 @@ CreatePaymentProfileRequest body = new CreatePaymentProfileRequest.Builder(
 try {
     PaymentProfileResponse result = paymentProfilesController.createPaymentProfile(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -191,9 +191,7 @@ List<PaymentProfileResponse> listPaymentProfiles(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `customerId` | `Integer` | Query, Optional | The ID of the customer for which you wish to list payment profiles |
+| `input` | [`ListPaymentProfilesInput`](../../doc/models/list-payment-profiles-input.md) | Required | Input structure for the method ListPaymentProfiles |
 
 ## Response Type
 
@@ -211,8 +209,6 @@ try {
     List<PaymentProfileResponse> result = paymentProfilesController.listPaymentProfiles(listPaymentProfilesInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -346,8 +342,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -464,9 +458,9 @@ UpdatePaymentProfileRequest body = new UpdatePaymentProfileRequest.Builder(
 try {
     PaymentProfileResponse result = paymentProfilesController.updatePaymentProfile(paymentProfileId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorStringMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -526,9 +520,9 @@ int paymentProfileId = 198;
 
 try {
     paymentProfilesController.deleteUnusedPaymentProfile(paymentProfileId);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -543,7 +537,7 @@ try {
 
 # Delete Subscriptions Payment Profile
 
-This will delete a payment profile belonging to the customer on the subscription.
+Deletes a payment profile belonging to the customer on the subscription.
 
 + If the customer has multiple subscriptions, the payment profile will be removed from all of them.
 
@@ -559,7 +553,7 @@ Void deleteSubscriptionsPaymentProfile(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -575,8 +569,6 @@ int paymentProfileId = 198;
 try {
     paymentProfilesController.deleteSubscriptionsPaymentProfile(subscriptionId, paymentProfileId);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -618,9 +610,9 @@ BankAccountVerificationRequest body = new BankAccountVerificationRequest.Builder
 try {
     BankAccountResponse result = paymentProfilesController.verifyBankAccount(bankAccountId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -663,7 +655,7 @@ try {
 
 # Delete Subscription Group Payment Profile
 
-This will delete a Payment Profile belonging to a Subscription Group.
+Deletes a Payment Profile belonging to a Subscription Group.
 
 **Note**: If the Payment Profile belongs to multiple Subscription Groups and/or Subscriptions, it will be removed from all of them.
 
@@ -694,8 +686,6 @@ try {
     paymentProfilesController.deleteSubscriptionGroupPaymentProfile(uid, paymentProfileId);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -716,7 +706,7 @@ PaymentProfileResponse changeSubscriptionDefaultPaymentProfile(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `paymentProfileId` | `int` | Template, Required | The Chargify id of the payment profile |
 
 ## Response Type
@@ -732,9 +722,9 @@ int paymentProfileId = 198;
 try {
     PaymentProfileResponse result = paymentProfilesController.changeSubscriptionDefaultPaymentProfile(subscriptionId, paymentProfileId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -810,9 +800,9 @@ int paymentProfileId = 198;
 try {
     PaymentProfileResponse result = paymentProfilesController.changeSubscriptionGroupDefaultPaymentProfile(uid, paymentProfileId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -884,9 +874,9 @@ String chargifyToken = "chargify_token8";
 try {
     GetOneTimeTokenRequest result = paymentProfilesController.readOneTimeToken(chargifyToken);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -917,7 +907,7 @@ Void sendRequestUpdatePaymentEmail(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -930,9 +920,9 @@ int subscriptionId = 222;
 
 try {
     paymentProfilesController.sendRequestUpdatePaymentEmail(subscriptionId);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

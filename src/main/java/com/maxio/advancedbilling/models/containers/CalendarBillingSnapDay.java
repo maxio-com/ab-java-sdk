@@ -16,8 +16,8 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
-import com.maxio.advancedbilling.models.SnapDay;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
+import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorStringCase;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -37,12 +37,12 @@ public abstract class CalendarBillingSnapDay {
     }
 
     /**
-     * This is SnapDay case.
-     * @param snapDay SnapDay value for snapDay.
-     * @return The SnapDayCase object.
+     * This is String case.
+     * @param string String value for string.
+     * @return The StringCase object.
      */
-    public static CalendarBillingSnapDay fromSnapDay(SnapDay snapDay) {
-        return snapDay == null ? null : new SnapDayCase(snapDay);
+    public static CalendarBillingSnapDay fromString(String string) {
+        return string == null ? null : new StringCase(string);
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class CalendarBillingSnapDay {
     public interface Cases<R> {
         R number(int number);
 
-        R snapDay(SnapDay snapDay);
+        R string(String string);
     }
 
     /**
@@ -98,36 +98,37 @@ public abstract class CalendarBillingSnapDay {
     }
 
     /**
-     * This is a implementation class for SnapDayCase.
+     * This is a implementation class for StringCase.
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SnapDay")
-    private static class SnapDayCase extends CalendarBillingSnapDay {
+    @TypeCombinatorStringCase
+    @TypeCombinatorCase(type = "String")
+    private static class StringCase extends CalendarBillingSnapDay {
 
         @JsonValue
-        private SnapDay snapDay;
+        private String string;
 
-        SnapDayCase(SnapDay snapDay) {
-            this.snapDay = snapDay;
+        StringCase(String string) {
+            this.string = string;
         }
 
         @Override
         public <R> R match(Cases<R> cases) {
-            return cases.snapDay(this.snapDay);
+            return cases.string(this.string);
         }
 
         @JsonCreator
-        private SnapDayCase(JsonNode jsonNode) throws IOException {
-            this.snapDay = 
-                SnapDay.fromString(ApiHelper.deserialize(jsonNode, String.class));
-            if (this.snapDay == null) {
+        private StringCase(JsonNode jsonNode) throws IOException {
+            if (jsonNode.isTextual()) {
+                this.string = ApiHelper.deserialize(jsonNode, String.class);
+            } else {
                 throw new IllegalArgumentException();
             }
         }
 
         @Override
         public String toString() {
-            return snapDay.toString();
+            return string.toString();
         }
     }
 
@@ -143,7 +144,7 @@ public abstract class CalendarBillingSnapDay {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(NumberCase.class,
-                    SnapDayCase.class), true);
+                    StringCase.class), true);
         }
     }
 

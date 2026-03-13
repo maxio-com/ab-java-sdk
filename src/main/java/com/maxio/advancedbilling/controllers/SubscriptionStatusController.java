@@ -43,7 +43,7 @@ public final class SubscriptionStatusController extends BaseController {
      * Subscription without waiting for the next scheduled attempt. ## Successful Reactivation The
      * response will be `200 OK` with the updated Subscription. ## Failed Reactivation The response
      * will be `422 "Unprocessable Entity`.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -82,9 +82,11 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * The DELETE action causes the cancellation of the Subscription. This means, the method sets
-     * the Subscription state to "canceled".
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * Cancels the Subscription. The Delete method sets the Subscription state to `canceled`. To
+     * cancel the subscription immediately, omit any schedule parameters from the request. To use
+     * the schedule options, the Schedule Subscription Cancellation feature must be enabled on your
+     * site.
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -136,9 +138,9 @@ public final class SubscriptionStatusController extends BaseController {
      * Resume a paused (on-hold) subscription. If the normal next renewal date has not passed, the
      * subscription will return to active and will renew on that date. Otherwise, it will behave
      * like a reactivation, setting the billing date to 'now' and charging the subscriber.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  calendarBillingResumptionCharge  Optional parameter: (For calendar billing
-     *         subscriptions only) The way that the resumed subscription's charge should be handled
+     *         subscriptions only) The way that the resumed subscription's charge should be handled.
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -184,7 +186,7 @@ public final class SubscriptionStatusController extends BaseController {
     /**
      * This will place the subscription in the on_hold state and it will not renew. ## Limitations
      * You may not place a subscription on hold if the `next_billing_at` date is within 24 hours.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -235,7 +237,7 @@ public final class SubscriptionStatusController extends BaseController {
      * use this method to change or update the `automatically_resume_at` date. ### Remove the resume
      * date Alternately, you can change the `automatically_resume_at` to `null` if you would like
      * the subscription to not have a resume date.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -281,9 +283,8 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * Advanced Billing offers the ability to reactivate a previously canceled subscription. For
-     * details on how the reactivation works, and how to reactivate subscriptions through the
-     * application, see
+     * Reactivate a previously canceled subscription. For details on how the reactivation works, and
+     * how to reactivate subscriptions through the application, see
      * [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming).
      * **Note: The term "resume" is used also during another process in Advanced Billing. This
      * occurs when an on-hold subscription is "resumed". This returns the subscription to an active
@@ -302,17 +303,20 @@ public final class SubscriptionStatusController extends BaseController {
      * 1st, then Advanced Billing would resume the subscription. If a reactivation with `resume:
      * true` were attempted _after_ what would have been the next billing date of July 1st, then
      * Advanced Billing would not resume the subscription, and instead it would be reactivated with
-     * a new billing period. | Canceled | Reactivation | Resumable? | |---|---|---| | Jun 15 | June
-     * 28 | Yes | | Jun 15 | July 2 | No | ## Reactivation Scenarios ### Reactivating Canceled
-     * Subscription While Preserving Balance + Given you have a product that costs $20 + Given you
-     * have a canceled subscription to the $20 product + 1 charge should exist for $20 + 1 payment
-     * should exist for $20 + When the subscription has canceled due to dunning, it retained a
-     * negative balance of $20 #### Results The resulting charges upon reactivation will be: + 1
-     * charge for $20 for the new product + 1 charge for $20 for the balance due + Total charges =
-     * $40 + The subscription will transition to active + The subscription balance will be zero ###
-     * Reactivating a Canceled Subscription With Coupon + Given you have a canceled subscription +
-     * It has no current period defined + You have a coupon code "EARLYBIRD" + The coupon is set to
-     * recur for 6 periods PUT request sent to:
+     * a new billing period. If a reactivation with `resume: false`, or where 'resume" is omited
+     * were attempted, then Advanced Billing would reactivate the subscription with a new billing
+     * period regardless of whether or not resuming the previous billing period were possible. |
+     * Canceled | Reactivation | Resumable? | |---|---|---| | Jun 15 | June 28 | Yes | | Jun 15 |
+     * July 2 | No | ## Reactivation Scenarios ### Reactivating Canceled Subscription While
+     * Preserving Balance + Given you have a product that costs $20 + Given you have a canceled
+     * subscription to the $20 product + 1 charge should exist for $20 + 1 payment should exist for
+     * $20 + When the subscription has canceled due to dunning, it retained a negative balance of
+     * $20 #### Results The resulting charges upon reactivation will be: + 1 charge for $20 for the
+     * new product + 1 charge for $20 for the balance due + Total charges = $40 + The subscription
+     * will transition to active + The subscription balance will be zero ### Reactivating a Canceled
+     * Subscription With Coupon + Given you have a canceled subscription + It has no current period
+     * defined + You have a coupon code "EARLYBIRD" + The coupon is set to recur for 6 periods PUT
+     * request sent to:
      * `https://acme.chargify.com/subscriptions/{subscription_id}/reactivate.json?coupon_code=EARLYBIRD`
      * #### Results + The subscription will transition to active + The subscription should have
      * applied a coupon with code "EARLYBIRD" ### Reactivating Canceled Subscription With a Trial,
@@ -351,7 +355,7 @@ public final class SubscriptionStatusController extends BaseController {
      * `https://acme.chargify.com/subscriptions/{subscription_id}/reactivate.json?resume=true` ####
      * Results + The subscription will transition to active + The next billing date should not have
      * changed + Any product-related charges should have been collected.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -397,12 +401,10 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * Advanced Billing offers the ability to cancel a subscription at the end of the current
-     * billing period. This period is set by its current product. Requesting to cancel the
-     * subscription at the end of the period sets the `cancel_at_end_of_period` flag to true. Note
-     * that you cannot set `cancel_at_end_of_period` at subscription creation, or if the
+     * Cancels a subscription at the end of the current billing period based on the subscription's
+     * current product. You cannot set `cancel_at_end_of_period` at subscription creation, or if the
      * subscription is past due.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the DelayedCancellationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -455,7 +457,7 @@ public final class SubscriptionStatusController extends BaseController {
      * at the end of the period that it is in. The request will reset the `cancel_at_end_of_period`
      * flag to `false`. This endpoint is idempotent. If the subscription was not set to cancel in
      * the future, removing the delayed cancellation has no effect and the call will be successful.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the DelayedCancellationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -496,7 +498,7 @@ public final class SubscriptionStatusController extends BaseController {
     /**
      * If a subscription is currently in dunning, the subscription will be set to active and the
      * active Dunner will be resolved.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -554,9 +556,9 @@ public final class SubscriptionStatusController extends BaseController {
      * quantities** for any component to see a billing preview for non-current quantities. This is
      * accomplished by sending a request body with data under the `components` key. See the request
      * body documentation below. ## Subscription Side Effects You can request a `POST` to obtain
-     * this data from the endpoint without any side effects. Plain and simple, this will preview
-     * data, not log any changes against a subscription.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * this data from the endpoint without any side effects. This method allows you to preview data,
+     * but does not log any changes against a subscription.
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the RenewalPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

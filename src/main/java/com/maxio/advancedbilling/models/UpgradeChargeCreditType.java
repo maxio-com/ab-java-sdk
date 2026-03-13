@@ -14,19 +14,27 @@ import java.util.TreeMap;
 
 
 /**
- * SnapDay to be used.
+ * UpgradeChargeCreditType to be used.
  */
-public enum SnapDay {
-    END;
+public enum UpgradeChargeCreditType {
+    FULL,
+
+    PRORATED,
+
+    NONE;
 
 
-    private static TreeMap<String, SnapDay> valueMap = new TreeMap<>();
+    private static TreeMap<String, UpgradeChargeCreditType> valueMap = new TreeMap<>();
     private String value;
 
     static {
-        END.value = "end";
+        FULL.value = "full";
+        PRORATED.value = "prorated";
+        NONE.value = "none";
 
-        valueMap.put("end", END);
+        valueMap.put("full", FULL);
+        valueMap.put("prorated", PRORATED);
+        valueMap.put("none", NONE);
     }
 
     /**
@@ -36,8 +44,8 @@ public enum SnapDay {
      * @throws IOException when provided value is not mapped to any enum member.
      */
     @JsonCreator
-    public static SnapDay constructFromString(String toConvert) throws IOException {
-        SnapDay enumValue = fromString(toConvert);
+    public static UpgradeChargeCreditType constructFromString(String toConvert) throws IOException {
+        UpgradeChargeCreditType enumValue = fromString(toConvert);
         if (enumValue == null) {
             throw new IOException("Unable to create enum instance with value: " + toConvert);
         }
@@ -49,7 +57,7 @@ public enum SnapDay {
      * @param toConvert String value to get enum member.
      * @return The enum member against the given string value.
      */
-    public static SnapDay fromString(String toConvert) {
+    public static UpgradeChargeCreditType fromString(String toConvert) {
         return valueMap.get(toConvert);
     }
 
@@ -71,16 +79,16 @@ public enum SnapDay {
     }
 
     /**
-     * Convert list of SnapDay values to list of string values.
-     * @param toConvert The list of SnapDay values to convert.
+     * Convert list of UpgradeChargeCreditType values to list of string values.
+     * @param toConvert The list of UpgradeChargeCreditType values to convert.
      * @return List of representative string values.
      */
-    public static List<String> toValue(List<SnapDay> toConvert) {
+    public static List<String> toValue(List<UpgradeChargeCreditType> toConvert) {
         if (toConvert == null) {
             return null;
         }
         List<String> convertedValues = new ArrayList<>();
-        for (SnapDay enumValue : toConvert) {
+        for (UpgradeChargeCreditType enumValue : toConvert) {
             convertedValues.add(enumValue.value);
         }
         return convertedValues;

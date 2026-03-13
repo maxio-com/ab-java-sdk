@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `CurrencyPrices` |
+| `CURRENCY_PRICES` |
 
 ## Example
 

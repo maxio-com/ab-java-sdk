@@ -20,6 +20,7 @@ public class SendInvoiceRequest
     private List<String> recipientEmails;
     private List<String> ccRecipientEmails;
     private List<String> bccRecipientEmails;
+    private List<String> attachmentUrls;
 
     /**
      * Default constructor.
@@ -32,14 +33,17 @@ public class SendInvoiceRequest
      * @param  recipientEmails  List of String value for recipientEmails.
      * @param  ccRecipientEmails  List of String value for ccRecipientEmails.
      * @param  bccRecipientEmails  List of String value for bccRecipientEmails.
+     * @param  attachmentUrls  List of String value for attachmentUrls.
      */
     public SendInvoiceRequest(
             List<String> recipientEmails,
             List<String> ccRecipientEmails,
-            List<String> bccRecipientEmails) {
+            List<String> bccRecipientEmails,
+            List<String> attachmentUrls) {
         this.recipientEmails = recipientEmails;
         this.ccRecipientEmails = ccRecipientEmails;
         this.bccRecipientEmails = bccRecipientEmails;
+        this.attachmentUrls = attachmentUrls;
     }
 
     /**
@@ -100,6 +104,27 @@ public class SendInvoiceRequest
     }
 
     /**
+     * Getter for AttachmentUrls.
+     * Array of URLs to files to attach to the invoice email. Max 10 files, 10MB each.
+     * @return Returns the List of String
+     */
+    @JsonGetter("attachment_urls")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getAttachmentUrls() {
+        return attachmentUrls;
+    }
+
+    /**
+     * Setter for AttachmentUrls.
+     * Array of URLs to files to attach to the invoice email. Max 10 files, 10MB each.
+     * @param attachmentUrls Value for List of String
+     */
+    @JsonSetter("attachment_urls")
+    public void setAttachmentUrls(List<String> attachmentUrls) {
+        this.attachmentUrls = attachmentUrls;
+    }
+
+    /**
      * Converts this SendInvoiceRequest into string format.
      * @return String representation of this class
      */
@@ -107,7 +132,8 @@ public class SendInvoiceRequest
     public String toString() {
         return "SendInvoiceRequest [" + "recipientEmails=" + recipientEmails
                 + ", ccRecipientEmails=" + ccRecipientEmails + ", bccRecipientEmails="
-                + bccRecipientEmails + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + bccRecipientEmails + ", attachmentUrls=" + attachmentUrls
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -119,7 +145,8 @@ public class SendInvoiceRequest
         Builder builder = new Builder()
                 .recipientEmails(getRecipientEmails())
                 .ccRecipientEmails(getCcRecipientEmails())
-                .bccRecipientEmails(getBccRecipientEmails());
+                .bccRecipientEmails(getBccRecipientEmails())
+                .attachmentUrls(getAttachmentUrls());
         return builder;
     }
 
@@ -130,6 +157,7 @@ public class SendInvoiceRequest
         private List<String> recipientEmails;
         private List<String> ccRecipientEmails;
         private List<String> bccRecipientEmails;
+        private List<String> attachmentUrls;
 
 
 
@@ -164,11 +192,22 @@ public class SendInvoiceRequest
         }
 
         /**
+         * Setter for attachmentUrls.
+         * @param  attachmentUrls  List of String value for attachmentUrls.
+         * @return Builder
+         */
+        public Builder attachmentUrls(List<String> attachmentUrls) {
+            this.attachmentUrls = attachmentUrls;
+            return this;
+        }
+
+        /**
          * Builds a new {@link SendInvoiceRequest} object using the set fields.
          * @return {@link SendInvoiceRequest}
          */
         public SendInvoiceRequest build() {
-            return new SendInvoiceRequest(recipientEmails, ccRecipientEmails, bccRecipientEmails);
+            return new SendInvoiceRequest(recipientEmails, ccRecipientEmails, bccRecipientEmails,
+                    attachmentUrls);
         }
     }
 }

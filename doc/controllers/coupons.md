@@ -93,9 +93,9 @@ CouponRequest body = new CouponRequest.Builder()
 try {
     CouponResponse result = couponsController.createCoupon(productFamilyId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -120,11 +120,7 @@ List<CouponResponse> listCouponsForProductFamily(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `productFamilyId` | `int` | Template, Required | The Advanced Billing id of the product family to which the coupon belongs |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `30`<br><br>**Constraints**: `<= 200` |
-| `filter` | [`ListCouponsFilter`](../../doc/models/list-coupons-filter.md) | Query, Optional | Filter to use for List Coupons operations |
-| `currencyPrices` | `Boolean` | Query, Optional | When fetching coupons, if you have defined multiple currencies at the site level, you can optionally pass the `?currency_prices=true` query param to include an array of currency price data in the response. Use in query `currency_prices=true`. |
+| `input` | [`ListCouponsForProductFamilyInput`](../../doc/models/list-coupons-for-product-family-input.md) | Required | Input structure for the method ListCouponsForProductFamily |
 
 ## Response Type
 
@@ -160,8 +156,6 @@ try {
     List<CouponResponse> result = couponsController.listCouponsForProductFamily(listCouponsForProductFamilyInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -293,8 +287,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -338,8 +330,6 @@ try {
     CouponResponse result = couponsController.readCoupon(productFamilyId, couponId, currencyPrices);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -434,9 +424,9 @@ CouponRequest body = new CouponRequest.Builder()
 try {
     CouponResponse result = couponsController.updateCoupon(productFamilyId, couponId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -511,8 +501,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -559,10 +547,7 @@ List<CouponResponse> listCoupons(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 30. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `30`<br><br>**Constraints**: `<= 200` |
-| `filter` | [`ListCouponsFilter`](../../doc/models/list-coupons-filter.md) | Query, Optional | Filter to use for List Coupons operations |
-| `currencyPrices` | `Boolean` | Query, Optional | When fetching coupons, if you have defined multiple currencies at the site level, you can optionally pass the `?currency_prices=true` query param to include an array of currency price data in the response. Use in query `currency_prices=true`. |
+| `input` | [`ListCouponsInput`](../../doc/models/list-coupons-input.md) | Required | Input structure for the method ListCoupons |
 
 ## Response Type
 
@@ -596,8 +581,6 @@ try {
     List<CouponResponse> result = couponsController.listCoupons(listCouponsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -682,8 +665,6 @@ try {
     List<CouponUsage> result = couponsController.readCouponUsage(productFamilyId, couponId);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -772,9 +753,9 @@ String code = "code8";
 try {
     CouponResponse result = couponsController.validateCoupon(code, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (SingleStringErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -861,9 +842,9 @@ CouponCurrencyRequest body = new CouponCurrencyRequest.Builder(
 try {
     CouponCurrencyResponse result = couponsController.createOrUpdateCouponCurrencyPrices(couponId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorStringMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -952,8 +933,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -983,9 +962,7 @@ CouponSubcodes listCouponSubcodes(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `couponId` | `int` | Template, Required | The Advanced Billing id of the coupon |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
+| `input` | [`ListCouponSubcodesInput`](../../doc/models/list-coupon-subcodes-input.md) | Required | Input structure for the method ListCouponSubcodes |
 
 ## Response Type
 
@@ -1005,8 +982,6 @@ try {
     CouponSubcodes result = couponsController.listCouponSubcodes(listCouponSubcodesInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -1089,8 +1064,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -1146,8 +1119,6 @@ String subcode = "subcode4";
 try {
     couponsController.deleteCouponSubcode(couponId, subcode);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```

@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `CreatedAt` |
+| `CREATED_AT` |
 
 ## Example
 

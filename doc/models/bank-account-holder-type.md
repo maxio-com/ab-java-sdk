@@ -11,6 +11,6 @@ Defaults to personal
 
 | Name |
 |  --- |
-| `Personal` |
-| `Business` |
+| `PERSONAL` |
+| `BUSINESS` |
 

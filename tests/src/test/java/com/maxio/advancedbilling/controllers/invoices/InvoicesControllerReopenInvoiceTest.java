@@ -10,7 +10,7 @@ import com.maxio.advancedbilling.models.Component;
 import com.maxio.advancedbilling.models.CreateAllocation;
 import com.maxio.advancedbilling.models.CreateAllocationRequest;
 import com.maxio.advancedbilling.models.CreateSubscriptionComponent;
-import com.maxio.advancedbilling.models.CreditType;
+import com.maxio.advancedbilling.models.UpgradeChargeCreditType;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.Invoice;
 import com.maxio.advancedbilling.models.InvoiceStatus;
@@ -127,7 +127,7 @@ public class InvoicesControllerReopenInvoiceTest {
                         new CreateAllocation.Builder()
                                 .memo("Allocate metered for invoice")
                                 .quantity(100)
-                                .upgradeCharge(CreditType.FULL)
+                                .upgradeCharge(UpgradeChargeCreditType.FULL)
                                 .build())
                 );
 

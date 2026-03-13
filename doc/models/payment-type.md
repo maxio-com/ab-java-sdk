@@ -9,8 +9,8 @@
 
 | Name |
 |  --- |
-| `CreditCard` |
-| `BankAccount` |
-| `PaypalAccount` |
-| `ApplePay` |
+| `CREDIT_CARD` |
+| `BANK_ACCOUNT` |
+| `PAYPAL_ACCOUNT` |
+| `APPLE_PAY` |
 

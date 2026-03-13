@@ -48,7 +48,7 @@ public class ProformaInvoicesControllerPreviewSignupProformaTest extends Proform
 
         assertThat(previewWithData.preview().getNextProformaInvoice()).usingRecursiveComparison()
                 .ignoringFields("createdAt", "subtotalAmount", "totalAmount", "uid", "lineItems",
-                        "deliveryDate", "dueAmount")
+                        "deliveryDate", "dueAmount", "availableActions.sendEmail.url")
                 .isEqualTo(previewWithData.preview().getCurrentProformaInvoice());
     }
 

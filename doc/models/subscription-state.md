@@ -32,19 +32,19 @@ See [Subscription States](https://maxio.zendesk.com/hc/en-us/articles/2425211902
 
 | Name |
 |  --- |
-| `Pending` |
-| `FailedToCreate` |
-| `Trialing` |
-| `Assessing` |
-| `Active` |
-| `SoftFailure` |
-| `PastDue` |
-| `Suspended` |
-| `Canceled` |
-| `Expired` |
-| `Paused` |
-| `Unpaid` |
-| `TrialEnded` |
-| `OnHold` |
-| `AwaitingSignup` |
+| `PENDING` |
+| `FAILED_TO_CREATE` |
+| `TRIALING` |
+| `ASSESSING` |
+| `ACTIVE` |
+| `SOFT_FAILURE` |
+| `PAST_DUE` |
+| `SUSPENDED` |
+| `CANCELED` |
+| `EXPIRED` |
+| `PAUSED` |
+| `UNPAID` |
+| `TRIAL_ENDED` |
+| `ON_HOLD` |
+| `AWAITING_SIGNUP` |
 

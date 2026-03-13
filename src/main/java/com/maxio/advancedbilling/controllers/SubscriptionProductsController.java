@@ -89,7 +89,7 @@ public final class SubscriptionProductsController extends BaseController {
      * to the `redirect_url`; at this point the result of authentication is known 8. Optionally, you
      * can use the applied "msg" param in the `redirect_url` to determine whether it was successful
      * or not.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -140,7 +140,7 @@ public final class SubscriptionProductsController extends BaseController {
      * `proration_date` along with the request (eg: `"proration_date": "2020-12-18T18:25:43.511Z"`).
      * This will calculate the prorated adjustment, charge, payment and credit applied values
      * assuming the migration is done at that date in the future as opposed to right now.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionMigrationPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

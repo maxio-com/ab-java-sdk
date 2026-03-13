@@ -9,6 +9,6 @@
 
 | Name |
 |  --- |
-| `Coupons` |
-| `SelfServicePageToken` |
+| `COUPONS` |
+| `SELF_SERVICE_PAGE_TOKEN` |
 

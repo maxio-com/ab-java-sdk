@@ -9,6 +9,6 @@
 
 | Type | Factory Method |
 |  --- | --- |
+| `String` | UpdateSubscriptionSnapDay.fromString(String string) |
 | `int` | UpdateSubscriptionSnapDay.fromNumber(int number) |
-| [`SnapDay`](../../../doc/models/snap-day.md) | UpdateSubscriptionSnapDay.fromSnapDay(SnapDay snapDay) |
 

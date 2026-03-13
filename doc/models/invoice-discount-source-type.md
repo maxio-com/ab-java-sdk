@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `Coupon` |
-| `Referral` |
-| `EnumAdHocCoupon` |
+| `COUPON` |
+| `REFERRAL` |
+| `ENUM_AD_HOC_COUPON` |
 

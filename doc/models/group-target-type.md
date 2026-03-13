@@ -11,9 +11,9 @@ The type of object indicated by the id attribute.
 
 | Name |
 |  --- |
-| `Customer` |
-| `Subscription` |
-| `Self` |
-| `Parent` |
-| `Eldest` |
+| `CUSTOMER` |
+| `SUBSCRIPTION` |
+| `SELF` |
+| `PARENT` |
+| `ELDEST` |
 

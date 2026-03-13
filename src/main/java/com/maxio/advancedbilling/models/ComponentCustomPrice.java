@@ -23,6 +23,8 @@ public class ComponentCustomPrice
     private PricingScheme pricingScheme;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
+    private OptionalNullable<Integer> listPricePointId;
+    private Boolean useDefaultListPrice;
     private List<Price> prices;
     private Boolean renewPrepaidAllocation;
     private Boolean rolloverPrepaidRemainder;
@@ -42,6 +44,8 @@ public class ComponentCustomPrice
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  listPricePointId  Integer value for listPricePointId.
+     * @param  useDefaultListPrice  Boolean value for useDefaultListPrice.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Integer value for expirationInterval.
@@ -53,6 +57,8 @@ public class ComponentCustomPrice
             PricingScheme pricingScheme,
             Integer interval,
             IntervalUnit intervalUnit,
+            Integer listPricePointId,
+            Boolean useDefaultListPrice,
             Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder,
             Integer expirationInterval,
@@ -61,6 +67,8 @@ public class ComponentCustomPrice
         this.pricingScheme = pricingScheme;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
+        this.useDefaultListPrice = useDefaultListPrice;
         this.prices = prices;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
@@ -75,6 +83,8 @@ public class ComponentCustomPrice
      * @param  pricingScheme  PricingScheme value for pricingScheme.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  listPricePointId  Integer value for listPricePointId.
+     * @param  useDefaultListPrice  Boolean value for useDefaultListPrice.
      * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
      * @param  rolloverPrepaidRemainder  Boolean value for rolloverPrepaidRemainder.
      * @param  expirationInterval  Integer value for expirationInterval.
@@ -83,13 +93,16 @@ public class ComponentCustomPrice
 
     protected ComponentCustomPrice(List<Price> prices, Boolean taxIncluded,
             PricingScheme pricingScheme, Integer interval,
-            OptionalNullable<IntervalUnit> intervalUnit, Boolean renewPrepaidAllocation,
+            OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<Integer> listPricePointId,
+            Boolean useDefaultListPrice, Boolean renewPrepaidAllocation,
             Boolean rolloverPrepaidRemainder, OptionalNullable<Integer> expirationInterval,
             OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit) {
         this.taxIncluded = taxIncluded;
         this.pricingScheme = pricingScheme;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
+        this.listPricePointId = listPricePointId;
+        this.useDefaultListPrice = useDefaultListPrice;
         this.prices = prices;
         this.renewPrepaidAllocation = renewPrepaidAllocation;
         this.rolloverPrepaidRemainder = rolloverPrepaidRemainder;
@@ -208,8 +221,74 @@ public class ComponentCustomPrice
     }
 
     /**
+     * Internal Getter for ListPricePointId.
+     * Optional id of the price point to use for list price calculations when overriding the
+     * customer price.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("list_price_point_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetListPricePointId() {
+        return this.listPricePointId;
+    }
+
+    /**
+     * Getter for ListPricePointId.
+     * Optional id of the price point to use for list price calculations when overriding the
+     * customer price.
+     * @return Returns the Integer
+     */
+    public Integer getListPricePointId() {
+        return OptionalNullable.getFrom(listPricePointId);
+    }
+
+    /**
+     * Setter for ListPricePointId.
+     * Optional id of the price point to use for list price calculations when overriding the
+     * customer price.
+     * @param listPricePointId Value for Integer
+     */
+    @JsonSetter("list_price_point_id")
+    public void setListPricePointId(Integer listPricePointId) {
+        this.listPricePointId = OptionalNullable.of(listPricePointId);
+    }
+
+    /**
+     * UnSetter for ListPricePointId.
+     * Optional id of the price point to use for list price calculations when overriding the
+     * customer price.
+     */
+    public void unsetListPricePointId() {
+        listPricePointId = null;
+    }
+
+    /**
+     * Getter for UseDefaultListPrice.
+     * When true, list price calculations will continue to use the default price point even when a
+     * `custom_price` is supplied.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("use_default_list_price")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getUseDefaultListPrice() {
+        return useDefaultListPrice;
+    }
+
+    /**
+     * Setter for UseDefaultListPrice.
+     * When true, list price calculations will continue to use the default price point even when a
+     * `custom_price` is supplied.
+     * @param useDefaultListPrice Value for Boolean
+     */
+    @JsonSetter("use_default_list_price")
+    public void setUseDefaultListPrice(Boolean useDefaultListPrice) {
+        this.useDefaultListPrice = useDefaultListPrice;
+    }
+
+    /**
      * Getter for Prices.
-     * On/off components only need one price bracket starting at 1
+     * On/off components only need one price bracket starting at 1.
      * @return Returns the List of Price
      */
     @JsonGetter("prices")
@@ -219,7 +298,7 @@ public class ComponentCustomPrice
 
     /**
      * Setter for Prices.
-     * On/off components only need one price bracket starting at 1
+     * On/off components only need one price bracket starting at 1.
      * @param prices Value for List of Price
      */
     @JsonSetter("prices")
@@ -367,7 +446,8 @@ public class ComponentCustomPrice
     public String toString() {
         return "ComponentCustomPrice [" + "prices=" + prices + ", taxIncluded=" + taxIncluded
                 + ", pricingScheme=" + pricingScheme + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", renewPrepaidAllocation=" + renewPrepaidAllocation
+                + intervalUnit + ", listPricePointId=" + listPricePointId + ", useDefaultListPrice="
+                + useDefaultListPrice + ", renewPrepaidAllocation=" + renewPrepaidAllocation
                 + ", rolloverPrepaidRemainder=" + rolloverPrepaidRemainder + ", expirationInterval="
                 + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
@@ -383,9 +463,11 @@ public class ComponentCustomPrice
                 .taxIncluded(getTaxIncluded())
                 .pricingScheme(getPricingScheme())
                 .interval(getInterval())
+                .useDefaultListPrice(getUseDefaultListPrice())
                 .renewPrepaidAllocation(getRenewPrepaidAllocation())
                 .rolloverPrepaidRemainder(getRolloverPrepaidRemainder());
         builder.intervalUnit = internalGetIntervalUnit();
+        builder.listPricePointId = internalGetListPricePointId();
         builder.expirationInterval = internalGetExpirationInterval();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
         return builder;
@@ -400,6 +482,8 @@ public class ComponentCustomPrice
         private PricingScheme pricingScheme;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
+        private OptionalNullable<Integer> listPricePointId;
+        private Boolean useDefaultListPrice;
         private Boolean renewPrepaidAllocation;
         private Boolean rolloverPrepaidRemainder;
         private OptionalNullable<Integer> expirationInterval;
@@ -479,6 +563,35 @@ public class ComponentCustomPrice
         }
 
         /**
+         * Setter for listPricePointId.
+         * @param  listPricePointId  Integer value for listPricePointId.
+         * @return Builder
+         */
+        public Builder listPricePointId(Integer listPricePointId) {
+            this.listPricePointId = OptionalNullable.of(listPricePointId);
+            return this;
+        }
+
+        /**
+         * UnSetter for listPricePointId.
+         * @return Builder
+         */
+        public Builder unsetListPricePointId() {
+            listPricePointId = null;
+            return this;
+        }
+
+        /**
+         * Setter for useDefaultListPrice.
+         * @param  useDefaultListPrice  Boolean value for useDefaultListPrice.
+         * @return Builder
+         */
+        public Builder useDefaultListPrice(Boolean useDefaultListPrice) {
+            this.useDefaultListPrice = useDefaultListPrice;
+            return this;
+        }
+
+        /**
          * Setter for renewPrepaidAllocation.
          * @param  renewPrepaidAllocation  Boolean value for renewPrepaidAllocation.
          * @return Builder
@@ -542,8 +655,8 @@ public class ComponentCustomPrice
          */
         public ComponentCustomPrice build() {
             return new ComponentCustomPrice(prices, taxIncluded, pricingScheme, interval,
-                    intervalUnit, renewPrepaidAllocation, rolloverPrepaidRemainder,
-                    expirationInterval, expirationIntervalUnit);
+                    intervalUnit, listPricePointId, useDefaultListPrice, renewPrepaidAllocation,
+                    rolloverPrepaidRemainder, expirationInterval, expirationIntervalUnit);
         }
     }
 }

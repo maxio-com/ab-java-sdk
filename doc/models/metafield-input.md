@@ -11,8 +11,8 @@ Indicates the type of metafield. A text metafield allows any string value. Dropd
 
 | Name |
 |  --- |
-| `BalanceTracker` |
-| `Text` |
-| `Radio` |
-| `Dropdown` |
+| `BALANCE_TRACKER` |
+| `TEXT` |
+| `RADIO` |
+| `DROPDOWN` |
 

@@ -11,6 +11,6 @@ Indicates how a trial is handled when the trail period ends and there is no cred
 
 | Name |
 |  --- |
-| `NoObligation` |
-| `PaymentExpected` |
+| `NO_OBLIGATION` |
+| `PAYMENT_EXPECTED` |
 

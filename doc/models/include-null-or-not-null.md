@@ -11,8 +11,8 @@ Allows to filter by `not_null` or `null`.
 
 | Name |
 |  --- |
-| `NotNull` |
-| `Null` |
+| `NOT_NULL` |
+| `ENUM_NULL` |
 
 ## Example
 

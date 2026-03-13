@@ -15,7 +15,7 @@ Action taken when payment for an invoice fails:
 
 | Name |
 |  --- |
-| `LeaveOpenInvoice` |
-| `RollbackToPending` |
-| `InitiateDunning` |
+| `LEAVE_OPEN_INVOICE` |
+| `ROLLBACK_TO_PENDING` |
+| `INITIATE_DUNNING` |
 

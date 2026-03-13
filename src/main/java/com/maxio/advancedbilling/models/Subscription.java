@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
-import com.maxio.advancedbilling.models.containers.SubscriptionSnapDay;
 import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 import java.time.ZonedDateTime;
@@ -47,7 +46,7 @@ public class Subscription
     private String signupRevenue;
     private OptionalNullable<ZonedDateTime> delayedCancelAt;
     private OptionalNullable<String> couponCode;
-    private OptionalNullable<SubscriptionSnapDay> snapDay;
+    private OptionalNullable<String> snapDay;
     private CollectionMethod paymentCollectionMethod;
     private Customer customer;
     private Product product;
@@ -118,7 +117,7 @@ public class Subscription
      * @param  signupRevenue  String value for signupRevenue.
      * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
      * @param  couponCode  String value for couponCode.
-     * @param  snapDay  SubscriptionSnapDay value for snapDay.
+     * @param  snapDay  String value for snapDay.
      * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
@@ -183,7 +182,7 @@ public class Subscription
             String signupRevenue,
             ZonedDateTime delayedCancelAt,
             String couponCode,
-            SubscriptionSnapDay snapDay,
+            String snapDay,
             CollectionMethod paymentCollectionMethod,
             Customer customer,
             Product product,
@@ -312,7 +311,7 @@ public class Subscription
      * @param  signupRevenue  String value for signupRevenue.
      * @param  delayedCancelAt  ZonedDateTime value for delayedCancelAt.
      * @param  couponCode  String value for couponCode.
-     * @param  snapDay  SubscriptionSnapDay value for snapDay.
+     * @param  snapDay  String value for snapDay.
      * @param  paymentCollectionMethod  CollectionMethod value for paymentCollectionMethod.
      * @param  customer  Customer value for customer.
      * @param  product  Product value for product.
@@ -368,7 +367,7 @@ public class Subscription
             OptionalNullable<ZonedDateTime> currentPeriodStartedAt, SubscriptionState previousState,
             Integer signupPaymentId, String signupRevenue,
             OptionalNullable<ZonedDateTime> delayedCancelAt, OptionalNullable<String> couponCode,
-            OptionalNullable<SubscriptionSnapDay> snapDay, CollectionMethod paymentCollectionMethod,
+            OptionalNullable<String> snapDay, CollectionMethod paymentCollectionMethod,
             Customer customer, Product product, CreditCardPaymentProfile creditCard,
             OptionalNullable<NestedSubscriptionGroup> group, BankAccountPaymentProfile bankAccount,
             OptionalNullable<String> paymentType, OptionalNullable<String> referralCode,
@@ -1339,42 +1338,38 @@ public class Subscription
 
     /**
      * Internal Getter for SnapDay.
-     * The day of the month that the subscription will charge according to calendar billing rules,
-     * if used.
-     * @return Returns the Internal SubscriptionSnapDay
+     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
+     * @return Returns the Internal String
      */
     @JsonGetter("snap_day")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<SubscriptionSnapDay> internalGetSnapDay() {
+    protected OptionalNullable<String> internalGetSnapDay() {
         return this.snapDay;
     }
 
     /**
      * Getter for SnapDay.
-     * The day of the month that the subscription will charge according to calendar billing rules,
-     * if used.
-     * @return Returns the SubscriptionSnapDay
+     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
+     * @return Returns the String
      */
-    public SubscriptionSnapDay getSnapDay() {
+    public String getSnapDay() {
         return OptionalNullable.getFrom(snapDay);
     }
 
     /**
      * Setter for SnapDay.
-     * The day of the month that the subscription will charge according to calendar billing rules,
-     * if used.
-     * @param snapDay Value for SubscriptionSnapDay
+     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
+     * @param snapDay Value for String
      */
     @JsonSetter("snap_day")
-    public void setSnapDay(SubscriptionSnapDay snapDay) {
+    public void setSnapDay(String snapDay) {
         this.snapDay = OptionalNullable.of(snapDay);
     }
 
     /**
      * UnSetter for SnapDay.
-     * The day of the month that the subscription will charge according to calendar billing rules,
-     * if used.
+     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
      */
     public void unsetSnapDay() {
         snapDay = null;
@@ -1768,7 +1763,7 @@ public class Subscription
 
     /**
      * Internal Getter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      * @return Returns the Internal String
      */
     @JsonGetter("reason_code")
@@ -1780,7 +1775,7 @@ public class Subscription
 
     /**
      * Getter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      * @return Returns the String
      */
     public String getReasonCode() {
@@ -1789,7 +1784,7 @@ public class Subscription
 
     /**
      * Setter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      * @param reasonCode Value for String
      */
     @JsonSetter("reason_code")
@@ -1799,7 +1794,7 @@ public class Subscription
 
     /**
      * UnSetter for ReasonCode.
-     * If the subscription is canceled, this is their churn code.
+     * The churn reason code associated to a cancelled subscription.
      */
     public void unsetReasonCode() {
         reasonCode = null;
@@ -2150,7 +2145,7 @@ public class Subscription
 
     /**
      * Internal Getter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      * @return Returns the Internal String
      */
     @JsonGetter("reference")
@@ -2162,7 +2157,7 @@ public class Subscription
 
     /**
      * Getter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      * @return Returns the String
      */
     public String getReference() {
@@ -2171,7 +2166,7 @@ public class Subscription
 
     /**
      * Setter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      * @param reference Value for String
      */
     @JsonSetter("reference")
@@ -2181,7 +2176,7 @@ public class Subscription
 
     /**
      * UnSetter for Reference.
-     * The reference value (provided by your app) for the subscription itelf.
+     * The reference value (provided by your app) for the subscription istelf.
      */
     public void unsetReference() {
         reference = null;
@@ -2701,7 +2696,7 @@ public class Subscription
         private String signupRevenue;
         private OptionalNullable<ZonedDateTime> delayedCancelAt;
         private OptionalNullable<String> couponCode;
-        private OptionalNullable<SubscriptionSnapDay> snapDay;
+        private OptionalNullable<String> snapDay;
         private CollectionMethod paymentCollectionMethod;
         private Customer customer;
         private Product product;
@@ -3101,10 +3096,10 @@ public class Subscription
 
         /**
          * Setter for snapDay.
-         * @param  snapDay  SubscriptionSnapDay value for snapDay.
+         * @param  snapDay  String value for snapDay.
          * @return Builder
          */
-        public Builder snapDay(SubscriptionSnapDay snapDay) {
+        public Builder snapDay(String snapDay) {
             this.snapDay = OptionalNullable.of(snapDay);
             return this;
         }

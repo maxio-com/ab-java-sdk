@@ -15,6 +15,7 @@ ProformaInvoicesController proformaInvoicesController = client.getProformaInvoic
 * [Read Proforma Invoice](../../doc/controllers/proforma-invoices.md#read-proforma-invoice)
 * [Create Proforma Invoice](../../doc/controllers/proforma-invoices.md#create-proforma-invoice)
 * [List Proforma Invoices](../../doc/controllers/proforma-invoices.md#list-proforma-invoices)
+* [Deliver Proforma Invoice](../../doc/controllers/proforma-invoices.md#deliver-proforma-invoice)
 * [Void Proforma Invoice](../../doc/controllers/proforma-invoices.md#void-proforma-invoice)
 * [Preview Proforma Invoice](../../doc/controllers/proforma-invoices.md#preview-proforma-invoice)
 * [Create Signup Proforma Invoice](../../doc/controllers/proforma-invoices.md#create-signup-proforma-invoice)
@@ -53,9 +54,9 @@ String uid = "uid0";
 
 try {
     proformaInvoicesController.createConsolidatedProformaInvoice(uid);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -82,13 +83,7 @@ ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `uid` | `String` | Template, Required | The uid of the subscription group |
-| `lineItems` | `Boolean` | Query, Optional | Include line items data<br><br>**Default**: `false` |
-| `discounts` | `Boolean` | Query, Optional | Include discounts data<br><br>**Default**: `false` |
-| `taxes` | `Boolean` | Query, Optional | Include taxes data<br><br>**Default**: `false` |
-| `credits` | `Boolean` | Query, Optional | Include credits data<br><br>**Default**: `false` |
-| `payments` | `Boolean` | Query, Optional | Include payments data<br><br>**Default**: `false` |
-| `customFields` | `Boolean` | Query, Optional | Include custom fields data<br><br>**Default**: `false` |
+| `input` | [`ListSubscriptionGroupProformaInvoicesInput`](../../doc/models/list-subscription-group-proforma-invoices-input.md) | Required | Input structure for the method ListSubscriptionGroupProformaInvoices |
 
 ## Response Type
 
@@ -112,8 +107,6 @@ try {
     ListProformaInvoicesResponse result = proformaInvoicesController.listSubscriptionGroupProformaInvoices(listSubscriptionGroupProformaInvoicesInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -158,8 +151,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -189,7 +180,7 @@ ProformaInvoice createProformaInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -203,9 +194,9 @@ int subscriptionId = 222;
 try {
     ProformaInvoice result = proformaInvoicesController.createProformaInvoice(subscriptionId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -230,19 +221,7 @@ ListProformaInvoicesResponse listProformaInvoices(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
-| `startDate` | `String` | Query, Optional | The beginning date range for the invoice's Due Date, in the YYYY-MM-DD format. |
-| `endDate` | `String` | Query, Optional | The ending date range for the invoice's Due Date, in the YYYY-MM-DD format. |
-| `status` | [`ProformaInvoiceStatus`](../../doc/models/proforma-invoice-status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br><br>**Default**: `Direction.DESC` |
-| `lineItems` | `Boolean` | Query, Optional | Include line items data<br><br>**Default**: `false` |
-| `discounts` | `Boolean` | Query, Optional | Include discounts data<br><br>**Default**: `false` |
-| `taxes` | `Boolean` | Query, Optional | Include taxes data<br><br>**Default**: `false` |
-| `credits` | `Boolean` | Query, Optional | Include credits data<br><br>**Default**: `false` |
-| `payments` | `Boolean` | Query, Optional | Include payments data<br><br>**Default**: `false` |
-| `customFields` | `Boolean` | Query, Optional | Include custom fields data<br><br>**Default**: `false` |
+| `input` | [`ListProformaInvoicesInput`](../../doc/models/list-proforma-invoices-input.md) | Required | Input structure for the method ListProformaInvoices |
 
 ## Response Type
 
@@ -270,10 +249,68 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
+}
+```
+
+
+# Deliver Proforma Invoice
+
+Allows for proforma invoices to be programmatically delivered via email. Supports email
+delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
+
+If `recipient_emails` is omitted, the system will fall back to the primary recipient derived from the invoice or
+subscription. At least one recipient must be present, either via the request body or via this default behavior, so an
+empty body may still succeed when defaults are available.
+
+```java
+ProformaInvoice deliverProformaInvoice(
+    final String proformaInvoiceUid,
+    final DeliverProformaInvoiceRequest body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `proformaInvoiceUid` | `String` | Template, Required | The uid of the proforma invoice |
+| `body` | [`DeliverProformaInvoiceRequest`](../../doc/models/deliver-proforma-invoice-request.md) | Body, Optional | - |
+
+## Response Type
+
+[`ProformaInvoice`](../../doc/models/proforma-invoice.md)
+
+## Example Usage
+
+```java
+String proformaInvoiceUid = "proforma_invoice_uid4";
+DeliverProformaInvoiceRequest body = new DeliverProformaInvoiceRequest.Builder()
+    .recipientEmails(Arrays.asList(
+        "user0@example.com"
+    ))
+    .ccRecipientEmails(Arrays.asList(
+        "user1@example.com"
+    ))
+    .bccRecipientEmails(Arrays.asList(
+        "user2@example.com"
+    ))
+    .build();
+
+try {
+    ProformaInvoice result = proformaInvoicesController.deliverProformaInvoice(proformaInvoiceUid, body);
+    System.out.println(result);
+} catch (ErrorListResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 404 | Not Found | `ApiException` |
+| 422 | Unprocessable Entity (WebDAV) | [`ErrorListResponseException`](../../doc/models/error-list-response-exception.md) |
 
 
 # Void Proforma Invoice
@@ -312,9 +349,9 @@ String proformaInvoiceUid = "proforma_invoice_uid4";
 try {
     ProformaInvoice result = proformaInvoicesController.voidProformaInvoice(proformaInvoiceUid, null);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -346,7 +383,7 @@ ProformaInvoice previewProformaInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
 
@@ -360,9 +397,9 @@ int subscriptionId = 222;
 try {
     ProformaInvoice result = proformaInvoicesController.previewProformaInvoice(subscriptionId);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -418,9 +455,11 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
 try {
     ProformaInvoice result = proformaInvoicesController.createSignupProformaInvoice(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ProformaBadRequestErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ErrorArrayMapResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -478,9 +517,11 @@ CreateSubscriptionRequest body = new CreateSubscriptionRequest.Builder(
 try {
     SignupProformaPreviewResponse result = proformaInvoicesController.previewSignupProformaInvoice(null, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ProformaBadRequestErrorResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ErrorArrayMapResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

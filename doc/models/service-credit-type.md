@@ -11,6 +11,6 @@ The type of entry
 
 | Name |
 |  --- |
-| `Credit` |
-| `Debit` |
+| `CREDIT` |
+| `DEBIT` |
 

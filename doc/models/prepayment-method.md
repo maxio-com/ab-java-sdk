@@ -9,11 +9,11 @@
 
 | Name |
 |  --- |
-| `Check` |
-| `Cash` |
-| `MoneyOrder` |
-| `Ach` |
-| `PaypalAccount` |
-| `CreditCard` |
-| `Other` |
+| `CHECK` |
+| `CASH` |
+| `MONEY_ORDER` |
+| `ACH` |
+| `PAYPAL_ACCOUNT` |
+| `CREDIT_CARD` |
+| `OTHER` |
 

@@ -9,6 +9,6 @@
 
 | Name | Description |
 |  --- | --- |
-| `No` | Do not send the invitation email. |
-| `Yes` | Automatically send the invitation email. |
+| `NO` | Do not send the invitation email. |
+| `YES` | Automatically send the invitation email. |
 

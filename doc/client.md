@@ -6,7 +6,7 @@ The following parameters are configurable for the API Client:
 | Parameter | Type | Description |
 |  --- | --- | --- |
 | site | `String` | The subdomain for your Advanced Billing site.<br>*Default*: `"subdomain"` |
-| environment | `Environment` | The API environment. <br> **Default: `Environment.US`** |
+| environment | [`Environment`](../README.md#environments) | The API environment. <br> **Default: `Environment.US`** |
 | httpClientConfig | [`Consumer<HttpClientConfiguration.Builder>`](../doc/http-client-configuration-builder.md) | Set up Http Client Configuration instance. |
 | basicAuthCredentials | [`BasicAuthCredentials`](auth/basic-authentication.md) | The Credentials Setter for Basic Authentication |
 
@@ -17,7 +17,6 @@ import com.maxio.advancedbilling.AdvancedBillingClient;
 import com.maxio.advancedbilling.Environment;
 import com.maxio.advancedbilling.authentication.BasicAuthModel;
 import com.maxio.advancedbilling.exceptions.ApiException;
-import java.io.IOException;
 
 public class Program {
     public static void main(String[] args) {
@@ -75,6 +74,7 @@ The gateway for the SDK. This class acts as a factory for the Controllers and al
 | `getSubscriptionInvoiceAccountController()` | Provides access to SubscriptionInvoiceAccount controller. | `SubscriptionInvoiceAccountController` |
 | `getSubscriptionNotesController()` | Provides access to SubscriptionNotes controller. | `SubscriptionNotesController` |
 | `getSubscriptionProductsController()` | Provides access to SubscriptionProducts controller. | `SubscriptionProductsController` |
+| `getSubscriptionRenewalsController()` | Provides access to SubscriptionRenewals controller. | `SubscriptionRenewalsController` |
 | `getSubscriptionStatusController()` | Provides access to SubscriptionStatus controller. | `SubscriptionStatusController` |
 | `getWebhooksController()` | Provides access to Webhooks controller. | `WebhooksController` |
 

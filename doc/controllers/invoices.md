@@ -78,9 +78,9 @@ RefundInvoiceRequest body = new RefundInvoiceRequest.Builder(
 try {
     Invoice result = invoicesController.refundInvoice(uid, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -105,29 +105,7 @@ ListInvoicesResponse listInvoices(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `startDate` | `String` | Query, Optional | The start date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp at or after midnight (12:00:00 AM) in your site’s time zone on the date specified. |
-| `endDate` | `String` | Query, Optional | The end date (format YYYY-MM-DD) with which to filter the date_field. Returns invoices with a timestamp up to and including 11:59:59PM in your site’s time zone on the date specified. |
-| `status` | [`InvoiceStatus`](../../doc/models/invoice-status.md) | Query, Optional | The current status of the invoice.  Allowed Values: draft, open, paid, pending, voided |
-| `subscriptionId` | `Integer` | Query, Optional | The subscription's ID. |
-| `subscriptionGroupUid` | `String` | Query, Optional | The UID of the subscription group you want to fetch consolidated invoices for. This will return a paginated list of consolidated invoices for the specified group. |
-| `consolidationLevel` | `String` | Query, Optional | The consolidation level of the invoice. Allowed Values: none, parent, child or comma-separated lists of thereof, e.g. none,parent. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | The sort direction of the returned invoices.<br><br>**Default**: `Direction.DESC` |
-| `lineItems` | `Boolean` | Query, Optional | Include line items data<br><br>**Default**: `false` |
-| `discounts` | `Boolean` | Query, Optional | Include discounts data<br><br>**Default**: `false` |
-| `taxes` | `Boolean` | Query, Optional | Include taxes data<br><br>**Default**: `false` |
-| `credits` | `Boolean` | Query, Optional | Include credits data<br><br>**Default**: `false` |
-| `payments` | `Boolean` | Query, Optional | Include payments data<br><br>**Default**: `false` |
-| `customFields` | `Boolean` | Query, Optional | Include custom fields data<br><br>**Default**: `false` |
-| `refunds` | `Boolean` | Query, Optional | Include refunds data<br><br>**Default**: `false` |
-| `dateField` | [`InvoiceDateField`](../../doc/models/invoice-date-field.md) | Query, Optional | The type of filter you would like to apply to your search. Use in query `date_field=issue_date`.<br><br>**Default**: `InvoiceDateField.DUE_DATE` |
-| `startDatetime` | `String` | Query, Optional | The start date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or after exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of start_date. Allowed to be used only along with date_field set to created_at or updated_at. |
-| `endDatetime` | `String` | Query, Optional | The end date and time (format YYYY-MM-DD HH:MM:SS) with which to filter the date_field. Returns invoices with a timestamp at or before exact time provided in query. You can specify timezone in query - otherwise your site's time zone will be used. If provided, this parameter will be used instead of end_date. Allowed to be used only along with date_field set to created_at or updated_at. |
-| `customerIds` | `List<Integer>` | Query, Optional | Allows fetching invoices with matching customer id based on provided values. Use in query `customer_ids=1,2,3`. |
-| `number` | `List<String>` | Query, Optional | Allows fetching invoices with matching invoice number based on provided values. Use in query `number=1234,1235`. |
-| `productIds` | `List<Integer>` | Query, Optional | Allows fetching invoices with matching line items product ids based on provided values. Use in query `product_ids=23,34`. |
-| `sort` | [`InvoiceSortField`](../../doc/models/invoice-sort-field.md) | Query, Optional | Allows specification of the order of the returned list. Use in query `sort=total_amount`.<br><br>**Default**: `InvoiceSortField.NUMBER` |
+| `input` | [`ListInvoicesInput`](../../doc/models/list-invoices-input.md) | Required | Input structure for the method ListInvoices |
 
 ## Response Type
 
@@ -168,8 +146,6 @@ try {
     ListInvoicesResponse result = invoicesController.listInvoices(listInvoicesInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -490,8 +466,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -641,13 +615,7 @@ ListInvoiceEventsResponse listInvoiceEvents(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `sinceDate` | `String` | Query, Optional | The timestamp in a format `YYYY-MM-DD T HH:MM:SS Z`, or `YYYY-MM-DD`(in this case, it returns data from the beginning of the day). of the event from which you want to start the search. All the events before the `since_date` timestamp are not returned in the response. |
-| `sinceId` | `Long` | Query, Optional | The ID of the event from which you want to start the search(ID is not included. e.g. if ID is set to 2, then all events with ID 3 and more will be shown) This parameter is not used if since_date is defined. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br><br>**Default**: `100` |
-| `invoiceUid` | `String` | Query, Optional | Providing an invoice_uid allows for scoping of the invoice events to a single invoice or credit note. |
-| `withChangeInvoiceStatus` | `String` | Query, Optional | Use this parameter if you want to fetch also invoice events with change_invoice_status type. |
-| `eventTypes` | [`List<InvoiceEventType>`](../../doc/models/invoice-event-type.md) | Query, Optional | Filter results by event_type. Supply a comma separated list of event types (listed above). Use in query: `event_types=void_invoice,void_remainder`. |
+| `input` | [`ListInvoiceEventsInput`](../../doc/models/list-invoice-events-input.md) | Required | Input structure for the method ListInvoiceEvents |
 
 ## Response Type
 
@@ -665,8 +633,6 @@ try {
     ListInvoiceEventsResponse result = invoicesController.listInvoiceEvents(listInvoiceEventsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -1095,9 +1061,9 @@ CreateInvoicePaymentRequest body = new CreateInvoicePaymentRequest.Builder(
 try {
     Invoice result = invoicesController.recordPaymentForInvoice(uid, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1184,9 +1150,9 @@ CreateMultiInvoicePaymentRequest body = new CreateMultiInvoicePaymentRequest.Bui
 try {
     MultiInvoicePaymentResponse result = invoicesController.recordPaymentForMultipleInvoices(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -1237,14 +1203,7 @@ ListCreditNotesResponse listCreditNotes(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `Integer` | Query, Optional | The subscription's Advanced Billing id |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `lineItems` | `Boolean` | Query, Optional | Include line items data<br><br>**Default**: `false` |
-| `discounts` | `Boolean` | Query, Optional | Include discounts data<br><br>**Default**: `false` |
-| `taxes` | `Boolean` | Query, Optional | Include taxes data<br><br>**Default**: `false` |
-| `refunds` | `Boolean` | Query, Optional | Include refunds data<br><br>**Default**: `false` |
-| `applications` | `Boolean` | Query, Optional | Include applications data<br><br>**Default**: `false` |
+| `input` | [`ListCreditNotesInput`](../../doc/models/list-credit-notes-input.md) | Required | Input structure for the method ListCreditNotes |
 
 ## Response Type
 
@@ -1267,8 +1226,6 @@ try {
     ListCreditNotesResponse result = invoicesController.listCreditNotes(listCreditNotesInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -1604,8 +1561,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -1939,7 +1894,7 @@ RecordPaymentResponse recordPaymentForSubscription(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`RecordPaymentRequest`](../../doc/models/record-payment-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -1964,9 +1919,9 @@ RecordPaymentRequest body = new RecordPaymentRequest.Builder(
 try {
     RecordPaymentResponse result = invoicesController.recordPaymentForSubscription(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -2038,9 +1993,9 @@ String uid = "uid0";
 try {
     Invoice result = invoicesController.reopenInvoice(uid);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -2089,9 +2044,9 @@ VoidInvoiceRequest body = new VoidInvoiceRequest.Builder(
 try {
     Invoice result = invoicesController.voidInvoice(uid, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -2117,10 +2072,7 @@ ConsolidatedInvoice listConsolidatedInvoiceSegments(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `invoiceUid` | `String` | Template, Required | The unique identifier of the consolidated invoice |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `direction` | [`Direction`](../../doc/models/direction.md) | Query, Optional | Sort direction of the returned segments.<br><br>**Default**: `Direction.ASC` |
+| `input` | [`ListConsolidatedInvoiceSegmentsInput`](../../doc/models/list-consolidated-invoice-segments-input.md) | Required | Input structure for the method ListConsolidatedInvoiceSegments |
 
 ## Response Type
 
@@ -2141,8 +2093,6 @@ try {
     ConsolidatedInvoice result = invoicesController.listConsolidatedInvoiceSegments(listConsolidatedInvoiceSegmentsInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -2641,7 +2591,7 @@ InvoiceResponse createInvoice(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription |
+| `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 | `body` | [`CreateInvoiceRequest`](../../doc/models/create-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
@@ -2672,9 +2622,9 @@ CreateInvoiceRequest body = new CreateInvoiceRequest.Builder(
 try {
     InvoiceResponse result = invoicesController.createInvoice(subscriptionId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorArrayMapResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -2787,6 +2737,8 @@ try {
 
 This endpoint allows for invoices to be programmatically delivered via email. This endpoint supports the delivery of both ad-hoc and automatically generated invoices. Additionally, this endpoint supports email delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients.
 
+**File Attachments**: You can attach files to invoice emails using `attachment_urls[]` parameter by providing URLs to the files you want to attach. When using attachments, the request must use `multipart/form-data` content type. Max 10 files, 10MB per file.
+
 If no recipient email addresses are specified in the request, then the subscription's default email configuration will be used. For example, if `recipient_emails` is left blank, then the invoice will be delivered to the subscription's customer email address.
 
 On success, a 204 no-content response will be returned. The response does not indicate that email(s) have been delivered, but instead indicates that emails have been successfully queued for delivery. If _any_ invalid or malformed email address is found in the request body, the entire request will be rejected and a 422 response will be returned.
@@ -2826,9 +2778,9 @@ SendInvoiceRequest body = new SendInvoiceRequest.Builder()
 
 try {
     invoicesController.sendInvoice(uid, body);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -2869,9 +2821,9 @@ String uid = "uid0";
 try {
     CustomerChangesPreviewResponse result = invoicesController.previewCustomerInformationChanges(uid);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -2966,9 +2918,9 @@ String uid = "uid0";
 try {
     Invoice result = invoicesController.updateCustomerInformation(uid);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -3171,7 +3123,7 @@ try {
 
 # Issue Invoice
 
-This endpoint allows you to issue an invoice that is in "pending" status. For example, you can issue an invoice that was created when allocating new quantity on a component and using "accrue charges" option.
+This endpoint allows you to issue an invoice that is in "pending" or "draft" status. For example, you can issue an invoice that was created when allocating new quantity on a component and using "accrue charges" option.
 
 You cannot issue a pending child invoice that was created for a member subscription in a group.
 
@@ -3211,9 +3163,9 @@ IssueInvoiceRequest body = new IssueInvoiceRequest.Builder()
 try {
     Invoice result = invoicesController.issueInvoice(uid, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

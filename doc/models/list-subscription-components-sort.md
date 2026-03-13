@@ -9,8 +9,8 @@
 
 | Name |
 |  --- |
-| `Id` |
-| `UpdatedAt` |
+| `ID` |
+| `UPDATED_AT` |
 
 ## Example
 

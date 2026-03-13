@@ -9,17 +9,15 @@ package com.maxio.advancedbilling.models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.models.containers.CalendarBillingSnapDay;
 import io.apimatic.core.types.BaseModel;
-import io.apimatic.core.types.OptionalNullable;
 
 /**
  * This is a model class for CalendarBilling type.
  */
 public class CalendarBilling
         extends BaseModel {
-    private OptionalNullable<CalendarBillingSnapDay> snapDay;
+    private CalendarBillingSnapDay snapDay;
     private FirstChargeType calendarBillingFirstCharge;
 
     /**
@@ -36,32 +34,8 @@ public class CalendarBilling
     public CalendarBilling(
             CalendarBillingSnapDay snapDay,
             FirstChargeType calendarBillingFirstCharge) {
-        this.snapDay = OptionalNullable.of(snapDay);
-        this.calendarBillingFirstCharge = calendarBillingFirstCharge;
-    }
-
-    /**
-     * Initialization constructor.
-     * @param  snapDay  CalendarBillingSnapDay value for snapDay.
-     * @param  calendarBillingFirstCharge  FirstChargeType value for calendarBillingFirstCharge.
-     */
-
-    protected CalendarBilling(OptionalNullable<CalendarBillingSnapDay> snapDay,
-            FirstChargeType calendarBillingFirstCharge) {
         this.snapDay = snapDay;
         this.calendarBillingFirstCharge = calendarBillingFirstCharge;
-    }
-
-    /**
-     * Internal Getter for SnapDay.
-     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
-     * @return Returns the Internal CalendarBillingSnapDay
-     */
-    @JsonGetter("snap_day")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<CalendarBillingSnapDay> internalGetSnapDay() {
-        return this.snapDay;
     }
 
     /**
@@ -69,8 +43,10 @@ public class CalendarBilling
      * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
      * @return Returns the CalendarBillingSnapDay
      */
+    @JsonGetter("snap_day")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CalendarBillingSnapDay getSnapDay() {
-        return OptionalNullable.getFrom(snapDay);
+        return snapDay;
     }
 
     /**
@@ -80,15 +56,7 @@ public class CalendarBilling
      */
     @JsonSetter("snap_day")
     public void setSnapDay(CalendarBillingSnapDay snapDay) {
-        this.snapDay = OptionalNullable.of(snapDay);
-    }
-
-    /**
-     * UnSetter for SnapDay.
-     * A day of month that subscription will be processed on. Can be 1 up to 28 or 'end'.
-     */
-    public void unsetSnapDay() {
-        snapDay = null;
+        this.snapDay = snapDay;
     }
 
     /**
@@ -128,8 +96,8 @@ public class CalendarBilling
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
+                .snapDay(getSnapDay())
                 .calendarBillingFirstCharge(getCalendarBillingFirstCharge());
-        builder.snapDay = internalGetSnapDay();
         return builder;
     }
 
@@ -137,7 +105,7 @@ public class CalendarBilling
      * Class to build instances of {@link CalendarBilling}.
      */
     public static class Builder {
-        private OptionalNullable<CalendarBillingSnapDay> snapDay;
+        private CalendarBillingSnapDay snapDay;
         private FirstChargeType calendarBillingFirstCharge;
 
 
@@ -148,16 +116,7 @@ public class CalendarBilling
          * @return Builder
          */
         public Builder snapDay(CalendarBillingSnapDay snapDay) {
-            this.snapDay = OptionalNullable.of(snapDay);
-            return this;
-        }
-
-        /**
-         * UnSetter for snapDay.
-         * @return Builder
-         */
-        public Builder unsetSnapDay() {
-            snapDay = null;
+            this.snapDay = snapDay;
             return this;
         }
 

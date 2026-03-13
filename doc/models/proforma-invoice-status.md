@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `Draft` |
-| `Voided` |
-| `Archived` |
+| `DRAFT` |
+| `VOIDED` |
+| `ARCHIVED` |
 

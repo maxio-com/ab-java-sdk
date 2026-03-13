@@ -9,7 +9,7 @@
 
 | Name |
 |  --- |
-| `None` |
-| `Credit` |
-| `Refund` |
+| `NONE` |
+| `CREDIT` |
+| `REFUND` |
 

@@ -31,13 +31,7 @@ List<WebhookResponse> listWebhooks(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `status` | [`WebhookStatus`](../../doc/models/webhook-status.md) | Query, Optional | Webhooks with matching status would be returned. |
-| `sinceDate` | `String` | Query, Optional | Format YYYY-MM-DD. Returns Webhooks with the created_at date greater than or equal to the one specified. |
-| `untilDate` | `String` | Query, Optional | Format YYYY-MM-DD. Returns Webhooks with the created_at date less than or equal to the one specified. |
-| `page` | `Integer` | Query, Optional | Result records are organized in pages. By default, the first page of results is displayed. The page parameter specifies a page number of results to fetch. You can start navigating through the pages to consume the results. You do this by passing in a page parameter. Retrieve the next page by adding ?page=2 to the query string. If there are no results to return, then an empty result set will be returned.<br>Use in query `page=1`.<br><br>**Default**: `1`<br><br>**Constraints**: `>= 1` |
-| `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 20. The maximum allowed values is 200; any per_page value over 200 will be changed to 200.<br>Use in query `per_page=200`.<br><br>**Default**: `20`<br><br>**Constraints**: `<= 200` |
-| `order` | [`WebhookOrder`](../../doc/models/webhook-order.md) | Query, Optional | The order in which the Webhooks are returned. |
-| `subscription` | `Integer` | Query, Optional | The Advanced Billing id of a subscription you'd like to filter for |
+| `input` | [`ListWebhooksInput`](../../doc/models/list-webhooks-input.md) | Required | Input structure for the method ListWebhooks |
 
 ## Response Type
 
@@ -55,8 +49,6 @@ try {
     List<WebhookResponse> result = webhooksController.listWebhooks(listWebhooksInput);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -133,8 +125,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     e.printStackTrace();
-} catch (IOException e) {
-    e.printStackTrace();
 }
 ```
 
@@ -181,8 +171,6 @@ try {
     ReplayWebhooksResponse result = webhooksController.replayWebhooks(body);
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -234,9 +222,9 @@ CreateOrUpdateEndpointRequest body = new CreateOrUpdateEndpointRequest.Builder(
 try {
     EndpointResponse result = webhooksController.createEndpoint(body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```
@@ -284,8 +272,6 @@ try {
     List<Endpoint> result = webhooksController.listEndpoints();
     System.out.println(result);
 } catch (ApiException e) {
-    e.printStackTrace();
-} catch (IOException e) {
     e.printStackTrace();
 }
 ```
@@ -364,9 +350,9 @@ CreateOrUpdateEndpointRequest body = new CreateOrUpdateEndpointRequest.Builder(
 try {
     EndpointResponse result = webhooksController.updateEndpoint(endpointId, body);
     System.out.println(result);
-} catch (ApiException e) {
+} catch (ErrorListResponseException e) {
     e.printStackTrace();
-} catch (IOException e) {
+} catch (ApiException e) {
     e.printStackTrace();
 }
 ```

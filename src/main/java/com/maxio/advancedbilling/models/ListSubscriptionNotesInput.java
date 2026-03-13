@@ -43,7 +43,7 @@ public class ListSubscriptionNotesInput {
 
     /**
      * Getter for SubscriptionId.
-     * The Chargify id of the subscription
+     * The Chargify id of the subscription.
      * @return Returns the int
      */
     @JsonGetter("subscription_id")
@@ -53,7 +53,7 @@ public class ListSubscriptionNotesInput {
 
     /**
      * Setter for SubscriptionId.
-     * The Chargify id of the subscription
+     * The Chargify id of the subscription.
      * @param subscriptionId Value for int
      */
     @JsonSetter("subscription_id")

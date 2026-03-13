@@ -11,14 +11,14 @@ A handle for the line item kind
 
 | Name |
 |  --- |
-| `Baseline` |
-| `Initial` |
-| `Trial` |
-| `QuantityBasedComponent` |
-| `PrepaidUsageComponent` |
-| `OnOffComponent` |
-| `MeteredComponent` |
-| `EventBasedComponent` |
-| `Coupon` |
-| `Tax` |
+| `BASELINE` |
+| `INITIAL` |
+| `TRIAL` |
+| `QUANTITY_BASED_COMPONENT` |
+| `PREPAID_USAGE_COMPONENT` |
+| `ON_OFF_COMPONENT` |
+| `METERED_COMPONENT` |
+| `EVENT_BASED_COMPONENT` |
+| `COUPON` |
+| `TAX` |
 

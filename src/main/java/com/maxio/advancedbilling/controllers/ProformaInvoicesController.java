@@ -15,6 +15,7 @@ import com.maxio.advancedbilling.exceptions.ProformaBadRequestErrorResponseExcep
 import com.maxio.advancedbilling.http.request.HttpMethod;
 import com.maxio.advancedbilling.models.CreateSignupProformaPreviewInclude;
 import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
+import com.maxio.advancedbilling.models.DeliverProformaInvoiceRequest;
 import com.maxio.advancedbilling.models.ListProformaInvoicesInput;
 import com.maxio.advancedbilling.models.ListProformaInvoicesResponse;
 import com.maxio.advancedbilling.models.ListSubscriptionGroupProformaInvoicesInput;
@@ -186,7 +187,7 @@ public final class ProformaInvoicesController extends BaseController {
      * renewal preview endpoint. ## Restrictions Proforma invoices are only available on
      * Relationship Invoicing sites. To create a proforma invoice, the subscription must not be in a
      * group, must not be prepaid, and must be in a live state.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -289,6 +290,61 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
+     * Allows for proforma invoices to be programmatically delivered via email. Supports email
+     * delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc)
+     * recipients. If `recipient_emails` is omitted, the system will fall back to the primary
+     * recipient derived from the invoice or subscription. At least one recipient must be present,
+     * either via the request body or via this default behavior, so an empty body may still succeed
+     * when defaults are available.
+     * @param  proformaInvoiceUid  Required parameter: The uid of the proforma invoice
+     * @param  body  Optional parameter:
+     * @return    Returns the ProformaInvoice response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ProformaInvoice deliverProformaInvoice(
+            final String proformaInvoiceUid,
+            final DeliverProformaInvoiceRequest body) throws ApiException, IOException {
+        return prepareDeliverProformaInvoiceRequest(proformaInvoiceUid, body).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for deliverProformaInvoice.
+     */
+    private ApiCall<ProformaInvoice, ApiException> prepareDeliverProformaInvoiceRequest(
+            final String proformaInvoiceUid,
+            final DeliverProformaInvoiceRequest body) {
+        return new ApiCall.Builder<ProformaInvoice, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.PRODUCTION.value())
+                        .path("/proforma_invoices/{proforma_invoice_uid}/deliveries.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("proforma_invoice_uid").value(proformaInvoiceUid)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ProformaInvoice.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
      * This endpoint will void a proforma invoice that has the status "draft". ## Restrictions
      * Proforma invoices are only available on Relationship Invoicing sites. Only proforma invoices
      * that have the appropriate status may be reopened. If the invoice identified by {uid} does not
@@ -356,7 +412,7 @@ public final class ProformaInvoicesController extends BaseController {
      * accessible after the call is made. Alternatively, if you have some proforma invoices already,
      * you may make a preview call to determine whether any billing information for the
      * subscription's upcoming renewal has changed.
-     * @param  subscriptionId  Required parameter: The Chargify id of the subscription
+     * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

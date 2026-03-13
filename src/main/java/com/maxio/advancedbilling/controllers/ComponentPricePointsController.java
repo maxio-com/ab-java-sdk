@@ -12,7 +12,9 @@ import com.maxio.advancedbilling.exceptions.ApiException;
 import com.maxio.advancedbilling.exceptions.ErrorArrayMapResponseException;
 import com.maxio.advancedbilling.exceptions.ErrorListResponseException;
 import com.maxio.advancedbilling.http.request.HttpMethod;
+import com.maxio.advancedbilling.models.CloneComponentPricePointRequest;
 import com.maxio.advancedbilling.models.ComponentCurrencyPricesResponse;
+import com.maxio.advancedbilling.models.ComponentPricePointCurrencyOverageResponse;
 import com.maxio.advancedbilling.models.ComponentPricePointResponse;
 import com.maxio.advancedbilling.models.ComponentPricePointsResponse;
 import com.maxio.advancedbilling.models.ComponentResponse;
@@ -27,6 +29,8 @@ import com.maxio.advancedbilling.models.UpdateComponentPricePointRequest;
 import com.maxio.advancedbilling.models.UpdateCurrencyPricesRequest;
 import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointComponentId;
 import com.maxio.advancedbilling.models.containers.ArchiveComponentPricePointPricePointId;
+import com.maxio.advancedbilling.models.containers.CloneComponentPricePointComponentId;
+import com.maxio.advancedbilling.models.containers.CloneComponentPricePointPricePointId;
 import com.maxio.advancedbilling.models.containers.ReadComponentPricePointComponentId;
 import com.maxio.advancedbilling.models.containers.ReadComponentPricePointPricePointId;
 import com.maxio.advancedbilling.models.containers.UpdateComponentPricePointComponentId;
@@ -246,6 +250,70 @@ public final class ComponentPricePointsController extends BaseController {
     }
 
     /**
+     * Clones a component price point. Custom price points (tied to a specific subscription) cannot
+     * be cloned. The following attributes are copied from the source price point: - Pricing scheme
+     * - All price tiers (with starting/ending quantities and unit prices) - Tax included setting -
+     * Currency prices (if definitive pricing is set) - Overage pricing (for prepaid usage
+     * components) - Interval settings (if multi-frequency is enabled) - Event-based billing
+     * segments (if applicable).
+     * @param  componentId  Required parameter: The id or handle of the component. When using the
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-product-handle` for a string handle.
+     * @param  pricePointId  Required parameter: The id or handle of the price point. When using the
+     *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
+     *         `handle:example-price_point-handle` for a string handle.
+     * @param  body  Optional parameter:
+     * @return    Returns the ComponentPricePointCurrencyOverageResponse response from the API call
+     * @throws    ApiException    Represents error response from the server.
+     * @throws    IOException    Signals that an I/O exception of some sort has occurred.
+     */
+    public ComponentPricePointCurrencyOverageResponse cloneComponentPricePoint(
+            final CloneComponentPricePointComponentId componentId,
+            final CloneComponentPricePointPricePointId pricePointId,
+            final CloneComponentPricePointRequest body) throws ApiException, IOException {
+        return prepareCloneComponentPricePointRequest(componentId, pricePointId, body).execute();
+    }
+
+    /**
+     * Builds the ApiCall object for cloneComponentPricePoint.
+     */
+    private ApiCall<ComponentPricePointCurrencyOverageResponse, ApiException> prepareCloneComponentPricePointRequest(
+            final CloneComponentPricePointComponentId componentId,
+            final CloneComponentPricePointPricePointId pricePointId,
+            final CloneComponentPricePointRequest body) {
+        return new ApiCall.Builder<ComponentPricePointCurrencyOverageResponse, ApiException>()
+                .globalConfig(getGlobalConfiguration())
+                .requestBuilder(requestBuilder -> requestBuilder
+                        .server(Server.PRODUCTION.value())
+                        .path("/components/{component_id}/price_points/{price_point_id}/clone.json")
+                        .bodyParam(param -> param.value(body).isRequired(false))
+                        .bodySerializer(() ->  ApiHelper.serialize(body))
+                        .templateParam(param -> param.key("component_id").value(componentId)
+                                .shouldEncode(true))
+                        .templateParam(param -> param.key("price_point_id").value(pricePointId)
+                                .shouldEncode(true))
+                        .headerParam(param -> param.key("Content-Type")
+                                .value("application/json").isRequired(false))
+                        .headerParam(param -> param.key("accept").value("application/json"))
+                        .withAuth(auth -> auth
+                                .add("BasicAuth"))
+                        .arraySerializationFormat(ArraySerializationFormat.CSV)
+                        .httpMethod(HttpMethod.POST))
+                .responseHandler(responseHandler -> responseHandler
+                        .deserializer(
+                                response -> ApiHelper.deserialize(response, ComponentPricePointCurrencyOverageResponse.class))
+                        .nullify404(false)
+                        .localErrorCase("404",
+                                 ErrorCase.setTemplate("Not Found:'{$response.body}'",
+                                (reason, context) -> new ApiException(reason, context)))
+                        .localErrorCase("422",
+                                 ErrorCase.setTemplate("HTTP Response Not OK. Status code: {$statusCode}. Response: '{$response.body}'.",
+                                (reason, context) -> new ErrorListResponseException(reason, context)))
+                        .globalErrorCase(GLOBAL_ERROR_CASES))
+                .build();
+    }
+
+    /**
      * When updating a price point, prices can be updated as well by creating new prices or editing
      * / removing existing ones. Passing in a price bracket without an `id` will attempt to create a
      * new price. Including an `id` will update the corresponding price, and including the
@@ -315,11 +383,11 @@ public final class ComponentPricePointsController extends BaseController {
      *         handle, it must be prefixed with `handle:`. Example: `123` for an integer ID, or
      *         `handle:example-price_point-handle` for a string handle.
      * @param  currencyPrices  Optional parameter: Include an array of currency price data
-     * @return    Returns the ComponentPricePointResponse response from the API call
+     * @return    Returns the ComponentPricePointCurrencyOverageResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
      */
-    public ComponentPricePointResponse readComponentPricePoint(
+    public ComponentPricePointCurrencyOverageResponse readComponentPricePoint(
             final ReadComponentPricePointComponentId componentId,
             final ReadComponentPricePointPricePointId pricePointId,
             final Boolean currencyPrices) throws ApiException, IOException {
@@ -330,11 +398,11 @@ public final class ComponentPricePointsController extends BaseController {
     /**
      * Builds the ApiCall object for readComponentPricePoint.
      */
-    private ApiCall<ComponentPricePointResponse, ApiException> prepareReadComponentPricePointRequest(
+    private ApiCall<ComponentPricePointCurrencyOverageResponse, ApiException> prepareReadComponentPricePointRequest(
             final ReadComponentPricePointComponentId componentId,
             final ReadComponentPricePointPricePointId pricePointId,
             final Boolean currencyPrices) {
-        return new ApiCall.Builder<ComponentPricePointResponse, ApiException>()
+        return new ApiCall.Builder<ComponentPricePointCurrencyOverageResponse, ApiException>()
                 .globalConfig(getGlobalConfiguration())
                 .requestBuilder(requestBuilder -> requestBuilder
                         .server(Server.PRODUCTION.value())
@@ -352,7 +420,7 @@ public final class ComponentPricePointsController extends BaseController {
                         .httpMethod(HttpMethod.GET))
                 .responseHandler(responseHandler -> responseHandler
                         .deserializer(
-                                response -> ApiHelper.deserialize(response, ComponentPricePointResponse.class))
+                                response -> ApiHelper.deserialize(response, ComponentPricePointCurrencyOverageResponse.class))
                         .nullify404(false)
                         .globalErrorCase(GLOBAL_ERROR_CASES))
                 .build();
