@@ -10,7 +10,7 @@ SubscriptionGroupsController subscriptionGroupsController = client.getSubscripti
 
 ## Methods
 
-* [Signup With Subscription Group](../../doc/controllers/subscription-groups.md#signup-with-subscription-group)
+* [Signup with Subscription Group](../../doc/controllers/subscription-groups.md#signup-with-subscription-group)
 * [Create Subscription Group](../../doc/controllers/subscription-groups.md#create-subscription-group)
 * [List Subscription Groups](../../doc/controllers/subscription-groups.md#list-subscription-groups)
 * [Read Subscription Group](../../doc/controllers/subscription-groups.md#read-subscription-group)
@@ -18,10 +18,10 @@ SubscriptionGroupsController subscriptionGroupsController = client.getSubscripti
 * [Delete Subscription Group](../../doc/controllers/subscription-groups.md#delete-subscription-group)
 * [Find Subscription Group](../../doc/controllers/subscription-groups.md#find-subscription-group)
 * [Add Subscription to Group](../../doc/controllers/subscription-groups.md#add-subscription-to-group)
-* [Remove Subscription From Group](../../doc/controllers/subscription-groups.md#remove-subscription-from-group)
+* [Remove Subscription from Group](../../doc/controllers/subscription-groups.md#remove-subscription-from-group)
 
 
-# Signup With Subscription Group
+# Signup with Subscription Group
 
 Create multiple subscriptions at once under the same customer and consolidate them into a subscription group.
 
@@ -622,7 +622,7 @@ try {
 ```
 
 
-# Remove Subscription From Group
+# Remove Subscription from Group
 
 For sites making use of the [Relationship Billing](https://maxio.zendesk.com/hc/en-us/articles/24252287829645-Advanced-Billing-Invoices-Overview) and [Customer Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays#customer-hierarchies) features, it is possible to remove existing subscription from subscription group.
 
