@@ -19,7 +19,7 @@ SubscriptionNotesController subscriptionNotesController = client.getSubscription
 
 # Create Subscription Note
 
-Use the following method to create a note for a subscription.
+Creates a note for a subscription.
 
 ## How to Use Subscription Notes
 
@@ -35,6 +35,10 @@ SubscriptionNoteResponse createSubscriptionNote(
     final UpdateSubscriptionNoteRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -43,6 +47,8 @@ SubscriptionNoteResponse createSubscriptionNote(
 | `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionNoteResponse`](../../doc/models/subscription-note-response.md)
 
@@ -78,12 +84,16 @@ try {
 
 # List Subscription Notes
 
-Use this method to retrieve a list of Notes associated with a Subscription. The response will be an array of Notes.
+Retrieves a list of notes associated with a subscription. The response will be an array of Notes.
 
 ```java
 List<SubscriptionNoteResponse> listSubscriptionNotes(
     final ListSubscriptionNotesInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -92,6 +102,8 @@ List<SubscriptionNoteResponse> listSubscriptionNotes(
 | `input` | [`ListSubscriptionNotesInput`](../../doc/models/list-subscription-notes-input.md) | Required | Input structure for the method ListSubscriptionNotes |
 
 ## Response Type
+
+**200**: OK
 
 [`List<SubscriptionNoteResponse>`](../../doc/models/subscription-note-response.md)
 
@@ -151,13 +163,17 @@ try {
 
 # Read Subscription Note
 
-Once you have obtained the ID of the note you wish to read, use this method to show a particular note attached to a subscription.
+Retrieves a specific note attached to a subscription.
 
 ```java
 SubscriptionNoteResponse readSubscriptionNote(
     final int subscriptionId,
     final int noteId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -167,6 +183,8 @@ SubscriptionNoteResponse readSubscriptionNote(
 | `noteId` | `int` | Template, Required | The Advanced Billing id of the note |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionNoteResponse`](../../doc/models/subscription-note-response.md)
 
@@ -202,7 +220,7 @@ try {
 
 # Update Subscription Note
 
-Use the following method to update a note for a Subscription.
+Updates a note for a subscription.
 
 ```java
 SubscriptionNoteResponse updateSubscriptionNote(
@@ -210,6 +228,10 @@ SubscriptionNoteResponse updateSubscriptionNote(
     final int noteId,
     final UpdateSubscriptionNoteRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -220,6 +242,8 @@ SubscriptionNoteResponse updateSubscriptionNote(
 | `body` | [`UpdateSubscriptionNoteRequest`](../../doc/models/update-subscription-note-request.md) | Body, Optional | Updatable fields for Subscription Note |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionNoteResponse`](../../doc/models/subscription-note-response.md)
 
@@ -264,6 +288,10 @@ Void deleteSubscriptionNote(
     final int noteId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -272,6 +300,8 @@ Void deleteSubscriptionNote(
 | `noteId` | `int` | Template, Required | The Advanced Billing id of the note |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 

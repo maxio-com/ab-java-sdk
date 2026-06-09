@@ -12,3 +12,27 @@
 | `String` | ScheduledRenewalProductPricePointInterval.fromString(String string) |
 | `int` | ScheduledRenewalProductPricePointInterval.fromNumber(int number) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+ScheduledRenewalProductPricePointInterval.fromString(
+        "String0"
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+ScheduledRenewalProductPricePointInterval.fromNumber(
+        0
+    )
+```
+

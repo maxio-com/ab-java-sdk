@@ -28,7 +28,7 @@ ComponentsController componentsController = client.getComponentsController();
 
 This request will create a component definition of kind **metered_component** under the specified product family. Metered component can then be added and “allocated” for a subscription.
 
-Metered components are used to bill for any type of unit that resets to 0 at the end of the billing period (think daily Google Adwords clicks or monthly cell phone minutes). This is most commonly associated with usage-based billing and many other pricing schemes.
+Metered components are used to bill for any type of unit that resets to 0 at the end of the billing period (think daily Google Ads clicks or monthly cell phone minutes). This is most commonly associated with usage-based billing and many other pricing schemes.
 
 Note that this is different from recurring quantity-based components, which DO NOT reset to zero at the start of every billing period. If you want to bill for a quantity of something that does not change unless you change it, then you want quantity components, instead.
 
@@ -40,6 +40,10 @@ ComponentResponse createMeteredComponent(
     final CreateMeteredComponent body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -48,6 +52,8 @@ ComponentResponse createMeteredComponent(
 | `body` | [`CreateMeteredComponent`](../../doc/models/create-metered-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -169,6 +175,10 @@ ComponentResponse createQuantityBasedComponent(
     final CreateQuantityBasedComponent body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -177,6 +187,8 @@ ComponentResponse createQuantityBasedComponent(
 | `body` | [`CreateQuantityBasedComponent`](../../doc/models/create-quantity-based-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -286,6 +298,10 @@ ComponentResponse createOnOffComponent(
     final CreateOnOffComponent body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -294,6 +310,8 @@ ComponentResponse createOnOffComponent(
 | `body` | [`CreateOnOffComponent`](../../doc/models/create-on-off-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -388,6 +406,10 @@ ComponentResponse createPrepaidUsageComponent(
     final CreatePrepaidComponent body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -396,6 +418,8 @@ ComponentResponse createPrepaidUsageComponent(
 | `body` | [`CreatePrepaidComponent`](../../doc/models/create-prepaid-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -543,6 +567,10 @@ ComponentResponse createEventBasedComponent(
     final CreateEBBComponent body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -551,6 +579,8 @@ ComponentResponse createEventBasedComponent(
 | `body` | [`CreateEBBComponent`](../../doc/models/create-ebb-component.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -649,6 +679,10 @@ ComponentResponse findComponent(
     final String handle)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -656,6 +690,8 @@ ComponentResponse findComponent(
 | `handle` | `String` | Query, Required | The handle of the component to find |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -715,6 +751,10 @@ ComponentResponse readComponent(
     final String componentId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -723,6 +763,8 @@ ComponentResponse readComponent(
 | `componentId` | `String` | Template, Required | Either the Advanced Billing id of the component or the handle for the component prefixed with `handle:`<br><br>**Constraints**: *Pattern*: `/\A(?:\d+\|handle:(?:uuid:\|[a-z])(?:\w\|-)+)\z/` |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -785,6 +827,10 @@ ComponentResponse updateProductFamilyComponent(
     final UpdateComponentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -794,6 +840,8 @@ ComponentResponse updateProductFamilyComponent(
 | `body` | [`UpdateComponentRequest`](../../doc/models/update-component-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -866,6 +914,10 @@ Component archiveComponent(
     final String componentId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -874,6 +926,8 @@ Component archiveComponent(
 | `componentId` | `String` | Template, Required | Either the Advanced Billing id of the component or the handle for the component prefixed with `handle:`<br><br>**Constraints**: *Pattern*: `/\A(?:\d+\|handle:(?:uuid:\|[a-z])(?:\w\|-)+)\z/` |
 
 ## Response Type
+
+**200**: OK
 
 [`Component`](../../doc/models/component.md)
 
@@ -935,6 +989,10 @@ List<ComponentResponse> listComponents(
     final ListComponentsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -942,6 +1000,8 @@ List<ComponentResponse> listComponents(
 | `input` | [`ListComponentsInput`](../../doc/models/list-components-input.md) | Required | Input structure for the method ListComponents |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ComponentResponse>`](../../doc/models/component-response.md)
 
@@ -1081,6 +1141,10 @@ ComponentResponse updateComponent(
     final UpdateComponentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1089,6 +1153,8 @@ ComponentResponse updateComponent(
 | `body` | [`UpdateComponentRequest`](../../doc/models/update-component-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -1159,6 +1225,10 @@ List<ComponentResponse> listComponentsForProductFamily(
     final ListComponentsForProductFamilyInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1166,6 +1236,8 @@ List<ComponentResponse> listComponentsForProductFamily(
 | `input` | [`ListComponentsForProductFamilyInput`](../../doc/models/list-components-for-product-family-input.md) | Required | Input structure for the method ListComponentsForProductFamily |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ComponentResponse>`](../../doc/models/component-response.md)
 

@@ -14,3 +14,51 @@
 | `int` | CreateSegmentSegmentProperty3Value.fromNumber(int number) |
 | `boolean` | CreateSegmentSegmentProperty3Value.fromBoolean(boolean mBoolean) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSegmentSegmentProperty3Value.fromString(
+        "String0"
+    )
+```
+
+## double
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSegmentSegmentProperty3Value.fromPrecision(
+        0D
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSegmentSegmentProperty3Value.fromNumber(
+        0
+    )
+```
+
+## boolean
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSegmentSegmentProperty3Value.fromBoolean(
+        false
+    )
+```
+

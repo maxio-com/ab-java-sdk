@@ -12,3 +12,27 @@
 | `int` | CreateSubscriptionComponentComponentId.fromNumber(int number) |
 | `String` | CreateSubscriptionComponentComponentId.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSubscriptionComponentComponentId.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSubscriptionComponentComponentId.fromString(
+        "String0"
+    )
+```
+

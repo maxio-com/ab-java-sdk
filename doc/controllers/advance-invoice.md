@@ -28,6 +28,10 @@ Invoice issueAdvanceInvoice(
     final IssueAdvanceInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -36,6 +40,8 @@ Invoice issueAdvanceInvoice(
 | `body` | [`IssueAdvanceInvoiceRequest`](../../doc/models/issue-advance-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -74,6 +80,10 @@ Invoice readAdvanceInvoice(
     final int subscriptionId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -81,6 +91,8 @@ Invoice readAdvanceInvoice(
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -115,6 +127,10 @@ Invoice voidAdvanceInvoice(
     final VoidInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -123,6 +139,8 @@ Invoice voidAdvanceInvoice(
 | `body` | [`VoidInvoiceRequest`](../../doc/models/void-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`Invoice`](../../doc/models/invoice.md)
 

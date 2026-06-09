@@ -14,7 +14,7 @@
 | `LastName` | `String` | Optional | The last name of the bank account holder | String getLastName() | setLastName(String lastName) |
 | `CustomerId` | `Integer` | Optional | The Chargify-assigned id for the customer record to which the bank account belongs | Integer getCustomerId() | setCustomerId(Integer customerId) |
 | `CurrentVault` | [`BankAccountVault`](../../doc/models/bank-account-vault.md) | Optional | The vault that stores the payment profile with the provided vault_token. Use `bogus` for testing. | BankAccountVault getCurrentVault() | setCurrentVault(BankAccountVault currentVault) |
-| `VaultToken` | `String` | Optional | The “token” provided by your vault storage for an already stored payment profile | String getVaultToken() | setVaultToken(String vaultToken) |
+| `VaultToken` | `String` | Optional | The "token" provided by your vault storage for an already stored payment profile | String getVaultToken() | setVaultToken(String vaultToken) |
 | `BillingAddress` | `String` | Optional | The current billing street address for the bank account | String getBillingAddress() | setBillingAddress(String billingAddress) |
 | `BillingCity` | `String` | Optional | The current billing address city for the bank account | String getBillingCity() | setBillingCity(String billingCity) |
 | `BillingState` | `String` | Optional | The current billing address state for the bank account | String getBillingState() | setBillingState(String billingState) |
@@ -23,8 +23,8 @@
 | `CustomerVaultToken` | `String` | Optional | (only for Authorize.Net CIM storage): the customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token. | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
 | `BillingAddress2` | `String` | Optional | The current billing street address, second line, for the bank account | String getBillingAddress2() | setBillingAddress2(String billingAddress2) |
 | `BankName` | `String` | Optional | The bank where the account resides | String getBankName() | setBankName(String bankName) |
-| `MaskedBankRoutingNumber` | `String` | Optional | A string representation of the stored bank routing number with all but the last 4 digits marked with X’s (i.e. ‘XXXXXXX1111’). payment_type will be bank_account | String getMaskedBankRoutingNumber() | setMaskedBankRoutingNumber(String maskedBankRoutingNumber) |
-| `MaskedBankAccountNumber` | `String` | Required | A string representation of the stored bank account number with all but the last 4 digits marked with X’s (i.e. ‘XXXXXXX1111’) | String getMaskedBankAccountNumber() | setMaskedBankAccountNumber(String maskedBankAccountNumber) |
+| `MaskedBankRoutingNumber` | `String` | Optional | A string representation of the stored bank routing number with all but the last 4 digits marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account | String getMaskedBankRoutingNumber() | setMaskedBankRoutingNumber(String maskedBankRoutingNumber) |
+| `MaskedBankAccountNumber` | `String` | Optional | A string representation of the stored bank account number with all but the last 4 digits marked with X's (i.e. 'XXXXXXX1111') | String getMaskedBankAccountNumber() | setMaskedBankAccountNumber(String maskedBankAccountNumber) |
 | `BankAccountType` | [`BankAccountType`](../../doc/models/bank-account-type.md) | Optional | Defaults to checking | BankAccountType getBankAccountType() | setBankAccountType(BankAccountType bankAccountType) |
 | `BankAccountHolderType` | [`BankAccountHolderType`](../../doc/models/bank-account-holder-type.md) | Optional | Defaults to personal | BankAccountHolderType getBankAccountHolderType() | setBankAccountHolderType(BankAccountHolderType bankAccountHolderType) |
 | `PaymentType` | [`PaymentType`](../../doc/models/payment-type.md) | Required | **Default**: `PaymentType.BANK_ACCOUNT` | PaymentType getPaymentType() | setPaymentType(PaymentType paymentType) |
@@ -38,7 +38,6 @@
 
 ```json
 {
-  "masked_bank_account_number": "masked_bank_account_number8",
   "payment_type": "bank_account",
   "verified": false,
   "id": 188,

@@ -32,7 +32,13 @@ https://subdomain.chargify.com/dashboard
 SiteSummary readSiteStats()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**200**: OK
 
 [`SiteSummary`](../../doc/models/site-summary.md)
 
@@ -79,6 +85,10 @@ MRRResponse readMrr(
     final Integer subscriptionId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -87,6 +97,8 @@ MRRResponse readMrr(
 | `subscriptionId` | `Integer` | Query, Optional | submit the id of a subscription in order to limit results |
 
 ## Response Type
+
+**200**: OK
 
 [`MRRResponse`](../../doc/models/mrr-response.md)
 
@@ -156,6 +168,10 @@ ListMRRResponse listMrrMovements(
     final ListMrrMovementsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -163,6 +179,8 @@ ListMRRResponse listMrrMovements(
 | `input` | [`ListMrrMovementsInput`](../../doc/models/list-mrr-movements-input.md) | Required | Input structure for the method ListMrrMovements |
 
 ## Response Type
+
+**200**: OK
 
 [`ListMRRResponse`](../../doc/models/list-mrr-response.md)
 
@@ -246,6 +264,10 @@ SubscriptionMRRResponse listMrrPerSubscription(
     final ListMrrPerSubscriptionInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -253,6 +275,8 @@ SubscriptionMRRResponse listMrrPerSubscription(
 | `input` | [`ListMrrPerSubscriptionInput`](../../doc/models/list-mrr-per-subscription-input.md) | Required | Input structure for the method ListMrrPerSubscription |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionMRRResponse`](../../doc/models/subscription-mrr-response.md)
 

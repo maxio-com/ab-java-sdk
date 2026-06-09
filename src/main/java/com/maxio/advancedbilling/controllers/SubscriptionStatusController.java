@@ -39,10 +39,14 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * Advanced Billing offers the ability to retry collecting the balance due on a past due
-     * Subscription without waiting for the next scheduled attempt. ## Successful Reactivation The
-     * response will be `200 OK` with the updated Subscription. ## Failed Reactivation The response
-     * will be `422 "Unprocessable Entity`.
+     * Retries collecting the balance due on a past-due subscription without waiting for the next
+     * scheduled attempt. ## 3D Secure (3DS) Authentication post-authentication flow When a payment
+     * requires 3DS Authentication to adhere to Strong Customer Authentication (SCA), the request
+     * enters a post-authentication flow where a 422 Unprocessable Entity status is returned with an
+     * action_link that will direct the customer through 3DS Authentication. See the [3D Secure
+     * Post-Authentication
+     * Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow)
+     * article in the product documentation to learn how to manage the redirect flow.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -135,7 +139,7 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * Resume a paused (on-hold) subscription. If the normal next renewal date has not passed, the
+     * Resumes a paused (on-hold) subscription. If the normal next renewal date has not passed, the
      * subscription will return to active and will renew on that date. Otherwise, it will behave
      * like a reactivation, setting the billing date to 'now' and charging the subscriber.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
@@ -184,8 +188,8 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * This will place the subscription in the on_hold state and it will not renew. ## Limitations
-     * You may not place a subscription on hold if the `next_billing_at` date is within 24 hours.
+     * Places the subscription on hold, preventing it from renewing. ## Limitations You may not
+     * place a subscription on hold if the `next_billing_at` date is within 24 hours.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
@@ -232,11 +236,10 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * Once a subscription has been paused / put on hold, you can update the date which was
-     * specified to automatically resume the subscription. To update a subscription's resume date,
-     * use this method to change or update the `automatically_resume_at` date. ### Remove the resume
-     * date Alternately, you can change the `automatically_resume_at` to `null` if you would like
-     * the subscription to not have a resume date.
+     * Updates the date on which a paused subscription will automatically resume. To update a
+     * subscription's resume date, use this method to change or update the `automatically_resume_at`
+     * date. ### Remove the resume date Alternatively, you can change the `automatically_resume_at`
+     * to `null` if you would like the subscription to not have a resume date.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
@@ -283,8 +286,8 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * Reactivate a previously canceled subscription. For details on how the reactivation works, and
-     * how to reactivate subscriptions through the application, see
+     * Reactivates a previously canceled subscription. For details on how the reactivation works,
+     * and how to reactivate subscriptions through the application, see
      * [reactivation](https://maxio.zendesk.com/hc/en-us/articles/24252109503629-Reactivating-and-Resuming).
      * **Note: The term "resume" is used also during another process in Advanced Billing. This
      * occurs when an on-hold subscription is "resumed". This returns the subscription to an active
@@ -303,9 +306,9 @@ public final class SubscriptionStatusController extends BaseController {
      * 1st, then Advanced Billing would resume the subscription. If a reactivation with `resume:
      * true` were attempted _after_ what would have been the next billing date of July 1st, then
      * Advanced Billing would not resume the subscription, and instead it would be reactivated with
-     * a new billing period. If a reactivation with `resume: false`, or where 'resume" is omited
+     * a new billing period. If a reactivation with `resume: false`, or where 'resume' is omitted
      * were attempted, then Advanced Billing would reactivate the subscription with a new billing
-     * period regardless of whether or not resuming the previous billing period were possible. |
+     * period regardless of whether or not resuming the previous billing period was possible. |
      * Canceled | Reactivation | Resumable? | |---|---|---| | Jun 15 | June 28 | Yes | | Jun 15 |
      * July 2 | No | ## Reactivation Scenarios ### Reactivating Canceled Subscription While
      * Preserving Balance + Given you have a product that costs $20 + Given you have a canceled
@@ -354,7 +357,13 @@ public final class SubscriptionStatusController extends BaseController {
      * subscription, and it is resumable + Send a PUT request to
      * `https://acme.chargify.com/subscriptions/{subscription_id}/reactivate.json?resume=true` ####
      * Results + The subscription will transition to active + The next billing date should not have
-     * changed + Any product-related charges should have been collected.
+     * changed + Any product-related charges should have been collected ## 3D Secure (3DS)
+     * Authentication post-authentication flow When a payment requires 3DS Authentication to adhere
+     * to Strong Customer Authentication (SCA), the request enters a post-authentication flow where
+     * a 422 Unprocessable Entity status is returned with an action_link that will direct the
+     * customer through 3DS Authentication. See the [3D Secure Post-Authentication
+     * Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow)
+     * article in the product documentation to learn how to manage the redirect flow.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
@@ -453,10 +462,10 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * Removing the delayed cancellation on a subscription will ensure that it doesn't get canceled
-     * at the end of the period that it is in. The request will reset the `cancel_at_end_of_period`
-     * flag to `false`. This endpoint is idempotent. If the subscription was not set to cancel in
-     * the future, removing the delayed cancellation has no effect and the call will be successful.
+     * Removes the delayed cancellation from a subscription, ensuring it is not canceled at the end
+     * of the current period. The request will reset the `cancel_at_end_of_period` flag to `false`.
+     * This endpoint is idempotent. If the subscription was not set to cancel in the future,
+     * removing the delayed cancellation has no effect and the call will be successful.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the DelayedCancellationResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -496,8 +505,7 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * If a subscription is currently in dunning, the subscription will be set to active and the
-     * active Dunner will be resolved.
+     * Cancels the active dunning process for a subscription and sets it to active.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -537,11 +545,11 @@ public final class SubscriptionStatusController extends BaseController {
     }
 
     /**
-     * The Chargify API allows you to preview a renewal by posting to the renewals endpoint. Renewal
-     * Preview is an object representing a subscription’s next assessment. You can retrieve it to
-     * see a snapshot of how much your customer will be charged on their next renewal. The "Next
-     * Billing" amount and "Next Billing" date are already represented in the UI on each
-     * Subscriber's Summary. For more information, see our documentation
+     * Previews a subscription’s next renewal assessment. Renewal Preview is an object representing
+     * a subscription’s next assessment. You can retrieve it to see a snapshot of how much your
+     * customer will be charged on their next renewal. The "Next Billing" amount and "Next Billing"
+     * date are already represented in the UI on each Subscriber's Summary. For more information,
+     * see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
      * ## Optional Component Fields This endpoint is particularly useful due to the fact that it
      * will return the computed billing amount for the base product and the components which are in

@@ -31,6 +31,10 @@ SegmentResponse createSegment(
     final CreateSegmentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -40,6 +44,8 @@ SegmentResponse createSegment(
 | `body` | [`CreateSegmentRequest`](../../doc/models/create-segment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`SegmentResponse`](../../doc/models/segment-response.md)
 
@@ -110,6 +116,10 @@ ListSegmentsResponse listSegmentsForPricePoint(
     final ListSegmentsForPricePointInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -117,6 +127,8 @@ ListSegmentsResponse listSegmentsForPricePoint(
 | `input` | [`ListSegmentsForPricePointInput`](../../doc/models/list-segments-for-price-point-input.md) | Required | Input structure for the method ListSegmentsForPricePoint |
 
 ## Response Type
+
+**200**: OK
 
 [`ListSegmentsResponse`](../../doc/models/list-segments-response.md)
 
@@ -166,6 +178,10 @@ SegmentResponse updateSegment(
     final UpdateSegmentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -176,6 +192,8 @@ SegmentResponse updateSegment(
 | `body` | [`UpdateSegmentRequest`](../../doc/models/update-segment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`SegmentResponse`](../../doc/models/segment-response.md)
 
@@ -216,6 +234,10 @@ Void deleteSegment(
     final double id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -225,6 +247,8 @@ Void deleteSegment(
 | `id` | `double` | Template, Required | The ID of the Segment |
 
 ## Response Type
+
+**204**: No Content
 
 `void`
 
@@ -265,6 +289,10 @@ ListSegmentsResponse bulkCreateSegments(
     final BulkCreateSegments body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -274,6 +302,8 @@ ListSegmentsResponse bulkCreateSegments(
 | `body` | [`BulkCreateSegments`](../../doc/models/bulk-create-segments.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ListSegmentsResponse`](../../doc/models/list-segments-response.md)
 
@@ -315,6 +345,10 @@ ListSegmentsResponse bulkUpdateSegments(
     final BulkUpdateSegments body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -324,6 +358,8 @@ ListSegmentsResponse bulkUpdateSegments(
 | `body` | [`BulkUpdateSegments`](../../doc/models/bulk-update-segments.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ListSegmentsResponse`](../../doc/models/list-segments-response.md)
 

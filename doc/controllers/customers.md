@@ -51,6 +51,10 @@ CustomerResponse createCustomer(
     final CreateCustomerRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -58,6 +62,8 @@ CustomerResponse createCustomer(
 | `body` | [`CreateCustomerRequest`](../../doc/models/create-customer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -160,6 +166,10 @@ List<CustomerResponse> listCustomers(
     final ListCustomersInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -167,6 +177,8 @@ List<CustomerResponse> listCustomers(
 | `input` | [`ListCustomersInput`](../../doc/models/list-customers-input.md) | Required | Input structure for the method ListCustomers |
 
 ## Response Type
+
+**200**: OK
 
 [`List<CustomerResponse>`](../../doc/models/customer-response.md)
 
@@ -281,6 +293,10 @@ CustomerResponse readCustomer(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -288,6 +304,8 @@ CustomerResponse readCustomer(
 | `id` | `int` | Template, Required | The Advanced Billing id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -352,6 +370,10 @@ CustomerResponse updateCustomer(
     final UpdateCustomerRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -360,6 +382,8 @@ CustomerResponse updateCustomer(
 | `body` | [`UpdateCustomerRequest`](../../doc/models/update-customer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -434,6 +458,10 @@ Void deleteCustomer(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -441,6 +469,8 @@ Void deleteCustomer(
 | `id` | `int` | Template, Required | The Advanced Billing id of the customer |
 
 ## Response Type
+
+**204**: No Content
 
 `void`
 
@@ -466,6 +496,10 @@ CustomerResponse readCustomerByReference(
     final String reference)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -473,6 +507,8 @@ CustomerResponse readCustomerByReference(
 | `reference` | `String` | Query, Required | Customer reference |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -499,6 +535,10 @@ List<SubscriptionResponse> listCustomerSubscriptions(
     final int customerId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -506,6 +546,8 @@ List<SubscriptionResponse> listCustomerSubscriptions(
 | `customerId` | `int` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`List<SubscriptionResponse>`](../../doc/models/subscription-response.md)
 

@@ -12,3 +12,27 @@
 | `int` | ReadProductPricePointPricePointId.fromNumber(int number) |
 | `String` | ReadProductPricePointPricePointId.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+ReadProductPricePointPricePointId.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+ReadProductPricePointPricePointId.fromString(
+        "String0"
+    )
+```
+

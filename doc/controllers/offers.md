@@ -38,6 +38,10 @@ OfferResponse createOffer(
     final CreateOfferRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -45,6 +49,8 @@ OfferResponse createOffer(
 | `body` | [`CreateOfferRequest`](../../doc/models/create-offer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -140,6 +146,10 @@ ListOffersResponse listOffers(
     final ListOffersInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -147,6 +157,8 @@ ListOffersResponse listOffers(
 | `input` | [`ListOffersInput`](../../doc/models/list-offers-input.md) | Required | Input structure for the method ListOffers |
 
 ## Response Type
+
+**200**: OK
 
 [`ListOffersResponse`](../../doc/models/list-offers-response.md)
 
@@ -240,6 +252,10 @@ OfferResponse readOffer(
     final int offerId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -247,6 +263,8 @@ OfferResponse readOffer(
 | `offerId` | `int` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -273,6 +291,10 @@ Void archiveOffer(
     final int offerId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -280,6 +302,8 @@ Void archiveOffer(
 | `offerId` | `int` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -305,6 +329,10 @@ Void unarchiveOffer(
     final int offerId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -312,6 +340,8 @@ Void unarchiveOffer(
 | `offerId` | `int` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 

@@ -83,6 +83,8 @@ public enum EventKey {
 
     INVOICE_ISSUED,
 
+    INVOICE_PENDING,
+
     PREPAID_SUBSCRIPTION_BALANCE_CHANGED,
 
     SUBSCRIPTION_GROUP_SIGNUP_SUCCESS,
@@ -215,6 +217,7 @@ public enum EventKey {
         TRIAL_END_NOTICE.value = "trial_end_notice";
         DUNNING_STEP_REACHED.value = "dunning_step_reached";
         INVOICE_ISSUED.value = "invoice_issued";
+        INVOICE_PENDING.value = "invoice_pending";
         PREPAID_SUBSCRIPTION_BALANCE_CHANGED.value = "prepaid_subscription_balance_changed";
         SUBSCRIPTION_GROUP_SIGNUP_SUCCESS.value = "subscription_group_signup_success";
         SUBSCRIPTION_GROUP_SIGNUP_FAILURE.value = "subscription_group_signup_failure";
@@ -296,6 +299,7 @@ public enum EventKey {
         valueMap.put("trial_end_notice", TRIAL_END_NOTICE);
         valueMap.put("dunning_step_reached", DUNNING_STEP_REACHED);
         valueMap.put("invoice_issued", INVOICE_ISSUED);
+        valueMap.put("invoice_pending", INVOICE_PENDING);
         valueMap.put("prepaid_subscription_balance_changed", PREPAID_SUBSCRIPTION_BALANCE_CHANGED);
         valueMap.put("subscription_group_signup_success", SUBSCRIPTION_GROUP_SIGNUP_SUCCESS);
         valueMap.put("subscription_group_signup_failure", SUBSCRIPTION_GROUP_SIGNUP_FAILURE);

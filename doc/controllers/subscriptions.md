@@ -26,26 +26,38 @@ SubscriptionsController subscriptionsController = client.getSubscriptionsControl
 
 # Create Subscription
 
-Creates a Subscription for a customer and product
+Creates a Subscription for a customer and product.
 
-Specify the product with `product_id` or `product_handle`. To set a specific product pricepPoint, use `product_price_point_handle` or `product_price_point_id`.
+Specify the product with `product_id` or `product_handle`. To set a specific product price point, use `product_price_point_handle` or `product_price_point_id`.
 
 Identify an existing customer with `customer_id` or `customer_reference`. Optionally, include an existing payment profile using `payment_profile_id`. To create a new customer, pass customer_attributes.
 
 Select an option from the **Request Examples** drop-down on the right side of the portal to see examples of common scenarios for creating subscriptions.
 
+See the [Subscription Signups](page:introduction/basic-concepts/subscription-signup) article for more information on working with subscriptions in Advanced Billing.
+
+## Payment information
+
 Payment information may be required to create a subscription, depending on the options for the Product being subscribed. See [product options](https://docs.maxio.com/hc/en-us/articles/24261076617869-Edit-Products) for more information. See the [Payments Profile](../../doc/controllers/payment-profiles.md#create-payment-profile) endpoint for details on payment parameters.
 
 Do not use real card information for testing. See the Sites articles that cover [testing your site setup](https://docs.maxio.com/hc/en-us/articles/24250712113165-Testing-Overview#testing-overview-0-0) for more details on testing in your sandbox.
 
-Note that collecting and sending raw card details in production requires [PCI compliance](https://docs.maxio.com/hc/en-us/articles/24183956938381-PCI-Compliance#pci-compliance-0-0) on your end. If your business is not PCI compliant, use [Chargify.js](https://docs.maxio.com/hc/en-us/articles/38163190843789-Chargify-js-Overview#chargify-js-overview-0-0) to collect credit card or bank account information.
+Note that collecting and sending raw card details in production requires [PCI compliance](https://docs.maxio.com/hc/en-us/articles/24183956938381-PCI-Compliance#pci-compliance-0-0) on your end. If your business is not PCI compliant, use [Maxio.js (formerly Chargify.js)](https://docs.maxio.com/hc/en-us/articles/38163190843789-Chargify-js-Overview#chargify-js-overview-0-0) to collect credit card or bank account information.
 
-See the [Subscription Signups](page:introduction/basic-concepts/subscription-signup) article for more information on working with subscriptions in Advanced Billing.
+## 3D Secure (3DS) Authentication post-authentication flow
+
+When a payment requires 3DS Authentication to adhere to Strong Customer Authentication (SCA), the request enters a post-authentication flow where a 422 Unprocessable Entity status is returned with an action_link that will direct the customer through 3DS Authentication.
+
+See the [3D Secure Post-Authentication Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow) article in the product documentation to learn how to manage the redirect flow.
 
 ```java
 SubscriptionResponse createSubscription(
     final CreateSubscriptionRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -54,6 +66,8 @@ SubscriptionResponse createSubscription(
 | `body` | [`CreateSubscriptionRequest`](../../doc/models/create-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
@@ -240,7 +254,7 @@ try {
 
 # List Subscriptions
 
-returns an array of subscriptions from a Site. Pay close attention to query string filters and pagination in order to control responses from the server.
+Returns an array of subscriptions from a Site. Pay close attention to query string filters and pagination in order to control responses from the server.
 
 ## Search for a subscription
 
@@ -255,6 +269,10 @@ List<SubscriptionResponse> listSubscriptions(
     final ListSubscriptionsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -262,6 +280,8 @@ List<SubscriptionResponse> listSubscriptions(
 | `input` | [`ListSubscriptionsInput`](../../doc/models/list-subscriptions-input.md) | Required | Input structure for the method ListSubscriptions |
 
 ## Response Type
+
+**200**: OK
 
 [`List<SubscriptionResponse>`](../../doc/models/subscription-response.md)
 
@@ -326,27 +346,31 @@ You can also perform a delayed change to the price point by passing in either `p
 
 ## Billing Date Changes
 
-You can update dates for a subscrption.
+You can update dates for a subscription.
 
 ### Regular Billing Date Changes
 
 Send the `next_billing_at` to set the next billing date for the subscription. After that date passes and the subscription is processed, the following billing date will be set according to the subscription's product period.
 
-> Note: If you pass an invalid date, the correct date is automatically set to he correct date. For example, if February 30 is passed, the next billing would be set to March 2nd in a non-leap year.
+> Note: If you pass an invalid date, the correct date is automatically set to the correct date. For example, if February 30 is passed, the next billing would be set to March 2nd in a non-leap year.
 
 The server response will not return data under the key/value pair of `next_billing_at`. View the key/value pair of `current_period_ends_at` to verify that the `next_billing_at` date has been changed successfully.
 
-### Calendar Billing  and Snap Day Changes
+### Calendar Billing and Snap Day Changes
 
 For a subscription using Calendar Billing, setting the next billing date is a bit different. Send the `snap_day` attribute to change the calendar billing date for **a subscription using a product eligible for calendar billing**.
 
-> Note: If you change the product associated with a subscription that contains a `snap_day` and immediately `READ/GET` the subscription data, it will still contain original `snap_day`. The `snap_day`will will reset to 'null on the next billing cycle. This is because  a product change is instantanous and only affects the product associated with a subscription.
+> Note: If you change the product associated with a subscription that contains a `snap_day` and immediately `READ/GET` the subscription data, it will still contain original `snap_day`. The `snap_day` will reset to null on the next billing cycle. This is because a product change is instantaneous and only affects the product associated with a subscription.
 
 ```java
 SubscriptionResponse updateSubscription(
     final int subscriptionId,
     final UpdateSubscriptionRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -356,6 +380,8 @@ SubscriptionResponse updateSubscription(
 | `body` | [`UpdateSubscriptionRequest`](../../doc/models/update-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
@@ -512,6 +538,10 @@ SubscriptionResponse readSubscription(
     final List<SubscriptionInclude> include)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -520,6 +550,8 @@ SubscriptionResponse readSubscription(
 | `include` | [`List<SubscriptionInclude>`](../../doc/models/subscription-include.md) | Query, Optional | Allows including additional data in the response. Use in query: `include[]=coupons&include[]=self_service_page_token`. |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
@@ -682,7 +714,7 @@ try {
 
 # Override Subscription
 
-This API endpoint allows you to set certain subscription fields that are usually managed for you automatically. Some of the fields can be set via the normal Subscriptions Update API, but others can only be set using this endpoint.
+Sets certain subscription fields that are usually managed automatically. Some of the fields can be set via the normal Subscriptions Update API, but others can only be set using this endpoint.
 
 This endpoint is provided for cases where you need to “align” Advanced Billing data with data that happened in your system, perhaps before you started using Advanced Billing. For example, you may choose to import your historical subscription data, and would like the activation and cancellation dates in Advanced Billing to match your existing historical dates. Advanced Billing does not backfill historical events (i.e. from the Events API), but some static data can be changed via this API.
 
@@ -708,6 +740,10 @@ Void overrideSubscription(
     final OverrideSubscriptionRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -716,6 +752,8 @@ Void overrideSubscription(
 | `body` | [`OverrideSubscriptionRequest`](../../doc/models/override-subscription-request.md) | Body, Optional | Only these fields are available to be set. |
 
 ## Response Type
+
+**204**: No Content
 
 `void`
 
@@ -751,12 +789,16 @@ try {
 
 # Find Subscription
 
-Use this endpoint to find a subscription by its reference.
+Finds a subscription by its reference.
 
 ```java
 SubscriptionResponse findSubscription(
     final String reference)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -765,6 +807,8 @@ SubscriptionResponse findSubscription(
 | `reference` | `String` | Query, Optional | Subscription reference |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
@@ -788,7 +832,7 @@ try {
 
 # Purge Subscription
 
-For sites in test mode, you may purge individual subscriptions.
+Purges an individual subscription for sites in test mode.
 
 Provide the subscription ID in the url.  To confirm, supply the customer ID in the query string `ack` parameter. You may also delete the customer record and/or payment profiles by passing `cascade` parameters. For example, to delete just the customer record, the query params would be: `?ack={customer_id}&cascade[]=customer`
 
@@ -805,6 +849,10 @@ SubscriptionResponse purgeSubscription(
     final List<SubscriptionPurgeType> cascade)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -814,6 +862,8 @@ SubscriptionResponse purgeSubscription(
 | `cascade` | [`List<SubscriptionPurgeType>`](../../doc/models/subscription-purge-type.md) | Query, Optional | Options are "customer" or "payment_profile".<br>Use in query: `cascade[]=customer&cascade[]=payment_profile`. |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
@@ -846,13 +896,17 @@ try {
 
 # Update Prepaid Subscription Configuration
 
-Use this endpoint to update a subscription's prepaid configuration.
+Updates a subscription's prepaid configuration.
 
 ```java
 PrepaidConfigurationResponse updatePrepaidSubscriptionConfiguration(
     final int subscriptionId,
     final UpsertPrepaidConfigurationRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -862,6 +916,8 @@ PrepaidConfigurationResponse updatePrepaidSubscriptionConfiguration(
 | `body` | [`UpsertPrepaidConfigurationRequest`](../../doc/models/upsert-prepaid-configuration-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`PrepaidConfigurationResponse`](../../doc/models/prepaid-configuration-response.md)
 
@@ -910,7 +966,7 @@ try {
 
 # Preview Subscription
 
-The Chargify API allows you to preview a subscription by POSTing the same JSON or XML as for a subscription creation.
+Previews a subscription by POSTing the same JSON or XML as for a subscription creation.
 
 The "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary.
 
@@ -941,6 +997,10 @@ SubscriptionPreviewResponse previewSubscription(
     final CreateSubscriptionRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -948,6 +1008,8 @@ SubscriptionPreviewResponse previewSubscription(
 | `body` | [`CreateSubscriptionRequest`](../../doc/models/create-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionPreviewResponse`](../../doc/models/subscription-preview-response.md)
 
@@ -1092,6 +1154,8 @@ try {
 
 # Apply Coupons to Subscription
 
+Applies one or more coupon codes to an existing subscription.
+
 An existing subscription can accommodate multiple discounts/coupon codes. This is only applicable if each coupon is stackable. For more information on stackable coupons, we recommend reviewing our [coupon documentation.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#stackability-rules)
 
 ## Query Parameters vs Request Body Parameters
@@ -1107,6 +1171,10 @@ SubscriptionResponse applyCouponsToSubscription(
     final AddCouponsRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1116,6 +1184,8 @@ SubscriptionResponse applyCouponsToSubscription(
 | `body` | [`AddCouponsRequest`](../../doc/models/add-coupons-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 
@@ -1299,15 +1369,19 @@ try {
 
 # Remove Coupon from Subscription
 
-Use this endpoint to remove a coupon from an existing subscription.
+Removes a coupon from an existing subscription.
 
-For more information on the expected behaviour of removing a coupon from a subscription, See our documentation [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon)
+For more information on the expected behavior of removing a coupon from a subscription, see our documentation [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon)
 
 ```java
 String removeCouponFromSubscription(
     final int subscriptionId,
     final String couponCode)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -1317,6 +1391,8 @@ String removeCouponFromSubscription(
 | `couponCode` | `String` | Query, Optional | The coupon code |
 
 ## Response Type
+
+**200**: OK
 
 `String`
 
@@ -1350,7 +1426,7 @@ try {
 
 # Activate Subscription
 
-Advanced Billing offers the ability to activate awaiting signup and trialing subscriptions. This feature is only available on the Relationship Invoicing architecture. Subscriptions in a group may not be activated immediately.
+Activates awaiting signup and trialing subscriptions. This feature is only available on the Relationship Invoicing architecture. Subscriptions in a group may not be activated immediately.
 
 For details on how the activation works, and how to activate subscriptions through the application, see [activation](#).
 
@@ -1400,6 +1476,10 @@ SubscriptionResponse activateSubscription(
     final ActivateSubscriptionRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1408,6 +1488,8 @@ SubscriptionResponse activateSubscription(
 | `body` | [`ActivateSubscriptionRequest`](../../doc/models/activate-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionResponse`](../../doc/models/subscription-response.md)
 

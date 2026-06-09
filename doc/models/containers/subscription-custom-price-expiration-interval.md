@@ -12,3 +12,27 @@
 | `String` | SubscriptionCustomPriceExpirationInterval.fromString(String string) |
 | `int` | SubscriptionCustomPriceExpirationInterval.fromNumber(int number) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+SubscriptionCustomPriceExpirationInterval.fromString(
+        "String0"
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+SubscriptionCustomPriceExpirationInterval.fromNumber(
+        0
+    )
+```
+

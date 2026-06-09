@@ -41,9 +41,8 @@ public final class WebhooksController extends BaseController {
     }
 
     /**
-     * Allows you to view a list of webhooks. You can pass query parameters if you want to filter
-     * webhooks. See the [Webhooks](page:introduction/webhooks/webhooks) documentation for more
-     * information.
+     * Retrieves a list of webhooks. You can pass query parameters if you want to filter webhooks.
+     * See the [Webhooks](page:introduction/webhooks/webhooks) documentation for more information.
      * @param  input  ListWebhooksInput object containing request parameters
      * @return    Returns the List of WebhookResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -93,7 +92,7 @@ public final class WebhooksController extends BaseController {
     }
 
     /**
-     * Allows you to enable webhooks for your site.
+     * Enables webhooks for your site.
      * @param  body  Optional parameter:
      * @return    Returns the EnableWebhooksResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -173,7 +172,7 @@ public final class WebhooksController extends BaseController {
     }
 
     /**
-     * Creates an endpoint and assigns a list of webhooks subscriptions (events) to it. See the
+     * Creates an endpoint and assigns a list of webhook subscriptions (events) to it. See the
      * [Webhooks Reference](page:introduction/webhooks/webhooks-reference#events) page for available
      * events.
      * @param  body  Optional parameter:
@@ -255,8 +254,8 @@ public final class WebhooksController extends BaseController {
      * Reference](page:introduction/webhooks/webhooks-reference#events) page for available events.
      * Always send a complete list of events to which you want to subscribe. Sending a PUT request
      * for an existing endpoint with an empty list of `webhook_subscriptions` will unsubscribe all
-     * events. If you want unsubscribe from a specific event, send a list of `webhook_subscriptions`
-     * without the specific event key.
+     * events. If you want to unsubscribe from a specific event, send a list of
+     * `webhook_subscriptions` without the specific event key.
      * @param  endpointId  Required parameter: The Advanced Billing id for the endpoint that should
      *         be updated
      * @param  body  Optional parameter:

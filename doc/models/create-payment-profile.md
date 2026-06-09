@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `ChargifyToken` | `String` | Optional | Token received after sending billing information using chargify.js. | String getChargifyToken() | setChargifyToken(String chargifyToken) |
+| `ChargifyToken` | `String` | Optional | Token received after sending billing information using Maxio.js (formerly Chargify.js). | String getChargifyToken() | setChargifyToken(String chargifyToken) |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `PaymentType` | [`PaymentType`](../../doc/models/payment-type.md) | Optional | - | PaymentType getPaymentType() | setPaymentType(PaymentType paymentType) |
 | `FirstName` | `String` | Optional | First name on card or bank account. If omitted, the first_name from customer attributes will be used. | String getFirstName() | setFirstName(String firstName) |
@@ -29,8 +29,8 @@
 | `VaultToken` | `String` | Optional | The “token” provided by your vault storage for an already stored payment profile | String getVaultToken() | setVaultToken(String vaultToken) |
 | `CustomerVaultToken` | `String` | Optional | (only for Authorize.Net CIM storage or Square) The customerProfileId for the owner of the customerPaymentProfileId provided as the vault_token | String getCustomerVaultToken() | setCustomerVaultToken(String customerVaultToken) |
 | `CustomerId` | `Integer` | Optional | (Required when creating a new payment profile) The Chargify customer id. | Integer getCustomerId() | setCustomerId(Integer customerId) |
-| `PaypalEmail` | `String` | Optional | used by merchants that implemented BraintreeBlue javaScript libraries on their own. We recommend using Chargify.js instead. | String getPaypalEmail() | setPaypalEmail(String paypalEmail) |
-| `PaymentMethodNonce` | `String` | Optional | used by merchants that implemented BraintreeBlue javaScript libraries on their own. We recommend using Chargify.js instead. | String getPaymentMethodNonce() | setPaymentMethodNonce(String paymentMethodNonce) |
+| `PaypalEmail` | `String` | Optional | used by merchants that implemented BraintreeBlue javaScript libraries on their own. We recommend using Maxio.js (formerly Chargify.js) instead. | String getPaypalEmail() | setPaypalEmail(String paypalEmail) |
+| `PaymentMethodNonce` | `String` | Optional | used by merchants that implemented BraintreeBlue javaScript libraries on their own. We recommend using Maxio.js (formerly Chargify.js) instead. | String getPaymentMethodNonce() | setPaymentMethodNonce(String paymentMethodNonce) |
 | `GatewayHandle` | `String` | Optional | This attribute is only available if MultiGateway feature is enabled for your Site. This feature is in the Private Beta currently. gateway_handle is used to directly select a gateway where a payment profile will be stored in. Every connected gateway must have a unique gateway handle specified. Read [Multigateway description](https://chargify.zendesk.com/hc/en-us/articles/4407761759643#connecting-with-multiple-gateways) to learn more about new concepts that MultiGateway introduces and the default behavior when this attribute is not passed. | String getGatewayHandle() | setGatewayHandle(String gatewayHandle) |
 | `Cvv` | `String` | Optional | The 3- or 4-digit Card Verification Value. This value is merely passed through to the payment gateway. | String getCvv() | setCvv(String cvv) |
 | `BankName` | `String` | Optional | (Required when creating with ACH or GoCardless, optional with Stripe Direct Debit). The name of the bank where the customerʼs account resides | String getBankName() | setBankName(String bankName) |

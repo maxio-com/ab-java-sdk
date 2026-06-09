@@ -32,6 +32,10 @@ List<ProformaInvoice> listExportedProformaInvoices(
     final ListExportedProformaInvoicesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -39,6 +43,8 @@ List<ProformaInvoice> listExportedProformaInvoices(
 | `input` | [`ListExportedProformaInvoicesInput`](../../doc/models/list-exported-proforma-invoices-input.md) | Required | Input structure for the method ListExportedProformaInvoices |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ProformaInvoice>`](../../doc/models/proforma-invoice.md)
 
@@ -78,6 +84,10 @@ List<Invoice> listExportedInvoices(
     final ListExportedInvoicesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -85,6 +95,8 @@ List<Invoice> listExportedInvoices(
 | `input` | [`ListExportedInvoicesInput`](../../doc/models/list-exported-invoices-input.md) | Required | Input structure for the method ListExportedInvoices |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Invoice>`](../../doc/models/invoice.md)
 
@@ -124,6 +136,10 @@ List<Subscription> listExportedSubscriptions(
     final ListExportedSubscriptionsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -131,6 +147,8 @@ List<Subscription> listExportedSubscriptions(
 | `input` | [`ListExportedSubscriptionsInput`](../../doc/models/list-exported-subscriptions-input.md) | Required | Input structure for the method ListExportedSubscriptions |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Subscription>`](../../doc/models/subscription.md)
 
@@ -169,7 +187,13 @@ It is only available for Relationship Invoicing architecture.
 BatchJobResponse exportProformaInvoices()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -202,7 +226,13 @@ This API creates an invoices export and returns a batchjob object.
 BatchJobResponse exportInvoices()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -235,7 +265,13 @@ This API creates a subscriptions export and returns a batchjob object.
 BatchJobResponse exportSubscriptions()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -268,6 +304,10 @@ BatchJobResponse readProformaInvoicesExport(
     final String batchId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -275,6 +315,8 @@ BatchJobResponse readProformaInvoicesExport(
 | `batchId` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -307,6 +349,10 @@ BatchJobResponse readInvoicesExport(
     final String batchId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -314,6 +360,8 @@ BatchJobResponse readInvoicesExport(
 | `batchId` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -346,6 +394,10 @@ BatchJobResponse readSubscriptionsExport(
     final String batchId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -353,6 +405,8 @@ BatchJobResponse readSubscriptionsExport(
 | `batchId` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 

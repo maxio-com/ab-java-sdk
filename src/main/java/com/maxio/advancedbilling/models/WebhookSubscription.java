@@ -33,6 +33,8 @@ public enum WebhookSubscription {
 
     INVOICE_ISSUED,
 
+    INVOICE_PENDING,
+
     METERED_USAGE,
 
     PAYMENT_FAILURE,
@@ -100,6 +102,7 @@ public enum WebhookSubscription {
         EXPIRING_CARD.value = "expiring_card";
         EXPIRATION_DATE_CHANGE.value = "expiration_date_change";
         INVOICE_ISSUED.value = "invoice_issued";
+        INVOICE_PENDING.value = "invoice_pending";
         METERED_USAGE.value = "metered_usage";
         PAYMENT_FAILURE.value = "payment_failure";
         PAYMENT_SUCCESS.value = "payment_success";
@@ -136,6 +139,7 @@ public enum WebhookSubscription {
         valueMap.put("expiring_card", EXPIRING_CARD);
         valueMap.put("expiration_date_change", EXPIRATION_DATE_CHANGE);
         valueMap.put("invoice_issued", INVOICE_ISSUED);
+        valueMap.put("invoice_pending", INVOICE_PENDING);
         valueMap.put("metered_usage", METERED_USAGE);
         valueMap.put("payment_failure", PAYMENT_FAILURE);
         valueMap.put("payment_success", PAYMENT_SUCCESS);

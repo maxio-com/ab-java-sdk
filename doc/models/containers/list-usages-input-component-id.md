@@ -12,3 +12,27 @@
 | `int` | ListUsagesInputComponentId.fromNumber(int number) |
 | `String` | ListUsagesInputComponentId.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+ListUsagesInputComponentId.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+ListUsagesInputComponentId.fromString(
+        "String0"
+    )
+```
+

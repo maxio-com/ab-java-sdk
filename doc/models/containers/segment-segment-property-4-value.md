@@ -14,3 +14,51 @@
 | `int` | SegmentSegmentProperty4Value.fromNumber(int number) |
 | `boolean` | SegmentSegmentProperty4Value.fromBoolean(boolean mBoolean) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+SegmentSegmentProperty4Value.fromString(
+        "String0"
+    )
+```
+
+## double
+
+### Initialization Code
+
+#### Example
+
+```java
+SegmentSegmentProperty4Value.fromPrecision(
+        0D
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+SegmentSegmentProperty4Value.fromNumber(
+        0
+    )
+```
+
+## boolean
+
+### Initialization Code
+
+#### Example
+
+```java
+SegmentSegmentProperty4Value.fromBoolean(
+        false
+    )
+```
+

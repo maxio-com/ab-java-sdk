@@ -38,6 +38,10 @@ ComponentResponse promoteComponentPricePointToDefault(
     final int pricePointId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -46,6 +50,8 @@ ComponentResponse promoteComponentPricePointToDefault(
 | `pricePointId` | `int` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -107,6 +113,10 @@ ComponentPricePointResponse createComponentPricePoint(
     final CreateComponentPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -115,6 +125,8 @@ ComponentPricePointResponse createComponentPricePoint(
 | `body` | [`CreateComponentPricePointRequest`](../../doc/models/create-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -193,6 +205,10 @@ ComponentPricePointsResponse listComponentPricePoints(
     final ListComponentPricePointsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -200,6 +216,8 @@ ComponentPricePointsResponse listComponentPricePoints(
 | `input` | [`ListComponentPricePointsInput`](../../doc/models/list-component-price-points-input.md) | Required | Input structure for the method ListComponentPricePoints |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
 
@@ -282,6 +300,10 @@ ComponentPricePointsResponse bulkCreateComponentPricePoints(
     final CreateComponentPricePointsRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -290,6 +312,8 @@ ComponentPricePointsResponse bulkCreateComponentPricePoints(
 | `body` | [`CreateComponentPricePointsRequest`](../../doc/models/create-component-price-points-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
 
@@ -445,6 +469,10 @@ ComponentPricePointCurrencyOverageResponse cloneComponentPricePoint(
     final CloneComponentPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -454,6 +482,8 @@ ComponentPricePointCurrencyOverageResponse cloneComponentPricePoint(
 | `body` | [`CloneComponentPricePointRequest`](../../doc/models/clone-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
 
@@ -581,6 +611,10 @@ ComponentPricePointResponse updateComponentPricePoint(
     final UpdateComponentPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -590,6 +624,8 @@ ComponentPricePointResponse updateComponentPricePoint(
 | `body` | [`UpdateComponentPricePointRequest`](../../doc/models/update-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -659,6 +695,10 @@ ComponentPricePointCurrencyOverageResponse readComponentPricePoint(
     final Boolean currencyPrices)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -668,6 +708,8 @@ ComponentPricePointCurrencyOverageResponse readComponentPricePoint(
 | `currencyPrices` | `Boolean` | Query, Optional | Include an array of currency price data |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
 
@@ -700,6 +742,10 @@ ComponentPricePointResponse archiveComponentPricePoint(
     final ArchiveComponentPricePointPricePointId pricePointId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -708,6 +754,8 @@ ComponentPricePointResponse archiveComponentPricePoint(
 | `pricePointId` | [`ArchiveComponentPricePointPricePointId`](../../doc/models/containers/archive-component-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -782,6 +830,10 @@ ComponentPricePointResponse unarchiveComponentPricePoint(
     final int pricePointId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -790,6 +842,8 @@ ComponentPricePointResponse unarchiveComponentPricePoint(
 | `pricePointId` | `int` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -856,6 +910,10 @@ ComponentCurrencyPricesResponse createCurrencyPrices(
     final CreateCurrencyPricesRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -864,6 +922,8 @@ ComponentCurrencyPricesResponse createCurrencyPrices(
 | `body` | [`CreateCurrencyPricesRequest`](../../doc/models/create-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
@@ -933,6 +993,10 @@ ComponentCurrencyPricesResponse updateCurrencyPrices(
     final UpdateCurrencyPricesRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -941,6 +1005,8 @@ ComponentCurrencyPricesResponse updateCurrencyPrices(
 | `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
@@ -1007,6 +1073,10 @@ ListComponentsPricePointsResponse listAllComponentPricePoints(
     final ListAllComponentPricePointsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1014,6 +1084,8 @@ ListComponentsPricePointsResponse listAllComponentPricePoints(
 | `input` | [`ListAllComponentPricePointsInput`](../../doc/models/list-all-component-price-points-input.md) | Required | Input structure for the method ListAllComponentPricePoints |
 
 ## Response Type
+
+**200**: OK
 
 [`ListComponentsPricePointsResponse`](../../doc/models/list-components-price-points-response.md)
 

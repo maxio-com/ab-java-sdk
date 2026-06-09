@@ -12,3 +12,27 @@
 | `double` | CreateInvoiceItemQuantity.fromPrecision(double precision) |
 | `String` | CreateInvoiceItemQuantity.fromString(String string) |
 
+## double
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateInvoiceItemQuantity.fromPrecision(
+        0D
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateInvoiceItemQuantity.fromString(
+        "String0"
+    )
+```
+

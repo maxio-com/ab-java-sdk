@@ -33,6 +33,10 @@ ProductResponse createProduct(
     final CreateOrUpdateProductRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -41,6 +45,8 @@ ProductResponse createProduct(
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -140,6 +146,10 @@ ProductResponse readProduct(
     final int productId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -147,6 +157,8 @@ ProductResponse readProduct(
 | `productId` | `int` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -225,6 +237,10 @@ ProductResponse updateProduct(
     final CreateOrUpdateProductRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -233,6 +249,8 @@ ProductResponse updateProduct(
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -316,6 +334,10 @@ ProductResponse archiveProduct(
     final int productId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -323,6 +345,8 @@ ProductResponse archiveProduct(
 | `productId` | `int` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -400,6 +424,10 @@ ProductResponse readProductByHandle(
     final String apiHandle)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -407,6 +435,8 @@ ProductResponse readProductByHandle(
 | `apiHandle` | `String` | Template, Required | The handle of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -501,6 +531,10 @@ List<ProductResponse> listProducts(
     final ListProductsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -508,6 +542,8 @@ List<ProductResponse> listProducts(
 | `input` | [`ListProductsInput`](../../doc/models/list-products-input.md) | Required | Input structure for the method ListProducts |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ProductResponse>`](../../doc/models/product-response.md)
 

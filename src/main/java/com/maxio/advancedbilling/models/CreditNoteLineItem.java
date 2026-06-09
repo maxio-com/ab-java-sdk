@@ -29,6 +29,7 @@ public class CreditNoteLineItem
     private String subtotalAmount;
     private String discountAmount;
     private String taxAmount;
+    private Boolean taxIncluded;
     private String totalAmount;
     private Boolean tieredUnitPrice;
     private LocalDate periodRangeStart;
@@ -56,6 +57,7 @@ public class CreditNoteLineItem
      * @param  subtotalAmount  String value for subtotalAmount.
      * @param  discountAmount  String value for discountAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
      * @param  periodRangeStart  LocalDate value for periodRangeStart.
@@ -76,6 +78,7 @@ public class CreditNoteLineItem
             String subtotalAmount,
             String discountAmount,
             String taxAmount,
+            Boolean taxIncluded,
             String totalAmount,
             Boolean tieredUnitPrice,
             LocalDate periodRangeStart,
@@ -94,6 +97,7 @@ public class CreditNoteLineItem
         this.subtotalAmount = subtotalAmount;
         this.discountAmount = discountAmount;
         this.taxAmount = taxAmount;
+        this.taxIncluded = taxIncluded;
         this.totalAmount = totalAmount;
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
@@ -116,6 +120,7 @@ public class CreditNoteLineItem
      * @param  subtotalAmount  String value for subtotalAmount.
      * @param  discountAmount  String value for discountAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
      * @param  periodRangeStart  LocalDate value for periodRangeStart.
@@ -130,10 +135,11 @@ public class CreditNoteLineItem
 
     protected CreditNoteLineItem(String uid, String title, String description, String quantity,
             String unitPrice, String subtotalAmount, String discountAmount, String taxAmount,
-            String totalAmount, Boolean tieredUnitPrice, LocalDate periodRangeStart,
-            LocalDate periodRangeEnd, Integer productId, Integer productVersion,
-            OptionalNullable<Integer> componentId, OptionalNullable<Integer> pricePointId,
-            OptionalNullable<Integer> billingScheduleItemId, Boolean customItem) {
+            Boolean taxIncluded, String totalAmount, Boolean tieredUnitPrice,
+            LocalDate periodRangeStart, LocalDate periodRangeEnd, Integer productId,
+            Integer productVersion, OptionalNullable<Integer> componentId,
+            OptionalNullable<Integer> pricePointId, OptionalNullable<Integer> billingScheduleItemId,
+            Boolean customItem) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -142,6 +148,7 @@ public class CreditNoteLineItem
         this.subtotalAmount = subtotalAmount;
         this.discountAmount = discountAmount;
         this.taxAmount = taxAmount;
+        this.taxIncluded = taxIncluded;
         this.totalAmount = totalAmount;
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
@@ -352,6 +359,35 @@ public class CreditNoteLineItem
     @JsonSetter("tax_amount")
     public void setTaxAmount(String taxAmount) {
         this.taxAmount = taxAmount;
+    }
+
+    /**
+     * Getter for TaxIncluded.
+     * Whether the unit price for this line item is tax-inclusive. When `true`, `unit_price` already
+     * includes tax and `tax_amount` represents the portion of the price attributable to tax. When
+     * `false`, any applicable tax is added on top of the price. The value is inherited from the
+     * source price point's `tax_included` setting. Custom or ad-hoc line items (which have no
+     * associated price point) always return `false`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether the unit price for this line item is tax-inclusive. When `true`, `unit_price` already
+     * includes tax and `tax_amount` represents the portion of the price attributable to tax. When
+     * `false`, any applicable tax is added on top of the price. The value is inherited from the
+     * source price point's `tax_included` setting. Custom or ad-hoc line items (which have no
+     * associated price point) always return `false`.
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
     }
 
     /**
@@ -635,12 +671,13 @@ public class CreditNoteLineItem
         return "CreditNoteLineItem [" + "uid=" + uid + ", title=" + title + ", description="
                 + description + ", quantity=" + quantity + ", unitPrice=" + unitPrice
                 + ", subtotalAmount=" + subtotalAmount + ", discountAmount=" + discountAmount
-                + ", taxAmount=" + taxAmount + ", totalAmount=" + totalAmount + ", tieredUnitPrice="
-                + tieredUnitPrice + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd="
-                + periodRangeEnd + ", productId=" + productId + ", productVersion=" + productVersion
-                + ", componentId=" + componentId + ", pricePointId=" + pricePointId
-                + ", billingScheduleItemId=" + billingScheduleItemId + ", customItem=" + customItem
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", taxAmount=" + taxAmount + ", taxIncluded=" + taxIncluded + ", totalAmount="
+                + totalAmount + ", tieredUnitPrice=" + tieredUnitPrice + ", periodRangeStart="
+                + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd + ", productId="
+                + productId + ", productVersion=" + productVersion + ", componentId=" + componentId
+                + ", pricePointId=" + pricePointId + ", billingScheduleItemId="
+                + billingScheduleItemId + ", customItem=" + customItem + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -658,6 +695,7 @@ public class CreditNoteLineItem
                 .subtotalAmount(getSubtotalAmount())
                 .discountAmount(getDiscountAmount())
                 .taxAmount(getTaxAmount())
+                .taxIncluded(getTaxIncluded())
                 .totalAmount(getTotalAmount())
                 .tieredUnitPrice(getTieredUnitPrice())
                 .periodRangeStart(getPeriodRangeStart())
@@ -683,6 +721,7 @@ public class CreditNoteLineItem
         private String subtotalAmount;
         private String discountAmount;
         private String taxAmount;
+        private Boolean taxIncluded;
         private String totalAmount;
         private Boolean tieredUnitPrice;
         private LocalDate periodRangeStart;
@@ -773,6 +812,16 @@ public class CreditNoteLineItem
          */
         public Builder taxAmount(String taxAmount) {
             this.taxAmount = taxAmount;
+            return this;
+        }
+
+        /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
             return this;
         }
 
@@ -909,9 +958,9 @@ public class CreditNoteLineItem
          */
         public CreditNoteLineItem build() {
             return new CreditNoteLineItem(uid, title, description, quantity, unitPrice,
-                    subtotalAmount, discountAmount, taxAmount, totalAmount, tieredUnitPrice,
-                    periodRangeStart, periodRangeEnd, productId, productVersion, componentId,
-                    pricePointId, billingScheduleItemId, customItem);
+                    subtotalAmount, discountAmount, taxAmount, taxIncluded, totalAmount,
+                    tieredUnitPrice, periodRangeStart, periodRangeEnd, productId, productVersion,
+                    componentId, pricePointId, billingScheduleItemId, customItem);
         }
     }
 }

@@ -12,3 +12,27 @@
 | `String` | CreateInvoiceItemProductPricePointId.fromString(String string) |
 | `int` | CreateInvoiceItemProductPricePointId.fromNumber(int number) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateInvoiceItemProductPricePointId.fromString(
+        "String0"
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateInvoiceItemProductPricePointId.fromNumber(
+        0
+    )
+```
+

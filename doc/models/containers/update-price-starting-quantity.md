@@ -12,3 +12,27 @@
 | `int` | UpdatePriceStartingQuantity.fromNumber(int number) |
 | `String` | UpdatePriceStartingQuantity.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+UpdatePriceStartingQuantity.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+UpdatePriceStartingQuantity.fromString(
+        "String0"
+    )
+```
+

@@ -37,6 +37,10 @@ Void createConsolidatedProformaInvoice(
     final String uid)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -44,6 +48,8 @@ Void createConsolidatedProformaInvoice(
 | `uid` | `String` | Template, Required | The uid of the subscription group |
 
 ## Response Type
+
+**201**: Created
 
 `void`
 
@@ -79,6 +85,10 @@ ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
     final ListSubscriptionGroupProformaInvoicesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -86,6 +96,8 @@ ListProformaInvoicesResponse listSubscriptionGroupProformaInvoices(
 | `input` | [`ListSubscriptionGroupProformaInvoicesInput`](../../doc/models/list-subscription-group-proforma-invoices-input.md) | Required | Input structure for the method ListSubscriptionGroupProformaInvoices |
 
 ## Response Type
+
+**200**: OK
 
 [`ListProformaInvoicesResponse`](../../doc/models/list-proforma-invoices-response.md)
 
@@ -131,6 +143,10 @@ ProformaInvoice readProformaInvoice(
     final String proformaInvoiceUid)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -138,6 +154,8 @@ ProformaInvoice readProformaInvoice(
 | `proformaInvoiceUid` | `String` | Template, Required | The uid of the proforma invoice |
 
 ## Response Type
+
+**200**: OK
 
 [`ProformaInvoice`](../../doc/models/proforma-invoice.md)
 
@@ -176,6 +194,10 @@ ProformaInvoice createProformaInvoice(
     final int subscriptionId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -183,6 +205,8 @@ ProformaInvoice createProformaInvoice(
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
+
+**200**: OK
 
 [`ProformaInvoice`](../../doc/models/proforma-invoice.md)
 
@@ -217,6 +241,10 @@ ListProformaInvoicesResponse listProformaInvoices(
     final ListProformaInvoicesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -224,6 +252,8 @@ ListProformaInvoicesResponse listProformaInvoices(
 | `input` | [`ListProformaInvoicesInput`](../../doc/models/list-proforma-invoices-input.md) | Required | Input structure for the method ListProformaInvoices |
 
 ## Response Type
+
+**200**: OK
 
 [`ListProformaInvoicesResponse`](../../doc/models/list-proforma-invoices-response.md)
 
@@ -268,6 +298,10 @@ ProformaInvoice deliverProformaInvoice(
     final DeliverProformaInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -276,6 +310,8 @@ ProformaInvoice deliverProformaInvoice(
 | `body` | [`DeliverProformaInvoiceRequest`](../../doc/models/deliver-proforma-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ProformaInvoice`](../../doc/models/proforma-invoice.md)
 
@@ -331,6 +367,10 @@ ProformaInvoice voidProformaInvoice(
     final VoidInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -339,6 +379,8 @@ ProformaInvoice voidProformaInvoice(
 | `body` | [`VoidInvoiceRequest`](../../doc/models/void-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ProformaInvoice`](../../doc/models/proforma-invoice.md)
 
@@ -379,6 +421,10 @@ ProformaInvoice previewProformaInvoice(
     final int subscriptionId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -386,6 +432,8 @@ ProformaInvoice previewProformaInvoice(
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
 
 ## Response Type
+
+**200**: OK
 
 [`ProformaInvoice`](../../doc/models/proforma-invoice.md)
 
@@ -427,6 +475,10 @@ ProformaInvoice createSignupProformaInvoice(
     final CreateSubscriptionRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -434,6 +486,8 @@ ProformaInvoice createSignupProformaInvoice(
 | `body` | [`CreateSubscriptionRequest`](../../doc/models/create-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ProformaInvoice`](../../doc/models/proforma-invoice.md)
 
@@ -488,6 +542,10 @@ SignupProformaPreviewResponse previewSignupProformaInvoice(
     final CreateSubscriptionRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -496,6 +554,8 @@ SignupProformaPreviewResponse previewSignupProformaInvoice(
 | `body` | [`CreateSubscriptionRequest`](../../doc/models/create-subscription-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`SignupProformaPreviewResponse`](../../doc/models/signup-proforma-preview-response.md)
 

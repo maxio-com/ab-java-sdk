@@ -37,13 +37,17 @@ Refund an invoice, segment, or consolidated invoice.
 
 A refund less than the total of a consolidated invoice will be split across its segments.
 
-A $50.00 refund on a $100.00 consolidated invoice with one $60.00 and one $40.00 segment, the refunded amount will be applied as 50% of each ($30.00 and $20.00 respectively).
+For a $50.00 refund on a $100.00 consolidated invoice with one $60.00 segment and one $40.00 segment, the refunded amount will be applied as 50% of each ($30.00 and $20.00, respectively).
 
 ```java
 Invoice refundInvoice(
     final String uid,
     final RefundInvoiceRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -53,6 +57,8 @@ Invoice refundInvoice(
 | `body` | [`RefundInvoiceRequest`](../../doc/models/refund-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -101,6 +107,10 @@ ListInvoicesResponse listInvoices(
     final ListInvoicesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -108,6 +118,8 @@ ListInvoicesResponse listInvoices(
 | `input` | [`ListInvoicesInput`](../../doc/models/list-invoices-input.md) | Required | Input structure for the method ListInvoices |
 
 ## Response Type
+
+**200**: OK
 
 [`ListInvoicesResponse`](../../doc/models/list-invoices-response.md)
 
@@ -446,6 +458,10 @@ Invoice readInvoice(
     final String uid)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -453,6 +469,8 @@ Invoice readInvoice(
 | `uid` | `String` | Template, Required | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -546,6 +564,7 @@ try {
       "subtotal_amount": "100.0",
       "discount_amount": "0.0",
       "tax_amount": "0.0",
+      "tax_included": false,
       "total_amount": "100.0",
       "tiered_unit_price": false,
       "period_range_start": "2018-07-26",
@@ -611,6 +630,10 @@ ListInvoiceEventsResponse listInvoiceEvents(
     final ListInvoiceEventsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -618,6 +641,8 @@ ListInvoiceEventsResponse listInvoiceEvents(
 | `input` | [`ListInvoiceEventsInput`](../../doc/models/list-invoice-events-input.md) | Required | Input structure for the method ListInvoiceEvents |
 
 ## Response Type
+
+**200**: OK
 
 [`ListInvoiceEventsResponse`](../../doc/models/list-invoice-events-response.md)
 
@@ -740,6 +765,7 @@ try {
             "subtotal_amount": "99.0",
             "discount_amount": "9.9",
             "tax_amount": "6.01425",
+            "tax_included": false,
             "total_amount": "95.11425",
             "tiered_unit_price": false,
             "period_range_start": "2018-08-01",
@@ -760,6 +786,7 @@ try {
             "subtotal_amount": "15.5",
             "discount_amount": "1.55",
             "tax_amount": "0.941625",
+            "tax_included": false,
             "total_amount": "14.891625",
             "tiered_unit_price": true,
             "period_range_start": "2018-07-22",
@@ -808,6 +835,7 @@ try {
             "subtotal_amount": "47.0",
             "discount_amount": "4.7",
             "tax_amount": "2.85525",
+            "tax_included": false,
             "total_amount": "45.15525",
             "tiered_unit_price": true,
             "period_range_start": "2018-07-22",
@@ -856,6 +884,7 @@ try {
             "subtotal_amount": "14.0",
             "discount_amount": "1.4",
             "tax_amount": "0.8505",
+            "tax_included": false,
             "total_amount": "13.4505",
             "tiered_unit_price": false,
             "period_range_start": "2018-08-01",
@@ -1031,6 +1060,10 @@ Invoice recordPaymentForInvoice(
     final CreateInvoicePaymentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1039,6 +1072,8 @@ Invoice recordPaymentForInvoice(
 | `body` | [`CreateInvoicePaymentRequest`](../../doc/models/create-invoice-payment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -1079,7 +1114,7 @@ try {
 
 This API call should be used when you want to record an external payment against multiple invoices.
 
-In order apply a payment to multiple invoices, at minimum, specify the `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
+To apply a payment to multiple invoices, at minimum, specify the `amount` and `applications` (i.e., `invoice_uid` and `amount`) details.
 
 ```
 {
@@ -1109,6 +1144,10 @@ MultiInvoicePaymentResponse recordPaymentForMultipleInvoices(
     final CreateMultiInvoicePaymentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1116,6 +1155,8 @@ MultiInvoicePaymentResponse recordPaymentForMultipleInvoices(
 | `body` | [`CreateMultiInvoicePaymentRequest`](../../doc/models/create-multi-invoice-payment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`MultiInvoicePaymentResponse`](../../doc/models/multi-invoice-payment-response.md)
 
@@ -1199,6 +1240,10 @@ ListCreditNotesResponse listCreditNotes(
     final ListCreditNotesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1206,6 +1251,8 @@ ListCreditNotesResponse listCreditNotes(
 | `input` | [`ListCreditNotesInput`](../../doc/models/list-credit-notes-input.md) | Required | Input structure for the method ListCreditNotes |
 
 ## Response Type
+
+**200**: OK
 
 [`ListCreditNotesResponse`](../../doc/models/list-credit-notes-response.md)
 
@@ -1299,6 +1346,7 @@ try {
           "subtotal_amount": "1.971004",
           "discount_amount": "0.19862831",
           "tax_amount": "0.11963536",
+          "tax_included": false,
           "total_amount": "1.89201105",
           "tiered_unit_price": false,
           "period_range_start": "2018-11-30",
@@ -1317,6 +1365,7 @@ try {
           "subtotal_amount": "114.21127834",
           "discount_amount": "11.42112783",
           "tax_amount": "6.93833516",
+          "tax_included": false,
           "total_amount": "109.72848567",
           "tiered_unit_price": false,
           "period_range_start": "2018-12-30",
@@ -1335,6 +1384,7 @@ try {
           "subtotal_amount": "9.16746047",
           "discount_amount": "0.91674605",
           "tax_amount": "0.55692322",
+          "tax_included": false,
           "total_amount": "8.80763764",
           "tiered_unit_price": true,
           "period_range_start": "2018-11-30",
@@ -1353,6 +1403,7 @@ try {
           "subtotal_amount": "72.57572871",
           "discount_amount": "7.25757287",
           "tax_amount": "4.40897552",
+          "tax_included": false,
           "total_amount": "69.72713136",
           "tiered_unit_price": true,
           "period_range_start": "2018-11-30",
@@ -1371,6 +1422,7 @@ try {
           "subtotal_amount": "3.12839588",
           "discount_amount": "0.31322157",
           "tax_amount": "0.19002427",
+          "tax_included": false,
           "total_amount": "3.00519858",
           "tiered_unit_price": true,
           "period_range_start": "2018-11-30",
@@ -1389,6 +1441,7 @@ try {
           "subtotal_amount": "7.63955039",
           "discount_amount": "0.76395504",
           "tax_amount": "0.46410269",
+          "tax_included": false,
           "total_amount": "7.33969804",
           "tiered_unit_price": false,
           "period_range_start": "2018-12-30",
@@ -1541,6 +1594,10 @@ CreditNote readCreditNote(
     final String uid)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1548,6 +1605,8 @@ CreditNote readCreditNote(
 | `uid` | `String` | Template, Required | The unique identifier of the credit note |
 
 ## Response Type
+
+**200**: OK
 
 [`CreditNote`](../../doc/models/credit-note.md)
 
@@ -1631,6 +1690,7 @@ try {
       "subtotal_amount": "1.971004",
       "discount_amount": "0.19862831",
       "tax_amount": "0.11963536",
+      "tax_included": false,
       "total_amount": "1.89201105",
       "tiered_unit_price": false,
       "period_range_start": "2018-11-30",
@@ -1651,6 +1711,7 @@ try {
       "subtotal_amount": "114.21127834",
       "discount_amount": "11.42112783",
       "tax_amount": "6.93833516",
+      "tax_included": false,
       "total_amount": "109.72848567",
       "tiered_unit_price": false,
       "period_range_start": "2018-12-30",
@@ -1671,6 +1732,7 @@ try {
       "subtotal_amount": "9.16746047",
       "discount_amount": "0.91674605",
       "tax_amount": "0.55692322",
+      "tax_included": false,
       "total_amount": "8.80763764",
       "tiered_unit_price": true,
       "period_range_start": "2018-11-30",
@@ -1691,6 +1753,7 @@ try {
       "subtotal_amount": "72.57572871",
       "discount_amount": "7.25757287",
       "tax_amount": "4.40897552",
+      "tax_included": false,
       "total_amount": "69.72713136",
       "tiered_unit_price": true,
       "period_range_start": "2018-11-30",
@@ -1711,6 +1774,7 @@ try {
       "subtotal_amount": "3.12839588",
       "discount_amount": "0.31322157",
       "tax_amount": "0.19002427",
+      "tax_included": false,
       "total_amount": "3.00519858",
       "tiered_unit_price": true,
       "period_range_start": "2018-11-30",
@@ -1731,6 +1795,7 @@ try {
       "subtotal_amount": "7.63955039",
       "discount_amount": "0.76395504",
       "tax_amount": "0.46410269",
+      "tax_included": false,
       "total_amount": "7.33969804",
       "tiered_unit_price": false,
       "period_range_start": "2018-12-30",
@@ -1890,6 +1955,10 @@ RecordPaymentResponse recordPaymentForSubscription(
     final RecordPaymentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1898,6 +1967,8 @@ RecordPaymentResponse recordPaymentForSubscription(
 | `body` | [`RecordPaymentRequest`](../../doc/models/record-payment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: OK
 
 [`RecordPaymentResponse`](../../doc/models/record-payment-response.md)
 
@@ -1975,6 +2046,10 @@ Invoice reopenInvoice(
     final String uid)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1982,6 +2057,8 @@ Invoice reopenInvoice(
 | `uid` | `String` | Template, Required | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -2018,6 +2095,10 @@ Invoice voidInvoice(
     final VoidInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -2026,6 +2107,8 @@ Invoice voidInvoice(
 | `body` | [`VoidInvoiceRequest`](../../doc/models/void-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -2068,6 +2151,10 @@ ConsolidatedInvoice listConsolidatedInvoiceSegments(
     final ListConsolidatedInvoiceSegmentsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -2075,6 +2162,8 @@ ConsolidatedInvoice listConsolidatedInvoiceSegments(
 | `input` | [`ListConsolidatedInvoiceSegmentsInput`](../../doc/models/list-consolidated-invoice-segments-input.md) | Required | Input structure for the method ListConsolidatedInvoiceSegments |
 
 ## Response Type
+
+**200**: OK
 
 [`ConsolidatedInvoice`](../../doc/models/consolidated-invoice.md)
 
@@ -2412,13 +2501,13 @@ Instead of creating custom products like in above example, You can pass existing
 
 The price for each line item will be calculated as well as a total due amount for the invoice. Multiple line items can be sent.
 
-### Line items types
+### Line item types
 
-When defining line item, You can choose one of 3 types for one line item:
+When defining a line item, You can choose one of 3 types for a line item:
 
 #### Custom item
 
-Like in basic behavior example above, You can pass `title` and `unit_price` for custom item.
+As shown in the basic behavior example, You can pass `title` and `unit_price` for custom item.
 
 #### Product id
 
@@ -2426,7 +2515,7 @@ Product handle (with handle: prefix) or id from the scope of current subscriptio
 
 #### Component id
 
-Component handle (with handle: prefix) or id from the scope of current subscription's site can be provided with `component_id`. If `component_id` is used, following fields cannot be used: `title`, `product_id`. By default `unit_price` is taken from product's default price point, but can be overwritten by passing `unit_price` or `price_point_id`. At this moment price points are supportted only for quantity based, on/off and metered components. For prepaid and event based billing components `unit_price` is required.
+Component handle (with handle: prefix) or id from the scope of current subscription's site can be provided with `component_id`. If `component_id` is used, following fields cannot be used: `title`, `product_id`. By default `unit_price` is taken from product's default price point, but can be overwritten by passing `unit_price` or `price_point_id`. At this moment price points are supported only for quantity based, on/off and metered components. For prepaid and event based billing components `unit_price` is required.
 
 ### Coupons
 
@@ -2563,7 +2652,7 @@ Optional `description` parameter, it will overwrite default generated descriptio
 
 #### Issue Date
 
-By default, invoices will be created with a issue date set to today. `issue_date` parameter can be send to alter that. Only dates in the past can be send. `issue_date` should be send in `YYYY-MM-DD` format.
+By default, invoices will be created with a issue date set to today in your site's time zone. The `issue_date` parameter can be sent to alter the default. Only today or dates in the past are accepted. This date is interpreted and validated in your site's time zone. The format for `issue_date` is `YYYY-MM-DD`.
 
 #### Net Terms
 
@@ -2575,7 +2664,7 @@ The seller, shipping and billing addresses can be sent to override the site's de
 
 #### Memo and Payment Instructions
 
-A custom memo can be sent with the `memo` parameter to override the site's default. Likewise, custom payment instructions can be sent with the `payment_instrucions` parameter.
+A custom memo can be sent with the `memo` parameter to override the site's default. Likewise, custom payment instructions can be sent with the `payment_instructions` parameter.
 
 #### Status
 
@@ -2587,6 +2676,10 @@ InvoiceResponse createInvoice(
     final CreateInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -2595,6 +2688,8 @@ InvoiceResponse createInvoice(
 | `body` | [`CreateInvoiceRequest`](../../doc/models/create-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`InvoiceResponse`](../../doc/models/invoice-response.md)
 
@@ -2710,6 +2805,7 @@ try {
         "subtotal_amount": "1800.0",
         "discount_amount": "0.0",
         "tax_amount": "0.0",
+        "tax_included": false,
         "total_amount": "1800.0",
         "tiered_unit_price": false,
         "period_range_start": "2020-12-02",
@@ -2749,6 +2845,10 @@ Void sendInvoice(
     final SendInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -2757,6 +2857,8 @@ Void sendInvoice(
 | `body` | [`SendInvoiceRequest`](../../doc/models/send-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**204**: No Content
 
 `void`
 
@@ -2794,7 +2896,7 @@ try {
 
 # Preview Customer Information Changes
 
-Customer information may change after an invoice is issued which may lead to a mismatch between customer information that are present on an open invoice and actual customer information. This endpoint allows to preview these differences, if any.
+Customer information may change after an invoice is issued, which may lead to a mismatch between customer information that is present on an open invoice and actual customer information. This endpoint allows you to preview these differences, if any.
 
 The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
 
@@ -2803,6 +2905,10 @@ CustomerChangesPreviewResponse previewCustomerInformationChanges(
     final String uid)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -2810,6 +2916,8 @@ CustomerChangesPreviewResponse previewCustomerInformationChanges(
 | `uid` | `String` | Template, Required | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerChangesPreviewResponse`](../../doc/models/customer-changes-preview-response.md)
 
@@ -2891,7 +2999,7 @@ try {
 
 # Update Customer Information
 
-This endpoint updates customer information on an open invoice and returns the updated invoice. If you would like to preview changes that will be applied, use the `/invoices/{uid}/customer_information/preview.json` endpoint before.
+This endpoint updates customer information on an open invoice and returns the updated invoice. If you would like to preview changes that will be applied, use the `/invoices/{uid}/customer_information/preview.json` endpoint first.
 
 The endpoint doesn't accept a request body. Customer information differences are calculated on the application side.
 
@@ -2900,6 +3008,10 @@ Invoice updateCustomerInformation(
     final String uid)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -2907,6 +3019,8 @@ Invoice updateCustomerInformation(
 | `uid` | `String` | Template, Required | The unique identifier for the invoice, this does not refer to the public facing invoice number. |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 
@@ -3127,9 +3241,9 @@ This endpoint allows you to issue an invoice that is in "pending" or "draft" sta
 
 You cannot issue a pending child invoice that was created for a member subscription in a group.
 
-For Remittance subscriptions, the invoice will go into "open" status and payment won't be attempted. The value for `on_failed_payment` would be rejected if sent. Any prepayments or service credits that exist on subscription will be automatically applied. Additionally, if setting is on, an email will be sent for issued invoice.
+For Remittance subscriptions, the invoice will go into "open" status and payment won't be attempted. The value for `on_failed_payment` would be rejected if sent. Any prepayments or service credits that exist on the subscription will be automatically applied. Additionally, if the setting is enabled, an email will be sent for the issued invoice.
 
-For Automatic subscriptions, prepayments and service credits will apply to the invoice and before payment is attempted. On successful payment, the invoice will go into "paid" status and email will be sent to the customer (if setting applies). When payment fails, the next event depends on the `on_failed_payment` value:
+For Automatic subscriptions, prepayments and service credits will apply to the invoice before payment is attempted. On successful payment, the invoice will go into "paid" status and email will be sent to the customer (if setting applies). When payment fails, the next event depends on the `on_failed_payment` value:
 
 - `leave_open_invoice` - prepayments and credits applied to invoice; invoice status set to "open"; email sent to the customer for the issued invoice (if setting applies); payment failure recorded in the invoice history. This is the default option.
 - `rollback_to_pending` - prepayments and credits not applied; invoice remains in "pending" status; no email sent to the customer; payment failure recorded in the invoice history.
@@ -3141,6 +3255,10 @@ Invoice issueInvoice(
     final IssueInvoiceRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -3149,6 +3267,8 @@ Invoice issueInvoice(
 | `body` | [`IssueInvoiceRequest`](../../doc/models/issue-invoice-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`Invoice`](../../doc/models/invoice.md)
 

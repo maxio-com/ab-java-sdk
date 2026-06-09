@@ -40,6 +40,10 @@ CustomerResponse enableBillingPortalForCustomer(
     final AutoInvite autoInvite)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -48,6 +52,8 @@ CustomerResponse enableBillingPortalForCustomer(
 | `autoInvite` | [`AutoInvite`](../../doc/models/auto-invite.md) | Query, Optional | When set to 1, an Invitation email will be sent to the Customer.<br>When set to 0, or not sent, an email will not be sent.<br>Use in query: `auto_invite=1`. |
 
 ## Response Type
+
+**200**: OK
 
 [`CustomerResponse`](../../doc/models/customer-response.md)
 
@@ -90,6 +96,10 @@ PortalManagementLink readBillingPortalLink(
     final int customerId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -97,6 +107,8 @@ PortalManagementLink readBillingPortalLink(
 | `customerId` | `int` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`PortalManagementLink`](../../doc/models/portal-management-link.md)
 
@@ -159,6 +171,10 @@ ResentInvitation resendBillingPortalInvitation(
     final int customerId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -166,6 +182,8 @@ ResentInvitation resendBillingPortalInvitation(
 | `customerId` | `int` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`ResentInvitation`](../../doc/models/resent-invitation.md)
 
@@ -218,6 +236,10 @@ RevokedInvitation revokeBillingPortalAccess(
     final int customerId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -225,6 +247,8 @@ RevokedInvitation revokeBillingPortalAccess(
 | `customerId` | `int` | Template, Required | The Chargify id of the customer |
 
 ## Response Type
+
+**200**: OK
 
 [`RevokedInvitation`](../../doc/models/revoked-invitation.md)
 

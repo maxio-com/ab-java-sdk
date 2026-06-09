@@ -12,3 +12,27 @@
 | `String` | SubscriptionGroupCreditCardExpirationYear.fromString(String string) |
 | `int` | SubscriptionGroupCreditCardExpirationYear.fromNumber(int number) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+SubscriptionGroupCreditCardExpirationYear.fromString(
+        "String0"
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+SubscriptionGroupCreditCardExpirationYear.fromNumber(
+        0
+    )
+```
+

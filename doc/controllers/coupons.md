@@ -49,6 +49,10 @@ CouponResponse createCoupon(
     final CouponRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -57,6 +61,8 @@ CouponResponse createCoupon(
 | `body` | [`CouponRequest`](../../doc/models/coupon-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`CouponResponse`](../../doc/models/coupon-response.md)
 
@@ -116,6 +122,10 @@ List<CouponResponse> listCouponsForProductFamily(
     final ListCouponsForProductFamilyInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -123,6 +133,8 @@ List<CouponResponse> listCouponsForProductFamily(
 | `input` | [`ListCouponsForProductFamilyInput`](../../doc/models/list-coupons-for-product-family-input.md) | Required | Input structure for the method ListCouponsForProductFamily |
 
 ## Response Type
+
+**200**: OK
 
 [`List<CouponResponse>`](../../doc/models/coupon-response.md)
 
@@ -265,6 +277,10 @@ CouponResponse findCoupon(
     final Boolean currencyPrices)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -274,6 +290,8 @@ CouponResponse findCoupon(
 | `currencyPrices` | `Boolean` | Query, Optional | When fetching coupons, if you have defined multiple currencies at the site level, you can optionally pass the `?currency_prices=true` query param to include an array of currency price data in the response. |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponResponse`](../../doc/models/coupon-response.md)
 
@@ -307,6 +325,10 @@ CouponResponse readCoupon(
     final Boolean currencyPrices)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -316,6 +338,8 @@ CouponResponse readCoupon(
 | `currencyPrices` | `Boolean` | Query, Optional | When fetching coupons, if you have defined multiple currencies at the site level, you can optionally pass the `?currency_prices=true` query param to include an array of currency price data in the response. |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponResponse`](../../doc/models/coupon-response.md)
 
@@ -380,6 +404,10 @@ CouponResponse updateCoupon(
     final CouponRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -389,6 +417,8 @@ CouponResponse updateCoupon(
 | `body` | [`CouponRequest`](../../doc/models/coupon-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponResponse`](../../doc/models/coupon-response.md)
 
@@ -479,6 +509,10 @@ CouponResponse archiveCoupon(
     final int couponId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -487,6 +521,8 @@ CouponResponse archiveCoupon(
 | `couponId` | `int` | Template, Required | The Advanced Billing id of the coupon |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponResponse`](../../doc/models/coupon-response.md)
 
@@ -543,6 +579,10 @@ List<CouponResponse> listCoupons(
     final ListCouponsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -550,6 +590,8 @@ List<CouponResponse> listCoupons(
 | `input` | [`ListCouponsInput`](../../doc/models/list-coupons-input.md) | Required | Input structure for the method ListCoupons |
 
 ## Response Type
+
+**200**: OK
 
 [`List<CouponResponse>`](../../doc/models/coupon-response.md)
 
@@ -644,6 +686,10 @@ List<CouponUsage> readCouponUsage(
     final int couponId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -652,6 +698,8 @@ List<CouponUsage> readCouponUsage(
 | `couponId` | `int` | Template, Required | The Advanced Billing id of the coupon. |
 
 ## Response Type
+
+**200**: OK
 
 [`List<CouponUsage>`](../../doc/models/coupon-usage.md)
 
@@ -734,6 +782,10 @@ CouponResponse validateCoupon(
     final Integer productFamilyId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -742,6 +794,8 @@ CouponResponse validateCoupon(
 | `productFamilyId` | `Integer` | Query, Optional | The Advanced Billing id of the product family to which the coupon belongs |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponResponse`](../../doc/models/coupon-response.md)
 
@@ -808,6 +862,10 @@ CouponCurrencyResponse createOrUpdateCouponCurrencyPrices(
     final CouponCurrencyRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -816,6 +874,8 @@ CouponCurrencyResponse createOrUpdateCouponCurrencyPrices(
 | `body` | [`CouponCurrencyRequest`](../../doc/models/coupon-currency-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponCurrencyResponse`](../../doc/models/coupon-currency-response.md)
 
@@ -905,6 +965,10 @@ CouponSubcodesResponse createCouponSubcodes(
     final CouponSubcodes body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -913,6 +977,8 @@ CouponSubcodesResponse createCouponSubcodes(
 | `body` | [`CouponSubcodes`](../../doc/models/coupon-subcodes.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponSubcodesResponse`](../../doc/models/coupon-subcodes-response.md)
 
@@ -958,6 +1024,10 @@ CouponSubcodes listCouponSubcodes(
     final ListCouponSubcodesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -965,6 +1035,8 @@ CouponSubcodes listCouponSubcodes(
 | `input` | [`ListCouponSubcodesInput`](../../doc/models/list-coupon-subcodes-input.md) | Required | Input structure for the method ListCouponSubcodes |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponSubcodes`](../../doc/models/coupon-subcodes.md)
 
@@ -1036,6 +1108,10 @@ CouponSubcodesResponse updateCouponSubcodes(
     final CouponSubcodes body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1044,6 +1120,8 @@ CouponSubcodesResponse updateCouponSubcodes(
 | `body` | [`CouponSubcodes`](../../doc/models/coupon-subcodes.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CouponSubcodesResponse`](../../doc/models/coupon-subcodes-response.md)
 
@@ -1099,6 +1177,10 @@ Void deleteCouponSubcode(
     final String subcode)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -1107,6 +1189,8 @@ Void deleteCouponSubcode(
 | `subcode` | `String` | Template, Required | The subcode of the coupon |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
