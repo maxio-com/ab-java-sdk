@@ -367,7 +367,7 @@ public class ComponentCreatePricePointTest extends ComponentsControllerTestBase 
                                         .build()),
                         Map.of("expiration_interval", List.of("Rollover allocation option must be true to use expiration interval"),
                                 "expiration_interval_unit", List.of("Expiration interval unit: cannot be blank."),
-                                "base", List.of("Overage pricing scheme must be defined for prepaid components"),
+                                "base", List.of("Overage pricing scheme must be defined"),
                                 "overage_prices", List.of("At least 1 overage price bracket must be defined"))
                 )
         );
