@@ -51,6 +51,7 @@ public class Customer
     private OptionalNullable<String> salesforceId;
     private OptionalNullable<String> taxExemptReason;
     private OptionalNullable<Integer> defaultAutoRenewalProfileId;
+    private OptionalNullable<String> maxioid;
 
     /**
      * Default constructor.
@@ -90,6 +91,7 @@ public class Customer
      * @param  salesforceId  String value for salesforceId.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
+     * @param  maxioid  String value for maxioid.
      */
     public Customer(
             String firstName,
@@ -121,7 +123,8 @@ public class Customer
             String defaultSubscriptionGroupUid,
             String salesforceId,
             String taxExemptReason,
-            Integer defaultAutoRenewalProfileId) {
+            Integer defaultAutoRenewalProfileId,
+            String maxioid) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -152,6 +155,7 @@ public class Customer
         this.salesforceId = OptionalNullable.of(salesforceId);
         this.taxExemptReason = OptionalNullable.of(taxExemptReason);
         this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
+        this.maxioid = OptionalNullable.of(maxioid);
     }
 
     /**
@@ -186,6 +190,7 @@ public class Customer
      * @param  salesforceId  String value for salesforceId.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
+     * @param  maxioid  String value for maxioid.
      */
 
     protected Customer(String firstName, String lastName, String email,
@@ -203,7 +208,8 @@ public class Customer
             OptionalNullable<String> vatNumber, OptionalNullable<Integer> parentId,
             OptionalNullable<String> locale, OptionalNullable<String> defaultSubscriptionGroupUid,
             OptionalNullable<String> salesforceId, OptionalNullable<String> taxExemptReason,
-            OptionalNullable<Integer> defaultAutoRenewalProfileId) {
+            OptionalNullable<Integer> defaultAutoRenewalProfileId,
+            OptionalNullable<String> maxioid) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -234,6 +240,7 @@ public class Customer
         this.salesforceId = salesforceId;
         this.taxExemptReason = taxExemptReason;
         this.defaultAutoRenewalProfileId = defaultAutoRenewalProfileId;
+        this.maxioid = maxioid;
     }
 
     /**
@@ -1310,6 +1317,45 @@ public class Customer
     }
 
     /**
+     * Internal Getter for Maxioid.
+     * The Maxio-generated unique identifier for the customer.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("maxioid")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetMaxioid() {
+        return this.maxioid;
+    }
+
+    /**
+     * Getter for Maxioid.
+     * The Maxio-generated unique identifier for the customer.
+     * @return Returns the String
+     */
+    public String getMaxioid() {
+        return OptionalNullable.getFrom(maxioid);
+    }
+
+    /**
+     * Setter for Maxioid.
+     * The Maxio-generated unique identifier for the customer.
+     * @param maxioid Value for String
+     */
+    @JsonSetter("maxioid")
+    public void setMaxioid(String maxioid) {
+        this.maxioid = OptionalNullable.of(maxioid);
+    }
+
+    /**
+     * UnSetter for Maxioid.
+     * The Maxio-generated unique identifier for the customer.
+     */
+    public void unsetMaxioid() {
+        maxioid = null;
+    }
+
+    /**
      * Converts this Customer into string format.
      * @return String representation of this class
      */
@@ -1327,8 +1373,8 @@ public class Customer
                 + taxExempt + ", vatNumber=" + vatNumber + ", parentId=" + parentId + ", locale="
                 + locale + ", defaultSubscriptionGroupUid=" + defaultSubscriptionGroupUid
                 + ", salesforceId=" + salesforceId + ", taxExemptReason=" + taxExemptReason
-                + ", defaultAutoRenewalProfileId=" + defaultAutoRenewalProfileId
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", defaultAutoRenewalProfileId=" + defaultAutoRenewalProfileId + ", maxioid="
+                + maxioid + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1368,6 +1414,7 @@ public class Customer
         builder.salesforceId = internalGetSalesforceId();
         builder.taxExemptReason = internalGetTaxExemptReason();
         builder.defaultAutoRenewalProfileId = internalGetDefaultAutoRenewalProfileId();
+        builder.maxioid = internalGetMaxioid();
         return builder;
     }
 
@@ -1405,6 +1452,7 @@ public class Customer
         private OptionalNullable<String> salesforceId;
         private OptionalNullable<String> taxExemptReason;
         private OptionalNullable<Integer> defaultAutoRenewalProfileId;
+        private OptionalNullable<String> maxioid;
 
 
 
@@ -1916,6 +1964,25 @@ public class Customer
         }
 
         /**
+         * Setter for maxioid.
+         * @param  maxioid  String value for maxioid.
+         * @return Builder
+         */
+        public Builder maxioid(String maxioid) {
+            this.maxioid = OptionalNullable.of(maxioid);
+            return this;
+        }
+
+        /**
+         * UnSetter for maxioid.
+         * @return Builder
+         */
+        public Builder unsetMaxioid() {
+            maxioid = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Customer} object using the set fields.
          * @return {@link Customer}
          */
@@ -1925,7 +1992,7 @@ public class Customer
                     countryName, phone, verified, portalCustomerCreatedAt, portalInviteLastSentAt,
                     portalInviteLastAcceptedAt, taxExempt, vatNumber, parentId, locale,
                     defaultSubscriptionGroupUid, salesforceId, taxExemptReason,
-                    defaultAutoRenewalProfileId);
+                    defaultAutoRenewalProfileId, maxioid);
         }
     }
 }

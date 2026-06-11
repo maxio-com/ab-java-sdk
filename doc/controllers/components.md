@@ -26,7 +26,7 @@ ComponentsController componentsController = client.getComponentsController();
 
 # Create Metered Component
 
-This request will create a component definition of kind **metered_component** under the specified product family. Metered component can then be added and “allocated” for a subscription.
+Creates a metered component definition under the specified product family. A metered component can then be added and “allocated” for a subscription.
 
 Metered components are used to bill for any type of unit that resets to 0 at the end of the billing period (think daily Google Ads clicks or monthly cell phone minutes). This is most commonly associated with usage-based billing and many other pricing schemes.
 
@@ -153,9 +153,9 @@ try {
 
 # Create Quantity Based Component
 
-This request will create a component definition of kind **quantity_based_component** under the specified product family. Quantity Based component can then be added and “allocated” for a subscription.
+Creates a Quantity Based component definition under the specified product family. A Quantity Based component can then be added and “allocated” for a subscription.
 
-When defining Quantity Based component, You can choose one of 2 types:
+When defining a Quantity Based component, you can choose one of 2 types:
 
 #### Recurring
 
@@ -286,7 +286,7 @@ try {
 
 # Create On Off Component
 
-This request will create a component definition of kind **on_off_component** under the specified product family. On/Off component can then be added and “allocated” for a subscription.
+Creates an On/Off component definition under the specified product family. An On/Off component can then be added and “allocated” for a subscription.
 
 On/off components are used for any flat fee, recurring add on (think $99/month for tech support or a flat add on shipping fee).
 
@@ -394,7 +394,7 @@ try {
 
 # Create Prepaid Usage Component
 
-This request will create a component definition of kind **prepaid_usage_component** under the specified product family. Prepaid component can then be added and “allocated” for a subscription.
+Creates a prepaid usage component definition under the specified product family. A prepaid component can then be added and “allocated” for a subscription.
 
 Prepaid components allow customers to pre-purchase units that can be used up over time on their subscription. In a sense, they are the mirror image of metered components; while metered components charge at the end of the period for the amount of units used, prepaid components are charged for at the time of purchase, and we subsequently keep track of the usage against the amount purchased.
 
@@ -553,7 +553,7 @@ try {
 
 # Create Event Based Component
 
-This request will create a component definition of kind **event_based_component** under the specified product family. Event-based component can then be added and “allocated” for a subscription.
+Creates an event-based component definition under the specified product family. An event-based component can then be added and “allocated” for a subscription.
 
 Event-based components are similar to other component types, in that you define the component parameters (such as name and taxability) and the pricing. A key difference for the event-based component is that it must be attached to a metric. This is because the metric provides the component with the actual quantity used in computing what and how much will be billed each period for each subscription.
 
@@ -672,7 +672,7 @@ try {
 
 # Find Component
 
-This request will return information regarding a component having the handle you provide. You can identify your components with a handle so you don't have to save or reference the IDs we generate.
+Returns information for a component matching the provided handle. You can identify your components with a handle so you don't have to save or reference the IDs we generate.
 
 ```java
 ComponentResponse findComponent(
@@ -816,7 +816,7 @@ try {
 
 # Update Product Family Component
 
-This request will update a component from a specific product family.
+Updates a component from a specific product family.
 
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
@@ -906,7 +906,7 @@ try {
 
 # Archive Component
 
-Sending a DELETE request to this endpoint will archive the component. All current subscribers will be unffected; their subscription/purchase will continue to be charged as usual.
+Archives the component; all current subscribers will continue to be charged as usual.
 
 ```java
 Component archiveComponent(
@@ -982,7 +982,7 @@ try {
 
 # List Components
 
-This request will return a list of components for a site.
+Lists components for a site.
 
 ```java
 List<ComponentResponse> listComponents(
@@ -1131,7 +1131,7 @@ try {
 
 # Update Component
 
-This request will update a component.
+Updates a component.
 
 You may read the component by either the component's id or handle. When using the handle, it must be prefixed with `handle:`.
 
@@ -1218,7 +1218,7 @@ try {
 
 # List Components for Product Family
 
-This request will return a list of components for a particular product family.
+Lists components for a particular product family.
 
 ```java
 List<ComponentResponse> listComponentsForProductFamily(

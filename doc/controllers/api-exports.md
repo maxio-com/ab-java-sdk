@@ -23,7 +23,7 @@ APIExportsController aPIExportsController = client.getAPIExportsController();
 
 # List Exported Proforma Invoices
 
-This API returns an array of exported proforma invoices for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported proforma invoices for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&page=1`.
 
@@ -75,7 +75,7 @@ try {
 
 # List Exported Invoices
 
-This API returns an array of exported invoices for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported invoices for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&page=1`.
 
@@ -127,7 +127,7 @@ try {
 
 # List Exported Subscriptions
 
-This API returns an array of exported subscriptions for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported subscriptions for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&page=1`.
 
@@ -179,7 +179,7 @@ try {
 
 # Export Proforma Invoices
 
-This API creates a proforma invoices export and returns a batchjob object.
+Creates a proforma invoices export and returns a batch job object.
 
 It is only available for Relationship Invoicing architecture.
 
@@ -220,7 +220,7 @@ try {
 
 # Export Invoices
 
-This API creates an invoices export and returns a batchjob object.
+Creates an invoices export and returns a batch job object.
 
 ```java
 BatchJobResponse exportInvoices()
@@ -259,7 +259,7 @@ try {
 
 # Export Subscriptions
 
-This API creates a subscriptions export and returns a batchjob object.
+Creates a subscriptions export and returns a batch job object.
 
 ```java
 BatchJobResponse exportSubscriptions()
@@ -297,7 +297,7 @@ try {
 
 # Read Proforma Invoices Export
 
-This API returns a batchjob object for proforma invoices export.
+Returns a batch job object for a proforma invoices export.
 
 ```java
 BatchJobResponse readProformaInvoicesExport(
@@ -342,7 +342,7 @@ try {
 
 # Read Invoices Export
 
-This API returns a batchjob object for invoices export.
+Returns a batch job object for an invoices export.
 
 ```java
 BatchJobResponse readInvoicesExport(
@@ -387,7 +387,7 @@ try {
 
 # Read Subscriptions Export
 
-This API returns a batchjob object for subscriptions export.
+Returns a batch job object for a subscriptions export.
 
 ```java
 BatchJobResponse readSubscriptionsExport(

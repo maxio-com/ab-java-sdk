@@ -81,7 +81,6 @@ public class CreateSubscription
     public CreateSubscription() {
         deferSignup = false;
         dunningCommunicationDelayEnabled = false;
-        skipBillingManifestTaxes = false;
     }
 
     /**
@@ -1567,7 +1566,7 @@ public class CreateSubscription
     /**
      * Getter for SkipBillingManifestTaxes.
      * Valid only for the Subscription Preview endpoint. When set to `true` it skips calculating
-     * taxes for the current and next billing manifests.
+     * taxes for the current and next billing manifests. Defaults to `false` when not provided.
      * @return Returns the Boolean
      */
     @JsonGetter("skip_billing_manifest_taxes")
@@ -1579,7 +1578,7 @@ public class CreateSubscription
     /**
      * Setter for SkipBillingManifestTaxes.
      * Valid only for the Subscription Preview endpoint. When set to `true` it skips calculating
-     * taxes for the current and next billing manifests.
+     * taxes for the current and next billing manifests. Defaults to `false` when not provided.
      * @param skipBillingManifestTaxes Value for Boolean
      */
     @JsonSetter("skip_billing_manifest_taxes")
@@ -1738,7 +1737,7 @@ public class CreateSubscription
         private ACHAgreement achAgreement;
         private Boolean dunningCommunicationDelayEnabled = false;
         private OptionalNullable<String> dunningCommunicationDelayTimeZone;
-        private Boolean skipBillingManifestTaxes = false;
+        private Boolean skipBillingManifestTaxes;
 
 
 

@@ -171,6 +171,10 @@ public enum EventKey {
 
     COMPONENT_BILLING_DATE_CHANGED,
 
+    CHJS_TOKENIZATION_FAILURE,
+
+    CHJS_TOKENIZATION_SUCCESS,
+
     SUBSCRIPTION_TERM_RENEWAL_SCHEDULED,
 
     SUBSCRIPTION_TERM_RENEWAL_PENDING,
@@ -261,6 +265,8 @@ public enum EventKey {
         CHARGEBACK_WON.value = "chargeback_won";
         PAYMENT_COLLECTION_METHOD_CHANGED.value = "payment_collection_method_changed";
         COMPONENT_BILLING_DATE_CHANGED.value = "component_billing_date_changed";
+        CHJS_TOKENIZATION_FAILURE.value = "chjs_tokenization_failure";
+        CHJS_TOKENIZATION_SUCCESS.value = "chjs_tokenization_success";
         SUBSCRIPTION_TERM_RENEWAL_SCHEDULED.value = "subscription_term_renewal_scheduled";
         SUBSCRIPTION_TERM_RENEWAL_PENDING.value = "subscription_term_renewal_pending";
         SUBSCRIPTION_TERM_RENEWAL_ACTIVATED.value = "subscription_term_renewal_activated";
@@ -343,6 +349,8 @@ public enum EventKey {
         valueMap.put("chargeback_won", CHARGEBACK_WON);
         valueMap.put("payment_collection_method_changed", PAYMENT_COLLECTION_METHOD_CHANGED);
         valueMap.put("component_billing_date_changed", COMPONENT_BILLING_DATE_CHANGED);
+        valueMap.put("chjs_tokenization_failure", CHJS_TOKENIZATION_FAILURE);
+        valueMap.put("chjs_tokenization_success", CHJS_TOKENIZATION_SUCCESS);
         valueMap.put("subscription_term_renewal_scheduled", SUBSCRIPTION_TERM_RENEWAL_SCHEDULED);
         valueMap.put("subscription_term_renewal_pending", SUBSCRIPTION_TERM_RENEWAL_PENDING);
         valueMap.put("subscription_term_renewal_activated", SUBSCRIPTION_TERM_RENEWAL_ACTIVATED);

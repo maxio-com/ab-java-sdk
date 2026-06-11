@@ -21,6 +21,10 @@ public enum WebhookSubscription {
 
     COMPONENT_ALLOCATION_CHANGE,
 
+    CHJS_TOKENIZATION_FAILURE,
+
+    CHJS_TOKENIZATION_SUCCESS,
+
     CUSTOMER_CREATE,
 
     CUSTOMER_UPDATE,
@@ -96,6 +100,8 @@ public enum WebhookSubscription {
     static {
         BILLING_DATE_CHANGE.value = "billing_date_change";
         COMPONENT_ALLOCATION_CHANGE.value = "component_allocation_change";
+        CHJS_TOKENIZATION_FAILURE.value = "chjs_tokenization_failure";
+        CHJS_TOKENIZATION_SUCCESS.value = "chjs_tokenization_success";
         CUSTOMER_CREATE.value = "customer_create";
         CUSTOMER_UPDATE.value = "customer_update";
         DUNNING_STEP_REACHED.value = "dunning_step_reached";
@@ -133,6 +139,8 @@ public enum WebhookSubscription {
 
         valueMap.put("billing_date_change", BILLING_DATE_CHANGE);
         valueMap.put("component_allocation_change", COMPONENT_ALLOCATION_CHANGE);
+        valueMap.put("chjs_tokenization_failure", CHJS_TOKENIZATION_FAILURE);
+        valueMap.put("chjs_tokenization_success", CHJS_TOKENIZATION_SUCCESS);
         valueMap.put("customer_create", CUSTOMER_CREATE);
         valueMap.put("customer_update", CUSTOMER_UPDATE);
         valueMap.put("dunning_step_reached", DUNNING_STEP_REACHED);

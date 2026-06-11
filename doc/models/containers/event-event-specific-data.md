@@ -27,6 +27,8 @@
 | [`PaymentCollectionMethodChanged`](../../../doc/models/payment-collection-method-changed.md) | EventEventSpecificData.fromPaymentCollectionMethodChanged(PaymentCollectionMethodChanged paymentCollectionMethodChanged) |
 | [`ItemPricePointChanged`](../../../doc/models/item-price-point-changed.md) | EventEventSpecificData.fromItemPricePointChanged(ItemPricePointChanged itemPricePointChanged) |
 | [`CustomFieldValueChange`](../../../doc/models/custom-field-value-change.md) | EventEventSpecificData.fromCustomFieldValueChange(CustomFieldValueChange customFieldValueChange) |
+| [`ChjsTokenizationSuccess`](../../../doc/models/chjs-tokenization-success.md) | EventEventSpecificData.fromChjsTokenizationSuccess(ChjsTokenizationSuccess chjsTokenizationSuccess) |
+| [`ChjsTokenizationFailure`](../../../doc/models/chjs-tokenization-failure.md) | EventEventSpecificData.fromChjsTokenizationFailure(ChjsTokenizationFailure chjsTokenizationFailure) |
 
 ## SubscriptionProductChange
 
@@ -402,6 +404,39 @@ EventEventSpecificData.fromCustomFieldValueChange(
             "new_value8",
             "resource_type2",
             74
+        )
+        .build()
+    )
+```
+
+## ChjsTokenizationSuccess
+
+### Initialization Code
+
+#### Example
+
+```java
+EventEventSpecificData.fromChjsTokenizationSuccess(
+        new ChjsTokenizationSuccess.Builder(
+            new PaymentProfile.Builder(
+                44
+            )
+            .build()
+        )
+        .build()
+    )
+```
+
+## ChjsTokenizationFailure
+
+### Initialization Code
+
+#### Example
+
+```java
+EventEventSpecificData.fromChjsTokenizationFailure(
+        new ChjsTokenizationFailure.Builder(
+            "errors2"
         )
         .build()
     )

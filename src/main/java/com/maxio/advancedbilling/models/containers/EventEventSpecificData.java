@@ -16,6 +16,8 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.maxio.advancedbilling.ApiHelper;
+import com.maxio.advancedbilling.models.ChjsTokenizationFailure;
+import com.maxio.advancedbilling.models.ChjsTokenizationSuccess;
 import com.maxio.advancedbilling.models.ComponentAllocationChange;
 import com.maxio.advancedbilling.models.CreditAccountBalanceChanged;
 import com.maxio.advancedbilling.models.CustomFieldValueChange;
@@ -221,6 +223,26 @@ public abstract class EventEventSpecificData {
     }
 
     /**
+     * This is Chjs Tokenization Success case.
+     * @param chjsTokenizationSuccess ChjsTokenizationSuccess value for chjsTokenizationSuccess.
+     * @return The ChjsTokenizationSuccessCase object.
+     */
+    public static EventEventSpecificData fromChjsTokenizationSuccess(
+            ChjsTokenizationSuccess chjsTokenizationSuccess) {
+        return chjsTokenizationSuccess == null ? null : new ChjsTokenizationSuccessCase(chjsTokenizationSuccess);
+    }
+
+    /**
+     * This is Chjs Tokenization Failure case.
+     * @param chjsTokenizationFailure ChjsTokenizationFailure value for chjsTokenizationFailure.
+     * @return The ChjsTokenizationFailureCase object.
+     */
+    public static EventEventSpecificData fromChjsTokenizationFailure(
+            ChjsTokenizationFailure chjsTokenizationFailure) {
+        return chjsTokenizationFailure == null ? null : new ChjsTokenizationFailureCase(chjsTokenizationFailure);
+    }
+
+    /**
      * Method to match from the provided one-of cases.
      * @param <R> The type to return after applying callback.
      * @param cases The one-of type cases callback.
@@ -268,6 +290,10 @@ public abstract class EventEventSpecificData {
         R itemPricePointChanged(ItemPricePointChanged itemPricePointChanged);
 
         R customFieldValueChange(CustomFieldValueChange customFieldValueChange);
+
+        R chjsTokenizationSuccess(ChjsTokenizationSuccess chjsTokenizationSuccess);
+
+        R chjsTokenizationFailure(ChjsTokenizationFailure chjsTokenizationFailure);
     }
 
     /**
@@ -829,6 +855,68 @@ public abstract class EventEventSpecificData {
     }
 
     /**
+     * This is a implementation class for ChjsTokenizationSuccessCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "ChjsTokenizationSuccess")
+    private static class ChjsTokenizationSuccessCase extends EventEventSpecificData {
+
+        @JsonValue
+        private ChjsTokenizationSuccess chjsTokenizationSuccess;
+
+        ChjsTokenizationSuccessCase(ChjsTokenizationSuccess chjsTokenizationSuccess) {
+            this.chjsTokenizationSuccess = chjsTokenizationSuccess;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.chjsTokenizationSuccess(this.chjsTokenizationSuccess);
+        }
+
+        @JsonCreator
+        private ChjsTokenizationSuccessCase(JsonNode jsonNode) throws IOException {
+            this.chjsTokenizationSuccess = ApiHelper.deserialize(jsonNode,
+                ChjsTokenizationSuccess.class);
+        }
+
+        @Override
+        public String toString() {
+            return chjsTokenizationSuccess.toString();
+        }
+    }
+
+    /**
+     * This is a implementation class for ChjsTokenizationFailureCase.
+     */
+    @JsonDeserialize(using = JsonDeserializer.None.class)
+    @TypeCombinatorCase(type = "ChjsTokenizationFailure")
+    private static class ChjsTokenizationFailureCase extends EventEventSpecificData {
+
+        @JsonValue
+        private ChjsTokenizationFailure chjsTokenizationFailure;
+
+        ChjsTokenizationFailureCase(ChjsTokenizationFailure chjsTokenizationFailure) {
+            this.chjsTokenizationFailure = chjsTokenizationFailure;
+        }
+
+        @Override
+        public <R> R match(Cases<R> cases) {
+            return cases.chjsTokenizationFailure(this.chjsTokenizationFailure);
+        }
+
+        @JsonCreator
+        private ChjsTokenizationFailureCase(JsonNode jsonNode) throws IOException {
+            this.chjsTokenizationFailure = ApiHelper.deserialize(jsonNode,
+                ChjsTokenizationFailure.class);
+        }
+
+        @Override
+        public String toString() {
+            return chjsTokenizationFailure.toString();
+        }
+    }
+
+    /**
      * This is a custom deserializer class for EventEventSpecificData.
      */
     protected static class EventEventSpecificDataDeserializer
@@ -849,7 +937,8 @@ public abstract class EventEventSpecificData {
                     CreditAccountBalanceChangedCase.class,
                     PrepaymentAccountBalanceChangedCase.class,
                     PaymentCollectionMethodChangedCase.class, ItemPricePointChangedCase.class,
-                    CustomFieldValueChangeCase.class), true);
+                    CustomFieldValueChangeCase.class, ChjsTokenizationSuccessCase.class,
+                    ChjsTokenizationFailureCase.class), true);
         }
     }
 

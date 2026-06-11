@@ -1,18 +1,18 @@
 
-# Payment Profile
+# Payment Profile 2
 
 ## Class Name
 
-`PaymentProfile`
+`PaymentProfile2`
 
 ## Cases
 
 | Type | Factory Method |
 |  --- | --- |
-| [`ApplePayPaymentProfile`](../../../doc/models/apple-pay-payment-profile.md) | PaymentProfile.fromApplePayPaymentProfile(ApplePayPaymentProfile applePayPaymentProfile) |
-| [`BankAccountPaymentProfile`](../../../doc/models/bank-account-payment-profile.md) | PaymentProfile.fromBankAccountPaymentProfile(BankAccountPaymentProfile bankAccountPaymentProfile) |
-| [`CreditCardPaymentProfile`](../../../doc/models/credit-card-payment-profile.md) | PaymentProfile.fromCreditCardPaymentProfile(CreditCardPaymentProfile creditCardPaymentProfile) |
-| [`PaypalPaymentProfile`](../../../doc/models/paypal-payment-profile.md) | PaymentProfile.fromPaypalPaymentProfile(PaypalPaymentProfile paypalPaymentProfile) |
+| [`ApplePayPaymentProfile`](../../../doc/models/apple-pay-payment-profile.md) | PaymentProfile2.fromApplePayPaymentProfile(ApplePayPaymentProfile applePayPaymentProfile) |
+| [`BankAccountPaymentProfile`](../../../doc/models/bank-account-payment-profile.md) | PaymentProfile2.fromBankAccountPaymentProfile(BankAccountPaymentProfile bankAccountPaymentProfile) |
+| [`CreditCardPaymentProfile`](../../../doc/models/credit-card-payment-profile.md) | PaymentProfile2.fromCreditCardPaymentProfile(CreditCardPaymentProfile creditCardPaymentProfile) |
+| [`PaypalPaymentProfile`](../../../doc/models/paypal-payment-profile.md) | PaymentProfile2.fromPaypalPaymentProfile(PaypalPaymentProfile paypalPaymentProfile) |
 
 ## ApplePayPaymentProfile
 
@@ -21,7 +21,7 @@
 #### Example
 
 ```java
-PaymentProfile.fromApplePayPaymentProfile(
+PaymentProfile2.fromApplePayPaymentProfile(
         new ApplePayPaymentProfile.Builder(
             PaymentType.APPLE_PAY
         )
@@ -36,7 +36,7 @@ PaymentProfile.fromApplePayPaymentProfile(
 #### Example
 
 ```java
-PaymentProfile.fromBankAccountPaymentProfile(
+PaymentProfile2.fromBankAccountPaymentProfile(
         new BankAccountPaymentProfile.Builder(
             PaymentType.BANK_ACCOUNT
         )
@@ -52,7 +52,7 @@ PaymentProfile.fromBankAccountPaymentProfile(
 #### Example
 
 ```java
-PaymentProfile.fromCreditCardPaymentProfile(
+PaymentProfile2.fromCreditCardPaymentProfile(
         new CreditCardPaymentProfile.Builder(
             PaymentType.CREDIT_CARD
         )
@@ -86,7 +86,7 @@ PaymentProfile.fromCreditCardPaymentProfile(
 #### Example
 
 ```java
-PaymentProfile.fromPaypalPaymentProfile(
+PaymentProfile2.fromPaypalPaymentProfile(
         new PaypalPaymentProfile.Builder(
             PaymentType.PAYPAL_ACCOUNT
         )

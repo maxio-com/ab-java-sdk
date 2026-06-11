@@ -36,7 +36,7 @@ public final class AdvanceInvoiceController extends BaseController {
     /**
      * Generate an invoice in advance for a subscription's next renewal date. [See our
      * docs](https://maxio.zendesk.com/hc/en-us/articles/24252026404749-Issue-Invoice-In-Advance)
-     * for more information on advance invoices, including eligibility on generating one; for the
+     * for more information on advance invoices, including eligibility for generating one; for the
      * most part, they function like any other invoice, except they are issued early and have
      * special behavior upon being voided. A subscription may only have one advance invoice per
      * billing period. Attempting to issue an advance invoice when one already exists will return an
@@ -94,9 +94,8 @@ public final class AdvanceInvoiceController extends BaseController {
     }
 
     /**
-     * Once an advance invoice has been generated for a subscription's upcoming renewal, it can be
-     * viewed through this endpoint. There can only be one advance invoice per subscription per
-     * billing cycle.
+     * Returns the advance invoice generated for a subscription's upcoming renewal. There can only
+     * be one advance invoice per subscription per billing cycle.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the Invoice response from the API call
      * @throws    ApiException    Represents error response from the server.

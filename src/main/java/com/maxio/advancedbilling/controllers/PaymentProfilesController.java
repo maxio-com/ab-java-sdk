@@ -71,7 +71,7 @@ public final class PaymentProfilesController extends BaseController {
      * example](https://docs.maxio.com/hc/en-us/articles/38206331271693-Examples#h_01K0PJ15QQFKKN8Z7B7DZ9AJS5)
      * + [Maxio.js with Stripe Direct Debit - full
      * example](https://docs.maxio.com/hc/en-us/articles/38206331271693-Examples#h_01K0PJ15QRECQQ4ECS3ZA55GY7)
-     * + [CMaxio.js with Stripe BECS Direct Debit - minimal
+     * + [Maxio.js with Stripe BECS Direct Debit - minimal
      * example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDIy-examples#minimal-example-with-sepa-or-becs-direct-debit-stripe-gateway)
      * + [Maxio.js with Stripe BECS Direct Debit - full
      * example](https://developers.chargify.com/docs/developer-docs/ZG9jOjE0NjAzNDIy-examples#full-example-with-sepa-direct-debit-stripe-gateway)
@@ -137,9 +137,8 @@ public final class PaymentProfilesController extends BaseController {
     }
 
     /**
-     * This method will return all of the active `payment_profiles` for a Site, or for one Customer
-     * within a site. If no payment profiles are found, this endpoint will return an empty array,
-     * not a 404.
+     * Returns all active payment profiles for a site, or for one customer within a site. If no
+     * payment profiles are found, this endpoint will return an empty array, not a 404.
      * @param  input  ListPaymentProfilesInput object containing request parameters
      * @return    Returns the List of PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -181,18 +180,17 @@ public final class PaymentProfilesController extends BaseController {
     }
 
     /**
-     * Using the GET method you can retrieve a Payment Profile identified by its unique ID. Note
-     * that a different JSON object will be returned if the card method on file is a bank account.
-     * ### Response for Bank Account Example response for Bank Account: ``` { "payment_profile": {
-     * "id": 10089892, "first_name": "Chester", "last_name": "Tester", "created_at":
-     * "2025-01-01T00:00:00-05:00", "updated_at": "2025-01-01T00:00:00-05:00", "customer_id":
-     * 14543792, "current_vault": "bogus", "vault_token": "0011223344", "billing_address": "456
-     * Juniper Court", "billing_city": "Boulder", "billing_state": "CO", "billing_zip": "80302",
-     * "billing_country": "US", "customer_vault_token": null, "billing_address_2": "", "bank_name":
-     * "Bank of Kansas City", "masked_bank_routing_number": "XXXX6789",
-     * "masked_bank_account_number": "XXXX3344", "bank_account_type": "checking",
-     * "bank_account_holder_type": "personal", "payment_type": "bank_account",
-     * "site_gateway_setting_id": 1, "gateway_handle": null } } ```.
+     * Returns a payment profile identified by its unique ID. Note that a different JSON object will
+     * be returned if the card method on file is a bank account. ### Response for Bank Account
+     * Example response for Bank Account: ``` { "payment_profile": { "id": 10089892, "first_name":
+     * "Chester", "last_name": "Tester", "created_at": "2025-01-01T00:00:00-05:00", "updated_at":
+     * "2025-01-01T00:00:00-05:00", "customer_id": 14543792, "current_vault": "bogus",
+     * "vault_token": "0011223344", "billing_address": "456 Juniper Court", "billing_city":
+     * "Boulder", "billing_state": "CO", "billing_zip": "80302", "billing_country": "US",
+     * "customer_vault_token": null, "billing_address_2": "", "bank_name": "Bank of Kansas City",
+     * "masked_bank_routing_number": "XXXX6789", "masked_bank_account_number": "XXXX3344",
+     * "bank_account_type": "checking", "bank_account_holder_type": "personal", "payment_type":
+     * "bank_account", "site_gateway_setting_id": 1, "gateway_handle": null } } ```.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
      * @return    Returns the PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -232,28 +230,28 @@ public final class PaymentProfilesController extends BaseController {
     }
 
     /**
-     * ## Partial Card Updates In the event that you are using the Authorize.net, Stripe,
-     * Cybersource, Forte or Braintree Blue payment gateways, you can update just the billing and
-     * contact information for a payment method. Note the lack of credit-card related data contained
-     * in the JSON payload. In this case, the following JSON is acceptable: ``` { "payment_profile":
-     * { "first_name": "Kelly", "last_name": "Test", "billing_address": "789 Juniper Court",
-     * "billing_city": "Boulder", "billing_state": "CO", "billing_zip": "80302", "billing_country":
-     * "US", "billing_address_2": null } } ``` The result will be that you have updated the billing
-     * information for the card, yet retained the original card number data. ## Specific notes on
-     * updating payment profiles - Merchants with **Authorize.net**, **Cybersource**, **Forte**,
-     * **Braintree Blue** or **Stripe** as their payment gateway can update their Customer’s credit
-     * cards without passing in the full credit card number and CVV. - If you are using
-     * **Authorize.net**, **Cybersource**, **Forte**, **Braintree Blue** or **Stripe**, Advanced
-     * Billing will ignore the credit card number and CVV when processing an update via the API, and
-     * attempt a partial update instead. If you wish to change the card number on a payment profile,
-     * you will need to create a new payment profile for the given customer. - A Payment Profile
-     * cannot be updated with the attributes of another type of Payment Profile. For example, if the
-     * payment profile you are attempting to update is a credit card, you cannot pass in bank
-     * account attributes (like `bank_account_number`), and vice versa. - Updating a payment profile
-     * directly will not trigger an attempt to capture a past-due balance. If this is the intent,
-     * update the card details via the Subscription instead. - If you are using Authorize.net or
-     * Stripe, you may elect to manually trigger a retry for a past due subscription after a partial
-     * update.
+     * Updates a payment profile. ## Partial Card Updates In the event that you are using the
+     * Authorize.net, Stripe, Cybersource, Forte or Braintree Blue payment gateways, you can update
+     * just the billing and contact information for a payment method. Note the lack of credit-card
+     * related data contained in the JSON payload. In this case, the following JSON is acceptable:
+     * ``` { "payment_profile": { "first_name": "Kelly", "last_name": "Test", "billing_address":
+     * "789 Juniper Court", "billing_city": "Boulder", "billing_state": "CO", "billing_zip":
+     * "80302", "billing_country": "US", "billing_address_2": null } } ``` The result will be that
+     * you have updated the billing information for the card, yet retained the original card number
+     * data. ## Specific notes on updating payment profiles - Merchants with **Authorize.net**,
+     * **Cybersource**, **Forte**, **Braintree Blue** or **Stripe** as their payment gateway can
+     * update their Customer’s credit cards without passing in the full credit card number and CVV.
+     * - If you are using **Authorize.net**, **Cybersource**, **Forte**, **Braintree Blue** or
+     * **Stripe**, Advanced Billing will ignore the credit card number and CVV when processing an
+     * update via the API, and attempt a partial update instead. If you wish to change the card
+     * number on a payment profile, you will need to create a new payment profile for the given
+     * customer. - A Payment Profile cannot be updated with the attributes of another type of
+     * Payment Profile. For example, if the payment profile you are attempting to update is a credit
+     * card, you cannot pass in bank account attributes (like `bank_account_number`), and vice
+     * versa. - Updating a payment profile directly will not trigger an attempt to capture a
+     * past-due balance. If this is the intent, update the card details via the Subscription
+     * instead. - If you are using Authorize.net or Stripe, you may elect to manually trigger a
+     * retry for a past due subscription after a partial update.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
      * @param  body  Optional parameter:
      * @return    Returns the PaymentProfileResponse response from the API call
@@ -387,8 +385,8 @@ public final class PaymentProfilesController extends BaseController {
     }
 
     /**
-     * Submit the two small deposit amounts the customer received in their bank account in order to
-     * verify the bank account. (Stripe only).
+     * Verifies a bank account. Submit the two small deposit amounts the customer received in their
+     * bank account to verify the bank account. (Stripe only).
      * @param  bankAccountId  Required parameter: Identifier of the bank account in the system.
      * @param  body  Optional parameter:
      * @return    Returns the BankAccountResponse response from the API call
@@ -478,9 +476,9 @@ public final class PaymentProfilesController extends BaseController {
     }
 
     /**
-     * This will change the default payment profile on the subscription to the existing payment
-     * profile with the id specified. You must elect to change the existing payment profile to a new
-     * payment profile ID in order to receive a satisfactory response from this endpoint.
+     * Changes the default payment profile on the subscription to the existing payment profile with
+     * the specified ID. You must elect to change the existing payment profile to a new payment
+     * profile ID in order to receive a satisfactory response from this endpoint.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
      * @return    Returns the PaymentProfileResponse response from the API call

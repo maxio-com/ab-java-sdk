@@ -28,6 +28,7 @@
 | `PricePointId` | `Integer` | Optional | The price point ID of the component being credited. Will be `nil` for non-component credits. | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
 | `BillingScheduleItemId` | `Integer` | Optional | - | Integer getBillingScheduleItemId() | setBillingScheduleItemId(Integer billingScheduleItemId) |
 | `CustomItem` | `Boolean` | Optional | - | Boolean getCustomItem() | setCustomItem(Boolean customItem) |
+| `PrepaidAllocationExpiresAt` | `LocalDate` | Optional | The date a prepaid allocation is set to expire. Only present on line items representing prepaid component allocations. The format is `"YYYY-MM-DD"`. | LocalDate getPrepaidAllocationExpiresAt() | setPrepaidAllocationExpiresAt(LocalDate prepaidAllocationExpiresAt) |
 
 ## Example (as JSON)
 

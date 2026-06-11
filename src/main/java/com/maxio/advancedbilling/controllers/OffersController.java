@@ -36,11 +36,11 @@ public final class OffersController extends BaseController {
     }
 
     /**
-     * Create an offer within your Advanced Billing site by sending a POST request. ## Documentation
-     * Offers allow you to package complicated combinations of products, components and coupons into
-     * a convenient package which can then be subscribed to just like products. Once an offer is
-     * defined it can be used as an alternative to the product when creating subscriptions. Full
-     * documentation on how to use offers in the Advanced Billing UI can be located
+     * Creates an offer within your Advanced Billing site. ## Documentation Offers allow you to
+     * package complicated combinations of products, components and coupons into a convenient
+     * package which can then be subscribed to just like products. Once an offer is defined it can
+     * be used as an alternative to the product when creating subscriptions. Full documentation on
+     * how to use offers in the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261295098637-Offers-Overview). ## Using
      * a Product Price Point You can optionally pass in a `product_price_point_id` that corresponds
      * with the `product_id` and the offer will use that price point. If a `product_price_point_id`
@@ -86,7 +86,7 @@ public final class OffersController extends BaseController {
     }
 
     /**
-     * This endpoint will list offers for a site.
+     * Lists offers for a site.
      * @param  input  ListOffersInput object containing request parameters
      * @return    Returns the ListOffersResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -130,8 +130,8 @@ public final class OffersController extends BaseController {
     }
 
     /**
-     * This method allows you to list a specific offer's attributes. This is different than list all
-     * offers for a site, as it requires an `offer_id`.
+     * Returns a specific offer's attributes. This is different from listing all offers for a site,
+     * as it requires an `offer_id`.
      * @param  offerId  Required parameter: The Chargify id of the offer
      * @return    Returns the OfferResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -168,7 +168,8 @@ public final class OffersController extends BaseController {
     }
 
     /**
-     * Archive an existing offer. Please provide an `offer_id` in order to archive the correct item.
+     * Archives an existing offer. Please provide an `offer_id` in order to archive the correct
+     * item.
      * @param  offerId  Required parameter: The Chargify id of the offer
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -201,7 +202,7 @@ public final class OffersController extends BaseController {
     }
 
     /**
-     * Unarchive a previously archived offer. Please provide an `offer_id` in order to un-archive
+     * Unarchives a previously archived offer. Please provide an `offer_id` in order to unarchive
      * the correct item.
      * @param  offerId  Required parameter: The Chargify id of the offer
      * @throws    ApiException    Represents error response from the server.

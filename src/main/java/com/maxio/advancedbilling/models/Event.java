@@ -189,11 +189,12 @@ public class Event
      * `payment_collection_method_changed` - PaymentCollectionMethodChanged *
      * `subscription_service_credit_account_balance_changed` - CreditAccountBalanceChanged *
      * `item_price_point_changed` - ItemPricePointChanged * `custom_field_value_change` -
-     * CustomFieldValueChange * The rest, that is `delayed_signup_creation_failure`,
-     * `billing_date_change`, `expiration_date_change`, `expiring_card`, `customer_update`,
-     * `customer_create`, `customer_delete`, `upgrade_downgrade_success`,
-     * `upgrade_downgrade_failure`, `statement_closed`, `statement_settled`,
-     * `subscription_card_update`, `subscription_group_card_update`,
+     * CustomFieldValueChange * `chjs_tokenization_success` - ChjsTokenizationSuccess *
+     * `chjs_tokenization_failure` - ChjsTokenizationFailure * The rest, that is
+     * `delayed_signup_creation_failure`, `billing_date_change`, `expiration_date_change`,
+     * `expiring_card`, `customer_update`, `customer_create`, `customer_delete`,
+     * `upgrade_downgrade_success`, `upgrade_downgrade_failure`, `statement_closed`,
+     * `statement_settled`, `subscription_card_update`, `subscription_group_card_update`,
      * `subscription_bank_account_update`, `refund_failure`, `upcoming_renewal_notice`,
      * `trial_end_notice`, `direct_debit_payment_paid_out`, `direct_debit_payment_rejected`,
      * `direct_debit_payment_pending`, `pending_payment_created`, `pending_payment_failed`,
@@ -239,11 +240,12 @@ public class Event
      * `payment_collection_method_changed` - PaymentCollectionMethodChanged *
      * `subscription_service_credit_account_balance_changed` - CreditAccountBalanceChanged *
      * `item_price_point_changed` - ItemPricePointChanged * `custom_field_value_change` -
-     * CustomFieldValueChange * The rest, that is `delayed_signup_creation_failure`,
-     * `billing_date_change`, `expiration_date_change`, `expiring_card`, `customer_update`,
-     * `customer_create`, `customer_delete`, `upgrade_downgrade_success`,
-     * `upgrade_downgrade_failure`, `statement_closed`, `statement_settled`,
-     * `subscription_card_update`, `subscription_group_card_update`,
+     * CustomFieldValueChange * `chjs_tokenization_success` - ChjsTokenizationSuccess *
+     * `chjs_tokenization_failure` - ChjsTokenizationFailure * The rest, that is
+     * `delayed_signup_creation_failure`, `billing_date_change`, `expiration_date_change`,
+     * `expiring_card`, `customer_update`, `customer_create`, `customer_delete`,
+     * `upgrade_downgrade_success`, `upgrade_downgrade_failure`, `statement_closed`,
+     * `statement_settled`, `subscription_card_update`, `subscription_group_card_update`,
      * `subscription_bank_account_update`, `refund_failure`, `upcoming_renewal_notice`,
      * `trial_end_notice`, `direct_debit_payment_paid_out`, `direct_debit_payment_rejected`,
      * `direct_debit_payment_pending`, `pending_payment_created`, `pending_payment_failed`,

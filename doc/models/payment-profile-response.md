@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `PaymentProfile` | [`PaymentProfile`](../../doc/models/containers/payment-profile.md) | Required | - | PaymentProfile getPaymentProfile() | setPaymentProfile(PaymentProfile paymentProfile) |
+| `PaymentProfile` | [`PaymentProfile2`](../../doc/models/containers/payment-profile-2.md) | Required | - | PaymentProfile2 getPaymentProfile() | setPaymentProfile(PaymentProfile2 paymentProfile) |
 
 ## Example (as JSON)
 

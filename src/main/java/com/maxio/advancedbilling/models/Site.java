@@ -33,6 +33,9 @@ public class Site
     private OrganizationAddress organizationAddress;
     private TaxConfiguration taxConfiguration;
     private NetTerms netTerms;
+    private Boolean multiFrequencyEnabled;
+    private Boolean autoRenewalsEnabled;
+    private Boolean portalEnabled;
     private Boolean test;
 
     /**
@@ -60,6 +63,9 @@ public class Site
      * @param  organizationAddress  OrganizationAddress value for organizationAddress.
      * @param  taxConfiguration  TaxConfiguration value for taxConfiguration.
      * @param  netTerms  NetTerms value for netTerms.
+     * @param  multiFrequencyEnabled  Boolean value for multiFrequencyEnabled.
+     * @param  autoRenewalsEnabled  Boolean value for autoRenewalsEnabled.
+     * @param  portalEnabled  Boolean value for portalEnabled.
      * @param  test  Boolean value for test.
      */
     public Site(
@@ -79,6 +85,9 @@ public class Site
             OrganizationAddress organizationAddress,
             TaxConfiguration taxConfiguration,
             NetTerms netTerms,
+            Boolean multiFrequencyEnabled,
+            Boolean autoRenewalsEnabled,
+            Boolean portalEnabled,
             Boolean test) {
         this.id = id;
         this.name = name;
@@ -96,6 +105,9 @@ public class Site
         this.organizationAddress = organizationAddress;
         this.taxConfiguration = taxConfiguration;
         this.netTerms = netTerms;
+        this.multiFrequencyEnabled = multiFrequencyEnabled;
+        this.autoRenewalsEnabled = autoRenewalsEnabled;
+        this.portalEnabled = portalEnabled;
         this.test = test;
     }
 
@@ -404,6 +416,71 @@ public class Site
     }
 
     /**
+     * Getter for MultiFrequencyEnabled.
+     * Whether the site has the multi-frequency billing feature enabled. Only present when
+     * relationship invoicing is active.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("multi_frequency_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getMultiFrequencyEnabled() {
+        return multiFrequencyEnabled;
+    }
+
+    /**
+     * Setter for MultiFrequencyEnabled.
+     * Whether the site has the multi-frequency billing feature enabled. Only present when
+     * relationship invoicing is active.
+     * @param multiFrequencyEnabled Value for Boolean
+     */
+    @JsonSetter("multi_frequency_enabled")
+    public void setMultiFrequencyEnabled(Boolean multiFrequencyEnabled) {
+        this.multiFrequencyEnabled = multiFrequencyEnabled;
+    }
+
+    /**
+     * Getter for AutoRenewalsEnabled.
+     * Whether the auto-renewals feature is enabled for this site.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("auto_renewals_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getAutoRenewalsEnabled() {
+        return autoRenewalsEnabled;
+    }
+
+    /**
+     * Setter for AutoRenewalsEnabled.
+     * Whether the auto-renewals feature is enabled for this site.
+     * @param autoRenewalsEnabled Value for Boolean
+     */
+    @JsonSetter("auto_renewals_enabled")
+    public void setAutoRenewalsEnabled(Boolean autoRenewalsEnabled) {
+        this.autoRenewalsEnabled = autoRenewalsEnabled;
+    }
+
+    /**
+     * Getter for PortalEnabled.
+     * Whether the Billing Portal is enabled for this site.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("portal_enabled")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getPortalEnabled() {
+        return portalEnabled;
+    }
+
+    /**
+     * Setter for PortalEnabled.
+     * Whether the Billing Portal is enabled for this site.
+     * @param portalEnabled Value for Boolean
+     */
+    @JsonSetter("portal_enabled")
+    public void setPortalEnabled(Boolean portalEnabled) {
+        this.portalEnabled = portalEnabled;
+    }
+
+    /**
      * Getter for Test.
      * @return Returns the Boolean
      */
@@ -437,8 +514,10 @@ public class Site
                 + ", whopaysDefaultPayer=" + whopaysDefaultPayer + ", allocationSettings="
                 + allocationSettings + ", defaultPaymentCollectionMethod="
                 + defaultPaymentCollectionMethod + ", organizationAddress=" + organizationAddress
-                + ", taxConfiguration=" + taxConfiguration + ", netTerms=" + netTerms + ", test="
-                + test + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", taxConfiguration=" + taxConfiguration + ", netTerms=" + netTerms
+                + ", multiFrequencyEnabled=" + multiFrequencyEnabled + ", autoRenewalsEnabled="
+                + autoRenewalsEnabled + ", portalEnabled=" + portalEnabled + ", test=" + test
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -464,6 +543,9 @@ public class Site
                 .organizationAddress(getOrganizationAddress())
                 .taxConfiguration(getTaxConfiguration())
                 .netTerms(getNetTerms())
+                .multiFrequencyEnabled(getMultiFrequencyEnabled())
+                .autoRenewalsEnabled(getAutoRenewalsEnabled())
+                .portalEnabled(getPortalEnabled())
                 .test(getTest());
         return builder;
     }
@@ -488,6 +570,9 @@ public class Site
         private OrganizationAddress organizationAddress;
         private TaxConfiguration taxConfiguration;
         private NetTerms netTerms;
+        private Boolean multiFrequencyEnabled;
+        private Boolean autoRenewalsEnabled;
+        private Boolean portalEnabled;
         private Boolean test;
 
 
@@ -655,6 +740,36 @@ public class Site
         }
 
         /**
+         * Setter for multiFrequencyEnabled.
+         * @param  multiFrequencyEnabled  Boolean value for multiFrequencyEnabled.
+         * @return Builder
+         */
+        public Builder multiFrequencyEnabled(Boolean multiFrequencyEnabled) {
+            this.multiFrequencyEnabled = multiFrequencyEnabled;
+            return this;
+        }
+
+        /**
+         * Setter for autoRenewalsEnabled.
+         * @param  autoRenewalsEnabled  Boolean value for autoRenewalsEnabled.
+         * @return Builder
+         */
+        public Builder autoRenewalsEnabled(Boolean autoRenewalsEnabled) {
+            this.autoRenewalsEnabled = autoRenewalsEnabled;
+            return this;
+        }
+
+        /**
+         * Setter for portalEnabled.
+         * @param  portalEnabled  Boolean value for portalEnabled.
+         * @return Builder
+         */
+        public Builder portalEnabled(Boolean portalEnabled) {
+            this.portalEnabled = portalEnabled;
+            return this;
+        }
+
+        /**
          * Setter for test.
          * @param  test  Boolean value for test.
          * @return Builder
@@ -673,7 +788,8 @@ public class Site
                     relationshipInvoicingEnabled, scheduleSubscriptionCancellationEnabled,
                     customerHierarchyEnabled, whopaysEnabled, whopaysDefaultPayer,
                     allocationSettings, defaultPaymentCollectionMethod, organizationAddress,
-                    taxConfiguration, netTerms, test);
+                    taxConfiguration, netTerms, multiFrequencyEnabled, autoRenewalsEnabled,
+                    portalEnabled, test);
         }
     }
 }

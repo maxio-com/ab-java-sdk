@@ -227,7 +227,7 @@ With this endpoint, you can:
 
 - Add new metadata to a dropdown or radio for a metafield that was created without metadata.
 
-- Remove  metadata for a dropdown or radio for a metafield.
+- Remove metadata for a dropdown or radio for a metafield.
   
   > Note: Updates to metadata overwrite existing values. To remove one or more values, specify all metadata values except those you want to remove.
 
@@ -466,7 +466,7 @@ Updates metadata and metafields on the Site and the customer or subscription spe
 
 If you update metadata on a subscription or customer with a metafield that does not already exist, the metafield is created with the metadata you specify and it is always added as a text field to the Site and to the subscription or customer you specify. You can update the input_type for the metafield with the Update Metafield endpoint.
 
-Each site is limited to 100 unique metafields per resource. This means you can have 100 metafields for Subscription and another 100 for Customer.
+Each site is limited to 100 unique metafields per resource. This means you can have 100 metafields for the Subscription resource and another 100 for the Customer resource.
 
 ```java
 List<Metadata> updateMetadata(
@@ -567,7 +567,7 @@ try {
 
 # List Metadata for Resource Type
 
-Lists  metadata for a specified array of subscriptions or customers.
+Lists metadata for a specified array of subscriptions or customers.
 
 ```java
 PaginatedMetadata listMetadataForResourceType(

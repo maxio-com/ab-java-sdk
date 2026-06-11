@@ -39,10 +39,10 @@ public final class InsightsController extends BaseController {
     }
 
     /**
-     * The Stats API is a very basic view of some Site-level stats. This API call only answers with
-     * JSON responses. An XML version is not provided. ## Stats Documentation There currently is not
-     * a complimentary matching set of documentation that compliments this endpoint. However, each
-     * Site's dashboard will reflect the summary of information provided in the Stats response. ```
+     * Returns basic site-level stats. This API call only answers with JSON responses. An XML
+     * version is not provided. ## Stats Documentation There currently is not a complimentary
+     * matching set of documentation that compliments this endpoint. However, each Site's dashboard
+     * will reflect the summary of information provided in the Stats response. ```
      * https://subdomain.chargify.com/dashboard ```.
      * @return    Returns the SiteSummary response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -75,7 +75,7 @@ public final class InsightsController extends BaseController {
     }
 
     /**
-     * This endpoint returns your site's current MRR, including plan and usage breakouts.
+     * Returns your site's current MRR, including plan and usage breakouts.
      * @deprecated
      * 
      * @param  atTime  Optional parameter: submit a timestamp in ISO8601 format to request MRR for a
@@ -122,8 +122,8 @@ public final class InsightsController extends BaseController {
     }
 
     /**
-     * This endpoint returns your site's MRR movements. ## Understanding MRR movements This endpoint
-     * will aid in accessing your site's [MRR
+     * Lists your site's MRR movements. ## Understanding MRR movements This endpoint will aid in
+     * accessing your site's [MRR
      * Report](https://maxio.zendesk.com/hc/en-us/articles/24285894587021-MRR-Analytics) data.
      * Whenever a subscription event occurs that causes your site's MRR to change (such as a signup
      * or upgrade), we record an MRR movement. These records are accessible via the MRR Movements

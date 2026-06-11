@@ -32,10 +32,10 @@ public final class ReferralCodesController extends BaseController {
     }
 
     /**
-     * Use this method to determine if the referral code is valid and applicable within your Site.
-     * This method is useful for validating referral codes that are entered by a customer. ##
-     * Referrals Documentation Full documentation on how to use the referrals feature in the
-     * Advanced Billing UI can be located
+     * Validates whether a referral code is valid and applicable within your site. This method is
+     * useful for validating referral codes that are entered by a customer. ## Referrals
+     * Documentation Full documentation on how to use the referrals feature in the Advanced Billing
+     * UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/sections/24286965611405-Referrals). ## Server
      * Response If the referral code is valid the status code will be `200` and the referral code
      * will be returned. If the referral code is invalid, a `404` response will be returned.
