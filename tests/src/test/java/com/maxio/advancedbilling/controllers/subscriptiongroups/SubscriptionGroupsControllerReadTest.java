@@ -11,21 +11,15 @@ import com.maxio.advancedbilling.models.CreateSubscriptionGroup;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroupRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
-import com.maxio.advancedbilling.models.Invoice;
-import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
-import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionGroupInclude;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepayment;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentMethod;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentRequest;
-import com.maxio.advancedbilling.models.SubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.SubscriptionState;
-import com.maxio.advancedbilling.models.VoidInvoice;
-import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -48,9 +42,10 @@ public class SubscriptionGroupsControllerReadTest {
     private static final AdvancedBillingClient CLIENT = TestClientProvider.getClient();
     private static final SubscriptionGroupsController SUBSCRIPTION_GROUPS_CONTROLLER =
             CLIENT.getSubscriptionGroupsController();
-    private static SubscriptionGroupResponse createSubscriptionGroupResponse;
     private static Integer primarySubscriptionId;
+    private static Integer subscription2Id;
     private static Customer customer;
+    private static Customer groupCustomer;
     private static Product product;
 
     @BeforeAll
@@ -61,29 +56,10 @@ public class SubscriptionGroupsControllerReadTest {
 
     @AfterAll
     static void tearDown() throws IOException, ApiException {
-        if (createSubscriptionGroupResponse != null && primarySubscriptionId != null) {
-            // Void pending invoices before removing subscriptions from the group,
-            // as the app now blocks removal when pending invoices exist.
-            List<Integer> subscriptionIds = createSubscriptionGroupResponse.getSubscriptionGroup().getSubscriptionIds();
-            for (Integer subId : subscriptionIds) {
-                List<Invoice> pendingInvoices = CLIENT.getInvoicesController().listInvoices(
-                        new ListInvoicesInput.Builder()
-                                .subscriptionId(subId)
-                                .status(InvoiceStatus.PENDING)
-                                .build()
-                ).getInvoices();
-                for (Invoice invoice : pendingInvoices) {
-                    CLIENT.getInvoicesController().voidInvoice(
-                            invoice.getUid(),
-                            new VoidInvoiceRequest(new VoidInvoice("teardown"))
-                    );
-                }
-            }
+        if (primarySubscriptionId != null) {
             new TestTeardown().deleteSubscriptionGroup(primarySubscriptionId,
-                    subscriptionIds,
-                    createSubscriptionGroupResponse.getSubscriptionGroup().getCustomerId());
-            createSubscriptionGroupResponse = null;
-            primarySubscriptionId = null;
+                    List.of(primarySubscriptionId, subscription2Id),
+                    groupCustomer.getId());
         }
         new TestTeardown().deleteCustomer(customer);
     }
@@ -91,14 +67,15 @@ public class SubscriptionGroupsControllerReadTest {
     @Test
     void shouldReadSubscriptionGroup() throws IOException, ApiException {
         // given
-        Customer customer = TEST_SETUP.createCustomer();
-        Subscription subscription1 = TEST_SETUP.createSubscription(customer, product);
-        Subscription subscription2 = TEST_SETUP.createSubscription(customer, product);
+        groupCustomer = TEST_SETUP.createCustomer();
+        Subscription subscription1 = TEST_SETUP.createSubscription(groupCustomer, product);
+        Subscription subscription2 = TEST_SETUP.createSubscription(groupCustomer, product);
+        subscription2Id = subscription2.getId();
         Component component = TEST_SETUP.createQuantityBasedComponent(product.getProductFamily().getId());
 
         // when
         // create group
-        createSubscriptionGroupResponse = SUBSCRIPTION_GROUPS_CONTROLLER
+        SUBSCRIPTION_GROUPS_CONTROLLER
                 .createSubscriptionGroup(new CreateSubscriptionGroupRequest(new CreateSubscriptionGroup.Builder()
                         .subscriptionId(subscription1.getId())
                         .memberIds(List.of(subscription2.getId()))
@@ -122,6 +99,7 @@ public class SubscriptionGroupsControllerReadTest {
         CLIENT.getSubscriptionComponentsController().allocateComponent(subscription1.getId(), component.getId(), new CreateAllocationRequest(
                 new CreateAllocation.Builder()
                         .quantity(3)
+                        .accrueCharge(false)
                         .build()
         ));
 
@@ -136,16 +114,16 @@ public class SubscriptionGroupsControllerReadTest {
         assertThat(subscriptionGroup.getAccountBalances().getOpenInvoices().getBalanceInCents()).isEqualTo(0);
         assertThat(subscriptionGroup.getAccountBalances().getPrepayments().getBalanceInCents()).isEqualTo(300);
         assertThat(subscriptionGroup.getAccountBalances().getPendingDiscounts().getBalanceInCents()).isEqualTo(0);
-        assertThat(subscriptionGroup.getAccountBalances().getServiceCredits().getBalanceInCents()).isEqualTo(500);
+        assertThat(subscriptionGroup.getAccountBalances().getServiceCredits().getBalanceInCents()).isEqualTo(200);
 
         assertThat(subscriptionGroup.getCancelAtEndOfPeriod()).isFalse();
         assertThat(subscriptionGroup.getCurrentBillingAmountInCents()).isNull();
 
-        assertThat(subscriptionGroup.getCustomerId()).isEqualTo(customer.getId());
-        assertThat(subscriptionGroup.getCustomer().getFirstName()).isEqualTo(customer.getFirstName());
-        assertThat(subscriptionGroup.getCustomer().getLastName()).isEqualTo(customer.getLastName());
-        assertThat(subscriptionGroup.getCustomer().getOrganization()).isEqualTo(customer.getOrganization());
-        assertThat(subscriptionGroup.getCustomer().getReference()).isEqualTo(customer.getReference());
+        assertThat(subscriptionGroup.getCustomerId()).isEqualTo(groupCustomer.getId());
+        assertThat(subscriptionGroup.getCustomer().getFirstName()).isEqualTo(groupCustomer.getFirstName());
+        assertThat(subscriptionGroup.getCustomer().getLastName()).isEqualTo(groupCustomer.getLastName());
+        assertThat(subscriptionGroup.getCustomer().getOrganization()).isEqualTo(groupCustomer.getOrganization());
+        assertThat(subscriptionGroup.getCustomer().getReference()).isEqualTo(groupCustomer.getReference());
 
         assertThat(subscriptionGroup.getNextAssessmentAt()).isAfter(ZonedDateTime.now());
         assertThat(subscriptionGroup.getPaymentProfileId()).isNotNull();
