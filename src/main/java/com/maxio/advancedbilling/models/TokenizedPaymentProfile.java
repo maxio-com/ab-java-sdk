@@ -14,9 +14,9 @@ import io.apimatic.core.types.BaseModel;
 import io.apimatic.core.types.OptionalNullable;
 
 /**
- * This is a model class for PaymentProfile type.
+ * This is a model class for TokenizedPaymentProfile type.
  */
-public class PaymentProfile
+public class TokenizedPaymentProfile
         extends BaseModel {
     private int id;
     private String vaultToken;
@@ -26,7 +26,7 @@ public class PaymentProfile
     /**
      * Default constructor.
      */
-    public PaymentProfile() {
+    public TokenizedPaymentProfile() {
     }
 
     /**
@@ -36,7 +36,7 @@ public class PaymentProfile
      * @param  gatewayHandle  String value for gatewayHandle.
      * @param  customerVaultToken  String value for customerVaultToken.
      */
-    public PaymentProfile(
+    public TokenizedPaymentProfile(
             int id,
             String vaultToken,
             String gatewayHandle,
@@ -55,8 +55,8 @@ public class PaymentProfile
      * @param  customerVaultToken  String value for customerVaultToken.
      */
 
-    protected PaymentProfile(int id, String vaultToken, OptionalNullable<String> gatewayHandle,
-            OptionalNullable<String> customerVaultToken) {
+    protected TokenizedPaymentProfile(int id, String vaultToken,
+            OptionalNullable<String> gatewayHandle, OptionalNullable<String> customerVaultToken) {
         this.id = id;
         this.vaultToken = vaultToken;
         this.gatewayHandle = gatewayHandle;
@@ -171,20 +171,20 @@ public class PaymentProfile
     }
 
     /**
-     * Converts this PaymentProfile into string format.
+     * Converts this TokenizedPaymentProfile into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "PaymentProfile [" + "id=" + id + ", vaultToken=" + vaultToken + ", gatewayHandle="
-                + gatewayHandle + ", customerVaultToken=" + customerVaultToken
+        return "TokenizedPaymentProfile [" + "id=" + id + ", vaultToken=" + vaultToken
+                + ", gatewayHandle=" + gatewayHandle + ", customerVaultToken=" + customerVaultToken
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
-     * Builds a new {@link PaymentProfile.Builder} object.
+     * Builds a new {@link TokenizedPaymentProfile.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link PaymentProfile.Builder} object
+     * @return a new {@link TokenizedPaymentProfile.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder(id)
@@ -195,7 +195,7 @@ public class PaymentProfile
     }
 
     /**
-     * Class to build instances of {@link PaymentProfile}.
+     * Class to build instances of {@link TokenizedPaymentProfile}.
      */
     public static class Builder {
         private int id;
@@ -276,11 +276,11 @@ public class PaymentProfile
         }
 
         /**
-         * Builds a new {@link PaymentProfile} object using the set fields.
-         * @return {@link PaymentProfile}
+         * Builds a new {@link TokenizedPaymentProfile} object using the set fields.
+         * @return {@link TokenizedPaymentProfile}
          */
-        public PaymentProfile build() {
-            return new PaymentProfile(id, vaultToken, gatewayHandle, customerVaultToken);
+        public TokenizedPaymentProfile build() {
+            return new TokenizedPaymentProfile(id, vaultToken, gatewayHandle, customerVaultToken);
         }
     }
 }

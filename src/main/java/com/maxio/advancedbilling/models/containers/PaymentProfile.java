@@ -29,15 +29,15 @@ import java.util.Map;
 /**
  * This is a container class for any-of types.
  */
-@JsonDeserialize(using = PaymentProfile2.PaymentProfile2Deserializer.class)
-public abstract class PaymentProfile2 {
+@JsonDeserialize(using = PaymentProfile.PaymentProfileDeserializer.class)
+public abstract class PaymentProfile {
     
     /**
      * This is ApplePay Payment Profile case.
      * @param applePayPaymentProfile ApplePayPaymentProfile value for applePayPaymentProfile.
      * @return The ApplePayPaymentProfileCase object.
      */
-    public static PaymentProfile2 fromApplePayPaymentProfile(
+    public static PaymentProfile fromApplePayPaymentProfile(
             ApplePayPaymentProfile applePayPaymentProfile) {
         return applePayPaymentProfile == null ? null : new ApplePayPaymentProfileCase(applePayPaymentProfile);
     }
@@ -47,7 +47,7 @@ public abstract class PaymentProfile2 {
      * @param bankAccountPaymentProfile BankAccountPaymentProfile value for bankAccountPaymentProfile.
      * @return The BankAccountPaymentProfileCase object.
      */
-    public static PaymentProfile2 fromBankAccountPaymentProfile(
+    public static PaymentProfile fromBankAccountPaymentProfile(
             BankAccountPaymentProfile bankAccountPaymentProfile) {
         return bankAccountPaymentProfile == null ? null : new BankAccountPaymentProfileCase(bankAccountPaymentProfile);
     }
@@ -57,7 +57,7 @@ public abstract class PaymentProfile2 {
      * @param creditCardPaymentProfile CreditCardPaymentProfile value for creditCardPaymentProfile.
      * @return The CreditCardPaymentProfileCase object.
      */
-    public static PaymentProfile2 fromCreditCardPaymentProfile(
+    public static PaymentProfile fromCreditCardPaymentProfile(
             CreditCardPaymentProfile creditCardPaymentProfile) {
         return creditCardPaymentProfile == null ? null : new CreditCardPaymentProfileCase(creditCardPaymentProfile);
     }
@@ -67,7 +67,7 @@ public abstract class PaymentProfile2 {
      * @param paypalPaymentProfile PaypalPaymentProfile value for paypalPaymentProfile.
      * @return The PaypalPaymentProfileCase object.
      */
-    public static PaymentProfile2 fromPaypalPaymentProfile(
+    public static PaymentProfile fromPaypalPaymentProfile(
             PaypalPaymentProfile paypalPaymentProfile) {
         return paypalPaymentProfile == null ? null : new PaypalPaymentProfileCase(paypalPaymentProfile);
     }
@@ -99,7 +99,7 @@ public abstract class PaymentProfile2 {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "ApplePayPaymentProfile")
-    private static class ApplePayPaymentProfileCase extends PaymentProfile2 {
+    private static class ApplePayPaymentProfileCase extends PaymentProfile {
 
         @JsonValue
         private ApplePayPaymentProfile applePayPaymentProfile;
@@ -130,7 +130,7 @@ public abstract class PaymentProfile2 {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "BankAccountPaymentProfile")
-    private static class BankAccountPaymentProfileCase extends PaymentProfile2 {
+    private static class BankAccountPaymentProfileCase extends PaymentProfile {
 
         @JsonValue
         private BankAccountPaymentProfile bankAccountPaymentProfile;
@@ -161,7 +161,7 @@ public abstract class PaymentProfile2 {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "CreditCardPaymentProfile")
-    private static class CreditCardPaymentProfileCase extends PaymentProfile2 {
+    private static class CreditCardPaymentProfileCase extends PaymentProfile {
 
         @JsonValue
         private CreditCardPaymentProfile creditCardPaymentProfile;
@@ -192,7 +192,7 @@ public abstract class PaymentProfile2 {
      */
     @JsonDeserialize(using = JsonDeserializer.None.class)
     @TypeCombinatorCase(type = "PaypalPaymentProfile")
-    private static class PaypalPaymentProfileCase extends PaymentProfile2 {
+    private static class PaypalPaymentProfileCase extends PaymentProfile {
 
         @JsonValue
         private PaypalPaymentProfile paypalPaymentProfile;
@@ -219,13 +219,13 @@ public abstract class PaymentProfile2 {
     }
 
     /**
-     * This is a custom deserializer class for PaymentProfile2.
+     * This is a custom deserializer class for PaymentProfile.
      */
-    protected static class PaymentProfile2Deserializer
-            extends JsonDeserializer<PaymentProfile2> {
+    protected static class PaymentProfileDeserializer
+            extends JsonDeserializer<PaymentProfile> {
 
         private String discriminator = "payment_type";
-        private List<Map<String, Class<? extends PaymentProfile2>>> registry =
+        private List<Map<String, Class<? extends PaymentProfile>>> registry =
                 Arrays.asList(
                         Collections.singletonMap("apple_pay", ApplePayPaymentProfileCase.class),
                         Collections.singletonMap("bank_account", BankAccountPaymentProfileCase.class),
@@ -233,7 +233,7 @@ public abstract class PaymentProfile2 {
                         Collections.singletonMap("paypal_account", PaypalPaymentProfileCase.class));
 
         @Override
-        public PaymentProfile2 deserialize(JsonParser jp, DeserializationContext ctxt)
+        public PaymentProfile deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException {
             return ApiHelper.deserialize(jp, ctxt, discriminator, registry, null, false);
         }

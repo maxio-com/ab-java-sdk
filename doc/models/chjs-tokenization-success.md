@@ -9,7 +9,7 @@
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `PaymentProfile` | [`PaymentProfile`](../../doc/models/payment-profile.md) | Required | - | PaymentProfile getPaymentProfile() | setPaymentProfile(PaymentProfile paymentProfile) |
+| `PaymentProfile` | [`TokenizedPaymentProfile`](../../doc/models/tokenized-payment-profile.md) | Required | - | TokenizedPaymentProfile getPaymentProfile() | setPaymentProfile(TokenizedPaymentProfile paymentProfile) |
 | `GatewayCustomerId` | `Integer` | Optional | - | Integer getGatewayCustomerId() | setGatewayCustomerId(Integer gatewayCustomerId) |
 
 ## Example (as JSON)

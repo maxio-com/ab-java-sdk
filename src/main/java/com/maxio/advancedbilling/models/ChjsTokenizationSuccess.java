@@ -20,7 +20,7 @@ import io.apimatic.core.types.OptionalNullable;
  */
 public class ChjsTokenizationSuccess
         extends BaseModel {
-    private PaymentProfile paymentProfile;
+    private TokenizedPaymentProfile paymentProfile;
     private OptionalNullable<Integer> gatewayCustomerId;
 
     /**
@@ -31,11 +31,11 @@ public class ChjsTokenizationSuccess
 
     /**
      * Initialization constructor.
-     * @param  paymentProfile  PaymentProfile value for paymentProfile.
+     * @param  paymentProfile  TokenizedPaymentProfile value for paymentProfile.
      * @param  gatewayCustomerId  Integer value for gatewayCustomerId.
      */
     public ChjsTokenizationSuccess(
-            PaymentProfile paymentProfile,
+            TokenizedPaymentProfile paymentProfile,
             Integer gatewayCustomerId) {
         this.paymentProfile = paymentProfile;
         this.gatewayCustomerId = OptionalNullable.of(gatewayCustomerId);
@@ -43,11 +43,11 @@ public class ChjsTokenizationSuccess
 
     /**
      * Initialization constructor.
-     * @param  paymentProfile  PaymentProfile value for paymentProfile.
+     * @param  paymentProfile  TokenizedPaymentProfile value for paymentProfile.
      * @param  gatewayCustomerId  Integer value for gatewayCustomerId.
      */
 
-    protected ChjsTokenizationSuccess(PaymentProfile paymentProfile,
+    protected ChjsTokenizationSuccess(TokenizedPaymentProfile paymentProfile,
             OptionalNullable<Integer> gatewayCustomerId) {
         this.paymentProfile = paymentProfile;
         this.gatewayCustomerId = gatewayCustomerId;
@@ -55,30 +55,30 @@ public class ChjsTokenizationSuccess
 
     /**
      * Initialization constructor.
-     * @param  paymentProfile  PaymentProfile value for paymentProfile.
+     * @param  paymentProfile  TokenizedPaymentProfile value for paymentProfile.
      */
     @JsonCreator
     protected ChjsTokenizationSuccess(
-            @JsonProperty("payment_profile") PaymentProfile paymentProfile) {
+            @JsonProperty("payment_profile") TokenizedPaymentProfile paymentProfile) {
         this(paymentProfile, OptionalNullable.of(null));
         unsetGatewayCustomerId();
     }
 
     /**
      * Getter for PaymentProfile.
-     * @return Returns the PaymentProfile
+     * @return Returns the TokenizedPaymentProfile
      */
     @JsonGetter("payment_profile")
-    public PaymentProfile getPaymentProfile() {
+    public TokenizedPaymentProfile getPaymentProfile() {
         return paymentProfile;
     }
 
     /**
      * Setter for PaymentProfile.
-     * @param paymentProfile Value for PaymentProfile
+     * @param paymentProfile Value for TokenizedPaymentProfile
      */
     @JsonSetter("payment_profile")
-    public void setPaymentProfile(PaymentProfile paymentProfile) {
+    public void setPaymentProfile(TokenizedPaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
@@ -143,7 +143,7 @@ public class ChjsTokenizationSuccess
      * Class to build instances of {@link ChjsTokenizationSuccess}.
      */
     public static class Builder {
-        private PaymentProfile paymentProfile;
+        private TokenizedPaymentProfile paymentProfile;
         private OptionalNullable<Integer> gatewayCustomerId;
 
         /**
@@ -154,18 +154,18 @@ public class ChjsTokenizationSuccess
 
         /**
          * Initialization constructor.
-         * @param  paymentProfile  PaymentProfile value for paymentProfile.
+         * @param  paymentProfile  TokenizedPaymentProfile value for paymentProfile.
          */
-        public Builder(PaymentProfile paymentProfile) {
+        public Builder(TokenizedPaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
         }
 
         /**
          * Setter for paymentProfile.
-         * @param  paymentProfile  PaymentProfile value for paymentProfile.
+         * @param  paymentProfile  TokenizedPaymentProfile value for paymentProfile.
          * @return Builder
          */
-        public Builder paymentProfile(PaymentProfile paymentProfile) {
+        public Builder paymentProfile(TokenizedPaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
             return this;
         }

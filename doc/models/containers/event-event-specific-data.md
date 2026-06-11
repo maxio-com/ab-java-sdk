@@ -418,7 +418,7 @@ EventEventSpecificData.fromCustomFieldValueChange(
 ```java
 EventEventSpecificData.fromChjsTokenizationSuccess(
         new ChjsTokenizationSuccess.Builder(
-            new PaymentProfile.Builder(
+            new TokenizedPaymentProfile.Builder(
                 44
             )
             .build()
