@@ -193,7 +193,7 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
                 .usingRecursiveFieldByFieldElementComparator(discountComparatorConfig)
                 .containsExactly(singleLineDiscount);
 
-        // invoices 3 and 4 now return separate per-line discounts
+        // invoices 3 and 4 now return a single per-line discount (component line only)
         ProformaInvoiceDiscount componentLineDiscount = new ProformaInvoiceDiscount.Builder()
                 .title(coupon.getDescription())
                 .code(coupon.getCode())
@@ -205,24 +205,13 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
                         new InvoiceDiscountBreakout(null, "20.0", "12.5")
                 ))
                 .build();
-        ProformaInvoiceDiscount productLineDiscount = new ProformaInvoiceDiscount.Builder()
-                .title(coupon.getDescription())
-                .code(coupon.getCode())
-                .discountAmount("12.5")
-                .discountType(InvoiceDiscountType.FLAT_AMOUNT)
-                .eligibleAmount("500.0")
-                .sourceType(ProformaInvoiceDiscountSourceType.COUPON)
-                .lineItemBreakouts(List.of(
-                        new InvoiceDiscountBreakout(null, "500.0", "12.5")
-                ))
-                .build();
 
         assertThat(proformaInvoice3.getDiscounts())
                 .usingRecursiveFieldByFieldElementComparator(discountComparatorConfig)
-                .containsExactlyInAnyOrder(componentLineDiscount, productLineDiscount);
+                .containsExactly(componentLineDiscount);
         assertThat(proformaInvoice4Voided.getDiscounts())
                 .usingRecursiveFieldByFieldElementComparator(discountComparatorConfig)
-                .containsExactlyInAnyOrder(componentLineDiscount, productLineDiscount);
+                .containsExactly(componentLineDiscount);
 
         // credits
         assertThat(proformaInvoice1.getCredits()).isEmpty();

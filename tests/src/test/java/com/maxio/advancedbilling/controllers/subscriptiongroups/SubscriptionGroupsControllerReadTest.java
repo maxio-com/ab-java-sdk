@@ -11,8 +11,11 @@ import com.maxio.advancedbilling.models.CreateSubscriptionGroup;
 import com.maxio.advancedbilling.models.CreateSubscriptionGroupRequest;
 import com.maxio.advancedbilling.models.Customer;
 import com.maxio.advancedbilling.models.FullSubscriptionGroupResponse;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.InvoiceStatus;
 import com.maxio.advancedbilling.models.IssueServiceCredit;
 import com.maxio.advancedbilling.models.IssueServiceCreditRequest;
+import com.maxio.advancedbilling.models.ListInvoicesInput;
 import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionGroupInclude;
@@ -21,6 +24,8 @@ import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentMethod;
 import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentRequest;
 import com.maxio.advancedbilling.models.SubscriptionGroupResponse;
 import com.maxio.advancedbilling.models.SubscriptionState;
+import com.maxio.advancedbilling.models.VoidInvoice;
+import com.maxio.advancedbilling.models.VoidInvoiceRequest;
 import com.maxio.advancedbilling.models.containers.IssueServiceCreditAmount;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
@@ -57,8 +62,25 @@ public class SubscriptionGroupsControllerReadTest {
     @AfterAll
     static void tearDown() throws IOException, ApiException {
         if (createSubscriptionGroupResponse != null && primarySubscriptionId != null) {
+            // Void pending invoices before removing subscriptions from the group,
+            // as the app now blocks removal when pending invoices exist.
+            List<Integer> subscriptionIds = createSubscriptionGroupResponse.getSubscriptionGroup().getSubscriptionIds();
+            for (Integer subId : subscriptionIds) {
+                List<Invoice> pendingInvoices = CLIENT.getInvoicesController().listInvoices(
+                        new ListInvoicesInput.Builder()
+                                .subscriptionId(subId)
+                                .status(InvoiceStatus.PENDING)
+                                .build()
+                ).getInvoices();
+                for (Invoice invoice : pendingInvoices) {
+                    CLIENT.getInvoicesController().voidInvoice(
+                            invoice.getUid(),
+                            new VoidInvoiceRequest(new VoidInvoice("teardown"))
+                    );
+                }
+            }
             new TestTeardown().deleteSubscriptionGroup(primarySubscriptionId,
-                    createSubscriptionGroupResponse.getSubscriptionGroup().getSubscriptionIds(),
+                    subscriptionIds,
                     createSubscriptionGroupResponse.getSubscriptionGroup().getCustomerId());
             createSubscriptionGroupResponse = null;
             primarySubscriptionId = null;

@@ -232,6 +232,7 @@ public class InvoicesControllerCreateTest {
                                 .productPricePointId(null)
                                 .customItem(false)
                                 .kind("delay_capture")
+                                .taxIncluded(false)
                                 .build(),
                         new InvoiceLineItem.Builder()
                                 .title("Custom line")
@@ -253,6 +254,7 @@ public class InvoicesControllerCreateTest {
                                 .productPricePointId(null)
                                 .customItem(true)
                                 .kind("delay_capture")
+                                .taxIncluded(false)
                                 .build(),
                         new InvoiceLineItem.Builder()
                                 .title(meteredComponent.getName())
@@ -274,6 +276,7 @@ public class InvoicesControllerCreateTest {
                                 .productPricePointId(null)
                                 .customItem(false)
                                 .kind("delay_capture")
+                                .taxIncluded(false)
                                 .build()
                 );
 

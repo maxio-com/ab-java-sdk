@@ -232,6 +232,7 @@ class InvoicesControllerIssueTest {
                                 .componentId(quantityBasedComponent.getId())
                                 .pricePointId(quantityBasedComponent.getDefaultPricePointId())
                                 .customItem(false)
+                                .taxIncluded(false)
                                 .build()
                 );
 
