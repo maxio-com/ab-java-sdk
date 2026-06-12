@@ -13,12 +13,12 @@ InsightsController insightsController = client.getInsightsController();
 * [Read Site Stats](../../doc/controllers/insights.md#read-site-stats)
 * [Read Mrr](../../doc/controllers/insights.md#read-mrr)
 * [List Mrr Movements](../../doc/controllers/insights.md#list-mrr-movements)
-* [List Mrr Per Subscription](../../doc/controllers/insights.md#list-mrr-per-subscription)
+* [List Mrr per Subscription](../../doc/controllers/insights.md#list-mrr-per-subscription)
 
 
 # Read Site Stats
 
-The Stats API is a very basic view of some Site-level stats. This API call only answers with JSON responses. An XML version is not provided.
+Returns basic site-level stats. This API call only answers with JSON responses. An XML version is not provided.
 
 ## Stats Documentation
 
@@ -32,7 +32,13 @@ https://subdomain.chargify.com/dashboard
 SiteSummary readSiteStats()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**200**: OK
 
 [`SiteSummary`](../../doc/models/site-summary.md)
 
@@ -71,13 +77,17 @@ try {
 
 **This endpoint is deprecated.**
 
-This endpoint returns your site's current MRR, including plan and usage breakouts.
+Returns your site's current MRR, including plan and usage breakouts.
 
 ```java
 MRRResponse readMrr(
     final ZonedDateTime atTime,
     final Integer subscriptionId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -87,6 +97,8 @@ MRRResponse readMrr(
 | `subscriptionId` | `Integer` | Query, Optional | submit the id of a subscription in order to limit results |
 
 ## Response Type
+
+**200**: OK
 
 [`MRRResponse`](../../doc/models/mrr-response.md)
 
@@ -126,7 +138,7 @@ try {
 
 **This endpoint is deprecated.**
 
-This endpoint returns your site's MRR movements.
+Lists your site's MRR movements.
 
 ## Understanding MRR movements
 
@@ -156,6 +168,10 @@ ListMRRResponse listMrrMovements(
     final ListMrrMovementsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -163,6 +179,8 @@ ListMRRResponse listMrrMovements(
 | `input` | [`ListMrrMovementsInput`](../../doc/models/list-mrr-movements-input.md) | Required | Input structure for the method ListMrrMovements |
 
 ## Response Type
+
+**200**: OK
 
 [`ListMRRResponse`](../../doc/models/list-mrr-response.md)
 
@@ -235,7 +253,7 @@ try {
 ```
 
 
-# List Mrr Per Subscription
+# List Mrr per Subscription
 
 **This endpoint is deprecated.**
 
@@ -246,6 +264,10 @@ SubscriptionMRRResponse listMrrPerSubscription(
     final ListMrrPerSubscriptionInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -253,6 +275,8 @@ SubscriptionMRRResponse listMrrPerSubscription(
 | `input` | [`ListMrrPerSubscriptionInput`](../../doc/models/list-mrr-per-subscription-input.md) | Required | Input structure for the method ListMrrPerSubscription |
 
 ## Response Type
+
+**200**: OK
 
 [`SubscriptionMRRResponse`](../../doc/models/subscription-mrr-response.md)
 

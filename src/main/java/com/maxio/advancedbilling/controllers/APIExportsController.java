@@ -39,8 +39,8 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API returns an array of exported proforma invoices for a provided `batch_id`. Pay close
-     * attention to pagination in order to control responses from the server. Example: `GET
+     * Lists exported proforma invoices for a provided `batch_id`. Use pagination to control
+     * responses returned from the server. Example: `GET
      * https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&amp;page=1`.
      * @param  input  ListExportedProformaInvoicesInput object containing request parameters
      * @return    Returns the List of ProformaInvoice response from the API call
@@ -86,8 +86,8 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API returns an array of exported invoices for a provided `batch_id`. Pay close attention
-     * to pagination in order to control responses from the server. Example: `GET
+     * Lists exported invoices for a provided `batch_id`. Use pagination to control responses
+     * returned from the server. Example: `GET
      * https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&amp;page=1`.
      * @param  input  ListExportedInvoicesInput object containing request parameters
      * @return    Returns the List of Invoice response from the API call
@@ -133,8 +133,8 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API returns an array of exported subscriptions for a provided `batch_id`. Pay close
-     * attention to pagination in order to control responses from the server. Example: `GET
+     * Lists exported subscriptions for a provided `batch_id`. Use pagination to control responses
+     * returned from the server. Example: `GET
      * https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&amp;page=1`.
      * @param  input  ListExportedSubscriptionsInput object containing request parameters
      * @return    Returns the List of Subscription response from the API call
@@ -180,8 +180,8 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API creates a proforma invoices export and returns a batchjob object. It is only
-     * available for Relationship Invoicing architecture.
+     * Creates a proforma invoices export and returns a batch job object. It is only available for
+     * Relationship Invoicing architecture.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -219,7 +219,7 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API creates an invoices export and returns a batchjob object.
+     * Creates an invoices export and returns a batch job object.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -257,7 +257,7 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API creates a subscriptions export and returns a batchjob object.
+     * Creates a subscriptions export and returns a batch job object.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -292,7 +292,7 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API returns a batchjob object for proforma invoices export.
+     * Returns a batch job object for a proforma invoices export.
      * @param  batchId  Required parameter: Id of a Batch Job.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -332,7 +332,7 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API returns a batchjob object for invoices export.
+     * Returns a batch job object for an invoices export.
      * @param  batchId  Required parameter: Id of a Batch Job.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -372,7 +372,7 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * This API returns a batchjob object for subscriptions export.
+     * Returns a batch job object for a subscriptions export.
      * @param  batchId  Required parameter: Id of a Batch Job.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

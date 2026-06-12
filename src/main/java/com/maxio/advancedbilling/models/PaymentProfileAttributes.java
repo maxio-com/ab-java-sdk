@@ -199,9 +199,9 @@ public class PaymentProfileAttributes
 
     /**
      * Getter for ChargifyToken.
-     * (Optional) Token received after sending billing information using chargify.js. This token
-     * must be passed as a sole attribute of `payment_profile_attributes` (i.e.
-     * tok_9g6hw85pnpt6knmskpwp4ttt)
+     * (Optional) Token received after sending billing information using Maxio.js (formerly
+     * Chargify.js). This token must be passed as a sole attribute of `payment_profile_attributes`
+     * (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
      * @return Returns the String
      */
     @JsonGetter("chargify_token")
@@ -212,9 +212,9 @@ public class PaymentProfileAttributes
 
     /**
      * Setter for ChargifyToken.
-     * (Optional) Token received after sending billing information using chargify.js. This token
-     * must be passed as a sole attribute of `payment_profile_attributes` (i.e.
-     * tok_9g6hw85pnpt6knmskpwp4ttt)
+     * (Optional) Token received after sending billing information using Maxio.js (formerly
+     * Chargify.js). This token must be passed as a sole attribute of `payment_profile_attributes`
+     * (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
      * @param chargifyToken Value for String
      */
     @JsonSetter("chargify_token")

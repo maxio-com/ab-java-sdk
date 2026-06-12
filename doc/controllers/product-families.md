@@ -25,6 +25,10 @@ List<ProductResponse> listProductsForProductFamily(
     final ListProductsForProductFamilyInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -32,6 +36,8 @@ List<ProductResponse> listProductsForProductFamily(
 | `input` | [`ListProductsForProductFamilyInput`](../../doc/models/list-products-for-product-family-input.md) | Required | Input structure for the method ListProductsForProductFamily |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ProductResponse>`](../../doc/models/product-response.md)
 
@@ -170,7 +176,7 @@ try {
 
 # Create Product Family
 
-Creates a Product Family within your Advanced Billing site. Create a Product Family to act as a container for your products, components and coupons.
+Creates a Product Family within your Advanced Billing site. Create a Product Family to act as a container for your products, components, and coupons.
 
 Full documentation on how Product Families operate within the Advanced Billing UI can be located [here](https://maxio.zendesk.com/hc/en-us/articles/24261098936205-Product-Families).
 
@@ -179,6 +185,10 @@ ProductFamilyResponse createProductFamily(
     final CreateProductFamilyRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -186,6 +196,8 @@ ProductFamilyResponse createProductFamily(
 | `body` | [`CreateProductFamilyRequest`](../../doc/models/create-product-family-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ProductFamilyResponse`](../../doc/models/product-family-response.md)
 
@@ -234,12 +246,16 @@ try {
 
 # List Product Families
 
-Retrieve a list of Product Families for a site.
+Returns a list of Product Families for a site.
 
 ```java
 List<ProductFamilyResponse> listProductFamilies(
     final ListProductFamiliesInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -248,6 +264,8 @@ List<ProductFamilyResponse> listProductFamilies(
 | `input` | [`ListProductFamiliesInput`](../../doc/models/list-product-families-input.md) | Required | Input structure for the method ListProductFamilies |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ProductFamilyResponse>`](../../doc/models/product-family-response.md)
 
@@ -309,6 +327,10 @@ ProductFamilyResponse readProductFamily(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -316,6 +338,8 @@ ProductFamilyResponse readProductFamily(
 | `id` | `int` | Template, Required | The Advanced Billing id of the product family |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductFamilyResponse`](../../doc/models/product-family-response.md)
 

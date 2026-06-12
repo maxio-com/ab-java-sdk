@@ -10,7 +10,7 @@
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `LineItems` | [`List<CreateInvoiceItem>`](../../doc/models/create-invoice-item.md) | Optional | - | List<CreateInvoiceItem> getLineItems() | setLineItems(List<CreateInvoiceItem> lineItems) |
-| `IssueDate` | `LocalDate` | Optional | - | LocalDate getIssueDate() | setIssueDate(LocalDate issueDate) |
+| `IssueDate` | `LocalDate` | Optional | Date on which the invoice will be issued (format YYYY-MM-DD). This date is interpreted and validated in your site's time zone. It must be today or a date in the past — future dates are not accepted. If omitted, defaults to today in your site's time zone. | LocalDate getIssueDate() | setIssueDate(LocalDate issueDate) |
 | `NetTerms` | `Integer` | Optional | By default, invoices will be created with a due date matching the date of invoice creation. If a different due date is desired, the net_terms parameter can be sent indicating the number of days in advance the due date should be. | Integer getNetTerms() | setNetTerms(Integer netTerms) |
 | `PaymentInstructions` | `String` | Optional | - | String getPaymentInstructions() | setPaymentInstructions(String paymentInstructions) |
 | `Memo` | `String` | Optional | A custom memo can be sent to override the site's default. | String getMemo() | setMemo(String memo) |

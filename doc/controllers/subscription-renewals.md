@@ -33,6 +33,10 @@ ScheduledRenewalConfigurationResponse createScheduledRenewalConfiguration(
     final ScheduledRenewalConfigurationRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -41,6 +45,8 @@ ScheduledRenewalConfigurationResponse createScheduledRenewalConfiguration(
 | `body` | [`ScheduledRenewalConfigurationRequest`](../../doc/models/scheduled-renewal-configuration-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ScheduledRenewalConfigurationResponse`](../../doc/models/scheduled-renewal-configuration-response.md)
 
@@ -128,6 +134,10 @@ ScheduledRenewalConfigurationsResponse listScheduledRenewalConfigurations(
     final Status status)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -136,6 +146,8 @@ ScheduledRenewalConfigurationsResponse listScheduledRenewalConfigurations(
 | `status` | [`Status`](../../doc/models/status.md) | Query, Optional | (Optional) Status filter for scheduled renewal configurations. |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationsResponse`](../../doc/models/scheduled-renewal-configurations-response.md)
 
@@ -208,6 +220,10 @@ ScheduledRenewalConfigurationResponse readScheduledRenewalConfiguration(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -216,6 +232,8 @@ ScheduledRenewalConfigurationResponse readScheduledRenewalConfiguration(
 | `id` | `int` | Template, Required | The renewal id. |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationResponse`](../../doc/models/scheduled-renewal-configuration-response.md)
 
@@ -288,6 +306,10 @@ ScheduledRenewalConfigurationResponse updateScheduledRenewalConfiguration(
     final ScheduledRenewalConfigurationRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -297,6 +319,8 @@ ScheduledRenewalConfigurationResponse updateScheduledRenewalConfiguration(
 | `body` | [`ScheduledRenewalConfigurationRequest`](../../doc/models/scheduled-renewal-configuration-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationResponse`](../../doc/models/scheduled-renewal-configuration-response.md)
 
@@ -385,6 +409,10 @@ ScheduledRenewalConfigurationResponse scheduleScheduledRenewalLockIn(
     final ScheduledRenewalLockInRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -394,6 +422,8 @@ ScheduledRenewalConfigurationResponse scheduleScheduledRenewalLockIn(
 | `body` | [`ScheduledRenewalLockInRequest`](../../doc/models/scheduled-renewal-lock-in-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationResponse`](../../doc/models/scheduled-renewal-configuration-response.md)
 
@@ -477,6 +507,10 @@ ScheduledRenewalConfigurationResponse lockInScheduledRenewalImmediately(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -485,6 +519,8 @@ ScheduledRenewalConfigurationResponse lockInScheduledRenewalImmediately(
 | `id` | `int` | Template, Required | The renewal id. |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationResponse`](../../doc/models/scheduled-renewal-configuration-response.md)
 
@@ -563,6 +599,10 @@ ScheduledRenewalConfigurationResponse unpublishScheduledRenewalConfiguration(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -571,6 +611,8 @@ ScheduledRenewalConfigurationResponse unpublishScheduledRenewalConfiguration(
 | `id` | `int` | Template, Required | The renewal id. |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationResponse`](../../doc/models/scheduled-renewal-configuration-response.md)
 
@@ -641,6 +683,10 @@ ScheduledRenewalConfigurationResponse cancelScheduledRenewalConfiguration(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -649,6 +695,8 @@ ScheduledRenewalConfigurationResponse cancelScheduledRenewalConfiguration(
 | `id` | `int` | Template, Required | The renewal id. |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationResponse`](../../doc/models/scheduled-renewal-configuration-response.md)
 
@@ -720,6 +768,10 @@ ScheduledRenewalConfigurationItemResponse createScheduledRenewalConfigurationIte
     final ScheduledRenewalConfigurationItemRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -729,6 +781,8 @@ ScheduledRenewalConfigurationItemResponse createScheduledRenewalConfigurationIte
 | `body` | [`ScheduledRenewalConfigurationItemRequest`](../../doc/models/scheduled-renewal-configuration-item-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ScheduledRenewalConfigurationItemResponse`](../../doc/models/scheduled-renewal-configuration-item-response.md)
 
@@ -814,6 +868,10 @@ ScheduledRenewalConfigurationItemResponse updateScheduledRenewalConfigurationIte
     final ScheduledRenewalUpdateRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -824,6 +882,8 @@ ScheduledRenewalConfigurationItemResponse updateScheduledRenewalConfigurationIte
 | `body` | [`ScheduledRenewalUpdateRequest`](../../doc/models/scheduled-renewal-update-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ScheduledRenewalConfigurationItemResponse`](../../doc/models/scheduled-renewal-configuration-item-response.md)
 
@@ -909,6 +969,10 @@ Void deleteScheduledRenewalConfigurationItem(
     final int id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -918,6 +982,8 @@ Void deleteScheduledRenewalConfigurationItem(
 | `id` | `int` | Template, Required | The scheduled renewal configuration item id. |
 
 ## Response Type
+
+**204**: No Content
 
 `void`
 

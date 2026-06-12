@@ -36,11 +36,11 @@ public final class EventsController extends BaseController {
     }
 
     /**
-     * ## Events Intro Advanced Billing Events include various activity that happens around a Site.
-     * This information is **especially** useful to track down issues that arise when subscriptions
-     * are not created due to errors. Within the Advanced Billing UI, "Events" are referred to as
-     * "Site Activity". Full documentation on how to record view Events / Site Activty in the
-     * Advanced Billing UI can be located
+     * Lists events for a site. ## Events Intro Advanced Billing Events include various activity
+     * that happens around a Site. This information is **especially** useful to track down issues
+     * that arise when subscriptions are not created due to errors. Within the Advanced Billing UI,
+     * "Events" are referred to as "Site Activity". Full documentation on how to view Events / Site
+     * Activity in the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24250671733517-Site-Activity). ## List
      * Events for a Site This method will retrieve a list of events for a site. Use query string
      * filters to narrow down results. You may use the `key` filter as part of your query string to
@@ -119,12 +119,11 @@ public final class EventsController extends BaseController {
     }
 
     /**
-     * The following request will return a list of events for a subscription. ## Event Key The event
-     * type is identified by the key property. You can check supported keys [here]($m/Event%20Key).
-     * ## Event Specific Data Different event types may include additional data in
-     * `event_specific_data` property. While some events share the same schema for
-     * `event_specific_data`, others may not include it at all. For precise mappings from key to
-     * event_specific_data, refer to [Event]($m/Event).
+     * Lists events for a subscription. ## Event Key The event type is identified by the key
+     * property. You can check supported keys [here]($m/Event%20Key). ## Event Specific Data
+     * Different event types may include additional data in `event_specific_data` property. While
+     * some events share the same schema for `event_specific_data`, others may not include it at
+     * all. For precise mappings from key to event_specific_data, refer to [Event]($m/Event).
      * @param  input  ListSubscriptionEventsInput object containing request parameters
      * @return    Returns the List of EventResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -174,7 +173,7 @@ public final class EventsController extends BaseController {
     }
 
     /**
-     * Get a count of all the events for a given site by using this method.
+     * Returns the total count of events for a given site.
      * @param  input  ReadEventsCountInput object containing request parameters
      * @return    Returns the CountResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

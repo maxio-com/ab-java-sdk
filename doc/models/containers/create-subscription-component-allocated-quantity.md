@@ -12,3 +12,27 @@
 | `int` | CreateSubscriptionComponentAllocatedQuantity.fromNumber(int number) |
 | `String` | CreateSubscriptionComponentAllocatedQuantity.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSubscriptionComponentAllocatedQuantity.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateSubscriptionComponentAllocatedQuantity.fromString(
+        "String0"
+    )
+```
+

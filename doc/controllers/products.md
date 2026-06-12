@@ -22,7 +22,7 @@ ProductsController productsController = client.getProductsController();
 
 Creates a product in your Advanced Billing site.
 
-See the following product docuemation for more information:
+See the following product documentation for more information:
 
 + [Products Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
 + [Changing a Subscription's Product](https://maxio.zendesk.com/hc/en-us/articles/24252069837581-Product-Changes-and-Migrations)
@@ -33,6 +33,10 @@ ProductResponse createProduct(
     final CreateOrUpdateProductRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -41,6 +45,8 @@ ProductResponse createProduct(
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -140,6 +146,10 @@ ProductResponse readProduct(
     final int productId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -147,6 +157,8 @@ ProductResponse readProduct(
 | `productId` | `int` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -225,6 +237,10 @@ ProductResponse updateProduct(
     final CreateOrUpdateProductRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -233,6 +249,8 @@ ProductResponse updateProduct(
 | `body` | [`CreateOrUpdateProductRequest`](../../doc/models/create-or-update-product-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -307,7 +325,7 @@ try {
 
 # Archive Product
 
-Archives the product. All current subscribers will be unffected; their subscription/purchase will continue to be charged monthly.
+Archives the product. All current subscribers will be unaffected; their subscription/purchase will continue to be charged monthly.
 
 This will restrict the option to chose the product for purchase via the Billing Portal, as well as disable Public Signup Pages for the product.
 
@@ -316,6 +334,10 @@ ProductResponse archiveProduct(
     final int productId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -323,6 +345,8 @@ ProductResponse archiveProduct(
 | `productId` | `int` | Template, Required | The Advanced Billing id of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -400,6 +424,10 @@ ProductResponse readProductByHandle(
     final String apiHandle)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -407,6 +435,8 @@ ProductResponse readProductByHandle(
 | `apiHandle` | `String` | Template, Required | The handle of the product |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -494,12 +524,16 @@ try {
 
 # List Products
 
-This method allows to retrieve a list of Products belonging to a Site.
+Lists products belonging to a site.
 
 ```java
 List<ProductResponse> listProducts(
     final ListProductsInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -508,6 +542,8 @@ List<ProductResponse> listProducts(
 | `input` | [`ListProductsInput`](../../doc/models/list-products-input.md) | Required | Input structure for the method ListProducts |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ProductResponse>`](../../doc/models/product-response.md)
 

@@ -184,6 +184,7 @@ public class ProformaInvoicesControllerSubscriptionGroupsTest {
                                 .pricePointId(null)
                                 .productPricePointId(product.getDefaultProductPricePointId())
                                 .customItem(false)
+                                .taxIncluded(false)
                                 .build()
                 );
     }

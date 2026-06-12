@@ -12,3 +12,27 @@
 | `int` | CloneComponentPricePointPricePointId.fromNumber(int number) |
 | `String` | CloneComponentPricePointPricePointId.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+CloneComponentPricePointPricePointId.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CloneComponentPricePointPricePointId.fromString(
+        "String0"
+    )
+```
+

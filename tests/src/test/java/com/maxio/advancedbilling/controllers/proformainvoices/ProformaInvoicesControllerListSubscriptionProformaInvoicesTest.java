@@ -166,37 +166,52 @@ public class ProformaInvoicesControllerListSubscriptionProformaInvoicesTest {
                 );
 
         // discounts
-        ProformaInvoiceDiscount.Builder discountBuilder = new ProformaInvoiceDiscount.Builder()
+        ProformaInvoiceDiscount singleLineDiscount = new ProformaInvoiceDiscount.Builder()
                 .title("Coupon: %s - %s".formatted(coupon.getCode(), coupon.getDescription()))
                 .code(coupon.getCode())
                 .discountAmount("12.5")
                 .discountType(InvoiceDiscountType.FLAT_AMOUNT)
                 .eligibleAmount("500.0")
-                .sourceType(ProformaInvoiceDiscountSourceType.COUPON);
-        assertThat(expectedInvoices).extracting(p -> p.getDiscounts().get(0))
-                .usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration.builder()
-                        .withIgnoredFields("uid")
-                        // also ignore uid nested in InvoiceDiscountBreakouts list
-                        .withComparatorForType(((o1, o2) -> o1.getDiscountAmount().equals(o2.getDiscountAmount()) &&
-                                        o1.getEligibleAmount().equals(o2.getEligibleAmount()) ? 0 : -1),
-                                 InvoiceDiscountBreakout.class)
-                        .build())
-                .containsOnly(
-                        discountBuilder
-                                .lineItemBreakouts(List.of(
-                                        new InvoiceDiscountBreakout(null, "500.0", "12.5")
-                                ))
-                                .build(),
-                        discountBuilder
-                                .title(coupon.getDescription())
-                                .eligibleAmount("770.0")
-                                .discountAmount("25.0")
-                                .lineItemBreakouts(List.of(
-                                        new InvoiceDiscountBreakout(null, "20.0", "12.5"),
-                                        new InvoiceDiscountBreakout(null, "500.0", "12.5")
-                                ))
-                                .build()
-                );
+                .sourceType(ProformaInvoiceDiscountSourceType.COUPON)
+                .lineItemBreakouts(List.of(
+                        new InvoiceDiscountBreakout(null, "500.0", "12.5")
+                ))
+                .build();
+
+        RecursiveComparisonConfiguration discountComparatorConfig = RecursiveComparisonConfiguration.builder()
+                .withIgnoredFields("uid")
+                .withComparatorForType(((o1, o2) -> o1.getDiscountAmount().equals(o2.getDiscountAmount()) &&
+                                o1.getEligibleAmount().equals(o2.getEligibleAmount()) ? 0 : -1),
+                        InvoiceDiscountBreakout.class)
+                .build();
+
+        // invoices 1 and 2 have a single discount (product-only line item)
+        assertThat(proformaInvoice1.getDiscounts())
+                .usingRecursiveFieldByFieldElementComparator(discountComparatorConfig)
+                .containsExactly(singleLineDiscount);
+        assertThat(proformaInvoice2.getDiscounts())
+                .usingRecursiveFieldByFieldElementComparator(discountComparatorConfig)
+                .containsExactly(singleLineDiscount);
+
+        // invoices 3 and 4 now return a single per-line discount (component line only)
+        ProformaInvoiceDiscount componentLineDiscount = new ProformaInvoiceDiscount.Builder()
+                .title(coupon.getDescription())
+                .code(coupon.getCode())
+                .discountAmount("12.5")
+                .discountType(InvoiceDiscountType.FLAT_AMOUNT)
+                .eligibleAmount("20.0")
+                .sourceType(ProformaInvoiceDiscountSourceType.COUPON)
+                .lineItemBreakouts(List.of(
+                        new InvoiceDiscountBreakout(null, "20.0", "12.5")
+                ))
+                .build();
+
+        assertThat(proformaInvoice3.getDiscounts())
+                .usingRecursiveFieldByFieldElementComparator(discountComparatorConfig)
+                .containsExactly(componentLineDiscount);
+        assertThat(proformaInvoice4Voided.getDiscounts())
+                .usingRecursiveFieldByFieldElementComparator(discountComparatorConfig)
+                .containsExactly(componentLineDiscount);
 
         // credits
         assertThat(proformaInvoice1.getCredits()).isEmpty();

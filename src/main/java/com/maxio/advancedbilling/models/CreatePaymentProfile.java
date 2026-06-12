@@ -244,7 +244,7 @@ public class CreatePaymentProfile
 
     /**
      * Getter for ChargifyToken.
-     * Token received after sending billing information using chargify.js.
+     * Token received after sending billing information using Maxio.js (formerly Chargify.js).
      * @return Returns the String
      */
     @JsonGetter("chargify_token")
@@ -255,7 +255,7 @@ public class CreatePaymentProfile
 
     /**
      * Setter for ChargifyToken.
-     * Token received after sending billing information using chargify.js.
+     * Token received after sending billing information using Maxio.js (formerly Chargify.js).
      * @param chargifyToken Value for String
      */
     @JsonSetter("chargify_token")
@@ -709,7 +709,7 @@ public class CreatePaymentProfile
     /**
      * Getter for PaypalEmail.
      * used by merchants that implemented BraintreeBlue javaScript libraries on their own. We
-     * recommend using Chargify.js instead.
+     * recommend using Maxio.js (formerly Chargify.js) instead.
      * @return Returns the String
      */
     @JsonGetter("paypal_email")
@@ -721,7 +721,7 @@ public class CreatePaymentProfile
     /**
      * Setter for PaypalEmail.
      * used by merchants that implemented BraintreeBlue javaScript libraries on their own. We
-     * recommend using Chargify.js instead.
+     * recommend using Maxio.js (formerly Chargify.js) instead.
      * @param paypalEmail Value for String
      */
     @JsonSetter("paypal_email")
@@ -732,7 +732,7 @@ public class CreatePaymentProfile
     /**
      * Getter for PaymentMethodNonce.
      * used by merchants that implemented BraintreeBlue javaScript libraries on their own. We
-     * recommend using Chargify.js instead.
+     * recommend using Maxio.js (formerly Chargify.js) instead.
      * @return Returns the String
      */
     @JsonGetter("payment_method_nonce")
@@ -744,7 +744,7 @@ public class CreatePaymentProfile
     /**
      * Setter for PaymentMethodNonce.
      * used by merchants that implemented BraintreeBlue javaScript libraries on their own. We
-     * recommend using Chargify.js instead.
+     * recommend using Maxio.js (formerly Chargify.js) instead.
      * @param paymentMethodNonce Value for String
      */
     @JsonSetter("payment_method_nonce")

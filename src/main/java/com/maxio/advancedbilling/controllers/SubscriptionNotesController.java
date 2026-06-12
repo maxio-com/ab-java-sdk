@@ -35,10 +35,10 @@ public final class SubscriptionNotesController extends BaseController {
     }
 
     /**
-     * Use the following method to create a note for a subscription. ## How to Use Subscription
-     * Notes Notes allow you to record information about a particular Subscription in a free text
-     * format. If you have structured data such as birth date, color, etc., consider using Metadata
-     * instead. Full documentation on how to use Notes in the Advanced Billing UI can be located
+     * Creates a note for a subscription. ## How to Use Subscription Notes Notes allow you to record
+     * information about a particular Subscription in a free text format. If you have structured
+     * data such as birth date, color, etc., consider using Metadata instead. Full documentation on
+     * how to use Notes in the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24251712214413-Subscription-Summary-Overview).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
@@ -86,8 +86,8 @@ public final class SubscriptionNotesController extends BaseController {
     }
 
     /**
-     * Use this method to retrieve a list of Notes associated with a Subscription. The response will
-     * be an array of Notes.
+     * Retrieves a list of notes associated with a subscription. The response will be an array of
+     * Notes.
      * @param  input  ListSubscriptionNotesInput object containing request parameters
      * @return    Returns the List of SubscriptionNoteResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -132,8 +132,7 @@ public final class SubscriptionNotesController extends BaseController {
     }
 
     /**
-     * Once you have obtained the ID of the note you wish to read, use this method to show a
-     * particular note attached to a subscription.
+     * Retrieves a specific note attached to a subscription.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  noteId  Required parameter: The Advanced Billing id of the note
      * @return    Returns the SubscriptionNoteResponse response from the API call
@@ -175,7 +174,7 @@ public final class SubscriptionNotesController extends BaseController {
     }
 
     /**
-     * Use the following method to update a note for a Subscription.
+     * Updates a note for a subscription.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  noteId  Required parameter: The Advanced Billing id of the note
      * @param  body  Optional parameter:

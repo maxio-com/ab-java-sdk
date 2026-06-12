@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
 import io.apimatic.core.types.BaseModel;
+import io.apimatic.core.types.OptionalNullable;
 import java.time.LocalDate;
 
 /**
@@ -20,7 +21,7 @@ import java.time.LocalDate;
  */
 public class BillingSchedule
         extends BaseModel {
-    private LocalDate initialBillingAt;
+    private OptionalNullable<LocalDate> initialBillingAt;
 
     /**
      * Default constructor.
@@ -34,34 +35,64 @@ public class BillingSchedule
      */
     public BillingSchedule(
             LocalDate initialBillingAt) {
+        this.initialBillingAt = OptionalNullable.of(initialBillingAt);
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  initialBillingAt  LocalDate value for initialBillingAt.
+     */
+
+    protected BillingSchedule(OptionalNullable<LocalDate> initialBillingAt) {
         this.initialBillingAt = initialBillingAt;
     }
 
     /**
-     * Getter for InitialBillingAt.
-     * The initial_billing_at attribute in Maxio allows you to specify a custom starting date for
-     * billing cycles associated with components that have their own billing frequency set. Only
-     * ISO8601 format is supported.
-     * @return Returns the LocalDate
+     * Internal Getter for InitialBillingAt.
+     * Custom start date (ISO 8601 date, YYYY-MM-DD) for the component's first billing period. If
+     * omitted or null, billing aligns with the product schedule. If provided, date must be on or
+     * after the minimum allowed date for the subscription or component.
+     * @return Returns the Internal LocalDate
      */
     @JsonGetter("initial_billing_at")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = DateTimeHelper.SimpleDateSerializer.class)
+    @JsonSerialize(using = OptionalNullable.SimpleDateSerializer.class)
+    protected OptionalNullable<LocalDate> internalGetInitialBillingAt() {
+        return this.initialBillingAt;
+    }
+
+    /**
+     * Getter for InitialBillingAt.
+     * Custom start date (ISO 8601 date, YYYY-MM-DD) for the component's first billing period. If
+     * omitted or null, billing aligns with the product schedule. If provided, date must be on or
+     * after the minimum allowed date for the subscription or component.
+     * @return Returns the LocalDate
+     */
     public LocalDate getInitialBillingAt() {
-        return initialBillingAt;
+        return OptionalNullable.getFrom(initialBillingAt);
     }
 
     /**
      * Setter for InitialBillingAt.
-     * The initial_billing_at attribute in Maxio allows you to specify a custom starting date for
-     * billing cycles associated with components that have their own billing frequency set. Only
-     * ISO8601 format is supported.
+     * Custom start date (ISO 8601 date, YYYY-MM-DD) for the component's first billing period. If
+     * omitted or null, billing aligns with the product schedule. If provided, date must be on or
+     * after the minimum allowed date for the subscription or component.
      * @param initialBillingAt Value for LocalDate
      */
     @JsonSetter("initial_billing_at")
     @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
     public void setInitialBillingAt(LocalDate initialBillingAt) {
-        this.initialBillingAt = initialBillingAt;
+        this.initialBillingAt = OptionalNullable.of(initialBillingAt);
+    }
+
+    /**
+     * UnSetter for InitialBillingAt.
+     * Custom start date (ISO 8601 date, YYYY-MM-DD) for the component's first billing period. If
+     * omitted or null, billing aligns with the product schedule. If provided, date must be on or
+     * after the minimum allowed date for the subscription or component.
+     */
+    public void unsetInitialBillingAt() {
+        initialBillingAt = null;
     }
 
     /**
@@ -80,8 +111,8 @@ public class BillingSchedule
      * @return a new {@link BillingSchedule.Builder} object
      */
     public Builder toBuilder() {
-        Builder builder = new Builder()
-                .initialBillingAt(getInitialBillingAt());
+        Builder builder = new Builder();
+        builder.initialBillingAt = internalGetInitialBillingAt();
         return builder;
     }
 
@@ -89,7 +120,7 @@ public class BillingSchedule
      * Class to build instances of {@link BillingSchedule}.
      */
     public static class Builder {
-        private LocalDate initialBillingAt;
+        private OptionalNullable<LocalDate> initialBillingAt;
 
 
 
@@ -99,7 +130,16 @@ public class BillingSchedule
          * @return Builder
          */
         public Builder initialBillingAt(LocalDate initialBillingAt) {
-            this.initialBillingAt = initialBillingAt;
+            this.initialBillingAt = OptionalNullable.of(initialBillingAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for initialBillingAt.
+         * @return Builder
+         */
+        public Builder unsetInitialBillingAt() {
+            initialBillingAt = null;
             return this;
         }
 

@@ -12,3 +12,27 @@
 | `double` | UpdatePriceUnitPrice.fromPrecision(double precision) |
 | `String` | UpdatePriceUnitPrice.fromString(String string) |
 
+## double
+
+### Initialization Code
+
+#### Example
+
+```java
+UpdatePriceUnitPrice.fromPrecision(
+        0D
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+UpdatePriceUnitPrice.fromString(
+        "String0"
+    )
+```
+

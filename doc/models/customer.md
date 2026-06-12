@@ -39,6 +39,7 @@
 | `SalesforceId` | `String` | Optional | The Salesforce ID for the customer | String getSalesforceId() | setSalesforceId(String salesforceId) |
 | `TaxExemptReason` | `String` | Optional | The Tax Exemption Reason Code for the customer | String getTaxExemptReason() | setTaxExemptReason(String taxExemptReason) |
 | `DefaultAutoRenewalProfileId` | `Integer` | Optional | The default auto-renewal profile ID for the customer | Integer getDefaultAutoRenewalProfileId() | setDefaultAutoRenewalProfileId(Integer defaultAutoRenewalProfileId) |
+| `Maxioid` | `String` | Optional | The Maxio-generated unique identifier for the customer. | String getMaxioid() | setMaxioid(String maxioid) |
 
 ## Example (as JSON)
 

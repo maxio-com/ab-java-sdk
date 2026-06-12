@@ -274,6 +274,7 @@ abstract class ProformaInvoicesTestBase {
                         .pricePointId(null)
                         .productPricePointId(product.getDefaultProductPricePointId())
                         .customItem(false)
+                        .taxIncluded(false)
                         .build());
         expectedLineItems.add(
                 new InvoiceLineItem.Builder()
@@ -298,6 +299,7 @@ abstract class ProformaInvoicesTestBase {
                         .pricePointId(meteredComponent.getDefaultPricePointId())
                         .productPricePointId(product.getDefaultProductPricePointId())
                         .customItem(false)
+                        .taxIncluded(false)
                         .build());
         expectedLineItems.add(
                 new InvoiceLineItem.Builder()
@@ -320,6 +322,7 @@ abstract class ProformaInvoicesTestBase {
                         .pricePointId(quantityBasedComponent.getDefaultPricePointId())
                         .productPricePointId(product.getDefaultProductPricePointId())
                         .customItem(false)
+                        .taxIncluded(false)
                         .build()
         );
 
@@ -346,6 +349,7 @@ abstract class ProformaInvoicesTestBase {
                             .pricePointId(quantityBasedComponent.getDefaultPricePointId())
                             .productPricePointId(product.getDefaultProductPricePointId())
                             .customItem(false)
+                            .taxIncluded(false)
                             .build()
             );
         }

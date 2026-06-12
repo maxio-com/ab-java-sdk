@@ -12,3 +12,27 @@
 | `int` | ArchiveProductPricePointProductId.fromNumber(int number) |
 | `String` | ArchiveProductPricePointProductId.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+ArchiveProductPricePointProductId.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+ArchiveProductPricePointProductId.fromString(
+        "String0"
+    )
+```
+

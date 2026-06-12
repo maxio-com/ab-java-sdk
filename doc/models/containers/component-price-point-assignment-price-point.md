@@ -12,3 +12,27 @@
 | `String` | ComponentPricePointAssignmentPricePoint.fromString(String string) |
 | `int` | ComponentPricePointAssignmentPricePoint.fromNumber(int number) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+ComponentPricePointAssignmentPricePoint.fromString(
+        "String0"
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+ComponentPricePointAssignmentPricePoint.fromNumber(
+        0
+    )
+```
+

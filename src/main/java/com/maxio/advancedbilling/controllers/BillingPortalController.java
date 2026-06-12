@@ -37,10 +37,11 @@ public final class BillingPortalController extends BaseController {
     }
 
     /**
-     * ## Billing Portal Documentation Full documentation on how the Billing Portal operates within
-     * the Advanced Billing UI can be located
+     * Enables Billing Portal access for a customer, with an option to send an invitation email at
+     * the same time. ## Billing Portal Documentation Full documentation on how the Billing Portal
+     * operates within the Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252412965133-Billing-Portal-Overview).
-     * This documentation is focused on how the to configure the Billing Portal Settings, as well as
+     * This documentation is focused on how to configure the Billing Portal Settings, as well as
      * Subscriber Interaction and Merchant Management of the Billing Portal. You can use this
      * endpoint to enable Billing Portal access for a Customer, with the option of sending the
      * Customer an Invitation email at the same time. ## Billing Portal Security If your customer
@@ -100,14 +101,13 @@ public final class BillingPortalController extends BaseController {
     }
 
     /**
-     * This method will provide to the API user the exact URL required for a subscriber to access
-     * the Billing Portal. ## Rules for Management Link API + When retrieving a management URL,
-     * multiple requests for the same customer in a short period will return the **same** URL + We
-     * will not generate a new URL for 15 days + You must cache and remember this URL if you are
-     * going to need it again within 15 days + Only request a new URL after the
-     * `new_link_available_at` date + You are limited to 15 requests for the same URL. If you make
-     * more than 15 requests before `new_link_available_at`, you will be blocked from further
-     * Management URL requests (with a response code `429`).
+     * Returns the exact URL required for a subscriber to access the Billing Portal. ## Rules for
+     * Management Link API + When retrieving a management URL, multiple requests for the same
+     * customer in a short period will return the **same** URL + We will not generate a new URL for
+     * 15 days + You must cache and remember this URL if you are going to need it again within 15
+     * days + Only request a new URL after the `new_link_available_at` date + You are limited to 15
+     * requests for the same URL. If you make more than 15 requests before `new_link_available_at`,
+     * you will be blocked from further Management URL requests (with a response code `429`).
      * @param  customerId  Required parameter: The Chargify id of the customer
      * @return    Returns the PortalManagementLink response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -150,14 +150,12 @@ public final class BillingPortalController extends BaseController {
     }
 
     /**
-     * You can resend a customer's Billing Portal invitation. If you attempt to resend an invitation
-     * 5 times within 30 minutes, you will receive a `422` response with `error` message in the
+     * Resends a customer's Billing Portal invitation. If you attempt to resend an invitation 5
+     * times within 30 minutes, you will receive a `422` response with an `error` message in the
      * body. If you attempt to resend an invitation when the Billing Portal is already disabled for
      * a Customer, you will receive a `422` error response. If you attempt to resend an invitation
-     * when the Billing Portal is already disabled for a Customer, you will receive a `422` error
-     * response. If you attempt to resend an invitation when the Customer does not exist a Customer,
-     * you will receive a `404` error response. ## Limitations This endpoint will only return a JSON
-     * response.
+     * when the Customer does not exist, you will receive a `404` error response. ## Limitations
+     * This endpoint will only return a JSON response.
      * @param  customerId  Required parameter: The Chargify id of the customer
      * @return    Returns the ResentInvitation response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -200,9 +198,9 @@ public final class BillingPortalController extends BaseController {
     }
 
     /**
-     * You can revoke a customer's Billing Portal invitation. If you attempt to revoke an invitation
-     * when the Billing Portal is already disabled for a Customer, you will receive a 422 error
-     * response. ## Limitations This endpoint will only return a JSON response.
+     * Revokes a customer's Billing Portal invitation. If you attempt to revoke an invitation when
+     * the Billing Portal is already disabled for a Customer, you will receive a 422 error response.
+     * ## Limitations This endpoint will only return a JSON response.
      * @param  customerId  Required parameter: The Chargify id of the customer
      * @return    Returns the RevokedInvitation response from the API call
      * @throws    ApiException    Represents error response from the server.

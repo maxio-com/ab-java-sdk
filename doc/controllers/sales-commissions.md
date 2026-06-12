@@ -17,7 +17,7 @@ SalesCommissionsController salesCommissionsController = client.getSalesCommissio
 
 # List Sales Commission Settings
 
-Endpoint returns subscriptions with associated sales reps
+Lists subscriptions with associated sales reps.
 
 ## Modified Authentication Process
 
@@ -32,6 +32,10 @@ List<SaleRepSettings> listSalesCommissionSettings(
     final ListSalesCommissionSettingsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -39,6 +43,8 @@ List<SaleRepSettings> listSalesCommissionSettings(
 | `input` | [`ListSalesCommissionSettingsInput`](../../doc/models/list-sales-commission-settings-input.md) | Required | Input structure for the method ListSalesCommissionSettings |
 
 ## Response Type
+
+**200**: OK
 
 [`List<SaleRepSettings>`](../../doc/models/sale-rep-settings.md)
 
@@ -98,7 +104,7 @@ try {
 
 # List Sales Reps
 
-Endpoint returns sales rep list with details
+Returns a sales rep list with details.
 
 ## Modified Authentication Process
 
@@ -113,6 +119,10 @@ List<ListSaleRepItem> listSalesReps(
     final ListSalesRepsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -120,6 +130,8 @@ List<ListSaleRepItem> listSalesReps(
 | `input` | [`ListSalesRepsInput`](../../doc/models/list-sales-reps-input.md) | Required | Input structure for the method ListSalesReps |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ListSaleRepItem>`](../../doc/models/list-sale-rep-item.md)
 
@@ -228,7 +240,7 @@ try {
 
 # Read Sales Rep
 
-Endpoint returns sales rep and attached subscriptions details.
+Returns a sales rep and attached subscription details.
 
 ## Modified Authentication Process
 
@@ -248,6 +260,10 @@ SaleRep readSalesRep(
     final Integer perPage)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -260,6 +276,8 @@ SaleRep readSalesRep(
 | `perPage` | `Integer` | Query, Optional | This parameter indicates how many records to fetch in each request. Default value is 100.<br><br>**Default**: `100` |
 
 ## Response Type
+
+**200**: OK
 
 [`SaleRep`](../../doc/models/sale-rep.md)
 

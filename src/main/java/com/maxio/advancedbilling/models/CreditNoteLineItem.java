@@ -29,6 +29,7 @@ public class CreditNoteLineItem
     private String subtotalAmount;
     private String discountAmount;
     private String taxAmount;
+    private Boolean taxIncluded;
     private String totalAmount;
     private Boolean tieredUnitPrice;
     private LocalDate periodRangeStart;
@@ -39,6 +40,7 @@ public class CreditNoteLineItem
     private OptionalNullable<Integer> pricePointId;
     private OptionalNullable<Integer> billingScheduleItemId;
     private Boolean customItem;
+    private OptionalNullable<LocalDate> prepaidAllocationExpiresAt;
 
     /**
      * Default constructor.
@@ -56,6 +58,7 @@ public class CreditNoteLineItem
      * @param  subtotalAmount  String value for subtotalAmount.
      * @param  discountAmount  String value for discountAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
      * @param  periodRangeStart  LocalDate value for periodRangeStart.
@@ -66,6 +69,7 @@ public class CreditNoteLineItem
      * @param  pricePointId  Integer value for pricePointId.
      * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
      * @param  customItem  Boolean value for customItem.
+     * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
      */
     public CreditNoteLineItem(
             String uid,
@@ -76,6 +80,7 @@ public class CreditNoteLineItem
             String subtotalAmount,
             String discountAmount,
             String taxAmount,
+            Boolean taxIncluded,
             String totalAmount,
             Boolean tieredUnitPrice,
             LocalDate periodRangeStart,
@@ -85,7 +90,8 @@ public class CreditNoteLineItem
             Integer componentId,
             Integer pricePointId,
             Integer billingScheduleItemId,
-            Boolean customItem) {
+            Boolean customItem,
+            LocalDate prepaidAllocationExpiresAt) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -94,6 +100,7 @@ public class CreditNoteLineItem
         this.subtotalAmount = subtotalAmount;
         this.discountAmount = discountAmount;
         this.taxAmount = taxAmount;
+        this.taxIncluded = taxIncluded;
         this.totalAmount = totalAmount;
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
@@ -104,6 +111,7 @@ public class CreditNoteLineItem
         this.pricePointId = OptionalNullable.of(pricePointId);
         this.billingScheduleItemId = OptionalNullable.of(billingScheduleItemId);
         this.customItem = customItem;
+        this.prepaidAllocationExpiresAt = OptionalNullable.of(prepaidAllocationExpiresAt);
     }
 
     /**
@@ -116,6 +124,7 @@ public class CreditNoteLineItem
      * @param  subtotalAmount  String value for subtotalAmount.
      * @param  discountAmount  String value for discountAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
      * @param  periodRangeStart  LocalDate value for periodRangeStart.
@@ -126,14 +135,16 @@ public class CreditNoteLineItem
      * @param  pricePointId  Integer value for pricePointId.
      * @param  billingScheduleItemId  Integer value for billingScheduleItemId.
      * @param  customItem  Boolean value for customItem.
+     * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
      */
 
     protected CreditNoteLineItem(String uid, String title, String description, String quantity,
             String unitPrice, String subtotalAmount, String discountAmount, String taxAmount,
-            String totalAmount, Boolean tieredUnitPrice, LocalDate periodRangeStart,
-            LocalDate periodRangeEnd, Integer productId, Integer productVersion,
-            OptionalNullable<Integer> componentId, OptionalNullable<Integer> pricePointId,
-            OptionalNullable<Integer> billingScheduleItemId, Boolean customItem) {
+            Boolean taxIncluded, String totalAmount, Boolean tieredUnitPrice,
+            LocalDate periodRangeStart, LocalDate periodRangeEnd, Integer productId,
+            Integer productVersion, OptionalNullable<Integer> componentId,
+            OptionalNullable<Integer> pricePointId, OptionalNullable<Integer> billingScheduleItemId,
+            Boolean customItem, OptionalNullable<LocalDate> prepaidAllocationExpiresAt) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -142,6 +153,7 @@ public class CreditNoteLineItem
         this.subtotalAmount = subtotalAmount;
         this.discountAmount = discountAmount;
         this.taxAmount = taxAmount;
+        this.taxIncluded = taxIncluded;
         this.totalAmount = totalAmount;
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
@@ -152,6 +164,7 @@ public class CreditNoteLineItem
         this.pricePointId = pricePointId;
         this.billingScheduleItemId = billingScheduleItemId;
         this.customItem = customItem;
+        this.prepaidAllocationExpiresAt = prepaidAllocationExpiresAt;
     }
 
     /**
@@ -352,6 +365,35 @@ public class CreditNoteLineItem
     @JsonSetter("tax_amount")
     public void setTaxAmount(String taxAmount) {
         this.taxAmount = taxAmount;
+    }
+
+    /**
+     * Getter for TaxIncluded.
+     * Whether the unit price for this line item is tax-inclusive. When `true`, `unit_price` already
+     * includes tax and `tax_amount` represents the portion of the price attributable to tax. When
+     * `false`, any applicable tax is added on top of the price. The value is inherited from the
+     * source price point's `tax_included` setting. Custom or ad-hoc line items (which have no
+     * associated price point) always return `false`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether the unit price for this line item is tax-inclusive. When `true`, `unit_price` already
+     * includes tax and `tax_amount` represents the portion of the price attributable to tax. When
+     * `false`, any applicable tax is added on top of the price. The value is inherited from the
+     * source price point's `tax_included` setting. Custom or ad-hoc line items (which have no
+     * associated price point) always return `false`.
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
     }
 
     /**
@@ -627,6 +669,50 @@ public class CreditNoteLineItem
     }
 
     /**
+     * Internal Getter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     * @return Returns the Internal LocalDate
+     */
+    @JsonGetter("prepaid_allocation_expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.SimpleDateSerializer.class)
+    protected OptionalNullable<LocalDate> internalGetPrepaidAllocationExpiresAt() {
+        return this.prepaidAllocationExpiresAt;
+    }
+
+    /**
+     * Getter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     * @return Returns the LocalDate
+     */
+    public LocalDate getPrepaidAllocationExpiresAt() {
+        return OptionalNullable.getFrom(prepaidAllocationExpiresAt);
+    }
+
+    /**
+     * Setter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     * @param prepaidAllocationExpiresAt Value for LocalDate
+     */
+    @JsonSetter("prepaid_allocation_expires_at")
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPrepaidAllocationExpiresAt(LocalDate prepaidAllocationExpiresAt) {
+        this.prepaidAllocationExpiresAt = OptionalNullable.of(prepaidAllocationExpiresAt);
+    }
+
+    /**
+     * UnSetter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     */
+    public void unsetPrepaidAllocationExpiresAt() {
+        prepaidAllocationExpiresAt = null;
+    }
+
+    /**
      * Converts this CreditNoteLineItem into string format.
      * @return String representation of this class
      */
@@ -635,11 +721,13 @@ public class CreditNoteLineItem
         return "CreditNoteLineItem [" + "uid=" + uid + ", title=" + title + ", description="
                 + description + ", quantity=" + quantity + ", unitPrice=" + unitPrice
                 + ", subtotalAmount=" + subtotalAmount + ", discountAmount=" + discountAmount
-                + ", taxAmount=" + taxAmount + ", totalAmount=" + totalAmount + ", tieredUnitPrice="
-                + tieredUnitPrice + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd="
-                + periodRangeEnd + ", productId=" + productId + ", productVersion=" + productVersion
-                + ", componentId=" + componentId + ", pricePointId=" + pricePointId
-                + ", billingScheduleItemId=" + billingScheduleItemId + ", customItem=" + customItem
+                + ", taxAmount=" + taxAmount + ", taxIncluded=" + taxIncluded + ", totalAmount="
+                + totalAmount + ", tieredUnitPrice=" + tieredUnitPrice + ", periodRangeStart="
+                + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd + ", productId="
+                + productId + ", productVersion=" + productVersion + ", componentId=" + componentId
+                + ", pricePointId=" + pricePointId + ", billingScheduleItemId="
+                + billingScheduleItemId + ", customItem=" + customItem
+                + ", prepaidAllocationExpiresAt=" + prepaidAllocationExpiresAt
                 + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
@@ -658,6 +746,7 @@ public class CreditNoteLineItem
                 .subtotalAmount(getSubtotalAmount())
                 .discountAmount(getDiscountAmount())
                 .taxAmount(getTaxAmount())
+                .taxIncluded(getTaxIncluded())
                 .totalAmount(getTotalAmount())
                 .tieredUnitPrice(getTieredUnitPrice())
                 .periodRangeStart(getPeriodRangeStart())
@@ -668,6 +757,7 @@ public class CreditNoteLineItem
         builder.componentId = internalGetComponentId();
         builder.pricePointId = internalGetPricePointId();
         builder.billingScheduleItemId = internalGetBillingScheduleItemId();
+        builder.prepaidAllocationExpiresAt = internalGetPrepaidAllocationExpiresAt();
         return builder;
     }
 
@@ -683,6 +773,7 @@ public class CreditNoteLineItem
         private String subtotalAmount;
         private String discountAmount;
         private String taxAmount;
+        private Boolean taxIncluded;
         private String totalAmount;
         private Boolean tieredUnitPrice;
         private LocalDate periodRangeStart;
@@ -693,6 +784,7 @@ public class CreditNoteLineItem
         private OptionalNullable<Integer> pricePointId;
         private OptionalNullable<Integer> billingScheduleItemId;
         private Boolean customItem;
+        private OptionalNullable<LocalDate> prepaidAllocationExpiresAt;
 
 
 
@@ -773,6 +865,16 @@ public class CreditNoteLineItem
          */
         public Builder taxAmount(String taxAmount) {
             this.taxAmount = taxAmount;
+            return this;
+        }
+
+        /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
             return this;
         }
 
@@ -904,14 +1006,34 @@ public class CreditNoteLineItem
         }
 
         /**
+         * Setter for prepaidAllocationExpiresAt.
+         * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
+         * @return Builder
+         */
+        public Builder prepaidAllocationExpiresAt(LocalDate prepaidAllocationExpiresAt) {
+            this.prepaidAllocationExpiresAt = OptionalNullable.of(prepaidAllocationExpiresAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for prepaidAllocationExpiresAt.
+         * @return Builder
+         */
+        public Builder unsetPrepaidAllocationExpiresAt() {
+            prepaidAllocationExpiresAt = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreditNoteLineItem} object using the set fields.
          * @return {@link CreditNoteLineItem}
          */
         public CreditNoteLineItem build() {
             return new CreditNoteLineItem(uid, title, description, quantity, unitPrice,
-                    subtotalAmount, discountAmount, taxAmount, totalAmount, tieredUnitPrice,
-                    periodRangeStart, periodRangeEnd, productId, productVersion, componentId,
-                    pricePointId, billingScheduleItemId, customItem);
+                    subtotalAmount, discountAmount, taxAmount, taxIncluded, totalAmount,
+                    tieredUnitPrice, periodRangeStart, periodRangeEnd, productId, productVersion,
+                    componentId, pricePointId, billingScheduleItemId, customItem,
+                    prepaidAllocationExpiresAt);
         }
     }
 }

@@ -12,3 +12,27 @@
 | `int` | UpdateComponentPricePointComponentId.fromNumber(int number) |
 | `String` | UpdateComponentPricePointComponentId.fromString(String string) |
 
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+UpdateComponentPricePointComponentId.fromNumber(
+        0
+    )
+```
+
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+UpdateComponentPricePointComponentId.fromString(
+        "String0"
+    )
+```
+

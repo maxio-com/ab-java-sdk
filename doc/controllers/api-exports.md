@@ -23,7 +23,7 @@ APIExportsController aPIExportsController = client.getAPIExportsController();
 
 # List Exported Proforma Invoices
 
-This API returns an array of exported proforma invoices for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported proforma invoices for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/proforma_invoices/123/rows?per_page=10000&page=1`.
 
@@ -32,6 +32,10 @@ List<ProformaInvoice> listExportedProformaInvoices(
     final ListExportedProformaInvoicesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -39,6 +43,8 @@ List<ProformaInvoice> listExportedProformaInvoices(
 | `input` | [`ListExportedProformaInvoicesInput`](../../doc/models/list-exported-proforma-invoices-input.md) | Required | Input structure for the method ListExportedProformaInvoices |
 
 ## Response Type
+
+**200**: OK
 
 [`List<ProformaInvoice>`](../../doc/models/proforma-invoice.md)
 
@@ -69,7 +75,7 @@ try {
 
 # List Exported Invoices
 
-This API returns an array of exported invoices for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported invoices for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/invoices/123/rows?per_page=10000&page=1`.
 
@@ -78,6 +84,10 @@ List<Invoice> listExportedInvoices(
     final ListExportedInvoicesInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -85,6 +95,8 @@ List<Invoice> listExportedInvoices(
 | `input` | [`ListExportedInvoicesInput`](../../doc/models/list-exported-invoices-input.md) | Required | Input structure for the method ListExportedInvoices |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Invoice>`](../../doc/models/invoice.md)
 
@@ -115,7 +127,7 @@ try {
 
 # List Exported Subscriptions
 
-This API returns an array of exported subscriptions for a provided `batch_id`. Pay close attention to pagination in order to control responses from the server.
+Lists exported subscriptions for a provided `batch_id`. Use pagination to control responses returned from the server.
 
 Example: `GET https://{subdomain}.chargify.com/api_exports/subscriptions/123/rows?per_page=200&page=1`.
 
@@ -124,6 +136,10 @@ List<Subscription> listExportedSubscriptions(
     final ListExportedSubscriptionsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -131,6 +147,8 @@ List<Subscription> listExportedSubscriptions(
 | `input` | [`ListExportedSubscriptionsInput`](../../doc/models/list-exported-subscriptions-input.md) | Required | Input structure for the method ListExportedSubscriptions |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Subscription>`](../../doc/models/subscription.md)
 
@@ -161,7 +179,7 @@ try {
 
 # Export Proforma Invoices
 
-This API creates a proforma invoices export and returns a batchjob object.
+Creates a proforma invoices export and returns a batch job object.
 
 It is only available for Relationship Invoicing architecture.
 
@@ -169,7 +187,13 @@ It is only available for Relationship Invoicing architecture.
 BatchJobResponse exportProformaInvoices()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -196,13 +220,19 @@ try {
 
 # Export Invoices
 
-This API creates an invoices export and returns a batchjob object.
+Creates an invoices export and returns a batch job object.
 
 ```java
 BatchJobResponse exportInvoices()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -229,13 +259,19 @@ try {
 
 # Export Subscriptions
 
-This API creates a subscriptions export and returns a batchjob object.
+Creates a subscriptions export and returns a batch job object.
 
 ```java
 BatchJobResponse exportSubscriptions()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**201**: Created
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -261,12 +297,16 @@ try {
 
 # Read Proforma Invoices Export
 
-This API returns a batchjob object for proforma invoices export.
+Returns a batch job object for a proforma invoices export.
 
 ```java
 BatchJobResponse readProformaInvoicesExport(
     final String batchId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -275,6 +315,8 @@ BatchJobResponse readProformaInvoicesExport(
 | `batchId` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -300,12 +342,16 @@ try {
 
 # Read Invoices Export
 
-This API returns a batchjob object for invoices export.
+Returns a batch job object for an invoices export.
 
 ```java
 BatchJobResponse readInvoicesExport(
     final String batchId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -314,6 +360,8 @@ BatchJobResponse readInvoicesExport(
 | `batchId` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 
@@ -339,12 +387,16 @@ try {
 
 # Read Subscriptions Export
 
-This API returns a batchjob object for subscriptions export.
+Returns a batch job object for a subscriptions export.
 
 ```java
 BatchJobResponse readSubscriptionsExport(
     final String batchId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -353,6 +405,8 @@ BatchJobResponse readSubscriptionsExport(
 | `batchId` | `String` | Template, Required | Id of a Batch Job. |
 
 ## Response Type
+
+**200**: OK
 
 [`BatchJobResponse`](../../doc/models/batch-job-response.md)
 

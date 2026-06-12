@@ -51,14 +51,17 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Creates a Subscription for a customer and product Specify the product with `product_id` or
-     * `product_handle`. To set a specific product pricepPoint, use `product_price_point_handle` or
+     * Creates a Subscription for a customer and product. Specify the product with `product_id` or
+     * `product_handle`. To set a specific product price point, use `product_price_point_handle` or
      * `product_price_point_id`. Identify an existing customer with `customer_id` or
      * `customer_reference`. Optionally, include an existing payment profile using
      * `payment_profile_id`. To create a new customer, pass customer_attributes. Select an option
      * from the **Request Examples** drop-down on the right side of the portal to see examples of
-     * common scenarios for creating subscriptions. Payment information may be required to create a
-     * subscription, depending on the options for the Product being subscribed. See [product
+     * common scenarios for creating subscriptions. See the [Subscription
+     * Signups](page:introduction/basic-concepts/subscription-signup) article for more information
+     * on working with subscriptions in Advanced Billing. ## Payment information Payment information
+     * may be required to create a subscription, depending on the options for the Product being
+     * subscribed. See [product
      * options](https://docs.maxio.com/hc/en-us/articles/24261076617869-Edit-Products) for more
      * information. See the [Payments Profile]($e/Payment%20Profiles/createPaymentProfile) endpoint
      * for details on payment parameters. Do not use real card information for testing. See the
@@ -67,11 +70,15 @@ public final class SubscriptionsController extends BaseController {
      * for more details on testing in your sandbox. Note that collecting and sending raw card
      * details in production requires [PCI
      * compliance](https://docs.maxio.com/hc/en-us/articles/24183956938381-PCI-Compliance#pci-compliance-0-0)
-     * on your end. If your business is not PCI compliant, use
-     * [Chargify.js](https://docs.maxio.com/hc/en-us/articles/38163190843789-Chargify-js-Overview#chargify-js-overview-0-0)
-     * to collect credit card or bank account information. See the [Subscription
-     * Signups](page:introduction/basic-concepts/subscription-signup) article for more information
-     * on working with subscriptions in Advanced Billing.
+     * on your end. If your business is not PCI compliant, use [Maxio.js (formerly
+     * Chargify.js)](https://docs.maxio.com/hc/en-us/articles/38163190843789-Chargify-js-Overview#chargify-js-overview-0-0)
+     * to collect credit card or bank account information. ## 3D Secure (3DS) Authentication
+     * post-authentication flow When a payment requires 3DS Authentication to adhere to Strong
+     * Customer Authentication (SCA), the request enters a post-authentication flow where a 422
+     * Unprocessable Entity status is returned with an action_link that will direct the customer
+     * through 3DS Authentication. See the [3D Secure Post-Authentication
+     * Flow](https://docs.maxio.com/hc/en-us/articles/44277749524365-3D-Secure-Post-Authentication-Flow)
+     * article in the product documentation to learn how to manage the redirect flow.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -113,7 +120,7 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * returns an array of subscriptions from a Site. Pay close attention to query string filters
+     * Returns an array of subscriptions from a Site. Pay close attention to query string filters
      * and pagination in order to control responses from the server. ## Search for a subscription
      * Use the query strings below to search for a subscription using the criteria available. The
      * return value will be an array. ## Self-Service Page token Self-Service Page token for the
@@ -218,21 +225,21 @@ public final class SubscriptionsController extends BaseController {
      * can also perform a delayed change to the price point by passing in either
      * `product_price_point_id` or `product_price_point_handle` &gt; **Note:** To cancel a delayed
      * product change, set `next_product_id` to an empty string. ## Billing Date Changes You can
-     * update dates for a subscrption. ### Regular Billing Date Changes Send the `next_billing_at`
+     * update dates for a subscription. ### Regular Billing Date Changes Send the `next_billing_at`
      * to set the next billing date for the subscription. After that date passes and the
      * subscription is processed, the following billing date will be set according to the
      * subscription's product period. &gt; Note: If you pass an invalid date, the correct date is
-     * automatically set to he correct date. For example, if February 30 is passed, the next billing
-     * would be set to March 2nd in a non-leap year. The server response will not return data under
-     * the key/value pair of `next_billing_at`. View the key/value pair of `current_period_ends_at`
-     * to verify that the `next_billing_at` date has been changed successfully. ### Calendar Billing
-     * and Snap Day Changes For a subscription using Calendar Billing, setting the next billing date
-     * is a bit different. Send the `snap_day` attribute to change the calendar billing date for **a
-     * subscription using a product eligible for calendar billing**. &gt; Note: If you change the
-     * product associated with a subscription that contains a `snap_day` and immediately `READ/GET`
-     * the subscription data, it will still contain original `snap_day`. The `snap_day`will will
-     * reset to 'null on the next billing cycle. This is because a product change is instantanous
-     * and only affects the product associated with a subscription.
+     * automatically set to the correct date. For example, if February 30 is passed, the next
+     * billing would be set to March 2nd in a non-leap year. The server response will not return
+     * data under the key/value pair of `next_billing_at`. View the key/value pair of
+     * `current_period_ends_at` to verify that the `next_billing_at` date has been changed
+     * successfully. ### Calendar Billing and Snap Day Changes For a subscription using Calendar
+     * Billing, setting the next billing date is a bit different. Send the `snap_day` attribute to
+     * change the calendar billing date for **a subscription using a product eligible for calendar
+     * billing**. &gt; Note: If you change the product associated with a subscription that contains a
+     * `snap_day` and immediately `READ/GET` the subscription data, it will still contain original
+     * `snap_day`. The `snap_day` will reset to null on the next billing cycle. This is because a
+     * product change is instantaneous and only affects the product associated with a subscription.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
@@ -324,24 +331,23 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * This API endpoint allows you to set certain subscription fields that are usually managed for
-     * you automatically. Some of the fields can be set via the normal Subscriptions Update API, but
-     * others can only be set using this endpoint. This endpoint is provided for cases where you
-     * need to “align” Advanced Billing data with data that happened in your system, perhaps before
-     * you started using Advanced Billing. For example, you may choose to import your historical
-     * subscription data, and would like the activation and cancellation dates in Advanced Billing
-     * to match your existing historical dates. Advanced Billing does not backfill historical events
-     * (i.e. from the Events API), but some static data can be changed via this API. Why are some
-     * fields only settable from this endpoint, and not the normal subscription create and update
-     * endpoints? Because we want users of this endpoint to be aware that these fields are usually
-     * managed by Advanced Billing, and using this API means **you are stepping out on your own.**
-     * Changing these fields will not affect any other attributes. For example, adding an expiration
-     * date will not affect the next assessment date on the subscription. If you regularly need to
-     * override the current_period_starts_at for new subscriptions, this can also be accomplished by
-     * setting both `previous_billing_at` and `next_billing_at` at subscription creation. See the
-     * documentation on [Importing
-     * Subscriptions](./b3A6MTQxMDgzODg-create-subscription#subscriptions-import) for more
-     * information. ## Limitations When passing `current_period_starts_at` some validations are
+     * Sets certain subscription fields that are usually managed automatically. Some of the fields
+     * can be set via the normal Subscriptions Update API, but others can only be set using this
+     * endpoint. This endpoint is provided for cases where you need to “align” Advanced Billing data
+     * with data that happened in your system, perhaps before you started using Advanced Billing.
+     * For example, you may choose to import your historical subscription data, and would like the
+     * activation and cancellation dates in Advanced Billing to match your existing historical
+     * dates. Advanced Billing does not backfill historical events (i.e. from the Events API), but
+     * some static data can be changed via this API. Why are some fields only settable from this
+     * endpoint, and not the normal subscription create and update endpoints? Because we want users
+     * of this endpoint to be aware that these fields are usually managed by Advanced Billing, and
+     * using this API means **you are stepping out on your own.** Changing these fields will not
+     * affect any other attributes. For example, adding an expiration date will not affect the next
+     * assessment date on the subscription. If you regularly need to override the
+     * current_period_starts_at for new subscriptions, this can also be accomplished by setting both
+     * `previous_billing_at` and `next_billing_at` at subscription creation. See the documentation
+     * on [Importing Subscriptions](./b3A6MTQxMDgzODg-create-subscription#subscriptions-import) for
+     * more information. ## Limitations When passing `current_period_starts_at` some validations are
      * made: 1. The subscription needs to be unbilled (no statements or invoices). 2. The value
      * passed must be a valid date/time. We recommend using the iso 8601 format. 3. The value passed
      * must be before the current date/time. If unpermitted parameters are sent, a 400 HTTP response
@@ -388,7 +394,7 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Use this endpoint to find a subscription by its reference.
+     * Finds a subscription by its reference.
      * @param  reference  Optional parameter: Subscription reference
      * @return    Returns the SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -428,9 +434,9 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * For sites in test mode, you may purge individual subscriptions. Provide the subscription ID
-     * in the url. To confirm, supply the customer ID in the query string `ack` parameter. You may
-     * also delete the customer record and/or payment profiles by passing `cascade` parameters. For
+     * Purges an individual subscription for sites in test mode. Provide the subscription ID in the
+     * url. To confirm, supply the customer ID in the query string `ack` parameter. You may also
+     * delete the customer record and/or payment profiles by passing `cascade` parameters. For
      * example, to delete just the customer record, the query params would be:
      * `?ack={customer_id}&amp;cascade[]=customer` If you need to remove subscriptions from a live site,
      * contact support to discuss your use case. ### Delete customer and payment profile The query
@@ -485,7 +491,7 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Use this endpoint to update a subscription's prepaid configuration.
+     * Updates a subscription's prepaid configuration.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the PrepaidConfigurationResponse response from the API call
@@ -532,10 +538,10 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * The Chargify API allows you to preview a subscription by POSTing the same JSON or XML as for
-     * a subscription creation. The "Next Billing" amount and "Next Billing" date are represented in
-     * each Subscriber's Summary. A subscription will not be created by utilizing this endpoint; it
-     * is meant to serve as a prediction. For more information, see our documentation
+     * Previews a subscription by POSTing the same JSON or XML as for a subscription creation. The
+     * "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary. A
+     * subscription will not be created by utilizing this endpoint; it is meant to serve as a
+     * prediction. For more information, see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
      * ## Taxable Subscriptions This endpoint will preview taxes applicable to a purchase. In order
      * for taxes to be previewed, the following conditions must be met: + Taxes must be configured
@@ -591,9 +597,9 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * An existing subscription can accommodate multiple discounts/coupon codes. This is only
-     * applicable if each coupon is stackable. For more information on stackable coupons, we
-     * recommend reviewing our [coupon
+     * Applies one or more coupon codes to an existing subscription. An existing subscription can
+     * accommodate multiple discounts/coupon codes. This is only applicable if each coupon is
+     * stackable. For more information on stackable coupons, we recommend reviewing our [coupon
      * documentation.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#stackability-rules)
      * ## Query Parameters vs Request Body Parameters Passing in a coupon code as a query parameter
      * will add the code to the subscription, completely replacing all existing coupon codes on the
@@ -653,8 +659,8 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Use this endpoint to remove a coupon from an existing subscription. For more information on
-     * the expected behaviour of removing a coupon from a subscription, See our documentation
+     * Removes a coupon from an existing subscription. For more information on the expected behavior
+     * of removing a coupon from a subscription, see our documentation
      * [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  couponCode  Optional parameter: The coupon code
@@ -699,28 +705,27 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Advanced Billing offers the ability to activate awaiting signup and trialing subscriptions.
-     * This feature is only available on the Relationship Invoicing architecture. Subscriptions in a
-     * group may not be activated immediately. For details on how the activation works, and how to
-     * activate subscriptions through the application, see [activation](#). The `revert_on_failure`
-     * parameter controls the behavior upon activation failure. - If set to `true` and something
-     * goes wrong i.e. payment fails, then Advanced Billing will not change the subscription's
-     * state. The subscription’s billing period will also remain the same. - If set to `false` and
-     * something goes wrong i.e. payment fails, then Advanced Billing will continue through with the
-     * activation and enter an end of life state. For trialing subscriptions, that will either be
-     * trial ended (if the trial is no obligation), past due (if the trial has an obligation), or
-     * canceled (if the site has no dunning strategy, or has a strategy that says to cancel
-     * immediately). For awaiting signup subscriptions, that will always be canceled. The default
-     * activation failure behavior can be configured per activation attempt, or you may set a
-     * default value under Config &gt; Settings &gt; Subscription Activation Settings. ## Activation
-     * Scenarios ### Activate Awaiting Signup subscription - Given you have a product without trial
-     * - Given you have a site without dunning strategy ```mermaid flowchart LR AS[Awaiting Signup]
-     * --&gt; A{Activate} A --&gt;|Success| Active A --&gt;|Failure| ROF{revert_on_failure} ROF --&gt;|true| AS
-     * ROF --&gt;|false| Canceled ``` - Given you have a product with trial - Given you have a site
-     * with dunning strategy ```mermaid flowchart LR AS[Awaiting Signup] --&gt; A{Activate} A
-     * --&gt;|Success| Trialing A --&gt;|Failure| ROF{revert_on_failure} ROF --&gt;|true| AS ROF --&gt;|false|
-     * PD[Past Due] ``` ### Activate Trialing subscription You can read more about the behavior of
-     * trialing subscriptions
+     * Activates awaiting signup and trialing subscriptions. This feature is only available on the
+     * Relationship Invoicing architecture. Subscriptions in a group may not be activated
+     * immediately. For details on how the activation works, and how to activate subscriptions
+     * through the application, see [activation](#). The `revert_on_failure` parameter controls the
+     * behavior upon activation failure. - If set to `true` and something goes wrong i.e. payment
+     * fails, then Advanced Billing will not change the subscription's state. The subscription’s
+     * billing period will also remain the same. - If set to `false` and something goes wrong i.e.
+     * payment fails, then Advanced Billing will continue through with the activation and enter an
+     * end of life state. For trialing subscriptions, that will either be trial ended (if the trial
+     * is no obligation), past due (if the trial has an obligation), or canceled (if the site has no
+     * dunning strategy, or has a strategy that says to cancel immediately). For awaiting signup
+     * subscriptions, that will always be canceled. The default activation failure behavior can be
+     * configured per activation attempt, or you may set a default value under Config &gt; Settings &gt;
+     * Subscription Activation Settings. ## Activation Scenarios ### Activate Awaiting Signup
+     * subscription - Given you have a product without trial - Given you have a site without dunning
+     * strategy ```mermaid flowchart LR AS[Awaiting Signup] --&gt; A{Activate} A --&gt;|Success| Active A
+     * --&gt;|Failure| ROF{revert_on_failure} ROF --&gt;|true| AS ROF --&gt;|false| Canceled ``` - Given you
+     * have a product with trial - Given you have a site with dunning strategy ```mermaid flowchart
+     * LR AS[Awaiting Signup] --&gt; A{Activate} A --&gt;|Success| Trialing A --&gt;|Failure|
+     * ROF{revert_on_failure} ROF --&gt;|true| AS ROF --&gt;|false| PD[Past Due] ``` ### Activate Trialing
+     * subscription You can read more about the behavior of trialing subscriptions
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions).
      * When the `revert_on_failure` parameter is set to `true`, the subscription's state will remain
      * as Trialing, we will void the invoice from activation and return any prepayments and credits

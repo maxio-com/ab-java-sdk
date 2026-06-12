@@ -29,6 +29,7 @@ public class InvoiceLineItem
     private String subtotalAmount;
     private String discountAmount;
     private String taxAmount;
+    private Boolean taxIncluded;
     private String totalAmount;
     private Boolean tieredUnitPrice;
     private LocalDate periodRangeStart;
@@ -44,6 +45,7 @@ public class InvoiceLineItem
     private OptionalNullable<Integer> productPricePointId;
     private Boolean customItem;
     private String kind;
+    private OptionalNullable<LocalDate> prepaidAllocationExpiresAt;
 
     /**
      * Default constructor.
@@ -61,6 +63,7 @@ public class InvoiceLineItem
      * @param  subtotalAmount  String value for subtotalAmount.
      * @param  discountAmount  String value for discountAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
      * @param  periodRangeStart  LocalDate value for periodRangeStart.
@@ -76,6 +79,7 @@ public class InvoiceLineItem
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customItem  Boolean value for customItem.
      * @param  kind  String value for kind.
+     * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
      */
     public InvoiceLineItem(
             String uid,
@@ -86,6 +90,7 @@ public class InvoiceLineItem
             String subtotalAmount,
             String discountAmount,
             String taxAmount,
+            Boolean taxIncluded,
             String totalAmount,
             Boolean tieredUnitPrice,
             LocalDate periodRangeStart,
@@ -100,7 +105,8 @@ public class InvoiceLineItem
             InvoiceLineItemComponentCostData componentCostData,
             Integer productPricePointId,
             Boolean customItem,
-            String kind) {
+            String kind,
+            LocalDate prepaidAllocationExpiresAt) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -109,6 +115,7 @@ public class InvoiceLineItem
         this.subtotalAmount = subtotalAmount;
         this.discountAmount = discountAmount;
         this.taxAmount = taxAmount;
+        this.taxIncluded = taxIncluded;
         this.totalAmount = totalAmount;
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
@@ -124,6 +131,7 @@ public class InvoiceLineItem
         this.productPricePointId = OptionalNullable.of(productPricePointId);
         this.customItem = customItem;
         this.kind = kind;
+        this.prepaidAllocationExpiresAt = OptionalNullable.of(prepaidAllocationExpiresAt);
     }
 
     /**
@@ -136,6 +144,7 @@ public class InvoiceLineItem
      * @param  subtotalAmount  String value for subtotalAmount.
      * @param  discountAmount  String value for discountAmount.
      * @param  taxAmount  String value for taxAmount.
+     * @param  taxIncluded  Boolean value for taxIncluded.
      * @param  totalAmount  String value for totalAmount.
      * @param  tieredUnitPrice  Boolean value for tieredUnitPrice.
      * @param  periodRangeStart  LocalDate value for periodRangeStart.
@@ -151,16 +160,19 @@ public class InvoiceLineItem
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  customItem  Boolean value for customItem.
      * @param  kind  String value for kind.
+     * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
      */
 
     protected InvoiceLineItem(String uid, String title, String description, String quantity,
             String unitPrice, String subtotalAmount, String discountAmount, String taxAmount,
-            String totalAmount, Boolean tieredUnitPrice, LocalDate periodRangeStart,
-            LocalDate periodRangeEnd, Integer transactionId, OptionalNullable<Integer> productId,
-            OptionalNullable<Integer> productVersion, OptionalNullable<Integer> componentId,
-            OptionalNullable<Integer> pricePointId, OptionalNullable<Integer> billingScheduleItemId,
-            Boolean hide, OptionalNullable<InvoiceLineItemComponentCostData> componentCostData,
-            OptionalNullable<Integer> productPricePointId, Boolean customItem, String kind) {
+            Boolean taxIncluded, String totalAmount, Boolean tieredUnitPrice,
+            LocalDate periodRangeStart, LocalDate periodRangeEnd, Integer transactionId,
+            OptionalNullable<Integer> productId, OptionalNullable<Integer> productVersion,
+            OptionalNullable<Integer> componentId, OptionalNullable<Integer> pricePointId,
+            OptionalNullable<Integer> billingScheduleItemId, Boolean hide,
+            OptionalNullable<InvoiceLineItemComponentCostData> componentCostData,
+            OptionalNullable<Integer> productPricePointId, Boolean customItem, String kind,
+            OptionalNullable<LocalDate> prepaidAllocationExpiresAt) {
         this.uid = uid;
         this.title = title;
         this.description = description;
@@ -169,6 +181,7 @@ public class InvoiceLineItem
         this.subtotalAmount = subtotalAmount;
         this.discountAmount = discountAmount;
         this.taxAmount = taxAmount;
+        this.taxIncluded = taxIncluded;
         this.totalAmount = totalAmount;
         this.tieredUnitPrice = tieredUnitPrice;
         this.periodRangeStart = periodRangeStart;
@@ -184,6 +197,7 @@ public class InvoiceLineItem
         this.productPricePointId = productPricePointId;
         this.customItem = customItem;
         this.kind = kind;
+        this.prepaidAllocationExpiresAt = prepaidAllocationExpiresAt;
     }
 
     /**
@@ -386,6 +400,35 @@ public class InvoiceLineItem
     @JsonSetter("tax_amount")
     public void setTaxAmount(String taxAmount) {
         this.taxAmount = taxAmount;
+    }
+
+    /**
+     * Getter for TaxIncluded.
+     * Whether the unit price for this line item is tax-inclusive. When `true`, `unit_price` already
+     * includes tax and `tax_amount` represents the portion of the price attributable to tax. When
+     * `false`, any applicable tax is added on top of the price. The value is inherited from the
+     * source price point's `tax_included` setting. Custom or ad-hoc line items (which have no
+     * associated price point) always return `false`.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("tax_included")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getTaxIncluded() {
+        return taxIncluded;
+    }
+
+    /**
+     * Setter for TaxIncluded.
+     * Whether the unit price for this line item is tax-inclusive. When `true`, `unit_price` already
+     * includes tax and `tax_amount` represents the portion of the price attributable to tax. When
+     * `false`, any applicable tax is added on top of the price. The value is inherited from the
+     * source price point's `tax_included` setting. Custom or ad-hoc line items (which have no
+     * associated price point) always return `false`.
+     * @param taxIncluded Value for Boolean
+     */
+    @JsonSetter("tax_included")
+    public void setTaxIncluded(Boolean taxIncluded) {
+        this.taxIncluded = taxIncluded;
     }
 
     /**
@@ -844,6 +887,50 @@ public class InvoiceLineItem
     }
 
     /**
+     * Internal Getter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     * @return Returns the Internal LocalDate
+     */
+    @JsonGetter("prepaid_allocation_expires_at")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.SimpleDateSerializer.class)
+    protected OptionalNullable<LocalDate> internalGetPrepaidAllocationExpiresAt() {
+        return this.prepaidAllocationExpiresAt;
+    }
+
+    /**
+     * Getter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     * @return Returns the LocalDate
+     */
+    public LocalDate getPrepaidAllocationExpiresAt() {
+        return OptionalNullable.getFrom(prepaidAllocationExpiresAt);
+    }
+
+    /**
+     * Setter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     * @param prepaidAllocationExpiresAt Value for LocalDate
+     */
+    @JsonSetter("prepaid_allocation_expires_at")
+    @JsonDeserialize(using = DateTimeHelper.SimpleDateDeserializer.class)
+    public void setPrepaidAllocationExpiresAt(LocalDate prepaidAllocationExpiresAt) {
+        this.prepaidAllocationExpiresAt = OptionalNullable.of(prepaidAllocationExpiresAt);
+    }
+
+    /**
+     * UnSetter for PrepaidAllocationExpiresAt.
+     * The date a prepaid allocation is set to expire. Only present on line items representing
+     * prepaid component allocations. The format is `"YYYY-MM-DD"`.
+     */
+    public void unsetPrepaidAllocationExpiresAt() {
+        prepaidAllocationExpiresAt = null;
+    }
+
+    /**
      * Converts this InvoiceLineItem into string format.
      * @return String representation of this class
      */
@@ -852,15 +939,16 @@ public class InvoiceLineItem
         return "InvoiceLineItem [" + "uid=" + uid + ", title=" + title + ", description="
                 + description + ", quantity=" + quantity + ", unitPrice=" + unitPrice
                 + ", subtotalAmount=" + subtotalAmount + ", discountAmount=" + discountAmount
-                + ", taxAmount=" + taxAmount + ", totalAmount=" + totalAmount + ", tieredUnitPrice="
-                + tieredUnitPrice + ", periodRangeStart=" + periodRangeStart + ", periodRangeEnd="
-                + periodRangeEnd + ", transactionId=" + transactionId + ", productId=" + productId
-                + ", productVersion=" + productVersion + ", componentId=" + componentId
-                + ", pricePointId=" + pricePointId + ", billingScheduleItemId="
-                + billingScheduleItemId + ", hide=" + hide + ", componentCostData="
-                + componentCostData + ", productPricePointId=" + productPricePointId
-                + ", customItem=" + customItem + ", kind=" + kind + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", taxAmount=" + taxAmount + ", taxIncluded=" + taxIncluded + ", totalAmount="
+                + totalAmount + ", tieredUnitPrice=" + tieredUnitPrice + ", periodRangeStart="
+                + periodRangeStart + ", periodRangeEnd=" + periodRangeEnd + ", transactionId="
+                + transactionId + ", productId=" + productId + ", productVersion=" + productVersion
+                + ", componentId=" + componentId + ", pricePointId=" + pricePointId
+                + ", billingScheduleItemId=" + billingScheduleItemId + ", hide=" + hide
+                + ", componentCostData=" + componentCostData + ", productPricePointId="
+                + productPricePointId + ", customItem=" + customItem + ", kind=" + kind
+                + ", prepaidAllocationExpiresAt=" + prepaidAllocationExpiresAt
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -878,6 +966,7 @@ public class InvoiceLineItem
                 .subtotalAmount(getSubtotalAmount())
                 .discountAmount(getDiscountAmount())
                 .taxAmount(getTaxAmount())
+                .taxIncluded(getTaxIncluded())
                 .totalAmount(getTotalAmount())
                 .tieredUnitPrice(getTieredUnitPrice())
                 .periodRangeStart(getPeriodRangeStart())
@@ -893,6 +982,7 @@ public class InvoiceLineItem
         builder.billingScheduleItemId = internalGetBillingScheduleItemId();
         builder.componentCostData = internalGetComponentCostData();
         builder.productPricePointId = internalGetProductPricePointId();
+        builder.prepaidAllocationExpiresAt = internalGetPrepaidAllocationExpiresAt();
         return builder;
     }
 
@@ -908,6 +998,7 @@ public class InvoiceLineItem
         private String subtotalAmount;
         private String discountAmount;
         private String taxAmount;
+        private Boolean taxIncluded;
         private String totalAmount;
         private Boolean tieredUnitPrice;
         private LocalDate periodRangeStart;
@@ -923,6 +1014,7 @@ public class InvoiceLineItem
         private OptionalNullable<Integer> productPricePointId;
         private Boolean customItem;
         private String kind;
+        private OptionalNullable<LocalDate> prepaidAllocationExpiresAt;
 
 
 
@@ -1003,6 +1095,16 @@ public class InvoiceLineItem
          */
         public Builder taxAmount(String taxAmount) {
             this.taxAmount = taxAmount;
+            return this;
+        }
+
+        /**
+         * Setter for taxIncluded.
+         * @param  taxIncluded  Boolean value for taxIncluded.
+         * @return Builder
+         */
+        public Builder taxIncluded(Boolean taxIncluded) {
+            this.taxIncluded = taxIncluded;
             return this;
         }
 
@@ -1220,15 +1322,34 @@ public class InvoiceLineItem
         }
 
         /**
+         * Setter for prepaidAllocationExpiresAt.
+         * @param  prepaidAllocationExpiresAt  LocalDate value for prepaidAllocationExpiresAt.
+         * @return Builder
+         */
+        public Builder prepaidAllocationExpiresAt(LocalDate prepaidAllocationExpiresAt) {
+            this.prepaidAllocationExpiresAt = OptionalNullable.of(prepaidAllocationExpiresAt);
+            return this;
+        }
+
+        /**
+         * UnSetter for prepaidAllocationExpiresAt.
+         * @return Builder
+         */
+        public Builder unsetPrepaidAllocationExpiresAt() {
+            prepaidAllocationExpiresAt = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link InvoiceLineItem} object using the set fields.
          * @return {@link InvoiceLineItem}
          */
         public InvoiceLineItem build() {
             return new InvoiceLineItem(uid, title, description, quantity, unitPrice, subtotalAmount,
-                    discountAmount, taxAmount, totalAmount, tieredUnitPrice, periodRangeStart,
-                    periodRangeEnd, transactionId, productId, productVersion, componentId,
-                    pricePointId, billingScheduleItemId, hide, componentCostData,
-                    productPricePointId, customItem, kind);
+                    discountAmount, taxAmount, taxIncluded, totalAmount, tieredUnitPrice,
+                    periodRangeStart, periodRangeEnd, transactionId, productId, productVersion,
+                    componentId, pricePointId, billingScheduleItemId, hide, componentCostData,
+                    productPricePointId, customItem, kind, prepaidAllocationExpiresAt);
         }
     }
 }

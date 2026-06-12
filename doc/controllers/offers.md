@@ -19,7 +19,7 @@ OffersController offersController = client.getOffersController();
 
 # Create Offer
 
-Create an offer within your Advanced Billing site by sending a POST request.
+Creates an offer within your Advanced Billing site.
 
 ## Documentation
 
@@ -38,6 +38,10 @@ OfferResponse createOffer(
     final CreateOfferRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -45,6 +49,8 @@ OfferResponse createOffer(
 | `body` | [`CreateOfferRequest`](../../doc/models/create-offer-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -133,12 +139,16 @@ try {
 
 # List Offers
 
-This endpoint will list offers for a site.
+Lists offers for a site.
 
 ```java
 ListOffersResponse listOffers(
     final ListOffersInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -147,6 +157,8 @@ ListOffersResponse listOffers(
 | `input` | [`ListOffersInput`](../../doc/models/list-offers-input.md) | Required | Input structure for the method ListOffers |
 
 ## Response Type
+
+**200**: OK
 
 [`ListOffersResponse`](../../doc/models/list-offers-response.md)
 
@@ -233,12 +245,16 @@ try {
 
 # Read Offer
 
-This method allows you to list a specific offer's attributes. This is different than list all offers for a site, as it requires an `offer_id`.
+Returns a specific offer's attributes. This is different from listing all offers for a site, as it requires an `offer_id`.
 
 ```java
 OfferResponse readOffer(
     final int offerId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -247,6 +263,8 @@ OfferResponse readOffer(
 | `offerId` | `int` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 [`OfferResponse`](../../doc/models/offer-response.md)
 
@@ -266,12 +284,16 @@ try {
 
 # Archive Offer
 
-Archive an existing offer. Please provide an `offer_id` in order to archive the correct item.
+Archives an existing offer. Please provide an `offer_id` in order to archive the correct item.
 
 ```java
 Void archiveOffer(
     final int offerId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -280,6 +302,8 @@ Void archiveOffer(
 | `offerId` | `int` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -298,12 +322,16 @@ try {
 
 # Unarchive Offer
 
-Unarchive a previously archived offer. Please provide an `offer_id` in order to un-archive the correct item.
+Unarchives a previously archived offer. Please provide an `offer_id` in order to unarchive the correct item.
 
 ```java
 Void unarchiveOffer(
     final int offerId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -312,6 +340,8 @@ Void unarchiveOffer(
 | `offerId` | `int` | Template, Required | The Chargify id of the offer |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 

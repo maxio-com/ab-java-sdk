@@ -199,7 +199,7 @@ public class ComponentsControllerCreatePrepaidTest extends ComponentsControllerT
                         "Handle must start with a letter or number and may only contain lowercase letters, numbers, or the characters ':', '-', or '_'.",
                         "Unit name: cannot be blank.",
                         "At least 1 price bracket must be defined",
-                        "Overage pricing scheme must be defined for prepaid components",
+                        "Overage pricing scheme must be defined",
                         "At least 1 overage price bracket must be defined")
                 .isUnprocessableEntity();
     }

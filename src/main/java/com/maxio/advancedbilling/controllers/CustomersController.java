@@ -37,14 +37,14 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * You may create a new Customer at any time, or you may create a Customer at the same time you
-     * create a Subscription. The only validation restriction is that you may only create one
-     * customer for a given reference value. If provided, the `reference` value must be unique. It
-     * represents a unique identifier for the customer from your own app, i.e. the customer’s ID.
-     * This allows you to retrieve a given customer via a piece of shared information.
-     * Alternatively, you may choose to leave `reference` blank, and store Advanced Billing’s unique
-     * ID for the customer, which is in the `id` attribute. Full documentation on how to locate,
-     * create and edit Customers in the Advanced Billing UI can be located
+     * Creates a new customer; can also be created alongside a new subscription. The only validation
+     * restriction is that you may only create one customer for a given reference value. If
+     * provided, the `reference` value must be unique. It represents a unique identifier for the
+     * customer from your own app, i.e. the customer’s ID. This allows you to retrieve a given
+     * customer via a piece of shared information. Alternatively, you may choose to leave
+     * `reference` blank, and store Advanced Billing’s unique ID for the customer, which is in the
+     * `id` attribute. Full documentation on how to locate, create and edit Customers in the
+     * Advanced Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252190590093-Customer-Details). ##
      * Required Country Format Advanced Billing requires that you use the ISO Standard Country codes
      * when formatting country attribute of the customer. Countries should be formatted as 2
@@ -100,12 +100,12 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * This request will by default list all customers associated with your Site. ## Find Customer
-     * Use the search feature with the `q` query parameter to retrieve an array of customers that
-     * matches the search query. Common use cases are: + Search by an email + Search by an Advanced
-     * Billing ID + Search by an organization + Search by a reference value from your application +
-     * Search by a first or last name To retrieve a single, exact match by reference, use the
-     * [lookup
+     * Lists all customers associated with your site, or filters results using the search parameter.
+     * ## Find Customer Use the search feature with the `q` query parameter to retrieve an array of
+     * customers that matches the search query. Common use cases are: + Search by an email + Search
+     * by an Advanced Billing ID + Search by an organization + Search by a reference value from your
+     * application + Search by a first or last name To retrieve a single, exact match by reference,
+     * use the [lookup
      * endpoint](https://developers.chargify.com/docs/api-docs/b710d8fbef104-read-customer-by-reference).
      * @param  input  ListCustomersInput object containing request parameters
      * @return    Returns the List of CustomerResponse response from the API call
@@ -197,7 +197,7 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * This method allows to update the Customer.
+     * Updates the customer.
      * @param  id  Required parameter: The Advanced Billing id of the customer
      * @param  body  Optional parameter:
      * @return    Returns the CustomerResponse response from the API call
@@ -247,7 +247,7 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * This method allows you to delete the Customer.
+     * Deletes the customer.
      * @param  id  Required parameter: The Advanced Billing id of the customer
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -280,8 +280,7 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * Use this method to return the customer object if you have the unique **Reference ID (Your
-     * App)** value handy. It will return a single match.
+     * Returns a customer by their unique reference ID. It will return a single match.
      * @param  reference  Required parameter: Customer reference
      * @return    Returns the CustomerResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -318,7 +317,7 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * This method lists all subscriptions that belong to a customer.
+     * Lists all subscriptions that belong to a customer.
      * @param  customerId  Required parameter: The Chargify id of the customer
      * @return    Returns the List of SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

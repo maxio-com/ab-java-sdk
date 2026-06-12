@@ -12,3 +12,27 @@
 | `String` | SubscriptionGroupSignupComponentComponentId.fromString(String string) |
 | `int` | SubscriptionGroupSignupComponentComponentId.fromNumber(int number) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+SubscriptionGroupSignupComponentComponentId.fromString(
+        "String0"
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+SubscriptionGroupSignupComponentComponentId.fromNumber(
+        0
+    )
+```
+

@@ -33,6 +33,10 @@ ProductPricePointResponse createProductPricePoint(
     final CreateProductPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -41,6 +45,8 @@ ProductPricePointResponse createProductPricePoint(
 | `body` | [`CreateProductPricePointRequest`](../../doc/models/create-product-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
 
@@ -123,6 +129,10 @@ ListProductPricePointsResponse listProductPricePoints(
     final ListProductPricePointsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -130,6 +140,8 @@ ListProductPricePointsResponse listProductPricePoints(
 | `input` | [`ListProductPricePointsInput`](../../doc/models/list-product-price-points-input.md) | Required | Input structure for the method ListProductPricePoints |
 
 ## Response Type
+
+**200**: OK
 
 [`ListProductPricePointsResponse`](../../doc/models/list-product-price-points-response.md)
 
@@ -197,6 +209,10 @@ ProductPricePointResponse updateProductPricePoint(
     final UpdateProductPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -206,6 +222,8 @@ ProductPricePointResponse updateProductPricePoint(
 | `body` | [`UpdateProductPricePointRequest`](../../doc/models/update-product-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
 
@@ -264,7 +282,7 @@ try {
 
 # Read Product Price Point
 
-Use this endpoint to retrieve details for a specific product price point. You can achieve this by using either the product price point ID or handle.
+Returns details for a specific product price point. You can achieve this by using either the product price point ID or handle.
 
 ```java
 ProductPricePointResponse readProductPricePoint(
@@ -272,6 +290,10 @@ ProductPricePointResponse readProductPricePoint(
     final ReadProductPricePointPricePointId pricePointId,
     final Boolean currencyPrices)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -282,6 +304,8 @@ ProductPricePointResponse readProductPricePoint(
 | `currencyPrices` | `Boolean` | Query, Optional | When fetching a product's price points, if you have defined multiple currencies at the site level, you can optionally pass the ?currency_prices=true query param to include an array of currency price data in the response. If the product price point is set to use_site_exchange_rate: true, it will return pricing based on the current exchange rate. If the flag is set to false, it will return all of the defined prices for each currency. |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
 
@@ -341,6 +365,10 @@ ProductPricePointResponse archiveProductPricePoint(
     final ArchiveProductPricePointPricePointId pricePointId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -349,6 +377,8 @@ ProductPricePointResponse archiveProductPricePoint(
 | `pricePointId` | [`ArchiveProductPricePointPricePointId`](../../doc/models/containers/archive-product-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
 
@@ -408,13 +438,17 @@ try {
 
 # Unarchive Product Price Point
 
-Use this endpoint to unarchive an archived product price point.
+Unarchives an archived product price point.
 
 ```java
 ProductPricePointResponse unarchiveProductPricePoint(
     final int productId,
     final int pricePointId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -424,6 +458,8 @@ ProductPricePointResponse unarchiveProductPricePoint(
 | `pricePointId` | `int` | Template, Required | The Advanced Billing id of the product price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductPricePointResponse`](../../doc/models/product-price-point-response.md)
 
@@ -481,6 +517,10 @@ ProductResponse promoteProductPricePointToDefault(
     final int pricePointId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -489,6 +529,8 @@ ProductResponse promoteProductPricePointToDefault(
 | `pricePointId` | `int` | Template, Required | The Advanced Billing id of the product price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ProductResponse`](../../doc/models/product-response.md)
 
@@ -570,6 +612,10 @@ BulkCreateProductPricePointsResponse bulkCreateProductPricePoints(
     final BulkCreateProductPricePointsRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -578,6 +624,8 @@ BulkCreateProductPricePointsResponse bulkCreateProductPricePoints(
 | `body` | [`BulkCreateProductPricePointsRequest`](../../doc/models/bulk-create-product-price-points-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`BulkCreateProductPricePointsResponse`](../../doc/models/bulk-create-product-price-points-response.md)
 
@@ -681,6 +729,10 @@ CurrencyPricesResponse createProductCurrencyPrices(
     final CreateProductCurrencyPricesRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -689,6 +741,8 @@ CurrencyPricesResponse createProductCurrencyPrices(
 | `body` | [`CreateProductCurrencyPricesRequest`](../../doc/models/create-product-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
 
@@ -768,6 +822,10 @@ CurrencyPricesResponse updateProductCurrencyPrices(
     final UpdateCurrencyPricesRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -776,6 +834,8 @@ CurrencyPricesResponse updateProductCurrencyPrices(
 | `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`CurrencyPricesResponse`](../../doc/models/currency-prices-response.md)
 
@@ -835,12 +895,16 @@ try {
 
 # List All Product Price Points
 
-This method allows retrieval of a list of Products Price Points belonging to a Site.
+Lists Product Price Points belonging to a site.
 
 ```java
 ListProductPricePointsResponse listAllProductPricePoints(
     final ListAllProductPricePointsInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -849,6 +913,8 @@ ListProductPricePointsResponse listAllProductPricePoints(
 | `input` | [`ListAllProductPricePointsInput`](../../doc/models/list-all-product-price-points-input.md) | Required | Input structure for the method ListAllProductPricePoints |
 
 ## Response Type
+
+**200**: OK
 
 [`ListProductPricePointsResponse`](../../doc/models/list-product-price-points-response.md)
 

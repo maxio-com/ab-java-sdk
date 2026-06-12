@@ -42,14 +42,13 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * This endpoint will trigger the creation of a consolidated proforma invoice asynchronously. It
-     * will return a 201 with no message, or a 422 with any errors. To find and view the new
-     * consolidated proforma invoice, you may poll the subscription group listing for proforma
-     * invoices; only one consolidated proforma invoice may be created per group at a time. If the
-     * information becomes outdated, simply void the old consolidated proforma invoice and generate
-     * a new one. ## Restrictions Proforma invoices are only available on Relationship Invoicing
-     * sites. To create a proforma invoice, the subscription must not be prepaid, and must be in a
-     * live state.
+     * Creates a consolidated proforma invoice asynchronously. It will return a 201 with no message,
+     * or a 422 with any errors. To find and view the new consolidated proforma invoice, you may
+     * poll the subscription group listing for proforma invoices; only one consolidated proforma
+     * invoice may be created per group at a time. If the information becomes outdated, simply void
+     * the old consolidated proforma invoice and generate a new one. ## Restrictions Proforma
+     * invoices are only available on Relationship Invoicing sites. To create a proforma invoice,
+     * the subscription must not be prepaid, and must be in a live state.
      * @param  uid  Required parameter: The uid of the subscription group
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -85,10 +84,10 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * Only proforma invoices with a `consolidation_level` of parent are returned. By default,
-     * proforma invoices returned on the index will only include totals, not detailed breakdowns for
-     * `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`. To include
-     * breakdowns, pass the specific field as a key in the query with a value set to true.
+     * Lists proforma invoices with a `consolidation_level` of parent for the subscription group. By
+     * default, proforma invoices returned on the index will only include totals, not detailed
+     * breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, `custom_fields`. To
+     * include breakdowns, pass the specific field as a key in the query with a value set to true.
      * @param  input  ListSubscriptionGroupProformaInvoicesInput object containing request parameters
      * @return    Returns the ListProformaInvoicesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -140,8 +139,8 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * Use this endpoint to read the details of an existing proforma invoice. ## Restrictions
-     * Proforma invoices are only available on Relationship Invoicing sites.
+     * Returns the details of an existing proforma invoice. ## Restrictions Proforma invoices are
+     * only available on Relationship Invoicing sites.
      * @param  proformaInvoiceUid  Required parameter: The uid of the proforma invoice
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -181,12 +180,12 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * This endpoint will create a proforma invoice and return it as a response. If the information
-     * becomes outdated, simply void the old proforma invoice and generate a new one. If you would
-     * like to preview the next billing amounts without generating a full proforma invoice, use the
-     * renewal preview endpoint. ## Restrictions Proforma invoices are only available on
-     * Relationship Invoicing sites. To create a proforma invoice, the subscription must not be in a
-     * group, must not be prepaid, and must be in a live state.
+     * Creates a proforma invoice and returns it as a response. If the information becomes outdated,
+     * simply void the old proforma invoice and generate a new one. If you would like to preview the
+     * next billing amounts without generating a full proforma invoice, use the renewal preview
+     * endpoint. ## Restrictions Proforma invoices are only available on Relationship Invoicing
+     * sites. To create a proforma invoice, the subscription must not be in a group, must not be
+     * prepaid, and must be in a live state.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -226,10 +225,10 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * By default, proforma invoices returned on the index will only include totals, not detailed
-     * breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or `custom_fields`.
-     * To include breakdowns, pass the specific field as a key in the query with a value set to
-     * `true`.
+     * Lists proforma invoices for a subscription. By default, results only include totals, not
+     * detailed breakdowns for `line_items`, `discounts`, `taxes`, `credits`, `payments`, or
+     * `custom_fields`. To include breakdowns, pass the specific field as a key in the query with a
+     * value set to `true`.
      * @param  input  ListProformaInvoicesInput object containing request parameters
      * @return    Returns the ListProformaInvoicesResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -290,12 +289,12 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * Allows for proforma invoices to be programmatically delivered via email. Supports email
-     * delivery to direct recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc)
-     * recipients. If `recipient_emails` is omitted, the system will fall back to the primary
-     * recipient derived from the invoice or subscription. At least one recipient must be present,
-     * either via the request body or via this default behavior, so an empty body may still succeed
-     * when defaults are available.
+     * Delivers a proforma invoice programmatically via email. Supports email delivery to direct
+     * recipients, carbon-copy (cc) recipients, and blind carbon-copy (bcc) recipients. If
+     * `recipient_emails` is omitted, the system will fall back to the primary recipient derived
+     * from the invoice or subscription. At least one recipient must be present, either via the
+     * request body or via this default behavior, so an empty body may still succeed when defaults
+     * are available.
      * @param  proformaInvoiceUid  Required parameter: The uid of the proforma invoice
      * @param  body  Optional parameter:
      * @return    Returns the ProformaInvoice response from the API call
@@ -345,12 +344,12 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * This endpoint will void a proforma invoice that has the status "draft". ## Restrictions
-     * Proforma invoices are only available on Relationship Invoicing sites. Only proforma invoices
-     * that have the appropriate status may be reopened. If the invoice identified by {uid} does not
-     * have the appropriate status, the response will have HTTP status code 422 and an error
-     * message. A reason for the void operation is required to be included in the request body. If
-     * one is not provided, the response will have HTTP status code 422 and an error message.
+     * Voids a proforma invoice that has the status "draft". ## Restrictions Proforma invoices are
+     * only available on Relationship Invoicing sites. Only proforma invoices that have the
+     * appropriate status may be reopened. If the invoice identified by {uid} does not have the
+     * appropriate status, the response will have HTTP status code 422 and an error message. A
+     * reason for the void operation is required to be included in the request body. If one is not
+     * provided, the response will have HTTP status code 422 and an error message.
      * @param  proformaInvoiceUid  Required parameter: The uid of the proforma invoice
      * @param  body  Optional parameter:
      * @return    Returns the ProformaInvoice response from the API call
@@ -400,10 +399,10 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * Return a preview of the data that will be included on a given subscription's proforma invoice
-     * if one were to be generated. It will have similar line items and totals as a renewal preview,
-     * but the response will be presented in the format of a proforma invoice. Consequently it will
-     * include additional information such as the name and addresses that will appear on the
+     * Returns a preview of the data that will be included on a given subscription's proforma
+     * invoice if one were to be generated. It will have similar line items and totals as a renewal
+     * preview, but the response will be presented in the format of a proforma invoice. Consequently
+     * it will include additional information such as the name and addresses that will appear on the
      * proforma invoice. The preview endpoint is subject to all the same conditions as the proforma
      * invoice endpoint. For example, previews are only available on the Relationship Invoicing
      * architecture, and previews cannot be made for end-of-life subscriptions. If all the data
@@ -454,16 +453,16 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * This endpoint is only available for Relationship Invoicing sites. It cannot be used to create
-     * consolidated proforma invoices or preview prepaid subscriptions. Create a proforma invoice to
-     * preview costs before a subscription's signup. Like other proforma invoices, it can be emailed
-     * to the customer, voided, and publicly viewed on the chargifypay domain. Pass a payload that
-     * resembles a subscription create or signup preview request. For example, you can specify
-     * components, coupons/a referral, offers, custom pricing, and an existing customer or payment
-     * profile to populate a shipping or billing address. A product and customer first name, last
-     * name, and email are the minimum requirements. We recommend associating the proforma invoice
-     * with a customer_id to easily find their proforma invoices, since the subscription_id will
-     * always be blank.
+     * Creates a proforma invoice to preview costs before a subscription's signup. This endpoint is
+     * only available for Relationship Invoicing sites and cannot be used to create consolidated
+     * proforma invoices or preview prepaid subscriptions. Like other proforma invoices, it can be
+     * emailed to the customer, voided, and publicly viewed on the chargifypay domain. Pass a
+     * payload that resembles a subscription create or signup preview request. For example, you can
+     * specify components, coupons/a referral, offers, custom pricing, and an existing customer or
+     * payment profile to populate a shipping or billing address. A product and customer first name,
+     * last name, and email are the minimum requirements. We recommend associating the proforma
+     * invoice with a customer_id to easily find their proforma invoices, since the subscription_id
+     * will always be blank.
      * @param  body  Optional parameter:
      * @return    Returns the ProformaInvoice response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -508,15 +507,15 @@ public final class ProformaInvoicesController extends BaseController {
     }
 
     /**
-     * This endpoint is only available for Relationship Invoicing sites. It cannot be used to create
-     * consolidated proforma invoice previews or preview prepaid subscriptions. Create a signup
-     * preview in the format of a proforma invoice to preview costs before a subscription's signup.
-     * You have the option of optionally previewing the first renewal's costs as well. The proforma
-     * invoice preview will not be persisted. Pass a payload that resembles a subscription create or
-     * signup preview request. For example, you can specify components, coupons/a referral, offers,
-     * custom pricing, and an existing customer or payment profile to populate a shipping or billing
-     * address. A product and customer first name, last name, and email are the minimum
-     * requirements.
+     * Creates a signup preview in the format of a proforma invoice to preview costs before a
+     * subscription's signup. This endpoint is only available for Relationship Invoicing sites and
+     * cannot be used to create consolidated proforma invoice previews or preview prepaid
+     * subscriptions. You have the option of previewing the first renewal's costs as well. The
+     * proforma invoice preview will not be persisted. Pass a payload that resembles a subscription
+     * create or signup preview request. For example, you can specify components, coupons/a
+     * referral, offers, custom pricing, and an existing customer or payment profile to populate a
+     * shipping or billing address. A product and customer first name, last name, and email are the
+     * minimum requirements.
      * @param  include  Optional parameter: Choose to include a proforma invoice preview for the
      *         first renewal. Use in query `include=next_proforma_invoice`.
      * @param  body  Optional parameter:

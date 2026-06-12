@@ -773,8 +773,8 @@ public class CreditCardPaymentProfile
 
     /**
      * Getter for ChargifyToken.
-     * Token received after sending billing information using chargify.js. This token will only be
-     * received if passed as a sole attribute of credit_card_attributes (i.e.
+     * Token received after sending billing information using Maxio.js (formerly Chargify.js). This
+     * token will only be received if passed as a sole attribute of credit_card_attributes (i.e.
      * tok_9g6hw85pnpt6knmskpwp4ttt)
      * @return Returns the String
      */
@@ -786,8 +786,8 @@ public class CreditCardPaymentProfile
 
     /**
      * Setter for ChargifyToken.
-     * Token received after sending billing information using chargify.js. This token will only be
-     * received if passed as a sole attribute of credit_card_attributes (i.e.
+     * Token received after sending billing information using Maxio.js (formerly Chargify.js). This
+     * token will only be received if passed as a sole attribute of credit_card_attributes (i.e.
      * tok_9g6hw85pnpt6knmskpwp4ttt)
      * @param chargifyToken Value for String
      */

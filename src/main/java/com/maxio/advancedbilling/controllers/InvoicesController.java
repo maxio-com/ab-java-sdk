@@ -57,8 +57,9 @@ public final class InvoicesController extends BaseController {
     /**
      * Refund an invoice, segment, or consolidated invoice. ## Partial Refund for Consolidated
      * Invoice A refund less than the total of a consolidated invoice will be split across its
-     * segments. A $50.00 refund on a $100.00 consolidated invoice with one $60.00 and one $40.00
-     * segment, the refunded amount will be applied as 50% of each ($30.00 and $20.00 respectively).
+     * segments. For a $50.00 refund on a $100.00 consolidated invoice with one $60.00 segment and
+     * one $40.00 segment, the refunded amount will be applied as 50% of each ($30.00 and $20.00,
+     * respectively).
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
      * @param  body  Optional parameter:
@@ -340,7 +341,7 @@ public final class InvoicesController extends BaseController {
 
     /**
      * This API call should be used when you want to record an external payment against multiple
-     * invoices. In order apply a payment to multiple invoices, at minimum, specify the `amount` and
+     * invoices. To apply a payment to multiple invoices, at minimum, specify the `amount` and
      * `applications` (i.e., `invoice_uid` and `amount`) details. ``` { "payment": { "memo": "to pay
      * the bills", "details": "check number 8675309", "method": "check", "amount": "250.00",
      * "applications": [ { "invoice_uid": "inv_8gk5bwkct3gqt", "amount": "100.00" }, {
@@ -690,8 +691,8 @@ public final class InvoicesController extends BaseController {
      * existing items like products, components. ```json { "invoice": { "line_items": [ {
      * "product_id": "handle:gold-product", "quantity": 2, } ] } } ``` The price for each line item
      * will be calculated as well as a total due amount for the invoice. Multiple line items can be
-     * sent. ### Line items types When defining line item, You can choose one of 3 types for one
-     * line item: #### Custom item Like in basic behavior example above, You can pass `title` and
+     * sent. ### Line item types When defining a line item, You can choose one of 3 types for a line
+     * item: #### Custom item As shown in the basic behavior example, You can pass `title` and
      * `unit_price` for custom item. #### Product id Product handle (with handle: prefix) or id from
      * the scope of current subscription's site can be provided with `product_id`. By default
      * `unit_price` is taken from product's default price point, but can be overwritten by passing
@@ -700,8 +701,8 @@ public final class InvoicesController extends BaseController {
      * from the scope of current subscription's site can be provided with `component_id`. If
      * `component_id` is used, following fields cannot be used: `title`, `product_id`. By default
      * `unit_price` is taken from product's default price point, but can be overwritten by passing
-     * `unit_price` or `price_point_id`. At this moment price points are supportted only for
-     * quantity based, on/off and metered components. For prepaid and event based billing components
+     * `unit_price` or `price_point_id`. At this moment price points are supported only for quantity
+     * based, on/off and metered components. For prepaid and event based billing components
      * `unit_price` is required. ### Coupons When creating ad hoc invoice, new discounts can be
      * applied in following way: ```json { "invoice": { "line_items": [ { "product_id":
      * "handle:gold-product", "quantity": 1 } ], "coupons": [ { "code": "COUPONCODE", "percentage":
@@ -748,17 +749,19 @@ public final class InvoicesController extends BaseController {
      * passed `unit_price` cannot be used. It can be used only with catalog items products and
      * components. #### Description Optional `description` parameter, it will overwrite default
      * generated description for line item. ### Invoice Options #### Issue Date By default, invoices
-     * will be created with a issue date set to today. `issue_date` parameter can be send to alter
-     * that. Only dates in the past can be send. `issue_date` should be send in `YYYY-MM-DD` format.
-     * #### Net Terms By default, invoices will be created with a due date matching the date of
-     * invoice creation. If a different due date is desired, the `net_terms` parameter can be sent
-     * indicating the number of days in advance the due date should be. #### Addresses The seller,
-     * shipping and billing addresses can be sent to override the site's defaults. Each address
-     * requires to send a `first_name` at a minimum in order to work. See below for the details on
-     * which parameters can be sent for each address object. #### Memo and Payment Instructions A
-     * custom memo can be sent with the `memo` parameter to override the site's default. Likewise,
-     * custom payment instructions can be sent with the `payment_instrucions` parameter. #### Status
-     * By default, invoices will be created with open status. Possible alternative is `draft`.
+     * will be created with a issue date set to today in your site's time zone. The `issue_date`
+     * parameter can be sent to alter the default. Only today or dates in the past are accepted.
+     * This date is interpreted and validated in your site's time zone. The format for `issue_date`
+     * is `YYYY-MM-DD`. #### Net Terms By default, invoices will be created with a due date matching
+     * the date of invoice creation. If a different due date is desired, the `net_terms` parameter
+     * can be sent indicating the number of days in advance the due date should be. #### Addresses
+     * The seller, shipping and billing addresses can be sent to override the site's defaults. Each
+     * address requires to send a `first_name` at a minimum in order to work. See below for the
+     * details on which parameters can be sent for each address object. #### Memo and Payment
+     * Instructions A custom memo can be sent with the `memo` parameter to override the site's
+     * default. Likewise, custom payment instructions can be sent with the `payment_instructions`
+     * parameter. #### Status By default, invoices will be created with open status. Possible
+     * alternative is `draft`.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the InvoiceResponse response from the API call
@@ -861,11 +864,11 @@ public final class InvoicesController extends BaseController {
     }
 
     /**
-     * Customer information may change after an invoice is issued which may lead to a mismatch
-     * between customer information that are present on an open invoice and actual customer
-     * information. This endpoint allows to preview these differences, if any. The endpoint doesn't
-     * accept a request body. Customer information differences are calculated on the application
-     * side.
+     * Customer information may change after an invoice is issued, which may lead to a mismatch
+     * between customer information that is present on an open invoice and actual customer
+     * information. This endpoint allows you to preview these differences, if any. The endpoint
+     * doesn't accept a request body. Customer information differences are calculated on the
+     * application side.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
      *         to the public facing invoice number.
      * @return    Returns the CustomerChangesPreviewResponse response from the API call
@@ -911,7 +914,7 @@ public final class InvoicesController extends BaseController {
     /**
      * This endpoint updates customer information on an open invoice and returns the updated
      * invoice. If you would like to preview changes that will be applied, use the
-     * `/invoices/{uid}/customer_information/preview.json` endpoint before. The endpoint doesn't
+     * `/invoices/{uid}/customer_information/preview.json` endpoint first. The endpoint doesn't
      * accept a request body. Customer information differences are calculated on the application
      * side.
      * @param  uid  Required parameter: The unique identifier for the invoice, this does not refer
@@ -962,11 +965,11 @@ public final class InvoicesController extends BaseController {
      * component and using "accrue charges" option. You cannot issue a pending child invoice that
      * was created for a member subscription in a group. For Remittance subscriptions, the invoice
      * will go into "open" status and payment won't be attempted. The value for `on_failed_payment`
-     * would be rejected if sent. Any prepayments or service credits that exist on subscription will
-     * be automatically applied. Additionally, if setting is on, an email will be sent for issued
-     * invoice. For Automatic subscriptions, prepayments and service credits will apply to the
-     * invoice and before payment is attempted. On successful payment, the invoice will go into
-     * "paid" status and email will be sent to the customer (if setting applies). When payment
+     * would be rejected if sent. Any prepayments or service credits that exist on the subscription
+     * will be automatically applied. Additionally, if the setting is enabled, an email will be sent
+     * for the issued invoice. For Automatic subscriptions, prepayments and service credits will
+     * apply to the invoice before payment is attempted. On successful payment, the invoice will go
+     * into "paid" status and email will be sent to the customer (if setting applies). When payment
      * fails, the next event depends on the `on_failed_payment` value: - `leave_open_invoice` -
      * prepayments and credits applied to invoice; invoice status set to "open"; email sent to the
      * customer for the issued invoice (if setting applies); payment failure recorded in the invoice

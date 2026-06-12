@@ -372,8 +372,8 @@ public final class CustomFieldsController extends BaseController {
      * created with the metadata you specify and it is always added as a text field to the Site and
      * to the subscription or customer you specify. You can update the input_type for the metafield
      * with the Update Metafield endpoint. Each site is limited to 100 unique metafields per
-     * resource. This means you can have 100 metafields for Subscription and another 100 for
-     * Customer.
+     * resource. This means you can have 100 metafields for the Subscription resource and another
+     * 100 for the Customer resource.
      * @param  resourceType  Required parameter: The resource type to which the metafields belong.
      * @param  resourceId  Required parameter: The Advanced Billing id of the customer or the
      *         subscription for which the metadata applies

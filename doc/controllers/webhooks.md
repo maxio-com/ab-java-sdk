@@ -20,12 +20,16 @@ WebhooksController webhooksController = client.getWebhooksController();
 
 # List Webhooks
 
-Allows you to view a list of webhooks.  You can pass query parameters if you want to filter webhooks. See the [Webhooks](page:introduction/webhooks/webhooks) documentation for more information.
+Retrieves a list of webhooks.  You can pass query parameters if you want to filter webhooks. See the [Webhooks](page:introduction/webhooks/webhooks) documentation for more information.
 
 ```java
 List<WebhookResponse> listWebhooks(
     final ListWebhooksInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -34,6 +38,8 @@ List<WebhookResponse> listWebhooks(
 | `input` | [`ListWebhooksInput`](../../doc/models/list-webhooks-input.md) | Required | Input structure for the method ListWebhooks |
 
 ## Response Type
+
+**201**: OK
 
 [`List<WebhookResponse>`](../../doc/models/webhook-response.md)
 
@@ -95,12 +101,16 @@ try {
 
 # Enable Webhooks
 
-Allows you to enable webhooks for your site
+Enables webhooks for your site.
 
 ```java
 EnableWebhooksResponse enableWebhooks(
     final EnableWebhooksRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -109,6 +119,8 @@ EnableWebhooksResponse enableWebhooks(
 | `body` | [`EnableWebhooksRequest`](../../doc/models/enable-webhooks-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`EnableWebhooksResponse`](../../doc/models/enable-webhooks-response.md)
 
@@ -146,6 +158,10 @@ ReplayWebhooksResponse replayWebhooks(
     final ReplayWebhooksRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -153,6 +169,8 @@ ReplayWebhooksResponse replayWebhooks(
 | `body` | [`ReplayWebhooksRequest`](../../doc/models/replay-webhooks-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ReplayWebhooksResponse`](../../doc/models/replay-webhooks-response.md)
 
@@ -186,13 +204,17 @@ try {
 
 # Create Endpoint
 
-Creates an endpoint and assigns a list of webhooks subscriptions (events) to it.
+Creates an endpoint and assigns a list of webhook subscriptions (events) to it.
 See the [Webhooks Reference](page:introduction/webhooks/webhooks-reference#events) page for available events.
 
 ```java
 EndpointResponse createEndpoint(
     final CreateOrUpdateEndpointRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -201,6 +223,8 @@ EndpointResponse createEndpoint(
 | `body` | [`CreateOrUpdateEndpointRequest`](../../doc/models/create-or-update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
+
+**200**: OK
 
 [`EndpointResponse`](../../doc/models/endpoint-response.md)
 
@@ -212,7 +236,8 @@ CreateOrUpdateEndpointRequest body = new CreateOrUpdateEndpointRequest.Builder(
         "https://your.site/webhooks",
         Arrays.asList(
             WebhookSubscription.PAYMENT_SUCCESS,
-            WebhookSubscription.PAYMENT_FAILURE
+            WebhookSubscription.PAYMENT_FAILURE,
+            WebhookSubscription.INVOICE_PENDING
         )
     )
     .build()
@@ -240,7 +265,8 @@ try {
     "status": "enabled",
     "webhook_subscriptions": [
       "payment_success",
-      "payment_failure"
+      "payment_failure",
+      "invoice_pending"
     ]
   }
 }
@@ -261,7 +287,13 @@ Returns created endpoints for a site.
 List<Endpoint> listEndpoints()
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Response Type
+
+**200**: OK
 
 [`List<Endpoint>`](../../doc/models/endpoint.md)
 
@@ -287,7 +319,8 @@ try {
     "status": "enabled",
     "webhook_subscriptions": [
       "payment_success",
-      "payment_failure"
+      "payment_failure",
+      "invoice_pending"
     ]
   },
   {
@@ -311,13 +344,17 @@ Updates an Endpoint. You can change the `url` of your endpoint or the list of `w
 
 Always send a complete list of events to which you want to subscribe. Sending a PUT request for an existing endpoint with an empty list of `webhook_subscriptions` will unsubscribe all events.
 
-If you want unsubscribe from a specific event, send a list of `webhook_subscriptions` without the specific event key.
+If you want to unsubscribe from a specific event, send a list of `webhook_subscriptions` without the specific event key.
 
 ```java
 EndpointResponse updateEndpoint(
     final int endpointId,
     final CreateOrUpdateEndpointRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -327,6 +364,8 @@ EndpointResponse updateEndpoint(
 | `body` | [`CreateOrUpdateEndpointRequest`](../../doc/models/create-or-update-endpoint-request.md) | Body, Optional | Used to Create or Update Endpoint |
 
 ## Response Type
+
+**200**: OK
 
 [`EndpointResponse`](../../doc/models/endpoint-response.md)
 
@@ -340,7 +379,8 @@ CreateOrUpdateEndpointRequest body = new CreateOrUpdateEndpointRequest.Builder(
         Arrays.asList(
             WebhookSubscription.PAYMENT_FAILURE,
             WebhookSubscription.PAYMENT_SUCCESS,
-            WebhookSubscription.REFUND_FAILURE
+            WebhookSubscription.REFUND_FAILURE,
+            WebhookSubscription.INVOICE_PENDING
         )
     )
     .build()

@@ -36,7 +36,7 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * Creates a product in your Advanced Billing site. See the following product docuemation for
+     * Creates a product in your Advanced Billing site. See the following product documentation for
      * more information: + [Products
      * Documentation](https://maxio.zendesk.com/hc/en-us/articles/24261090117645-Products-Overview)
      * + [Changing a Subscription's
@@ -176,7 +176,7 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * Archives the product. All current subscribers will be unffected; their subscription/purchase
+     * Archives the product. All current subscribers will be unaffected; their subscription/purchase
      * will continue to be charged monthly. This will restrict the option to chose the product for
      * purchase via the Billing Portal, as well as disable Public Signup Pages for the product.
      * @param  productId  Required parameter: The Advanced Billing id of the product
@@ -255,7 +255,7 @@ public final class ProductsController extends BaseController {
     }
 
     /**
-     * This method allows to retrieve a list of Products belonging to a Site.
+     * Lists products belonging to a site.
      * @param  input  ListProductsInput object containing request parameters
      * @return    Returns the List of ProductResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

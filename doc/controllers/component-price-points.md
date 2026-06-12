@@ -38,6 +38,10 @@ ComponentResponse promoteComponentPricePointToDefault(
     final int pricePointId)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -46,6 +50,8 @@ ComponentResponse promoteComponentPricePointToDefault(
 | `pricePointId` | `int` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentResponse`](../../doc/models/component-response.md)
 
@@ -107,6 +113,10 @@ ComponentPricePointResponse createComponentPricePoint(
     final CreateComponentPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -115,6 +125,8 @@ ComponentPricePointResponse createComponentPricePoint(
 | `body` | [`CreateComponentPricePointRequest`](../../doc/models/create-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -180,7 +192,7 @@ try {
 
 # List Component Price Points
 
-Use this endpoint to read current price points that are associated with a component.
+Lists the price points associated with a component.
 
 You may specify the component by using either the numeric id or the `handle:gold` syntax.
 
@@ -193,6 +205,10 @@ ComponentPricePointsResponse listComponentPricePoints(
     final ListComponentPricePointsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -200,6 +216,8 @@ ComponentPricePointsResponse listComponentPricePoints(
 | `input` | [`ListComponentPricePointsInput`](../../doc/models/list-component-price-points-input.md) | Required | Input structure for the method ListComponentPricePoints |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
 
@@ -274,13 +292,17 @@ try {
 
 # Bulk Create Component Price Points
 
-Use this endpoint to create multiple component price points in one request.
+Creates multiple component price points in one request.
 
 ```java
 ComponentPricePointsResponse bulkCreateComponentPricePoints(
     final String componentId,
     final CreateComponentPricePointsRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -290,6 +312,8 @@ ComponentPricePointsResponse bulkCreateComponentPricePoints(
 | `body` | [`CreateComponentPricePointsRequest`](../../doc/models/create-component-price-points-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointsResponse`](../../doc/models/component-price-points-response.md)
 
@@ -445,6 +469,10 @@ ComponentPricePointCurrencyOverageResponse cloneComponentPricePoint(
     final CloneComponentPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -454,6 +482,8 @@ ComponentPricePointCurrencyOverageResponse cloneComponentPricePoint(
 | `body` | [`CloneComponentPricePointRequest`](../../doc/models/clone-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
 
@@ -566,7 +596,7 @@ try {
 
 # Update Component Price Point
 
-When updating a price point, prices can be updated as well by creating new prices or editing / removing existing ones.
+Updates a component price point and its associated prices.
 
 Passing in a price bracket without an `id` will attempt to create a new price.
 
@@ -581,6 +611,10 @@ ComponentPricePointResponse updateComponentPricePoint(
     final UpdateComponentPricePointRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -590,6 +624,8 @@ ComponentPricePointResponse updateComponentPricePoint(
 | `body` | [`UpdateComponentPricePointRequest`](../../doc/models/update-component-price-point-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -650,7 +686,7 @@ try {
 
 # Read Component Price Point
 
-Use this endpoint to retrieve details for a specific component price point. You can achieve this by using either the component price point ID or handle.
+Returns details for a specific component price point. You can achieve this by using either the component price point ID or handle.
 
 ```java
 ComponentPricePointCurrencyOverageResponse readComponentPricePoint(
@@ -658,6 +694,10 @@ ComponentPricePointCurrencyOverageResponse readComponentPricePoint(
     final ReadComponentPricePointPricePointId pricePointId,
     final Boolean currencyPrices)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -668,6 +708,8 @@ ComponentPricePointCurrencyOverageResponse readComponentPricePoint(
 | `currencyPrices` | `Boolean` | Query, Optional | Include an array of currency price data |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointCurrencyOverageResponse`](../../doc/models/component-price-point-currency-overage-response.md)
 
@@ -692,13 +734,17 @@ try {
 
 # Archive Component Price Point
 
-A price point can be archived at any time. Subscriptions using a price point that has been archived will continue using it until they're moved to another price point.
+Archives a component price point. Subscriptions using a price point that has been archived will continue using it until they're moved to another price point.
 
 ```java
 ComponentPricePointResponse archiveComponentPricePoint(
     final ArchiveComponentPricePointComponentId componentId,
     final ArchiveComponentPricePointPricePointId pricePointId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -708,6 +754,8 @@ ComponentPricePointResponse archiveComponentPricePoint(
 | `pricePointId` | [`ArchiveComponentPricePointPricePointId`](../../doc/models/containers/archive-component-price-point-price-point-id.md) | Template, Required | This is a container for one-of cases. |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -774,13 +822,17 @@ try {
 
 # Unarchive Component Price Point
 
-Use this endpoint to unarchive a component price point.
+Unarchives a component price point.
 
 ```java
 ComponentPricePointResponse unarchiveComponentPricePoint(
     final int componentId,
     final int pricePointId)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -790,6 +842,8 @@ ComponentPricePointResponse unarchiveComponentPricePoint(
 | `pricePointId` | `int` | Template, Required | The Advanced Billing id of the price point |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentPricePointResponse`](../../doc/models/component-price-point-response.md)
 
@@ -844,7 +898,7 @@ try {
 
 # Create Currency Prices
 
-This endpoint allows you to create currency prices for a given currency that has been defined on the site level in your settings.
+Creates currency prices for a given currency defined at the site level.
 
 When creating currency prices, they need to mirror the structure of your primary pricing. For each price level defined on the component price point, there should be a matching price level created in the given currency.
 
@@ -856,6 +910,10 @@ ComponentCurrencyPricesResponse createCurrencyPrices(
     final CreateCurrencyPricesRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -864,6 +922,8 @@ ComponentCurrencyPricesResponse createCurrencyPrices(
 | `body` | [`CreateCurrencyPricesRequest`](../../doc/models/create-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
@@ -923,7 +983,7 @@ try {
 
 # Update Currency Prices
 
-This endpoint allows you to update currency prices for a given currency that has been defined on the site level in your settings.
+Updates currency prices for a given currency defined at the site level.
 
 Note: Currency Prices are not able to be updated for custom price points.
 
@@ -933,6 +993,10 @@ ComponentCurrencyPricesResponse updateCurrencyPrices(
     final UpdateCurrencyPricesRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -941,6 +1005,8 @@ ComponentCurrencyPricesResponse updateCurrencyPrices(
 | `body` | [`UpdateCurrencyPricesRequest`](../../doc/models/update-currency-prices-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ComponentCurrencyPricesResponse`](../../doc/models/component-currency-prices-response.md)
 
@@ -1000,12 +1066,16 @@ try {
 
 # List All Component Price Points
 
-This method allows to retrieve a list of Components Price Points belonging to a Site.
+Lists all component price points belonging to a site.
 
 ```java
 ListComponentsPricePointsResponse listAllComponentPricePoints(
     final ListAllComponentPricePointsInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -1014,6 +1084,8 @@ ListComponentsPricePointsResponse listAllComponentPricePoints(
 | `input` | [`ListAllComponentPricePointsInput`](../../doc/models/list-all-component-price-points-input.md) | Required | Input structure for the method ListAllComponentPricePoints |
 
 ## Response Type
+
+**200**: OK
 
 [`ListComponentsPricePointsResponse`](../../doc/models/list-components-price-points-response.md)
 

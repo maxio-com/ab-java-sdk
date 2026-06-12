@@ -20,7 +20,7 @@ EventsBasedBillingSegmentsController eventsBasedBillingSegmentsController = clie
 
 # Create Segment
 
-This endpoint creates a new Segment for a Component with segmented Metric. It allows you to specify properties to bill upon and prices for each Segment. You can only pass as many "property_values" as the related Metric has segmenting properties defined.
+Creates a new segment for a component with a segmented metric. It allows you to specify properties to bill upon and prices for each Segment. You can only pass as many "property_values" as the related Metric has segmenting properties defined.
 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
@@ -31,6 +31,10 @@ SegmentResponse createSegment(
     final CreateSegmentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -40,6 +44,8 @@ SegmentResponse createSegment(
 | `body` | [`CreateSegmentRequest`](../../doc/models/create-segment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`SegmentResponse`](../../doc/models/segment-response.md)
 
@@ -99,7 +105,7 @@ try {
 
 # List Segments for Price Point
 
-This endpoint allows you to fetch Segments created for a given Price Point. They will be returned in the order of creation.
+Lists segments created for a given price point, in order of creation.
 
 You can pass `page` and `per_page` parameters in order to access all of the segments. By default it will return `30` records. You can set `per_page` to `200` at most.
 
@@ -110,6 +116,10 @@ ListSegmentsResponse listSegmentsForPricePoint(
     final ListSegmentsForPricePointInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -117,6 +127,8 @@ ListSegmentsResponse listSegmentsForPricePoint(
 | `input` | [`ListSegmentsForPricePointInput`](../../doc/models/list-segments-for-price-point-input.md) | Required | Input structure for the method ListSegmentsForPricePoint |
 
 ## Response Type
+
+**200**: OK
 
 [`ListSegmentsResponse`](../../doc/models/list-segments-response.md)
 
@@ -154,7 +166,7 @@ try {
 
 # Update Segment
 
-This endpoint updates a single Segment for a Component with a segmented Metric. It allows you to update the pricing for the segment.
+Updates a single segment for a component with a segmented metric. It allows you to update the pricing for the segment.
 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
@@ -166,6 +178,10 @@ SegmentResponse updateSegment(
     final UpdateSegmentRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -176,6 +192,8 @@ SegmentResponse updateSegment(
 | `body` | [`UpdateSegmentRequest`](../../doc/models/update-segment-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`SegmentResponse`](../../doc/models/segment-response.md)
 
@@ -205,7 +223,7 @@ try {
 
 # Delete Segment
 
-This endpoint allows you to delete a Segment with specified ID.
+Deletes a segment with the specified ID.
 
 You may specify component and/or price point by using either the numeric ID or the `handle:gold` syntax.
 
@@ -216,6 +234,10 @@ Void deleteSegment(
     final double id)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -225,6 +247,8 @@ Void deleteSegment(
 | `id` | `double` | Template, Required | The ID of the Segment |
 
 ## Response Type
+
+**204**: No Content
 
 `void`
 
@@ -252,7 +276,7 @@ try {
 
 # Bulk Create Segments
 
-This endpoint allows you to create multiple segments in one request. The array of segments can contain up to `2000` records.
+Creates multiple segments in one request. The array of segments can contain up to `2000` records.
 
 If any of the records contain an error the whole request would fail and none of the requested segments get created. The error response contains a message for only the one segment that failed validation, with the corresponding index in the array.
 
@@ -265,6 +289,10 @@ ListSegmentsResponse bulkCreateSegments(
     final BulkCreateSegments body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -274,6 +302,8 @@ ListSegmentsResponse bulkCreateSegments(
 | `body` | [`BulkCreateSegments`](../../doc/models/bulk-create-segments.md) | Body, Optional | - |
 
 ## Response Type
+
+**201**: Created
 
 [`ListSegmentsResponse`](../../doc/models/list-segments-response.md)
 
@@ -302,7 +332,7 @@ try {
 
 # Bulk Update Segments
 
-This endpoint allows you to update multiple segments in one request. The array of segments can contain up to `1000` records.
+Updates multiple segments in one request. The array of segments can contain up to `1000` records.
 
 If any of the records contain an error the whole request would fail and none of the requested segments get updated. The error response contains a message for only the one segment that failed validation, with the corresponding index in the array.
 
@@ -315,6 +345,10 @@ ListSegmentsResponse bulkUpdateSegments(
     final BulkUpdateSegments body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -324,6 +358,8 @@ ListSegmentsResponse bulkUpdateSegments(
 | `body` | [`BulkUpdateSegments`](../../doc/models/bulk-update-segments.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`ListSegmentsResponse`](../../doc/models/list-segments-response.md)
 

@@ -44,17 +44,16 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * ## Coupons Documentation Coupons can be administered in the Advanced Billing application or
-     * created via API. View our section on [creating
+     * Creates a coupon under the specified product family. You can create either a flat amount
+     * coupon by specifying amount_in_cents, or a percentage coupon by specifying percentage You can
+     * restrict a coupon to only apply to specific products / components by optionally passing in
+     * `restricted_products` and/or `restricted_components` objects in the format: `{
+     * "&lt;product_id/component_id&gt;": boolean_value }` Coupons can be administered in the Advanced
+     * Billing application or created via API. See [creating
      * coupons](https://maxio.zendesk.com/hc/en-us/articles/24261212433165-Creating-Editing-Deleting-Coupons)
-     * for more information. Additionally, for documentation on how to apply a coupon to a
-     * subscription within the Advanced Billing UI, see our documentation
-     * [here](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions).
-     * ## Create Coupon This request will create a coupon, based on the provided information. You
-     * can create either a flat amount coupon, by specyfing `amount_in_cents`, or percentage coupon
-     * by specyfing `percentage`. You can restrict a coupon to only apply to specific products /
-     * components by optionally passing in `restricted_products` and/or `restricted_components`
-     * objects in the format: `{ "&lt;product_id/component_id&gt;": boolean_value }`.
+     * for more information. See [Apply Coupons to
+     * Subscriptions](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions)
+     * for information on applying a coupon to a subscription in the Advanced Billing UI.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  body  Optional parameter:
@@ -102,7 +101,7 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * List coupons for a specific Product Family in a Site.
+     * Lists coupons for a specific product family in a site.
      * @param  input  ListCouponsForProductFamilyInput object containing request parameters
      * @return    Returns the List of CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -148,11 +147,11 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * You can search for a coupon via the API with the find method. By passing a code parameter,
-     * the find will attempt to locate a coupon that matches that code. If no coupon is found, a 404
-     * is returned. If you have more than one product family and if the coupon you are trying to
-     * find does not belong to the default product family in your site, then you will need to
-     * specify (either in the url or as a query string param) the product family id.
+     * Searches for a coupon by code, returning a 404 if no coupon is found. By passing a code
+     * parameter, the find will attempt to locate a coupon that matches that code. If you have more
+     * than one product family and if the coupon you are trying to find does not belong to the
+     * default product family in your site, then you will need to specify (either in the url or as a
+     * query string param) the product family id.
      * @param  productFamilyId  Optional parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  code  Optional parameter: The code of the coupon
@@ -203,10 +202,10 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * You can retrieve the Coupon via the API with the Show method. You must identify the Coupon in
-     * this call by the ID parameter that Advanced Billing assigns. If instead you would like to
-     * find a Coupon using a Coupon code, see the Coupon Find method. When fetching a coupon, if you
-     * have defined multiple currencies at the site level, you can optionally pass the
+     * Returns a coupon by its Advanced Billing-assigned ID. You must identify the Coupon in this
+     * call by the ID parameter that Advanced Billing assigns. If instead you would like to find a
+     * Coupon using a Coupon code, see the Coupon Find method. When fetching a coupon, if you have
+     * defined multiple currencies at the site level, you can optionally pass the
      * `?currency_prices=true` query param to include an array of currency price data in the
      * response. If the coupon is set to `use_site_exchange_rate: true`, it will return pricing
      * based on the current exchange rate. If the flag is set to false, it will return all of the
@@ -261,10 +260,9 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * ## Update Coupon You can update a Coupon via the API with a PUT request to the resource
-     * endpoint. You can restrict a coupon to only apply to specific products / components by
-     * optionally passing in hashes of `restricted_products` and/or `restricted_components` in the
-     * format: `{ "&lt;product/component_id&gt;": boolean_value }`.
+     * Updates a coupon. You can restrict a coupon to only apply to specific products / components
+     * by optionally passing in hashes of `restricted_products` and/or `restricted_components` in
+     * the format: `{ "&lt;product/component_id&gt;": boolean_value }`.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
@@ -317,9 +315,10 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * You can archive a Coupon via the API with the archive method. Archiving makes that Coupon
-     * unavailable for future use, but allows it to remain attached and functional on existing
-     * Subscriptions that are using it. The `archived_at` date and time will be assigned.
+     * Archives a coupon, making it unavailable for future use while remaining active on existing
+     * subscriptions. Archiving makes that Coupon unavailable for future use, but allows it to
+     * remain attached and functional on existing Subscriptions that are using it. The `archived_at`
+     * date and time will be assigned.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
@@ -362,7 +361,7 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * You can retrieve a list of coupons.
+     * Lists coupons for a site.
      * @param  input  ListCouponsInput object containing request parameters
      * @return    Returns the List of CouponResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -406,8 +405,7 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * This request will provide details about the coupon usage as an array of data hashes, one per
-     * product.
+     * Lists coupon usage details, one entry per product.
      * @param  productFamilyId  Required parameter: The Advanced Billing id of the product family to
      *         which the coupon belongs.
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon.
@@ -451,16 +449,16 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * You can verify if a specific coupon code is valid using the `validate` method. This method is
-     * useful for validating coupon codes that are entered by a customer. If the coupon is found and
-     * is valid, the coupon will be returned with a 200 status code. If the coupon is invalid, the
-     * status code will be 404 and the response will say why it is invalid. If the coupon is valid,
-     * the status code will be 200 and the coupon will be returned. The following reasons for
-     * invalidity are supported: + Coupon not found + Coupon is invalid + Coupon expired If you have
-     * more than one product family and if the coupon you are validating does not belong to the
-     * first product family in your site, then you will need to specify the product family, either
-     * in the url or as a query string param. This can be done by supplying the id or the handle in
-     * the `handle:my-family` format. Eg. ```
+     * Verifies whether a specific coupon code is valid. This method is useful for validating coupon
+     * codes that are entered by a customer. If the coupon is found and is valid, the coupon will be
+     * returned with a 200 status code. If the coupon is invalid, the status code will be 404 and
+     * the response will say why it is invalid. If the coupon is valid, the status code will be 200
+     * and the coupon will be returned. The following reasons for invalidity are supported: + Coupon
+     * not found + Coupon is invalid + Coupon expired If you have more than one product family and
+     * if the coupon you are validating does not belong to the first product family in your site,
+     * then you will need to specify the product family, either in the url or as a query string
+     * param. This can be done by supplying the id or the handle in the `handle:my-family` format.
+     * Eg. ```
      * https://&lt;subdomain&gt;.chargify.com/product_families/handle:&lt;product_family_handle&gt;/coupons/validate.&lt;format&gt;?code=&lt;coupon_code&gt;
      * ``` Or: ```
      * https://&lt;subdomain&gt;.chargify.com/coupons/validate.&lt;format&gt;?code=&lt;coupon_code&gt;&amp;product_family_id=&lt;id&gt;
@@ -510,12 +508,11 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * This endpoint allows you to create and/or update currency prices for an existing coupon.
-     * Multiple prices can be created or updated in a single request but each of the currencies must
-     * be defined on the site level already and the coupon must be an amount-based coupon, not
-     * percentage. Currency pricing for coupons must mirror the setup of the primary coupon pricing
-     * - if the primary coupon is percentage based, you will not be able to define pricing in
-     * non-primary currencies.
+     * Creates and/or updates currency prices for an existing coupon. Multiple prices can be created
+     * or updated in a single request but each of the currencies must be defined on the site level
+     * already and the coupon must be an amount-based coupon, not percentage. Currency pricing for
+     * coupons must mirror the setup of the primary coupon pricing - if the primary coupon is
+     * percentage based, you will not be able to define pricing in non-primary currencies.
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @param  body  Optional parameter:
      * @return    Returns the CouponCurrencyResponse response from the API call
@@ -562,14 +559,15 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * ## Coupon Subcodes Intro Coupon Subcodes allow you to create a set of unique codes that allow
-     * you to expand the use of one coupon. For example: Master Coupon Code: + SPRING2020 Coupon
-     * Subcodes: + SPRING90210 + DP80302 + SPRINGBALTIMORE Coupon subcodes can be administered in
-     * the Admin Interface or via the API. When creating a coupon subcode, you must specify a coupon
-     * to attach it to using the coupon_id. Valid coupon subcodes are all capital letters, contain
-     * only letters and numbers, and do not have any spaces. Lowercase letters will be capitalized
-     * before the subcode is created. ## Coupon Subcodes Documentation Full documentation on how to
-     * create coupon subcodes in the Advanced Billing UI can be located
+     * Creates subcodes for an existing coupon. ## Coupon Subcodes Intro Coupon Subcodes allow you
+     * to create a set of unique codes that allow you to expand the use of one coupon. For example:
+     * Master Coupon Code: + SPRING2020 Coupon Subcodes: + SPRING90210 + DP80302 + SPRINGBALTIMORE
+     * Coupon subcodes can be administered in the Admin Interface or via the API. When creating a
+     * coupon subcode, you must specify a coupon to attach it to using the coupon_id. Valid coupon
+     * subcodes are all capital letters, contain only letters and numbers, and do not have any
+     * spaces. Lowercase letters will be capitalized before the subcode is created. ## Coupon
+     * Subcodes Documentation Full documentation on how to create coupon subcodes in the Advanced
+     * Billing UI can be located
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24261208729229-Coupon-Codes).
      * Additionally, for documentation on how to apply a coupon to a Subscription within the
      * Advanced Billing UI, see our documentation
@@ -623,7 +621,7 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * This request allows you to request the subcodes that are attached to a coupon.
+     * Lists the subcodes attached to a coupon.
      * @param  input  ListCouponSubcodesInput object containing request parameters
      * @return    Returns the CouponSubcodes response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -664,11 +662,11 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * You can update the subcodes for the given Coupon via the API with a PUT request to the
-     * resource endpoint. Send an array of new coupon subcodes. **Note**: All current subcodes for
-     * that Coupon will be deleted first, and replaced with the list of subcodes sent to this
-     * endpoint. The response will contain: + The created subcodes, + Subcodes that were not created
-     * because they already exist, + Any subcodes not created because they are invalid.
+     * Updates the subcodes for a coupon, replacing all existing subcodes with the new list. Send an
+     * array of new coupon subcodes. **Note**: All current subcodes for that Coupon will be deleted
+     * first, and replaced with the list of subcodes sent to this endpoint. The response will
+     * contain: + The created subcodes, + Subcodes that were not created because they already exist,
+     * + Any subcodes not created because they are invalid.
      * @param  couponId  Required parameter: The Advanced Billing id of the coupon
      * @param  body  Optional parameter:
      * @return    Returns the CouponSubcodesResponse response from the API call
@@ -712,8 +710,8 @@ public final class CouponsController extends BaseController {
     }
 
     /**
-     * ## Example Given a coupon with an ID of 567, and a coupon subcode of 20OFF, the URL to
-     * `DELETE` this coupon subcode would be: ```
+     * Deletes a specific subcode from a coupon. ## Example Given a coupon with an ID of 567, and a
+     * coupon subcode of 20OFF, the URL to `DELETE` this coupon subcode would be: ```
      * http://subdomain.chargify.com/coupons/567/codes/20OFF.&lt;format&gt; ``` Note: If you are using any
      * of the allowed special characters (“%”, “{@literal @}”, “+”, “-”, “_”, and “.”), you must encode them
      * for use in the URL. | Special character | Encoding | |-------------------|----------| | % |

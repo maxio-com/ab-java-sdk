@@ -35,13 +35,12 @@ public final class SalesCommissionsController extends BaseController {
     }
 
     /**
-     * Endpoint returns subscriptions with associated sales reps ## Modified Authentication Process
-     * The Sales Commission API differs from other Chargify API endpoints. This resource is
-     * associated with the seller itself. Up to now all available resources were at the level of the
-     * site, therefore creating the API Key per site was a sufficient solution. To share resources
-     * at the seller level, a new authentication method was introduced, which is user
-     * authentication. Creating an API Key for a user is a required step to correctly use the Sales
-     * Commission API, more details
+     * Lists subscriptions with associated sales reps. ## Modified Authentication Process The Sales
+     * Commission API differs from other Chargify API endpoints. This resource is associated with
+     * the seller itself. Up to now all available resources were at the level of the site, therefore
+     * creating the API Key per site was a sufficient solution. To share resources at the seller
+     * level, a new authentication method was introduced, which is user authentication. Creating an
+     * API Key for a user is a required step to correctly use the Sales Commission API, more details
      * [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
      * Access to the Sales Commission API endpoints is available to users with financial access,
      * where the seller has the Advanced Analytics component enabled. For further information on
@@ -92,7 +91,7 @@ public final class SalesCommissionsController extends BaseController {
     }
 
     /**
-     * Endpoint returns sales rep list with details ## Modified Authentication Process The Sales
+     * Returns a sales rep list with details. ## Modified Authentication Process The Sales
      * Commission API differs from other Chargify API endpoints. This resource is associated with
      * the seller itself. Up to now all available resources were at the level of the site, therefore
      * creating the API Key per site was a sufficient solution. To share resources at the seller
@@ -148,13 +147,13 @@ public final class SalesCommissionsController extends BaseController {
     }
 
     /**
-     * Endpoint returns sales rep and attached subscriptions details. ## Modified Authentication
-     * Process The Sales Commission API differs from other Chargify API endpoints. This resource is
-     * associated with the seller itself. Up to now all available resources were at the level of the
-     * site, therefore creating the API Key per site was a sufficient solution. To share resources
-     * at the seller level, a new authentication method was introduced, which is user
-     * authentication. Creating an API Key for a user is a required step to correctly use the Sales
-     * Commission API, more details
+     * Returns a sales rep and attached subscription details. ## Modified Authentication Process The
+     * Sales Commission API differs from other Chargify API endpoints. This resource is associated
+     * with the seller itself. Up to now all available resources were at the level of the site,
+     * therefore creating the API Key per site was a sufficient solution. To share resources at the
+     * seller level, a new authentication method was introduced, which is user authentication.
+     * Creating an API Key for a user is a required step to correctly use the Sales Commission API,
+     * more details
      * [here](https://developers.chargify.com/docs/developer-docs/ZG9jOjMyNzk5NTg0-2020-04-20-new-api-authentication).
      * Access to the Sales Commission API endpoints is available to users with financial access,
      * where the seller has the Advanced Analytics component enabled. For further information on

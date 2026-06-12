@@ -12,3 +12,27 @@
 | `String` | CreateAllocationPricePointId.fromString(String string) |
 | `int` | CreateAllocationPricePointId.fromNumber(int number) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateAllocationPricePointId.fromString(
+        "String0"
+    )
+```
+
+## int
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateAllocationPricePointId.fromNumber(
+        0
+    )
+```
+

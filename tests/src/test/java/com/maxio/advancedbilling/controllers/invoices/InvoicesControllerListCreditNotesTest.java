@@ -195,6 +195,7 @@ class InvoicesControllerListCreditNotesTest {
                                 .pricePointId(null)
                                 .billingScheduleItemId(null)
                                 .customItem(false)
+                                .taxIncluded(false)
                                 .build(),
                         new CreditNoteLineItem.Builder()
                                 .title(quantityBasedComponent.getName())
@@ -214,6 +215,7 @@ class InvoicesControllerListCreditNotesTest {
                                 .pricePointId(quantityBasedComponent.getDefaultPricePointId())
                                 .billingScheduleItemId(null)
                                 .customItem(false)
+                                .taxIncluded(false)
                                 .build()
                 );
     }

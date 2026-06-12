@@ -12,3 +12,27 @@
 | `String` | CreateOrUpdateSegmentPriceUnitPrice.fromString(String string) |
 | `double` | CreateOrUpdateSegmentPriceUnitPrice.fromPrecision(double precision) |
 
+## String
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateOrUpdateSegmentPriceUnitPrice.fromString(
+        "String0"
+    )
+```
+
+## double
+
+### Initialization Code
+
+#### Example
+
+```java
+CreateOrUpdateSegmentPriceUnitPrice.fromPrecision(
+        0D
+    )
+```
+

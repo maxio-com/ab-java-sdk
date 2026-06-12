@@ -83,6 +83,8 @@ public enum EventKey {
 
     INVOICE_ISSUED,
 
+    INVOICE_PENDING,
+
     PREPAID_SUBSCRIPTION_BALANCE_CHANGED,
 
     SUBSCRIPTION_GROUP_SIGNUP_SUCCESS,
@@ -169,6 +171,10 @@ public enum EventKey {
 
     COMPONENT_BILLING_DATE_CHANGED,
 
+    CHJS_TOKENIZATION_FAILURE,
+
+    CHJS_TOKENIZATION_SUCCESS,
+
     SUBSCRIPTION_TERM_RENEWAL_SCHEDULED,
 
     SUBSCRIPTION_TERM_RENEWAL_PENDING,
@@ -215,6 +221,7 @@ public enum EventKey {
         TRIAL_END_NOTICE.value = "trial_end_notice";
         DUNNING_STEP_REACHED.value = "dunning_step_reached";
         INVOICE_ISSUED.value = "invoice_issued";
+        INVOICE_PENDING.value = "invoice_pending";
         PREPAID_SUBSCRIPTION_BALANCE_CHANGED.value = "prepaid_subscription_balance_changed";
         SUBSCRIPTION_GROUP_SIGNUP_SUCCESS.value = "subscription_group_signup_success";
         SUBSCRIPTION_GROUP_SIGNUP_FAILURE.value = "subscription_group_signup_failure";
@@ -258,6 +265,8 @@ public enum EventKey {
         CHARGEBACK_WON.value = "chargeback_won";
         PAYMENT_COLLECTION_METHOD_CHANGED.value = "payment_collection_method_changed";
         COMPONENT_BILLING_DATE_CHANGED.value = "component_billing_date_changed";
+        CHJS_TOKENIZATION_FAILURE.value = "chjs_tokenization_failure";
+        CHJS_TOKENIZATION_SUCCESS.value = "chjs_tokenization_success";
         SUBSCRIPTION_TERM_RENEWAL_SCHEDULED.value = "subscription_term_renewal_scheduled";
         SUBSCRIPTION_TERM_RENEWAL_PENDING.value = "subscription_term_renewal_pending";
         SUBSCRIPTION_TERM_RENEWAL_ACTIVATED.value = "subscription_term_renewal_activated";
@@ -296,6 +305,7 @@ public enum EventKey {
         valueMap.put("trial_end_notice", TRIAL_END_NOTICE);
         valueMap.put("dunning_step_reached", DUNNING_STEP_REACHED);
         valueMap.put("invoice_issued", INVOICE_ISSUED);
+        valueMap.put("invoice_pending", INVOICE_PENDING);
         valueMap.put("prepaid_subscription_balance_changed", PREPAID_SUBSCRIPTION_BALANCE_CHANGED);
         valueMap.put("subscription_group_signup_success", SUBSCRIPTION_GROUP_SIGNUP_SUCCESS);
         valueMap.put("subscription_group_signup_failure", SUBSCRIPTION_GROUP_SIGNUP_FAILURE);
@@ -339,6 +349,8 @@ public enum EventKey {
         valueMap.put("chargeback_won", CHARGEBACK_WON);
         valueMap.put("payment_collection_method_changed", PAYMENT_COLLECTION_METHOD_CHANGED);
         valueMap.put("component_billing_date_changed", COMPONENT_BILLING_DATE_CHANGED);
+        valueMap.put("chjs_tokenization_failure", CHJS_TOKENIZATION_FAILURE);
+        valueMap.put("chjs_tokenization_success", CHJS_TOKENIZATION_SUCCESS);
         valueMap.put("subscription_term_renewal_scheduled", SUBSCRIPTION_TERM_RENEWAL_SCHEDULED);
         valueMap.put("subscription_term_renewal_pending", SUBSCRIPTION_TERM_RENEWAL_PENDING);
         valueMap.put("subscription_term_renewal_activated", SUBSCRIPTION_TERM_RENEWAL_ACTIVATED);

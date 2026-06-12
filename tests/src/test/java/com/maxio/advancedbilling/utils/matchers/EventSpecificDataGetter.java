@@ -1,5 +1,7 @@
 package com.maxio.advancedbilling.utils.matchers;
 
+import com.maxio.advancedbilling.models.ChjsTokenizationFailure;
+import com.maxio.advancedbilling.models.ChjsTokenizationSuccess;
 import com.maxio.advancedbilling.models.ComponentAllocationChange;
 import com.maxio.advancedbilling.models.CreditAccountBalanceChanged;
 import com.maxio.advancedbilling.models.CustomFieldValueChange;
@@ -110,5 +112,15 @@ public class EventSpecificDataGetter<R> implements EventEventSpecificData.Cases<
     @Override
     public R customFieldValueChange(CustomFieldValueChange customFieldValueChange) {
         return (R) customFieldValueChange;
+    }
+
+    @Override
+    public R chjsTokenizationSuccess(ChjsTokenizationSuccess chjsTokenizationSuccess) {
+        return (R) chjsTokenizationSuccess;
+    }
+
+    @Override
+    public R chjsTokenizationFailure(ChjsTokenizationFailure chjsTokenizationFailure) {
+        return (R) chjsTokenizationFailure;
     }
 }

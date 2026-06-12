@@ -44,6 +44,10 @@ List<Metafield> createMetafields(
     final CreateMetafieldsRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -52,6 +56,8 @@ List<Metafield> createMetafields(
 | `body` | [`CreateMetafieldsRequest`](../../doc/models/create-metafields-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Metafield>`](../../doc/models/metafield.md)
 
@@ -136,6 +142,10 @@ ListMetafieldsResponse listMetafields(
     final ListMetafieldsInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -143,6 +153,8 @@ ListMetafieldsResponse listMetafields(
 | `input` | [`ListMetafieldsInput`](../../doc/models/list-metafields-input.md) | Required | Input structure for the method ListMetafields |
 
 ## Response Type
+
+**200**: OK
 
 [`ListMetafieldsResponse`](../../doc/models/list-metafields-response.md)
 
@@ -215,7 +227,7 @@ With this endpoint, you can:
 
 - Add new metadata to a dropdown or radio for a metafield that was created without metadata.
 
-- Remove  metadata for a dropdown or radio for a metafield.
+- Remove metadata for a dropdown or radio for a metafield.
   
   > Note: Updates to metadata overwrite existing values. To remove one or more values, specify all metadata values except those you want to remove.
 
@@ -229,6 +241,10 @@ List<Metafield> updateMetafield(
     final UpdateMetafieldsRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -237,6 +253,8 @@ List<Metafield> updateMetafield(
 | `body` | [`UpdateMetafieldsRequest`](../../doc/models/update-metafields-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Metafield>`](../../doc/models/metafield.md)
 
@@ -271,6 +289,10 @@ Void deleteMetafield(
     final String name)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -279,6 +301,8 @@ Void deleteMetafield(
 | `name` | `String` | Query, Optional | The name of the metafield to be deleted |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -316,6 +340,10 @@ List<Metadata> createMetadata(
     final CreateMetadataRequest body)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -325,6 +353,8 @@ List<Metadata> createMetadata(
 | `body` | [`CreateMetadataRequest`](../../doc/models/create-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Metadata>`](../../doc/models/metadata.md)
 
@@ -373,6 +403,10 @@ PaginatedMetadata listMetadata(
     final ListMetadataInput input)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -380,6 +414,8 @@ PaginatedMetadata listMetadata(
 | `input` | [`ListMetadataInput`](../../doc/models/list-metadata-input.md) | Required | Input structure for the method ListMetadata |
 
 ## Response Type
+
+**200**: OK
 
 [`PaginatedMetadata`](../../doc/models/paginated-metadata.md)
 
@@ -430,7 +466,7 @@ Updates metadata and metafields on the Site and the customer or subscription spe
 
 If you update metadata on a subscription or customer with a metafield that does not already exist, the metafield is created with the metadata you specify and it is always added as a text field to the Site and to the subscription or customer you specify. You can update the input_type for the metafield with the Update Metafield endpoint.
 
-Each site is limited to 100 unique metafields per resource. This means you can have 100 metafields for Subscription and another 100 for Customer.
+Each site is limited to 100 unique metafields per resource. This means you can have 100 metafields for the Subscription resource and another 100 for the Customer resource.
 
 ```java
 List<Metadata> updateMetadata(
@@ -438,6 +474,10 @@ List<Metadata> updateMetadata(
     final int resourceId,
     final UpdateMetadataRequest body)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -448,6 +488,8 @@ List<Metadata> updateMetadata(
 | `body` | [`UpdateMetadataRequest`](../../doc/models/update-metadata-request.md) | Body, Optional | - |
 
 ## Response Type
+
+**200**: OK
 
 [`List<Metadata>`](../../doc/models/metadata.md)
 
@@ -485,6 +527,10 @@ Void deleteMetadata(
     final List<String> names)
 ```
 
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
@@ -495,6 +541,8 @@ Void deleteMetadata(
 | `names` | `List<String>` | Query, Optional | Names of fields to be removed. Use in query: `names[]=field1&names[]=my-field&names[]=another-field`. |
 
 ## Response Type
+
+**200**: OK
 
 `void`
 
@@ -519,12 +567,16 @@ try {
 
 # List Metadata for Resource Type
 
-Lists  metadata for a specified array of subscriptions or customers.
+Lists metadata for a specified array of subscriptions or customers.
 
 ```java
 PaginatedMetadata listMetadataForResourceType(
     final ListMetadataForResourceTypeInput input)
 ```
+
+## Authentication
+
+This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 
 ## Parameters
 
@@ -533,6 +585,8 @@ PaginatedMetadata listMetadataForResourceType(
 | `input` | [`ListMetadataForResourceTypeInput`](../../doc/models/list-metadata-for-resource-type-input.md) | Required | Input structure for the method ListMetadataForResourceType |
 
 ## Response Type
+
+**200**: OK
 
 [`PaginatedMetadata`](../../doc/models/paginated-metadata.md)
 
