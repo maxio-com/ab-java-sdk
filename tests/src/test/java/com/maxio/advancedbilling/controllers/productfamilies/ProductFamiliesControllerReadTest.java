@@ -28,7 +28,7 @@ public class ProductFamiliesControllerReadTest {
         String name = "product families test read " + randomAlphabetic(10).toLowerCase();
 
         ProductFamily productFamily = productFamiliesController.createProductFamily(
-                new CreateProductFamilyRequest(new CreateProductFamily(name, handle, "description"))
+                new CreateProductFamilyRequest(new CreateProductFamily(name, handle, "description", null))
         ).getProductFamily();
 
         // when
@@ -50,7 +50,7 @@ public class ProductFamiliesControllerReadTest {
     void shouldThrowExceptionOnInvalidCredentials() throws IOException, ApiException {
         // given
         CreateProductFamilyRequest body = new CreateProductFamilyRequest(
-                new CreateProductFamily("test read product family", null, null));
+                new CreateProductFamily("test read product family", null, null, null));
         ProductFamily productFamily = productFamiliesController.createProductFamily(body).getProductFamily();
 
         // when - then
