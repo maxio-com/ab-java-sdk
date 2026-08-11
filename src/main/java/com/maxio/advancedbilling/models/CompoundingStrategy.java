@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CompoundingStrategy to be used.
  */
@@ -20,7 +19,6 @@ public enum CompoundingStrategy {
     COMPOUND,
 
     FULLPRICE;
-
 
     private static TreeMap<String, CompoundingStrategy> valueMap = new TreeMap<>();
     private String value;

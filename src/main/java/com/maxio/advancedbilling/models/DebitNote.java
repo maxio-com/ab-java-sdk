@@ -214,7 +214,7 @@ public class DebitNote
 
     /**
      * Getter for Number.
-     * A unique, identifier that appears on the debit note and in places it is referenced.
+     * A unique identifier that appears on the debit note and in places it is referenced.
      * @return Returns the Integer
      */
     @JsonGetter("number")
@@ -225,7 +225,7 @@ public class DebitNote
 
     /**
      * Setter for Number.
-     * A unique, identifier that appears on the debit note and in places it is referenced.
+     * A unique identifier that appears on the debit note and in places it is referenced.
      * @param number Value for Integer
      */
     @JsonSetter("number")
@@ -283,7 +283,7 @@ public class DebitNote
 
     /**
      * Getter for OriginCreditNoteNumber.
-     * A unique, identifying string of the connected credit note.
+     * A unique identifying string of the connected credit note.
      * @return Returns the String
      */
     @JsonGetter("origin_credit_note_number")
@@ -294,7 +294,7 @@ public class DebitNote
 
     /**
      * Setter for OriginCreditNoteNumber.
-     * A unique, identifying string of the connected credit note.
+     * A unique identifying string of the connected credit note.
      * @param originCreditNoteNumber Value for String
      */
     @JsonSetter("origin_credit_note_number")
@@ -486,7 +486,7 @@ public class DebitNote
 
     /**
      * Getter for Customer.
-     * Information about the customer who is owner or recipient the debited subscription.
+     * Information about the customer who is the owner or recipient of the debited subscription.
      * @return Returns the InvoiceCustomer
      */
     @JsonGetter("customer")
@@ -497,7 +497,7 @@ public class DebitNote
 
     /**
      * Setter for Customer.
-     * Information about the customer who is owner or recipient the debited subscription.
+     * Information about the customer who is the owner or recipient of the debited subscription.
      * @param customer Value for InvoiceCustomer
      */
     @JsonSetter("customer")

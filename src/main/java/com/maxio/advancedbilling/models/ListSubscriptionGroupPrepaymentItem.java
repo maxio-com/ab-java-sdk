@@ -16,9 +16,9 @@ import io.apimatic.core.types.BaseModel;
 import java.time.ZonedDateTime;
 
 /**
- * This is a model class for ListSubcriptionGroupPrepaymentItem type.
+ * This is a model class for ListSubscriptionGroupPrepaymentItem type.
  */
-public class ListSubcriptionGroupPrepaymentItem
+public class ListSubscriptionGroupPrepaymentItem
         extends BaseModel {
     private Integer id;
     private String subscriptionGroupUid;
@@ -33,7 +33,7 @@ public class ListSubcriptionGroupPrepaymentItem
     /**
      * Default constructor.
      */
-    public ListSubcriptionGroupPrepaymentItem() {
+    public ListSubscriptionGroupPrepaymentItem() {
     }
 
     /**
@@ -48,7 +48,7 @@ public class ListSubcriptionGroupPrepaymentItem
      * @param  paymentType  PrepaymentMethod value for paymentType.
      * @param  createdAt  ZonedDateTime value for createdAt.
      */
-    public ListSubcriptionGroupPrepaymentItem(
+    public ListSubscriptionGroupPrepaymentItem(
             Integer id,
             String subscriptionGroupUid,
             Long amountInCents,
@@ -243,12 +243,12 @@ public class ListSubcriptionGroupPrepaymentItem
     }
 
     /**
-     * Converts this ListSubcriptionGroupPrepaymentItem into string format.
+     * Converts this ListSubscriptionGroupPrepaymentItem into string format.
      * @return String representation of this class
      */
     @Override
     public String toString() {
-        return "ListSubcriptionGroupPrepaymentItem [" + "id=" + id + ", subscriptionGroupUid="
+        return "ListSubscriptionGroupPrepaymentItem [" + "id=" + id + ", subscriptionGroupUid="
                 + subscriptionGroupUid + ", amountInCents=" + amountInCents
                 + ", remainingAmountInCents=" + remainingAmountInCents + ", details=" + details
                 + ", external=" + external + ", memo=" + memo + ", paymentType=" + paymentType
@@ -257,9 +257,9 @@ public class ListSubcriptionGroupPrepaymentItem
     }
 
     /**
-     * Builds a new {@link ListSubcriptionGroupPrepaymentItem.Builder} object.
+     * Builds a new {@link ListSubscriptionGroupPrepaymentItem.Builder} object.
      * Creates the instance with the state of the current model.
-     * @return a new {@link ListSubcriptionGroupPrepaymentItem.Builder} object
+     * @return a new {@link ListSubscriptionGroupPrepaymentItem.Builder} object
      */
     public Builder toBuilder() {
         Builder builder = new Builder()
@@ -276,7 +276,7 @@ public class ListSubcriptionGroupPrepaymentItem
     }
 
     /**
-     * Class to build instances of {@link ListSubcriptionGroupPrepaymentItem}.
+     * Class to build instances of {@link ListSubscriptionGroupPrepaymentItem}.
      */
     public static class Builder {
         private Integer id;
@@ -382,11 +382,11 @@ public class ListSubcriptionGroupPrepaymentItem
         }
 
         /**
-         * Builds a new {@link ListSubcriptionGroupPrepaymentItem} object using the set fields.
-         * @return {@link ListSubcriptionGroupPrepaymentItem}
+         * Builds a new {@link ListSubscriptionGroupPrepaymentItem} object using the set fields.
+         * @return {@link ListSubscriptionGroupPrepaymentItem}
          */
-        public ListSubcriptionGroupPrepaymentItem build() {
-            return new ListSubcriptionGroupPrepaymentItem(id, subscriptionGroupUid, amountInCents,
+        public ListSubscriptionGroupPrepaymentItem build() {
+            return new ListSubscriptionGroupPrepaymentItem(id, subscriptionGroupUid, amountInCents,
                     remainingAmountInCents, details, external, memo, paymentType, createdAt);
         }
     }

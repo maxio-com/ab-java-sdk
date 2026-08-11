@@ -14,3 +14,11 @@ Used for sorting results.
 | `ASC` |
 | `DESC` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.SortingDirection;
+
+SortingDirection sortingDirection = SortingDirection.ASC;
+```
+

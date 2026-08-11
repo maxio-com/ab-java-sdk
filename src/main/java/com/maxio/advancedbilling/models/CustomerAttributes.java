@@ -34,6 +34,7 @@ public class CustomerAttributes
     private String phone;
     private Boolean verified;
     private Boolean taxExempt;
+    private Boolean surcharging;
     private String vatNumber;
     private Map<String, String> metafields;
     private OptionalNullable<Integer> parentId;
@@ -63,6 +64,7 @@ public class CustomerAttributes
      * @param  phone  String value for phone.
      * @param  verified  Boolean value for verified.
      * @param  taxExempt  Boolean value for taxExempt.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  vatNumber  String value for vatNumber.
      * @param  metafields  Map of String, value for metafields.
      * @param  parentId  Integer value for parentId.
@@ -85,6 +87,7 @@ public class CustomerAttributes
             String phone,
             Boolean verified,
             Boolean taxExempt,
+            Boolean surcharging,
             String vatNumber,
             Map<String, String> metafields,
             Integer parentId,
@@ -105,6 +108,7 @@ public class CustomerAttributes
         this.phone = phone;
         this.verified = verified;
         this.taxExempt = taxExempt;
+        this.surcharging = surcharging;
         this.vatNumber = vatNumber;
         this.metafields = metafields;
         this.parentId = OptionalNullable.of(parentId);
@@ -129,6 +133,7 @@ public class CustomerAttributes
      * @param  phone  String value for phone.
      * @param  verified  Boolean value for verified.
      * @param  taxExempt  Boolean value for taxExempt.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  vatNumber  String value for vatNumber.
      * @param  metafields  Map of String, value for metafields.
      * @param  parentId  Integer value for parentId.
@@ -139,8 +144,8 @@ public class CustomerAttributes
     protected CustomerAttributes(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address,
             OptionalNullable<String> address2, String city, String state, String zip,
-            String country, String phone, Boolean verified, Boolean taxExempt, String vatNumber,
-            Map<String, String> metafields, OptionalNullable<Integer> parentId,
+            String country, String phone, Boolean verified, Boolean taxExempt, Boolean surcharging,
+            String vatNumber, Map<String, String> metafields, OptionalNullable<Integer> parentId,
             OptionalNullable<String> salesforceId,
             OptionalNullable<Integer> defaultAutoRenewalProfileId) {
         this.firstName = firstName;
@@ -158,6 +163,7 @@ public class CustomerAttributes
         this.phone = phone;
         this.verified = verified;
         this.taxExempt = taxExempt;
+        this.surcharging = surcharging;
         this.vatNumber = vatNumber;
         this.metafields = metafields;
         this.parentId = parentId;
@@ -230,7 +236,7 @@ public class CustomerAttributes
 
     /**
      * Getter for CcEmails.
-     * A list of emails that should be cc’d on all customer communications. Optional.
+     * (Optional) A list of emails that should be cc’d on all customer communications.
      * @return Returns the String
      */
     @JsonGetter("cc_emails")
@@ -241,7 +247,7 @@ public class CustomerAttributes
 
     /**
      * Setter for CcEmails.
-     * A list of emails that should be cc’d on all customer communications. Optional.
+     * (Optional) A list of emails that should be cc’d on all customer communications.
      * @param ccEmails Value for String
      */
     @JsonSetter("cc_emails")
@@ -251,7 +257,7 @@ public class CustomerAttributes
 
     /**
      * Getter for Organization.
-     * The organization/company of the customer. Optional.
+     * (Optional) The organization/company of the customer.
      * @return Returns the String
      */
     @JsonGetter("organization")
@@ -262,7 +268,7 @@ public class CustomerAttributes
 
     /**
      * Setter for Organization.
-     * The organization/company of the customer. Optional.
+     * (Optional) The organization/company of the customer.
      * @param organization Value for String
      */
     @JsonSetter("organization")
@@ -272,9 +278,9 @@ public class CustomerAttributes
 
     /**
      * Getter for Reference.
-     * A customer “reference”, or unique identifier from your app, stored in Chargify. Can be used
-     * so that you may reference your customer’s within Chargify using the same unique value you use
-     * in your application. Optional.
+     * (Optional) A customer “reference”, or unique identifier from your app, stored in Chargify.
+     * Can be used so that you may reference your customer’s within Chargify using the same unique
+     * value you use in your application.
      * @return Returns the String
      */
     @JsonGetter("reference")
@@ -285,9 +291,9 @@ public class CustomerAttributes
 
     /**
      * Setter for Reference.
-     * A customer “reference”, or unique identifier from your app, stored in Chargify. Can be used
-     * so that you may reference your customer’s within Chargify using the same unique value you use
-     * in your application. Optional.
+     * (Optional) A customer “reference”, or unique identifier from your app, stored in Chargify.
+     * Can be used so that you may reference your customer’s within Chargify using the same unique
+     * value you use in your application.
      * @param reference Value for String
      */
     @JsonSetter("reference")
@@ -297,7 +303,7 @@ public class CustomerAttributes
 
     /**
      * Getter for Address.
-     * (Optional) The customer’s shipping street address (i.e. “123 Main St.”).
+     * (Optional) The customer’s shipping street address (e.g., “123 Main St.”).
      * @return Returns the String
      */
     @JsonGetter("address")
@@ -308,7 +314,7 @@ public class CustomerAttributes
 
     /**
      * Setter for Address.
-     * (Optional) The customer’s shipping street address (i.e. “123 Main St.”).
+     * (Optional) The customer’s shipping street address (e.g., “123 Main St.”).
      * @param address Value for String
      */
     @JsonSetter("address")
@@ -318,7 +324,7 @@ public class CustomerAttributes
 
     /**
      * Internal Getter for Address2.
-     * (Optional) Second line of the customer’s shipping address i.e. “Apt. 100”
+     * (Optional) Second line of the customer’s shipping address e.g., “Apt. 100”
      * @return Returns the Internal String
      */
     @JsonGetter("address_2")
@@ -330,7 +336,7 @@ public class CustomerAttributes
 
     /**
      * Getter for Address2.
-     * (Optional) Second line of the customer’s shipping address i.e. “Apt. 100”
+     * (Optional) Second line of the customer’s shipping address e.g., “Apt. 100”
      * @return Returns the String
      */
     public String getAddress2() {
@@ -339,7 +345,7 @@ public class CustomerAttributes
 
     /**
      * Setter for Address2.
-     * (Optional) Second line of the customer’s shipping address i.e. “Apt. 100”
+     * (Optional) Second line of the customer’s shipping address e.g., “Apt. 100”
      * @param address2 Value for String
      */
     @JsonSetter("address_2")
@@ -349,7 +355,7 @@ public class CustomerAttributes
 
     /**
      * UnSetter for Address2.
-     * (Optional) Second line of the customer’s shipping address i.e. “Apt. 100”
+     * (Optional) Second line of the customer’s shipping address e.g., “Apt. 100”
      */
     public void unsetAddress2() {
         address2 = null;
@@ -357,7 +363,7 @@ public class CustomerAttributes
 
     /**
      * Getter for City.
-     * (Optional) The customer’s shipping address city (i.e. “Boston”).
+     * (Optional) The customer’s shipping address city (e.g., “Boston”).
      * @return Returns the String
      */
     @JsonGetter("city")
@@ -368,7 +374,7 @@ public class CustomerAttributes
 
     /**
      * Setter for City.
-     * (Optional) The customer’s shipping address city (i.e. “Boston”).
+     * (Optional) The customer’s shipping address city (e.g., “Boston”).
      * @param city Value for String
      */
     @JsonSetter("city")
@@ -378,9 +384,9 @@ public class CustomerAttributes
 
     /**
      * Getter for State.
-     * (Optional) The customer’s shipping address state (i.e. “MA”). This must conform to the
+     * “(Optional) The customer’s shipping address state (e.g., “MA”). This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
-     * tax locale purposes.
+     * tax locale purposes.”
      * @return Returns the String
      */
     @JsonGetter("state")
@@ -391,9 +397,9 @@ public class CustomerAttributes
 
     /**
      * Setter for State.
-     * (Optional) The customer’s shipping address state (i.e. “MA”). This must conform to the
+     * “(Optional) The customer’s shipping address state (e.g., “MA”). This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
-     * tax locale purposes.
+     * tax locale purposes.”
      * @param state Value for String
      */
     @JsonSetter("state")
@@ -403,7 +409,7 @@ public class CustomerAttributes
 
     /**
      * Getter for Zip.
-     * (Optional) The customer’s shipping address zip code (i.e. “12345”).
+     * (Optional) The customer’s shipping address zip code (e.g., “12345”).
      * @return Returns the String
      */
     @JsonGetter("zip")
@@ -414,7 +420,7 @@ public class CustomerAttributes
 
     /**
      * Setter for Zip.
-     * (Optional) The customer’s shipping address zip code (i.e. “12345”).
+     * (Optional) The customer’s shipping address zip code (e.g., “12345”).
      * @param zip Value for String
      */
     @JsonSetter("zip")
@@ -424,8 +430,8 @@ public class CustomerAttributes
 
     /**
      * Getter for Country.
-     * (Optional) The customer shipping address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”).
+     * “(Optional) The customer shipping address country, required in [ISO_3166-1
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”).”
      * @return Returns the String
      */
     @JsonGetter("country")
@@ -436,8 +442,8 @@ public class CustomerAttributes
 
     /**
      * Setter for Country.
-     * (Optional) The customer shipping address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”).
+     * “(Optional) The customer shipping address country, required in [ISO_3166-1
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”).”
      * @param country Value for String
      */
     @JsonSetter("country")
@@ -509,8 +515,31 @@ public class CustomerAttributes
     }
 
     /**
+     * Getter for Surcharging.
+     * (Optional) Whether surcharging is enabled for the customer. Defaults to `true` when omitted.
+     * Only applied on sites where surcharging control is enabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("surcharging")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSurcharging() {
+        return surcharging;
+    }
+
+    /**
+     * Setter for Surcharging.
+     * (Optional) Whether surcharging is enabled for the customer. Defaults to `true` when omitted.
+     * Only applied on sites where surcharging control is enabled.
+     * @param surcharging Value for Boolean
+     */
+    @JsonSetter("surcharging")
+    public void setSurcharging(Boolean surcharging) {
+        this.surcharging = surcharging;
+    }
+
+    /**
      * Getter for VatNumber.
-     * (Optional) Supplying the VAT number allows EU customer’s to opt-out of the Value Added Tax
+     * (Optional) Supplying the VAT number allows EU customers to opt-out of the Value Added Tax
      * assuming the merchant address and customer billing address are not within the same EU
      * country. It’s important to omit the country code from the VAT number upon entry. Otherwise,
      * taxes will be assessed upon the purchase.
@@ -524,7 +553,7 @@ public class CustomerAttributes
 
     /**
      * Setter for VatNumber.
-     * (Optional) Supplying the VAT number allows EU customer’s to opt-out of the Value Added Tax
+     * (Optional) Supplying the VAT number allows EU customers to opt-out of the Value Added Tax
      * assuming the merchant address and customer billing address are not within the same EU
      * country. It’s important to omit the country code from the VAT number upon entry. Otherwise,
      * taxes will be assessed upon the purchase.
@@ -686,10 +715,10 @@ public class CustomerAttributes
                 + ", reference=" + reference + ", address=" + address + ", address2=" + address2
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", verified=" + verified + ", taxExempt=" + taxExempt
-                + ", vatNumber=" + vatNumber + ", metafields=" + metafields + ", parentId="
-                + parentId + ", salesforceId=" + salesforceId + ", defaultAutoRenewalProfileId="
-                + defaultAutoRenewalProfileId + ", additionalProperties="
-                + getAdditionalProperties() + "]";
+                + ", surcharging=" + surcharging + ", vatNumber=" + vatNumber + ", metafields="
+                + metafields + ", parentId=" + parentId + ", salesforceId=" + salesforceId
+                + ", defaultAutoRenewalProfileId=" + defaultAutoRenewalProfileId
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -713,6 +742,7 @@ public class CustomerAttributes
                 .phone(getPhone())
                 .verified(getVerified())
                 .taxExempt(getTaxExempt())
+                .surcharging(getSurcharging())
                 .vatNumber(getVatNumber())
                 .metafields(getMetafields());
         builder.address2 = internalGetAddress2();
@@ -741,6 +771,7 @@ public class CustomerAttributes
         private String phone;
         private Boolean verified;
         private Boolean taxExempt;
+        private Boolean surcharging;
         private String vatNumber;
         private Map<String, String> metafields;
         private OptionalNullable<Integer> parentId;
@@ -909,6 +940,16 @@ public class CustomerAttributes
         }
 
         /**
+         * Setter for surcharging.
+         * @param  surcharging  Boolean value for surcharging.
+         * @return Builder
+         */
+        public Builder surcharging(Boolean surcharging) {
+            this.surcharging = surcharging;
+            return this;
+        }
+
+        /**
          * Setter for vatNumber.
          * @param  vatNumber  String value for vatNumber.
          * @return Builder
@@ -992,7 +1033,7 @@ public class CustomerAttributes
         public CustomerAttributes build() {
             return new CustomerAttributes(firstName, lastName, email, ccEmails, organization,
                     reference, address, address2, city, state, zip, country, phone, verified,
-                    taxExempt, vatNumber, metafields, parentId, salesforceId,
+                    taxExempt, surcharging, vatNumber, metafields, parentId, salesforceId,
                     defaultAutoRenewalProfileId);
         }
     }

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * Direction to be used.
  */
@@ -20,7 +19,6 @@ public enum Direction {
     ASC,
 
     DESC;
-
 
     private static TreeMap<String, Direction> valueMap = new TreeMap<>();
     private String value;

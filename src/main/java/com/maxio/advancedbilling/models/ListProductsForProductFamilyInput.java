@@ -308,7 +308,7 @@ public class ListProductsForProductFamilyInput {
 
     /**
      * Getter for IncludeArchived.
-     * Include archived products
+     * Include archived products.
      * @return Returns the Boolean
      */
     @JsonGetter("include_archived")
@@ -319,7 +319,7 @@ public class ListProductsForProductFamilyInput {
 
     /**
      * Setter for IncludeArchived.
-     * Include archived products
+     * Include archived products.
      * @param includeArchived Value for Boolean
      */
     @JsonSetter("include_archived")

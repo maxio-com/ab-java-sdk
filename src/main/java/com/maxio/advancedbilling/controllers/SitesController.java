@@ -113,7 +113,7 @@ public final class SitesController extends BaseController {
     }
 
     /**
-     * Returns public keys used for Maxio.js (formerly Chargify.js).
+     * Lists public keys used for Maxio.js (formerly Chargify.js).
      * @param  input  ListChargifyJsPublicKeysInput object containing request parameters
      * @return    Returns the ListPublicKeysResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

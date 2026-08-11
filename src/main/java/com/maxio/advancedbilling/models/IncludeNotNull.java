@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * IncludeNotNull to be used.
  */
 public enum IncludeNotNull {
     NOT_NULL;
-
 
     private static TreeMap<String, IncludeNotNull> valueMap = new TreeMap<>();
     private String value;

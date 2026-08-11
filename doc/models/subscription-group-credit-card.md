@@ -30,16 +30,22 @@
 | `Cvv` | `String` | Optional | - | String getCvv() | setCvv(String cvv) |
 | `PaymentType` | `String` | Optional | - | String getPaymentType() | setPaymentType(String paymentType) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargify_token": "tok_592nf92ng0sjd4300p",
-  "full_number": 4111111111111111,
-  "vault_token": "vault_token6",
-  "current_vault": "braintree_blue",
-  "gateway_handle": "gateway_handle6",
-  "first_name": "first_name4"
-}
+```java
+import com.maxio.advancedbilling.models.CreditCardVault;
+import com.maxio.advancedbilling.models.SubscriptionGroupCreditCard;
+import com.maxio.advancedbilling.models.containers.SubscriptionGroupCreditCardFullNumber;
+
+SubscriptionGroupCreditCard subscriptionGroupCreditCard = new SubscriptionGroupCreditCard.Builder()
+    .chargifyToken("tok_592nf92ng0sjd4300p")
+    .vaultToken("vault_token0")
+    .currentVault(CreditCardVault.BLUE_SNAP)
+    .gatewayHandle("gateway_handle0")
+    .firstName("first_name8")
+    .fullNumber(SubscriptionGroupCreditCardFullNumber.fromNumber(
+        4111111111111111
+    ))
+    .build();
 ```
 

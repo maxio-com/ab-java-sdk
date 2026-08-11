@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * RestrictionType to be used.
  */
@@ -20,7 +19,6 @@ public enum RestrictionType {
     COMPONENT,
 
     PRODUCT;
-
 
     private static TreeMap<String, RestrictionType> valueMap = new TreeMap<>();
     private String value;

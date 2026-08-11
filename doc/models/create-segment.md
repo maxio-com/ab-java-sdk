@@ -16,32 +16,52 @@
 | `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `Prices` | [`List<CreateOrUpdateSegmentPrice>`](../../doc/models/create-or-update-segment-price.md) | Optional | - | List<CreateOrUpdateSegmentPrice> getPrices() | setPrices(List<CreateOrUpdateSegmentPrice> prices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "segment_property_1_value": "String9",
-  "segment_property_2_value": "String1",
-  "segment_property_3_value": "String3",
-  "segment_property_4_value": "String3",
-  "pricing_scheme": "per_unit",
-  "prices": [
-    {
-      "starting_quantity": 64,
-      "ending_quantity": 38,
-      "unit_price": "String3"
-    },
-    {
-      "starting_quantity": 64,
-      "ending_quantity": 38,
-      "unit_price": "String3"
-    },
-    {
-      "starting_quantity": 64,
-      "ending_quantity": 38,
-      "unit_price": "String3"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.CreateOrUpdateSegmentPrice;
+import com.maxio.advancedbilling.models.CreateSegment;
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.containers.CreateOrUpdateSegmentPriceUnitPrice;
+import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty1Value;
+import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty2Value;
+import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty3Value;
+import com.maxio.advancedbilling.models.containers.CreateSegmentSegmentProperty4Value;
+import java.util.Arrays;
+
+CreateSegment createSegment = new CreateSegment.Builder(
+    PricingScheme.STAIRSTEP
+)
+.segmentProperty1Value(CreateSegmentSegmentProperty1Value.fromString(
+        "String7"
+    ))
+.segmentProperty2Value(CreateSegmentSegmentProperty2Value.fromString(
+        "String9"
+    ))
+.segmentProperty3Value(CreateSegmentSegmentProperty3Value.fromString(
+        "String5"
+    ))
+.segmentProperty4Value(CreateSegmentSegmentProperty4Value.fromString(
+        "String1"
+    ))
+.prices(Arrays.asList(
+        new CreateOrUpdateSegmentPrice.Builder(
+            CreateOrUpdateSegmentPriceUnitPrice.fromString(
+                "String3"
+            )
+        )
+        .startingQuantity(64)
+        .endingQuantity(38)
+        .build(),
+        new CreateOrUpdateSegmentPrice.Builder(
+            CreateOrUpdateSegmentPriceUnitPrice.fromString(
+                "String3"
+            )
+        )
+        .startingQuantity(64)
+        .endingQuantity(38)
+        .build()
+    ))
+.build();
 ```
 

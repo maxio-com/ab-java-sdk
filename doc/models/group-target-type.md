@@ -17,3 +17,11 @@ The type of object indicated by the id attribute.
 | `PARENT` |
 | `ELDEST` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.GroupTargetType;
+
+GroupTargetType groupTargetType = GroupTargetType.SELF;
+```
+

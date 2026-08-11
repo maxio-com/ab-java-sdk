@@ -34,6 +34,7 @@ public class CreateOrUpdateProduct
     private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
     private Boolean autoCreateSignupPage;
     private String taxCode;
+    private OptionalNullable<String> unspscCode;
 
     /**
      * Default constructor.
@@ -59,6 +60,7 @@ public class CreateOrUpdateProduct
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
      * @param  taxCode  String value for taxCode.
+     * @param  unspscCode  String value for unspscCode.
      */
     public CreateOrUpdateProduct(
             String name,
@@ -76,7 +78,8 @@ public class CreateOrUpdateProduct
             Integer expirationInterval,
             ExpirationIntervalUnit expirationIntervalUnit,
             Boolean autoCreateSignupPage,
-            String taxCode) {
+            String taxCode,
+            String unspscCode) {
         this.name = name;
         this.handle = handle;
         this.description = description;
@@ -93,6 +96,7 @@ public class CreateOrUpdateProduct
         this.expirationIntervalUnit = OptionalNullable.of(expirationIntervalUnit);
         this.autoCreateSignupPage = autoCreateSignupPage;
         this.taxCode = taxCode;
+        this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
     /**
@@ -113,6 +117,7 @@ public class CreateOrUpdateProduct
      * @param  expirationIntervalUnit  ExpirationIntervalUnit value for expirationIntervalUnit.
      * @param  autoCreateSignupPage  Boolean value for autoCreateSignupPage.
      * @param  taxCode  String value for taxCode.
+     * @param  unspscCode  String value for unspscCode.
      */
 
     protected CreateOrUpdateProduct(String name, String description, long priceInCents,
@@ -121,7 +126,7 @@ public class CreateOrUpdateProduct
             OptionalNullable<IntervalUnit> trialIntervalUnit, OptionalNullable<TrialType> trialType,
             Integer expirationInterval,
             OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit,
-            Boolean autoCreateSignupPage, String taxCode) {
+            Boolean autoCreateSignupPage, String taxCode, OptionalNullable<String> unspscCode) {
         this.name = name;
         this.handle = handle;
         this.description = description;
@@ -138,6 +143,7 @@ public class CreateOrUpdateProduct
         this.expirationIntervalUnit = expirationIntervalUnit;
         this.autoCreateSignupPage = autoCreateSignupPage;
         this.taxCode = taxCode;
+        this.unspscCode = unspscCode;
     }
 
     /**
@@ -267,8 +273,8 @@ public class CreateOrUpdateProduct
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this product would renew every 30 days
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product would renew every 30 days.
      * @return Returns the int
      */
     @JsonGetter("interval")
@@ -278,8 +284,8 @@ public class CreateOrUpdateProduct
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this product would renew every 30 days
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product would renew every 30 days.
      * @param interval Value for int
      */
     @JsonSetter("interval")
@@ -330,7 +336,7 @@ public class CreateOrUpdateProduct
 
     /**
      * Getter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * The numerical trial interval. e.g., an interval of ‘30’ coupled with a trial_interval_unit of
      * day would mean this product trial would last 30 days.
      * @return Returns the Integer
      */
@@ -342,7 +348,7 @@ public class CreateOrUpdateProduct
 
     /**
      * Setter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
+     * The numerical trial interval. e.g., an interval of ‘30’ coupled with a trial_interval_unit of
      * day would mean this product trial would last 30 days.
      * @param trialInterval Value for Integer
      */
@@ -392,7 +398,7 @@ public class CreateOrUpdateProduct
 
     /**
      * Internal Getter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -408,7 +414,7 @@ public class CreateOrUpdateProduct
 
     /**
      * Getter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -421,7 +427,7 @@ public class CreateOrUpdateProduct
 
     /**
      * Setter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -435,7 +441,7 @@ public class CreateOrUpdateProduct
 
     /**
      * UnSetter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -447,7 +453,7 @@ public class CreateOrUpdateProduct
 
     /**
      * Getter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product would expire after 30 days.
      * @return Returns the Integer
      */
@@ -459,7 +465,7 @@ public class CreateOrUpdateProduct
 
     /**
      * Setter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product would expire after 30 days.
      * @param expirationInterval Value for Integer
      */
@@ -554,6 +560,53 @@ public class CreateOrUpdateProduct
     }
 
     /**
+     * Internal Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("unspsc_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUnspscCode() {
+        return this.unspscCode;
+    }
+
+    /**
+     * Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     * @return Returns the String
+     */
+    public String getUnspscCode() {
+        return OptionalNullable.getFrom(unspscCode);
+    }
+
+    /**
+     * Setter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     * @param unspscCode Value for String
+     */
+    @JsonSetter("unspsc_code")
+    public void setUnspscCode(String unspscCode) {
+        this.unspscCode = OptionalNullable.of(unspscCode);
+    }
+
+    /**
+     * UnSetter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     */
+    public void unsetUnspscCode() {
+        unspscCode = null;
+    }
+
+    /**
      * Converts this CreateOrUpdateProduct into string format.
      * @return String representation of this class
      */
@@ -567,7 +620,8 @@ public class CreateOrUpdateProduct
                 + trialIntervalUnit + ", trialType=" + trialType + ", expirationInterval="
                 + expirationInterval + ", expirationIntervalUnit=" + expirationIntervalUnit
                 + ", autoCreateSignupPage=" + autoCreateSignupPage + ", taxCode=" + taxCode
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", unspscCode=" + unspscCode + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -588,6 +642,7 @@ public class CreateOrUpdateProduct
         builder.trialIntervalUnit = internalGetTrialIntervalUnit();
         builder.trialType = internalGetTrialType();
         builder.expirationIntervalUnit = internalGetExpirationIntervalUnit();
+        builder.unspscCode = internalGetUnspscCode();
         return builder;
     }
 
@@ -611,6 +666,7 @@ public class CreateOrUpdateProduct
         private OptionalNullable<ExpirationIntervalUnit> expirationIntervalUnit;
         private Boolean autoCreateSignupPage;
         private String taxCode;
+        private OptionalNullable<String> unspscCode;
 
         /**
          * Initialization constructor.
@@ -823,6 +879,25 @@ public class CreateOrUpdateProduct
         }
 
         /**
+         * Setter for unspscCode.
+         * @param  unspscCode  String value for unspscCode.
+         * @return Builder
+         */
+        public Builder unspscCode(String unspscCode) {
+            this.unspscCode = OptionalNullable.of(unspscCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for unspscCode.
+         * @return Builder
+         */
+        public Builder unsetUnspscCode() {
+            unspscCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateOrUpdateProduct} object using the set fields.
          * @return {@link CreateOrUpdateProduct}
          */
@@ -830,7 +905,7 @@ public class CreateOrUpdateProduct
             return new CreateOrUpdateProduct(name, description, priceInCents, interval,
                     intervalUnit, handle, accountingCode, requireCreditCard, trialPriceInCents,
                     trialInterval, trialIntervalUnit, trialType, expirationInterval,
-                    expirationIntervalUnit, autoCreateSignupPage, taxCode);
+                    expirationIntervalUnit, autoCreateSignupPage, taxCode, unspscCode);
         }
     }
 }

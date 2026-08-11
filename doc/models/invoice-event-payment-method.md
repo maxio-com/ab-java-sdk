@@ -15,3 +15,11 @@
 | `EXTERNAL` |
 | `PAYPAL_ACCOUNT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+
+InvoiceEventPaymentMethod invoiceEventPaymentMethod = InvoiceEventPaymentMethod.CREDIT_CARD;
+```
+

@@ -11,17 +11,23 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Prepayment` | [`CreatePrepayment`](../../doc/models/create-prepayment.md) | Required | - | CreatePrepayment getPrepayment() | setPrepayment(CreatePrepayment prepayment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prepayment": {
-    "amount": 11.6,
-    "details": "details8",
-    "memo": "memo2",
-    "method": "money_order",
-    "payment_profile_id": 240
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreatePrepayment;
+import com.maxio.advancedbilling.models.CreatePrepaymentMethod;
+import com.maxio.advancedbilling.models.CreatePrepaymentRequest;
+
+CreatePrepaymentRequest createPrepaymentRequest = new CreatePrepaymentRequest.Builder(
+    new CreatePrepayment.Builder(
+        11.6D,
+        "details8",
+        "memo2",
+        CreatePrepaymentMethod.MONEY_ORDER
+    )
+    .paymentProfileId(240)
+    .build()
+)
+.build();
 ```
 

@@ -19,15 +19,18 @@
 | `UncalculatedTaxes` | `Boolean` | Optional | A boolean indicating whether or not additional taxes will be calculated at the time of renewal. This will be true if you are using Avalara and the address of the subscription is in one of your defined taxable regions. | Boolean getUncalculatedTaxes() | setUncalculatedTaxes(Boolean uncalculatedTaxes) |
 | `LineItems` | [`List<RenewalPreviewLineItem>`](../../doc/models/renewal-preview-line-item.md) | Optional | An array of objects representing the individual transactions that will be created at the next renewal | List<RenewalPreviewLineItem> getLineItems() | setLineItems(List<RenewalPreviewLineItem> lineItems) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "next_assessment_at": "2016-03-13T12:52:32.123Z",
-  "subtotal_in_cents": 160,
-  "total_tax_in_cents": 28,
-  "total_discount_in_cents": 34,
-  "total_in_cents": 48
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.RenewalPreview;
+
+RenewalPreview renewalPreview = new RenewalPreview.Builder()
+    .nextAssessmentAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .subtotalInCents(102L)
+    .totalTaxInCents(226L)
+    .totalDiscountInCents(232L)
+    .totalInCents(246L)
+    .build();
 ```
 

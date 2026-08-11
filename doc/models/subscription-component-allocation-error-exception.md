@@ -11,16 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`List<SubscriptionComponentAllocationErrorItem>`](../../doc/models/subscription-component-allocation-error-item.md) | Optional | - | List<SubscriptionComponentAllocationErrorItem> getErrors() | setErrors(List<SubscriptionComponentAllocationErrorItem> errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": [
-    {
-      "kind": "kind8",
-      "message": "message0"
-    }
-  ]
+```java
+try {
+    // make the API call
+} catch (SubscriptionComponentAllocationErrorException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

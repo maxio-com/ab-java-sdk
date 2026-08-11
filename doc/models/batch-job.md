@@ -15,15 +15,18 @@
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `Completed` | `String` | Optional | - | String getCompleted() | setCompleted(String completed) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 246,
-  "finished_at": "2016-03-13T12:52:32.123Z",
-  "row_count": 254,
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "completed": "completed0"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.BatchJob;
+
+BatchJob batchJob = new BatchJob.Builder()
+    .id(60)
+    .finishedAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .rowCount(68)
+    .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .completed("completed6")
+    .build();
 ```
 

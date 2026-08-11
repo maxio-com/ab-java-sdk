@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceEventPaymentMethod to be used.
  */
@@ -26,7 +25,6 @@ public enum InvoiceEventPaymentMethod {
     EXTERNAL,
 
     PAYPAL_ACCOUNT;
-
 
     private static TreeMap<String, InvoiceEventPaymentMethod> valueMap = new TreeMap<>();
     private String value;

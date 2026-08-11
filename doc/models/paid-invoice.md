@@ -14,14 +14,17 @@
 | `DueAmount` | `String` | Optional | The remaining due amount on the invoice | String getDueAmount() | setDueAmount(String dueAmount) |
 | `PaidAmount` | `String` | Optional | The total amount paid on this invoice (including any prior payments) | String getPaidAmount() | setPaidAmount(String paidAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "invoice_id": "invoice_id6",
-  "status": "open",
-  "due_amount": "due_amount8",
-  "paid_amount": "paid_amount8"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceStatus;
+import com.maxio.advancedbilling.models.PaidInvoice;
+
+PaidInvoice paidInvoice = new PaidInvoice.Builder()
+    .invoiceId("invoice_id2")
+    .status(InvoiceStatus.CANCELED)
+    .dueAmount("due_amount4")
+    .paidAmount("paid_amount6")
+    .build();
 ```
 

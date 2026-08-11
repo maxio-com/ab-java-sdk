@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * PayPalVault to be used.
  */
@@ -24,7 +23,6 @@ public enum PayPalVault {
     MODUSLINK,
 
     PAYPAL_COMPLETE;
-
 
     private static TreeMap<String, PayPalVault> valueMap = new TreeMap<>();
     private String value;

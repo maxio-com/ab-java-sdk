@@ -14,14 +14,16 @@
 | `Kind` | `String` | Optional | - | String getKind() | setKind(String kind) |
 | `On` | `String` | Optional | - | String getOn() | setOn(String on) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component_id": 188,
-  "message": "message0",
-  "kind": "kind8",
-  "on": "on0"
-}
+```java
+import com.maxio.advancedbilling.models.ComponentAllocationErrorItem;
+
+ComponentAllocationErrorItem componentAllocationErrorItem = new ComponentAllocationErrorItem.Builder()
+    .componentId(122)
+    .message("message8")
+    .kind("kind6")
+    .on("on8")
+    .build();
 ```
 

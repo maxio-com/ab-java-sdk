@@ -15,15 +15,18 @@
 | `Value` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getValue() | setValue(String value) |
 | `MetadatumId` | `Integer` | Optional | - | Integer getMetadatumId() | setMetadatumId(Integer metadatumId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "owner_id": 142,
-  "owner_type": "Customer",
-  "name": "name0",
-  "value": "value2",
-  "metadatum_id": 142
-}
+```java
+import com.maxio.advancedbilling.models.CustomFieldOwner;
+import com.maxio.advancedbilling.models.InvoiceCustomField;
+
+InvoiceCustomField invoiceCustomField = new InvoiceCustomField.Builder()
+    .ownerId(14)
+    .ownerType(CustomFieldOwner.CUSTOMER)
+    .name("name0")
+    .value("value2")
+    .metadatumId(14)
+    .build();
 ```
 

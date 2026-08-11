@@ -15,31 +15,41 @@
 | `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Required | **Default**: `InvoiceEventType.CHANGE_INVOICE_STATUS` | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`ChangeInvoiceStatusEventData`](../../doc/models/change-invoice-status-event-data.md) | Required | Example schema for an `change_invoice_status` event | ChangeInvoiceStatusEventData getEventData() | setEventData(ChangeInvoiceStatusEventData eventData) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 92,
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "invoice": {
-    "issue_date": "2024-01-01",
-    "due_date": "2024-01-01",
-    "paid_date": "2024-01-01",
-    "public_url_expires_on": "2024-01-21",
-    "id": 166,
-    "uid": "uid6",
-    "site_id": 92,
-    "customer_id": 204,
-    "subscription_id": 20
-  },
-  "event_type": "change_invoice_status",
-  "event_data": {
-    "gateway_trans_id": "gateway_trans_id2",
-    "amount": "amount8",
-    "from_status": "open",
-    "to_status": "pending",
-    "consolidation_level": "child"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ChangeInvoiceStatusEvent;
+import com.maxio.advancedbilling.models.ChangeInvoiceStatusEventData;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
+import com.maxio.advancedbilling.models.InvoiceEventType;
+import com.maxio.advancedbilling.models.InvoiceStatus;
+
+ChangeInvoiceStatusEvent changeInvoiceStatusEvent = new ChangeInvoiceStatusEvent.Builder(
+    148L,
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    new Invoice.Builder()
+        .id(166L)
+        .uid("uid6")
+        .siteId(92)
+        .customerId(204)
+        .subscriptionId(20)
+        .issueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .dueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .paidDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .publicUrlExpiresOn(DateTimeHelper.fromSimpleDate("2024-01-21"))
+        .build(),
+    InvoiceEventType.CHANGE_INVOICE_STATUS,
+    new ChangeInvoiceStatusEventData.Builder(
+        InvoiceStatus.OPEN,
+        InvoiceStatus.PENDING
+    )
+    .gatewayTransId("gateway_trans_id2")
+    .amount("amount8")
+    .consolidationLevel(InvoiceConsolidationLevel.CHILD)
+    .build()
+)
+.build();
 ```
 

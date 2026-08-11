@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * BillingManifestLineItemKind to be used.
  */
@@ -28,7 +27,6 @@ public enum BillingManifestLineItemKind {
     COMPONENT,
 
     TAX;
-
 
     private static TreeMap<String, BillingManifestLineItemKind> valueMap = new TreeMap<>();
     private String value;

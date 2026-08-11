@@ -11,14 +11,17 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Codes` | `List<String>` | Optional | - | List<String> getCodes() | setCodes(List<String> codes) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "codes": [
-    "codes0",
-    "codes1"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.AddCouponsRequest;
+import java.util.Arrays;
+
+AddCouponsRequest addCouponsRequest = new AddCouponsRequest.Builder()
+    .codes(Arrays.asList(
+        "codes6",
+        "codes7"
+    ))
+    .build();
 ```
 

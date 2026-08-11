@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ResourceType to be used.
  */
@@ -20,7 +19,6 @@ public enum ResourceType {
     SUBSCRIPTIONS,
 
     CUSTOMERS;
-
 
     private static TreeMap<String, ResourceType> valueMap = new TreeMap<>();
     private String value;

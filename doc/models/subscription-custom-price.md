@@ -19,25 +19,41 @@
 | `TrialPriceInCents` | [`SubscriptionCustomPriceTrialPriceInCents`](../../doc/models/containers/subscription-custom-price-trial-price-in-cents.md) | Optional | This is a container for one-of cases. | SubscriptionCustomPriceTrialPriceInCents getTrialPriceInCents() | setTrialPriceInCents(SubscriptionCustomPriceTrialPriceInCents trialPriceInCents) |
 | `TrialInterval` | [`SubscriptionCustomPriceTrialInterval`](../../doc/models/containers/subscription-custom-price-trial-interval.md) | Optional | This is a container for one-of cases. | SubscriptionCustomPriceTrialInterval getTrialInterval() | setTrialInterval(SubscriptionCustomPriceTrialInterval trialInterval) |
 | `TrialIntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | (Optional) | IntervalUnit getTrialIntervalUnit() | setTrialIntervalUnit(IntervalUnit trialIntervalUnit) |
-| `TrialType` | [`TrialType`](../../doc/models/trial-type.md) | Optional | Indicates how a trial is handled when the trail period ends and there is no credit card on file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will not send any emails or statements. For `payment_expected`, the subscription transitions to a Past Due state. Maxio will send normal dunning emails and statements according to your other settings. | TrialType getTrialType() | setTrialType(TrialType trialType) |
+| `TrialType` | [`TrialType`](../../doc/models/trial-type.md) | Optional | Indicates how a trial is handled when the trial period ends and there is no credit card on file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will not send any emails or statements. For `payment_expected`, the subscription transitions to a Past Due state. Maxio will send normal dunning emails and statements according to your other settings. | TrialType getTrialType() | setTrialType(TrialType trialType) |
 | `InitialChargeInCents` | [`SubscriptionCustomPriceInitialChargeInCents`](../../doc/models/containers/subscription-custom-price-initial-charge-in-cents.md) | Optional | This is a container for one-of cases. | SubscriptionCustomPriceInitialChargeInCents getInitialChargeInCents() | setInitialChargeInCents(SubscriptionCustomPriceInitialChargeInCents initialChargeInCents) |
 | `InitialChargeAfterTrial` | `Boolean` | Optional | (Optional) | Boolean getInitialChargeAfterTrial() | setInitialChargeAfterTrial(Boolean initialChargeAfterTrial) |
 | `ExpirationInterval` | [`SubscriptionCustomPriceExpirationInterval`](../../doc/models/containers/subscription-custom-price-expiration-interval.md) | Optional | This is a container for one-of cases. | SubscriptionCustomPriceExpirationInterval getExpirationInterval() | setExpirationInterval(SubscriptionCustomPriceExpirationInterval expirationInterval) |
 | `ExpirationIntervalUnit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | (Optional) | ExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) |
 | `TaxIncluded` | `Boolean` | Optional | (Optional) | Boolean getTaxIncluded() | setTaxIncluded(Boolean taxIncluded) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name4",
-  "handle": "handle0",
-  "price_in_cents": "String3",
-  "interval": "String3",
-  "interval_unit": "day",
-  "trial_price_in_cents": "String3",
-  "trial_interval": "String5",
-  "trial_interval_unit": "day"
-}
+```java
+import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.SubscriptionCustomPrice;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInterval;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPricePriceInCents;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialInterval;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialPriceInCents;
+
+SubscriptionCustomPrice subscriptionCustomPrice = new SubscriptionCustomPrice.Builder(
+    SubscriptionCustomPricePriceInCents.fromString(
+        "String5"
+    ),
+    SubscriptionCustomPriceInterval.fromString(
+        "String1"
+    ),
+    IntervalUnit.DAY
+)
+.name("name2")
+.handle("handle8")
+.trialPriceInCents(SubscriptionCustomPriceTrialPriceInCents.fromString(
+        "String5"
+    ))
+.trialInterval(SubscriptionCustomPriceTrialInterval.fromString(
+        "String9"
+    ))
+.trialIntervalUnit(IntervalUnit.DAY)
+.build();
 ```
 

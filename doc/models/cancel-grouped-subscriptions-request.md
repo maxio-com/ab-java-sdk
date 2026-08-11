@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ChargeUnbilledUsage` | `Boolean` | Optional | - | Boolean getChargeUnbilledUsage() | setChargeUnbilledUsage(Boolean chargeUnbilledUsage) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "charge_unbilled_usage": false
-}
+```java
+import com.maxio.advancedbilling.models.CancelGroupedSubscriptionsRequest;
+
+CancelGroupedSubscriptionsRequest cancelGroupedSubscriptionsRequest = new CancelGroupedSubscriptionsRequest.Builder()
+    .chargeUnbilledUsage(false)
+    .build();
 ```
 

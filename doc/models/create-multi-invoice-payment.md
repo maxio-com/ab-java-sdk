@@ -16,21 +16,31 @@
 | `ReceivedOn` | `String` | Optional | Date reflecting when the payment was received from a customer. Must be in the past. | String getReceivedOn() | setReceivedOn(String receivedOn) |
 | `Applications` | [`List<CreateInvoicePaymentApplication>`](../../doc/models/create-invoice-payment-application.md) | Required | - | List<CreateInvoicePaymentApplication> getApplications() | setApplications(List<CreateInvoicePaymentApplication> applications) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount": "String7",
-  "applications": [
-    {
-      "invoice_uid": "invoice_uid8",
-      "amount": "amount0"
-    }
-  ],
-  "memo": "memo8",
-  "details": "details4",
-  "method": "credit_card",
-  "received_on": "received_on6"
-}
+```java
+import com.maxio.advancedbilling.models.CreateInvoicePaymentApplication;
+import com.maxio.advancedbilling.models.CreateMultiInvoicePayment;
+import com.maxio.advancedbilling.models.InvoicePaymentMethodType;
+import com.maxio.advancedbilling.models.containers.CreateMultiInvoicePaymentAmount;
+import java.util.Arrays;
+
+CreateMultiInvoicePayment createMultiInvoicePayment = new CreateMultiInvoicePayment.Builder(
+    CreateMultiInvoicePaymentAmount.fromString(
+        "String9"
+    ),
+    Arrays.asList(
+        new CreateInvoicePaymentApplication.Builder(
+            "invoice_uid8",
+            "amount0"
+        )
+        .build()
+    )
+)
+.memo("memo0")
+.details("details6")
+.method(InvoicePaymentMethodType.ACH)
+.receivedOn("received_on8")
+.build();
 ```
 

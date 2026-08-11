@@ -17,17 +17,23 @@
 | `AllocationId` | `int` | Required | - | int getAllocationId() | setAllocationId(int allocationId) |
 | `AllocatedQuantity` | [`ComponentAllocationChangeAllocatedQuantity`](../../doc/models/containers/component-allocation-change-allocated-quantity.md) | Optional | This is a container for one-of cases. | ComponentAllocationChangeAllocatedQuantity getAllocatedQuantity() | setAllocatedQuantity(ComponentAllocationChangeAllocatedQuantity allocatedQuantity) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_allocation": 94,
-  "new_allocation": 102,
-  "component_id": 88,
-  "component_handle": "component_handle8",
-  "memo": "memo2",
-  "allocation_id": 158,
-  "allocated_quantity": 104
-}
+```java
+import com.maxio.advancedbilling.models.ComponentAllocationChange;
+import com.maxio.advancedbilling.models.containers.ComponentAllocationChangeAllocatedQuantity;
+
+ComponentAllocationChange componentAllocationChange = new ComponentAllocationChange.Builder(
+    78,
+    118,
+    72,
+    "component_handle8",
+    "memo2",
+    174
+)
+.allocatedQuantity(ComponentAllocationChangeAllocatedQuantity.fromNumber(
+        88
+    ))
+.build();
 ```
 

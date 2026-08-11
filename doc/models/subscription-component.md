@@ -13,8 +13,8 @@
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `Kind` | [`ComponentKind`](../../doc/models/component-kind.md) | Optional | A handle for the component type | ComponentKind getKind() | setKind(ComponentKind kind) |
 | `UnitName` | `String` | Optional | - | String getUnitName() | setUnitName(String unitName) |
-| `Enabled` | `Boolean` | Optional | (for on/off components) indicates if the component is enabled for the subscription | Boolean getEnabled() | setEnabled(Boolean enabled) |
-| `UnitBalance` | `Integer` | Optional | - | Integer getUnitBalance() | setUnitBalance(Integer unitBalance) |
+| `Enabled` | `Boolean` | Optional | (for on/off components) indicates if the component is enabled for the subscription. | Boolean getEnabled() | setEnabled(Boolean enabled) |
+| `UnitBalance` | [`SubscriptionComponentUnitBalance`](../../doc/models/containers/subscription-component-unit-balance.md) | Optional | This is a container for one-of cases. | SubscriptionComponentUnitBalance getUnitBalance() | setUnitBalance(SubscriptionComponentUnitBalance unitBalance) |
 | `Currency` | `String` | Optional | - | String getCurrency() | setCurrency(String currency) |
 | `AllocatedQuantity` | [`SubscriptionComponentAllocatedQuantity`](../../doc/models/containers/subscription-component-allocated-quantity.md) | Optional | This is a container for one-of cases. | SubscriptionComponentAllocatedQuantity getAllocatedQuantity() | setAllocatedQuantity(SubscriptionComponentAllocatedQuantity allocatedQuantity) |
 | `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | - | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
@@ -36,21 +36,24 @@
 | `UseSiteExchangeRate` | `Boolean` | Optional | - | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 | `Description` | `String` | Optional | - | String getDescription() | setDescription(String description) |
 | `AllowFractionalQuantities` | `Boolean` | Optional | - | Boolean getAllowFractionalQuantities() | setAllowFractionalQuantities(Boolean allowFractionalQuantities) |
-| `Subscription` | [`SubscriptionComponentSubscription`](../../doc/models/subscription-component-subscription.md) | Optional | An optional object, will be returned if provided `include=subscription` query param. | SubscriptionComponentSubscription getSubscription() | setSubscription(SubscriptionComponentSubscription subscription) |
+| `Subscription` | [`SubscriptionComponentSubscription`](../../doc/models/subscription-component-subscription.md) | Optional | (Optional) Object that will be returned if the `include=subscription` query param is provided. | SubscriptionComponentSubscription getSubscription() | setSubscription(SubscriptionComponentSubscription subscription) |
 | `HistoricUsages` | [`List<HistoricUsage>`](../../doc/models/historic-usage.md) | Optional | - | List<HistoricUsage> getHistoricUsages() | setHistoricUsages(List<HistoricUsage> historicUsages) |
 | `DisplayOnHostedPage` | `Boolean` | Optional | - | Boolean getDisplayOnHostedPage() | setDisplayOnHostedPage(Boolean displayOnHostedPage) |
-| `Interval` | `Integer` | Optional | The numerical interval. i.e. an interval of '30' coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
+| `Interval` | `Integer` | Optional | The numerical interval. e.g., an interval of '30' coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component price point, either month or day. This property is only available for sites with Multifrequency enabled. | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 20,
-  "name": "name8",
-  "kind": "quantity_based_component",
-  "unit_name": "unit_name0",
-  "enabled": false
-}
+```java
+import com.maxio.advancedbilling.models.ComponentKind;
+import com.maxio.advancedbilling.models.SubscriptionComponent;
+
+SubscriptionComponent subscriptionComponent = new SubscriptionComponent.Builder()
+    .id(254)
+    .name("name8")
+    .kind(ComponentKind.QUANTITY_BASED_COMPONENT)
+    .unitName("unit_name0")
+    .enabled(false)
+    .build();
 ```
 

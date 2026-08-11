@@ -14,14 +14,18 @@
 | `Memo` | `String` | Required | - | String getMemo() | setMemo(String memo) |
 | `Type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - | InvoiceEventPaymentMethod getType() | setType(InvoiceEventPaymentMethod type) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "details": "details4",
-  "kind": "kind2",
-  "memo": "memo8",
-  "type": "external"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+import com.maxio.advancedbilling.models.PaymentMethodExternal;
+
+PaymentMethodExternal paymentMethodExternal = new PaymentMethodExternal.Builder(
+    "details0",
+    "kind8",
+    "memo4",
+    InvoiceEventPaymentMethod.EXTERNAL
+)
+.build();
 ```
 

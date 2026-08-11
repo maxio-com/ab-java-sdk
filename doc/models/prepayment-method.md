@@ -17,3 +17,11 @@
 | `CREDIT_CARD` |
 | `OTHER` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.PrepaymentMethod;
+
+PrepaymentMethod prepaymentMethod = PrepaymentMethod.OTHER;
+```
+

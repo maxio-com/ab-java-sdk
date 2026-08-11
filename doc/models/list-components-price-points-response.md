@@ -11,19 +11,26 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PricePoints` | [`List<ComponentPricePoint>`](../../doc/models/component-price-point.md) | Required | - | List<ComponentPricePoint> getPricePoints() | setPricePoints(List<ComponentPricePoint> pricePoints) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_points": [
-    {
-      "id": 40,
-      "type": "default",
-      "default": false,
-      "name": "name2",
-      "pricing_scheme": "per_unit"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.ComponentPricePoint;
+import com.maxio.advancedbilling.models.ListComponentsPricePointsResponse;
+import com.maxio.advancedbilling.models.PricePointType;
+import com.maxio.advancedbilling.models.PricingScheme;
+import java.util.Arrays;
+
+ListComponentsPricePointsResponse listComponentsPricePointsResponse = new ListComponentsPricePointsResponse.Builder(
+    Arrays.asList(
+        new ComponentPricePoint.Builder()
+            .id(40)
+            .type(PricePointType.ENUM_DEFAULT)
+            .mDefault(false)
+            .name("name2")
+            .pricingScheme(PricingScheme.PER_UNIT)
+            .build()
+    )
+)
+.build();
 ```
 

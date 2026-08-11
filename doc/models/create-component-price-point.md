@@ -15,27 +15,44 @@
 | `Prices` | [`List<Price>`](../../doc/models/price.md) | Required | - | List<Price> getPrices() | setPrices(List<Price> prices) |
 | `UseSiteExchangeRate` | `Boolean` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site. Setting not supported when creating price points in bulk.<br><br>**Default**: `true` | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 | `TaxIncluded` | `Boolean` | Optional | Whether or not the price point includes tax. Setting not supported when creating price points in bulk. | Boolean getTaxIncluded() | setTaxIncluded(Boolean taxIncluded) |
-| `Interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
+| `Interval` | `Integer` | Optional | The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would mean this price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this price point, either month or day. This property is only available for sites with Multifrequency enabled. | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "name": "name0",
-  "pricing_scheme": "per_unit",
-  "prices": [
-    {
-      "starting_quantity": 242,
-      "ending_quantity": 40,
-      "unit_price": 23.26
-    }
-  ],
-  "use_site_exchange_rate": true,
-  "handle": "handle6",
-  "tax_included": false,
-  "interval": 24,
-  "interval_unit": "day"
-}
+```java
+import com.maxio.advancedbilling.models.CreateComponentPricePoint;
+import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.Price;
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
+import java.util.Arrays;
+
+CreateComponentPricePoint createComponentPricePoint = new CreateComponentPricePoint.Builder(
+    "name4",
+    PricingScheme.PER_UNIT,
+    Arrays.asList(
+        new Price.Builder(
+            PriceStartingQuantity.fromNumber(
+                242
+            ),
+            PriceUnitPrice.fromPrecision(
+                23.26D
+            )
+        )
+        .endingQuantity(PriceEndingQuantity.fromNumber(
+                40
+            ))
+        .build()
+    )
+)
+.handle("handle0")
+.useSiteExchangeRate(true)
+.taxIncluded(false)
+.interval(140)
+.intervalUnit(IntervalUnit.DAY)
+.build();
 ```
 

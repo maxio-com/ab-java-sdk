@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * Server to be used.
  */
@@ -20,7 +19,6 @@ public enum Server {
     PRODUCTION,
 
     EBB;
-
 
     private static TreeMap<String, Server> valueMap = new TreeMap<>();
     private String value;

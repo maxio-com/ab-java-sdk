@@ -12,12 +12,14 @@
 | `Deposit1InCents` | `Long` | Optional | - | Long getDeposit1InCents() | setDeposit1InCents(Long deposit1InCents) |
 | `Deposit2InCents` | `Long` | Optional | - | Long getDeposit2InCents() | setDeposit2InCents(Long deposit2InCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "deposit_1_in_cents": 142,
-  "deposit_2_in_cents": 132
-}
+```java
+import com.maxio.advancedbilling.models.BankAccountVerification;
+
+BankAccountVerification bankAccountVerification = new BankAccountVerification.Builder()
+    .deposit1InCents(248L)
+    .deposit2InCents(10L)
+    .build();
 ```
 

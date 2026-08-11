@@ -15,15 +15,18 @@
 | `CommitDate` | `ZonedDateTime` | Optional | - | ZonedDateTime getCommitDate() | setCommitDate(ZonedDateTime commitDate) |
 | `ModifyDate` | `ZonedDateTime` | Optional | - | ZonedDateTime getModifyDate() | setModifyDate(ZonedDateTime modifyDate) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 112,
-  "status": "status2",
-  "document_code": "document_code0",
-  "commit_date": "2016-03-13T12:52:32.123Z",
-  "modify_date": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.InvoiceAvataxDetails;
+
+InvoiceAvataxDetails invoiceAvataxDetails = new InvoiceAvataxDetails.Builder()
+    .id(184L)
+    .status("status2")
+    .documentCode("document_code4")
+    .commitDate(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .modifyDate(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

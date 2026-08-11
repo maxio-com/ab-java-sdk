@@ -300,8 +300,8 @@ public class ProductPricePoint
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this product price point would renew every 30 days
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product price point would renew every 30 days.
      * @return Returns the Integer
      */
     @JsonGetter("interval")
@@ -312,8 +312,8 @@ public class ProductPricePoint
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this product price point would renew every 30 days
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product price point would renew every 30 days.
      * @param interval Value for Integer
      */
     @JsonSetter("interval")
@@ -383,8 +383,8 @@ public class ProductPricePoint
 
     /**
      * Internal Getter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
-     * day would mean this product price point trial would last 30 days
+     * The numerical trial interval. e.g., an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days.
      * @return Returns the Internal Integer
      */
     @JsonGetter("trial_interval")
@@ -396,8 +396,8 @@ public class ProductPricePoint
 
     /**
      * Getter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
-     * day would mean this product price point trial would last 30 days
+     * The numerical trial interval. e.g., an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days.
      * @return Returns the Integer
      */
     public Integer getTrialInterval() {
@@ -406,8 +406,8 @@ public class ProductPricePoint
 
     /**
      * Setter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
-     * day would mean this product price point trial would last 30 days
+     * The numerical trial interval. e.g., an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days.
      * @param trialInterval Value for Integer
      */
     @JsonSetter("trial_interval")
@@ -417,8 +417,8 @@ public class ProductPricePoint
 
     /**
      * UnSetter for TrialInterval.
-     * The numerical trial interval. i.e. an interval of ‘30’ coupled with a trial_interval_unit of
-     * day would mean this product price point trial would last 30 days
+     * The numerical trial interval. e.g., an interval of ‘30’ coupled with a trial_interval_unit of
+     * day would mean this product price point trial would last 30 days.
      */
     public void unsetTrialInterval() {
         trialInterval = null;
@@ -469,7 +469,7 @@ public class ProductPricePoint
 
     /**
      * Internal Getter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -485,7 +485,7 @@ public class ProductPricePoint
 
     /**
      * Getter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -498,7 +498,7 @@ public class ProductPricePoint
 
     /**
      * Setter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -512,7 +512,7 @@ public class ProductPricePoint
 
     /**
      * UnSetter for TrialType.
-     * Indicates how a trial is handled when the trail period ends and there is no credit card on
+     * Indicates how a trial is handled when the trial period ends and there is no credit card on
      * file. For `no_obligation`, the subscription transitions to a Trial Ended state. Maxio will
      * not send any emails or statements. For `payment_expected`, the subscription transitions to a
      * Past Due state. Maxio will send normal dunning emails and statements according to your other
@@ -637,9 +637,9 @@ public class ProductPricePoint
 
     /**
      * Internal Getter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product price point would expire after 30
-     * days
+     * days.
      * @return Returns the Internal Integer
      */
     @JsonGetter("expiration_interval")
@@ -651,9 +651,9 @@ public class ProductPricePoint
 
     /**
      * Getter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product price point would expire after 30
-     * days
+     * days.
      * @return Returns the Integer
      */
     public Integer getExpirationInterval() {
@@ -662,9 +662,9 @@ public class ProductPricePoint
 
     /**
      * Setter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product price point would expire after 30
-     * days
+     * days.
      * @param expirationInterval Value for Integer
      */
     @JsonSetter("expiration_interval")
@@ -674,9 +674,9 @@ public class ProductPricePoint
 
     /**
      * UnSetter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product price point would expire after 30
-     * days
+     * days.
      */
     public void unsetExpirationInterval() {
         expirationInterval = null;

@@ -11,17 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Subscription` | [`Subscription`](../../doc/models/subscription.md) | Optional | - | Subscription getSubscription() | setSubscription(Subscription subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": {
-    "id": 8,
-    "state": "paused",
-    "balance_in_cents": 124,
-    "total_revenue_in_cents": 48,
-    "product_price_in_cents": 238
-  }
+```java
+try {
+    // make the API call
+} catch (SubscriptionResponseErrorException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

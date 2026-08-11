@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * LineItemKind to be used.
  */
@@ -36,7 +35,6 @@ public enum LineItemKind {
     COUPON,
 
     TAX;
-
 
     private static TreeMap<String, LineItemKind> valueMap = new TreeMap<>();
     private String value;

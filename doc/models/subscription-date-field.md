@@ -19,3 +19,11 @@
 | `TRIAL_ENDED_AT` |
 | `UPDATED_AT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.SubscriptionDateField;
+
+SubscriptionDateField subscriptionDateField = SubscriptionDateField.UPDATED_AT;
+```
+

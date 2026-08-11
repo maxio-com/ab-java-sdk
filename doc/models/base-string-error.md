@@ -13,13 +13,17 @@ The error is base if it is not directly associated with a single attribute.
 |  --- | --- | --- | --- | --- | --- |
 | `Base` | `List<String>` | Optional | - | List<String> getBase() | setBase(List<String> base) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "base": [
-    "base3"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.BaseStringError;
+import java.util.Arrays;
+
+BaseStringError baseStringError = new BaseStringError.Builder()
+    .base(Arrays.asList(
+        "base5",
+        "base6"
+    ))
+    .build();
 ```
 

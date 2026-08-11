@@ -1,7 +1,7 @@
 
 # Invoice Customer
 
-Information about the customer who is owner or recipient the invoiced subscription.
+Information about the customer who is owner or recipient of the invoiced subscription.
 
 ## Structure
 
@@ -19,15 +19,17 @@ Information about the customer who is owner or recipient the invoiced subscripti
 | `VatNumber` | `String` | Optional | - | String getVatNumber() | setVatNumber(String vatNumber) |
 | `Reference` | `String` | Optional | - | String getReference() | setReference(String reference) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargify_id": 236,
-  "first_name": "first_name0",
-  "last_name": "last_name8",
-  "organization": "organization4",
-  "email": "email6"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceCustomer;
+
+InvoiceCustomer invoiceCustomer = new InvoiceCustomer.Builder()
+    .chargifyId(82)
+    .firstName("first_name2")
+    .lastName("last_name0")
+    .organization("organization6")
+    .email("email4")
+    .build();
 ```
 

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * AllVaults to be used.
  */
@@ -84,7 +83,6 @@ public enum AllVaults {
     UNIPAAS,
 
     WIRECARD;
-
 
     private static TreeMap<String, AllVaults> valueMap = new TreeMap<>();
     private String value;

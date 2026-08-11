@@ -20,16 +20,18 @@
 | `Proration` | [`Proration`](../../doc/models/proration.md) | Optional | - | Proration getProration() | setProration(Proration proration) |
 | `ProrationDate` | `ZonedDateTime` | Optional | The date that the proration is calculated from for the preview | ZonedDateTime getProrationDate() | setProrationDate(ZonedDateTime prorationDate) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "include_trial": false,
-  "include_initial_charge": false,
-  "include_coupons": true,
-  "preserve_period": false,
-  "product_id": 242,
-  "product_price_point_id": 166
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionMigrationPreviewOptions;
+
+SubscriptionMigrationPreviewOptions subscriptionMigrationPreviewOptions = new SubscriptionMigrationPreviewOptions.Builder()
+    .productId(70)
+    .productPricePointId(250)
+    .includeTrial(false)
+    .includeInitialCharge(false)
+    .includeCoupons(true)
+    .preservePeriod(false)
+    .build();
 ```
 

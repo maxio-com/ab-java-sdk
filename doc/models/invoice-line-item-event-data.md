@@ -30,15 +30,17 @@
 | `BillingScheduleItemId` | `Integer` | Optional | - | Integer getBillingScheduleItemId() | setBillingScheduleItemId(Integer billingScheduleItemId) |
 | `CustomItem` | `Boolean` | Optional | - | Boolean getCustomItem() | setCustomItem(Boolean customItem) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid4",
-  "title": "title0",
-  "description": "description6",
-  "quantity": 40,
-  "quantity_delta": 114
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceLineItemEventData;
+
+InvoiceLineItemEventData invoiceLineItemEventData = new InvoiceLineItemEventData.Builder()
+    .uid("uid4")
+    .title("title0")
+    .description("description4")
+    .quantity(190)
+    .quantityDelta(36)
+    .build();
 ```
 

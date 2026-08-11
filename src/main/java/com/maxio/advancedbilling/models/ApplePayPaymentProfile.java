@@ -246,7 +246,7 @@ public class ApplePayPaymentProfile
 
     /**
      * Getter for CustomerId.
-     * The Chargify-assigned id for the customer record to which the Apple Pay account belongs
+     * The Chargify-assigned ID for the customer record to which the Apple Pay account belongs
      * @return Returns the Integer
      */
     @JsonGetter("customer_id")
@@ -257,7 +257,7 @@ public class ApplePayPaymentProfile
 
     /**
      * Setter for CustomerId.
-     * The Chargify-assigned id for the customer record to which the Apple Pay account belongs
+     * The Chargify-assigned ID for the customer record to which the Apple Pay account belongs
      * @param customerId Value for Integer
      */
     @JsonSetter("customer_id")

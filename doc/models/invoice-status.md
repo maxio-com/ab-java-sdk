@@ -19,3 +19,11 @@ The current status of the invoice. See [Invoice Statuses](https://maxio.zendesk.
 | `CANCELED` |
 | `PROCESSING` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.InvoiceStatus;
+
+InvoiceStatus invoiceStatus = InvoiceStatus.PAID;
+```
+

@@ -36,7 +36,7 @@ public class RenewalPreviewRequest
 
     /**
      * Getter for Components.
-     * An optional array of component definitions to preview. Providing any component definitions
+     * (Optional) Array of component definitions to preview. Providing any component definitions
      * here will override the actual components on the subscription (and their quantities), and the
      * billing preview will contain only these components (in addition to any product base fees).
      * @return Returns the List of RenewalPreviewComponent
@@ -49,7 +49,7 @@ public class RenewalPreviewRequest
 
     /**
      * Setter for Components.
-     * An optional array of component definitions to preview. Providing any component definitions
+     * (Optional) Array of component definitions to preview. Providing any component definitions
      * here will override the actual components on the subscription (and their quantities), and the
      * billing preview will contain only these components (in addition to any product base fees).
      * @param components Value for List of RenewalPreviewComponent

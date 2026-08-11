@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PaymentProfile` | [`UpdatePaymentProfile`](../../doc/models/update-payment-profile.md) | Required | - | UpdatePaymentProfile getPaymentProfile() | setPaymentProfile(UpdatePaymentProfile paymentProfile) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "payment_profile": {
-    "full_number": "5424000000000015",
-    "first_name": "first_name4",
-    "last_name": "last_name2",
-    "card_type": "bogus",
-    "expiration_month": "expiration_month0"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CardType;
+import com.maxio.advancedbilling.models.UpdatePaymentProfile;
+import com.maxio.advancedbilling.models.UpdatePaymentProfileRequest;
+
+UpdatePaymentProfileRequest updatePaymentProfileRequest = new UpdatePaymentProfileRequest.Builder(
+    new UpdatePaymentProfile.Builder()
+        .firstName("first_name4")
+        .lastName("last_name2")
+        .fullNumber("5424000000000015")
+        .cardType(CardType.BOGUS)
+        .expirationMonth("expiration_month0")
+        .build()
+)
+.build();
 ```
 

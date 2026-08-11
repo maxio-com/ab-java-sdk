@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * GroupType to be used.
  */
@@ -20,7 +19,6 @@ public enum GroupType {
     SINGLE_CUSTOMER,
 
     MULTIPLE_CUSTOMERS;
-
 
     private static TreeMap<String, GroupType> valueMap = new TreeMap<>();
     private String value;

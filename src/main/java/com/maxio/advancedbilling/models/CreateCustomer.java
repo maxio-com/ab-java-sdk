@@ -34,9 +34,11 @@ public class CreateCustomer
     private String locale;
     private String vatNumber;
     private Boolean taxExempt;
+    private Boolean surcharging;
     private String taxExemptReason;
     private OptionalNullable<Integer> parentId;
     private OptionalNullable<String> salesforceId;
+    private OptionalNullable<Integer> brandingThemeId;
 
     /**
      * Default constructor.
@@ -62,9 +64,11 @@ public class CreateCustomer
      * @param  locale  String value for locale.
      * @param  vatNumber  String value for vatNumber.
      * @param  taxExempt  Boolean value for taxExempt.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
      * @param  salesforceId  String value for salesforceId.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      */
     public CreateCustomer(
             String firstName,
@@ -83,9 +87,11 @@ public class CreateCustomer
             String locale,
             String vatNumber,
             Boolean taxExempt,
+            Boolean surcharging,
             String taxExemptReason,
             Integer parentId,
-            String salesforceId) {
+            String salesforceId,
+            Integer brandingThemeId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -102,9 +108,11 @@ public class CreateCustomer
         this.locale = locale;
         this.vatNumber = vatNumber;
         this.taxExempt = taxExempt;
+        this.surcharging = surcharging;
         this.taxExemptReason = taxExemptReason;
         this.parentId = OptionalNullable.of(parentId);
         this.salesforceId = OptionalNullable.of(salesforceId);
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
     }
 
     /**
@@ -125,16 +133,19 @@ public class CreateCustomer
      * @param  locale  String value for locale.
      * @param  vatNumber  String value for vatNumber.
      * @param  taxExempt  Boolean value for taxExempt.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  parentId  Integer value for parentId.
      * @param  salesforceId  String value for salesforceId.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      */
 
     protected CreateCustomer(String firstName, String lastName, String email, String ccEmails,
             String organization, String reference, String address, String address2, String city,
             String state, String zip, String country, String phone, String locale, String vatNumber,
-            Boolean taxExempt, String taxExemptReason, OptionalNullable<Integer> parentId,
-            OptionalNullable<String> salesforceId) {
+            Boolean taxExempt, Boolean surcharging, String taxExemptReason,
+            OptionalNullable<Integer> parentId, OptionalNullable<String> salesforceId,
+            OptionalNullable<Integer> brandingThemeId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -151,9 +162,11 @@ public class CreateCustomer
         this.locale = locale;
         this.vatNumber = vatNumber;
         this.taxExempt = taxExempt;
+        this.surcharging = surcharging;
         this.taxExemptReason = taxExemptReason;
         this.parentId = parentId;
         this.salesforceId = salesforceId;
+        this.brandingThemeId = brandingThemeId;
     }
 
     /**
@@ -460,6 +473,29 @@ public class CreateCustomer
     }
 
     /**
+     * Getter for Surcharging.
+     * Whether surcharging is enabled for the customer. Defaults to `true` when omitted. Only
+     * applied on sites where surcharging control is enabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("surcharging")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSurcharging() {
+        return surcharging;
+    }
+
+    /**
+     * Setter for Surcharging.
+     * Whether surcharging is enabled for the customer. Defaults to `true` when omitted. Only
+     * applied on sites where surcharging control is enabled.
+     * @param surcharging Value for Boolean
+     */
+    @JsonSetter("surcharging")
+    public void setSurcharging(Boolean surcharging) {
+        this.surcharging = surcharging;
+    }
+
+    /**
      * Getter for TaxExemptReason.
      * @return Returns the String
      */
@@ -557,6 +593,57 @@ public class CreateCustomer
     }
 
     /**
+     * Internal Getter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("branding_theme_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBrandingThemeId() {
+        return this.brandingThemeId;
+    }
+
+    /**
+     * Getter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     * @return Returns the Integer
+     */
+    public Integer getBrandingThemeId() {
+        return OptionalNullable.getFrom(brandingThemeId);
+    }
+
+    /**
+     * Setter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     * @param brandingThemeId Value for Integer
+     */
+    @JsonSetter("branding_theme_id")
+    public void setBrandingThemeId(Integer brandingThemeId) {
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+    }
+
+    /**
+     * UnSetter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     */
+    public void unsetBrandingThemeId() {
+        brandingThemeId = null;
+    }
+
+    /**
      * Converts this CreateCustomer into string format.
      * @return String representation of this class
      */
@@ -567,9 +654,10 @@ public class CreateCustomer
                 + ", reference=" + reference + ", address=" + address + ", address2=" + address2
                 + ", city=" + city + ", state=" + state + ", zip=" + zip + ", country=" + country
                 + ", phone=" + phone + ", locale=" + locale + ", vatNumber=" + vatNumber
-                + ", taxExempt=" + taxExempt + ", taxExemptReason=" + taxExemptReason
-                + ", parentId=" + parentId + ", salesforceId=" + salesforceId
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", taxExempt=" + taxExempt + ", surcharging=" + surcharging + ", taxExemptReason="
+                + taxExemptReason + ", parentId=" + parentId + ", salesforceId=" + salesforceId
+                + ", brandingThemeId=" + brandingThemeId + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -592,9 +680,11 @@ public class CreateCustomer
                 .locale(getLocale())
                 .vatNumber(getVatNumber())
                 .taxExempt(getTaxExempt())
+                .surcharging(getSurcharging())
                 .taxExemptReason(getTaxExemptReason());
         builder.parentId = internalGetParentId();
         builder.salesforceId = internalGetSalesforceId();
+        builder.brandingThemeId = internalGetBrandingThemeId();
         return builder;
     }
 
@@ -618,9 +708,11 @@ public class CreateCustomer
         private String locale;
         private String vatNumber;
         private Boolean taxExempt;
+        private Boolean surcharging;
         private String taxExemptReason;
         private OptionalNullable<Integer> parentId;
         private OptionalNullable<String> salesforceId;
+        private OptionalNullable<Integer> brandingThemeId;
 
         /**
          * Initialization constructor.
@@ -801,6 +893,16 @@ public class CreateCustomer
         }
 
         /**
+         * Setter for surcharging.
+         * @param  surcharging  Boolean value for surcharging.
+         * @return Builder
+         */
+        public Builder surcharging(Boolean surcharging) {
+            this.surcharging = surcharging;
+            return this;
+        }
+
+        /**
          * Setter for taxExemptReason.
          * @param  taxExemptReason  String value for taxExemptReason.
          * @return Builder
@@ -849,13 +951,33 @@ public class CreateCustomer
         }
 
         /**
+         * Setter for brandingThemeId.
+         * @param  brandingThemeId  Integer value for brandingThemeId.
+         * @return Builder
+         */
+        public Builder brandingThemeId(Integer brandingThemeId) {
+            this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for brandingThemeId.
+         * @return Builder
+         */
+        public Builder unsetBrandingThemeId() {
+            brandingThemeId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link CreateCustomer} object using the set fields.
          * @return {@link CreateCustomer}
          */
         public CreateCustomer build() {
             return new CreateCustomer(firstName, lastName, email, ccEmails, organization, reference,
                     address, address2, city, state, zip, country, phone, locale, vatNumber,
-                    taxExempt, taxExemptReason, parentId, salesforceId);
+                    taxExempt, surcharging, taxExemptReason, parentId, salesforceId,
+                    brandingThemeId);
         }
     }
 }

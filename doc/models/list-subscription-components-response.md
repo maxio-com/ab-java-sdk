@@ -11,19 +11,25 @@
 |  --- | --- | --- | --- | --- | --- |
 | `SubscriptionsComponents` | [`List<SubscriptionComponent>`](../../doc/models/subscription-component.md) | Required | - | List<SubscriptionComponent> getSubscriptionsComponents() | setSubscriptionsComponents(List<SubscriptionComponent> subscriptionsComponents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscriptions_components": [
-    {
-      "id": 138,
-      "name": "name2",
-      "kind": "metered_component",
-      "unit_name": "unit_name4",
-      "enabled": false
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.ComponentKind;
+import com.maxio.advancedbilling.models.ListSubscriptionComponentsResponse;
+import com.maxio.advancedbilling.models.SubscriptionComponent;
+import java.util.Arrays;
+
+ListSubscriptionComponentsResponse listSubscriptionComponentsResponse = new ListSubscriptionComponentsResponse.Builder(
+    Arrays.asList(
+        new SubscriptionComponent.Builder()
+            .id(138)
+            .name("name2")
+            .kind(ComponentKind.METERED_COMPONENT)
+            .unitName("unit_name4")
+            .enabled(false)
+            .build()
+    )
+)
+.build();
 ```
 

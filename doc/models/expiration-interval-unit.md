@@ -13,3 +13,11 @@
 | `MONTH` |
 | `NEVER` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.ExpirationIntervalUnit;
+
+ExpirationIntervalUnit expirationIntervalUnit = ExpirationIntervalUnit.NEVER;
+```
+

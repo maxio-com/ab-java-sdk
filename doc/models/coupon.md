@@ -41,15 +41,17 @@
 | `CouponRestrictions` | [`List<CouponRestriction>`](../../doc/models/coupon-restriction.md) | Optional | - | List<CouponRestriction> getCouponRestrictions() | setCouponRestrictions(List<CouponRestriction> couponRestrictions) |
 | `CurrencyPrices` | [`List<CouponCurrency>`](../../doc/models/coupon-currency.md) | Optional | Returned in read, find, and list endpoints if the query parameter is provided. | List<CouponCurrency> getCurrencyPrices() | setCurrencyPrices(List<CouponCurrency> currencyPrices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 22,
-  "name": "name2",
-  "code": "code0",
-  "description": "description2",
-  "amount": 62.64
-}
+```java
+import com.maxio.advancedbilling.models.Coupon;
+
+Coupon coupon = new Coupon.Builder()
+    .id(196)
+    .name("name4")
+    .code("code2")
+    .description("description6")
+    .amount(97.66D)
+    .build();
 ```
 

@@ -13,13 +13,15 @@
 | `AutomaticBalanceInCents` | `Long` | Optional | The automatic balance in cents. | Long getAutomaticBalanceInCents() | setAutomaticBalanceInCents(Long automaticBalanceInCents) |
 | `RemittanceBalanceInCents` | `Long` | Optional | The remittance balance in cents. | Long getRemittanceBalanceInCents() | setRemittanceBalanceInCents(Long remittanceBalanceInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "balance_in_cents": 16,
-  "automatic_balance_in_cents": 226,
-  "remittance_balance_in_cents": 62
-}
+```java
+import com.maxio.advancedbilling.models.AccountBalance;
+
+AccountBalance accountBalance = new AccountBalance.Builder()
+    .balanceInCents(242L)
+    .automaticBalanceInCents(0L)
+    .remittanceBalanceInCents(32L)
+    .build();
 ```
 

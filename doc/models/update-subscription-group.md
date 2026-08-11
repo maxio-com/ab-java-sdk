@@ -11,15 +11,18 @@
 |  --- | --- | --- | --- | --- | --- |
 | `MemberIds` | `List<Integer>` | Optional | - | List<Integer> getMemberIds() | setMemberIds(List<Integer> memberIds) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "member_ids": [
-    52,
-    53,
-    54
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.UpdateSubscriptionGroup;
+import java.util.Arrays;
+
+UpdateSubscriptionGroup updateSubscriptionGroup = new UpdateSubscriptionGroup.Builder()
+    .memberIds(Arrays.asList(
+        248,
+        249,
+        250
+    ))
+    .build();
 ```
 

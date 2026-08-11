@@ -13,7 +13,9 @@
 
 ## Example
 
-```
-prepaid_product_price_point
+```java
+import com.maxio.advancedbilling.models.ListProductsInclude;
+
+ListProductsInclude listProductsInclude = ListProductsInclude.PREPAID_PRODUCT_PRICE_POINT;
 ```
 

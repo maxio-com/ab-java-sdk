@@ -14,14 +14,16 @@
 | `Organization` | `String` | Optional | - | String getOrganization() | setOrganization(String organization) |
 | `Email` | `String` | Optional | - | String getEmail() | setEmail(String email) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "first_name": "first_name2",
-  "last_name": "last_name0",
-  "organization": "organization4",
-  "email": "email4"
-}
+```java
+import com.maxio.advancedbilling.models.InvoicePayerChange;
+
+InvoicePayerChange invoicePayerChange = new InvoicePayerChange.Builder()
+    .firstName("first_name4")
+    .lastName("last_name2")
+    .organization("organization2")
+    .email("email2")
+    .build();
 ```
 

@@ -48,3 +48,11 @@ See [Subscription States](https://maxio.zendesk.com/hc/en-us/articles/2425211902
 | `ON_HOLD` |
 | `AWAITING_SIGNUP` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.SubscriptionState;
+
+SubscriptionState subscriptionState = SubscriptionState.AWAITING_SIGNUP;
+```
+

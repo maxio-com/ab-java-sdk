@@ -576,7 +576,7 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
-| `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
+| `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows you to pause a Subscription. |
 
 ## Response Type
 
@@ -745,7 +745,7 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `subscriptionId` | `int` | Template, Required | The Chargify id of the subscription. |
-| `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows to pause a Subscription |
+| `body` | [`PauseRequest`](../../doc/models/pause-request.md) | Body, Optional | Allows you to pause a Subscription. |
 
 ## Response Type
 

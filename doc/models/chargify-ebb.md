@@ -16,15 +16,18 @@
 | `SubscriptionId` | `Integer` | Optional | Id of Maxio Advanced Billing Subscription which is connected to this event.<br>Provide `subscription_id` if you configured `chargify.subscription_id` as Subscription Identifier in your Event Stream. | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `SubscriptionReference` | `String` | Optional | Reference of Maxio Advanced Billing Subscription which is connected to this event.<br>Provide `subscription_reference` if you configured `chargify.subscription_reference` as Subscription Identifier in your Event Stream. | String getSubscriptionReference() | setSubscriptionReference(String subscriptionReference) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "id": "id4",
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "uniqueness_token": "uniqueness_token0",
-  "subscription_id": 200
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ChargifyEBB;
+
+ChargifyEBB chargifyEBB = new ChargifyEBB.Builder()
+    .timestamp(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .id("id2")
+    .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .uniquenessToken("uniqueness_token8")
+    .subscriptionId(224)
+    .build();
 ```
 

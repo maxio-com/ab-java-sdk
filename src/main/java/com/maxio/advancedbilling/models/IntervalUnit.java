@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * IntervalUnit to be used.
  */
@@ -20,7 +19,6 @@ public enum IntervalUnit {
     DAY,
 
     MONTH;
-
 
     private static TreeMap<String, IntervalUnit> valueMap = new TreeMap<>();
     private String value;

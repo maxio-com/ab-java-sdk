@@ -16,3 +16,11 @@ A handle for the line item kind for allocation preview
 | `COUPON` |
 | `TAX` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.AllocationPreviewLineItemKind;
+
+AllocationPreviewLineItemKind allocationPreviewLineItemKind = AllocationPreviewLineItemKind.COUPON;
+```
+

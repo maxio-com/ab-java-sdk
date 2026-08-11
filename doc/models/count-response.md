@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Count` | `Integer` | Optional | - | Integer getCount() | setCount(Integer count) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "count": 60
-}
+```java
+import com.maxio.advancedbilling.models.CountResponse;
+
+CountResponse countResponse = new CountResponse.Builder()
+    .count(56)
+    .build();
 ```
 

@@ -317,7 +317,11 @@ public final class CustomersController extends BaseController {
     }
 
     /**
-     * Lists all subscriptions that belong to a customer.
+     * Lists all subscriptions that belong to a customer. If you have the new [Catalog
+     * experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology)
+     * enabled, subscriptions no longer require an associated product. For subscriptions without an
+     * associated product, 'product', 'product_price_point_id', and 'product_price_point_type' are
+     * returned as 'null'.
      * @param  customerId  Required parameter: The Chargify id of the customer
      * @return    Returns the List of SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

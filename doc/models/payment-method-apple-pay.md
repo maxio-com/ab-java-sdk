@@ -11,11 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - | InvoiceEventPaymentMethod getType() | setType(InvoiceEventPaymentMethod type) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "type": "apple_pay"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+import com.maxio.advancedbilling.models.PaymentMethodApplePay;
+
+PaymentMethodApplePay paymentMethodApplePay = new PaymentMethodApplePay.Builder(
+    InvoiceEventPaymentMethod.APPLE_PAY
+)
+.build();
 ```
 

@@ -328,9 +328,9 @@ public final class SubscriptionComponentsController extends BaseController {
     }
 
     /**
-     * Returns the 50 most recent Allocations, ordered by most recent first. ## On/Off Components
-     * When a subscription's on/off component has been toggled to on (`1`) or off (`0`), usage will
-     * be logged in this response.
+     * Lists the 50 most recent Allocations, ordered by most recent first. ## On/Off Components When
+     * a subscription's on/off component has been toggled to on (`1`) or off (`0`), usage will be
+     * logged in this response.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  componentId  Required parameter: The Advanced Billing id of the component
      * @param  page  Optional parameter: Result records are organized in pages. By default, the
@@ -729,8 +729,8 @@ public final class SubscriptionComponentsController extends BaseController {
     }
 
     /**
-     * Returns a list of usages associated with a subscription for a particular metered component.
-     * This will display the previously recorded components for a subscription. This endpoint is not
+     * Lists usages associated with a subscription for a particular metered component. This will
+     * display the previously recorded components for a subscription. This endpoint is not
      * compatible with quantity-based components. ## Since Date and Until Date Usage Note: The
      * `since_date` and `until_date` attributes each default to midnight on the date specified. For
      * example, in order to list usages for January 20th, you would need to append the following to
@@ -896,7 +896,8 @@ public final class SubscriptionComponentsController extends BaseController {
      * @param  apiHandle  Required parameter: Identifies the Stream for which the event should be
      *         published.
      * @param  storeUid  Optional parameter: If you've attached your own Keen project as an Advanced
-     *         Billing event data-store, use this parameter to indicate the data-store.
+     *         Billing event data-store, use this parameter to indicate the data-store. This applies
+     *         to Legacy Metering sites only — it has no effect on Maxio Metering sites.
      * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -946,7 +947,8 @@ public final class SubscriptionComponentsController extends BaseController {
      * @param  apiHandle  Required parameter: Identifies the Stream for which the events should be
      *         published.
      * @param  storeUid  Optional parameter: If you've attached your own Keen project as an Advanced
-     *         Billing event data-store, use this parameter to indicate the data-store.
+     *         Billing event data-store, use this parameter to indicate the data-store. This applies
+     *         to Legacy Metering sites only — it has no effect on Maxio Metering sites.
      * @param  body  Optional parameter:
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

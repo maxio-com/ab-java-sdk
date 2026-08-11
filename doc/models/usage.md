@@ -19,15 +19,21 @@
 | `ComponentHandle` | `String` | Optional | - | String getComponentHandle() | setComponentHandle(String componentHandle) |
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 252,
-  "memo": "memo8",
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "price_point_id": 126,
-  "quantity": 130
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Usage;
+import com.maxio.advancedbilling.models.containers.UsageQuantity;
+
+Usage usage = new Usage.Builder()
+    .id(150L)
+    .memo("memo2")
+    .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .pricePointId(28)
+    .quantity(UsageQuantity.fromNumber(
+        28
+    ))
+    .build();
 ```
 

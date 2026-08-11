@@ -24,15 +24,19 @@
 | `PeriodRangeStart` | `String` | Optional | - | String getPeriodRangeStart() | setPeriodRangeStart(String periodRangeStart) |
 | `PeriodRangeEnd` | `String` | Optional | - | String getPeriodRangeEnd() | setPeriodRangeEnd(String periodRangeEnd) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "transaction_type": "charge",
-  "kind": "prepaid_usage_component",
-  "amount_in_cents": 154,
-  "memo": "memo0",
-  "discount_amount_in_cents": 214
-}
+```java
+import com.maxio.advancedbilling.models.LineItemKind;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
+import com.maxio.advancedbilling.models.RenewalPreviewLineItem;
+
+RenewalPreviewLineItem renewalPreviewLineItem = new RenewalPreviewLineItem.Builder()
+    .transactionType(LineItemTransactionType.ADJUSTMENT)
+    .kind(LineItemKind.PREPAID_USAGE_COMPONENT)
+    .amountInCents(32L)
+    .memo("memo0")
+    .discountAmountInCents(228L)
+    .build();
 ```
 

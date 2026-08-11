@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceConsolidationLevel to be used.
  */
@@ -22,7 +21,6 @@ public enum InvoiceConsolidationLevel {
     CHILD,
 
     PARENT;
-
 
     private static TreeMap<String, InvoiceConsolidationLevel> valueMap = new TreeMap<>();
     private String value;

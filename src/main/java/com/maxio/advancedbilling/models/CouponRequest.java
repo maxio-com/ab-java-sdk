@@ -64,7 +64,7 @@ public class CouponRequest
     /**
      * Getter for RestrictedProducts.
      * An object where the keys are product IDs or handles (prefixed with 'handle:'), and the values
-     * are booleans indicating if the coupon should be applicable to the product
+     * are booleans indicating if the coupon should be applicable to the product.
      * @return Returns the Map of String, Boolean
      */
     @JsonGetter("restricted_products")
@@ -76,7 +76,7 @@ public class CouponRequest
     /**
      * Setter for RestrictedProducts.
      * An object where the keys are product IDs or handles (prefixed with 'handle:'), and the values
-     * are booleans indicating if the coupon should be applicable to the product
+     * are booleans indicating if the coupon should be applicable to the product.
      * @param restrictedProducts Value for Map of String, Boolean
      */
     @JsonSetter("restricted_products")
@@ -87,7 +87,7 @@ public class CouponRequest
     /**
      * Getter for RestrictedComponents.
      * An object where the keys are component IDs or handles (prefixed with 'handle:'), and the
-     * values are booleans indicating if the coupon should be applicable to the component
+     * values are booleans indicating if the coupon should be applicable to the component.
      * @return Returns the Map of String, Boolean
      */
     @JsonGetter("restricted_components")
@@ -99,7 +99,7 @@ public class CouponRequest
     /**
      * Setter for RestrictedComponents.
      * An object where the keys are component IDs or handles (prefixed with 'handle:'), and the
-     * values are booleans indicating if the coupon should be applicable to the component
+     * values are booleans indicating if the coupon should be applicable to the component.
      * @param restrictedComponents Value for Map of String, Boolean
      */
     @JsonSetter("restricted_components")

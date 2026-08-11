@@ -34,7 +34,7 @@ public class CreateOrUpdateEndpointRequest
 
     /**
      * Getter for Endpoint.
-     * Used to Create or Update Endpoint
+     * Used to Create or Update Endpoint.
      * @return Returns the CreateOrUpdateEndpoint
      */
     @JsonGetter("endpoint")
@@ -44,7 +44,7 @@ public class CreateOrUpdateEndpointRequest
 
     /**
      * Setter for Endpoint.
-     * Used to Create or Update Endpoint
+     * Used to Create or Update Endpoint.
      * @param endpoint Value for CreateOrUpdateEndpoint
      */
     @JsonSetter("endpoint")

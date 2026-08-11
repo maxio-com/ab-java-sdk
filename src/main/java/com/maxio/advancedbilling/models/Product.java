@@ -59,6 +59,7 @@ public class Product
     private OptionalNullable<String> itemCategory;
     private Integer productPricePointId;
     private OptionalNullable<String> productPricePointHandle;
+    private OptionalNullable<String> unspscCode;
 
     /**
      * Default constructor.
@@ -105,6 +106,7 @@ public class Product
      * @param  itemCategory  String value for itemCategory.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
+     * @param  unspscCode  String value for unspscCode.
      */
     public Product(
             Integer id,
@@ -143,7 +145,8 @@ public class Product
             Boolean useSiteExchangeRate,
             String itemCategory,
             Integer productPricePointId,
-            String productPricePointHandle) {
+            String productPricePointHandle,
+            String unspscCode) {
         this.id = id;
         this.name = name;
         this.handle = OptionalNullable.of(handle);
@@ -181,6 +184,7 @@ public class Product
         this.itemCategory = OptionalNullable.of(itemCategory);
         this.productPricePointId = productPricePointId;
         this.productPricePointHandle = OptionalNullable.of(productPricePointHandle);
+        this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
     /**
@@ -222,6 +226,7 @@ public class Product
      * @param  itemCategory  String value for itemCategory.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  productPricePointHandle  String value for productPricePointHandle.
+     * @param  unspscCode  String value for unspscCode.
      */
 
     protected Product(Integer id, String name, OptionalNullable<String> handle,
@@ -242,7 +247,8 @@ public class Product
             Boolean requireShippingAddress, OptionalNullable<String> taxCode,
             Integer defaultProductPricePointId, OptionalNullable<Boolean> useSiteExchangeRate,
             OptionalNullable<String> itemCategory, Integer productPricePointId,
-            OptionalNullable<String> productPricePointHandle) {
+            OptionalNullable<String> productPricePointHandle,
+            OptionalNullable<String> unspscCode) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -280,6 +286,7 @@ public class Product
         this.itemCategory = itemCategory;
         this.productPricePointId = productPricePointId;
         this.productPricePointHandle = productPricePointHandle;
+        this.unspscCode = unspscCode;
     }
 
     /**
@@ -402,7 +409,7 @@ public class Product
 
     /**
      * Internal Getter for AccountingCode.
-     * E.g. Internal ID or SKU Number
+     * E.g., Internal ID or SKU Number
      * @return Returns the Internal String
      */
     @JsonGetter("accounting_code")
@@ -414,7 +421,7 @@ public class Product
 
     /**
      * Getter for AccountingCode.
-     * E.g. Internal ID or SKU Number
+     * E.g., Internal ID or SKU Number
      * @return Returns the String
      */
     public String getAccountingCode() {
@@ -423,7 +430,7 @@ public class Product
 
     /**
      * Setter for AccountingCode.
-     * E.g. Internal ID or SKU Number
+     * E.g., Internal ID or SKU Number
      * @param accountingCode Value for String
      */
     @JsonSetter("accounting_code")
@@ -433,7 +440,7 @@ public class Product
 
     /**
      * UnSetter for AccountingCode.
-     * E.g. Internal ID or SKU Number
+     * E.g., Internal ID or SKU Number
      */
     public void unsetAccountingCode() {
         accountingCode = null;
@@ -466,7 +473,7 @@ public class Product
      * Internal Getter for ExpirationInterval.
      * A numerical interval for the length a subscription to this product will run before it
      * expires. See the description of interval for a description of how this value is coupled with
-     * an interval unit to calculate the full interval
+     * an interval unit to calculate the full interval.
      * @return Returns the Internal Integer
      */
     @JsonGetter("expiration_interval")
@@ -480,7 +487,7 @@ public class Product
      * Getter for ExpirationInterval.
      * A numerical interval for the length a subscription to this product will run before it
      * expires. See the description of interval for a description of how this value is coupled with
-     * an interval unit to calculate the full interval
+     * an interval unit to calculate the full interval.
      * @return Returns the Integer
      */
     public Integer getExpirationInterval() {
@@ -491,7 +498,7 @@ public class Product
      * Setter for ExpirationInterval.
      * A numerical interval for the length a subscription to this product will run before it
      * expires. See the description of interval for a description of how this value is coupled with
-     * an interval unit to calculate the full interval
+     * an interval unit to calculate the full interval.
      * @param expirationInterval Value for Integer
      */
     @JsonSetter("expiration_interval")
@@ -503,7 +510,7 @@ public class Product
      * UnSetter for ExpirationInterval.
      * A numerical interval for the length a subscription to this product will run before it
      * expires. See the description of interval for a description of how this value is coupled with
-     * an interval unit to calculate the full interval
+     * an interval unit to calculate the full interval.
      */
     public void unsetExpirationInterval() {
         expirationInterval = null;
@@ -621,8 +628,8 @@ public class Product
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this product would renew every 30 days
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product would renew every 30 days.
      * @return Returns the Integer
      */
     @JsonGetter("interval")
@@ -633,8 +640,8 @@ public class Product
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this product would renew every 30 days
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this product would renew every 30 days.
      * @param interval Value for Integer
      */
     @JsonSetter("interval")
@@ -745,7 +752,7 @@ public class Product
      * Internal Getter for TrialInterval.
      * A numerical interval for the length of the trial period of a subscription to this product.
      * See the description of interval for a description of how this value is coupled with an
-     * interval unit to calculate the full interval
+     * interval unit to calculate the full interval.
      * @return Returns the Internal Integer
      */
     @JsonGetter("trial_interval")
@@ -759,7 +766,7 @@ public class Product
      * Getter for TrialInterval.
      * A numerical interval for the length of the trial period of a subscription to this product.
      * See the description of interval for a description of how this value is coupled with an
-     * interval unit to calculate the full interval
+     * interval unit to calculate the full interval.
      * @return Returns the Integer
      */
     public Integer getTrialInterval() {
@@ -770,7 +777,7 @@ public class Product
      * Setter for TrialInterval.
      * A numerical interval for the length of the trial period of a subscription to this product.
      * See the description of interval for a description of how this value is coupled with an
-     * interval unit to calculate the full interval
+     * interval unit to calculate the full interval.
      * @param trialInterval Value for Integer
      */
     @JsonSetter("trial_interval")
@@ -782,7 +789,7 @@ public class Product
      * UnSetter for TrialInterval.
      * A numerical interval for the length of the trial period of a subscription to this product.
      * See the description of interval for a description of how this value is coupled with an
-     * interval unit to calculate the full interval
+     * interval unit to calculate the full interval.
      */
     public void unsetTrialInterval() {
         trialInterval = null;
@@ -1042,7 +1049,7 @@ public class Product
     /**
      * Internal Getter for UpdateReturnParams.
      * The parameters will append to the url after a successful account update. See [help
-     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update)
+     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update).
      * @return Returns the Internal String
      */
     @JsonGetter("update_return_params")
@@ -1055,7 +1062,7 @@ public class Product
     /**
      * Getter for UpdateReturnParams.
      * The parameters will append to the url after a successful account update. See [help
-     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update)
+     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update).
      * @return Returns the String
      */
     public String getUpdateReturnParams() {
@@ -1065,7 +1072,7 @@ public class Product
     /**
      * Setter for UpdateReturnParams.
      * The parameters will append to the url after a successful account update. See [help
-     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update)
+     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update).
      * @param updateReturnParams Value for String
      */
     @JsonSetter("update_return_params")
@@ -1076,7 +1083,7 @@ public class Product
     /**
      * UnSetter for UpdateReturnParams.
      * The parameters will append to the url after a successful account update. See [help
-     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update)
+     * documentation](https://help.chargify.com/products/product-editing.html#return-parameters-after-account-update).
      */
     public void unsetUpdateReturnParams() {
         updateReturnParams = null;
@@ -1403,6 +1410,53 @@ public class Product
     }
 
     /**
+     * Internal Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("unspsc_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUnspscCode() {
+        return this.unspscCode;
+    }
+
+    /**
+     * Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     * @return Returns the String
+     */
+    public String getUnspscCode() {
+        return OptionalNullable.getFrom(unspscCode);
+    }
+
+    /**
+     * Setter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     * @param unspscCode Value for String
+     */
+    @JsonSetter("unspsc_code")
+    public void setUnspscCode(String unspscCode) {
+        this.unspscCode = OptionalNullable.of(unspscCode);
+    }
+
+    /**
+     * UnSetter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this product instead of the default
+     * derived from item_category.
+     */
+    public void unsetUnspscCode() {
+        unspscCode = null;
+    }
+
+    /**
      * Converts this Product into string format.
      * @return String representation of this class
      */
@@ -1427,8 +1481,8 @@ public class Product
                 + ", defaultProductPricePointId=" + defaultProductPricePointId
                 + ", useSiteExchangeRate=" + useSiteExchangeRate + ", itemCategory=" + itemCategory
                 + ", productPricePointId=" + productPricePointId + ", productPricePointHandle="
-                + productPricePointHandle + ", additionalProperties=" + getAdditionalProperties()
-                + "]";
+                + productPricePointHandle + ", unspscCode=" + unspscCode + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1475,6 +1529,7 @@ public class Product
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.itemCategory = internalGetItemCategory();
         builder.productPricePointHandle = internalGetProductPricePointHandle();
+        builder.unspscCode = internalGetUnspscCode();
         return builder;
     }
 
@@ -1519,6 +1574,7 @@ public class Product
         private OptionalNullable<String> itemCategory;
         private Integer productPricePointId;
         private OptionalNullable<String> productPricePointHandle;
+        private OptionalNullable<String> unspscCode;
 
 
 
@@ -2055,6 +2111,25 @@ public class Product
         }
 
         /**
+         * Setter for unspscCode.
+         * @param  unspscCode  String value for unspscCode.
+         * @return Builder
+         */
+        public Builder unspscCode(String unspscCode) {
+            this.unspscCode = OptionalNullable.of(unspscCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for unspscCode.
+         * @return Builder
+         */
+        public Builder unsetUnspscCode() {
+            unspscCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Product} object using the set fields.
          * @return {@link Product}
          */
@@ -2067,7 +2142,7 @@ public class Product
                     productFamily, publicSignupPages, productPricePointName, requestBillingAddress,
                     requireBillingAddress, requireShippingAddress, taxCode,
                     defaultProductPricePointId, useSiteExchangeRate, itemCategory,
-                    productPricePointId, productPricePointHandle);
+                    productPricePointId, productPricePointHandle, unspscCode);
         }
     }
 }

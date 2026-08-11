@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionPurgeType to be used.
  */
@@ -20,7 +19,6 @@ public enum SubscriptionPurgeType {
     CUSTOMER,
 
     PAYMENT_PROFILE;
-
 
     private static TreeMap<String, SubscriptionPurgeType> valueMap = new TreeMap<>();
     private String value;

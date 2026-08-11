@@ -15,35 +15,49 @@
 | `EventType` | [`InvoiceEventType`](../../doc/models/invoice-event-type.md) | Required | **Default**: `InvoiceEventType.REMOVE_PAYMENT` | InvoiceEventType getEventType() | setEventType(InvoiceEventType eventType) |
 | `EventData` | [`RemovePaymentEventData`](../../doc/models/remove-payment-event-data.md) | Required | Example schema for an `remove_payment` event | RemovePaymentEventData getEventData() | setEventData(RemovePaymentEventData eventData) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 236,
-  "timestamp": "2016-03-13T12:52:32.123Z",
-  "invoice": {
-    "issue_date": "2024-01-01",
-    "due_date": "2024-01-01",
-    "paid_date": "2024-01-01",
-    "public_url_expires_on": "2024-01-21",
-    "id": 166,
-    "uid": "uid6",
-    "site_id": 92,
-    "customer_id": 204,
-    "subscription_id": 20
-  },
-  "event_type": "remove_payment",
-  "event_data": {
-    "transaction_id": 78,
-    "memo": "memo0",
-    "applied_amount": "applied_amount2",
-    "transaction_time": "2016-03-13T12:52:32.123Z",
-    "payment_method": {
-      "type": "apple_pay"
-    },
-    "prepayment": false,
-    "original_amount": "original_amount0"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+import com.maxio.advancedbilling.models.InvoiceEventType;
+import com.maxio.advancedbilling.models.PaymentMethodApplePay;
+import com.maxio.advancedbilling.models.RemovePaymentEvent;
+import com.maxio.advancedbilling.models.RemovePaymentEventData;
+import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
+
+RemovePaymentEvent removePaymentEvent = new RemovePaymentEvent.Builder(
+    132L,
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    new Invoice.Builder()
+        .id(166L)
+        .uid("uid6")
+        .siteId(92)
+        .customerId(204)
+        .subscriptionId(20)
+        .issueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .dueDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .paidDate(DateTimeHelper.fromSimpleDate("2024-01-01"))
+        .publicUrlExpiresOn(DateTimeHelper.fromSimpleDate("2024-01-21"))
+        .build(),
+    InvoiceEventType.REMOVE_PAYMENT,
+    new RemovePaymentEventData.Builder(
+        78,
+        "memo0",
+        "applied_amount2",
+        DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+        InvoiceEventPayment.fromPaymentMethodApplePay(
+            new PaymentMethodApplePay.Builder(
+                InvoiceEventPaymentMethod.APPLE_PAY
+            )
+            .build()
+        ),
+        false
+    )
+    .originalAmount("original_amount0")
+    .build()
+)
+.build();
 ```
 

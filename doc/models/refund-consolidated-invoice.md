@@ -1,7 +1,7 @@
 
 # Refund Consolidated Invoice
 
-Refund consolidated invoice
+Refund consolidated invoice.
 
 ## Structure
 
@@ -18,19 +18,26 @@ Refund consolidated invoice
 | `ApplyCredit` | `Boolean` | Optional | If set to true, creates credit and applies it to an invoice. Defaults to `false`. | Boolean getApplyCredit() | setApplyCredit(Boolean applyCredit) |
 | `Amount` | `String` | Optional | The amount of payment to be refunded in decimal format. Example: "10.50". This will default to the full amount of the payment if not provided. | String getAmount() | setAmount(String amount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "memo": "memo0",
-  "payment_id": 46,
-  "segment_uids": [
-    "String0",
-    "String1"
-  ],
-  "external": false,
-  "apply_credit": false,
-  "amount": "amount8"
-}
+```java
+import com.maxio.advancedbilling.models.RefundConsolidatedInvoice;
+import com.maxio.advancedbilling.models.containers.RefundConsolidatedInvoiceSegmentUids;
+import java.util.Arrays;
+
+RefundConsolidatedInvoice refundConsolidatedInvoice = new RefundConsolidatedInvoice.Builder(
+    "memo0",
+    138,
+    RefundConsolidatedInvoiceSegmentUids.fromListOfString(
+        Arrays.asList(
+            "String0",
+            "String1"
+        )
+    )
+)
+.external(false)
+.applyCredit(false)
+.amount("amount8")
+.build();
 ```
 

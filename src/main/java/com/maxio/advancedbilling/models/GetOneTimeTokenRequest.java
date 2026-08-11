@@ -8,6 +8,7 @@ package com.maxio.advancedbilling.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.GetOneTimeTokenRequestPaymentProfile;
 import io.apimatic.core.types.BaseModel;
 
 /**
@@ -15,7 +16,7 @@ import io.apimatic.core.types.BaseModel;
  */
 public class GetOneTimeTokenRequest
         extends BaseModel {
-    private GetOneTimeTokenPaymentProfile paymentProfile;
+    private GetOneTimeTokenRequestPaymentProfile paymentProfile;
 
     /**
      * Default constructor.
@@ -25,28 +26,28 @@ public class GetOneTimeTokenRequest
 
     /**
      * Initialization constructor.
-     * @param  paymentProfile  GetOneTimeTokenPaymentProfile value for paymentProfile.
+     * @param  paymentProfile  GetOneTimeTokenRequestPaymentProfile value for paymentProfile.
      */
     public GetOneTimeTokenRequest(
-            GetOneTimeTokenPaymentProfile paymentProfile) {
+            GetOneTimeTokenRequestPaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
     /**
      * Getter for PaymentProfile.
-     * @return Returns the GetOneTimeTokenPaymentProfile
+     * @return Returns the GetOneTimeTokenRequestPaymentProfile
      */
     @JsonGetter("payment_profile")
-    public GetOneTimeTokenPaymentProfile getPaymentProfile() {
+    public GetOneTimeTokenRequestPaymentProfile getPaymentProfile() {
         return paymentProfile;
     }
 
     /**
      * Setter for PaymentProfile.
-     * @param paymentProfile Value for GetOneTimeTokenPaymentProfile
+     * @param paymentProfile Value for GetOneTimeTokenRequestPaymentProfile
      */
     @JsonSetter("payment_profile")
-    public void setPaymentProfile(GetOneTimeTokenPaymentProfile paymentProfile) {
+    public void setPaymentProfile(GetOneTimeTokenRequestPaymentProfile paymentProfile) {
         this.paymentProfile = paymentProfile;
     }
 
@@ -74,7 +75,7 @@ public class GetOneTimeTokenRequest
      * Class to build instances of {@link GetOneTimeTokenRequest}.
      */
     public static class Builder {
-        private GetOneTimeTokenPaymentProfile paymentProfile;
+        private GetOneTimeTokenRequestPaymentProfile paymentProfile;
 
         /**
          * Initialization constructor.
@@ -84,18 +85,18 @@ public class GetOneTimeTokenRequest
 
         /**
          * Initialization constructor.
-         * @param  paymentProfile  GetOneTimeTokenPaymentProfile value for paymentProfile.
+         * @param  paymentProfile  GetOneTimeTokenRequestPaymentProfile value for paymentProfile.
          */
-        public Builder(GetOneTimeTokenPaymentProfile paymentProfile) {
+        public Builder(GetOneTimeTokenRequestPaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
         }
 
         /**
          * Setter for paymentProfile.
-         * @param  paymentProfile  GetOneTimeTokenPaymentProfile value for paymentProfile.
+         * @param  paymentProfile  GetOneTimeTokenRequestPaymentProfile value for paymentProfile.
          * @return Builder
          */
-        public Builder paymentProfile(GetOneTimeTokenPaymentProfile paymentProfile) {
+        public Builder paymentProfile(GetOneTimeTokenRequestPaymentProfile paymentProfile) {
             this.paymentProfile = paymentProfile;
             return this;
         }

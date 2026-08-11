@@ -15,7 +15,7 @@ import io.apimatic.core.types.BaseModel;
  */
 public class ListSubscriptionGroupPrepayment
         extends BaseModel {
-    private ListSubcriptionGroupPrepaymentItem prepayment;
+    private ListSubscriptionGroupPrepaymentItem prepayment;
 
     /**
      * Default constructor.
@@ -25,28 +25,28 @@ public class ListSubscriptionGroupPrepayment
 
     /**
      * Initialization constructor.
-     * @param  prepayment  ListSubcriptionGroupPrepaymentItem value for prepayment.
+     * @param  prepayment  ListSubscriptionGroupPrepaymentItem value for prepayment.
      */
     public ListSubscriptionGroupPrepayment(
-            ListSubcriptionGroupPrepaymentItem prepayment) {
+            ListSubscriptionGroupPrepaymentItem prepayment) {
         this.prepayment = prepayment;
     }
 
     /**
      * Getter for Prepayment.
-     * @return Returns the ListSubcriptionGroupPrepaymentItem
+     * @return Returns the ListSubscriptionGroupPrepaymentItem
      */
     @JsonGetter("prepayment")
-    public ListSubcriptionGroupPrepaymentItem getPrepayment() {
+    public ListSubscriptionGroupPrepaymentItem getPrepayment() {
         return prepayment;
     }
 
     /**
      * Setter for Prepayment.
-     * @param prepayment Value for ListSubcriptionGroupPrepaymentItem
+     * @param prepayment Value for ListSubscriptionGroupPrepaymentItem
      */
     @JsonSetter("prepayment")
-    public void setPrepayment(ListSubcriptionGroupPrepaymentItem prepayment) {
+    public void setPrepayment(ListSubscriptionGroupPrepaymentItem prepayment) {
         this.prepayment = prepayment;
     }
 
@@ -74,7 +74,7 @@ public class ListSubscriptionGroupPrepayment
      * Class to build instances of {@link ListSubscriptionGroupPrepayment}.
      */
     public static class Builder {
-        private ListSubcriptionGroupPrepaymentItem prepayment;
+        private ListSubscriptionGroupPrepaymentItem prepayment;
 
         /**
          * Initialization constructor.
@@ -84,18 +84,18 @@ public class ListSubscriptionGroupPrepayment
 
         /**
          * Initialization constructor.
-         * @param  prepayment  ListSubcriptionGroupPrepaymentItem value for prepayment.
+         * @param  prepayment  ListSubscriptionGroupPrepaymentItem value for prepayment.
          */
-        public Builder(ListSubcriptionGroupPrepaymentItem prepayment) {
+        public Builder(ListSubscriptionGroupPrepaymentItem prepayment) {
             this.prepayment = prepayment;
         }
 
         /**
          * Setter for prepayment.
-         * @param  prepayment  ListSubcriptionGroupPrepaymentItem value for prepayment.
+         * @param  prepayment  ListSubscriptionGroupPrepaymentItem value for prepayment.
          * @return Builder
          */
-        public Builder prepayment(ListSubcriptionGroupPrepaymentItem prepayment) {
+        public Builder prepayment(ListSubscriptionGroupPrepaymentItem prepayment) {
             this.prepayment = prepayment;
             return this;
         }

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionInclude to be used.
  */
@@ -20,7 +19,6 @@ public enum SubscriptionInclude {
     COUPONS,
 
     SELF_SERVICE_PAGE_TOKEN;
-
 
     private static TreeMap<String, SubscriptionInclude> valueMap = new TreeMap<>();
     private String value;

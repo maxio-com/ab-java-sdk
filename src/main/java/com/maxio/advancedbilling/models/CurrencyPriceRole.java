@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CurrencyPriceRole to be used.
  */
@@ -22,7 +21,6 @@ public enum CurrencyPriceRole {
     TRIAL,
 
     INITIAL;
-
 
     private static TreeMap<String, CurrencyPriceRole> valueMap = new TreeMap<>();
     private String value;

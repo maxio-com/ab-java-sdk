@@ -11,13 +11,19 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Ids` | `List<Long>` | Required | - | List<Long> getIds() | setIds(List<Long> ids) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "ids": [
-    15
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.ReplayWebhooksRequest;
+import java.util.Arrays;
+
+ReplayWebhooksRequest replayWebhooksRequest = new ReplayWebhooksRequest.Builder(
+    Arrays.asList(
+        209L,
+        210L,
+        211L
+    )
+)
+.build();
 ```
 

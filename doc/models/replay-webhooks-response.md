@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Status` | `String` | Optional | - | String getStatus() | setStatus(String status) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "status": "status4"
-}
+```java
+import com.maxio.advancedbilling.models.ReplayWebhooksResponse;
+
+ReplayWebhooksResponse replayWebhooksResponse = new ReplayWebhooksResponse.Builder()
+    .status("status6")
+    .build();
 ```
 

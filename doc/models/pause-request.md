@@ -1,7 +1,7 @@
 
 # Pause Request
 
-Allows to pause a Subscription
+Allows you to pause a Subscription.
 
 ## Structure
 
@@ -13,13 +13,17 @@ Allows to pause a Subscription
 |  --- | --- | --- | --- | --- | --- |
 | `Hold` | [`AutoResume`](../../doc/models/auto-resume.md) | Optional | - | AutoResume getHold() | setHold(AutoResume hold) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "hold": {
-    "automatically_resume_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.AutoResume;
+import com.maxio.advancedbilling.models.PauseRequest;
+
+PauseRequest pauseRequest = new PauseRequest.Builder()
+    .hold(new AutoResume.Builder()
+        .automaticallyResumeAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .build())
+    .build();
 ```
 

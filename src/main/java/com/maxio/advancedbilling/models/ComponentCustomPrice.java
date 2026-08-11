@@ -133,7 +133,7 @@ public class ComponentCustomPrice
 
     /**
      * Getter for PricingScheme.
-     * Omit for On/Off components
+     * Omit for On/Off components.
      * @return Returns the PricingScheme
      */
     @JsonGetter("pricing_scheme")
@@ -144,7 +144,7 @@ public class ComponentCustomPrice
 
     /**
      * Setter for PricingScheme.
-     * Omit for On/Off components
+     * Omit for On/Off components.
      * @param pricingScheme Value for PricingScheme
      */
     @JsonSetter("pricing_scheme")
@@ -154,7 +154,7 @@ public class ComponentCustomPrice
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @return Returns the Integer
@@ -167,7 +167,7 @@ public class ComponentCustomPrice
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @param interval Value for Integer
@@ -222,7 +222,7 @@ public class ComponentCustomPrice
 
     /**
      * Internal Getter for ListPricePointId.
-     * Optional id of the price point to use for list price calculations when overriding the
+     * (Optional) Id of the price point to use for list price calculations when overriding the
      * customer price.
      * @return Returns the Internal Integer
      */
@@ -235,7 +235,7 @@ public class ComponentCustomPrice
 
     /**
      * Getter for ListPricePointId.
-     * Optional id of the price point to use for list price calculations when overriding the
+     * (Optional) Id of the price point to use for list price calculations when overriding the
      * customer price.
      * @return Returns the Integer
      */
@@ -245,7 +245,7 @@ public class ComponentCustomPrice
 
     /**
      * Setter for ListPricePointId.
-     * Optional id of the price point to use for list price calculations when overriding the
+     * (Optional) Id of the price point to use for list price calculations when overriding the
      * customer price.
      * @param listPricePointId Value for Integer
      */
@@ -256,7 +256,7 @@ public class ComponentCustomPrice
 
     /**
      * UnSetter for ListPricePointId.
-     * Optional id of the price point to use for list price calculations when overriding the
+     * (Optional) Id of the price point to use for list price calculations when overriding the
      * customer price.
      */
     public void unsetListPricePointId() {

@@ -16,15 +16,17 @@
 | `PriceId` | `Integer` | Optional | - | Integer getPriceId() | setPriceId(Integer priceId) |
 | `PricePointId` | `Integer` | Optional | - | Integer getPricePointId() | setPricePointId(Integer pricePointId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 4,
-  "currency": "currency8",
-  "price": "price4",
-  "formatted_price": "formatted_price6",
-  "price_id": 162
-}
+```java
+import com.maxio.advancedbilling.models.ComponentCurrencyPrice;
+
+ComponentCurrencyPrice componentCurrencyPrice = new ComponentCurrencyPrice.Builder()
+    .id(128)
+    .currency("currency2")
+    .price("price4")
+    .formattedPrice("formatted_price6")
+    .priceId(38)
+    .build();
 ```
 

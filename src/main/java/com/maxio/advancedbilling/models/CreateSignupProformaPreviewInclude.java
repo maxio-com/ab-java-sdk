@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CreateSignupProformaPreviewInclude to be used.
  */
 public enum CreateSignupProformaPreviewInclude {
     NEXT_PROFORMA_INVOICE;
-
 
     private static TreeMap<String, CreateSignupProformaPreviewInclude> valueMap = new TreeMap<>();
     private String value;

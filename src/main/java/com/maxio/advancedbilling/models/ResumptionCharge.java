@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ResumptionCharge to be used.
  */
@@ -22,7 +21,6 @@ public enum ResumptionCharge {
     IMMEDIATE,
 
     DELAYED;
-
 
     private static TreeMap<String, ResumptionCharge> valueMap = new TreeMap<>();
     private String value;

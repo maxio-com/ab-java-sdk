@@ -27,6 +27,7 @@ public class UpdateComponent
     private OptionalNullable<ItemCategory> itemCategory;
     private Boolean displayOnHostedPage;
     private OptionalNullable<CreditType> upgradeCharge;
+    private OptionalNullable<String> unspscCode;
 
     /**
      * Default constructor.
@@ -45,6 +46,7 @@ public class UpdateComponent
      * @param  itemCategory  ItemCategory value for itemCategory.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  unspscCode  String value for unspscCode.
      */
     public UpdateComponent(
             String handle,
@@ -55,7 +57,8 @@ public class UpdateComponent
             String taxCode,
             ItemCategory itemCategory,
             Boolean displayOnHostedPage,
-            CreditType upgradeCharge) {
+            CreditType upgradeCharge,
+            String unspscCode) {
         this.handle = handle;
         this.name = name;
         this.description = OptionalNullable.of(description);
@@ -65,6 +68,7 @@ public class UpdateComponent
         this.itemCategory = OptionalNullable.of(itemCategory);
         this.displayOnHostedPage = displayOnHostedPage;
         this.upgradeCharge = OptionalNullable.of(upgradeCharge);
+        this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
     /**
@@ -78,12 +82,14 @@ public class UpdateComponent
      * @param  itemCategory  ItemCategory value for itemCategory.
      * @param  displayOnHostedPage  Boolean value for displayOnHostedPage.
      * @param  upgradeCharge  CreditType value for upgradeCharge.
+     * @param  unspscCode  String value for unspscCode.
      */
 
     protected UpdateComponent(String handle, String name, OptionalNullable<String> description,
             OptionalNullable<String> accountingCode, Boolean taxable,
             OptionalNullable<String> taxCode, OptionalNullable<ItemCategory> itemCategory,
-            Boolean displayOnHostedPage, OptionalNullable<CreditType> upgradeCharge) {
+            Boolean displayOnHostedPage, OptionalNullable<CreditType> upgradeCharge,
+            OptionalNullable<String> unspscCode) {
         this.handle = handle;
         this.name = name;
         this.description = description;
@@ -93,6 +99,7 @@ public class UpdateComponent
         this.itemCategory = itemCategory;
         this.displayOnHostedPage = displayOnHostedPage;
         this.upgradeCharge = upgradeCharge;
+        this.unspscCode = unspscCode;
     }
 
     /**
@@ -116,7 +123,7 @@ public class UpdateComponent
 
     /**
      * Getter for Name.
-     * The name of the Component, suitable for display on statements. i.e. Text Messages.
+     * The name of the Component, suitable for display on statements. e.g., Text Messages.
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -127,7 +134,7 @@ public class UpdateComponent
 
     /**
      * Setter for Name.
-     * The name of the Component, suitable for display on statements. i.e. Text Messages.
+     * The name of the Component, suitable for display on statements. e.g., Text Messages.
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -383,6 +390,53 @@ public class UpdateComponent
     }
 
     /**
+     * Internal Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("unspsc_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUnspscCode() {
+        return this.unspscCode;
+    }
+
+    /**
+     * Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the String
+     */
+    public String getUnspscCode() {
+        return OptionalNullable.getFrom(unspscCode);
+    }
+
+    /**
+     * Setter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @param unspscCode Value for String
+     */
+    @JsonSetter("unspsc_code")
+    public void setUnspscCode(String unspscCode) {
+        this.unspscCode = OptionalNullable.of(unspscCode);
+    }
+
+    /**
+     * UnSetter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     */
+    public void unsetUnspscCode() {
+        unspscCode = null;
+    }
+
+    /**
      * Converts this UpdateComponent into string format.
      * @return String representation of this class
      */
@@ -392,7 +446,8 @@ public class UpdateComponent
                 + description + ", accountingCode=" + accountingCode + ", taxable=" + taxable
                 + ", taxCode=" + taxCode + ", itemCategory=" + itemCategory
                 + ", displayOnHostedPage=" + displayOnHostedPage + ", upgradeCharge="
-                + upgradeCharge + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + upgradeCharge + ", unspscCode=" + unspscCode + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -411,6 +466,7 @@ public class UpdateComponent
         builder.taxCode = internalGetTaxCode();
         builder.itemCategory = internalGetItemCategory();
         builder.upgradeCharge = internalGetUpgradeCharge();
+        builder.unspscCode = internalGetUnspscCode();
         return builder;
     }
 
@@ -427,6 +483,7 @@ public class UpdateComponent
         private OptionalNullable<ItemCategory> itemCategory;
         private Boolean displayOnHostedPage;
         private OptionalNullable<CreditType> upgradeCharge;
+        private OptionalNullable<String> unspscCode;
 
 
 
@@ -566,12 +623,31 @@ public class UpdateComponent
         }
 
         /**
+         * Setter for unspscCode.
+         * @param  unspscCode  String value for unspscCode.
+         * @return Builder
+         */
+        public Builder unspscCode(String unspscCode) {
+            this.unspscCode = OptionalNullable.of(unspscCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for unspscCode.
+         * @return Builder
+         */
+        public Builder unsetUnspscCode() {
+            unspscCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link UpdateComponent} object using the set fields.
          * @return {@link UpdateComponent}
          */
         public UpdateComponent build() {
             return new UpdateComponent(handle, name, description, accountingCode, taxable, taxCode,
-                    itemCategory, displayOnHostedPage, upgradeCharge);
+                    itemCategory, displayOnHostedPage, upgradeCharge, unspscCode);
         }
     }
 }

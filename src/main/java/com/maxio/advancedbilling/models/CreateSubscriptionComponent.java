@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentAllocatedQuantity;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentPricePointId;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentUnitBalance;
 import io.apimatic.core.types.BaseModel;
 
 /**
@@ -21,7 +22,7 @@ public class CreateSubscriptionComponent
         extends BaseModel {
     private CreateSubscriptionComponentComponentId componentId;
     private Boolean enabled;
-    private Integer unitBalance;
+    private CreateSubscriptionComponentUnitBalance unitBalance;
     private CreateSubscriptionComponentAllocatedQuantity allocatedQuantity;
     private Integer quantity;
     private CreateSubscriptionComponentPricePointId pricePointId;
@@ -37,7 +38,7 @@ public class CreateSubscriptionComponent
      * Initialization constructor.
      * @param  componentId  CreateSubscriptionComponentComponentId value for componentId.
      * @param  enabled  Boolean value for enabled.
-     * @param  unitBalance  Integer value for unitBalance.
+     * @param  unitBalance  CreateSubscriptionComponentUnitBalance value for unitBalance.
      * @param  allocatedQuantity  CreateSubscriptionComponentAllocatedQuantity value for
      *         allocatedQuantity.
      * @param  quantity  Integer value for quantity.
@@ -47,7 +48,7 @@ public class CreateSubscriptionComponent
     public CreateSubscriptionComponent(
             CreateSubscriptionComponentComponentId componentId,
             Boolean enabled,
-            Integer unitBalance,
+            CreateSubscriptionComponentUnitBalance unitBalance,
             CreateSubscriptionComponentAllocatedQuantity allocatedQuantity,
             Integer quantity,
             CreateSubscriptionComponentPricePointId pricePointId,
@@ -104,21 +105,21 @@ public class CreateSubscriptionComponent
     /**
      * Getter for UnitBalance.
      * Used for metered and events based components.
-     * @return Returns the Integer
+     * @return Returns the CreateSubscriptionComponentUnitBalance
      */
     @JsonGetter("unit_balance")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getUnitBalance() {
+    public CreateSubscriptionComponentUnitBalance getUnitBalance() {
         return unitBalance;
     }
 
     /**
      * Setter for UnitBalance.
      * Used for metered and events based components.
-     * @param unitBalance Value for Integer
+     * @param unitBalance Value for CreateSubscriptionComponentUnitBalance
      */
     @JsonSetter("unit_balance")
-    public void setUnitBalance(Integer unitBalance) {
+    public void setUnitBalance(CreateSubscriptionComponentUnitBalance unitBalance) {
         this.unitBalance = unitBalance;
     }
 
@@ -242,7 +243,7 @@ public class CreateSubscriptionComponent
     public static class Builder {
         private CreateSubscriptionComponentComponentId componentId;
         private Boolean enabled;
-        private Integer unitBalance;
+        private CreateSubscriptionComponentUnitBalance unitBalance;
         private CreateSubscriptionComponentAllocatedQuantity allocatedQuantity;
         private Integer quantity;
         private CreateSubscriptionComponentPricePointId pricePointId;
@@ -272,10 +273,10 @@ public class CreateSubscriptionComponent
 
         /**
          * Setter for unitBalance.
-         * @param  unitBalance  Integer value for unitBalance.
+         * @param  unitBalance  CreateSubscriptionComponentUnitBalance value for unitBalance.
          * @return Builder
          */
-        public Builder unitBalance(Integer unitBalance) {
+        public Builder unitBalance(CreateSubscriptionComponentUnitBalance unitBalance) {
             this.unitBalance = unitBalance;
             return this;
         }

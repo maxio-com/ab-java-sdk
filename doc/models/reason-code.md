@@ -17,15 +17,17 @@
 | `CreatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `UpdatedAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 164,
-  "site_id": 90,
-  "code": "code0",
-  "description": "description2",
-  "position": 194
-}
+```java
+import com.maxio.advancedbilling.models.ReasonCode;
+
+ReasonCode reasonCode = new ReasonCode.Builder()
+    .id(174)
+    .siteId(100)
+    .code("code4")
+    .description("description6")
+    .position(204)
+    .build();
 ```
 

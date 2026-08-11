@@ -11,16 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | `Map<String, Object>` | Optional | - | Map<String, Object> getErrors() | setErrors(Map<String, Object> errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "key0": {
-      "key1": "val1",
-      "key2": "val2"
-    }
-  }
+```java
+try {
+    // make the API call
+} catch (ErrorArrayMapResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

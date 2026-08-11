@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * TaxConfigurationKind to be used.
  */
@@ -24,7 +23,6 @@ public enum TaxConfigurationKind {
     ENUM_LINKED_AVALARA,
 
     ENUM_DIGITAL_RIVER;
-
 
     private static TreeMap<String, TaxConfigurationKind> valueMap = new TreeMap<>();
     private String value;

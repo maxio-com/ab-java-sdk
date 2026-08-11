@@ -57,7 +57,40 @@ public final class SubscriptionsController extends BaseController {
      * `customer_reference`. Optionally, include an existing payment profile using
      * `payment_profile_id`. To create a new customer, pass customer_attributes. Select an option
      * from the **Request Examples** drop-down on the right side of the portal to see examples of
-     * common scenarios for creating subscriptions. See the [Subscription
+     * common scenarios for creating subscriptions. ## List vs Sales Pricing When a subscription
+     * uses custom pricing as the sales price, you can optionally provide a list price for any item.
+     * If omitted, the list price defaults to the sales price. The difference between the list price
+     * and sales price is used to calculate implicit discounts, which appear on Invoices and in
+     * reporting. List price can also support revenue allocations in [Advanced
+     * Revenue](https://docs.maxio.com/hc/en-us/articles/24177001342861-Create-and-Configure-RevenueBooks).
+     * If your site has list pricing enabled, the API accepts `custom_price.list_price_point_id` for
+     * custom pricing, validates and persists it, and returns list price metadata in subscription
+     * responses. If list pricing is disabled, this input is ignored and related response fields are
+     * omitted. When list pricing is enabled: - Subscription → Product
+     * `product_price_point_list_price_point_id` (integer) -
+     * `product_price_point_list_price_point_handle` (string) - Subscription Components (when
+     * components are included in the response, such as with subscriptions built from components or
+     * component serialization paths) `component_id` (integer) - `price_point_id` (integer) -
+     * `list_price_point_id` (integer) When list pricing is disabled: - Subscription → Product
+     * `product_price_point_list_price_point_id`: omitted -
+     * `product_price_point_list_price_point_handle`: omitted - Subscription Components
+     * `list_price_point_id`: omitted This functionality is supported in the API, but is not
+     * currently supported in SDKs. ## Subscriptions can now work independently from the catalog If
+     * you have the new [Catalog
+     * experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology)
+     * enabled, you can create subscriptions without a `product_id` or `product_handle` using POST
+     * /subscriptions, building them entirely from components. A valid subscription must include at
+     * least one active component with: - a positive `allocated_quantity`, - a positive
+     * `unit_balance`, or - 'enabled: true' (for on/off components) - a configured metered component
+     * `component_id` can be provided as a numeric ID or in handle: format. If `trial_interval` and
+     * `trial_interval_unit` are included, they are applied at creation. In the response, product
+     * and product price point fields are null, and component details are returned instead. This
+     * functionality is supported in the API, but is not currently supported in SDKs. ## Payment
+     * information Payment information may be required to create a subscription, depending on the
+     * options for the Product being subscribed. See [product
+     * options](https://docs.maxio.com/hc/en-us/articles/24261076617869-Edit-Products) for more
+     * information. See the [Payments Profile]($e/Payment%20Profiles/createPaymentProfile) endpoint
+     * for details on payment parameters. See the [Subscription
      * Signups](page:introduction/basic-concepts/subscription-signup) article for more information
      * on working with subscriptions in Advanced Billing. ## Payment information Payment information
      * may be required to create a subscription, depending on the options for the Product being
@@ -120,12 +153,16 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Returns an array of subscriptions from a Site. Pay close attention to query string filters
-     * and pagination in order to control responses from the server. ## Search for a subscription
-     * Use the query strings below to search for a subscription using the criteria available. The
-     * return value will be an array. ## Self-Service Page token Self-Service Page token for the
-     * subscriptions is not returned by default. If this information is desired, the
-     * include[]=self_service_page_token parameter must be provided with the request.
+     * Lists subscriptions for a site. Use the query string filters and pagination to control
+     * responses from the server. If you have the new [Catalog
+     * experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology)
+     * enabled, some subscriptions may not have an associated product. For subscriptions without an
+     * associated product, 'product', 'product_price_point_id', and 'product_price_point_type' are
+     * returned as 'null'. ## Search for a subscription Use the query strings below to search for a
+     * subscription using the criteria available. The return value will be an array. ## Self-Service
+     * Page token Self-Service Page token for the subscriptions is not returned by default. If this
+     * information is desired, the include[]=self_service_page_token parameter must be provided with
+     * the request.
      * @param  input  ListSubscriptionsInput object containing request parameters
      * @return    Returns the List of SubscriptionResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -150,16 +187,30 @@ public final class SubscriptionsController extends BaseController {
                                 .value(input.getPage()).isRequired(false))
                         .queryParam(param -> param.key("per_page")
                                 .value(input.getPerPage()).isRequired(false))
+                        .queryParam(param -> param.key("sort")
+                                .value((input.getSort() != null) ? input.getSort().value() : "signup_date").isRequired(false))
+                        .queryParam(param -> param.key("direction")
+                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
                         .queryParam(param -> param.key("state")
                                 .value((input.getState() != null) ? input.getState().value() : null).isRequired(false))
                         .queryParam(param -> param.key("product")
                                 .value(input.getProduct()).isRequired(false))
+                        .queryParam(param -> param.key("q")
+                                .value(input.getQ()).isRequired(false))
+                        .queryParam(param -> param.key("q_scope")
+                                .value((input.getQScope() != null) ? input.getQScope().value() : null).isRequired(false))
+                        .queryParam(param -> param.key("customer_id")
+                                .value(input.getCustomerId()).isRequired(false))
                         .queryParam(param -> param.key("product_price_point_id")
                                 .value(input.getProductPricePointId()).isRequired(false))
                         .queryParam(param -> param.key("coupon")
                                 .value(input.getCoupon()).isRequired(false))
                         .queryParam(param -> param.key("coupon_code")
                                 .value(input.getCouponCode()).isRequired(false))
+                        .queryParam(param -> param.key("collection_method")
+                                .value((input.getCollectionMethod() != null) ? input.getCollectionMethod().value() : null).isRequired(false))
+                        .queryParam(param -> param.key("branding_theme_id")
+                                .value(input.getBrandingThemeId()).isRequired(false))
                         .queryParam(param -> param.key("date_field")
                                 .value((input.getDateField() != null) ? input.getDateField().value() : null).isRequired(false))
                         .queryParam(param -> param.key("start_date")
@@ -172,10 +223,14 @@ public final class SubscriptionsController extends BaseController {
                                 .value(DateTimeHelper.toRfc8601DateTime(input.getEndDatetime())).isRequired(false))
                         .queryParam(param -> param.key("metadata")
                                 .value(input.getMetadata()).isRequired(false))
-                        .queryParam(param -> param.key("direction")
-                                .value((input.getDirection() != null) ? input.getDirection().value() : null).isRequired(false))
-                        .queryParam(param -> param.key("sort")
-                                .value((input.getSort() != null) ? input.getSort().value() : "signup_date").isRequired(false))
+                        .queryParam(param -> param.key("group_status")
+                                .value((input.getGroupStatus() != null) ? input.getGroupStatus().value() : null).isRequired(false))
+                        .queryParam(param -> param.key("dunning_exemption")
+                                .value(input.getDunningExemption()).isRequired(false))
+                        .queryParam(param -> param.key("payment_gateways")
+                                .value(input.getPaymentGateways()).isRequired(false))
+                        .queryParam(param -> param.key("currencies")
+                                .value(input.getCurrencies()).isRequired(false))
                         .queryParam(param -> param.key("include")
                                 .value(SubscriptionListInclude.toValue(input.getInclude())).isRequired(false))
                         .headerParam(param -> param.key("accept").value("application/json"))
@@ -237,9 +292,14 @@ public final class SubscriptionsController extends BaseController {
      * Billing, setting the next billing date is a bit different. Send the `snap_day` attribute to
      * change the calendar billing date for **a subscription using a product eligible for calendar
      * billing**. &gt; Note: If you change the product associated with a subscription that contains a
-     * `snap_day` and immediately `READ/GET` the subscription data, it will still contain original
-     * `snap_day`. The `snap_day` will reset to null on the next billing cycle. This is because a
-     * product change is instantaneous and only affects the product associated with a subscription.
+     * `snap_day` and immediately READ/GET the subscription data, it will still contain the original
+     * `snap_day`. The `snap_day` will be reset to `null` on the next billing cycle. This is because
+     * a product change is instantaneous and only affects the product associated with a
+     * subscription. If you have the new [Catalog
+     * experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology)
+     * enabled, some subscriptions may not have an associated product. For subscriptions without an
+     * associated product, `product`, `product_price_point_id`, and `product_price_point_type` are
+     * returned as `null`.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call
@@ -286,8 +346,12 @@ public final class SubscriptionsController extends BaseController {
     }
 
     /**
-     * Retrieves subscription details. ## Self-Service Page token Self-Service Page token for the
-     * subscription is not returned by default. If this information is desired, the
+     * Retrieves subscription details. If you have the new [Catalog
+     * experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology)
+     * enabled, some subscriptions may not have an associated product. For subscriptions without an
+     * associated product, 'product', 'product_price_point_id', and 'product_price_point_type' are
+     * returned as 'null'. ## Self-Service Page token Self-Service Page token for the subscription
+     * is not returned by default. If this information is desired, the
      * include[]=self_service_page_token parameter must be provided with the request.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  include  Optional parameter: Allows including additional data in the response. Use in
@@ -543,12 +607,22 @@ public final class SubscriptionsController extends BaseController {
      * subscription will not be created by utilizing this endpoint; it is meant to serve as a
      * prediction. For more information, see our documentation
      * [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
-     * ## Taxable Subscriptions This endpoint will preview taxes applicable to a purchase. In order
-     * for taxes to be previewed, the following conditions must be met: + Taxes must be configured
-     * on the subscription + The preview must be for the purchase of a taxable product or component,
-     * or combination of the two. + The subscription payload must contain a full billing or shipping
-     * address in order to calculate tax For more information about creating taxable previews, see
-     * our documentation guide on how to create [taxable
+     * ## Subscriptions can now work independently from the catalog If you have the new [Catalog
+     * experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology)
+     * enabled, you can create subscriptions without a `product_id` or `product_handle` using POST
+     * /subscriptions, building them entirely from components. A valid subscription must include at
+     * least one active component with: - a positive `allocated_quantity`, - a positive
+     * `unit_balance`, or - 'enabled: true' (for on/off components) `component_id` can be provided
+     * as a numeric ID or in handle: format. If `trial_interval` and `trial_interval_unit` are
+     * included, they are applied at creation. In the response, product and product price point
+     * fields are null, and component details are returned instead. This functionality is supported
+     * in the API, but is not currently supported in SDKs. ## Taxable Subscriptions This endpoint
+     * will preview taxes applicable to a purchase. In order for taxes to be previewed, the
+     * following conditions must be met: + Taxes must be configured on the subscription + The
+     * preview must be for the purchase of a taxable product or component, or combination of the
+     * two. + The subscription payload must contain a full billing or shipping address in order to
+     * calculate tax For more information about creating taxable previews, see our documentation
+     * guide on how to create [taxable
      * subscriptions.](https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes) You do
      * **not** need to include a card number to generate tax information when you are previewing a
      * subscription. However, when you actually want to create the subscription, you must include

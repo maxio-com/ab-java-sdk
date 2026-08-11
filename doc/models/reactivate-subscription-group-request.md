@@ -12,12 +12,14 @@
 | `Resume` | `Boolean` | Optional | - | Boolean getResume() | setResume(Boolean resume) |
 | `ResumeMembers` | `Boolean` | Optional | - | Boolean getResumeMembers() | setResumeMembers(Boolean resumeMembers) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "resume": false,
-  "resume_members": false
-}
+```java
+import com.maxio.advancedbilling.models.ReactivateSubscriptionGroupRequest;
+
+ReactivateSubscriptionGroupRequest reactivateSubscriptionGroupRequest = new ReactivateSubscriptionGroupRequest.Builder()
+    .resume(false)
+    .resumeMembers(false)
+    .build();
 ```
 

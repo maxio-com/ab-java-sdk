@@ -16,3 +16,11 @@ The type of payment to be applied to an Invoice. Defaults to external.
 | `SERVICE_CREDIT` |
 | `PAYMENT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.InvoicePaymentType;
+
+InvoicePaymentType invoicePaymentType = InvoicePaymentType.EXTERNAL;
+```
+

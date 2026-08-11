@@ -14,12 +14,15 @@ Example schema for an `change_invoice_collection_method` event
 | `FromCollectionMethod` | `String` | Required | The previous collection method of the invoice. | String getFromCollectionMethod() | setFromCollectionMethod(String fromCollectionMethod) |
 | `ToCollectionMethod` | `String` | Required | The new collection method of the invoice. | String getToCollectionMethod() | setToCollectionMethod(String toCollectionMethod) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "from_collection_method": "from_collection_method4",
-  "to_collection_method": "to_collection_method2"
-}
+```java
+import com.maxio.advancedbilling.models.ChangeInvoiceCollectionMethodEventData;
+
+ChangeInvoiceCollectionMethodEventData changeInvoiceCollectionMethodEventData = new ChangeInvoiceCollectionMethodEventData.Builder(
+    "from_collection_method8",
+    "to_collection_method4"
+)
+.build();
 ```
 

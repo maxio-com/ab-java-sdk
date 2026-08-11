@@ -11,17 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Product` | [`Product`](../../doc/models/product.md) | Required | - | Product getProduct() | setProduct(Product product) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product": {
-    "id": 134,
-    "name": "name0",
-    "handle": "handle6",
-    "description": "description0",
-    "accounting_code": "accounting_code6"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.Product;
+import com.maxio.advancedbilling.models.ProductResponse;
+
+ProductResponse productResponse = new ProductResponse.Builder(
+    new Product.Builder()
+        .id(134)
+        .name("name0")
+        .handle("handle6")
+        .description("description0")
+        .accountingCode("accounting_code6")
+        .build()
+)
+.build();
 ```
 

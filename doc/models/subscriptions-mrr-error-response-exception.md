@@ -11,15 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`AttributeError`](../../doc/models/attribute-error.md) | Required | - | AttributeError getErrors() | setErrors(AttributeError errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "attribute": [
-      "supplied value is invalid, expected ISO 8601 format"
-    ]
-  }
+```java
+try {
+    // make the API call
+} catch (SubscriptionsMrrErrorResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

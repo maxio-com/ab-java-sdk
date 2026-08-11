@@ -323,7 +323,7 @@ public final class SubscriptionRenewalsController extends BaseController {
     }
 
     /**
-     * Returns a scheduled renewal configuration to an editable state.
+     * Restores a scheduled renewal configuration to an editable state.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  id  Required parameter: The renewal id.
      * @return    Returns the ScheduledRenewalConfigurationResponse response from the API call
@@ -413,7 +413,11 @@ public final class SubscriptionRenewalsController extends BaseController {
     }
 
     /**
-     * Adds product and component line items to the scheduled renewal.
+     * Adds product and component line items to the scheduled renewal. If your site has list vs
+     * sales pricing enabled, accepts renewal_configuration_item.custom_price.list_price_point_id,
+     * validates and persists it; omitted value follows existing/default behavior; with list vs
+     * sales pricing disabled, parameter is ignored (no validation/behavioral impact). This
+     * functionality is supported in the API, but is not currently supported in SDKs.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  scheduledRenewalsConfigurationId  Required parameter: The scheduled renewal
      *         configuration id.
@@ -467,7 +471,11 @@ public final class SubscriptionRenewalsController extends BaseController {
     }
 
     /**
-     * Updates an existing configuration item’s pricing and quantity.
+     * Updates an existing configuration item’s pricing and quantity. If you site has list vs sales
+     * pricing enabled, accepts renewal_configuration_item.custom_price.list_price_point_id,
+     * validates and persists it; omitted value follows existing/default behavior; with list vs
+     * sales pricing disabled, parameter is ignored (no validation/behavioral impact). This
+     * functionality is supported in the API, but is not currently supported in SDKs.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  scheduledRenewalsConfigurationId  Required parameter: The scheduled renewal
      *         configuration id.

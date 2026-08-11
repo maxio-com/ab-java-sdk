@@ -144,7 +144,7 @@ public final class ProductFamiliesController extends BaseController {
     }
 
     /**
-     * Returns a list of Product Families for a site.
+     * Lists Product Families for a site.
      * @param  input  ListProductFamiliesInput object containing request parameters
      * @return    Returns the List of ProductFamilyResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

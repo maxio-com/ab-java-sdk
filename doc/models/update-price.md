@@ -15,15 +15,26 @@
 | `Destroy` | `Boolean` | Optional | - | Boolean getDestroy() | setDestroy(Boolean destroy) |
 | `StartingQuantity` | [`UpdatePriceStartingQuantity`](../../doc/models/containers/update-price-starting-quantity.md) | Optional | This is a container for one-of cases. | UpdatePriceStartingQuantity getStartingQuantity() | setStartingQuantity(UpdatePriceStartingQuantity startingQuantity) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 18,
-  "ending_quantity": 216,
-  "unit_price": 166.62,
-  "_destroy": false,
-  "starting_quantity": 242
-}
+```java
+import com.maxio.advancedbilling.models.UpdatePrice;
+import com.maxio.advancedbilling.models.containers.UpdatePriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.UpdatePriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.UpdatePriceUnitPrice;
+
+UpdatePrice updatePrice = new UpdatePrice.Builder()
+    .id(206)
+    .endingQuantity(UpdatePriceEndingQuantity.fromNumber(
+        28
+    ))
+    .unitPrice(UpdatePriceUnitPrice.fromPrecision(
+        181.3D
+    ))
+    .destroy(false)
+    .startingQuantity(UpdatePriceStartingQuantity.fromNumber(
+        54
+    ))
+    .build();
 ```
 

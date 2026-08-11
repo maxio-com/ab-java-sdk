@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * UpgradeChargeCreditType to be used.
  */
@@ -22,7 +21,6 @@ public enum UpgradeChargeCreditType {
     PRORATED,
 
     NONE;
-
 
     private static TreeMap<String, UpgradeChargeCreditType> valueMap = new TreeMap<>();
     private String value;

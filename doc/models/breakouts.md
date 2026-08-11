@@ -14,14 +14,16 @@
 | `UsageAmountInCents` | `Long` | Optional | - | Long getUsageAmountInCents() | setUsageAmountInCents(Long usageAmountInCents) |
 | `UsageAmountFormatted` | `String` | Optional | - | String getUsageAmountFormatted() | setUsageAmountFormatted(String usageAmountFormatted) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "plan_amount_in_cents": 68,
-  "plan_amount_formatted": "plan_amount_formatted2",
-  "usage_amount_in_cents": 176,
-  "usage_amount_formatted": "usage_amount_formatted0"
-}
+```java
+import com.maxio.advancedbilling.models.Breakouts;
+
+Breakouts breakouts = new Breakouts.Builder()
+    .planAmountInCents(254L)
+    .planAmountFormatted("plan_amount_formatted0")
+    .usageAmountInCents(106L)
+    .usageAmountFormatted("usage_amount_formatted8")
+    .build();
 ```
 

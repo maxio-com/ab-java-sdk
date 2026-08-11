@@ -13,13 +13,17 @@
 | `MaskedRoutingNumber` | `String` | Required | - | String getMaskedRoutingNumber() | setMaskedRoutingNumber(String maskedRoutingNumber) |
 | `Type` | [`InvoiceEventPaymentMethod`](../../doc/models/invoice-event-payment-method.md) | Required | - | InvoiceEventPaymentMethod getType() | setType(InvoiceEventPaymentMethod type) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "masked_account_number": "masked_account_number2",
-  "masked_routing_number": "masked_routing_number2",
-  "type": "bank_account"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+import com.maxio.advancedbilling.models.PaymentMethodBankAccount;
+
+PaymentMethodBankAccount paymentMethodBankAccount = new PaymentMethodBankAccount.Builder(
+    "masked_account_number4",
+    "masked_routing_number4",
+    InvoiceEventPaymentMethod.BANK_ACCOUNT
+)
+.build();
 ```
 

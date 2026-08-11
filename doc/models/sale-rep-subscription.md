@@ -20,15 +20,17 @@
 | `LastPayment` | `String` | Optional | - | String getLastPayment() | setLastPayment(String lastPayment) |
 | `ChurnDate` | `String` | Optional | - | String getChurnDate() | setChurnDate(String churnDate) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 18,
-  "site_name": "site_name2",
-  "subscription_url": "subscription_url6",
-  "customer_name": "customer_name2",
-  "created_at": "created_at8"
-}
+```java
+import com.maxio.advancedbilling.models.SaleRepSubscription;
+
+SaleRepSubscription saleRepSubscription = new SaleRepSubscription.Builder()
+    .id(68)
+    .siteName("site_name8")
+    .subscriptionUrl("subscription_url2")
+    .customerName("customer_name8")
+    .createdAt("created_at4")
+    .build();
 ```
 

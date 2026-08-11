@@ -14,14 +14,17 @@
 | `PrepaymentAccountBalanceInCents` | `long` | Required | - | long getPrepaymentAccountBalanceInCents() | setPrepaymentAccountBalanceInCents(long prepaymentAccountBalanceInCents) |
 | `CurrentUsageAmountInCents` | `long` | Required | - | long getCurrentUsageAmountInCents() | setCurrentUsageAmountInCents(long currentUsageAmountInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "reason": "reason8",
-  "current_account_balance_in_cents": 250,
-  "prepayment_account_balance_in_cents": 44,
-  "current_usage_amount_in_cents": 242
-}
+```java
+import com.maxio.advancedbilling.models.PrepaidSubscriptionBalanceChanged;
+
+PrepaidSubscriptionBalanceChanged prepaidSubscriptionBalanceChanged = new PrepaidSubscriptionBalanceChanged.Builder(
+    "reason6",
+    194L,
+    100L,
+    186L
+)
+.build();
 ```
 

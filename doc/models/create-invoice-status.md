@@ -14,7 +14,9 @@
 
 ## Example
 
-```
-draft
+```java
+import com.maxio.advancedbilling.models.CreateInvoiceStatus;
+
+CreateInvoiceStatus createInvoiceStatus = CreateInvoiceStatus.DRAFT;
 ```
 

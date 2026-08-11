@@ -17,15 +17,18 @@
 | `TaxAmount` | `String` | Optional | **Constraints**: *Minimum Length*: `1` | String getTaxAmount() | setTaxAmount(String taxAmount) |
 | `LineItemBreakouts` | [`List<InvoiceTaxBreakout>`](../../doc/models/invoice-tax-breakout.md) | Optional | **Constraints**: *Minimum Items*: `1`, *Unique Items Required* | List<InvoiceTaxBreakout> getLineItemBreakouts() | setLineItemBreakouts(List<InvoiceTaxBreakout> lineItemBreakouts) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "title": "title4",
-  "source_type": "Tax",
-  "percentage": "percentage6",
-  "taxable_amount": "taxable_amount2"
-}
+```java
+import com.maxio.advancedbilling.models.ProformaInvoiceTax;
+import com.maxio.advancedbilling.models.ProformaInvoiceTaxSourceType;
+
+ProformaInvoiceTax proformaInvoiceTax = new ProformaInvoiceTax.Builder()
+    .uid("uid4")
+    .title("title0")
+    .sourceType(ProformaInvoiceTaxSourceType.TAX)
+    .percentage("percentage2")
+    .taxableAmount("taxable_amount8")
+    .build();
 ```
 

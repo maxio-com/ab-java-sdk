@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ServiceCredit` | [`ServiceCredit`](../../doc/models/service-credit.md) | Required | - | ServiceCredit getServiceCredit() | setServiceCredit(ServiceCredit serviceCredit) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "service_credit": {
-    "id": 38,
-    "amount_in_cents": 124,
-    "ending_balance_in_cents": 164,
-    "entry_type": "Credit",
-    "memo": "memo0"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ServiceCredit;
+import com.maxio.advancedbilling.models.ServiceCreditResponse;
+import com.maxio.advancedbilling.models.ServiceCreditType;
+
+ServiceCreditResponse serviceCreditResponse = new ServiceCreditResponse.Builder(
+    new ServiceCredit.Builder()
+        .id(38)
+        .amountInCents(124L)
+        .endingBalanceInCents(164L)
+        .entryType(ServiceCreditType.CREDIT)
+        .memo("memo0")
+        .build()
+)
+.build();
 ```
 

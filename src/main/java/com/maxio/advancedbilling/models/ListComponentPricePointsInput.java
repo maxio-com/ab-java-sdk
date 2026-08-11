@@ -72,7 +72,7 @@ public class ListComponentPricePointsInput {
 
     /**
      * Getter for CurrencyPrices.
-     * Include an array of currency price data
+     * Include an array of currency price data.
      * @return Returns the Boolean
      */
     @JsonGetter("currency_prices")
@@ -83,7 +83,7 @@ public class ListComponentPricePointsInput {
 
     /**
      * Setter for CurrencyPrices.
-     * Include an array of currency price data
+     * Include an array of currency price data.
      * @param currencyPrices Value for Boolean
      */
     @JsonSetter("currency_prices")

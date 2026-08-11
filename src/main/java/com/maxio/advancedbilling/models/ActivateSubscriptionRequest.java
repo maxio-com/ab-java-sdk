@@ -48,8 +48,8 @@ public class ActivateSubscriptionRequest
      * Internal Getter for RevertOnFailure.
      * You may choose how to handle the activation failure. `true` means do not change the
      * subscription’s state and billing period. `false` means to continue through with the
-     * activation and enter an end of life state. If this parameter is omitted or `null` is passed
-     * it will default to value set in the site settings (default: `true`)
+     * activation and enter an end-of-life state. If this parameter is omitted or `null` is passed
+     * it will default to the value set in the site settings (default: `true`).
      * @return Returns the Internal Boolean
      */
     @JsonGetter("revert_on_failure")
@@ -63,8 +63,8 @@ public class ActivateSubscriptionRequest
      * Getter for RevertOnFailure.
      * You may choose how to handle the activation failure. `true` means do not change the
      * subscription’s state and billing period. `false` means to continue through with the
-     * activation and enter an end of life state. If this parameter is omitted or `null` is passed
-     * it will default to value set in the site settings (default: `true`)
+     * activation and enter an end-of-life state. If this parameter is omitted or `null` is passed
+     * it will default to the value set in the site settings (default: `true`).
      * @return Returns the Boolean
      */
     public Boolean getRevertOnFailure() {
@@ -75,8 +75,8 @@ public class ActivateSubscriptionRequest
      * Setter for RevertOnFailure.
      * You may choose how to handle the activation failure. `true` means do not change the
      * subscription’s state and billing period. `false` means to continue through with the
-     * activation and enter an end of life state. If this parameter is omitted or `null` is passed
-     * it will default to value set in the site settings (default: `true`)
+     * activation and enter an end-of-life state. If this parameter is omitted or `null` is passed
+     * it will default to the value set in the site settings (default: `true`).
      * @param revertOnFailure Value for Boolean
      */
     @JsonSetter("revert_on_failure")
@@ -88,8 +88,8 @@ public class ActivateSubscriptionRequest
      * UnSetter for RevertOnFailure.
      * You may choose how to handle the activation failure. `true` means do not change the
      * subscription’s state and billing period. `false` means to continue through with the
-     * activation and enter an end of life state. If this parameter is omitted or `null` is passed
-     * it will default to value set in the site settings (default: `true`)
+     * activation and enter an end-of-life state. If this parameter is omitted or `null` is passed
+     * it will default to the value set in the site settings (default: `true`).
      */
     public void unsetRevertOnFailure() {
         revertOnFailure = null;

@@ -237,7 +237,7 @@ public class ComponentPricePoint
 
     /**
      * Getter for Default.
-     * Note: Refer to type attribute instead
+     * Note: Refer to type attribute instead.
      * @return Returns the Boolean
      */
     @JsonGetter("default")
@@ -248,7 +248,7 @@ public class ComponentPricePoint
 
     /**
      * Setter for Default.
-     * Note: Refer to type attribute instead
+     * Note: Refer to type attribute instead.
      * @param mDefault Value for Boolean
      */
     @JsonSetter("default")
@@ -518,7 +518,7 @@ public class ComponentPricePoint
 
     /**
      * Internal Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @return Returns the Internal Integer
@@ -532,7 +532,7 @@ public class ComponentPricePoint
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @return Returns the Integer
@@ -543,7 +543,7 @@ public class ComponentPricePoint
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @param interval Value for Integer
@@ -555,7 +555,7 @@ public class ComponentPricePoint
 
     /**
      * UnSetter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      */

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CreditCardVault to be used.
  */
@@ -82,7 +81,6 @@ public enum CreditCardVault {
     UNIPAAS,
 
     WIRECARD;
-
 
     private static TreeMap<String, CreditCardVault> valueMap = new TreeMap<>();
     private String value;

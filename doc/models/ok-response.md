@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Ok` | `String` | Optional | - | String getOk() | setOk(String ok) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "ok": "ok4"
-}
+```java
+import com.maxio.advancedbilling.models.OkResponse;
+
+OkResponse okResponse = new OkResponse.Builder()
+    .ok("ok8")
+    .build();
 ```
 

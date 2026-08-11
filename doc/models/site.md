@@ -30,15 +30,17 @@
 | `PortalEnabled` | `Boolean` | Optional | Whether the Billing Portal is enabled for this site. | Boolean getPortalEnabled() | setPortalEnabled(Boolean portalEnabled) |
 | `Test` | `Boolean` | Optional | - | Boolean getTest() | setTest(Boolean test) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 34,
-  "name": "name0",
-  "subdomain": "subdomain4",
-  "currency": "currency0",
-  "seller_id": 198
-}
+```java
+import com.maxio.advancedbilling.models.Site;
+
+Site site = new Site.Builder()
+    .id(64)
+    .name("name4")
+    .subdomain("subdomain0")
+    .currency("currency4")
+    .sellerId(228)
+    .build();
 ```
 

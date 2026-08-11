@@ -11,11 +11,14 @@
 |  --- | --- | --- | --- | --- | --- |
 | `WebhooksEnabled` | `boolean` | Required | - | boolean getWebhooksEnabled() | setWebhooksEnabled(boolean webhooksEnabled) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "webhooks_enabled": false
-}
+```java
+import com.maxio.advancedbilling.models.EnableWebhooksRequest;
+
+EnableWebhooksRequest enableWebhooksRequest = new EnableWebhooksRequest.Builder(
+    false
+)
+.build();
 ```
 

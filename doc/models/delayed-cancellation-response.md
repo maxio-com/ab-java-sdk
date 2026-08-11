@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Message` | `String` | Optional | - | String getMessage() | setMessage(String message) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "message": "message8"
-}
+```java
+import com.maxio.advancedbilling.models.DelayedCancellationResponse;
+
+DelayedCancellationResponse delayedCancellationResponse = new DelayedCancellationResponse.Builder()
+    .message("message4")
+    .build();
 ```
 

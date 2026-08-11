@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ChargebackStatus to be used.
  */
@@ -24,7 +23,6 @@ public enum ChargebackStatus {
     WON,
 
     CLOSED;
-
 
     private static TreeMap<String, ChargebackStatus> valueMap = new TreeMap<>();
     private String value;

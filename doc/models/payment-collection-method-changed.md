@@ -12,12 +12,15 @@
 | `PreviousValue` | `String` | Required | - | String getPreviousValue() | setPreviousValue(String previousValue) |
 | `CurrentValue` | `String` | Required | - | String getCurrentValue() | setCurrentValue(String currentValue) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_value": "previous_value4",
-  "current_value": "current_value2"
-}
+```java
+import com.maxio.advancedbilling.models.PaymentCollectionMethodChanged;
+
+PaymentCollectionMethodChanged paymentCollectionMethodChanged = new PaymentCollectionMethodChanged.Builder(
+    "previous_value4",
+    "current_value2"
+)
+.build();
 ```
 

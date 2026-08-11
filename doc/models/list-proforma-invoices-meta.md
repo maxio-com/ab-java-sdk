@@ -14,14 +14,16 @@
 | `TotalPages` | `Integer` | Optional | - | Integer getTotalPages() | setTotalPages(Integer totalPages) |
 | `StatusCode` | `Integer` | Optional | - | Integer getStatusCode() | setStatusCode(Integer statusCode) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_count": 226,
-  "current_page": 202,
-  "total_pages": 214,
-  "status_code": 244
-}
+```java
+import com.maxio.advancedbilling.models.ListProformaInvoicesMeta;
+
+ListProformaInvoicesMeta listProformaInvoicesMeta = new ListProformaInvoicesMeta.Builder()
+    .totalCount(50)
+    .currentPage(26)
+    .totalPages(38)
+    .statusCode(68)
+    .build();
 ```
 

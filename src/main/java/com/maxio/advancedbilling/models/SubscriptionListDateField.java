@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * SubscriptionListDateField to be used.
  */
 public enum SubscriptionListDateField {
     UPDATED_AT;
-
 
     private static TreeMap<String, SubscriptionListDateField> valueMap = new TreeMap<>();
     private String value;

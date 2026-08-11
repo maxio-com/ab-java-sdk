@@ -13,7 +13,7 @@ Extends a component price point with currency overage prices.
 |  --- | --- | --- | --- | --- | --- |
 | `Id` | `Integer` | Optional | - | Integer getId() | setId(Integer id) |
 | `Type` | [`PricePointType`](../../doc/models/price-point-type.md) | Optional | Price point type. We expose the following types:<br><br>1. **default**: a price point that is marked as a default price for a certain product.<br>2. **custom**: a custom price point.<br>3. **catalog**: a price point that is **not** marked as a default price for a certain product and is **not** a custom one. | PricePointType getType() | setType(PricePointType type) |
-| `Default` | `Boolean` | Optional | Note: Refer to type attribute instead | Boolean getDefault() | setDefault(Boolean mDefault) |
+| `Default` | `Boolean` | Optional | Note: Refer to type attribute instead. | Boolean getDefault() | setDefault(Boolean mDefault) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 | `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Optional | The identifier for the pricing scheme. See [Product Components](https://help.chargify.com/products/product-components.html) for an overview of pricing schemes. | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `ComponentId` | `Integer` | Optional | - | Integer getComponentId() | setComponentId(Integer componentId) |
@@ -25,7 +25,7 @@ Extends a component price point with currency overage prices.
 | `UseSiteExchangeRate` | `Boolean` | Optional | Whether to use the site level exchange rate or define your own prices for each currency if you have multiple currencies defined on the site. Defaults to true during creation. | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 | `SubscriptionId` | `Integer` | Optional | (only used for Custom Pricing - ie. when the price point's type is `custom`) The id of the subscription that the custom price point is for. | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `TaxIncluded` | `Boolean` | Optional | - | Boolean getTaxIncluded() | setTaxIncluded(Boolean taxIncluded) |
-| `Interval` | `Integer` | Optional | The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
+| `Interval` | `Integer` | Optional | The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would mean this component price point would renew every 30 days. This property is only available for sites with Multifrequency enabled. | Integer getInterval() | setInterval(Integer interval) |
 | `IntervalUnit` | [`IntervalUnit`](../../doc/models/interval-unit.md) | Optional | A string representing the interval unit for this component price point, either month or day. This property is only available for sites with Multifrequency enabled. | IntervalUnit getIntervalUnit() | setIntervalUnit(IntervalUnit intervalUnit) |
 | `CurrencyPrices` | [`List<ComponentCurrencyPrice>`](../../doc/models/component-currency-price.md) | Optional | An array of currency pricing data is available when multiple currencies are defined for the site. It varies based on the use_site_exchange_rate setting for the price point. This parameter is present only in the response of read endpoints, after including the appropriate query parameter. The clone endpoint always returns currency prices if they are present. | List<ComponentCurrencyPrice> getCurrencyPrices() | setCurrencyPrices(List<ComponentCurrencyPrice> currencyPrices) |
 | `OveragePrices` | [`List<ComponentPrice>`](../../doc/models/component-price.md) | Optional | Applicable only to prepaid usage components. An array of overage price brackets. | List<ComponentPrice> getOveragePrices() | setOveragePrices(List<ComponentPrice> overagePrices) |
@@ -36,15 +36,19 @@ Extends a component price point with currency overage prices.
 | `ExpirationIntervalUnit` | [`ExpirationIntervalUnit`](../../doc/models/expiration-interval-unit.md) | Optional | Applicable only to prepaid usage components where rollover_prepaid_remainder is true. A string representing the expiration interval unit for this component, either month or day. | ExpirationIntervalUnit getExpirationIntervalUnit() | setExpirationIntervalUnit(ExpirationIntervalUnit expirationIntervalUnit) |
 | `CurrencyOveragePrices` | [`List<ComponentCurrencyPrice>`](../../doc/models/component-currency-price.md) | Optional | Applicable only to prepaid usage components. An array of currency pricing data for overage prices. | List<ComponentCurrencyPrice> getCurrencyOveragePrices() | setCurrencyOveragePrices(List<ComponentCurrencyPrice> currencyOveragePrices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 50,
-  "type": "catalog",
-  "default": false,
-  "name": "name8",
-  "pricing_scheme": "stairstep"
-}
+```java
+import com.maxio.advancedbilling.models.CurrencyOveragePrices;
+import com.maxio.advancedbilling.models.PricePointType;
+import com.maxio.advancedbilling.models.PricingScheme;
+
+CurrencyOveragePrices currencyOveragePrices = new CurrencyOveragePrices.Builder()
+    .id(96)
+    .type(PricePointType.CATALOG)
+    .mDefault(false)
+    .name("name0")
+    .pricingScheme(PricingScheme.PER_UNIT)
+    .build();
 ```
 

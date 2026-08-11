@@ -188,7 +188,7 @@ public class CreateInvoice
 
     /**
      * Getter for SellerAddress.
-     * Overrides the defaults for the site
+     * Overrides the defaults for the site.
      * @return Returns the CreateInvoiceAddress
      */
     @JsonGetter("seller_address")
@@ -199,7 +199,7 @@ public class CreateInvoice
 
     /**
      * Setter for SellerAddress.
-     * Overrides the defaults for the site
+     * Overrides the defaults for the site.
      * @param sellerAddress Value for CreateInvoiceAddress
      */
     @JsonSetter("seller_address")
@@ -209,7 +209,7 @@ public class CreateInvoice
 
     /**
      * Getter for BillingAddress.
-     * Overrides the default for the customer
+     * Overrides the default for the customer.
      * @return Returns the CreateInvoiceAddress
      */
     @JsonGetter("billing_address")
@@ -220,7 +220,7 @@ public class CreateInvoice
 
     /**
      * Setter for BillingAddress.
-     * Overrides the default for the customer
+     * Overrides the default for the customer.
      * @param billingAddress Value for CreateInvoiceAddress
      */
     @JsonSetter("billing_address")
@@ -230,7 +230,7 @@ public class CreateInvoice
 
     /**
      * Getter for ShippingAddress.
-     * Overrides the default for the customer
+     * Overrides the default for the customer.
      * @return Returns the CreateInvoiceAddress
      */
     @JsonGetter("shipping_address")
@@ -241,7 +241,7 @@ public class CreateInvoice
 
     /**
      * Setter for ShippingAddress.
-     * Overrides the default for the customer
+     * Overrides the default for the customer.
      * @param shippingAddress Value for CreateInvoiceAddress
      */
     @JsonSetter("shipping_address")

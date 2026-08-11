@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ComponentKind to be used.
  */
@@ -26,7 +25,6 @@ public enum ComponentKind {
     PREPAID_USAGE_COMPONENT,
 
     EVENT_BASED_COMPONENT;
-
 
     private static TreeMap<String, ComponentKind> valueMap = new TreeMap<>();
     private String value;

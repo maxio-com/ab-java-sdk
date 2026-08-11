@@ -105,7 +105,7 @@ public class CreateInvoiceItem
 
     /**
      * Getter for Quantity.
-     * The quantity can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065. If you
+     * The quantity can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065. If you
      * submit a value with more than 8 decimal places, we will round it down to the 8th decimal
      * place.
      * @return Returns the CreateInvoiceItemQuantity
@@ -118,7 +118,7 @@ public class CreateInvoiceItem
 
     /**
      * Setter for Quantity.
-     * The quantity can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065. If you
+     * The quantity can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065. If you
      * submit a value with more than 8 decimal places, we will round it down to the 8th decimal
      * place.
      * @param quantity Value for CreateInvoiceItemQuantity
@@ -130,7 +130,7 @@ public class CreateInvoiceItem
 
     /**
      * Getter for UnitPrice.
-     * The unit_price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065. If you
+     * The unit_price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065. If you
      * submit a value with more than 8 decimal places, we will round it down to the 8th decimal
      * place.
      * @return Returns the CreateInvoiceItemUnitPrice
@@ -143,7 +143,7 @@ public class CreateInvoiceItem
 
     /**
      * Setter for UnitPrice.
-     * The unit_price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065. If you
+     * The unit_price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065. If you
      * submit a value with more than 8 decimal places, we will round it down to the 8th decimal
      * place.
      * @param unitPrice Value for CreateInvoiceItemUnitPrice

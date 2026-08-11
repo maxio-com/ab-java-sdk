@@ -21,19 +21,20 @@
 | `Subscriptions` | [`List<SubscriptionGroupItem>`](../../doc/models/subscription-group-item.md) | Optional | - | List<SubscriptionGroupItem> getSubscriptions() | setSubscriptions(List<SubscriptionGroupItem> subscriptions) |
 | `PaymentCollectionMethod` | [`CollectionMethod`](../../doc/models/collection-method.md) | Optional | The type of payment collection to be used in the subscription. For legacy Statements Architecture valid options are - `invoice`, `automatic`. For current Relationship Invoicing Architecture valid options are - `remittance`, `automatic`, `prepaid`. | CollectionMethod getPaymentCollectionMethod() | setPaymentCollectionMethod(CollectionMethod paymentCollectionMethod) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "scheme": 28,
-  "customer_id": 48,
-  "payment_profile_id": 44,
-  "subscription_ids": [
-    158,
-    159,
-    160
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
+import java.util.Arrays;
+
+SubscriptionGroupSignupResponse subscriptionGroupSignupResponse = new SubscriptionGroupSignupResponse.Builder()
+    .uid("uid4")
+    .scheme(60)
+    .customerId(80)
+    .paymentProfileId(244)
+    .subscriptionIds(Arrays.asList(
+        190
+    ))
+    .build();
 ```
 

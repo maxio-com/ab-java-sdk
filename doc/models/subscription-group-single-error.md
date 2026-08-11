@@ -11,11 +11,14 @@
 |  --- | --- | --- | --- | --- | --- |
 | `SubscriptionGroup` | `String` | Required | - | String getSubscriptionGroup() | setSubscriptionGroup(String subscriptionGroup) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_group": "subscription_group2"
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupSingleError;
+
+SubscriptionGroupSingleError subscriptionGroupSingleError = new SubscriptionGroupSingleError.Builder(
+    "subscription_group0"
+)
+.build();
 ```
 

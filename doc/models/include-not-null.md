@@ -15,7 +15,9 @@ Passed as a parameter to list methods to return only non null values.
 
 ## Example
 
-```
-not_null
+```java
+import com.maxio.advancedbilling.models.IncludeNotNull;
+
+IncludeNotNull includeNotNull = IncludeNotNull.NOT_NULL;
 ```
 

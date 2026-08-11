@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CreditScheme to be used.
  */
@@ -22,7 +21,6 @@ public enum CreditScheme {
     CREDIT,
 
     REFUND;
-
 
     private static TreeMap<String, CreditScheme> valueMap = new TreeMap<>();
     private String value;

@@ -13,26 +13,33 @@
 | `UseSiteExchangeRate` | `Boolean` | Optional | Allows fetching components allocation with matching use_site_exchange_rate based on provided value. Use in query `filter[use_site_exchange_rate]=true`. | Boolean getUseSiteExchangeRate() | setUseSiteExchangeRate(Boolean useSiteExchangeRate) |
 | `Subscription` | [`SubscriptionFilter`](../../doc/models/subscription-filter.md) | Optional | Nested filter used for List Subscription Components For Site Filter | SubscriptionFilter getSubscription() | setSubscription(SubscriptionFilter subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currencies": [
-    "EUR",
-    "USD"
-  ],
-  "use_site_exchange_rate": false,
-  "subscription": {
-    "states": [
-      "active",
-      "canceled",
-      "expired"
-    ],
-    "date_field": "updated_at",
-    "start_date": "2016-03-13",
-    "end_date": "2016-03-13",
-    "start_datetime": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ListSubscriptionComponentsForSiteFilter;
+import com.maxio.advancedbilling.models.SubscriptionFilter;
+import com.maxio.advancedbilling.models.SubscriptionListDateField;
+import com.maxio.advancedbilling.models.SubscriptionStateFilter;
+import java.util.Arrays;
+
+ListSubscriptionComponentsForSiteFilter listSubscriptionComponentsForSiteFilter = new ListSubscriptionComponentsForSiteFilter.Builder()
+    .currencies(Arrays.asList(
+        "EUR",
+        "USD"
+    ))
+    .useSiteExchangeRate(false)
+    .subscription(new SubscriptionFilter.Builder()
+        .states(Arrays.asList(
+            SubscriptionStateFilter.TRIALING,
+            SubscriptionStateFilter.UNPAID,
+            SubscriptionStateFilter.ACTIVE
+        ))
+        .dateField(SubscriptionListDateField.UPDATED_AT)
+        .startDate(DateTimeHelper.fromSimpleDate("2016-03-13"))
+        .endDate(DateTimeHelper.fromSimpleDate("2016-03-13"))
+        .startDatetime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .build())
+    .build();
 ```
 

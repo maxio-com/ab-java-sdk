@@ -11,11 +11,13 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Force` | `Boolean` | Optional | - | Boolean getForce() | setForce(Boolean force) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "force": false
-}
+```java
+import com.maxio.advancedbilling.models.IssueAdvanceInvoiceRequest;
+
+IssueAdvanceInvoiceRequest issueAdvanceInvoiceRequest = new IssueAdvanceInvoiceRequest.Builder()
+    .force(false)
+    .build();
 ```
 

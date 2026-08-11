@@ -11,11 +11,14 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ExpiresAt` | `ZonedDateTime` | Optional | - | ZonedDateTime getExpiresAt() | setExpiresAt(ZonedDateTime expiresAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "expires_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.AllocationExpirationDate;
+
+AllocationExpirationDate allocationExpirationDate = new AllocationExpirationDate.Builder()
+    .expiresAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .build();
 ```
 

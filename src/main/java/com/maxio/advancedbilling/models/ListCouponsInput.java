@@ -122,9 +122,9 @@ public class ListCouponsInput {
 
     /**
      * Getter for CurrencyPrices.
-     * When fetching coupons, if you have defined multiple currencies at the site level, you can
-     * optionally pass the `?currency_prices=true` query param to include an array of currency price
-     * data in the response. Use in query `currency_prices=true`.
+     * (Optional) If you have defined multiple currencies at the site level, you can pass
+     * `?currency_prices=true` to include an array of currency price data in the response. Use in
+     * query `currency_prices=true`.
      * @return Returns the Boolean
      */
     @JsonGetter("currency_prices")
@@ -135,9 +135,9 @@ public class ListCouponsInput {
 
     /**
      * Setter for CurrencyPrices.
-     * When fetching coupons, if you have defined multiple currencies at the site level, you can
-     * optionally pass the `?currency_prices=true` query param to include an array of currency price
-     * data in the response. Use in query `currency_prices=true`.
+     * (Optional) If you have defined multiple currencies at the site level, you can pass
+     * `?currency_prices=true` to include an array of currency price data in the response. Use in
+     * query `currency_prices=true`.
      * @param currencyPrices Value for Boolean
      */
     @JsonSetter("currency_prices")

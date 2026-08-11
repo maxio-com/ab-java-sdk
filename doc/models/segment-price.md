@@ -18,15 +18,17 @@
 | `FormattedUnitPrice` | `String` | Optional | - | String getFormattedUnitPrice() | setFormattedUnitPrice(String formattedUnitPrice) |
 | `SegmentId` | `Integer` | Optional | - | Integer getSegmentId() | setSegmentId(Integer segmentId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 220,
-  "component_id": 74,
-  "starting_quantity": 118,
-  "ending_quantity": 92,
-  "unit_price": "unit_price0"
-}
+```java
+import com.maxio.advancedbilling.models.SegmentPrice;
+
+SegmentPrice segmentPrice = new SegmentPrice.Builder()
+    .id(194)
+    .componentId(48)
+    .startingQuantity(144)
+    .endingQuantity(118)
+    .unitPrice("unit_price0")
+    .build();
 ```
 

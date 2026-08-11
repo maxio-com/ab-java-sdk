@@ -11,26 +11,31 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ProformaInvoicePreview` | [`SignupProformaPreview`](../../doc/models/signup-proforma-preview.md) | Required | - | SignupProformaPreview getProformaInvoicePreview() | setProformaInvoicePreview(SignupProformaPreview proformaInvoicePreview) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "proforma_invoice_preview": {
-    "current_proforma_invoice": {
-      "uid": "uid6",
-      "site_id": 72,
-      "customer_id": 184,
-      "subscription_id": 0,
-      "number": 132
-    },
-    "next_proforma_invoice": {
-      "uid": "uid8",
-      "site_id": 212,
-      "customer_id": 68,
-      "subscription_id": 140,
-      "number": 16
-    }
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ProformaInvoice;
+import com.maxio.advancedbilling.models.SignupProformaPreview;
+import com.maxio.advancedbilling.models.SignupProformaPreviewResponse;
+
+SignupProformaPreviewResponse signupProformaPreviewResponse = new SignupProformaPreviewResponse.Builder(
+    new SignupProformaPreview.Builder()
+        .currentProformaInvoice(new ProformaInvoice.Builder()
+            .uid("uid6")
+            .siteId(72)
+            .customerId(184)
+            .subscriptionId(0)
+            .number(132)
+            .build())
+        .nextProformaInvoice(new ProformaInvoice.Builder()
+            .uid("uid8")
+            .siteId(212)
+            .customerId(68)
+            .subscriptionId(140)
+            .number(16)
+            .build())
+        .build()
+)
+.build();
 ```
 

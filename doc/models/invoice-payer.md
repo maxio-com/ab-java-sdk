@@ -16,15 +16,17 @@
 | `Email` | `String` | Optional | - | String getEmail() | setEmail(String email) |
 | `VatNumber` | `String` | Optional | - | String getVatNumber() | setVatNumber(String vatNumber) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargify_id": 46,
-  "first_name": "first_name4",
-  "last_name": "last_name2",
-  "organization": "organization8",
-  "email": "email2"
-}
+```java
+import com.maxio.advancedbilling.models.InvoicePayer;
+
+InvoicePayer invoicePayer = new InvoicePayer.Builder()
+    .chargifyId(198)
+    .firstName("first_name2")
+    .lastName("last_name0")
+    .organization("organization4")
+    .email("email4")
+    .build();
 ```
 

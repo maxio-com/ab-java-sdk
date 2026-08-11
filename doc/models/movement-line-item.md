@@ -19,15 +19,17 @@
 | `PrevQuantity` | `Integer` | Optional | - | Integer getPrevQuantity() | setPrevQuantity(Integer prevQuantity) |
 | `Recurring` | `Boolean` | Optional | When `true`, the line item's MRR value will contribute to the `plan` breakout. When `false`, the line item contributes to the `usage` breakout. | Boolean getRecurring() | setRecurring(Boolean recurring) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "product_id": 156,
-  "component_id": 68,
-  "price_point_id": 164,
-  "name": "name6",
-  "mrr": 154
-}
+```java
+import com.maxio.advancedbilling.models.MovementLineItem;
+
+MovementLineItem movementLineItem = new MovementLineItem.Builder()
+    .productId(146)
+    .componentId(58)
+    .pricePointId(82)
+    .name("name8")
+    .mrr(92)
+    .build();
 ```
 

@@ -22,15 +22,23 @@
 | `ProductPricePointId` | [`CreateInvoiceItemProductPricePointId`](../../doc/models/containers/create-invoice-item-product-price-point-id.md) | Optional | This is a container for one-of cases. | CreateInvoiceItemProductPricePointId getProductPricePointId() | setProductPricePointId(CreateInvoiceItemProductPricePointId productPricePointId) |
 | `Description` | `String` | Optional | **Constraints**: *Maximum Length*: `255` | String getDescription() | setDescription(String description) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "title": "title2",
-  "quantity": 154.86,
-  "unit_price": 138.08,
-  "taxable": false,
-  "tax_code": "tax_code4"
-}
+```java
+import com.maxio.advancedbilling.models.CreateInvoiceItem;
+import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
+import com.maxio.advancedbilling.models.containers.CreateInvoiceItemUnitPrice;
+
+CreateInvoiceItem createInvoiceItem = new CreateInvoiceItem.Builder()
+    .title("title8")
+    .quantity(CreateInvoiceItemQuantity.fromPrecision(
+        107.22D
+    ))
+    .unitPrice(CreateInvoiceItemUnitPrice.fromPrecision(
+        90.44D
+    ))
+    .taxable(false)
+    .taxCode("tax_code0")
+    .build();
 ```
 

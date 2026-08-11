@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ProformaInvoiceStatus to be used.
  */
@@ -22,7 +21,6 @@ public enum ProformaInvoiceStatus {
     VOIDED,
 
     ARCHIVED;
-
 
     private static TreeMap<String, ProformaInvoiceStatus> valueMap = new TreeMap<>();
     private String value;

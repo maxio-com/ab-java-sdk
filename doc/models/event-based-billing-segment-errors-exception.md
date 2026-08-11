@@ -11,24 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | `Map<String, Object>` | Optional | The key of the object would be a number (an index in the request array) where the error occurred. In the value object, the key represents the field and the value is an array with error messages. In most cases, this object would contain just one key. | Map<String, Object> getErrors() | setErrors(Map<String, Object> errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "key0": {
-      "key1": "val1",
-      "key2": "val2"
-    },
-    "key1": {
-      "key1": "val1",
-      "key2": "val2"
-    },
-    "key2": {
-      "key1": "val1",
-      "key2": "val2"
-    }
-  }
+```java
+try {
+    // make the API call
+} catch (EventBasedBillingSegmentErrorsException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

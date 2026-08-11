@@ -20,3 +20,11 @@
 | `OPEN_BALANCE` |
 | `EXPIRES_AT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.SubscriptionSort;
+
+SubscriptionSort subscriptionSort = SubscriptionSort.TOTAL_PAYMENTS;
+```
+

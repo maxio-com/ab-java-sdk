@@ -13,11 +13,15 @@ Example schema for an `change_chargeback_status` event
 |  --- | --- | --- | --- | --- | --- |
 | `ChargebackStatus` | [`ChargebackStatus`](../../doc/models/chargeback-status.md) | Required | - | ChargebackStatus getChargebackStatus() | setChargebackStatus(ChargebackStatus chargebackStatus) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "chargeback_status": "open"
-}
+```java
+import com.maxio.advancedbilling.models.ChangeChargebackStatusEventData;
+import com.maxio.advancedbilling.models.ChargebackStatus;
+
+ChangeChargebackStatusEventData changeChargebackStatusEventData = new ChangeChargebackStatusEventData.Builder(
+    ChargebackStatus.WON
+)
+.build();
 ```
 

@@ -11,11 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `LockInAt` | `LocalDate` | Required | Date to lock in the renewal. | LocalDate getLockInAt() | setLockInAt(LocalDate lockInAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "lock_in_at": "2016-03-13"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ScheduledRenewalLockInRequest;
+
+ScheduledRenewalLockInRequest scheduledRenewalLockInRequest = new ScheduledRenewalLockInRequest.Builder(
+    DateTimeHelper.fromSimpleDate("2016-03-13")
+)
+.build();
 ```
 

@@ -12,54 +12,61 @@
 | `CurrentBillingManifest` | [`BillingManifest`](../../doc/models/billing-manifest.md) | Optional | - | BillingManifest getCurrentBillingManifest() | setCurrentBillingManifest(BillingManifest currentBillingManifest) |
 | `NextBillingManifest` | [`BillingManifest`](../../doc/models/billing-manifest.md) | Optional | - | BillingManifest getNextBillingManifest() | setNextBillingManifest(BillingManifest nextBillingManifest) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "current_billing_manifest": {
-    "line_items": [
-      {
-        "transaction_type": "credit",
-        "kind": "component",
-        "amount_in_cents": 24,
-        "memo": "memo2",
-        "discount_amount_in_cents": 172
-      }
-    ],
-    "total_in_cents": 38,
-    "total_discount_in_cents": 24,
-    "total_tax_in_cents": 18,
-    "subtotal_in_cents": 150
-  },
-  "next_billing_manifest": {
-    "line_items": [
-      {
-        "transaction_type": "credit",
-        "kind": "component",
-        "amount_in_cents": 24,
-        "memo": "memo2",
-        "discount_amount_in_cents": 172
-      },
-      {
-        "transaction_type": "credit",
-        "kind": "component",
-        "amount_in_cents": 24,
-        "memo": "memo2",
-        "discount_amount_in_cents": 172
-      },
-      {
-        "transaction_type": "credit",
-        "kind": "component",
-        "amount_in_cents": 24,
-        "memo": "memo2",
-        "discount_amount_in_cents": 172
-      }
-    ],
-    "total_in_cents": 62,
-    "total_discount_in_cents": 208,
-    "total_tax_in_cents": 42,
-    "subtotal_in_cents": 174
-  }
-}
+```java
+import com.maxio.advancedbilling.models.BillingManifest;
+import com.maxio.advancedbilling.models.BillingManifestItem;
+import com.maxio.advancedbilling.models.BillingManifestLineItemKind;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
+import com.maxio.advancedbilling.models.SubscriptionPreview;
+import java.util.Arrays;
+
+SubscriptionPreview subscriptionPreview = new SubscriptionPreview.Builder()
+    .currentBillingManifest(new BillingManifest.Builder()
+        .lineItems(Arrays.asList(
+            new BillingManifestItem.Builder()
+                .transactionType(LineItemTransactionType.CREDIT)
+                .kind(BillingManifestLineItemKind.COMPONENT)
+                .amountInCents(24L)
+                .memo("memo2")
+                .discountAmountInCents(172L)
+                .build()
+        ))
+        .totalInCents(38L)
+        .totalDiscountInCents(24L)
+        .totalTaxInCents(18L)
+        .subtotalInCents(150L)
+        .build())
+    .nextBillingManifest(new BillingManifest.Builder()
+        .lineItems(Arrays.asList(
+            new BillingManifestItem.Builder()
+                .transactionType(LineItemTransactionType.CREDIT)
+                .kind(BillingManifestLineItemKind.COMPONENT)
+                .amountInCents(24L)
+                .memo("memo2")
+                .discountAmountInCents(172L)
+                .build(),
+            new BillingManifestItem.Builder()
+                .transactionType(LineItemTransactionType.CREDIT)
+                .kind(BillingManifestLineItemKind.COMPONENT)
+                .amountInCents(24L)
+                .memo("memo2")
+                .discountAmountInCents(172L)
+                .build(),
+            new BillingManifestItem.Builder()
+                .transactionType(LineItemTransactionType.CREDIT)
+                .kind(BillingManifestLineItemKind.COMPONENT)
+                .amountInCents(24L)
+                .memo("memo2")
+                .discountAmountInCents(172L)
+                .build()
+        ))
+        .totalInCents(62L)
+        .totalDiscountInCents(208L)
+        .totalTaxInCents(42L)
+        .subtotalInCents(174L)
+        .build())
+    .build();
 ```
 

@@ -13,13 +13,15 @@
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
 | `Name` | `String` | Optional | - | String getName() | setName(String name) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 192,
-  "handle": "handle6",
-  "name": "name0"
-}
+```java
+import com.maxio.advancedbilling.models.ItemPricePointData;
+
+ItemPricePointData itemPricePointData = new ItemPricePointData.Builder()
+    .id(80)
+    .handle("handle8")
+    .name("name2")
+    .build();
 ```
 

@@ -21,17 +21,21 @@
 | `AccountBalances` | [`SubscriptionGroupBalances`](../../doc/models/subscription-group-balances.md) | Optional | - | SubscriptionGroupBalances getAccountBalances() | setAccountBalances(SubscriptionGroupBalances accountBalances) |
 | `GroupType` | [`GroupType`](../../doc/models/group-type.md) | Optional | - | GroupType getGroupType() | setGroupType(GroupType groupType) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid0",
-  "scheme": 124,
-  "customer_id": 144,
-  "payment_profile_id": 52,
-  "subscription_ids": [
-    254
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.ListSubscriptionGroupsItem;
+import java.util.Arrays;
+
+ListSubscriptionGroupsItem listSubscriptionGroupsItem = new ListSubscriptionGroupsItem.Builder()
+    .uid("uid0")
+    .scheme(228)
+    .customerId(248)
+    .paymentProfileId(100)
+    .subscriptionIds(Arrays.asList(
+        102,
+        103
+    ))
+    .build();
 ```
 

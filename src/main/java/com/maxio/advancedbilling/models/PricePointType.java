@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * PricePointType to be used.
  */
@@ -22,7 +21,6 @@ public enum PricePointType {
     ENUM_DEFAULT,
 
     CUSTOM;
-
 
     private static TreeMap<String, PricePointType> valueMap = new TreeMap<>();
     private String value;

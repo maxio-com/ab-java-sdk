@@ -18,15 +18,17 @@
 | `ProductPricePointId` | `Integer` | Optional | - | Integer getProductPricePointId() | setProductPricePointId(Integer productPricePointId) |
 | `Role` | [`CurrencyPriceRole`](../../doc/models/currency-price-role.md) | Optional | Role for the price. | CurrencyPriceRole getRole() | setRole(CurrencyPriceRole role) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 88,
-  "currency": "currency6",
-  "price": 41.36,
-  "formatted_price": "formatted_price4",
-  "price_id": 178
-}
+```java
+import com.maxio.advancedbilling.models.CurrencyPrice;
+
+CurrencyPrice currencyPrice = new CurrencyPrice.Builder()
+    .id(208)
+    .currency("currency4")
+    .price(70.88D)
+    .formattedPrice("formatted_price2")
+    .priceId(214)
+    .build();
 ```
 

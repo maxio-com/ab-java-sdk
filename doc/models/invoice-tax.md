@@ -24,15 +24,18 @@
 | `Type` | `String` | Optional | - | String getType() | setType(String type) |
 | `TaxExemptAmount` | `String` | Optional | - | String getTaxExemptAmount() | setTaxExemptAmount(String taxExemptAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "title": "title6",
-  "description": "description2",
-  "source_type": "Tax",
-  "source_id": 164
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceTax;
+import com.maxio.advancedbilling.models.ProformaInvoiceTaxSourceType;
+
+InvoiceTax invoiceTax = new InvoiceTax.Builder()
+    .uid("uid2")
+    .title("title8")
+    .description("description2")
+    .sourceType(ProformaInvoiceTaxSourceType.TAX)
+    .sourceId(86)
+    .build();
 ```
 

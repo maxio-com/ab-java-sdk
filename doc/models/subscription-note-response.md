@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Note` | [`SubscriptionNote`](../../doc/models/subscription-note.md) | Required | - | SubscriptionNote getNote() | setNote(SubscriptionNote note) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "note": {
-    "id": 28,
-    "body": "body0",
-    "subscription_id": 138,
-    "created_at": "2016-03-13T12:52:32.123Z",
-    "updated_at": "2016-03-13T12:52:32.123Z"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.SubscriptionNote;
+import com.maxio.advancedbilling.models.SubscriptionNoteResponse;
+
+SubscriptionNoteResponse subscriptionNoteResponse = new SubscriptionNoteResponse.Builder(
+    new SubscriptionNote.Builder()
+        .id(28)
+        .body("body0")
+        .subscriptionId(138)
+        .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .updatedAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .build()
+)
+.build();
 ```
 

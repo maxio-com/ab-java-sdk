@@ -20,3 +20,11 @@
 | `BACKPORT` |
 | `BACKPORTBALANCERECONCILIATION` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.InvoiceRole;
+
+InvoiceRole invoiceRole = InvoiceRole.RENEWAL;
+```
+

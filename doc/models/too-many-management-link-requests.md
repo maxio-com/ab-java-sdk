@@ -12,12 +12,16 @@
 | `Error` | `String` | Required | - | String getError() | setError(String error) |
 | `NewLinkAvailableAt` | `ZonedDateTime` | Required | - | ZonedDateTime getNewLinkAvailableAt() | setNewLinkAvailableAt(ZonedDateTime newLinkAvailableAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "error": "error2",
-  "new_link_available_at": "2016-03-13T12:52:32.123Z"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.TooManyManagementLinkRequests;
+
+TooManyManagementLinkRequests tooManyManagementLinkRequests = new TooManyManagementLinkRequests.Builder(
+    "error8",
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+)
+.build();
 ```
 

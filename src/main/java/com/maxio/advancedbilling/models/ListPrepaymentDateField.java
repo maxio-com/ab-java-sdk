@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ListPrepaymentDateField to be used.
  */
@@ -20,7 +19,6 @@ public enum ListPrepaymentDateField {
     CREATED_AT,
 
     APPLICATION_AT;
-
 
     private static TreeMap<String, ListPrepaymentDateField> valueMap = new TreeMap<>();
     private String value;

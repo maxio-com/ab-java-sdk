@@ -11,32 +11,38 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Payment` | [`MultiInvoicePayment`](../../doc/models/multi-invoice-payment.md) | Required | - | MultiInvoicePayment getPayment() | setPayment(MultiInvoicePayment payment) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "payment": {
-    "transaction_id": 224,
-    "total_amount": "total_amount2",
-    "currency_code": "currency_code2",
-    "applications": [
-      {
-        "invoice_uid": "invoice_uid8",
-        "application_uid": "application_uid8",
-        "applied_amount": "applied_amount0"
-      },
-      {
-        "invoice_uid": "invoice_uid8",
-        "application_uid": "application_uid8",
-        "applied_amount": "applied_amount0"
-      },
-      {
-        "invoice_uid": "invoice_uid8",
-        "application_uid": "application_uid8",
-        "applied_amount": "applied_amount0"
-      }
-    ]
-  }
-}
+```java
+import com.maxio.advancedbilling.models.InvoicePaymentApplication;
+import com.maxio.advancedbilling.models.MultiInvoicePayment;
+import com.maxio.advancedbilling.models.MultiInvoicePaymentResponse;
+import java.util.Arrays;
+
+MultiInvoicePaymentResponse multiInvoicePaymentResponse = new MultiInvoicePaymentResponse.Builder(
+    new MultiInvoicePayment.Builder()
+        .transactionId(224)
+        .totalAmount("total_amount2")
+        .currencyCode("currency_code2")
+        .applications(Arrays.asList(
+            new InvoicePaymentApplication.Builder()
+                .invoiceUid("invoice_uid8")
+                .applicationUid("application_uid8")
+                .appliedAmount("applied_amount0")
+                .build(),
+            new InvoicePaymentApplication.Builder()
+                .invoiceUid("invoice_uid8")
+                .applicationUid("application_uid8")
+                .appliedAmount("applied_amount0")
+                .build(),
+            new InvoicePaymentApplication.Builder()
+                .invoiceUid("invoice_uid8")
+                .applicationUid("application_uid8")
+                .appliedAmount("applied_amount0")
+                .build()
+        ))
+        .build()
+)
+.build();
 ```
 

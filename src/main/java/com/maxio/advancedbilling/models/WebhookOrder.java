@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * WebhookOrder to be used.
  */
@@ -20,7 +19,6 @@ public enum WebhookOrder {
     NEWEST_FIRST,
 
     OLDEST_FIRST;
-
 
     private static TreeMap<String, WebhookOrder> valueMap = new TreeMap<>();
     private String value;

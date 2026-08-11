@@ -11,18 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Migration` | [`SubscriptionProductMigration`](../../doc/models/subscription-product-migration.md) | Required | - | SubscriptionProductMigration getMigration() | setMigration(SubscriptionProductMigration migration) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "migration": {
-    "include_trial": false,
-    "include_initial_charge": false,
-    "include_coupons": true,
-    "preserve_period": false,
-    "product_id": 158,
-    "product_price_point_id": 82
-  }
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionProductMigration;
+import com.maxio.advancedbilling.models.SubscriptionProductMigrationRequest;
+
+SubscriptionProductMigrationRequest subscriptionProductMigrationRequest = new SubscriptionProductMigrationRequest.Builder(
+    new SubscriptionProductMigration.Builder()
+        .productId(158)
+        .productPricePointId(82)
+        .includeTrial(false)
+        .includeInitialCharge(false)
+        .includeCoupons(true)
+        .preservePeriod(false)
+        .build()
+)
+.build();
 ```
 

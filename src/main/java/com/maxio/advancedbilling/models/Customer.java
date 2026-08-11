@@ -44,6 +44,7 @@ public class Customer
     private OptionalNullable<ZonedDateTime> portalInviteLastSentAt;
     private OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt;
     private Boolean taxExempt;
+    private Boolean surcharging;
     private OptionalNullable<String> vatNumber;
     private OptionalNullable<Integer> parentId;
     private OptionalNullable<String> locale;
@@ -52,6 +53,7 @@ public class Customer
     private OptionalNullable<String> taxExemptReason;
     private OptionalNullable<Integer> defaultAutoRenewalProfileId;
     private OptionalNullable<String> maxioid;
+    private OptionalNullable<Integer> brandingThemeId;
 
     /**
      * Default constructor.
@@ -84,6 +86,7 @@ public class Customer
      * @param  portalInviteLastSentAt  ZonedDateTime value for portalInviteLastSentAt.
      * @param  portalInviteLastAcceptedAt  ZonedDateTime value for portalInviteLastAcceptedAt.
      * @param  taxExempt  Boolean value for taxExempt.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  vatNumber  String value for vatNumber.
      * @param  parentId  Integer value for parentId.
      * @param  locale  String value for locale.
@@ -92,6 +95,7 @@ public class Customer
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
      * @param  maxioid  String value for maxioid.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      */
     public Customer(
             String firstName,
@@ -117,6 +121,7 @@ public class Customer
             ZonedDateTime portalInviteLastSentAt,
             ZonedDateTime portalInviteLastAcceptedAt,
             Boolean taxExempt,
+            Boolean surcharging,
             String vatNumber,
             Integer parentId,
             String locale,
@@ -124,7 +129,8 @@ public class Customer
             String salesforceId,
             String taxExemptReason,
             Integer defaultAutoRenewalProfileId,
-            String maxioid) {
+            String maxioid,
+            Integer brandingThemeId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -148,6 +154,7 @@ public class Customer
         this.portalInviteLastSentAt = OptionalNullable.of(portalInviteLastSentAt);
         this.portalInviteLastAcceptedAt = OptionalNullable.of(portalInviteLastAcceptedAt);
         this.taxExempt = taxExempt;
+        this.surcharging = surcharging;
         this.vatNumber = OptionalNullable.of(vatNumber);
         this.parentId = OptionalNullable.of(parentId);
         this.locale = OptionalNullable.of(locale);
@@ -156,6 +163,7 @@ public class Customer
         this.taxExemptReason = OptionalNullable.of(taxExemptReason);
         this.defaultAutoRenewalProfileId = OptionalNullable.of(defaultAutoRenewalProfileId);
         this.maxioid = OptionalNullable.of(maxioid);
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
     }
 
     /**
@@ -183,6 +191,7 @@ public class Customer
      * @param  portalInviteLastSentAt  ZonedDateTime value for portalInviteLastSentAt.
      * @param  portalInviteLastAcceptedAt  ZonedDateTime value for portalInviteLastAcceptedAt.
      * @param  taxExempt  Boolean value for taxExempt.
+     * @param  surcharging  Boolean value for surcharging.
      * @param  vatNumber  String value for vatNumber.
      * @param  parentId  Integer value for parentId.
      * @param  locale  String value for locale.
@@ -191,6 +200,7 @@ public class Customer
      * @param  taxExemptReason  String value for taxExemptReason.
      * @param  defaultAutoRenewalProfileId  Integer value for defaultAutoRenewalProfileId.
      * @param  maxioid  String value for maxioid.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      */
 
     protected Customer(String firstName, String lastName, String email,
@@ -205,11 +215,12 @@ public class Customer
             OptionalNullable<ZonedDateTime> portalCustomerCreatedAt,
             OptionalNullable<ZonedDateTime> portalInviteLastSentAt,
             OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt, Boolean taxExempt,
-            OptionalNullable<String> vatNumber, OptionalNullable<Integer> parentId,
-            OptionalNullable<String> locale, OptionalNullable<String> defaultSubscriptionGroupUid,
+            Boolean surcharging, OptionalNullable<String> vatNumber,
+            OptionalNullable<Integer> parentId, OptionalNullable<String> locale,
+            OptionalNullable<String> defaultSubscriptionGroupUid,
             OptionalNullable<String> salesforceId, OptionalNullable<String> taxExemptReason,
-            OptionalNullable<Integer> defaultAutoRenewalProfileId,
-            OptionalNullable<String> maxioid) {
+            OptionalNullable<Integer> defaultAutoRenewalProfileId, OptionalNullable<String> maxioid,
+            OptionalNullable<Integer> brandingThemeId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -233,6 +244,7 @@ public class Customer
         this.portalInviteLastSentAt = portalInviteLastSentAt;
         this.portalInviteLastAcceptedAt = portalInviteLastAcceptedAt;
         this.taxExempt = taxExempt;
+        this.surcharging = surcharging;
         this.vatNumber = vatNumber;
         this.parentId = parentId;
         this.locale = locale;
@@ -241,6 +253,7 @@ public class Customer
         this.taxExemptReason = taxExemptReason;
         this.defaultAutoRenewalProfileId = defaultAutoRenewalProfileId;
         this.maxioid = maxioid;
+        this.brandingThemeId = brandingThemeId;
     }
 
     /**
@@ -308,8 +321,8 @@ public class Customer
 
     /**
      * Internal Getter for CcEmails.
-     * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe{@literal @}example.com, sue{@literal @}example.com”)
+     * “A comma-separated list of emails that should be cc’d on all customer communications (e.g.,
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)”
      * @return Returns the Internal String
      */
     @JsonGetter("cc_emails")
@@ -321,8 +334,8 @@ public class Customer
 
     /**
      * Getter for CcEmails.
-     * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe{@literal @}example.com, sue{@literal @}example.com”)
+     * “A comma-separated list of emails that should be cc’d on all customer communications (e.g.,
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)”
      * @return Returns the String
      */
     public String getCcEmails() {
@@ -331,8 +344,8 @@ public class Customer
 
     /**
      * Setter for CcEmails.
-     * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe{@literal @}example.com, sue{@literal @}example.com”)
+     * “A comma-separated list of emails that should be cc’d on all customer communications (e.g.,
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)”
      * @param ccEmails Value for String
      */
     @JsonSetter("cc_emails")
@@ -342,8 +355,8 @@ public class Customer
 
     /**
      * UnSetter for CcEmails.
-     * A comma-separated list of emails that should be cc’d on all customer communications (i.e.
-     * “joe{@literal @}example.com, sue{@literal @}example.com”)
+     * “A comma-separated list of emails that should be cc’d on all customer communications (e.g.,
+     * “joe{@literal @}example.com, sue{@literal @}example.com”)”
      */
     public void unsetCcEmails() {
         ccEmails = null;
@@ -504,7 +517,7 @@ public class Customer
 
     /**
      * Internal Getter for Address.
-     * The customer’s shipping street address (i.e. “123 Main St.”)
+     * The customer’s shipping street address (e.g., “123 Main St.”)
      * @return Returns the Internal String
      */
     @JsonGetter("address")
@@ -516,7 +529,7 @@ public class Customer
 
     /**
      * Getter for Address.
-     * The customer’s shipping street address (i.e. “123 Main St.”)
+     * The customer’s shipping street address (e.g., “123 Main St.”)
      * @return Returns the String
      */
     public String getAddress() {
@@ -525,7 +538,7 @@ public class Customer
 
     /**
      * Setter for Address.
-     * The customer’s shipping street address (i.e. “123 Main St.”)
+     * The customer’s shipping street address (e.g., “123 Main St.”)
      * @param address Value for String
      */
     @JsonSetter("address")
@@ -535,7 +548,7 @@ public class Customer
 
     /**
      * UnSetter for Address.
-     * The customer’s shipping street address (i.e. “123 Main St.”)
+     * The customer’s shipping street address (e.g., “123 Main St.”)
      */
     public void unsetAddress() {
         address = null;
@@ -543,7 +556,7 @@ public class Customer
 
     /**
      * Internal Getter for Address2.
-     * Second line of the customer’s shipping address i.e. “Apt. 100”
+     * Second line of the customer’s shipping address e.g., “Apt. 100”
      * @return Returns the Internal String
      */
     @JsonGetter("address_2")
@@ -555,7 +568,7 @@ public class Customer
 
     /**
      * Getter for Address2.
-     * Second line of the customer’s shipping address i.e. “Apt. 100”
+     * Second line of the customer’s shipping address e.g., “Apt. 100”
      * @return Returns the String
      */
     public String getAddress2() {
@@ -564,7 +577,7 @@ public class Customer
 
     /**
      * Setter for Address2.
-     * Second line of the customer’s shipping address i.e. “Apt. 100”
+     * Second line of the customer’s shipping address e.g., “Apt. 100”
      * @param address2 Value for String
      */
     @JsonSetter("address_2")
@@ -574,7 +587,7 @@ public class Customer
 
     /**
      * UnSetter for Address2.
-     * Second line of the customer’s shipping address i.e. “Apt. 100”
+     * Second line of the customer’s shipping address e.g., “Apt. 100”
      */
     public void unsetAddress2() {
         address2 = null;
@@ -582,7 +595,7 @@ public class Customer
 
     /**
      * Internal Getter for City.
-     * The customer’s shipping address city (i.e. “Boston”)
+     * The customer’s shipping address city (e.g., “Boston”)
      * @return Returns the Internal String
      */
     @JsonGetter("city")
@@ -594,7 +607,7 @@ public class Customer
 
     /**
      * Getter for City.
-     * The customer’s shipping address city (i.e. “Boston”)
+     * The customer’s shipping address city (e.g., “Boston”)
      * @return Returns the String
      */
     public String getCity() {
@@ -603,7 +616,7 @@ public class Customer
 
     /**
      * Setter for City.
-     * The customer’s shipping address city (i.e. “Boston”)
+     * The customer’s shipping address city (e.g., “Boston”)
      * @param city Value for String
      */
     @JsonSetter("city")
@@ -613,7 +626,7 @@ public class Customer
 
     /**
      * UnSetter for City.
-     * The customer’s shipping address city (i.e. “Boston”)
+     * The customer’s shipping address city (e.g., “Boston”)
      */
     public void unsetCity() {
         city = null;
@@ -621,7 +634,7 @@ public class Customer
 
     /**
      * Internal Getter for State.
-     * The customer’s shipping address state (i.e. “MA”)
+     * The customer’s shipping address state (e.g., “MA”)
      * @return Returns the Internal String
      */
     @JsonGetter("state")
@@ -633,7 +646,7 @@ public class Customer
 
     /**
      * Getter for State.
-     * The customer’s shipping address state (i.e. “MA”)
+     * The customer’s shipping address state (e.g., “MA”)
      * @return Returns the String
      */
     public String getState() {
@@ -642,7 +655,7 @@ public class Customer
 
     /**
      * Setter for State.
-     * The customer’s shipping address state (i.e. “MA”)
+     * The customer’s shipping address state (e.g., “MA”)
      * @param state Value for String
      */
     @JsonSetter("state")
@@ -652,7 +665,7 @@ public class Customer
 
     /**
      * UnSetter for State.
-     * The customer’s shipping address state (i.e. “MA”)
+     * The customer’s shipping address state (e.g., “MA”)
      */
     public void unsetState() {
         state = null;
@@ -699,7 +712,7 @@ public class Customer
 
     /**
      * Internal Getter for Zip.
-     * The customer’s shipping address zip code (i.e. “12345”)
+     * The customer’s shipping address zip code (e.g., “12345”)
      * @return Returns the Internal String
      */
     @JsonGetter("zip")
@@ -711,7 +724,7 @@ public class Customer
 
     /**
      * Getter for Zip.
-     * The customer’s shipping address zip code (i.e. “12345”)
+     * The customer’s shipping address zip code (e.g., “12345”)
      * @return Returns the String
      */
     public String getZip() {
@@ -720,7 +733,7 @@ public class Customer
 
     /**
      * Setter for Zip.
-     * The customer’s shipping address zip code (i.e. “12345”)
+     * The customer’s shipping address zip code (e.g., “12345”)
      * @param zip Value for String
      */
     @JsonSetter("zip")
@@ -730,7 +743,7 @@ public class Customer
 
     /**
      * UnSetter for Zip.
-     * The customer’s shipping address zip code (i.e. “12345”)
+     * The customer’s shipping address zip code (e.g., “12345”)
      */
     public void unsetZip() {
         zip = null;
@@ -1033,6 +1046,29 @@ public class Customer
     @JsonSetter("tax_exempt")
     public void setTaxExempt(Boolean taxExempt) {
         this.taxExempt = taxExempt;
+    }
+
+    /**
+     * Getter for Surcharging.
+     * Whether surcharging is enabled for the customer. Only included on sites where surcharging
+     * control is enabled.
+     * @return Returns the Boolean
+     */
+    @JsonGetter("surcharging")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Boolean getSurcharging() {
+        return surcharging;
+    }
+
+    /**
+     * Setter for Surcharging.
+     * Whether surcharging is enabled for the customer. Only included on sites where surcharging
+     * control is enabled.
+     * @param surcharging Value for Boolean
+     */
+    @JsonSetter("surcharging")
+    public void setSurcharging(Boolean surcharging) {
+        this.surcharging = surcharging;
     }
 
     /**
@@ -1356,6 +1392,57 @@ public class Customer
     }
 
     /**
+     * Internal Getter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("branding_theme_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBrandingThemeId() {
+        return this.brandingThemeId;
+    }
+
+    /**
+     * Getter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     * @return Returns the Integer
+     */
+    public Integer getBrandingThemeId() {
+        return OptionalNullable.getFrom(brandingThemeId);
+    }
+
+    /**
+     * Setter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     * @param brandingThemeId Value for Integer
+     */
+    @JsonSetter("branding_theme_id")
+    public void setBrandingThemeId(Integer brandingThemeId) {
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+    }
+
+    /**
+     * UnSetter for BrandingThemeId.
+     * The ID of the Branding Theme assigned to this customer as the customer's default Branding
+     * Theme. This customer-level Branding Theme is used when a subscription does not have its own
+     * subscription-level Branding Theme. Available only when Branding Themes are enabled for the
+     * site.
+     */
+    public void unsetBrandingThemeId() {
+        brandingThemeId = null;
+    }
+
+    /**
      * Converts this Customer into string format.
      * @return String representation of this class
      */
@@ -1370,11 +1457,12 @@ public class Customer
                 + ", verified=" + verified + ", portalCustomerCreatedAt=" + portalCustomerCreatedAt
                 + ", portalInviteLastSentAt=" + portalInviteLastSentAt
                 + ", portalInviteLastAcceptedAt=" + portalInviteLastAcceptedAt + ", taxExempt="
-                + taxExempt + ", vatNumber=" + vatNumber + ", parentId=" + parentId + ", locale="
-                + locale + ", defaultSubscriptionGroupUid=" + defaultSubscriptionGroupUid
-                + ", salesforceId=" + salesforceId + ", taxExemptReason=" + taxExemptReason
-                + ", defaultAutoRenewalProfileId=" + defaultAutoRenewalProfileId + ", maxioid="
-                + maxioid + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + taxExempt + ", surcharging=" + surcharging + ", vatNumber=" + vatNumber
+                + ", parentId=" + parentId + ", locale=" + locale + ", defaultSubscriptionGroupUid="
+                + defaultSubscriptionGroupUid + ", salesforceId=" + salesforceId
+                + ", taxExemptReason=" + taxExemptReason + ", defaultAutoRenewalProfileId="
+                + defaultAutoRenewalProfileId + ", maxioid=" + maxioid + ", brandingThemeId="
+                + brandingThemeId + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1390,7 +1478,8 @@ public class Customer
                 .id(getId())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt())
-                .taxExempt(getTaxExempt());
+                .taxExempt(getTaxExempt())
+                .surcharging(getSurcharging());
         builder.ccEmails = internalGetCcEmails();
         builder.organization = internalGetOrganization();
         builder.reference = internalGetReference();
@@ -1415,6 +1504,7 @@ public class Customer
         builder.taxExemptReason = internalGetTaxExemptReason();
         builder.defaultAutoRenewalProfileId = internalGetDefaultAutoRenewalProfileId();
         builder.maxioid = internalGetMaxioid();
+        builder.brandingThemeId = internalGetBrandingThemeId();
         return builder;
     }
 
@@ -1445,6 +1535,7 @@ public class Customer
         private OptionalNullable<ZonedDateTime> portalInviteLastSentAt;
         private OptionalNullable<ZonedDateTime> portalInviteLastAcceptedAt;
         private Boolean taxExempt;
+        private Boolean surcharging;
         private OptionalNullable<String> vatNumber;
         private OptionalNullable<Integer> parentId;
         private OptionalNullable<String> locale;
@@ -1453,6 +1544,7 @@ public class Customer
         private OptionalNullable<String> taxExemptReason;
         private OptionalNullable<Integer> defaultAutoRenewalProfileId;
         private OptionalNullable<String> maxioid;
+        private OptionalNullable<Integer> brandingThemeId;
 
 
 
@@ -1831,6 +1923,16 @@ public class Customer
         }
 
         /**
+         * Setter for surcharging.
+         * @param  surcharging  Boolean value for surcharging.
+         * @return Builder
+         */
+        public Builder surcharging(Boolean surcharging) {
+            this.surcharging = surcharging;
+            return this;
+        }
+
+        /**
          * Setter for vatNumber.
          * @param  vatNumber  String value for vatNumber.
          * @return Builder
@@ -1983,6 +2085,25 @@ public class Customer
         }
 
         /**
+         * Setter for brandingThemeId.
+         * @param  brandingThemeId  Integer value for brandingThemeId.
+         * @return Builder
+         */
+        public Builder brandingThemeId(Integer brandingThemeId) {
+            this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for brandingThemeId.
+         * @return Builder
+         */
+        public Builder unsetBrandingThemeId() {
+            brandingThemeId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Customer} object using the set fields.
          * @return {@link Customer}
          */
@@ -1990,9 +2111,9 @@ public class Customer
             return new Customer(firstName, lastName, email, ccEmails, organization, reference, id,
                     createdAt, updatedAt, address, address2, city, state, stateName, zip, country,
                     countryName, phone, verified, portalCustomerCreatedAt, portalInviteLastSentAt,
-                    portalInviteLastAcceptedAt, taxExempt, vatNumber, parentId, locale,
+                    portalInviteLastAcceptedAt, taxExempt, surcharging, vatNumber, parentId, locale,
                     defaultSubscriptionGroupUid, salesforceId, taxExemptReason,
-                    defaultAutoRenewalProfileId, maxioid);
+                    defaultAutoRenewalProfileId, maxioid, brandingThemeId);
         }
     }
 }

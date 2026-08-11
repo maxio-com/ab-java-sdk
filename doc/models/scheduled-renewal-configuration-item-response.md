@@ -11,17 +11,20 @@
 |  --- | --- | --- | --- | --- | --- |
 | `ScheduledRenewalConfigurationItem` | [`ScheduledRenewalConfigurationItem`](../../doc/models/scheduled-renewal-configuration-item.md) | Optional | - | ScheduledRenewalConfigurationItem getScheduledRenewalConfigurationItem() | setScheduledRenewalConfigurationItem(ScheduledRenewalConfigurationItem scheduledRenewalConfigurationItem) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "scheduled_renewal_configuration_item": {
-    "id": 98,
-    "subscription_id": 208,
-    "subscription_renewal_configuration_id": 108,
-    "item_id": 246,
-    "item_type": "item_type2"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ScheduledRenewalConfigurationItem;
+import com.maxio.advancedbilling.models.ScheduledRenewalConfigurationItemResponse;
+
+ScheduledRenewalConfigurationItemResponse scheduledRenewalConfigurationItemResponse = new ScheduledRenewalConfigurationItemResponse.Builder()
+    .scheduledRenewalConfigurationItem(new ScheduledRenewalConfigurationItem.Builder()
+        .id(98)
+        .subscriptionId(208)
+        .subscriptionRenewalConfigurationId(108)
+        .itemId(246)
+        .itemType("item_type2")
+        .build())
+    .build();
 ```
 

@@ -15,30 +15,28 @@
 | `PerPage` | `Integer` | Optional | - | Integer getPerPage() | setPerPage(Integer perPage) |
 | `Metadata` | [`List<Metadata>`](../../doc/models/metadata.md) | Optional | - | List<Metadata> getMetadata() | setMetadata(List<Metadata> metadata) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_count": 26,
-  "current_page": 2,
-  "total_pages": 14,
-  "per_page": 20,
-  "metadata": [
-    {
-      "id": 50,
-      "value": "value8",
-      "resource_id": 134,
-      "name": "name6",
-      "deleted_at": "2016-03-13T12:52:32.123Z"
-    },
-    {
-      "id": 50,
-      "value": "value8",
-      "resource_id": 134,
-      "name": "name6",
-      "deleted_at": "2016-03-13T12:52:32.123Z"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.Metadata;
+import com.maxio.advancedbilling.models.PaginatedMetadata;
+import java.util.Arrays;
+
+PaginatedMetadata paginatedMetadata = new PaginatedMetadata.Builder()
+    .totalCount(166)
+    .currentPage(142)
+    .totalPages(154)
+    .perPage(136)
+    .metadata(Arrays.asList(
+        new Metadata.Builder()
+            .id(50)
+            .value("value8")
+            .resourceId(134)
+            .name("name6")
+            .deletedAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+            .build()
+    ))
+    .build();
 ```
 

@@ -11,11 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `CreditScheme` | [`CreditScheme`](../../doc/models/credit-scheme.md) | Required | - | CreditScheme getCreditScheme() | setCreditScheme(CreditScheme creditScheme) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "credit_scheme": "credit"
-}
+```java
+import com.maxio.advancedbilling.models.CreditScheme;
+import com.maxio.advancedbilling.models.CreditSchemeRequest;
+
+CreditSchemeRequest creditSchemeRequest = new CreditSchemeRequest.Builder(
+    CreditScheme.CREDIT
+)
+.build();
 ```
 

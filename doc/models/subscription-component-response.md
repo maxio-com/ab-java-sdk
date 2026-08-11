@@ -11,17 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Component` | [`SubscriptionComponent`](../../doc/models/subscription-component.md) | Optional | - | SubscriptionComponent getComponent() | setComponent(SubscriptionComponent component) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "component": {
-    "id": 80,
-    "name": "name8",
-    "kind": "quantity_based_component",
-    "unit_name": "unit_name0",
-    "enabled": false
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ComponentKind;
+import com.maxio.advancedbilling.models.SubscriptionComponent;
+import com.maxio.advancedbilling.models.SubscriptionComponentResponse;
+
+SubscriptionComponentResponse subscriptionComponentResponse = new SubscriptionComponentResponse.Builder()
+    .component(new SubscriptionComponent.Builder()
+        .id(80)
+        .name("name8")
+        .kind(ComponentKind.QUANTITY_BASED_COMPONENT)
+        .unitName("unit_name0")
+        .enabled(false)
+        .build())
+    .build();
 ```
 

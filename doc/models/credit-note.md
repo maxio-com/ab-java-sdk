@@ -21,13 +21,13 @@
 | `Currency` | `String` | Optional | The ISO 4217 currency code (3 character string) representing the currency of the credit note amount fields. | String getCurrency() | setCurrency(String currency) |
 | `Memo` | `String` | Optional | The memo printed on credit note, which is a description of the reason for the credit. | String getMemo() | setMemo(String memo) |
 | `Seller` | [`InvoiceSeller`](../../doc/models/invoice-seller.md) | Optional | Information about the seller (merchant) listed on the masthead of the credit note. | InvoiceSeller getSeller() | setSeller(InvoiceSeller seller) |
-| `Customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient the credited subscription. | InvoiceCustomer getCustomer() | setCustomer(InvoiceCustomer customer) |
+| `Customer` | [`InvoiceCustomer`](../../doc/models/invoice-customer.md) | Optional | Information about the customer who is owner or recipient of the credited subscription. | InvoiceCustomer getCustomer() | setCustomer(InvoiceCustomer customer) |
 | `BillingAddress` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | The billing address of the credit subscription. | InvoiceAddress getBillingAddress() | setBillingAddress(InvoiceAddress billingAddress) |
 | `ShippingAddress` | [`InvoiceAddress`](../../doc/models/invoice-address.md) | Optional | The shipping address of the credited subscription. | InvoiceAddress getShippingAddress() | setShippingAddress(InvoiceAddress shippingAddress) |
 | `SubtotalAmount` | `String` | Optional | Subtotal of the credit note, which is the sum of all line items before discounts or taxes. Note that this is a positive amount representing the credit back to the customer. | String getSubtotalAmount() | setSubtotalAmount(String subtotalAmount) |
-| `DiscountAmount` | `String` | Optional | Total discount applied to the credit note. Note that this is a positive amount representing the discount amount being credited back to the customer (i.e. a credit on an earlier discount). For example, if the original purchase was $1.00 and the original discount was $0.10, a credit of $0.50 of the original purchase (half) would have a discount credit of $0.05 (also half). | String getDiscountAmount() | setDiscountAmount(String discountAmount) |
-| `TaxAmount` | `String` | Optional | Total tax of the credit note. Note that this is a positive amount representing a previously taxex amount being credited back to the customer (i.e. a credit of an earlier tax). For example, if the original purchase was $1.00 and the original tax was $0.10, a credit of $0.50 of the original purchase (half) would also have a tax credit of $0.05 (also half). | String getTaxAmount() | setTaxAmount(String taxAmount) |
-| `TotalAmount` | `String` | Optional | The credit note total, which is `subtotal_amount - discount_amount + tax_amount`.' | String getTotalAmount() | setTotalAmount(String totalAmount) |
+| `DiscountAmount` | `String` | Optional | Total discount applied to the credit note. Note that this is a positive amount representing the discount amount being credited back to the customer (i.e., a credit on an earlier discount). For example, if the original purchase was $1.00 and the original discount was $0.10, a credit of $0.50 of the original purchase (half) would have a discount credit of $0.05 (also half). | String getDiscountAmount() | setDiscountAmount(String discountAmount) |
+| `TaxAmount` | `String` | Optional | Total tax of the credit note. Note that this is a positive amount representing a previously taxed amount being credited back to the customer (i.e., a credit of an earlier tax). For example, if the original purchase was $1.00 and the original tax was $0.10, a credit of $0.50 of the original purchase (half) would also have a tax credit of $0.05 (also half). | String getTaxAmount() | setTaxAmount(String taxAmount) |
+| `TotalAmount` | `String` | Optional | The credit note total, which is `subtotal_amount - discount_amount + tax_amount`. | String getTotalAmount() | setTotalAmount(String totalAmount) |
 | `AppliedAmount` | `String` | Optional | The amount of the credit note that has already been applied to invoices. | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
 | `RemainingAmount` | `String` | Optional | The amount of the credit note remaining to be applied to invoices, which is `total_amount - applied_amount`. | String getRemainingAmount() | setRemainingAmount(String remainingAmount) |
 | `LineItems` | [`List<CreditNoteLineItem>`](../../doc/models/credit-note-line-item.md) | Optional | Line items on the credit note. | List<CreditNoteLineItem> getLineItems() | setLineItems(List<CreditNoteLineItem> lineItems) |
@@ -35,17 +35,19 @@
 | `Taxes` | [`List<InvoiceTax>`](../../doc/models/invoice-tax.md) | Optional | - | List<InvoiceTax> getTaxes() | setTaxes(List<InvoiceTax> taxes) |
 | `Applications` | [`List<CreditNoteApplication>`](../../doc/models/credit-note-application.md) | Optional | - | List<CreditNoteApplication> getApplications() | setApplications(List<CreditNoteApplication> applications) |
 | `Refunds` | [`List<InvoiceRefund>`](../../doc/models/invoice-refund.md) | Optional | - | List<InvoiceRefund> getRefunds() | setRefunds(List<InvoiceRefund> refunds) |
-| `OriginInvoices` | [`List<OriginInvoice>`](../../doc/models/origin-invoice.md) | Optional | An array of origin invoices for the credit note. Learn more about [Origin Invoice from our docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices) | List<OriginInvoice> getOriginInvoices() | setOriginInvoices(List<OriginInvoice> originInvoices) |
+| `OriginInvoices` | [`List<OriginInvoice>`](../../doc/models/origin-invoice.md) | Optional | An array of origin invoices for the credit note. Learn more about [Origin Invoice from our docs](https://maxio.zendesk.com/hc/en-us/articles/24252261284749-Credit-Notes-Proration#origin-invoices). | List<OriginInvoice> getOriginInvoices() | setOriginInvoices(List<OriginInvoice> originInvoices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "site_id": 218,
-  "customer_id": 74,
-  "subscription_id": 146,
-  "number": "number0"
-}
+```java
+import com.maxio.advancedbilling.models.CreditNote;
+
+CreditNote creditNote = new CreditNote.Builder()
+    .uid("uid6")
+    .siteId(20)
+    .customerId(132)
+    .subscriptionId(204)
+    .number("number4")
+    .build();
 ```
 

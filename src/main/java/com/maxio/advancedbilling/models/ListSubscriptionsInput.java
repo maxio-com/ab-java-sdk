@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.containers.ListSubscriptionsInputProduct;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -23,19 +24,28 @@ import java.util.Map;
 public class ListSubscriptionsInput {
     private Integer page;
     private Integer perPage;
+    private SubscriptionSort sort;
+    private SortingDirection direction;
     private SubscriptionStateFilter state;
-    private Integer product;
+    private ListSubscriptionsInputProduct product;
+    private String q;
+    private QScope qScope;
+    private Integer customerId;
     private Integer productPricePointId;
     private Integer coupon;
     private String couponCode;
+    private CollectionMethod1 collectionMethod;
+    private Integer brandingThemeId;
     private SubscriptionDateField dateField;
     private LocalDate startDate;
     private LocalDate endDate;
     private ZonedDateTime startDatetime;
     private ZonedDateTime endDatetime;
     private Map<String, String> metadata;
-    private SortingDirection direction;
-    private SubscriptionSort sort;
+    private GroupStatus groupStatus;
+    private Boolean dunningExemption;
+    private String paymentGateways;
+    private String currencies;
     private List<SubscriptionListInclude> include;
 
     /**
@@ -51,53 +61,80 @@ public class ListSubscriptionsInput {
      * Initialization constructor.
      * @param  page  Integer value for page.
      * @param  perPage  Integer value for perPage.
+     * @param  sort  SubscriptionSort value for sort.
+     * @param  direction  SortingDirection value for direction.
      * @param  state  SubscriptionStateFilter value for state.
-     * @param  product  Integer value for product.
+     * @param  product  ListSubscriptionsInputProduct value for product.
+     * @param  q  String value for q.
+     * @param  qScope  QScope value for qScope.
+     * @param  customerId  Integer value for customerId.
      * @param  productPricePointId  Integer value for productPricePointId.
      * @param  coupon  Integer value for coupon.
      * @param  couponCode  String value for couponCode.
+     * @param  collectionMethod  CollectionMethod1 value for collectionMethod.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      * @param  dateField  SubscriptionDateField value for dateField.
      * @param  startDate  LocalDate value for startDate.
      * @param  endDate  LocalDate value for endDate.
      * @param  startDatetime  ZonedDateTime value for startDatetime.
      * @param  endDatetime  ZonedDateTime value for endDatetime.
      * @param  metadata  Map of String, value for metadata.
-     * @param  direction  SortingDirection value for direction.
-     * @param  sort  SubscriptionSort value for sort.
+     * @param  groupStatus  GroupStatus value for groupStatus.
+     * @param  dunningExemption  Boolean value for dunningExemption.
+     * @param  paymentGateways  String value for paymentGateways.
+     * @param  currencies  String value for currencies.
      * @param  include  List of SubscriptionListInclude value for include.
      */
     public ListSubscriptionsInput(
             Integer page,
             Integer perPage,
+            SubscriptionSort sort,
+            SortingDirection direction,
             SubscriptionStateFilter state,
-            Integer product,
+            ListSubscriptionsInputProduct product,
+            String q,
+            QScope qScope,
+            Integer customerId,
             Integer productPricePointId,
             Integer coupon,
             String couponCode,
+            CollectionMethod1 collectionMethod,
+            Integer brandingThemeId,
             SubscriptionDateField dateField,
             LocalDate startDate,
             LocalDate endDate,
             ZonedDateTime startDatetime,
             ZonedDateTime endDatetime,
             Map<String, String> metadata,
-            SortingDirection direction,
-            SubscriptionSort sort,
+            GroupStatus groupStatus,
+            Boolean dunningExemption,
+            String paymentGateways,
+            String currencies,
             List<SubscriptionListInclude> include) {
         this.page = page;
         this.perPage = perPage;
+        this.sort = sort;
+        this.direction = direction;
         this.state = state;
         this.product = product;
+        this.q = q;
+        this.qScope = qScope;
+        this.customerId = customerId;
         this.productPricePointId = productPricePointId;
         this.coupon = coupon;
         this.couponCode = couponCode;
+        this.collectionMethod = collectionMethod;
+        this.brandingThemeId = brandingThemeId;
         this.dateField = dateField;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startDatetime = startDatetime;
         this.endDatetime = endDatetime;
         this.metadata = metadata;
-        this.direction = direction;
-        this.sort = sort;
+        this.groupStatus = groupStatus;
+        this.dunningExemption = dunningExemption;
+        this.paymentGateways = paymentGateways;
+        this.currencies = currencies;
         this.include = include;
     }
 
@@ -156,6 +193,48 @@ public class ListSubscriptionsInput {
     }
 
     /**
+     * Getter for Sort.
+     * The attribute by which to sort
+     * @return Returns the SubscriptionSort
+     */
+    @JsonGetter("sort")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SubscriptionSort getSort() {
+        return sort;
+    }
+
+    /**
+     * Setter for Sort.
+     * The attribute by which to sort
+     * @param sort Value for SubscriptionSort
+     */
+    @JsonSetter("sort")
+    public void setSort(SubscriptionSort sort) {
+        this.sort = sort;
+    }
+
+    /**
+     * Getter for Direction.
+     * Controls the order in which results are returned. Use in query `direction=asc`.
+     * @return Returns the SortingDirection
+     */
+    @JsonGetter("direction")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public SortingDirection getDirection() {
+        return direction;
+    }
+
+    /**
+     * Setter for Direction.
+     * Controls the order in which results are returned. Use in query `direction=asc`.
+     * @param direction Value for SortingDirection
+     */
+    @JsonSetter("direction")
+    public void setDirection(SortingDirection direction) {
+        this.direction = direction;
+    }
+
+    /**
      * Getter for State.
      * The current state of the subscription
      * @return Returns the SubscriptionStateFilter
@@ -178,28 +257,93 @@ public class ListSubscriptionsInput {
 
     /**
      * Getter for Product.
-     * The product id of the subscription. (Note that the product handle cannot be used.)
-     * @return Returns the Integer
+     * Filter subscriptions by product. Accepts product ID or exact product name. Product handle is
+     * not supported.
+     * @return Returns the ListSubscriptionsInputProduct
      */
     @JsonGetter("product")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public Integer getProduct() {
+    public ListSubscriptionsInputProduct getProduct() {
         return product;
     }
 
     /**
      * Setter for Product.
-     * The product id of the subscription. (Note that the product handle cannot be used.)
-     * @param product Value for Integer
+     * Filter subscriptions by product. Accepts product ID or exact product name. Product handle is
+     * not supported.
+     * @param product Value for ListSubscriptionsInputProduct
      */
     @JsonSetter("product")
-    public void setProduct(Integer product) {
+    public void setProduct(ListSubscriptionsInputProduct product) {
         this.product = product;
     }
 
     /**
+     * Getter for Q.
+     * Search string.
+     * @return Returns the String
+     */
+    @JsonGetter("q")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getQ() {
+        return q;
+    }
+
+    /**
+     * Setter for Q.
+     * Search string.
+     * @param q Value for String
+     */
+    @JsonSetter("q")
+    public void setQ(String q) {
+        this.q = q;
+    }
+
+    /**
+     * Getter for QScope.
+     * Scope of fields used by the q search.
+     * @return Returns the QScope
+     */
+    @JsonGetter("q_scope")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public QScope getQScope() {
+        return qScope;
+    }
+
+    /**
+     * Setter for QScope.
+     * Scope of fields used by the q search.
+     * @param qScope Value for QScope
+     */
+    @JsonSetter("q_scope")
+    public void setQScope(QScope qScope) {
+        this.qScope = qScope;
+    }
+
+    /**
+     * Getter for CustomerId.
+     * The Advanced Billing id of the customer.
+     * @return Returns the Integer
+     */
+    @JsonGetter("customer_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    /**
+     * Setter for CustomerId.
+     * The Advanced Billing id of the customer.
+     * @param customerId Value for Integer
+     */
+    @JsonSetter("customer_id")
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    /**
      * Getter for ProductPricePointId.
-     * The ID of the product price point. If supplied, product is required
+     * The ID of the product price point. If supplied, product is required.
      * @return Returns the Integer
      */
     @JsonGetter("product_price_point_id")
@@ -210,7 +354,7 @@ public class ListSubscriptionsInput {
 
     /**
      * Setter for ProductPricePointId.
-     * The ID of the product price point. If supplied, product is required
+     * The ID of the product price point. If supplied, product is required.
      * @param productPricePointId Value for Integer
      */
     @JsonSetter("product_price_point_id")
@@ -260,6 +404,54 @@ public class ListSubscriptionsInput {
     @JsonSetter("coupon_code")
     public void setCouponCode(String couponCode) {
         this.couponCode = couponCode;
+    }
+
+    /**
+     * Getter for CollectionMethod.
+     * The collection method for the subscription.
+     * @return Returns the CollectionMethod1
+     */
+    @JsonGetter("collection_method")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CollectionMethod1 getCollectionMethod() {
+        return collectionMethod;
+    }
+
+    /**
+     * Setter for CollectionMethod.
+     * The collection method for the subscription.
+     * @param collectionMethod Value for CollectionMethod1
+     */
+    @JsonSetter("collection_method")
+    public void setCollectionMethod(CollectionMethod1 collectionMethod) {
+        this.collectionMethod = collectionMethod;
+    }
+
+    /**
+     * Getter for BrandingThemeId.
+     * Filter subscriptions by the ID of an assigned Branding Theme. Branding Themes is a beta
+     * feature. See [Understand Branding
+     * Themes](https://docs.maxio.com/hc/en-us/articles/43796895662093-Understand-Branding-Themes#understand-branding-themes-0-0)
+     * for more information.
+     * @return Returns the Integer
+     */
+    @JsonGetter("branding_theme_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Integer getBrandingThemeId() {
+        return brandingThemeId;
+    }
+
+    /**
+     * Setter for BrandingThemeId.
+     * Filter subscriptions by the ID of an assigned Branding Theme. Branding Themes is a beta
+     * feature. See [Understand Branding
+     * Themes](https://docs.maxio.com/hc/en-us/articles/43796895662093-Understand-Branding-Themes#understand-branding-themes-0-0)
+     * for more information.
+     * @param brandingThemeId Value for Integer
+     */
+    @JsonSetter("branding_theme_id")
+    public void setBrandingThemeId(Integer brandingThemeId) {
+        this.brandingThemeId = brandingThemeId;
     }
 
     /**
@@ -425,45 +617,87 @@ public class ListSubscriptionsInput {
     }
 
     /**
-     * Getter for Direction.
-     * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @return Returns the SortingDirection
+     * Getter for GroupStatus.
+     * Filter by whether a subscription is in a group.
+     * @return Returns the GroupStatus
      */
-    @JsonGetter("direction")
+    @JsonGetter("group_status")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SortingDirection getDirection() {
-        return direction;
+    public GroupStatus getGroupStatus() {
+        return groupStatus;
     }
 
     /**
-     * Setter for Direction.
-     * Controls the order in which results are returned. Use in query `direction=asc`.
-     * @param direction Value for SortingDirection
+     * Setter for GroupStatus.
+     * Filter by whether a subscription is in a group.
+     * @param groupStatus Value for GroupStatus
      */
-    @JsonSetter("direction")
-    public void setDirection(SortingDirection direction) {
-        this.direction = direction;
+    @JsonSetter("group_status")
+    public void setGroupStatus(GroupStatus groupStatus) {
+        this.groupStatus = groupStatus;
     }
 
     /**
-     * Getter for Sort.
-     * The attribute by which to sort
-     * @return Returns the SubscriptionSort
+     * Getter for DunningExemption.
+     * Filter by dunning exemption status.
+     * @return Returns the Boolean
      */
-    @JsonGetter("sort")
+    @JsonGetter("dunning_exemption")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public SubscriptionSort getSort() {
-        return sort;
+    public Boolean getDunningExemption() {
+        return dunningExemption;
     }
 
     /**
-     * Setter for Sort.
-     * The attribute by which to sort
-     * @param sort Value for SubscriptionSort
+     * Setter for DunningExemption.
+     * Filter by dunning exemption status.
+     * @param dunningExemption Value for Boolean
      */
-    @JsonSetter("sort")
-    public void setSort(SubscriptionSort sort) {
-        this.sort = sort;
+    @JsonSetter("dunning_exemption")
+    public void setDunningExemption(Boolean dunningExemption) {
+        this.dunningExemption = dunningExemption;
+    }
+
+    /**
+     * Getter for PaymentGateways.
+     * Comma-separated payment gateway identifiers.
+     * @return Returns the String
+     */
+    @JsonGetter("payment_gateways")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getPaymentGateways() {
+        return paymentGateways;
+    }
+
+    /**
+     * Setter for PaymentGateways.
+     * Comma-separated payment gateway identifiers.
+     * @param paymentGateways Value for String
+     */
+    @JsonSetter("payment_gateways")
+    public void setPaymentGateways(String paymentGateways) {
+        this.paymentGateways = paymentGateways;
+    }
+
+    /**
+     * Getter for Currencies.
+     * Comma-separated currency codes.
+     * @return Returns the String
+     */
+    @JsonGetter("currencies")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getCurrencies() {
+        return currencies;
+    }
+
+    /**
+     * Setter for Currencies.
+     * Comma-separated currency codes.
+     * @param currencies Value for String
+     */
+    @JsonSetter("currencies")
+    public void setCurrencies(String currencies) {
+        this.currencies = currencies;
     }
 
     /**
@@ -495,12 +729,17 @@ public class ListSubscriptionsInput {
      */
     @Override
     public String toString() {
-        return "ListSubscriptionsInput [" + "page=" + page + ", perPage=" + perPage + ", state="
-                + state + ", product=" + product + ", productPricePointId=" + productPricePointId
-                + ", coupon=" + coupon + ", couponCode=" + couponCode + ", dateField=" + dateField
+        return "ListSubscriptionsInput [" + "page=" + page + ", perPage=" + perPage + ", sort="
+                + sort + ", direction=" + direction + ", state=" + state + ", product=" + product
+                + ", q=" + q + ", qScope=" + qScope + ", customerId=" + customerId
+                + ", productPricePointId=" + productPricePointId + ", coupon=" + coupon
+                + ", couponCode=" + couponCode + ", collectionMethod=" + collectionMethod
+                + ", brandingThemeId=" + brandingThemeId + ", dateField=" + dateField
                 + ", startDate=" + startDate + ", endDate=" + endDate + ", startDatetime="
                 + startDatetime + ", endDatetime=" + endDatetime + ", metadata=" + metadata
-                + ", direction=" + direction + ", sort=" + sort + ", include=" + include + "]";
+                + ", groupStatus=" + groupStatus + ", dunningExemption=" + dunningExemption
+                + ", paymentGateways=" + paymentGateways + ", currencies=" + currencies
+                + ", include=" + include + "]";
     }
 
     /**
@@ -512,19 +751,28 @@ public class ListSubscriptionsInput {
         Builder builder = new Builder()
                 .page(getPage())
                 .perPage(getPerPage())
+                .sort(getSort())
+                .direction(getDirection())
                 .state(getState())
                 .product(getProduct())
+                .q(getQ())
+                .qScope(getQScope())
+                .customerId(getCustomerId())
                 .productPricePointId(getProductPricePointId())
                 .coupon(getCoupon())
                 .couponCode(getCouponCode())
+                .collectionMethod(getCollectionMethod())
+                .brandingThemeId(getBrandingThemeId())
                 .dateField(getDateField())
                 .startDate(getStartDate())
                 .endDate(getEndDate())
                 .startDatetime(getStartDatetime())
                 .endDatetime(getEndDatetime())
                 .metadata(getMetadata())
-                .direction(getDirection())
-                .sort(getSort())
+                .groupStatus(getGroupStatus())
+                .dunningExemption(getDunningExemption())
+                .paymentGateways(getPaymentGateways())
+                .currencies(getCurrencies())
                 .include(getInclude());
         return builder;
     }
@@ -535,19 +783,28 @@ public class ListSubscriptionsInput {
     public static class Builder {
         private Integer page = 1;
         private Integer perPage = 20;
+        private SubscriptionSort sort = SubscriptionSort.SIGNUP_DATE;
+        private SortingDirection direction;
         private SubscriptionStateFilter state;
-        private Integer product;
+        private ListSubscriptionsInputProduct product;
+        private String q;
+        private QScope qScope;
+        private Integer customerId;
         private Integer productPricePointId;
         private Integer coupon;
         private String couponCode;
+        private CollectionMethod1 collectionMethod;
+        private Integer brandingThemeId;
         private SubscriptionDateField dateField;
         private LocalDate startDate;
         private LocalDate endDate;
         private ZonedDateTime startDatetime;
         private ZonedDateTime endDatetime;
         private Map<String, String> metadata;
-        private SortingDirection direction;
-        private SubscriptionSort sort = SubscriptionSort.SIGNUP_DATE;
+        private GroupStatus groupStatus;
+        private Boolean dunningExemption;
+        private String paymentGateways;
+        private String currencies;
         private List<SubscriptionListInclude> include;
 
 
@@ -573,6 +830,26 @@ public class ListSubscriptionsInput {
         }
 
         /**
+         * Setter for sort.
+         * @param  sort  SubscriptionSort value for sort.
+         * @return Builder
+         */
+        public Builder sort(SubscriptionSort sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        /**
+         * Setter for direction.
+         * @param  direction  SortingDirection value for direction.
+         * @return Builder
+         */
+        public Builder direction(SortingDirection direction) {
+            this.direction = direction;
+            return this;
+        }
+
+        /**
          * Setter for state.
          * @param  state  SubscriptionStateFilter value for state.
          * @return Builder
@@ -584,11 +861,41 @@ public class ListSubscriptionsInput {
 
         /**
          * Setter for product.
-         * @param  product  Integer value for product.
+         * @param  product  ListSubscriptionsInputProduct value for product.
          * @return Builder
          */
-        public Builder product(Integer product) {
+        public Builder product(ListSubscriptionsInputProduct product) {
             this.product = product;
+            return this;
+        }
+
+        /**
+         * Setter for q.
+         * @param  q  String value for q.
+         * @return Builder
+         */
+        public Builder q(String q) {
+            this.q = q;
+            return this;
+        }
+
+        /**
+         * Setter for qScope.
+         * @param  qScope  QScope value for qScope.
+         * @return Builder
+         */
+        public Builder qScope(QScope qScope) {
+            this.qScope = qScope;
+            return this;
+        }
+
+        /**
+         * Setter for customerId.
+         * @param  customerId  Integer value for customerId.
+         * @return Builder
+         */
+        public Builder customerId(Integer customerId) {
+            this.customerId = customerId;
             return this;
         }
 
@@ -619,6 +926,26 @@ public class ListSubscriptionsInput {
          */
         public Builder couponCode(String couponCode) {
             this.couponCode = couponCode;
+            return this;
+        }
+
+        /**
+         * Setter for collectionMethod.
+         * @param  collectionMethod  CollectionMethod1 value for collectionMethod.
+         * @return Builder
+         */
+        public Builder collectionMethod(CollectionMethod1 collectionMethod) {
+            this.collectionMethod = collectionMethod;
+            return this;
+        }
+
+        /**
+         * Setter for brandingThemeId.
+         * @param  brandingThemeId  Integer value for brandingThemeId.
+         * @return Builder
+         */
+        public Builder brandingThemeId(Integer brandingThemeId) {
+            this.brandingThemeId = brandingThemeId;
             return this;
         }
 
@@ -683,22 +1010,42 @@ public class ListSubscriptionsInput {
         }
 
         /**
-         * Setter for direction.
-         * @param  direction  SortingDirection value for direction.
+         * Setter for groupStatus.
+         * @param  groupStatus  GroupStatus value for groupStatus.
          * @return Builder
          */
-        public Builder direction(SortingDirection direction) {
-            this.direction = direction;
+        public Builder groupStatus(GroupStatus groupStatus) {
+            this.groupStatus = groupStatus;
             return this;
         }
 
         /**
-         * Setter for sort.
-         * @param  sort  SubscriptionSort value for sort.
+         * Setter for dunningExemption.
+         * @param  dunningExemption  Boolean value for dunningExemption.
          * @return Builder
          */
-        public Builder sort(SubscriptionSort sort) {
-            this.sort = sort;
+        public Builder dunningExemption(Boolean dunningExemption) {
+            this.dunningExemption = dunningExemption;
+            return this;
+        }
+
+        /**
+         * Setter for paymentGateways.
+         * @param  paymentGateways  String value for paymentGateways.
+         * @return Builder
+         */
+        public Builder paymentGateways(String paymentGateways) {
+            this.paymentGateways = paymentGateways;
+            return this;
+        }
+
+        /**
+         * Setter for currencies.
+         * @param  currencies  String value for currencies.
+         * @return Builder
+         */
+        public Builder currencies(String currencies) {
+            this.currencies = currencies;
             return this;
         }
 
@@ -717,9 +1064,10 @@ public class ListSubscriptionsInput {
          * @return {@link ListSubscriptionsInput}
          */
         public ListSubscriptionsInput build() {
-            return new ListSubscriptionsInput(page, perPage, state, product, productPricePointId,
-                    coupon, couponCode, dateField, startDate, endDate, startDatetime, endDatetime,
-                    metadata, direction, sort, include);
+            return new ListSubscriptionsInput(page, perPage, sort, direction, state, product, q,
+                    qScope, customerId, productPricePointId, coupon, couponCode, collectionMethod,
+                    brandingThemeId, dateField, startDate, endDate, startDatetime, endDatetime,
+                    metadata, groupStatus, dunningExemption, paymentGateways, currencies, include);
         }
     }
 }

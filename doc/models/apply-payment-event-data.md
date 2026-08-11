@@ -23,23 +23,34 @@ Example schema for an `apply_payment` event
 | `Prepayment` | `Boolean` | Optional | - | Boolean getPrepayment() | setPrepayment(Boolean prepayment) |
 | `External` | `Boolean` | Optional | - | Boolean getExternal() | setExternal(Boolean external) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "consolidation_level": "child",
-  "memo": "memo8",
-  "original_amount": "original_amount8",
-  "applied_amount": "applied_amount4",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "payment_method": {
-    "type": "apple_pay"
-  },
-  "transaction_id": 196,
-  "parent_invoice_number": 174,
-  "remaining_prepayment_amount": "remaining_prepayment_amount6",
-  "prepayment": false,
-  "external": false
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.ApplyPaymentEventData;
+import com.maxio.advancedbilling.models.InvoiceConsolidationLevel;
+import com.maxio.advancedbilling.models.InvoiceEventPaymentMethod;
+import com.maxio.advancedbilling.models.PaymentMethodApplePay;
+import com.maxio.advancedbilling.models.containers.InvoiceEventPayment;
+
+ApplyPaymentEventData applyPaymentEventData = new ApplyPaymentEventData.Builder(
+    InvoiceConsolidationLevel.CHILD,
+    "memo0",
+    "original_amount0",
+    "applied_amount2",
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    InvoiceEventPayment.fromPaymentMethodApplePay(
+        new PaymentMethodApplePay.Builder(
+            InvoiceEventPaymentMethod.APPLE_PAY
+        )
+        .build()
+    )
+)
+.transactionId(142)
+.parentInvoiceNumber(228)
+.remainingPrepaymentAmount("remaining_prepayment_amount4")
+.prepayment(false)
+.external(false)
+.build();
 ```
 

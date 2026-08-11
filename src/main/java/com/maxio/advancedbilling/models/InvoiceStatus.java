@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceStatus to be used.
  */
@@ -30,7 +29,6 @@ public enum InvoiceStatus {
     CANCELED,
 
     PROCESSING;
-
 
     private static TreeMap<String, InvoiceStatus> valueMap = new TreeMap<>();
     private String value;

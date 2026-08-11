@@ -38,7 +38,6 @@ public class BankAccountPaymentProfile
     private OptionalNullable<String> billingAddress2;
     private String bankName;
     private OptionalNullable<String> maskedBankRoutingNumber;
-    private OptionalNullable<String> maskedBankAccountNumber;
     private BankAccountType bankAccountType;
     private BankAccountHolderType bankAccountHolderType;
     private PaymentType paymentType;
@@ -74,7 +73,6 @@ public class BankAccountPaymentProfile
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
      * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
-     * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
      * @param  bankAccountType  BankAccountType value for bankAccountType.
      * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
      * @param  verified  Boolean value for verified.
@@ -100,7 +98,6 @@ public class BankAccountPaymentProfile
             String billingAddress2,
             String bankName,
             String maskedBankRoutingNumber,
-            String maskedBankAccountNumber,
             BankAccountType bankAccountType,
             BankAccountHolderType bankAccountHolderType,
             Boolean verified,
@@ -123,7 +120,6 @@ public class BankAccountPaymentProfile
         this.billingAddress2 = OptionalNullable.of(billingAddress2);
         this.bankName = bankName;
         this.maskedBankRoutingNumber = OptionalNullable.of(maskedBankRoutingNumber);
-        this.maskedBankAccountNumber = OptionalNullable.of(maskedBankAccountNumber);
         this.bankAccountType = bankAccountType;
         this.bankAccountHolderType = bankAccountHolderType;
         this.paymentType = paymentType;
@@ -152,7 +148,6 @@ public class BankAccountPaymentProfile
      * @param  billingAddress2  String value for billingAddress2.
      * @param  bankName  String value for bankName.
      * @param  maskedBankRoutingNumber  String value for maskedBankRoutingNumber.
-     * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
      * @param  bankAccountType  BankAccountType value for bankAccountType.
      * @param  bankAccountHolderType  BankAccountHolderType value for bankAccountHolderType.
      * @param  verified  Boolean value for verified.
@@ -168,8 +163,7 @@ public class BankAccountPaymentProfile
             OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
             OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
             OptionalNullable<String> billingAddress2, String bankName,
-            OptionalNullable<String> maskedBankRoutingNumber,
-            OptionalNullable<String> maskedBankAccountNumber, BankAccountType bankAccountType,
+            OptionalNullable<String> maskedBankRoutingNumber, BankAccountType bankAccountType,
             BankAccountHolderType bankAccountHolderType, Boolean verified,
             OptionalNullable<Integer> siteGatewaySettingId, OptionalNullable<String> gatewayHandle,
             ZonedDateTime createdAt, ZonedDateTime updatedAt) {
@@ -188,7 +182,6 @@ public class BankAccountPaymentProfile
         this.billingAddress2 = billingAddress2;
         this.bankName = bankName;
         this.maskedBankRoutingNumber = maskedBankRoutingNumber;
-        this.maskedBankAccountNumber = maskedBankAccountNumber;
         this.bankAccountType = bankAccountType;
         this.bankAccountHolderType = bankAccountHolderType;
         this.paymentType = paymentType;
@@ -209,8 +202,8 @@ public class BankAccountPaymentProfile
         this(paymentType, null, null, null, null, null, null, OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
-                null, OptionalNullable.of(null), OptionalNullable.of(null), null, null, null,
-                OptionalNullable.of(null), OptionalNullable.of(null), null, null);
+                null, OptionalNullable.of(null), null, null, null, OptionalNullable.of(null),
+                OptionalNullable.of(null), null, null);
         unsetBillingAddress();
         unsetBillingCity();
         unsetBillingState();
@@ -219,7 +212,6 @@ public class BankAccountPaymentProfile
         unsetCustomerVaultToken();
         unsetBillingAddress2();
         unsetMaskedBankRoutingNumber();
-        unsetMaskedBankAccountNumber();
         unsetSiteGatewaySettingId();
         unsetGatewayHandle();
     }
@@ -228,7 +220,7 @@ public class BankAccountPaymentProfile
      * Getter for Id.
      * The Chargify-assigned ID of the stored bank account. This value can be used as an input to
      * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
-     * for the same customer
+     * for the same customer.
      * @return Returns the Integer
      */
     @JsonGetter("id")
@@ -241,7 +233,7 @@ public class BankAccountPaymentProfile
      * Setter for Id.
      * The Chargify-assigned ID of the stored bank account. This value can be used as an input to
      * payment_profile_id when creating a subscription, in order to re-use a stored payment profile
-     * for the same customer
+     * for the same customer.
      * @param id Value for Integer
      */
     @JsonSetter("id")
@@ -293,7 +285,7 @@ public class BankAccountPaymentProfile
 
     /**
      * Getter for CustomerId.
-     * The Chargify-assigned id for the customer record to which the bank account belongs
+     * The Chargify-assigned ID for the customer record to which the bank account belongs
      * @return Returns the Integer
      */
     @JsonGetter("customer_id")
@@ -304,7 +296,7 @@ public class BankAccountPaymentProfile
 
     /**
      * Setter for CustomerId.
-     * The Chargify-assigned id for the customer record to which the bank account belongs
+     * The Chargify-assigned ID for the customer record to which the bank account belongs
      * @param customerId Value for Integer
      */
     @JsonSetter("customer_id")
@@ -657,7 +649,7 @@ public class BankAccountPaymentProfile
     /**
      * Internal Getter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      * @return Returns the Internal String
      */
     @JsonGetter("masked_bank_routing_number")
@@ -670,7 +662,7 @@ public class BankAccountPaymentProfile
     /**
      * Getter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      * @return Returns the String
      */
     public String getMaskedBankRoutingNumber() {
@@ -680,7 +672,7 @@ public class BankAccountPaymentProfile
     /**
      * Setter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      * @param maskedBankRoutingNumber Value for String
      */
     @JsonSetter("masked_bank_routing_number")
@@ -691,53 +683,10 @@ public class BankAccountPaymentProfile
     /**
      * UnSetter for MaskedBankRoutingNumber.
      * A string representation of the stored bank routing number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account
+     * marked with X's (i.e. 'XXXXXXX1111'). payment_type will be bank_account.
      */
     public void unsetMaskedBankRoutingNumber() {
         maskedBankRoutingNumber = null;
-    }
-
-    /**
-     * Internal Getter for MaskedBankAccountNumber.
-     * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
-     * @return Returns the Internal String
-     */
-    @JsonGetter("masked_bank_account_number")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonSerialize(using = OptionalNullable.Serializer.class)
-    protected OptionalNullable<String> internalGetMaskedBankAccountNumber() {
-        return this.maskedBankAccountNumber;
-    }
-
-    /**
-     * Getter for MaskedBankAccountNumber.
-     * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
-     * @return Returns the String
-     */
-    public String getMaskedBankAccountNumber() {
-        return OptionalNullable.getFrom(maskedBankAccountNumber);
-    }
-
-    /**
-     * Setter for MaskedBankAccountNumber.
-     * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
-     * @param maskedBankAccountNumber Value for String
-     */
-    @JsonSetter("masked_bank_account_number")
-    public void setMaskedBankAccountNumber(String maskedBankAccountNumber) {
-        this.maskedBankAccountNumber = OptionalNullable.of(maskedBankAccountNumber);
-    }
-
-    /**
-     * UnSetter for MaskedBankAccountNumber.
-     * A string representation of the stored bank account number with all but the last 4 digits
-     * marked with X's (i.e. 'XXXXXXX1111')
-     */
-    public void unsetMaskedBankAccountNumber() {
-        maskedBankAccountNumber = null;
     }
 
     /**
@@ -802,8 +751,8 @@ public class BankAccountPaymentProfile
 
     /**
      * Getter for Verified.
-     * denotes whether a bank account has been verified by providing the amounts of two small
-     * deposits made into the account
+     * Denotes whether a bank account has been verified by providing the amounts of two small
+     * deposits made into the account.
      * @return Returns the Boolean
      */
     @JsonGetter("verified")
@@ -814,8 +763,8 @@ public class BankAccountPaymentProfile
 
     /**
      * Setter for Verified.
-     * denotes whether a bank account has been verified by providing the amounts of two small
-     * deposits made into the account
+     * Denotes whether a bank account has been verified by providing the amounts of two small
+     * deposits made into the account.
      * @param verified Value for Boolean
      */
     @JsonSetter("verified")
@@ -953,11 +902,11 @@ public class BankAccountPaymentProfile
                 + ", billingCountry=" + billingCountry + ", customerVaultToken="
                 + customerVaultToken + ", billingAddress2=" + billingAddress2 + ", bankName="
                 + bankName + ", maskedBankRoutingNumber=" + maskedBankRoutingNumber
-                + ", maskedBankAccountNumber=" + maskedBankAccountNumber + ", bankAccountType="
-                + bankAccountType + ", bankAccountHolderType=" + bankAccountHolderType
-                + ", verified=" + verified + ", siteGatewaySettingId=" + siteGatewaySettingId
-                + ", gatewayHandle=" + gatewayHandle + ", createdAt=" + createdAt + ", updatedAt="
-                + updatedAt + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", bankAccountType=" + bankAccountType + ", bankAccountHolderType="
+                + bankAccountHolderType + ", verified=" + verified + ", siteGatewaySettingId="
+                + siteGatewaySettingId + ", gatewayHandle=" + gatewayHandle + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -987,7 +936,6 @@ public class BankAccountPaymentProfile
         builder.customerVaultToken = internalGetCustomerVaultToken();
         builder.billingAddress2 = internalGetBillingAddress2();
         builder.maskedBankRoutingNumber = internalGetMaskedBankRoutingNumber();
-        builder.maskedBankAccountNumber = internalGetMaskedBankAccountNumber();
         builder.siteGatewaySettingId = internalGetSiteGatewaySettingId();
         builder.gatewayHandle = internalGetGatewayHandle();
         return builder;
@@ -1013,7 +961,6 @@ public class BankAccountPaymentProfile
         private OptionalNullable<String> billingAddress2;
         private String bankName;
         private OptionalNullable<String> maskedBankRoutingNumber;
-        private OptionalNullable<String> maskedBankAccountNumber;
         private BankAccountType bankAccountType;
         private BankAccountHolderType bankAccountHolderType;
         private Boolean verified = false;
@@ -1269,25 +1216,6 @@ public class BankAccountPaymentProfile
         }
 
         /**
-         * Setter for maskedBankAccountNumber.
-         * @param  maskedBankAccountNumber  String value for maskedBankAccountNumber.
-         * @return Builder
-         */
-        public Builder maskedBankAccountNumber(String maskedBankAccountNumber) {
-            this.maskedBankAccountNumber = OptionalNullable.of(maskedBankAccountNumber);
-            return this;
-        }
-
-        /**
-         * UnSetter for maskedBankAccountNumber.
-         * @return Builder
-         */
-        public Builder unsetMaskedBankAccountNumber() {
-            maskedBankAccountNumber = null;
-            return this;
-        }
-
-        /**
          * Setter for bankAccountType.
          * @param  bankAccountType  BankAccountType value for bankAccountType.
          * @return Builder
@@ -1383,9 +1311,8 @@ public class BankAccountPaymentProfile
             return new BankAccountPaymentProfile(paymentType, id, firstName, lastName, customerId,
                     currentVault, vaultToken, billingAddress, billingCity, billingState, billingZip,
                     billingCountry, customerVaultToken, billingAddress2, bankName,
-                    maskedBankRoutingNumber, maskedBankAccountNumber, bankAccountType,
-                    bankAccountHolderType, verified, siteGatewaySettingId, gatewayHandle, createdAt,
-                    updatedAt);
+                    maskedBankRoutingNumber, bankAccountType, bankAccountHolderType, verified,
+                    siteGatewaySettingId, gatewayHandle, createdAt, updatedAt);
         }
     }
 }

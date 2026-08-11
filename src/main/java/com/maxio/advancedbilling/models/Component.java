@@ -57,6 +57,7 @@ public class Component
     private Integer eventBasedBillingMetricId;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
+    private OptionalNullable<String> unspscCode;
 
     /**
      * Default constructor.
@@ -101,6 +102,7 @@ public class Component
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  unspscCode  String value for unspscCode.
      */
     public Component(
             Integer id,
@@ -137,7 +139,8 @@ public class Component
             String accountingCode,
             Integer eventBasedBillingMetricId,
             Integer interval,
-            IntervalUnit intervalUnit) {
+            IntervalUnit intervalUnit,
+            String unspscCode) {
         this.id = id;
         this.name = name;
         this.handle = OptionalNullable.of(handle);
@@ -173,6 +176,7 @@ public class Component
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
     /**
@@ -212,6 +216,7 @@ public class Component
      * @param  eventBasedBillingMetricId  Integer value for eventBasedBillingMetricId.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  unspscCode  String value for unspscCode.
      */
 
     protected Component(Integer id, String name, OptionalNullable<String> handle,
@@ -231,7 +236,7 @@ public class Component
             OptionalNullable<ItemCategory> itemCategory,
             OptionalNullable<Boolean> useSiteExchangeRate, OptionalNullable<String> accountingCode,
             Integer eventBasedBillingMetricId, Integer interval,
-            OptionalNullable<IntervalUnit> intervalUnit) {
+            OptionalNullable<IntervalUnit> intervalUnit, OptionalNullable<String> unspscCode) {
         this.id = id;
         this.name = name;
         this.handle = handle;
@@ -267,6 +272,7 @@ public class Component
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
+        this.unspscCode = unspscCode;
     }
 
     /**
@@ -294,7 +300,7 @@ public class Component
 
     /**
      * Getter for Name.
-     * The name of the Component, suitable for display on statements. i.e. Text Messages.
+     * The name of the Component, suitable for display on statements. e.g., Text Messages.
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -305,7 +311,7 @@ public class Component
 
     /**
      * Setter for Name.
-     * The name of the Component, suitable for display on statements. i.e. Text Messages.
+     * The name of the Component, suitable for display on statements. e.g., Text Messages.
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -389,7 +395,7 @@ public class Component
 
     /**
      * Getter for UnitName.
-     * The name of the unit that the component’s usage is measured in. i.e. message
+     * The name of the unit that the component’s usage is measured in. e.g., message
      * @return Returns the String
      */
     @JsonGetter("unit_name")
@@ -400,7 +406,7 @@ public class Component
 
     /**
      * Setter for UnitName.
-     * The name of the unit that the component’s usage is measured in. i.e. message
+     * The name of the unit that the component’s usage is measured in. e.g., message
      * @param unitName Value for String
      */
     @JsonSetter("unit_name")
@@ -516,7 +522,7 @@ public class Component
 
     /**
      * Internal Getter for PricePerUnitInCents.
-     * deprecated - use unit_price instead
+     * deprecated - use unit_price instead.
      * @return Returns the Internal Long
      */
     @JsonGetter("price_per_unit_in_cents")
@@ -528,7 +534,7 @@ public class Component
 
     /**
      * Getter for PricePerUnitInCents.
-     * deprecated - use unit_price instead
+     * deprecated - use unit_price instead.
      * @return Returns the Long
      */
     public Long getPricePerUnitInCents() {
@@ -537,7 +543,7 @@ public class Component
 
     /**
      * Setter for PricePerUnitInCents.
-     * deprecated - use unit_price instead
+     * deprecated - use unit_price instead.
      * @param pricePerUnitInCents Value for Long
      */
     @JsonSetter("price_per_unit_in_cents")
@@ -547,7 +553,7 @@ public class Component
 
     /**
      * UnSetter for PricePerUnitInCents.
-     * deprecated - use unit_price instead
+     * deprecated - use unit_price instead.
      */
     public void unsetPricePerUnitInCents() {
         pricePerUnitInCents = null;
@@ -1273,8 +1279,8 @@ public class Component
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this component's default price point would renew every 30 days. This property is only
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component’s default price point would renew every 30 days. This property is only
      * available for sites with Multifrequency enabled.
      * @return Returns the Integer
      */
@@ -1286,8 +1292,8 @@ public class Component
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
-     * mean this component's default price point would renew every 30 days. This property is only
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
+     * mean this component’s default price point would renew every 30 days. This property is only
      * available for sites with Multifrequency enabled.
      * @param interval Value for Integer
      */
@@ -1340,6 +1346,53 @@ public class Component
     }
 
     /**
+     * Internal Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("unspsc_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUnspscCode() {
+        return this.unspscCode;
+    }
+
+    /**
+     * Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the String
+     */
+    public String getUnspscCode() {
+        return OptionalNullable.getFrom(unspscCode);
+    }
+
+    /**
+     * Setter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @param unspscCode Value for String
+     */
+    @JsonSetter("unspsc_code")
+    public void setUnspscCode(String unspscCode) {
+        this.unspscCode = OptionalNullable.of(unspscCode);
+    }
+
+    /**
+     * UnSetter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     */
+    public void unsetUnspscCode() {
+        unspscCode = null;
+    }
+
+    /**
      * Converts this Component into string format.
      * @return String representation of this class
      */
@@ -1362,7 +1415,8 @@ public class Component
                 + itemCategory + ", useSiteExchangeRate=" + useSiteExchangeRate
                 + ", accountingCode=" + accountingCode + ", eventBasedBillingMetricId="
                 + eventBasedBillingMetricId + ", interval=" + interval + ", intervalUnit="
-                + intervalUnit + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + intervalUnit + ", unspscCode=" + unspscCode + ", additionalProperties="
+                + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1407,6 +1461,7 @@ public class Component
         builder.useSiteExchangeRate = internalGetUseSiteExchangeRate();
         builder.accountingCode = internalGetAccountingCode();
         builder.intervalUnit = internalGetIntervalUnit();
+        builder.unspscCode = internalGetUnspscCode();
         return builder;
     }
 
@@ -1449,6 +1504,7 @@ public class Component
         private Integer eventBasedBillingMetricId;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
+        private OptionalNullable<String> unspscCode;
 
 
 
@@ -1956,6 +2012,25 @@ public class Component
         }
 
         /**
+         * Setter for unspscCode.
+         * @param  unspscCode  String value for unspscCode.
+         * @return Builder
+         */
+        public Builder unspscCode(String unspscCode) {
+            this.unspscCode = OptionalNullable.of(unspscCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for unspscCode.
+         * @return Builder
+         */
+        public Builder unsetUnspscCode() {
+            unspscCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Component} object using the set fields.
          * @return {@link Component}
          */
@@ -1967,7 +2042,7 @@ public class Component
                     recurring, upgradeCharge, downgradeCredit, createdAt, updatedAt, archivedAt,
                     hideDateRangeOnInvoice, allowFractionalQuantities, itemCategory,
                     useSiteExchangeRate, accountingCode, eventBasedBillingMetricId, interval,
-                    intervalUnit);
+                    intervalUnit, unspscCode);
         }
     }
 }

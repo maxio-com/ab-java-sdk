@@ -14,12 +14,15 @@ Updatable fields for Subscription Note
 | `Body` | `String` | Required | - | String getBody() | setBody(String body) |
 | `Sticky` | `boolean` | Required | - | boolean getSticky() | setSticky(boolean sticky) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "body": "body8",
-  "sticky": false
-}
+```java
+import com.maxio.advancedbilling.models.UpdateSubscriptionNote;
+
+UpdateSubscriptionNote updateSubscriptionNote = new UpdateSubscriptionNote.Builder(
+    "body2",
+    false
+)
+.build();
 ```
 

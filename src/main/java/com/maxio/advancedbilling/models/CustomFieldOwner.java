@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CustomFieldOwner to be used.
  */
@@ -20,7 +19,6 @@ public enum CustomFieldOwner {
     CUSTOMER,
 
     SUBSCRIPTION;
-
 
     private static TreeMap<String, CustomFieldOwner> valueMap = new TreeMap<>();
     private String value;

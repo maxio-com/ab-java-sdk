@@ -245,7 +245,7 @@ public class ScheduledRenewalProductPricePoint
 
     /**
      * Getter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product price point would expire after 30
      * days.
      * @return Returns the Integer
@@ -258,7 +258,7 @@ public class ScheduledRenewalProductPricePoint
 
     /**
      * Setter for ExpirationInterval.
-     * The numerical expiration interval. i.e. an expiration_interval of ‘30’ coupled with an
+     * The numerical expiration interval. e.g., an expiration_interval of ‘30’ coupled with an
      * expiration_interval_unit of day would mean this product price point would expire after 30
      * days.
      * @param expirationInterval Value for Integer

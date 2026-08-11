@@ -13,13 +13,15 @@
 | `Price` | `Double` | Optional | Price for the price level in this currency | Double getPrice() | setPrice(Double price) |
 | `PriceId` | `Integer` | Optional | ID of the price that this corresponds with | Integer getPriceId() | setPriceId(Integer priceId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency": "currency2",
-  "price": 10.4,
-  "price_id": 54
-}
+```java
+import com.maxio.advancedbilling.models.CreateCurrencyPrice;
+
+CreateCurrencyPrice createCurrencyPrice = new CreateCurrencyPrice.Builder()
+    .currency("currency2")
+    .price(54.8D)
+    .priceId(142)
+    .build();
 ```
 

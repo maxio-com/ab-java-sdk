@@ -12,14 +12,18 @@ Attributes of the target customer who will be the responsible payer of the creat
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Type` | [`GroupTargetType`](../../doc/models/group-target-type.md) | Required | The type of object indicated by the id attribute. | GroupTargetType getType() | setType(GroupTargetType type) |
-| `Id` | `Integer` | Optional | The id of the target customer or subscription to group the existing subscription with. Ignored and should not be included if type is "self" , "parent", or "eldest" | Integer getId() | setId(Integer id) |
+| `Id` | `Integer` | Optional | The id of the target customer or subscription to group the existing subscription with. Ignored and should not be included if type is "self", "parent", or "eldest". | Integer getId() | setId(Integer id) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "type": "self",
-  "id": 134
-}
+```java
+import com.maxio.advancedbilling.models.GroupTarget;
+import com.maxio.advancedbilling.models.GroupTargetType;
+
+GroupTarget groupTarget = new GroupTarget.Builder(
+    GroupTargetType.PARENT
+)
+.id(234)
+.build();
 ```
 

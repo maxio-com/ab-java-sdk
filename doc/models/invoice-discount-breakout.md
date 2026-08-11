@@ -13,13 +13,15 @@
 | `EligibleAmount` | `String` | Optional | - | String getEligibleAmount() | setEligibleAmount(String eligibleAmount) |
 | `DiscountAmount` | `String` | Optional | - | String getDiscountAmount() | setDiscountAmount(String discountAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid8",
-  "eligible_amount": "eligible_amount0",
-  "discount_amount": "discount_amount8"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceDiscountBreakout;
+
+InvoiceDiscountBreakout invoiceDiscountBreakout = new InvoiceDiscountBreakout.Builder()
+    .uid("uid0")
+    .eligibleAmount("eligible_amount2")
+    .discountAmount("discount_amount4")
+    .build();
 ```
 

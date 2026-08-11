@@ -13,13 +13,15 @@
 | `ChargeId` | `Integer` | Optional | - | Integer getChargeId() | setChargeId(Integer chargeId) |
 | `UsageQuantity` | `Integer` | Optional | - | Integer getUsageQuantity() | setUsageQuantity(Integer usageQuantity) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "allocation_id": 72,
-  "charge_id": 30,
-  "usage_quantity": 212
-}
+```java
+import com.maxio.advancedbilling.models.PrepaidUsageAllocationDetail;
+
+PrepaidUsageAllocationDetail prepaidUsageAllocationDetail = new PrepaidUsageAllocationDetail.Builder()
+    .allocationId(144)
+    .chargeId(214)
+    .usageQuantity(140)
+    .build();
 ```
 

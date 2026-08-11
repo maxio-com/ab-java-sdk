@@ -14,3 +14,11 @@
 | `SHIPPING_ONLY` |
 | `BILLING_ONLY` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.TaxDestinationAddress;
+
+TaxDestinationAddress taxDestinationAddress = TaxDestinationAddress.SHIPPING_ONLY;
+```
+

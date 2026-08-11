@@ -121,9 +121,9 @@ public class BankAccountAttributes
 
     /**
      * Getter for BankRoutingNumber.
-     * (Required when creating a subscription with ACH. Optional when creating a subscription with
+     * (Required when creating a subscription with ACH; optional when creating a subscription with
      * GoCardless). The routing number of the bank. It becomes bank_code while passing via
-     * GoCardless API
+     * GoCardless API.
      * @return Returns the String
      */
     @JsonGetter("bank_routing_number")
@@ -134,9 +134,9 @@ public class BankAccountAttributes
 
     /**
      * Setter for BankRoutingNumber.
-     * (Required when creating a subscription with ACH. Optional when creating a subscription with
+     * (Required when creating a subscription with ACH; optional when creating a subscription with
      * GoCardless). The routing number of the bank. It becomes bank_code while passing via
-     * GoCardless API
+     * GoCardless API.
      * @param bankRoutingNumber Value for String
      */
     @JsonSetter("bank_routing_number")
@@ -191,7 +191,7 @@ public class BankAccountAttributes
     /**
      * Getter for BankBranchCode.
      * (Optional when creating a subscription with GoCardless) Branch code. Alternatively, an IBAN
-     * can be provided
+     * can be provided.
      * @return Returns the String
      */
     @JsonGetter("bank_branch_code")
@@ -203,7 +203,7 @@ public class BankAccountAttributes
     /**
      * Setter for BankBranchCode.
      * (Optional when creating a subscription with GoCardless) Branch code. Alternatively, an IBAN
-     * can be provided
+     * can be provided.
      * @param bankBranchCode Value for String
      */
     @JsonSetter("bank_branch_code")
@@ -214,7 +214,7 @@ public class BankAccountAttributes
     /**
      * Getter for BankIban.
      * (Optional when creating a subscription with GoCardless). International Bank Account Number.
-     * Alternatively, local bank details can be provided
+     * Alternatively, local bank details can be provided.
      * @return Returns the String
      */
     @JsonGetter("bank_iban")
@@ -226,7 +226,7 @@ public class BankAccountAttributes
     /**
      * Setter for BankIban.
      * (Optional when creating a subscription with GoCardless). International Bank Account Number.
-     * Alternatively, local bank details can be provided
+     * Alternatively, local bank details can be provided.
      * @param bankIban Value for String
      */
     @JsonSetter("bank_iban")

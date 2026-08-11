@@ -15,3 +15,11 @@
 | `IMMEDIATE` |
 | `DELAYED` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.ResumptionCharge;
+
+ResumptionCharge resumptionCharge = ResumptionCharge.IMMEDIATE;
+```
+

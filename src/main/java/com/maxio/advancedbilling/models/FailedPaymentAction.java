@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * FailedPaymentAction to be used.
  */
@@ -22,7 +21,6 @@ public enum FailedPaymentAction {
     ROLLBACK_TO_PENDING,
 
     INITIATE_DUNNING;
-
 
     private static TreeMap<String, FailedPaymentAction> valueMap = new TreeMap<>();
     private String value;

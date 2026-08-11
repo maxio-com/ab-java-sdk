@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ItemCategory to be used.
  */
@@ -26,7 +25,6 @@ public enum ItemCategory {
     ENUM_PHYSICAL_GOODS,
 
     OTHER;
-
 
     private static TreeMap<String, ItemCategory> valueMap = new TreeMap<>();
     private String value;

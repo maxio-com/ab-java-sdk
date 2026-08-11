@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceDiscountType to be used.
  */
@@ -22,7 +21,6 @@ public enum InvoiceDiscountType {
     FLAT_AMOUNT,
 
     ROLLOVER;
-
 
     private static TreeMap<String, InvoiceDiscountType> valueMap = new TreeMap<>();
     private String value;

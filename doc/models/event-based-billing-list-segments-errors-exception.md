@@ -11,22 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`Errors`](../../doc/models/errors.md) | Optional | - | Errors getErrors() | setErrors(Errors errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "per_page": [
-      "per_page1",
-      "per_page2",
-      "per_page3"
-    ],
-    "price_point": [
-      "price_point0",
-      "price_point9",
-      "price_point8"
-    ]
-  }
+```java
+try {
+    // make the API call
+} catch (EventBasedBillingListSegmentsErrorsException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

@@ -13,38 +13,47 @@
 | `CurrentStep` | [`DunningStepData`](../../doc/models/dunning-step-data.md) | Required | - | DunningStepData getCurrentStep() | setCurrentStep(DunningStepData currentStep) |
 | `NextStep` | [`DunningStepData`](../../doc/models/dunning-step-data.md) | Required | - | DunningStepData getNextStep() | setNextStep(DunningStepData nextStep) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "dunner": {
-    "state": "state8",
-    "subscription_id": 194,
-    "revenue_at_risk_in_cents": 98,
-    "created_at": "2016-03-13T12:52:32.123Z",
-    "attempts": 42,
-    "last_attempted_at": "2016-03-13T12:52:32.123Z"
-  },
-  "current_step": {
-    "day_threshold": 198,
-    "action": "action4",
-    "email_body": "email_body4",
-    "email_subject": "email_subject6",
-    "send_email": false,
-    "send_bcc_email": false,
-    "send_sms": false,
-    "sms_body": "sms_body0"
-  },
-  "next_step": {
-    "day_threshold": 30,
-    "action": "action4",
-    "email_body": "email_body4",
-    "email_subject": "email_subject4",
-    "send_email": false,
-    "send_bcc_email": false,
-    "send_sms": false,
-    "sms_body": "sms_body0"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.DunnerData;
+import com.maxio.advancedbilling.models.DunningStepData;
+import com.maxio.advancedbilling.models.DunningStepReached;
+
+DunningStepReached dunningStepReached = new DunningStepReached.Builder(
+    new DunnerData.Builder(
+        "state8",
+        194,
+        98L,
+        DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+        42,
+        DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z")
+    )
+    .build(),
+    new DunningStepData.Builder(
+        198,
+        "action4",
+        false,
+        false,
+        false
+    )
+    .emailBody("email_body4")
+    .emailSubject("email_subject6")
+    .smsBody("sms_body0")
+    .build(),
+    new DunningStepData.Builder(
+        30,
+        "action4",
+        false,
+        false,
+        false
+    )
+    .emailBody("email_body4")
+    .emailSubject("email_subject4")
+    .smsBody("sms_body0")
+    .build()
+)
+.build();
 ```
 

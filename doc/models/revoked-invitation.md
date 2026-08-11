@@ -13,13 +13,15 @@
 | `LastAcceptedAt` | `String` | Optional | - | String getLastAcceptedAt() | setLastAcceptedAt(String lastAcceptedAt) |
 | `UninvitedCount` | `Integer` | Optional | - | Integer getUninvitedCount() | setUninvitedCount(Integer uninvitedCount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "last_sent_at": "last_sent_at2",
-  "last_accepted_at": "last_accepted_at2",
-  "uninvited_count": 226
-}
+```java
+import com.maxio.advancedbilling.models.RevokedInvitation;
+
+RevokedInvitation revokedInvitation = new RevokedInvitation.Builder()
+    .lastSentAt("last_sent_at8")
+    .lastAcceptedAt("last_accepted_at8")
+    .uninvitedCount(130)
+    .build();
 ```
 

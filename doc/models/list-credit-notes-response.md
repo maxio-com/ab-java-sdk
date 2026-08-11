@@ -11,19 +11,24 @@
 |  --- | --- | --- | --- | --- | --- |
 | `CreditNotes` | [`List<CreditNote>`](../../doc/models/credit-note.md) | Required | - | List<CreditNote> getCreditNotes() | setCreditNotes(List<CreditNote> creditNotes) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "credit_notes": [
-    {
-      "uid": "uid2",
-      "site_id": 112,
-      "customer_id": 224,
-      "subscription_id": 40,
-      "number": "number0"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.CreditNote;
+import com.maxio.advancedbilling.models.ListCreditNotesResponse;
+import java.util.Arrays;
+
+ListCreditNotesResponse listCreditNotesResponse = new ListCreditNotesResponse.Builder(
+    Arrays.asList(
+        new CreditNote.Builder()
+            .uid("uid2")
+            .siteId(112)
+            .customerId(224)
+            .subscriptionId(40)
+            .number("number0")
+            .build()
+    )
+)
+.build();
 ```
 

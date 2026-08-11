@@ -11,17 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `PricePoint` | [`ProductPricePoint`](../../doc/models/product-price-point.md) | Required | - | ProductPricePoint getPricePoint() | setPricePoint(ProductPricePoint pricePoint) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "price_point": {
-    "id": 248,
-    "name": "name0",
-    "handle": "handle6",
-    "price_in_cents": 196,
-    "interval": 44
-  }
-}
+```java
+import com.maxio.advancedbilling.models.ProductPricePoint;
+import com.maxio.advancedbilling.models.ProductPricePointResponse;
+
+ProductPricePointResponse productPricePointResponse = new ProductPricePointResponse.Builder(
+    new ProductPricePoint.Builder()
+        .id(248)
+        .name("name0")
+        .handle("handle6")
+        .priceInCents(196L)
+        .interval(44)
+        .build()
+)
+.build();
 ```
 

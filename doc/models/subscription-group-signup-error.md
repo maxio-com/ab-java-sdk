@@ -16,67 +16,92 @@
 | `PaymentProfileId` | `String` | Optional | - | String getPaymentProfileId() | setPaymentProfileId(String paymentProfileId) |
 | `PayerId` | `String` | Optional | - | String getPayerId() | setPayerId(String payerId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscriptions": {
-    "key0": {
-      "product": [
-        "product9"
-      ],
-      "product_price_point_id": [
-        "product_price_point_id7"
-      ],
-      "payment_profile": [
-        "payment_profile2"
-      ],
-      "payment_profile.chargify_token": [
-        "payment_profile.chargify_token6"
-      ],
-      "base": [
-        "base5",
-        "base6"
-      ]
-    },
-    "key1": {
-      "product": [
-        "product9"
-      ],
-      "product_price_point_id": [
-        "product_price_point_id7"
-      ],
-      "payment_profile": [
-        "payment_profile2"
-      ],
-      "payment_profile.chargify_token": [
-        "payment_profile.chargify_token6"
-      ],
-      "base": [
-        "base5",
-        "base6"
-      ]
-    }
-  },
-  "payer_reference": "payer_reference0",
-  "payer": {
-    "last_name": [
-      "last_name5",
-      "last_name6"
-    ],
-    "first_name": [
-      "first_name8"
-    ],
-    "email": [
-      "email0",
-      "email9"
-    ]
-  },
-  "subscription_group": [
-    "subscription_group1",
-    "subscription_group2"
-  ],
-  "payment_profile_id": "payment_profile_id2"
-}
+```java
+import com.maxio.advancedbilling.models.PayerError;
+import com.maxio.advancedbilling.models.SubscriptionGroupSignupError;
+import com.maxio.advancedbilling.models.SubscriptionGroupSubscriptionError;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+
+SubscriptionGroupSignupError subscriptionGroupSignupError = new SubscriptionGroupSignupError.Builder()
+    .subscriptions(new LinkedHashMap<String, SubscriptionGroupSubscriptionError>() {{
+        put("key0", new SubscriptionGroupSubscriptionError.Builder()
+            .product(Arrays.asList(
+                "product9"
+            ))
+            .productPricePointId(Arrays.asList(
+                "product_price_point_id7"
+            ))
+            .paymentProfile(Arrays.asList(
+                "payment_profile2"
+            ))
+            .paymentProfileChargifyToken(Arrays.asList(
+                "payment_profile.chargify_token6"
+            ))
+            .base(Arrays.asList(
+                "base5",
+                "base6"
+            ))
+            .build());
+        put("key1", new SubscriptionGroupSubscriptionError.Builder()
+            .product(Arrays.asList(
+                "product9"
+            ))
+            .productPricePointId(Arrays.asList(
+                "product_price_point_id7"
+            ))
+            .paymentProfile(Arrays.asList(
+                "payment_profile2"
+            ))
+            .paymentProfileChargifyToken(Arrays.asList(
+                "payment_profile.chargify_token6"
+            ))
+            .base(Arrays.asList(
+                "base5",
+                "base6"
+            ))
+            .build());
+        put("key2", new SubscriptionGroupSubscriptionError.Builder()
+            .product(Arrays.asList(
+                "product9"
+            ))
+            .productPricePointId(Arrays.asList(
+                "product_price_point_id7"
+            ))
+            .paymentProfile(Arrays.asList(
+                "payment_profile2"
+            ))
+            .paymentProfileChargifyToken(Arrays.asList(
+                "payment_profile.chargify_token6"
+            ))
+            .base(Arrays.asList(
+                "base5",
+                "base6"
+            ))
+            .build());
+    }})
+    .payerReference("payer_reference8")
+    .payer(new PayerError.Builder()
+        .lastName(Arrays.asList(
+            "last_name5",
+            "last_name6"
+        ))
+        .firstName(Arrays.asList(
+            "first_name8"
+        ))
+        .email(Arrays.asList(
+            "email0",
+            "email9"
+        ))
+        .build())
+    .subscriptionGroup(Arrays.asList(
+        "subscription_group3",
+        "subscription_group4",
+        "subscription_group5"
+    ))
+    .paymentProfileId("payment_profile_id4")
+    .build();
 ```
 

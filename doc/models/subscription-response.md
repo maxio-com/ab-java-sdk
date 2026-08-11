@@ -11,17 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Subscription` | [`Subscription`](../../doc/models/subscription.md) | Optional | - | Subscription getSubscription() | setSubscription(Subscription subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": {
-    "id": 8,
-    "state": "paused",
-    "balance_in_cents": 124,
-    "total_revenue_in_cents": 48,
-    "product_price_in_cents": 238
-  }
-}
+```java
+import com.maxio.advancedbilling.models.Subscription;
+import com.maxio.advancedbilling.models.SubscriptionResponse;
+import com.maxio.advancedbilling.models.SubscriptionState;
+
+SubscriptionResponse subscriptionResponse = new SubscriptionResponse.Builder()
+    .subscription(new Subscription.Builder()
+        .id(8)
+        .state(SubscriptionState.PAUSED)
+        .balanceInCents(124L)
+        .totalRevenueInCents(48L)
+        .productPriceInCents(238L)
+        .build())
+    .build();
 ```
 

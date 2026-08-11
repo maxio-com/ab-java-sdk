@@ -11,18 +11,26 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Refund` | [`RefundInvoiceRequestRefund`](../../doc/models/containers/refund-invoice-request-refund.md) | Required | This is a container for any-of cases. | RefundInvoiceRequestRefund getRefund() | setRefund(RefundInvoiceRequestRefund refund) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "refund": {
-    "amount": "amount8",
-    "memo": "memo0",
-    "payment_id": 0,
-    "external": false,
-    "apply_credit": false,
-    "void_invoice": false
-  }
-}
+```java
+import com.maxio.advancedbilling.models.RefundInvoice;
+import com.maxio.advancedbilling.models.RefundInvoiceRequest;
+import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
+
+RefundInvoiceRequest refundInvoiceRequest = new RefundInvoiceRequest.Builder(
+    RefundInvoiceRequestRefund.fromRefundInvoice(
+        new RefundInvoice.Builder(
+            "amount8",
+            "memo0",
+            0
+        )
+        .external(false)
+        .applyCredit(false)
+        .voidInvoice(false)
+        .build()
+    )
+)
+.build();
 ```
 

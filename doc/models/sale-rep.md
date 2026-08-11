@@ -15,30 +15,41 @@
 | `TestMode` | `Boolean` | Optional | - | Boolean getTestMode() | setTestMode(Boolean testMode) |
 | `Subscriptions` | [`List<SaleRepSubscription>`](../../doc/models/sale-rep-subscription.md) | Optional | - | List<SaleRepSubscription> getSubscriptions() | setSubscriptions(List<SaleRepSubscription> subscriptions) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 18,
-  "full_name": "full_name0",
-  "subscriptions_count": 162,
-  "test_mode": false,
-  "subscriptions": [
-    {
-      "id": 202,
-      "site_name": "site_name8",
-      "subscription_url": "subscription_url2",
-      "customer_name": "customer_name8",
-      "created_at": "created_at4"
-    },
-    {
-      "id": 202,
-      "site_name": "site_name8",
-      "subscription_url": "subscription_url2",
-      "customer_name": "customer_name8",
-      "created_at": "created_at4"
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.SaleRep;
+import com.maxio.advancedbilling.models.SaleRepSubscription;
+import java.util.Arrays;
+
+SaleRep saleRep = new SaleRep.Builder()
+    .id(78)
+    .fullName("full_name0")
+    .subscriptionsCount(102)
+    .testMode(false)
+    .subscriptions(Arrays.asList(
+        new SaleRepSubscription.Builder()
+            .id(202)
+            .siteName("site_name8")
+            .subscriptionUrl("subscription_url2")
+            .customerName("customer_name8")
+            .createdAt("created_at4")
+            .build(),
+        new SaleRepSubscription.Builder()
+            .id(202)
+            .siteName("site_name8")
+            .subscriptionUrl("subscription_url2")
+            .customerName("customer_name8")
+            .createdAt("created_at4")
+            .build(),
+        new SaleRepSubscription.Builder()
+            .id(202)
+            .siteName("site_name8")
+            .subscriptionUrl("subscription_url2")
+            .customerName("customer_name8")
+            .createdAt("created_at4")
+            .build()
+    ))
+    .build();
 ```
 

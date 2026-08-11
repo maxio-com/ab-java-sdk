@@ -15,15 +15,18 @@
 | `EntryType` | [`ServiceCreditType`](../../doc/models/service-credit-type.md) | Optional | The type of entry | ServiceCreditType getEntryType() | setEntryType(ServiceCreditType entryType) |
 | `Memo` | `String` | Optional | A memo attached to the entry. | String getMemo() | setMemo(String memo) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 110,
-  "amount_in_cents": 196,
-  "ending_balance_in_cents": 236,
-  "entry_type": "Credit",
-  "memo": "memo2"
-}
+```java
+import com.maxio.advancedbilling.models.ServiceCreditType;
+import com.maxio.advancedbilling.models.SubscriptionGroupPrepaymentResponse;
+
+SubscriptionGroupPrepaymentResponse subscriptionGroupPrepaymentResponse = new SubscriptionGroupPrepaymentResponse.Builder()
+    .id(32)
+    .amountInCents(138L)
+    .endingBalanceInCents(158L)
+    .entryType(ServiceCreditType.CREDIT)
+    .memo("memo2")
+    .build();
 ```
 

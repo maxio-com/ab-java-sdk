@@ -14,14 +14,16 @@
 | `AutoReplenish` | `Boolean` | Optional | - | Boolean getAutoReplenish() | setAutoReplenish(Boolean autoReplenish) |
 | `ReplenishThresholdAmountInCents` | `Long` | Optional | - | Long getReplenishThresholdAmountInCents() | setReplenishThresholdAmountInCents(Long replenishThresholdAmountInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "initial_funding_amount_in_cents": 40,
-  "replenish_to_amount_in_cents": 42,
-  "auto_replenish": false,
-  "replenish_threshold_amount_in_cents": 242
-}
+```java
+import com.maxio.advancedbilling.models.UpsertPrepaidConfiguration;
+
+UpsertPrepaidConfiguration upsertPrepaidConfiguration = new UpsertPrepaidConfiguration.Builder()
+    .initialFundingAmountInCents(244L)
+    .replenishToAmountInCents(246L)
+    .autoReplenish(false)
+    .replenishThresholdAmountInCents(190L)
+    .build();
 ```
 

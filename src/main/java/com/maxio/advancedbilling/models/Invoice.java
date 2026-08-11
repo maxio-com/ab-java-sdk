@@ -79,6 +79,7 @@ public class Invoice
     private String publicUrl;
     private InvoicePreviousBalance previousBalanceData;
     private LocalDate publicUrlExpiresOn;
+    private OptionalNullable<Integer> brandingThemeId;
 
     /**
      * Default constructor.
@@ -144,6 +145,7 @@ public class Invoice
      * @param  publicUrl  String value for publicUrl.
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      * @param  publicUrlExpiresOn  LocalDate value for publicUrlExpiresOn.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      */
     public Invoice(
             Long id,
@@ -201,7 +203,8 @@ public class Invoice
             InvoiceAvataxDetails avataxDetails,
             String publicUrl,
             InvoicePreviousBalance previousBalanceData,
-            LocalDate publicUrlExpiresOn) {
+            LocalDate publicUrlExpiresOn,
+            Integer brandingThemeId) {
         this.id = id;
         this.uid = uid;
         this.siteId = siteId;
@@ -258,6 +261,7 @@ public class Invoice
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
         this.publicUrlExpiresOn = publicUrlExpiresOn;
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
     }
 
     /**
@@ -318,6 +322,7 @@ public class Invoice
      * @param  publicUrl  String value for publicUrl.
      * @param  previousBalanceData  InvoicePreviousBalance value for previousBalanceData.
      * @param  publicUrlExpiresOn  LocalDate value for publicUrlExpiresOn.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      */
 
     protected Invoice(Long id, String uid, Integer siteId, Integer customerId,
@@ -340,7 +345,8 @@ public class Invoice
             List<InvoiceRefund> refunds, List<InvoicePayment> payments,
             List<InvoiceCustomField> customFields, InvoiceDisplaySettings displaySettings,
             InvoiceAvataxDetails avataxDetails, String publicUrl,
-            InvoicePreviousBalance previousBalanceData, LocalDate publicUrlExpiresOn) {
+            InvoicePreviousBalance previousBalanceData, LocalDate publicUrlExpiresOn,
+            OptionalNullable<Integer> brandingThemeId) {
         this.id = id;
         this.uid = uid;
         this.siteId = siteId;
@@ -397,6 +403,7 @@ public class Invoice
         this.publicUrl = publicUrl;
         this.previousBalanceData = previousBalanceData;
         this.publicUrlExpiresOn = publicUrlExpiresOn;
+        this.brandingThemeId = brandingThemeId;
     }
 
     /**
@@ -1125,7 +1132,7 @@ public class Invoice
 
     /**
      * Getter for Customer.
-     * Information about the customer who is owner or recipient the invoiced subscription.
+     * Information about the customer who is owner or recipient of the invoiced subscription.
      * @return Returns the InvoiceCustomer
      */
     @JsonGetter("customer")
@@ -1136,7 +1143,7 @@ public class Invoice
 
     /**
      * Setter for Customer.
-     * Information about the customer who is owner or recipient the invoiced subscription.
+     * Information about the customer who is owner or recipient of the invoiced subscription.
      * @param customer Value for InvoiceCustomer
      */
     @JsonSetter("customer")
@@ -1331,7 +1338,7 @@ public class Invoice
 
     /**
      * Getter for TotalAmount.
-     * The invoice total, which is `subtotal_amount - discount_amount + tax_amount`.'
+     * The invoice total, which is `subtotal_amount - discount_amount + tax_amount`.
      * @return Returns the String
      */
     @JsonGetter("total_amount")
@@ -1342,7 +1349,7 @@ public class Invoice
 
     /**
      * Setter for TotalAmount.
-     * The invoice total, which is `subtotal_amount - discount_amount + tax_amount`.'
+     * The invoice total, which is `subtotal_amount - discount_amount + tax_amount`.
      * @param totalAmount Value for String
      */
     @JsonSetter("total_amount")
@@ -1709,6 +1716,53 @@ public class Invoice
     }
 
     /**
+     * Internal Getter for BrandingThemeId.
+     * The ID of the Branding Theme associated with this invoice. This value represents the Branding
+     * Theme used for invoice theming, such as themed invoice rendering. Available only when
+     * Branding Themes are enabled for the site.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("branding_theme_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBrandingThemeId() {
+        return this.brandingThemeId;
+    }
+
+    /**
+     * Getter for BrandingThemeId.
+     * The ID of the Branding Theme associated with this invoice. This value represents the Branding
+     * Theme used for invoice theming, such as themed invoice rendering. Available only when
+     * Branding Themes are enabled for the site.
+     * @return Returns the Integer
+     */
+    public Integer getBrandingThemeId() {
+        return OptionalNullable.getFrom(brandingThemeId);
+    }
+
+    /**
+     * Setter for BrandingThemeId.
+     * The ID of the Branding Theme associated with this invoice. This value represents the Branding
+     * Theme used for invoice theming, such as themed invoice rendering. Available only when
+     * Branding Themes are enabled for the site.
+     * @param brandingThemeId Value for Integer
+     */
+    @JsonSetter("branding_theme_id")
+    public void setBrandingThemeId(Integer brandingThemeId) {
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+    }
+
+    /**
+     * UnSetter for BrandingThemeId.
+     * The ID of the Branding Theme associated with this invoice. This value represents the Branding
+     * Theme used for invoice theming, such as themed invoice rendering. Available only when
+     * Branding Themes are enabled for the site.
+     */
+    public void unsetBrandingThemeId() {
+        brandingThemeId = null;
+    }
+
+    /**
      * Converts this Invoice into string format.
      * @return String representation of this class
      */
@@ -1738,7 +1792,8 @@ public class Invoice
                 + ", payments=" + payments + ", customFields=" + customFields + ", displaySettings="
                 + displaySettings + ", avataxDetails=" + avataxDetails + ", publicUrl=" + publicUrl
                 + ", previousBalanceData=" + previousBalanceData + ", publicUrlExpiresOn="
-                + publicUrlExpiresOn + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + publicUrlExpiresOn + ", brandingThemeId=" + brandingThemeId
+                + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -1804,6 +1859,7 @@ public class Invoice
         builder.subscriptionGroupId = internalGetSubscriptionGroupId();
         builder.parentInvoiceNumber = internalGetParentInvoiceNumber();
         builder.groupPrimarySubscriptionId = internalGetGroupPrimarySubscriptionId();
+        builder.brandingThemeId = internalGetBrandingThemeId();
         return builder;
     }
 
@@ -1867,6 +1923,7 @@ public class Invoice
         private String publicUrl;
         private InvoicePreviousBalance previousBalanceData;
         private LocalDate publicUrlExpiresOn;
+        private OptionalNullable<Integer> brandingThemeId;
 
 
 
@@ -2485,6 +2542,25 @@ public class Invoice
         }
 
         /**
+         * Setter for brandingThemeId.
+         * @param  brandingThemeId  Integer value for brandingThemeId.
+         * @return Builder
+         */
+        public Builder brandingThemeId(Integer brandingThemeId) {
+            this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for brandingThemeId.
+         * @return Builder
+         */
+        public Builder unsetBrandingThemeId() {
+            brandingThemeId = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link Invoice} object using the set fields.
          * @return {@link Invoice}
          */
@@ -2498,7 +2574,8 @@ public class Invoice
                     subtotalAmount, discountAmount, taxAmount, totalAmount, creditAmount,
                     debitAmount, refundAmount, paidAmount, dueAmount, lineItems, discounts, taxes,
                     credits, debits, refunds, payments, customFields, displaySettings,
-                    avataxDetails, publicUrl, previousBalanceData, publicUrlExpiresOn);
+                    avataxDetails, publicUrl, previousBalanceData, publicUrlExpiresOn,
+                    brandingThemeId);
         }
     }
 }

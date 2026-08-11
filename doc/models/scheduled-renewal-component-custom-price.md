@@ -12,22 +12,38 @@ Custom pricing for a component within a scheduled renewal.
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `TaxIncluded` | `Boolean` | Optional | Whether or not the price point includes tax | Boolean getTaxIncluded() | setTaxIncluded(Boolean taxIncluded) |
-| `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | Omit for On/Off components | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
+| `PricingScheme` | [`PricingScheme`](../../doc/models/pricing-scheme.md) | Required | Omit for On/Off components. | PricingScheme getPricingScheme() | setPricingScheme(PricingScheme pricingScheme) |
 | `Prices` | [`List<Price>`](../../doc/models/price.md) | Required | On/off components only need one price bracket starting at 1. | List<Price> getPrices() | setPrices(List<Price> prices) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "pricing_scheme": "stairstep",
-  "prices": [
-    {
-      "starting_quantity": 242,
-      "ending_quantity": 40,
-      "unit_price": 23.26
-    }
-  ],
-  "tax_included": false
-}
+```java
+import com.maxio.advancedbilling.models.Price;
+import com.maxio.advancedbilling.models.PricingScheme;
+import com.maxio.advancedbilling.models.ScheduledRenewalComponentCustomPrice;
+import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
+import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
+import java.util.Arrays;
+
+ScheduledRenewalComponentCustomPrice scheduledRenewalComponentCustomPrice = new ScheduledRenewalComponentCustomPrice.Builder(
+    PricingScheme.PER_UNIT,
+    Arrays.asList(
+        new Price.Builder(
+            PriceStartingQuantity.fromNumber(
+                242
+            ),
+            PriceUnitPrice.fromPrecision(
+                23.26D
+            )
+        )
+        .endingQuantity(PriceEndingQuantity.fromNumber(
+                40
+            ))
+        .build()
+    )
+)
+.taxIncluded(false)
+.build();
 ```
 

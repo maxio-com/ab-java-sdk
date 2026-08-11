@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * FirstChargeType to be used.
  */
@@ -22,7 +21,6 @@ public enum FirstChargeType {
     IMMEDIATE,
 
     DELAYED;
-
 
     private static TreeMap<String, FirstChargeType> valueMap = new TreeMap<>();
     private String value;

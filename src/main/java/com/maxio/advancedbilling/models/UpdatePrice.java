@@ -92,7 +92,7 @@ public class UpdatePrice
 
     /**
      * Getter for UnitPrice.
-     * The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * The price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065
      * @return Returns the UpdatePriceUnitPrice
      */
     @JsonGetter("unit_price")
@@ -103,7 +103,7 @@ public class UpdatePrice
 
     /**
      * Setter for UnitPrice.
-     * The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * The price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065
      * @param unitPrice Value for UpdatePriceUnitPrice
      */
     @JsonSetter("unit_price")

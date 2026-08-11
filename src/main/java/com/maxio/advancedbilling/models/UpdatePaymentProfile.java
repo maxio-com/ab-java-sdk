@@ -206,7 +206,7 @@ public class UpdatePaymentProfile
     /**
      * Getter for ExpirationMonth.
      * (Optional when performing an Import via vault_token, required otherwise) The 1- or 2-digit
-     * credit card expiration month, as an integer or string, i.e. 5
+     * credit card expiration month, as an integer or string, e.g., 5
      * @return Returns the String
      */
     @JsonGetter("expiration_month")
@@ -218,7 +218,7 @@ public class UpdatePaymentProfile
     /**
      * Setter for ExpirationMonth.
      * (Optional when performing an Import via vault_token, required otherwise) The 1- or 2-digit
-     * credit card expiration month, as an integer or string, i.e. 5
+     * credit card expiration month, as an integer or string, e.g., 5
      * @param expirationMonth Value for String
      */
     @JsonSetter("expiration_month")
@@ -228,8 +228,8 @@ public class UpdatePaymentProfile
 
     /**
      * Getter for ExpirationYear.
-     * (Optional when performing a Import via vault_token, required otherwise) The 4-digit credit
-     * card expiration year, as an integer or string, i.e. 2012
+     * (Optional when performing an Import via vault_token, required otherwise) The 4-digit credit
+     * card expiration year, as an integer or string, e.g., 2012
      * @return Returns the String
      */
     @JsonGetter("expiration_year")
@@ -240,8 +240,8 @@ public class UpdatePaymentProfile
 
     /**
      * Setter for ExpirationYear.
-     * (Optional when performing a Import via vault_token, required otherwise) The 4-digit credit
-     * card expiration year, as an integer or string, i.e. 2012
+     * (Optional when performing an Import via vault_token, required otherwise) The 4-digit credit
+     * card expiration year, as an integer or string, e.g., 2012
      * @param expirationYear Value for String
      */
     @JsonSetter("expiration_year")
@@ -274,7 +274,7 @@ public class UpdatePaymentProfile
 
     /**
      * Getter for BillingAddress.
-     * The credit card or bank account billing street address (i.e. 123 Main St.). This value is
+     * The credit card or bank account billing street address (e.g., 123 Main St.). This value is
      * merely passed through to the payment gateway.
      * @return Returns the String
      */
@@ -286,7 +286,7 @@ public class UpdatePaymentProfile
 
     /**
      * Setter for BillingAddress.
-     * The credit card or bank account billing street address (i.e. 123 Main St.). This value is
+     * The credit card or bank account billing street address (e.g., 123 Main St.). This value is
      * merely passed through to the payment gateway.
      * @param billingAddress Value for String
      */
@@ -297,7 +297,7 @@ public class UpdatePaymentProfile
 
     /**
      * Getter for BillingCity.
-     * The credit card or bank account billing address city (i.e. “Boston”). This value is merely
+     * The credit card or bank account billing address city (e.g., “Boston”). This value is merely
      * passed through to the payment gateway.
      * @return Returns the String
      */
@@ -309,7 +309,7 @@ public class UpdatePaymentProfile
 
     /**
      * Setter for BillingCity.
-     * The credit card or bank account billing address city (i.e. “Boston”). This value is merely
+     * The credit card or bank account billing address city (e.g., “Boston”). This value is merely
      * passed through to the payment gateway.
      * @param billingCity Value for String
      */
@@ -320,7 +320,7 @@ public class UpdatePaymentProfile
 
     /**
      * Getter for BillingState.
-     * The credit card or bank account billing address state (i.e. MA). This value is merely passed
+     * The credit card or bank account billing address state (e.g., MA). This value is merely passed
      * through to the payment gateway. This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
      * tax locale purposes.
@@ -334,7 +334,7 @@ public class UpdatePaymentProfile
 
     /**
      * Setter for BillingState.
-     * The credit card or bank account billing address state (i.e. MA). This value is merely passed
+     * The credit card or bank account billing address state (e.g., MA). This value is merely passed
      * through to the payment gateway. This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
      * tax locale purposes.
@@ -347,7 +347,7 @@ public class UpdatePaymentProfile
 
     /**
      * Getter for BillingZip.
-     * The credit card or bank account billing address zip code (i.e. 12345). This value is merely
+     * The credit card or bank account billing address zip code (e.g., 12345). This value is merely
      * passed through to the payment gateway.
      * @return Returns the String
      */
@@ -359,7 +359,7 @@ public class UpdatePaymentProfile
 
     /**
      * Setter for BillingZip.
-     * The credit card or bank account billing address zip code (i.e. 12345). This value is merely
+     * The credit card or bank account billing address zip code (e.g., 12345). This value is merely
      * passed through to the payment gateway.
      * @param billingZip Value for String
      */
@@ -371,7 +371,7 @@ public class UpdatePaymentProfile
     /**
      * Getter for BillingCountry.
      * The credit card or bank account billing address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
      * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
      * is supported at this time.
@@ -386,7 +386,7 @@ public class UpdatePaymentProfile
     /**
      * Setter for BillingCountry.
      * The credit card or bank account billing address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
      * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
      * is supported at this time.
@@ -399,7 +399,7 @@ public class UpdatePaymentProfile
 
     /**
      * Internal Getter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address, e.g., Apt. 100
      * @return Returns the Internal String
      */
     @JsonGetter("billing_address_2")
@@ -411,7 +411,7 @@ public class UpdatePaymentProfile
 
     /**
      * Getter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address, e.g., Apt. 100
      * @return Returns the String
      */
     public String getBillingAddress2() {
@@ -420,7 +420,7 @@ public class UpdatePaymentProfile
 
     /**
      * Setter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address, e.g., Apt. 100
      * @param billingAddress2 Value for String
      */
     @JsonSetter("billing_address_2")
@@ -430,7 +430,7 @@ public class UpdatePaymentProfile
 
     /**
      * UnSetter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address, e.g., Apt. 100
      */
     public void unsetBillingAddress2() {
         billingAddress2 = null;

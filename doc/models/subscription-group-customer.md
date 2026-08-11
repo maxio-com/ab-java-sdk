@@ -15,15 +15,17 @@
 | `Email` | `String` | Optional | - | String getEmail() | setEmail(String email) |
 | `Reference` | `String` | Optional | - | String getReference() | setReference(String reference) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "first_name": "first_name4",
-  "last_name": "last_name2",
-  "organization": "organization2",
-  "email": "email2",
-  "reference": "reference0"
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupCustomer;
+
+SubscriptionGroupCustomer subscriptionGroupCustomer = new SubscriptionGroupCustomer.Builder()
+    .firstName("first_name6")
+    .lastName("last_name4")
+    .organization("organization0")
+    .email("email0")
+    .reference("reference8")
+    .build();
 ```
 

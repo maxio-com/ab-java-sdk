@@ -47,7 +47,7 @@ public class ListMrrMovementsInput {
 
     /**
      * Getter for SubscriptionId.
-     * optionally filter results by subscription
+     * (Optional) Filter results by subscription.
      * @return Returns the Integer
      */
     @JsonGetter("subscription_id")
@@ -58,7 +58,7 @@ public class ListMrrMovementsInput {
 
     /**
      * Setter for SubscriptionId.
-     * optionally filter results by subscription
+     * (Optional) Filter results by subscription.
      * @param subscriptionId Value for Integer
      */
     @JsonSetter("subscription_id")

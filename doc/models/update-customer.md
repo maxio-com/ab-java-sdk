@@ -25,20 +25,24 @@
 | `Locale` | `String` | Optional | Set a specific language on a customer record. | String getLocale() | setLocale(String locale) |
 | `VatNumber` | `String` | Optional | - | String getVatNumber() | setVatNumber(String vatNumber) |
 | `TaxExempt` | `Boolean` | Optional | - | Boolean getTaxExempt() | setTaxExempt(Boolean taxExempt) |
+| `Surcharging` | `Boolean` | Optional | Whether surcharging is enabled for the customer. Only applied on sites where surcharging control is enabled. | Boolean getSurcharging() | setSurcharging(Boolean surcharging) |
 | `TaxExemptReason` | `String` | Optional | - | String getTaxExemptReason() | setTaxExemptReason(String taxExemptReason) |
 | `ParentId` | `Integer` | Optional | - | Integer getParentId() | setParentId(Integer parentId) |
-| `Verified` | `Boolean` | Optional | Is the customer verified to use ACH as a payment method. Available only on Authorize.Net gateway | Boolean getVerified() | setVerified(Boolean verified) |
+| `Verified` | `Boolean` | Optional | Is the customer verified to use ACH as a payment method. Available only on the Authorize.Net gateway. | Boolean getVerified() | setVerified(Boolean verified) |
 | `SalesforceId` | `String` | Optional | The Salesforce ID of the customer | String getSalesforceId() | setSalesforceId(String salesforceId) |
+| `BrandingThemeId` | `Integer` | Optional | The ID of the Branding Theme assigned to this customer as the customer's default Branding Theme. This customer-level Branding Theme is used when a subscription does not have its own subscription-level Branding Theme. Available only when Branding Themes are enabled for the site. | Integer getBrandingThemeId() | setBrandingThemeId(Integer brandingThemeId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "first_name": "first_name2",
-  "last_name": "last_name0",
-  "email": "email4",
-  "cc_emails": "cc_emails8",
-  "organization": "organization6"
-}
+```java
+import com.maxio.advancedbilling.models.UpdateCustomer;
+
+UpdateCustomer updateCustomer = new UpdateCustomer.Builder()
+    .firstName("first_name2")
+    .lastName("last_name0")
+    .email("email4")
+    .ccEmails("cc_emails8")
+    .organization("organization6")
+    .build();
 ```
 

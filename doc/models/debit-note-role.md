@@ -14,3 +14,11 @@ The role of the debit note.
 | `CHARGEBACK` |
 | `REFUND` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.DebitNoteRole;
+
+DebitNoteRole debitNoteRole = DebitNoteRole.CHARGEBACK;
+```
+

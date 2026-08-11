@@ -12,12 +12,12 @@ Input structure for the method ListSubscriptionGroupProformaInvoices
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `Uid` | `String` | Required | The uid of the subscription group | String getUid() | setUid(String uid) |
-| `LineItems` | `Boolean` | Optional | Include line items data<br><br>**Default**: `false` | Boolean getLineItems() | setLineItems(Boolean lineItems) |
-| `Discounts` | `Boolean` | Optional | Include discounts data<br><br>**Default**: `false` | Boolean getDiscounts() | setDiscounts(Boolean discounts) |
-| `Taxes` | `Boolean` | Optional | Include taxes data<br><br>**Default**: `false` | Boolean getTaxes() | setTaxes(Boolean taxes) |
-| `Credits` | `Boolean` | Optional | Include credits data<br><br>**Default**: `false` | Boolean getCredits() | setCredits(Boolean credits) |
-| `Payments` | `Boolean` | Optional | Include payments data<br><br>**Default**: `false` | Boolean getPayments() | setPayments(Boolean payments) |
-| `CustomFields` | `Boolean` | Optional | Include custom fields data<br><br>**Default**: `false` | Boolean getCustomFields() | setCustomFields(Boolean customFields) |
+| `LineItems` | `Boolean` | Optional | Include line items data.<br><br>**Default**: `false` | Boolean getLineItems() | setLineItems(Boolean lineItems) |
+| `Discounts` | `Boolean` | Optional | Include discounts data.<br><br>**Default**: `false` | Boolean getDiscounts() | setDiscounts(Boolean discounts) |
+| `Taxes` | `Boolean` | Optional | Include taxes data.<br><br>**Default**: `false` | Boolean getTaxes() | setTaxes(Boolean taxes) |
+| `Credits` | `Boolean` | Optional | Include credits data.<br><br>**Default**: `false` | Boolean getCredits() | setCredits(Boolean credits) |
+| `Payments` | `Boolean` | Optional | Include payments data.<br><br>**Default**: `false` | Boolean getPayments() | setPayments(Boolean payments) |
+| `CustomFields` | `Boolean` | Optional | Include custom fields data.<br><br>**Default**: `false` | Boolean getCustomFields() | setCustomFields(Boolean customFields) |
 
 ## Example
 

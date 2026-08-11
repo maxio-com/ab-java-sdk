@@ -12,12 +12,15 @@
 | `PreviousProductId` | `int` | Required | - | int getPreviousProductId() | setPreviousProductId(int previousProductId) |
 | `NewProductId` | `int` | Required | - | int getNewProductId() | setNewProductId(int newProductId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "previous_product_id": 126,
-  "new_product_id": 12
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionProductChange;
+
+SubscriptionProductChange subscriptionProductChange = new SubscriptionProductChange.Builder(
+    104,
+    10
+)
+.build();
 ```
 

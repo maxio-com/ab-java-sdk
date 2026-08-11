@@ -14,14 +14,16 @@
 | `TaxAmount` | `String` | Optional | - | String getTaxAmount() | setTaxAmount(String taxAmount) |
 | `TaxExemptAmount` | `String` | Optional | - | String getTaxExemptAmount() | setTaxExemptAmount(String taxExemptAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid2",
-  "taxable_amount": "taxable_amount6",
-  "tax_amount": "tax_amount6",
-  "tax_exempt_amount": "tax_exempt_amount2"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceTaxBreakout;
+
+InvoiceTaxBreakout invoiceTaxBreakout = new InvoiceTaxBreakout.Builder()
+    .uid("uid4")
+    .taxableAmount("taxable_amount8")
+    .taxAmount("tax_amount2")
+    .taxExemptAmount("tax_exempt_amount4")
+    .build();
 ```
 

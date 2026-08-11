@@ -48,3 +48,11 @@ The type of card used.
 | `SOLO` |
 | `LASER` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CardType;
+
+CardType cardType = CardType.SOLO;
+```
+

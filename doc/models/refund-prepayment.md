@@ -14,14 +14,20 @@
 | `Memo` | `String` | Required | **Constraints**: *Minimum Length*: `1` | String getMemo() | setMemo(String memo) |
 | `External` | `Boolean` | Optional | Specify the type of refund you wish to initiate. When the prepayment is external, the `external` flag is optional. But if the prepayment was made through a payment profile, the `external` flag is required. | Boolean getExternal() | setExternal(Boolean external) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "amount_in_cents": 110,
-  "amount": "String3",
-  "memo": "memo4",
-  "external": false
-}
+```java
+import com.maxio.advancedbilling.models.RefundPrepayment;
+import com.maxio.advancedbilling.models.containers.RefundPrepaymentAmount;
+
+RefundPrepayment refundPrepayment = new RefundPrepayment.Builder(
+    22L,
+    RefundPrepaymentAmount.fromString(
+        "String1"
+    ),
+    "memo2"
+)
+.external(false)
+.build();
 ```
 

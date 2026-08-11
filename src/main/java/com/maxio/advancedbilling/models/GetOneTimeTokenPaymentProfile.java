@@ -6,8 +6,10 @@
 
 package com.maxio.advancedbilling.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.apimatic.core.types.BaseModel;
@@ -169,6 +171,54 @@ public class GetOneTimeTokenPaymentProfile
         this.siteGatewaySettingId = siteGatewaySettingId;
         this.customerVaultToken = customerVaultToken;
         this.gatewayHandle = gatewayHandle;
+    }
+
+    /**
+     * Initialization constructor.
+     * @param  firstName  String value for firstName.
+     * @param  lastName  String value for lastName.
+     * @param  maskedCardNumber  String value for maskedCardNumber.
+     * @param  cardType  CardType value for cardType.
+     * @param  expirationMonth  double value for expirationMonth.
+     * @param  expirationYear  double value for expirationYear.
+     * @param  currentVault  CreditCardVault value for currentVault.
+     * @param  vaultToken  String value for vaultToken.
+     * @param  billingAddress  String value for billingAddress.
+     * @param  billingCity  String value for billingCity.
+     * @param  billingCountry  String value for billingCountry.
+     * @param  billingState  String value for billingState.
+     * @param  billingZip  String value for billingZip.
+     * @param  paymentType  String value for paymentType.
+     * @param  disabled  boolean value for disabled.
+     * @param  siteGatewaySettingId  int value for siteGatewaySettingId.
+     */
+    @JsonCreator
+    protected GetOneTimeTokenPaymentProfile(
+            @JsonProperty("first_name") String firstName,
+            @JsonProperty("last_name") String lastName,
+            @JsonProperty("masked_card_number") String maskedCardNumber,
+            @JsonProperty("card_type") CardType cardType,
+            @JsonProperty("expiration_month") double expirationMonth,
+            @JsonProperty("expiration_year") double expirationYear,
+            @JsonProperty("current_vault") CreditCardVault currentVault,
+            @JsonProperty("vault_token") String vaultToken,
+            @JsonProperty("billing_address") String billingAddress,
+            @JsonProperty("billing_city") String billingCity,
+            @JsonProperty("billing_country") String billingCountry,
+            @JsonProperty("billing_state") String billingState,
+            @JsonProperty("billing_zip") String billingZip,
+            @JsonProperty("payment_type") String paymentType,
+            @JsonProperty("disabled") boolean disabled,
+            @JsonProperty("site_gateway_setting_id") int siteGatewaySettingId) {
+        this(firstName, lastName, maskedCardNumber, cardType, expirationMonth, expirationYear,
+                currentVault, vaultToken, billingAddress, billingCity, billingCountry, billingState,
+                billingZip, paymentType, disabled, siteGatewaySettingId, OptionalNullable.of(null),
+                OptionalNullable.of(null), null, OptionalNullable.of(null),
+                OptionalNullable.of(null));
+        unsetId();
+        unsetCustomerId();
+        unsetCustomerVaultToken();
+        unsetGatewayHandle();
     }
 
     /**

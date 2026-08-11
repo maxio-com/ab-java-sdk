@@ -11,14 +11,18 @@
 |  --- | --- | --- | --- | --- | --- |
 | `SendEmail` | [`SendEmail`](../../doc/models/send-email.md) | Optional | - | SendEmail getSendEmail() | setSendEmail(SendEmail sendEmail) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "send_email": {
-    "can_execute": false,
-    "url": "url0"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.AvailableActions;
+import com.maxio.advancedbilling.models.SendEmail;
+
+AvailableActions availableActions = new AvailableActions.Builder()
+    .sendEmail(new SendEmail.Builder(
+        false,
+        "url0"
+    )
+    .build())
+    .build();
 ```
 

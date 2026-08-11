@@ -16,7 +16,9 @@ Allows to filter by `not_null` or `null`.
 
 ## Example
 
-```
-not_null
+```java
+import com.maxio.advancedbilling.models.IncludeNullOrNotNull;
+
+IncludeNullOrNotNull includeNullOrNotNull = IncludeNullOrNotNull.NOT_NULL;
 ```
 

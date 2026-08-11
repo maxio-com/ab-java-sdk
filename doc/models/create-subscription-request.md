@@ -11,33 +11,53 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Subscription` | [`CreateSubscription`](../../doc/models/create-subscription.md) | Required | - | CreateSubscription getSubscription() | setSubscription(CreateSubscription subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": {
-    "defer_signup": false,
-    "metafields": {
-      "custom_field_name_1": "custom_field_value_1",
-      "custom_field_name_2": "custom_field_value_2"
-    },
-    "dunning_communication_delay_enabled": false,
-    "dunning_communication_delay_time_zone": "\"Eastern Time (US & Canada)\"",
-    "product_handle": "product_handle6",
-    "product_id": 206,
-    "product_price_point_handle": "product_price_point_handle2",
-    "product_price_point_id": 130,
-    "custom_price": {
-      "name": "name4",
-      "handle": "handle0",
-      "price_in_cents": "String3",
-      "interval": "String3",
-      "interval_unit": "day",
-      "trial_price_in_cents": "String3",
-      "trial_interval": "String5",
-      "trial_interval_unit": "day"
-    }
-  }
-}
+```java
+import com.maxio.advancedbilling.models.CreateSubscription;
+import com.maxio.advancedbilling.models.CreateSubscriptionRequest;
+import com.maxio.advancedbilling.models.IntervalUnit;
+import com.maxio.advancedbilling.models.SubscriptionCustomPrice;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceInterval;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPricePriceInCents;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialInterval;
+import com.maxio.advancedbilling.models.containers.SubscriptionCustomPriceTrialPriceInCents;
+import java.util.LinkedHashMap;
+
+CreateSubscriptionRequest createSubscriptionRequest = new CreateSubscriptionRequest.Builder(
+    new CreateSubscription.Builder()
+        .productHandle("product_handle6")
+        .productId(206)
+        .productPricePointHandle("product_price_point_handle2")
+        .productPricePointId(130)
+        .customPrice(new SubscriptionCustomPrice.Builder(
+            SubscriptionCustomPricePriceInCents.fromString(
+                "String3"
+            ),
+            SubscriptionCustomPriceInterval.fromString(
+                "String3"
+            ),
+            IntervalUnit.DAY
+        )
+        .name("name4")
+        .handle("handle0")
+        .trialPriceInCents(SubscriptionCustomPriceTrialPriceInCents.fromString(
+                "String3"
+            ))
+        .trialInterval(SubscriptionCustomPriceTrialInterval.fromString(
+                "String5"
+            ))
+        .trialIntervalUnit(IntervalUnit.DAY)
+        .build())
+        .deferSignup(false)
+        .metafields(new LinkedHashMap<String, String>() {{
+            put("custom_field_name_1", "custom_field_value_1");
+            put("custom_field_name_2", "custom_field_value_2");
+        }})
+        .dunningCommunicationDelayEnabled(false)
+        .dunningCommunicationDelayTimeZone("\"Eastern Time (US & Canada)\"")
+        .build()
+)
+.build();
 ```
 

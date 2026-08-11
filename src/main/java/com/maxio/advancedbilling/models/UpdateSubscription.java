@@ -34,6 +34,7 @@ public class UpdateSubscription
     private ZonedDateTime initialBillingAt;
     private Boolean deferSignup;
     private ZonedDateTime nextBillingAt;
+    private OptionalNullable<Integer> brandingThemeId;
     private ZonedDateTime expiresAt;
     private String paymentCollectionMethod;
     private Boolean receivesInvoiceEmails;
@@ -66,6 +67,7 @@ public class UpdateSubscription
      * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  deferSignup  Boolean value for deferSignup.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
@@ -91,6 +93,7 @@ public class UpdateSubscription
             ZonedDateTime initialBillingAt,
             Boolean deferSignup,
             ZonedDateTime nextBillingAt,
+            Integer brandingThemeId,
             ZonedDateTime expiresAt,
             String paymentCollectionMethod,
             Boolean receivesInvoiceEmails,
@@ -113,6 +116,7 @@ public class UpdateSubscription
         this.initialBillingAt = initialBillingAt;
         this.deferSignup = deferSignup;
         this.nextBillingAt = nextBillingAt;
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
         this.expiresAt = expiresAt;
         this.paymentCollectionMethod = paymentCollectionMethod;
         this.receivesInvoiceEmails = receivesInvoiceEmails;
@@ -140,6 +144,7 @@ public class UpdateSubscription
      * @param  initialBillingAt  ZonedDateTime value for initialBillingAt.
      * @param  deferSignup  Boolean value for deferSignup.
      * @param  nextBillingAt  ZonedDateTime value for nextBillingAt.
+     * @param  brandingThemeId  Integer value for brandingThemeId.
      * @param  expiresAt  ZonedDateTime value for expiresAt.
      * @param  paymentCollectionMethod  String value for paymentCollectionMethod.
      * @param  receivesInvoiceEmails  Boolean value for receivesInvoiceEmails.
@@ -159,7 +164,8 @@ public class UpdateSubscription
             Integer productId, Boolean productChangeDelayed, String nextProductId,
             String nextProductPricePointId, UpdateSubscriptionSnapDay snapDay,
             ZonedDateTime initialBillingAt, Boolean deferSignup, ZonedDateTime nextBillingAt,
-            ZonedDateTime expiresAt, String paymentCollectionMethod, Boolean receivesInvoiceEmails,
+            OptionalNullable<Integer> brandingThemeId, ZonedDateTime expiresAt,
+            String paymentCollectionMethod, Boolean receivesInvoiceEmails,
             UpdateSubscriptionNetTerms netTerms, Integer storedCredentialTransactionId,
             String reference, SubscriptionCustomPrice customPrice,
             List<UpdateSubscriptionComponent> components, Boolean dunningCommunicationDelayEnabled,
@@ -175,6 +181,7 @@ public class UpdateSubscription
         this.initialBillingAt = initialBillingAt;
         this.deferSignup = deferSignup;
         this.nextBillingAt = nextBillingAt;
+        this.brandingThemeId = brandingThemeId;
         this.expiresAt = expiresAt;
         this.paymentCollectionMethod = paymentCollectionMethod;
         this.receivesInvoiceEmails = receivesInvoiceEmails;
@@ -210,7 +217,7 @@ public class UpdateSubscription
 
     /**
      * Getter for ProductHandle.
-     * Set to the handle of a different product to change the subscription's product
+     * Set to the handle of a different product to change the subscription's product.
      * @return Returns the String
      */
     @JsonGetter("product_handle")
@@ -221,7 +228,7 @@ public class UpdateSubscription
 
     /**
      * Setter for ProductHandle.
-     * Set to the handle of a different product to change the subscription's product
+     * Set to the handle of a different product to change the subscription's product.
      * @param productHandle Value for String
      */
     @JsonSetter("product_handle")
@@ -231,7 +238,7 @@ public class UpdateSubscription
 
     /**
      * Getter for ProductId.
-     * Set to the id of a different product to change the subscription's product
+     * Set to the id of a different product to change the subscription's product.
      * @return Returns the Integer
      */
     @JsonGetter("product_id")
@@ -242,7 +249,7 @@ public class UpdateSubscription
 
     /**
      * Setter for ProductId.
-     * Set to the id of a different product to change the subscription's product
+     * Set to the id of a different product to change the subscription's product.
      * @param productId Value for Integer
      */
     @JsonSetter("product_id")
@@ -334,7 +341,7 @@ public class UpdateSubscription
      * Getter for InitialBillingAt.
      * (Optional) Set this attribute to a future date/time to update a subscription in the Awaiting
      * Signup Date state, to Awaiting Signup. In the Awaiting Signup state, a subscription behaves
-     * like any other. It can be canceled, allocated to, or have its billing date changed. etc. When
+     * like any other. It can be canceled, allocated to, or have its billing date changed, etc. When
      * the `initial_billing_at` date hits, the subscription will transition to the expected state.
      * If the product has a trial, the subscription will enter a trial, otherwise it will go active.
      * Setup fees will be respected either before or after the trial, as configured on the price
@@ -356,7 +363,7 @@ public class UpdateSubscription
      * Setter for InitialBillingAt.
      * (Optional) Set this attribute to a future date/time to update a subscription in the Awaiting
      * Signup Date state, to Awaiting Signup. In the Awaiting Signup state, a subscription behaves
-     * like any other. It can be canceled, allocated to, or have its billing date changed. etc. When
+     * like any other. It can be canceled, allocated to, or have its billing date changed, etc. When
      * the `initial_billing_at` date hits, the subscription will transition to the expected state.
      * If the product has a trial, the subscription will enter a trial, otherwise it will go active.
      * Setup fees will be respected either before or after the trial, as configured on the price
@@ -427,6 +434,61 @@ public class UpdateSubscription
     @JsonDeserialize(using = DateTimeHelper.Rfc8601DateTimeDeserializer.class)
     public void setNextBillingAt(ZonedDateTime nextBillingAt) {
         this.nextBillingAt = nextBillingAt;
+    }
+
+    /**
+     * Internal Getter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     * @return Returns the Internal Integer
+     */
+    @JsonGetter("branding_theme_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<Integer> internalGetBrandingThemeId() {
+        return this.brandingThemeId;
+    }
+
+    /**
+     * Getter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     * @return Returns the Integer
+     */
+    public Integer getBrandingThemeId() {
+        return OptionalNullable.getFrom(brandingThemeId);
+    }
+
+    /**
+     * Setter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     * @param brandingThemeId Value for Integer
+     */
+    @JsonSetter("branding_theme_id")
+    public void setBrandingThemeId(Integer brandingThemeId) {
+        this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+    }
+
+    /**
+     * UnSetter for BrandingThemeId.
+     * The ID of the Branding Theme to assign to this subscription. When set, this
+     * subscription-level Branding Theme is used instead of the customer's default Branding Theme
+     * for subscription-related documents and communications that use subscription theming. Pass
+     * null or an empty value to clear the subscription-level Branding Theme. Available only when
+     * Branding Themes are enabled for the site. Not returned in the response.
+     */
+    public void unsetBrandingThemeId() {
+        brandingThemeId = null;
     }
 
     /**
@@ -713,11 +775,12 @@ public class UpdateSubscription
                 + nextProductId + ", nextProductPricePointId=" + nextProductPricePointId
                 + ", snapDay=" + snapDay + ", initialBillingAt=" + initialBillingAt
                 + ", deferSignup=" + deferSignup + ", nextBillingAt=" + nextBillingAt
-                + ", expiresAt=" + expiresAt + ", paymentCollectionMethod="
-                + paymentCollectionMethod + ", receivesInvoiceEmails=" + receivesInvoiceEmails
-                + ", netTerms=" + netTerms + ", storedCredentialTransactionId="
-                + storedCredentialTransactionId + ", reference=" + reference + ", customPrice="
-                + customPrice + ", components=" + components + ", dunningCommunicationDelayEnabled="
+                + ", brandingThemeId=" + brandingThemeId + ", expiresAt=" + expiresAt
+                + ", paymentCollectionMethod=" + paymentCollectionMethod
+                + ", receivesInvoiceEmails=" + receivesInvoiceEmails + ", netTerms=" + netTerms
+                + ", storedCredentialTransactionId=" + storedCredentialTransactionId
+                + ", reference=" + reference + ", customPrice=" + customPrice + ", components="
+                + components + ", dunningCommunicationDelayEnabled="
                 + dunningCommunicationDelayEnabled + ", dunningCommunicationDelayTimeZone="
                 + dunningCommunicationDelayTimeZone + ", productPricePointId=" + productPricePointId
                 + ", productPricePointHandle=" + productPricePointHandle + ", additionalProperties="
@@ -752,6 +815,7 @@ public class UpdateSubscription
                 .dunningCommunicationDelayEnabled(getDunningCommunicationDelayEnabled())
                 .productPricePointId(getProductPricePointId())
                 .productPricePointHandle(getProductPricePointHandle());
+        builder.brandingThemeId = internalGetBrandingThemeId();
         builder.dunningCommunicationDelayTimeZone = internalGetDunningCommunicationDelayTimeZone();
         return builder;
     }
@@ -770,6 +834,7 @@ public class UpdateSubscription
         private ZonedDateTime initialBillingAt;
         private Boolean deferSignup = false;
         private ZonedDateTime nextBillingAt;
+        private OptionalNullable<Integer> brandingThemeId;
         private ZonedDateTime expiresAt;
         private String paymentCollectionMethod;
         private Boolean receivesInvoiceEmails;
@@ -882,6 +947,25 @@ public class UpdateSubscription
          */
         public Builder nextBillingAt(ZonedDateTime nextBillingAt) {
             this.nextBillingAt = nextBillingAt;
+            return this;
+        }
+
+        /**
+         * Setter for brandingThemeId.
+         * @param  brandingThemeId  Integer value for brandingThemeId.
+         * @return Builder
+         */
+        public Builder brandingThemeId(Integer brandingThemeId) {
+            this.brandingThemeId = OptionalNullable.of(brandingThemeId);
+            return this;
+        }
+
+        /**
+         * UnSetter for brandingThemeId.
+         * @return Builder
+         */
+        public Builder unsetBrandingThemeId() {
+            brandingThemeId = null;
             return this;
         }
 
@@ -1026,7 +1110,7 @@ public class UpdateSubscription
         public UpdateSubscription build() {
             return new UpdateSubscription(creditCardAttributes, productHandle, productId,
                     productChangeDelayed, nextProductId, nextProductPricePointId, snapDay,
-                    initialBillingAt, deferSignup, nextBillingAt, expiresAt,
+                    initialBillingAt, deferSignup, nextBillingAt, brandingThemeId, expiresAt,
                     paymentCollectionMethod, receivesInvoiceEmails, netTerms,
                     storedCredentialTransactionId, reference, customPrice, components,
                     dunningCommunicationDelayEnabled, dunningCommunicationDelayTimeZone,

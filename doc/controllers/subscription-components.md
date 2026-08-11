@@ -588,7 +588,7 @@ try {
 
 # List Allocations
 
-Returns the 50 most recent Allocations, ordered by most recent first.
+Lists the 50 most recent Allocations, ordered by most recent first.
 
 ## On/Off Components
 
@@ -1265,7 +1265,7 @@ try {
 
 # List Usages
 
-Returns a list of usages associated with a subscription for a particular metered component. This will display the previously recorded components for a subscription.
+Lists usages associated with a subscription for a particular metered component. This will display the previously recorded components for a subscription.
 
 This endpoint is not compatible with quantity-based components.
 
@@ -1514,7 +1514,7 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `apiHandle` | `String` | Template, Required | Identifies the Stream for which the event should be published. |
-| `storeUid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
+| `storeUid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. This applies to Legacy Metering sites only — it has no effect on Maxio Metering sites. |
 | `body` | [`EBBEvent`](../../doc/models/ebb-event.md) | Body, Optional | - |
 
 ## Server
@@ -1570,7 +1570,7 @@ This endpoint requires [BasicAuth](../../doc/auth/basic-authentication.md)
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `apiHandle` | `String` | Template, Required | Identifies the Stream for which the events should be published. |
-| `storeUid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. |
+| `storeUid` | `String` | Query, Optional | If you've attached your own Keen project as an Advanced Billing event data-store, use this parameter to indicate the data-store. This applies to Legacy Metering sites only — it has no effect on Maxio Metering sites. |
 | `body` | [`List<EBBEvent>`](../../doc/models/ebb-event.md) | Body, Optional | - |
 
 ## Server

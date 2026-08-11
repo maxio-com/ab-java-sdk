@@ -13,13 +13,16 @@
 | `GatewayTransactionId` | `int` | Required | - | int getGatewayTransactionId() | setGatewayTransactionId(int gatewayTransactionId) |
 | `ProductId` | `int` | Required | - | int getProductId() | setProductId(int productId) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "refund_id": 12,
-  "gateway_transaction_id": 182,
-  "product_id": 168
-}
+```java
+import com.maxio.advancedbilling.models.RefundSuccess;
+
+RefundSuccess refundSuccess = new RefundSuccess.Builder(
+    34,
+    160,
+    190
+)
+.build();
 ```
 

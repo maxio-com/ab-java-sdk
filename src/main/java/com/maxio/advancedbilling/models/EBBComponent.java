@@ -34,6 +34,7 @@ public class EBBComponent
     private int eventBasedBillingMetricId;
     private Integer interval;
     private OptionalNullable<IntervalUnit> intervalUnit;
+    private OptionalNullable<String> unspscCode;
 
     /**
      * Default constructor.
@@ -57,6 +58,7 @@ public class EBBComponent
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  unspscCode  String value for unspscCode.
      */
     public EBBComponent(
             String name,
@@ -72,7 +74,8 @@ public class EBBComponent
             String taxCode,
             Boolean hideDateRangeOnInvoice,
             Integer interval,
-            IntervalUnit intervalUnit) {
+            IntervalUnit intervalUnit,
+            String unspscCode) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -87,6 +90,7 @@ public class EBBComponent
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
         this.intervalUnit = OptionalNullable.of(intervalUnit);
+        this.unspscCode = OptionalNullable.of(unspscCode);
     }
 
     /**
@@ -105,13 +109,15 @@ public class EBBComponent
      * @param  hideDateRangeOnInvoice  Boolean value for hideDateRangeOnInvoice.
      * @param  interval  Integer value for interval.
      * @param  intervalUnit  IntervalUnit value for intervalUnit.
+     * @param  unspscCode  String value for unspscCode.
      */
 
     protected EBBComponent(String name, String unitName, PricingScheme pricingScheme,
             int eventBasedBillingMetricId, String description, String handle, Boolean taxable,
             List<Price> prices, List<ComponentPricePointItem> pricePoints,
             EBBComponentUnitPrice unitPrice, String taxCode, Boolean hideDateRangeOnInvoice,
-            Integer interval, OptionalNullable<IntervalUnit> intervalUnit) {
+            Integer interval, OptionalNullable<IntervalUnit> intervalUnit,
+            OptionalNullable<String> unspscCode) {
         this.name = name;
         this.unitName = unitName;
         this.description = description;
@@ -126,12 +132,13 @@ public class EBBComponent
         this.eventBasedBillingMetricId = eventBasedBillingMetricId;
         this.interval = interval;
         this.intervalUnit = intervalUnit;
+        this.unspscCode = unspscCode;
     }
 
     /**
      * Getter for Name.
      * A name for this component that is suitable for showing customers and displaying on billing
-     * statements, ie. "Minutes".
+     * statements, i.e., "Minutes".
      * @return Returns the String
      */
     @JsonGetter("name")
@@ -142,7 +149,7 @@ public class EBBComponent
     /**
      * Setter for Name.
      * A name for this component that is suitable for showing customers and displaying on billing
-     * statements, ie. "Minutes".
+     * statements, i.e., "Minutes".
      * @param name Value for String
      */
     @JsonSetter("name")
@@ -152,9 +159,9 @@ public class EBBComponent
 
     /**
      * Getter for UnitName.
-     * The name of the unit of measurement for the component. It should be singular since it will be
-     * automatically pluralized when necessary. i.e. “message”, which may then be shown as “5
-     * messages” on a subscription’s component line-item
+     * “The name of the unit of measurement for the component. It should be singular since it will
+     * be automatically pluralized when necessary. i.e., “message”, which may then be shown as “5
+     * messages” on a subscription’s component line-item”
      * @return Returns the String
      */
     @JsonGetter("unit_name")
@@ -164,9 +171,9 @@ public class EBBComponent
 
     /**
      * Setter for UnitName.
-     * The name of the unit of measurement for the component. It should be singular since it will be
-     * automatically pluralized when necessary. i.e. “message”, which may then be shown as “5
-     * messages” on a subscription’s component line-item
+     * “The name of the unit of measurement for the component. It should be singular since it will
+     * be automatically pluralized when necessary. i.e., “message”, which may then be shown as “5
+     * messages” on a subscription’s component line-item”
      * @param unitName Value for String
      */
     @JsonSetter("unit_name")
@@ -197,7 +204,7 @@ public class EBBComponent
 
     /**
      * Getter for Handle.
-     * A unique identifier for your use that can be used to retrieve this component is subsequent
+     * A unique identifier for your use that can be used to retrieve this component in subsequent
      * requests. Must start with a letter or number and may only contain lowercase letters, numbers,
      * or the characters '.', ':', '-', or '_'.
      * @return Returns the String
@@ -210,7 +217,7 @@ public class EBBComponent
 
     /**
      * Setter for Handle.
-     * A unique identifier for your use that can be used to retrieve this component is subsequent
+     * A unique identifier for your use that can be used to retrieve this component in subsequent
      * requests. Must start with a letter or number and may only contain lowercase letters, numbers,
      * or the characters '.', ':', '-', or '_'.
      * @param handle Value for String
@@ -312,7 +319,7 @@ public class EBBComponent
     /**
      * Getter for UnitPrice.
      * The amount the customer will be charged per unit when the pricing scheme is “per_unit”. The
-     * price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * price can contain up to 8 decimal places. i.e., 1.00 or 0.0012 or 0.00000065
      * @return Returns the EBBComponentUnitPrice
      */
     @JsonGetter("unit_price")
@@ -324,7 +331,7 @@ public class EBBComponent
     /**
      * Setter for UnitPrice.
      * The amount the customer will be charged per unit when the pricing scheme is “per_unit”. The
-     * price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * price can contain up to 8 decimal places. i.e., 1.00 or 0.0012 or 0.00000065
      * @param unitPrice Value for EBBComponentUnitPrice
      */
     @JsonSetter("unit_price")
@@ -402,7 +409,7 @@ public class EBBComponent
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. i.e., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component's default price point would renew every 30 days. This property is only
      * available for sites with Multifrequency enabled.
      * @return Returns the Integer
@@ -415,7 +422,7 @@ public class EBBComponent
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. i.e., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component's default price point would renew every 30 days. This property is only
      * available for sites with Multifrequency enabled.
      * @param interval Value for Integer
@@ -469,6 +476,53 @@ public class EBBComponent
     }
 
     /**
+     * Internal Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the Internal String
+     */
+    @JsonGetter("unspsc_code")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<String> internalGetUnspscCode() {
+        return this.unspscCode;
+    }
+
+    /**
+     * Getter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @return Returns the String
+     */
+    public String getUnspscCode() {
+        return OptionalNullable.getFrom(unspscCode);
+    }
+
+    /**
+     * Setter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     * @param unspscCode Value for String
+     */
+    @JsonSetter("unspsc_code")
+    public void setUnspscCode(String unspscCode) {
+        this.unspscCode = OptionalNullable.of(unspscCode);
+    }
+
+    /**
+     * UnSetter for UnspscCode.
+     * (Optional) Custom UNSPSC commodity code for Level 3/CEDP payment data. When set, this value
+     * is sent as the commodity code on invoice line items for this component instead of the default
+     * derived from item_category.
+     */
+    public void unsetUnspscCode() {
+        unspscCode = null;
+    }
+
+    /**
      * Converts this EBBComponent into string format.
      * @return String representation of this class
      */
@@ -479,8 +533,8 @@ public class EBBComponent
                 + ", description=" + description + ", handle=" + handle + ", taxable=" + taxable
                 + ", prices=" + prices + ", pricePoints=" + pricePoints + ", unitPrice=" + unitPrice
                 + ", taxCode=" + taxCode + ", hideDateRangeOnInvoice=" + hideDateRangeOnInvoice
-                + ", interval=" + interval + ", intervalUnit=" + intervalUnit
-                + ", additionalProperties=" + getAdditionalProperties() + "]";
+                + ", interval=" + interval + ", intervalUnit=" + intervalUnit + ", unspscCode="
+                + unspscCode + ", additionalProperties=" + getAdditionalProperties() + "]";
     }
 
     /**
@@ -500,6 +554,7 @@ public class EBBComponent
                 .hideDateRangeOnInvoice(getHideDateRangeOnInvoice())
                 .interval(getInterval());
         builder.intervalUnit = internalGetIntervalUnit();
+        builder.unspscCode = internalGetUnspscCode();
         return builder;
     }
 
@@ -521,6 +576,7 @@ public class EBBComponent
         private Boolean hideDateRangeOnInvoice;
         private Integer interval;
         private OptionalNullable<IntervalUnit> intervalUnit;
+        private OptionalNullable<String> unspscCode;
 
         /**
          * Initialization constructor.
@@ -693,13 +749,32 @@ public class EBBComponent
         }
 
         /**
+         * Setter for unspscCode.
+         * @param  unspscCode  String value for unspscCode.
+         * @return Builder
+         */
+        public Builder unspscCode(String unspscCode) {
+            this.unspscCode = OptionalNullable.of(unspscCode);
+            return this;
+        }
+
+        /**
+         * UnSetter for unspscCode.
+         * @return Builder
+         */
+        public Builder unsetUnspscCode() {
+            unspscCode = null;
+            return this;
+        }
+
+        /**
          * Builds a new {@link EBBComponent} object using the set fields.
          * @return {@link EBBComponent}
          */
         public EBBComponent build() {
             return new EBBComponent(name, unitName, pricingScheme, eventBasedBillingMetricId,
                     description, handle, taxable, prices, pricePoints, unitPrice, taxCode,
-                    hideDateRangeOnInvoice, interval, intervalUnit);
+                    hideDateRangeOnInvoice, interval, intervalUnit, unspscCode);
         }
     }
 }

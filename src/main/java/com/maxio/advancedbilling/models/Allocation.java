@@ -206,7 +206,7 @@ public class Allocation
 
     /**
      * Getter for AllocationId.
-     * The allocation unique id
+     * The allocation unique ID
      * @return Returns the Integer
      */
     @JsonGetter("allocation_id")
@@ -217,7 +217,7 @@ public class Allocation
 
     /**
      * Setter for AllocationId.
-     * The allocation unique id
+     * The allocation unique ID
      * @param allocationId Value for Integer
      */
     @JsonSetter("allocation_id")
@@ -228,7 +228,7 @@ public class Allocation
     /**
      * Getter for ComponentId.
      * The integer component ID for the allocation. This references a component that you have
-     * created in your Product setup
+     * created in your Product setup.
      * @return Returns the Integer
      */
     @JsonGetter("component_id")
@@ -240,7 +240,7 @@ public class Allocation
     /**
      * Setter for ComponentId.
      * The integer component ID for the allocation. This references a component that you have
-     * created in your Product setup
+     * created in your Product setup.
      * @param componentId Value for Integer
      */
     @JsonSetter("component_id")
@@ -251,7 +251,7 @@ public class Allocation
     /**
      * Internal Getter for ComponentHandle.
      * The handle of the component. This references a component that you have created in your
-     * Product setup
+     * Product setup.
      * @return Returns the Internal String
      */
     @JsonGetter("component_handle")
@@ -264,7 +264,7 @@ public class Allocation
     /**
      * Getter for ComponentHandle.
      * The handle of the component. This references a component that you have created in your
-     * Product setup
+     * Product setup.
      * @return Returns the String
      */
     public String getComponentHandle() {
@@ -274,7 +274,7 @@ public class Allocation
     /**
      * Setter for ComponentHandle.
      * The handle of the component. This references a component that you have created in your
-     * Product setup
+     * Product setup.
      * @param componentHandle Value for String
      */
     @JsonSetter("component_handle")
@@ -285,7 +285,7 @@ public class Allocation
     /**
      * UnSetter for ComponentHandle.
      * The handle of the component. This references a component that you have created in your
-     * Product setup
+     * Product setup.
      */
     public void unsetComponentHandle() {
         componentHandle = null;
@@ -294,7 +294,7 @@ public class Allocation
     /**
      * Getter for SubscriptionId.
      * The integer subscription ID for the allocation. This references a unique subscription in your
-     * Site
+     * Site.
      * @return Returns the Integer
      */
     @JsonGetter("subscription_id")
@@ -306,7 +306,7 @@ public class Allocation
     /**
      * Setter for SubscriptionId.
      * The integer subscription ID for the allocation. This references a unique subscription in your
-     * Site
+     * Site.
      * @param subscriptionId Value for Integer
      */
     @JsonSetter("subscription_id")
@@ -316,7 +316,7 @@ public class Allocation
 
     /**
      * Getter for Quantity.
-     * The allocated quantity set in to effect by the allocation. String for components supporting
+     * The allocated quantity set into effect by the allocation. String for components supporting
      * fractional quantities
      * @return Returns the AllocationQuantity
      */
@@ -328,7 +328,7 @@ public class Allocation
 
     /**
      * Setter for Quantity.
-     * The allocated quantity set in to effect by the allocation. String for components supporting
+     * The allocated quantity set into effect by the allocation. String for components supporting
      * fractional quantities
      * @param quantity Value for AllocationQuantity
      */
@@ -401,7 +401,7 @@ public class Allocation
 
     /**
      * Getter for Timestamp.
-     * The time that the allocation was recorded, in format and UTC timezone, i.e.
+     * The time that the allocation was recorded, in ISO 8601 format and UTC timezone, e.g.,
      * 2012-11-20T22:00:37Z
      * @return Returns the ZonedDateTime
      */
@@ -414,7 +414,7 @@ public class Allocation
 
     /**
      * Setter for Timestamp.
-     * The time that the allocation was recorded, in format and UTC timezone, i.e.
+     * The time that the allocation was recorded, in ISO 8601 format and UTC timezone, e.g.,
      * 2012-11-20T22:00:37Z
      * @param timestamp Value for ZonedDateTime
      */
@@ -552,7 +552,7 @@ public class Allocation
 
     /**
      * Getter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @return Returns the Integer
@@ -565,7 +565,7 @@ public class Allocation
 
     /**
      * Setter for Interval.
-     * The numerical interval. i.e. an interval of ‘30’ coupled with an interval_unit of day would
+     * The numerical interval. e.g., an interval of ‘30’ coupled with an interval_unit of day would
      * mean this component price point would renew every 30 days. This property is only available
      * for sites with Multifrequency enabled.
      * @param interval Value for Integer

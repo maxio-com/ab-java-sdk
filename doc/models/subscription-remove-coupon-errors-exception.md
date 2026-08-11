@@ -11,13 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Subscription` | `List<String>` | Required | - | List<String> getSubscription() | setSubscription(List<String> subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription": [
-    "subscription0"
-  ]
+```java
+try {
+    // make the API call
+} catch (SubscriptionRemoveCouponErrorsException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

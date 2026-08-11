@@ -14,52 +14,148 @@
 | `PerPage` | `Integer` | Optional | - | Integer getPerPage() | setPerPage(Integer perPage) |
 | `TotalPages` | `Integer` | Optional | - | Integer getTotalPages() | setTotalPages(Integer totalPages) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "events": [
-    {
-      "event_type": "apply_credit_note",
-      "id": 214,
-      "timestamp": "2016-03-13T12:52:32.123Z",
-      "invoice": {
-        "id": 166,
-        "uid": "uid6",
-        "site_id": 92,
-        "customer_id": 204,
-        "subscription_id": 20
-      },
-      "event_data": {
-        "uid": "uid6",
-        "credit_note_number": "credit_note_number0",
-        "credit_note_uid": "credit_note_uid0",
-        "original_amount": "original_amount0",
-        "applied_amount": "applied_amount2",
-        "transaction_time": "2016-03-13T12:52:32.123Z",
-        "memo": "memo0",
-        "role": "role0",
-        "consolidated_invoice": false,
-        "applied_credit_notes": [
-          {
-            "uid": "uid4",
-            "number": "number8"
-          },
-          {
-            "uid": "uid4",
-            "number": "number8"
-          },
-          {
-            "uid": "uid4",
-            "number": "number8"
-          }
-        ]
-      }
-    }
-  ],
-  "page": 184,
-  "per_page": 96,
-  "total_pages": 194
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.AppliedCreditNoteData;
+import com.maxio.advancedbilling.models.ApplyCreditNoteEvent;
+import com.maxio.advancedbilling.models.ApplyCreditNoteEventData;
+import com.maxio.advancedbilling.models.Invoice;
+import com.maxio.advancedbilling.models.InvoiceEventType;
+import com.maxio.advancedbilling.models.ListInvoiceEventsResponse;
+import com.maxio.advancedbilling.models.containers.InvoiceEvent;
+import java.util.Arrays;
+
+ListInvoiceEventsResponse listInvoiceEventsResponse = new ListInvoiceEventsResponse.Builder()
+    .events(Arrays.asList(
+        InvoiceEvent.fromApplyCreditNoteEvent(
+            new ApplyCreditNoteEvent.Builder(
+                214L,
+                DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+                new Invoice.Builder()
+                    .id(166L)
+                    .uid("uid6")
+                    .siteId(92)
+                    .customerId(204)
+                    .subscriptionId(20)
+                    .build(),
+                InvoiceEventType.APPLY_CREDIT_NOTE,
+                new ApplyCreditNoteEventData.Builder(
+                    "uid6",
+                    "credit_note_number0",
+                    "credit_note_uid0",
+                    "original_amount0",
+                    "applied_amount2"
+                )
+                .transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+                .memo("memo0")
+                .role("role0")
+                .consolidatedInvoice(false)
+                .appliedCreditNotes(Arrays.asList(
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build(),
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build(),
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build()
+                    ))
+                .build()
+            )
+            .build()
+        ),
+        InvoiceEvent.fromApplyCreditNoteEvent(
+            new ApplyCreditNoteEvent.Builder(
+                214L,
+                DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+                new Invoice.Builder()
+                    .id(166L)
+                    .uid("uid6")
+                    .siteId(92)
+                    .customerId(204)
+                    .subscriptionId(20)
+                    .build(),
+                InvoiceEventType.APPLY_CREDIT_NOTE,
+                new ApplyCreditNoteEventData.Builder(
+                    "uid6",
+                    "credit_note_number0",
+                    "credit_note_uid0",
+                    "original_amount0",
+                    "applied_amount2"
+                )
+                .transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+                .memo("memo0")
+                .role("role0")
+                .consolidatedInvoice(false)
+                .appliedCreditNotes(Arrays.asList(
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build(),
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build(),
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build()
+                    ))
+                .build()
+            )
+            .build()
+        ),
+        InvoiceEvent.fromApplyCreditNoteEvent(
+            new ApplyCreditNoteEvent.Builder(
+                214L,
+                DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+                new Invoice.Builder()
+                    .id(166L)
+                    .uid("uid6")
+                    .siteId(92)
+                    .customerId(204)
+                    .subscriptionId(20)
+                    .build(),
+                InvoiceEventType.APPLY_CREDIT_NOTE,
+                new ApplyCreditNoteEventData.Builder(
+                    "uid6",
+                    "credit_note_number0",
+                    "credit_note_uid0",
+                    "original_amount0",
+                    "applied_amount2"
+                )
+                .transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+                .memo("memo0")
+                .role("role0")
+                .consolidatedInvoice(false)
+                .appliedCreditNotes(Arrays.asList(
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build(),
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build(),
+                        new AppliedCreditNoteData.Builder()
+                            .uid("uid4")
+                            .number("number8")
+                            .build()
+                    ))
+                .build()
+            )
+            .build()
+        )
+    ))
+    .page(28)
+    .perPage(196)
+    .totalPages(94)
+    .build();
 ```
 

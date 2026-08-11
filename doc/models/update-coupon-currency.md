@@ -12,12 +12,15 @@
 | `Currency` | `String` | Required | ISO code for the site defined currency. | String getCurrency() | setCurrency(String currency) |
 | `Price` | `int` | Required | Price for the given currency. | int getPrice() | setPrice(int price) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "currency": "currency4",
-  "price": 146
-}
+```java
+import com.maxio.advancedbilling.models.UpdateCouponCurrency;
+
+UpdateCouponCurrency updateCouponCurrency = new UpdateCouponCurrency.Builder(
+    "currency4",
+    100
+)
+.build();
 ```
 

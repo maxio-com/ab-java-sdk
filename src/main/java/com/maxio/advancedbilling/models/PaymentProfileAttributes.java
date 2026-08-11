@@ -201,7 +201,7 @@ public class PaymentProfileAttributes
      * Getter for ChargifyToken.
      * (Optional) Token received after sending billing information using Maxio.js (formerly
      * Chargify.js). This token must be passed as a sole attribute of `payment_profile_attributes`
-     * (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
+     * (e.g., tok_9g6hw85pnpt6knmskpwp4ttt).
      * @return Returns the String
      */
     @JsonGetter("chargify_token")
@@ -214,7 +214,7 @@ public class PaymentProfileAttributes
      * Setter for ChargifyToken.
      * (Optional) Token received after sending billing information using Maxio.js (formerly
      * Chargify.js). This token must be passed as a sole attribute of `payment_profile_attributes`
-     * (i.e. tok_9g6hw85pnpt6knmskpwp4ttt)
+     * (e.g., tok_9g6hw85pnpt6knmskpwp4ttt).
      * @param chargifyToken Value for String
      */
     @JsonSetter("chargify_token")
@@ -327,7 +327,7 @@ public class PaymentProfileAttributes
 
     /**
      * Getter for FullNumber.
-     * The full credit card number (string representation, i.e. 5424000000000015)
+     * The full credit card number (string representation, e.g., 5424000000000015)
      * @return Returns the String
      */
     @JsonGetter("full_number")
@@ -338,7 +338,7 @@ public class PaymentProfileAttributes
 
     /**
      * Setter for FullNumber.
-     * The full credit card number (string representation, i.e. 5424000000000015)
+     * The full credit card number (string representation, e.g., 5424000000000015)
      * @param fullNumber Value for String
      */
     @JsonSetter("full_number")
@@ -348,8 +348,8 @@ public class PaymentProfileAttributes
 
     /**
      * Getter for CardType.
-     * (Optional, used only for Subscription Import) If you know the card type (i.e. Visa, MC, etc)
-     * you may supply it here so that we may display the card type in the UI.
+     * (Optional, used only for Subscription Import) If you know the card type (e.g., Visa, MC,
+     * etc.) you may supply it here so that we may display the card type in the UI.
      * @return Returns the CardType
      */
     @JsonGetter("card_type")
@@ -360,8 +360,8 @@ public class PaymentProfileAttributes
 
     /**
      * Setter for CardType.
-     * (Optional, used only for Subscription Import) If you know the card type (i.e. Visa, MC, etc)
-     * you may supply it here so that we may display the card type in the UI.
+     * (Optional, used only for Subscription Import) If you know the card type (e.g., Visa, MC,
+     * etc.) you may supply it here so that we may display the card type in the UI.
      * @param cardType Value for CardType
      */
     @JsonSetter("card_type")
@@ -372,7 +372,7 @@ public class PaymentProfileAttributes
     /**
      * Getter for ExpirationMonth.
      * (Optional when performing a Subscription Import via vault_token, required otherwise) The 1-
-     * or 2-digit credit card expiration month, as an integer or string, i.e. 5
+     * or 2-digit credit card expiration month, as an integer or string, e.g., 5
      * @return Returns the PaymentProfileAttributesExpirationMonth
      */
     @JsonGetter("expiration_month")
@@ -384,7 +384,7 @@ public class PaymentProfileAttributes
     /**
      * Setter for ExpirationMonth.
      * (Optional when performing a Subscription Import via vault_token, required otherwise) The 1-
-     * or 2-digit credit card expiration month, as an integer or string, i.e. 5
+     * or 2-digit credit card expiration month, as an integer or string, e.g., 5
      * @param expirationMonth Value for PaymentProfileAttributesExpirationMonth
      */
     @JsonSetter("expiration_month")
@@ -395,7 +395,7 @@ public class PaymentProfileAttributes
     /**
      * Getter for ExpirationYear.
      * (Optional when performing a Subscription Import via vault_token, required otherwise) The
-     * 4-digit credit card expiration year, as an integer or string, i.e. 2012
+     * 4-digit credit card expiration year, as an integer or string, e.g., 2012
      * @return Returns the PaymentProfileAttributesExpirationYear
      */
     @JsonGetter("expiration_year")
@@ -407,7 +407,7 @@ public class PaymentProfileAttributes
     /**
      * Setter for ExpirationYear.
      * (Optional when performing a Subscription Import via vault_token, required otherwise) The
-     * 4-digit credit card expiration year, as an integer or string, i.e. 2012
+     * 4-digit credit card expiration year, as an integer or string, e.g., 2012
      * @param expirationYear Value for PaymentProfileAttributesExpirationYear
      */
     @JsonSetter("expiration_year")
@@ -418,7 +418,7 @@ public class PaymentProfileAttributes
     /**
      * Getter for BillingAddress.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing street address (i.e. 123 Main St.). This value is merely passed
+     * or bank account billing street address (e.g., 123 Main St.). This value is merely passed
      * through to the payment gateway.
      * @return Returns the String
      */
@@ -431,7 +431,7 @@ public class PaymentProfileAttributes
     /**
      * Setter for BillingAddress.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing street address (i.e. 123 Main St.). This value is merely passed
+     * or bank account billing street address (e.g., 123 Main St.). This value is merely passed
      * through to the payment gateway.
      * @param billingAddress Value for String
      */
@@ -442,7 +442,7 @@ public class PaymentProfileAttributes
 
     /**
      * Internal Getter for BillingAddress2.
-     * (Optional) Second line of the customer’s billing address i.e. Apt. 100
+     * (Optional) Second line of the customer’s billing address, e.g., Apt. 100
      * @return Returns the Internal String
      */
     @JsonGetter("billing_address_2")
@@ -454,7 +454,7 @@ public class PaymentProfileAttributes
 
     /**
      * Getter for BillingAddress2.
-     * (Optional) Second line of the customer’s billing address i.e. Apt. 100
+     * (Optional) Second line of the customer’s billing address, e.g., Apt. 100
      * @return Returns the String
      */
     public String getBillingAddress2() {
@@ -463,7 +463,7 @@ public class PaymentProfileAttributes
 
     /**
      * Setter for BillingAddress2.
-     * (Optional) Second line of the customer’s billing address i.e. Apt. 100
+     * (Optional) Second line of the customer’s billing address, e.g., Apt. 100
      * @param billingAddress2 Value for String
      */
     @JsonSetter("billing_address_2")
@@ -473,7 +473,7 @@ public class PaymentProfileAttributes
 
     /**
      * UnSetter for BillingAddress2.
-     * (Optional) Second line of the customer’s billing address i.e. Apt. 100
+     * (Optional) Second line of the customer’s billing address, e.g., Apt. 100
      */
     public void unsetBillingAddress2() {
         billingAddress2 = null;
@@ -482,7 +482,7 @@ public class PaymentProfileAttributes
     /**
      * Getter for BillingCity.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing address city (i.e. “Boston”). This value is merely passed through to
+     * or bank account billing address city (e.g., “Boston”). This value is merely passed through to
      * the payment gateway.
      * @return Returns the String
      */
@@ -495,7 +495,7 @@ public class PaymentProfileAttributes
     /**
      * Setter for BillingCity.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing address city (i.e. “Boston”). This value is merely passed through to
+     * or bank account billing address city (e.g., “Boston”). This value is merely passed through to
      * the payment gateway.
      * @param billingCity Value for String
      */
@@ -507,7 +507,7 @@ public class PaymentProfileAttributes
     /**
      * Getter for BillingState.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing address state (i.e. MA). This value is merely passed through to the
+     * or bank account billing address state (e.g., MA). This value is merely passed through to the
      * payment gateway. This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
      * tax locale purposes.
@@ -522,7 +522,7 @@ public class PaymentProfileAttributes
     /**
      * Setter for BillingState.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing address state (i.e. MA). This value is merely passed through to the
+     * or bank account billing address state (e.g., MA). This value is merely passed through to the
      * payment gateway. This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
      * tax locale purposes.
@@ -537,7 +537,7 @@ public class PaymentProfileAttributes
      * Getter for BillingCountry.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
      * or bank account billing address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
      * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
      * is supported at this time.
@@ -553,7 +553,7 @@ public class PaymentProfileAttributes
      * Setter for BillingCountry.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
      * or bank account billing address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
      * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
      * is supported at this time.
@@ -567,8 +567,8 @@ public class PaymentProfileAttributes
     /**
      * Getter for BillingZip.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing address zip code (i.e. 12345). This value is merely passed through to
-     * the payment gateway.
+     * or bank account billing address zip code (e.g., 12345). This value is merely passed through
+     * to the payment gateway.
      * @return Returns the String
      */
     @JsonGetter("billing_zip")
@@ -580,8 +580,8 @@ public class PaymentProfileAttributes
     /**
      * Setter for BillingZip.
      * (Optional, may be required by your product configuration or gateway settings) The credit card
-     * or bank account billing address zip code (i.e. 12345). This value is merely passed through to
-     * the payment gateway.
+     * or bank account billing address zip code (e.g., 12345). This value is merely passed through
+     * to the payment gateway.
      * @param billingZip Value for String
      */
     @JsonSetter("billing_zip")
@@ -780,7 +780,7 @@ public class PaymentProfileAttributes
     /**
      * Getter for LastFour.
      * (Optional, used only for Subscription Import) If you have the last 4 digits of the credit
-     * card number, you may supply them here so that we may create a masked card number (i.e.
+     * card number, you may supply them here so that we may create a masked card number (e.g.,
      * XXXX-XXXX-XXXX-1234) for display in the UI. Last 4 digits are required for refunds in
      * Auth.Net.
      * @return Returns the String
@@ -794,7 +794,7 @@ public class PaymentProfileAttributes
     /**
      * Setter for LastFour.
      * (Optional, used only for Subscription Import) If you have the last 4 digits of the credit
-     * card number, you may supply them here so that we may create a masked card number (i.e.
+     * card number, you may supply them here so that we may create a masked card number (e.g.,
      * XXXX-XXXX-XXXX-1234) for display in the UI. Last 4 digits are required for refunds in
      * Auth.Net.
      * @param lastFour Value for String

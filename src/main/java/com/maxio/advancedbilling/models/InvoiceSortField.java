@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * InvoiceSortField to be used.
  */
@@ -32,7 +31,6 @@ public enum InvoiceSortField {
     DUE_DATE,
 
     NUMBER;
-
 
     private static TreeMap<String, InvoiceSortField> valueMap = new TreeMap<>();
     private String value;

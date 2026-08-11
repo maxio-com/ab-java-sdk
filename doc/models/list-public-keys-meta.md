@@ -14,14 +14,16 @@
 | `TotalPages` | `Integer` | Optional | - | Integer getTotalPages() | setTotalPages(Integer totalPages) |
 | `PerPage` | `Integer` | Optional | - | Integer getPerPage() | setPerPage(Integer perPage) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "total_count": 22,
-  "current_page": 254,
-  "total_pages": 10,
-  "per_page": 24
-}
+```java
+import com.maxio.advancedbilling.models.ListPublicKeysMeta;
+
+ListPublicKeysMeta listPublicKeysMeta = new ListPublicKeysMeta.Builder()
+    .totalCount(232)
+    .currentPage(208)
+    .totalPages(220)
+    .perPage(70)
+    .build();
 ```
 

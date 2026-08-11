@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * WebhookStatus to be used.
  */
@@ -24,7 +23,6 @@ public enum WebhookStatus {
     PENDING,
 
     PAUSED;
-
 
     private static TreeMap<String, WebhookStatus> valueMap = new TreeMap<>();
     private String value;

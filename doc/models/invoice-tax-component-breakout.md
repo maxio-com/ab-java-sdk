@@ -24,15 +24,17 @@
 | `StateAssignedNo` | `String` | Optional | - | String getStateAssignedNo() | setStateAssignedNo(String stateAssignedNo) |
 | `TaxSubType` | `String` | Optional | - | String getTaxSubType() | setTaxSubType(String taxSubType) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "tax_rule_id": 226,
-  "percentage": "percentage0",
-  "country_code": "country_code8",
-  "subdivision_code": "subdivision_code6",
-  "tax_amount": "tax_amount4"
-}
+```java
+import com.maxio.advancedbilling.models.InvoiceTaxComponentBreakout;
+
+InvoiceTaxComponentBreakout invoiceTaxComponentBreakout = new InvoiceTaxComponentBreakout.Builder()
+    .taxRuleId(66)
+    .percentage("percentage0")
+    .countryCode("country_code2")
+    .subdivisionCode("subdivision_code6")
+    .taxAmount("tax_amount4")
+    .build();
 ```
 

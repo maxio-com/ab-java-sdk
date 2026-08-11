@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * ApplePayVault to be used.
  */
 public enum ApplePayVault {
     BRAINTREE_BLUE;
-
 
     private static TreeMap<String, ApplePayVault> valueMap = new TreeMap<>();
     private String value;

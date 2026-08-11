@@ -14,14 +14,16 @@
 | `PaymentDueInCents` | `Long` | Optional | The amount of the payment due in the case of an upgrade. | Long getPaymentDueInCents() | setPaymentDueInCents(Long paymentDueInCents) |
 | `CreditAppliedInCents` | `Long` | Optional | Represents a credit in cents that is applied to your subscription as part of a migration process for a specific product, which reduces the amount owed for the subscription. | Long getCreditAppliedInCents() | setCreditAppliedInCents(Long creditAppliedInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "prorated_adjustment_in_cents": 134,
-  "charge_in_cents": 16,
-  "payment_due_in_cents": 188,
-  "credit_applied_in_cents": 148
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionMigrationPreview;
+
+SubscriptionMigrationPreview subscriptionMigrationPreview = new SubscriptionMigrationPreview.Builder()
+    .proratedAdjustmentInCents(6L)
+    .chargeInCents(144L)
+    .paymentDueInCents(60L)
+    .creditAppliedInCents(20L)
+    .build();
 ```
 

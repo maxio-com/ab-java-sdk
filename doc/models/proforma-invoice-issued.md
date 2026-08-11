@@ -21,29 +21,35 @@
 | `ProductName` | `String` | Required | - | String getProductName() | setProductName(String productName) |
 | `LineItems` | [`List<InvoiceLineItemEventData>`](../../doc/models/invoice-line-item-event-data.md) | Required | - | List<InvoiceLineItemEventData> getLineItems() | setLineItems(List<InvoiceLineItemEventData> lineItems) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid0",
-  "number": "number2",
-  "role": "role6",
-  "delivery_date": "2016-03-13",
-  "created_at": "2016-03-13T12:52:32.123Z",
-  "due_amount": "due_amount2",
-  "paid_amount": "paid_amount8",
-  "tax_amount": "tax_amount6",
-  "total_amount": "total_amount6",
-  "product_name": "product_name6",
-  "line_items": [
-    {
-      "uid": "uid8",
-      "title": "title4",
-      "description": "description8",
-      "quantity": 102,
-      "quantity_delta": 204
-    }
-  ]
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.InvoiceLineItemEventData;
+import com.maxio.advancedbilling.models.ProformaInvoiceIssued;
+import java.util.Arrays;
+
+ProformaInvoiceIssued proformaInvoiceIssued = new ProformaInvoiceIssued.Builder(
+    "uid6",
+    "number4",
+    "role0",
+    DateTimeHelper.fromSimpleDate("2016-03-13"),
+    DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"),
+    "due_amount8",
+    "paid_amount8",
+    "tax_amount0",
+    "total_amount2",
+    "product_name2",
+    Arrays.asList(
+        new InvoiceLineItemEventData.Builder()
+            .uid("uid8")
+            .title("title4")
+            .description("description8")
+            .quantity(102)
+            .quantityDelta(204)
+            .build()
+    )
+)
+.build();
 ```
 

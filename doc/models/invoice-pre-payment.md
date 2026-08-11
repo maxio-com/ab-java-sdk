@@ -13,13 +13,15 @@
 | `AmountInCents` | `Long` | Optional | The amount in cents of the prepayment that was created as a result of this payment. | Long getAmountInCents() | setAmountInCents(Long amountInCents) |
 | `EndingBalanceInCents` | `Long` | Optional | The total balance of the prepayment account for this subscription including any prior prepayments | Long getEndingBalanceInCents() | setEndingBalanceInCents(Long endingBalanceInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "subscription_id": 180,
-  "amount_in_cents": 100,
-  "ending_balance_in_cents": 60
-}
+```java
+import com.maxio.advancedbilling.models.InvoicePrePayment;
+
+InvoicePrePayment invoicePrePayment = new InvoicePrePayment.Builder()
+    .subscriptionId(252)
+    .amountInCents(28L)
+    .endingBalanceInCents(244L)
+    .build();
 ```
 

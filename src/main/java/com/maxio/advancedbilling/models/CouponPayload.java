@@ -117,7 +117,7 @@ public class CouponPayload
      * Getter for Code.
      * Required when creating a new coupon. The code is limited to 255 characters. May contain
      * uppercase alphanumeric characters and these special characters (which allow for email
-     * addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
+     * addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”.
      * @return Returns the String
      */
     @JsonGetter("code")
@@ -130,7 +130,7 @@ public class CouponPayload
      * Setter for Code.
      * Required when creating a new coupon. The code is limited to 255 characters. May contain
      * uppercase alphanumeric characters and these special characters (which allow for email
-     * addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”
+     * addresses to be used): “%”, “{@literal @}”, “+”, “-”, “_”, and “.”.
      * @param code Value for String
      */
     @JsonSetter("code")
@@ -164,7 +164,7 @@ public class CouponPayload
     /**
      * Getter for Percentage.
      * Required when creating a new percentage coupon. Can't be used together with amount_in_cents.
-     * Percentage discount
+     * Percentage discount.
      * @return Returns the CouponPayloadPercentage
      */
     @JsonGetter("percentage")
@@ -176,7 +176,7 @@ public class CouponPayload
     /**
      * Setter for Percentage.
      * Required when creating a new percentage coupon. Can't be used together with amount_in_cents.
-     * Percentage discount
+     * Percentage discount.
      * @param percentage Value for CouponPayloadPercentage
      */
     @JsonSetter("percentage")
@@ -187,7 +187,7 @@ public class CouponPayload
     /**
      * Getter for AmountInCents.
      * Required when creating a new flat amount coupon. Can't be used together with percentage. Flat
-     * USD discount
+     * USD discount.
      * @return Returns the Long
      */
     @JsonGetter("amount_in_cents")
@@ -199,7 +199,7 @@ public class CouponPayload
     /**
      * Setter for AmountInCents.
      * Required when creating a new flat amount coupon. Can't be used together with percentage. Flat
-     * USD discount
+     * USD discount.
      * @param amountInCents Value for Long
      */
     @JsonSetter("amount_in_cents")

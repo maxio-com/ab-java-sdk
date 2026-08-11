@@ -411,7 +411,7 @@ public class CreatePaymentProfile
     /**
      * Getter for ExpirationMonth.
      * (Optional when performing an Import via vault_token, required otherwise) The 1- or 2-digit
-     * credit card expiration month, as an integer or string, i.e. 5
+     * credit card expiration month, as an integer or string, e.g., 5
      * @return Returns the CreatePaymentProfileExpirationMonth
      */
     @JsonGetter("expiration_month")
@@ -423,7 +423,7 @@ public class CreatePaymentProfile
     /**
      * Setter for ExpirationMonth.
      * (Optional when performing an Import via vault_token, required otherwise) The 1- or 2-digit
-     * credit card expiration month, as an integer or string, i.e. 5
+     * credit card expiration month, as an integer or string, e.g., 5
      * @param expirationMonth Value for CreatePaymentProfileExpirationMonth
      */
     @JsonSetter("expiration_month")
@@ -433,8 +433,8 @@ public class CreatePaymentProfile
 
     /**
      * Getter for ExpirationYear.
-     * (Optional when performing a Import via vault_token, required otherwise) The 4-digit credit
-     * card expiration year, as an integer or string, i.e. 2012
+     * (Optional when performing an Import via vault_token, required otherwise) The 4-digit credit
+     * card expiration year, as an integer or string, e.g., 2012
      * @return Returns the CreatePaymentProfileExpirationYear
      */
     @JsonGetter("expiration_year")
@@ -445,8 +445,8 @@ public class CreatePaymentProfile
 
     /**
      * Setter for ExpirationYear.
-     * (Optional when performing a Import via vault_token, required otherwise) The 4-digit credit
-     * card expiration year, as an integer or string, i.e. 2012
+     * (Optional when performing an Import via vault_token, required otherwise) The 4-digit credit
+     * card expiration year, as an integer or string, e.g., 2012
      * @param expirationYear Value for CreatePaymentProfileExpirationYear
      */
     @JsonSetter("expiration_year")
@@ -456,7 +456,7 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BillingAddress.
-     * The credit card or bank account billing street address (i.e. 123 Main St.). This value is
+     * The credit card or bank account billing street address (e.g., 123 Main St.). This value is
      * merely passed through to the payment gateway.
      * @return Returns the String
      */
@@ -468,7 +468,7 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BillingAddress.
-     * The credit card or bank account billing street address (i.e. 123 Main St.). This value is
+     * The credit card or bank account billing street address (e.g., 123 Main St.). This value is
      * merely passed through to the payment gateway.
      * @param billingAddress Value for String
      */
@@ -479,7 +479,7 @@ public class CreatePaymentProfile
 
     /**
      * Internal Getter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address e.g., Apt. 100
      * @return Returns the Internal String
      */
     @JsonGetter("billing_address_2")
@@ -491,7 +491,7 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address e.g., Apt. 100
      * @return Returns the String
      */
     public String getBillingAddress2() {
@@ -500,7 +500,7 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address e.g., Apt. 100
      * @param billingAddress2 Value for String
      */
     @JsonSetter("billing_address_2")
@@ -510,7 +510,7 @@ public class CreatePaymentProfile
 
     /**
      * UnSetter for BillingAddress2.
-     * Second line of the customer’s billing address i.e. Apt. 100
+     * Second line of the customer’s billing address e.g., Apt. 100
      */
     public void unsetBillingAddress2() {
         billingAddress2 = null;
@@ -518,7 +518,7 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BillingCity.
-     * The credit card or bank account billing address city (i.e. “Boston”). This value is merely
+     * The credit card or bank account billing address city (e.g., “Boston”). This value is merely
      * passed through to the payment gateway.
      * @return Returns the String
      */
@@ -530,7 +530,7 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BillingCity.
-     * The credit card or bank account billing address city (i.e. “Boston”). This value is merely
+     * The credit card or bank account billing address city (e.g., “Boston”). This value is merely
      * passed through to the payment gateway.
      * @param billingCity Value for String
      */
@@ -541,7 +541,7 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BillingState.
-     * The credit card or bank account billing address state (i.e. MA). This value is merely passed
+     * The credit card or bank account billing address state (e.g., MA). This value is merely passed
      * through to the payment gateway. This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
      * tax locale purposes.
@@ -555,7 +555,7 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BillingState.
-     * The credit card or bank account billing address state (i.e. MA). This value is merely passed
+     * The credit card or bank account billing address state (e.g., MA). This value is merely passed
      * through to the payment gateway. This must conform to the
      * [ISO_3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) in order to be valid for
      * tax locale purposes.
@@ -568,11 +568,11 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BillingCountry.
-     * The credit card or bank account billing address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
+     * “The credit card or bank account billing address country, required in [ISO_3166-1
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
      * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
-     * is supported at this time.
+     * is supported at this time.”
      * @return Returns the String
      */
     @JsonGetter("billing_country")
@@ -583,11 +583,11 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BillingCountry.
-     * The credit card or bank account billing address country, required in [ISO_3166-1
-     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (i.e. “US”). This value is
+     * “The credit card or bank account billing address country, required in [ISO_3166-1
+     * alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format (e.g., “US”). This value is
      * merely passed through to the payment gateway. Some gateways require country codes in a
      * specific format. Check your gateway’s documentation. If creating an ACH subscription, only US
-     * is supported at this time.
+     * is supported at this time.”
      * @param billingCountry Value for String
      */
     @JsonSetter("billing_country")
@@ -597,7 +597,7 @@ public class CreatePaymentProfile
 
     /**
      * Getter for BillingZip.
-     * The credit card or bank account billing address zip code (i.e. 12345). This value is merely
+     * The credit card or bank account billing address zip code (e.g., 12345). This value is merely
      * passed through to the payment gateway.
      * @return Returns the String
      */
@@ -609,7 +609,7 @@ public class CreatePaymentProfile
 
     /**
      * Setter for BillingZip.
-     * The credit card or bank account billing address zip code (i.e. 12345). This value is merely
+     * The credit card or bank account billing address zip code (e.g., 12345). This value is merely
      * passed through to the payment gateway.
      * @param billingZip Value for String
      */
@@ -834,7 +834,7 @@ public class CreatePaymentProfile
     /**
      * Getter for BankIban.
      * (Optional when creating with GoCardless, required with Stripe Direct Debit). International
-     * Bank Account Number. Alternatively, local bank details can be provided
+     * Bank Account Number. Alternatively, local bank details can be provided.
      * @return Returns the String
      */
     @JsonGetter("bank_iban")
@@ -846,7 +846,7 @@ public class CreatePaymentProfile
     /**
      * Setter for BankIban.
      * (Optional when creating with GoCardless, required with Stripe Direct Debit). International
-     * Bank Account Number. Alternatively, local bank details can be provided
+     * Bank Account Number. Alternatively, local bank details can be provided.
      * @param bankIban Value for String
      */
     @JsonSetter("bank_iban")
@@ -857,7 +857,7 @@ public class CreatePaymentProfile
     /**
      * Getter for BankRoutingNumber.
      * (Required when creating with ACH. Optional when creating a subscription with GoCardless). The
-     * routing number of the bank. It becomes bank_code while passing via GoCardless API
+     * routing number of the bank. It becomes bank_code while passing via GoCardless API.
      * @return Returns the String
      */
     @JsonGetter("bank_routing_number")
@@ -869,7 +869,7 @@ public class CreatePaymentProfile
     /**
      * Setter for BankRoutingNumber.
      * (Required when creating with ACH. Optional when creating a subscription with GoCardless). The
-     * routing number of the bank. It becomes bank_code while passing via GoCardless API
+     * routing number of the bank. It becomes bank_code while passing via GoCardless API.
      * @param bankRoutingNumber Value for String
      */
     @JsonSetter("bank_routing_number")
@@ -903,7 +903,7 @@ public class CreatePaymentProfile
     /**
      * Getter for BankBranchCode.
      * (Optional when creating with GoCardless, required with Stripe BECS or BACS Direct Debit)
-     * Branch/Sort code. Alternatively, an IBAN can be provided
+     * Branch/Sort code. Alternatively, an IBAN can be provided.
      * @return Returns the String
      */
     @JsonGetter("bank_branch_code")
@@ -915,7 +915,7 @@ public class CreatePaymentProfile
     /**
      * Setter for BankBranchCode.
      * (Optional when creating with GoCardless, required with Stripe BECS or BACS Direct Debit)
-     * Branch/Sort code. Alternatively, an IBAN can be provided
+     * Branch/Sort code. Alternatively, an IBAN can be provided.
      * @param bankBranchCode Value for String
      */
     @JsonSetter("bank_branch_code")

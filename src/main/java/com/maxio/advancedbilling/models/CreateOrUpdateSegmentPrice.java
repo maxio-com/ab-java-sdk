@@ -82,7 +82,7 @@ public class CreateOrUpdateSegmentPrice
 
     /**
      * Getter for UnitPrice.
-     * The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * The price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065
      * @return Returns the CreateOrUpdateSegmentPriceUnitPrice
      */
     @JsonGetter("unit_price")
@@ -92,7 +92,7 @@ public class CreateOrUpdateSegmentPrice
 
     /**
      * Setter for UnitPrice.
-     * The price can contain up to 8 decimal places. i.e. 1.00 or 0.0012 or 0.00000065
+     * The price can contain up to 8 decimal places. e.g., 1.00 or 0.0012 or 0.00000065
      * @param unitPrice Value for CreateOrUpdateSegmentPriceUnitPrice
      */
     @JsonSetter("unit_price")

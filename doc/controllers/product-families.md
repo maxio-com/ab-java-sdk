@@ -209,6 +209,7 @@ CreateProductFamilyRequest body = new CreateProductFamilyRequest.Builder(
         "Acme Projects"
     )
     .description("Amazing project management tool")
+    .surcharging(false)
     .build()
 )
 .build();
@@ -232,7 +233,8 @@ try {
     "name": "Acme Projects",
     "description": "Amazing project management tool",
     "handle": "acme-projects",
-    "accounting_code": null
+    "accounting_code": null,
+    "surcharging": false
   }
 }
 ```
@@ -246,7 +248,7 @@ try {
 
 # List Product Families
 
-Returns a list of Product Families for a site.
+Lists Product Families for a site.
 
 ```java
 List<ProductFamilyResponse> listProductFamilies(
@@ -295,6 +297,7 @@ try {
       "description": null,
       "handle": "acme-projects",
       "accounting_code": null,
+      "surcharging": false,
       "created_at": "2013-02-20T15:05:51-07:00",
       "updated_at": "2013-02-20T15:05:51-07:00",
       "archived_at": null
@@ -307,6 +310,7 @@ try {
       "description": "Another family.",
       "handle": "bat-family",
       "accounting_code": null,
+      "surcharging": true,
       "created_at": "2014-04-16T12:41:13-06:00",
       "updated_at": "2014-04-16T12:41:13-06:00",
       "archived_at": "2024-11-05T09:30:00-07:00"
@@ -366,6 +370,7 @@ try {
     "description": "",
     "handle": "billing-plans",
     "accounting_code": null,
+    "surcharging": false,
     "archived_at": null
   }
 }

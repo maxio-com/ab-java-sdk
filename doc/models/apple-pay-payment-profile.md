@@ -12,7 +12,7 @@
 | `Id` | `Integer` | Optional | The Chargify-assigned ID of the Apple Pay payment profile. | Integer getId() | setId(Integer id) |
 | `FirstName` | `String` | Optional | The first name of the Apple Pay account holder | String getFirstName() | setFirstName(String firstName) |
 | `LastName` | `String` | Optional | The last name of the Apple Pay account holder | String getLastName() | setLastName(String lastName) |
-| `CustomerId` | `Integer` | Optional | The Chargify-assigned id for the customer record to which the Apple Pay account belongs | Integer getCustomerId() | setCustomerId(Integer customerId) |
+| `CustomerId` | `Integer` | Optional | The Chargify-assigned ID for the customer record to which the Apple Pay account belongs | Integer getCustomerId() | setCustomerId(Integer customerId) |
 | `CurrentVault` | [`ApplePayVault`](../../doc/models/apple-pay-vault.md) | Optional | The vault that stores the payment profile with the provided vault_token. | ApplePayVault getCurrentVault() | setCurrentVault(ApplePayVault currentVault) |
 | `VaultToken` | `String` | Optional | The “token” provided by your vault storage for an already stored payment profile | String getVaultToken() | setVaultToken(String vaultToken) |
 | `BillingAddress` | `String` | Optional | The current billing street address for the Apple Pay account | String getBillingAddress() | setBillingAddress(String billingAddress) |
@@ -28,16 +28,21 @@
 | `CreatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was created | ZonedDateTime getCreatedAt() | setCreatedAt(ZonedDateTime createdAt) |
 | `UpdatedAt` | `ZonedDateTime` | Optional | A timestamp indicating when this payment profile was last updated | ZonedDateTime getUpdatedAt() | setUpdatedAt(ZonedDateTime updatedAt) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "payment_type": "apple_pay",
-  "id": 60,
-  "first_name": "first_name2",
-  "last_name": "last_name0",
-  "customer_id": 98,
-  "current_vault": "braintree_blue"
-}
+```java
+import com.maxio.advancedbilling.models.ApplePayPaymentProfile;
+import com.maxio.advancedbilling.models.ApplePayVault;
+import com.maxio.advancedbilling.models.PaymentType;
+
+ApplePayPaymentProfile applePayPaymentProfile = new ApplePayPaymentProfile.Builder(
+    PaymentType.APPLE_PAY
+)
+.id(252)
+.firstName("first_name0")
+.lastName("last_name8")
+.customerId(34)
+.currentVault(ApplePayVault.BRAINTREE_BLUE)
+.build();
 ```
 

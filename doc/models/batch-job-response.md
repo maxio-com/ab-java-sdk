@@ -11,17 +11,22 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Batchjob` | [`BatchJob`](../../doc/models/batch-job.md) | Required | - | BatchJob getBatchjob() | setBatchjob(BatchJob batchjob) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "batchjob": {
-    "id": 54,
-    "finished_at": "2016-03-13T12:52:32.123Z",
-    "row_count": 62,
-    "created_at": "2016-03-13T12:52:32.123Z",
-    "completed": "completed4"
-  }
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.BatchJob;
+import com.maxio.advancedbilling.models.BatchJobResponse;
+
+BatchJobResponse batchJobResponse = new BatchJobResponse.Builder(
+    new BatchJob.Builder()
+        .id(54)
+        .finishedAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .rowCount(62)
+        .createdAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+        .completed("completed4")
+        .build()
+)
+.build();
 ```
 

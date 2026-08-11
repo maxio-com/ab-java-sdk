@@ -11,14 +11,18 @@
 |  --- | --- | --- | --- | --- | --- |
 | `BankAccountVerification` | [`BankAccountVerification`](../../doc/models/bank-account-verification.md) | Required | - | BankAccountVerification getBankAccountVerification() | setBankAccountVerification(BankAccountVerification bankAccountVerification) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "bank_account_verification": {
-    "deposit_1_in_cents": 244,
-    "deposit_2_in_cents": 6
-  }
-}
+```java
+import com.maxio.advancedbilling.models.BankAccountVerification;
+import com.maxio.advancedbilling.models.BankAccountVerificationRequest;
+
+BankAccountVerificationRequest bankAccountVerificationRequest = new BankAccountVerificationRequest.Builder(
+    new BankAccountVerification.Builder()
+        .deposit1InCents(244L)
+        .deposit2InCents(6L)
+        .build()
+)
+.build();
 ```
 

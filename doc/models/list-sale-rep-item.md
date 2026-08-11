@@ -15,31 +15,35 @@
 | `MrrData` | [`Map<String, SaleRepItemMrr>`](../../doc/models/sale-rep-item-mrr.md) | Optional | - | Map<String, SaleRepItemMrr> getMrrData() | setMrrData(Map<String, SaleRepItemMrr> mrrData) |
 | `TestMode` | `Boolean` | Optional | - | Boolean getTestMode() | setTestMode(Boolean testMode) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "mrr_data": {
-    "november_2019": {
-      "mrr": "$0.00",
-      "usage": "$0.00",
-      "recurring": "$0.00"
-    },
-    "december_2019": {
-      "mrr": "$0.00",
-      "usage": "$0.00",
-      "recurring": "$0.00"
-    },
-    "january_2020": {
-      "mrr": "$400.00",
-      "usage": "$0.00",
-      "recurring": "$400.00"
-    }
-  },
-  "id": 26,
-  "full_name": "full_name8",
-  "subscriptions_count": 154,
-  "test_mode": false
-}
+```java
+import com.maxio.advancedbilling.models.ListSaleRepItem;
+import com.maxio.advancedbilling.models.SaleRepItemMrr;
+import java.util.LinkedHashMap;
+
+ListSaleRepItem listSaleRepItem = new ListSaleRepItem.Builder()
+    .id(54)
+    .fullName("full_name2")
+    .subscriptionsCount(126)
+    .mrrData(new LinkedHashMap<String, SaleRepItemMrr>() {{
+        put("november_2019", new SaleRepItemMrr.Builder()
+            .mrr("$0.00")
+            .usage("$0.00")
+            .recurring("$0.00")
+            .build());
+        put("december_2019", new SaleRepItemMrr.Builder()
+            .mrr("$0.00")
+            .usage("$0.00")
+            .recurring("$0.00")
+            .build());
+        put("january_2020", new SaleRepItemMrr.Builder()
+            .mrr("$400.00")
+            .usage("$0.00")
+            .recurring("$400.00")
+            .build());
+    }})
+    .testMode(false)
+    .build();
 ```
 

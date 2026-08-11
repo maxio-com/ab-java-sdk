@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * PricingScheme to be used.
  */
@@ -24,7 +23,6 @@ public enum PricingScheme {
     PER_UNIT,
 
     TIERED;
-
 
     private static TreeMap<String, PricingScheme> valueMap = new TreeMap<>();
     private String value;

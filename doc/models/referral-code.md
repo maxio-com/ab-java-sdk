@@ -14,14 +14,16 @@
 | `SubscriptionId` | `Integer` | Optional | - | Integer getSubscriptionId() | setSubscriptionId(Integer subscriptionId) |
 | `Code` | `String` | Optional | - | String getCode() | setCode(String code) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 42,
-  "site_id": 224,
-  "subscription_id": 152,
-  "code": "code6"
-}
+```java
+import com.maxio.advancedbilling.models.ReferralCode;
+
+ReferralCode referralCode = new ReferralCode.Builder()
+    .id(186)
+    .siteId(112)
+    .subscriptionId(40)
+    .code("code6")
+    .build();
 ```
 

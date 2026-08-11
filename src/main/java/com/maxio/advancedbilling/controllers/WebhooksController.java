@@ -216,7 +216,7 @@ public final class WebhooksController extends BaseController {
     }
 
     /**
-     * Returns created endpoints for a site.
+     * Lists endpoints configured for a site.
      * @return    Returns the List of Endpoint response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.

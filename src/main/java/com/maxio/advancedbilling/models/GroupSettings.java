@@ -61,7 +61,7 @@ public class GroupSettings
 
     /**
      * Getter for Billing.
-     * Optional attributes related to billing date and accrual. Note: Only applicable for new
+     * (Optional) Attributes related to billing date and accrual. Note: Only applicable for new
      * subscriptions.
      * @return Returns the GroupBilling
      */
@@ -73,7 +73,7 @@ public class GroupSettings
 
     /**
      * Setter for Billing.
-     * Optional attributes related to billing date and accrual. Note: Only applicable for new
+     * (Optional) Attributes related to billing date and accrual. Note: Only applicable for new
      * subscriptions.
      * @param billing Value for GroupBilling
      */

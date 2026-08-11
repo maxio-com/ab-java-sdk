@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.maxio.advancedbilling.models.containers.MeteredUsageNewUnitBalance;
 import io.apimatic.core.types.BaseModel;
 
 /**
@@ -18,7 +19,7 @@ import io.apimatic.core.types.BaseModel;
 public class MeteredUsage
         extends BaseModel {
     private String previousUnitBalance;
-    private int newUnitBalance;
+    private MeteredUsageNewUnitBalance newUnitBalance;
     private int usageQuantity;
     private int componentId;
     private String componentHandle;
@@ -33,7 +34,7 @@ public class MeteredUsage
     /**
      * Initialization constructor.
      * @param  previousUnitBalance  String value for previousUnitBalance.
-     * @param  newUnitBalance  int value for newUnitBalance.
+     * @param  newUnitBalance  MeteredUsageNewUnitBalance value for newUnitBalance.
      * @param  usageQuantity  int value for usageQuantity.
      * @param  componentId  int value for componentId.
      * @param  componentHandle  String value for componentHandle.
@@ -42,7 +43,7 @@ public class MeteredUsage
     @JsonCreator
     public MeteredUsage(
             @JsonProperty("previous_unit_balance") String previousUnitBalance,
-            @JsonProperty("new_unit_balance") int newUnitBalance,
+            @JsonProperty("new_unit_balance") MeteredUsageNewUnitBalance newUnitBalance,
             @JsonProperty("usage_quantity") int usageQuantity,
             @JsonProperty("component_id") int componentId,
             @JsonProperty("component_handle") String componentHandle,
@@ -75,19 +76,19 @@ public class MeteredUsage
 
     /**
      * Getter for NewUnitBalance.
-     * @return Returns the int
+     * @return Returns the MeteredUsageNewUnitBalance
      */
     @JsonGetter("new_unit_balance")
-    public int getNewUnitBalance() {
+    public MeteredUsageNewUnitBalance getNewUnitBalance() {
         return newUnitBalance;
     }
 
     /**
      * Setter for NewUnitBalance.
-     * @param newUnitBalance Value for int
+     * @param newUnitBalance Value for MeteredUsageNewUnitBalance
      */
     @JsonSetter("new_unit_balance")
-    public void setNewUnitBalance(int newUnitBalance) {
+    public void setNewUnitBalance(MeteredUsageNewUnitBalance newUnitBalance) {
         this.newUnitBalance = newUnitBalance;
     }
 
@@ -191,7 +192,7 @@ public class MeteredUsage
      */
     public static class Builder {
         private String previousUnitBalance;
-        private int newUnitBalance;
+        private MeteredUsageNewUnitBalance newUnitBalance;
         private int usageQuantity;
         private int componentId;
         private String componentHandle;
@@ -206,14 +207,14 @@ public class MeteredUsage
         /**
          * Initialization constructor.
          * @param  previousUnitBalance  String value for previousUnitBalance.
-         * @param  newUnitBalance  int value for newUnitBalance.
+         * @param  newUnitBalance  MeteredUsageNewUnitBalance value for newUnitBalance.
          * @param  usageQuantity  int value for usageQuantity.
          * @param  componentId  int value for componentId.
          * @param  componentHandle  String value for componentHandle.
          * @param  memo  String value for memo.
          */
-        public Builder(String previousUnitBalance, int newUnitBalance, int usageQuantity,
-                int componentId, String componentHandle, String memo) {
+        public Builder(String previousUnitBalance, MeteredUsageNewUnitBalance newUnitBalance,
+                int usageQuantity, int componentId, String componentHandle, String memo) {
             this.previousUnitBalance = previousUnitBalance;
             this.newUnitBalance = newUnitBalance;
             this.usageQuantity = usageQuantity;
@@ -234,10 +235,10 @@ public class MeteredUsage
 
         /**
          * Setter for newUnitBalance.
-         * @param  newUnitBalance  int value for newUnitBalance.
+         * @param  newUnitBalance  MeteredUsageNewUnitBalance value for newUnitBalance.
          * @return Builder
          */
-        public Builder newUnitBalance(int newUnitBalance) {
+        public Builder newUnitBalance(MeteredUsageNewUnitBalance newUnitBalance) {
             this.newUnitBalance = newUnitBalance;
             return this;
         }

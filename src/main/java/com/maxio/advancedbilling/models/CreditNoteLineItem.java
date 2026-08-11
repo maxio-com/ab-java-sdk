@@ -261,7 +261,7 @@ public class CreditNoteLineItem
 
     /**
      * Getter for UnitPrice.
-     * The price per unit for the line item. When tiered pricing was used (i.e. not every unit was
+     * The price per unit for the line item. When tiered pricing was used (i.e., not every unit was
      * actually priced at the same price) this will be the blended average cost per unit and the
      * `tiered_unit_price` field will be set to `true`.
      * @return Returns the String
@@ -274,7 +274,7 @@ public class CreditNoteLineItem
 
     /**
      * Setter for UnitPrice.
-     * The price per unit for the line item. When tiered pricing was used (i.e. not every unit was
+     * The price per unit for the line item. When tiered pricing was used (i.e., not every unit was
      * actually priced at the same price) this will be the blended average cost per unit and the
      * `tiered_unit_price` field will be set to `true`.
      * @param unitPrice Value for String

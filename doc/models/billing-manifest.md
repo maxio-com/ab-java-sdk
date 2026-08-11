@@ -19,37 +19,29 @@
 | `PeriodType` | `String` | Optional | - | String getPeriodType() | setPeriodType(String periodType) |
 | `ExistingBalanceInCents` | `Long` | Optional | - | Long getExistingBalanceInCents() | setExistingBalanceInCents(Long existingBalanceInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "line_items": [
-    {
-      "transaction_type": "credit",
-      "kind": "component",
-      "amount_in_cents": 24,
-      "memo": "memo2",
-      "discount_amount_in_cents": 172
-    },
-    {
-      "transaction_type": "credit",
-      "kind": "component",
-      "amount_in_cents": 24,
-      "memo": "memo2",
-      "discount_amount_in_cents": 172
-    },
-    {
-      "transaction_type": "credit",
-      "kind": "component",
-      "amount_in_cents": 24,
-      "memo": "memo2",
-      "discount_amount_in_cents": 172
-    }
-  ],
-  "total_in_cents": 192,
-  "total_discount_in_cents": 178,
-  "total_tax_in_cents": 172,
-  "subtotal_in_cents": 48
-}
+```java
+import com.maxio.advancedbilling.models.BillingManifest;
+import com.maxio.advancedbilling.models.BillingManifestItem;
+import com.maxio.advancedbilling.models.BillingManifestLineItemKind;
+import com.maxio.advancedbilling.models.LineItemTransactionType;
+import java.util.Arrays;
+
+BillingManifest billingManifest = new BillingManifest.Builder()
+    .lineItems(Arrays.asList(
+        new BillingManifestItem.Builder()
+            .transactionType(LineItemTransactionType.CREDIT)
+            .kind(BillingManifestLineItemKind.COMPONENT)
+            .amountInCents(24L)
+            .memo("memo2")
+            .discountAmountInCents(172L)
+            .build()
+    ))
+    .totalInCents(96L)
+    .totalDiscountInCents(174L)
+    .totalTaxInCents(76L)
+    .subtotalInCents(208L)
+    .build();
 ```
 

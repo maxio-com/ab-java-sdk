@@ -16,14 +16,16 @@ Information for captured payment, if applicable
 | `Success` | `Boolean` | Optional | - | Boolean getSuccess() | setSuccess(Boolean success) |
 | `Memo` | `String` | Optional | - | String getMemo() | setMemo(String memo) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "id": 72,
-  "amount_in_cents": 158,
-  "success": false,
-  "memo": "memo6"
-}
+```java
+import com.maxio.advancedbilling.models.PaymentForAllocation;
+
+PaymentForAllocation paymentForAllocation = new PaymentForAllocation.Builder()
+    .id(68)
+    .amountInCents(102L)
+    .success(false)
+    .memo("memo6")
+    .build();
 ```
 

@@ -27,7 +27,7 @@ public class CreditCardPaymentProfile
     private String firstName;
     private String lastName;
     private String maskedCardNumber;
-    private CardType cardType;
+    private OptionalNullable<CardType> cardType;
     private Integer expirationMonth;
     private Integer expirationYear;
     private Integer customerId;
@@ -111,7 +111,7 @@ public class CreditCardPaymentProfile
         this.firstName = firstName;
         this.lastName = lastName;
         this.maskedCardNumber = maskedCardNumber;
-        this.cardType = cardType;
+        this.cardType = OptionalNullable.of(cardType);
         this.expirationMonth = expirationMonth;
         this.expirationYear = expirationYear;
         this.customerId = customerId;
@@ -162,15 +162,15 @@ public class CreditCardPaymentProfile
      */
 
     protected CreditCardPaymentProfile(PaymentType paymentType, Integer id, String firstName,
-            String lastName, String maskedCardNumber, CardType cardType, Integer expirationMonth,
-            Integer expirationYear, Integer customerId, CreditCardVault currentVault,
-            OptionalNullable<String> vaultToken, OptionalNullable<String> billingAddress,
-            OptionalNullable<String> billingCity, OptionalNullable<String> billingState,
-            OptionalNullable<String> billingZip, OptionalNullable<String> billingCountry,
-            OptionalNullable<String> customerVaultToken, OptionalNullable<String> billingAddress2,
-            Boolean disabled, String chargifyToken, OptionalNullable<Integer> siteGatewaySettingId,
-            OptionalNullable<String> gatewayHandle, ZonedDateTime createdAt,
-            ZonedDateTime updatedAt) {
+            String lastName, String maskedCardNumber, OptionalNullable<CardType> cardType,
+            Integer expirationMonth, Integer expirationYear, Integer customerId,
+            CreditCardVault currentVault, OptionalNullable<String> vaultToken,
+            OptionalNullable<String> billingAddress, OptionalNullable<String> billingCity,
+            OptionalNullable<String> billingState, OptionalNullable<String> billingZip,
+            OptionalNullable<String> billingCountry, OptionalNullable<String> customerVaultToken,
+            OptionalNullable<String> billingAddress2, Boolean disabled, String chargifyToken,
+            OptionalNullable<Integer> siteGatewaySettingId, OptionalNullable<String> gatewayHandle,
+            ZonedDateTime createdAt, ZonedDateTime updatedAt) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -204,11 +204,12 @@ public class CreditCardPaymentProfile
     @JsonCreator
     protected CreditCardPaymentProfile(
             @JsonProperty("payment_type") PaymentType paymentType) {
-        this(paymentType, null, null, null, null, null, null, null, null, null,
+        this(paymentType, null, null, null, null, OptionalNullable.of(null), null, null, null, null,
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), OptionalNullable.of(null),
                 OptionalNullable.of(null), OptionalNullable.of(null), null, null,
                 OptionalNullable.of(null), OptionalNullable.of(null), null, null);
+        unsetCardType();
         unsetVaultToken();
         unsetBillingAddress();
         unsetBillingCity();
@@ -291,7 +292,7 @@ public class CreditCardPaymentProfile
     /**
      * Getter for MaskedCardNumber.
      * A string representation of the credit card number with all but the last 4 digits masked with
-     * X’s (i.e. ‘XXXX-XXXX-XXXX-1234’).
+     * X’s (e.g., ‘XXXX-XXXX-XXXX-1234’).
      * @return Returns the String
      */
     @JsonGetter("masked_card_number")
@@ -303,7 +304,7 @@ public class CreditCardPaymentProfile
     /**
      * Setter for MaskedCardNumber.
      * A string representation of the credit card number with all but the last 4 digits masked with
-     * X’s (i.e. ‘XXXX-XXXX-XXXX-1234’).
+     * X’s (e.g., ‘XXXX-XXXX-XXXX-1234’).
      * @param maskedCardNumber Value for String
      */
     @JsonSetter("masked_card_number")
@@ -312,14 +313,24 @@ public class CreditCardPaymentProfile
     }
 
     /**
+     * Internal Getter for CardType.
+     * The type of card used.
+     * @return Returns the Internal CardType
+     */
+    @JsonGetter("card_type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = OptionalNullable.Serializer.class)
+    protected OptionalNullable<CardType> internalGetCardType() {
+        return this.cardType;
+    }
+
+    /**
      * Getter for CardType.
      * The type of card used.
      * @return Returns the CardType
      */
-    @JsonGetter("card_type")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public CardType getCardType() {
-        return cardType;
+        return OptionalNullable.getFrom(cardType);
     }
 
     /**
@@ -329,7 +340,15 @@ public class CreditCardPaymentProfile
      */
     @JsonSetter("card_type")
     public void setCardType(CardType cardType) {
-        this.cardType = cardType;
+        this.cardType = OptionalNullable.of(cardType);
+    }
+
+    /**
+     * UnSetter for CardType.
+     * The type of card used.
+     */
+    public void unsetCardType() {
+        cardType = null;
     }
 
     /**
@@ -355,7 +374,7 @@ public class CreditCardPaymentProfile
 
     /**
      * Getter for ExpirationYear.
-     * An integer representing the 4-digit expiration year of the card(i.e. ‘2012’).
+     * An integer representing the 4-digit expiration year of the card(e.g., ‘2012’).
      * @return Returns the Integer
      */
     @JsonGetter("expiration_year")
@@ -366,7 +385,7 @@ public class CreditCardPaymentProfile
 
     /**
      * Setter for ExpirationYear.
-     * An integer representing the 4-digit expiration year of the card(i.e. ‘2012’).
+     * An integer representing the 4-digit expiration year of the card(e.g., ‘2012’).
      * @param expirationYear Value for Integer
      */
     @JsonSetter("expiration_year")
@@ -774,8 +793,8 @@ public class CreditCardPaymentProfile
     /**
      * Getter for ChargifyToken.
      * Token received after sending billing information using Maxio.js (formerly Chargify.js). This
-     * token will only be received if passed as a sole attribute of credit_card_attributes (i.e.
-     * tok_9g6hw85pnpt6knmskpwp4ttt)
+     * token will only be received if passed as a sole attribute of credit_card_attributes (e.g.,
+     * tok_9g6hw85pnpt6knmskpwp4ttt).
      * @return Returns the String
      */
     @JsonGetter("chargify_token")
@@ -787,8 +806,8 @@ public class CreditCardPaymentProfile
     /**
      * Setter for ChargifyToken.
      * Token received after sending billing information using Maxio.js (formerly Chargify.js). This
-     * token will only be received if passed as a sole attribute of credit_card_attributes (i.e.
-     * tok_9g6hw85pnpt6knmskpwp4ttt)
+     * token will only be received if passed as a sole attribute of credit_card_attributes (e.g.,
+     * tok_9g6hw85pnpt6knmskpwp4ttt).
      * @param chargifyToken Value for String
      */
     @JsonSetter("chargify_token")
@@ -948,7 +967,6 @@ public class CreditCardPaymentProfile
                 .firstName(getFirstName())
                 .lastName(getLastName())
                 .maskedCardNumber(getMaskedCardNumber())
-                .cardType(getCardType())
                 .expirationMonth(getExpirationMonth())
                 .expirationYear(getExpirationYear())
                 .customerId(getCustomerId())
@@ -957,6 +975,7 @@ public class CreditCardPaymentProfile
                 .chargifyToken(getChargifyToken())
                 .createdAt(getCreatedAt())
                 .updatedAt(getUpdatedAt());
+        builder.cardType = internalGetCardType();
         builder.vaultToken = internalGetVaultToken();
         builder.billingAddress = internalGetBillingAddress();
         builder.billingCity = internalGetBillingCity();
@@ -979,7 +998,7 @@ public class CreditCardPaymentProfile
         private String firstName;
         private String lastName;
         private String maskedCardNumber;
-        private CardType cardType;
+        private OptionalNullable<CardType> cardType;
         private Integer expirationMonth;
         private Integer expirationYear;
         private Integer customerId;
@@ -1069,7 +1088,16 @@ public class CreditCardPaymentProfile
          * @return Builder
          */
         public Builder cardType(CardType cardType) {
-            this.cardType = cardType;
+            this.cardType = OptionalNullable.of(cardType);
+            return this;
+        }
+
+        /**
+         * UnSetter for cardType.
+         * @return Builder
+         */
+        public Builder unsetCardType() {
+            cardType = null;
             return this;
         }
 

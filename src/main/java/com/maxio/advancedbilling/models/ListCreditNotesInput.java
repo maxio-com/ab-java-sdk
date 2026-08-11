@@ -143,7 +143,7 @@ public class ListCreditNotesInput {
 
     /**
      * Getter for LineItems.
-     * Include line items data
+     * Include line items data.
      * @return Returns the Boolean
      */
     @JsonGetter("line_items")
@@ -154,7 +154,7 @@ public class ListCreditNotesInput {
 
     /**
      * Setter for LineItems.
-     * Include line items data
+     * Include line items data.
      * @param lineItems Value for Boolean
      */
     @JsonSetter("line_items")
@@ -164,7 +164,7 @@ public class ListCreditNotesInput {
 
     /**
      * Getter for Discounts.
-     * Include discounts data
+     * Include discounts data.
      * @return Returns the Boolean
      */
     @JsonGetter("discounts")
@@ -175,7 +175,7 @@ public class ListCreditNotesInput {
 
     /**
      * Setter for Discounts.
-     * Include discounts data
+     * Include discounts data.
      * @param discounts Value for Boolean
      */
     @JsonSetter("discounts")
@@ -185,7 +185,7 @@ public class ListCreditNotesInput {
 
     /**
      * Getter for Taxes.
-     * Include taxes data
+     * Include taxes data.
      * @return Returns the Boolean
      */
     @JsonGetter("taxes")
@@ -196,7 +196,7 @@ public class ListCreditNotesInput {
 
     /**
      * Setter for Taxes.
-     * Include taxes data
+     * Include taxes data.
      * @param taxes Value for Boolean
      */
     @JsonSetter("taxes")
@@ -206,7 +206,7 @@ public class ListCreditNotesInput {
 
     /**
      * Getter for Refunds.
-     * Include refunds data
+     * Include refunds data.
      * @return Returns the Boolean
      */
     @JsonGetter("refunds")
@@ -217,7 +217,7 @@ public class ListCreditNotesInput {
 
     /**
      * Setter for Refunds.
-     * Include refunds data
+     * Include refunds data.
      * @param refunds Value for Boolean
      */
     @JsonSetter("refunds")
@@ -227,7 +227,7 @@ public class ListCreditNotesInput {
 
     /**
      * Getter for Applications.
-     * Include applications data
+     * Include applications data.
      * @return Returns the Boolean
      */
     @JsonGetter("applications")
@@ -238,7 +238,7 @@ public class ListCreditNotesInput {
 
     /**
      * Setter for Applications.
-     * Include applications data
+     * Include applications data.
      * @param applications Value for Boolean
      */
     @JsonSetter("applications")

@@ -12,12 +12,14 @@
 | `Handle` | `String` | Optional | - | String getHandle() | setHandle(String handle) |
 | `PriceInCents` | `Long` | Optional | - | Long getPriceInCents() | setPriceInCents(Long priceInCents) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "handle": "handle6",
-  "price_in_cents": 220
-}
+```java
+import com.maxio.advancedbilling.models.UpdateProductPricePoint;
+
+UpdateProductPricePoint updateProductPricePoint = new UpdateProductPricePoint.Builder()
+    .handle("handle2")
+    .priceInCents(154L)
+    .build();
 ```
 

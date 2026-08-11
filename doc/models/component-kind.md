@@ -17,3 +17,11 @@ A handle for the component type
 | `PREPAID_USAGE_COMPONENT` |
 | `EVENT_BASED_COMPONENT` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.ComponentKind;
+
+ComponentKind componentKind = ComponentKind.PREPAID_USAGE_COMPONENT;
+```
+

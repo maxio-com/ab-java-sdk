@@ -11,17 +11,20 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Offer` | [`Offer`](../../doc/models/offer.md) | Optional | - | Offer getOffer() | setOffer(Offer offer) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "offer": {
-    "id": 28,
-    "site_id": 210,
-    "product_family_id": 224,
-    "product_id": 30,
-    "product_price_point_id": 150
-  }
-}
+```java
+import com.maxio.advancedbilling.models.Offer;
+import com.maxio.advancedbilling.models.OfferResponse;
+
+OfferResponse offerResponse = new OfferResponse.Builder()
+    .offer(new Offer.Builder()
+        .id(28)
+        .siteId(210)
+        .productFamilyId(224)
+        .productId(30)
+        .productPricePointId(150)
+        .build())
+    .build();
 ```
 

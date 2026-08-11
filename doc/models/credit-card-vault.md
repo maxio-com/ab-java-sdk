@@ -45,3 +45,11 @@ The vault that stores the payment profile with the provided `vault_token`. Use `
 | `UNIPAAS` |
 | `WIRECARD` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.CreditCardVault;
+
+CreditCardVault creditCardVault = CreditCardVault.UNIPAAS;
+```
+

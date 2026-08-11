@@ -14,25 +14,15 @@
 | `CouponCodes` | `List<String>` | Optional | - | List<String> getCouponCodes() | setCouponCodes(List<String> couponCodes) |
 | `Subscription` | `List<String>` | Optional | - | List<String> getSubscription() | setSubscription(List<String> subscription) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "codes": [
-    "codes6",
-    "codes7",
-    "codes8"
-  ],
-  "coupon_code": [
-    "coupon_code8",
-    "coupon_code7"
-  ],
-  "coupon_codes": [
-    "coupon_codes2"
-  ],
-  "subscription": [
-    "subscription8"
-  ]
+```java
+try {
+    // make the API call
+} catch (SubscriptionAddCouponErrorException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

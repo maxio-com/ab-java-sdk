@@ -11,15 +11,17 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Members` | `List<String>` | Optional | - | List<String> getMembers() | setMembers(List<String> members) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "members": [
-    "members4",
-    "members5",
-    "members6"
-  ]
-}
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupUpdateError;
+import java.util.Arrays;
+
+SubscriptionGroupUpdateError subscriptionGroupUpdateError = new SubscriptionGroupUpdateError.Builder()
+    .members(Arrays.asList(
+        "members6",
+        "members7"
+    ))
+    .build();
 ```
 

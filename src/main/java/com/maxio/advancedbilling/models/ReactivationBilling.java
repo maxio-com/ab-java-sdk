@@ -37,9 +37,9 @@ public class ReactivationBilling
     /**
      * Getter for ReactivationCharge.
      * You may choose how to handle the reactivation charge for that subscription: 1) `prorated` A
-     * prorated charge for the product price will be attempted for to complete the period 2)
-     * `immediate` A full-price charge for the product price will be attempted immediately 3)
-     * `delayed` A full-price charge for the product price will be attempted at the next renewal
+     * prorated charge for the product price will be attempted to complete the period 2) `immediate`
+     * A full-price charge for the product price will be attempted immediately 3) `delayed` A
+     * full-price charge for the product price will be attempted at the next renewal.
      * @return Returns the ReactivationCharge
      */
     @JsonGetter("reactivation_charge")
@@ -51,9 +51,9 @@ public class ReactivationBilling
     /**
      * Setter for ReactivationCharge.
      * You may choose how to handle the reactivation charge for that subscription: 1) `prorated` A
-     * prorated charge for the product price will be attempted for to complete the period 2)
-     * `immediate` A full-price charge for the product price will be attempted immediately 3)
-     * `delayed` A full-price charge for the product price will be attempted at the next renewal
+     * prorated charge for the product price will be attempted to complete the period 2) `immediate`
+     * A full-price charge for the product price will be attempted immediately 3) `delayed` A
+     * full-price charge for the product price will be attempted at the next renewal.
      * @param reactivationCharge Value for ReactivationCharge
      */
     @JsonSetter("reactivation_charge")

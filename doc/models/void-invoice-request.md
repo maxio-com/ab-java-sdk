@@ -11,13 +11,18 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Void` | [`VoidInvoice`](../../doc/models/void-invoice.md) | Required | - | VoidInvoice getVoid() | setVoid(VoidInvoice mVoid) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "void": {
-    "reason": "reason6"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.VoidInvoice;
+import com.maxio.advancedbilling.models.VoidInvoiceRequest;
+
+VoidInvoiceRequest voidInvoiceRequest = new VoidInvoiceRequest.Builder(
+    new VoidInvoice.Builder(
+        "reason6"
+    )
+    .build()
+)
+.build();
 ```
 

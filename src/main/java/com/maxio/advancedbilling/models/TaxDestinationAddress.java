@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * TaxDestinationAddress to be used.
  */
@@ -24,7 +23,6 @@ public enum TaxDestinationAddress {
     SHIPPING_ONLY,
 
     BILLING_ONLY;
-
 
     private static TreeMap<String, TaxDestinationAddress> valueMap = new TreeMap<>();
     private String value;

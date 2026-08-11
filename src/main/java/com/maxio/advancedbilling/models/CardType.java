@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-
 /**
  * CardType to be used.
  */
@@ -88,7 +87,6 @@ public enum CardType {
     SOLO,
 
     LASER;
-
 
     private static TreeMap<String, CardType> valueMap = new TreeMap<>();
     private String value;

@@ -18,3 +18,11 @@ The type of payment method used. Defaults to other.
 | `ACH` |
 | `OTHER` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.InvoicePaymentMethodType;
+
+InvoicePaymentMethodType invoicePaymentMethodType = InvoicePaymentMethodType.CASH;
+```
+

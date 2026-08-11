@@ -11,18 +11,15 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Errors` | [`ProformaError`](../../doc/models/proforma-error.md) | Optional | - | ProformaError getErrors() | setErrors(ProformaError errors) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "errors": {
-    "subscription": {
-      "base": [
-        "base3",
-        "base4"
-      ]
-    }
-  }
+```java
+try {
+    // make the API call
+} catch (ProformaBadRequestErrorResponseException e) {
+    e.printStackTrace();
+} catch (ApiException e) {
+    e.printStackTrace();
 }
 ```
 

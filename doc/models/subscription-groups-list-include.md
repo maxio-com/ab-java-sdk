@@ -11,3 +11,11 @@
 |  --- |
 | `ACCOUNT_BALANCES` |
 
+## Example
+
+```java
+import com.maxio.advancedbilling.models.SubscriptionGroupsListInclude;
+
+SubscriptionGroupsListInclude subscriptionGroupsListInclude = SubscriptionGroupsListInclude.ACCOUNT_BALANCES;
+```
+

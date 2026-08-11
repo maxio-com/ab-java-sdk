@@ -345,7 +345,7 @@ public class ListInvoicesInput {
 
     /**
      * Getter for LineItems.
-     * Include line items data
+     * Include line items data.
      * @return Returns the Boolean
      */
     @JsonGetter("line_items")
@@ -356,7 +356,7 @@ public class ListInvoicesInput {
 
     /**
      * Setter for LineItems.
-     * Include line items data
+     * Include line items data.
      * @param lineItems Value for Boolean
      */
     @JsonSetter("line_items")
@@ -366,7 +366,7 @@ public class ListInvoicesInput {
 
     /**
      * Getter for Discounts.
-     * Include discounts data
+     * Include discounts data.
      * @return Returns the Boolean
      */
     @JsonGetter("discounts")
@@ -377,7 +377,7 @@ public class ListInvoicesInput {
 
     /**
      * Setter for Discounts.
-     * Include discounts data
+     * Include discounts data.
      * @param discounts Value for Boolean
      */
     @JsonSetter("discounts")
@@ -387,7 +387,7 @@ public class ListInvoicesInput {
 
     /**
      * Getter for Taxes.
-     * Include taxes data
+     * Include taxes data.
      * @return Returns the Boolean
      */
     @JsonGetter("taxes")
@@ -398,7 +398,7 @@ public class ListInvoicesInput {
 
     /**
      * Setter for Taxes.
-     * Include taxes data
+     * Include taxes data.
      * @param taxes Value for Boolean
      */
     @JsonSetter("taxes")
@@ -408,7 +408,7 @@ public class ListInvoicesInput {
 
     /**
      * Getter for Credits.
-     * Include credits data
+     * Include credits data.
      * @return Returns the Boolean
      */
     @JsonGetter("credits")
@@ -419,7 +419,7 @@ public class ListInvoicesInput {
 
     /**
      * Setter for Credits.
-     * Include credits data
+     * Include credits data.
      * @param credits Value for Boolean
      */
     @JsonSetter("credits")
@@ -429,7 +429,7 @@ public class ListInvoicesInput {
 
     /**
      * Getter for Payments.
-     * Include payments data
+     * Include payments data.
      * @return Returns the Boolean
      */
     @JsonGetter("payments")
@@ -440,7 +440,7 @@ public class ListInvoicesInput {
 
     /**
      * Setter for Payments.
-     * Include payments data
+     * Include payments data.
      * @param payments Value for Boolean
      */
     @JsonSetter("payments")
@@ -450,7 +450,7 @@ public class ListInvoicesInput {
 
     /**
      * Getter for CustomFields.
-     * Include custom fields data
+     * Include custom fields data.
      * @return Returns the Boolean
      */
     @JsonGetter("custom_fields")
@@ -461,7 +461,7 @@ public class ListInvoicesInput {
 
     /**
      * Setter for CustomFields.
-     * Include custom fields data
+     * Include custom fields data.
      * @param customFields Value for Boolean
      */
     @JsonSetter("custom_fields")
@@ -471,7 +471,7 @@ public class ListInvoicesInput {
 
     /**
      * Getter for Refunds.
-     * Include refunds data
+     * Include refunds data.
      * @return Returns the Boolean
      */
     @JsonGetter("refunds")
@@ -482,7 +482,7 @@ public class ListInvoicesInput {
 
     /**
      * Setter for Refunds.
-     * Include refunds data
+     * Include refunds data.
      * @param refunds Value for Boolean
      */
     @JsonSetter("refunds")

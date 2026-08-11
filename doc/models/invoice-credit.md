@@ -17,15 +17,18 @@
 | `OriginalAmount` | `String` | Optional | - | String getOriginalAmount() | setOriginalAmount(String originalAmount) |
 | `AppliedAmount` | `String` | Optional | - | String getAppliedAmount() | setAppliedAmount(String appliedAmount) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "uid": "uid6",
-  "credit_note_number": "credit_note_number0",
-  "credit_note_uid": "credit_note_uid0",
-  "transaction_time": "2016-03-13T12:52:32.123Z",
-  "memo": "memo0"
-}
+```java
+import com.maxio.advancedbilling.DateTimeHelper;
+import com.maxio.advancedbilling.models.InvoiceCredit;
+
+InvoiceCredit invoiceCredit = new InvoiceCredit.Builder()
+    .uid("uid8")
+    .creditNoteNumber("credit_note_number2")
+    .creditNoteUid("credit_note_uid2")
+    .transactionTime(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
+    .memo("memo2")
+    .build();
 ```
 

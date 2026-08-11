@@ -225,7 +225,7 @@ public class CouponUsage
 
     /**
      * Internal Getter for Revenue.
-     * Total revenue of the all subscriptions that have received a discount from this coupon.
+     * Total revenue of all subscriptions that have received a discount from this coupon.
      * @return Returns the Internal Integer
      */
     @JsonGetter("revenue")
@@ -237,7 +237,7 @@ public class CouponUsage
 
     /**
      * Getter for Revenue.
-     * Total revenue of the all subscriptions that have received a discount from this coupon.
+     * Total revenue of all subscriptions that have received a discount from this coupon.
      * @return Returns the Integer
      */
     public Integer getRevenue() {
@@ -246,7 +246,7 @@ public class CouponUsage
 
     /**
      * Setter for Revenue.
-     * Total revenue of the all subscriptions that have received a discount from this coupon.
+     * Total revenue of all subscriptions that have received a discount from this coupon.
      * @param revenue Value for Integer
      */
     @JsonSetter("revenue")
@@ -256,7 +256,7 @@ public class CouponUsage
 
     /**
      * UnSetter for Revenue.
-     * Total revenue of the all subscriptions that have received a discount from this coupon.
+     * Total revenue of all subscriptions that have received a discount from this coupon.
      */
     public void unsetRevenue() {
         revenue = null;
@@ -264,7 +264,7 @@ public class CouponUsage
 
     /**
      * Getter for RevenueInCents.
-     * Total revenue of the all subscriptions that have received a discount from this coupon.
+     * Total revenue of all subscriptions that have received a discount from this coupon.
      * @return Returns the Long
      */
     @JsonGetter("revenue_in_cents")
@@ -275,7 +275,7 @@ public class CouponUsage
 
     /**
      * Setter for RevenueInCents.
-     * Total revenue of the all subscriptions that have received a discount from this coupon.
+     * Total revenue of all subscriptions that have received a discount from this coupon.
      * @param revenueInCents Value for Long
      */
     @JsonSetter("revenue_in_cents")

@@ -11,17 +11,21 @@
 |  --- | --- | --- | --- | --- | --- |
 | `Customer` | [`Customer`](../../doc/models/customer.md) | Required | - | Customer getCustomer() | setCustomer(Customer customer) |
 
-## Example (as JSON)
+## Example
 
-```json
-{
-  "customer": {
-    "first_name": "first_name0",
-    "last_name": "last_name8",
-    "email": "email6",
-    "cc_emails": "cc_emails0",
-    "organization": "organization6"
-  }
-}
+```java
+import com.maxio.advancedbilling.models.Customer;
+import com.maxio.advancedbilling.models.CustomerResponse;
+
+CustomerResponse customerResponse = new CustomerResponse.Builder(
+    new Customer.Builder()
+        .firstName("first_name0")
+        .lastName("last_name8")
+        .email("email6")
+        .ccEmails("cc_emails0")
+        .organization("organization6")
+        .build()
+)
+.build();
 ```
 
