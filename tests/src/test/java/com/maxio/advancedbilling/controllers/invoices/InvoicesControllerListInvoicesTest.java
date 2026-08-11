@@ -36,6 +36,7 @@ import com.maxio.advancedbilling.models.containers.CreateInvoiceItemProductId;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemQuantity;
 import com.maxio.advancedbilling.models.containers.CreateInvoiceItemUnitPrice;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentUnitBalance;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import com.maxio.advancedbilling.utils.assertions.CommonAssertions;
@@ -84,7 +85,7 @@ public class InvoicesControllerListInvoicesTest {
             List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                     new CreateSubscriptionComponent.Builder()
                             .componentId(CreateSubscriptionComponentComponentId.fromNumber(meteredComponent.getId()))
-                            .unitBalance(10 + i)
+                            .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(10 + i))
                             .build());
 
             Subscription subscription = testSetup.createSubscription(customer, product, s -> s

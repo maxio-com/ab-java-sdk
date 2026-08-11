@@ -27,6 +27,7 @@ import com.maxio.advancedbilling.models.UpdateSubscription;
 import com.maxio.advancedbilling.models.UpdateSubscriptionComponent;
 import com.maxio.advancedbilling.models.UpdateSubscriptionRequest;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentUnitBalance;
 import com.maxio.advancedbilling.models.containers.PriceEndingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceStartingQuantity;
 import com.maxio.advancedbilling.models.containers.PriceUnitPrice;
@@ -77,11 +78,11 @@ public class SubscriptionsControllerUpdateTest {
         Subscription subscription = TEST_SETUP.createSubscription(CUSTOMER, PRODUCT, b -> b.components(
                 List.of(new CreateSubscriptionComponent.Builder()
                                 .componentId(CreateSubscriptionComponentComponentId.fromNumber(component1.getId()))
-                                .unitBalance(8)
+                                .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(8))
                                 .build(),
                         new CreateSubscriptionComponent.Builder()
                                 .componentId(CreateSubscriptionComponentComponentId.fromNumber(component2.getId()))
-                                .unitBalance(2)
+                                .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(2))
                                 .build())
         ));
 

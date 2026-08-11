@@ -22,6 +22,7 @@ import com.maxio.advancedbilling.models.RefundInvoiceRequest;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupResponse;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentUnitBalance;
 import com.maxio.advancedbilling.models.containers.RefundConsolidatedInvoiceSegmentUids;
 import com.maxio.advancedbilling.models.containers.RefundInvoiceRequestRefund;
 import com.maxio.advancedbilling.utils.TestSetup;
@@ -61,7 +62,7 @@ public class InvoicesControllerRefundInvoiceTest {
         List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                 new CreateSubscriptionComponent.Builder()
                         .componentId(CreateSubscriptionComponentComponentId.fromNumber(meteredComponent.getId()))
-                        .unitBalance(100)
+                        .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(100))
                         .build());
         subscription = testSetup.createSubscription(customer, product, s -> s
                 .couponCode(coupon.getCode())

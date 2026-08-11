@@ -81,7 +81,7 @@ abstract class ProformaInvoicesTestBase {
                 .components(
                         List.of(
                                 new CreateSubscriptionComponent.Builder()
-                                        .unitBalance(20)
+                                        .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(20))
                                         .componentId(CreateSubscriptionComponentComponentId
                                                 .fromNumber(meteredComponent.getId()))
                                         .build(),

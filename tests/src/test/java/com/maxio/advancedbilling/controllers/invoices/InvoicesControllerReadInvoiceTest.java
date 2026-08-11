@@ -27,6 +27,7 @@ import com.maxio.advancedbilling.models.Product;
 import com.maxio.advancedbilling.models.ProductFamily;
 import com.maxio.advancedbilling.models.Subscription;
 import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentComponentId;
+import com.maxio.advancedbilling.models.containers.CreateSubscriptionComponentUnitBalance;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.TestTeardown;
 import org.junit.jupiter.api.AfterAll;
@@ -71,7 +72,7 @@ public class InvoicesControllerReadInvoiceTest {
         List<CreateSubscriptionComponent> subscriptionComponents = List.of(
                 new CreateSubscriptionComponent.Builder()
                         .componentId(CreateSubscriptionComponentComponentId.fromNumber(meteredComponent.getId()))
-                        .unitBalance(10)
+                        .unitBalance(CreateSubscriptionComponentUnitBalance.fromNumber(10))
                         .build());
 
         subscription = testSetup.createSubscription(customer, product, s -> s
