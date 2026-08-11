@@ -19,6 +19,7 @@ import com.maxio.advancedbilling.models.ProformaInvoiceIssued;
 import com.maxio.advancedbilling.models.RefundSuccess;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupEventData;
 import com.maxio.advancedbilling.models.SubscriptionProductChange;
+import com.maxio.advancedbilling.models.SubscriptionProductChangeScheduled;
 import com.maxio.advancedbilling.models.SubscriptionStateChange;
 import com.maxio.advancedbilling.models.containers.EventEventSpecificData;
 
@@ -27,6 +28,12 @@ public class EventSpecificDataGetter<R> implements EventEventSpecificData.Cases<
     @Override
     public R subscriptionProductChange(SubscriptionProductChange subscriptionProductChange) {
         return (R) subscriptionProductChange;
+    }
+
+    @Override
+    public R subscriptionProductChangeScheduled(
+            SubscriptionProductChangeScheduled subscriptionProductChangeScheduled) {
+        return (R) subscriptionProductChangeScheduled;
     }
 
     @Override
