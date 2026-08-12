@@ -31,6 +31,7 @@ import com.maxio.advancedbilling.models.containers.CreateUsageComponentId;
 import com.maxio.advancedbilling.models.containers.CreateUsageSubscriptionIdOrReference;
 import com.maxio.advancedbilling.utils.TestSetup;
 import com.maxio.advancedbilling.utils.matchers.EventSpecificDataGetter;
+import com.maxio.advancedbilling.utils.matchers.MeteredUsageNewUnitBalanceGetter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -216,7 +217,8 @@ public class EventsControllerListEventsTest {
         assertThat(meteredUsageEventData.getComponentId()).isEqualTo(component.getId());
         assertThat(meteredUsageEventData.getComponentHandle()).isEqualTo(component.getHandle());
         assertThat(meteredUsageEventData.getPreviousUnitBalance()).isEqualTo("0.0");
-        assertThat(meteredUsageEventData.getNewUnitBalance()).isEqualTo(2);
+        assertThat(meteredUsageEventData.getNewUnitBalance()
+                .match(new MeteredUsageNewUnitBalanceGetter<Integer>())).isEqualTo(2);
         assertThat(meteredUsageEventData.getUsageQuantity()).isEqualTo(2);
         assertThat(meteredUsageEventData.getMemo()).isNull();
 
@@ -301,7 +303,8 @@ public class EventsControllerListEventsTest {
         assertThat(meteredUsageEventData.getComponentId()).isEqualTo(component.getId());
         assertThat(meteredUsageEventData.getComponentHandle()).isEqualTo(component.getHandle());
         assertThat(meteredUsageEventData.getPreviousUnitBalance()).isEqualTo("0.0");
-        assertThat(meteredUsageEventData.getNewUnitBalance()).isEqualTo(2);
+        assertThat(meteredUsageEventData.getNewUnitBalance()
+                .match(new MeteredUsageNewUnitBalanceGetter<Integer>())).isEqualTo(2);
         assertThat(meteredUsageEventData.getUsageQuantity()).isEqualTo(2);
         assertThat(meteredUsageEventData.getMemo()).isNull();
     }
