@@ -44,9 +44,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -214,7 +211,7 @@ public class InvoicesControllerCreateTest {
                 .containsExactlyInAnyOrder(
                         new InvoiceLineItem.Builder()
                                 .title(product.getName())
-                                .description("%1$s - %1$s".formatted(formatZonedDateTime(product.getCreatedAt())))
+                                .description(null)
                                 .quantity("1.0")
                                 .unitPrice("12.5")
                                 .subtotalAmount("12.5")
@@ -236,7 +233,7 @@ public class InvoicesControllerCreateTest {
                                 .build(),
                         new InvoiceLineItem.Builder()
                                 .title("Custom line")
-                                .description("%1$s - %1$s".formatted(formatZonedDateTime(product.getCreatedAt())))
+                                .description(null)
                                 .quantity("12.5")
                                 .unitPrice("1.8")
                                 .subtotalAmount("22.5")
@@ -258,7 +255,7 @@ public class InvoicesControllerCreateTest {
                                 .build(),
                         new InvoiceLineItem.Builder()
                                 .title(meteredComponent.getName())
-                                .description(meteredComponent.getDescription())
+                                .description(null)
                                 .quantity("10.0")
                                 .unitPrice("11.5")
                                 .subtotalAmount("115.0")
@@ -346,12 +343,5 @@ public class InvoicesControllerCreateTest {
         CommonAssertions.assertUnauthorized(() -> TestClientProvider.createInvalidCredentialsClient().getInvoicesController()
                 .createInvoice(subscription.getId(), new CreateInvoiceRequest())
         );
-    }
-
-    private String formatZonedDateTime(ZonedDateTime zonedDateTime) {
-        return zonedDateTime
-                .truncatedTo(ChronoUnit.DAYS)
-                .toLocalDate()
-                .format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 }
