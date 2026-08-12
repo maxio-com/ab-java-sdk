@@ -322,7 +322,7 @@ public final class SubscriptionGroupsController extends BaseController {
 
     /**
      * Finds the subscription group associated with a subscription. If the subscription is not in a
-     * group, the endpoint will return a 404 code.
+     * group, this endpoint returns an error.
      * @param  subscriptionId  Required parameter: The Advanced Billing id of the subscription
      *         associated with the subscription group
      * @return    Returns the FullSubscriptionGroupResponse response from the API call

@@ -174,16 +174,15 @@ public class Event
     /**
      * Getter for EventSpecificData.
      * The schema varies based on the event key. The key-to-event data mapping is as follows: *
-     * `subscription_product_change` - SubscriptionProductChange *
-     * `subscription_product_change_scheduled` - SubscriptionProductChangeScheduled *
-     * `subscription_state_change` - SubscriptionStateChange * `signup_success`,
-     * `delayed_signup_creation_success`, `payment_success`, `payment_failure`, `renewal_success`,
-     * `renewal_failure`, `chargeback_lost`, `chargeback_accepted`, `chargeback_closed` -
-     * PaymentRelatedEvents * `refund_success` - RefundSuccess * `component_allocation_change` -
-     * ComponentAllocationChange * `metered_usage` - MeteredUsage * `prepaid_usage` - PrepaidUsage *
-     * `dunning_step_reached` - DunningStepReached * `invoice_issued` - InvoiceIssued *
-     * `pending_cancellation_change` - PendingCancellationChange *
-     * `prepaid_subscription_balance_changed` - PrepaidSubscriptionBalanceChanged *
+     * `subscription_product_change`, `subscription_product_change_scheduled` -
+     * SubscriptionProductChange * `subscription_state_change` - SubscriptionStateChange *
+     * `signup_success`, `delayed_signup_creation_success`, `payment_success`, `payment_failure`,
+     * `renewal_success`, `renewal_failure`, `chargeback_lost`, `chargeback_accepted`,
+     * `chargeback_closed` - PaymentRelatedEvents * `refund_success` - RefundSuccess *
+     * `component_allocation_change` - ComponentAllocationChange * `metered_usage` - MeteredUsage *
+     * `prepaid_usage` - PrepaidUsage * `dunning_step_reached` - DunningStepReached *
+     * `invoice_issued` - InvoiceIssued * `pending_cancellation_change` - PendingCancellationChange
+     * * `prepaid_subscription_balance_changed` - PrepaidSubscriptionBalanceChanged *
      * `subscription_group_signup_success` and `subscription_group_signup_failure` -
      * SubscriptionGroupSignupEventData * `proforma_invoice_issued` - ProformaInvoiceIssued *
      * `subscription_prepayment_account_balance_changed` - PrepaymentAccountBalanceChanged *
@@ -226,16 +225,15 @@ public class Event
     /**
      * Setter for EventSpecificData.
      * The schema varies based on the event key. The key-to-event data mapping is as follows: *
-     * `subscription_product_change` - SubscriptionProductChange *
-     * `subscription_product_change_scheduled` - SubscriptionProductChangeScheduled *
-     * `subscription_state_change` - SubscriptionStateChange * `signup_success`,
-     * `delayed_signup_creation_success`, `payment_success`, `payment_failure`, `renewal_success`,
-     * `renewal_failure`, `chargeback_lost`, `chargeback_accepted`, `chargeback_closed` -
-     * PaymentRelatedEvents * `refund_success` - RefundSuccess * `component_allocation_change` -
-     * ComponentAllocationChange * `metered_usage` - MeteredUsage * `prepaid_usage` - PrepaidUsage *
-     * `dunning_step_reached` - DunningStepReached * `invoice_issued` - InvoiceIssued *
-     * `pending_cancellation_change` - PendingCancellationChange *
-     * `prepaid_subscription_balance_changed` - PrepaidSubscriptionBalanceChanged *
+     * `subscription_product_change`, `subscription_product_change_scheduled` -
+     * SubscriptionProductChange * `subscription_state_change` - SubscriptionStateChange *
+     * `signup_success`, `delayed_signup_creation_success`, `payment_success`, `payment_failure`,
+     * `renewal_success`, `renewal_failure`, `chargeback_lost`, `chargeback_accepted`,
+     * `chargeback_closed` - PaymentRelatedEvents * `refund_success` - RefundSuccess *
+     * `component_allocation_change` - ComponentAllocationChange * `metered_usage` - MeteredUsage *
+     * `prepaid_usage` - PrepaidUsage * `dunning_step_reached` - DunningStepReached *
+     * `invoice_issued` - InvoiceIssued * `pending_cancellation_change` - PendingCancellationChange
+     * * `prepaid_subscription_balance_changed` - PrepaidSubscriptionBalanceChanged *
      * `subscription_group_signup_success` and `subscription_group_signup_failure` -
      * SubscriptionGroupSignupEventData * `proforma_invoice_issued` - ProformaInvoiceIssued *
      * `subscription_prepayment_account_balance_changed` - PrepaymentAccountBalanceChanged *

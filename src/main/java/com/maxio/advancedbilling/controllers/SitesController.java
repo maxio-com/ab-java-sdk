@@ -33,14 +33,14 @@ public final class SitesController extends BaseController {
     }
 
     /**
-     * Retrieves site data. Full documentation on Sites in the Advanced Billing UI can be located
-     * [here](https://maxio.zendesk.com/hc/en-us/sections/24250550707085-Sites). Specifically, the
-     * [Clearing Site
+     * Retrieves site data. For more information, see
+     * [Sites](https://maxio.zendesk.com/hc/en-us/sections/24250550707085-Sites) in the product
+     * documentation. Specifically, the [Clearing Site
      * Data](https://maxio.zendesk.com/hc/en-us/articles/24250617028365-Clearing-Site-Data) section
-     * is relevant to this endpoint documentation. #### Relationship invoicing enabled If the site
-     * has RI enabled then you will see more settings like: "customer_hierarchy_enabled": true,
-     * "whopays_enabled": true, "whopays_default_payer": "self" You can read more about these
-     * settings here: [Who Pays &amp; Customer
+     * is relevant to this endpoint. #### Relationship invoicing enabled If the site has
+     * Relationship invoicing enabled, additional properties are returned in the response: ```
+     * "customer_hierarchy_enabled": true, "whopays_enabled": true, "whopays_default_payer": "self"
+     * ``` For more information, see [Who Pays &amp; Customer
      * Hierarchy](https://maxio.zendesk.com/hc/en-us/articles/24252185211533-Customer-Hierarchies-WhoPays).
      * @return    Returns the SiteResponse response from the API call
      * @throws    ApiException    Represents error response from the server.

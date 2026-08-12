@@ -10,7 +10,6 @@
 | Type | Factory Method |
 |  --- | --- |
 | [`SubscriptionProductChange`](../../../doc/models/subscription-product-change.md) | EventEventSpecificData.fromSubscriptionProductChange(SubscriptionProductChange subscriptionProductChange) |
-| [`SubscriptionProductChangeScheduled`](../../../doc/models/subscription-product-change-scheduled.md) | EventEventSpecificData.fromSubscriptionProductChangeScheduled(SubscriptionProductChangeScheduled subscriptionProductChangeScheduled) |
 | [`SubscriptionStateChange`](../../../doc/models/subscription-state-change.md) | EventEventSpecificData.fromSubscriptionStateChange(SubscriptionStateChange subscriptionStateChange) |
 | [`PaymentRelatedEvents`](../../../doc/models/payment-related-events.md) | EventEventSpecificData.fromPaymentRelatedEvents(PaymentRelatedEvents paymentRelatedEvents) |
 | [`RefundSuccess`](../../../doc/models/refund-success.md) | EventEventSpecificData.fromRefundSuccess(RefundSuccess refundSuccess) |
@@ -42,22 +41,6 @@ EventEventSpecificData.fromSubscriptionProductChange(
         new SubscriptionProductChange.Builder(
             126,
             12
-        )
-        .build()
-    )
-```
-
-## SubscriptionProductChangeScheduled
-
-### Initialization Code
-
-#### Example
-
-```java
-EventEventSpecificData.fromSubscriptionProductChangeScheduled(
-        new SubscriptionProductChangeScheduled.Builder(
-            62,
-            52
         )
         .build()
     )

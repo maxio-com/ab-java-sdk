@@ -138,7 +138,7 @@ public final class PaymentProfilesController extends BaseController {
 
     /**
      * Lists all active payment profiles for a site, or for one customer within a site. If no
-     * payment profiles are found, this endpoint will return an empty array, not a 404.
+     * payment profiles are found, this endpoint returns an empty array.
      * @param  input  ListPaymentProfilesInput object containing request parameters
      * @return    Returns the List of PaymentProfileResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -302,7 +302,7 @@ public final class PaymentProfilesController extends BaseController {
 
     /**
      * Deletes an unused payment profile. If the payment profile is in use by one or more
-     * subscriptions or groups, a 422 and error message will be returned.
+     * subscriptions or groups, an error message is returned.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -341,13 +341,13 @@ public final class PaymentProfilesController extends BaseController {
     }
 
     /**
-     * Deletes a payment profile belonging to the customer on the subscription. + If the customer
-     * has multiple subscriptions, the payment profile will be removed from all of them. + If you
-     * delete the default payment profile for a subscription, you will need to specify another
-     * payment profile to be the default through the api, or either prompt the user to enter a card
-     * in the billing portal or on the self-service page, or visit the Payment Details tab on the
-     * subscription in the Admin UI and use the “Add New Credit Card” or “Make Active Payment
-     * Method” link, (depending on whether there are other cards present).
+     * Deletes a payment profile belonging to the customer on the subscription. If the customer has
+     * multiple subscriptions, the payment profile is removed from all of them. If you delete the
+     * default payment profile for a subscription, you need to specify another payment profile to be
+     * the default through the API, or either prompt the user to enter a card in the billing portal
+     * or on the self-service page, or visit the Payment Details tab on the subscription in the
+     * Admin UI and use the “Add New Credit Card” or “Make Active Payment Method” link, (depending
+     * on whether there are other cards present).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  paymentProfileId  Required parameter: The Chargify id of the payment profile
      * @throws    ApiException    Represents error response from the server.

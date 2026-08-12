@@ -153,8 +153,8 @@ public final class EventsBasedBillingSegmentsController extends BaseController {
     }
 
     /**
-     * Updates a single segment for a component with a segmented metric. It allows you to update the
-     * pricing for the segment. You may specify component and/or price point by using either the
+     * Updates a single segment for a component with a segmented metric. You can also update the
+     * pricing for the segment. You can specify component and/or price point by using either the
      * numeric ID or the `handle:gold` syntax.
      * @param  componentId  Required parameter: ID or Handle of the Component
      * @param  pricePointId  Required parameter: ID or Handle of the Price Point belonging to the

@@ -499,7 +499,7 @@ public final class SubscriptionsController extends BaseController {
 
     /**
      * Purges an individual subscription for sites in test mode. Provide the subscription ID in the
-     * url. To confirm, supply the customer ID in the query string `ack` parameter. You may also
+     * URL. To confirm, supply the customer ID in the query string `ack` parameter. You may also
      * delete the customer record and/or payment profiles by passing `cascade` parameters. For
      * example, to delete just the customer record, the query params would be:
      * `?ack={customer_id}&amp;cascade[]=customer` If you need to remove subscriptions from a live site,
@@ -603,10 +603,10 @@ public final class SubscriptionsController extends BaseController {
 
     /**
      * Previews a subscription by POSTing the same JSON or XML as for a subscription creation. The
-     * "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary. A
-     * subscription will not be created by utilizing this endpoint; it is meant to serve as a
-     * prediction. For more information, see our documentation
-     * [here](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
+     * "Next Billing" amount and "Next Billing" date are represented in each Subscriber's Summary.
+     * This endpoint does not create a subscription; it is meant to serve as a prediction. For more
+     * information, see [Subscriber Interface
+     * Overview](https://maxio.zendesk.com/hc/en-us/articles/24252493695757-Subscriber-Interface-Overview).
      * ## Subscriptions can now work independently from the catalog If you have the new [Catalog
      * experience](page:help/announcements/2026-announcements#new-catalog-experience-and-terminology)
      * enabled, you can create subscriptions without a `product_id` or `product_handle` using POST
@@ -617,22 +617,21 @@ public final class SubscriptionsController extends BaseController {
      * included, they are applied at creation. In the response, product and product price point
      * fields are null, and component details are returned instead. This functionality is supported
      * in the API, but is not currently supported in SDKs. ## Taxable Subscriptions This endpoint
-     * will preview taxes applicable to a purchase. In order for taxes to be previewed, the
-     * following conditions must be met: + Taxes must be configured on the subscription + The
-     * preview must be for the purchase of a taxable product or component, or combination of the
-     * two. + The subscription payload must contain a full billing or shipping address in order to
-     * calculate tax For more information about creating taxable previews, see our documentation
-     * guide on how to create [taxable
-     * subscriptions.](https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes) You do
-     * **not** need to include a card number to generate tax information when you are previewing a
+     * previews taxes applicable to a purchase. For taxes to be previewed, the following conditions
+     * must be met: + Taxes must be configured on the subscription + The preview must be for the
+     * purchase of a taxable product or component, or combination of the two. + The subscription
+     * payload must contain a full billing or shipping address to calculate tax For more information
+     * about creating taxable previews, see
+     * [Taxes](https://maxio.zendesk.com/hc/en-us/sections/24287012349325-Taxes). You do **not**
+     * need to include a card number to generate tax information when you are previewing a
      * subscription. However, when you actually want to create the subscription, you must include
-     * the credit card information if you want the billing address to be stored in Advanced Billing.
-     * The billing address and the credit card information are stored together within the payment
-     * profile object. Also, you may not send a billing address to Advanced Billing without payment
-     * profile information, as the address is stored on the card. You can pass shipping and billing
-     * addresses and still decide not to calculate taxes. To do that, pass
-     * `skip_billing_manifest_taxes: true` attribute. ## Non-taxable Subscriptions If you'd like to
-     * calculate subscriptions that do not include tax you may leave off the billing information.
+     * the credit card information if you want the billing address to be stored. The billing address
+     * and the credit card information are stored together within the payment profile object. Also,
+     * you cannot send a billing address without payment profile information, as the address is
+     * stored on the card. You can pass shipping and billing addresses and still decide not to
+     * calculate taxes. To do that, pass `skip_billing_manifest_taxes: true` attribute. ##
+     * Non-taxable Subscriptions If you'd like to calculate subscriptions that do not include tax,
+     * you can leave off the billing information.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionPreviewResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
@@ -734,8 +733,8 @@ public final class SubscriptionsController extends BaseController {
 
     /**
      * Removes a coupon from an existing subscription. For more information on the expected behavior
-     * of removing a coupon from a subscription, see our documentation
-     * [here.](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon).
+     * of removing a coupon from a subscription, see [Coupons and
+     * Subscriptions](https://maxio.zendesk.com/hc/en-us/articles/24261259337101-Coupons-and-Subscriptions#removing-a-coupon).
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  couponCode  Optional parameter: The coupon code
      * @return    Returns the String response from the API call
@@ -780,18 +779,16 @@ public final class SubscriptionsController extends BaseController {
 
     /**
      * Activates awaiting signup and trialing subscriptions. This feature is only available on the
-     * Relationship Invoicing architecture. Subscriptions in a group may not be activated
-     * immediately. For details on how the activation works, and how to activate subscriptions
-     * through the application, see [activation](#). The `revert_on_failure` parameter controls the
-     * behavior upon activation failure. - If set to `true` and something goes wrong i.e. payment
-     * fails, then Advanced Billing will not change the subscription's state. The subscription’s
-     * billing period will also remain the same. - If set to `false` and something goes wrong i.e.
-     * payment fails, then Advanced Billing will continue through with the activation and enter an
-     * end of life state. For trialing subscriptions, that will either be trial ended (if the trial
-     * is no obligation), past due (if the trial has an obligation), or canceled (if the site has no
+     * Relationship Invoicing architecture. Subscriptions in a group cannot be activated
+     * immediately. The `revert_on_failure` parameter controls the behavior upon activation failure.
+     * - If set to `true` and something goes wrong i.e. payment fails, the subscription's state does
+     * not change. The subscription’s billing period also remains the same. - If set to `false` and
+     * something goes wrong i.e. payment fails, the activation continues and enters an end of life
+     * state. For trialing subscriptions, that is either trial ended (if the trial is no
+     * obligation), past due (if the trial has an obligation), or canceled (if the site has no
      * dunning strategy, or has a strategy that says to cancel immediately). For awaiting signup
-     * subscriptions, that will always be canceled. The default activation failure behavior can be
-     * configured per activation attempt, or you may set a default value under Config &gt; Settings &gt;
+     * subscriptions, that is always canceled. The default activation failure behavior can be
+     * configured per activation attempt, or you can set a default value under Config &gt; Settings &gt;
      * Subscription Activation Settings. ## Activation Scenarios ### Activate Awaiting Signup
      * subscription - Given you have a product without trial - Given you have a site without dunning
      * strategy ```mermaid flowchart LR AS[Awaiting Signup] --&gt; A{Activate} A --&gt;|Success| Active A
@@ -799,11 +796,11 @@ public final class SubscriptionsController extends BaseController {
      * have a product with trial - Given you have a site with dunning strategy ```mermaid flowchart
      * LR AS[Awaiting Signup] --&gt; A{Activate} A --&gt;|Success| Trialing A --&gt;|Failure|
      * ROF{revert_on_failure} ROF --&gt;|true| AS ROF --&gt;|false| PD[Past Due] ``` ### Activate Trialing
-     * subscription You can read more about the behavior of trialing subscriptions
-     * [here](https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions).
-     * When the `revert_on_failure` parameter is set to `true`, the subscription's state will remain
-     * as Trialing, we will void the invoice from activation and return any prepayments and credits
-     * applied to the invoice back to the subscription.
+     * subscription For more information about the behavior of trialing subscriptions, see [Trialing
+     * Subscriptions](https://maxio.zendesk.com/hc/en-us/articles/24252155721869-Trialing-Subscriptions).
+     * When the `revert_on_failure` parameter is set to `true`, the subscription's state remains
+     * Trialing; the invoice from activation is voided, and any prepayments and credits applied to
+     * the invoice are returned to the subscription.
      * @param  subscriptionId  Required parameter: The Chargify id of the subscription.
      * @param  body  Optional parameter:
      * @return    Returns the SubscriptionResponse response from the API call

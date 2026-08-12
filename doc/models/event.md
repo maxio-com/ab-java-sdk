@@ -38,6 +38,9 @@ Event event = new Event.Builder(
             126,
             12
         )
+        .previousProductPricePointId(250)
+        .newProductPricePointId(244)
+        .effectiveAt(DateTimeHelper.fromRfc8601DateTime("2016-03-13T12:52:32.123Z"))
         .build()
     )
 )

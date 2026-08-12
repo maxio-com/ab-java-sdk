@@ -35,7 +35,6 @@ import com.maxio.advancedbilling.models.ProformaInvoiceIssued;
 import com.maxio.advancedbilling.models.RefundSuccess;
 import com.maxio.advancedbilling.models.SubscriptionGroupSignupEventData;
 import com.maxio.advancedbilling.models.SubscriptionProductChange;
-import com.maxio.advancedbilling.models.SubscriptionProductChangeScheduled;
 import com.maxio.advancedbilling.models.SubscriptionStateChange;
 import io.apimatic.core.annotations.TypeCombinator.TypeCombinatorCase;
 import java.io.IOException;
@@ -55,16 +54,6 @@ public abstract class EventEventSpecificData {
     public static EventEventSpecificData fromSubscriptionProductChange(
             SubscriptionProductChange subscriptionProductChange) {
         return subscriptionProductChange == null ? null : new SubscriptionProductChangeCase(subscriptionProductChange);
-    }
-
-    /**
-     * This is Subscription Product Change Scheduled case.
-     * @param subscriptionProductChangeScheduled SubscriptionProductChangeScheduled value for subscriptionProductChangeScheduled.
-     * @return The SubscriptionProductChangeScheduledCase object.
-     */
-    public static EventEventSpecificData fromSubscriptionProductChangeScheduled(
-            SubscriptionProductChangeScheduled subscriptionProductChangeScheduled) {
-        return subscriptionProductChangeScheduled == null ? null : new SubscriptionProductChangeScheduledCase(subscriptionProductChangeScheduled);
     }
 
     /**
@@ -268,8 +257,6 @@ public abstract class EventEventSpecificData {
     public interface Cases<R> {
         R subscriptionProductChange(SubscriptionProductChange subscriptionProductChange);
 
-        R subscriptionProductChangeScheduled(SubscriptionProductChangeScheduled subscriptionProductChangeScheduled);
-
         R subscriptionStateChange(SubscriptionStateChange subscriptionStateChange);
 
         R paymentRelatedEvents(PaymentRelatedEvents paymentRelatedEvents);
@@ -337,37 +324,6 @@ public abstract class EventEventSpecificData {
         @Override
         public String toString() {
             return subscriptionProductChange.toString();
-        }
-    }
-
-    /**
-     * This is a implementation class for SubscriptionProductChangeScheduledCase.
-     */
-    @JsonDeserialize(using = JsonDeserializer.None.class)
-    @TypeCombinatorCase(type = "SubscriptionProductChangeScheduled")
-    private static class SubscriptionProductChangeScheduledCase extends EventEventSpecificData {
-
-        @JsonValue
-        private SubscriptionProductChangeScheduled subscriptionProductChangeScheduled;
-
-        SubscriptionProductChangeScheduledCase(SubscriptionProductChangeScheduled subscriptionProductChangeScheduled) {
-            this.subscriptionProductChangeScheduled = subscriptionProductChangeScheduled;
-        }
-
-        @Override
-        public <R> R match(Cases<R> cases) {
-            return cases.subscriptionProductChangeScheduled(this.subscriptionProductChangeScheduled);
-        }
-
-        @JsonCreator
-        private SubscriptionProductChangeScheduledCase(JsonNode jsonNode) throws IOException {
-            this.subscriptionProductChangeScheduled = ApiHelper.deserialize(jsonNode,
-                SubscriptionProductChangeScheduled.class);
-        }
-
-        @Override
-        public String toString() {
-            return subscriptionProductChangeScheduled.toString();
         }
     }
 
@@ -972,11 +928,10 @@ public abstract class EventEventSpecificData {
             ObjectCodec oc = jp.getCodec();
             JsonNode node = oc.readTree(jp);
             return ApiHelper.deserialize(node, Arrays.asList(SubscriptionProductChangeCase.class,
-                    SubscriptionProductChangeScheduledCase.class, SubscriptionStateChangeCase.class,
-                    PaymentRelatedEventsCase.class, RefundSuccessCase.class,
-                    ComponentAllocationChangeCase.class, MeteredUsageCase.class,
-                    PrepaidUsageCase.class, DunningStepReachedCase.class, InvoiceIssuedCase.class,
-                    PendingCancellationChangeCase.class,
+                    SubscriptionStateChangeCase.class, PaymentRelatedEventsCase.class,
+                    RefundSuccessCase.class, ComponentAllocationChangeCase.class,
+                    MeteredUsageCase.class, PrepaidUsageCase.class, DunningStepReachedCase.class,
+                    InvoiceIssuedCase.class, PendingCancellationChangeCase.class,
                     PrepaidSubscriptionBalanceChangedCase.class, ProformaInvoiceIssuedCase.class,
                     SubscriptionGroupSignupEventDataCase.class,
                     CreditAccountBalanceChangedCase.class,

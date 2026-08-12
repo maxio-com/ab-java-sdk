@@ -180,8 +180,8 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * Creates a proforma invoices export and returns a batch job object. It is only available for
-     * Relationship Invoicing architecture.
+     * Creates a proforma invoices export and returns a batch job object. Proforma invoices are only
+     * available on Relationship Invoicing sites.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
      * @throws    IOException    Signals that an I/O exception of some sort has occurred.
@@ -292,7 +292,8 @@ public final class APIExportsController extends BaseController {
     }
 
     /**
-     * Returns a batch job object for a proforma invoices export.
+     * Returns a batch job object for a proforma invoices export. Proforma invoices are only
+     * available on Relationship Invoicing sites.
      * @param  batchId  Required parameter: Id of a Batch Job.
      * @return    Returns the BatchJobResponse response from the API call
      * @throws    ApiException    Represents error response from the server.
