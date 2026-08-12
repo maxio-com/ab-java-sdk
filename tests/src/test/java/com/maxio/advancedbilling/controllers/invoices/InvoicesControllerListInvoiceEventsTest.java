@@ -407,7 +407,7 @@ public class InvoicesControllerListInvoiceEventsTest {
 
     void assertInvoiceInEvent(Invoice eventInvoice, Invoice invoice) {
         assertThat(eventInvoice.getAdditionalProperties()).satisfies(additionalProperties -> {
-            assertThat(additionalProperties.size()).isEqualTo(20);
+            assertThat(additionalProperties.size()).isEqualTo(19);
             assertThat(additionalProperties.get("statement_id")).isNull();
             assertThat(additionalProperties.get("legacy_invoice_number")).isNull();
             assertThat(additionalProperties.get("backported_at")).isNull();
