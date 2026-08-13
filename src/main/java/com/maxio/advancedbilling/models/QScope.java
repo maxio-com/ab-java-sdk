@@ -26,9 +26,7 @@ public enum QScope {
 
     CUSTOMER_REFERENCE,
 
-    SUBSCRIPTION_REFERENCE,
-
-    LAST_FOUR;
+    SUBSCRIPTION_REFERENCE;
 
     private static TreeMap<String, QScope> valueMap = new TreeMap<>();
     private String value;
@@ -40,7 +38,6 @@ public enum QScope {
         ORGANIZATION.value = "organization";
         CUSTOMER_REFERENCE.value = "customer_reference";
         SUBSCRIPTION_REFERENCE.value = "subscription_reference";
-        LAST_FOUR.value = "last_four";
 
         valueMap.put("full_name", FULL_NAME);
         valueMap.put("first_name", FIRST_NAME);
@@ -48,7 +45,6 @@ public enum QScope {
         valueMap.put("organization", ORGANIZATION);
         valueMap.put("customer_reference", CUSTOMER_REFERENCE);
         valueMap.put("subscription_reference", SUBSCRIPTION_REFERENCE);
-        valueMap.put("last_four", LAST_FOUR);
     }
 
     /**

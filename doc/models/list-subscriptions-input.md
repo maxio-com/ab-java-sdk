@@ -64,7 +64,7 @@ ListSubscriptionsInput listSubscriptionsInput = new ListSubscriptionsInput.Build
         200
     ))
     .q("q0")
-    .qScope(QScope.SUBSCRIPTION_REFERENCE)
+    .qScope(QScope.LAST_NAME)
     .customerId(150)
     .productPricePointId(234)
     .coupon(84)

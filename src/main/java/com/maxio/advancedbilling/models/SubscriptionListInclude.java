@@ -22,8 +22,6 @@ public enum SubscriptionListInclude {
 
     CURRENT_BILLING_AMOUNT,
 
-    THREE_DS_ACTION_LINK,
-
     COUPONS;
 
     private static TreeMap<String, SubscriptionListInclude> valueMap = new TreeMap<>();
@@ -33,13 +31,11 @@ public enum SubscriptionListInclude {
         SELF_SERVICE_PAGE_TOKEN.value = "self_service_page_token";
         CURRENT_ACCOUNT_BALANCE_IN_CENTS.value = "current_account_balance_in_cents";
         CURRENT_BILLING_AMOUNT.value = "current_billing_amount";
-        THREE_DS_ACTION_LINK.value = "three_ds_action_link";
         COUPONS.value = "coupons";
 
         valueMap.put("self_service_page_token", SELF_SERVICE_PAGE_TOKEN);
         valueMap.put("current_account_balance_in_cents", CURRENT_ACCOUNT_BALANCE_IN_CENTS);
         valueMap.put("current_billing_amount", CURRENT_BILLING_AMOUNT);
-        valueMap.put("three_ds_action_link", THREE_DS_ACTION_LINK);
         valueMap.put("coupons", COUPONS);
     }
 
