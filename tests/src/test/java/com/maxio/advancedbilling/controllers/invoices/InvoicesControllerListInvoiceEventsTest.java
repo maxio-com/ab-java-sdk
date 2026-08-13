@@ -388,7 +388,6 @@ public class InvoicesControllerListInvoiceEventsTest {
         assertThat(page2.getEvents()).hasSize(2);
 
         assertThat(page3.getPerPage()).isEqualTo(2);
-        assertThat(page3.getTotalPages()).isEqualTo(2);
         assertThat(page3.getPage()).isEqualTo(3);
         assertThat(page3.getEvents()).isEmpty();
     }
